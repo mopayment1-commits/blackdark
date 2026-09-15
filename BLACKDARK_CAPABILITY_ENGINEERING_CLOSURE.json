@@ -1,9 +1,9 @@
 {
   "artifact": "BLACKDARK_CAPABILITY_ENGINEERING_CLOSURE",
   "derived_from": "BLACKDARK_CAPABILITY_CURRENT_STATE.json",
-  "generated_at": "2026-09-15T10:08:29.616243+00:00",
+  "generated_at": "2026-09-15T10:11:23.953279+00:00",
   "git": {
-    "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+    "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
   },
   "phase": "PHASE_2_REMEDIATION_PROVEN_GAPS_ONLY",
   "local_engineering_workset": [
@@ -483,7 +483,7 @@
         "evidence_artifact": "data/institutional_assurance/signed_capacity.json",
         "load_test_script": "scripts/load_test_concurrent.py"
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0827",
@@ -503,7 +503,7 @@
           "backend_entrypoint": "technical_indicator_library_302"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0828",
@@ -523,7 +523,7 @@
           "backend_entrypoint": "fetch_coingecko_price"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0829",
@@ -543,7 +543,7 @@
           "backend_entrypoint": "resolve_ohlcv_closes"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0830",
@@ -563,7 +563,7 @@
           "backend_entrypoint": "graphql_health"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0831",
@@ -583,7 +583,7 @@
           "backend_entrypoint": "build_sentiment_context_safe"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0832",
@@ -603,7 +603,7 @@
           "backend_entrypoint": "lookintobitcoin_macro"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0833",
@@ -623,7 +623,7 @@
           "backend_entrypoint": "derivatives_overview"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0834",
@@ -643,7 +643,7 @@
           "backend_entrypoint": "ledger_stats"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0835",
@@ -663,7 +663,7 @@
           "backend_entrypoint": "security_posture_report"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0836",
@@ -683,7 +683,7 @@
           "backend_entrypoint": "security_posture_report"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0837",
@@ -703,7 +703,7 @@
           "backend_entrypoint": "infra_matrix"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0838",
@@ -723,7 +723,7 @@
           "backend_entrypoint": "security_posture_report"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0839",
@@ -743,7 +743,7 @@
           "backend_entrypoint": "institutional_delivery_501"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0840",
@@ -763,7 +763,7 @@
           "backend_entrypoint": "unified_exchange_connector_layer_504"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0841",
@@ -783,7 +783,7 @@
           "backend_entrypoint": "unified_exchange_connector_layer_504"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0842",
@@ -803,7 +803,7 @@
           "backend_entrypoint": "graphql_health"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0843",
@@ -823,7 +823,7 @@
           "backend_entrypoint": "graphql_health"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0844",
@@ -843,7 +843,7 @@
           "backend_entrypoint": "graphql_health"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0845",
@@ -863,7 +863,7 @@
           "backend_entrypoint": "portfolio_snapshot"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0846",
@@ -883,7 +883,7 @@
           "backend_entrypoint": "portfolio_snapshot"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0847",
@@ -903,7 +903,7 @@
           "backend_entrypoint": "portfolio_snapshot"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0848",
@@ -923,7 +923,7 @@
           "backend_entrypoint": "portfolio_snapshot"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0849",
@@ -943,7 +943,7 @@
           "backend_entrypoint": "portfolio_snapshot"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0850",
@@ -963,7 +963,7 @@
           "backend_entrypoint": "derivatives_overview"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0851",
@@ -983,7 +983,7 @@
           "backend_entrypoint": "security_posture_report"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0852",
@@ -1003,7 +1003,7 @@
           "backend_entrypoint": "drawdown_status"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0853",
@@ -1023,7 +1023,7 @@
           "backend_entrypoint": "drawdown_status"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0854",
@@ -1043,7 +1043,7 @@
           "backend_entrypoint": "compute_alpha_signal"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0855",
@@ -1063,7 +1063,7 @@
           "backend_entrypoint": "compute_alpha_signal"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0856",
@@ -1083,7 +1083,7 @@
           "backend_entrypoint": "compute_alpha_signal"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0857",
@@ -1103,7 +1103,7 @@
           "backend_entrypoint": "compute_alpha_signal"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0858",
@@ -1123,7 +1123,7 @@
           "backend_entrypoint": "build_sentiment_context_safe"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0859",
@@ -1143,7 +1143,7 @@
           "backend_entrypoint": "build_sentiment_context_safe"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0860",
@@ -1163,7 +1163,7 @@
           "backend_entrypoint": "build_sentiment_context_safe"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0861",
@@ -1183,7 +1183,7 @@
           "backend_entrypoint": "build_sentiment_context_safe"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0862",
@@ -1203,7 +1203,7 @@
           "backend_entrypoint": "build_sentiment_context_safe"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0863",
@@ -1223,7 +1223,7 @@
           "backend_entrypoint": "build_trust_pulse"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0864",
@@ -1243,7 +1243,7 @@
           "backend_entrypoint": "build_trust_pulse"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0865",
@@ -1263,7 +1263,7 @@
           "backend_entrypoint": "build_onchain_context_safe"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0866",
@@ -1283,7 +1283,7 @@
           "backend_entrypoint": "build_onchain_context_safe"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0867",
@@ -1303,7 +1303,7 @@
           "backend_entrypoint": "build_onchain_context_safe"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0868",
@@ -1323,7 +1323,7 @@
           "backend_entrypoint": "build_onchain_context_safe"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0869",
@@ -1343,7 +1343,7 @@
           "backend_entrypoint": "build_onchain_context_safe"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0870",
@@ -1363,7 +1363,7 @@
           "backend_entrypoint": "build_onchain_context_safe"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0871",
@@ -1383,7 +1383,7 @@
           "backend_entrypoint": "build_trust_pulse"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0872",
@@ -1403,7 +1403,7 @@
           "backend_entrypoint": "build_sentiment_context_safe"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0873",
@@ -1423,7 +1423,7 @@
           "backend_entrypoint": "build_trust_pulse"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0874",
@@ -1443,7 +1443,7 @@
           "backend_entrypoint": "compute_alpha_signal"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0875",
@@ -1463,7 +1463,7 @@
           "backend_entrypoint": "build_trust_pulse"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0876",
@@ -1483,7 +1483,7 @@
           "backend_entrypoint": "derivatives_overview"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0877",
@@ -1503,7 +1503,7 @@
           "backend_entrypoint": "derivatives_overview"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0878",
@@ -1523,7 +1523,7 @@
           "backend_entrypoint": "derivatives_overview"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0879",
@@ -1543,7 +1543,7 @@
           "backend_entrypoint": "scan_cex_dex_opportunities"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0880",
@@ -1563,7 +1563,7 @@
           "backend_entrypoint": "derivatives_overview"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0881",
@@ -1583,7 +1583,7 @@
           "backend_entrypoint": "defillama_raises"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0882",
@@ -1603,7 +1603,7 @@
           "backend_entrypoint": "defillama_raises"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0883",
@@ -1623,7 +1623,7 @@
           "backend_entrypoint": "defillama_raises"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0884",
@@ -1643,7 +1643,7 @@
           "backend_entrypoint": "scan_cex_dex_opportunities"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0885",
@@ -1663,7 +1663,7 @@
           "backend_entrypoint": "defillama_raises"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0886",
@@ -1683,7 +1683,7 @@
           "backend_entrypoint": "compute_alpha_signal"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0887",
@@ -1703,7 +1703,7 @@
           "backend_entrypoint": "compute_alpha_signal"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0888",
@@ -1723,7 +1723,7 @@
           "backend_entrypoint": "compute_alpha_signal"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0889",
@@ -1743,7 +1743,7 @@
           "backend_entrypoint": "compute_alpha_signal"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0890",
@@ -1763,7 +1763,7 @@
           "backend_entrypoint": "scan_cex_dex_opportunities"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0891",
@@ -1783,7 +1783,7 @@
           "backend_entrypoint": "scan_cex_dex_opportunities"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0892",
@@ -1803,7 +1803,7 @@
           "backend_entrypoint": "scan_cex_dex_opportunities"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0893",
@@ -1823,7 +1823,7 @@
           "backend_entrypoint": "execute_institutional_mirror"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0894",
@@ -1843,7 +1843,7 @@
           "backend_entrypoint": "execute_institutional_mirror"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0895",
@@ -1863,7 +1863,7 @@
           "backend_entrypoint": "execute_institutional_mirror"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0896",
@@ -1883,7 +1883,7 @@
           "backend_entrypoint": "execute_institutional_mirror"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0897",
@@ -1903,7 +1903,7 @@
           "backend_entrypoint": "execute_institutional_mirror"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0898",
@@ -1923,7 +1923,7 @@
           "backend_entrypoint": "execute_institutional_mirror"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0899",
@@ -1943,7 +1943,7 @@
           "backend_entrypoint": "execute_institutional_mirror"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0900",
@@ -1963,7 +1963,7 @@
           "backend_entrypoint": "execute_institutional_mirror"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0901",
@@ -1983,7 +1983,7 @@
           "backend_entrypoint": "execute_institutional_mirror"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0902",
@@ -2003,7 +2003,7 @@
           "backend_entrypoint": "execute_institutional_mirror"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0903",
@@ -2023,7 +2023,7 @@
           "backend_entrypoint": "execute_institutional_mirror"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0904",
@@ -2043,7 +2043,7 @@
           "backend_entrypoint": "execute_institutional_mirror"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0905",
@@ -2063,7 +2063,7 @@
           "backend_entrypoint": "execute_institutional_mirror"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0906",
@@ -2083,7 +2083,7 @@
           "backend_entrypoint": "execute_institutional_mirror"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0907",
@@ -2103,7 +2103,7 @@
           "backend_entrypoint": "execute_institutional_mirror"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0908",
@@ -2123,7 +2123,7 @@
           "backend_entrypoint": "execute_institutional_mirror"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0909",
@@ -2143,7 +2143,7 @@
           "backend_entrypoint": "execute_institutional_mirror"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0910",
@@ -2163,7 +2163,7 @@
           "backend_entrypoint": "execute_institutional_mirror"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0911",
@@ -2183,7 +2183,7 @@
           "backend_entrypoint": "execute_institutional_mirror"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0912",
@@ -2203,7 +2203,7 @@
           "backend_entrypoint": "execute_institutional_mirror"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0913",
@@ -2223,7 +2223,7 @@
           "backend_entrypoint": "execute_institutional_mirror"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0914",
@@ -2243,7 +2243,7 @@
           "backend_entrypoint": "defillama_raises"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0915",
@@ -2263,7 +2263,7 @@
           "backend_entrypoint": "resolve_order_book"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0916",
@@ -2283,7 +2283,7 @@
           "backend_entrypoint": "build_exchange_health_with_counterparty_92"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0917",
@@ -2303,7 +2303,7 @@
           "backend_entrypoint": "risk_status"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0918",
@@ -2323,7 +2323,7 @@
           "backend_entrypoint": "build_trust_pulse"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0919",
@@ -2343,7 +2343,7 @@
           "backend_entrypoint": "build_trust_pulse"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0920",
@@ -2363,7 +2363,7 @@
           "backend_entrypoint": "security_posture_report"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0921",
@@ -2383,7 +2383,7 @@
           "backend_entrypoint": "build_trust_pulse"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0922",
@@ -2403,7 +2403,7 @@
           "backend_entrypoint": "institutional_delivery_501"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0923",
@@ -2423,7 +2423,7 @@
           "backend_entrypoint": "build_admin_analytics_dashboard_95"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0924",
@@ -2443,7 +2443,7 @@
           "backend_entrypoint": "compute_data_provenance_score"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0925",
@@ -2463,7 +2463,7 @@
           "backend_entrypoint": "infra_matrix"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0926",
@@ -2483,7 +2483,7 @@
           "backend_entrypoint": "compute_data_provenance_score"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0927",
@@ -2503,7 +2503,7 @@
           "backend_entrypoint": "sovereign_registry_status_98"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0928",
@@ -2523,7 +2523,7 @@
           "backend_entrypoint": "compute_alpha_signal"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0929",
@@ -2543,7 +2543,7 @@
           "backend_entrypoint": "scan_cex_dex_opportunities"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0930",
@@ -2563,7 +2563,7 @@
           "backend_entrypoint": "squeeze_trigger_coordinates"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0931",
@@ -2583,7 +2583,7 @@
           "backend_entrypoint": "build_onchain_context_safe"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0932",
@@ -2603,7 +2603,7 @@
           "backend_entrypoint": "derivatives_overview"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0933",
@@ -2623,7 +2623,7 @@
           "backend_entrypoint": "scan_cex_dex_opportunities"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0934",
@@ -2643,7 +2643,7 @@
           "backend_entrypoint": "defillama_raises"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0935",
@@ -2663,7 +2663,7 @@
           "backend_entrypoint": "drawdown_status"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0936",
@@ -2683,7 +2683,7 @@
           "backend_entrypoint": "derivatives_overview"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0937",
@@ -2703,7 +2703,7 @@
           "backend_entrypoint": "defillama_raises"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0938",
@@ -2723,7 +2723,7 @@
           "backend_entrypoint": "drawdown_status"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0939",
@@ -2743,7 +2743,7 @@
           "backend_entrypoint": "derivatives_overview"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0940",
@@ -2763,7 +2763,7 @@
           "backend_entrypoint": "build_onchain_context_safe"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0941",
@@ -2783,7 +2783,7 @@
           "backend_entrypoint": "resolve_order_book"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0942",
@@ -2803,7 +2803,7 @@
           "backend_entrypoint": "derivatives_overview"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0943",
@@ -2823,7 +2823,7 @@
           "backend_entrypoint": "build_onchain_context_safe"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0944",
@@ -2843,7 +2843,7 @@
           "backend_entrypoint": "build_sentiment_context_safe"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0945",
@@ -2863,7 +2863,7 @@
           "backend_entrypoint": "lookintobitcoin_macro"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0946",
@@ -2883,7 +2883,7 @@
           "backend_entrypoint": "defillama_raises"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0947",
@@ -2903,7 +2903,7 @@
           "backend_entrypoint": "lookintobitcoin_macro"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0948",
@@ -2923,7 +2923,7 @@
           "backend_entrypoint": "defillama_raises"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0949",
@@ -2943,7 +2943,7 @@
           "backend_entrypoint": "defillama_raises"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0950",
@@ -2963,7 +2963,7 @@
           "backend_entrypoint": "resolve_order_book"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0951",
@@ -2983,7 +2983,7 @@
           "backend_entrypoint": "derivatives_overview"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0952",
@@ -3003,7 +3003,7 @@
           "backend_entrypoint": "squeeze_trigger_coordinates"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0953",
@@ -3023,7 +3023,7 @@
           "backend_entrypoint": "compute_alpha_signal"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0954",
@@ -3043,7 +3043,7 @@
           "backend_entrypoint": "defillama_raises"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0955",
@@ -3063,7 +3063,7 @@
           "backend_entrypoint": "scan_cex_dex_opportunities"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0956",
@@ -3083,7 +3083,7 @@
           "backend_entrypoint": "resolve_order_book"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0957",
@@ -3103,7 +3103,7 @@
           "backend_entrypoint": "defillama_raises"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0958",
@@ -3123,7 +3123,7 @@
           "backend_entrypoint": "risk_status"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0959",
@@ -3143,7 +3143,7 @@
           "backend_entrypoint": "risk_status"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0960",
@@ -3163,7 +3163,7 @@
           "backend_entrypoint": "defillama_raises"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0961",
@@ -3183,7 +3183,7 @@
           "backend_entrypoint": "derivatives_overview"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0962",
@@ -3203,7 +3203,7 @@
           "backend_entrypoint": "portfolio_snapshot"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0963",
@@ -3223,7 +3223,7 @@
           "backend_entrypoint": "institutional_delivery_501"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0964",
@@ -3243,7 +3243,7 @@
           "backend_entrypoint": "graphql_health"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0965",
@@ -3263,7 +3263,7 @@
           "backend_entrypoint": "portfolio_snapshot"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0966",
@@ -3283,7 +3283,7 @@
           "backend_entrypoint": "institutional_delivery_501"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0967",
@@ -3303,7 +3303,7 @@
           "backend_entrypoint": "infra_matrix"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0968",
@@ -3323,7 +3323,7 @@
           "backend_entrypoint": "compute_alpha_signal"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0969",
@@ -3343,7 +3343,7 @@
           "backend_entrypoint": "technical_indicator_library_302"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0970",
@@ -3363,7 +3363,7 @@
           "backend_entrypoint": "compute_alpha_signal"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0971",
@@ -3383,7 +3383,7 @@
           "backend_entrypoint": "technical_indicator_library_302"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0972",
@@ -3403,7 +3403,7 @@
           "backend_entrypoint": "defillama_raises"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0973",
@@ -3423,7 +3423,7 @@
           "backend_entrypoint": "institutional_delivery_501"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0974",
@@ -3443,7 +3443,7 @@
           "backend_entrypoint": "derivatives_overview"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0975",
@@ -3463,7 +3463,7 @@
           "backend_entrypoint": "defillama_raises"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0976",
@@ -3483,7 +3483,7 @@
           "backend_entrypoint": "security_posture_report"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0977",
@@ -3503,7 +3503,7 @@
           "backend_entrypoint": "resolve_order_book"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     },
     {
       "capability_id": "CAP-0978",
@@ -3523,7 +3523,7 @@
           "backend_entrypoint": "build_onchain_context_safe"
         }
       },
-      "tested_sha": "ec9ffa8518d8c038b31e9ed26883de2642934abd"
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
     }
   ],
   "phantom_disposition_ledger": "BLACKDARK_CAPABILITY_PHANTOM_DISPOSITION.json",
