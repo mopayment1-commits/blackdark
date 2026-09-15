@@ -15,6 +15,9 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
+
+from capability_provenance.writers import VerificationEvent, record_artifact_composition, record_verification_event
+
 SSOT_PATH = ROOT / "BLACKDARK_CAPABILITY_CURRENT_STATE.json"
 CLOSURE_PATH = ROOT / "BLACKDARK_CAPABILITY_ENGINEERING_CLOSURE.json"
 
@@ -122,18 +125,26 @@ def _promote_cap(cap: dict[str, Any], *, head_sha: str, verification: dict[str, 
 
     cap["state_classification"] = "EXISTING_VERIFIED"
     cap["semantic_oracle"] = "VERIFIED_COMPLETE"
-    cap["tested_source_sha"] = head_sha
-    cap["last_verified_at"] = now
     cap["phantom_flags"] = []
-    cap["status_change"] = {
-        "previous_status": prev,
-        "new_status": cap["engineering_status"],
-        "root_causes_resolved": resolved_gaps,
-        "evidence": [f"scripts/phase2_local_engineering_closure.py", f"tests/cap978/test_phase2_local_engineering_closure.py"],
-        "tested_sha": head_sha,
-        "timestamp": now,
-        "verification": verification,
-    }
+    record_verification_event(
+        cap,
+        VerificationEvent(
+            event_type="ACTUAL_VERIFICATION",
+            source_sha=head_sha,
+            verification=verification,
+            evidence_refs=(
+                "scripts/phase2_local_engineering_closure.py",
+                "tests/cap978/test_phase2_local_engineering_closure.py",
+            ),
+            executed_at=now,
+        ),
+        status_change_extra={
+            "previous_status": prev,
+            "new_status": cap["engineering_status"],
+            "root_causes_resolved": resolved_gaps,
+            "phase": "PHASE_2_LOCAL_ENGINEERING_COMPLETION",
+        },
+    )
     return cap
 
 
@@ -247,8 +258,7 @@ async def run(dry_run: bool = False) -> dict[str, Any]:
         }
     )
 
-    ssot["git"]["current_head_sha"] = head_sha
-    ssot["generated_at"] = datetime.now(UTC).isoformat()
+    record_artifact_composition(ssot, head_sha, datetime.now(UTC).isoformat())
     ssot["verdict"] = (
         "CAPABILITY_LOCAL_ENGINEERING_CLOSED_WITH_GENUINE_LIVE_EXTERNAL_GATES"
         if pass_n == 932 and partial_n == 0 and fail_n == 0

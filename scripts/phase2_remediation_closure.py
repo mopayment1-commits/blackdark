@@ -16,6 +16,13 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from capability_provenance.writers import (
+    VerificationEvent,
+    record_artifact_composition,
+    record_live_applicability_correction,
+    record_verification_event,
+)
+
 SSOT_PATH = ROOT / "BLACKDARK_CAPABILITY_CURRENT_STATE.json"
 CLOSURE_PATH = ROOT / "BLACKDARK_CAPABILITY_ENGINEERING_CLOSURE.json"
 PHANTOM_LEDGER_PATH = ROOT / "BLACKDARK_CAPABILITY_PHANTOM_DISPOSITION.json"
@@ -89,13 +96,13 @@ def _update_live_applicability(cap: dict[str, Any], head_sha: str) -> bool:
     if cap.get("live_status") == "LIVE_VALIDATION_PENDING":
         return False
     cap["live_status"] = "LIVE_VALIDATION_PENDING"
-    cap.setdefault("status_change", {})
-    cap["status_change"]["live_applicability_correction"] = {
-        "previous_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
-        "new_live_status": "LIVE_VALIDATION_PENDING",
-        "reason": "independent_verification_requires_live_validation_not_internal_only",
-        "tested_sha": head_sha,
-    }
+    record_live_applicability_correction(
+        cap,
+        head_sha=head_sha,
+        previous_live_status="NOT_APPLICABLE_INTERNAL_ONLY",
+        new_live_status="LIVE_VALIDATION_PENDING",
+        reason="independent_verification_requires_live_validation_not_internal_only",
+    )
     return True
 
 
@@ -120,22 +127,26 @@ async def run(dry_run: bool = False) -> dict[str, Any]:
         cap["engineering_status"] = "PASS_ENGINEERING" if verification.get("verdict") != "FUNCTIONALLY_INCOMPLETE" else "PARTIAL"
         cap["known_local_gaps"] = [] if cap["engineering_status"] == "PASS_ENGINEERING" else ["SEMANTIC_ORACLE_GAP"]
         cap["semantic_oracle"] = verification.get("semantic_oracle", "VERIFIED_COMPLETE")
-        cap["tested_source_sha"] = head_sha
-        cap["last_verified_at"] = now
-        cap["status_change"] = {
-            "previous_status": prev,
-            "new_status": cap["engineering_status"],
-            "phase": "PHASE_2_REMEDIATION_PROVEN_GAPS_ONLY",
-            "evidence": [
-                "cap978/post_baseline_semantic.py",
-                "cap978/_post_baseline_bindings_generated.py",
-                "tests/cap978/test_phase2_semantic_remediation.py",
-                "scripts/phase2_independent_verifier.py",
-            ],
-            "tested_sha": head_sha,
-            "timestamp": now,
-            "verification": verification,
-        }
+        record_verification_event(
+            cap,
+            VerificationEvent(
+                event_type="ACTUAL_VERIFICATION",
+                source_sha=head_sha,
+                verification=verification,
+                evidence_refs=(
+                    "cap978/post_baseline_semantic.py",
+                    "cap978/_post_baseline_bindings_generated.py",
+                    "tests/cap978/test_phase2_semantic_remediation.py",
+                    "scripts/phase2_independent_verifier.py",
+                ),
+                executed_at=now,
+            ),
+            status_change_extra={
+                "previous_status": prev,
+                "new_status": cap["engineering_status"],
+                "phase": "PHASE_2_REMEDIATION_PROVEN_GAPS_ONLY",
+            },
+        )
         remediation_entries.append(
             {
                 "capability_id": cap_id,
@@ -168,8 +179,7 @@ async def run(dry_run: bool = False) -> dict[str, Any]:
             ),
         }
     )
-    ssot["git"]["current_head_sha"] = head_sha
-    ssot["generated_at"] = now
+    record_artifact_composition(ssot, head_sha, now)
     ssot["verdict"] = (
         "PHASE2_INDEPENDENT_ENGINEERING_CLOSURE_VERIFIED"
         if pass_n == 932 and partial_n == 0 and fail_n == 0
