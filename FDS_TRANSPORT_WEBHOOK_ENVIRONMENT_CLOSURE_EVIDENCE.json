@@ -1,13 +1,13 @@
 {
   "verdict": "FDS_TRANSPORT_WEBHOOK_ENVIRONMENT_CLOSED_WITH_PRODUCTION_VALIDATION_PENDING",
-  "generated_at": "2026-09-14T23:35:52.674175+00:00",
+  "generated_at": "2026-09-15T01:23:56.567356+00:00",
   "governing_spec": {
     "path": "docs/BLACKDARK_FINANCIAL_DATA_SECURITY_IMPLEMENTATION_SPEC_2026_FINAL.md",
     "sha256": "c2871b3e39d44dbdd995df6577ca38c195ab343f34ece64f26e0de74af374efb"
   },
   "git": {
-    "base_sha": "b28cb328f9da9ffd6f1286396a80ce4c063f3d6e",
-    "implementation_sha": "b28cb328f9da9ffd6f1286396a80ce4c063f3d6e"
+    "base_sha": "bb1ccb1bbed7aff6da7be84487de85b8ed08addc",
+    "implementation_sha": "bb1ccb1bbed7aff6da7be84487de85b8ed08addc"
   },
   "scope": {
     "fds_controls": [
@@ -121,7 +121,7 @@
       "provider": "stripe",
       "reason": "invalid_signature",
       "correlation_id": "verify",
-      "ts": 1789428952.6737418
+      "ts": 1789435436.5659614
     },
     "production_validation_pending": [
       "public_endpoint_tls_cipher_attestation",

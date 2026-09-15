@@ -1,13 +1,13 @@
 {
   "verdict": "FDS_PRIVILEGED_IDENTITY_AUTHORIZATION_CLOSED",
-  "generated_at": "2026-09-14T22:57:09.150716+00:00",
+  "generated_at": "2026-09-15T01:28:42.757528+00:00",
   "governing_spec": {
     "path": "docs/BLACKDARK_FINANCIAL_DATA_SECURITY_IMPLEMENTATION_SPEC_2026_FINAL.md",
     "sha256": "c2871b3e39d44dbdd995df6577ca38c195ab343f34ece64f26e0de74af374efb"
   },
   "git": {
-    "base_sha": "a71824ed6564be2b39c24b5a423ebfa307d4713d",
-    "implementation_sha": "a71824ed6564be2b39c24b5a423ebfa307d4713d"
+    "base_sha": "bb1ccb1bbed7aff6da7be84487de85b8ed08addc",
+    "implementation_sha": "bb1ccb1bbed7aff6da7be84487de85b8ed08addc"
   },
   "scope": {
     "fds_controls": [

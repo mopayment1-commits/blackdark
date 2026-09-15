@@ -1,13 +1,13 @@
 {
   "verdict": "FDS_SECURITY_GOVERNANCE_DATA_BOUNDARY_CLOSED",
-  "generated_at": "2026-09-14T22:42:21.044465+00:00",
+  "generated_at": "2026-09-15T01:29:59.925089+00:00",
   "governing_spec": {
     "path": "docs/BLACKDARK_FINANCIAL_DATA_SECURITY_IMPLEMENTATION_SPEC_2026_FINAL.md",
     "sha256": "c2871b3e39d44dbdd995df6577ca38c195ab343f34ece64f26e0de74af374efb"
   },
   "git": {
-    "base_sha": "0558d05b0bd514cec679bff530558ae79481704e",
-    "implementation_sha": "0558d05b0bd514cec679bff530558ae79481704e"
+    "base_sha": "bb1ccb1bbed7aff6da7be84487de85b8ed08addc",
+    "implementation_sha": "bb1ccb1bbed7aff6da7be84487de85b8ed08addc"
   },
   "scope": {
     "fds_controls": [
@@ -53,7 +53,7 @@
     "passed": true,
     "report": {
       "clean": true,
-      "files_scanned": 1874,
+      "files_scanned": 1939,
       "pan_finding_count": 0,
       "secret_finding_count": 0
     }
