@@ -388,20 +388,26 @@ async def export_ingestion_snapshots_to_bigquery(
     snapshots = await fetch_ingestion_snapshots_for_export(limit=max_rows)
     export_id = f"exp_{uuid4().hex[:12]}"
     exported_at = _utcnow()
-    export_rows = [
-        {
-            "export_id": export_id,
-            "snapshot_id": int(row.get("id") or 0) or None,
-            "source_id": str(row.get("source_id") or ""),
-            "category": str(row.get("category") or ""),
-            "payload_json": json.dumps(row.get("payload") or {}, separators=(",", ":"), default=str),
-            "fetched_at": _parse_ts(str(row.get("fetched_at") or "")),
-            "status": str(row.get("status") or "ok"),
-            "exported_at": _parse_ts(exported_at),
-            "product": "BLACKDARK",
-        }
-        for row in snapshots
-    ]
+    from financial_data.boundary import gate_analytics_export
+
+    export_rows = []
+    for row in snapshots:
+        payload = row.get("payload") or {}
+        if isinstance(payload, dict):
+            gate_analytics_export(payload)
+        export_rows.append(
+            {
+                "export_id": export_id,
+                "snapshot_id": int(row.get("id") or 0) or None,
+                "source_id": str(row.get("source_id") or ""),
+                "category": str(row.get("category") or ""),
+                "payload_json": json.dumps(payload, separators=(",", ":"), default=str),
+                "fetched_at": _parse_ts(str(row.get("fetched_at") or "")),
+                "status": str(row.get("status") or "ok"),
+                "exported_at": _parse_ts(exported_at),
+                "product": "BLACKDARK",
+            }
+        )
     manifest_sha256 = _manifest_sha256(export_rows)
     cfg = bigquery_config()
 

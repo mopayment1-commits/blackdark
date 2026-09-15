@@ -250,7 +250,7 @@ def security_headers_for(request: Request) -> dict[str, str]:
         "X-XSS-Protection": "0",
         "Content-Security-Policy": csp,
     }
-    if _is_production() or (request.url.scheme == "https"):
+    if _is_production() or (_effective_scheme(request) == "https"):
         headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
     return headers
 
@@ -292,6 +292,32 @@ def _request_origin_ok(request: Request) -> bool:
     # Fail closed for cookie-authenticated browsers that omit both headers.
     # Bearer-only clients bypass this check in the middleware (no cookie path).
     return False
+
+
+def _effective_scheme(request: Request) -> str:
+    from transport_webhook_env.transport import request_effective_scheme
+
+    return request_effective_scheme(request)
+
+
+class SecureTransportMiddleware(BaseHTTPMiddleware):
+    """Fail closed on sensitive production paths when transport is not HTTPS."""
+
+    _SENSITIVE_PREFIXES = ("/api/", "/webhook", "/admin")
+
+    async def dispatch(self, request: Request, call_next) -> Response:
+        path = request.url.path or ""
+        if _is_production() and any(path.startswith(p) for p in self._SENSITIVE_PREFIXES):
+            from transport_webhook_env.transport import enforce_secure_transport
+
+            try:
+                enforce_secure_transport(request, sensitive=True)
+            except PermissionError:
+                return JSONResponse(
+                    {"error": "insecure_transport_forbidden", "message": "HTTPS required in production."},
+                    status_code=403,
+                )
+        return await call_next(request)
 
 
 class SecurityHeadersMiddleware(BaseHTTPMiddleware):
@@ -378,6 +404,8 @@ def cookie_session_kwargs(*, max_age: int | None = None) -> dict:
         secure = True
     else:
         secure = base.startswith("https") or _is_production()
+    if _is_production() and not secure:
+        secure = True
     return {
         "key": "bd_token",
         "httponly": True,

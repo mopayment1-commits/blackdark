@@ -526,6 +526,8 @@ async def _openai_oracle(
     if not api_key:
         return None
 
+    from financial_data.boundary import gate_external_llm_payload
+
     prompt = (
         "You are a disciplined crypto execution desk analyst. "
         "Return exactly one sentence starting with either 'Buy Now' or 'Do Not Touch' "
@@ -535,6 +537,15 @@ async def _openai_oracle(
         f"Summary: {explanation.summary}\n"
         f"Reasons: {' | '.join(explanation.reasons)}\n"
         f"Risks: {' | '.join(explanation.risk_factors)}"
+    )
+    gate_external_llm_payload(
+        {
+            "asset": asset,
+            "score": opportunity_score,
+            "summary": explanation.summary,
+            "reasons": explanation.reasons,
+            "risk_factors": explanation.risk_factors,
+        }
     )
 
     payload = {
@@ -580,10 +591,15 @@ async def _ollama_oracle(
     base_url = os.getenv("OLLAMA_BASE_URL", "http://127.0.0.1:11434").rstrip("/")
     model = os.getenv("OLLAMA_MODEL", "llama3.2")
 
+    from financial_data.boundary import gate_external_llm_payload
+
     prompt = (
         "Return one sentence only. Start with 'Buy Now' or 'Do Not Touch', then em dash, "
         f"then reason. Asset={asset}, score={opportunity_score}, "
         f"summary={explanation.summary}"
+    )
+    gate_external_llm_payload(
+        {"asset": asset, "score": opportunity_score, "summary": explanation.summary}
     )
 
     try:
