@@ -242,9 +242,22 @@ def run(dry_run: bool = False) -> dict[str, Any]:
             capture_output=True,
             text=True,
         )
+        integrity_proc = subprocess.run(
+            [sys.executable, str(ROOT / "scripts" / "phase3_remediation_integrity_verifier.py")],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+        )
         if verify_proc.returncode == 0:
             verify_result = json.loads(verify_proc.stdout)
             ssot["phase3_independent_verdict"] = verify_result.get("VERDICT", "PHASE3_HERO_PROJECT_INTEGRATION_NOT_VERIFIED")
+        if integrity_proc.returncode == 0:
+            integrity_result = json.loads(integrity_proc.stdout)
+            ssot["phase3_remediation_integrity_verdict"] = integrity_result.get(
+                "VERDICT", "PHASE3_REMEDIATION_INTEGRITY_NOT_VERIFIED"
+            )
+            SSOT_PATH.write_text(json.dumps(ssot, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+        elif verify_proc.returncode == 0:
             SSOT_PATH.write_text(json.dumps(ssot, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
     return {

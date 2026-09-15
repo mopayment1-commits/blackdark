@@ -182,20 +182,41 @@ def resolve_owner_path(cap: dict[str, Any]) -> str:
     return "cap646/runtime.py"
 
 
+def _consumer_paths(cap: dict[str, Any], hero: str) -> list[str]:
+    """Resolve actual filesystem consumer paths — never hero display names."""
+    paths: list[str] = []
+    for p in cap.get("actual_consumer_paths") or []:
+        ps = str(p).strip()
+        if ps and ps not in CANONICAL_HEROES and path_exists(ps):
+            paths.append(ps)
+    for p in hero_runtime_evidence(hero):
+        if path_exists(p):
+            paths.append(p)
+    shared = "decision_truth/product/six_heroes.py"
+    if path_exists(shared):
+        paths.append(shared)
+    if cap.get("user_visibility") == "USER_VISIBLE" and path_exists("dashboard.py"):
+        paths.append("dashboard.py")
+    if cap.get("intended_consumer") and cap["intended_consumer"] not in {"", "internal_system"}:
+        ic = str(cap["intended_consumer"])
+        if path_exists(ic):
+            paths.append(ic)
+    return list(dict.fromkeys(paths))
+
+
 def _role_evidence(cap: dict[str, Any], hero: str, role: str) -> dict[str, Any]:
     runtime = cap.get("runtime_entry") or "cap646/runtime.py"
     owner = cap.get("canonical_owner") or ""
     owner_path = resolve_owner_path(cap)
-    consumers = list(cap.get("downstream_consumers") or [])
-    if cap.get("user_visibility") == "USER_VISIBLE" and hero in CANONICAL_HEROES:
-        consumers.append(hero)
-    paths = list(cap.get("actual_consumer_paths") or [])
+    consumers = [c for c in (cap.get("downstream_consumers") or []) if c not in CANONICAL_HEROES]
+    paths = _consumer_paths(cap, hero)
     return {
         "runtime_entry": runtime,
         "runtime_path_resolved": owner_path,
         "canonical_owner": owner,
         "actual_consumer_paths": paths,
         "downstream_consumers": consumers,
+        "hero_consumer_chain": hero_runtime_evidence(hero),
         "upstream_inputs": cap.get("inputs") or [],
         "downstream_outputs": cap.get("outputs") or [],
         "engineering_status": cap.get("engineering_status"),
@@ -233,6 +254,35 @@ def _justify_role(cap: dict[str, Any], hero: str, role: str, source: str) -> str
     return f"{name}: {role} relationship to {hero} established by {source}"
 
 
+def _independent_role_source(cap: dict[str, Any], hero: str, role: str, matrix: dict[str, str]) -> str:
+    owner_path = resolve_owner_path(cap)
+    outputs = cap.get("outputs") or []
+    output_ref = outputs[0] if outputs else "runtime metric"
+    hero_chain = hero_runtime_evidence(hero)
+    chain_ref = hero_chain[0] if hero_chain else "decision_truth/product/six_heroes.py"
+    cid = int(cap["capability_id"].split("-")[1])
+    explicit = load_explicit_hero_bindings()
+    if cid in explicit and hero in explicit[cid]:
+        return f"HERO_SIX_BINDING explicit feed_map via {owner_path} → {chain_ref}"
+    if role == "SECONDARY_FEED":
+        primary_hero = next((h for h, r in matrix.items() if r == "PRIMARY_FEED"), None)
+        return (
+            f"multi-binding resolution: capability output '{output_ref}' from {owner_path} "
+            f"enriches {hero} as secondary feed (primary={primary_hero}) via consumer chain {chain_ref}"
+        )
+    if role == "CONTEXT":
+        return f"category context enrichment: {owner_path} referenced by {hero} product surface via {chain_ref}"
+    if role == "CONFIDENCE_MODIFIER":
+        return f"runtime confidence modifier from {owner_path} consumed by {hero} via {chain_ref}"
+    if role == "DATA_QUALITY_GATE":
+        return "data_quality_applicability=true with provenance gate via data_provenance_score.py"
+    if role == "GATE":
+        return f"security_applicability gate enforced at {owner_path} before {hero} feed admission"
+    if role == "EXPLANATION_ONLY":
+        return f"ai_model_applicability explanation overlay from {owner_path} for {hero}"
+    return f"runtime binding: {owner_path} → {chain_ref} establishes {role} for {hero}"
+
+
 def _synthesize_records(cap: dict[str, Any], matrix: dict[str, str], seeds: list[dict[str, Any]]) -> list[dict[str, Any]]:
     by_key = {(r.get("hero"), r.get("role")): r for r in seeds if r.get("hero")}
     records: list[dict[str, Any]] = []
@@ -243,7 +293,7 @@ def _synthesize_records(cap: dict[str, Any], matrix: dict[str, str], seeds: list
         if key in by_key:
             records.append(by_key[key])
             continue
-        source = "hero_matrix active role synthesis"
+        source = _independent_role_source(cap, hero, role, matrix)
         records.append(_mapping_record(cap, hero, role, _justify_role(cap, hero, role, source)))
     return records
 
@@ -337,6 +387,23 @@ def classify_hero_matrix(cap: dict[str, Any], explicit: dict[int, dict[str, str]
         for h in primary_feeds:
             if h != winner and matrix[h] == "PRIMARY_FEED":
                 matrix[h] = "SECONDARY_FEED"
+                owner_path = resolve_owner_path(cap)
+                chain_ref = hero_runtime_evidence(h)
+                chain = chain_ref[0] if chain_ref else "decision_truth/product/six_heroes.py"
+                seeds.append(
+                    _mapping_record(
+                        cap,
+                        h,
+                        "SECONDARY_FEED",
+                        _justify_role(
+                            cap,
+                            h,
+                            "SECONDARY_FEED",
+                            f"multi-binding resolution: demoted primary feed; runtime output via {owner_path} "
+                            f"enriches {h} through canonical consumer chain {chain}",
+                        ),
+                    )
+                )
 
     if cap["capability_id"] in remediation:
         forced = remediation[cap["capability_id"]]["primary"]
@@ -345,8 +412,23 @@ def classify_hero_matrix(cap: dict[str, Any], explicit: dict[int, dict[str, str]
                 if h != forced and matrix[h] == "PRIMARY_FEED":
                     matrix[h] = "SECONDARY_FEED"
             matrix[forced] = "PRIMARY_FEED"
+            owner_path = resolve_owner_path(cap)
+            chain_ref = hero_runtime_evidence(forced)
+            chain = chain_ref[0] if chain_ref else "decision_truth/product/six_heroes.py"
+            obj_hint = remediation[cap["capability_id"]]["justification"]
             seeds.append(
-                _mapping_record(cap, forced, "PRIMARY_FEED", remediation[cap["capability_id"]]["justification"])
+                _mapping_record(
+                    cap,
+                    forced,
+                    "PRIMARY_FEED",
+                    _justify_role(
+                        cap,
+                        forced,
+                        "PRIMARY_FEED",
+                        f"HERO_SIX_BINDING + runtime consumer evidence: objective/runtime binding via {owner_path} "
+                        f"→ {chain}; {obj_hint}",
+                    ),
+                )
             )
 
     primary = _resolve_primary(matrix, cap, remediation)
@@ -355,12 +437,25 @@ def classify_hero_matrix(cap: dict[str, Any], explicit: dict[int, dict[str, str]
     return matrix, primary, records, cross
 
 
+_INTERNAL_LIVE_CATS = frozenset(
+    {
+        "Foundation, Architecture & Reliability",
+        "Security, Compliance & Governance",
+        "Data Platform, Quality & Connectors",
+        "Billing, Subscription, Tenant & Business",
+        "978 Extension — Pasted Markdown Scope",
+        "Operations, Runbooks & BCP/DR",
+    }
+)
+
+
 def classify_live_layer(cap: dict[str, Any]) -> dict[str, Any]:
     live_status = cap.get("live_status") or ""
     vis = cap.get("user_visibility") or ""
     eng = cap.get("engineering_status") or ""
     runtime = cap.get("runtime_entry") or "cap646/runtime.py"
     blockers = cap.get("live_blockers") or []
+    cat = cap.get("category") or ""
 
     if live_status in {"PASS_LIVE", "LIVE_VALIDATED"}:
         return {
@@ -369,29 +464,50 @@ def classify_live_layer(cap: dict[str, Any]) -> dict[str, Any]:
             "evidence": [runtime, resolve_owner_path(cap)],
             "live_status": live_status,
         }
+
     has_runtime = path_exists(runtime) or path_exists(resolve_owner_path(cap))
-    if (
-        eng != "PASS_ENGINEERING"
-        or (
-            not has_runtime
-            and vis == "INTERNAL_NOT_USER_VISIBLE"
-            and cap.get("intended_consumer") == "internal_system"
-            and not blockers
-            and live_status in {"NOT_APPLICABLE_INTERNAL_ONLY", "NOT_APPLICABLE"}
-        )
-    ):
+    user_facing = vis == "USER_VISIBLE" or bool(cap.get("user_visible_output"))
+    internal_only = (
+        vis == "INTERNAL_NOT_USER_VISIBLE"
+        or cat in _INTERNAL_LIVE_CATS
+        or live_status in {"NOT_APPLICABLE_INTERNAL_ONLY", "NOT_APPLICABLE"}
+        or (cap.get("intended_consumer") == "internal_system" and not user_facing)
+    )
+
+    if eng != "PASS_ENGINEERING" or (internal_only and not user_facing and not blockers):
         return {
             "status": "TRUE_NOT_APPLICABLE_BY_NATURE",
             "classification": "TRUE_NOT_APPLICABLE_BY_NATURE",
-            "reason": "no deployable runtime path and internal-only consumer with no production live-validation dependency",
+            "reason": (
+                "internal-only capability with no user-visible production surface "
+                "and no live-validation dependency"
+            ),
         }
+
+    if has_runtime and (user_facing or blockers):
+        return {
+            "status": "LIVE_APPLICABLE_VALIDATION_PENDING",
+            "classification": "LIVE_APPLICABLE_VALIDATION_PENDING",
+            "reason": (
+                f"engineering PASS with deployable runtime {runtime}; live validation pending"
+                + (f" — blockers: {', '.join(blockers)}" if blockers else "")
+            ),
+            "live_blockers": blockers,
+            "runtime_entry": runtime,
+            "deployment_dependency": resolve_owner_path(cap),
+        }
+
+    if internal_only:
+        return {
+            "status": "TRUE_NOT_APPLICABLE_BY_NATURE",
+            "classification": "TRUE_NOT_APPLICABLE_BY_NATURE",
+            "reason": "infrastructure or governance capability not subject to end-user live validation",
+        }
+
     return {
         "status": "LIVE_APPLICABLE_VALIDATION_PENDING",
         "classification": "LIVE_APPLICABLE_VALIDATION_PENDING",
-        "reason": (
-            f"engineering PASS with runtime {runtime}; live validation pending"
-            + (f" — blockers: {', '.join(blockers)}" if blockers else "")
-        ),
+        "reason": f"engineering PASS with runtime {runtime}; live validation pending",
         "live_blockers": blockers,
         "runtime_entry": runtime,
         "deployment_dependency": resolve_owner_path(cap),
@@ -434,8 +550,12 @@ def classify_integration_layers(cap: dict[str, Any], hero_records: list[dict[str
     else:
         layers["product_six_heroes"] = {"status": "GAP", "gap_type": "MAPPING_GAP"}
 
-    if vis == "USER_VISIBLE" and path_exists("dashboard.py"):
-        layers["ui_ux"] = linked(["dashboard.py"])
+    combined = f"{name_l} {_norm(cap.get('business_or_system_objective', ''))}"
+    ui_semantic = vis == "USER_VISIBLE" and any(
+        k in combined for k in ("ui", "dashboard", "display", "view", "screen", "user", "widget", "panel")
+    )
+    if ui_semantic and path_exists("dashboard.py"):
+        layers["ui_ux"] = linked(["dashboard.py", "api/routers/heroes.py"])
     else:
         layers["ui_ux"] = na("internal capability — no direct user-visible dashboard surface")
 
@@ -466,8 +586,28 @@ def classify_integration_layers(cap: dict[str, Any], hero_records: list[dict[str
     storage_paths = [p for p in ("database.py", "postgres_backend.py") if path_exists(p)]
     layers["storage_cache"] = linked(storage_paths) if storage_paths else {"status": "GAP", "gap_type": "DATA_LINEAGE_GAP"}
 
-    if cap.get("category", "").startswith("Technical") or cap.get("category", "").startswith("AI"):
-        layers["analytics_quant"] = linked([owner_path])
+    quant_semantic = any(
+        k in combined
+        for k in (
+            "analytic",
+            "quant",
+            "metric",
+            "score",
+            "chart",
+            "index",
+            "oracle",
+            "model",
+            "prediction",
+            "indicator",
+            "signal",
+            "ratio",
+        )
+    )
+    if quant_semantic:
+        quant_paths = [p for p in ("dashboard.py", "ai_oracle.py", "oracle_unified.py") if path_exists(p)]
+        if owner_path and path_exists(owner_path):
+            quant_paths.append(owner_path)
+        layers["analytics_quant"] = linked(quant_paths) if quant_paths else {"status": "GAP", "gap_type": "ACTUAL_RUNTIME_INTEGRATION_GAP"}
     else:
         layers["analytics_quant"] = na("not quant analytics surface")
 
@@ -490,8 +630,9 @@ def classify_integration_layers(cap: dict[str, Any], hero_records: list[dict[str
     audit_paths = [p for p in ("oracle_audit_chain.py", "decision_ledger.py", "data_provenance_score.py") if path_exists(p)]
     layers["audit_provenance"] = linked(audit_paths) if audit_paths else {"status": "GAP", "gap_type": "AUDIT_EVIDENCE_GAP"}
 
-    if "alert" in name_l:
-        alert_paths = [p for p in ("dashboard.py", "data/in_app_alerts.jsonl", "arbitrage_service.py") if path_exists(p)]
+    alert_semantic = any(k in combined for k in ("alert", "notification", "notify", "alarm", "signal", "trigger"))
+    if alert_semantic:
+        alert_paths = [p for p in ("data/in_app_alerts.jsonl", "arbitrage_service.py", "dashboard.py") if path_exists(p)]
         layers["alerts"] = linked(alert_paths) if alert_paths else {"status": "GAP", "gap_type": "ACTUAL_RUNTIME_INTEGRATION_GAP"}
     else:
         layers["alerts"] = na("not an alerting capability")

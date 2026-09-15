@@ -1,4 +1,10 @@
 {
+  "non_canonical_remediation_exclusions": {
+    "CAP-0030": "ALIAS_TO_CANONICAL — not in PASS canonical_capabilities pool",
+    "CAP-0064": "ALIAS_TO_CANONICAL — duplicate alias; canonical owner CAP-0107",
+    "CAP-0069": "ALIAS_TO_CANONICAL — duplicate alias; canonical owner CAP-0110"
+  },
+  "remediated_canonical_cohort_note": "CAP-0026..CAP-0100 minus non-canonical exclusions; only PASS pool capabilities are verified",
   "primary_hero_overrides": {
     "CAP-0500": {
       "primary": "Public Accuracy Ledger",
