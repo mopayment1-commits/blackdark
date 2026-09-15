@@ -18,6 +18,10 @@ _SECRETISH = re.compile(
 
 def sanitize_log_value(value: Any, *, max_len: int = 64, field_name: str | None = None) -> str:
     """Return a log-safe scalar representation (no raw user/control content)."""
+    if value is not None and not isinstance(value, (bool, int, float)):
+        preview = str(value).replace("\r", " ").replace("\n", " ")
+        if _SECRETISH.search(preview):
+            return "[redacted]"
     try:
         from financial_data.dlp import sanitize_financial_log_value
 

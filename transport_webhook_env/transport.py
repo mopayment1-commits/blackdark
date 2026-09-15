@@ -43,10 +43,10 @@ def trusted_proxy_networks() -> list[ipaddress._BaseNetwork]:
 
 
 def _peer_ip(request: Request) -> str | None:
-    client = request.client
+    client = getattr(request, "client", None)
     if not client:
         return None
-    return str(client.host or "")
+    return str(getattr(client, "host", None) or "")
 
 
 def _trusted_forwarded_proto(request: Request) -> str | None:

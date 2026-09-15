@@ -31,6 +31,12 @@ RAILWAY_ENVIRONMENT=production
 DATABASE_URL=${{Postgres.DATABASE_URL}}   # plugin prod مختلف
 ```
 
+## Schema migration (forward-only)
+
+- Canonical migration authority: `database.py` (`init_db` inline migrations) and `db_upgrade.py`
+- Apply on deploy before serving traffic; idempotent `CREATE IF NOT EXISTS` / additive columns only
+- Rollback: redeploy previous application image; do not destructive-downgrade schema without restore
+
 ## النسخ الاحتياطي (Backup)
 
 ```bash

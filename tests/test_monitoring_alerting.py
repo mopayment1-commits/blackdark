@@ -32,11 +32,16 @@ async def test_probe_endpoints_records_probes(monkeypatch):
         async def get(self, url):
             return _Resp()
 
-    monkeypatch.setattr("httpx.AsyncClient", lambda **k: _Client())
+    async def _neutral_health_signals():
+        return {"signals": {}, "error_rate": {}, "uptime_24h": {}, "vendor_rate_limits": {}}
+
+    monkeypatch.setattr("ops.monitoring_alerting.httpx.AsyncClient", lambda **k: _Client())
+    monkeypatch.setattr("ops.monitoring_alerting.check_health_signals", _neutral_health_signals)
     monkeypatch.setenv("MONITORING_BASE_URL", "http://test")
     result = await probe_endpoints()
     assert result["overall_ok"] is True
     assert len(result["probes"]) == 2
+    assert all(p.get("ok") for p in result["probes"])
     assert "health_signals" in result
 
 
