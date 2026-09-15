@@ -1,0 +1,2064 @@
+{
+  "artifact": "BLACKDARK_CAPABILITY_ROOT_CAUSE_GAPS",
+  "generated_at": "2026-09-15T02:04:19.769225+00:00",
+  "git": {
+    "current_head_sha": "36df58ed8ad345193f42a2164fbf8f5beefd42da"
+  },
+  "non_pass_engineering_capabilities": [
+    {
+      "capability_id": "CAP-0644",
+      "name": "Capacity / Load Evidence",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "CAPACITY_GAP",
+        "EVIDENCE_ONLY_GAP"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0645",
+      "name": "Security Verification Evidence",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0827",
+      "name": "Multi-Indicator Workspace",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0828",
+      "name": "Real-Time Prices",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0829",
+      "name": "Historical Data",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0830",
+      "name": "API Data Access",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0831",
+      "name": "News Context",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0832",
+      "name": "Cross-Asset Correlation",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0833",
+      "name": "Derivatives Regime Engine",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0834",
+      "name": "Cross-Market Decision Intelligence",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0835",
+      "name": "Security_First_Architecture",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0836",
+      "name": "API_Security_Encryption",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0837",
+      "name": "High_Availability_Architecture",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0838",
+      "name": "Infrastructure_Uptime_Shield",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0839",
+      "name": "Institutional_Data_Architecture",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0840",
+      "name": "Flexible_Connector_Microservice",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0841",
+      "name": "Institutional_API_Gateway",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0842",
+      "name": "API_Data_Pipe",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0843",
+      "name": "Developer_SDK",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0844",
+      "name": "Pro_Developer_Sandbox",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0845",
+      "name": "Unified_Portfolio_Dashboard",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0846",
+      "name": "Global_Asset_Tracker",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0847",
+      "name": "Multi_Account_Sync",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0848",
+      "name": "On_Chain_Balance_Monitor",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0849",
+      "name": "Profitability_Analyzer",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0850",
+      "name": "Margin_Risk_Calculator",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0851",
+      "name": "Risk_Management_Shield",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0852",
+      "name": "Volatility_Scoring_System",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0853",
+      "name": "Volatility_Surface_Analyzer",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0854",
+      "name": "Delta_Neutral_Calculator",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0855",
+      "name": "High_Precision_Backtesting",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0856",
+      "name": "Strategy_Vetting_Algorithm",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0857",
+      "name": "AI_Quant_Rating_Engine",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0858",
+      "name": "Sentiment_Analysis_Engine",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0859",
+      "name": "Social_Sentiment_Engine",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0860",
+      "name": "Social_Hype_Analyzer",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0861",
+      "name": "Narrative_Alert_System",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0862",
+      "name": "AI_Digest_Generator",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0863",
+      "name": "AI_Agent_Consultant",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0864",
+      "name": "Natural_Language_Interpreter",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0865",
+      "name": "Wallet_Shadowing",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0866",
+      "name": "Entity_Tagging_System",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0867",
+      "name": "Whale_Clustering_Engine",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0868",
+      "name": "Visual_Transaction_Graph",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0869",
+      "name": "Developer_Wallet_Tracker",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0870",
+      "name": "Miner_Flow_Monitor",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0871",
+      "name": "Token_Unlock_Forecaster",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0872",
+      "name": "Governance_Sentiment_Monitor",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0873",
+      "name": "Dev_Health_Score",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0874",
+      "name": "Financial_Health_Scoring",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0875",
+      "name": "Custom_Ratio_Engine",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0876",
+      "name": "Funding_Rate_Listener",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0877",
+      "name": "Funding_Arbitrage_Engine",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0878",
+      "name": "Funding_Rate_Heatmap_Engine",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0879",
+      "name": "Spread_Calculation_Engine",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0880",
+      "name": "Liquidation_Screener",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0881",
+      "name": "DEX_Liquidity_Listener",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0882",
+      "name": "Gas_Cost_Predictor",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0883",
+      "name": "Yield_Delta_Listener",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0884",
+      "name": "Yield_Arbitrage_Engine",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0885",
+      "name": "Yield_Optimization_Module",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0886",
+      "name": "Trend_Metric_Collector",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0887",
+      "name": "MTF_Core_Logic",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0888",
+      "name": "Pattern_Recognition_Engine",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0889",
+      "name": "Prediction_Trend_Analyzer",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0890",
+      "name": "Execution_Latency_Monitor",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0891",
+      "name": "Low_Latency_Execution_Node",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0892",
+      "name": "Rust_Execution_Module",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0893",
+      "name": "Institutional_Dashboard",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0894",
+      "name": "Custom_Institutional_Data_Terminal",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0895",
+      "name": "Viral_Intelligence_Distribution_Loop",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0896",
+      "name": "Real_Time_Data_Freshness_Update_As",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0897",
+      "name": "surance",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0898",
+      "name": "Data_Source_Ingestion_Normalization_P rovenance_Reliability_Architecture",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0899",
+      "name": "Multi-Tier Data Storage",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0900",
+      "name": "Cross-Chain Liquidity Flow",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0901",
+      "name": "Liquidity/Full-Fill Feasibility",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0902",
+      "name": "Unified Arbitrage Opportunity Engine",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0903",
+      "name": "Market/Data Drift Monitoring",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0904",
+      "name": "Scenario Engine (probabilistic scenarios, not deterministic prediction)",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0905",
+      "name": "Claims/Prediction Verification Engine",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0906",
+      "name": "Net-Edge Truth Score",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0907",
+      "name": "Public Accuracy Ledger",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0908",
+      "name": "Decision Certificate + Institutional DD Export",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0909",
+      "name": "AI Output Provenance / Compliance Footer",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0910",
+      "name": "End-to-End Decision Traceability",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0911",
+      "name": "Capacity / Load Evidence",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0912",
+      "name": "Security Verification Evidence",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0913",
+      "name": "Chaos / Failure-Injection Resilience Testing",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0914",
+      "name": "VWAP Deviation Index",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0915",
+      "name": "Order Book Intelligence",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0916",
+      "name": "Exchange Health & Certification Engine",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0917",
+      "name": "Counterparty and Exchange Risk",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0918",
+      "name": ". Personal Confidence Calibration",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0919",
+      "name": "User Behavioral Learning —",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0920",
+      "name": "Idempotency",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0921",
+      "name": "Beginner / Professional Modes",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0922",
+      "name": "Institutional SLA and Audit Exports",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0923",
+      "name": "Feature Usage Analytics",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0924",
+      "name": "Data Retention and Privacy Governance",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0925",
+      "name": ") Stack",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0926",
+      "name": "Data Flywheel",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0927",
+      "name": "Sovereign Signal Registry",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0928",
+      "name": "<br>",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0929",
+      "name": "Asymmetric Slippage Cost",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0930",
+      "name": "Maker/Taker Volume Net Delta",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0931",
+      "name": "Sybil Attack Density Filter",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0932",
+      "name": "Liquidation Cascade Proximity",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0933",
+      "name": "Oracle Latency Deviation Buffer",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0934",
+      "name": "Impermanent Loss Vulnerability Score",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0935",
+      "name": "Max Drawdown Duration Lifecycle",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0936",
+      "name": "Leverage Ratio Overhang Factor",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0937",
+      "name": "De-Pegging Probability Index",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0938",
+      "name": "Tail Risk Alpha Multiplier",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0939",
+      "name": "Cross-Margin Contagion Risk Vector",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0940",
+      "name": "Whale-to-Retail Volume Ratio",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0941",
+      "name": "CEX Order Book Bid-Ask Skew Radar",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0942",
+      "name": "Liquidation Volume Spike Anchors",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0943",
+      "name": "Whale Wallet Age Acceleration Matrix",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0944",
+      "name": "Smart Money Sentiment Alignment Core",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0945",
+      "name": "Exchange Stablecoin Buying Power",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0946",
+      "name": "Index",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0947",
+      "name": "S&P 500 Financial Correlation",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0948",
+      "name": "DXY Dollar Index Elasticity",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0949",
+      "name": "Global Crypto Liquidity Index (GCLI)",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0950",
+      "name": "Imbalance Delta Order Flow Tracker",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0951",
+      "name": "Long/Short Ratio (Whales Filtered)",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0952",
+      "name": "Volume-Velocity Tracker",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0953",
+      "name": "Multi-Timeframe Decision Convergence",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0954",
+      "name": ".Impermanent Loss Live Simulator",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0955",
+      "name": ".Delta Hedging Flow Analysis",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0956",
+      "name": "Liquidity Vacuum Spotter",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0957",
+      "name": "Flash Loan Attack Proximity Alert: DeFi",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0958",
+      "name": ".Exchange Insolvency Risk Scraper:",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0959",
+      "name": ".Counterparty Risk Distribution:",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0960",
+      "name": ".Gas Price Spike Hold-Mechanism:",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0961",
+      "name": ".Leverage Optimization Engine:",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0962",
+      "name": ".PnL Attributed Drift Analysis",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0963",
+      "name": ".SaaS Multi-Tenant Database Isolation",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0964",
+      "name": ".API Cryptographic Token Rotation:",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0965",
+      "name": ".Automated Tax & PnL Report Exporter:",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0966",
+      "name": ".Multi-Currency Subscription Billing",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0967",
+      "name": "Gateway",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0968",
+      "name": ".AI Trend Structural Break Analysis",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0969",
+      "name": ").Volume Profile Point of Control",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0970",
+      "name": "Tracking",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0971",
+      "name": ".Fair Value Gap (FVG) Auto-Detector",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0972",
+      "name": ".Cross-Chain Bridge Volume Inflow",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0973",
+      "name": ".Institutional Custody Asset Tracking",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0974",
+      "name": ".Imminent Liquidation Cluster Scanning",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0975",
+      "name": ".Decentralized Liquidity Pool Front-",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0976",
+      "name": "Running Shield:",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY",
+        "RUNTIME_NOT_WIRED"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": [
+        "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
+      ]
+    },
+    {
+      "capability_id": "CAP-0977",
+      "name": ".Institutional Order Book Inefficiency",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    },
+    {
+      "capability_id": "CAP-0978",
+      "name": "Exploiter",
+      "engineering_status": "PARTIAL",
+      "root_causes": [
+        "EVIDENCE_ONLY_GAP",
+        "TEST_COVERAGE_INCOMPLETE",
+        "STALE_TRACKER_ONLY"
+      ],
+      "live_status": "LIVE_VALIDATION_PENDING",
+      "phantom_flags": []
+    }
+  ],
+  "root_cause_taxonomy_counts": {
+    "CAPACITY_GAP": 1,
+    "EVIDENCE_ONLY_GAP": 154,
+    "TEST_COVERAGE_INCOMPLETE": 152,
+    "STALE_TRACKER_ONLY": 152,
+    "RUNTIME_NOT_WIRED": 66
+  },
+  "phantom_detection": {
+    "EVIDENCE_ONLY_GAP": 2,
+    "GENERIC_HANDLER_FALSE_CAPABILITY_PATHS": 123,
+    "AGGREGATE_PASS_HIDDEN_UNVERIFIED_IDS": 152
+  }
+}
