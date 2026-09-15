@@ -1,0 +1,117 @@
+{
+  "artifact": "CAPABILITY_PROVENANCE_CONTRACT",
+  "contract_version": "B1-R-2026-09-15",
+  "status": "AUTHORITATIVE",
+  "governing_standard_reference": "docs/standards/معيار_مؤسسي_صارم_لبناء_القدرات_والمميزات_وجاهزية_لجنة_الفحص_2026_v6.md",
+  "legacy_policy": {
+    "historical_records_mutable_by_this_contract": false,
+    "legacy_ambiguity_classification": "LEGACY_AMBIGUOUS_PRE_B1_R",
+    "no_historical_provenance_fabrication": true,
+    "no_bulk_restamp": true
+  },
+  "provenance_concepts": {
+    "artifact_composition": {
+      "field_paths": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json::git.current_head_sha",
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json::generated_at",
+        "canonical_capability.semantic_correction.head_sha"
+      ],
+      "meaning": "Git commit and timestamp at which an SSOT artifact or per-cap metadata block was composed or regenerated without claiming a new capability verification event."
+    },
+    "actual_verification": {
+      "field_paths": [
+        "canonical_capability.tested_source_sha"
+      ],
+      "meaning": "Git commit at which a documented capability verification or test-execution event was performed for this capability. Must not be written from artifact composition, manual HEAD alignment, or SSOT regeneration alone."
+    },
+    "status_change_verification": {
+      "field_paths": [
+        "canonical_capability.status_change.tested_sha",
+        "canonical_capability.status_change.verification",
+        "canonical_capability.status_change.timestamp"
+      ],
+      "meaning": "Verification event bound to an engineering-status transition. tested_sha must match tested_source_sha when both are present on the same event."
+    },
+    "validated_through": {
+      "field_paths": [],
+      "meaning": "NOT_USED. Impact-validation-through semantics are not modeled as a separate writable field in B1-R."
+    },
+    "evidence_generation": {
+      "field_paths": [
+        "canonical_capability.semantic_correction.prior_artifact_sha",
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json::git.tested_sha"
+      ],
+      "meaning": "Lineage of the artifact or evidence bundle generation pass. Distinct from per-capability actual verification. git.tested_sha is artifact-scope verification baseline, not per-cap tested_source_sha."
+    }
+  },
+  "tested_source_sha": {
+    "canonical_meaning": "ACTUAL_VERIFICATION_PROVENANCE_ONLY",
+    "definition": "The git commit SHA at which a documented capability verification event (semantic oracle check, capacity evidence verification, or equivalent recorded test execution) completed successfully for this capability record.",
+    "write_requires_actual_verification": true,
+    "allowed_writers": [
+      "capability_provenance.writers.record_verification_event"
+    ],
+    "write_preconditions": [
+      "verification_event.event_type is a declared VerificationEventType",
+      "verification_event.source_sha is a 40-char git commit SHA",
+      "verification_event.verification is a non-empty dict",
+      "verification_event.verification.verdict is not UNKNOWN or FUNCTIONALLY_INCOMPLETE",
+      "verification_event.evidence_refs is a non-empty list of strings",
+      "verification_event.executed_at is an ISO-8601 UTC timestamp"
+    ],
+    "update_preconditions": [
+      "Same as write_preconditions",
+      "Update occurs only as part of a new verification event superseding prior verification provenance",
+      "Artifact-only HEAD advance must not mutate tested_source_sha"
+    ],
+    "mutability_rule": "Mutable only by a new verification event via record_verification_event. Immutable under artifact composition, semantic correction, live-applicability correction, or manual HEAD alignment."
+  },
+  "writer_matrix": [
+    {
+      "field": "git.current_head_sha",
+      "allowed_writer": "capability_provenance.writers.record_artifact_composition",
+      "precondition": "SSOT artifact regeneration or metadata alignment",
+      "event_type": "ARTIFACT_COMPOSITION"
+    },
+    {
+      "field": "generated_at",
+      "allowed_writer": "capability_provenance.writers.record_artifact_composition",
+      "precondition": "SSOT artifact regeneration",
+      "event_type": "ARTIFACT_COMPOSITION"
+    },
+    {
+      "field": "tested_source_sha",
+      "allowed_writer": "capability_provenance.writers.record_verification_event",
+      "precondition": "Successful documented verification event",
+      "event_type": "ACTUAL_VERIFICATION"
+    },
+    {
+      "field": "status_change.tested_sha",
+      "allowed_writer": "capability_provenance.writers.record_verification_event",
+      "precondition": "Engineering status transition with verification payload",
+      "event_type": "STATUS_CHANGE_VERIFICATION"
+    },
+    {
+      "field": "semantic_correction",
+      "allowed_writer": "capability_provenance.writers.record_semantic_correction",
+      "precondition": "Artifact-only metadata correction without new verification",
+      "event_type": "SEMANTIC_CORRECTION"
+    },
+    {
+      "field": "status_change.live_applicability_correction",
+      "allowed_writer": "capability_provenance.writers.record_live_applicability_correction",
+      "precondition": "Live applicability dimension correction only",
+      "event_type": "LIVE_APPLICABILITY_CORRECTION"
+    }
+  ],
+  "invariants": [
+    "INV-001: tested_source_sha must not change unless record_verification_event is invoked with a valid VerificationEvent.",
+    "INV-002: record_artifact_composition must not write tested_source_sha on any capability record.",
+    "INV-003: When status_change.verification is present, status_change.tested_sha must equal tested_source_sha.",
+    "INV-004: tested_source_sha must not be assigned from git rev-parse HEAD alone without a verification event payload.",
+    "INV-005: Verifiers must not treat engineering_status PASS or SSOT verdict PASS as proof of tested_source_sha correctness.",
+    "INV-006: Legacy records classified LEGACY_AMBIGUOUS_PRE_B1_R are not auto-normalized or restamped by generators.",
+    "INV-007: semantic_correction and live_applicability_correction events must not mutate tested_source_sha.",
+    "INV-008: Generator and verifier must load the same contract_version from CAPABILITY_PROVENANCE_CONTRACT.json."
+  ]
+}

@@ -50,16 +50,29 @@ def test_refund_legal_page():
 
 def test_stripe_webhook_idempotent(tmp_path, monkeypatch):
     import database
+    import time
+
+    from billing.subscription_engine import activate_checkout
     from billing_service import handle_stripe_webhook_event
 
     monkeypatch.setattr(database.config, "DB_PATH", str(tmp_path / "pay.db"))
+    monkeypatch.setenv("DATA_DIR", str(tmp_path))
 
     async def _run():
         await database.init_db()
+        await database.create_user("pay@example.com", "hash")
+        await activate_checkout(
+            email="pay@example.com",
+            plan="pro",
+            provider="stripe",
+            provider_subscription_id="sub_x",
+            provider_event_id="evt_seed_sub",
+        )
         event = {
             "id": "evt_test_dup_1",
             "type": "invoice.payment_failed",
             "data": {"object": {"subscription": "sub_x"}},
+            "created": time.time(),
         }
         first = await handle_stripe_webhook_event(event)
         second = await handle_stripe_webhook_event(event)

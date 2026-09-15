@@ -28,14 +28,6 @@ def _utcnow() -> str:
     return datetime.now(UTC).isoformat()
 
 
-def _signing_key() -> str:
-    return (
-        os.getenv("AUDIT_SIGNING_KEY", "").strip()
-        or os.getenv("SECRETS_MASTER_KEY", "").strip()
-        or "blackdark-audit-dev-sign"
-    )
-
-
 def hash_payload(data: Any) -> str:
     """Stable SHA-256 over JSON-serialisable request/context data."""
     raw = json.dumps(data, sort_keys=True, separators=(",", ":"), default=str).encode()
@@ -43,50 +35,27 @@ def hash_payload(data: Any) -> str:
 
 
 def _sign_payload_dict(payload: dict[str, Any]) -> str:
+    """Compatibility helper for compounding modules using custom sign fields."""
+    from secrets_crypto.audit_integrity import signing_key_material
+
+    key, _ = signing_key_material()
     raw = json.dumps(payload, sort_keys=True, separators=(",", ":"), default=str).encode()
-    return hmac.new(_signing_key().encode(), raw, hashlib.sha256).hexdigest()
+    return hmac.new(key.encode(), raw, hashlib.sha256).hexdigest()
 
 
 def sign_record(record: dict[str, Any]) -> str:
     """HMAC-SHA256 signature over canonical persisted fields."""
-    return _sign_payload_dict(_canonical_sign_payload(record))
+    from secrets_crypto.audit_integrity import sign_record as _sign
 
-
-def _canonical_sign_payload(record: dict[str, Any]) -> dict[str, Any]:
-    """Fields included in tamper-evidence signatures."""
-    if "decision_id" in record:
-        context = record.get("context")
-        prediction = record.get("prediction")
-        return {
-            "decision_id": record.get("decision_id"),
-            "context": context if isinstance(context, str) else json.dumps(context or {}, sort_keys=True, default=str),
-            "prediction": prediction if isinstance(prediction, str) else json.dumps(prediction or {}, sort_keys=True, default=str),
-            "confidence": float(record.get("confidence") or 0),
-            "timestamp": record.get("timestamp"),
-            "outcome": record.get("outcome"),
-            "version": int(record.get("version") or 1),
-        }
-    meta = record.get("metadata_json")
-    if meta is None and "metadata" in record:
-        meta = json.dumps(record.get("metadata") or {}, ensure_ascii=False, sort_keys=True, default=str)
-    return {
-        "timestamp": record.get("timestamp"),
-        "actor": record.get("actor"),
-        "action": record.get("action"),
-        "payload_hash": record.get("payload_hash"),
-        "outcome": record.get("outcome"),
-        "request_method": record.get("request_method"),
-        "request_path": record.get("request_path"),
-        "metadata_json": meta or "{}",
-    }
+    signature, version = _sign(record)
+    record["signing_key_version"] = version
+    return signature
 
 
 def verify_record_signature(record: dict[str, Any]) -> bool:
-    sig = str(record.get("signature") or "")
-    if not sig:
-        return False
-    expected = _sign_payload_dict(_canonical_sign_payload(record))
-    return hmac.compare_digest(sig, expected)
+    from secrets_crypto.audit_integrity import verify_record_signature as _verify
+
+    return _verify(record)
 
 
 def request_payload_fingerprint(
@@ -121,6 +90,9 @@ async def record_audit_log(
     from database import get_connection
 
     ts = _utcnow()
+    from secrets_crypto.audit_integrity import current_signing_key_version
+
+    meta = dict(metadata or {})
     row = {
         "timestamp": ts,
         "actor": str(actor or "system")[:256],
@@ -129,7 +101,8 @@ async def record_audit_log(
         "outcome": str(outcome or "unknown")[:128],
         "request_method": (request_method or "")[:16] or None,
         "request_path": (request_path or "")[:512] or None,
-        "metadata_json": json.dumps(metadata or {}, ensure_ascii=False, sort_keys=True, default=str),
+        "metadata_json": json.dumps(meta, ensure_ascii=False, sort_keys=True, default=str),
+        "signing_key_version": current_signing_key_version(),
     }
     row["signature"] = sign_record(row)
 
@@ -202,6 +175,8 @@ async def fetch_audit_logs(
                 row["metadata"] = json.loads(meta)
             except json.JSONDecodeError:
                 row["metadata"] = {}
+        if not row.get("signing_key_version") and isinstance(row.get("metadata"), dict):
+            row["signing_key_version"] = row["metadata"].get("signing_key_version")
         row["signature_valid"] = verify_record_signature(row)
         out.append(row)
     return out

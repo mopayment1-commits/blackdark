@@ -41,3 +41,26 @@ curl https://STAGING_URL/api/monitoring/status
 ```
 
 تأكد أن `overall_ok: true` و`ops_telegram_configured: true`.
+
+## Telemetry outage runbook
+
+**Trigger / symptoms:** missing Sentry events, UptimeRobot down, `overall_ok: false`, or ops Telegram silence during incident.
+
+**Diagnosis:** distinguish app down vs telemetry pipeline broken (`/health/live` ok but alerts absent).
+
+**Actions:**
+```bash
+curl -s https://HOST/api/monitoring/probe
+curl -s https://HOST/api/monitoring/status
+python scripts/setup_monitoring.py --dry-run
+```
+
+**Decision:** if app unhealthy, follow incident response; if only telemetry, fail over to external uptime monitor + manual war-room.
+
+**Verification:** test alert fires to Telegram/webhook; external monitor green.
+
+**Recovery:** restore `MONITORING_*` env, redeploy if probe worker stuck.
+
+**Escalation:** on-call pager + platform owner; external vendor status page.
+
+**Evidence preservation:** probe JSON, alert delivery logs, timeline for postmortem.

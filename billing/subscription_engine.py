@@ -602,13 +602,28 @@ async def sync_from_stripe_subscription(
     *,
     provider: str = "stripe",
     provider_event_id: str,
+    provider_event_created: int | float | None = None,
 ) -> dict[str, Any]:
+    from billing.event_ordering import should_apply_provider_subscription_event
+
     provider_sub_id = str(data_object.get("id") or "")
     sub = await get_by_provider_subscription_id(provider_sub_id)
     if not sub:
         return {"handled": False, "reason": "not_tracked"}
     uid = int(sub["user_id"])
     p_start, p_end = _period_from_stripe(data_object)
+    apply, ordering_reason = should_apply_provider_subscription_event(
+        sub,
+        period_end=p_end,
+        event_created_at=provider_event_created,
+    )
+    if not apply:
+        return {
+            "handled": True,
+            "out_of_order_ignored": True,
+            "reason": ordering_reason,
+            "subscription": sub,
+        }
     stripe_status = str(data_object.get("status") or "active")
     cancel_at_end = bool(data_object.get("cancel_at_period_end"))
     meta_tier = (data_object.get("metadata") or {}).get("tier")
@@ -633,6 +648,7 @@ async def sync_from_stripe_subscription(
         renewal_date=p_end,
         cancel_at_period_end=cancel_at_end,
         auto_renew_enabled=not cancel_at_end,
+        last_provider_event_created=int(provider_event_created) if provider_event_created is not None else None,
         bump_entitlements=False,
     )
     await record_audit(

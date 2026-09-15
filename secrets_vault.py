@@ -62,12 +62,18 @@ def _fernet_instance():
 def encrypt_secret(plaintext: str) -> str:
     if not plaintext:
         return ""
-    return _fernet_instance().encrypt(plaintext.encode("utf-8")).decode("utf-8")
+    from secrets_crypto.envelope import encrypt_envelope
+
+    return encrypt_envelope(plaintext)
 
 
 def decrypt_secret(ciphertext: str) -> str:
     if not ciphertext:
         return ""
+    from secrets_crypto.envelope import decrypt_envelope, is_envelope_blob
+
+    if is_envelope_blob(ciphertext):
+        return decrypt_envelope(ciphertext)
     return _fernet_instance().decrypt(ciphertext.encode("utf-8")).decode("utf-8")
 
 

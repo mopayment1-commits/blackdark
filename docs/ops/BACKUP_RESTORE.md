@@ -3,6 +3,22 @@
 **Findings:** `F-OPS-01`, repo portion of `F-EXT-03`  
 **Live restore drill evidence in buyer cloud remains EXTERNAL.**
 
+## Backup / restore runbook
+
+**Trigger / symptoms:** scheduled backup job, suspected data loss, failed migration, or DR exercise.
+
+**Diagnosis:** confirm which database (staging vs prod), last successful backup (`data/backups/LATEST`), and whether corruption is logical vs infrastructure.
+
+**Decision:** restore in-place vs new instance — prefer isolated restore rehearsal before prod cutover.
+
+**Verification:** schema row counts, `/api/production/guard`, sample oracle query, audit chain continuity.
+
+**Recovery:** re-point `DATABASE_URL`, recycle app pools, validate no stale config.
+
+**Escalation:** incident commander + DBA; buyer cloud drill for production (`EXTERNAL`).
+
+**Evidence preservation:** backup SHA256 sidecar, restore timestamp, operator sign-off artifact.
+
 ## Postgres
 
 ```bash

@@ -216,14 +216,27 @@ async def require_admin(
     user: Annotated[dict | None, Depends(optional_user_from_request)],
     x_admin_key: Annotated[str | None, Header(alias="X-Admin-Key")] = None,
     x_admin_totp: Annotated[str | None, Header(alias="X-Admin-TOTP")] = None,
+    x_actor_email: Annotated[str | None, Header(alias="X-Actor-Email")] = None,
 ) -> dict:
     """Fail-closed admin auth — never trusts reverse-proxy peer/loopback.
 
     Requires X-Admin-Key or an ADMIN_EMAILS session, plus admin MFA when policy is on.
+    Shared admin API keys require X-Actor-Email in production (SDG-07).
     """
     admin_user: dict | None = None
     if verify_admin_key(x_admin_key):
-        admin_user = {"email": "admin@system", "tier": "whale", "is_admin": True}
+        actor_email = (x_actor_email or (user or {}).get("email") or "").strip().lower()
+        if not actor_email and is_production_env():
+            raise HTTPException(
+                status_code=403,
+                detail={"error": "shared_admin_key_requires_x_actor_email"},
+            )
+        admin_user = {
+            "email": actor_email or "admin@system",
+            "tier": "whale",
+            "is_admin": True,
+            "admin_key_auth": True,
+        }
     elif user and is_admin_user(user):
         user = dict(user)
         user["is_admin"] = True
