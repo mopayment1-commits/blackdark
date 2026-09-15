@@ -38,25 +38,47 @@ async def test_post_baseline_functional_verification(capability_id, tmp_path, mo
 
     await database.init_db()
 
-    from cap978.verify import verify_functional_978
+    from cap978.post_baseline_semantic import validate_semantic_oracle
+    from cap978.verify import execute_extension, verify_functional_978
 
     report = await verify_functional_978(
         capability_id,
         user={"email": "phase2@blackdark.local", "tier": "elite"},
     )
+    assert report["checks"]["semantic_oracle"] is True, report
     assert report["verdict"] == "VERIFIED_COMPLETE", report
+    result = await execute_extension(
+        capability_id,
+        user={"email": "phase2@blackdark.local", "tier": "elite"},
+        params={"symbol": "BTC", "tier": "whale", "coin_id": "bitcoin"},
+    )
+    ok, oracle_key, detail = validate_semantic_oracle(capability_id, result)
+    assert ok, f"{capability_id} oracle={oracle_key} detail={detail}"
 
 
 @pytest.mark.asyncio
 async def test_cap_0644_capacity_load_evidence_semantics():
+    import json
+    from pathlib import Path
+
     from cap646.institutional_official_production import execute
+    from institutional_assurance import get_signed_capacity, verify_signed_capacity
+
+    signed = get_signed_capacity()
+    assert signed and verify_signed_capacity(signed)
+    assert signed.get("environment") == "production"
+    assert signed.get("load_test", {}).get("script") == "scripts/load_test_concurrent.py"
+    artifact = json.loads(
+        (Path(__file__).resolve().parents[2] / "data" / "institutional_assurance" / "signed_capacity.json").read_text()
+    )
+    assert artifact.get("capacity_id") == signed.get("capacity_id")
 
     result = await execute(644, params={"symbol": "BTC", "tier": "elite"})
     assert result.get("success") is True
     assert result.get("surface") == "capacity_load_evidence"
     assert result.get("handler_module") == "cap646.batch26_dedicated"
     payload = result.get("capacity_load_evidence") or {}
-    assert payload.get("signed_load_evidence", {}).get("present") is True
+    assert payload.get("capacity_verified") is True
     envelope = payload.get("safe_operating_envelope") or {}
     assert envelope.get("p50_ms") is not None
     assert envelope.get("p95_ms") is not None

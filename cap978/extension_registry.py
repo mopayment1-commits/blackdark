@@ -118,6 +118,11 @@ def _keyword_binding(name: str) -> tuple[str, str, str] | None:
 
 @lru_cache(maxsize=332)
 def resolve_extension_binding(capability_id: int) -> BackendBinding:
+    if 827 <= capability_id <= 978:
+        from cap978.post_baseline_semantic import resolve_post_baseline_binding
+
+        return resolve_post_baseline_binding(capability_id)
+
     row = catalog_by_id()[capability_id]
     name = row["capability"]
     track = row.get("track", "T19")
