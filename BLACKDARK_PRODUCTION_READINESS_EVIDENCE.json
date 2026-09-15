@@ -1,11 +1,11 @@
 {
   "schema_version": "production_readiness_evidence_v1",
-  "generated_at": "2026-09-15T16:14:17.574063+00:00",
+  "generated_at": "2026-09-15T16:15:00.232720+00:00",
   "derived_artifact_only": true,
   "baseline": {
     "branch": "cursor/production-readiness-closure-358c",
-    "baseline_sha": "72b39d8364d2f3dab5ebad4a2ee262a69e622a6e",
-    "tested_sha": "72b39d8364d2f3dab5ebad4a2ee262a69e622a6e",
+    "baseline_sha": "e19d0596e33a3c4bd315c8586787ab36fc4f4560",
+    "tested_sha": "e19d0596e33a3c4bd315c8586787ab36fc4f4560",
     "worktree_dirty": true
   },
   "verdict": "CAPABILITY_PRODUCTION_READINESS_ENGINEERING_CLOSED_WITH_GENUINE_EXTERNAL_GATES",
@@ -190,11 +190,11 @@
       "PHASE4_SYSTEM_COHERENCE_INTEGRITY_VERIFIED": true,
       "CAPABILITY_SYSTEM_COHERENCE_CLOSED": true
     },
-    "generated_at": "2026-09-15T16:14:17.574063+00:00",
+    "generated_at": "2026-09-15T16:15:00.232720+00:00",
     "PRODUCTION_READINESS_BASELINE_BRANCH": "cursor/production-readiness-closure-358c",
-    "PRODUCTION_READINESS_BASELINE_SHA": "72b39d8364d2f3dab5ebad4a2ee262a69e622a6e",
-    "CURRENT_HEAD_SHA": "72b39d8364d2f3dab5ebad4a2ee262a69e622a6e",
-    "FINAL_PRODUCTION_READINESS_TESTED_SHA": "72b39d8364d2f3dab5ebad4a2ee262a69e622a6e",
+    "PRODUCTION_READINESS_BASELINE_SHA": "e19d0596e33a3c4bd315c8586787ab36fc4f4560",
+    "CURRENT_HEAD_SHA": "e19d0596e33a3c4bd315c8586787ab36fc4f4560",
+    "FINAL_PRODUCTION_READINESS_TESTED_SHA": "e19d0596e33a3c4bd315c8586787ab36fc4f4560",
     "WORKTREE_DIRTY": true,
     "UNCOMMITTED_FILES": [
       "DECISION_TRUTH_FULL_SPEC_FINAL_RECONCILIATION.json",
