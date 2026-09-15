@@ -27,13 +27,15 @@ def build_why_not_engine(payload: dict[str, Any]) -> dict[str, Any]:
         "uncertainty_calibration_state": _uncertainty_state(contract, lifecycle),
     }
 
-    human = _human_explanation(state, codes, machine, contract)
+    message_keys = _human_message_keys(state, codes, machine, contract)
     return {
         "machine_readable": machine,
-        "human_explanation": human,
+        "human_explanation": None,
+        "message_keys": message_keys,
         "codes": codes,
         "decision_state": state,
         "derived_from": "canonical_decision_contract",
+        "presentation_boundary": "decision_truth.cross_cutting.i18n",
         "methodology_version": "dts-p5-why-not-1.0",
     }
 
@@ -107,31 +109,29 @@ def _uncertainty_state(contract: dict[str, Any], lifecycle: dict[str, Any]) -> d
     }
 
 
-def _human_explanation(
+def _human_message_keys(
     state: str,
     codes: list[str],
     machine: dict[str, Any],
     contract: dict[str, Any],
-) -> str:
+) -> list[dict[str, Any]]:
     if state == "AVAILABLE":
-        return "Opportunity admitted — all mandatory gates passed."
-    if not codes:
-        return f"Decision state is {state} — no specific gate failures recorded."
-
-    parts: list[str] = [f"This opportunity did not pass ({state})."]
+        return [{"key": "dts.why.admitted", "params": {}}]
+    keys: list[dict[str, Any]] = [{"key": "dts.why.generic_blocked", "params": {"state": state}}]
     econ = machine.get("economic_state") or {}
     if econ.get("expected_net_edge_bps") is not None:
-        parts.append(f"Expected net edge: {econ['expected_net_edge_bps']} bps after costs.")
+        keys.append({"key": "dts.why.net_edge", "params": {"bps": econ["expected_net_edge_bps"]}})
     exec_s = machine.get("execution_state") or {}
     if exec_s.get("score") is not None:
-        parts.append(f"Execution feasibility score: {exec_s['score']}.")
+        keys.append({"key": "dts.why.execution", "params": {"score": exec_s["score"]}})
     fresh = machine.get("freshness_state") or {}
     if fresh.get("state") in {"STALE", "UNKNOWN"}:
-        parts.append("Input freshness is insufficient for a confident decision.")
+        keys.append({"key": "dts.why.freshness", "params": {}})
     if any("conflict" in c.lower() for c in codes):
-        parts.append("Sources conflict — abstaining rather than forcing a decision.")
-    parts.append(f"Blocking reasons: {', '.join(codes[:5])}.")
+        keys.append({"key": "dts.why.conflict", "params": {}})
+    if codes:
+        keys.append({"key": "dts.why.blocking", "params": {"reasons": ",".join(codes[:5])}})
     inv = contract.get("invalidation_condition")
     if inv:
-        parts.append(f"Invalidation condition: {inv}.")
-    return " ".join(parts)
+        keys.append({"key": "dts.why.invalidation", "params": {"condition": inv}})
+    return keys

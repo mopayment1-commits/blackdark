@@ -1,0 +1,396 @@
+{
+  "artifact": "BLACKDARK_CAPABILITY_DUPLICATE_CANONICAL_MAP",
+  "generated_at": "2026-09-15T02:04:19.769225+00:00",
+  "git": {
+    "current_head_sha": "36df58ed8ad345193f42a2164fbf8f5beefd42da"
+  },
+  "exact_duplicate_groups": [
+    {
+      "duplicate_group_id": "GAP-0030",
+      "duplicate_type": "EXACT_DUPLICATE",
+      "canonical_capability": "CAP-0030",
+      "capability_ids": [
+        "CAP-0030"
+      ],
+      "reason": "CAP646_GAP_MATRIX",
+      "disposition": "ALIAS_TO_CANONICAL"
+    },
+    {
+      "duplicate_group_id": "GAP-0064",
+      "duplicate_type": "EXACT_DUPLICATE",
+      "canonical_capability": "CAP-0064",
+      "capability_ids": [
+        "CAP-0064",
+        "CAP-0107",
+        "CAP-0222"
+      ],
+      "reason": "CAP646_GAP_MATRIX",
+      "disposition": "ALIAS_TO_CANONICAL"
+    },
+    {
+      "duplicate_group_id": "GAP-0069",
+      "duplicate_type": "EXACT_DUPLICATE",
+      "canonical_capability": "CAP-0069",
+      "capability_ids": [
+        "CAP-0069",
+        "CAP-0110",
+        "CAP-0226"
+      ],
+      "reason": "CAP646_GAP_MATRIX",
+      "disposition": "ALIAS_TO_CANONICAL"
+    },
+    {
+      "duplicate_group_id": "GAP-0063",
+      "duplicate_type": "EXACT_DUPLICATE",
+      "canonical_capability": "CAP-0063",
+      "capability_ids": [
+        "CAP-0106",
+        "CAP-0221"
+      ],
+      "reason": "CAP646_GAP_MATRIX",
+      "disposition": "ALIAS_TO_CANONICAL"
+    },
+    {
+      "duplicate_group_id": "GAP-0085",
+      "duplicate_type": "EXACT_DUPLICATE",
+      "canonical_capability": "CAP-0085",
+      "capability_ids": [
+        "CAP-0125"
+      ],
+      "reason": "CAP646_GAP_MATRIX",
+      "disposition": "ALIAS_TO_CANONICAL"
+    },
+    {
+      "duplicate_group_id": "GAP-0103",
+      "duplicate_type": "EXACT_DUPLICATE",
+      "canonical_capability": "CAP-0103",
+      "capability_ids": [
+        "CAP-0159",
+        "CAP-0272",
+        "CAP-0429"
+      ],
+      "reason": "CAP646_GAP_MATRIX",
+      "disposition": "ALIAS_TO_CANONICAL"
+    },
+    {
+      "duplicate_group_id": "GAP-0086",
+      "duplicate_type": "EXACT_DUPLICATE",
+      "canonical_capability": "CAP-0086",
+      "capability_ids": [
+        "CAP-0206",
+        "CAP-0228",
+        "CAP-0256",
+        "CAP-0549"
+      ],
+      "reason": "CAP646_GAP_MATRIX",
+      "disposition": "ALIAS_TO_CANONICAL"
+    },
+    {
+      "duplicate_group_id": "GAP-0017",
+      "duplicate_type": "EXACT_DUPLICATE",
+      "canonical_capability": "CAP-0017",
+      "capability_ids": [
+        "CAP-0212",
+        "CAP-0307"
+      ],
+      "reason": "CAP646_GAP_MATRIX",
+      "disposition": "ALIAS_TO_CANONICAL"
+    },
+    {
+      "duplicate_group_id": "GAP-0205",
+      "duplicate_type": "EXACT_DUPLICATE",
+      "canonical_capability": "CAP-0205",
+      "capability_ids": [
+        "CAP-0232",
+        "CAP-0255",
+        "CAP-0550"
+      ],
+      "reason": "CAP646_GAP_MATRIX",
+      "disposition": "ALIAS_TO_CANONICAL"
+    },
+    {
+      "duplicate_group_id": "GAP-0088",
+      "duplicate_type": "EXACT_DUPLICATE",
+      "canonical_capability": "CAP-0088",
+      "capability_ids": [
+        "CAP-0233",
+        "CAP-0551"
+      ],
+      "reason": "CAP646_GAP_MATRIX",
+      "disposition": "ALIAS_TO_CANONICAL"
+    },
+    {
+      "duplicate_group_id": "GAP-0129",
+      "duplicate_type": "EXACT_DUPLICATE",
+      "canonical_capability": "CAP-0129",
+      "capability_ids": [
+        "CAP-0241"
+      ],
+      "reason": "CAP646_GAP_MATRIX",
+      "disposition": "ALIAS_TO_CANONICAL"
+    },
+    {
+      "duplicate_group_id": "GAP-0251",
+      "duplicate_type": "EXACT_DUPLICATE",
+      "canonical_capability": "CAP-0251",
+      "capability_ids": [
+        "CAP-0251",
+        "CAP-0275"
+      ],
+      "reason": "CAP646_GAP_MATRIX",
+      "disposition": "ALIAS_TO_CANONICAL"
+    },
+    {
+      "duplicate_group_id": "GAP-0235",
+      "duplicate_type": "EXACT_DUPLICATE",
+      "canonical_capability": "CAP-0235",
+      "capability_ids": [
+        "CAP-0257"
+      ],
+      "reason": "CAP646_GAP_MATRIX",
+      "disposition": "ALIAS_TO_CANONICAL"
+    },
+    {
+      "duplicate_group_id": "GAP-0126",
+      "duplicate_type": "EXACT_DUPLICATE",
+      "canonical_capability": "CAP-0126",
+      "capability_ids": [
+        "CAP-0260"
+      ],
+      "reason": "CAP646_GAP_MATRIX",
+      "disposition": "ALIAS_TO_CANONICAL"
+    },
+    {
+      "duplicate_group_id": "GAP-0214",
+      "duplicate_type": "EXACT_DUPLICATE",
+      "canonical_capability": "CAP-0214",
+      "capability_ids": [
+        "CAP-0308"
+      ],
+      "reason": "CAP646_GAP_MATRIX",
+      "disposition": "ALIAS_TO_CANONICAL"
+    },
+    {
+      "duplicate_group_id": "GAP-0354",
+      "duplicate_type": "EXACT_DUPLICATE",
+      "canonical_capability": "CAP-0354",
+      "capability_ids": [
+        "CAP-0393"
+      ],
+      "reason": "CAP646_GAP_MATRIX",
+      "disposition": "ALIAS_TO_CANONICAL"
+    },
+    {
+      "duplicate_group_id": "GAP-0356",
+      "duplicate_type": "EXACT_DUPLICATE",
+      "canonical_capability": "CAP-0356",
+      "capability_ids": [
+        "CAP-0397"
+      ],
+      "reason": "CAP646_GAP_MATRIX",
+      "disposition": "ALIAS_TO_CANONICAL"
+    },
+    {
+      "duplicate_group_id": "GAP-0263",
+      "duplicate_type": "EXACT_DUPLICATE",
+      "canonical_capability": "CAP-0263",
+      "capability_ids": [
+        "CAP-0399"
+      ],
+      "reason": "CAP646_GAP_MATRIX",
+      "disposition": "ALIAS_TO_CANONICAL"
+    },
+    {
+      "duplicate_group_id": "GAP-0279",
+      "duplicate_type": "EXACT_DUPLICATE",
+      "canonical_capability": "CAP-0279",
+      "capability_ids": [
+        "CAP-0462"
+      ],
+      "reason": "CAP646_GAP_MATRIX",
+      "disposition": "ALIAS_TO_CANONICAL"
+    },
+    {
+      "duplicate_group_id": "GAP-0330",
+      "duplicate_type": "EXACT_DUPLICATE",
+      "canonical_capability": "CAP-0330",
+      "capability_ids": [
+        "CAP-0468"
+      ],
+      "reason": "CAP646_GAP_MATRIX",
+      "disposition": "ALIAS_TO_CANONICAL"
+    },
+    {
+      "duplicate_group_id": "GAP-0252",
+      "duplicate_type": "EXACT_DUPLICATE",
+      "canonical_capability": "CAP-0252",
+      "capability_ids": [
+        "CAP-0527"
+      ],
+      "reason": "CAP646_GAP_MATRIX",
+      "disposition": "ALIAS_TO_CANONICAL"
+    }
+  ],
+  "alias_groups": [
+    {
+      "alias_group_id": "ALIAS-0354",
+      "canonical_capability": "CAP-0354",
+      "alias_ids": [
+        "CAP-0660"
+      ],
+      "duplicate_type": "ALIAS_ONLY"
+    },
+    {
+      "alias_group_id": "ALIAS-0356",
+      "canonical_capability": "CAP-0356",
+      "alias_ids": [
+        "CAP-0664"
+      ],
+      "duplicate_type": "ALIAS_ONLY"
+    },
+    {
+      "alias_group_id": "ALIAS-0263",
+      "canonical_capability": "CAP-0263",
+      "alias_ids": [
+        "CAP-0666"
+      ],
+      "duplicate_type": "ALIAS_ONLY"
+    },
+    {
+      "alias_group_id": "ALIAS-0103",
+      "canonical_capability": "CAP-0103",
+      "alias_ids": [
+        "CAP-0696"
+      ],
+      "duplicate_type": "ALIAS_ONLY"
+    },
+    {
+      "alias_group_id": "ALIAS-0279",
+      "canonical_capability": "CAP-0279",
+      "alias_ids": [
+        "CAP-0729"
+      ],
+      "duplicate_type": "ALIAS_ONLY"
+    },
+    {
+      "alias_group_id": "ALIAS-0330",
+      "canonical_capability": "CAP-0330",
+      "alias_ids": [
+        "CAP-0735"
+      ],
+      "duplicate_type": "ALIAS_ONLY"
+    },
+    {
+      "alias_group_id": "ALIAS-0252",
+      "canonical_capability": "CAP-0252",
+      "alias_ids": [
+        "CAP-0794"
+      ],
+      "duplicate_type": "ALIAS_ONLY"
+    },
+    {
+      "alias_group_id": "ALIAS-0086",
+      "canonical_capability": "CAP-0086",
+      "alias_ids": [
+        "CAP-0816"
+      ],
+      "duplicate_type": "ALIAS_ONLY"
+    },
+    {
+      "alias_group_id": "ALIAS-0205",
+      "canonical_capability": "CAP-0205",
+      "alias_ids": [
+        "CAP-0817"
+      ],
+      "duplicate_type": "ALIAS_ONLY"
+    },
+    {
+      "alias_group_id": "ALIAS-0088",
+      "canonical_capability": "CAP-0088",
+      "alias_ids": [
+        "CAP-0818"
+      ],
+      "duplicate_type": "ALIAS_ONLY"
+    }
+  ],
+  "semantic_duplicate_pairs": {
+    "106": {
+      "canonical_id": 63,
+      "catalog_file": "docs/cap646/CAP646_GAP_MATRIX.json",
+      "catalog_basis": "DUPLICATE/ALREADY_COVERED",
+      "canonical_goal": "Data Quality & Provenance Layer",
+      "duplicate_goal": "Data Quality & Provenance Layer"
+    },
+    "107": {
+      "canonical_id": 64,
+      "catalog_file": "docs/cap646/CAP646_GAP_MATRIX.json",
+      "catalog_basis": "DUPLICATE/ALREADY_COVERED",
+      "canonical_goal": "Metric Methodology Registry",
+      "duplicate_goal": "Metric Methodology Registry"
+    },
+    "110": {
+      "canonical_id": 69,
+      "catalog_file": "docs/cap646/CAP646_GAP_MATRIX.json",
+      "catalog_basis": "REPEAT_CANONICAL",
+      "canonical_goal": "Cross-Domain Decision Intelligence Layer",
+      "duplicate_goal": "Cross-Domain Decision Intelligence Layer",
+      "shared_module": "cap646/cross_domain_decision.py",
+      "canonical_ssot_path": "cap646.batch02_production.cap_069",
+      "link_eligible_review": "CONFIRMED — canonical #69 batch02 spine is SSOT after MANDATE-COMPLETION facade fix; #110 remains LINK-ELIGIBLE (batch03 prep, not in 104 numerator)"
+    },
+    "125": {
+      "canonical_id": 85,
+      "catalog_file": "docs/cap646/CAP646_GAP_MATRIX.json",
+      "catalog_basis": "DUPLICATE/ALREADY_COVERED",
+      "canonical_goal": "Futures Open Interest Intelligence",
+      "duplicate_goal": "Futures Open Interest Intelligence"
+    }
+  },
+  "overlap_batch01": {
+    "taxonomy_id": "OVERLAP_BATCH01",
+    "registered_at": "2026-09-01T14:00:00+00:00",
+    "status": "ACTIVE",
+    "definition": "ID listed in official batch02 scope (51–100) but implemented exclusively via batch01 legacy extension spine (LEGACY_BATCH01_EXTENSION_IDS). No batch02_dedicated handler exists.",
+    "acceptance_criteria": [
+      "ID ∈ OFFICIAL_BATCH02_IDS ∩ LEGACY_BATCH01_EXTENSION_IDS",
+      "cap646.batch02_production raises ValueError for direct execute",
+      "cap646.runtime routes via handle_batch01_capability → batch01_production",
+      "Counted as covered in batch02 RTM but NOT as independent batch02 build"
+    ],
+    "registered_ids": {
+      "55": {
+        "goal": "NVT Fair-Value Model",
+        "batch01_module": "cap646.batch01_production",
+        "independent_build": false
+      },
+      "56": {
+        "goal": "Token Screener",
+        "batch01_module": "cap646.batch01_production",
+        "independent_build": false
+      },
+      "59": {
+        "goal": "Personalized Research Dashboards",
+        "batch01_module": "cap646.batch01_production",
+        "independent_build": false
+      },
+      "60": {
+        "goal": "Metric-Based Smart Alerts",
+        "batch01_module": "cap646.batch01_production",
+        "independent_build": false
+      }
+    },
+    "counting_rules": {
+      "batch02_independent_count": "Exclude from 46 independent; include in 50/50 RTM coverage only",
+      "no_double_count_in_826_progress": "Do not add +4 to independent build tally"
+    }
+  },
+  "counts": {
+    "EXACT_DUPLICATES": 21,
+    "SEMANTIC_DUPLICATES": 4,
+    "ALIASES": 10,
+    "PARTIAL_OVERLAPS": 1,
+    "CONFLICTING_DUPLICATES": 0,
+    "SHARED_CORE_NOT_DUPLICATE": 4,
+    "UNRESOLVED_DUPLICATE_RELATIONSHIPS": 0
+  }
+}

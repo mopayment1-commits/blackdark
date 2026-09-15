@@ -1,0 +1,1062 @@
+{
+  "reconciliation": "DECISION_TRUTH_FULL_SPEC_FINAL",
+  "verified_at_utc": "2026-09-14T22:02:55Z",
+  "governing_spec_sha256": "9355e35fbd3da913d1d0db459c6a669dd91412a9c8f425c217830e1a2bc3fbd0",
+  "current_head_sha": "0fd3f3ccc3daa010f7f9a1ef59cf46f4768ad0ae",
+  "implementation_sha": "0fd3f3ccc3daa010f7f9a1ef59cf46f4768ad0ae",
+  "phase_verification": {
+    "P1": {
+      "script": "scripts/p1_decision_truth_spine_closure_verify.py",
+      "exit_code": 0,
+      "verdict": "P1_DECISION_TRUTH_SPINE_CLOSED",
+      "evidence": "DECISION_TRUTH_P1_SPINE_CLOSURE_EVIDENCE.json",
+      "summary": {
+        "DTS_REQUIREMENTS_IN_PHASE": 12,
+        "FULLY_IMPLEMENTED_VERIFIED": 12,
+        "PARTIAL": 0,
+        "NOT_IMPLEMENTED": 0,
+        "LOCALLY_BUILDABLE_REMAINING": 0,
+        "SIGNAL_ADMISSION_BYPASS_PATHS": 0,
+        "DECISION_CONTRACT_BYPASS_PATHS": 0,
+        "SAFETY_FLOOR_BYPASS_PATHS": 0,
+        "ABSTENTION_BYPASS_PATHS": 0,
+        "SILENT_FALLBACK_PATHS": 0,
+        "FAILURE_PROPAGATION_GAPS": 0,
+        "REGRESSION_FAILURES": 0
+      }
+    },
+    "P2": {
+      "script": "scripts/p2_economic_execution_truth_closure_verify.py",
+      "exit_code": 0,
+      "verdict": "ECONOMIC_EXECUTION_TRUTH_ENGINEERING_CLOSED_WITH_LIVE_VALIDATION_PENDING",
+      "evidence": "DECISION_TRUTH_P2_ECONOMIC_EXECUTION_CLOSURE_EVIDENCE.json",
+      "summary": {
+        "DTS_REQUIREMENTS_IN_SCOPE": 8,
+        "FULLY_IMPLEMENTED_VERIFIED_LOCAL": 8,
+        "PARTIAL_LOCAL": 0,
+        "NOT_IMPLEMENTED_LOCAL": 0,
+        "LOCALLY_BUILDABLE_REMAINING": 0,
+        "NET_EDGE_BYPASS_PATHS": 0,
+        "EXECUTION_FEASIBILITY_BYPASS_PATHS": 0,
+        "UNKNOWN_COST_TREATED_AS_ZERO_PATHS": 0,
+        "FABRICATED_CAPACITY_PATHS": 0,
+        "FABRICATED_HALF_LIFE_PATHS": 0,
+        "FALSE_PRECISION_DEFECTS": 0,
+        "LIVE_VALIDATION_PENDING": 1,
+        "REGRESSION_FAILURES": 0
+      }
+    },
+    "P3": {
+      "script": "scripts/p3_portfolio_preimpact_closure_verify.py",
+      "exit_code": 0,
+      "verdict": "PORTFOLIO_PREIMPACT_ENGINEERING_CLOSED_WITH_LIVE_VALIDATION_PENDING",
+      "evidence": "DECISION_TRUTH_P3_PORTFOLIO_PREIMPACT_CLOSURE_EVIDENCE.json",
+      "summary": {
+        "DTS_REQUIREMENTS_IN_SCOPE": 7,
+        "FULLY_IMPLEMENTED_VERIFIED_LOCAL": 7,
+        "PARTIAL_LOCAL": 0,
+        "NOT_IMPLEMENTED_LOCAL": 0,
+        "LOCALLY_BUILDABLE_REMAINING": 0,
+        "RISK_ENVELOPE_BYPASS_PATHS": 0,
+        "PRE_IMPACT_BYPASS_PATHS": 0,
+        "REVERSE_STRESS_BYPASS_PATHS": 0,
+        "VENUE_HEALTH_DECISION_GAPS": 0,
+        "DEPEG_DECISION_GAPS": 0,
+        "FALSE_PORTFOLIO_PERSONALIZATION_PATHS": 0,
+        "FABRICATED_RISK_VALUES": 0,
+        "LIVE_VALIDATION_PENDING": 2,
+        "REGRESSION_FAILURES": 0
+      }
+    },
+    "P4": {
+      "script": "scripts/p4_evidence_simulation_calibration_closure_verify.py",
+      "exit_code": 0,
+      "verdict": "EVIDENCE_SIMULATION_CALIBRATION_HISTORY_CLOSED_WITH_LIVE_VALIDATION_PENDING",
+      "evidence": "DECISION_TRUTH_P4_EVIDENCE_LIFECYCLE_CLOSURE_EVIDENCE.json",
+      "summary": {
+        "DTS_REQUIREMENTS_IN_SCOPE": 15,
+        "FULLY_IMPLEMENTED_VERIFIED_LOCAL": 15,
+        "PARTIAL_LOCAL": 0,
+        "NOT_IMPLEMENTED_LOCAL": 0,
+        "LOCALLY_BUILDABLE_REMAINING": 0,
+        "EVIDENCE_GRADE_BYPASS_PATHS": 0,
+        "OUTCOME_LEDGER_BYPASS_PATHS": 0,
+        "SIMULATION_LINKAGE_GAPS": 0,
+        "CALIBRATION_LINKAGE_GAPS": 0,
+        "PRE_REGISTRATION_BYPASS_PATHS": 0,
+        "DECISION_HISTORY_GAPS": 0,
+        "METHODOLOGY_VERSION_GAPS": 0,
+        "PROVENANCE_GAPS": 0,
+        "CHERRY_PICKING_EXPOSURE_PATHS": 0,
+        "EVIDENCE_CLASS_PROMOTION_GAPS": 0,
+        "FABRICATED_OR_DEFAULT_GRADES": 0,
+        "REGRESSION_FAILURES": 0
+      }
+    },
+    "P5": {
+      "script": "scripts/p5_decision_product_experience_closure_verify.py",
+      "exit_code": 0,
+      "verdict": "DECISION_PRODUCT_EXPERIENCE_CLOSED",
+      "evidence": "DECISION_TRUTH_P5_PRODUCT_EXPERIENCE_CLOSURE_EVIDENCE.json",
+      "summary": {
+        "DTS_REQUIREMENTS_IN_SCOPE": 15,
+        "FULLY_IMPLEMENTED_VERIFIED_LOCAL": 15,
+        "PARTIAL_LOCAL": 0,
+        "NOT_IMPLEMENTED_LOCAL": 0,
+        "LOCALLY_BUILDABLE_REMAINING": 0,
+        "REJECTION_ENGINE_PIPELINE_GAPS": 0,
+        "WHY_NOT_CONTEXT_GAPS": 0,
+        "HERO_DECISION_TRUTH_GAPS": 0,
+        "COMMAND_VIEW_PARALLEL_LOGIC_PATHS": 0,
+        "SMART_MONEY_CONTEXT_GAPS": 0,
+        "ATTRIBUTION_WITHOUT_CONFIDENCE_PATHS": 0,
+        "UNSUPPORTED_CAUSALITY_PATHS": 0,
+        "UNGROUNDED_DAILY_BRIEF_CLAIMS": 0,
+        "MATERIAL_CLAIMS_WITHOUT_EVIDENCE": 0,
+        "HARDCODED_GLOBAL_DELIVERY_TIME_PATHS": 0,
+        "FABRICATED_REJECTION_PROOF_PATHS": 0,
+        "NO_DECISION_HIDDEN_AS_ERROR_PATHS": 0,
+        "FULL_EVIDENCE_TRAIL_GAPS": 0,
+        "THIRTY_SECOND_TRUTH_GAPS": 0,
+        "REGRESSION_FAILURES": 0
+      }
+    },
+    "P6": {
+      "script": "scripts/p6_dts_cross_cutting_closure_verify.py",
+      "exit_code": 0,
+      "verdict": "DTS_CROSS_CUTTING_DELIVERY_CLOSED",
+      "evidence": "DECISION_TRUTH_P6_CROSS_CUTTING_CLOSURE_EVIDENCE.json",
+      "summary": {
+        "DTS_REQUIREMENTS_IN_SCOPE": 3,
+        "FULLY_IMPLEMENTED_VERIFIED_LOCAL": 3,
+        "PARTIAL_LOCAL": 0,
+        "NOT_IMPLEMENTED_LOCAL": 0,
+        "LOCALLY_BUILDABLE_REMAINING": 0,
+        "DTS_NAIVE_CANONICAL_DATETIME_PATHS": 0,
+        "DTS_USER_TIMEZONE_RENDERING_GAPS": 0,
+        "DTS_DUPLICATE_TIMEZONE_AUTHORITIES": 0,
+        "DTS_HARDCODED_USER_FACING_ENGLISH_PATHS": 0,
+        "DTS_I18N_COVERAGE_GAPS": 0,
+        "DTS_BROKEN_LOCALE_FALLBACK_PATHS": 0,
+        "DTS_COLOR_ONLY_MEANING_PATHS": 0,
+        "DTS_KEYBOARD_ACCESS_GAPS": 0,
+        "DTS_FOCUS_MANAGEMENT_GAPS": 0,
+        "DTS_SCREEN_READER_LABEL_GAPS": 0,
+        "DTS_ACCESSIBLE_STATUS_ANNOUNCEMENT_GAPS": 0,
+        "DTS_CHART_TEXT_ALTERNATIVE_GAPS": 0,
+        "DTS_CRITICAL_CONTENT_ACCESSIBILITY_GAPS": 0,
+        "EXTERNAL_ACCESSIBILITY_VALIDATION_PENDING": 0,
+        "REGRESSION_FAILURES": 0
+      }
+    }
+  },
+  "requirements": {
+    "DTS-001": {
+      "requirement_id": "DTS-001",
+      "canonical_owner": "decision_truth/economics.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/economics.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p1_anti_bypass.py"
+      ],
+      "phase": "P1",
+      "phase_verdict": "P1_DECISION_TRUTH_SPINE_CLOSED",
+      "live_external_gate_reason": null
+    },
+    "DTS-002": {
+      "requirement_id": "DTS-002",
+      "canonical_owner": "decision_truth/contract.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/contract.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p1_anti_bypass.py"
+      ],
+      "phase": "P1",
+      "phase_verdict": "P1_DECISION_TRUTH_SPINE_CLOSED",
+      "live_external_gate_reason": null
+    },
+    "DTS-003": {
+      "requirement_id": "DTS-003",
+      "canonical_owner": "decision_truth/admission.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/admission.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p1_anti_bypass.py"
+      ],
+      "phase": "P1",
+      "phase_verdict": "P1_DECISION_TRUTH_SPINE_CLOSED",
+      "live_external_gate_reason": null
+    },
+    "DTS-004": {
+      "requirement_id": "DTS-004",
+      "canonical_owner": "decision_truth/compliance.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/compliance.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p1_anti_bypass.py"
+      ],
+      "phase": "P1",
+      "phase_verdict": "P1_DECISION_TRUTH_SPINE_CLOSED",
+      "live_external_gate_reason": null
+    },
+    "DTS-005": {
+      "requirement_id": "DTS-005",
+      "canonical_owner": "decision_truth/contract.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/contract.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p1_anti_bypass.py"
+      ],
+      "phase": "P1",
+      "phase_verdict": "P1_DECISION_TRUTH_SPINE_CLOSED",
+      "live_external_gate_reason": null
+    },
+    "DTS-006": {
+      "requirement_id": "DTS-006",
+      "canonical_owner": "decision_truth/precision.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/precision.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p2_economic_execution.py"
+      ],
+      "phase": "P2",
+      "phase_verdict": "ECONOMIC_EXECUTION_TRUTH_ENGINEERING_CLOSED_WITH_LIVE_VALIDATION_PENDING",
+      "live_external_gate_reason": null
+    },
+    "DTS-007": {
+      "requirement_id": "DTS-007",
+      "canonical_owner": "decision_truth/product/calm_default.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/product/calm_default.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p5_product_experience.py"
+      ],
+      "phase": "P5",
+      "phase_verdict": "DECISION_PRODUCT_EXPERIENCE_CLOSED",
+      "live_external_gate_reason": null
+    },
+    "DTS-008": {
+      "requirement_id": "DTS-008",
+      "canonical_owner": "decision_truth/compliance.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/compliance.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p1_anti_bypass.py"
+      ],
+      "phase": "P1",
+      "phase_verdict": "P1_DECISION_TRUTH_SPINE_CLOSED",
+      "live_external_gate_reason": null
+    },
+    "DTS-009": {
+      "requirement_id": "DTS-009",
+      "canonical_owner": "decision_truth/net_edge.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/net_edge.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p2_economic_execution.py"
+      ],
+      "phase": "P2",
+      "phase_verdict": "ECONOMIC_EXECUTION_TRUTH_ENGINEERING_CLOSED_WITH_LIVE_VALIDATION_PENDING",
+      "live_external_gate_reason": null
+    },
+    "DTS-010": {
+      "requirement_id": "DTS-010",
+      "canonical_owner": "decision_truth/net_edge.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/net_edge.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p2_economic_execution.py"
+      ],
+      "phase": "P2",
+      "phase_verdict": "ECONOMIC_EXECUTION_TRUTH_ENGINEERING_CLOSED_WITH_LIVE_VALIDATION_PENDING",
+      "live_external_gate_reason": null
+    },
+    "DTS-011": {
+      "requirement_id": "DTS-011",
+      "canonical_owner": "decision_truth/net_edge.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/net_edge.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p2_economic_execution.py"
+      ],
+      "phase": "P2",
+      "phase_verdict": "ECONOMIC_EXECUTION_TRUTH_ENGINEERING_CLOSED_WITH_LIVE_VALIDATION_PENDING",
+      "live_external_gate_reason": null
+    },
+    "DTS-012": {
+      "requirement_id": "DTS-012",
+      "canonical_owner": "decision_truth/net_edge.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/net_edge.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p2_economic_execution.py"
+      ],
+      "phase": "P2",
+      "phase_verdict": "ECONOMIC_EXECUTION_TRUTH_ENGINEERING_CLOSED_WITH_LIVE_VALIDATION_PENDING",
+      "live_external_gate_reason": null
+    },
+    "DTS-013": {
+      "requirement_id": "DTS-013",
+      "canonical_owner": "decision_truth/execution_feasibility.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/execution_feasibility.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p2_economic_execution.py"
+      ],
+      "phase": "P2",
+      "phase_verdict": "ECONOMIC_EXECUTION_TRUTH_ENGINEERING_CLOSED_WITH_LIVE_VALIDATION_PENDING",
+      "live_external_gate_reason": null
+    },
+    "DTS-014": {
+      "requirement_id": "DTS-014",
+      "canonical_owner": "decision_truth/capacity.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/capacity.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p2_economic_execution.py"
+      ],
+      "phase": "P2",
+      "phase_verdict": "ECONOMIC_EXECUTION_TRUTH_ENGINEERING_CLOSED_WITH_LIVE_VALIDATION_PENDING",
+      "live_external_gate_reason": null
+    },
+    "DTS-015": {
+      "requirement_id": "DTS-015",
+      "canonical_owner": "decision_truth/half_life.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL_WITH_LIVE_EXTERNAL_PENDING",
+      "implementation_evidence": "decision_truth/half_life.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p2_economic_execution.py"
+      ],
+      "phase": "P2",
+      "phase_verdict": "ECONOMIC_EXECUTION_TRUTH_ENGINEERING_CLOSED_WITH_LIVE_VALIDATION_PENDING",
+      "live_external_gate_reason": "Requires live opportunity decay observations to validate half-life predictive accuracy against real market timing."
+    },
+    "DTS-016": {
+      "requirement_id": "DTS-016",
+      "canonical_owner": "decision_truth/reverse_stress.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/reverse_stress.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p3_portfolio_preimpact.py"
+      ],
+      "phase": "P3",
+      "phase_verdict": "PORTFOLIO_PREIMPACT_ENGINEERING_CLOSED_WITH_LIVE_VALIDATION_PENDING",
+      "live_external_gate_reason": null
+    },
+    "DTS-017": {
+      "requirement_id": "DTS-017",
+      "canonical_owner": "decision_truth/admission.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/admission.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p1_anti_bypass.py"
+      ],
+      "phase": "P1",
+      "phase_verdict": "P1_DECISION_TRUTH_SPINE_CLOSED",
+      "live_external_gate_reason": null
+    },
+    "DTS-018": {
+      "requirement_id": "DTS-018",
+      "canonical_owner": "decision_truth/contract.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/contract.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p1_anti_bypass.py"
+      ],
+      "phase": "P1",
+      "phase_verdict": "P1_DECISION_TRUTH_SPINE_CLOSED",
+      "live_external_gate_reason": null
+    },
+    "DTS-019": {
+      "requirement_id": "DTS-019",
+      "canonical_owner": "decision_truth/product/rejection_engine.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/product/rejection_engine.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p5_product_experience.py"
+      ],
+      "phase": "P5",
+      "phase_verdict": "DECISION_PRODUCT_EXPERIENCE_CLOSED",
+      "live_external_gate_reason": null
+    },
+    "DTS-020": {
+      "requirement_id": "DTS-020",
+      "canonical_owner": "decision_truth/product/why_not.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/product/why_not.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p5_product_experience.py"
+      ],
+      "phase": "P5",
+      "phase_verdict": "DECISION_PRODUCT_EXPERIENCE_CLOSED",
+      "live_external_gate_reason": null
+    },
+    "DTS-021": {
+      "requirement_id": "DTS-021",
+      "canonical_owner": "decision_truth/calibration.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL_WITH_LIVE_EXTERNAL_PENDING",
+      "implementation_evidence": "decision_truth/calibration.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p4_evidence_lifecycle.py"
+      ],
+      "phase": "P4",
+      "phase_verdict": "EVIDENCE_SIMULATION_CALIBRATION_HISTORY_CLOSED_WITH_LIVE_VALIDATION_PENDING",
+      "live_external_gate_reason": "Requires forward/live calibration effectiveness observations beyond local historical ledger replay."
+    },
+    "DTS-022": {
+      "requirement_id": "DTS-022",
+      "canonical_owner": "decision_truth/outcome_ledger.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/outcome_ledger.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p4_evidence_lifecycle.py"
+      ],
+      "phase": "P4",
+      "phase_verdict": "EVIDENCE_SIMULATION_CALIBRATION_HISTORY_CLOSED_WITH_LIVE_VALIDATION_PENDING",
+      "live_external_gate_reason": null
+    },
+    "DTS-023": {
+      "requirement_id": "DTS-023",
+      "canonical_owner": "decision_truth/change_detector.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/change_detector.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p4_evidence_lifecycle.py"
+      ],
+      "phase": "P4",
+      "phase_verdict": "EVIDENCE_SIMULATION_CALIBRATION_HISTORY_CLOSED_WITH_LIVE_VALIDATION_PENDING",
+      "live_external_gate_reason": null
+    },
+    "DTS-024": {
+      "requirement_id": "DTS-024",
+      "canonical_owner": "decision_truth/safety_floor.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/safety_floor.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p1_anti_bypass.py"
+      ],
+      "phase": "P1",
+      "phase_verdict": "P1_DECISION_TRUTH_SPINE_CLOSED",
+      "live_external_gate_reason": null
+    },
+    "DTS-025": {
+      "requirement_id": "DTS-025",
+      "canonical_owner": "decision_truth/product/six_heroes.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/product/six_heroes.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p5_product_experience.py"
+      ],
+      "phase": "P5",
+      "phase_verdict": "DECISION_PRODUCT_EXPERIENCE_CLOSED",
+      "live_external_gate_reason": null
+    },
+    "DTS-026": {
+      "requirement_id": "DTS-026",
+      "canonical_owner": "decision_truth/product/command_view.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/product/command_view.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p5_product_experience.py"
+      ],
+      "phase": "P5",
+      "phase_verdict": "DECISION_PRODUCT_EXPERIENCE_CLOSED",
+      "live_external_gate_reason": null
+    },
+    "DTS-027": {
+      "requirement_id": "DTS-027",
+      "canonical_owner": "decision_truth/risk_envelope.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/risk_envelope.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p3_portfolio_preimpact.py"
+      ],
+      "phase": "P3",
+      "phase_verdict": "PORTFOLIO_PREIMPACT_ENGINEERING_CLOSED_WITH_LIVE_VALIDATION_PENDING",
+      "live_external_gate_reason": null
+    },
+    "DTS-028": {
+      "requirement_id": "DTS-028",
+      "canonical_owner": "decision_truth/pre_impact.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/pre_impact.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p3_portfolio_preimpact.py"
+      ],
+      "phase": "P3",
+      "phase_verdict": "PORTFOLIO_PREIMPACT_ENGINEERING_CLOSED_WITH_LIVE_VALIDATION_PENDING",
+      "live_external_gate_reason": null
+    },
+    "DTS-029": {
+      "requirement_id": "DTS-029",
+      "canonical_owner": "decision_truth/venue_health.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL_WITH_LIVE_EXTERNAL_PENDING",
+      "implementation_evidence": "decision_truth/venue_health.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p3_portfolio_preimpact.py"
+      ],
+      "phase": "P3",
+      "phase_verdict": "PORTFOLIO_PREIMPACT_ENGINEERING_CLOSED_WITH_LIVE_VALIDATION_PENDING",
+      "live_external_gate_reason": "Requires live venue health degradation events and production exposure data to validate alert effectiveness."
+    },
+    "DTS-030": {
+      "requirement_id": "DTS-030",
+      "canonical_owner": "decision_truth/depeg.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL_WITH_LIVE_EXTERNAL_PENDING",
+      "implementation_evidence": "decision_truth/depeg.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p3_portfolio_preimpact.py"
+      ],
+      "phase": "P3",
+      "phase_verdict": "PORTFOLIO_PREIMPACT_ENGINEERING_CLOSED_WITH_LIVE_VALIDATION_PENDING",
+      "live_external_gate_reason": "Requires live stablecoin de-peg events across sources to validate threshold calibration in production."
+    },
+    "DTS-031": {
+      "requirement_id": "DTS-031",
+      "canonical_owner": "decision_truth/product/smart_money.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/product/smart_money.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p5_product_experience.py"
+      ],
+      "phase": "P5",
+      "phase_verdict": "DECISION_PRODUCT_EXPERIENCE_CLOSED",
+      "live_external_gate_reason": null
+    },
+    "DTS-032": {
+      "requirement_id": "DTS-032",
+      "canonical_owner": "decision_truth/product/smart_money.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/product/smart_money.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p5_product_experience.py"
+      ],
+      "phase": "P5",
+      "phase_verdict": "DECISION_PRODUCT_EXPERIENCE_CLOSED",
+      "live_external_gate_reason": null
+    },
+    "DTS-033": {
+      "requirement_id": "DTS-033",
+      "canonical_owner": "decision_truth/product/causality.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/product/causality.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p5_product_experience.py"
+      ],
+      "phase": "P5",
+      "phase_verdict": "DECISION_PRODUCT_EXPERIENCE_CLOSED",
+      "live_external_gate_reason": null
+    },
+    "DTS-034": {
+      "requirement_id": "DTS-034",
+      "canonical_owner": "decision_truth/product/daily_brief.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/product/daily_brief.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p5_product_experience.py"
+      ],
+      "phase": "P5",
+      "phase_verdict": "DECISION_PRODUCT_EXPERIENCE_CLOSED",
+      "live_external_gate_reason": null
+    },
+    "DTS-035": {
+      "requirement_id": "DTS-035",
+      "canonical_owner": "decision_truth/product/grounding.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/product/grounding.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p5_product_experience.py"
+      ],
+      "phase": "P5",
+      "phase_verdict": "DECISION_PRODUCT_EXPERIENCE_CLOSED",
+      "live_external_gate_reason": null
+    },
+    "DTS-036": {
+      "requirement_id": "DTS-036",
+      "canonical_owner": "decision_truth/product/delivery.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/product/delivery.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p5_product_experience.py"
+      ],
+      "phase": "P5",
+      "phase_verdict": "DECISION_PRODUCT_EXPERIENCE_CLOSED",
+      "live_external_gate_reason": null
+    },
+    "DTS-037": {
+      "requirement_id": "DTS-037",
+      "canonical_owner": "decision_truth/simulation.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/simulation.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p4_evidence_lifecycle.py"
+      ],
+      "phase": "P4",
+      "phase_verdict": "EVIDENCE_SIMULATION_CALIBRATION_HISTORY_CLOSED_WITH_LIVE_VALIDATION_PENDING",
+      "live_external_gate_reason": null
+    },
+    "DTS-038": {
+      "requirement_id": "DTS-038",
+      "canonical_owner": "decision_truth/simulation.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/simulation.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p4_evidence_lifecycle.py"
+      ],
+      "phase": "P4",
+      "phase_verdict": "EVIDENCE_SIMULATION_CALIBRATION_HISTORY_CLOSED_WITH_LIVE_VALIDATION_PENDING",
+      "live_external_gate_reason": null
+    },
+    "DTS-039": {
+      "requirement_id": "DTS-039",
+      "canonical_owner": "decision_truth/simulation.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/simulation.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p4_evidence_lifecycle.py"
+      ],
+      "phase": "P4",
+      "phase_verdict": "EVIDENCE_SIMULATION_CALIBRATION_HISTORY_CLOSED_WITH_LIVE_VALIDATION_PENDING",
+      "live_external_gate_reason": null
+    },
+    "DTS-040": {
+      "requirement_id": "DTS-040",
+      "canonical_owner": "decision_truth/simulation.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/simulation.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p4_evidence_lifecycle.py"
+      ],
+      "phase": "P4",
+      "phase_verdict": "EVIDENCE_SIMULATION_CALIBRATION_HISTORY_CLOSED_WITH_LIVE_VALIDATION_PENDING",
+      "live_external_gate_reason": null
+    },
+    "DTS-041": {
+      "requirement_id": "DTS-041",
+      "canonical_owner": "decision_truth/evidence_grade.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/evidence_grade.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p4_evidence_lifecycle.py"
+      ],
+      "phase": "P4",
+      "phase_verdict": "EVIDENCE_SIMULATION_CALIBRATION_HISTORY_CLOSED_WITH_LIVE_VALIDATION_PENDING",
+      "live_external_gate_reason": null
+    },
+    "DTS-042": {
+      "requirement_id": "DTS-042",
+      "canonical_owner": "decision_truth/evidence_grade.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/evidence_grade.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p4_evidence_lifecycle.py"
+      ],
+      "phase": "P4",
+      "phase_verdict": "EVIDENCE_SIMULATION_CALIBRATION_HISTORY_CLOSED_WITH_LIVE_VALIDATION_PENDING",
+      "live_external_gate_reason": null
+    },
+    "DTS-043": {
+      "requirement_id": "DTS-043",
+      "canonical_owner": "cap646/evidence_class.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "cap646/evidence_class.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p4_evidence_lifecycle.py"
+      ],
+      "phase": "P4",
+      "phase_verdict": "EVIDENCE_SIMULATION_CALIBRATION_HISTORY_CLOSED_WITH_LIVE_VALIDATION_PENDING",
+      "live_external_gate_reason": null
+    },
+    "DTS-044": {
+      "requirement_id": "DTS-044",
+      "canonical_owner": "decision_truth/product/reject_proof.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/product/reject_proof.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p5_product_experience.py"
+      ],
+      "phase": "P5",
+      "phase_verdict": "DECISION_PRODUCT_EXPERIENCE_CLOSED",
+      "live_external_gate_reason": null
+    },
+    "DTS-045": {
+      "requirement_id": "DTS-045",
+      "canonical_owner": "decision_truth/pre_impact.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/pre_impact.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p3_portfolio_preimpact.py"
+      ],
+      "phase": "P3",
+      "phase_verdict": "PORTFOLIO_PREIMPACT_ENGINEERING_CLOSED_WITH_LIVE_VALIDATION_PENDING",
+      "live_external_gate_reason": null
+    },
+    "DTS-046": {
+      "requirement_id": "DTS-046",
+      "canonical_owner": "decision_truth/product/no_decision.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/product/no_decision.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p5_product_experience.py"
+      ],
+      "phase": "P5",
+      "phase_verdict": "DECISION_PRODUCT_EXPERIENCE_CLOSED",
+      "live_external_gate_reason": null
+    },
+    "DTS-047": {
+      "requirement_id": "DTS-047",
+      "canonical_owner": "decision_truth/product/evidence_trail.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/product/evidence_trail.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p5_product_experience.py"
+      ],
+      "phase": "P5",
+      "phase_verdict": "DECISION_PRODUCT_EXPERIENCE_CLOSED",
+      "live_external_gate_reason": null
+    },
+    "DTS-048": {
+      "requirement_id": "DTS-048",
+      "canonical_owner": "decision_truth/product/thirty_second.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/product/thirty_second.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p5_product_experience.py"
+      ],
+      "phase": "P5",
+      "phase_verdict": "DECISION_PRODUCT_EXPERIENCE_CLOSED",
+      "live_external_gate_reason": null
+    },
+    "DTS-049": {
+      "requirement_id": "DTS-049",
+      "canonical_owner": "decision_truth/compliance.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/compliance.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p1_anti_bypass.py"
+      ],
+      "phase": "P1",
+      "phase_verdict": "P1_DECISION_TRUTH_SPINE_CLOSED",
+      "live_external_gate_reason": null
+    },
+    "DTS-050": {
+      "requirement_id": "DTS-050",
+      "canonical_owner": "decision_truth/methodology_versions.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/methodology_versions.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p4_evidence_lifecycle.py"
+      ],
+      "phase": "P4",
+      "phase_verdict": "EVIDENCE_SIMULATION_CALIBRATION_HISTORY_CLOSED_WITH_LIVE_VALIDATION_PENDING",
+      "live_external_gate_reason": null
+    },
+    "DTS-051": {
+      "requirement_id": "DTS-051",
+      "canonical_owner": "decision_truth/provenance.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/provenance.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p4_evidence_lifecycle.py"
+      ],
+      "phase": "P4",
+      "phase_verdict": "EVIDENCE_SIMULATION_CALIBRATION_HISTORY_CLOSED_WITH_LIVE_VALIDATION_PENDING",
+      "live_external_gate_reason": null
+    },
+    "DTS-052": {
+      "requirement_id": "DTS-052",
+      "canonical_owner": "decision_truth/govern.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/govern.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p1_anti_bypass.py"
+      ],
+      "phase": "P1",
+      "phase_verdict": "P1_DECISION_TRUTH_SPINE_CLOSED",
+      "live_external_gate_reason": null
+    },
+    "DTS-053": {
+      "requirement_id": "DTS-053",
+      "canonical_owner": "decision_truth/govern.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/govern.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p1_anti_bypass.py"
+      ],
+      "phase": "P1",
+      "phase_verdict": "P1_DECISION_TRUTH_SPINE_CLOSED",
+      "live_external_gate_reason": null
+    },
+    "DTS-054": {
+      "requirement_id": "DTS-054",
+      "canonical_owner": "governance/timezone_governance.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "governance/timezone_governance.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p6_cross_cutting.py"
+      ],
+      "phase": "P6",
+      "phase_verdict": "DTS_CROSS_CUTTING_DELIVERY_CLOSED",
+      "live_external_gate_reason": null
+    },
+    "DTS-055": {
+      "requirement_id": "DTS-055",
+      "canonical_owner": "decision_truth/cross_cutting/i18n.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/cross_cutting/i18n.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p6_cross_cutting.py"
+      ],
+      "phase": "P6",
+      "phase_verdict": "DTS_CROSS_CUTTING_DELIVERY_CLOSED",
+      "live_external_gate_reason": null
+    },
+    "DTS-056": {
+      "requirement_id": "DTS-056",
+      "canonical_owner": "decision_truth/cross_cutting/accessibility.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/cross_cutting/accessibility.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p6_cross_cutting.py"
+      ],
+      "phase": "P6",
+      "phase_verdict": "DTS_CROSS_CUTTING_DELIVERY_CLOSED",
+      "live_external_gate_reason": null
+    },
+    "DTS-057": {
+      "requirement_id": "DTS-057",
+      "canonical_owner": "decision_truth/portfolio_context.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/portfolio_context.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p3_portfolio_preimpact.py"
+      ],
+      "phase": "P3",
+      "phase_verdict": "PORTFOLIO_PREIMPACT_ENGINEERING_CLOSED_WITH_LIVE_VALIDATION_PENDING",
+      "live_external_gate_reason": null
+    },
+    "DTS-058": {
+      "requirement_id": "DTS-058",
+      "canonical_owner": "decision_truth/anti_cherry_picking.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/anti_cherry_picking.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p4_evidence_lifecycle.py"
+      ],
+      "phase": "P4",
+      "phase_verdict": "EVIDENCE_SIMULATION_CALIBRATION_HISTORY_CLOSED_WITH_LIVE_VALIDATION_PENDING",
+      "live_external_gate_reason": null
+    },
+    "DTS-059": {
+      "requirement_id": "DTS-059",
+      "canonical_owner": "decision_truth/calibration.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL_WITH_LIVE_EXTERNAL_PENDING",
+      "implementation_evidence": "decision_truth/calibration.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p4_evidence_lifecycle.py"
+      ],
+      "phase": "P4",
+      "phase_verdict": "EVIDENCE_SIMULATION_CALIBRATION_HISTORY_CLOSED_WITH_LIVE_VALIDATION_PENDING",
+      "live_external_gate_reason": "Requires forward/live calibration effectiveness observations beyond local historical ledger replay."
+    },
+    "DTS-060": {
+      "requirement_id": "DTS-060",
+      "canonical_owner": "decision_truth/history_integrity.py",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "implementation_evidence": "decision_truth/history_integrity.py",
+      "runtime_evidence": "decision_truth/govern.py::govern_decision_payload",
+      "verification_evidence": [
+        "tests/test_decision_truth_p4_evidence_lifecycle.py"
+      ],
+      "phase": "P4",
+      "phase_verdict": "EVIDENCE_SIMULATION_CALIBRATION_HISTORY_CLOSED_WITH_LIVE_VALIDATION_PENDING",
+      "live_external_gate_reason": null
+    }
+  },
+  "summary": {
+    "TOTAL_DTS_REQUIREMENTS": 60,
+    "ACCOUNTED_FOR": 60,
+    "FULLY_IMPLEMENTED_VERIFIED_LOCAL": 60,
+    "PARTIALLY_IMPLEMENTED_LOCAL": 0,
+    "UNIMPLEMENTED_LOCAL": 0,
+    "UNVERIFIED_LOCAL": 0,
+    "LIVE_OR_EXTERNAL_VALIDATION_PENDING": 5,
+    "DUPLICATES": 0,
+    "ORPHANS": 0,
+    "CANONICAL_OWNERSHIP_CONFLICTS": 0,
+    "ANTI_BYPASS_GAPS": 0,
+    "LOCAL_INTEGRATION_GAPS": 0,
+    "LOCAL_TEST_GAPS": 0,
+    "EVIDENCE_CONTRADICTIONS": 0,
+    "STALE_EVIDENCE": 0,
+    "MISSING_IMPLEMENTATION_FROM_CURRENT_HEAD": 0,
+    "REGRESSION_FAILURES": 0,
+    "SOURCE_REQUIREMENTS_ACCOUNTED_FOR": "100%",
+    "PASS_ENGINEERING_DECISION_TRUTH_SYSTEM": true,
+    "READY_FOR_INTENDED_LOCAL_USE": true,
+    "PASS_LIVE_NOT_CLAIMED": true,
+    "KNOWN_LOCAL_DTS_GAPS": [],
+    "KNOWN_LOCAL_DTS_DEFECTS": [],
+    "KNOWN_LOCAL_DTS_INTEGRATION_GAPS": [],
+    "KNOWN_LOCAL_DTS_TEST_GAPS": [],
+    "LOCAL_BUILDABLE_DTS_REQUIREMENTS_REMAINING": 0,
+    "PARTIALLY_IMPLEMENTED_LOCAL_DTS_REQUIREMENTS": 0,
+    "UNIMPLEMENTED_LOCAL_DTS_REQUIREMENTS": 0,
+    "UNVERIFIED_LOCAL_DTS_REQUIREMENTS": 0,
+    "acceptance_flags": {
+      "NET_EDGE_FORMAL_SPEC_PASS": true,
+      "COST_AUTOPSY_PASS": true,
+      "NET_EDGE_UNCERTAINTY_PASS": true,
+      "REALIZABLE_EDGE_PASS": true,
+      "EXECUTION_FEASIBILITY_PASS": true,
+      "OPPORTUNITY_CAPACITY_PASS": true,
+      "OPPORTUNITY_HALF_LIFE_PASS": true,
+      "RISK_BUDGET_PASS": true,
+      "PRE_IMPACT_PROTECTION_PASS": true,
+      "REVERSE_STRESS_PASS": true,
+      "SMART_MONEY_CONTEXT_PASS": true,
+      "NO_UNSUPPORTED_CAUSALITY_PASS": true,
+      "DAILY_EVIDENCE_AUTOPSY_PASS": true,
+      "SIMULATION_INSTITUTIONAL_METHODOLOGY_PASS": true,
+      "EVIDENCE_GRADE_PASS": true,
+      "EVIDENCE_CLASS_PASS": true,
+      "SIGNAL_ADMISSION_GATE_PASS": true,
+      "DECISION_CONTRACT_PASS": true,
+      "SAFETY_FLOOR_PASS": true,
+      "OPPORTUNITY_REJECTION_ENGINE_PASS": true,
+      "WHY_NOT_ENGINE_PASS": true,
+      "DECISION_CALIBRATION_LEDGER_PASS": true,
+      "PRE_REGISTERED_OUTCOME_LEDGER_PASS": true,
+      "DECISION_CHANGE_DETECTOR_PASS": true,
+      "FULL_EVIDENCE_TRAIL_PASS": true,
+      "THIRTY_SECOND_TRUTH_SURFACE_PASS": true,
+      "FAILURE_DEGRADED_INTEGRATION_PASS": true,
+      "TIMEZONE_INTEGRATION_PASS": true,
+      "I18N_38_LOCALES_INTEGRATION_PASS": true,
+      "ACCESSIBILITY_WCAG_2_2_AA_PASS": true,
+      "ANTI_CHERRY_PICKING_PASS": true,
+      "METHODOLOGY_VERSIONING_PASS": true,
+      "PROVENANCE_PASS": true,
+      "NO_SILENT_FALLBACK_PASS": true
+    },
+    "anti_bypass_arrays": {
+      "SIGNAL_ADMISSION_BYPASS_PATHS": [],
+      "DECISION_CONTRACT_BYPASS_PATHS": [],
+      "NET_EDGE_BYPASS_PATHS": [],
+      "EXECUTION_FEASIBILITY_BYPASS_PATHS": [],
+      "SAFETY_FLOOR_BYPASS_PATHS": [],
+      "ABSTENTION_BYPASS_PATHS": [],
+      "EVIDENCE_GRADE_BYPASS_PATHS": [],
+      "OUTCOME_LEDGER_BYPASS_PATHS": [],
+      "RISK_ENVELOPE_BYPASS_PATHS": [],
+      "PRE_IMPACT_BYPASS_PATHS": [],
+      "REVERSE_STRESS_BYPASS_PATHS": [],
+      "PRE_REGISTRATION_BYPASS_PATHS": []
+    },
+    "pipeline_runtime_check": {
+      "govern_ran": true,
+      "contract_present": true,
+      "admission_present": true,
+      "product_experience": true,
+      "cross_cutting": true,
+      "timezone": true,
+      "i18n": true,
+      "accessibility": true,
+      "no_silent_fallback": true
+    },
+    "live_external_pending_requirements": [
+      {
+        "dts_id": "DTS-015",
+        "local_engineering_status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL_WITH_LIVE_EXTERNAL_PENDING",
+        "exact_missing_live_evidence": "Requires live opportunity decay observations to validate half-life predictive accuracy against real market timing.",
+        "why_not_provable_locally": "Requires live opportunity decay observations to validate half-life predictive accuracy against real market timing."
+      },
+      {
+        "dts_id": "DTS-021",
+        "local_engineering_status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL_WITH_LIVE_EXTERNAL_PENDING",
+        "exact_missing_live_evidence": "Requires forward/live calibration effectiveness observations beyond local historical ledger replay.",
+        "why_not_provable_locally": "Requires forward/live calibration effectiveness observations beyond local historical ledger replay."
+      },
+      {
+        "dts_id": "DTS-029",
+        "local_engineering_status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL_WITH_LIVE_EXTERNAL_PENDING",
+        "exact_missing_live_evidence": "Requires live venue health degradation events and production exposure data to validate alert effectiveness.",
+        "why_not_provable_locally": "Requires live venue health degradation events and production exposure data to validate alert effectiveness."
+      },
+      {
+        "dts_id": "DTS-030",
+        "local_engineering_status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL_WITH_LIVE_EXTERNAL_PENDING",
+        "exact_missing_live_evidence": "Requires live stablecoin de-peg events across sources to validate threshold calibration in production.",
+        "why_not_provable_locally": "Requires live stablecoin de-peg events across sources to validate threshold calibration in production."
+      },
+      {
+        "dts_id": "DTS-059",
+        "local_engineering_status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL_WITH_LIVE_EXTERNAL_PENDING",
+        "exact_missing_live_evidence": "Requires forward/live calibration effectiveness observations beyond local historical ledger replay.",
+        "why_not_provable_locally": "Requires forward/live calibration effectiveness observations beyond local historical ledger replay."
+      }
+    ]
+  },
+  "verdict": "DTS_FULL_SPEC_ENGINEERING_CLOSED_WITH_LIVE_EXTERNAL_VALIDATION_PENDING",
+  "verification_command": "python3 scripts/dts_full_spec_final_reconciliation.py",
+  "test_output_tail": "........................................................................ [ 45%]\n........................................................................ [ 91%]\n..............                                                           [100%]\n"
+}
