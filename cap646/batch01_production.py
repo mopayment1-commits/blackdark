@@ -27,7 +27,6 @@ LEGACY_BATCH01_EXTENSION_IDS: frozenset[int] = frozenset(
         630,
         631,
         642,
-        644,
         646,
     }
 )
@@ -41,7 +40,7 @@ _BATCH01_DERIVATIVES = frozenset({48, 49})
 _BATCH01_DATA = frozenset({630, 631})
 _BATCH01_AI = frozenset({175, 34, 59, 642})
 _BATCH01_ONCHAIN = frozenset({5})
-_BATCH01_INSTITUTIONAL = frozenset({103, 644, 646})
+_BATCH01_INSTITUTIONAL = frozenset({103, 646})
 _BATCH01_VERIFIED = frozenset({49})
 
 
