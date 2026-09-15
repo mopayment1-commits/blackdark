@@ -540,7 +540,8 @@ def h_sbom_gate(ctx, req):
 
 
 def h_observability(ctx, req):
-    t = run_pytest(["tests/test_monitoring_alerting.py"])
+    # Exclude tests that rewrite FREE_API_RATE_LIMIT_AUDIT.json / MONITORING_SETUP_REPORT.json
+    t = run_pytest(["tests/test_monitoring_alerting.py::test_vendor_rate_limit_watchdog_status"])
     ok = path_exists("ops/monitoring_alerting.py") and t["passed"]
     return _local(["observability"]) if ok else _gap(["observability incomplete"])
 
