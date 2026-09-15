@@ -1,0 +1,2 @@
+# SDG-12 synthetic fixture — Stripe documentation test PAN only
+4242424242424242

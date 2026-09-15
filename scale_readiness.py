@@ -24,12 +24,15 @@ def signed_load_evidence_from_capability_result(result: dict[str, Any]) -> bool:
         block = result.get(key)
         if not isinstance(block, dict):
             continue
+        sle = block.get("signed_load_evidence") or {}
+        if sle.get("present"):
+            return True
         domain = block.get("domain_result")
         if isinstance(domain, dict):
             nested = domain.get("report")
             if isinstance(nested, dict) and (nested.get("signed_load_evidence") or {}).get("present"):
                 return True
-    return _signed_load_evidence_present()
+    return False
 
 
 def _signed_load_evidence_present() -> bool:

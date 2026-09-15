@@ -120,7 +120,7 @@ def _stamp(result: dict[str, Any], capability_id: int, *, handler_module: str) -
     result.setdefault("track", row.get("track"))
     result["surface"] = surface
     _ensure_surface_domain_payload(result, surface)
-    result["backend_module"] = handler_module
+    result["backend_module"] = PRODUCTION_MODULE
     result["backend_entrypoint"] = institutional_entrypoint(capability_id)
     result["binding_source"] = "explicit_option_a"
     result["production_spine"] = batch
