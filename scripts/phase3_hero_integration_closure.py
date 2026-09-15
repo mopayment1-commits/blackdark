@@ -44,17 +44,47 @@ def _build_graph_edges(
     runtime = cap.get("runtime_entry") or "cap646/runtime.py"
     if owner:
         edges.append({"from": cid, "to": owner, "type": "RUNTIME_ENTRY", "evidence": runtime})
+    fed_heroes: set[tuple[str, str]] = set()
+    for hero, role in matrix.items():
+        if role in {"PRIMARY_FEED", "SECONDARY_FEED"}:
+            fed_heroes.add((hero, role))
     for rec in records:
         hero = rec.get("hero")
         role = rec.get("role")
         if hero and hero != "ALL" and role not in {"NOT_APPLICABLE", None}:
+            if role in {"PRIMARY_FEED", "SECONDARY_FEED"}:
+                fed_heroes.add((hero, role))
+            else:
+                edges.append(
+                    {
+                        "from": cid,
+                        "to": hero,
+                        "type": role,
+                        "role": role,
+                        "evidence": hero_runtime_evidence(hero),
+                    }
+                )
+    for hero, role in fed_heroes:
+        edges.append(
+            {
+                "from": cid,
+                "to": hero,
+                "type": "FEEDS_HERO",
+                "role": role,
+                "evidence": hero_runtime_evidence(hero),
+            }
+        )
+    primary = cap.get("primary_hero_or_system_role")
+    if primary in CANONICAL_HEROES and not any(h == primary for h, _ in fed_heroes):
+        matrix_role = matrix.get(primary)
+        if matrix_role in {"PRIMARY_FEED", "SECONDARY_FEED", "CONTEXT", "DATA_QUALITY_GATE", "GATE"}:
             edges.append(
                 {
                     "from": cid,
-                    "to": hero,
-                    "type": "FEEDS_HERO" if role in {"PRIMARY_FEED", "SECONDARY_FEED"} else role,
-                    "role": role,
-                    "evidence": hero_runtime_evidence(hero),
+                    "to": primary,
+                    "type": "FEEDS_HERO",
+                    "role": matrix_role if matrix_role in {"PRIMARY_FEED", "SECONDARY_FEED"} else "PRIMARY_FEED",
+                    "evidence": hero_runtime_evidence(primary),
                 }
             )
     if cap.get("security_applicability"):
@@ -157,6 +187,7 @@ def run(dry_run: bool = False) -> dict[str, Any]:
         if unresolved_after == 0 and gap_cells_after == 0
         else "CAPABILITY_HERO_PROJECT_INTEGRATION_NOT_CLOSED"
     )
+    ssot["phase3_independent_verdict"] = "PENDING_INDEPENDENT_VERIFICATION"
 
     hero_doc = {
         "artifact": "BLACKDARK_CAPABILITY_SIX_HERO_MATRIX",
@@ -199,6 +230,22 @@ def run(dry_run: bool = False) -> dict[str, Any]:
         HERO_MATRIX_PATH.write_text(json.dumps(hero_doc, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
         INTEGRATION_MATRIX_PATH.write_text(json.dumps(integration_doc, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
         SYSTEM_GRAPH_PATH.write_text(json.dumps(graph_doc, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+        gap_proc = subprocess.run(
+            [sys.executable, str(ROOT / "scripts" / "phase3_gap_disposition.py")],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+        )
+        verify_proc = subprocess.run(
+            [sys.executable, str(ROOT / "scripts" / "phase3_genuinely_independent_verifier.py")],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+        )
+        if verify_proc.returncode == 0:
+            verify_result = json.loads(verify_proc.stdout)
+            ssot["phase3_independent_verdict"] = verify_result.get("VERDICT", "PHASE3_HERO_PROJECT_INTEGRATION_NOT_VERIFIED")
+            SSOT_PATH.write_text(json.dumps(ssot, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
     return {
         "verdict": ssot["phase3_verdict"],
