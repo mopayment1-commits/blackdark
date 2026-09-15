@@ -7904,5 +7904,9 @@
       "new_status": "APPLICABLE_LINKED",
       "disposition": "MAPPING_ONLY_CORRECTION"
     }
-  ]
+  ],
+  "git": {
+    "current_head_sha": "51efcbbda23c42e8d140562f7ee9c04da21a89f6",
+    "phase3_verified_tested_sha": "51efcbbda23c42e8d140562f7ee9c04da21a89f6"
+  }
 }

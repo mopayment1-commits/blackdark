@@ -2,8 +2,9 @@
   "artifact": "BLACKDARK_CAPABILITY_SIX_HERO_MATRIX",
   "generated_at": "2026-09-15T12:01:13.356260+00:00",
   "git": {
-    "current_head_sha": "d3441054a3a60d986ce61079bcc860db371e58fe",
-    "tested_sha": "d3441054a3a60d986ce61079bcc860db371e58fe"
+    "current_head_sha": "51efcbbda23c42e8d140562f7ee9c04da21a89f6",
+    "tested_sha": "51efcbbda23c42e8d140562f7ee9c04da21a89f6",
+    "phase3_verified_tested_sha": "51efcbbda23c42e8d140562f7ee9c04da21a89f6"
   },
   "canonical_product_heroes": [
     "Single-Sentence Oracle",
