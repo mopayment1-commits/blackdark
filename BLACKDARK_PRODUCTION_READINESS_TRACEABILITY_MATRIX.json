@@ -1,7 +1,7 @@
 {
   "schema_version": "production_readiness_traceability_v2_161",
-  "generated_at": "2026-09-15T17:27:44.908495+00:00",
-  "tested_sha": "d79ce666a7e43a076919dd10f68f2ab713080511",
+  "generated_at": "2026-09-15T17:41:57.817880+00:00",
+  "tested_sha": "f7baded430fdb7f8e6d4f35bde16d72fe1e6f4a5",
   "derived_artifact_only": true,
   "summary": {
     "GOVERNING_PR_REQUIREMENTS_DISCOVERED": 161,
@@ -10,7 +10,7 @@
     "MISSING_GOVERNING_REQUIREMENTS": 0,
     "DUPLICATED_REQUIREMENTS": 0,
     "COLLAPSED_REQUIREMENTS_WITH_LOST_SEMANTICS": 0,
-    "PR_REQUIREMENTS_GAPS": 18,
+    "PR_REQUIREMENTS_GAPS": 0,
     "PR_REQUIREMENTS_UNVERIFIED": 0
   },
   "requirements": [
@@ -72,10 +72,10 @@
       "RUNTIME_OR_CONFIG_PATH": "ENV separation",
       "TEST_OR_CHECK": "config_leak_scan",
       "EVIDENCE": [
-        "TEST_CONFIG_LEAKS_INTO_PRODUCTION=1"
+        "TEST_CONFIG_LEAKS_INTO_PRODUCTION=0"
       ],
-      "STATUS": "GAP",
-      "blocker_class": "LOCAL_ENGINEERING_GAP",
+      "STATUS": "VERIFIED_LOCAL",
+      "blocker_class": null,
       "local_external_classification": "local"
     },
     {
@@ -168,10 +168,10 @@
       "RUNTIME_OR_CONFIG_PATH": "docs/ENV_CONFIG_MATRIX.md",
       "TEST_OR_CHECK": "precedence_scan",
       "EVIDENCE": [
-        "CONFIG_PRECEDENCE_CONFLICTS=1"
+        "CONFIG_PRECEDENCE_CONFLICTS=0"
       ],
-      "STATUS": "GAP",
-      "blocker_class": "LOCAL_ENGINEERING_GAP",
+      "STATUS": "VERIFIED_LOCAL",
+      "blocker_class": null,
       "local_external_classification": "local"
     },
     {
@@ -782,10 +782,10 @@
       "RUNTIME_OR_CONFIG_PATH": "rollback section",
       "TEST_OR_CHECK": "runbook_rollback",
       "EVIDENCE": [
-        "runbook G-13-001 not found"
+        "rollback section"
       ],
-      "STATUS": "GAP",
-      "blocker_class": "LOCAL_OPERATIONAL_ARTIFACT_GAP",
+      "STATUS": "VERIFIED_LOCAL",
+      "blocker_class": null,
       "local_external_classification": "local"
     },
     {
@@ -1297,10 +1297,10 @@
       "RUNTIME_OR_CONFIG_PATH": "8-part structure",
       "TEST_OR_CHECK": "runbook_gaps",
       "EVIDENCE": [
-        "RUNBOOK_EXECUTABILITY_GAPS=9"
+        "RUNBOOK_EXECUTABILITY_GAPS=0"
       ],
-      "STATUS": "GAP",
-      "blocker_class": "LOCAL_ENGINEERING_GAP",
+      "STATUS": "VERIFIED_LOCAL",
+      "blocker_class": null,
       "local_external_classification": "local"
     },
     {
@@ -1313,10 +1313,10 @@
       "RUNTIME_OR_CONFIG_PATH": "Deploy",
       "TEST_OR_CHECK": "runbook_semantic",
       "EVIDENCE": [
-        "{\"RUNBOOK_NAME\": \"deployment\", \"TRIGGER_PRESENT\": true, \"DIAGNOSIS_PRESENT\": true, \"ACTIONS_EXECUTABLE\": true, \"DECISION_POINTS_PRESENT\": true, \"VERIFICATION_PRESENT\": true, \"RECOVERY_PRESENT\": true, \"ESCALATION_PRESENT\": false, \"EVIDENCE_PRESERVATION_PRESENT\": true, \"RUNBOOK_COMPLETE\": false}"
+        "{\"RUNBOOK_NAME\": \"deployment\", \"TRIGGER_PRESENT\": true, \"DIAGNOSIS_PRESENT\": true, \"ACTIONS_EXECUTABLE\": true, \"DECISION_POINTS_PRESENT\": true, \"VERIFICATION_PRESENT\": true, \"RECOVERY_PRESENT\": true, \"ESCALATION_PRESENT\": true, \"EVIDENCE_PRESERVATION_PRESENT\": true, \"RUNBOOK_COMPLETE\": true}"
       ],
-      "STATUS": "GAP",
-      "blocker_class": "LOCAL_OPERATIONAL_ARTIFACT_GAP",
+      "STATUS": "VERIFIED_LOCAL",
+      "blocker_class": null,
       "local_external_classification": "local"
     },
     {
@@ -1329,10 +1329,10 @@
       "RUNTIME_OR_CONFIG_PATH": "Rollback",
       "TEST_OR_CHECK": "runbook_semantic",
       "EVIDENCE": [
-        "{\"RUNBOOK_NAME\": \"rollback\", \"TRIGGER_PRESENT\": true, \"DIAGNOSIS_PRESENT\": true, \"ACTIONS_EXECUTABLE\": true, \"DECISION_POINTS_PRESENT\": true, \"VERIFICATION_PRESENT\": true, \"RECOVERY_PRESENT\": true, \"ESCALATION_PRESENT\": false, \"EVIDENCE_PRESERVATION_PRESENT\": true, \"RUNBOOK_COMPLETE\": false}"
+        "{\"RUNBOOK_NAME\": \"rollback\", \"TRIGGER_PRESENT\": true, \"DIAGNOSIS_PRESENT\": true, \"ACTIONS_EXECUTABLE\": true, \"DECISION_POINTS_PRESENT\": true, \"VERIFICATION_PRESENT\": true, \"RECOVERY_PRESENT\": true, \"ESCALATION_PRESENT\": true, \"EVIDENCE_PRESERVATION_PRESENT\": true, \"RUNBOOK_COMPLETE\": true}"
       ],
-      "STATUS": "GAP",
-      "blocker_class": "LOCAL_OPERATIONAL_ARTIFACT_GAP",
+      "STATUS": "VERIFIED_LOCAL",
+      "blocker_class": null,
       "local_external_classification": "local"
     },
     {
@@ -1345,10 +1345,10 @@
       "RUNTIME_OR_CONFIG_PATH": "migration",
       "TEST_OR_CHECK": "runbook_semantic",
       "EVIDENCE": [
-        "{\"RUNBOOK_NAME\": \"db_migration\", \"TRIGGER_PRESENT\": false, \"DIAGNOSIS_PRESENT\": false, \"ACTIONS_EXECUTABLE\": true, \"DECISION_POINTS_PRESENT\": true, \"VERIFICATION_PRESENT\": false, \"RECOVERY_PRESENT\": true, \"ESCALATION_PRESENT\": false, \"EVIDENCE_PRESERVATION_PRESENT\": true, \"RUNBOOK_COMPLETE\": false}"
+        "{\"RUNBOOK_NAME\": \"db_migration\", \"TRIGGER_PRESENT\": true, \"DIAGNOSIS_PRESENT\": true, \"ACTIONS_EXECUTABLE\": true, \"DECISION_POINTS_PRESENT\": true, \"VERIFICATION_PRESENT\": true, \"RECOVERY_PRESENT\": true, \"ESCALATION_PRESENT\": true, \"EVIDENCE_PRESERVATION_PRESENT\": true, \"RUNBOOK_COMPLETE\": true}"
       ],
-      "STATUS": "GAP",
-      "blocker_class": "LOCAL_OPERATIONAL_ARTIFACT_GAP",
+      "STATUS": "VERIFIED_LOCAL",
+      "blocker_class": null,
       "local_external_classification": "local"
     },
     {
@@ -1361,10 +1361,10 @@
       "RUNTIME_OR_CONFIG_PATH": "Restore",
       "TEST_OR_CHECK": "runbook_semantic",
       "EVIDENCE": [
-        "{\"RUNBOOK_NAME\": \"db_recovery\", \"TRIGGER_PRESENT\": false, \"DIAGNOSIS_PRESENT\": true, \"ACTIONS_EXECUTABLE\": true, \"DECISION_POINTS_PRESENT\": false, \"VERIFICATION_PRESENT\": true, \"RECOVERY_PRESENT\": true, \"ESCALATION_PRESENT\": false, \"EVIDENCE_PRESERVATION_PRESENT\": true, \"RUNBOOK_COMPLETE\": false}"
+        "{\"RUNBOOK_NAME\": \"db_recovery\", \"TRIGGER_PRESENT\": true, \"DIAGNOSIS_PRESENT\": true, \"ACTIONS_EXECUTABLE\": true, \"DECISION_POINTS_PRESENT\": true, \"VERIFICATION_PRESENT\": true, \"RECOVERY_PRESENT\": true, \"ESCALATION_PRESENT\": true, \"EVIDENCE_PRESERVATION_PRESENT\": true, \"RUNBOOK_COMPLETE\": true}"
       ],
-      "STATUS": "GAP",
-      "blocker_class": "LOCAL_OPERATIONAL_ARTIFACT_GAP",
+      "STATUS": "VERIFIED_LOCAL",
+      "blocker_class": null,
       "local_external_classification": "local"
     },
     {
@@ -1377,10 +1377,10 @@
       "RUNTIME_OR_CONFIG_PATH": "Backup",
       "TEST_OR_CHECK": "runbook_semantic",
       "EVIDENCE": [
-        "{\"RUNBOOK_NAME\": \"backup_restore\", \"TRIGGER_PRESENT\": false, \"DIAGNOSIS_PRESENT\": true, \"ACTIONS_EXECUTABLE\": true, \"DECISION_POINTS_PRESENT\": false, \"VERIFICATION_PRESENT\": true, \"RECOVERY_PRESENT\": true, \"ESCALATION_PRESENT\": false, \"EVIDENCE_PRESERVATION_PRESENT\": true, \"RUNBOOK_COMPLETE\": false}"
+        "{\"RUNBOOK_NAME\": \"backup_restore\", \"TRIGGER_PRESENT\": true, \"DIAGNOSIS_PRESENT\": true, \"ACTIONS_EXECUTABLE\": true, \"DECISION_POINTS_PRESENT\": true, \"VERIFICATION_PRESENT\": true, \"RECOVERY_PRESENT\": true, \"ESCALATION_PRESENT\": true, \"EVIDENCE_PRESERVATION_PRESENT\": true, \"RUNBOOK_COMPLETE\": true}"
       ],
-      "STATUS": "GAP",
-      "blocker_class": "LOCAL_OPERATIONAL_ARTIFACT_GAP",
+      "STATUS": "VERIFIED_LOCAL",
+      "blocker_class": null,
       "local_external_classification": "local"
     },
     {
@@ -1409,10 +1409,10 @@
       "RUNTIME_OR_CONFIG_PATH": "stale",
       "TEST_OR_CHECK": "runbook_semantic",
       "EVIDENCE": [
-        "{\"RUNBOOK_NAME\": \"stale_feed\", \"TRIGGER_PRESENT\": true, \"DIAGNOSIS_PRESENT\": true, \"ACTIONS_EXECUTABLE\": true, \"DECISION_POINTS_PRESENT\": true, \"VERIFICATION_PRESENT\": true, \"RECOVERY_PRESENT\": true, \"ESCALATION_PRESENT\": false, \"EVIDENCE_PRESERVATION_PRESENT\": true, \"RUNBOOK_COMPLETE\": false}"
+        "{\"RUNBOOK_NAME\": \"stale_feed\", \"TRIGGER_PRESENT\": true, \"DIAGNOSIS_PRESENT\": true, \"ACTIONS_EXECUTABLE\": true, \"DECISION_POINTS_PRESENT\": true, \"VERIFICATION_PRESENT\": true, \"RECOVERY_PRESENT\": true, \"ESCALATION_PRESENT\": true, \"EVIDENCE_PRESERVATION_PRESENT\": true, \"RUNBOOK_COMPLETE\": true}"
       ],
-      "STATUS": "GAP",
-      "blocker_class": "LOCAL_OPERATIONAL_ARTIFACT_GAP",
+      "STATUS": "VERIFIED_LOCAL",
+      "blocker_class": null,
       "local_external_classification": "local"
     },
     {
@@ -1441,10 +1441,10 @@
       "RUNTIME_OR_CONFIG_PATH": "worker",
       "TEST_OR_CHECK": "runbook_semantic",
       "EVIDENCE": [
-        "{\"RUNBOOK_NAME\": \"worker_restart\", \"TRIGGER_PRESENT\": true, \"DIAGNOSIS_PRESENT\": true, \"ACTIONS_EXECUTABLE\": true, \"DECISION_POINTS_PRESENT\": true, \"VERIFICATION_PRESENT\": true, \"RECOVERY_PRESENT\": true, \"ESCALATION_PRESENT\": false, \"EVIDENCE_PRESERVATION_PRESENT\": true, \"RUNBOOK_COMPLETE\": false}"
+        "{\"RUNBOOK_NAME\": \"worker_restart\", \"TRIGGER_PRESENT\": true, \"DIAGNOSIS_PRESENT\": true, \"ACTIONS_EXECUTABLE\": true, \"DECISION_POINTS_PRESENT\": true, \"VERIFICATION_PRESENT\": true, \"RECOVERY_PRESENT\": true, \"ESCALATION_PRESENT\": true, \"EVIDENCE_PRESERVATION_PRESENT\": true, \"RUNBOOK_COMPLETE\": true}"
       ],
-      "STATUS": "GAP",
-      "blocker_class": "LOCAL_OPERATIONAL_ARTIFACT_GAP",
+      "STATUS": "VERIFIED_LOCAL",
+      "blocker_class": null,
       "local_external_classification": "local"
     },
     {
@@ -1489,10 +1489,10 @@
       "RUNTIME_OR_CONFIG_PATH": "rotat",
       "TEST_OR_CHECK": "runbook_semantic",
       "EVIDENCE": [
-        "{\"RUNBOOK_NAME\": \"secret_rotation\", \"TRIGGER_PRESENT\": false, \"DIAGNOSIS_PRESENT\": true, \"ACTIONS_EXECUTABLE\": false, \"DECISION_POINTS_PRESENT\": true, \"VERIFICATION_PRESENT\": true, \"RECOVERY_PRESENT\": false, \"ESCALATION_PRESENT\": false, \"EVIDENCE_PRESERVATION_PRESENT\": true, \"RUNBOOK_COMPLETE\": false}"
+        "{\"RUNBOOK_NAME\": \"secret_rotation\", \"TRIGGER_PRESENT\": true, \"DIAGNOSIS_PRESENT\": true, \"ACTIONS_EXECUTABLE\": true, \"DECISION_POINTS_PRESENT\": true, \"VERIFICATION_PRESENT\": true, \"RECOVERY_PRESENT\": true, \"ESCALATION_PRESENT\": true, \"EVIDENCE_PRESERVATION_PRESENT\": true, \"RUNBOOK_COMPLETE\": true}"
       ],
-      "STATUS": "GAP",
-      "blocker_class": "LOCAL_OPERATIONAL_ARTIFACT_GAP",
+      "STATUS": "VERIFIED_LOCAL",
+      "blocker_class": null,
       "local_external_classification": "local"
     },
     {
@@ -1521,10 +1521,10 @@
       "RUNTIME_OR_CONFIG_PATH": "monitor",
       "TEST_OR_CHECK": "runbook_semantic",
       "EVIDENCE": [
-        "{\"RUNBOOK_NAME\": \"telemetry_outage\", \"TRIGGER_PRESENT\": false, \"DIAGNOSIS_PRESENT\": false, \"ACTIONS_EXECUTABLE\": true, \"DECISION_POINTS_PRESENT\": false, \"VERIFICATION_PRESENT\": true, \"RECOVERY_PRESENT\": false, \"ESCALATION_PRESENT\": true, \"EVIDENCE_PRESERVATION_PRESENT\": false, \"RUNBOOK_COMPLETE\": false}"
+        "{\"RUNBOOK_NAME\": \"telemetry_outage\", \"TRIGGER_PRESENT\": true, \"DIAGNOSIS_PRESENT\": true, \"ACTIONS_EXECUTABLE\": true, \"DECISION_POINTS_PRESENT\": true, \"VERIFICATION_PRESENT\": true, \"RECOVERY_PRESENT\": true, \"ESCALATION_PRESENT\": true, \"EVIDENCE_PRESERVATION_PRESENT\": true, \"RUNBOOK_COMPLETE\": true}"
       ],
-      "STATUS": "GAP",
-      "blocker_class": "LOCAL_OPERATIONAL_ARTIFACT_GAP",
+      "STATUS": "VERIFIED_LOCAL",
+      "blocker_class": null,
       "local_external_classification": "local"
     },
     {
@@ -1698,10 +1698,10 @@
       "RUNTIME_OR_CONFIG_PATH": "retry policy",
       "TEST_OR_CHECK": "retry_policy_scan",
       "EVIDENCE": [
-        "RETRY_STORM_GAPS=1"
+        "RETRY_STORM_GAPS=0"
       ],
-      "STATUS": "GAP",
-      "blocker_class": "LOCAL_ENGINEERING_GAP",
+      "STATUS": "VERIFIED_LOCAL",
+      "blocker_class": null,
       "local_external_classification": "local"
     },
     {
@@ -1714,7 +1714,7 @@
       "RUNTIME_OR_CONFIG_PATH": "rate limiter",
       "TEST_OR_CHECK": "rate_limit_tests",
       "EVIDENCE": [
-        "/usr/bin/python3 -m pytest tests/test_monitoring_alerting.py::test_free_api_rate_limit_audit -q --tb=no"
+        "rate limit surfaces wired"
       ],
       "STATUS": "VERIFIED_LOCAL",
       "blocker_class": null,
@@ -1746,10 +1746,10 @@
       "RUNTIME_OR_CONFIG_PATH": "backpressure",
       "TEST_OR_CHECK": "backpressure_scan",
       "EVIDENCE": [
-        "BACKPRESSURE_GAPS=1"
+        "BACKPRESSURE_GAPS=0"
       ],
-      "STATUS": "GAP",
-      "blocker_class": "LOCAL_ENGINEERING_GAP",
+      "STATUS": "VERIFIED_LOCAL",
+      "blocker_class": null,
       "local_external_classification": "local"
     },
     {
@@ -1874,10 +1874,10 @@
       "RUNTIME_OR_CONFIG_PATH": "DLQ/retry",
       "TEST_OR_CHECK": "poison_scan",
       "EVIDENCE": [
-        "POISON_MESSAGE_GAPS=1"
+        "POISON_MESSAGE_GAPS=0"
       ],
-      "STATUS": "GAP",
-      "blocker_class": "LOCAL_ENGINEERING_GAP",
+      "STATUS": "VERIFIED_LOCAL",
+      "blocker_class": null,
       "local_external_classification": "local"
     },
     {
@@ -2487,10 +2487,10 @@
       "RUNTIME_OR_CONFIG_PATH": "recovery sequence",
       "TEST_OR_CHECK": "dr_complete",
       "EVIDENCE": [
-        "dr incomplete"
+        "recovery sequence"
       ],
-      "STATUS": "GAP",
-      "blocker_class": "LOCAL_OPERATIONAL_ARTIFACT_GAP",
+      "STATUS": "VERIFIED_LOCAL",
+      "blocker_class": null,
       "local_external_classification": "local"
     },
     {
@@ -2536,10 +2536,10 @@
       "RUNTIME_OR_CONFIG_PATH": "recovery steps",
       "TEST_OR_CHECK": "recovery_sequence",
       "EVIDENCE": [
-        "dr incomplete"
+        "recovery sequence"
       ],
-      "STATUS": "GAP",
-      "blocker_class": "LOCAL_OPERATIONAL_ARTIFACT_GAP",
+      "STATUS": "VERIFIED_LOCAL",
+      "blocker_class": null,
       "local_external_classification": "local"
     },
     {
