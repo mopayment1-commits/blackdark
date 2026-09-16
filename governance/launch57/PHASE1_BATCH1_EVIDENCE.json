@@ -3,8 +3,8 @@
   "phase": "1_DATA",
   "batch": 1,
   "source_commit": "df19b921",
-  "final_commit": "8aa4e1983b883d565285052c8a76015a32c37cf9",
-  "generated_at": "2026-09-16T19:33:47.842094+00:00",
+  "final_commit": "673d74bd766edfadafb83140f191d82b2f8d7c01",
+  "generated_at": "2026-09-16T19:34:01.010808+00:00",
   "build_order": [
     42,
     22,
@@ -41,7 +41,7 @@
         "tests/launch57/test_data_batch1.py::test_unified_exchange_connector_routes_without_synthetic"
       ],
       "builder_status": "PENDING_VERIFICATION",
-      "commit_sha": "8aa4e1983b883d565285052c8a76015a32c37cf9"
+      "commit_sha": "673d74bd766edfadafb83140f191d82b2f8d7c01"
     },
     "22": {
       "cap_id": "CAP-0561",
@@ -66,7 +66,7 @@
       ],
       "depends_on_launch_item": 42,
       "builder_status": "PENDING_VERIFICATION",
-      "commit_sha": "8aa4e1983b883d565285052c8a76015a32c37cf9"
+      "commit_sha": "673d74bd766edfadafb83140f191d82b2f8d7c01"
     },
     "23": {
       "cap_id": "CAP-0507",
@@ -90,7 +90,7 @@
       ],
       "depends_on_launch_item": 42,
       "builder_status": "PENDING_VERIFICATION",
-      "commit_sha": "8aa4e1983b883d565285052c8a76015a32c37cf9"
+      "commit_sha": "673d74bd766edfadafb83140f191d82b2f8d7c01"
     },
     "24": {
       "cap_id": "CAP-0506+CAP-0513",
@@ -119,7 +119,7 @@
       ],
       "depends_on_launch_item": 42,
       "builder_status": "PENDING_VERIFICATION",
-      "commit_sha": "8aa4e1983b883d565285052c8a76015a32c37cf9"
+      "commit_sha": "673d74bd766edfadafb83140f191d82b2f8d7c01"
     },
     "21": {
       "cap_id": "CAP-0047",
@@ -143,7 +143,7 @@
       ],
       "depends_on_launch_item": 42,
       "builder_status": "PENDING_VERIFICATION",
-      "commit_sha": "8aa4e1983b883d565285052c8a76015a32c37cf9"
+      "commit_sha": "673d74bd766edfadafb83140f191d82b2f8d7c01"
     }
   },
   "anti_phantom": {

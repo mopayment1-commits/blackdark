@@ -16452,7 +16452,7 @@
         ],
         "tests_result": "PASS",
         "evidence_reference": "governance/launch57/PHASE1_BATCH1_EVIDENCE.json",
-        "commit_sha": "8aa4e1983b883d565285052c8a76015a32c37cf9",
+        "commit_sha": "673d74bd766edfadafb83140f191d82b2f8d7c01",
         "known_gaps": [
           "independent_verification_pending",
           "live_network_path_not_certified_in_builder_session"
@@ -158388,7 +158388,7 @@
         ],
         "tests_result": "PASS",
         "evidence_reference": "governance/launch57/PHASE1_BATCH1_EVIDENCE.json",
-        "commit_sha": "8aa4e1983b883d565285052c8a76015a32c37cf9",
+        "commit_sha": "673d74bd766edfadafb83140f191d82b2f8d7c01",
         "known_gaps": [
           "independent_verification_pending",
           "live_network_path_not_certified_in_builder_session"
@@ -159031,7 +159031,7 @@
         ],
         "tests_result": "PASS",
         "evidence_reference": "governance/launch57/PHASE1_BATCH1_EVIDENCE.json",
-        "commit_sha": "8aa4e1983b883d565285052c8a76015a32c37cf9",
+        "commit_sha": "673d74bd766edfadafb83140f191d82b2f8d7c01",
         "known_gaps": [
           "independent_verification_pending",
           "live_network_path_not_certified_in_builder_session"
@@ -159424,7 +159424,7 @@
         ],
         "tests_result": "PASS",
         "evidence_reference": "governance/launch57/PHASE1_BATCH1_EVIDENCE.json",
-        "commit_sha": "8aa4e1983b883d565285052c8a76015a32c37cf9",
+        "commit_sha": "673d74bd766edfadafb83140f191d82b2f8d7c01",
         "known_gaps": [
           "independent_verification_pending",
           "live_network_path_not_certified_in_builder_session"
@@ -161583,7 +161583,7 @@
         ],
         "tests_result": "PASS",
         "evidence_reference": "governance/launch57/PHASE1_BATCH1_EVIDENCE.json",
-        "commit_sha": "8aa4e1983b883d565285052c8a76015a32c37cf9",
+        "commit_sha": "673d74bd766edfadafb83140f191d82b2f8d7c01",
         "known_gaps": [
           "independent_verification_pending",
           "live_network_path_not_certified_in_builder_session"
@@ -176366,7 +176366,7 @@
         ],
         "tests_result": "PASS",
         "evidence_reference": "governance/launch57/PHASE1_BATCH1_EVIDENCE.json",
-        "commit_sha": "8aa4e1983b883d565285052c8a76015a32c37cf9",
+        "commit_sha": "673d74bd766edfadafb83140f191d82b2f8d7c01",
         "known_gaps": [
           "independent_verification_pending",
           "live_network_path_not_certified_in_builder_session"
@@ -315721,8 +315721,8 @@
       21
     ],
     "source_commit": "df19b921",
-    "final_commit": "8aa4e1983b883d565285052c8a76015a32c37cf9",
-    "completed_at": "2026-09-16T19:33:47.842094+00:00",
+    "final_commit": "673d74bd766edfadafb83140f191d82b2f8d7c01",
+    "completed_at": "2026-09-16T19:34:01.010808+00:00",
     "register_artifact": "governance/launch57/LAUNCH57_REGISTER.json",
     "report_artifact": "governance/launch57/PHASE1_BATCH1_REPORT.md",
     "evidence_artifact": "governance/launch57/PHASE1_BATCH1_EVIDENCE.json",

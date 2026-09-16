@@ -6,7 +6,7 @@
 PHASE: 1_DATA
 BATCH: 1
 SOURCE_COMMIT: df19b921
-FINAL_COMMIT: 8aa4e1983b883d565285052c8a76015a32c37cf9
+FINAL_COMMIT: 673d74bd766edfadafb83140f191d82b2f8d7c01
 BUILD_ORDER_EXECUTED: [42, 22, 23, 24, 21]
 LAUNCH57_COUNT: 57
 SCOPE_EXPANDED: NO
@@ -29,7 +29,7 @@ tests_result: PASS
 known_gaps: independent_verification_pending; live_network_path_not_certified_in_builder_session
 builder_status: PENDING_VERIFICATION
 evidence_reference: governance/launch57/PHASE1_BATCH1_EVIDENCE.json
-commit_sha: 8aa4e1983b883d565285052c8a76015a32c37cf9
+commit_sha: 673d74bd766edfadafb83140f191d82b2f8d7c01
 ```
 
 ## Launch #22: Real-time / near-real-time prices
@@ -49,7 +49,7 @@ tests_result: PASS
 known_gaps: independent_verification_pending; live_network_path_not_certified_in_builder_session
 builder_status: PENDING_VERIFICATION
 evidence_reference: governance/launch57/PHASE1_BATCH1_EVIDENCE.json
-commit_sha: 8aa4e1983b883d565285052c8a76015a32c37cf9
+commit_sha: 673d74bd766edfadafb83140f191d82b2f8d7c01
 ```
 
 ## Launch #23: OHLCV
@@ -69,7 +69,7 @@ tests_result: PASS
 known_gaps: independent_verification_pending; live_network_path_not_certified_in_builder_session
 builder_status: PENDING_VERIFICATION
 evidence_reference: governance/launch57/PHASE1_BATCH1_EVIDENCE.json
-commit_sha: 8aa4e1983b883d565285052c8a76015a32c37cf9
+commit_sha: 673d74bd766edfadafb83140f191d82b2f8d7c01
 ```
 
 ## Launch #24: Quote + symbol metadata
@@ -89,7 +89,7 @@ tests_result: PASS
 known_gaps: independent_verification_pending; live_network_path_not_certified_in_builder_session
 builder_status: PENDING_VERIFICATION
 evidence_reference: governance/launch57/PHASE1_BATCH1_EVIDENCE.json
-commit_sha: 8aa4e1983b883d565285052c8a76015a32c37cf9
+commit_sha: 673d74bd766edfadafb83140f191d82b2f8d7c01
 ```
 
 ## Launch #21: Spot metrics suite (صادق التحديث)
@@ -109,7 +109,7 @@ tests_result: PASS
 known_gaps: independent_verification_pending; live_network_path_not_certified_in_builder_session
 builder_status: PENDING_VERIFICATION
 evidence_reference: governance/launch57/PHASE1_BATCH1_EVIDENCE.json
-commit_sha: 8aa4e1983b883d565285052c8a76015a32c37cf9
+commit_sha: 673d74bd766edfadafb83140f191d82b2f8d7c01
 ```
 
 ## C. Anti-Phantom

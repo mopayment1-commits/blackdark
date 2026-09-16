@@ -3,7 +3,7 @@
   "ssot_role": "launch57_truth_register_view",
   "authoritative_ssot": "BLACKDARK_CAPABILITY_CURRENT_STATE.json",
   "phase": "1_DATA_BATCH1_BUILD",
-  "generated_at": "2026-09-16T19:33:47.842094+00:00",
+  "generated_at": "2026-09-16T19:34:01.010808+00:00",
   "source_commit": "df19b921",
   "scope_lock": {
     "CURRENT_APPROVED_BUILD_SCOPE": "LAUNCH57",
@@ -1320,7 +1320,7 @@
         ],
         "blocker": null,
         "prior_pass_trusted_for_launch": "NO",
-        "commit_sha": "8aa4e1983b883d565285052c8a76015a32c37cf9"
+        "commit_sha": "673d74bd766edfadafb83140f191d82b2f8d7c01"
       }
     },
     {
@@ -1403,7 +1403,7 @@
         ],
         "blocker": null,
         "prior_pass_trusted_for_launch": "NO",
-        "commit_sha": "8aa4e1983b883d565285052c8a76015a32c37cf9"
+        "commit_sha": "673d74bd766edfadafb83140f191d82b2f8d7c01"
       }
     },
     {
@@ -1486,7 +1486,7 @@
         ],
         "blocker": null,
         "prior_pass_trusted_for_launch": "NO",
-        "commit_sha": "8aa4e1983b883d565285052c8a76015a32c37cf9"
+        "commit_sha": "673d74bd766edfadafb83140f191d82b2f8d7c01"
       }
     },
     {
@@ -1581,7 +1581,7 @@
         ],
         "blocker": null,
         "prior_pass_trusted_for_launch": "NO",
-        "commit_sha": "8aa4e1983b883d565285052c8a76015a32c37cf9"
+        "commit_sha": "673d74bd766edfadafb83140f191d82b2f8d7c01"
       }
     },
     {
@@ -2709,7 +2709,7 @@
         ],
         "blocker": null,
         "prior_pass_trusted_for_launch": "NO",
-        "commit_sha": "8aa4e1983b883d565285052c8a76015a32c37cf9"
+        "commit_sha": "673d74bd766edfadafb83140f191d82b2f8d7c01"
       }
     },
     {
@@ -5233,7 +5233,7 @@
     "PASS_ENGINEERING_ISSUED": "NO",
     "PASS_LIVE_ISSUED": "NO"
   },
-  "final_commit": "8aa4e1983b883d565285052c8a76015a32c37cf9",
+  "final_commit": "673d74bd766edfadafb83140f191d82b2f8d7c01",
   "phase1_batch1_verification": {
     "PHASE": "1_DATA",
     "BATCH": 1,
