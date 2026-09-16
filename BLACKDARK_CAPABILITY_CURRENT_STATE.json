@@ -202180,10 +202180,12 @@
       "state_classification": "EXISTING_VERIFIED",
       "canonical_decision": "KEEP_DISTINCT",
       "canonical_owner": "cap646.institutional_official_production",
-      "canonical_implementation": "explicit_option_a",
+      "canonical_implementation": "launch57.trust_batch1",
       "runtime_entry": "cap646/runtime.py",
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/trust_batch1.py",
+        "cap646/institutional_official_production.py",
+        "net_edge_truth.py"
       ],
       "inputs": [
         "symbol",
@@ -202482,6 +202484,45 @@
         ],
         "canonical_decision": "NEEDS_SCOPE_AMENDMENT",
         "applied": true
+      },
+      "launch57_phase2_batch1": {
+        "phase": "2_TRUST",
+        "batch": 1,
+        "launch_item_id": 5,
+        "build_decision": "EXTEND",
+        "builder_status": "PENDING_VERIFICATION",
+        "prior_pass_trusted_for_launch": "NO",
+        "runtime_path": "cap646/runtime.py → institutional_official_production → launch57/trust_batch1.py:net_edge_truth_score",
+        "consumer_paths": [
+          "launch57/trust_batch1.py",
+          "cap646/institutional_official_production.py",
+          "net_edge_truth.py"
+        ],
+        "backend_module": "launch57.trust_batch1",
+        "backend_entrypoint": "net_edge_truth_score",
+        "binding_source": "launch57_phase2_trust_batch1",
+        "semantic_oracle": "Net-Edge before cost claim; FIN_004 demo blocked; opportunity required",
+        "tests_run": [
+          "tests/launch57/test_trust_batch1.py::test_net_edge_rejects_missing_opportunity_no_demo",
+          "tests/launch57/test_trust_batch1.py::test_net_edge_rejects_demo_opportunity",
+          "tests/launch57/test_trust_batch1.py::test_net_edge_scores_real_opportunity"
+        ],
+        "tests_result": "PASS",
+        "evidence_reference": "governance/launch57/PHASE2_BATCH1_EVIDENCE.json",
+        "commit_sha": "ade23819e2952bbaf260eec645d89c643b183b68",
+        "known_gaps": [
+          "independent_verification_pending",
+          "legacy_bypass_if_LAUNCH57_CAP_IDS_emptied"
+        ],
+        "anti_phantom": {
+          "generic_delegate_only": "NO",
+          "stub_remaining": "NO",
+          "hardcoded_success": "NO",
+          "production_mock": "NO",
+          "real_runtime_path_verified": "YES",
+          "real_consumer_path_verified": "YES",
+          "semantic_oracle_verified": "YES"
+        }
       }
     },
     {
@@ -202503,10 +202544,12 @@
       "state_classification": "EXISTING_VERIFIED",
       "canonical_decision": "KEEP_DISTINCT",
       "canonical_owner": "cap646.institutional_official_production",
-      "canonical_implementation": "explicit_option_a",
+      "canonical_implementation": "launch57.trust_batch1",
       "runtime_entry": "cap646/runtime.py",
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/trust_batch1.py",
+        "oracle_track_record.py",
+        "cap646/institutional_official_production.py"
       ],
       "inputs": [
         "symbol",
@@ -202789,6 +202832,43 @@
         "not_in_current_build_scope": false,
         "not_in_launch_surface": false,
         "no_build": false
+      },
+      "launch57_phase2_batch1": {
+        "phase": "2_TRUST",
+        "batch": 1,
+        "launch_item_id": 4,
+        "build_decision": "EXTEND",
+        "builder_status": "PENDING_VERIFICATION",
+        "prior_pass_trusted_for_launch": "NO",
+        "runtime_path": "cap646/runtime.py → launch57/trust_batch1.py:public_accuracy_ledger",
+        "consumer_paths": [
+          "launch57/trust_batch1.py",
+          "oracle_track_record.py",
+          "cap646/institutional_official_production.py"
+        ],
+        "backend_module": "launch57.trust_batch1",
+        "backend_entrypoint": "public_accuracy_ledger",
+        "binding_source": "launch57_phase2_trust_batch1",
+        "semantic_oracle": "live_only primary metrics; synthetic_demo_data excluded",
+        "tests_run": [
+          "tests/launch57/test_trust_batch1.py::test_public_accuracy_ledger_live_only_primary"
+        ],
+        "tests_result": "PASS",
+        "evidence_reference": "governance/launch57/PHASE2_BATCH1_EVIDENCE.json",
+        "commit_sha": "ade23819e2952bbaf260eec645d89c643b183b68",
+        "known_gaps": [
+          "independent_verification_pending",
+          "legacy_bypass_if_LAUNCH57_CAP_IDS_emptied"
+        ],
+        "anti_phantom": {
+          "generic_delegate_only": "NO",
+          "stub_remaining": "NO",
+          "hardcoded_success": "NO",
+          "production_mock": "NO",
+          "real_runtime_path_verified": "YES",
+          "real_consumer_path_verified": "YES",
+          "semantic_oracle_verified": "YES"
+        }
       }
     },
     {
@@ -202810,10 +202890,12 @@
       "state_classification": "EXISTING_VERIFIED",
       "canonical_decision": "KEEP_DISTINCT",
       "canonical_owner": "cap646.institutional_official_production",
-      "canonical_implementation": "explicit_option_a",
+      "canonical_implementation": "launch57.trust_batch1",
       "runtime_entry": "cap646/runtime.py",
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/trust_batch1.py",
+        "decision_certificate.py",
+        "cap646/institutional_official_production.py"
       ],
       "inputs": [
         "symbol",
@@ -203109,6 +203191,43 @@
         ],
         "canonical_decision": "NEEDS_SCOPE_AMENDMENT",
         "applied": true
+      },
+      "launch57_phase2_batch1": {
+        "phase": "2_TRUST",
+        "batch": 1,
+        "launch_item_id": 3,
+        "build_decision": "EXTEND",
+        "builder_status": "PENDING_VERIFICATION",
+        "prior_pass_trusted_for_launch": "NO",
+        "runtime_path": "cap646/runtime.py → launch57/trust_batch1.py:decision_certificate_export",
+        "consumer_paths": [
+          "launch57/trust_batch1.py",
+          "decision_certificate.py",
+          "cap646/institutional_official_production.py"
+        ],
+        "backend_module": "launch57.trust_batch1",
+        "backend_entrypoint": "decision_certificate_export",
+        "binding_source": "launch57_phase2_trust_batch1",
+        "semantic_oracle": "certificate_hash present; shareable proof identity",
+        "tests_run": [
+          "tests/launch57/test_trust_batch1.py::test_decision_certificate_includes_hash"
+        ],
+        "tests_result": "PASS",
+        "evidence_reference": "governance/launch57/PHASE2_BATCH1_EVIDENCE.json",
+        "commit_sha": "ade23819e2952bbaf260eec645d89c643b183b68",
+        "known_gaps": [
+          "independent_verification_pending",
+          "legacy_bypass_if_LAUNCH57_CAP_IDS_emptied"
+        ],
+        "anti_phantom": {
+          "generic_delegate_only": "NO",
+          "stub_remaining": "NO",
+          "hardcoded_success": "NO",
+          "production_mock": "NO",
+          "real_runtime_path_verified": "YES",
+          "real_consumer_path_verified": "YES",
+          "semantic_oracle_verified": "YES"
+        }
       }
     },
     {
@@ -316021,6 +316140,114 @@
       "command": "python3 -m pytest tests/launch57/test_data_batch1.py tests/launch57/test_data_batch2.py -q",
       "exit_code": 0,
       "stdout": "....................                                                     [100%]",
+      "stderr": "",
+      "passed": true
+    }
+  },
+  "phase2_trust_batch1": {
+    "phase": "2_TRUST",
+    "batch": 1,
+    "build_order_executed": [
+      6,
+      5,
+      4,
+      3,
+      2
+    ],
+    "commit": "ade23819e2952bbaf260eec645d89c643b183b68",
+    "completed_at": "2026-09-16T20:09:01.254898+00:00",
+    "builder_status": "PENDING_VERIFICATION",
+    "tests": {
+      "command": "python3 -m pytest tests/launch57/test_trust_batch1.py -q",
+      "exit_code": 0,
+      "stdout": ".........                                                                [100%]",
+      "stderr": "",
+      "passed": true
+    },
+    "open_debt": {
+      "legacy_bypass": "When LAUNCH57_BATCH*_CAP_IDS intercept emptied, caps 639-641 fall back to batch26_dedicated/verified.py with generic delegate",
+      "fix_mandatory_in_phase2": "NO unless trust path blocked"
+    },
+    "batch2_order_executed": [
+      47,
+      48,
+      44,
+      45,
+      46
+    ],
+    "full_build_order_executed": [
+      6,
+      5,
+      4,
+      3,
+      2,
+      47,
+      48,
+      44,
+      45,
+      46
+    ],
+    "final_commit": "ade23819e2952bbaf260eec645d89c643b183b68",
+    "batch2_completed_at": "2026-09-16T20:09:04.912588+00:00",
+    "phase2_trust_layer_complete": true,
+    "tests_all": {
+      "command": "python3 -m pytest tests/launch57/test_trust_batch1.py tests/launch57/test_trust_batch2.py -q",
+      "exit_code": 0,
+      "stdout": "...............                                                          [100%]\n=============================== warnings summary ===============================\ntests/launch57/test_trust_batch2.py::test_execute_dispatch_launch_items\n  /home/ubuntu/.local/lib/python3.12/site-packages/fastapi/openapi/utils.py:303: UserWarning: Duplicate Operation ID oracle_accuracy_page_oracle_accuracy_get for function oracle_accuracy_page at /workspace/dashboard.py\n    warnings.warn(message, stacklevel=1)\n\ntests/launch57/test_trust_batch2.py::test_execute_dispatch_launch_items\n  /home/ubuntu/.local/lib/python3.12/site-packages/fastapi/openapi/utils.py:303: UserWarning: Duplicate Operation ID storage_maintenance_api_storage_maintenance_get for function storage_maintenance at /workspace/dashboard.py\n    warnings.warn(message, stacklevel=1)\n\ntests/launch57/test_trust_batch2.py::test_execute_dispatch_launch_items\n  /home/ubuntu/.local/lib/python3.12/site-packages/fastapi/openapi/utils.py:303: UserWarning: Duplicate Operation ID storage_legacy_purge_api_storage_legacy_purge_get for function storage_legacy_purge at /workspace/dashboard.py\n    warnings.warn(message, stacklevel=1)\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html",
+      "stderr": "",
+      "passed": true
+    }
+  },
+  "phase2_trust_layer": {
+    "phase": "2_TRUST",
+    "batch": 1,
+    "build_order_executed": [
+      6,
+      5,
+      4,
+      3,
+      2
+    ],
+    "commit": "ade23819e2952bbaf260eec645d89c643b183b68",
+    "completed_at": "2026-09-16T20:09:01.254898+00:00",
+    "builder_status": "PENDING_VERIFICATION",
+    "tests": {
+      "command": "python3 -m pytest tests/launch57/test_trust_batch1.py -q",
+      "exit_code": 0,
+      "stdout": ".........                                                                [100%]",
+      "stderr": "",
+      "passed": true
+    },
+    "open_debt": {
+      "legacy_bypass": "When LAUNCH57_BATCH*_CAP_IDS intercept emptied, caps 639-641 fall back to batch26_dedicated/verified.py with generic delegate",
+      "fix_mandatory_in_phase2": "NO unless trust path blocked"
+    },
+    "batch2_order_executed": [
+      47,
+      48,
+      44,
+      45,
+      46
+    ],
+    "full_build_order_executed": [
+      6,
+      5,
+      4,
+      3,
+      2,
+      47,
+      48,
+      44,
+      45,
+      46
+    ],
+    "final_commit": "ade23819e2952bbaf260eec645d89c643b183b68",
+    "batch2_completed_at": "2026-09-16T20:09:04.912588+00:00",
+    "phase2_trust_layer_complete": true,
+    "tests_all": {
+      "command": "python3 -m pytest tests/launch57/test_trust_batch1.py tests/launch57/test_trust_batch2.py -q",
+      "exit_code": 0,
+      "stdout": "...............                                                          [100%]\n=============================== warnings summary ===============================\ntests/launch57/test_trust_batch2.py::test_execute_dispatch_launch_items\n  /home/ubuntu/.local/lib/python3.12/site-packages/fastapi/openapi/utils.py:303: UserWarning: Duplicate Operation ID oracle_accuracy_page_oracle_accuracy_get for function oracle_accuracy_page at /workspace/dashboard.py\n    warnings.warn(message, stacklevel=1)\n\ntests/launch57/test_trust_batch2.py::test_execute_dispatch_launch_items\n  /home/ubuntu/.local/lib/python3.12/site-packages/fastapi/openapi/utils.py:303: UserWarning: Duplicate Operation ID storage_maintenance_api_storage_maintenance_get for function storage_maintenance at /workspace/dashboard.py\n    warnings.warn(message, stacklevel=1)\n\ntests/launch57/test_trust_batch2.py::test_execute_dispatch_launch_items\n  /home/ubuntu/.local/lib/python3.12/site-packages/fastapi/openapi/utils.py:303: UserWarning: Duplicate Operation ID storage_legacy_purge_api_storage_legacy_purge_get for function storage_legacy_purge at /workspace/dashboard.py\n    warnings.warn(message, stacklevel=1)\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html",
       "stderr": "",
       "passed": true
     }
