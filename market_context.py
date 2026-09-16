@@ -1143,6 +1143,103 @@ async def fetch_binance_klines(pair: str, interval: str = "1h", limit: int = 200
     return []
 
 
+async def fetch_binance_klines_bars(
+    pair: str,
+    interval: str = "1h",
+    limit: int = 200,
+) -> tuple[list[dict[str, Any]], str]:
+    """Full OHLCV bars from Binance klines API. Returns (bars, source_host)."""
+    if not pair.isalnum():
+        return [], "invalid_pair"
+    if interval not in _ALLOWED_KLINE_INTERVALS:
+        interval = "1h"
+    limit = max(1, min(int(limit), 1000))
+    hosts = ("data-api.binance.vision", "api.binance.us", "api.binance.com")
+    try:
+        async with aiohttp.ClientSession(timeout=_HTTP_TIMEOUT, headers=_HTTP_HEADERS) as session:
+            for host in hosts:
+                url = f"https://{host}/api/v3/klines?symbol={pair}&interval={interval}&limit={limit}"
+                try:
+                    async with session.get(url) as resp:
+                        if resp.status != 200:
+                            continue
+                        rows = await resp.json()
+                    bars: list[dict[str, Any]] = []
+                    for row in rows:
+                        if not isinstance(row, list) or len(row) < 6:
+                            continue
+                        try:
+                            bars.append(
+                                {
+                                    "open_time_ms": int(row[0]),
+                                    "open": float(row[1]),
+                                    "high": float(row[2]),
+                                    "low": float(row[3]),
+                                    "close": float(row[4]),
+                                    "volume": float(row[5]),
+                                    "close_time_ms": int(row[6]) if len(row) > 6 else int(row[0]),
+                                }
+                            )
+                        except (TypeError, ValueError):
+                            continue
+                    if bars:
+                        return bars, host
+                except (aiohttp.ClientError, TypeError, ValueError):
+                    continue
+    except (aiohttp.ClientError, TypeError, ValueError):
+        return [], "unavailable"
+    return [], "unavailable"
+
+
+async def fetch_symbol_exchange_metadata(pair: str) -> dict[str, Any] | None:
+    """Symbol filters from Binance exchangeInfo — precision/tick/lot metadata."""
+    if not pair.isalnum():
+        return None
+    hosts = ("data-api.binance.vision", "api.binance.us", "api.binance.com")
+    try:
+        async with aiohttp.ClientSession(timeout=_HTTP_TIMEOUT, headers=_HTTP_HEADERS) as session:
+            for host in hosts:
+                url = f"https://{host}/api/v3/exchangeInfo?symbol={pair}"
+                try:
+                    async with session.get(url) as resp:
+                        if resp.status != 200:
+                            continue
+                        payload = await resp.json()
+                    symbols = payload.get("symbols") or []
+                    if not symbols:
+                        continue
+                    row = symbols[0]
+                    filters = {f.get("filterType"): f for f in (row.get("filters") or []) if isinstance(f, dict)}
+                    price_filter = filters.get("PRICE_FILTER") or {}
+                    lot_filter = filters.get("LOT_SIZE") or {}
+                    asset = pair[:-4] if pair.endswith("USDT") else pair
+                    return {
+                        "canonical_symbol": asset,
+                        "display_symbol": pair,
+                        "base_asset": row.get("baseAsset") or asset,
+                        "quote_asset": row.get("quoteAsset") or "USDT",
+                        "market_type": "spot",
+                        "status": row.get("status"),
+                        "provider": f"binance:{host}",
+                        "tick_size": price_filter.get("tickSize"),
+                        "min_price": price_filter.get("minPrice"),
+                        "max_price": price_filter.get("maxPrice"),
+                        "step_size": lot_filter.get("stepSize"),
+                        "min_qty": lot_filter.get("minQty"),
+                        "precision": {
+                            "price": row.get("quotePrecision"),
+                            "base": row.get("baseAssetPrecision"),
+                            "quote": row.get("quotePrecision"),
+                        },
+                        "delisted": str(row.get("status") or "").upper() not in {"TRADING", "BREAK"},
+                    }
+                except (aiohttp.ClientError, TypeError, ValueError):
+                    continue
+    except (aiohttp.ClientError, TypeError, ValueError):
+        return None
+    return None
+
+
 def parse_alert_metadata(row: dict) -> dict:
     raw = row.get("metadata_json")
     if not raw:

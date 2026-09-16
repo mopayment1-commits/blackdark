@@ -18,21 +18,9 @@ async def handle_market_capability(
     symbol = normalize_symbol(params)
 
     if capability_id == 47:
-        from market_context import fetch_binance_market_overview_pack, probe_price_sources
+        from launch57.data_batch1 import spot_market_metrics_suite
 
-        pack = await fetch_binance_market_overview_pack(limit=int(params.get("limit") or 20))
-        probe = await probe_price_sources(symbol)
-        payload = attach_oracle_freshness(
-            {
-                "capability_id": 47,
-                "surface": "spot_market_metrics_suite",
-                "overview": pack,
-                "probe": probe,
-                "success": bool(pack),
-            }
-        )
-        ok, payload = reject_if_stale(payload)
-        return ai_compliance_footer(payload)
+        return await spot_market_metrics_suite(symbol=symbol, params=params)
 
     if capability_id in {267, 483, 508, 509, 510, 537, 538}:
         from cap646.fallbacks import resolve_order_book
@@ -87,32 +75,19 @@ async def handle_market_capability(
         )
 
     if capability_id == 507:
-        from cap646.fallbacks import resolve_ohlcv_closes
+        from launch57.data_batch1 import ohlcv as launch57_ohlcv
 
-        interval = str(params.get("interval") or "1h")
-        closes, source = await resolve_ohlcv_closes(symbol, interval=interval, limit=100)
-        ohlcv = [{"close": c} for c in closes] if closes else []
-        return ai_compliance_footer(
-            {
-                "capability_id": 507,
-                "surface": "ohlcv",
-                "backend_module": "cap646.fallbacks",
-                "backend_entrypoint": "resolve_ohlcv_closes",
-                "binding_source": "explicit_option_a",
-                "symbol": symbol,
-                "bars": len(ohlcv),
-                "ohlcv": ohlcv[-10:],
-                "source": source,
-                "success": bool(ohlcv),
-            }
-        )
+        return await launch57_ohlcv(symbol=symbol, params=params)
 
     if capability_id == 534:
         return await bucketed_cvd_report(symbol=symbol, buckets=int(params.get("buckets") or 4))
 
     if capability_id in {630, 500}:
-        fn = freshness_assurance_report if capability_id == 630 else normalization_report
-        return await fn(symbol=symbol)
+        from launch57.data_batch2 import data_quality_normalization, freshness_update_assurance
+
+        if capability_id == 630:
+            return await freshness_update_assurance(symbol=symbol, params=params)
+        return await data_quality_normalization(symbol=symbol, params=params)
 
     from cap646.catalog import catalog_by_id
 
