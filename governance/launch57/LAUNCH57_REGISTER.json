@@ -2,9 +2,9 @@
   "artifact": "LAUNCH57_REGISTER",
   "ssot_role": "launch57_truth_register_view",
   "authoritative_ssot": "BLACKDARK_CAPABILITY_CURRENT_STATE.json",
-  "phase": "0_TRUTH",
-  "generated_at": "2026-09-16T14:26:32.976647+00:00",
-  "source_commit": "348c34579a352eaa9e5d3f7b02dfe85cca42394d",
+  "phase": "0.5_CANONICAL_SCOPE_RECONCILIATION",
+  "generated_at": "2026-09-16T19:09:57.033927+00:00",
+  "source_commit": "172188c3b17b1647d15148c603f53256c1acbc7d",
   "scope_lock": {
     "CURRENT_APPROVED_BUILD_SCOPE": "LAUNCH57",
     "LAUNCH57_COUNT": 57,
@@ -3859,12 +3859,13 @@
   ],
   "scope_integrity": {
     "LAUNCH57_COUNT": 57,
-    "PARKED_COUNT": 878,
+    "ACTUAL_LAUNCH_ITEMS": 57,
+    "PARKED_COUNT": 876,
+    "SCOPE_LEAKAGE_FOUND": "NO",
+    "EXTRA_LAUNCH_ITEMS": [],
     "MISSING_LAUNCH_ITEMS": [
       1,
       2,
-      3,
-      5,
       6,
       44,
       46,
@@ -3874,10 +3875,7 @@
       50,
       52
     ],
-    "EXTRA_LAUNCH_ITEMS": [],
-    "SCOPE_LEAKAGE_FOUND": "NO",
-    "ACTUAL_LAUNCH57_RECORD_COUNT": 57,
-    "CANONICAL_LAUNCH57_RECORD_COUNT": 54
+    "MISSING_LAUNCH_ITEMS_NOTE": "Product surfaces / shared-core items without distinct canonical CAP rows (expected for #1,#2,#6,#44,#46-50,#52)"
   },
   "phase0_verification": {
     "PHASE": "0_TRUTH",
@@ -3892,5 +3890,1232 @@
     "PASS_ENGINEERING_ISSUED": "NO",
     "PASS_LIVE_ISSUED": "NO",
     "PHASE_1_STARTED": "NO"
+  },
+  "phase0_baseline_commit": "172188c3",
+  "scope_lock_baseline_commit": "348c3457",
+  "phase0_5_summary": {
+    "TOTAL_LAUNCH57": 57,
+    "REUSE": 51,
+    "EXTEND": 0,
+    "NEW_OWNER": 0,
+    "ALIAS": 3,
+    "SHARED_CORE": 1,
+    "NEEDS_SCOPE_AMENDMENT": 2,
+    "UNRESOLVED": 0,
+    "PRODUCT_SURFACE": 9,
+    "CAPABILITY": 45,
+    "SHARED_CORE_CLASS": 1,
+    "COMPOSITE_PRODUCT_SURFACE": 2,
+    "PRIOR_PASS_TRUSTED_FOR_LAUNCH_YES": 0,
+    "PRIOR_PASS_TRUSTED_FOR_LAUNCH_NO": 57,
+    "PHASE_ELIGIBLE_YES": 57,
+    "PHASE_ELIGIBLE_NO": 0
+  },
+  "phase0_5_reconciliation": [
+    {
+      "launch_item_id": 1,
+      "launch_name": "Six Heroes Command Home — «ماذا أفعل الآن؟»",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "COMPOSITE:decision_truth/product/six_heroes.py+command_view.py+api/routers/heroes.py",
+      "matched_capability_ids": [],
+      "build_class": "COMPOSITE_PRODUCT_SURFACE",
+      "scope_decision": "LAUNCH57_ITEM_1_PRODUCT_COMPOSITE_NO_NEW_CAP",
+      "prior_engineering_status": "NO_LINKED_CANONICAL",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "CONSUMER_PATH_INCOMPLETE;COMMAND_HOME_PARTIAL",
+      "decision_evidence": [
+        "decision_truth/product/six_heroes.py",
+        "decision_truth/product/command_view.py",
+        "api/routers/heroes.py",
+        "BLACKDARK_CAPABILITY_SIX_HERO_MATRIX.json"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 2,
+      "launch_name": "Single-Sentence Oracle (ACT/WAIT/ABSTAIN)",
+      "canonical_decision": "ALIAS",
+      "canonical_owner_or_mapping": "HERO_1:Single-Sentence Oracle via trust_pulse.py+decision_truth pipeline",
+      "matched_capability_ids": [],
+      "build_class": "PRODUCT_SURFACE",
+      "scope_decision": "LAUNCH57_ITEM_2_HERO_PRODUCT_SURFACE",
+      "prior_engineering_status": "NO_LINKED_CANONICAL",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION;NO_DISTINCT_CANONICAL_CAP_ROW",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_SIX_HERO_MATRIX.json#canonical_product_heroes[0]",
+        "docs/HERO_SIX_BINDING_REPORT.json",
+        "trust_pulse.py",
+        "api/routers/heroes.py#single_sentence_oracle"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 3,
+      "launch_name": "Decision Certificate + hash",
+      "canonical_decision": "NEEDS_SCOPE_AMENDMENT",
+      "canonical_owner_or_mapping": "CAP-0641",
+      "matched_capability_ids": [
+        "CAP-0641"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "AMEND_CAP-0641_INTO_LAUNCH57_FOR_ITEM_3",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0641",
+        "cap646/handlers/verified.py#641",
+        "cap646/batch26_dedicated.py#641",
+        "decision_certificate.py",
+        "tests/test_heroes_quality_polish.py"
+      ],
+      "reconciliation_status": "COMPLETE",
+      "scope_amendment_caps": [
+        "CAP-0641"
+      ]
+    },
+    {
+      "launch_item_id": 4,
+      "launch_name": "Public Accuracy Ledger (حي فقط)",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0640",
+      "matched_capability_ids": [
+        "CAP-0640"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0640",
+        "cap646/handlers/verified.py#640",
+        "oracle_track_record.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 5,
+      "launch_name": "Net-Edge / Cost Autopsy على كل فرصة أو إشارة",
+      "canonical_decision": "NEEDS_SCOPE_AMENDMENT",
+      "canonical_owner_or_mapping": "CAP-0639(primary);CAP-0635(shared_core_dependency_for_cost_autopsy)",
+      "matched_capability_ids": [
+        "CAP-0639"
+      ],
+      "build_class": "COMPOSITE_PRODUCT_SURFACE",
+      "scope_decision": "AMEND_CAP-0639_INTO_LAUNCH57_FOR_ITEM_5;CAP-0635_REMAINS_ITEM_43_SHARED_CORE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0639",
+        "net_edge_truth.py",
+        "cap646/handlers/verified.py#639",
+        "decision_truth/net_edge.py",
+        "CAP-0635 already LAUNCH57 launch_numbers [43]"
+      ],
+      "reconciliation_status": "COMPLETE",
+      "shared_core_dependency_ids": [
+        "CAP-0635"
+      ],
+      "scope_amendment_caps": [
+        "CAP-0639"
+      ]
+    },
+    {
+      "launch_item_id": 6,
+      "launch_name": "Evidence class ظاهر (LIVE / DELAYED / SIM)",
+      "canonical_decision": "SHARED_CORE",
+      "canonical_owner_or_mapping": "cap646/evidence_class.py+decision_truth/evidence_taxonomy.py",
+      "matched_capability_ids": [],
+      "build_class": "SHARED_CORE",
+      "scope_decision": "LAUNCH57_CROSS_CUTTING_EVIDENCE_CLASS_REQUIREMENT",
+      "prior_engineering_status": "NO_LINKED_CANONICAL",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "UX_OR_API_CONSUMER_GAP;EVIDENCE_CLASS_UI_INCOMPLETE",
+      "decision_evidence": [
+        "cap646/evidence_class.py",
+        "decision_truth/evidence_taxonomy.py",
+        "user_exposure_log.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 7,
+      "launch_name": "Market Regime / Compass",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0035",
+      "matched_capability_ids": [
+        "CAP-0035"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0035",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 8,
+      "launch_name": "Beginner Decision Mode",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0034",
+      "matched_capability_ids": [
+        "CAP-0034"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0034",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 9,
+      "launch_name": "Cross-Signal Confirmation",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0031",
+      "matched_capability_ids": [
+        "CAP-0031"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0031",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 10,
+      "launch_name": "Contradiction Detection",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0032",
+      "matched_capability_ids": [
+        "CAP-0032"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0032",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 11,
+      "launch_name": "Smart Money Actionability Score",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0033",
+      "matched_capability_ids": [
+        "CAP-0033"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0033",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 12,
+      "launch_name": "Smart Money Conviction Engine",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0028",
+      "matched_capability_ids": [
+        "CAP-0028"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0028",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 13,
+      "launch_name": "Accumulation / Distribution Detection",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0005",
+      "matched_capability_ids": [
+        "CAP-0005"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0005",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 14,
+      "launch_name": "Smart Money Token Screener",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0006",
+      "matched_capability_ids": [
+        "CAP-0006"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0006",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 15,
+      "launch_name": "Entity-Aware Wallet Intelligence",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0014",
+      "matched_capability_ids": [
+        "CAP-0014"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0014",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 16,
+      "launch_name": "Exchange Flow Intelligence (in/out/net)",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0015+CAP-0071",
+      "matched_capability_ids": [
+        "CAP-0015",
+        "CAP-0071"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0015",
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0071",
+        "cap646/runtime.py",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 17,
+      "launch_name": "Exchange Whale Ratio + internal-flow filter",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0072+CAP-0075",
+      "matched_capability_ids": [
+        "CAP-0072",
+        "CAP-0075"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0072",
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0075",
+        "cap646/runtime.py",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 18,
+      "launch_name": "Whale Accumulation / Movement Alerts",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0081+CAP-0098",
+      "matched_capability_ids": [
+        "CAP-0081",
+        "CAP-0098"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0081",
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0098",
+        "cap646/runtime.py",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 19,
+      "launch_name": "Inter-Entity Flow (محدود الإطلاق)",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0091",
+      "matched_capability_ids": [
+        "CAP-0091"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0091",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 20,
+      "launch_name": "Address Labels & Cohorts (نواة محدودة)",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0092",
+      "matched_capability_ids": [
+        "CAP-0092"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0092",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 21,
+      "launch_name": "Spot metrics suite (صادق التحديث)",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0047",
+      "matched_capability_ids": [
+        "CAP-0047"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0047",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 22,
+      "launch_name": "Real-time / near-real-time prices",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0561",
+      "matched_capability_ids": [
+        "CAP-0561"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0561",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 23,
+      "launch_name": "OHLCV",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0507",
+      "matched_capability_ids": [
+        "CAP-0507"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0507",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 24,
+      "launch_name": "Quote + symbol metadata",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0506+CAP-0513",
+      "matched_capability_ids": [
+        "CAP-0506",
+        "CAP-0513"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0506",
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0513",
+        "cap646/runtime.py",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 25,
+      "launch_name": "Futures OI intelligence",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0085+CAP-0048",
+      "matched_capability_ids": [
+        "CAP-0085",
+        "CAP-0048"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0085",
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0048",
+        "cap646/runtime.py",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 26,
+      "launch_name": "Funding rate intelligence",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0086",
+      "matched_capability_ids": [
+        "CAP-0086"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0086",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 27,
+      "launch_name": "Liquidation intelligence / heatmap خفيف",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0088",
+      "matched_capability_ids": [
+        "CAP-0088"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0088",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 28,
+      "launch_name": "Taker buy/sell + leverage ratio",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0089+CAP-0087",
+      "matched_capability_ids": [
+        "CAP-0089",
+        "CAP-0087"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0089",
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0087",
+        "cap646/runtime.py",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 29,
+      "launch_name": "Derivatives sentiment composite",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0090",
+      "matched_capability_ids": [
+        "CAP-0090"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0090",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 30,
+      "launch_name": "Order book intelligence (L1 على الأقل)",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0050+CAP-0508",
+      "matched_capability_ids": [
+        "CAP-0050",
+        "CAP-0508"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0050",
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0508",
+        "cap646/runtime.py",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 31,
+      "launch_name": "Token screener (سوق عام)",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0056",
+      "matched_capability_ids": [
+        "CAP-0056"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0056",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 32,
+      "launch_name": "Watchlists (توكن + محفظة محدودة)",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0019",
+      "matched_capability_ids": [
+        "CAP-0019"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0019",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 33,
+      "launch_name": "Smart Alerts (سعر + تدفق + حوت + قرار)",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0017",
+      "matched_capability_ids": [
+        "CAP-0017"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0017",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 34,
+      "launch_name": "Signal → Explanation workflow",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0025",
+      "matched_capability_ids": [
+        "CAP-0025"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0025",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 35,
+      "launch_name": "Price-move explanation",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0026",
+      "matched_capability_ids": [
+        "CAP-0026"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0026",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 36,
+      "launch_name": "AI Research Agent + Copilot مربوط ببيانات المنصة فقط (شات على أسطح الإطلاق + footer امتثال)",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0024",
+      "matched_capability_ids": [
+        "CAP-0024"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0024",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 37,
+      "launch_name": "Cross-market decision engine",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0029",
+      "matched_capability_ids": [
+        "CAP-0029"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0029",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 38,
+      "launch_name": "MVRV / Z-Score (نواة BTC/ETH إن توفّر مصدر)",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0040",
+      "matched_capability_ids": [
+        "CAP-0040"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0040",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 39,
+      "launch_name": "Point-in-time immutable metrics",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0061",
+      "matched_capability_ids": [
+        "CAP-0061"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0061",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 40,
+      "launch_name": "Data quality & provenance (ظاهر للمستخدم)",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0063+CAP-0500",
+      "matched_capability_ids": [
+        "CAP-0063",
+        "CAP-0500"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0063",
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0500",
+        "cap646/runtime.py",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 41,
+      "launch_name": "Freshness assurance + تسمية delayed صريحة",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0630",
+      "matched_capability_ids": [
+        "CAP-0630"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0630",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 42,
+      "launch_name": "Unified exchange connector (مسار واحد)",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0504",
+      "matched_capability_ids": [
+        "CAP-0504"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0504",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 43,
+      "launch_name": "Spot–perp / arbitrage (Net-Edge إلزامي)",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0230+CAP-0635",
+      "matched_capability_ids": [
+        "CAP-0230",
+        "CAP-0635"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0230",
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0635",
+        "cap646/runtime.py",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 44,
+      "launch_name": "Shareable decision / oracle card (OG)",
+      "canonical_decision": "ALIAS",
+      "canonical_owner_or_mapping": "PRODUCT_SURFACE:decision_certificate.py+trust_os_lenses.py (presentation over CAP-0641/#3)",
+      "matched_capability_ids": [
+        "CAP-0641"
+      ],
+      "build_class": "PRODUCT_SURFACE",
+      "scope_decision": "LAUNCH57_ITEM_44_ALIAS_OF_CERTIFICATE_VIRAL_CARD",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "CONSUMER_PATH_INCOMPLETE;SCOPE_DEPENDS_ON_CAP-0641_AMENDMENT",
+      "decision_evidence": [
+        "decision_certificate.py",
+        "trust_os_lenses.py",
+        "trust_os.py#viral_atom"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 45,
+      "launch_name": "Shareable accuracy / outcome page",
+      "canonical_decision": "ALIAS",
+      "canonical_owner_or_mapping": "CAP-0640 presentation layer /oracle-accuracy (extension of #4)",
+      "matched_capability_ids": [
+        "CAP-0640"
+      ],
+      "build_class": "PRODUCT_SURFACE",
+      "scope_decision": "IN_LAUNCH57_SCOPE_ALIAS_OF_CAP-0640",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "LAUNCH57_IDS source: امتداد 0640",
+        "trust_compounding.py#/oracle-accuracy",
+        "trust_pulse.py#PATH_ORACLE_ACCURACY",
+        "CAP-0640 build_scope.launch_numbers includes 4 and 45"
+      ],
+      "reconciliation_status": "COMPLETE",
+      "cap0640_conflict_resolution": "A) #45 = PRODUCT_SURFACE / ALIAS presentation layer over #4"
+    },
+    {
+      "launch_item_id": 46,
+      "launch_name": "Guest trust surface",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "governance/anonymous_visitor_governance.py+anonymous visitor spec",
+      "matched_capability_ids": [],
+      "build_class": "PRODUCT_SURFACE",
+      "scope_decision": "LAUNCH57_ITEM_46_GUEST_TRUST_SURFACE",
+      "prior_engineering_status": "NO_LINKED_CANONICAL",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "CONSUMER_PATH_MISSING",
+      "decision_evidence": [
+        "governance/anonymous_visitor_governance.py",
+        "docs/BLACKDARK_ANONYMOUS_VISITOR_PUBLIC_INTELLIGENCE_EXPERIENCE_2026_FINAL.md",
+        "tests/test_p0_anonymous_route_foundation.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 47,
+      "launch_name": "One-click risk disclosure على كل قرار",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "decision_truth/product/reject_proof.py+decision_certificate.compliance_footer",
+      "matched_capability_ids": [],
+      "build_class": "PRODUCT_SURFACE",
+      "scope_decision": "LAUNCH57_ITEM_47_RISK_DISCLOSURE_OVERLAY",
+      "prior_engineering_status": "NO_LINKED_CANONICAL",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "CONSUMER_PATH_INCOMPLETE",
+      "decision_evidence": [
+        "decision_truth/product/reject_proof.py",
+        "decision_certificate.py#LEGAL_SHIELD_PREFIX"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 48,
+      "launch_name": "Abstain / reject reasons ظاهرة",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "decision_truth/product/rejection_engine.py+no_decision.py",
+      "matched_capability_ids": [],
+      "build_class": "PRODUCT_SURFACE",
+      "scope_decision": "LAUNCH57_ITEM_48_ABSTAIN_REJECT_VISIBILITY",
+      "prior_engineering_status": "NO_LINKED_CANONICAL",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "CONSUMER_PATH_INCOMPLETE",
+      "decision_evidence": [
+        "decision_truth/product/rejection_engine.py",
+        "decision_truth/product/no_decision.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 49,
+      "launch_name": "Personal decision history (محدود Free)",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "user_exposure_log.py+data/decision_ledger.jsonl",
+      "matched_capability_ids": [],
+      "build_class": "PRODUCT_SURFACE",
+      "scope_decision": "LAUNCH57_ITEM_49_LIMITED_FREE_HISTORY",
+      "prior_engineering_status": "NO_LINKED_CANONICAL",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "CONSUMER_PATH_INCOMPLETE;DATA_ARTIFACT_PARTIAL",
+      "decision_evidence": [
+        "user_exposure_log.py",
+        "data/decision_ledger.jsonl"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 50,
+      "launch_name": "Discipline / missed-opportunity mirror (خفيف)",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "discipline_mirror.py",
+      "matched_capability_ids": [],
+      "build_class": "PRODUCT_SURFACE",
+      "scope_decision": "LAUNCH57_ITEM_50_DISCIPLINE_MIRROR",
+      "prior_engineering_status": "NO_LINKED_CANONICAL",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "CONSUMER_PATH_INCOMPLETE",
+      "decision_evidence": [
+        "discipline_mirror.py",
+        "api/routers/heroes.py#discipline_mirror",
+        "templates/discipline.html"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 51,
+      "launch_name": "Research portal / short briefs",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0065+CAP-0100",
+      "matched_capability_ids": [
+        "CAP-0065",
+        "CAP-0100"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0065",
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0100",
+        "cap646/runtime.py",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 52,
+      "launch_name": "Capability library (بحث) — طبقة ثانية لا الرئيسية",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "BLACKDARK_CAPABILITY_CURRENT_STATE.json catalog search UX (secondary layer)",
+      "matched_capability_ids": [],
+      "build_class": "PRODUCT_SURFACE",
+      "scope_decision": "LAUNCH57_ITEM_52_SECONDARY_CAPABILITY_LIBRARY",
+      "prior_engineering_status": "NO_LINKED_CANONICAL",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "UX_OR_API_CONSUMER_GAP",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json",
+        "LAUNCH57_IDS source: ناقص UX"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 53,
+      "launch_name": "Instant Wallet Due Diligence",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0022",
+      "matched_capability_ids": [
+        "CAP-0022"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0022",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 54,
+      "launch_name": "Instant Token Due Diligence",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0023",
+      "matched_capability_ids": [
+        "CAP-0023"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0023",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 55,
+      "launch_name": "Pump & Dump / manipulation pattern alerts",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0238",
+      "matched_capability_ids": [
+        "CAP-0238"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0238",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 56,
+      "launch_name": "Suspicious activity flags (على مسارات توكن/سمارت موني — ليس AML كامل)",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0297",
+      "matched_capability_ids": [
+        "CAP-0297"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0297",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 57,
+      "launch_name": "Exchange transparency / risk indicators (احتياطي معلن إن وُجد، شذوذ تدفق، حوادث — بدون شهادة ملاءة أو ضمان)",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0916",
+      "matched_capability_ids": [
+        "CAP-0916"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "ENGINEERING_RECONCILIATION_REQUIRED",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0916",
+        "cap978/verify.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    }
+  ],
+  "scope_amendments_applied": [
+    {
+      "capability_id": "CAP-0641",
+      "launch_item_id": 3,
+      "action": "PARKED_OUT_OF_LAUNCH -> LAUNCH57"
+    },
+    {
+      "capability_id": "CAP-0639",
+      "launch_item_id": 5,
+      "action": "PARKED_OUT_OF_LAUNCH -> LAUNCH57"
+    }
+  ],
+  "phase0_5_verification": {
+    "LAUNCH57_COUNT": 57,
+    "ALL_57_HAVE_EXPLICIT_CANONICAL_DECISION": "YES",
+    "ALL_57_HAVE_BUILD_CLASS": "YES",
+    "ALL_57_HAVE_SCOPE_DECISION": "YES",
+    "ALL_57_HAVE_PRIOR_PASS_TRUST_STATE": "YES",
+    "ALL_57_HAVE_PHASE_ELIGIBILITY": "YES",
+    "ALL_SCOPE_AMENDMENTS_EXPLICIT": "YES",
+    "SCOPE_LEAKAGE_FOUND": "NO",
+    "BUILD_STARTED": "NO",
+    "PHASE_1_STARTED": "NO",
+    "PASS_ENGINEERING_ISSUED": "NO",
+    "PASS_LIVE_ISSUED": "NO"
   }
 }

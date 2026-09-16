@@ -82,8 +82,8 @@
     "LOCAL_ENGINEERING_GAPS_HIDDEN_AS_EXTERNAL": 0,
     "REGRESSION_FAILURES": 0,
     "LAUNCH57_COUNT": 57,
-    "LAUNCH57_CANONICAL_CAPABILITY_REFERENCES": 54,
-    "PARKED_OUT_OF_LAUNCH_COUNT": 878,
+    "LAUNCH57_CANONICAL_CAPABILITY_REFERENCES": 56,
+    "PARKED_OUT_OF_LAUNCH_COUNT": 876,
     "CURRENT_APPROVED_BUILD_SCOPE": "LAUNCH57"
   },
   "canonical_capabilities": [
@@ -202067,10 +202067,27 @@
         }
       },
       "build_scope": {
-        "scope_class": "PARKED_OUT_OF_LAUNCH",
-        "not_in_current_build_scope": true,
-        "not_in_launch_surface": true,
-        "no_build": true
+        "scope_class": "LAUNCH57",
+        "launch_numbers": [
+          5
+        ],
+        "not_in_current_build_scope": false,
+        "not_in_launch_surface": false,
+        "no_build": false,
+        "scope_amendment": {
+          "phase": "0.5",
+          "baseline_commit": "348c3457",
+          "prior_scope_class": "PARKED_OUT_OF_LAUNCH",
+          "reason": "Launch item #5 canonical owner linkage",
+          "explicit": true
+        }
+      },
+      "phase0_5_reconciliation": {
+        "linked_launch_numbers": [
+          5
+        ],
+        "canonical_decision": "NEEDS_SCOPE_AMENDMENT",
+        "applied": true
       }
     },
     {
@@ -202677,10 +202694,27 @@
         }
       },
       "build_scope": {
-        "scope_class": "PARKED_OUT_OF_LAUNCH",
-        "not_in_current_build_scope": true,
-        "not_in_launch_surface": true,
-        "no_build": true
+        "scope_class": "LAUNCH57",
+        "launch_numbers": [
+          3
+        ],
+        "not_in_current_build_scope": false,
+        "not_in_launch_surface": false,
+        "no_build": false,
+        "scope_amendment": {
+          "phase": "0.5",
+          "baseline_commit": "348c3457",
+          "prior_scope_class": "PARKED_OUT_OF_LAUNCH",
+          "reason": "Launch item #3 canonical owner linkage",
+          "explicit": true
+        }
+      },
+      "phase0_5_reconciliation": {
+        "linked_launch_numbers": [
+          3
+        ],
+        "canonical_decision": "NEEDS_SCOPE_AMENDMENT",
+        "applied": true
       }
     },
     {
@@ -313278,6 +313312,18 @@
           "pass_engineering_reconciliation": null,
           "hero_mapping_status": "PRODUCT_COMPOSITE_ALL_SIX_HEROES",
           "stub_generic_mock_findings_count": 0
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "COMPOSITE:decision_truth/product/six_heroes.py+command_view.py+api/routers/heroes.py",
+          "matched_capability_ids": [],
+          "build_class": "COMPOSITE_PRODUCT_SURFACE",
+          "scope_decision": "LAUNCH57_ITEM_1_PRODUCT_COMPOSITE_NO_NEW_CAP",
+          "prior_engineering_status": "NO_LINKED_CANONICAL",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "CONSUMER_PATH_INCOMPLETE;COMMAND_HOME_PARTIAL",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -313296,6 +313342,18 @@
           "pass_engineering_reconciliation": null,
           "hero_mapping_status": "HERO_1_SINGLE_SENTENCE_ORACLE",
           "stub_generic_mock_findings_count": 0
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "ALIAS",
+          "canonical_owner_or_mapping": "HERO_1:Single-Sentence Oracle via trust_pulse.py+decision_truth pipeline",
+          "matched_capability_ids": [],
+          "build_class": "PRODUCT_SURFACE",
+          "scope_decision": "LAUNCH57_ITEM_2_HERO_PRODUCT_SURFACE",
+          "prior_engineering_status": "NO_LINKED_CANONICAL",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION;NO_DISTINCT_CANONICAL_CAP_ROW",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -313304,7 +313362,9 @@
         "source": "يجب إكماله",
         "launch_reason": "ثقة + فيروسية + B2B لاحقًا",
         "scope_class": "LAUNCH57",
-        "referenced_capability_ids": [],
+        "referenced_capability_ids": [
+          "CAP-0641"
+        ],
         "phase0_truth": {
           "match_status": "IMPLICIT_REPO_MATCH_OUTSIDE_LAUNCH57_SCOPE",
           "matched_capability_ids": [
@@ -313316,6 +313376,20 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 1
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "NEEDS_SCOPE_AMENDMENT",
+          "canonical_owner_or_mapping": "CAP-0641",
+          "matched_capability_ids": [
+            "CAP-0641"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "AMEND_CAP-0641_INTO_LAUNCH57_FOR_ITEM_3",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -313338,6 +313412,20 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 1
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "CAP-0640",
+          "matched_capability_ids": [
+            "CAP-0640"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "IN_LAUNCH57_SCOPE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -313346,7 +313434,9 @@
         "source": "ناقص جوهري",
         "launch_reason": "تمايز vs بائعي الإشارات",
         "scope_class": "LAUNCH57",
-        "referenced_capability_ids": [],
+        "referenced_capability_ids": [
+          "CAP-0639"
+        ],
         "phase0_truth": {
           "match_status": "IMPLICIT_REPO_MATCH_OUTSIDE_LAUNCH57_SCOPE",
           "matched_capability_ids": [
@@ -313359,6 +313449,20 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 3
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "NEEDS_SCOPE_AMENDMENT",
+          "canonical_owner_or_mapping": "CAP-0639(primary);CAP-0635(shared_core_dependency_for_cost_autopsy)",
+          "matched_capability_ids": [
+            "CAP-0639"
+          ],
+          "build_class": "COMPOSITE_PRODUCT_SURFACE",
+          "scope_decision": "AMEND_CAP-0639_INTO_LAUNCH57_FOR_ITEM_5;CAP-0635_REMAINS_ITEM_43_SHARED_CORE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -313377,6 +313481,18 @@
           "pass_engineering_reconciliation": null,
           "hero_mapping_status": "NOT_APPLICABLE",
           "stub_generic_mock_findings_count": 0
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "SHARED_CORE",
+          "canonical_owner_or_mapping": "cap646/evidence_class.py+decision_truth/evidence_taxonomy.py",
+          "matched_capability_ids": [],
+          "build_class": "SHARED_CORE",
+          "scope_decision": "LAUNCH57_CROSS_CUTTING_EVIDENCE_CLASS_REQUIREMENT",
+          "prior_engineering_status": "NO_LINKED_CANONICAL",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "UX_OR_API_CONSUMER_GAP;EVIDENCE_CLASS_UI_INCOMPLETE",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -313399,6 +313515,20 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 1
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "CAP-0035",
+          "matched_capability_ids": [
+            "CAP-0035"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "IN_LAUNCH57_SCOPE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -313421,6 +313551,20 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 1
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "CAP-0034",
+          "matched_capability_ids": [
+            "CAP-0034"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "IN_LAUNCH57_SCOPE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -313443,6 +313587,20 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 1
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "CAP-0031",
+          "matched_capability_ids": [
+            "CAP-0031"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "IN_LAUNCH57_SCOPE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -313465,6 +313623,20 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 1
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "CAP-0032",
+          "matched_capability_ids": [
+            "CAP-0032"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "IN_LAUNCH57_SCOPE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -313487,6 +313659,20 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 1
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "CAP-0033",
+          "matched_capability_ids": [
+            "CAP-0033"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "IN_LAUNCH57_SCOPE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -313509,6 +313695,20 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 1
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "CAP-0028",
+          "matched_capability_ids": [
+            "CAP-0028"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "IN_LAUNCH57_SCOPE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -313531,6 +313731,20 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 1
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "CAP-0005",
+          "matched_capability_ids": [
+            "CAP-0005"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "IN_LAUNCH57_SCOPE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -313553,6 +313767,20 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 1
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "CAP-0006",
+          "matched_capability_ids": [
+            "CAP-0006"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "IN_LAUNCH57_SCOPE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -313575,6 +313803,20 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 1
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "CAP-0014",
+          "matched_capability_ids": [
+            "CAP-0014"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "IN_LAUNCH57_SCOPE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -313599,6 +313841,21 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 2
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "CAP-0015+CAP-0071",
+          "matched_capability_ids": [
+            "CAP-0015",
+            "CAP-0071"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "IN_LAUNCH57_SCOPE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -313623,6 +313880,21 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 2
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "CAP-0072+CAP-0075",
+          "matched_capability_ids": [
+            "CAP-0072",
+            "CAP-0075"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "IN_LAUNCH57_SCOPE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -313647,6 +313919,21 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 2
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "CAP-0081+CAP-0098",
+          "matched_capability_ids": [
+            "CAP-0081",
+            "CAP-0098"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "IN_LAUNCH57_SCOPE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -313669,6 +313956,20 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 1
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "CAP-0091",
+          "matched_capability_ids": [
+            "CAP-0091"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "IN_LAUNCH57_SCOPE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -313691,6 +313992,20 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 1
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "CAP-0092",
+          "matched_capability_ids": [
+            "CAP-0092"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "IN_LAUNCH57_SCOPE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -313713,6 +314028,20 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 1
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "CAP-0047",
+          "matched_capability_ids": [
+            "CAP-0047"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "IN_LAUNCH57_SCOPE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -313735,6 +314064,20 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 1
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "CAP-0561",
+          "matched_capability_ids": [
+            "CAP-0561"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "IN_LAUNCH57_SCOPE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -313757,6 +314100,20 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 1
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "CAP-0507",
+          "matched_capability_ids": [
+            "CAP-0507"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "IN_LAUNCH57_SCOPE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -313781,6 +314138,21 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 2
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "CAP-0506+CAP-0513",
+          "matched_capability_ids": [
+            "CAP-0506",
+            "CAP-0513"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "IN_LAUNCH57_SCOPE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -313805,6 +314177,21 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 2
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "CAP-0085+CAP-0048",
+          "matched_capability_ids": [
+            "CAP-0085",
+            "CAP-0048"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "IN_LAUNCH57_SCOPE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -313827,6 +314214,20 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 1
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "CAP-0086",
+          "matched_capability_ids": [
+            "CAP-0086"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "IN_LAUNCH57_SCOPE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -313849,6 +314250,20 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 1
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "CAP-0088",
+          "matched_capability_ids": [
+            "CAP-0088"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "IN_LAUNCH57_SCOPE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -313873,6 +314288,21 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 2
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "CAP-0089+CAP-0087",
+          "matched_capability_ids": [
+            "CAP-0089",
+            "CAP-0087"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "IN_LAUNCH57_SCOPE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -313895,6 +314325,20 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 1
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "CAP-0090",
+          "matched_capability_ids": [
+            "CAP-0090"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "IN_LAUNCH57_SCOPE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -313919,6 +314363,21 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 2
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "CAP-0050+CAP-0508",
+          "matched_capability_ids": [
+            "CAP-0050",
+            "CAP-0508"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "IN_LAUNCH57_SCOPE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -313941,6 +314400,20 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 1
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "CAP-0056",
+          "matched_capability_ids": [
+            "CAP-0056"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "IN_LAUNCH57_SCOPE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -313963,6 +314436,20 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 1
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "CAP-0019",
+          "matched_capability_ids": [
+            "CAP-0019"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "IN_LAUNCH57_SCOPE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -313985,6 +314472,20 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 1
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "CAP-0017",
+          "matched_capability_ids": [
+            "CAP-0017"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "IN_LAUNCH57_SCOPE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -314007,6 +314508,20 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 1
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "CAP-0025",
+          "matched_capability_ids": [
+            "CAP-0025"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "IN_LAUNCH57_SCOPE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -314029,6 +314544,20 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 1
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "CAP-0026",
+          "matched_capability_ids": [
+            "CAP-0026"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "IN_LAUNCH57_SCOPE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -314051,6 +314580,20 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 1
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "CAP-0024",
+          "matched_capability_ids": [
+            "CAP-0024"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "IN_LAUNCH57_SCOPE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -314073,6 +314616,20 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 1
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "CAP-0029",
+          "matched_capability_ids": [
+            "CAP-0029"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "IN_LAUNCH57_SCOPE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -314095,6 +314652,20 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 1
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "CAP-0040",
+          "matched_capability_ids": [
+            "CAP-0040"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "IN_LAUNCH57_SCOPE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -314117,6 +314688,20 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 1
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "CAP-0061",
+          "matched_capability_ids": [
+            "CAP-0061"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "IN_LAUNCH57_SCOPE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -314141,6 +314726,21 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 2
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "CAP-0063+CAP-0500",
+          "matched_capability_ids": [
+            "CAP-0063",
+            "CAP-0500"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "IN_LAUNCH57_SCOPE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -314163,6 +314763,20 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 1
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "CAP-0630",
+          "matched_capability_ids": [
+            "CAP-0630"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "IN_LAUNCH57_SCOPE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -314185,6 +314799,20 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 1
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "CAP-0504",
+          "matched_capability_ids": [
+            "CAP-0504"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "IN_LAUNCH57_SCOPE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -314209,6 +314837,21 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 2
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "CAP-0230+CAP-0635",
+          "matched_capability_ids": [
+            "CAP-0230",
+            "CAP-0635"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "IN_LAUNCH57_SCOPE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -314227,6 +314870,20 @@
           "pass_engineering_reconciliation": null,
           "hero_mapping_status": "NOT_APPLICABLE",
           "stub_generic_mock_findings_count": 0
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "ALIAS",
+          "canonical_owner_or_mapping": "PRODUCT_SURFACE:decision_certificate.py+trust_os_lenses.py (presentation over CAP-0641/#3)",
+          "matched_capability_ids": [
+            "CAP-0641"
+          ],
+          "build_class": "PRODUCT_SURFACE",
+          "scope_decision": "LAUNCH57_ITEM_44_ALIAS_OF_CERTIFICATE_VIRAL_CARD",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "CONSUMER_PATH_INCOMPLETE;SCOPE_DEPENDS_ON_CAP-0641_AMENDMENT",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -314249,6 +314906,20 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 1
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "ALIAS",
+          "canonical_owner_or_mapping": "CAP-0640 presentation layer /oracle-accuracy (extension of #4)",
+          "matched_capability_ids": [
+            "CAP-0640"
+          ],
+          "build_class": "PRODUCT_SURFACE",
+          "scope_decision": "IN_LAUNCH57_SCOPE_ALIAS_OF_CAP-0640",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -314267,6 +314938,18 @@
           "pass_engineering_reconciliation": null,
           "hero_mapping_status": "NOT_APPLICABLE",
           "stub_generic_mock_findings_count": 0
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "governance/anonymous_visitor_governance.py+anonymous visitor spec",
+          "matched_capability_ids": [],
+          "build_class": "PRODUCT_SURFACE",
+          "scope_decision": "LAUNCH57_ITEM_46_GUEST_TRUST_SURFACE",
+          "prior_engineering_status": "NO_LINKED_CANONICAL",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "CONSUMER_PATH_MISSING",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -314285,6 +314968,18 @@
           "pass_engineering_reconciliation": null,
           "hero_mapping_status": "NOT_APPLICABLE",
           "stub_generic_mock_findings_count": 0
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "decision_truth/product/reject_proof.py+decision_certificate.compliance_footer",
+          "matched_capability_ids": [],
+          "build_class": "PRODUCT_SURFACE",
+          "scope_decision": "LAUNCH57_ITEM_47_RISK_DISCLOSURE_OVERLAY",
+          "prior_engineering_status": "NO_LINKED_CANONICAL",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "CONSUMER_PATH_INCOMPLETE",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -314303,6 +314998,18 @@
           "pass_engineering_reconciliation": null,
           "hero_mapping_status": "NOT_APPLICABLE",
           "stub_generic_mock_findings_count": 0
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "decision_truth/product/rejection_engine.py+no_decision.py",
+          "matched_capability_ids": [],
+          "build_class": "PRODUCT_SURFACE",
+          "scope_decision": "LAUNCH57_ITEM_48_ABSTAIN_REJECT_VISIBILITY",
+          "prior_engineering_status": "NO_LINKED_CANONICAL",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "CONSUMER_PATH_INCOMPLETE",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -314321,6 +315028,18 @@
           "pass_engineering_reconciliation": null,
           "hero_mapping_status": "NOT_APPLICABLE",
           "stub_generic_mock_findings_count": 0
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "user_exposure_log.py+data/decision_ledger.jsonl",
+          "matched_capability_ids": [],
+          "build_class": "PRODUCT_SURFACE",
+          "scope_decision": "LAUNCH57_ITEM_49_LIMITED_FREE_HISTORY",
+          "prior_engineering_status": "NO_LINKED_CANONICAL",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "CONSUMER_PATH_INCOMPLETE;DATA_ARTIFACT_PARTIAL",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -314339,6 +315058,18 @@
           "pass_engineering_reconciliation": null,
           "hero_mapping_status": "NOT_APPLICABLE",
           "stub_generic_mock_findings_count": 0
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "discipline_mirror.py",
+          "matched_capability_ids": [],
+          "build_class": "PRODUCT_SURFACE",
+          "scope_decision": "LAUNCH57_ITEM_50_DISCIPLINE_MIRROR",
+          "prior_engineering_status": "NO_LINKED_CANONICAL",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "CONSUMER_PATH_INCOMPLETE",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -314363,6 +315094,21 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 2
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "CAP-0065+CAP-0100",
+          "matched_capability_ids": [
+            "CAP-0065",
+            "CAP-0100"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "IN_LAUNCH57_SCOPE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -314381,6 +315127,18 @@
           "pass_engineering_reconciliation": null,
           "hero_mapping_status": "NOT_APPLICABLE",
           "stub_generic_mock_findings_count": 0
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "BLACKDARK_CAPABILITY_CURRENT_STATE.json catalog search UX (secondary layer)",
+          "matched_capability_ids": [],
+          "build_class": "PRODUCT_SURFACE",
+          "scope_decision": "LAUNCH57_ITEM_52_SECONDARY_CAPABILITY_LIBRARY",
+          "prior_engineering_status": "NO_LINKED_CANONICAL",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "UX_OR_API_CONSUMER_GAP",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -314403,6 +315161,20 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 1
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "CAP-0022",
+          "matched_capability_ids": [
+            "CAP-0022"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "IN_LAUNCH57_SCOPE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -314425,6 +315197,20 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 1
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "CAP-0023",
+          "matched_capability_ids": [
+            "CAP-0023"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "IN_LAUNCH57_SCOPE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -314447,6 +315233,20 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 1
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "CAP-0238",
+          "matched_capability_ids": [
+            "CAP-0238"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "IN_LAUNCH57_SCOPE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -314469,6 +315269,20 @@
           "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 1
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "CAP-0297",
+          "matched_capability_ids": [
+            "CAP-0297"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "IN_LAUNCH57_SCOPE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+          "reconciliation_status": "COMPLETE"
         }
       },
       {
@@ -314491,6 +315305,20 @@
           "pass_engineering_reconciliation": "EXISTING_PASS_EVIDENCE_FOUND",
           "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
           "stub_generic_mock_findings_count": 0
+        },
+        "phase0_5_reconciliation": {
+          "canonical_decision": "REUSE",
+          "canonical_owner_or_mapping": "CAP-0916",
+          "matched_capability_ids": [
+            "CAP-0916"
+          ],
+          "build_class": "CAPABILITY",
+          "scope_decision": "IN_LAUNCH57_SCOPE",
+          "prior_engineering_status": "PASS_ENGINEERING",
+          "prior_pass_trusted_for_launch": "NO",
+          "phase_eligible": "YES",
+          "blocker": "ENGINEERING_RECONCILIATION_REQUIRED",
+          "reconciliation_status": "COMPLETE"
         }
       }
     ]
@@ -314596,5 +315424,53 @@
         }
       ]
     }
+  },
+  "phase0_5_reconciliation": {
+    "phase": "0.5_CANONICAL_SCOPE_RECONCILIATION",
+    "completed_at": "2026-09-16T19:09:57.031515+00:00",
+    "baseline_commits": {
+      "phase0": "172188c3",
+      "scope_lock": "348c3457"
+    },
+    "source_commit": "172188c3b17b1647d15148c603f53256c1acbc7d",
+    "register_artifact": "governance/launch57/LAUNCH57_REGISTER.json",
+    "report_artifact": "governance/launch57/PHASE0_5_RECONCILIATION_REPORT.md",
+    "scope_amendments_applied": [
+      "CAP-0641",
+      "CAP-0639"
+    ],
+    "summary": {
+      "TOTAL_LAUNCH57": 57,
+      "REUSE": 51,
+      "EXTEND": 0,
+      "NEW_OWNER": 0,
+      "ALIAS": 3,
+      "SHARED_CORE": 1,
+      "NEEDS_SCOPE_AMENDMENT": 2,
+      "UNRESOLVED": 0,
+      "PRODUCT_SURFACE": 9,
+      "CAPABILITY": 45,
+      "SHARED_CORE_CLASS": 1,
+      "COMPOSITE_PRODUCT_SURFACE": 2,
+      "PRIOR_PASS_TRUSTED_FOR_LAUNCH_YES": 0,
+      "PRIOR_PASS_TRUSTED_FOR_LAUNCH_NO": 57,
+      "PHASE_ELIGIBLE_YES": 57,
+      "PHASE_ELIGIBLE_NO": 0
+    },
+    "verification": {
+      "LAUNCH57_COUNT": 57,
+      "ALL_57_HAVE_EXPLICIT_CANONICAL_DECISION": "YES",
+      "ALL_57_HAVE_BUILD_CLASS": "YES",
+      "ALL_57_HAVE_SCOPE_DECISION": "YES",
+      "ALL_57_HAVE_PRIOR_PASS_TRUST_STATE": "YES",
+      "ALL_57_HAVE_PHASE_ELIGIBILITY": "YES",
+      "ALL_SCOPE_AMENDMENTS_EXPLICIT": "YES",
+      "SCOPE_LEAKAGE_FOUND": "NO",
+      "BUILD_STARTED": "NO",
+      "PHASE_1_STARTED": "NO",
+      "PASS_ENGINEERING_ISSUED": "NO",
+      "PASS_LIVE_ISSUED": "NO"
+    },
+    "cap0640_conflict_resolution": "A) #45 = PRODUCT_SURFACE / ALIAS presentation layer over #4"
   }
 }
