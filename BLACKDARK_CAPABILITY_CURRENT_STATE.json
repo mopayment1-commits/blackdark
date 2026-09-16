@@ -9423,10 +9423,11 @@
       "state_classification": "EXISTING_VERIFIED",
       "canonical_decision": "KEEP_DISTINCT",
       "canonical_owner": "cap646.institutional_official_production",
-      "canonical_implementation": "explicit_option_a",
+      "canonical_implementation": "launch57.decision_batch2",
       "runtime_entry": "cap646/runtime.py",
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/decision_batch2.py",
+        "bd_platform/retail_intelligence_layer.py"
       ],
       "inputs": [
         "symbol",
@@ -9785,6 +9786,14 @@
         "not_in_current_build_scope": false,
         "not_in_launch_surface": false,
         "no_build": false
+      },
+      "launch57_phase3_batch2": {
+        "phase": "3_DECISION",
+        "batch": 2,
+        "launch_item_id": 12,
+        "builder_status": "PENDING_VERIFICATION",
+        "runtime_path": "cap646/runtime.py → launch57/decision_batch2.py:smart_money_conviction_engine",
+        "commit_sha": "82a978413e1431fe905f372b1f4127778052a55b"
       }
     },
     {
@@ -9806,10 +9815,12 @@
       "state_classification": "EXISTING_VERIFIED",
       "canonical_decision": "KEEP_DISTINCT",
       "canonical_owner": "cap646.institutional_official_production",
-      "canonical_implementation": "explicit_option_a",
+      "canonical_implementation": "launch57.decision_batch2",
       "runtime_entry": "cap646/runtime.py",
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/decision_batch2.py",
+        "bd_platform/pro_trader_layer.py",
+        "bd_platform/institutional_delivery_intelligence_layer.py"
       ],
       "inputs": [
         "symbol",
@@ -10168,6 +10179,14 @@
         "not_in_current_build_scope": false,
         "not_in_launch_surface": false,
         "no_build": false
+      },
+      "launch57_phase3_batch2": {
+        "phase": "3_DECISION",
+        "batch": 2,
+        "launch_item_id": 37,
+        "builder_status": "PENDING_VERIFICATION",
+        "runtime_path": "cap646/runtime.py → launch57/decision_batch2.py:cross_market_decision_engine",
+        "commit_sha": "82a978413e1431fe905f372b1f4127778052a55b"
       }
     },
     {
@@ -316418,6 +316437,76 @@
     "open_debt": {
       "legacy_bypass": "When LAUNCH57_DECISION_BATCH*_CAP_IDS emptied → batch01_dedicated generic delegate",
       "fix_mandatory": "NO unless decision path blocked"
+    },
+    "batch2_order_executed": [
+      12,
+      37
+    ],
+    "full_build_order_executed": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      37
+    ],
+    "final_commit": "82a978413e1431fe905f372b1f4127778052a55b",
+    "batch2_completed_at": "2026-09-16T21:45:14.107472+00:00",
+    "phase3_decision_layer_complete": true,
+    "tests_all": {
+      "command": "python3 -m pytest tests/launch57/test_decision_*.py -q",
+      "exit_code": 0,
+      "stdout": ".............                                                            [100%]",
+      "passed": true
+    }
+  },
+  "phase3_decision_layer": {
+    "phase": "3_DECISION",
+    "batch": 1,
+    "build_order_executed": [
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "commit": "45512f47a92bf4da6d449652b1d1c9694ee9f491",
+    "completed_at": "2026-09-16T21:45:05.023777+00:00",
+    "builder_status": "PENDING_VERIFICATION",
+    "tests": {
+      "command": "python3 -m pytest tests/launch57/test_decision_batch1.py -q",
+      "exit_code": 0,
+      "stdout": "......                                                                   [100%]",
+      "passed": true
+    },
+    "phase1_baseline": "92b1d00e",
+    "phase2_baseline": "4d4dd6c7",
+    "open_debt": {
+      "legacy_bypass": "When LAUNCH57_DECISION_BATCH*_CAP_IDS emptied → batch01_dedicated generic delegate",
+      "fix_mandatory": "NO unless decision path blocked"
+    },
+    "batch2_order_executed": [
+      12,
+      37
+    ],
+    "full_build_order_executed": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      37
+    ],
+    "final_commit": "82a978413e1431fe905f372b1f4127778052a55b",
+    "batch2_completed_at": "2026-09-16T21:45:14.107472+00:00",
+    "phase3_decision_layer_complete": true,
+    "tests_all": {
+      "command": "python3 -m pytest tests/launch57/test_decision_*.py -q",
+      "exit_code": 0,
+      "stdout": ".............                                                            [100%]",
+      "passed": true
     }
   }
 }
