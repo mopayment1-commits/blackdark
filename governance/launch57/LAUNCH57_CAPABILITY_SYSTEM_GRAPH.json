@@ -1,0 +1,1846 @@
+{
+  "artifact": "LAUNCH57_CAPABILITY_SYSTEM_GRAPH",
+  "generated_at": "2026-09-16T22:54:37.071869+00:00",
+  "source_commit": "8ce0bc7c",
+  "scope": "LAUNCH57_ONLY",
+  "nodes": [
+    {
+      "id": "LAUNCH-01",
+      "launch_number": 1,
+      "name": "Six Heroes Command Home — «ماذا أفعل الآن؟»",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.edge_ui_batch2",
+      "primary_heroes": [
+        "Single-Sentence Oracle"
+      ],
+      "system_role": "COMMAND_HOME_ORCHESTRATOR"
+    },
+    {
+      "id": "LAUNCH-02",
+      "launch_number": 2,
+      "name": "Single-Sentence Oracle (ACT/WAIT/ABSTAIN)",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": null,
+      "primary_heroes": [
+        "Single-Sentence Oracle"
+      ],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-03",
+      "launch_number": 3,
+      "name": "Decision Certificate + hash",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.trust_batch1",
+      "primary_heroes": [],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-04",
+      "launch_number": 4,
+      "name": "Public Accuracy Ledger (حي فقط)",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.trust_batch1",
+      "primary_heroes": [
+        "Public Accuracy Ledger"
+      ],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-05",
+      "launch_number": 5,
+      "name": "Net-Edge / Cost Autopsy على كل فرصة أو إشارة",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.trust_batch1",
+      "primary_heroes": [],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-06",
+      "launch_number": 6,
+      "name": "Evidence class ظاهر (LIVE / DELAYED / SIM)",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": null,
+      "primary_heroes": [],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-07",
+      "launch_number": 7,
+      "name": "Market Regime / Compass",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.decision_batch1",
+      "primary_heroes": [
+        "Whale Signal vs Noise"
+      ],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-08",
+      "launch_number": 8,
+      "name": "Beginner Decision Mode",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.decision_batch1",
+      "primary_heroes": [
+        "Single-Sentence Oracle"
+      ],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-09",
+      "launch_number": 9,
+      "name": "Cross-Signal Confirmation",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.decision_batch1",
+      "primary_heroes": [
+        "Single-Sentence Oracle"
+      ],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-10",
+      "launch_number": 10,
+      "name": "Contradiction Detection",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.decision_batch1",
+      "primary_heroes": [
+        "Whale Signal vs Noise"
+      ],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-11",
+      "launch_number": 11,
+      "name": "Smart Money Actionability Score",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.decision_batch1",
+      "primary_heroes": [
+        "Stealth Advisor"
+      ],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-12",
+      "launch_number": 12,
+      "name": "Smart Money Conviction Engine",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.decision_batch2",
+      "primary_heroes": [
+        "Whale Signal vs Noise"
+      ],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-13",
+      "launch_number": 13,
+      "name": "Accumulation / Distribution Detection",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.smart_money_batch1",
+      "primary_heroes": [
+        "Whale Signal vs Noise"
+      ],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-14",
+      "launch_number": 14,
+      "name": "Smart Money Token Screener",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.smart_money_batch1",
+      "primary_heroes": [
+        "Whale Signal vs Noise"
+      ],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-15",
+      "launch_number": 15,
+      "name": "Entity-Aware Wallet Intelligence",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.smart_money_batch2",
+      "primary_heroes": [
+        "Whale Signal vs Noise"
+      ],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-16",
+      "launch_number": 16,
+      "name": "Exchange Flow Intelligence (in/out/net)",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.smart_money_batch1",
+      "primary_heroes": [
+        "Whale Signal vs Noise"
+      ],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-17",
+      "launch_number": 17,
+      "name": "Exchange Whale Ratio + internal-flow filter",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.smart_money_batch1",
+      "primary_heroes": [
+        "Whale Signal vs Noise"
+      ],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-18",
+      "launch_number": 18,
+      "name": "Whale Accumulation / Movement Alerts",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.smart_money_batch2",
+      "primary_heroes": [
+        "Whale Signal vs Noise"
+      ],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-19",
+      "launch_number": 19,
+      "name": "Inter-Entity Flow (محدود الإطلاق)",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.smart_money_batch2",
+      "primary_heroes": [
+        "Arbitrage Scanner"
+      ],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-20",
+      "launch_number": 20,
+      "name": "Address Labels & Cohorts (نواة محدودة)",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.smart_money_batch1",
+      "primary_heroes": [
+        "Whale Signal vs Noise"
+      ],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-21",
+      "launch_number": 21,
+      "name": "Spot metrics suite (صادق التحديث)",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.data_batch1",
+      "primary_heroes": [
+        "Single-Sentence Oracle"
+      ],
+      "system_role": "CROSS_HERO_SYSTEM_FOUNDATION"
+    },
+    {
+      "id": "LAUNCH-22",
+      "launch_number": 22,
+      "name": "Real-time / near-real-time prices",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.data_batch1",
+      "primary_heroes": [],
+      "system_role": "CROSS_HERO_SYSTEM_FOUNDATION"
+    },
+    {
+      "id": "LAUNCH-23",
+      "launch_number": 23,
+      "name": "OHLCV",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.data_batch1",
+      "primary_heroes": [
+        "B2B Feed"
+      ],
+      "system_role": "CROSS_HERO_SYSTEM_FOUNDATION"
+    },
+    {
+      "id": "LAUNCH-24",
+      "launch_number": 24,
+      "name": "Quote + symbol metadata",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.data_batch1",
+      "primary_heroes": [
+        "Arbitrage Scanner"
+      ],
+      "system_role": "CROSS_HERO_SYSTEM_FOUNDATION"
+    },
+    {
+      "id": "LAUNCH-25",
+      "launch_number": 25,
+      "name": "Futures OI intelligence",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.derivatives_batch1",
+      "primary_heroes": [
+        "Arbitrage Scanner",
+        "B2B Feed"
+      ],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-26",
+      "launch_number": 26,
+      "name": "Funding rate intelligence",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.derivatives_batch1",
+      "primary_heroes": [
+        "Arbitrage Scanner"
+      ],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-27",
+      "launch_number": 27,
+      "name": "Liquidation intelligence / heatmap خفيف",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.derivatives_batch1",
+      "primary_heroes": [
+        "Arbitrage Scanner"
+      ],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-28",
+      "launch_number": 28,
+      "name": "Taker buy/sell + leverage ratio",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.derivatives_batch1",
+      "primary_heroes": [
+        "Arbitrage Scanner"
+      ],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-29",
+      "launch_number": 29,
+      "name": "Derivatives sentiment composite",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.derivatives_batch1",
+      "primary_heroes": [
+        "B2B Feed"
+      ],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-30",
+      "launch_number": 30,
+      "name": "Order book intelligence (L1 على الأقل)",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.derivatives_batch2",
+      "primary_heroes": [
+        "B2B Feed"
+      ],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-31",
+      "launch_number": 31,
+      "name": "Token screener (سوق عام)",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.derivatives_batch2",
+      "primary_heroes": [
+        "Public Accuracy Ledger"
+      ],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-32",
+      "launch_number": 32,
+      "name": "Watchlists (توكن + محفظة محدودة)",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.derivatives_batch2",
+      "primary_heroes": [
+        "Whale Signal vs Noise"
+      ],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-33",
+      "launch_number": 33,
+      "name": "Smart Alerts (سعر + تدفق + حوت + قرار)",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING_WITH_BLOCKED_EXTERNAL",
+      "handler_module": "launch57.derivatives_batch2",
+      "primary_heroes": [
+        "Stealth Advisor"
+      ],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-34",
+      "launch_number": 34,
+      "name": "Signal → Explanation workflow",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.explanation_ai_batch1",
+      "primary_heroes": [],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-35",
+      "launch_number": 35,
+      "name": "Price-move explanation",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.explanation_ai_batch1",
+      "primary_heroes": [],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-36",
+      "launch_number": 36,
+      "name": "AI Research Agent + Copilot مربوط ببيانات المنصة فقط (شات على أسطح الإطلاق + footer امتثال)",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.explanation_ai_batch1",
+      "primary_heroes": [
+        "Stealth Advisor"
+      ],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-37",
+      "launch_number": 37,
+      "name": "Cross-market decision engine",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.decision_batch2",
+      "primary_heroes": [
+        "Whale Signal vs Noise"
+      ],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-38",
+      "launch_number": 38,
+      "name": "MVRV / Z-Score (نواة BTC/ETH إن توفّر مصدر)",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING_WITH_BLOCKED_EXTERNAL",
+      "handler_module": "launch57.edge_ui_batch1",
+      "primary_heroes": [
+        "Arbitrage Scanner"
+      ],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-39",
+      "launch_number": 39,
+      "name": "Point-in-time immutable metrics",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.data_batch2",
+      "primary_heroes": [
+        "Public Accuracy Ledger"
+      ],
+      "system_role": "CROSS_HERO_SYSTEM_FOUNDATION"
+    },
+    {
+      "id": "LAUNCH-40",
+      "launch_number": 40,
+      "name": "Data quality & provenance (ظاهر للمستخدم)",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.data_batch2",
+      "primary_heroes": [
+        "Public Accuracy Ledger"
+      ],
+      "system_role": "CROSS_HERO_SYSTEM_FOUNDATION"
+    },
+    {
+      "id": "LAUNCH-41",
+      "launch_number": 41,
+      "name": "Freshness assurance + تسمية delayed صريحة",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.data_batch2",
+      "primary_heroes": [
+        "B2B Feed"
+      ],
+      "system_role": "CROSS_HERO_SYSTEM_FOUNDATION"
+    },
+    {
+      "id": "LAUNCH-42",
+      "launch_number": 42,
+      "name": "Unified exchange connector (مسار واحد)",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.data_batch1",
+      "primary_heroes": [
+        "Arbitrage Scanner"
+      ],
+      "system_role": "CROSS_HERO_SYSTEM_FOUNDATION"
+    },
+    {
+      "id": "LAUNCH-43",
+      "launch_number": 43,
+      "name": "Spot–perp / arbitrage (Net-Edge إلزامي)",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.edge_ui_batch1",
+      "primary_heroes": [
+        "Arbitrage Scanner"
+      ],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-44",
+      "launch_number": 44,
+      "name": "Shareable decision / oracle card (OG)",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.trust_batch2",
+      "primary_heroes": [
+        "Single-Sentence Oracle"
+      ],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-45",
+      "launch_number": 45,
+      "name": "Shareable accuracy / outcome page",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.trust_batch2",
+      "primary_heroes": [
+        "Public Accuracy Ledger"
+      ],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-46",
+      "launch_number": 46,
+      "name": "Guest trust surface",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.trust_batch2",
+      "primary_heroes": [
+        "Public Accuracy Ledger"
+      ],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-47",
+      "launch_number": 47,
+      "name": "One-click risk disclosure على كل قرار",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.trust_batch2",
+      "primary_heroes": [],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-48",
+      "launch_number": 48,
+      "name": "Abstain / reject reasons ظاهرة",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.trust_batch2",
+      "primary_heroes": [],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-49",
+      "launch_number": 49,
+      "name": "Personal decision history (محدود Free)",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.edge_ui_batch1",
+      "primary_heroes": [],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-50",
+      "launch_number": 50,
+      "name": "Discipline / missed-opportunity mirror (خفيف)",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.edge_ui_batch1",
+      "primary_heroes": [],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-51",
+      "launch_number": 51,
+      "name": "Research portal / short briefs",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.explanation_ai_batch1",
+      "primary_heroes": [
+        "Public Accuracy Ledger"
+      ],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-52",
+      "launch_number": 52,
+      "name": "Capability library (بحث) — طبقة ثانية لا الرئيسية",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.edge_ui_batch1",
+      "primary_heroes": [],
+      "system_role": "SECONDARY_SEARCH_LAYER"
+    },
+    {
+      "id": "LAUNCH-53",
+      "launch_number": 53,
+      "name": "Instant Wallet Due Diligence",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.smart_money_batch2",
+      "primary_heroes": [
+        "Public Accuracy Ledger"
+      ],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-54",
+      "launch_number": 54,
+      "name": "Instant Token Due Diligence",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.smart_money_batch2",
+      "primary_heroes": [
+        "Public Accuracy Ledger"
+      ],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-55",
+      "launch_number": 55,
+      "name": "Pump & Dump / manipulation pattern alerts",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.smart_money_batch3",
+      "primary_heroes": [
+        "Whale Signal vs Noise"
+      ],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-56",
+      "launch_number": 56,
+      "name": "Suspicious activity flags (على مسارات توكن/سمارت موني — ليس AML كامل)",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.smart_money_batch3",
+      "primary_heroes": [
+        "Whale Signal vs Noise"
+      ],
+      "system_role": null
+    },
+    {
+      "id": "LAUNCH-57",
+      "launch_number": 57,
+      "name": "Exchange transparency / risk indicators (احتياطي معلن إن وُجد، شذوذ تدفق، حوادث — بدون شهادة ملاءة أو ضمان)",
+      "scope_origin": "LAUNCH57",
+      "engineering_status": "PASS_ENGINEERING",
+      "handler_module": "launch57.smart_money_batch3",
+      "primary_heroes": [],
+      "system_role": null
+    }
+  ],
+  "edges": [
+    {
+      "from": "LAUNCH-42",
+      "to": "LAUNCH-07",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-22",
+      "to": "LAUNCH-07",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-23",
+      "to": "LAUNCH-07",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-24",
+      "to": "LAUNCH-07",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-21",
+      "to": "LAUNCH-07",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-40",
+      "to": "LAUNCH-07",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-41",
+      "to": "LAUNCH-07",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-39",
+      "to": "LAUNCH-07",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-42",
+      "to": "LAUNCH-08",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-22",
+      "to": "LAUNCH-08",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-23",
+      "to": "LAUNCH-08",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-24",
+      "to": "LAUNCH-08",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-21",
+      "to": "LAUNCH-08",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-40",
+      "to": "LAUNCH-08",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-41",
+      "to": "LAUNCH-08",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-39",
+      "to": "LAUNCH-08",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-42",
+      "to": "LAUNCH-09",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-22",
+      "to": "LAUNCH-09",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-23",
+      "to": "LAUNCH-09",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-24",
+      "to": "LAUNCH-09",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-21",
+      "to": "LAUNCH-09",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-40",
+      "to": "LAUNCH-09",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-41",
+      "to": "LAUNCH-09",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-39",
+      "to": "LAUNCH-09",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-42",
+      "to": "LAUNCH-10",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-22",
+      "to": "LAUNCH-10",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-23",
+      "to": "LAUNCH-10",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-24",
+      "to": "LAUNCH-10",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-21",
+      "to": "LAUNCH-10",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-40",
+      "to": "LAUNCH-10",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-41",
+      "to": "LAUNCH-10",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-39",
+      "to": "LAUNCH-10",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-42",
+      "to": "LAUNCH-11",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-22",
+      "to": "LAUNCH-11",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-23",
+      "to": "LAUNCH-11",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-24",
+      "to": "LAUNCH-11",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-21",
+      "to": "LAUNCH-11",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-40",
+      "to": "LAUNCH-11",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-41",
+      "to": "LAUNCH-11",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-39",
+      "to": "LAUNCH-11",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-42",
+      "to": "LAUNCH-12",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-22",
+      "to": "LAUNCH-12",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-23",
+      "to": "LAUNCH-12",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-24",
+      "to": "LAUNCH-12",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-21",
+      "to": "LAUNCH-12",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-40",
+      "to": "LAUNCH-12",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-41",
+      "to": "LAUNCH-12",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-39",
+      "to": "LAUNCH-12",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-42",
+      "to": "LAUNCH-37",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-22",
+      "to": "LAUNCH-37",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-23",
+      "to": "LAUNCH-37",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-24",
+      "to": "LAUNCH-37",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-21",
+      "to": "LAUNCH-37",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-40",
+      "to": "LAUNCH-37",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-41",
+      "to": "LAUNCH-37",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-39",
+      "to": "LAUNCH-37",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-06",
+      "to": "LAUNCH-07",
+      "relation": "DEPENDS_ON",
+      "layer": "trust_envelope"
+    },
+    {
+      "from": "LAUNCH-05",
+      "to": "LAUNCH-07",
+      "relation": "DEPENDS_ON",
+      "layer": "trust_envelope"
+    },
+    {
+      "from": "LAUNCH-04",
+      "to": "LAUNCH-07",
+      "relation": "DEPENDS_ON",
+      "layer": "trust_envelope"
+    },
+    {
+      "from": "LAUNCH-03",
+      "to": "LAUNCH-07",
+      "relation": "DEPENDS_ON",
+      "layer": "trust_envelope"
+    },
+    {
+      "from": "LAUNCH-02",
+      "to": "LAUNCH-07",
+      "relation": "DEPENDS_ON",
+      "layer": "trust_envelope"
+    },
+    {
+      "from": "LAUNCH-06",
+      "to": "LAUNCH-08",
+      "relation": "DEPENDS_ON",
+      "layer": "trust_envelope"
+    },
+    {
+      "from": "LAUNCH-05",
+      "to": "LAUNCH-08",
+      "relation": "DEPENDS_ON",
+      "layer": "trust_envelope"
+    },
+    {
+      "from": "LAUNCH-04",
+      "to": "LAUNCH-08",
+      "relation": "DEPENDS_ON",
+      "layer": "trust_envelope"
+    },
+    {
+      "from": "LAUNCH-03",
+      "to": "LAUNCH-08",
+      "relation": "DEPENDS_ON",
+      "layer": "trust_envelope"
+    },
+    {
+      "from": "LAUNCH-02",
+      "to": "LAUNCH-08",
+      "relation": "DEPENDS_ON",
+      "layer": "trust_envelope"
+    },
+    {
+      "from": "LAUNCH-06",
+      "to": "LAUNCH-09",
+      "relation": "DEPENDS_ON",
+      "layer": "trust_envelope"
+    },
+    {
+      "from": "LAUNCH-05",
+      "to": "LAUNCH-09",
+      "relation": "DEPENDS_ON",
+      "layer": "trust_envelope"
+    },
+    {
+      "from": "LAUNCH-04",
+      "to": "LAUNCH-09",
+      "relation": "DEPENDS_ON",
+      "layer": "trust_envelope"
+    },
+    {
+      "from": "LAUNCH-03",
+      "to": "LAUNCH-09",
+      "relation": "DEPENDS_ON",
+      "layer": "trust_envelope"
+    },
+    {
+      "from": "LAUNCH-02",
+      "to": "LAUNCH-09",
+      "relation": "DEPENDS_ON",
+      "layer": "trust_envelope"
+    },
+    {
+      "from": "LAUNCH-06",
+      "to": "LAUNCH-10",
+      "relation": "DEPENDS_ON",
+      "layer": "trust_envelope"
+    },
+    {
+      "from": "LAUNCH-05",
+      "to": "LAUNCH-10",
+      "relation": "DEPENDS_ON",
+      "layer": "trust_envelope"
+    },
+    {
+      "from": "LAUNCH-04",
+      "to": "LAUNCH-10",
+      "relation": "DEPENDS_ON",
+      "layer": "trust_envelope"
+    },
+    {
+      "from": "LAUNCH-03",
+      "to": "LAUNCH-10",
+      "relation": "DEPENDS_ON",
+      "layer": "trust_envelope"
+    },
+    {
+      "from": "LAUNCH-02",
+      "to": "LAUNCH-10",
+      "relation": "DEPENDS_ON",
+      "layer": "trust_envelope"
+    },
+    {
+      "from": "LAUNCH-06",
+      "to": "LAUNCH-11",
+      "relation": "DEPENDS_ON",
+      "layer": "trust_envelope"
+    },
+    {
+      "from": "LAUNCH-05",
+      "to": "LAUNCH-11",
+      "relation": "DEPENDS_ON",
+      "layer": "trust_envelope"
+    },
+    {
+      "from": "LAUNCH-04",
+      "to": "LAUNCH-11",
+      "relation": "DEPENDS_ON",
+      "layer": "trust_envelope"
+    },
+    {
+      "from": "LAUNCH-03",
+      "to": "LAUNCH-11",
+      "relation": "DEPENDS_ON",
+      "layer": "trust_envelope"
+    },
+    {
+      "from": "LAUNCH-02",
+      "to": "LAUNCH-11",
+      "relation": "DEPENDS_ON",
+      "layer": "trust_envelope"
+    },
+    {
+      "from": "LAUNCH-06",
+      "to": "LAUNCH-12",
+      "relation": "DEPENDS_ON",
+      "layer": "trust_envelope"
+    },
+    {
+      "from": "LAUNCH-05",
+      "to": "LAUNCH-12",
+      "relation": "DEPENDS_ON",
+      "layer": "trust_envelope"
+    },
+    {
+      "from": "LAUNCH-04",
+      "to": "LAUNCH-12",
+      "relation": "DEPENDS_ON",
+      "layer": "trust_envelope"
+    },
+    {
+      "from": "LAUNCH-03",
+      "to": "LAUNCH-12",
+      "relation": "DEPENDS_ON",
+      "layer": "trust_envelope"
+    },
+    {
+      "from": "LAUNCH-02",
+      "to": "LAUNCH-12",
+      "relation": "DEPENDS_ON",
+      "layer": "trust_envelope"
+    },
+    {
+      "from": "LAUNCH-06",
+      "to": "LAUNCH-37",
+      "relation": "DEPENDS_ON",
+      "layer": "trust_envelope"
+    },
+    {
+      "from": "LAUNCH-05",
+      "to": "LAUNCH-37",
+      "relation": "DEPENDS_ON",
+      "layer": "trust_envelope"
+    },
+    {
+      "from": "LAUNCH-04",
+      "to": "LAUNCH-37",
+      "relation": "DEPENDS_ON",
+      "layer": "trust_envelope"
+    },
+    {
+      "from": "LAUNCH-03",
+      "to": "LAUNCH-37",
+      "relation": "DEPENDS_ON",
+      "layer": "trust_envelope"
+    },
+    {
+      "from": "LAUNCH-02",
+      "to": "LAUNCH-37",
+      "relation": "DEPENDS_ON",
+      "layer": "trust_envelope"
+    },
+    {
+      "from": "LAUNCH-05",
+      "to": "LAUNCH-43",
+      "relation": "GATES",
+      "rule": "net_edge_required_for_cost_claim"
+    },
+    {
+      "from": "LAUNCH-21",
+      "to": "LAUNCH-43",
+      "relation": "PROVIDES_TO",
+      "layer": "market_data"
+    },
+    {
+      "from": "LAUNCH-34",
+      "to": "LAUNCH-44",
+      "relation": "PROVIDES_TO",
+      "layer": "explanation_to_share"
+    },
+    {
+      "from": "LAUNCH-35",
+      "to": "LAUNCH-44",
+      "relation": "PROVIDES_TO",
+      "layer": "explanation_to_share"
+    },
+    {
+      "from": "LAUNCH-02",
+      "to": "LAUNCH-01",
+      "relation": "FEEDS_HERO",
+      "hero": "Single-Sentence Oracle"
+    },
+    {
+      "from": "LAUNCH-04",
+      "to": "LAUNCH-01",
+      "relation": "FEEDS_HERO",
+      "hero": "Public Accuracy Ledger"
+    },
+    {
+      "from": "LAUNCH-46",
+      "to": "LAUNCH-01",
+      "relation": "GATES",
+      "rule": "guest_trust_before_home"
+    },
+    {
+      "from": "LAUNCH-03",
+      "to": "LAUNCH-47",
+      "relation": "PROVIDES_TO",
+      "layer": "trust_envelope"
+    },
+    {
+      "from": "LAUNCH-47",
+      "to": "LAUNCH-01",
+      "relation": "FEEDS_HERO",
+      "hero": "Public Accuracy Ledger",
+      "role": "DATA_QUALITY_GATE"
+    },
+    {
+      "from": "LAUNCH-02",
+      "to": "LAUNCH-48",
+      "relation": "PROVIDES_TO",
+      "layer": "trust_envelope"
+    },
+    {
+      "from": "LAUNCH-48",
+      "to": "LAUNCH-01",
+      "relation": "FEEDS_HERO",
+      "hero": "Single-Sentence Oracle",
+      "role": "GATE"
+    },
+    {
+      "from": "LAUNCH-21",
+      "to": "LAUNCH-57",
+      "relation": "DEPENDS_ON",
+      "layer": "data_spine"
+    },
+    {
+      "from": "LAUNCH-57",
+      "to": "LAUNCH-01",
+      "relation": "CONTEXT",
+      "layer": "exchange_transparency"
+    },
+    {
+      "from": "LAUNCH-01",
+      "to": "LAUNCH-52",
+      "relation": "EXPOSED_BY_UI",
+      "note": "library_secondary_not_home"
+    },
+    {
+      "from": "LAUNCH-01",
+      "to": "LAUNCH-01",
+      "relation": "EXPOSED_BY_API",
+      "route": "/api/launch57/command-home"
+    },
+    {
+      "from": "LAUNCH-49",
+      "to": "LAUNCH-01",
+      "relation": "EXPOSED_BY_API",
+      "route": "/api/launch57/decision-history"
+    },
+    {
+      "from": "LAUNCH-50",
+      "to": "LAUNCH-01",
+      "relation": "EXPOSED_BY_API",
+      "route": "/api/launch57/discipline-mirror"
+    },
+    {
+      "from": "LAUNCH-52",
+      "to": "LAUNCH-01",
+      "relation": "EXPOSED_BY_API",
+      "route": "/api/launch57/capability-library"
+    },
+    {
+      "from": "LAUNCH-01",
+      "to": "HERO:Single-Sentence Oracle",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-02",
+      "to": "HERO:Single-Sentence Oracle",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-02",
+      "to": "HERO:Public Accuracy Ledger",
+      "relation": "FEEDS_HERO",
+      "role": "SECONDARY_FEED"
+    },
+    {
+      "from": "LAUNCH-04",
+      "to": "HERO:Public Accuracy Ledger",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-07",
+      "to": "HERO:Single-Sentence Oracle",
+      "relation": "FEEDS_HERO",
+      "role": "SECONDARY_FEED"
+    },
+    {
+      "from": "LAUNCH-07",
+      "to": "HERO:Whale Signal vs Noise",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-08",
+      "to": "HERO:Single-Sentence Oracle",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-09",
+      "to": "HERO:Single-Sentence Oracle",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-10",
+      "to": "HERO:Single-Sentence Oracle",
+      "relation": "FEEDS_HERO",
+      "role": "SECONDARY_FEED"
+    },
+    {
+      "from": "LAUNCH-10",
+      "to": "HERO:Whale Signal vs Noise",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-11",
+      "to": "HERO:Single-Sentence Oracle",
+      "relation": "FEEDS_HERO",
+      "role": "SECONDARY_FEED"
+    },
+    {
+      "from": "LAUNCH-11",
+      "to": "HERO:Whale Signal vs Noise",
+      "relation": "FEEDS_HERO",
+      "role": "SECONDARY_FEED"
+    },
+    {
+      "from": "LAUNCH-11",
+      "to": "HERO:Stealth Advisor",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-12",
+      "to": "HERO:Single-Sentence Oracle",
+      "relation": "FEEDS_HERO",
+      "role": "SECONDARY_FEED"
+    },
+    {
+      "from": "LAUNCH-12",
+      "to": "HERO:Whale Signal vs Noise",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-13",
+      "to": "HERO:Whale Signal vs Noise",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-14",
+      "to": "HERO:Whale Signal vs Noise",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-15",
+      "to": "HERO:Whale Signal vs Noise",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-16",
+      "to": "HERO:Whale Signal vs Noise",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-16",
+      "to": "HERO:B2B Feed",
+      "relation": "FEEDS_HERO",
+      "role": "SECONDARY_FEED"
+    },
+    {
+      "from": "LAUNCH-17",
+      "to": "HERO:Whale Signal vs Noise",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-18",
+      "to": "HERO:Whale Signal vs Noise",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-18",
+      "to": "HERO:Stealth Advisor",
+      "relation": "FEEDS_HERO",
+      "role": "SECONDARY_FEED"
+    },
+    {
+      "from": "LAUNCH-18",
+      "to": "HERO:B2B Feed",
+      "relation": "FEEDS_HERO",
+      "role": "SECONDARY_FEED"
+    },
+    {
+      "from": "LAUNCH-19",
+      "to": "HERO:Arbitrage Scanner",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-19",
+      "to": "HERO:Whale Signal vs Noise",
+      "relation": "FEEDS_HERO",
+      "role": "SECONDARY_FEED"
+    },
+    {
+      "from": "LAUNCH-19",
+      "to": "HERO:B2B Feed",
+      "relation": "FEEDS_HERO",
+      "role": "SECONDARY_FEED"
+    },
+    {
+      "from": "LAUNCH-20",
+      "to": "HERO:Whale Signal vs Noise",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-20",
+      "to": "HERO:B2B Feed",
+      "relation": "FEEDS_HERO",
+      "role": "SECONDARY_FEED"
+    },
+    {
+      "from": "LAUNCH-21",
+      "to": "HERO:Single-Sentence Oracle",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-21",
+      "to": "HERO:Arbitrage Scanner",
+      "relation": "FEEDS_HERO",
+      "role": "SECONDARY_FEED"
+    },
+    {
+      "from": "LAUNCH-23",
+      "to": "HERO:B2B Feed",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-24",
+      "to": "HERO:Arbitrage Scanner",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-25",
+      "to": "HERO:Single-Sentence Oracle",
+      "relation": "FEEDS_HERO",
+      "role": "SECONDARY_FEED"
+    },
+    {
+      "from": "LAUNCH-25",
+      "to": "HERO:Arbitrage Scanner",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-25",
+      "to": "HERO:Whale Signal vs Noise",
+      "relation": "FEEDS_HERO",
+      "role": "SECONDARY_FEED"
+    },
+    {
+      "from": "LAUNCH-25",
+      "to": "HERO:Stealth Advisor",
+      "relation": "FEEDS_HERO",
+      "role": "SECONDARY_FEED"
+    },
+    {
+      "from": "LAUNCH-25",
+      "to": "HERO:B2B Feed",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-26",
+      "to": "HERO:Single-Sentence Oracle",
+      "relation": "FEEDS_HERO",
+      "role": "SECONDARY_FEED"
+    },
+    {
+      "from": "LAUNCH-26",
+      "to": "HERO:Arbitrage Scanner",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-26",
+      "to": "HERO:Whale Signal vs Noise",
+      "relation": "FEEDS_HERO",
+      "role": "SECONDARY_FEED"
+    },
+    {
+      "from": "LAUNCH-26",
+      "to": "HERO:Stealth Advisor",
+      "relation": "FEEDS_HERO",
+      "role": "SECONDARY_FEED"
+    },
+    {
+      "from": "LAUNCH-27",
+      "to": "HERO:Arbitrage Scanner",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-27",
+      "to": "HERO:Whale Signal vs Noise",
+      "relation": "FEEDS_HERO",
+      "role": "SECONDARY_FEED"
+    },
+    {
+      "from": "LAUNCH-27",
+      "to": "HERO:Stealth Advisor",
+      "relation": "FEEDS_HERO",
+      "role": "SECONDARY_FEED"
+    },
+    {
+      "from": "LAUNCH-28",
+      "to": "HERO:Single-Sentence Oracle",
+      "relation": "FEEDS_HERO",
+      "role": "SECONDARY_FEED"
+    },
+    {
+      "from": "LAUNCH-28",
+      "to": "HERO:Arbitrage Scanner",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-28",
+      "to": "HERO:Stealth Advisor",
+      "relation": "FEEDS_HERO",
+      "role": "SECONDARY_FEED"
+    },
+    {
+      "from": "LAUNCH-29",
+      "to": "HERO:Single-Sentence Oracle",
+      "relation": "FEEDS_HERO",
+      "role": "SECONDARY_FEED"
+    },
+    {
+      "from": "LAUNCH-29",
+      "to": "HERO:B2B Feed",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-30",
+      "to": "HERO:Single-Sentence Oracle",
+      "relation": "FEEDS_HERO",
+      "role": "SECONDARY_FEED"
+    },
+    {
+      "from": "LAUNCH-30",
+      "to": "HERO:Arbitrage Scanner",
+      "relation": "FEEDS_HERO",
+      "role": "SECONDARY_FEED"
+    },
+    {
+      "from": "LAUNCH-30",
+      "to": "HERO:Stealth Advisor",
+      "relation": "FEEDS_HERO",
+      "role": "SECONDARY_FEED"
+    },
+    {
+      "from": "LAUNCH-30",
+      "to": "HERO:B2B Feed",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-31",
+      "to": "HERO:Single-Sentence Oracle",
+      "relation": "FEEDS_HERO",
+      "role": "SECONDARY_FEED"
+    },
+    {
+      "from": "LAUNCH-31",
+      "to": "HERO:Public Accuracy Ledger",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-32",
+      "to": "HERO:Whale Signal vs Noise",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-33",
+      "to": "HERO:Stealth Advisor",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-34",
+      "to": "HERO:Single-Sentence Oracle",
+      "relation": "FEEDS_HERO",
+      "role": "EXPLANATION_ONLY"
+    },
+    {
+      "from": "LAUNCH-34",
+      "to": "HERO:Whale Signal vs Noise",
+      "relation": "FEEDS_HERO",
+      "role": "SECONDARY_FEED"
+    },
+    {
+      "from": "LAUNCH-35",
+      "to": "HERO:Single-Sentence Oracle",
+      "relation": "FEEDS_HERO",
+      "role": "EXPLANATION_ONLY"
+    },
+    {
+      "from": "LAUNCH-36",
+      "to": "HERO:Stealth Advisor",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-36",
+      "to": "HERO:B2B Feed",
+      "relation": "FEEDS_HERO",
+      "role": "SECONDARY_FEED"
+    },
+    {
+      "from": "LAUNCH-37",
+      "to": "HERO:Single-Sentence Oracle",
+      "relation": "FEEDS_HERO",
+      "role": "SECONDARY_FEED"
+    },
+    {
+      "from": "LAUNCH-37",
+      "to": "HERO:Whale Signal vs Noise",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-38",
+      "to": "HERO:Single-Sentence Oracle",
+      "relation": "FEEDS_HERO",
+      "role": "SECONDARY_FEED"
+    },
+    {
+      "from": "LAUNCH-38",
+      "to": "HERO:Arbitrage Scanner",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-38",
+      "to": "HERO:Whale Signal vs Noise",
+      "relation": "FEEDS_HERO",
+      "role": "SECONDARY_FEED"
+    },
+    {
+      "from": "LAUNCH-38",
+      "to": "HERO:Stealth Advisor",
+      "relation": "FEEDS_HERO",
+      "role": "SECONDARY_FEED"
+    },
+    {
+      "from": "LAUNCH-39",
+      "to": "HERO:Public Accuracy Ledger",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-40",
+      "to": "HERO:Public Accuracy Ledger",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-41",
+      "to": "HERO:B2B Feed",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-42",
+      "to": "HERO:Arbitrage Scanner",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-43",
+      "to": "HERO:Arbitrage Scanner",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-44",
+      "to": "HERO:Single-Sentence Oracle",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-44",
+      "to": "HERO:Public Accuracy Ledger",
+      "relation": "FEEDS_HERO",
+      "role": "SECONDARY_FEED"
+    },
+    {
+      "from": "LAUNCH-45",
+      "to": "HERO:Single-Sentence Oracle",
+      "relation": "FEEDS_HERO",
+      "role": "SECONDARY_FEED"
+    },
+    {
+      "from": "LAUNCH-45",
+      "to": "HERO:Public Accuracy Ledger",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-46",
+      "to": "HERO:Public Accuracy Ledger",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-51",
+      "to": "HERO:Public Accuracy Ledger",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-51",
+      "to": "HERO:Stealth Advisor",
+      "relation": "FEEDS_HERO",
+      "role": "SECONDARY_FEED"
+    },
+    {
+      "from": "LAUNCH-53",
+      "to": "HERO:Public Accuracy Ledger",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-53",
+      "to": "HERO:Whale Signal vs Noise",
+      "relation": "FEEDS_HERO",
+      "role": "SECONDARY_FEED"
+    },
+    {
+      "from": "LAUNCH-54",
+      "to": "HERO:Public Accuracy Ledger",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-55",
+      "to": "HERO:Whale Signal vs Noise",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    },
+    {
+      "from": "LAUNCH-56",
+      "to": "HERO:Whale Signal vs Noise",
+      "relation": "FEEDS_HERO",
+      "role": "PRIMARY_FEED"
+    }
+  ],
+  "orphan_material_launch_nodes": [],
+  "zero_orphan_material_in_launch_scope": true,
+  "parked_outside_scope": "CAPABILITIES_OUTSIDE_LAUNCH57_IDS"
+}

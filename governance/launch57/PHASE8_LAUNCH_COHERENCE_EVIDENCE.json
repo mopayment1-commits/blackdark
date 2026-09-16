@@ -1,0 +1,165 @@
+{
+  "artifact": "PHASE8_LAUNCH_COHERENCE_EVIDENCE",
+  "phase": "8_LAUNCH_COHERENCE",
+  "source_commit": "8ce0bc7c",
+  "final_commit": "8ce0bc7c41e89c7b23a75f476a80b2375eee1582",
+  "generated_at": "2026-09-16T23:02:15.848899+00:00",
+  "pre_live_verdict": "LAUNCH57_PRE_LIVE_CLOSED=YES",
+  "pre_live_gaps": [],
+  "pass_live_granted": false,
+  "hero_matrix": "governance/launch57/LAUNCH57_SIX_HERO_MATRIX.json",
+  "system_graph": "governance/launch57/LAUNCH57_CAPABILITY_SYSTEM_GRAPH.json",
+  "e2e": {
+    "artifact": "PHASE8_E2E_JOURNEYS",
+    "generated_at": "2026-09-16T22:54:39.159509+00:00",
+    "journeys": [
+      {
+        "status": "PASS",
+        "steps": [
+          "data_spine",
+          "trust_oracle",
+          "command_home"
+        ],
+        "presented_as_live": true,
+        "evidence_class_visible": true,
+        "handler": "launch57.edge_ui_batch2",
+        "journey": "data_spine_trust_decision_command_home"
+      },
+      {
+        "status": "PASS",
+        "steps": [
+          "signal_explanation_34",
+          "price_move_35",
+          "share_card_44"
+        ],
+        "presented_as_live_final": true,
+        "blocked_external": null,
+        "journey": "smart_money_explanation_to_share"
+      },
+      {
+        "status": "PASS",
+        "steps": [
+          "net_edge_5",
+          "spot_perp_43"
+        ],
+        "blocked_without_opportunity": true,
+        "demo_opportunity_rejected": true,
+        "with_valid_opportunity_path": "launch57.trust_batch1:net_edge_truth_score",
+        "note": "FIN_004 demo rejected by design; cost_claim without opportunity blocked",
+        "journey": "net_edge_to_spot_perp"
+      },
+      {
+        "status": "PASS",
+        "steps": [
+          "guest_trust_46"
+        ],
+        "no_pii_leak": true,
+        "private_by_default": true,
+        "blocked_external": null,
+        "journey": "guest_trust_surface"
+      },
+      {
+        "status": "PASS",
+        "steps": [
+          "stale_spine",
+          "command_home_blocked"
+        ],
+        "presented_as_live": false,
+        "journey": "stale_blocks_presented_as_live"
+      }
+    ],
+    "passed": 5,
+    "total": 5,
+    "all_pass": true
+  },
+  "isolation": {
+    "artifact": "PHASE8_LAUNCH_ISOLATION_EVIDENCE",
+    "generated_at": "2026-09-16T22:54:39.162802+00:00",
+    "launch57_scope_ids": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57
+    ],
+    "home_eligible_ids": [
+      21,
+      22,
+      23,
+      24,
+      39,
+      40,
+      41,
+      42
+    ],
+    "home_ids_outside_scope": [],
+    "library_ids_outside_scope": [],
+    "parked_in_launch57_ids": [],
+    "api_routes_launch57_only": [
+      "/api/launch57/command-home",
+      "/api/launch57/decision-history",
+      "/api/launch57/discipline-mirror",
+      "/api/launch57/capability-library"
+    ],
+    "parked_out_of_launch_not_in_home": true,
+    "isolation_pass": true
+  },
+  "tests": {
+    "command": "python3 -m pytest tests/launch57/test_phase8_launch_coherence.py -q",
+    "exit_code": 1,
+    "stdout": "......F.                                                                 [100%]\n=================================== FAILURES ===================================\n_______________________ test_blocked_external_documented _______________________\n\nphase8_artifacts = {'matrix': {'artifact': 'LAUNCH57_SIX_HERO_MATRIX', 'generated_at': '2026-09-16T22:54:39.718153+00:00', 'source_commit...0+00:00', 'launch57_scope_ids': [1, 2, 3, 4, 5, 6, ...], 'home_eligible_ids': [21, 22, 23, 24, 39, 40, ...], ...}, ...}\n\n    def test_blocked_external_documented(phase8_artifacts):\n>       blocked = phase8_artifacts[\"evidence\"][\"blocked_external\"]\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE       KeyError: 'blocked_external'\n\ntests/launch57/test_phase8_launch_coherence.py:94: KeyError\n=============================== warnings summary ===============================\ntests/launch57/test_phase8_launch_coherence.py::test_six_hero_names_from_register\n  /home/ubuntu/.local/lib/python3.12/site-packages/fastapi/openapi/utils.py:303: UserWarning: Duplicate Operation ID oracle_accuracy_page_oracle_accuracy_get for function oracle_accuracy_page at /workspace/dashboard.py\n    warnings.warn(message, stacklevel=1)\n\ntests/launch57/test_phase8_launch_coherence.py::test_six_hero_names_from_register\n  /home/ubuntu/.local/lib/python3.12/site-packages/fastapi/openapi/utils.py:303: UserWarning: Duplicate Operation ID storage_maintenance_api_storage_maintenance_get for function storage_maintenance at /workspace/dashboard.py\n    warnings.warn(message, stacklevel=1)\n\ntests/launch57/test_phase8_launch_coherence.py::test_six_hero_names_from_register\n  /home/ubuntu/.local/lib/python3.12/site-packages/fastapi/openapi/utils.py:303: UserWarning: Duplicate Operation ID storage_legacy_purge_api_storage_legacy_purge_get for function storage_legacy_purge at /workspace/dashboard.py\n    warnings.warn(message, stacklevel=1)\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n=========================== short test summary info ============================\nFAILED tests/launch57/test_phase8_launch_coherence.py::test_blocked_external_documented",
+    "passed": false
+  }
+}

@@ -317630,5 +317630,119 @@
     "open_debt": {
       "legacy_bypass": "When LAUNCH57_EDGE_UI_BATCH1_CAP_IDS emptied → batch10_dedicated (230) + batch26_dedicated (635) + batch01_dedicated (40)"
     }
+  },
+  "phase8_launch_coherence": {
+    "phase": "8_LAUNCH_COHERENCE",
+    "commit": "8ce0bc7c41e89c7b23a75f476a80b2375eee1582",
+    "completed_at": "2026-09-16T23:02:15.653968+00:00",
+    "builder_status": "PENDING_VERIFICATION",
+    "pre_live_verdict": "LAUNCH57_PRE_LIVE_CLOSED=YES",
+    "pre_live_gaps": [],
+    "pass_live_granted": false,
+    "evidence": "governance/launch57/PHASE8_LAUNCH_COHERENCE_EVIDENCE.json",
+    "tests": {
+      "command": "python3 -m pytest tests/launch57/test_phase8_launch_coherence.py -q",
+      "exit_code": 1,
+      "stdout": "......F.                                                                 [100%]\n=================================== FAILURES ===================================\n_______________________ test_blocked_external_documented _______________________\n\nphase8_artifacts = {'matrix': {'artifact': 'LAUNCH57_SIX_HERO_MATRIX', 'generated_at': '2026-09-16T22:54:39.718153+00:00', 'source_commit...0+00:00', 'launch57_scope_ids': [1, 2, 3, 4, 5, 6, ...], 'home_eligible_ids': [21, 22, 23, 24, 39, 40, ...], ...}, ...}\n\n    def test_blocked_external_documented(phase8_artifacts):\n>       blocked = phase8_artifacts[\"evidence\"][\"blocked_external\"]\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE       KeyError: 'blocked_external'\n\ntests/launch57/test_phase8_launch_coherence.py:94: KeyError\n=============================== warnings summary ===============================\ntests/launch57/test_phase8_launch_coherence.py::test_six_hero_names_from_register\n  /home/ubuntu/.local/lib/python3.12/site-packages/fastapi/openapi/utils.py:303: UserWarning: Duplicate Operation ID oracle_accuracy_page_oracle_accuracy_get for function oracle_accuracy_page at /workspace/dashboard.py\n    warnings.warn(message, stacklevel=1)\n\ntests/launch57/test_phase8_launch_coherence.py::test_six_hero_names_from_register\n  /home/ubuntu/.local/lib/python3.12/site-packages/fastapi/openapi/utils.py:303: UserWarning: Duplicate Operation ID storage_maintenance_api_storage_maintenance_get for function storage_maintenance at /workspace/dashboard.py\n    warnings.warn(message, stacklevel=1)\n\ntests/launch57/test_phase8_launch_coherence.py::test_six_hero_names_from_register\n  /home/ubuntu/.local/lib/python3.12/site-packages/fastapi/openapi/utils.py:303: UserWarning: Duplicate Operation ID storage_legacy_purge_api_storage_legacy_purge_get for function storage_legacy_purge at /workspace/dashboard.py\n    warnings.warn(message, stacklevel=1)\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n=========================== short test summary info ============================\nFAILED tests/launch57/test_phase8_launch_coherence.py::test_blocked_external_documented",
+      "passed": false
+    },
+    "preserved_phases": {
+      "phase1": {
+        "commit": "92b1d00e",
+        "items": [
+          42,
+          22,
+          23,
+          24,
+          21,
+          40,
+          41,
+          39
+        ]
+      },
+      "phase2": {
+        "commit": "4d4dd6c7",
+        "items": [
+          6,
+          5,
+          4,
+          3,
+          2,
+          47,
+          48,
+          44,
+          45,
+          46
+        ]
+      },
+      "phase3": {
+        "commit": "9adef8c0",
+        "items": [
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          37
+        ]
+      },
+      "phase4": {
+        "commit": "00704dd1",
+        "items": [
+          20,
+          16,
+          17,
+          13,
+          14,
+          15,
+          18,
+          19,
+          53,
+          54,
+          55,
+          56,
+          57
+        ]
+      },
+      "phase5": {
+        "commit": "e8dd65bf",
+        "items": [
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33
+        ]
+      },
+      "phase6": {
+        "commit": "74c609ce",
+        "items": [
+          34,
+          35,
+          36,
+          51
+        ]
+      },
+      "phase7": {
+        "commit": "8ce0bc7c",
+        "items": [
+          43,
+          38,
+          49,
+          50,
+          52,
+          1
+        ]
+      }
+    },
+    "blocked_external": {
+      "33": "telegram_delivery_credentials_not_configured",
+      "38": "licensed_onchain_mvrv_source_not_configured_partial"
+    }
   }
 }
