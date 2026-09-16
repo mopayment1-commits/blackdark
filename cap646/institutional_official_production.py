@@ -183,6 +183,14 @@ async def execute(capability_id: int, *, params: dict[str, Any] | None = None) -
 
     from launch57.data_batch1 import LAUNCH57_BATCH1_CAP_IDS, execute_launch57_batch1
     from launch57.data_batch2 import LAUNCH57_BATCH2_CAP_IDS, execute_launch57_batch2
+    from launch57.trust_batch1 import LAUNCH57_TRUST_BATCH1_CAP_IDS, execute_launch57_trust_batch1
+
+    if capability_id in LAUNCH57_TRUST_BATCH1_CAP_IDS:
+        return _stamp(
+            await execute_launch57_trust_batch1(capability_id, params=params),
+            capability_id,
+            handler_module="launch57.trust_batch1",
+        )
 
     if capability_id in LAUNCH57_BATCH1_CAP_IDS:
         return _stamp(
