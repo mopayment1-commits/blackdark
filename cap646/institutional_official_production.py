@@ -181,6 +181,15 @@ async def execute(capability_id: int, *, params: dict[str, Any] | None = None) -
 
     params = dict(params or {})
 
+    from launch57.data_batch1 import LAUNCH57_BATCH1_CAP_IDS, execute_launch57_batch1
+
+    if capability_id in LAUNCH57_BATCH1_CAP_IDS:
+        return _stamp(
+            await execute_launch57_batch1(capability_id, params=params),
+            capability_id,
+            handler_module="launch57.data_batch1",
+        )
+
     from cap646.batch01_production import BATCH01_IDS, execute as batch01_execute
     from cap646.batch02_production import BATCH02_IDS, execute as batch02_execute
 
