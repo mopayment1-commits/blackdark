@@ -13954,10 +13954,11 @@
       "state_classification": "EXISTING_VERIFIED",
       "canonical_decision": "KEEP_DISTINCT",
       "canonical_owner": "cap646.institutional_official_production",
-      "canonical_implementation": "explicit_option_a",
+      "canonical_implementation": "launch57.edge_ui_batch1",
       "runtime_entry": "cap646/runtime.py",
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/edge_ui_batch1.py",
+        "bd_platform/mvrv_realignment.py"
       ],
       "inputs": [
         "symbol",
@@ -14390,6 +14391,15 @@
         "not_in_current_build_scope": false,
         "not_in_launch_surface": false,
         "no_build": false
+      },
+      "launch57_phase7_batch1": {
+        "phase": "7_EDGE_UI",
+        "batch": 1,
+        "launch_item_id": 38,
+        "builder_status": "PENDING_VERIFICATION",
+        "handler_module": "launch57.edge_ui_batch1",
+        "commit_sha": "147072522daf04109229763cfe4430dcd5393cfc",
+        "tests_result": "PASS"
       }
     },
     {
@@ -74677,10 +74687,12 @@
       "state_classification": "EXISTING_VERIFIED",
       "canonical_decision": "KEEP_DISTINCT",
       "canonical_owner": "cap646.institutional_official_production",
-      "canonical_implementation": "explicit_option_a",
+      "canonical_implementation": "launch57.edge_ui_batch1",
       "runtime_entry": "cap646/runtime.py",
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/edge_ui_batch1.py",
+        "arbitrage_service.py",
+        "launch57/trust_batch1.py"
       ],
       "inputs": [
         "symbol",
@@ -74994,6 +75006,15 @@
         "not_in_current_build_scope": false,
         "not_in_launch_surface": false,
         "no_build": false
+      },
+      "launch57_phase7_batch1": {
+        "phase": "7_EDGE_UI",
+        "batch": 1,
+        "launch_item_id": 43,
+        "builder_status": "PENDING_VERIFICATION",
+        "handler_module": "launch57.edge_ui_batch1",
+        "commit_sha": "147072522daf04109229763cfe4430dcd5393cfc",
+        "tests_result": "PASS"
       }
     },
     {
@@ -201893,10 +201914,12 @@
       "state_classification": "EXISTING_VERIFIED",
       "canonical_decision": "KEEP_DISTINCT",
       "canonical_owner": "cap646.institutional_official_production",
-      "canonical_implementation": "explicit_option_a",
+      "canonical_implementation": "launch57.edge_ui_batch1",
       "runtime_entry": "cap646/runtime.py",
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/edge_ui_batch1.py",
+        "arbitrage_service.py",
+        "launch57/trust_batch1.py"
       ],
       "inputs": [
         "symbol",
@@ -202210,6 +202233,15 @@
         "not_in_current_build_scope": false,
         "not_in_launch_surface": false,
         "no_build": false
+      },
+      "launch57_phase7_batch1": {
+        "phase": "7_EDGE_UI",
+        "batch": 1,
+        "launch_item_id": 43,
+        "builder_status": "PENDING_VERIFICATION",
+        "handler_module": "launch57.edge_ui_batch1",
+        "commit_sha": "147072522daf04109229763cfe4430dcd5393cfc",
+        "tests_result": "PASS"
       }
     },
     {
@@ -317572,6 +317604,31 @@
     "open_debt": {
       "legacy_bypass": "When LAUNCH57_EXPLANATION_AI_BATCH1_CAP_IDS emptied → cap646/batch01_dedicated.py (24,25,26) and cap646/batch02_dedicated.py (65,100)",
       "fix_mandatory": "NO unless explanation_ai path blocked"
+    }
+  },
+  "phase7_edge_ui_batch1": {
+    "phase": "7_EDGE_UI",
+    "batch": 1,
+    "build_order_executed": [
+      43,
+      38,
+      49,
+      50,
+      52
+    ],
+    "commit": "147072522daf04109229763cfe4430dcd5393cfc",
+    "completed_at": "2026-09-16T22:40:49.212245+00:00",
+    "builder_status": "PENDING_VERIFICATION",
+    "handler_module": "launch57.edge_ui_batch1",
+    "tests": {
+      "command": "python3 -m pytest tests/launch57/test_edge_ui_batch1.py tests/launch57/test_edge_ui_institutional_wire.py -q",
+      "exit_code": 0,
+      "stdout": "............                                                             [100%]",
+      "passed": true
+    },
+    "phase6_baseline": "74c609ce",
+    "open_debt": {
+      "legacy_bypass": "When LAUNCH57_EDGE_UI_BATCH1_CAP_IDS emptied → batch10_dedicated (230) + batch26_dedicated (635) + batch01_dedicated (40)"
     }
   }
 }

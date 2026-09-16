@@ -2,8 +2,8 @@
   "artifact": "LAUNCH57_REGISTER",
   "ssot_role": "launch57_truth_register_view",
   "authoritative_ssot": "BLACKDARK_CAPABILITY_CURRENT_STATE.json",
-  "phase": "6_EXPLANATION_AI_BATCH1_BUILD",
-  "generated_at": "2026-09-16T22:25:03.516222+00:00",
+  "phase": "7_EDGE_UI_BATCH2_BUILD",
+  "generated_at": "2026-09-16T22:40:50.499235+00:00",
   "source_commit": "92b1d00e",
   "scope_lock": {
     "CURRENT_APPROVED_BUILD_SCOPE": "LAUNCH57",
@@ -90,22 +90,49 @@
         "canonical_launch_numbers_on_caps": []
       },
       "canonical_owner": [],
-      "canonical_implementation": [],
+      "canonical_implementation": [
+        "launch57.edge_ui_batch2"
+      ],
       "runtime_entry": [],
       "actual_consumer_paths": [
-        "api/routers/heroes.py",
+        "launch57/edge_ui_batch2.py",
+        "decision_truth/product/six_heroes.py",
         "decision_truth/product/command_view.py",
-        "decision_truth/product/six_heroes.py"
+        "launch57/trust_batch1.py",
+        "api/routers/launch57_edge_ui.py"
       ],
       "tests_found": [],
       "evidence_found": [],
-      "current_engineering_status": "NO_LINKED_CANONICAL",
+      "current_engineering_status": "PENDING_VERIFICATION",
       "current_live_status": "NOT_LINKED",
       "root_cause_if_not_pass_engineering": "CONSUMER_PATH_MISSING",
-      "pass_engineering_reconciliation": null,
+      "pass_engineering_reconciliation": "PENDING_INDEPENDENT_VERIFICATION",
       "stub_generic_mock_findings": [],
       "hero_mapping_status": "PRODUCT_COMPOSITE_ALL_SIX_HEROES",
-      "notes": "No explicit CAP-ID in LAUNCH57_IDS source; repo discovery only"
+      "notes": "No explicit CAP-ID in LAUNCH57_IDS source; repo discovery only",
+      "phase7_batch2_build": {
+        "builder_status": "PENDING_VERIFICATION",
+        "runtime_path": "api/routers/launch57_edge_ui.py → launch57/edge_ui_batch2.py",
+        "consumer_paths": [
+          "launch57/edge_ui_batch2.py",
+          "decision_truth/product/six_heroes.py",
+          "decision_truth/product/command_view.py",
+          "launch57/trust_batch1.py",
+          "api/routers/launch57_edge_ui.py"
+        ],
+        "binding_source": "launch57_phase7_edge_ui_batch2",
+        "handler_module": "launch57.edge_ui_batch2",
+        "tests_found": [
+          "tests/launch57/test_edge_ui_batch2.py::test_command_home_eligible_ids_within_launch57_scope"
+        ],
+        "evidence_found": [
+          "governance/launch57/PHASE7_BATCH2_EVIDENCE.json"
+        ],
+        "blocker": null,
+        "prior_pass_trusted_for_launch": "NO",
+        "commit_sha": "147072522daf04109229763cfe4430dcd5393cfc",
+        "launch57_scope_guard": "eligible_launch57_ids subset of LAUNCH57_SCOPE_IDS; excludes PARKED"
+      }
     },
     {
       "launch_number": 2,
@@ -3064,22 +3091,23 @@
         "cap646.institutional_official_production"
       ],
       "canonical_implementation": [
-        "explicit_option_a"
+        "launch57.edge_ui_batch1"
       ],
       "runtime_entry": [
         "cap646/runtime.py"
       ],
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/edge_ui_batch1.py",
+        "bd_platform/mvrv_realignment.py"
       ],
       "tests_found": [],
       "evidence_found": [
         "ENGINEERING_AUDIT_826_REPORT.json"
       ],
-      "current_engineering_status": "PASS_ENGINEERING",
+      "current_engineering_status": "PENDING_VERIFICATION",
       "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
       "root_cause_if_not_pass_engineering": null,
-      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "pass_engineering_reconciliation": "PENDING_INDEPENDENT_VERIFICATION",
       "stub_generic_mock_findings": [
         {
           "launch_number": 38,
@@ -3092,7 +3120,26 @@
         }
       ],
       "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
-      "notes": ""
+      "notes": "",
+      "phase7_batch1_build": {
+        "builder_status": "PENDING_VERIFICATION",
+        "runtime_path": "cap646/institutional_official_production.py → launch57/edge_ui_batch1.py",
+        "consumer_paths": [
+          "launch57/edge_ui_batch1.py",
+          "bd_platform/mvrv_realignment.py"
+        ],
+        "binding_source": "launch57_phase7_edge_ui_batch1",
+        "handler_module": "launch57.edge_ui_batch1",
+        "tests_found": [
+          "tests/launch57/test_edge_ui_batch1.py::test_mvrv_source_blocker_visible"
+        ],
+        "evidence_found": [
+          "governance/launch57/PHASE7_BATCH1_EVIDENCE.json"
+        ],
+        "blocker": null,
+        "prior_pass_trusted_for_launch": "NO",
+        "commit_sha": "147072522daf04109229763cfe4430dcd5393cfc"
+      }
     },
     {
       "launch_number": 39,
@@ -3469,24 +3516,25 @@
         "cap646.institutional_official_production"
       ],
       "canonical_implementation": [
-        "explicit_option_a",
-        "explicit_option_a"
+        "launch57.edge_ui_batch1"
       ],
       "runtime_entry": [
         "cap646/runtime.py",
         "cap646/runtime.py"
       ],
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/edge_ui_batch1.py",
+        "arbitrage_service.py",
+        "launch57/trust_batch1.py"
       ],
       "tests_found": [],
       "evidence_found": [
         "ENGINEERING_AUDIT_826_REPORT.json"
       ],
-      "current_engineering_status": "PASS_ENGINEERING",
+      "current_engineering_status": "PENDING_VERIFICATION",
       "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
       "root_cause_if_not_pass_engineering": null,
-      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "pass_engineering_reconciliation": "PENDING_INDEPENDENT_VERIFICATION",
       "stub_generic_mock_findings": [
         {
           "launch_number": 43,
@@ -3508,7 +3556,27 @@
         }
       ],
       "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
-      "notes": ""
+      "notes": "",
+      "phase7_batch1_build": {
+        "builder_status": "PENDING_VERIFICATION",
+        "runtime_path": "cap646/institutional_official_production.py → launch57/edge_ui_batch1.py",
+        "consumer_paths": [
+          "launch57/edge_ui_batch1.py",
+          "arbitrage_service.py",
+          "launch57/trust_batch1.py"
+        ],
+        "binding_source": "launch57_phase7_edge_ui_batch1",
+        "handler_module": "launch57.edge_ui_batch1",
+        "tests_found": [
+          "tests/launch57/test_edge_ui_batch1.py::test_spot_perp_blocks_cost_claim_without_opportunity"
+        ],
+        "evidence_found": [
+          "governance/launch57/PHASE7_BATCH1_EVIDENCE.json"
+        ],
+        "blocker": null,
+        "prior_pass_trusted_for_launch": "NO",
+        "commit_sha": "147072522daf04109229763cfe4430dcd5393cfc"
+      }
     },
     {
       "launch_number": 44,
@@ -3845,21 +3913,44 @@
         "canonical_launch_numbers_on_caps": []
       },
       "canonical_owner": [],
-      "canonical_implementation": [],
+      "canonical_implementation": [
+        "launch57.edge_ui_batch1"
+      ],
       "runtime_entry": [],
       "actual_consumer_paths": [
-        "data/decision_ledger.jsonl",
-        "data/user_exposure_log.jsonl"
+        "launch57/edge_ui_batch1.py",
+        "decision_ledger.py",
+        "api/routers/launch57_edge_ui.py"
       ],
       "tests_found": [],
       "evidence_found": [],
-      "current_engineering_status": "NO_LINKED_CANONICAL",
+      "current_engineering_status": "PENDING_VERIFICATION",
       "current_live_status": "NOT_LINKED",
       "root_cause_if_not_pass_engineering": "CONSUMER_PATH_MISSING",
-      "pass_engineering_reconciliation": null,
+      "pass_engineering_reconciliation": "PENDING_INDEPENDENT_VERIFICATION",
       "stub_generic_mock_findings": [],
       "hero_mapping_status": "NOT_APPLICABLE",
-      "notes": "No explicit CAP-ID in LAUNCH57_IDS source; repo discovery only"
+      "notes": "No explicit CAP-ID in LAUNCH57_IDS source; repo discovery only",
+      "phase7_batch1_build": {
+        "builder_status": "PENDING_VERIFICATION",
+        "runtime_path": "api/routers/launch57_edge_ui.py → launch57/edge_ui_batch1.py",
+        "consumer_paths": [
+          "launch57/edge_ui_batch1.py",
+          "decision_ledger.py",
+          "api/routers/launch57_edge_ui.py"
+        ],
+        "binding_source": "launch57_phase7_edge_ui_batch1",
+        "handler_module": "launch57.edge_ui_batch1",
+        "tests_found": [
+          "tests/launch57/test_edge_ui_batch1.py::test_personal_decision_history_free_limit"
+        ],
+        "evidence_found": [
+          "governance/launch57/PHASE7_BATCH1_EVIDENCE.json"
+        ],
+        "blocker": null,
+        "prior_pass_trusted_for_launch": "NO",
+        "commit_sha": "147072522daf04109229763cfe4430dcd5393cfc"
+      }
     },
     {
       "launch_number": 50,
@@ -3879,20 +3970,42 @@
         "canonical_launch_numbers_on_caps": []
       },
       "canonical_owner": [],
-      "canonical_implementation": [],
+      "canonical_implementation": [
+        "launch57.edge_ui_batch1"
+      ],
       "runtime_entry": [],
       "actual_consumer_paths": [
-        "decision_truth/product/calm_default.py"
+        "launch57/edge_ui_batch1.py",
+        "discipline_mirror.py"
       ],
       "tests_found": [],
       "evidence_found": [],
-      "current_engineering_status": "NO_LINKED_CANONICAL",
+      "current_engineering_status": "PENDING_VERIFICATION",
       "current_live_status": "NOT_LINKED",
       "root_cause_if_not_pass_engineering": "CONSUMER_PATH_MISSING",
-      "pass_engineering_reconciliation": null,
+      "pass_engineering_reconciliation": "PENDING_INDEPENDENT_VERIFICATION",
       "stub_generic_mock_findings": [],
       "hero_mapping_status": "NOT_APPLICABLE",
-      "notes": "No explicit CAP-ID in LAUNCH57_IDS source; repo discovery only"
+      "notes": "No explicit CAP-ID in LAUNCH57_IDS source; repo discovery only",
+      "phase7_batch1_build": {
+        "builder_status": "PENDING_VERIFICATION",
+        "runtime_path": "api/routers/launch57_edge_ui.py → launch57/edge_ui_batch1.py",
+        "consumer_paths": [
+          "launch57/edge_ui_batch1.py",
+          "discipline_mirror.py"
+        ],
+        "binding_source": "launch57_phase7_edge_ui_batch1",
+        "handler_module": "launch57.edge_ui_batch1",
+        "tests_found": [
+          "tests/launch57/test_edge_ui_batch1.py::test_discipline_mirror_light"
+        ],
+        "evidence_found": [
+          "governance/launch57/PHASE7_BATCH1_EVIDENCE.json"
+        ],
+        "blocker": null,
+        "prior_pass_trusted_for_launch": "NO",
+        "commit_sha": "147072522daf04109229763cfe4430dcd5393cfc"
+      }
     },
     {
       "launch_number": 51,
@@ -4006,20 +4119,42 @@
         "canonical_launch_numbers_on_caps": []
       },
       "canonical_owner": [],
-      "canonical_implementation": [],
+      "canonical_implementation": [
+        "launch57.edge_ui_batch1"
+      ],
       "runtime_entry": [],
       "actual_consumer_paths": [
-        "BLACKDARK_CAPABILITY_CURRENT_STATE.json"
+        "launch57/edge_ui_batch1.py",
+        "governance/launch57/LAUNCH57_REGISTER.json"
       ],
       "tests_found": [],
       "evidence_found": [],
-      "current_engineering_status": "NO_LINKED_CANONICAL",
+      "current_engineering_status": "PENDING_VERIFICATION",
       "current_live_status": "NOT_LINKED",
       "root_cause_if_not_pass_engineering": "CONSUMER_PATH_MISSING",
-      "pass_engineering_reconciliation": null,
+      "pass_engineering_reconciliation": "PENDING_INDEPENDENT_VERIFICATION",
       "stub_generic_mock_findings": [],
       "hero_mapping_status": "NOT_APPLICABLE",
-      "notes": "No explicit CAP-ID in LAUNCH57_IDS source; repo discovery only"
+      "notes": "No explicit CAP-ID in LAUNCH57_IDS source; repo discovery only",
+      "phase7_batch1_build": {
+        "builder_status": "PENDING_VERIFICATION",
+        "runtime_path": "api/routers/launch57_edge_ui.py → launch57/edge_ui_batch1.py",
+        "consumer_paths": [
+          "launch57/edge_ui_batch1.py",
+          "governance/launch57/LAUNCH57_REGISTER.json"
+        ],
+        "binding_source": "launch57_phase7_edge_ui_batch1",
+        "handler_module": "launch57.edge_ui_batch1",
+        "tests_found": [
+          "tests/launch57/test_edge_ui_batch1.py::test_capability_library_secondary_layer"
+        ],
+        "evidence_found": [
+          "governance/launch57/PHASE7_BATCH1_EVIDENCE.json"
+        ],
+        "blocker": null,
+        "prior_pass_trusted_for_launch": "NO",
+        "commit_sha": "147072522daf04109229763cfe4430dcd5393cfc"
+      }
     },
     {
       "launch_number": 53,
@@ -6393,5 +6528,26 @@
       51
     ],
     "MAX_BUILDER_STATUS": "PENDING_VERIFICATION"
+  },
+  "phase7_batch1_verification": {
+    "PHASE": "7_EDGE_UI",
+    "BATCH": 1,
+    "BUILD_ORDER_EXECUTED": [
+      43,
+      38,
+      49,
+      50,
+      52
+    ],
+    "MAX_BUILDER_STATUS": "PENDING_VERIFICATION"
+  },
+  "phase7_batch2_verification": {
+    "PHASE": "7_EDGE_UI",
+    "BATCH": 2,
+    "BUILD_ORDER_EXECUTED": [
+      1
+    ],
+    "MAX_BUILDER_STATUS": "PENDING_VERIFICATION",
+    "PHASE7_COMPLETE": true
   }
 }
