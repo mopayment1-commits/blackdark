@@ -15,7 +15,6 @@ _GENERIC_SURFACES = frozenset({"platform_codepath", "generic", "unknown"})
 
 # F0 data-truth spine — gap-matrix component probes are insufficient for dedicated wrappers (v6 §2.1.3).
 _F0_DATA_SPINE_SEMANTIC: dict[int, tuple[str, str, str, str]] = {
-    630: ("cap646.data_spine", "freshness_assurance_report", "symbol", "f0_data_spine"),
     631: ("cap646.data_spine", "ingestion_architecture_report", "none", "f0_data_spine"),
 }
 
@@ -40,13 +39,37 @@ _EXPLICIT_BINDINGS: dict[int, BackendBinding] = {
         "none",
         "explicit_option_a",
     ),
+    61: BackendBinding(
+        61,
+        "launch57.data_batch2",
+        "point_in_time_immutable_metrics",
+        "point_in_time_immutable_metrics",
+        "symbol",
+        "launch57_phase1_batch2",
+    ),
+    63: BackendBinding(
+        63,
+        "launch57.data_batch2",
+        "data_quality_provenance_layer",
+        "data_quality_provenance_layer",
+        "symbol",
+        "launch57_phase1_batch2",
+    ),
     500: BackendBinding(
         500,
-        "cap646.data_spine",
-        "normalization_report",
+        "launch57.data_batch2",
+        "data_quality_normalization",
         "data_quality_normalization",
         "symbol",
-        "explicit_option_a",
+        "launch57_phase1_batch2",
+    ),
+    630: BackendBinding(
+        630,
+        "launch57.data_batch2",
+        "freshness_update_assurance",
+        "real_time_data_freshness_update_assurance",
+        "symbol",
+        "launch57_phase1_batch2",
     ),
     507: BackendBinding(
         507,

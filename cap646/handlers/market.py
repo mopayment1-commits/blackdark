@@ -83,8 +83,11 @@ async def handle_market_capability(
         return await bucketed_cvd_report(symbol=symbol, buckets=int(params.get("buckets") or 4))
 
     if capability_id in {630, 500}:
-        fn = freshness_assurance_report if capability_id == 630 else normalization_report
-        return await fn(symbol=symbol)
+        from launch57.data_batch2 import data_quality_normalization, freshness_update_assurance
+
+        if capability_id == 630:
+            return await freshness_update_assurance(symbol=symbol, params=params)
+        return await data_quality_normalization(symbol=symbol, params=params)
 
     from cap646.catalog import catalog_by_id
 
