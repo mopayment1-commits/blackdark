@@ -1,0 +1,275 @@
+{
+  "generated_at": "2026-09-11T01:07:53.287612+00:00",
+  "principle": "DON'T DELETE KNOWLEDGE — COMPOUND IT",
+  "static_index": "docs/DATA_ROOM.md",
+  "live_metrics": {
+    "revenue": {
+      "mrr_usd": null,
+      "mrr_note": "EXTERNAL_DEPENDENCY — live PSP / billing keys required",
+      "active_subscriptions": 0,
+      "waitlist_count": 0,
+      "institutional_inquiries": 0,
+      "churn_rate": null,
+      "ltv_usd": null,
+      "data_source": "database_counters",
+      "generated_at": "2026-09-11T01:07:53.288769+00:00"
+    },
+    "accuracy": {
+      "oracle": {
+        "resolved_count": 0,
+        "correct_count": 0,
+        "hit_rate_percent": 0.0,
+        "history": []
+      },
+      "learning_registry": {
+        "predictions": 0,
+        "outcomes": 0,
+        "recent_outcomes": []
+      },
+      "track_record": "historical",
+      "generated_at": "2026-09-11T01:07:53.294715+00:00"
+    },
+    "seo": {
+      "page_views": 0,
+      "landing_views": 0,
+      "dashboard_views": 0,
+      "viral_shares": 0,
+      "viral_embeds": 0,
+      "referrals": 0,
+      "seo_surfaces": [
+        "/sitemap.xml",
+        "/robots.txt",
+        "/oracle-accuracy",
+        "/docs"
+      ],
+      "generated_at": "2026-09-11T01:07:53.297128+00:00"
+    },
+    "dashboard": {
+      "analytics": {
+        "event_counts": {
+          "api_usage": 1
+        },
+        "total_events": 1,
+        "recent": [
+          {
+            "id": 1,
+            "event_type": "api_usage",
+            "user_id": null,
+            "session_id": null,
+            "source": "anonymous",
+            "attribution": {},
+            "payload": {
+              "path": "/api/compliance/status"
+            },
+            "created_at": "2026-09-11T01:07:53.251698+00:00"
+          }
+        ],
+        "generated_at": "2026-09-11T01:07:53.298565+00:00"
+      },
+      "seo": {
+        "page_views": 0,
+        "landing_views": 0,
+        "dashboard_views": 0,
+        "viral_shares": 0,
+        "viral_embeds": 0,
+        "referrals": 0,
+        "seo_surfaces": [
+          "/sitemap.xml",
+          "/robots.txt",
+          "/oracle-accuracy",
+          "/docs"
+        ],
+        "generated_at": "2026-09-11T01:07:53.301888+00:00"
+      },
+      "accuracy": {
+        "oracle": {
+          "resolved_count": 0,
+          "correct_count": 0,
+          "hit_rate_percent": 0.0,
+          "history": []
+        },
+        "learning_registry": {
+          "predictions": 0,
+          "outcomes": 0,
+          "recent_outcomes": []
+        },
+        "track_record": "historical",
+        "generated_at": "2026-09-11T01:07:53.307555+00:00"
+      },
+      "graph": {
+        "nodes": 0,
+        "edges": 0
+      },
+      "generated_at": "2026-09-11T01:07:53.308881+00:00"
+    }
+  },
+  "ip_registry": [
+    {
+      "asset_id": "ip_knowledge_graph",
+      "asset_type": "schema",
+      "title": "Institutional Knowledge Graph",
+      "description": "kg_nodes/kg_edges",
+      "rights": {
+        "rights": "proprietary"
+      },
+      "documentation_ref": "knowledge_graph.py",
+      "created_at": "2026-09-11T01:07:53.277056+00:00",
+      "updated_at": "2026-09-11T01:07:53.277056+00:00"
+    },
+    {
+      "asset_id": "ip_audit_chain",
+      "asset_type": "data",
+      "title": "Oracle Audit Hash Chain",
+      "description": "oracle_audit_chain.py",
+      "rights": {
+        "rights": "proprietary"
+      },
+      "documentation_ref": "oracle_audit_chain.py",
+      "created_at": "2026-09-11T01:07:53.273215+00:00",
+      "updated_at": "2026-09-11T01:07:53.273215+00:00"
+    },
+    {
+      "asset_id": "ip_oracle_engine",
+      "asset_type": "model",
+      "title": "Unified Oracle Decision Engine",
+      "description": "oracle_unified + ml ensemble",
+      "rights": {
+        "rights": "proprietary"
+      },
+      "documentation_ref": "ml/",
+      "created_at": "2026-09-11T01:07:53.268400+00:00",
+      "updated_at": "2026-09-11T01:07:53.268400+00:00"
+    },
+    {
+      "asset_id": "ip_signal_lexicon",
+      "asset_type": "algorithm",
+      "title": "Sovereign Signal Lexicon",
+      "description": "signal_registry.py SIGNAL_TYPE_LEXICON",
+      "rights": {
+        "registration": "EXTERNAL_DEPENDENCY — legal counsel required",
+        "rights": "proprietary"
+      },
+      "documentation_ref": "signal_registry.py",
+      "created_at": "2026-09-11T01:07:53.260901+00:00",
+      "updated_at": "2026-09-11T01:07:53.260901+00:00"
+    }
+  ],
+  "compliance": {
+    "enabled": true,
+    "classification": "informational_analytics_only",
+    "public_verdicts": {
+      "bullish": "BULLISH_ANALYTICS",
+      "bearish": "BEARISH_ANALYTICS",
+      "neutral": "NEUTRAL_OBSERVE",
+      "elevated_risk": "ELEVATED_RISK"
+    },
+    "prohibited_public_phrases": [
+      "Buy Now",
+      "Sell Now",
+      "Do Not Touch",
+      "you should buy",
+      "you should sell"
+    ],
+    "disclaimer": "Informational analytics only — not investment, tax, or legal advice. BLACKDARK is not a registered investment adviser or broker-dealer. Past signal performance does not guarantee future results. Do your own research (DYOR).",
+    "policy": "Oracle outputs are analytics labels, not investment recommendations. Users must acknowledge Terms/Disclaimer. Live execution uses separate user-controlled API keys and risk gates.",
+    "institutional_compounding": {
+      "audit_registry": true,
+      "knowledge_graph": {
+        "nodes": 0,
+        "edges": 0
+      },
+      "trust_evidence_rows": 0
+    },
+    "external_dependencies": {
+      "legal_ip_registration": "EXTERNAL_DEPENDENCY — legal counsel required",
+      "live_revenue_recognition": "EXTERNAL_DEPENDENCY — live PSP / billing keys required",
+      "soc2_iso_certification": "EXTERNAL_DEPENDENCY — external auditor required"
+    },
+    "generated_at": "2026-09-11T01:07:53.310894+00:00"
+  },
+  "phase_verification": {
+    "ok": true,
+    "phases": [
+      {
+        "ok": true,
+        "proof": "audit_logs_readable",
+        "sample_count": 1,
+        "phase": 1,
+        "verified_at": "2026-09-11T01:07:53.313267+00:00"
+      },
+      {
+        "ok": true,
+        "proof": "knowledge_graph_tables",
+        "stats": {
+          "nodes": 0,
+          "edges": 0
+        },
+        "phase": 2,
+        "verified_at": "2026-09-11T01:07:53.314689+00:00"
+      },
+      {
+        "ok": true,
+        "proof": "market_signals_table",
+        "signal_rows": 0,
+        "phase": 3,
+        "verified_at": "2026-09-11T01:07:53.316300+00:00"
+      },
+      {
+        "ok": true,
+        "proof": "learning_track_record",
+        "oracle_resolved": 0,
+        "phase": 4,
+        "verified_at": "2026-09-11T01:07:53.322268+00:00"
+      },
+      {
+        "ok": true,
+        "proof": "trust_evidence_store",
+        "evidence_rows": 0,
+        "phase": 5,
+        "verified_at": "2026-09-11T01:07:53.323351+00:00"
+      },
+      {
+        "ok": true,
+        "proof": "analytics_events",
+        "total_events": 1,
+        "phase": 6,
+        "verified_at": "2026-09-11T01:07:53.324716+00:00"
+      },
+      {
+        "ok": true,
+        "proof": "compliance_status",
+        "has_external_markers": true,
+        "phase": 7,
+        "verified_at": "2026-09-11T01:07:53.327803+00:00"
+      },
+      {
+        "ok": true,
+        "proof": "metrics_and_observability",
+        "metrics_bytes": 1022,
+        "structured_logging": true,
+        "alerts": {
+          "thresholds": {
+            "error_rate_percent": 5.0,
+            "latency_p95_ms": 2000.0
+          },
+          "metrics": {
+            "http_requests_total": 26.0,
+            "errors_total": 0.0,
+            "error_rate_percent": 0.0
+          },
+          "alert_fired": false,
+          "alert_reason": null,
+          "checked_at": "2026-09-11T01:07:53.327846+00:00"
+        },
+        "phase": 8,
+        "verified_at": "2026-09-11T01:07:53.327853+00:00"
+      }
+    ],
+    "verified_at": "2026-09-11T01:07:53.327858+00:00"
+  },
+  "external_dependencies": {
+    "legal_ip_registration": "EXTERNAL_DEPENDENCY — legal counsel required",
+    "live_revenue_recognition": "EXTERNAL_DEPENDENCY — live PSP / billing keys required",
+    "soc2_iso_certification": "EXTERNAL_DEPENDENCY — external auditor required"
+  }
+}

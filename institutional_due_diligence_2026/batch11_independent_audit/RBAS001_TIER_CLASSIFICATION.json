@@ -1,0 +1,352 @@
+[
+  {
+    "id": 501,
+    "capability": "Institutional Delivery",
+    "track": "T17",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Data-delivery/catalog/registry without direct user decision output"
+  },
+  {
+    "id": 502,
+    "capability": "Benchmark Administration Metadata",
+    "track": "T15",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 503,
+    "capability": "Cross-Market Data Intelligence",
+    "track": "T17",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 504,
+    "capability": "Unified Exchange Connector Layer",
+    "track": "T05",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 505,
+    "capability": "Tick Trade Data",
+    "track": "T02",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 506,
+    "capability": "Quote Data",
+    "track": "T01",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 507,
+    "capability": "OHLCV",
+    "track": "T01",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 508,
+    "capability": "L1 Order Book",
+    "track": "T01",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 509,
+    "capability": "L2 Order Book",
+    "track": "T04",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 510,
+    "capability": "L3 Order Book",
+    "track": "T04",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 511,
+    "capability": "Options Market Data",
+    "track": "T04",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 512,
+    "capability": "Funding / OI / Liquidation Metrics",
+    "track": "T04",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 513,
+    "capability": "Asset & Symbol Metadata",
+    "track": "T05",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 514,
+    "capability": "Historical Flat Files",
+    "track": "T11",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Data-delivery/catalog/registry without direct user decision output"
+  },
+  {
+    "id": 515,
+    "capability": "REST API",
+    "track": "T01",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 516,
+    "capability": "WebSocket Streaming",
+    "track": "T02",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 517,
+    "capability": "FIX Connectivity",
+    "track": "T03",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 518,
+    "capability": "MCP for AI",
+    "track": "T10",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 519,
+    "capability": "Exchange Rates / VWAP",
+    "track": "T04",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 520,
+    "capability": "Indexes",
+    "track": "T06",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 521,
+    "capability": "Volatility Index",
+    "track": "T08",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "Score/index/decision/recommendation surface (SCORE-IDX-001 pattern)"
+  },
+  {
+    "id": 522,
+    "capability": "EMS Integration Boundary",
+    "track": "T08",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 523,
+    "capability": "Data Health / SLA Monitoring",
+    "track": "T06",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 524,
+    "capability": "Symbol Mapping Engine",
+    "track": "T15",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 525,
+    "capability": "Cross-Venue Data Quality Score",
+    "track": "T11",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "Score/index/decision/recommendation surface (SCORE-IDX-001 pattern)"
+  },
+  {
+    "id": 526,
+    "capability": "AI Market Data Grounding Layer",
+    "track": "T11",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 527,
+    "capability": "Liquidation Heatmap",
+    "track": "T04",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 528,
+    "capability": "Liquidation Levels",
+    "track": "T05",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 529,
+    "capability": "Liquidation Cascade Model",
+    "track": "T05",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 530,
+    "capability": "Global Liquidation Metrics",
+    "track": "T05",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 531,
+    "capability": "Open Interest",
+    "track": "T05",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 532,
+    "capability": "Funding Rates",
+    "track": "T05",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 533,
+    "capability": "Order Flow Intelligence",
+    "track": "T05",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 534,
+    "capability": "Bucketed CVD",
+    "track": "T01",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 535,
+    "capability": "Whale vs Retail Flow",
+    "track": "T09",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "On-chain address/transaction intelligence (FATF R.16)"
+  },
+  {
+    "id": 536,
+    "capability": "Slippage Intelligence",
+    "track": "T09",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 537,
+    "capability": "Global Order Book Metrics",
+    "track": "T06",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 538,
+    "capability": "Order Book Imbalance",
+    "track": "T04",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 539,
+    "capability": "Liquidity Zones",
+    "track": "T04",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 540,
+    "capability": "Bot Activity Detection",
+    "track": "T05",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 541,
+    "capability": "Market Positioning",
+    "track": "T11",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 542,
+    "capability": "Liquidation Pressure Score",
+    "track": "T05",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "Score/index/decision/recommendation surface (SCORE-IDX-001 pattern)"
+  },
+  {
+    "id": 543,
+    "capability": "Orderflow Anomaly Detection",
+    "track": "T05",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 544,
+    "capability": "API Indicator Platform",
+    "track": "T04",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 545,
+    "capability": "Trader Cohort Intelligence",
+    "track": "T03",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 546,
+    "capability": "Cross-Derivatives Decision Intelligence",
+    "track": "T09",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "Score/index/decision/recommendation surface (SCORE-IDX-001 pattern)"
+  },
+  {
+    "id": 547,
+    "capability": "High-Resolution Multi-Pane Charts",
+    "track": "T05",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 548,
+    "capability": "Derivatives Dashboard",
+    "track": "T01",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Data-delivery/catalog/registry without direct user decision output"
+  },
+  {
+    "id": 549,
+    "capability": "Funding Rate Intelligence",
+    "track": "T05",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 550,
+    "capability": "Open Interest Intelligence",
+    "track": "T05",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  }
+]

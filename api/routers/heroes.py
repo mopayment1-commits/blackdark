@@ -8,7 +8,7 @@ import logging
 from fastapi import APIRouter, Body, Depends, HTTPException, Query
 
 from api.openapi_responses import COMMON_ERROR_RESPONSES
-from security_auth import optional_user_from_request
+from security_auth import optional_user_from_request, require_authenticated, session_user_key
 
 router = APIRouter(tags=["heroes"], responses=COMMON_ERROR_RESPONSES)
 logger = logging.getLogger("BLACKDARK.HeroesAPI")
@@ -107,16 +107,11 @@ async def create_locked(body: dict = Body(...)):
 @router.post("/api/discipline-mirror/answer")
 async def discipline_answer(
     body: dict = Body(...),
-    user: dict | None = Depends(optional_user_from_request),
+    user: dict = Depends(require_authenticated),
 ):
     from discipline_mirror import record_follow_up
 
-    user_key = str(
-        body.get("user_key")
-        or body.get("email")
-        or (user or {}).get("email")
-        or "anonymous"
-    )
+    user_key = session_user_key(user)
     return record_follow_up(
         user_key=user_key,
         asset=str(body.get("asset") or "BTC"),
@@ -605,12 +600,15 @@ async def alert_passport_api(user_key: str = Query("anon")):
 
 
 @router.post("/api/alert-passport/evaluate")
-async def alert_passport_evaluate(payload: dict = Body(default={})):
+async def alert_passport_evaluate(
+    payload: dict = Body(default={}),
+    user: dict = Depends(require_authenticated),
+):
     from proof_gated_alert_passport import evaluate_alert_gate
 
     body = payload or {}
     return evaluate_alert_gate(
-        user_key=str(body.get("user_key") or "anon"),
+        user_key=session_user_key(user),
         asset=str(body.get("asset") or "BTC"),
         net_edge_pass=body.get("net_edge_pass"),
         veto_clear=body.get("veto_clear"),
@@ -699,12 +697,15 @@ async def trust_debt_api(
 
 
 @router.post("/api/trust-debt/event")
-async def trust_debt_event(payload: dict = Body(default={})):
+async def trust_debt_event(
+    payload: dict = Body(default={}),
+    user: dict = Depends(require_authenticated),
+):
     from trust_debt_score import record_trust_event
 
     body = payload or {}
     return record_trust_event(
-        user_key=str(body.get("user_key") or "anon"),
+        user_key=session_user_key(user),
         kind=str(body.get("kind") or "ledger_decision"),
         weight=float(body.get("weight") or 1.0),
         note=str(body.get("note") or ""),
@@ -756,11 +757,14 @@ async def proof_arena_week(week_id: str | None = Query(None)):
 
 
 @router.post("/api/proof-arena/pick")
-async def proof_arena_pick(payload: dict = Body(...)):
+async def proof_arena_pick(
+    payload: dict = Body(...),
+    user: dict = Depends(require_authenticated),
+):
     from proof_arena import submit_pick
 
     return submit_pick(
-        user_key=str(payload.get("user_key") or "anon"),
+        user_key=session_user_key(user),
         symbol=str(payload.get("symbol") or "BTC"),
         direction=str(payload.get("direction") or "wait"),
         note=str(payload.get("note") or ""),
@@ -803,12 +807,15 @@ async def anti_hype_mode_get(user_key: str = Query("anon")):
 
 
 @router.post("/api/anti-hype/mode")
-async def anti_hype_mode_set(payload: dict = Body(...)):
+async def anti_hype_mode_set(
+    payload: dict = Body(...),
+    user: dict = Depends(require_authenticated),
+):
     from anti_hype_mode import set_mode
 
     return set_mode(
         bool(payload.get("enabled")),
-        user_key=str(payload.get("user_key") or "anon"),
+        user_key=session_user_key(user),
     )
 
 

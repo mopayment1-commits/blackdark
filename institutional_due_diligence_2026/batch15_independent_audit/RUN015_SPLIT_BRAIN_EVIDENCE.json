@@ -1,0 +1,3714 @@
+[
+  {
+    "id": 701,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 701,
+      "surface": "reserved_slot_701",
+      "symbol": "BTC",
+      "reserved_slot_701": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:36.439193+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:36.439193+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:36.439215+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 702,
+    "free_tier_available": true,
+    "free_result": {
+      "success": true,
+      "capability_id": 702,
+      "surface": "kaiko_institutional_proxy",
+      "backend_module": "bd_platform.free_tier_capabilities",
+      "backend_entrypoint": "kaiko_institutional_proxy",
+      "binding_source": "free_tier_explicit",
+      "data": {
+        "source": "kaiko_free_proxy",
+        "timestamp": "2026-09-12T11:56:38.627023+00:00",
+        "vendor": "kaiko",
+        "symbol": "BTC",
+        "real_time_feeds": [
+          {
+            "symbol": "BTC",
+            "price_usd": 77340,
+            "source": "coingecko_fallback"
+          },
+          {
+            "symbol": "ETH",
+            "price_usd": 2535.18,
+            "source": "coingecko_fallback"
+          }
+        ],
+        "market_probe": {
+          "symbol": "BTC",
+          "pair": "BTCUSDT",
+          "price_feed_ws_only": true,
+          "checks": {
+            "api.binance.com": {
+              "ok": false,
+              "source": null
+            },
+            "data-api.binance.vision": {
+              "ok": true,
+              "source": "binance:data-api.binance.vision"
+            },
+            "api.binance.us": {
+              "ok": true,
+              "source": "binance:api.binance.us"
+            },
+            "kraken": {
+              "ok": true,
+              "source": "kraken"
+            },
+            "okx": {
+              "ok": true,
+              "source": "okx"
+            },
+            "bybit": {
+              "ok": false,
+              "source": null
+            },
+            "coingecko": {
+              "ok": true,
+              "source": "coingecko"
+            },
+            "coinbase": {
+              "ok": true,
+              "source": "coinbase"
+            },
+            "cryptocompare": {
+              "ok": false,
+              "source": null
+            }
+          },
+          "resolved": true,
+          "resolved_source": "binance:data-api.binance.vision",
+          "resolved_price": 77356.0,
+          "timestamp": "2026-09-12T11:56:38.627008+00:00"
+        },
+        "bridge_mode": "free_tier_composite",
+        "free_tier": true,
+        "success": true
+      },
+      "free_tier": true
+    },
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 702,
+      "surface": "kaiko_institutional_proxy",
+      "symbol": "BTC",
+      "kaiko_institutional_proxy": {
+        "source": "kaiko_free_proxy",
+        "timestamp": "2026-09-12T11:56:40.640888+00:00",
+        "vendor": "kaiko",
+        "symbol": "BTC",
+        "real_time_feeds": [
+          {
+            "symbol": "BTC",
+            "price_usd": 77340,
+            "source": "coingecko_fallback"
+          },
+          {
+            "symbol": "ETH",
+            "price_usd": 2535.18,
+            "source": "coingecko_fallback"
+          }
+        ],
+        "market_probe": {
+          "symbol": "BTC",
+          "pair": "BTCUSDT",
+          "price_feed_ws_only": true,
+          "checks": {
+            "api.binance.com": {
+              "ok": false,
+              "source": null
+            },
+            "data-api.binance.vision": {
+              "ok": true,
+              "source": "binance:data-api.binance.vision"
+            },
+            "api.binance.us": {
+              "ok": true,
+              "source": "binance:api.binance.us"
+            },
+            "kraken": {
+              "ok": true,
+              "source": "kraken"
+            },
+            "okx": {
+              "ok": true,
+              "source": "okx"
+            },
+            "bybit": {
+              "ok": false,
+              "source": null
+            },
+            "coingecko": {
+              "ok": true,
+              "source": "coingecko"
+            },
+            "coinbase": {
+              "ok": true,
+              "source": "coinbase"
+            },
+            "cryptocompare": {
+              "ok": false,
+              "source": null
+            }
+          },
+          "resolved": true,
+          "resolved_source": "binance:data-api.binance.vision",
+          "resolved_price": 77356.01,
+          "timestamp": "2026-09-12T11:56:40.640872+00:00"
+        },
+        "bridge_mode": "free_tier_composite",
+        "free_tier": true,
+        "success": true
+      },
+      "success": true,
+      "methodology": {
+        "framework": "Path A — explicit free_tier parity (v6 §2.1)",
+        "implementation": "bd_platform.free_tier_capabilities.execute_free_tier_capability",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "free_tier_explicit"
+      },
+      "data_source": "kaiko_free_proxy",
+      "timestamp": "2026-09-12T11:56:40.640888+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:40.640921+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "outputs_match": true,
+    "result_type": "DUPLICATE_CONFIRMED",
+    "verdict": "Duplicate Confirmed — free_tier vs batch15_dedicated parity"
+  },
+  {
+    "id": 703,
+    "free_tier_available": true,
+    "free_result": {
+      "success": true,
+      "capability_id": 703,
+      "surface": "amberdata_institutional_proxy",
+      "backend_module": "bd_platform.free_tier_capabilities",
+      "backend_entrypoint": "amberdata_institutional_proxy",
+      "binding_source": "free_tier_explicit",
+      "data": {
+        "source": "amberdata_free_proxy",
+        "timestamp": "2026-09-12T11:56:42.667615+00:00",
+        "vendor": "amberdata",
+        "symbol": "BTC",
+        "real_time_feeds": [
+          {
+            "symbol": "BTC",
+            "price_usd": 77340,
+            "source": "coingecko_fallback"
+          },
+          {
+            "symbol": "ETH",
+            "price_usd": 2535.18,
+            "source": "coingecko_fallback"
+          }
+        ],
+        "market_probe": {
+          "symbol": "BTC",
+          "pair": "BTCUSDT",
+          "price_feed_ws_only": true,
+          "checks": {
+            "api.binance.com": {
+              "ok": false,
+              "source": null
+            },
+            "data-api.binance.vision": {
+              "ok": true,
+              "source": "binance:data-api.binance.vision"
+            },
+            "api.binance.us": {
+              "ok": true,
+              "source": "binance:api.binance.us"
+            },
+            "kraken": {
+              "ok": true,
+              "source": "kraken"
+            },
+            "okx": {
+              "ok": true,
+              "source": "okx"
+            },
+            "bybit": {
+              "ok": false,
+              "source": null
+            },
+            "coingecko": {
+              "ok": true,
+              "source": "coingecko"
+            },
+            "coinbase": {
+              "ok": true,
+              "source": "coinbase"
+            },
+            "cryptocompare": {
+              "ok": false,
+              "source": null
+            }
+          },
+          "resolved": true,
+          "resolved_source": "binance:data-api.binance.vision",
+          "resolved_price": 77356.01,
+          "timestamp": "2026-09-12T11:56:42.667602+00:00"
+        },
+        "bridge_mode": "free_tier_composite",
+        "free_tier": true,
+        "success": true
+      },
+      "free_tier": true
+    },
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 703,
+      "surface": "amberdata_institutional_proxy",
+      "symbol": "BTC",
+      "amberdata_institutional_proxy": {
+        "source": "amberdata_free_proxy",
+        "timestamp": "2026-09-12T11:56:44.656082+00:00",
+        "vendor": "amberdata",
+        "symbol": "BTC",
+        "real_time_feeds": [
+          {
+            "symbol": "BTC",
+            "price_usd": 77340,
+            "source": "coingecko_fallback"
+          },
+          {
+            "symbol": "ETH",
+            "price_usd": 2535.18,
+            "source": "coingecko_fallback"
+          }
+        ],
+        "market_probe": {
+          "symbol": "BTC",
+          "pair": "BTCUSDT",
+          "price_feed_ws_only": true,
+          "checks": {
+            "api.binance.com": {
+              "ok": false,
+              "source": null
+            },
+            "data-api.binance.vision": {
+              "ok": true,
+              "source": "binance:data-api.binance.vision"
+            },
+            "api.binance.us": {
+              "ok": true,
+              "source": "binance:api.binance.us"
+            },
+            "kraken": {
+              "ok": true,
+              "source": "kraken"
+            },
+            "okx": {
+              "ok": true,
+              "source": "okx"
+            },
+            "bybit": {
+              "ok": false,
+              "source": null
+            },
+            "coingecko": {
+              "ok": true,
+              "source": "coingecko"
+            },
+            "coinbase": {
+              "ok": true,
+              "source": "coinbase"
+            },
+            "cryptocompare": {
+              "ok": false,
+              "source": null
+            }
+          },
+          "resolved": true,
+          "resolved_source": "binance:data-api.binance.vision",
+          "resolved_price": 77356.0,
+          "timestamp": "2026-09-12T11:56:44.656061+00:00"
+        },
+        "bridge_mode": "free_tier_composite",
+        "free_tier": true,
+        "success": true
+      },
+      "success": true,
+      "methodology": {
+        "framework": "Path A — explicit free_tier parity (v6 §2.1)",
+        "implementation": "bd_platform.free_tier_capabilities.execute_free_tier_capability",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "free_tier_explicit"
+      },
+      "data_source": "amberdata_free_proxy",
+      "timestamp": "2026-09-12T11:56:44.656082+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:44.656118+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "outputs_match": true,
+    "result_type": "DUPLICATE_CONFIRMED",
+    "verdict": "Duplicate Confirmed — free_tier vs batch15_dedicated parity"
+  },
+  {
+    "id": 704,
+    "free_tier_available": true,
+    "free_result": {
+      "success": true,
+      "capability_id": 704,
+      "surface": "defi_risk_radar",
+      "backend_module": "bd_platform.free_tier_capabilities",
+      "backend_entrypoint": "defi_risk_radar",
+      "binding_source": "free_tier_explicit",
+      "data": {
+        "source": "defillama",
+        "timestamp": "2026-09-12T11:56:44.816072+00:00",
+        "risk_signals": [
+          {
+            "type": "hack",
+            "name": "Infini",
+            "date": 1740355200,
+            "amount_usd": 49500000,
+            "chain": [
+              "Ethereum"
+            ],
+            "classification": "Key Compromise",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "Moola Market",
+            "date": 1666051200,
+            "amount_usd": 8400000,
+            "chain": [
+              "Celo"
+            ],
+            "classification": "Oracle Manipulation",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "ALEX",
+            "date": 1715817600,
+            "amount_usd": 4300000,
+            "chain": [
+              "Stacks"
+            ],
+            "classification": "Social Engineering",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "Mobius Token",
+            "date": 1746921600,
+            "amount_usd": 2150000,
+            "chain": [
+              "BSC"
+            ],
+            "classification": "Token & Share Accounting",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "Visor Finance",
+            "date": 1638057600,
+            "amount_usd": 975720,
+            "chain": [
+              "Ethereum"
+            ],
+            "classification": "Oracle Manipulation",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "Bitcoin Gold",
+            "date": 1579737600,
+            "amount_usd": 70000,
+            "chain": [
+              "Bitcoin Gold"
+            ],
+            "classification": "Key Compromise",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "Neutra Finance",
+            "date": 1690848000,
+            "amount_usd": 36450,
+            "chain": [
+              "Arbitrum"
+            ],
+            "classification": "Oracle Manipulation",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "HireVibes AirDropsDAC",
+            "date": 1541980800,
+            "amount_usd": 13600,
+            "chain": [
+              "EOS"
+            ],
+            "classification": "Key Compromise",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "PEPE",
+            "date": 1693008000,
+            "amount_usd": 15080000,
+            "chain": [
+              "Ethereum"
+            ],
+            "classification": "Rugpull",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "Reaper Farm",
+            "date": 1659312000,
+            "amount_usd": 1700000,
+            "chain": [
+              "Fantom"
+            ],
+            "classification": "Access Control",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "DAO Swap",
+            "date": 1662336000,
+            "amount_usd": 580000,
+            "chain": [
+              "Binance Smart Chain"
+            ],
+            "classification": "Access Control",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "Symbiosis",
+            "date": 1788998400,
+            "amount_usd": 336000,
+            "chain": [
+              "BSC",
+              "Ethereum"
+            ],
+            "classification": "Bridge & Cross-Chain",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "THORChain DEX",
+            "date": 1626912000,
+            "amount_usd": 8000000,
+            "chain": [
+              "Ethereum"
+            ],
+            "classification": "Protocol Logic",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "Juicebox V3",
+            "date": 1776643200,
+            "amount_usd": 52000,
+            "chain": [
+              "Ethereum"
+            ],
+            "classification": "Input Validation",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "Poker EOS",
+            "date": 1558656000,
+            "amount_usd": null,
+            "chain": [
+              "EOS"
+            ],
+            "classification": "Key Compromise",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "Cetus CLMM",
+            "date": 1747872000,
+            "amount_usd": 223000000,
+            "chain": [
+              "Sui"
+            ],
+            "classification": "Token & Share Accounting",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "KlaySwap",
+            "date": 1643846400,
+            "amount_usd": 1900000,
+            "chain": [
+              "Klaytn"
+            ],
+            "classification": "Frontend & Infrastructure",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "AscenDEX",
+            "date": 1639180800,
+            "amount_usd": 77000000,
+            "chain": [
+              "Ethereum",
+              "BSC",
+              "Polygon"
+            ],
+            "classification": "Key Compromise",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "Bunny",
+            "date": 1621382400,
+            "amount_usd": 45000000,
+            "chain": [
+              "BSC"
+            ],
+            "classification": "Oracle Manipulation",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "IPC AI",
+            "date": 1736208000,
+            "amount_usd": 590000,
+            "chain": [
+              "Binance"
+            ],
+            "classification": "Protocol Logic",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "Unverified_35bc",
+            "date": 1740182400,
+            "amount_usd": 6700,
+            "chain": [
+              "BSC"
+            ],
+            "classification": "Reentrancy",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "Ronin Bridge",
+            "date": 1722902400,
+            "amount_usd": 12000000,
+            "chain": [
+              "Ethereum"
+            ],
+            "classification": "Access Control",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "Alchemix V2",
+            "date": 1623801600,
+            "amount_usd": 6500000,
+            "chain": [
+              "Ethereum"
+            ],
+            "classification": "Protocol Logic",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "Adshares",
+            "date": 1778889600,
+            "amount_usd": 628000,
+            "chain": [
+              "Ethereum"
+            ],
+            "classification": "Bridge & Cross-Chain",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "796",
+            "date": 1422316800,
+            "amount_usd": 270000,
+            "chain": [
+              "Bitcoin"
+            ],
+            "classification": "Access Control",
+            "source": "defillama_hacks"
+          }
+        ],
+        "count": 25,
+        "free_tier": true
+      },
+      "free_tier": true
+    },
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 704,
+      "surface": "defi_risk_radar",
+      "symbol": "BTC",
+      "defi_risk_radar": {
+        "source": "defillama",
+        "timestamp": "2026-09-12T11:56:45.089977+00:00",
+        "risk_signals": [
+          {
+            "type": "hack",
+            "name": "Infini",
+            "date": 1740355200,
+            "amount_usd": 49500000,
+            "chain": [
+              "Ethereum"
+            ],
+            "classification": "Key Compromise",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "Moola Market",
+            "date": 1666051200,
+            "amount_usd": 8400000,
+            "chain": [
+              "Celo"
+            ],
+            "classification": "Oracle Manipulation",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "ALEX",
+            "date": 1715817600,
+            "amount_usd": 4300000,
+            "chain": [
+              "Stacks"
+            ],
+            "classification": "Social Engineering",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "Mobius Token",
+            "date": 1746921600,
+            "amount_usd": 2150000,
+            "chain": [
+              "BSC"
+            ],
+            "classification": "Token & Share Accounting",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "Visor Finance",
+            "date": 1638057600,
+            "amount_usd": 975720,
+            "chain": [
+              "Ethereum"
+            ],
+            "classification": "Oracle Manipulation",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "Bitcoin Gold",
+            "date": 1579737600,
+            "amount_usd": 70000,
+            "chain": [
+              "Bitcoin Gold"
+            ],
+            "classification": "Key Compromise",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "Neutra Finance",
+            "date": 1690848000,
+            "amount_usd": 36450,
+            "chain": [
+              "Arbitrum"
+            ],
+            "classification": "Oracle Manipulation",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "HireVibes AirDropsDAC",
+            "date": 1541980800,
+            "amount_usd": 13600,
+            "chain": [
+              "EOS"
+            ],
+            "classification": "Key Compromise",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "PEPE",
+            "date": 1693008000,
+            "amount_usd": 15080000,
+            "chain": [
+              "Ethereum"
+            ],
+            "classification": "Rugpull",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "Reaper Farm",
+            "date": 1659312000,
+            "amount_usd": 1700000,
+            "chain": [
+              "Fantom"
+            ],
+            "classification": "Access Control",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "DAO Swap",
+            "date": 1662336000,
+            "amount_usd": 580000,
+            "chain": [
+              "Binance Smart Chain"
+            ],
+            "classification": "Access Control",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "Symbiosis",
+            "date": 1788998400,
+            "amount_usd": 336000,
+            "chain": [
+              "BSC",
+              "Ethereum"
+            ],
+            "classification": "Bridge & Cross-Chain",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "THORChain DEX",
+            "date": 1626912000,
+            "amount_usd": 8000000,
+            "chain": [
+              "Ethereum"
+            ],
+            "classification": "Protocol Logic",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "Juicebox V3",
+            "date": 1776643200,
+            "amount_usd": 52000,
+            "chain": [
+              "Ethereum"
+            ],
+            "classification": "Input Validation",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "Poker EOS",
+            "date": 1558656000,
+            "amount_usd": null,
+            "chain": [
+              "EOS"
+            ],
+            "classification": "Key Compromise",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "Cetus CLMM",
+            "date": 1747872000,
+            "amount_usd": 223000000,
+            "chain": [
+              "Sui"
+            ],
+            "classification": "Token & Share Accounting",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "KlaySwap",
+            "date": 1643846400,
+            "amount_usd": 1900000,
+            "chain": [
+              "Klaytn"
+            ],
+            "classification": "Frontend & Infrastructure",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "AscenDEX",
+            "date": 1639180800,
+            "amount_usd": 77000000,
+            "chain": [
+              "Ethereum",
+              "BSC",
+              "Polygon"
+            ],
+            "classification": "Key Compromise",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "Bunny",
+            "date": 1621382400,
+            "amount_usd": 45000000,
+            "chain": [
+              "BSC"
+            ],
+            "classification": "Oracle Manipulation",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "IPC AI",
+            "date": 1736208000,
+            "amount_usd": 590000,
+            "chain": [
+              "Binance"
+            ],
+            "classification": "Protocol Logic",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "Unverified_35bc",
+            "date": 1740182400,
+            "amount_usd": 6700,
+            "chain": [
+              "BSC"
+            ],
+            "classification": "Reentrancy",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "Ronin Bridge",
+            "date": 1722902400,
+            "amount_usd": 12000000,
+            "chain": [
+              "Ethereum"
+            ],
+            "classification": "Access Control",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "Alchemix V2",
+            "date": 1623801600,
+            "amount_usd": 6500000,
+            "chain": [
+              "Ethereum"
+            ],
+            "classification": "Protocol Logic",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "Adshares",
+            "date": 1778889600,
+            "amount_usd": 628000,
+            "chain": [
+              "Ethereum"
+            ],
+            "classification": "Bridge & Cross-Chain",
+            "source": "defillama_hacks"
+          },
+          {
+            "type": "hack",
+            "name": "796",
+            "date": 1422316800,
+            "amount_usd": 270000,
+            "chain": [
+              "Bitcoin"
+            ],
+            "classification": "Access Control",
+            "source": "defillama_hacks"
+          }
+        ],
+        "count": 25,
+        "free_tier": true
+      },
+      "success": true,
+      "methodology": {
+        "framework": "Path A — explicit free_tier parity (v6 §2.1)",
+        "implementation": "bd_platform.free_tier_capabilities.execute_free_tier_capability",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "free_tier_explicit"
+      },
+      "data_source": "defillama",
+      "timestamp": "2026-09-12T11:56:45.089977+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:45.096336+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "outputs_match": true,
+    "result_type": "DUPLICATE_CONFIRMED",
+    "verdict": "Duplicate Confirmed — free_tier vs batch15_dedicated parity"
+  },
+  {
+    "id": 705,
+    "free_tier_available": true,
+    "free_result": {
+      "success": true,
+      "capability_id": 705,
+      "surface": "lending_market_risk",
+      "backend_module": "bd_platform.free_tier_capabilities",
+      "backend_entrypoint": "lending_market_risk",
+      "binding_source": "free_tier_explicit",
+      "data": {
+        "source": "defillama_yields",
+        "timestamp": "2026-09-12T11:56:45.765408+00:00",
+        "lending_pools": [
+          {
+            "pool": "d8c4eff5-c8a9-46fc-a888-057c4c668e72",
+            "project": "sky-lending",
+            "symbol": "SUSDS",
+            "chain": "Ethereum",
+            "tvl_usd": 4610509313.0,
+            "apy": 3.6,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "3b45941c-16cb-48c5-a490-16c6c4f1d86a",
+            "project": "sparklend",
+            "symbol": "WSTETH",
+            "chain": "Ethereum",
+            "tvl_usd": 3190744987.0,
+            "apy": 0.0,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "ae255d3e-5f02-4edd-aab3-ba43eead3a06",
+            "project": "justlend-v1",
+            "symbol": "ETH",
+            "chain": "Tron",
+            "tvl_usd": 1216389323.0,
+            "apy": 0.00031,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "31e2bebc-85e6-4974-b2e3-7f24675095cf",
+            "project": "justlend-v1",
+            "symbol": "STRX",
+            "chain": "Tron",
+            "tvl_usd": 804710437.0,
+            "apy": 0.0014,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "51d2f8d4-1fb5-4f6b-938b-e9cd17ca1ceb",
+            "project": "sky-lending",
+            "symbol": "WETH",
+            "chain": "Ethereum",
+            "tvl_usd": 778563161.0,
+            "apy": 0.0,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "90d3f42a-8700-4b9f-baa8-090a3c4322c9",
+            "project": "justlend-v1",
+            "symbol": "TRX",
+            "chain": "Tron",
+            "tvl_usd": 698142058.0,
+            "apy": 0.32208,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "54600482-cfb9-4dd9-a73b-342cffd4644a",
+            "project": "sky-lending",
+            "symbol": "WETH",
+            "chain": "Ethereum",
+            "tvl_usd": 680812714.0,
+            "apy": 0.0,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "370a27ed-7971-5a6d-9f9d-7f98ed64d299",
+            "project": "sky-lending",
+            "symbol": "SKY",
+            "chain": "Ethereum",
+            "tvl_usd": 594241814.0,
+            "apy": 4.19248,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "54e9b138-3146-4c1f-8dce-1cb948f5ef96",
+            "project": "sparklend",
+            "symbol": "USDS",
+            "chain": "Ethereum",
+            "tvl_usd": 577754412.0,
+            "apy": 3.8201,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "71418c17-d2aa-4eff-b68a-806fff9ec951",
+            "project": "justlend-v1",
+            "symbol": "BTC",
+            "chain": "Tron",
+            "tvl_usd": 504109211.0,
+            "apy": 0.00477,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "d783c8df-e2ed-44b4-8317-161ccc1b5f06",
+            "project": "jupiter-lend",
+            "symbol": "USDC",
+            "chain": "Solana",
+            "tvl_usd": 481003969.0,
+            "apy": 3.86002,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "f179ea6c-3345-432f-b727-9e68e7881105",
+            "project": "justlend-v1",
+            "symbol": "USDD",
+            "chain": "Tron",
+            "tvl_usd": 398113142.0,
+            "apy": 3.8546,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "3637ce7b-529b-49c1-964c-710a50b2939c",
+            "project": "sky-lending",
+            "symbol": "SUSDS",
+            "chain": "Arbitrum",
+            "tvl_usd": 362676960.0,
+            "apy": 3.6,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "e15db93c-9c49-490c-896d-24092b4d7471",
+            "project": "lista-lending",
+            "symbol": "BNB",
+            "chain": "BSC",
+            "tvl_usd": 354852333.0,
+            "apy": 0.1936,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "0ed981dc-b49d-426d-ade5-6014728b1ef9",
+            "project": "sparklend",
+            "symbol": "USDS",
+            "chain": "Ethereum",
+            "tvl_usd": 353311576.0,
+            "apy": 2.31846,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "00d1e1f8-b3c8-4350-a247-5da693d2d4dd",
+            "project": "sparklend",
+            "symbol": "CBBTC",
+            "chain": "Ethereum",
+            "tvl_usd": 335305446.0,
+            "apy": 0.00035,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "3b074bee-390c-488c-8d1e-4ab2009b1645",
+            "project": "hyperlend-pooled",
+            "symbol": "KHYPE",
+            "chain": "Hyperliquid L1",
+            "tvl_usd": 289926156.0,
+            "apy": 0.0,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "24195b31-d749-445f-bf9e-b65aa025ebdd",
+            "project": "sparklend",
+            "symbol": "WETH",
+            "chain": "Ethereum",
+            "tvl_usd": 273085045.0,
+            "apy": 1.45449,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "d1f82472-32fd-4061-bcb2-f4764d4a2441",
+            "project": "kamino-lend",
+            "symbol": "USDE",
+            "chain": "Solana",
+            "tvl_usd": 267848816.0,
+            "apy": 0.0,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "1accaa9f-f4fa-4063-9502-1733ed8e4832",
+            "project": "kamino-lend",
+            "symbol": "DSOL",
+            "chain": "Solana",
+            "tvl_usd": 231089368.0,
+            "apy": 0.0,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "ff17b423-bccc-4d12-9a72-68bde120ac62",
+            "project": "sparklend",
+            "symbol": "LBTC",
+            "chain": "Ethereum",
+            "tvl_usd": 224275771.0,
+            "apy": 0.0,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "69b12bf9-edb6-46d9-b5bc-761cf9efe137",
+            "project": "fluid-lending",
+            "symbol": "WSTETH",
+            "chain": "Ethereum",
+            "tvl_usd": 215170786.0,
+            "apy": 0.02,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "9f71f0fd-cfac-54b1-865e-37338f481708",
+            "project": "sky-lending",
+            "symbol": "STUSDS",
+            "chain": "Ethereum",
+            "tvl_usd": 211004062.0,
+            "apy": 5.11,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "c8a24fee-ec00-4f38-86c0-9f6daebc4225",
+            "project": "sky-lending",
+            "symbol": "SDAI",
+            "chain": "Ethereum",
+            "tvl_usd": 202740046.0,
+            "apy": 1.25,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "f3d99b7b-1691-48b6-b3b0-87838e231a51",
+            "project": "kamino-lend",
+            "symbol": "ONYC",
+            "chain": "Solana",
+            "tvl_usd": 189856252.0,
+            "apy": 0.0,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "4d87430b-688a-5ac5-a593-4e31ac715d02",
+            "project": "sky-lending",
+            "symbol": "USDS",
+            "chain": "Ethereum",
+            "tvl_usd": 178900943.0,
+            "apy": 5.38997,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "4438dabc-7f0c-430b-8136-2722711ae663",
+            "project": "fluid-lending",
+            "symbol": "USDC",
+            "chain": "Ethereum",
+            "tvl_usd": 154717245.0,
+            "apy": 4.36,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "03406d3a-fcc4-4fe3-8809-7a95222951b6",
+            "project": "sparklend",
+            "symbol": "WBTC",
+            "chain": "Ethereum",
+            "tvl_usd": 144425857.0,
+            "apy": 1e-05,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "e8a6579f-75bd-4b55-9084-de31affed8e2",
+            "project": "blend-pools-v2",
+            "symbol": "XLM",
+            "chain": "Stellar",
+            "tvl_usd": 139021101.0,
+            "apy": 0.00011,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "d6fec854-4258-495b-95df-e4066214f41d",
+            "project": "lista-lending",
+            "symbol": "USD1",
+            "chain": "BSC",
+            "tvl_usd": 138150437.0,
+            "apy": 1.23864,
+            "risk_score": "moderate"
+          }
+        ],
+        "count": 30,
+        "free_tier": true
+      },
+      "free_tier": true
+    },
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 705,
+      "surface": "lending_market_risk",
+      "symbol": "BTC",
+      "lending_market_risk": {
+        "source": "defillama_yields",
+        "timestamp": "2026-09-12T11:56:46.386288+00:00",
+        "lending_pools": [
+          {
+            "pool": "d8c4eff5-c8a9-46fc-a888-057c4c668e72",
+            "project": "sky-lending",
+            "symbol": "SUSDS",
+            "chain": "Ethereum",
+            "tvl_usd": 4610509313.0,
+            "apy": 3.6,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "3b45941c-16cb-48c5-a490-16c6c4f1d86a",
+            "project": "sparklend",
+            "symbol": "WSTETH",
+            "chain": "Ethereum",
+            "tvl_usd": 3190744987.0,
+            "apy": 0.0,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "ae255d3e-5f02-4edd-aab3-ba43eead3a06",
+            "project": "justlend-v1",
+            "symbol": "ETH",
+            "chain": "Tron",
+            "tvl_usd": 1216389323.0,
+            "apy": 0.00031,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "31e2bebc-85e6-4974-b2e3-7f24675095cf",
+            "project": "justlend-v1",
+            "symbol": "STRX",
+            "chain": "Tron",
+            "tvl_usd": 804710437.0,
+            "apy": 0.0014,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "51d2f8d4-1fb5-4f6b-938b-e9cd17ca1ceb",
+            "project": "sky-lending",
+            "symbol": "WETH",
+            "chain": "Ethereum",
+            "tvl_usd": 778563161.0,
+            "apy": 0.0,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "90d3f42a-8700-4b9f-baa8-090a3c4322c9",
+            "project": "justlend-v1",
+            "symbol": "TRX",
+            "chain": "Tron",
+            "tvl_usd": 698142058.0,
+            "apy": 0.32208,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "54600482-cfb9-4dd9-a73b-342cffd4644a",
+            "project": "sky-lending",
+            "symbol": "WETH",
+            "chain": "Ethereum",
+            "tvl_usd": 680812714.0,
+            "apy": 0.0,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "370a27ed-7971-5a6d-9f9d-7f98ed64d299",
+            "project": "sky-lending",
+            "symbol": "SKY",
+            "chain": "Ethereum",
+            "tvl_usd": 594241814.0,
+            "apy": 4.19248,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "54e9b138-3146-4c1f-8dce-1cb948f5ef96",
+            "project": "sparklend",
+            "symbol": "USDS",
+            "chain": "Ethereum",
+            "tvl_usd": 577754412.0,
+            "apy": 3.8201,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "71418c17-d2aa-4eff-b68a-806fff9ec951",
+            "project": "justlend-v1",
+            "symbol": "BTC",
+            "chain": "Tron",
+            "tvl_usd": 504109211.0,
+            "apy": 0.00477,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "d783c8df-e2ed-44b4-8317-161ccc1b5f06",
+            "project": "jupiter-lend",
+            "symbol": "USDC",
+            "chain": "Solana",
+            "tvl_usd": 481003969.0,
+            "apy": 3.86002,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "f179ea6c-3345-432f-b727-9e68e7881105",
+            "project": "justlend-v1",
+            "symbol": "USDD",
+            "chain": "Tron",
+            "tvl_usd": 398113142.0,
+            "apy": 3.8546,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "3637ce7b-529b-49c1-964c-710a50b2939c",
+            "project": "sky-lending",
+            "symbol": "SUSDS",
+            "chain": "Arbitrum",
+            "tvl_usd": 362676960.0,
+            "apy": 3.6,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "e15db93c-9c49-490c-896d-24092b4d7471",
+            "project": "lista-lending",
+            "symbol": "BNB",
+            "chain": "BSC",
+            "tvl_usd": 354852333.0,
+            "apy": 0.1936,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "0ed981dc-b49d-426d-ade5-6014728b1ef9",
+            "project": "sparklend",
+            "symbol": "USDS",
+            "chain": "Ethereum",
+            "tvl_usd": 353311576.0,
+            "apy": 2.31846,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "00d1e1f8-b3c8-4350-a247-5da693d2d4dd",
+            "project": "sparklend",
+            "symbol": "CBBTC",
+            "chain": "Ethereum",
+            "tvl_usd": 335305446.0,
+            "apy": 0.00035,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "3b074bee-390c-488c-8d1e-4ab2009b1645",
+            "project": "hyperlend-pooled",
+            "symbol": "KHYPE",
+            "chain": "Hyperliquid L1",
+            "tvl_usd": 289926156.0,
+            "apy": 0.0,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "24195b31-d749-445f-bf9e-b65aa025ebdd",
+            "project": "sparklend",
+            "symbol": "WETH",
+            "chain": "Ethereum",
+            "tvl_usd": 273085045.0,
+            "apy": 1.45449,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "d1f82472-32fd-4061-bcb2-f4764d4a2441",
+            "project": "kamino-lend",
+            "symbol": "USDE",
+            "chain": "Solana",
+            "tvl_usd": 267848816.0,
+            "apy": 0.0,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "1accaa9f-f4fa-4063-9502-1733ed8e4832",
+            "project": "kamino-lend",
+            "symbol": "DSOL",
+            "chain": "Solana",
+            "tvl_usd": 231089368.0,
+            "apy": 0.0,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "ff17b423-bccc-4d12-9a72-68bde120ac62",
+            "project": "sparklend",
+            "symbol": "LBTC",
+            "chain": "Ethereum",
+            "tvl_usd": 224275771.0,
+            "apy": 0.0,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "69b12bf9-edb6-46d9-b5bc-761cf9efe137",
+            "project": "fluid-lending",
+            "symbol": "WSTETH",
+            "chain": "Ethereum",
+            "tvl_usd": 215170786.0,
+            "apy": 0.02,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "9f71f0fd-cfac-54b1-865e-37338f481708",
+            "project": "sky-lending",
+            "symbol": "STUSDS",
+            "chain": "Ethereum",
+            "tvl_usd": 211004062.0,
+            "apy": 5.11,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "c8a24fee-ec00-4f38-86c0-9f6daebc4225",
+            "project": "sky-lending",
+            "symbol": "SDAI",
+            "chain": "Ethereum",
+            "tvl_usd": 202740046.0,
+            "apy": 1.25,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "f3d99b7b-1691-48b6-b3b0-87838e231a51",
+            "project": "kamino-lend",
+            "symbol": "ONYC",
+            "chain": "Solana",
+            "tvl_usd": 189856252.0,
+            "apy": 0.0,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "4d87430b-688a-5ac5-a593-4e31ac715d02",
+            "project": "sky-lending",
+            "symbol": "USDS",
+            "chain": "Ethereum",
+            "tvl_usd": 178900943.0,
+            "apy": 5.38997,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "4438dabc-7f0c-430b-8136-2722711ae663",
+            "project": "fluid-lending",
+            "symbol": "USDC",
+            "chain": "Ethereum",
+            "tvl_usd": 154717245.0,
+            "apy": 4.36,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "03406d3a-fcc4-4fe3-8809-7a95222951b6",
+            "project": "sparklend",
+            "symbol": "WBTC",
+            "chain": "Ethereum",
+            "tvl_usd": 144425857.0,
+            "apy": 1e-05,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "e8a6579f-75bd-4b55-9084-de31affed8e2",
+            "project": "blend-pools-v2",
+            "symbol": "XLM",
+            "chain": "Stellar",
+            "tvl_usd": 139021101.0,
+            "apy": 0.00011,
+            "risk_score": "moderate"
+          },
+          {
+            "pool": "d6fec854-4258-495b-95df-e4066214f41d",
+            "project": "lista-lending",
+            "symbol": "USD1",
+            "chain": "BSC",
+            "tvl_usd": 138150437.0,
+            "apy": 1.23864,
+            "risk_score": "moderate"
+          }
+        ],
+        "count": 30,
+        "free_tier": true
+      },
+      "success": true,
+      "methodology": {
+        "framework": "Path A — explicit free_tier parity (v6 §2.1)",
+        "implementation": "bd_platform.free_tier_capabilities.execute_free_tier_capability",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "free_tier_explicit"
+      },
+      "data_source": "defillama_yields",
+      "timestamp": "2026-09-12T11:56:46.386288+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.391304+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "outputs_match": true,
+    "result_type": "DUPLICATE_CONFIRMED",
+    "verdict": "Duplicate Confirmed — free_tier vs batch15_dedicated parity"
+  },
+  {
+    "id": 706,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 706,
+      "surface": "reserved_slot_706",
+      "symbol": "BTC",
+      "reserved_slot_706": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.391721+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.391721+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.391735+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 707,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 707,
+      "surface": "reserved_slot_707",
+      "symbol": "BTC",
+      "reserved_slot_707": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.391853+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.391853+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.391860+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 708,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 708,
+      "surface": "reserved_slot_708",
+      "symbol": "BTC",
+      "reserved_slot_708": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.392010+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.392010+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.392016+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 709,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 709,
+      "surface": "reserved_slot_709",
+      "symbol": "BTC",
+      "reserved_slot_709": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.392125+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.392125+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.392130+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 710,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 710,
+      "surface": "reserved_slot_710",
+      "symbol": "BTC",
+      "reserved_slot_710": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.392236+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.392236+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.392241+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 711,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 711,
+      "surface": "reserved_slot_711",
+      "symbol": "BTC",
+      "reserved_slot_711": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.392345+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.392345+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.392349+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 712,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 712,
+      "surface": "reserved_slot_712",
+      "symbol": "BTC",
+      "reserved_slot_712": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.392454+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.392454+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.392459+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 713,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 713,
+      "surface": "reserved_slot_713",
+      "symbol": "BTC",
+      "reserved_slot_713": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.392564+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.392564+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.392568+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 714,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 714,
+      "surface": "reserved_slot_714",
+      "symbol": "BTC",
+      "reserved_slot_714": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.392673+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.392673+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.392678+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 715,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 715,
+      "surface": "reserved_slot_715",
+      "symbol": "BTC",
+      "reserved_slot_715": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.392779+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.392779+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.392783+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 716,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 716,
+      "surface": "reserved_slot_716",
+      "symbol": "BTC",
+      "reserved_slot_716": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.392885+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.392885+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.392889+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 717,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 717,
+      "surface": "reserved_slot_717",
+      "symbol": "BTC",
+      "reserved_slot_717": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.392994+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.392994+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.392998+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 718,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 718,
+      "surface": "reserved_slot_718",
+      "symbol": "BTC",
+      "reserved_slot_718": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.393102+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.393102+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.393107+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 719,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 719,
+      "surface": "reserved_slot_719",
+      "symbol": "BTC",
+      "reserved_slot_719": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.393210+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.393210+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.393214+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 720,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 720,
+      "surface": "reserved_slot_720",
+      "symbol": "BTC",
+      "reserved_slot_720": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.393320+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.393320+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.393324+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 721,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 721,
+      "surface": "reserved_slot_721",
+      "symbol": "BTC",
+      "reserved_slot_721": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.393451+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.393451+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.393456+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 722,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 722,
+      "surface": "reserved_slot_722",
+      "symbol": "BTC",
+      "reserved_slot_722": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.393560+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.393560+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.393565+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 723,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 723,
+      "surface": "reserved_slot_723",
+      "symbol": "BTC",
+      "reserved_slot_723": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.393671+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.393671+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.393675+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 724,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 724,
+      "surface": "reserved_slot_724",
+      "symbol": "BTC",
+      "reserved_slot_724": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.393778+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.393778+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.393782+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 725,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 725,
+      "surface": "reserved_slot_725",
+      "symbol": "BTC",
+      "reserved_slot_725": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.393888+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.393888+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.393892+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 726,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 726,
+      "surface": "reserved_slot_726",
+      "symbol": "BTC",
+      "reserved_slot_726": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.393996+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.393996+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.394000+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 727,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 727,
+      "surface": "reserved_slot_727",
+      "symbol": "BTC",
+      "reserved_slot_727": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.394103+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.394103+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.394107+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 728,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 728,
+      "surface": "reserved_slot_728",
+      "symbol": "BTC",
+      "reserved_slot_728": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.394210+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.394210+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.394214+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 729,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 729,
+      "surface": "reserved_slot_729",
+      "symbol": "BTC",
+      "reserved_slot_729": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.394317+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.394317+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.394321+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 730,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 730,
+      "surface": "reserved_slot_730",
+      "symbol": "BTC",
+      "reserved_slot_730": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.394425+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.394425+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.394429+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 731,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 731,
+      "surface": "reserved_slot_731",
+      "symbol": "BTC",
+      "reserved_slot_731": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.394534+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.394534+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.394538+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 732,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 732,
+      "surface": "reserved_slot_732",
+      "symbol": "BTC",
+      "reserved_slot_732": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.394647+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.394647+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.394651+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 733,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 733,
+      "surface": "reserved_slot_733",
+      "symbol": "BTC",
+      "reserved_slot_733": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.394758+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.394758+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.394762+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 734,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 734,
+      "surface": "reserved_slot_734",
+      "symbol": "BTC",
+      "reserved_slot_734": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.394869+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.394869+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.394873+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 735,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 735,
+      "surface": "reserved_slot_735",
+      "symbol": "BTC",
+      "reserved_slot_735": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.394979+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.394979+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.394983+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 736,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 736,
+      "surface": "reserved_slot_736",
+      "symbol": "BTC",
+      "reserved_slot_736": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.395089+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.395089+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.395093+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 737,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 737,
+      "surface": "reserved_slot_737",
+      "symbol": "BTC",
+      "reserved_slot_737": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.395212+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.395212+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.395218+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 738,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 738,
+      "surface": "reserved_slot_738",
+      "symbol": "BTC",
+      "reserved_slot_738": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.395321+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.395321+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.395325+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 739,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 739,
+      "surface": "reserved_slot_739",
+      "symbol": "BTC",
+      "reserved_slot_739": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.395430+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.395430+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.395434+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 740,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 740,
+      "surface": "reserved_slot_740",
+      "symbol": "BTC",
+      "reserved_slot_740": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.395537+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.395537+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.395541+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 741,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 741,
+      "surface": "reserved_slot_741",
+      "symbol": "BTC",
+      "reserved_slot_741": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.395644+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.395644+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.395648+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 742,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 742,
+      "surface": "reserved_slot_742",
+      "symbol": "BTC",
+      "reserved_slot_742": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.395750+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.395750+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.395754+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 743,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 743,
+      "surface": "reserved_slot_743",
+      "symbol": "BTC",
+      "reserved_slot_743": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.395856+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.395856+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.395860+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 744,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 744,
+      "surface": "reserved_slot_744",
+      "symbol": "BTC",
+      "reserved_slot_744": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.395968+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.395968+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.395973+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 745,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 745,
+      "surface": "reserved_slot_745",
+      "symbol": "BTC",
+      "reserved_slot_745": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.396076+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.396076+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.396080+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 746,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 746,
+      "surface": "reserved_slot_746",
+      "symbol": "BTC",
+      "reserved_slot_746": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.396185+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.396185+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.396189+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 747,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 747,
+      "surface": "reserved_slot_747",
+      "symbol": "BTC",
+      "reserved_slot_747": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.396292+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.396292+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.396296+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 748,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 748,
+      "surface": "reserved_slot_748",
+      "symbol": "BTC",
+      "reserved_slot_748": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.396398+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.396398+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.396402+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 749,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 749,
+      "surface": "reserved_slot_749",
+      "symbol": "BTC",
+      "reserved_slot_749": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.396505+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.396505+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.396509+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 750,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch15_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 750,
+      "surface": "reserved_slot_750",
+      "symbol": "BTC",
+      "reserved_slot_750": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T11:56:46.396612+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T11:56:46.396612+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T11:56:46.396616+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch15 only (SPLIT-BRAIN N/A)"
+  }
+]

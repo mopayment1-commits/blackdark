@@ -1,8 +1,8 @@
 {
-  "generated_at_utc": "2026-08-12T11:01:28Z",
+  "generated_at_utc": "2026-09-05T15:39:59Z",
   "lockfile": "requirements.lock.txt",
-  "lockfile_sha256": "96021f5982cb1a967db5a20559dda07a68ab89c4f808e5252b99a6af01a65d27",
-  "component_count": 29,
+  "lockfile_sha256": "ab1f036113ae767412dfe8cff43be2652fd939234349d697d8dd1b9cc1f7d0cc",
+  "component_count": 34,
   "unknown_license_count": 0,
   "not_installed_count": 0,
   "components": [
@@ -79,11 +79,19 @@
       "version_match": true
     },
     {
-      "lock_name": "aioboto3",
-      "lock_version": "13.4.0",
-      "installed_name": "aioboto3",
-      "installed_version": "13.4.0",
-      "license": "Apache-2.0",
+      "lock_name": "google-cloud-bigquery",
+      "lock_version": "3.43.0",
+      "installed_name": "google-cloud-bigquery",
+      "installed_version": "3.43.0",
+      "license": "Apache 2.0",
+      "version_match": true
+    },
+    {
+      "lock_name": "dbt-bigquery",
+      "lock_version": "1.9.0",
+      "installed_name": "dbt-bigquery",
+      "installed_version": "1.9.0",
+      "license": "Apache Software License",
       "version_match": true
     },
     {
@@ -99,14 +107,6 @@
       "lock_version": "3.3.2",
       "installed_name": "vaderSentiment",
       "installed_version": "3.3.2",
-      "license": "MIT License",
-      "version_match": true
-    },
-    {
-      "lock_name": "textblob",
-      "lock_version": "0.19.0",
-      "installed_name": "textblob",
-      "installed_version": "0.19.0",
       "license": "MIT License",
       "version_match": true
     },
@@ -136,9 +136,9 @@
     },
     {
       "lock_name": "joblib",
-      "lock_version": "1.5.3",
+      "lock_version": "1.6.0",
       "installed_name": "joblib",
-      "installed_version": "1.5.3",
+      "installed_version": "1.6.0",
       "license": "BSD-3-Clause",
       "version_match": true
     },
@@ -199,6 +199,22 @@
       "version_match": true
     },
     {
+      "lock_name": "httpx2",
+      "lock_version": "2.12.0",
+      "installed_name": "httpx2",
+      "installed_version": "2.12.0",
+      "license": "BSD-3-Clause",
+      "version_match": true
+    },
+    {
+      "lock_name": "openpyxl",
+      "lock_version": "3.1.5",
+      "installed_name": "openpyxl",
+      "installed_version": "3.1.5",
+      "license": "MIT",
+      "version_match": true
+    },
+    {
       "lock_name": "pyotp",
       "lock_version": "2.10.0",
       "installed_name": "PyOTP",
@@ -236,6 +252,30 @@
       "installed_name": "ruff",
       "installed_version": "0.16.2",
       "license": "MIT",
+      "version_match": true
+    },
+    {
+      "lock_name": "sqlparse",
+      "lock_version": "0.6.0",
+      "installed_name": "sqlparse",
+      "installed_version": "0.6.0",
+      "license": "BSD License",
+      "version_match": true
+    },
+    {
+      "lock_name": "APScheduler",
+      "lock_version": "3.11.3",
+      "installed_name": "APScheduler",
+      "installed_version": "3.11.3",
+      "license": "MIT",
+      "version_match": true
+    },
+    {
+      "lock_name": "greenlet",
+      "lock_version": "3.5.4",
+      "installed_name": "greenlet",
+      "installed_version": "3.5.4",
+      "license": "MIT AND PSF-2.0",
       "version_match": true
     }
   ],

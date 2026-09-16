@@ -1,0 +1,352 @@
+[
+  {
+    "id": 551,
+    "capability": "Liquidation Intelligence",
+    "track": "T05",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 552,
+    "capability": "Futures Volume",
+    "track": "T05",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 553,
+    "capability": "Basis Intelligence",
+    "track": "T04",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 554,
+    "capability": "Spot Market Data",
+    "track": "T05",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 555,
+    "capability": "Options Analytics",
+    "track": "T05",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 556,
+    "capability": "Options IV Surface",
+    "track": "T04",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 557,
+    "capability": "Options Skew",
+    "track": "T01",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 558,
+    "capability": "Options Term Structure",
+    "track": "T08",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 559,
+    "capability": "TradFi Context",
+    "track": "T01",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 560,
+    "capability": "Multi-Indicator Workspace",
+    "track": "T18",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 561,
+    "capability": "Real-Time Prices",
+    "track": "T01",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 562,
+    "capability": "Historical Data",
+    "track": "T04",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Data-delivery/catalog/registry without direct user decision output"
+  },
+  {
+    "id": 563,
+    "capability": "API Data Access",
+    "track": "T04",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Data-delivery/catalog/registry without direct user decision output"
+  },
+  {
+    "id": 564,
+    "capability": "News Context",
+    "track": "T15",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 565,
+    "capability": "Cross-Asset Correlation",
+    "track": "T03",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 566,
+    "capability": "Derivatives Regime Engine",
+    "track": "T01",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 567,
+    "capability": "Cross-Market Decision Intelligence",
+    "track": "T05",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "Score/index/decision/recommendation surface (SCORE-IDX-001 pattern)"
+  },
+  {
+    "id": 568,
+    "capability": "Security_First_Architecture",
+    "track": "T05",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 569,
+    "capability": "API_Security_Encryption",
+    "track": "T02",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 570,
+    "capability": "High_Availability_Architecture",
+    "track": "T02",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 571,
+    "capability": "Infrastructure_Uptime_Shield",
+    "track": "T01",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 572,
+    "capability": "Institutional_Data_Architecture",
+    "track": "T15",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 573,
+    "capability": "Flexible_Connector_Microservice",
+    "track": "T15",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 574,
+    "capability": "Institutional_API_Gateway",
+    "track": "T02",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 575,
+    "capability": "API_Data_Pipe",
+    "track": "T15",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 576,
+    "capability": "Developer_SDK",
+    "track": "T15",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 577,
+    "capability": "Pro_Developer_Sandbox",
+    "track": "T15",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 578,
+    "capability": "Unified_Portfolio_Dashboard",
+    "track": "T15",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 579,
+    "capability": "Global_Asset_Tracker",
+    "track": "T09",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 580,
+    "capability": "Multi_Account_Sync",
+    "track": "T09",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 581,
+    "capability": "On_Chain_Balance_Monitor",
+    "track": "T16",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 582,
+    "capability": "Profitability_Analyzer",
+    "track": "T09",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 583,
+    "capability": "Margin_Risk_Calculator",
+    "track": "T17",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 584,
+    "capability": "Risk_Management_Shield",
+    "track": "T05",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "WF-027 dormant legacy ID 584 — mandatory full audit"
+  },
+  {
+    "id": 585,
+    "capability": "Volatility_Scoring_System",
+    "track": "T17",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 586,
+    "capability": "Volatility_Surface_Analyzer",
+    "track": "T08",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 587,
+    "capability": "Delta_Neutral_Calculator",
+    "track": "T06",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 588,
+    "capability": "High_Precision_Backtesting",
+    "track": "T02",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 589,
+    "capability": "Strategy_Vetting_Algorithm",
+    "track": "T05",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 590,
+    "capability": "AI_Quant_Rating_Engine",
+    "track": "T08",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 591,
+    "capability": "Sentiment_Analysis_Engine",
+    "track": "T09",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 592,
+    "capability": "Social_Sentiment_Engine",
+    "track": "T09",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 593,
+    "capability": "Social_Hype_Analyzer",
+    "track": "T09",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 594,
+    "capability": "Narrative_Alert_System",
+    "track": "T04",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 595,
+    "capability": "AI_Digest_Generator",
+    "track": "T17",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 596,
+    "capability": "AI_Agent_Consultant",
+    "track": "T09",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 597,
+    "capability": "Natural_Language_Interpreter",
+    "track": "T12",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 598,
+    "capability": "Wallet_Shadowing",
+    "track": "T09",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "On-chain address/transaction intelligence (FATF R.16)"
+  },
+  {
+    "id": 599,
+    "capability": "Entity_Tagging_System",
+    "track": "T09",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 600,
+    "capability": "Whale_Clustering_Engine",
+    "track": "T17",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  }
+]

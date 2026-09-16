@@ -1,0 +1,8 @@
+{
+  "procedure_id": "PROC-010",
+  "evidence_id": "EVD-022",
+  "evidence_level": "E1",
+  "exit_code": 0,
+  "output_tail": "..............                                                           [100%]\n",
+  "status": "VERIFIED PASS"
+}

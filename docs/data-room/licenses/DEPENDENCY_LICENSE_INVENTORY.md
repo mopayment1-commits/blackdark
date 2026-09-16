@@ -1,8 +1,8 @@
 # BLACKDARK Dependency License Inventory
 
-**Generated (UTC):** `2026-08-12T11:01:28Z`
-**Lockfile:** `requirements.lock.txt` sha256=`96021f5982cb1a967db5a20559dda07a68ab89c4f808e5252b99a6af01a65d27`
-**Components:** 29
+**Generated (UTC):** `2026-09-05T15:39:59Z`
+**Lockfile:** `requirements.lock.txt` sha256=`ab1f036113ae767412dfe8cff43be2652fd939234349d697d8dd1b9cc1f7d0cc`
+**Components:** 34
 **UNKNOWN license:** 0
 **Not installed in generator env:** 0
 
@@ -1268,14 +1268,14 @@
     See the License for the specific language governing permissions and
     limitations under the License. |
 | `pyarrow` | `23.0.1` | `23.0.1` | Apache-2.0 |
-| `aioboto3` | `13.4.0` | `13.4.0` | Apache-2.0 |
+| `google-cloud-bigquery` | `3.43.0` | `3.43.0` | Apache 2.0 |
+| `dbt-bigquery` | `1.9.0` | `1.9.0` | Apache Software License |
 | `ccxt` | `4.5.64` | `4.5.64` | MIT |
 | `vaderSentiment` | `3.3.2` | `3.3.2` | MIT License |
-| `textblob` | `0.19.0` | `0.19.0` | MIT License |
 | `stripe` | `11.6.0` | `11.6.0` | MIT |
 | `redis` | `5.3.1` | `5.3.1` | MIT |
 | `scikit-learn` | `1.9.0` | `1.9.0` | BSD-3-Clause |
-| `joblib` | `1.5.3` | `1.5.3` | BSD-3-Clause |
+| `joblib` | `1.6.0` | `1.6.0` | BSD-3-Clause |
 | `psutil` | `6.1.1` | `6.1.1` | BSD-3-Clause |
 | `cryptography` | `50.0.0` | `50.0.0` | Apache-2.0 OR BSD-3-Clause |
 | `python-dotenv` | `1.2.2` | `1.2.2` | BSD-3-Clause |
@@ -1283,8 +1283,13 @@
 | `pytest-asyncio` | `1.4.0` | `1.4.0` | Apache-2.0 |
 | `pytest-cov` | `7.1.0` | `7.1.0` | MIT |
 | `httpx` | `0.28.1` | `0.28.1` | BSD-3-Clause |
+| `httpx2` | `2.12.0` | `2.12.0` | BSD-3-Clause |
+| `openpyxl` | `3.1.5` | `3.1.5` | MIT |
 | `pyotp` | `2.10.0` | `2.10.0` | MIT |
 | `authlib` | `1.6.12` | `1.6.12` | BSD-3-Clause |
 | `alembic` | `1.16.5` | `1.16.5` | MIT |
 | `SQLAlchemy` | `2.0.51` | `2.0.51` | MIT |
 | `ruff` | `0.16.2` | `0.16.2` | MIT |
+| `sqlparse` | `0.6.0` | `0.6.0` | BSD License |
+| `APScheduler` | `3.11.3` | `3.11.3` | MIT |
+| `greenlet` | `3.5.4` | `3.5.4` | MIT AND PSF-2.0 |

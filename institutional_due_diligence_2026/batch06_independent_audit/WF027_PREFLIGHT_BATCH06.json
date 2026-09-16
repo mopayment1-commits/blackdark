@@ -1,0 +1,51 @@
+{
+  "wf027_full_historical_set": [
+    175,
+    214,
+    245,
+    584,
+    629,
+    630,
+    631,
+    642,
+    644,
+    646
+  ],
+  "wf027_resolved_prior_batches": [
+    175,
+    214,
+    245
+  ],
+  "wf027_unresolved_remaining": [
+    584,
+    629,
+    630,
+    631,
+    642,
+    644,
+    646
+  ],
+  "batch06_range": "251-300",
+  "overlap_ids": [],
+  "overlap_count": 0,
+  "rg_live_scan": {
+    "command": "rg -n '584|629|630|631|642|644|646' cap646/batch01_production.py scripts/rbas001_scoping.py",
+    "exit_code": 0,
+    "hit_lines": [
+      "scripts/rbas001_scoping.py:17:WF027_DORMANT_LEGACY_IDS = frozenset({175, 214, 245, 584, 629, 630, 631, 642, 644, 646})",
+      "scripts/rbas001_scoping.py:22:WF027_UNRESOLVED_LEGACY_IDS = frozenset({584, 629, 630, 631, 642, 644, 646})",
+      "scripts/rbas001_scoping.py:248:    from cap646.catalog import catalog_by_id",
+      "scripts/rbas001_scoping.py:306:    from cap646.catalog import catalog_by_id",
+      "scripts/rbas001_scoping.py:364:    from cap646.catalog import catalog_by_id",
+      "cap646/batch01_production.py:20:        584,",
+      "cap646/batch01_production.py:21:        629,",
+      "cap646/batch01_production.py:22:        630,",
+      "cap646/batch01_production.py:23:        631,",
+      "cap646/batch01_production.py:24:        642,",
+      "cap646/batch01_production.py:25:        644,",
+      "cap646/batch01_production.py:26:        646,"
+    ]
+  },
+  "python_set_intersection": [],
+  "evidence": "WF-027 unresolved=[584, 629, 630, 631, 642, 644, 646]; Batch06 range 251-300; intersection=[] (0/7 unresolved WF-027 IDs in scope). 175/214/245 resolved in Batch04/05."
+}

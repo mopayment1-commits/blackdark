@@ -1,0 +1,6 @@
+{"audit_id": "rbac_d7bcd96d", "role": "analyst", "action": "export", "resource": "", "user_email_hash": "0afd892a4858e219", "ip": null, "allowed": true, "timestamp": "2026-09-11T00:50:50.692148+00:00", "append_only": true}
+{"audit_id": "rbac_221dae62", "role": "viewer", "action": "export", "resource": "", "user_email_hash": null, "ip": null, "allowed": false, "timestamp": "2026-09-11T00:50:50.692291+00:00", "append_only": true}
+{"audit_id": "rbac_f409a30d", "role": "admin", "action": "view", "resource": "", "user_email_hash": null, "ip": null, "allowed": true, "timestamp": "2026-09-11T00:50:50.704965+00:00", "append_only": true}
+{"audit_id": "rbac_df989807", "role": "analyst", "action": "export", "resource": "", "user_email_hash": "fb98d44ad7501a95", "ip": null, "allowed": true, "timestamp": "2026-09-11T00:50:50.708328+00:00", "append_only": true}
+{"audit_id": "rbac_518c41ef", "role": "viewer", "action": "export", "resource": "", "user_email_hash": null, "ip": null, "allowed": false, "timestamp": "2026-09-11T00:50:50.708378+00:00", "append_only": true}
+{"audit_id": "rbac_097a82f0", "role": "admin", "action": "view", "resource": "audit", "user_email_hash": null, "ip": null, "allowed": true, "timestamp": "2026-09-11T00:50:50.708469+00:00", "append_only": true}

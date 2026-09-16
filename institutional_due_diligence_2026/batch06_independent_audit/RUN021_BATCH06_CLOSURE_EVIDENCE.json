@@ -1,0 +1,308 @@
+{
+  "generated_at": "2026-09-11T20:49:49.901856+00:00",
+  "batch": 6,
+  "status_counts": {
+    "NOT_COMPLETE": 50
+  },
+  "bcbs": {
+    "not_complete_count": 50,
+    "remediated": 50,
+    "per_id": {
+      "251": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "252": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "253": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "254": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "255": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "256": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "257": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "258": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "259": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "260": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "261": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "262": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "263": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "264": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "265": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "266": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "267": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "268": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "269": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "270": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "271": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "272": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "273": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "274": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "275": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "276": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "277": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "278": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "279": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "280": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "281": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "282": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "283": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "284": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "285": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "286": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "287": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "288": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "289": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "290": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "291": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "292": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "293": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "294": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "295": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "296": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "297": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "298": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "299": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "300": {
+        "after_bcbs_ok": true,
+        "missing": []
+      }
+    }
+  },
+  "random_sample": {
+    "seed": 16006,
+    "sample_ids": [
+      258,
+      261,
+      263,
+      271,
+      275,
+      278,
+      294,
+      295,
+      296,
+      300
+    ],
+    "sample_pass": true,
+    "conceptually_unsound": 0,
+    "split_brain_unverified": 0,
+    "results": [
+      {
+        "id": 258,
+        "name": "Top Trader Positioning",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 261,
+        "name": "Futures CVD / Taker Flow",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 263,
+        "name": "Options Volume",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 271,
+        "name": "Leverage Pressure Score",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 275,
+        "name": "Cross-Domain Decision Intelligence",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 278,
+        "name": "Entity Profiles",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 294,
+        "name": "Archive / Historical Portfolio Snapshot",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 295,
+        "name": "AI Market Insights",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 296,
+        "name": "Whale Movement Intelligence",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 300,
+        "name": "Advanced Multi-Asset Charting",
+        "status": "NOT_COMPLETE"
+      }
+    ]
+  },
+  "non_regression": {
+    "met": true,
+    "skipped": true
+  },
+  "evidence_pack": {
+    "batch": "batch06",
+    "functions_required": 12,
+    "functions_covered": 12,
+    "coverage_met": true,
+    "per_function": {
+      "scope_inventory": true,
+      "requirements_traceability": true,
+      "semantic_correctness": true,
+      "canonical_duplicate_reconciliation": true,
+      "consumer_path_evidence": true,
+      "security_entitlement": true,
+      "data_provenance": true,
+      "reliability_performance": true,
+      "regression": true,
+      "quality_security_gate": true,
+      "build_provenance": true,
+      "engineering_live_assurance_status": true
+    }
+  },
+  "pass_live_count": 0
+}

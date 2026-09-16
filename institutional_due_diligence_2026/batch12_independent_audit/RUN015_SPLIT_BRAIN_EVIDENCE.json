@@ -1,0 +1,2302 @@
+[
+  {
+    "id": 551,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 551,
+      "surface": "reserved_slot_551",
+      "symbol": "BTC",
+      "reserved_slot_551": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.391744+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.391744+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.391765+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 552,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 552,
+      "surface": "reserved_slot_552",
+      "symbol": "BTC",
+      "reserved_slot_552": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.391886+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.391886+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.391897+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 553,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 553,
+      "surface": "reserved_slot_553",
+      "symbol": "BTC",
+      "reserved_slot_553": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.392010+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.392010+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.392017+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 554,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 554,
+      "surface": "reserved_slot_554",
+      "symbol": "BTC",
+      "reserved_slot_554": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.392124+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.392124+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.392130+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 555,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 555,
+      "surface": "reserved_slot_555",
+      "symbol": "BTC",
+      "reserved_slot_555": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.392232+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.392232+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.392237+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 556,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 556,
+      "surface": "reserved_slot_556",
+      "symbol": "BTC",
+      "reserved_slot_556": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.392339+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.392339+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.392346+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 557,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 557,
+      "surface": "reserved_slot_557",
+      "symbol": "BTC",
+      "reserved_slot_557": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.392447+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.392447+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.392451+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 558,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 558,
+      "surface": "reserved_slot_558",
+      "symbol": "BTC",
+      "reserved_slot_558": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.392555+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.392555+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.392559+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 559,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 559,
+      "surface": "reserved_slot_559",
+      "symbol": "BTC",
+      "reserved_slot_559": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.392664+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.392664+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.392668+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 560,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 560,
+      "surface": "reserved_slot_560",
+      "symbol": "BTC",
+      "reserved_slot_560": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.392773+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.392773+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.392777+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 561,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 561,
+      "surface": "reserved_slot_561",
+      "symbol": "BTC",
+      "reserved_slot_561": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.392924+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.392924+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.392931+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 562,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 562,
+      "surface": "reserved_slot_562",
+      "symbol": "BTC",
+      "reserved_slot_562": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.393038+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.393038+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.393045+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 563,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 563,
+      "surface": "reserved_slot_563",
+      "symbol": "BTC",
+      "reserved_slot_563": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.393151+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.393151+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.393157+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 564,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 564,
+      "surface": "reserved_slot_564",
+      "symbol": "BTC",
+      "reserved_slot_564": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.393262+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.393262+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.393266+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 565,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 565,
+      "surface": "reserved_slot_565",
+      "symbol": "BTC",
+      "reserved_slot_565": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.393387+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.393387+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.393393+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 566,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 566,
+      "surface": "reserved_slot_566",
+      "symbol": "BTC",
+      "reserved_slot_566": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.393499+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.393499+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.393503+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 567,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 567,
+      "surface": "reserved_slot_567",
+      "symbol": "BTC",
+      "reserved_slot_567": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.393607+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.393607+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.393612+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 568,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 568,
+      "surface": "reserved_slot_568",
+      "symbol": "BTC",
+      "reserved_slot_568": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.393714+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.393714+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.393719+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 569,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 569,
+      "surface": "reserved_slot_569",
+      "symbol": "BTC",
+      "reserved_slot_569": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.393821+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.393821+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.393826+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 570,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 570,
+      "surface": "reserved_slot_570",
+      "symbol": "BTC",
+      "reserved_slot_570": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.393928+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.393928+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.393933+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 571,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 571,
+      "surface": "reserved_slot_571",
+      "symbol": "BTC",
+      "reserved_slot_571": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.394032+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.394032+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.394036+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 572,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 572,
+      "surface": "reserved_slot_572",
+      "symbol": "BTC",
+      "reserved_slot_572": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.394140+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.394140+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.394144+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 573,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 573,
+      "surface": "reserved_slot_573",
+      "symbol": "BTC",
+      "reserved_slot_573": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.394254+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.394254+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.394258+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 574,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 574,
+      "surface": "reserved_slot_574",
+      "symbol": "BTC",
+      "reserved_slot_574": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.401552+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.401552+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.401578+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 575,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 575,
+      "surface": "reserved_slot_575",
+      "symbol": "BTC",
+      "reserved_slot_575": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.401722+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.401722+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.401730+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 576,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 576,
+      "surface": "reserved_slot_576",
+      "symbol": "BTC",
+      "reserved_slot_576": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.401844+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.401844+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.401850+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 577,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 577,
+      "surface": "reserved_slot_577",
+      "symbol": "BTC",
+      "reserved_slot_577": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.401959+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.401959+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.401965+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 578,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 578,
+      "surface": "reserved_slot_578",
+      "symbol": "BTC",
+      "reserved_slot_578": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.402072+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.402072+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.402076+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 579,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 579,
+      "surface": "reserved_slot_579",
+      "symbol": "BTC",
+      "reserved_slot_579": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.402184+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.402184+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.402188+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 580,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 580,
+      "surface": "reserved_slot_580",
+      "symbol": "BTC",
+      "reserved_slot_580": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.402295+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.402295+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.402299+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 581,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 581,
+      "surface": "reserved_slot_581",
+      "symbol": "BTC",
+      "reserved_slot_581": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.402405+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.402405+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.402410+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 582,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 582,
+      "surface": "reserved_slot_582",
+      "symbol": "BTC",
+      "reserved_slot_582": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.402513+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.402513+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.402517+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 583,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 583,
+      "surface": "reserved_slot_583",
+      "symbol": "BTC",
+      "reserved_slot_583": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.402619+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.402619+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.402624+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 584,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 584,
+      "surface": "reserved_slot_584",
+      "symbol": "BTC",
+      "reserved_slot_584": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.402726+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.402726+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.402730+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 585,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 585,
+      "surface": "reserved_slot_585",
+      "symbol": "BTC",
+      "reserved_slot_585": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.402833+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.402833+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.402837+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 586,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 586,
+      "surface": "reserved_slot_586",
+      "symbol": "BTC",
+      "reserved_slot_586": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.402946+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.402946+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.402950+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 587,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 587,
+      "surface": "reserved_slot_587",
+      "symbol": "BTC",
+      "reserved_slot_587": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.403055+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.403055+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.403060+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 588,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 588,
+      "surface": "reserved_slot_588",
+      "symbol": "BTC",
+      "reserved_slot_588": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.403161+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.403161+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.403165+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 589,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 589,
+      "surface": "reserved_slot_589",
+      "symbol": "BTC",
+      "reserved_slot_589": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.403264+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.403264+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.403268+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 590,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 590,
+      "surface": "reserved_slot_590",
+      "symbol": "BTC",
+      "reserved_slot_590": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.403369+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.403369+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.403374+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 591,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 591,
+      "surface": "reserved_slot_591",
+      "symbol": "BTC",
+      "reserved_slot_591": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.403474+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.403474+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.403479+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 592,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 592,
+      "surface": "reserved_slot_592",
+      "symbol": "BTC",
+      "reserved_slot_592": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.403581+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.403581+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.403585+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 593,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 593,
+      "surface": "reserved_slot_593",
+      "symbol": "BTC",
+      "reserved_slot_593": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.403684+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.403684+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.403688+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 594,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 594,
+      "surface": "reserved_slot_594",
+      "symbol": "BTC",
+      "reserved_slot_594": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.403788+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.403788+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.403792+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 595,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 595,
+      "surface": "reserved_slot_595",
+      "symbol": "BTC",
+      "reserved_slot_595": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.403894+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.403894+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.403899+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 596,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 596,
+      "surface": "reserved_slot_596",
+      "symbol": "BTC",
+      "reserved_slot_596": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.404004+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.404004+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.404008+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 597,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 597,
+      "surface": "reserved_slot_597",
+      "symbol": "BTC",
+      "reserved_slot_597": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.404114+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.404114+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.404118+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 598,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 598,
+      "surface": "reserved_slot_598",
+      "symbol": "BTC",
+      "reserved_slot_598": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.404222+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.404222+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.404226+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 599,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 599,
+      "surface": "reserved_slot_599",
+      "symbol": "BTC",
+      "reserved_slot_599": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.404327+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.404327+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.404332+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 600,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch12_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 600,
+      "surface": "reserved_slot_600",
+      "symbol": "BTC",
+      "reserved_slot_600": {
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": true,
+        "inventory_status": "PENDING",
+        "success": true,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": "2026-09-12T10:36:13.404432+00:00"
+      },
+      "success": true,
+      "heuristic": true,
+      "methodology_status": "NOT_COMPLETE",
+      "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+      "data_source": "826_inventory_reserved_slot",
+      "timestamp": "2026-09-12T10:36:13.404432+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T10:36:13.404436+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+  }
+]

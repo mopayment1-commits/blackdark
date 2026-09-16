@@ -1,0 +1,37 @@
+{
+  "auth": {
+    "command": "/workspace/.venv/bin/python -m pytest tests/test_p0_authz_hardening.py tests/test_auth_identity_profile.py -q --tb=line -ra",
+    "exit_code": 0,
+    "duration_sec": 2.18,
+    "output_tail": ".............                                                            [100%]\n",
+    "status": "VERIFIED PASS"
+  },
+  "billing": {
+    "command": "/workspace/.venv/bin/python -m pytest tests/test_billing_subscription_engine.py -q --tb=line -ra",
+    "exit_code": 0,
+    "duration_sec": 1.32,
+    "output_tail": ".........                                                                [100%]\n",
+    "status": "VERIFIED PASS"
+  },
+  "financial": {
+    "command": "/workspace/.venv/bin/python -m pytest tests/test_money_decimal.py tests/test_profit_fee_algorithms.py tests/test_p0_financial_executability.py -q --tb=line -ra",
+    "exit_code": 0,
+    "duration_sec": 1.03,
+    "output_tail": "....................                                                     [100%]\n",
+    "status": "VERIFIED PASS"
+  },
+  "security": {
+    "command": "/workspace/.venv/bin/python -m pytest tests/test_security_hardening.py -q --tb=line -ra",
+    "exit_code": 0,
+    "duration_sec": 2.85,
+    "output_tail": "...........                                                              [100%]\n",
+    "status": "VERIFIED PASS"
+  },
+  "database": {
+    "command": "/workspace/.venv/bin/python -m pytest tests/test_spine_database.py -q --tb=line -ra",
+    "exit_code": 0,
+    "duration_sec": 5.63,
+    "output_tail": "............................                                             [100%]\n",
+    "status": "VERIFIED PASS"
+  }
+}

@@ -1,0 +1,251 @@
+{
+  "procedure_id": "PROC-022",
+  "evidence_id": "EVD-029",
+  "evidence_level": "E1",
+  "generated_at": "2026-09-11T01:02:04.118053+00:00",
+  "sample_size": 40,
+  "render_ok": 32,
+  "status": "PARTIAL",
+  "results": [
+    {
+      "path": "/",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "render_ok": true
+    },
+    {
+      "path": "/about",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "render_ok": true
+    },
+    {
+      "path": "/address-intelligence",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "render_ok": true
+    },
+    {
+      "path": "/admin/launch",
+      "status": 403,
+      "content_type": "application/json; charset=utf-8",
+      "render_ok": false
+    },
+    {
+      "path": "/admin/plan",
+      "status": 403,
+      "content_type": "application/json; charset=utf-8",
+      "render_ok": false
+    },
+    {
+      "path": "/admin/roadmap",
+      "status": 403,
+      "content_type": "application/json; charset=utf-8",
+      "render_ok": false
+    },
+    {
+      "path": "/alert-passport",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "render_ok": true
+    },
+    {
+      "path": "/allocator-receipt",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "render_ok": true
+    },
+    {
+      "path": "/anti-hype",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "render_ok": true
+    },
+    {
+      "path": "/app",
+      "status": 302,
+      "content_type": "",
+      "render_ok": true
+    },
+    {
+      "path": "/b2b",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "render_ok": true
+    },
+    {
+      "path": "/b2b/committee-one-pager",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "render_ok": true
+    },
+    {
+      "path": "/cancel",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "render_ok": true
+    },
+    {
+      "path": "/cap646",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "render_ok": true
+    },
+    {
+      "path": "/capabilities",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "render_ok": true
+    },
+    {
+      "path": "/changelog",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "render_ok": true
+    },
+    {
+      "path": "/complaints",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "render_ok": true
+    },
+    {
+      "path": "/compliance",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "render_ok": true
+    },
+    {
+      "path": "/contact",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "render_ok": true
+    },
+    {
+      "path": "/contradiction-replay",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "render_ok": true
+    },
+    {
+      "path": "/cookies",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "render_ok": true
+    },
+    {
+      "path": "/corpus-passport",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "render_ok": true
+    },
+    {
+      "path": "/coverage-honesty",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "render_ok": true
+    },
+    {
+      "path": "/create-checkout-session",
+      "status": 502,
+      "content_type": "application/json; charset=utf-8",
+      "render_ok": false
+    },
+    {
+      "path": "/d5-honesty",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "render_ok": true
+    },
+    {
+      "path": "/dashboard",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "render_ok": true
+    },
+    {
+      "path": "/data-room",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "render_ok": true
+    },
+    {
+      "path": "/desk-duel",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "render_ok": true
+    },
+    {
+      "path": "/discipline-mirror",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "render_ok": true
+    },
+    {
+      "path": "/disclaimer",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "render_ok": true
+    },
+    {
+      "path": "/docs",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "render_ok": true
+    },
+    {
+      "path": "/docs/public",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "render_ok": true
+    },
+    {
+      "path": "/emotion-tax",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "render_ok": true
+    },
+    {
+      "path": "/errors",
+      "status": 307,
+      "content_type": "",
+      "render_ok": true
+    },
+    {
+      "path": "/faq",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "render_ok": true
+    },
+    {
+      "path": "/favicon.ico",
+      "status": 200,
+      "content_type": "image/png",
+      "render_ok": false
+    },
+    {
+      "path": "/feedback",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "render_ok": true
+    },
+    {
+      "path": "/health",
+      "status": 200,
+      "content_type": "application/json; charset=utf-8",
+      "render_ok": false
+    },
+    {
+      "path": "/health/live",
+      "status": 200,
+      "content_type": "application/json; charset=utf-8",
+      "render_ok": false
+    },
+    {
+      "path": "/health/ready",
+      "status": 503,
+      "content_type": "application/json; charset=utf-8",
+      "render_ok": false
+    }
+  ]
+}

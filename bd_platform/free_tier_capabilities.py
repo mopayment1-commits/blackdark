@@ -14,8 +14,8 @@ from path_safety import assert_url_path_safe, safe_url_segment
 
 logger = logging.getLogger("BLACKDARK.FreeTierCaps")
 
-FREE_TIER_BASE_IDS: frozenset[int] = frozenset({1, 2, 3, 4, 10, 21, 38, 39, 45, 196, 331, 332, 337})
-FREE_TIER_EXTENSION_IDS: frozenset[int] = frozenset({647, 648, 652, 672, 673, 674, 675, 676, 690, 691, 702, 703, 704, 705})
+FREE_TIER_BASE_IDS: frozenset[int] = frozenset({1, 2, 3, 4, 10, 21, 38, 39, 45, 196})
+FREE_TIER_EXTENSION_IDS: frozenset[int] = frozenset({647, 652, 672, 673, 674, 675, 676, 690, 691, 702, 703, 704, 705})
 FREE_TIER_CAP_IDS: frozenset[int] = FREE_TIER_BASE_IDS | FREE_TIER_EXTENSION_IDS
 
 _HEADERS = {"User-Agent": "BLACKDARK/1.0", "Accept": "application/json"}
@@ -35,9 +35,6 @@ _SURFACE_BY_ID: dict[int, str] = {
     39: "realized_cap_realized_price",
     196: "realized_cap_realized_value",
     45: "etf_flow_intelligence",
-    331: "etf_reference_rates_inav",
-    332: "tradfi_reference_rates",
-    337: "aml_cft_onchain_monitoring",
     647: "real_time_feed",
     648: "datashare_connector",
     652: "prompt_to_sql_agent",
@@ -841,9 +838,6 @@ _EXECUTORS: dict[int, Any] = {
     39: realized_cap_metrics,
     196: realized_cap_metrics,
     45: etf_flow_intelligence,
-    331: etf_reference_rates,
-    332: tradfi_reference_rates,
-    337: aml_cft_monitoring,
     647: pyth_realtime_feed,
     648: datashare_connector,
     652: prompt_to_sql_agent,
@@ -871,9 +865,9 @@ async def execute_free_tier_capability(capability_id: int, *, params: dict[str, 
     address = str(params.get("address") or "0x000000000000000000000000000000000000dead")
     kw: dict[str, Any] = {}
 
-    if capability_id in {2, 3, 10, 337}:
+    if capability_id in {2, 3, 10}:
         kw["address"] = address
-    if capability_id in {3, 4, 10, 38, 39, 45, 196, 331, 690, 691, 702, 703}:
+    if capability_id in {3, 4, 10, 38, 39, 45, 196, 690, 691, 702, 703}:
         kw["symbol"] = symbol
     if capability_id == 21:
         kw["tx_hash"] = params.get("tx_hash")

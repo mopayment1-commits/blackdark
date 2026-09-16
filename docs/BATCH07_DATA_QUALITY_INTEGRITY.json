@@ -1,0 +1,24 @@
+{
+  "machine_assertions": {
+    "expected_ids": 50,
+    "unique_ids": 50,
+    "missing": [],
+    "duplicate_ids": [],
+    "unresolved_duplicate_conflicts": 0,
+    "ids_with_integrity_rules": 50
+  },
+  "artifact": "BATCH07_DATA_QUALITY_INTEGRITY",
+  "generated_at": "2026-09-06T11:18:26.921768+00:00",
+  "git_commit": "f93ee2c256d225602bb58e326a13c4f21a086cc0",
+  "status": "PROVEN_LOCAL",
+  "ids_covered": 50,
+  "quad_verified": 50,
+  "policies": [
+    "capability_id matches catalog ID in payload",
+    "analysis_only / no_execution flags on charting surfaces",
+    "symbol normalization uppercase",
+    "timestamp present on insight payloads",
+    "disclaimer on charting layer outputs"
+  ],
+  "live_reconciliation": "NOT_RUN"
+}

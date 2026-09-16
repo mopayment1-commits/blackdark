@@ -1,0 +1,352 @@
+[
+  {
+    "id": 451,
+    "capability": "Protocol Dominance",
+    "track": "T17",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 452,
+    "capability": "Aave Multi-Chain Analytics",
+    "track": "T10",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 453,
+    "capability": "Risk Curation",
+    "track": "T10",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 454,
+    "capability": "Capital Protection Controls",
+    "track": "T15",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 455,
+    "capability": "Stress Testing",
+    "track": "T06",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 456,
+    "capability": "Cross-Protocol Contagion",
+    "track": "T17",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 457,
+    "capability": "Protocol Risk Passport",
+    "track": "T10",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 458,
+    "capability": "Risk-to-Decision Intelligence",
+    "track": "T10",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "Score/index/decision/recommendation surface (SCORE-IDX-001 pattern)"
+  },
+  {
+    "id": 459,
+    "capability": "Network Data Pro Metrics",
+    "track": "T10",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 460,
+    "capability": "Atlas Blockchain Search",
+    "track": "T09",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 461,
+    "capability": "Address/Balance Search",
+    "track": "T14",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "On-chain address/transaction intelligence (FATF R.16)"
+  },
+  {
+    "id": 462,
+    "capability": "Transaction Search",
+    "track": "T01",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "On-chain address/transaction intelligence (FATF R.16)"
+  },
+  {
+    "id": 463,
+    "capability": "Block Search",
+    "track": "T01",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 464,
+    "capability": "Balance Updates",
+    "track": "T01",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 465,
+    "capability": "Stablecoin Network Metrics",
+    "track": "T01",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 466,
+    "capability": "Market Data Feed",
+    "track": "T09",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Data-delivery/catalog/registry without direct user decision output"
+  },
+  {
+    "id": 467,
+    "capability": "Market Data Pro",
+    "track": "T15",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 468,
+    "capability": "Reference Rates",
+    "track": "T04",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 469,
+    "capability": "Indexes",
+    "track": "T17",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 470,
+    "capability": "Realized Metrics",
+    "track": "T17",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 471,
+    "capability": "Supply Metrics",
+    "track": "T05",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 472,
+    "capability": "Mining/Validator Metrics",
+    "track": "T14",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 473,
+    "capability": "Fee Metrics",
+    "track": "T02",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 474,
+    "capability": "Activity Metrics",
+    "track": "T14",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 475,
+    "capability": "Custom Metric Workbench",
+    "track": "T14",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 476,
+    "capability": "Community Charts/API",
+    "track": "T15",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 477,
+    "capability": "Market + Network Join",
+    "track": "T03",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 478,
+    "capability": "Data Quality Methodologies",
+    "track": "T09",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 479,
+    "capability": "Historical Research Dataset",
+    "track": "T17",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Data-delivery/catalog/registry without direct user decision output"
+  },
+  {
+    "id": 480,
+    "capability": "Institutional APIs",
+    "track": "T17",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 481,
+    "capability": "Cross-Network Decision Intelligence",
+    "track": "T15",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "Score/index/decision/recommendation surface (SCORE-IDX-001 pattern)"
+  },
+  {
+    "id": 482,
+    "capability": "Institutional Trade Data",
+    "track": "T05",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 483,
+    "capability": "Order Book Data",
+    "track": "T15",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 484,
+    "capability": "OHLCV Data",
+    "track": "T04",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 485,
+    "capability": "Derivatives Data",
+    "track": "T03",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 486,
+    "capability": "Open Interest Data",
+    "track": "T05",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 487,
+    "capability": "Funding Rate Data",
+    "track": "T05",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 488,
+    "capability": "Index Data",
+    "track": "T05",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "Score/index/decision/recommendation surface (SCORE-IDX-001 pattern)"
+  },
+  {
+    "id": 489,
+    "capability": "Reference Pricing",
+    "track": "T11",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 490,
+    "capability": "Exchange Metadata",
+    "track": "T17",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 491,
+    "capability": "Asset Metadata",
+    "track": "T11",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 492,
+    "capability": "Historical Market Archive",
+    "track": "T01",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Data-delivery/catalog/registry without direct user decision output"
+  },
+  {
+    "id": 493,
+    "capability": "Real-Time Streams",
+    "track": "T11",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 494,
+    "capability": "Market Aggregates",
+    "track": "T15",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 495,
+    "capability": "Liquidity Analytics",
+    "track": "T04",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 496,
+    "capability": "Volatility Analytics",
+    "track": "T04",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 497,
+    "capability": "Market Cap / Supply",
+    "track": "T08",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 498,
+    "capability": "ETF / ETP Data",
+    "track": "T04",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 499,
+    "capability": "API Coverage Registry",
+    "track": "T03",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Data-delivery/catalog/registry without direct user decision output"
+  },
+  {
+    "id": 500,
+    "capability": "Data Quality & Normalization",
+    "track": "T03",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  }
+]

@@ -1,0 +1,129 @@
+=== START Batch 07 (301-350) ===
+ABORT Batch07: closure failed exit=1
+=== START Batch 07 (301-350) ===
+Batch07 | TypeA=0 | TypeB: NOT_COMPLETE=50 PERF-UNV=0 | RandomSample=PASS seed=16007 | ThreeWay=OK
+=== DONE Batch 07 tag=batch07-closure-verified ===
+=== START Batch 08 (351-400) ===
+Batch08 | TypeA=0 | TypeB: NOT_COMPLETE=50 PERF-UNV=0 | RandomSample=PASS seed=16008 | ThreeWay=OK
+=== DONE Batch 08 tag=batch08-closure-verified ===
+=== START Batch 09 (401-450) ===
+Batch09 | TypeA=0 | TypeB: NOT_COMPLETE=50 PERF-UNV=0 | RandomSample=PASS seed=16009 | ThreeWay=OK
+=== DONE Batch 09 tag=batch09-closure-verified ===
+=== START Batch 10 (451-500) ===
+Batch10 | TypeA=0 | TypeB: NOT_COMPLETE=50 PERF-UNV=0 | RandomSample=PASS seed=16010 | ThreeWay=OK
+=== DONE Batch 10 tag=batch10-closure-verified ===
+=== START Batch 11 (501-550) ===
+Batch11 | TypeA=0 | TypeB: NOT_COMPLETE=50 PERF-UNV=0 | RandomSample=PASS seed=16011 | ThreeWay=OK
+=== DONE Batch 11 tag=batch11-closure-verified ===
+=== START Batch 12 (551-600) ===
+ABORT Batch12: opening failed exit=1
+=== START Batch 12 (551-600) ===
+ABORT Batch12: opening failed exit=1
+=== START Batch 12 (551-600) ===
+ABORT Batch12: closure failed exit=1
+=== START Batch 13 (601-650) ===
+Batch12 | TypeA=0 | TypeB: NOT_COMPLETE=50 PERF-UNV=0 | RandomSample=PASS seed=16012 | ThreeWay=OK
+=== DONE Batch 12 tag=batch12-closure-verified ===
+ABORT Batch13: closure failed exit=1
+=== START Batch 13 (601-650) ===
+=== START Batch 13 (601-650) ===
+ABORT Batch13: closure failed exit=1
+=== PAUSED Run021 — keyword_fallback reconciliation 2026-09-11T20:03:18Z ===
+Batch13 CLOSED v6 — CS=0 SB=0 NOT_COMPLETE=50 | ASVS5.0+800-218A standards active | Phase1 generic-delegate gate active
+=== V6 START Batch 04 (151-200) ===
+Batch04 live_verify ok=48 fail=2
+WARN Batch04: live failures (continuing audit): [{'id': 183, 'error': None}, {'id': 184, 'error': None}]
+ABORT Batch04: closure failed exit=1
+=== V6 START Batch 04 (151-200) ===
+Batch04 live_verify ok=49 fail=1
+WARN Batch04: live failures (continuing audit): [{'id': 162, 'error': 'compute_data_provenance_score() takes 0 positional arguments but 1 was given'}]
+ABORT Batch04: closure failed exit=1
+=== RUN826 V6 CONTINUOUS start=5 end=17 governing=BLACKDARK_Institutional_Capability_Standard_2026_v6.md ===
+=== V6 START Batch 05 (201-250) ===
+Batch05 live_verify ok=48 fail=2
+WARN Batch05: live failures (continuing audit): [{'id': 226, 'error': "evaluate_opportunity() missing 2 required positional arguments: 'opportunity' and 'kind'"}, {'id': 248, 'error': "handle_agent_message() missing 1 required positional argument: 'text'"}]
+ABORT Batch05: closure failed exit=1
+=== RUN826 HALTED at batch 05 exit=1 ===
+=== RUN826 V6 CONTINUOUS start=6 end=17 governing=BLACKDARK_Institutional_Capability_Standard_2026_v6.md ===
+=== V6 START Batch 06 (251-300) ===
+Batch06 live_verify ok=50 fail=0
+Batch06 | TypeA=0 | TypeB: NOT_COMPLETE=50 PERF-UNV=0 | RandomSample=PASS seed=16006 | ThreeWay=OK
+=== V6 DONE Batch 06 tag=batch06-closure-verified ===
+=== V6 START Batch 07 (301-350) ===
+Batch07 live_verify ok=50 fail=0
+ABORT Batch07: opening failed exit=1
+=== RUN826 HALTED at batch 07 exit=1 ===
+=== RUN826 V6 CONTINUOUS start=8 end=17 governing=BLACKDARK_Institutional_Capability_Standard_2026_v6.md ===
+=== V6 START Batch 08 (351-400) ===
+Batch08 live_verify ok=50 fail=0
+ABORT Batch08: opening failed exit=1
+=== RUN826 HALTED at batch 08 exit=1 ===
+=== RUN826 V6 CONTINUOUS start=8 end=17 governing=BLACKDARK_Institutional_Capability_Standard_2026_v6.md ===
+=== V6 START Batch 08 (351-400) ===
+Batch08 live_verify ok=50 fail=0
+ABORT Batch08: opening failed exit=1
+=== RUN826 HALTED at batch 08 exit=1 ===
+=== RUN826 V6 CONTINUOUS start=8 end=17 governing=BLACKDARK_Institutional_Capability_Standard_2026_v6.md ===
+=== V6 START Batch 08 (351-400) ===
+Batch08 live_verify ok=50 fail=0
+ABORT Batch08: opening failed exit=1
+=== RUN826 HALTED at batch 08 exit=1 ===
+=== V6 START Batch 08 (351-400) ===
+Batch08 live_verify ok=50 fail=0
+ABORT Batch08: opening failed exit=1
+=== RUN826 V6 CONTINUOUS start=8 end=17 governing=BLACKDARK_Institutional_Capability_Standard_2026_v6.md ===
+=== V6 START Batch 08 (351-400) ===
+Batch08 live_verify ok=50 fail=0
+Batch08 | TypeA=0 | TypeB: NOT_COMPLETE=50 PERF-UNV=0 | RandomSample=PASS seed=16008 | ThreeWay=OK
+=== V6 DONE Batch 08 tag=batch08-closure-verified ===
+=== V6 START Batch 09 (401-450) ===
+Batch09 live_verify ok=50 fail=0
+Batch09 | TypeA=0 | TypeB: NOT_COMPLETE=50 PERF-UNV=0 | RandomSample=PASS seed=16009 | ThreeWay=OK
+=== V6 DONE Batch 09 tag=batch09-closure-verified ===
+=== V6 START Batch 10 (451-500) ===
+Batch10 live_verify ok=50 fail=0
+ABORT Batch10: closure failed exit=1
+=== RUN826 HALTED at batch 10 exit=1 ===
+=== RUN826 V6 CONTINUOUS start=11 end=17 governing=BLACKDARK_Institutional_Capability_Standard_2026_v6.md ===
+=== V6 START Batch 11 (501-550) ===
+Batch11 live_verify ok=50 fail=0
+Batch11 | TypeA=0 | TypeB: NOT_COMPLETE=50 PERF-UNV=0 | RandomSample=PASS seed=16011 | ThreeWay=OK
+=== V6 DONE Batch 11 tag=batch11-closure-verified ===
+=== V6 START Batch 12 (551-600) ===
+Batch12 live_verify ok=50 fail=0
+Batch12 | TypeA=0 | TypeB: NOT_COMPLETE=50 PERF-UNV=0 | RandomSample=PASS seed=16012 | ThreeWay=OK
+=== V6 DONE Batch 12 tag=batch12-closure-verified ===
+=== V6 START Batch 13 (601-650) ===
+Batch13 live_verify ok=49 fail=1
+WARN Batch13: live failures (continuing audit): [{'id': 639, 'error': "'types.SimpleNamespace' object is not iterable"}]
+Batch13 | TypeA=0 | TypeB: NOT_COMPLETE=50 PERF-UNV=0 | RandomSample=PASS seed=16013 | ThreeWay=OK
+=== V6 DONE Batch 13 tag=batch13-closure-verified ===
+=== V6 START Batch 14 (651-700) ===
+Batch14 live_verify ok=0 fail=50
+WARN Batch14: live failures (continuing audit): [{'id': 651, 'error': 'unknown_capability_id'}, {'id': 652, 'error': 'unknown_capability_id'}, {'id': 653, 'error': 'unknown_capability_id'}]
+ABORT Batch14: closure failed exit=1
+=== RUN826 HALTED at batch 14 exit=1 ===
+=== RUN826 V6 CONTINUOUS start=14 end=17 governing=BLACKDARK_Institutional_Capability_Standard_2026_v6.md ===
+=== V6 START Batch 14 (651-700) ===
+Batch14 live_verify ok=50 fail=0
+ABORT Batch14: closure failed exit=1
+=== RUN826 HALTED at batch 14 exit=1 ===
+=== RUN826 V6 CONTINUOUS start=14 end=17 governing=BLACKDARK_Institutional_Capability_Standard_2026_v6.md ===
+=== V6 START Batch 14 (651-700) ===
+Batch14 live_verify ok=50 fail=0
+ABORT Batch14: closure failed exit=1
+=== RUN826 HALTED at batch 14 exit=1 ===
+=== RUN826 V6 CONTINUOUS start=15 end=17 governing=BLACKDARK_Institutional_Capability_Standard_2026_v6.md ===
+=== V6 START Batch 15 (701-750) ===
+Batch15 live_verify ok=50 fail=0
+Batch15 | TypeA=0 | TypeB: NOT_COMPLETE=50 PERF-UNV=0 | RandomSample=PASS seed=16015 | ThreeWay=OK
+=== V6 DONE Batch 15 tag=batch15-closure-verified ===
+=== V6 START Batch 16 (751-800) ===
+Batch16 live_verify ok=50 fail=0
+Batch16 | TypeA=0 | TypeB: NOT_COMPLETE=50 PERF-UNV=0 | RandomSample=PASS seed=16016 | ThreeWay=OK
+=== V6 DONE Batch 16 tag=batch16-closure-verified ===
+=== V6 START Batch 17 (801-826) ===
+Batch17 live_verify ok=26 fail=0
+Batch17 | TypeA=0 | TypeB: NOT_COMPLETE=26 PERF-UNV=0 | RandomSample=PASS seed=16017 | ThreeWay=OK
+=== V6 DONE Batch 17 tag=batch17-closure-verified ===
+=== RUN826 V6 COMPLETE all batches processed ===

@@ -1,0 +1,8 @@
+{
+  "evidence_id": "EVD-052",
+  "command": "/workspace/.venv/bin/python -m pytest tests/test_viral_capacity.py -q --tb=line -ra",
+  "exit_code": 0,
+  "duration_sec": 3.01,
+  "output_tail": "............                                                             [100%]\n",
+  "status": "VERIFIED PASS"
+}

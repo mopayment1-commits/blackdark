@@ -1,0 +1,9 @@
+{
+  "default_enabled": false,
+  "users": {
+    "hype_tester": {
+      "enabled": false,
+      "updated_at": "2026-09-11T00:51:26.500968+00:00"
+    }
+  }
+}

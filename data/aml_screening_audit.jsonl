@@ -1,0 +1,2 @@
+{"screening_id": "aml_dc750e0a", "amount_usd": 600.0, "email_hash": "4862cbd9a1b91680", "reasons": ["amount_exceeds_500.0", "sanctions_hit"], "blocked": true, "screening_required": true, "fee_usd": 0.15, "timestamp": "2026-09-11T00:50:55.124775+00:00", "retention_years": 5}
+{"screening_id": "aml_4c8b2be4", "amount_usd": 600.0, "email_hash": "4862cbd9a1b91680", "reasons": ["amount_exceeds_500.0", "sanctions_hit"], "blocked": true, "screening_required": true, "fee_usd": 0.15, "timestamp": "2026-09-11T00:50:55.138668+00:00", "retention_years": 5}

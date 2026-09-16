@@ -1,32 +1,27 @@
 {
-  "total_events": 29,
+  "total_events": 53,
   "total_training_runs": 1,
   "total_flywheel_cycles": 22,
   "best_accuracy": 0.35,
   "created_at": "2026-07-25T07:38:18.709783+00:00",
   "last_event": {
-    "timestamp": "2026-08-05T20:20:29.356269+00:00",
-    "event_type": "training_rejected",
+    "timestamp": "2026-09-11T00:51:10.185045+00:00",
+    "event_type": "prediction_logged",
     "payload": {
-      "metrics": {
-        "accuracy": 0.1875
-      },
-      "validation": {
-        "approved": false,
-        "reason": "below_minimum_accuracy",
-        "new_accuracy": 0.1875,
-        "minimum_accuracy": 0.34,
-        "cold_start": true
-      }
+      "chain_id": "chain_b6f590113901",
+      "prediction_id": "pred_chain_b6f590113901",
+      "decision_id": "dec_3560e7cc95de419c",
+      "symbol": "BTC"
     },
-    "notes": "model_validation_gate"
+    "notes": "platform_compounding_e2e"
   },
-  "last_updated": "2026-08-05T20:20:29.359494+00:00",
+  "last_updated": "2026-09-11T00:51:10.185171+00:00",
   "events_by_type": {
     "flywheel_cycle": 22,
     "ensemble_rejected": 3,
     "training_rejected": 3,
-    "training_run": 1
+    "training_run": 1,
+    "prediction_logged": 24
   },
   "last_labeled_export_count": 100,
   "best_model_version": "v20260805_2017"

@@ -1,0 +1,31 @@
+{
+  "version": "1.0",
+  "raci": {
+    "commander": "founder_or_oncall",
+    "comms": "compliance_or_pm",
+    "tech": "oncall_engineer",
+    "legal": "counsel_slot"
+  },
+  "severity": {
+    "p0_customer": "1h",
+    "p1_customer": "4h",
+    "regulator_if_required": "72h"
+  },
+  "channels": [
+    "status_page",
+    "email",
+    "in_app"
+  ],
+  "tabletop_drills": [
+    {
+      "drill_id": "tb_17ea141f",
+      "title": "Ransomware tabletop",
+      "outcome": "pass",
+      "participants": [
+        "oncall"
+      ],
+      "at": "2026-09-11T00:50:07.583245+00:00"
+    }
+  ],
+  "postmortem_required": true
+}

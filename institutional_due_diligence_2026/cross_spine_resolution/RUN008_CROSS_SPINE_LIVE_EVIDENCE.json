@@ -1,0 +1,127 @@
+{
+  "generated_at": "2026-09-11T08:07:55.769736+00:00",
+  "diagnosis": {
+    "ids": {
+      "103": {
+        "in_LEGACY_BATCH01_EXTENSION_IDS": false,
+        "in_BATCH01_IDS": false,
+        "in_BATCH02_IDS": false,
+        "in_BATCH03_IDS": true,
+        "in_BATCH03_DEDICATED_IDS": false,
+        "in_BATCH03_PENDING_DEDICATED_IDS": true,
+        "expected_official_batch": "batch03",
+        "expected_production_spine": "batch03_prep",
+        "runtime": {
+          "exception": "ValueError: capability 103 is official batch03 \u2014 dedicated handler pending Batch03 audit (cross-spine resolved Run 008; removed from LEGACY_BATCH01_EXTENSION_IDS)"
+        },
+        "routing_path": "batch03_spine_reached",
+        "batch01_direct": "ValueError: capability 103 is not in batch01 production spine",
+        "batch03_direct": "ValueError: capability 103 is official batch03 \u2014 dedicated handler pending Batch03 audit (cross-spine resolved Run 008; removed from LEGACY_BATCH01_EXTENSION_IDS)"
+      },
+      "129": {
+        "in_LEGACY_BATCH01_EXTENSION_IDS": false,
+        "in_BATCH01_IDS": false,
+        "in_BATCH02_IDS": false,
+        "in_BATCH03_IDS": true,
+        "in_BATCH03_DEDICATED_IDS": false,
+        "in_BATCH03_PENDING_DEDICATED_IDS": true,
+        "expected_official_batch": "batch03",
+        "expected_production_spine": "batch03_prep",
+        "runtime": {
+          "exception": "ValueError: capability 129 is official batch03 \u2014 dedicated handler pending Batch03 audit (cross-spine resolved Run 008; removed from LEGACY_BATCH01_EXTENSION_IDS)"
+        },
+        "routing_path": "batch03_spine_reached",
+        "batch01_direct": "ValueError: capability 129 is not in batch01 production spine",
+        "batch03_direct": "ValueError: capability 129 is official batch03 \u2014 dedicated handler pending Batch03 audit (cross-spine resolved Run 008; removed from LEGACY_BATCH01_EXTENSION_IDS)"
+      }
+    },
+    "lists": {
+      "scan_at": "2026-09-11T08:07:02.722334+00:00",
+      "rule": "CROSS-SPINE-001",
+      "routing_lists_checked": [
+        "BATCH01_IDS",
+        "BATCH02_IDS",
+        "BATCH03_IDS"
+      ],
+      "literal_definitions": {
+        "OFFICIAL_BATCH01_IDS": "range(1, 51) \u2014 50 IDs",
+        "LEGACY_BATCH01_EXTENSION_IDS": [
+          175,
+          214,
+          245,
+          584,
+          629,
+          630,
+          631,
+          642,
+          644,
+          646
+        ],
+        "BATCH01_IDS": "60 IDs",
+        "BATCH02_IDS": "range(51, 101) \u2014 50 IDs",
+        "BATCH03_IDS": "range(101, 151) \u2014 50 IDs",
+        "runtime_check_order": [
+          "BATCH01_IDS",
+          "BATCH02_IDS",
+          "BATCH03_IDS"
+        ]
+      },
+      "overlaps": [],
+      "overlap_count": 0,
+      "batch04_plus_production_modules_in_cap646": [],
+      "grep_exit_code": 1
+    }
+  },
+  "non_regression": {
+    "batch01": {
+      "run": {
+        "script": "run005_batch01_final_closure.py",
+        "exit_code": 0,
+        "stdout_tail": "Wrote /workspace/institutional_due_diligence_2026/batch01_independent_audit/BATCH01_FINAL_CLOSURE_REPORT.md\nWrote /workspace/docs/BATCH01_OFFICIAL_RTM_1_50.json\nCounts: {'NOT_COMPLETE': 36, 'PERFORMANCE-UNVERIFIABLE': 14}\nClosure gate MET: True",
+        "stderr_tail": ""
+      },
+      "batch": "batch01",
+      "closure_gate": {
+        "conceptually_unsound_zero_required": true,
+        "met": true,
+        "batch01_closed": true
+      },
+      "summary": {
+        "total": 50,
+        "production_aligned": 0,
+        "not_complete": 36,
+        "performance_unverifiable": 14,
+        "conceptually_unsound": 0,
+        "split_brain_unverified": 0
+      }
+    },
+    "batch02": {
+      "run": {
+        "script": "run007_batch02_final_closure.py",
+        "exit_code": 0,
+        "stdout_tail": "Wrote /workspace/institutional_due_diligence_2026/batch02_independent_audit/BATCH02_FINAL_CLOSURE_REPORT.md\nWrote /workspace/docs/BATCH02_OFFICIAL_RTM_51_100.json\nCounts: {'NOT_COMPLETE': 43, 'PERFORMANCE-UNVERIFIABLE': 7}\nClosure gate MET: True",
+        "stderr_tail": "Yahoo macro fetch failed safely | symbol=^GSPC\nYahoo price fetch failed safely | symbol=BTC-USD\nYahoo macro fetch failed safely | symbol=DX-Y.NYB\nYahoo price fetch failed safely | symbol=GC=F"
+      },
+      "batch": "batch02",
+      "closure_gate": {
+        "conceptually_unsound_zero_required": true,
+        "met": true,
+        "batch02_closed": true
+      },
+      "summary": {
+        "total": 50,
+        "production_aligned": 0,
+        "not_complete": 43,
+        "performance_unverifiable": 7,
+        "conceptually_unsound": 0,
+        "split_brain_unverified": 0
+      }
+    }
+  },
+  "run008_gate": {
+    "routing_overlaps_zero": true,
+    "batch01_closure_gate_met": true,
+    "batch02_closure_gate_met": true,
+    "met": true
+  }
+}

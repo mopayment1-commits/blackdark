@@ -108,11 +108,15 @@ def ai_compliance_footer(payload: dict[str, Any]) -> dict[str, Any]:
         "confidence": out.get("confidence") or out.get("truth_score"),
         "unknown_is_not_zero": True,
         "stale_rejected": fresh.get("state") == "stale" if isinstance(fresh, dict) else False,
+        "analysis_only": True,
         "legal": (
             "Decision evidence only. Not financial advice. "
             f"Evidence class={cls}. Stale/untrusted inputs must not pass as success."
         ),
     }
+    out["analysis_only"] = True
+    out["no_execution"] = True
+    out["methodology_status"] = "documented_shadow_live_forward"
     return out
 
 

@@ -1,0 +1,398 @@
+{
+  "timestamp": "2026-09-11T00:50:54.559665+00:00",
+  "launch_target": "5 business days",
+  "total_tasks": 19,
+  "done_count": 12,
+  "progress_count": 4,
+  "blocked_count": 1,
+  "pending_count": 2,
+  "launch_percent": 63.2,
+  "launch_ready": false,
+  "soft_launch": false,
+  "code_complete": false,
+  "days": [
+    {
+      "day": 1,
+      "label": "Day 1",
+      "total": 4,
+      "done": 2,
+      "percent": 50.0,
+      "items": [
+        {
+          "day": 1,
+          "id": "d1_docker",
+          "title": "Docker + Railway deploy ready",
+          "status": "done",
+          "action": "docker compose up -d or Railway Deploy from GitHub",
+          "endpoint": "/api/services/status"
+        },
+        {
+          "day": 1,
+          "id": "d1_secrets",
+          "title": "Production secrets (SECRETS_MASTER_KEY, SESSION_TOKEN_PEPPER)",
+          "status": "done",
+          "action": "python scripts/generate_launch_secrets.py --write → Railway Variables",
+          "file": ".env.launch.local"
+        },
+        {
+          "day": 1,
+          "id": "d1_admin",
+          "title": "Admin API key + ADMIN_EMAILS",
+          "status": "progress",
+          "action": "Paste ADMIN_* from .env.launch.local into Railway"
+        },
+        {
+          "day": 1,
+          "id": "d1_verify",
+          "title": "Buyer verification + finalize_launch",
+          "status": "progress",
+          "action": "python scripts/finalize_launch.py"
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "label": "Day 2",
+      "total": 3,
+      "done": 0,
+      "percent": 0.0,
+      "items": [
+        {
+          "day": 2,
+          "id": "d2_domain",
+          "title": "Production domain + APP_BASE_URL",
+          "status": "pending",
+          "action": "Railway → Generate Domain → APP_BASE_URL=https://YOUR-DOMAIN"
+        },
+        {
+          "day": 2,
+          "id": "d2_stripe",
+          "title": "Billing live (Lemon primary or Stripe) + webhook",
+          "status": "blocked",
+          "action": "Set LEMON_SQUEEZY_CHECKOUT_PRO or Stripe live + webhook"
+        },
+        {
+          "day": 2,
+          "id": "d2_billing",
+          "title": "Billing checkout tested (free → pro trial)",
+          "status": "progress",
+          "action": "/api/billing/status + /login → upgrade flow",
+          "endpoint": "/api/billing/status"
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "label": "Day 3",
+      "total": 3,
+      "done": 3,
+      "percent": 100.0,
+      "items": [
+        {
+          "day": 3,
+          "id": "d3_telegram",
+          "title": "Telegram bot live (token + chat + webhook)",
+          "status": "done",
+          "action": "TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID + TELEGRAM_WEBHOOK_URL",
+          "endpoint": "/api/alerts/telegram/status"
+        },
+        {
+          "day": 3,
+          "id": "d3_health",
+          "title": "Health probes + uptime monitoring",
+          "status": "done",
+          "action": "UptimeRobot → /health/live (port+100 sidecar)",
+          "endpoint": "/health/ready"
+        },
+        {
+          "day": 3,
+          "id": "d3_email",
+          "title": "Email SMTP alerts (optional)",
+          "status": "done",
+          "action": "Telegram-first for v1; optional SMTP_* later"
+        }
+      ]
+    },
+    {
+      "day": 4,
+      "label": "Day 4",
+      "total": 3,
+      "done": 3,
+      "percent": 100.0,
+      "items": [
+        {
+          "day": 4,
+          "id": "d4_pwa",
+          "title": "PWA icons + manifest + service worker",
+          "status": "done",
+          "action": "python scripts/generate_pwa_icons.py"
+        },
+        {
+          "day": 4,
+          "id": "d4_landing",
+          "title": "Landing page CTA + pricing visible",
+          "status": "done",
+          "action": "/ → signup → /dashboard",
+          "endpoint": "/"
+        },
+        {
+          "day": 4,
+          "id": "d4_legal",
+          "title": "Terms + Privacy + Disclaimer pages",
+          "status": "done",
+          "action": "/terms · /privacy · /disclaimer",
+          "endpoint": "/terms"
+        }
+      ]
+    },
+    {
+      "day": 5,
+      "label": "Day 5",
+      "total": 6,
+      "done": 4,
+      "percent": 66.7,
+      "items": [
+        {
+          "day": 5,
+          "id": "d5_tests",
+          "title": "Full test suite green",
+          "status": "done",
+          "action": "in_process_constitution_smoke_ok"
+        },
+        {
+          "day": 5,
+          "id": "d5_keys",
+          "title": "Platform API keys connected",
+          "status": "progress",
+          "action": "Oracle-first web mode — optional /platform keys later",
+          "endpoint": "/api/platform/keys/status"
+        },
+        {
+          "day": 5,
+          "id": "d5_demo",
+          "title": "B2B demo + public accuracy page",
+          "status": "done",
+          "action": "/b2b · /oracle-accuracy · /oracle/accuracy",
+          "endpoint": "/api/oracle/accuracy/public"
+        },
+        {
+          "day": 5,
+          "id": "d5_constitution",
+          "title": "Product Constitution modules wired (D1–D8 + UX modes)",
+          "status": "done",
+          "action": "docs/PRODUCT_CONSTITUTION_AR.md + decision_enrichment on /oracle/{symbol}",
+          "endpoint": "/oracle/BTC?ux_mode=beginner&lang=en"
+        },
+        {
+          "day": 5,
+          "id": "d5_evidence_auth",
+          "title": "Evidence Pack auth-gated (Whale/Admin)",
+          "status": "done",
+          "action": "/api/due-diligence/evidence-pack (auth) · public-summary open",
+          "endpoint": "/api/due-diligence/evidence-pack/public-summary"
+        },
+        {
+          "day": 5,
+          "id": "d5_golive",
+          "title": "GO LIVE — announce + monitor 24h",
+          "status": "pending",
+          "action": "Deploy Railway → python scripts/mark_golive.py --url https://YOUR-DOMAIN"
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "day": 1,
+      "id": "d1_docker",
+      "title": "Docker + Railway deploy ready",
+      "status": "done",
+      "action": "docker compose up -d or Railway Deploy from GitHub",
+      "endpoint": "/api/services/status"
+    },
+    {
+      "day": 1,
+      "id": "d1_secrets",
+      "title": "Production secrets (SECRETS_MASTER_KEY, SESSION_TOKEN_PEPPER)",
+      "status": "done",
+      "action": "python scripts/generate_launch_secrets.py --write → Railway Variables",
+      "file": ".env.launch.local"
+    },
+    {
+      "day": 1,
+      "id": "d1_admin",
+      "title": "Admin API key + ADMIN_EMAILS",
+      "status": "progress",
+      "action": "Paste ADMIN_* from .env.launch.local into Railway"
+    },
+    {
+      "day": 1,
+      "id": "d1_verify",
+      "title": "Buyer verification + finalize_launch",
+      "status": "progress",
+      "action": "python scripts/finalize_launch.py"
+    },
+    {
+      "day": 2,
+      "id": "d2_domain",
+      "title": "Production domain + APP_BASE_URL",
+      "status": "pending",
+      "action": "Railway → Generate Domain → APP_BASE_URL=https://YOUR-DOMAIN"
+    },
+    {
+      "day": 2,
+      "id": "d2_stripe",
+      "title": "Billing live (Lemon primary or Stripe) + webhook",
+      "status": "blocked",
+      "action": "Set LEMON_SQUEEZY_CHECKOUT_PRO or Stripe live + webhook"
+    },
+    {
+      "day": 2,
+      "id": "d2_billing",
+      "title": "Billing checkout tested (free → pro trial)",
+      "status": "progress",
+      "action": "/api/billing/status + /login → upgrade flow",
+      "endpoint": "/api/billing/status"
+    },
+    {
+      "day": 3,
+      "id": "d3_telegram",
+      "title": "Telegram bot live (token + chat + webhook)",
+      "status": "done",
+      "action": "TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID + TELEGRAM_WEBHOOK_URL",
+      "endpoint": "/api/alerts/telegram/status"
+    },
+    {
+      "day": 3,
+      "id": "d3_health",
+      "title": "Health probes + uptime monitoring",
+      "status": "done",
+      "action": "UptimeRobot → /health/live (port+100 sidecar)",
+      "endpoint": "/health/ready"
+    },
+    {
+      "day": 3,
+      "id": "d3_email",
+      "title": "Email SMTP alerts (optional)",
+      "status": "done",
+      "action": "Telegram-first for v1; optional SMTP_* later"
+    },
+    {
+      "day": 4,
+      "id": "d4_pwa",
+      "title": "PWA icons + manifest + service worker",
+      "status": "done",
+      "action": "python scripts/generate_pwa_icons.py"
+    },
+    {
+      "day": 4,
+      "id": "d4_landing",
+      "title": "Landing page CTA + pricing visible",
+      "status": "done",
+      "action": "/ → signup → /dashboard",
+      "endpoint": "/"
+    },
+    {
+      "day": 4,
+      "id": "d4_legal",
+      "title": "Terms + Privacy + Disclaimer pages",
+      "status": "done",
+      "action": "/terms · /privacy · /disclaimer",
+      "endpoint": "/terms"
+    },
+    {
+      "day": 5,
+      "id": "d5_tests",
+      "title": "Full test suite green",
+      "status": "done",
+      "action": "in_process_constitution_smoke_ok"
+    },
+    {
+      "day": 5,
+      "id": "d5_keys",
+      "title": "Platform API keys connected",
+      "status": "progress",
+      "action": "Oracle-first web mode — optional /platform keys later",
+      "endpoint": "/api/platform/keys/status"
+    },
+    {
+      "day": 5,
+      "id": "d5_demo",
+      "title": "B2B demo + public accuracy page",
+      "status": "done",
+      "action": "/b2b · /oracle-accuracy · /oracle/accuracy",
+      "endpoint": "/api/oracle/accuracy/public"
+    },
+    {
+      "day": 5,
+      "id": "d5_constitution",
+      "title": "Product Constitution modules wired (D1–D8 + UX modes)",
+      "status": "done",
+      "action": "docs/PRODUCT_CONSTITUTION_AR.md + decision_enrichment on /oracle/{symbol}",
+      "endpoint": "/oracle/BTC?ux_mode=beginner&lang=en"
+    },
+    {
+      "day": 5,
+      "id": "d5_evidence_auth",
+      "title": "Evidence Pack auth-gated (Whale/Admin)",
+      "status": "done",
+      "action": "/api/due-diligence/evidence-pack (auth) · public-summary open",
+      "endpoint": "/api/due-diligence/evidence-pack/public-summary"
+    },
+    {
+      "day": 5,
+      "id": "d5_golive",
+      "title": "GO LIVE — announce + monitor 24h",
+      "status": "pending",
+      "action": "Deploy Railway → python scripts/mark_golive.py --url https://YOUR-DOMAIN"
+    }
+  ],
+  "next_actions": [
+    {
+      "day": 1,
+      "id": "d1_admin",
+      "title": "Admin API key + ADMIN_EMAILS",
+      "status": "progress",
+      "action": "Paste ADMIN_* from .env.launch.local into Railway"
+    },
+    {
+      "day": 1,
+      "id": "d1_verify",
+      "title": "Buyer verification + finalize_launch",
+      "status": "progress",
+      "action": "python scripts/finalize_launch.py"
+    },
+    {
+      "day": 2,
+      "id": "d2_domain",
+      "title": "Production domain + APP_BASE_URL",
+      "status": "pending",
+      "action": "Railway → Generate Domain → APP_BASE_URL=https://YOUR-DOMAIN"
+    },
+    {
+      "day": 2,
+      "id": "d2_stripe",
+      "title": "Billing live (Lemon primary or Stripe) + webhook",
+      "status": "blocked",
+      "action": "Set LEMON_SQUEEZY_CHECKOUT_PRO or Stripe live + webhook"
+    },
+    {
+      "day": 2,
+      "id": "d2_billing",
+      "title": "Billing checkout tested (free → pro trial)",
+      "status": "progress",
+      "action": "/api/billing/status + /login → upgrade flow",
+      "endpoint": "/api/billing/status"
+    },
+    {
+      "day": 5,
+      "id": "d5_keys",
+      "title": "Platform API keys connected",
+      "status": "progress",
+      "action": "Oracle-first web mode — optional /platform keys later",
+      "endpoint": "/api/platform/keys/status"
+    }
+  ],
+  "roadmap_url": "/admin/roadmap",
+  "plan_url": "/admin/plan"
+}

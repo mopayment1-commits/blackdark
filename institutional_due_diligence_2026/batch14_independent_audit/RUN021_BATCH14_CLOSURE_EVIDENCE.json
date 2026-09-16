@@ -1,0 +1,374 @@
+{
+  "generated_at": "2026-09-11T21:59:19.916637+00:00",
+  "batch": 14,
+  "status_counts": {
+    "NOT_COMPLETE": 50
+  },
+  "bcbs": {
+    "not_complete_count": 50,
+    "remediated": 50,
+    "per_id": {
+      "651": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "652": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "653": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "654": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "655": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "656": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "657": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "658": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "659": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "660": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "661": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "662": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "663": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "664": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "665": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "666": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "667": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "668": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "669": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "670": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "671": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "672": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "673": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "674": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "675": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "676": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "677": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "678": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "679": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "680": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "681": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "682": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "683": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "684": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "685": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "686": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "687": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "688": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "689": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "690": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "691": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "692": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "693": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "694": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "695": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "696": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "697": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "698": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "699": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "700": {
+        "after_bcbs_ok": true,
+        "missing": []
+      }
+    }
+  },
+  "random_sample": {
+    "seed": 16014,
+    "sample_ids": [
+      657,
+      667,
+      671,
+      675,
+      677,
+      684,
+      689,
+      694,
+      695,
+      696
+    ],
+    "sample_pass": true,
+    "conceptually_unsound": 0,
+    "split_brain_unverified": 0,
+    "results": [
+      {
+        "id": 657,
+        "name": "CAP-657",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 667,
+        "name": "CAP-667",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 671,
+        "name": "CAP-671",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 675,
+        "name": "CAP-675",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 677,
+        "name": "CAP-677",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 684,
+        "name": "CAP-684",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 689,
+        "name": "CAP-689",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 694,
+        "name": "CAP-694",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 695,
+        "name": "CAP-695",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 696,
+        "name": "CAP-696",
+        "status": "NOT_COMPLETE"
+      }
+    ]
+  },
+  "non_regression": {
+    "met": true,
+    "details": {
+      "batch01": {
+        "exit_code": 0,
+        "closure_gate_met": true,
+        "missing": false
+      },
+      "batch02": {
+        "exit_code": 0,
+        "closure_gate_met": true,
+        "missing": false
+      },
+      "batch03": {
+        "exit_code": 0,
+        "closure_gate_met": true,
+        "missing": false
+      },
+      "batch04": {
+        "exit_code": 0,
+        "closure_gate_met": true,
+        "missing": false
+      },
+      "batch05": {
+        "exit_code": 0,
+        "closure_gate_met": true,
+        "missing": false
+      },
+      "batch06": {
+        "exit_code": 0,
+        "closure_gate_met": true,
+        "missing": false
+      },
+      "batch07": {
+        "exit_code": 1,
+        "closure_gate_met": true,
+        "missing": false
+      },
+      "batch08": {
+        "exit_code": 1,
+        "closure_gate_met": true,
+        "missing": false
+      },
+      "batch09": {
+        "exit_code": 1,
+        "closure_gate_met": true,
+        "missing": false
+      },
+      "batch10": {
+        "exit_code": 1,
+        "closure_gate_met": true,
+        "missing": false
+      },
+      "batch11": {
+        "exit_code": 1,
+        "closure_gate_met": true,
+        "missing": false
+      },
+      "batch12": {
+        "exit_code": 1,
+        "closure_gate_met": true,
+        "missing": false
+      },
+      "batch13": {
+        "exit_code": 1,
+        "closure_gate_met": true,
+        "missing": false
+      }
+    }
+  },
+  "evidence_pack": {
+    "batch": "batch14",
+    "functions_required": 12,
+    "functions_covered": 11,
+    "coverage_met": false,
+    "per_function": {
+      "scope_inventory": true,
+      "requirements_traceability": true,
+      "semantic_correctness": true,
+      "canonical_duplicate_reconciliation": true,
+      "consumer_path_evidence": false,
+      "security_entitlement": true,
+      "data_provenance": true,
+      "reliability_performance": true,
+      "regression": true,
+      "quality_security_gate": true,
+      "build_provenance": true,
+      "engineering_live_assurance_status": true
+    }
+  },
+  "pass_live_count": 0
+}

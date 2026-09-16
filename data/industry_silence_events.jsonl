@@ -1,0 +1,1 @@
+{"event_id": "sil_4039572270", "event_name": "Test macro print", "event_at": "2026-08-01T00:00:00+00:00", "category": "macro", "sealed_by_blackdark": true, "peer_seals": {"nansen": false, "arkham": false}, "silent_peers": ["nansen", "arkham"], "vocal_peers": [], "silence_ratio": 1.0, "recorded_at": "2026-09-11T00:50:09.578087+00:00"}

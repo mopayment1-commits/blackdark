@@ -1,0 +1,94 @@
+{
+  "generated_at": "2026-09-12T12:45:32.001586+00:00",
+  "ids": [
+    129,
+    175,
+    214,
+    245,
+    338,
+    500,
+    507,
+    534,
+    584
+  ],
+  "results": [
+    {
+      "id": 129,
+      "prior_status": "PARTIAL",
+      "status": "ENGINEERING_READY",
+      "hero_binding_status": "BOUND",
+      "failures": [
+        "ai_rmf_800_218a_applied"
+      ]
+    },
+    {
+      "id": 175,
+      "prior_status": "PARTIAL",
+      "status": "ENGINEERING_READY",
+      "hero_binding_status": "BOUND",
+      "failures": [
+        "ai_rmf_800_218a_applied"
+      ]
+    },
+    {
+      "id": 214,
+      "prior_status": "PARTIAL",
+      "status": "COMPLETE_V6",
+      "hero_binding_status": "BOUND",
+      "failures": []
+    },
+    {
+      "id": 245,
+      "prior_status": "PARTIAL",
+      "status": "COMPLETE_V6",
+      "hero_binding_status": "BOUND",
+      "failures": []
+    },
+    {
+      "id": 338,
+      "prior_status": "PARTIAL",
+      "status": "COMPLETE_V6",
+      "hero_binding_status": "BOUND",
+      "failures": []
+    },
+    {
+      "id": 500,
+      "prior_status": "PARTIAL",
+      "status": "COMPLETE_V6",
+      "hero_binding_status": "BOUND",
+      "failures": []
+    },
+    {
+      "id": 507,
+      "prior_status": "PARTIAL",
+      "status": "COMPLETE_V6",
+      "hero_binding_status": "BOUND",
+      "failures": []
+    },
+    {
+      "id": 534,
+      "prior_status": "PARTIAL",
+      "status": "COMPLETE_V6",
+      "hero_binding_status": "BOUND",
+      "failures": []
+    },
+    {
+      "id": 584,
+      "prior_status": "PARTIAL",
+      "status": "COMPLETE_V6",
+      "hero_binding_status": "BOUND",
+      "failures": []
+    }
+  ],
+  "summary": {
+    "promoted_complete_v6": 7,
+    "promoted_engineering_ready": 2,
+    "still_partial": 0,
+    "failed_gate": 0,
+    "complete_v6_total": 742,
+    "engineering_ready_total": 84,
+    "partial_total": 0,
+    "failed_gate_total": 0,
+    "unbound_total": 0
+  }
+}

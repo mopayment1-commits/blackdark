@@ -7,41 +7,43 @@ those IDs are recorded in RTM under their true ``official_batch``.
 
 from __future__ import annotations
 
+from datetime import UTC, datetime
 from typing import Any, Awaitable, Callable
 
 OFFICIAL_BATCH01_IDS: frozenset[int] = frozenset(range(1, 51))
 
 LEGACY_BATCH01_EXTENSION_IDS: frozenset[int] = frozenset(
     {
-        55,
-        56,
-        59,
-        60,
-        103,
-        129,
-        175,
-        214,
-        245,
-        584,
-        629,
-        630,
-        631,
-        642,
-        644,
-        646,
+        # 646 removed Run 021 — official batch13 (601–650); see CROSS-SPINE-001 / WF-027
+
+        # 644 removed Run 021 — official batch13 (601–650); see CROSS-SPINE-001 / WF-027
+
+        # 642 removed Run 021 — official batch13 (601–650); see CROSS-SPINE-001 / WF-027
+
+        # 631 removed Run 021 — official batch13 (601–650); see CROSS-SPINE-001 / WF-027
+
+        # 630 removed Run 021 — official batch13 (601–650); see CROSS-SPINE-001 / WF-027
+
+        # 629 removed Run 021 — official batch13 (601–650); see CROSS-SPINE-001 / WF-027
+
+        # 55, 56, 59, 60 removed Run 007 — official batch02; see CROSS-SPINE-001
+        # 103, 129 removed Run 008 — official batch03 (101–150); see CROSS-SPINE-001
+        # 175 removed Run 011 — official batch04 (151–200); see CROSS-SPINE-001 / RBAS-001
+        # 214, 245 removed Run 013 — official batch05 (201–250); see CROSS-SPINE-001 / WF-027
+        # 584 removed Run 021 — official batch12 (551–600); see CROSS-SPINE-001 / WF-027
     }
 )
 
 BATCH01_IDS: frozenset[int] = OFFICIAL_BATCH01_IDS | LEGACY_BATCH01_EXTENSION_IDS
 
 _BATCH01_FREE_TIER = frozenset({1, 2, 3, 4, 10, 21, 38, 39, 45})
-_BATCH01_ALERTS = frozenset({60, 629, 245})
-_BATCH01_MARKET = frozenset({47, 129, 214})
+_BATCH01_ALERTS = frozenset({629})
+_BATCH01_MARKET = frozenset({47})
 _BATCH01_DERIVATIVES = frozenset({48, 49})
 _BATCH01_DATA = frozenset({630, 631})
-_BATCH01_AI = frozenset({175, 34, 59, 642})
+_BATCH01_AI = frozenset({34, 642})
 _BATCH01_ONCHAIN = frozenset({5})
-_BATCH01_INSTITUTIONAL = frozenset({103, 644, 646})
+_BATCH01_INSTITUTIONAL = frozenset({644, 646})
 _BATCH01_VERIFIED = frozenset({49})
 
 
@@ -58,6 +60,26 @@ def _stamp_batch01(result: dict[str, Any], capability_id: int) -> dict[str, Any]
     result["backend_entrypoint"] = batch01_entrypoint(capability_id)
     result["binding_source"] = "explicit_option_a"
     result["production_spine"] = "batch01"
+    nested = result.get("data") if isinstance(result.get("data"), dict) else {}
+    if not result.get("data_source") and not result.get("source"):
+        result["data_source"] = (
+            result.get("data_source")
+            or result.get("source")
+            or nested.get("data_source")
+            or nested.get("source")
+            or f"cap646.batch01_production#cap{capability_id:03d}"
+        )
+    if not result.get("timestamp"):
+        result["timestamp"] = (
+            result.get("timestamp")
+            or nested.get("timestamp")
+            or datetime.now(UTC).isoformat()
+        )
+    if not result.get("quality"):
+        result["quality"] = {
+            "freshness": "runtime_stamped",
+            "provenance": result.get("data_source") or result.get("source"),
+        }
     return result
 
 

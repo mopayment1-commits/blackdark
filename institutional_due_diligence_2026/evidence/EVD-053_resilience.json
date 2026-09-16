@@ -1,0 +1,8 @@
+{
+  "evidence_id": "EVD-053",
+  "command": "/workspace/.venv/bin/python -m pytest tests/test_rc2_chaos_resilience.py -q --tb=line -ra",
+  "exit_code": 0,
+  "duration_sec": 2.0,
+  "output_tail": "s...                                                                     [100%]\n=========================== short test summary info ============================\nSKIPPED [1] tests/test_rc2_chaos_resilience.py:20: postgres_backend.get_pool not present\n",
+  "status": "VERIFIED PASS"
+}

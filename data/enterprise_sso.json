@@ -1,0 +1,20 @@
+{
+  "providers": {
+    "org_dc8fb6c954a5": {
+      "org_id": "org_dc8fb6c954a5",
+      "protocol": "oidc",
+      "issuer": "https://example.okta.com",
+      "client_id": "dd-client",
+      "client_secret_configured": false,
+      "client_secret_fp": "",
+      "authorize_url": "https://example.okta.com/oauth2/v1/authorize",
+      "token_url": "",
+      "metadata_url": "",
+      "audiences": [],
+      "jit_provisioning": true,
+      "scim_ready": true,
+      "updated_at": "2026-09-11T00:50:07.484463+00:00",
+      "status": "configured"
+    }
+  }
+}

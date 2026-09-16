@@ -11,6 +11,18 @@ import pytest
 
 
 @pytest.fixture(scope="session", autouse=True)
+def _bootstrap_httpx2_for_testclient():
+    """Starlette TestClient requires httpx2; keep production on httpx."""
+    try:
+        import httpx2  # noqa: F401
+    except ImportError as exc:
+        raise RuntimeError(
+            "httpx2 is required for institutional pytest/TestClient paths"
+        ) from exc
+    yield
+
+
+@pytest.fixture(scope="session", autouse=True)
 def _bootstrap_test_secrets():
     """Ensure vault key is always set in tests (no silent dev fallback)."""
     os.environ.setdefault("SECRETS_MASTER_KEY", "pytest-session-vault-key-not-for-production-use")

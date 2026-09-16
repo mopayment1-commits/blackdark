@@ -1,0 +1,308 @@
+{
+  "generated_at": "2026-09-11T21:23:11.224572+00:00",
+  "batch": 13,
+  "status_counts": {
+    "NOT_COMPLETE": 50
+  },
+  "bcbs": {
+    "not_complete_count": 50,
+    "remediated": 50,
+    "per_id": {
+      "601": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "602": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "603": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "604": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "605": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "606": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "607": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "608": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "609": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "610": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "611": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "612": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "613": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "614": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "615": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "616": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "617": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "618": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "619": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "620": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "621": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "622": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "623": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "624": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "625": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "626": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "627": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "628": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "629": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "630": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "631": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "632": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "633": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "634": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "635": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "636": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "637": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "638": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "639": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "640": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "641": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "642": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "643": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "644": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "645": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "646": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "647": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "648": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "649": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "650": {
+        "after_bcbs_ok": true,
+        "missing": []
+      }
+    }
+  },
+  "random_sample": {
+    "seed": 16013,
+    "sample_ids": [
+      605,
+      611,
+      613,
+      623,
+      624,
+      627,
+      628,
+      634,
+      637,
+      645
+    ],
+    "sample_pass": true,
+    "conceptually_unsound": 0,
+    "split_brain_unverified": 0,
+    "results": [
+      {
+        "id": 605,
+        "name": "Governance_Sentiment_Monitor",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 611,
+        "name": "Funding_Rate_Heatmap_Engine",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 613,
+        "name": "Liquidation_Screener",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 623,
+        "name": "Execution_Latency_Monitor",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 624,
+        "name": "Low_Latency_Execution_Node",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 627,
+        "name": "Custom_Institutional_Data_Terminal",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 628,
+        "name": "Viral_Intelligence_Distribution_Loop",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 634,
+        "name": "Liquidity/Full-Fill Feasibility",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 637,
+        "name": "Scenario Engine (probabilistic scenarios, not deterministic prediction)",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 645,
+        "name": "Security Verification Evidence",
+        "status": "NOT_COMPLETE"
+      }
+    ]
+  },
+  "non_regression": {
+    "met": true,
+    "skipped": true
+  },
+  "evidence_pack": {
+    "batch": "batch13",
+    "functions_required": 12,
+    "functions_covered": 12,
+    "coverage_met": true,
+    "per_function": {
+      "scope_inventory": true,
+      "requirements_traceability": true,
+      "semantic_correctness": true,
+      "canonical_duplicate_reconciliation": true,
+      "consumer_path_evidence": true,
+      "security_entitlement": true,
+      "data_provenance": true,
+      "reliability_performance": true,
+      "regression": true,
+      "quality_security_gate": true,
+      "build_provenance": true,
+      "engineering_live_assurance_status": true
+    }
+  },
+  "pass_live_count": 0
+}

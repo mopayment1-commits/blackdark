@@ -1,12 +1,15 @@
 """Official Batch 02 dedicated backends — goal-specific payloads for IDs 51–100.
 
-IDs 55, 56, 59, 60 are batch01 overlap; runtime routes them via ``LEGACY_BATCH01_EXTENSION_IDS``.
+All official batch02 IDs (51–100) route here via ``cap646.batch02_production``.
+Cross-spine overlap with batch01 legacy (55, 56, 59, 60) resolved Run 007.
 """
 
 from __future__ import annotations
 
-import time
+import statistics
 from typing import Any, Awaitable, Callable
+
+import aiohttp
 
 from cap646.dedicated_common import addr as _addr
 from cap646.dedicated_common import execute_dedicated_caps
@@ -14,9 +17,9 @@ from cap646.dedicated_common import make_wrap_binding
 from cap646.dedicated_common import seed as _seed
 from cap646.dedicated_common import sym as _sym
 
-BATCH02_OVERLAP_BATCH01_IDS: frozenset[int] = frozenset({55, 56, 59, 60})
 OFFICIAL_BATCH02_IDS: frozenset[int] = frozenset(range(51, 101))
-BATCH02_DEDICATED_IDS: frozenset[int] = OFFICIAL_BATCH02_IDS - BATCH02_OVERLAP_BATCH01_IDS
+BATCH02_OVERLAP_BATCH01_IDS: frozenset[int] = frozenset()  # resolved Run 007
+BATCH02_DEDICATED_IDS: frozenset[int] = OFFICIAL_BATCH02_IDS
 
 GENERIC_SURFACES = frozenset(
     {"onchain_intelligence", "ai_decision_intelligence", "market_data", "smart_alerts"}
@@ -27,8 +30,12 @@ EXPECTED_SURFACE: dict[int, str] = {
     52: "cross_asset_return_breadth",
     53: "btc_to_macro_coupling",
     54: "global_liquidity_intelligence",
+    55: "nvt_fair_value_model",
+    56: "token_screener",
     57: "profitability_map",
     58: "custom_no_code_charting_workbench",
+    59: "personalized_research_dashboards",
+    60: "metric_based_smart_alerts",
     61: "point_in_time_immutable_metrics",
     62: "institutional_backtesting_data_layer",
     63: "data_quality_provenance_layer",
@@ -74,6 +81,173 @@ EXPECTED_SURFACE: dict[int, str] = {
 
 _wrap = make_wrap_binding(EXPECTED_SURFACE)
 
+_BREADTH_REFERENCE_ASSETS = ("ETH", "SOL", "BNB", "XRP", "ADA", "AVAX", "DOGE", "LINK")
+_WHALE_ACCUM_DIST_THRESHOLD_USD = 1_000_000.0
+_BTC_MACRO_CORRELATION_WINDOW_DAYS = 30
+
+
+async def _yahoo_daily_returns(session: aiohttp.ClientSession, symbol: str, *, range_: str = "1mo") -> list[float]:
+    url = f"https://query1.finance.yahoo.com/v8/finance/chart/{symbol}"
+    async with session.get(url, params={"interval": "1d", "range": range_}) as response:
+        response.raise_for_status()
+        payload = await response.json()
+    result = (payload.get("chart") or {}).get("result") or []
+    if not result:
+        return []
+    closes = [
+        float(value)
+        for value in ((result[0].get("indicators") or {}).get("quote") or [{}])[0].get("close") or []
+        if value is not None
+    ]
+    if len(closes) < 2:
+        return []
+    return [round((closes[i] - closes[i - 1]) / closes[i - 1], 6) for i in range(1, len(closes))]
+
+
+async def _compute_cross_asset_breadth(symbol: str) -> dict[str, Any]:
+    """Breadth = share of reference basket moving same direction as primary asset (24h)."""
+    from market_context import fetch_binance_market_overview_pack, fetch_binance_ticker
+
+    pack = await fetch_binance_market_overview_pack(limit=40)
+    assets = {str(a.get("symbol") or "").upper(): a for a in (pack.get("assets") or [])}
+    primary = assets.get(symbol.upper())
+    if primary:
+        primary_change = float(primary.get("change_24h") or 0)
+    else:
+        ticker = await fetch_binance_ticker(f"{symbol}USDT")
+        primary_change = float((ticker or {}).get("change_24h") or 0)
+
+    if primary_change > 0:
+        primary_dir = 1
+    elif primary_change < 0:
+        primary_dir = -1
+    else:
+        primary_dir = 0
+
+    basket_symbols = [s for s in _BREADTH_REFERENCE_ASSETS if s != symbol.upper()]
+    aligned = 0
+    measured = 0
+    details: list[dict[str, Any]] = []
+    for asset in basket_symbols:
+        row = assets.get(asset)
+        if not row:
+            ticker = await fetch_binance_ticker(f"{asset}USDT")
+            change = float((ticker or {}).get("change_24h") or 0)
+        else:
+            change = float(row.get("change_24h") or 0)
+        if change == 0:
+            continue
+        measured += 1
+        asset_dir = 1 if change > 0 else -1
+        same = primary_dir != 0 and asset_dir == primary_dir
+        if same:
+            aligned += 1
+        details.append({"symbol": asset, "change_24h_pct": change, "same_direction_as_primary": same})
+
+    breadth_score = round(aligned / measured, 4) if measured else None
+    return {
+        "breadth_score": breadth_score,
+        "breadth_pct": round(breadth_score * 100, 2) if breadth_score is not None else None,
+        "methodology": "reference_basket_same_direction_24h",
+        "reference_basket": basket_symbols,
+        "measured_assets": measured,
+        "aligned_count": aligned,
+        "primary_change_24h_pct": primary_change,
+        "primary_direction": "up" if primary_dir > 0 else ("down" if primary_dir < 0 else "flat"),
+        "asset_details": details,
+        "data_source": pack.get("data_source"),
+    }
+
+
+async def _compute_btc_macro_coupling(symbol: str) -> dict[str, Any]:
+    """Pearson correlation between BTC and S&P 500 daily returns over declared window."""
+    from macro_correlations import build_macro_context_safe
+    from market_context import fetch_binance_ticker
+
+    macro = await build_macro_context_safe()
+    ticker = await fetch_binance_ticker(f"{symbol}USDT")
+    btc_spot_change = float((ticker or {}).get("change_24h") or 0)
+
+    window = _BTC_MACRO_CORRELATION_WINDOW_DAYS
+    btc_returns: list[float] = []
+    spx_returns: list[float] = []
+    try:
+        timeout = aiohttp.ClientTimeout(total=12)
+        async with aiohttp.ClientSession(timeout=timeout) as session:
+            btc_returns = await _yahoo_daily_returns(session, "BTC-USD")
+            spx_returns = await _yahoo_daily_returns(session, "^GSPC")
+    except Exception:
+        btc_returns = []
+        spx_returns = []
+
+    n = min(len(btc_returns), len(spx_returns), window)
+    coupling_coefficient: float | None = None
+    if n >= 5:
+        coupling_coefficient = round(statistics.correlation(btc_returns[-n:], spx_returns[-n:]), 4)
+
+    if coupling_coefficient is not None:
+        if coupling_coefficient >= 0.3 and btc_spot_change > 0:
+            coupling_read = "risk_on_aligned"
+        elif coupling_coefficient <= -0.3 and btc_spot_change < 0:
+            coupling_read = "risk_off_aligned"
+        else:
+            coupling_read = "neutral_coupling"
+    else:
+        coupling_read = "insufficient_history"
+
+    return {
+        "btc_symbol": symbol,
+        "btc_change_24h_pct": btc_spot_change,
+        "macro_regime": macro.get("macro_regime"),
+        "dxy_score": macro.get("macro_dxy_score") or macro.get("dxy_score"),
+        "spx_score": macro.get("macro_spx_score") or macro.get("spx_score"),
+        "coupling_coefficient": coupling_coefficient,
+        "coupling_window_days": window,
+        "coupling_samples": n,
+        "coupling_method": "pearson_daily_returns_yahoo",
+        "coupling_read": coupling_read,
+        "macro_context": macro,
+    }
+
+
+def _classify_whale_accumulation_distribution(alerts: list[dict[str, Any]] | None) -> dict[str, Any]:
+    """Classify by notional USD + direction fields — not alert substring text."""
+    accum_signals = 0
+    dist_signals = 0
+    accum_notional = 0.0
+    dist_notional = 0.0
+    classified: list[dict[str, Any]] = []
+    for alert in alerts or []:
+        usd = float(
+            alert.get("amount_usd")
+            or alert.get("value_usd")
+            or alert.get("notional_usd")
+            or alert.get("volume_usd")
+            or 0
+        )
+        if usd < _WHALE_ACCUM_DIST_THRESHOLD_USD:
+            continue
+        direction = str(
+            alert.get("direction") or alert.get("side") or alert.get("flow_type") or ""
+        ).lower()
+        if any(k in direction for k in ("buy", "inflow", "in", "accum")):
+            accum_signals += 1
+            accum_notional += usd
+            classified.append({"class": "accumulation", "notional_usd": usd, "direction": direction})
+        elif any(k in direction for k in ("sell", "outflow", "out", "distrib")):
+            dist_signals += 1
+            dist_notional += usd
+            classified.append({"class": "distribution", "notional_usd": usd, "direction": direction})
+    return {
+        "accumulation_signals": accum_signals,
+        "distribution_signals": dist_signals,
+        "accumulation_notional_usd": round(accum_notional, 2),
+        "distribution_notional_usd": round(dist_notional, 2),
+        "classification_method": "notional_usd_and_direction_fields",
+        "notional_threshold_usd": _WHALE_ACCUM_DIST_THRESHOLD_USD,
+        "classified_alerts": classified,
+    }
+
 
 async def _cap051(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     from bd_platform.onchain_hub import lookintobitcoin_macro
@@ -85,29 +259,94 @@ async def _cap051(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
 
 async def _cap052(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     from bd_platform.institutional_delivery_intelligence_layer import cross_asset_correlation_565
-    payload = cross_asset_correlation_565(symbol=symbol, seed=_seed())
-    payload["breadth_score"] = payload.get("correlation_score")
+
+    correlation = cross_asset_correlation_565(symbol=symbol, seed=_seed())
+    breadth = await _compute_cross_asset_breadth(symbol)
+    payload = {**correlation, **breadth}
+    payload["correlation_score"] = correlation.get("cross_asset")
     return _wrap(52, symbol=symbol, payload_key="cross_asset_breadth", payload=payload)
 
 async def _cap053(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    from macro_correlations import build_macro_context_safe
-    from market_context import fetch_binance_ticker
-    macro = await build_macro_context_safe()
-    ticker = await fetch_binance_ticker(f"{symbol}USDT")
-    change_24h = float((ticker or {}).get("change_24h") or 0)
-    payload = {
-    "btc_symbol": symbol, "btc_change_24h_pct": change_24h,
-    "macro_regime": macro.get("macro_regime"), "dxy_score": macro.get("dxy_score"),
-    "coupling_read": "risk_on_aligned" if macro.get("macro_regime") == "Risk-On" and change_24h > 0 else "neutral_coupling",
-    "macro_context": macro,
-    }
+    payload = await _compute_btc_macro_coupling(symbol)
     return _wrap(53, symbol=symbol, payload_key="btc_macro_coupling", payload=payload)
 
 async def _cap054(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    from market_context import probe_price_sources
-    sources = await probe_price_sources(symbol)
-    payload = {"liquidity_sources": sources, "global_liquidity_proxy": len(sources.get("sources") or [])}
+    from market_context import fetch_binance_market_overview_pack, liquidity_label
+
+    pack = await fetch_binance_market_overview_pack(limit=40)
+    assets = pack.get("assets") or []
+    total_quote_volume = sum(float(a.get("volume_24h") or 0) for a in assets)
+    label, score = liquidity_label(total_quote_volume)
+    payload = {
+        "aggregated_quote_volume_24h_usd": round(total_quote_volume, 2),
+        "liquidity_label": label,
+        "liquidity_score": score,
+        "measured_assets": len(assets),
+        "methodology": "sum_reference_basket_quote_volume_24h",
+        "data_source": pack.get("data_source"),
+        "asset_volumes": [
+            {"symbol": a.get("symbol"), "volume_24h_usd": a.get("volume_24h")} for a in assets[:10]
+        ],
+    }
     return _wrap(54, symbol=symbol, payload_key="global_liquidity", payload=payload)
+
+async def _cap055(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+    from cap646.batch01_dedicated import _cap055_nvt_fair_value
+
+    raw = await _cap055_nvt_fair_value(symbol=symbol, address=address, params=params)
+    payload = {
+        "nvt": raw.get("nvt"),
+        "fair_value_signal": raw.get("fair_value_signal"),
+        "nvt_ratio": raw.get("nvt_ratio"),
+        "financial_models": raw.get("financial_models"),
+    }
+    return _wrap(
+        55,
+        symbol=symbol,
+        payload_key="nvt_fair_value",
+        payload=payload,
+        extra={"success": raw.get("success")},
+    )
+
+async def _cap056(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+    from cap646.batch01_dedicated import _cap056_token_screener
+
+    raw = await _cap056_token_screener(symbol=symbol, address=address, params=params)
+    payload = {"screener": raw.get("screener")}
+    return _wrap(56, symbol=symbol, payload_key="token_screener", payload=payload, extra={"success": raw.get("success")})
+
+async def _cap059(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+    from cap646.batch01_dedicated import _cap059_research_dashboards
+
+    raw = await _cap059_research_dashboards(symbol=symbol, address=address, params=params)
+    payload = {
+        "personalized_dashboard": raw.get("personalized_dashboard"),
+        "report_meta": raw.get("report_meta"),
+    }
+    return _wrap(
+        59,
+        symbol=symbol,
+        payload_key="research_dashboards",
+        payload=payload,
+        extra={"success": raw.get("success")},
+    )
+
+async def _cap060(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+    from cap646.batch01_dedicated import _cap060_metric_smart_alerts
+
+    raw = await _cap060_metric_smart_alerts(symbol=symbol, address=address, params=params)
+    payload = {
+        "metric_trigger": raw.get("metric_trigger"),
+        "alert_evaluation": raw.get("alert_evaluation"),
+        "metrics_snapshot": raw.get("metrics_snapshot"),
+    }
+    return _wrap(
+        60,
+        symbol=symbol,
+        payload_key="metric_smart_alerts",
+        payload=payload,
+        extra={"success": raw.get("success")},
+    )
 
 async def _cap057(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     from bd_platform.institutional_delivery_intelligence_layer import profitability_analyzer_582
@@ -245,10 +484,10 @@ async def _cap080(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
 
 async def _cap081(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     from whale_tracker import get_latest_whale_alerts
+
     alerts = await get_latest_whale_alerts(limit=int(params.get("limit") or 20))
-    accum = sum(1 for a in (alerts or []) if "accumulation" in str(a).lower())
-    dist = sum(1 for a in (alerts or []) if "distribution" in str(a).lower())
-    payload = {"whale_alerts": alerts, "accumulation_signals": accum, "distribution_signals": dist}
+    classification = _classify_whale_accumulation_distribution(alerts)
+    payload = {"whale_alerts": alerts, **classification}
     return _wrap(81, symbol=symbol, payload_key="whale_accumulation_distribution", payload=payload)
 
 async def _cap082(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
@@ -382,8 +621,12 @@ _DISPATCH: dict[int, Callable[..., Awaitable[dict[str, Any]]]] = {
     52: _cap052,
     53: _cap053,
     54: _cap054,
+    55: _cap055,
+    56: _cap056,
     57: _cap057,
     58: _cap058,
+    59: _cap059,
+    60: _cap060,
     61: _cap061,
     62: _cap062,
     63: _cap063,
@@ -434,9 +677,6 @@ async def execute(capability_id: int, *, params: dict[str, Any] | None = None) -
         dedicated_ids=BATCH02_DEDICATED_IDS,
         overlap_batch01_ids=BATCH02_OVERLAP_BATCH01_IDS,
         dispatch=_DISPATCH,
-        overlap_error=(
-            f"capability {capability_id} is batch01 overlap — reserved; "
-            "use cap646.batch01_production / runtime batch01 spine"
-        ),
+        overlap_error=f"capability {capability_id} is batch01 overlap — reserved",
         not_dedicated_error=f"capability {capability_id} is not in official batch02 dedicated spine",
     )

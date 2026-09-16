@@ -1,0 +1,11 @@
+{
+  "scheduled": true,
+  "announce_at": "2099-01-01T12:00:00+00:00",
+  "channel": "x",
+  "note": "test",
+  "status": "scheduled",
+  "updated_at": "2026-09-11T00:51:26.326504+00:00",
+  "drafts_api": "/api/glass-box/announce-drafts",
+  "operator_api": "/api/glass-box/operator",
+  "due": false
+}

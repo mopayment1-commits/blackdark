@@ -1,0 +1,57 @@
+{
+  "org_9156e0c6a2e8": {
+    "org_id": "org_9156e0c6a2e8",
+    "name": "DD Fund",
+    "slug": "dd-fund",
+    "owner_email": "owner@dd.example",
+    "require_mfa": true,
+    "sso_enabled": false,
+    "created_at": "2026-09-11T00:50:07.478339+00:00",
+    "isolation": "org_id_scoped_v1",
+    "status": "active"
+  },
+  "org_a4bc88fe5d7c": {
+    "org_id": "org_a4bc88fe5d7c",
+    "name": "MFA Org",
+    "slug": "mfa-org",
+    "owner_email": "mfa.owner@dd.example",
+    "require_mfa": true,
+    "sso_enabled": false,
+    "created_at": "2026-09-11T00:50:07.481532+00:00",
+    "isolation": "org_id_scoped_v1",
+    "status": "active"
+  },
+  "org_dc8fb6c954a5": {
+    "org_id": "org_dc8fb6c954a5",
+    "name": "SSO Org",
+    "slug": "sso-org",
+    "owner_email": "sso.owner@dd.example",
+    "require_mfa": true,
+    "sso_enabled": false,
+    "created_at": "2026-09-11T00:50:07.483912+00:00",
+    "isolation": "org_id_scoped_v1",
+    "status": "active"
+  },
+  "org_22d664b2f3f8": {
+    "org_id": "org_22d664b2f3f8",
+    "name": "Auth0 Org",
+    "slug": "auth0-org",
+    "owner_email": "owner@auth0.example",
+    "require_mfa": true,
+    "sso_enabled": false,
+    "created_at": "2026-09-11T00:50:09.244729+00:00",
+    "isolation": "org_id_scoped_v1",
+    "status": "active"
+  },
+  "org_e210e83cb4e1": {
+    "org_id": "org_e210e83cb4e1",
+    "name": "Auth0 Org",
+    "slug": "auth0-org",
+    "owner_email": "owner@auth0.example",
+    "require_mfa": true,
+    "sso_enabled": false,
+    "created_at": "2026-09-11T00:50:09.368023+00:00",
+    "isolation": "org_id_scoped_v1",
+    "status": "active"
+  }
+}

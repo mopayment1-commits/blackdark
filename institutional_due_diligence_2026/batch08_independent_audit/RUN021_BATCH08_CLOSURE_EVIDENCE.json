@@ -1,0 +1,308 @@
+{
+  "generated_at": "2026-09-11T21:06:57.628457+00:00",
+  "batch": 8,
+  "status_counts": {
+    "NOT_COMPLETE": 50
+  },
+  "bcbs": {
+    "not_complete_count": 50,
+    "remediated": 50,
+    "per_id": {
+      "351": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "352": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "353": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "354": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "355": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "356": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "357": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "358": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "359": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "360": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "361": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "362": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "363": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "364": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "365": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "366": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "367": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "368": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "369": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "370": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "371": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "372": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "373": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "374": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "375": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "376": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "377": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "378": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "379": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "380": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "381": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "382": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "383": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "384": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "385": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "386": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "387": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "388": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "389": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "390": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "391": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "392": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "393": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "394": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "395": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "396": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "397": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "398": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "399": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "400": {
+        "after_bcbs_ok": true,
+        "missing": []
+      }
+    }
+  },
+  "random_sample": {
+    "seed": 16008,
+    "sample_ids": [
+      354,
+      359,
+      363,
+      364,
+      373,
+      378,
+      379,
+      380,
+      386,
+      388
+    ],
+    "sample_pass": true,
+    "conceptually_unsound": 0,
+    "split_brain_unverified": 0,
+    "results": [
+      {
+        "id": 354,
+        "name": "TVL Intelligence",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 359,
+        "name": "Growth Metrics",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 363,
+        "name": "Tokenized Asset Coverage",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 364,
+        "name": "Fundamental Screener",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 373,
+        "name": "Cross-Chain Data Warehouse",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 378,
+        "name": "Query Forking",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 379,
+        "name": "Data API",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 380,
+        "name": "Real-Time Feed",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 386,
+        "name": "Dashboard-from-Prompt",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 388,
+        "name": "Alerts from Query Results",
+        "status": "NOT_COMPLETE"
+      }
+    ]
+  },
+  "non_regression": {
+    "met": true,
+    "skipped": true
+  },
+  "evidence_pack": {
+    "batch": "batch08",
+    "functions_required": 12,
+    "functions_covered": 12,
+    "coverage_met": true,
+    "per_function": {
+      "scope_inventory": true,
+      "requirements_traceability": true,
+      "semantic_correctness": true,
+      "canonical_duplicate_reconciliation": true,
+      "consumer_path_evidence": true,
+      "security_entitlement": true,
+      "data_provenance": true,
+      "reliability_performance": true,
+      "regression": true,
+      "quality_security_gate": true,
+      "build_provenance": true,
+      "engineering_live_assurance_status": true
+    }
+  },
+  "pass_live_count": 0
+}

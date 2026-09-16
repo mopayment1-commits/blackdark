@@ -1,0 +1,582 @@
+{
+  "generated_at": "2026-09-12T13:05:11.946061+00:00",
+  "group": "GIPS",
+  "processed": 61,
+  "upgraded_complete_v6": [],
+  "remaining_engineering_ready": [
+    {
+      "id": 17,
+      "missing_gates": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 24,
+      "missing_gates": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 25,
+      "missing_gates": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 26,
+      "missing_gates": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 27,
+      "missing_gates": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 28,
+      "missing_gates": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 29,
+      "missing_gates": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 30,
+      "missing_gates": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 31,
+      "missing_gates": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 32,
+      "missing_gates": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 33,
+      "missing_gates": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 34,
+      "missing_gates": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 35,
+      "missing_gates": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 41,
+      "missing_gates": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 53,
+      "missing_gates": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 66,
+      "missing_gates": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 69,
+      "missing_gates": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 81,
+      "missing_gates": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 90,
+      "missing_gates": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 97,
+      "missing_gates": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 98,
+      "missing_gates": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 101,
+      "missing_gates": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 110,
+      "missing_gates": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 111,
+      "missing_gates": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 148,
+      "missing_gates": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 149,
+      "missing_gates": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 159,
+      "missing_gates": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 161,
+      "missing_gates": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 162,
+      "missing_gates": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 167,
+      "missing_gates": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 172,
+      "missing_gates": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 179,
+      "missing_gates": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 181,
+      "missing_gates": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 192,
+      "missing_gates": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 200,
+      "missing_gates": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 204,
+      "missing_gates": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 219,
+      "missing_gates": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 221,
+      "missing_gates": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 246,
+      "missing_gates": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 260,
+      "missing_gates": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 268,
+      "missing_gates": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 272,
+      "missing_gates": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 294,
+      "missing_gates": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 297,
+      "missing_gates": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 302,
+      "missing_gates": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 324,
+      "missing_gates": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 339,
+      "missing_gates": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 341,
+      "missing_gates": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 366,
+      "missing_gates": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 367,
+      "missing_gates": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 375,
+      "missing_gates": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 376,
+      "missing_gates": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 380,
+      "missing_gates": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 429,
+      "missing_gates": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 466,
+      "missing_gates": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 492,
+      "missing_gates": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 499,
+      "missing_gates": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 514,
+      "missing_gates": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 548,
+      "missing_gates": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 562,
+      "missing_gates": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    },
+    {
+      "id": 563,
+      "missing_gates": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ]
+    }
+  ],
+  "failed_gate": 0,
+  "totals": {
+    "COMPLETE_V6": 742,
+    "ENGINEERING_READY": 84,
+    "PARTIAL": 0,
+    "FAILED_GATE": 0
+  }
+}
