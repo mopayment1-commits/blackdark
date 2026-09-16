@@ -404,8 +404,6 @@ def cookie_session_kwargs(*, max_age: int | None = None) -> dict:
         secure = True
     else:
         secure = base.startswith("https") or _is_production()
-    if _is_production() and not secure:
-        secure = True
     return {
         "key": "bd_token",
         "httponly": True,

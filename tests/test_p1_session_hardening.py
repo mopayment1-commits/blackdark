@@ -96,6 +96,7 @@ def test_sealed_cookie_roundtrip(monkeypatch):
     _force_production_markers(monkeypatch)
     # Production vault requires explicit key material (fail-closed).
     monkeypatch.setenv("SECRETS_MASTER_KEY", "p1-session-hardening-test-master-key")
+    monkeypatch.setenv("KMS_PROVIDER", "managed_env")
     from secrets_vault import encrypt_secret
 
     plain = "sessionBearerTokenValueABCDEFG123"
