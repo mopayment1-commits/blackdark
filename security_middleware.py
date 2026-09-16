@@ -450,6 +450,15 @@ def cookie_to_session_bearer(raw: str | None) -> str:
             return "".join(ch for ch in plain if ch.isalnum() or ch in "-_")
         except Exception:
             return ""
+    try:
+        from secrets_crypto.envelope import is_envelope_blob
+        from secrets_vault import decrypt_secret
+
+        if is_envelope_blob(value):
+            plain = decrypt_secret(value)
+            return "".join(ch for ch in plain if ch.isalnum() or ch in "-_")
+    except Exception:
+        return ""
     # Production rejects unsealed cookies unless explicitly opted in for migration.
     legacy_flag = os.getenv("ALLOW_LEGACY_SESSION_COOKIE", "").strip().lower()
     allow_legacy = legacy_flag in {"1", "true", "yes"} or (

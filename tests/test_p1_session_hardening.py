@@ -99,9 +99,11 @@ def test_sealed_cookie_roundtrip(monkeypatch):
     monkeypatch.setenv("KMS_PROVIDER", "managed_env")
     from secrets_vault import encrypt_secret
 
+    from secrets_crypto.envelope import is_envelope_blob
+
     plain = "sessionBearerTokenValueABCDEFG123"
     sealed = encrypt_secret(plain)
-    assert sealed.startswith("gAAAA")
+    assert sealed.startswith("gAAAA") or is_envelope_blob(sealed)
     assert sm.cookie_to_session_bearer(sealed) == plain
 
 

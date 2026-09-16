@@ -108,7 +108,14 @@ def unwrap_dek(wrapped_dek_b64: str, *, key_id: str, key_version: int, provider:
     if provider == "local_dev":
         return _unwrap_local(wrapped)
     if provider in {"managed_env", "hashicorp", "vault_transit"}:
-        return _unwrap_local(wrapped)
+        if len(wrapped) <= 32:
+            raise ValueError("invalid_wrapped_dek")
+        tag, dek = wrapped[:32], wrapped[32:]
+        kek = _managed_env_kek()
+        expected = hmac.new(kek, dek, hashlib.sha256).digest()
+        if not hmac.compare_digest(tag, expected):
+            raise ValueError("wrapped_dek_verification_failed")
+        return dek
     raise RuntimeError(f"unsupported_kms_provider:{provider}")
 
 
