@@ -23,6 +23,17 @@ async def execute_extension(capability_id: int, *, user: dict[str, Any] | None =
     if not row:
         return ai_compliance_footer({"success": False, "error": "unknown_capability_id", "capability_id": capability_id})
 
+    from launch57.smart_money_batch3 import LAUNCH57_SMART_MONEY_BATCH3_CAP_IDS, execute_launch57_smart_money_batch3
+
+    if capability_id in LAUNCH57_SMART_MONEY_BATCH3_CAP_IDS and capability_id > 826:
+        result = await execute_launch57_smart_money_batch3(capability_id, params=params)
+        result["handler_module"] = "launch57.smart_money_batch3"
+        result.setdefault("capability", row["capability"])
+        result.setdefault("track", row.get("track"))
+        from cap646.domain_enrichment import enrich_capability_result
+
+        return await enrich_capability_result(capability_id, ai_compliance_footer(result), params=params)
+
     if is_external(capability_id):
         return ai_compliance_footer(
             {

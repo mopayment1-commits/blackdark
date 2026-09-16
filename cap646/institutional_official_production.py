@@ -185,7 +185,31 @@ async def execute(capability_id: int, *, params: dict[str, Any] | None = None) -
     from launch57.data_batch2 import LAUNCH57_BATCH2_CAP_IDS, execute_launch57_batch2
     from launch57.decision_batch1 import LAUNCH57_DECISION_BATCH1_CAP_IDS, execute_launch57_decision_batch1
     from launch57.decision_batch2 import LAUNCH57_DECISION_BATCH2_CAP_IDS, execute_launch57_decision_batch2
+    from launch57.smart_money_batch1 import LAUNCH57_SMART_MONEY_BATCH1_CAP_IDS, execute_launch57_smart_money_batch1
+    from launch57.smart_money_batch2 import LAUNCH57_SMART_MONEY_BATCH2_CAP_IDS, execute_launch57_smart_money_batch2
+    from launch57.smart_money_batch3 import LAUNCH57_SMART_MONEY_BATCH3_CAP_IDS, execute_launch57_smart_money_batch3
     from launch57.trust_batch1 import LAUNCH57_TRUST_BATCH1_CAP_IDS, execute_launch57_trust_batch1
+
+    if capability_id in LAUNCH57_SMART_MONEY_BATCH3_CAP_IDS:
+        return _stamp(
+            await execute_launch57_smart_money_batch3(capability_id, params=params),
+            capability_id,
+            handler_module="launch57.smart_money_batch3",
+        )
+
+    if capability_id in LAUNCH57_SMART_MONEY_BATCH2_CAP_IDS:
+        return _stamp(
+            await execute_launch57_smart_money_batch2(capability_id, params=params),
+            capability_id,
+            handler_module="launch57.smart_money_batch2",
+        )
+
+    if capability_id in LAUNCH57_SMART_MONEY_BATCH1_CAP_IDS:
+        return _stamp(
+            await execute_launch57_smart_money_batch1(capability_id, params=params),
+            capability_id,
+            handler_module="launch57.smart_money_batch1",
+        )
 
     if capability_id in LAUNCH57_DECISION_BATCH2_CAP_IDS:
         return _stamp(
