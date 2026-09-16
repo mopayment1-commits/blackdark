@@ -313268,7 +313268,17 @@
         "source": "ناقص / جزئي",
         "launch_reason": "Differentiator؛ منع فوضى 932",
         "scope_class": "LAUNCH57",
-        "referenced_capability_ids": []
+        "referenced_capability_ids": [],
+        "phase0_truth": {
+          "match_status": "UNRESOLVED_CANONICAL_MAPPING",
+          "matched_capability_ids": [],
+          "matched_canonical_capability_id": null,
+          "current_engineering_status": "NO_LINKED_CANONICAL",
+          "root_cause_if_not_pass_engineering": "CONSUMER_PATH_MISSING",
+          "pass_engineering_reconciliation": null,
+          "hero_mapping_status": "PRODUCT_COMPOSITE_ALL_SIX_HEROES",
+          "stub_generic_mock_findings_count": 0
+        }
       },
       {
         "launch_number": 2,
@@ -313276,7 +313286,17 @@
         "source": "ملف + تجربة افتراضية",
         "launch_reason": "Aha + مشاركة",
         "scope_class": "LAUNCH57",
-        "referenced_capability_ids": []
+        "referenced_capability_ids": [],
+        "phase0_truth": {
+          "match_status": "UNRESOLVED_CANONICAL_MAPPING",
+          "matched_capability_ids": [],
+          "matched_canonical_capability_id": null,
+          "current_engineering_status": "NO_LINKED_CANONICAL",
+          "root_cause_if_not_pass_engineering": "CONSUMER_PATH_MISSING",
+          "pass_engineering_reconciliation": null,
+          "hero_mapping_status": "HERO_1_SINGLE_SENTENCE_ORACLE",
+          "stub_generic_mock_findings_count": 0
+        }
       },
       {
         "launch_number": 3,
@@ -313284,7 +313304,19 @@
         "source": "يجب إكماله",
         "launch_reason": "ثقة + فيروسية + B2B لاحقًا",
         "scope_class": "LAUNCH57",
-        "referenced_capability_ids": []
+        "referenced_capability_ids": [],
+        "phase0_truth": {
+          "match_status": "IMPLICIT_REPO_MATCH_OUTSIDE_LAUNCH57_SCOPE",
+          "matched_capability_ids": [
+            "CAP-0641"
+          ],
+          "matched_canonical_capability_id": "CAP-0641",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 1
+        }
       },
       {
         "launch_number": 4,
@@ -313294,7 +313326,19 @@
         "scope_class": "LAUNCH57",
         "referenced_capability_ids": [
           "CAP-0640"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0640"
+          ],
+          "matched_canonical_capability_id": "CAP-0640",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 1
+        }
       },
       {
         "launch_number": 5,
@@ -313302,7 +313346,20 @@
         "source": "ناقص جوهري",
         "launch_reason": "تمايز vs بائعي الإشارات",
         "scope_class": "LAUNCH57",
-        "referenced_capability_ids": []
+        "referenced_capability_ids": [],
+        "phase0_truth": {
+          "match_status": "IMPLICIT_REPO_MATCH_OUTSIDE_LAUNCH57_SCOPE",
+          "matched_capability_ids": [
+            "CAP-0639",
+            "CAP-0635"
+          ],
+          "matched_canonical_capability_id": null,
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 3
+        }
       },
       {
         "launch_number": 6,
@@ -313310,7 +313367,17 @@
         "source": "ناقص في UI",
         "launch_reason": "صدق وتشغيل آمن للسمعة",
         "scope_class": "LAUNCH57",
-        "referenced_capability_ids": []
+        "referenced_capability_ids": [],
+        "phase0_truth": {
+          "match_status": "UNRESOLVED_CANONICAL_MAPPING",
+          "matched_capability_ids": [],
+          "matched_canonical_capability_id": null,
+          "current_engineering_status": "NO_LINKED_CANONICAL",
+          "root_cause_if_not_pass_engineering": "CONSUMER_PATH_MISSING",
+          "pass_engineering_reconciliation": null,
+          "hero_mapping_status": "NOT_APPLICABLE",
+          "stub_generic_mock_findings_count": 0
+        }
       },
       {
         "launch_number": 7,
@@ -313320,7 +313387,19 @@
         "scope_class": "LAUNCH57",
         "referenced_capability_ids": [
           "CAP-0035"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0035"
+          ],
+          "matched_canonical_capability_id": "CAP-0035",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 1
+        }
       },
       {
         "launch_number": 8,
@@ -313330,7 +313409,19 @@
         "scope_class": "LAUNCH57",
         "referenced_capability_ids": [
           "CAP-0034"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0034"
+          ],
+          "matched_canonical_capability_id": "CAP-0034",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 1
+        }
       },
       {
         "launch_number": 9,
@@ -313340,7 +313431,19 @@
         "scope_class": "LAUNCH57",
         "referenced_capability_ids": [
           "CAP-0031"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0031"
+          ],
+          "matched_canonical_capability_id": "CAP-0031",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 1
+        }
       },
       {
         "launch_number": 10,
@@ -313350,7 +313453,19 @@
         "scope_class": "LAUNCH57",
         "referenced_capability_ids": [
           "CAP-0032"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0032"
+          ],
+          "matched_canonical_capability_id": "CAP-0032",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 1
+        }
       },
       {
         "launch_number": 11,
@@ -313360,7 +313475,19 @@
         "scope_class": "LAUNCH57",
         "referenced_capability_ids": [
           "CAP-0033"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0033"
+          ],
+          "matched_canonical_capability_id": "CAP-0033",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 1
+        }
       },
       {
         "launch_number": 12,
@@ -313370,7 +313497,19 @@
         "scope_class": "LAUNCH57",
         "referenced_capability_ids": [
           "CAP-0028"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0028"
+          ],
+          "matched_canonical_capability_id": "CAP-0028",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 1
+        }
       },
       {
         "launch_number": 13,
@@ -313380,7 +313519,19 @@
         "scope_class": "LAUNCH57",
         "referenced_capability_ids": [
           "CAP-0005"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0005"
+          ],
+          "matched_canonical_capability_id": "CAP-0005",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 1
+        }
       },
       {
         "launch_number": 14,
@@ -313390,7 +313541,19 @@
         "scope_class": "LAUNCH57",
         "referenced_capability_ids": [
           "CAP-0006"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0006"
+          ],
+          "matched_canonical_capability_id": "CAP-0006",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 1
+        }
       },
       {
         "launch_number": 15,
@@ -313400,7 +313563,19 @@
         "scope_class": "LAUNCH57",
         "referenced_capability_ids": [
           "CAP-0014"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0014"
+          ],
+          "matched_canonical_capability_id": "CAP-0014",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 1
+        }
       },
       {
         "launch_number": 16,
@@ -313411,7 +313586,20 @@
         "referenced_capability_ids": [
           "CAP-0015",
           "CAP-0071"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0015",
+            "CAP-0071"
+          ],
+          "matched_canonical_capability_id": "CAP-0015",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 2
+        }
       },
       {
         "launch_number": 17,
@@ -313422,7 +313610,20 @@
         "referenced_capability_ids": [
           "CAP-0072",
           "CAP-0075"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0072",
+            "CAP-0075"
+          ],
+          "matched_canonical_capability_id": "CAP-0072",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 2
+        }
       },
       {
         "launch_number": 18,
@@ -313433,7 +313634,20 @@
         "referenced_capability_ids": [
           "CAP-0081",
           "CAP-0098"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0081",
+            "CAP-0098"
+          ],
+          "matched_canonical_capability_id": "CAP-0081",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 2
+        }
       },
       {
         "launch_number": 19,
@@ -313443,7 +313657,19 @@
         "scope_class": "LAUNCH57",
         "referenced_capability_ids": [
           "CAP-0091"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0091"
+          ],
+          "matched_canonical_capability_id": "CAP-0091",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 1
+        }
       },
       {
         "launch_number": 20,
@@ -313453,7 +313679,19 @@
         "scope_class": "LAUNCH57",
         "referenced_capability_ids": [
           "CAP-0092"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0092"
+          ],
+          "matched_canonical_capability_id": "CAP-0092",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 1
+        }
       },
       {
         "launch_number": 21,
@@ -313463,7 +313701,19 @@
         "scope_class": "LAUNCH57",
         "referenced_capability_ids": [
           "CAP-0047"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0047"
+          ],
+          "matched_canonical_capability_id": "CAP-0047",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 1
+        }
       },
       {
         "launch_number": 22,
@@ -313473,7 +313723,19 @@
         "scope_class": "LAUNCH57",
         "referenced_capability_ids": [
           "CAP-0561"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0561"
+          ],
+          "matched_canonical_capability_id": "CAP-0561",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 1
+        }
       },
       {
         "launch_number": 23,
@@ -313483,7 +313745,19 @@
         "scope_class": "LAUNCH57",
         "referenced_capability_ids": [
           "CAP-0507"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0507"
+          ],
+          "matched_canonical_capability_id": "CAP-0507",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 1
+        }
       },
       {
         "launch_number": 24,
@@ -313494,7 +313768,20 @@
         "referenced_capability_ids": [
           "CAP-0506",
           "CAP-0513"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0506",
+            "CAP-0513"
+          ],
+          "matched_canonical_capability_id": "CAP-0506",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 2
+        }
       },
       {
         "launch_number": 25,
@@ -313505,7 +313792,20 @@
         "referenced_capability_ids": [
           "CAP-0085",
           "CAP-0048"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0085",
+            "CAP-0048"
+          ],
+          "matched_canonical_capability_id": "CAP-0085",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 2
+        }
       },
       {
         "launch_number": 26,
@@ -313515,7 +313815,19 @@
         "scope_class": "LAUNCH57",
         "referenced_capability_ids": [
           "CAP-0086"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0086"
+          ],
+          "matched_canonical_capability_id": "CAP-0086",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 1
+        }
       },
       {
         "launch_number": 27,
@@ -313525,7 +313837,19 @@
         "scope_class": "LAUNCH57",
         "referenced_capability_ids": [
           "CAP-0088"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0088"
+          ],
+          "matched_canonical_capability_id": "CAP-0088",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 1
+        }
       },
       {
         "launch_number": 28,
@@ -313536,7 +313860,20 @@
         "referenced_capability_ids": [
           "CAP-0089",
           "CAP-0087"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0089",
+            "CAP-0087"
+          ],
+          "matched_canonical_capability_id": "CAP-0089",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 2
+        }
       },
       {
         "launch_number": 29,
@@ -313546,7 +313883,19 @@
         "scope_class": "LAUNCH57",
         "referenced_capability_ids": [
           "CAP-0090"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0090"
+          ],
+          "matched_canonical_capability_id": "CAP-0090",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 1
+        }
       },
       {
         "launch_number": 30,
@@ -313557,7 +313906,20 @@
         "referenced_capability_ids": [
           "CAP-0050",
           "CAP-0508"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0050",
+            "CAP-0508"
+          ],
+          "matched_canonical_capability_id": "CAP-0050",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 2
+        }
       },
       {
         "launch_number": 31,
@@ -313567,7 +313929,19 @@
         "scope_class": "LAUNCH57",
         "referenced_capability_ids": [
           "CAP-0056"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0056"
+          ],
+          "matched_canonical_capability_id": "CAP-0056",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 1
+        }
       },
       {
         "launch_number": 32,
@@ -313577,7 +313951,19 @@
         "scope_class": "LAUNCH57",
         "referenced_capability_ids": [
           "CAP-0019"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0019"
+          ],
+          "matched_canonical_capability_id": "CAP-0019",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 1
+        }
       },
       {
         "launch_number": 33,
@@ -313587,7 +313973,19 @@
         "scope_class": "LAUNCH57",
         "referenced_capability_ids": [
           "CAP-0017"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0017"
+          ],
+          "matched_canonical_capability_id": "CAP-0017",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 1
+        }
       },
       {
         "launch_number": 34,
@@ -313597,7 +313995,19 @@
         "scope_class": "LAUNCH57",
         "referenced_capability_ids": [
           "CAP-0025"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0025"
+          ],
+          "matched_canonical_capability_id": "CAP-0025",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 1
+        }
       },
       {
         "launch_number": 35,
@@ -313607,7 +314017,19 @@
         "scope_class": "LAUNCH57",
         "referenced_capability_ids": [
           "CAP-0026"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0026"
+          ],
+          "matched_canonical_capability_id": "CAP-0026",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 1
+        }
       },
       {
         "launch_number": 36,
@@ -313617,7 +314039,19 @@
         "scope_class": "LAUNCH57",
         "referenced_capability_ids": [
           "CAP-0024"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0024"
+          ],
+          "matched_canonical_capability_id": "CAP-0024",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 1
+        }
       },
       {
         "launch_number": 37,
@@ -313627,7 +314061,19 @@
         "scope_class": "LAUNCH57",
         "referenced_capability_ids": [
           "CAP-0029"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0029"
+          ],
+          "matched_canonical_capability_id": "CAP-0029",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 1
+        }
       },
       {
         "launch_number": 38,
@@ -313637,7 +314083,19 @@
         "scope_class": "LAUNCH57",
         "referenced_capability_ids": [
           "CAP-0040"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0040"
+          ],
+          "matched_canonical_capability_id": "CAP-0040",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 1
+        }
       },
       {
         "launch_number": 39,
@@ -313647,7 +314105,19 @@
         "scope_class": "LAUNCH57",
         "referenced_capability_ids": [
           "CAP-0061"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0061"
+          ],
+          "matched_canonical_capability_id": "CAP-0061",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 1
+        }
       },
       {
         "launch_number": 40,
@@ -313658,7 +314128,20 @@
         "referenced_capability_ids": [
           "CAP-0063",
           "CAP-0500"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0063",
+            "CAP-0500"
+          ],
+          "matched_canonical_capability_id": "CAP-0063",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 2
+        }
       },
       {
         "launch_number": 41,
@@ -313668,7 +314151,19 @@
         "scope_class": "LAUNCH57",
         "referenced_capability_ids": [
           "CAP-0630"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0630"
+          ],
+          "matched_canonical_capability_id": "CAP-0630",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 1
+        }
       },
       {
         "launch_number": 42,
@@ -313678,7 +314173,19 @@
         "scope_class": "LAUNCH57",
         "referenced_capability_ids": [
           "CAP-0504"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0504"
+          ],
+          "matched_canonical_capability_id": "CAP-0504",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 1
+        }
       },
       {
         "launch_number": 43,
@@ -313689,7 +314196,20 @@
         "referenced_capability_ids": [
           "CAP-0230",
           "CAP-0635"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0230",
+            "CAP-0635"
+          ],
+          "matched_canonical_capability_id": "CAP-0230",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 2
+        }
       },
       {
         "launch_number": 44,
@@ -313697,7 +314217,17 @@
         "source": "ناقص",
         "launch_reason": "فيروسية",
         "scope_class": "LAUNCH57",
-        "referenced_capability_ids": []
+        "referenced_capability_ids": [],
+        "phase0_truth": {
+          "match_status": "UNRESOLVED_CANONICAL_MAPPING",
+          "matched_capability_ids": [],
+          "matched_canonical_capability_id": null,
+          "current_engineering_status": "NO_LINKED_CANONICAL",
+          "root_cause_if_not_pass_engineering": "CONSUMER_PATH_MISSING",
+          "pass_engineering_reconciliation": null,
+          "hero_mapping_status": "NOT_APPLICABLE",
+          "stub_generic_mock_findings_count": 0
+        }
       },
       {
         "launch_number": 45,
@@ -313707,7 +314237,19 @@
         "scope_class": "LAUNCH57",
         "referenced_capability_ids": [
           "CAP-0640"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0640"
+          ],
+          "matched_canonical_capability_id": "CAP-0640",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 1
+        }
       },
       {
         "launch_number": 46,
@@ -313715,7 +314257,17 @@
         "source": "ناقص",
         "launch_reason": "انتشار بلا حساب",
         "scope_class": "LAUNCH57",
-        "referenced_capability_ids": []
+        "referenced_capability_ids": [],
+        "phase0_truth": {
+          "match_status": "UNRESOLVED_CANONICAL_MAPPING",
+          "matched_capability_ids": [],
+          "matched_canonical_capability_id": null,
+          "current_engineering_status": "NO_LINKED_CANONICAL",
+          "root_cause_if_not_pass_engineering": "CONSUMER_PATH_MISSING",
+          "pass_engineering_reconciliation": null,
+          "hero_mapping_status": "NOT_APPLICABLE",
+          "stub_generic_mock_findings_count": 0
+        }
       },
       {
         "launch_number": 47,
@@ -313723,7 +314275,17 @@
         "source": "ناقص",
         "launch_reason": "امتثال + ثقة",
         "scope_class": "LAUNCH57",
-        "referenced_capability_ids": []
+        "referenced_capability_ids": [],
+        "phase0_truth": {
+          "match_status": "UNRESOLVED_CANONICAL_MAPPING",
+          "matched_capability_ids": [],
+          "matched_canonical_capability_id": null,
+          "current_engineering_status": "NO_LINKED_CANONICAL",
+          "root_cause_if_not_pass_engineering": "CONSUMER_PATH_MISSING",
+          "pass_engineering_reconciliation": null,
+          "hero_mapping_status": "NOT_APPLICABLE",
+          "stub_generic_mock_findings_count": 0
+        }
       },
       {
         "launch_number": 48,
@@ -313731,7 +314293,17 @@
         "source": "ناقص/جزئي",
         "launch_reason": "صدق نادر",
         "scope_class": "LAUNCH57",
-        "referenced_capability_ids": []
+        "referenced_capability_ids": [],
+        "phase0_truth": {
+          "match_status": "UNRESOLVED_CANONICAL_MAPPING",
+          "matched_capability_ids": [],
+          "matched_canonical_capability_id": null,
+          "current_engineering_status": "NO_LINKED_CANONICAL",
+          "root_cause_if_not_pass_engineering": "CONSUMER_PATH_MISSING",
+          "pass_engineering_reconciliation": null,
+          "hero_mapping_status": "NOT_APPLICABLE",
+          "stub_generic_mock_findings_count": 0
+        }
       },
       {
         "launch_number": 49,
@@ -313739,7 +314311,17 @@
         "source": "ناقص",
         "launch_reason": "احتفاظ",
         "scope_class": "LAUNCH57",
-        "referenced_capability_ids": []
+        "referenced_capability_ids": [],
+        "phase0_truth": {
+          "match_status": "UNRESOLVED_CANONICAL_MAPPING",
+          "matched_capability_ids": [],
+          "matched_canonical_capability_id": null,
+          "current_engineering_status": "NO_LINKED_CANONICAL",
+          "root_cause_if_not_pass_engineering": "CONSUMER_PATH_MISSING",
+          "pass_engineering_reconciliation": null,
+          "hero_mapping_status": "NOT_APPLICABLE",
+          "stub_generic_mock_findings_count": 0
+        }
       },
       {
         "launch_number": 50,
@@ -313747,7 +314329,17 @@
         "source": "يُبسَّط",
         "launch_reason": "تمايز سلوكي",
         "scope_class": "LAUNCH57",
-        "referenced_capability_ids": []
+        "referenced_capability_ids": [],
+        "phase0_truth": {
+          "match_status": "UNRESOLVED_CANONICAL_MAPPING",
+          "matched_capability_ids": [],
+          "matched_canonical_capability_id": null,
+          "current_engineering_status": "NO_LINKED_CANONICAL",
+          "root_cause_if_not_pass_engineering": "CONSUMER_PATH_MISSING",
+          "pass_engineering_reconciliation": null,
+          "hero_mapping_status": "NOT_APPLICABLE",
+          "stub_generic_mock_findings_count": 0
+        }
       },
       {
         "launch_number": 51,
@@ -313758,7 +314350,20 @@
         "referenced_capability_ids": [
           "CAP-0065",
           "CAP-0100"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0065",
+            "CAP-0100"
+          ],
+          "matched_canonical_capability_id": "CAP-0065",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 2
+        }
       },
       {
         "launch_number": 52,
@@ -313766,7 +314371,17 @@
         "source": "ناقص UX",
         "launch_reason": "شفافية دون فوضى",
         "scope_class": "LAUNCH57",
-        "referenced_capability_ids": []
+        "referenced_capability_ids": [],
+        "phase0_truth": {
+          "match_status": "UNRESOLVED_CANONICAL_MAPPING",
+          "matched_capability_ids": [],
+          "matched_canonical_capability_id": null,
+          "current_engineering_status": "NO_LINKED_CANONICAL",
+          "root_cause_if_not_pass_engineering": "CONSUMER_PATH_MISSING",
+          "pass_engineering_reconciliation": null,
+          "hero_mapping_status": "NOT_APPLICABLE",
+          "stub_generic_mock_findings_count": 0
+        }
       },
       {
         "launch_number": 53,
@@ -313776,7 +314391,19 @@
         "scope_class": "LAUNCH57",
         "referenced_capability_ids": [
           "CAP-0022"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0022"
+          ],
+          "matched_canonical_capability_id": "CAP-0022",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 1
+        }
       },
       {
         "launch_number": 54,
@@ -313786,7 +314413,19 @@
         "scope_class": "LAUNCH57",
         "referenced_capability_ids": [
           "CAP-0023"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0023"
+          ],
+          "matched_canonical_capability_id": "CAP-0023",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 1
+        }
       },
       {
         "launch_number": 55,
@@ -313796,7 +314435,19 @@
         "scope_class": "LAUNCH57",
         "referenced_capability_ids": [
           "CAP-0238"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0238"
+          ],
+          "matched_canonical_capability_id": "CAP-0238",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 1
+        }
       },
       {
         "launch_number": 56,
@@ -313806,7 +314457,19 @@
         "scope_class": "LAUNCH57",
         "referenced_capability_ids": [
           "CAP-0297"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0297"
+          ],
+          "matched_canonical_capability_id": "CAP-0297",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 1
+        }
       },
       {
         "launch_number": 57,
@@ -313816,8 +314479,122 @@
         "scope_class": "LAUNCH57",
         "referenced_capability_ids": [
           "CAP-0916"
-        ]
+        ],
+        "phase0_truth": {
+          "match_status": "CANONICAL_MATCH_CONFIRMED",
+          "matched_capability_ids": [
+            "CAP-0916"
+          ],
+          "matched_canonical_capability_id": "CAP-0916",
+          "current_engineering_status": "PASS_ENGINEERING",
+          "root_cause_if_not_pass_engineering": null,
+          "pass_engineering_reconciliation": "EXISTING_PASS_EVIDENCE_FOUND",
+          "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+          "stub_generic_mock_findings_count": 0
+        }
       }
     ]
+  },
+  "phase0_truth": {
+    "phase": "0_TRUTH",
+    "completed_at": "2026-09-16T14:26:32.976647+00:00",
+    "source_commit": "348c34579a352eaa9e5d3f7b02dfe85cca42394d",
+    "register_artifact": "governance/launch57/LAUNCH57_REGISTER.json",
+    "report_artifact": "governance/launch57/PHASE0_TRUTH_REPORT.md",
+    "verification": {
+      "PHASE": "0_TRUTH",
+      "LAUNCH57_COUNT": 57,
+      "ALL_57_RECONCILED_OR_EXPLICITLY_UNRESOLVED": "YES",
+      "ALL_NON_PASS_LAUNCH_CAPABILITIES_HAVE_ROOT_CAUSE_OR_EXPLICIT_UNRESOLVED": "YES",
+      "STUB_GENERIC_MOCK_SCAN_COMPLETED": "YES",
+      "SIX_HERO_NAMES_RESOLVED_FROM_REPOSITORY": "YES",
+      "SCOPE_EXPANDED": "NO",
+      "BUILD_STARTED": "NO",
+      "CAPABILITY_IMPLEMENTATION_CHANGED": "NO",
+      "PASS_ENGINEERING_ISSUED": "NO",
+      "PASS_LIVE_ISSUED": "NO",
+      "PHASE_1_STARTED": "NO"
+    },
+    "summary": {
+      "TOTAL_LAUNCH57": 57,
+      "CANONICAL_MATCH_CONFIRMED": 45,
+      "CANONICAL_MATCH_UNRESOLVED": 10,
+      "IMPLICIT_MATCHES": 2,
+      "CURRENT_PASS_ENGINEERING": 47,
+      "NON_PASS_ENGINEERING": 10,
+      "ROOT_CAUSE_RESOLVED": 10,
+      "ROOT_CAUSE_UNRESOLVED": 0,
+      "STUB_OR_PHANTOM_FINDINGS": 59,
+      "PASS_REQUIRES_RECONCILIATION": 46
+    },
+    "scope_integrity": {
+      "LAUNCH57_COUNT": 57,
+      "PARKED_COUNT": 878,
+      "MISSING_LAUNCH_ITEMS": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        44,
+        46,
+        47,
+        48,
+        49,
+        50,
+        52
+      ],
+      "EXTRA_LAUNCH_ITEMS": [],
+      "SCOPE_LEAKAGE_FOUND": "NO",
+      "ACTUAL_LAUNCH57_RECORD_COUNT": 57,
+      "CANONICAL_LAUNCH57_RECORD_COUNT": 54
+    },
+    "six_heroes": {
+      "HERO_1": "Single-Sentence Oracle",
+      "HERO_2": "Public Accuracy Ledger",
+      "HERO_3": "Arbitrage Scanner",
+      "HERO_4": "Whale Signal vs Noise",
+      "HERO_5": "Stealth Advisor",
+      "HERO_6": "B2B Feed",
+      "SOURCE_FILES": [
+        "BLACKDARK_CAPABILITY_SIX_HERO_MATRIX.json",
+        "docs/HERO_SIX_BINDING_REPORT.json"
+      ]
+    },
+    "non_explicit_cap_reconciliation": {
+      "registration_metric_LAUNCH57_CANONICAL_CAPABILITY_REFERENCES": 54,
+      "launch_item_count": 57,
+      "metric_delta_57_minus_54": 3,
+      "metric_interpretation": "57 launch list items vs 54 unique canonical CAP-IDs referenced in explicit source text; does NOT equal count of items lacking CAP-ID in source (actual empty referenced_capability_ids=12)",
+      "items_without_explicit_cap_in_source_count": 12,
+      "items_without_explicit_cap_in_source_numbers": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        44,
+        46,
+        47,
+        48,
+        49,
+        50,
+        52
+      ],
+      "three_primary_product_pillars_without_cap_in_governing_list_positions": [
+        {
+          "launch_number": 1,
+          "launch_name": "Six Heroes Command Home — «ماذا أفعل الآن؟»"
+        },
+        {
+          "launch_number": 2,
+          "launch_name": "Single-Sentence Oracle (ACT/WAIT/ABSTAIN)"
+        },
+        {
+          "launch_number": 3,
+          "launch_name": "Decision Certificate + hash"
+        }
+      ]
+    }
   }
 }
