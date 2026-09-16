@@ -2,8 +2,8 @@
   "artifact": "LAUNCH57_REGISTER",
   "ssot_role": "launch57_truth_register_view",
   "authoritative_ssot": "BLACKDARK_CAPABILITY_CURRENT_STATE.json",
-  "phase": "5_DERIVATIVES_BATCH2_BUILD",
-  "generated_at": "2026-09-16T22:13:51.289633+00:00",
+  "phase": "6_EXPLANATION_AI_BATCH1_BUILD",
+  "generated_at": "2026-09-16T22:25:03.516222+00:00",
   "source_commit": "92b1d00e",
   "scope_lock": {
     "CURRENT_APPROVED_BUILD_SCOPE": "LAUNCH57",
@@ -2750,22 +2750,24 @@
         "cap646.institutional_official_production"
       ],
       "canonical_implementation": [
-        "explicit_option_a"
+        "launch57.explanation_ai_batch1"
       ],
       "runtime_entry": [
         "cap646/runtime.py"
       ],
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/explanation_ai_batch1.py",
+        "bd_platform/footprint_analytics.py",
+        "heroes_quality.py"
       ],
       "tests_found": [],
       "evidence_found": [
         "ENGINEERING_AUDIT_826_REPORT.json"
       ],
-      "current_engineering_status": "PASS_ENGINEERING",
+      "current_engineering_status": "PENDING_VERIFICATION",
       "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
       "root_cause_if_not_pass_engineering": null,
-      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "pass_engineering_reconciliation": "PENDING_INDEPENDENT_VERIFICATION",
       "stub_generic_mock_findings": [
         {
           "launch_number": 34,
@@ -2778,7 +2780,28 @@
         }
       ],
       "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
-      "notes": ""
+      "notes": "",
+      "phase6_batch1_build": {
+        "builder_status": "PENDING_VERIFICATION",
+        "runtime_path": "cap646/institutional_official_production.py → launch57/explanation_ai_batch1.py",
+        "consumer_paths": [
+          "launch57/explanation_ai_batch1.py",
+          "bd_platform/footprint_analytics.py",
+          "heroes_quality.py"
+        ],
+        "binding_source": "launch57_phase6_explanation_ai_batch1",
+        "handler_module": "launch57.explanation_ai_batch1",
+        "ai_system_type": "RULE_BASED",
+        "tests_found": [
+          "tests/launch57/test_explanation_ai_batch1.py::test_signal_explanation_blocks_stale"
+        ],
+        "evidence_found": [
+          "governance/launch57/PHASE6_BATCH1_EVIDENCE.json"
+        ],
+        "blocker": null,
+        "prior_pass_trusted_for_launch": "NO",
+        "commit_sha": "ab38c91a178ffd29f9ad185765d03639072815df"
+      }
     },
     {
       "launch_number": 35,
@@ -2807,22 +2830,24 @@
         "cap646.institutional_official_production"
       ],
       "canonical_implementation": [
-        "explicit_option_a"
+        "launch57.explanation_ai_batch1"
       ],
       "runtime_entry": [
         "cap646/runtime.py"
       ],
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/explanation_ai_batch1.py",
+        "launch57/decision_common.py",
+        "sentiment_engine.py"
       ],
       "tests_found": [],
       "evidence_found": [
         "ENGINEERING_AUDIT_826_REPORT.json"
       ],
-      "current_engineering_status": "PASS_ENGINEERING",
+      "current_engineering_status": "PENDING_VERIFICATION",
       "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
       "root_cause_if_not_pass_engineering": null,
-      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "pass_engineering_reconciliation": "PENDING_INDEPENDENT_VERIFICATION",
       "stub_generic_mock_findings": [
         {
           "launch_number": 35,
@@ -2835,7 +2860,28 @@
         }
       ],
       "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
-      "notes": ""
+      "notes": "",
+      "phase6_batch1_build": {
+        "builder_status": "PENDING_VERIFICATION",
+        "runtime_path": "cap646/institutional_official_production.py → launch57/explanation_ai_batch1.py",
+        "consumer_paths": [
+          "launch57/explanation_ai_batch1.py",
+          "launch57/decision_common.py",
+          "sentiment_engine.py"
+        ],
+        "binding_source": "launch57_phase6_explanation_ai_batch1",
+        "handler_module": "launch57.explanation_ai_batch1",
+        "ai_system_type": "RULE_BASED",
+        "tests_found": [
+          "tests/launch57/test_explanation_ai_batch1.py::test_price_move_explanation_rule_based_live"
+        ],
+        "evidence_found": [
+          "governance/launch57/PHASE6_BATCH1_EVIDENCE.json"
+        ],
+        "blocker": null,
+        "prior_pass_trusted_for_launch": "NO",
+        "commit_sha": "ab38c91a178ffd29f9ad185765d03639072815df"
+      }
     },
     {
       "launch_number": 36,
@@ -2864,22 +2910,23 @@
         "cap646.institutional_official_production"
       ],
       "canonical_implementation": [
-        "explicit_option_a"
+        "launch57.explanation_ai_batch1"
       ],
       "runtime_entry": [
         "cap646/runtime.py"
       ],
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/explanation_ai_batch1.py",
+        "research_lab.py"
       ],
       "tests_found": [],
       "evidence_found": [
         "ENGINEERING_AUDIT_826_REPORT.json"
       ],
-      "current_engineering_status": "PASS_ENGINEERING",
+      "current_engineering_status": "PENDING_VERIFICATION",
       "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
       "root_cause_if_not_pass_engineering": null,
-      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "pass_engineering_reconciliation": "PENDING_INDEPENDENT_VERIFICATION",
       "stub_generic_mock_findings": [
         {
           "launch_number": 36,
@@ -2892,7 +2939,27 @@
         }
       ],
       "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
-      "notes": ""
+      "notes": "",
+      "phase6_batch1_build": {
+        "builder_status": "PENDING_VERIFICATION",
+        "runtime_path": "cap646/institutional_official_production.py → launch57/explanation_ai_batch1.py",
+        "consumer_paths": [
+          "launch57/explanation_ai_batch1.py",
+          "research_lab.py"
+        ],
+        "binding_source": "launch57_phase6_explanation_ai_batch1",
+        "handler_module": "launch57.explanation_ai_batch1",
+        "ai_system_type": "STATISTICAL",
+        "tests_found": [
+          "tests/launch57/test_explanation_ai_batch1.py::test_ai_research_agent_platform_only_footer"
+        ],
+        "evidence_found": [
+          "governance/launch57/PHASE6_BATCH1_EVIDENCE.json"
+        ],
+        "blocker": null,
+        "prior_pass_trusted_for_launch": "NO",
+        "commit_sha": "ab38c91a178ffd29f9ad185765d03639072815df"
+      }
     },
     {
       "launch_number": 37,
@@ -3860,24 +3927,24 @@
         "cap646.institutional_official_production"
       ],
       "canonical_implementation": [
-        "explicit_option_a",
-        "explicit_option_a"
+        "launch57.explanation_ai_batch1"
       ],
       "runtime_entry": [
         "cap646/runtime.py",
         "cap646/runtime.py"
       ],
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/explanation_ai_batch1.py",
+        "oracle_track_record.py"
       ],
       "tests_found": [],
       "evidence_found": [
         "ENGINEERING_AUDIT_826_REPORT.json"
       ],
-      "current_engineering_status": "PASS_ENGINEERING",
+      "current_engineering_status": "PENDING_VERIFICATION",
       "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
       "root_cause_if_not_pass_engineering": null,
-      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "pass_engineering_reconciliation": "PENDING_INDEPENDENT_VERIFICATION",
       "stub_generic_mock_findings": [
         {
           "launch_number": 51,
@@ -3899,7 +3966,27 @@
         }
       ],
       "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
-      "notes": ""
+      "notes": "",
+      "phase6_batch1_build": {
+        "builder_status": "PENDING_VERIFICATION",
+        "runtime_path": "cap646/institutional_official_production.py → launch57/explanation_ai_batch1.py",
+        "consumer_paths": [
+          "launch57/explanation_ai_batch1.py",
+          "oracle_track_record.py"
+        ],
+        "binding_source": "launch57_phase6_explanation_ai_batch1",
+        "handler_module": "launch57.explanation_ai_batch1",
+        "ai_system_type": "STATISTICAL",
+        "tests_found": [
+          "tests/launch57/test_explanation_ai_batch1.py::test_research_portal_short_brief"
+        ],
+        "evidence_found": [
+          "governance/launch57/PHASE6_BATCH1_EVIDENCE.json"
+        ],
+        "blocker": null,
+        "prior_pass_trusted_for_launch": "NO",
+        "commit_sha": "ab38c91a178ffd29f9ad185765d03639072815df"
+      }
     },
     {
       "launch_number": 52,
@@ -6295,5 +6382,16 @@
     ],
     "MAX_BUILDER_STATUS": "PENDING_VERIFICATION",
     "PHASE5_COMPLETE": true
+  },
+  "phase6_batch1_verification": {
+    "PHASE": "6_EXPLANATION_AI",
+    "BATCH": 1,
+    "BUILD_ORDER_EXECUTED": [
+      34,
+      35,
+      36,
+      51
+    ],
+    "MAX_BUILDER_STATUS": "PENDING_VERIFICATION"
   }
 }
