@@ -1,0 +1,118 @@
+{
+  "artifact": "PHASE2_BATCH2_EVIDENCE",
+  "phase": "2_TRUST",
+  "batch": 2,
+  "source_commit": "92b1d00e",
+  "final_commit": "ade23819e2952bbaf260eec645d89c643b183b68",
+  "generated_at": "2026-09-16T20:09:04.912588+00:00",
+  "build_order": [
+    47,
+    48,
+    44,
+    45,
+    46
+  ],
+  "full_phase2_order": [
+    6,
+    5,
+    4,
+    3,
+    2,
+    47,
+    48,
+    44,
+    45,
+    46
+  ],
+  "tests": {
+    "command": "python3 -m pytest tests/launch57/test_trust_batch1.py tests/launch57/test_trust_batch2.py -q",
+    "exit_code": 0,
+    "stdout": "...............                                                          [100%]\n=============================== warnings summary ===============================\ntests/launch57/test_trust_batch2.py::test_execute_dispatch_launch_items\n  /home/ubuntu/.local/lib/python3.12/site-packages/fastapi/openapi/utils.py:303: UserWarning: Duplicate Operation ID oracle_accuracy_page_oracle_accuracy_get for function oracle_accuracy_page at /workspace/dashboard.py\n    warnings.warn(message, stacklevel=1)\n\ntests/launch57/test_trust_batch2.py::test_execute_dispatch_launch_items\n  /home/ubuntu/.local/lib/python3.12/site-packages/fastapi/openapi/utils.py:303: UserWarning: Duplicate Operation ID storage_maintenance_api_storage_maintenance_get for function storage_maintenance at /workspace/dashboard.py\n    warnings.warn(message, stacklevel=1)\n\ntests/launch57/test_trust_batch2.py::test_execute_dispatch_launch_items\n  /home/ubuntu/.local/lib/python3.12/site-packages/fastapi/openapi/utils.py:303: UserWarning: Duplicate Operation ID storage_legacy_purge_api_storage_legacy_purge_get for function storage_legacy_purge at /workspace/dashboard.py\n    warnings.warn(message, stacklevel=1)\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html",
+    "stderr": "",
+    "passed": true
+  },
+  "items": {
+    "47": {
+      "name": "One-click risk disclosure",
+      "build_decision": "EXTEND",
+      "entrypoint": "one_click_risk_disclosure",
+      "runtime_path": "launch57/trust_batch2.py:one_click_risk_disclosure",
+      "consumer_paths": [
+        "launch57/trust_batch2.py",
+        "decision_truth/product/reject_proof.py",
+        "decision_certificate.py"
+      ],
+      "semantic_oracle": "compliance_footer + reject_proof from canonical govern pipeline only",
+      "tests": [
+        "tests/launch57/test_trust_batch2.py::test_one_click_risk_disclosure"
+      ],
+      "builder_status": "PENDING_VERIFICATION",
+      "commit_sha": "ade23819e2952bbaf260eec645d89c643b183b68"
+    },
+    "48": {
+      "name": "Abstain/reject reasons visible",
+      "build_decision": "EXTEND",
+      "entrypoint": "abstain_reject_reasons_visible",
+      "runtime_path": "launch57/trust_batch2.py:abstain_reject_reasons_visible",
+      "consumer_paths": [
+        "launch57/trust_batch2.py",
+        "decision_truth/product/no_decision.py",
+        "decision_truth/product/rejection_engine.py"
+      ],
+      "semantic_oracle": "first_class_state; hidden_as_error=False",
+      "tests": [
+        "tests/launch57/test_trust_batch2.py::test_abstain_reject_reasons_first_class"
+      ],
+      "builder_status": "PENDING_VERIFICATION",
+      "commit_sha": "ade23819e2952bbaf260eec645d89c643b183b68"
+    },
+    "44": {
+      "name": "Shareable decision card (OG)",
+      "build_decision": "EXTEND",
+      "entrypoint": "shareable_decision_card",
+      "runtime_path": "launch57/trust_batch2.py:shareable_decision_card",
+      "consumer_paths": [
+        "launch57/trust_batch2.py",
+        "decision_certificate.py"
+      ],
+      "semantic_oracle": "OG metadata + share_urls; alias CAP-0641",
+      "tests": [
+        "tests/launch57/test_trust_batch2.py::test_shareable_decision_card_og_metadata"
+      ],
+      "builder_status": "PENDING_VERIFICATION",
+      "commit_sha": "ade23819e2952bbaf260eec645d89c643b183b68"
+    },
+    "45": {
+      "name": "Shareable accuracy page",
+      "build_decision": "EXTEND",
+      "entrypoint": "shareable_accuracy_page",
+      "runtime_path": "launch57/trust_batch2.py:shareable_accuracy_page",
+      "consumer_paths": [
+        "launch57/trust_batch2.py",
+        "oracle_track_record.py"
+      ],
+      "semantic_oracle": "live_only metrics; alias CAP-0640",
+      "tests": [
+        "tests/launch57/test_trust_batch2.py::test_shareable_accuracy_page_live_only"
+      ],
+      "builder_status": "PENDING_VERIFICATION",
+      "commit_sha": "ade23819e2952bbaf260eec645d89c643b183b68"
+    },
+    "46": {
+      "name": "Guest trust surface",
+      "build_decision": "EXTEND",
+      "entrypoint": "guest_trust_surface",
+      "runtime_path": "launch57/trust_batch2.py:guest_trust_surface",
+      "consumer_paths": [
+        "launch57/trust_batch2.py",
+        "governance/anonymous_visitor_governance.py"
+      ],
+      "semantic_oracle": "anonymous visitor governance status; no PII leak",
+      "tests": [
+        "tests/launch57/test_trust_batch2.py::test_guest_trust_surface"
+      ],
+      "builder_status": "PENDING_VERIFICATION",
+      "commit_sha": "ade23819e2952bbaf260eec645d89c643b183b68"
+    }
+  }
+}
