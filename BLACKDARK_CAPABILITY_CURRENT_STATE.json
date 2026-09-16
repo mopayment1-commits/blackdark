@@ -1466,10 +1466,11 @@
       "state_classification": "EXISTING_VERIFIED",
       "canonical_decision": "KEEP_DISTINCT",
       "canonical_owner": "cap646.institutional_official_production",
-      "canonical_implementation": "explicit_option_a",
+      "canonical_implementation": "launch57.smart_money_batch1",
       "runtime_entry": "cap646/runtime.py",
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/smart_money_batch1.py",
+        "whale_signal_classifier.py"
       ],
       "inputs": [
         "symbol",
@@ -1788,6 +1789,32 @@
         "not_in_current_build_scope": false,
         "not_in_launch_surface": false,
         "no_build": false
+      },
+      "launch57_phase4_batch1": {
+        "phase": "4_SMART_MONEY_INSTANT",
+        "batch": 1,
+        "launch_item_id": 13,
+        "builder_status": "PENDING_VERIFICATION",
+        "prior_pass_trusted_for_launch": "NO",
+        "runtime_path": "cap646/institutional_official_production.py → launch57/smart_money_batch1.py",
+        "consumer_paths": [
+          "launch57/smart_money_batch1.py",
+          "whale_signal_classifier.py"
+        ],
+        "backend_module": "launch57.smart_money_batch1",
+        "backend_entrypoint": "accumulation_distribution_detection",
+        "binding_source": "launch57_phase4_smart_money_batch1",
+        "semantic_oracle": "whale narratives filtered by symbol on live spine",
+        "tests_run": [
+          "tests/launch57/test_smart_money_batch1.py::test_dispatch_all_batch1_caps"
+        ],
+        "tests_result": "PASS",
+        "evidence_reference": "governance/launch57/PHASE4_BATCH1_EVIDENCE.json",
+        "commit_sha": "bd9698cdbaaca381ea7e4c4661b1cc815836f4fa",
+        "known_gaps": [
+          "independent_verification_pending",
+          "legacy_bypass_if_LAUNCH57_SMART_MONEY_BATCH1_CAP_IDS_emptied"
+        ]
       }
     },
     {
@@ -1809,10 +1836,11 @@
       "state_classification": "EXISTING_VERIFIED",
       "canonical_decision": "KEEP_DISTINCT",
       "canonical_owner": "cap646.institutional_official_production",
-      "canonical_implementation": "explicit_option_a",
+      "canonical_implementation": "launch57.smart_money_batch1",
       "runtime_entry": "cap646/runtime.py",
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/smart_money_batch1.py",
+        "bd_platform/free_tier_capabilities.py"
       ],
       "inputs": [
         "symbol",
@@ -2131,6 +2159,32 @@
         "not_in_current_build_scope": false,
         "not_in_launch_surface": false,
         "no_build": false
+      },
+      "launch57_phase4_batch1": {
+        "phase": "4_SMART_MONEY_INSTANT",
+        "batch": 1,
+        "launch_item_id": 14,
+        "builder_status": "PENDING_VERIFICATION",
+        "prior_pass_trusted_for_launch": "NO",
+        "runtime_path": "cap646/institutional_official_production.py → launch57/smart_money_batch1.py",
+        "consumer_paths": [
+          "launch57/smart_money_batch1.py",
+          "bd_platform/free_tier_capabilities.py"
+        ],
+        "backend_module": "launch57.smart_money_batch1",
+        "backend_entrypoint": "smart_money_token_screener",
+        "binding_source": "launch57_phase4_smart_money_batch1",
+        "semantic_oracle": "screener aggregates leaderboard on live spine",
+        "tests_run": [
+          "tests/launch57/test_smart_money_batch1.py::test_token_screener_live"
+        ],
+        "tests_result": "PASS",
+        "evidence_reference": "governance/launch57/PHASE4_BATCH1_EVIDENCE.json",
+        "commit_sha": "bd9698cdbaaca381ea7e4c4661b1cc815836f4fa",
+        "known_gaps": [
+          "independent_verification_pending",
+          "legacy_bypass_if_LAUNCH57_SMART_MONEY_BATCH1_CAP_IDS_emptied"
+        ]
       }
     },
     {
@@ -4568,10 +4622,11 @@
       "state_classification": "EXISTING_VERIFIED",
       "canonical_decision": "KEEP_DISTINCT",
       "canonical_owner": "cap646.institutional_official_production",
-      "canonical_implementation": "explicit_option_a",
+      "canonical_implementation": "launch57.smart_money_batch2",
       "runtime_entry": "cap646/runtime.py",
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/smart_money_batch2.py",
+        "bd_platform/address_intelligence.py"
       ],
       "inputs": [
         "symbol",
@@ -4890,6 +4945,32 @@
         "not_in_current_build_scope": false,
         "not_in_launch_surface": false,
         "no_build": false
+      },
+      "launch57_phase4_batch2": {
+        "phase": "4_SMART_MONEY_INSTANT",
+        "batch": 2,
+        "launch_item_id": 15,
+        "builder_status": "PENDING_VERIFICATION",
+        "prior_pass_trusted_for_launch": "NO",
+        "runtime_path": "cap646/institutional_official_production.py → launch57/smart_money_batch2.py",
+        "consumer_paths": [
+          "launch57/smart_money_batch2.py",
+          "bd_platform/address_intelligence.py"
+        ],
+        "backend_module": "launch57.smart_money_batch2",
+        "backend_entrypoint": "entity_aware_wallet_intelligence",
+        "binding_source": "launch57_phase4_smart_money_batch2",
+        "semantic_oracle": "entity labels from address intel on live spine",
+        "tests_run": [
+          "tests/launch57/test_smart_money_batch2.py"
+        ],
+        "tests_result": "PASS",
+        "evidence_reference": "governance/launch57/PHASE4_BATCH2_EVIDENCE.json",
+        "commit_sha": "bd9698cdbaaca381ea7e4c4661b1cc815836f4fa",
+        "known_gaps": [
+          "independent_verification_pending",
+          "legacy_bypass_if_LAUNCH57_SMART_MONEY_BATCH2_CAP_IDS_emptied"
+        ]
       }
     },
     {
@@ -4911,10 +4992,11 @@
       "state_classification": "EXISTING_VERIFIED",
       "canonical_decision": "KEEP_DISTINCT",
       "canonical_owner": "cap646.institutional_official_production",
-      "canonical_implementation": "explicit_option_a",
+      "canonical_implementation": "launch57.smart_money_batch1",
       "runtime_entry": "cap646/runtime.py",
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/smart_money_batch1.py",
+        "cap646/dedicated_common.py"
       ],
       "inputs": [
         "symbol",
@@ -5233,6 +5315,32 @@
         "not_in_current_build_scope": false,
         "not_in_launch_surface": false,
         "no_build": false
+      },
+      "launch57_phase4_batch1": {
+        "phase": "4_SMART_MONEY_INSTANT",
+        "batch": 1,
+        "launch_item_id": 16,
+        "builder_status": "PENDING_VERIFICATION",
+        "prior_pass_trusted_for_launch": "NO",
+        "runtime_path": "cap646/institutional_official_production.py → launch57/smart_money_batch1.py",
+        "consumer_paths": [
+          "launch57/smart_money_batch1.py",
+          "cap646/dedicated_common.py"
+        ],
+        "backend_module": "launch57.smart_money_batch1",
+        "backend_entrypoint": "exchange_flow_intelligence",
+        "binding_source": "launch57_phase4_smart_money_batch1",
+        "semantic_oracle": "netflow from launch57 data spine price context",
+        "tests_run": [
+          "tests/launch57/test_smart_money_batch1.py::test_exchange_flow_live_path"
+        ],
+        "tests_result": "PASS",
+        "evidence_reference": "governance/launch57/PHASE4_BATCH1_EVIDENCE.json",
+        "commit_sha": "bd9698cdbaaca381ea7e4c4661b1cc815836f4fa",
+        "known_gaps": [
+          "independent_verification_pending",
+          "legacy_bypass_if_LAUNCH57_SMART_MONEY_BATCH1_CAP_IDS_emptied"
+        ]
       }
     },
     {
@@ -7307,10 +7415,11 @@
       "state_classification": "EXISTING_VERIFIED",
       "canonical_decision": "KEEP_DISTINCT",
       "canonical_owner": "cap646.institutional_official_production",
-      "canonical_implementation": "explicit_option_a",
+      "canonical_implementation": "launch57.smart_money_batch2",
       "runtime_entry": "cap646/runtime.py",
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/smart_money_batch2.py",
+        "bd_platform/whales_institutional_layer.py"
       ],
       "inputs": [
         "symbol",
@@ -7629,6 +7738,32 @@
         "not_in_current_build_scope": false,
         "not_in_launch_surface": false,
         "no_build": false
+      },
+      "launch57_phase4_batch2": {
+        "phase": "4_SMART_MONEY_INSTANT",
+        "batch": 2,
+        "launch_item_id": 53,
+        "builder_status": "PENDING_VERIFICATION",
+        "prior_pass_trusted_for_launch": "NO",
+        "runtime_path": "cap646/institutional_official_production.py → launch57/smart_money_batch2.py",
+        "consumer_paths": [
+          "launch57/smart_money_batch2.py",
+          "bd_platform/whales_institutional_layer.py"
+        ],
+        "backend_module": "launch57.smart_money_batch2",
+        "backend_entrypoint": "instant_wallet_due_diligence",
+        "binding_source": "launch57_phase4_smart_money_batch2",
+        "semantic_oracle": "wallet DD with surveillance flags on live spine",
+        "tests_run": [
+          "tests/launch57/test_smart_money_batch2.py::test_dispatch_all_batch2_caps"
+        ],
+        "tests_result": "PASS",
+        "evidence_reference": "governance/launch57/PHASE4_BATCH2_EVIDENCE.json",
+        "commit_sha": "bd9698cdbaaca381ea7e4c4661b1cc815836f4fa",
+        "known_gaps": [
+          "independent_verification_pending",
+          "legacy_bypass_if_LAUNCH57_SMART_MONEY_BATCH2_CAP_IDS_emptied"
+        ]
       }
     },
     {
@@ -7650,10 +7785,11 @@
       "state_classification": "EXISTING_VERIFIED",
       "canonical_decision": "KEEP_DISTINCT",
       "canonical_owner": "cap646.institutional_official_production",
-      "canonical_implementation": "explicit_option_a",
+      "canonical_implementation": "launch57.smart_money_batch2",
       "runtime_entry": "cap646/runtime.py",
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/smart_money_batch2.py",
+        "research_lab.py"
       ],
       "inputs": [
         "symbol",
@@ -7935,6 +8071,32 @@
         "not_in_current_build_scope": false,
         "not_in_launch_surface": false,
         "no_build": false
+      },
+      "launch57_phase4_batch2": {
+        "phase": "4_SMART_MONEY_INSTANT",
+        "batch": 2,
+        "launch_item_id": 54,
+        "builder_status": "PENDING_VERIFICATION",
+        "prior_pass_trusted_for_launch": "NO",
+        "runtime_path": "cap646/institutional_official_production.py → launch57/smart_money_batch2.py",
+        "consumer_paths": [
+          "launch57/smart_money_batch2.py",
+          "research_lab.py"
+        ],
+        "backend_module": "launch57.smart_money_batch2",
+        "backend_entrypoint": "instant_token_due_diligence",
+        "binding_source": "launch57_phase4_smart_money_batch2",
+        "semantic_oracle": "token DD checklist on live spine; STALE blocks",
+        "tests_run": [
+          "tests/launch57/test_smart_money_batch2.py::test_instant_token_dd_blocks_stale"
+        ],
+        "tests_result": "PASS",
+        "evidence_reference": "governance/launch57/PHASE4_BATCH2_EVIDENCE.json",
+        "commit_sha": "bd9698cdbaaca381ea7e4c4661b1cc815836f4fa",
+        "known_gaps": [
+          "independent_verification_pending",
+          "legacy_bypass_if_LAUNCH57_SMART_MONEY_BATCH2_CAP_IDS_emptied"
+        ]
       }
     },
     {
@@ -24032,10 +24194,11 @@
       "state_classification": "EXISTING_VERIFIED",
       "canonical_decision": "KEEP_DISTINCT",
       "canonical_owner": "cap646.institutional_official_production",
-      "canonical_implementation": "explicit_option_a",
+      "canonical_implementation": "launch57.smart_money_batch1",
       "runtime_entry": "cap646/runtime.py",
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/smart_money_batch1.py",
+        "cap646/dedicated_common.py"
       ],
       "inputs": [
         "symbol",
@@ -24391,6 +24554,32 @@
         "not_in_current_build_scope": false,
         "not_in_launch_surface": false,
         "no_build": false
+      },
+      "launch57_phase4_batch1": {
+        "phase": "4_SMART_MONEY_INSTANT",
+        "batch": 1,
+        "launch_item_id": 16,
+        "builder_status": "PENDING_VERIFICATION",
+        "prior_pass_trusted_for_launch": "NO",
+        "runtime_path": "cap646/institutional_official_production.py → launch57/smart_money_batch1.py",
+        "consumer_paths": [
+          "launch57/smart_money_batch1.py",
+          "cap646/dedicated_common.py"
+        ],
+        "backend_module": "launch57.smart_money_batch1",
+        "backend_entrypoint": "exchange_flow_intelligence",
+        "binding_source": "launch57_phase4_smart_money_batch1",
+        "semantic_oracle": "netflow from launch57 data spine price context",
+        "tests_run": [
+          "tests/launch57/test_smart_money_batch1.py::test_exchange_flow_live_path"
+        ],
+        "tests_result": "PASS",
+        "evidence_reference": "governance/launch57/PHASE4_BATCH1_EVIDENCE.json",
+        "commit_sha": "bd9698cdbaaca381ea7e4c4661b1cc815836f4fa",
+        "known_gaps": [
+          "independent_verification_pending",
+          "legacy_bypass_if_LAUNCH57_SMART_MONEY_BATCH1_CAP_IDS_emptied"
+        ]
       }
     },
     {
@@ -24412,10 +24601,11 @@
       "state_classification": "EXISTING_VERIFIED",
       "canonical_decision": "KEEP_DISTINCT",
       "canonical_owner": "cap646.institutional_official_production",
-      "canonical_implementation": "explicit_option_a",
+      "canonical_implementation": "launch57.smart_money_batch1",
       "runtime_entry": "cap646/runtime.py",
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/smart_money_batch1.py",
+        "exchange_internal_flow_filter.py"
       ],
       "inputs": [
         "symbol",
@@ -24739,6 +24929,32 @@
         "not_in_current_build_scope": false,
         "not_in_launch_surface": false,
         "no_build": false
+      },
+      "launch57_phase4_batch1": {
+        "phase": "4_SMART_MONEY_INSTANT",
+        "batch": 1,
+        "launch_item_id": 17,
+        "builder_status": "PENDING_VERIFICATION",
+        "prior_pass_trusted_for_launch": "NO",
+        "runtime_path": "launch57/smart_money_batch1.py:exchange_whale_ratio",
+        "consumer_paths": [
+          "launch57/smart_money_batch1.py",
+          "exchange_internal_flow_filter.py"
+        ],
+        "backend_module": "launch57.smart_money_batch1",
+        "backend_entrypoint": "exchange_whale_ratio",
+        "binding_source": "launch57_phase4_smart_money_batch1",
+        "semantic_oracle": "whale ratio + internal flow classification on live spine",
+        "tests_run": [
+          "tests/launch57/test_smart_money_batch1.py::test_dispatch_all_batch1_caps"
+        ],
+        "tests_result": "PASS",
+        "evidence_reference": "governance/launch57/PHASE4_BATCH1_EVIDENCE.json",
+        "commit_sha": "bd9698cdbaaca381ea7e4c4661b1cc815836f4fa",
+        "known_gaps": [
+          "independent_verification_pending",
+          "legacy_bypass_if_LAUNCH57_SMART_MONEY_BATCH1_CAP_IDS_emptied"
+        ]
       }
     },
     {
@@ -25513,10 +25729,11 @@
       "state_classification": "EXISTING_VERIFIED",
       "canonical_decision": "KEEP_DISTINCT",
       "canonical_owner": "cap646.institutional_official_production",
-      "canonical_implementation": "explicit_option_a",
+      "canonical_implementation": "launch57.smart_money_batch1",
       "runtime_entry": "cap646/runtime.py",
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/smart_money_batch1.py",
+        "exchange_internal_flow_filter.py"
       ],
       "inputs": [
         "symbol",
@@ -25835,6 +26052,32 @@
         "not_in_current_build_scope": false,
         "not_in_launch_surface": false,
         "no_build": false
+      },
+      "launch57_phase4_batch1": {
+        "phase": "4_SMART_MONEY_INSTANT",
+        "batch": 1,
+        "launch_item_id": 17,
+        "builder_status": "PENDING_VERIFICATION",
+        "prior_pass_trusted_for_launch": "NO",
+        "runtime_path": "launch57/smart_money_batch1.py:exchange_whale_ratio",
+        "consumer_paths": [
+          "launch57/smart_money_batch1.py",
+          "exchange_internal_flow_filter.py"
+        ],
+        "backend_module": "launch57.smart_money_batch1",
+        "backend_entrypoint": "exchange_whale_ratio",
+        "binding_source": "launch57_phase4_smart_money_batch1",
+        "semantic_oracle": "whale ratio + internal flow classification on live spine",
+        "tests_run": [
+          "tests/launch57/test_smart_money_batch1.py::test_dispatch_all_batch1_caps"
+        ],
+        "tests_result": "PASS",
+        "evidence_reference": "governance/launch57/PHASE4_BATCH1_EVIDENCE.json",
+        "commit_sha": "bd9698cdbaaca381ea7e4c4661b1cc815836f4fa",
+        "known_gaps": [
+          "independent_verification_pending",
+          "legacy_bypass_if_LAUNCH57_SMART_MONEY_BATCH1_CAP_IDS_emptied"
+        ]
       }
     },
     {
@@ -27589,10 +27832,11 @@
       "state_classification": "EXISTING_VERIFIED",
       "canonical_decision": "KEEP_DISTINCT",
       "canonical_owner": "cap646.institutional_official_production",
-      "canonical_implementation": "explicit_option_a",
+      "canonical_implementation": "launch57.smart_money_batch2",
       "runtime_entry": "cap646/runtime.py",
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/smart_money_batch2.py",
+        "whale_tracker.py"
       ],
       "inputs": [
         "symbol",
@@ -27949,6 +28193,32 @@
         "not_in_current_build_scope": false,
         "not_in_launch_surface": false,
         "no_build": false
+      },
+      "launch57_phase4_batch2": {
+        "phase": "4_SMART_MONEY_INSTANT",
+        "batch": 2,
+        "launch_item_id": 18,
+        "builder_status": "PENDING_VERIFICATION",
+        "prior_pass_trusted_for_launch": "NO",
+        "runtime_path": "cap646/institutional_official_production.py → launch57/smart_money_batch2.py",
+        "consumer_paths": [
+          "launch57/smart_money_batch2.py",
+          "whale_tracker.py"
+        ],
+        "backend_module": "launch57.smart_money_batch2",
+        "backend_entrypoint": "whale_accumulation_distribution_intelligence",
+        "binding_source": "launch57_phase4_smart_money_batch2",
+        "semantic_oracle": "whale alerts filtered on live spine",
+        "tests_run": [
+          "tests/launch57/test_smart_money_batch2.py::test_dispatch_all_batch2_caps"
+        ],
+        "tests_result": "PASS",
+        "evidence_reference": "governance/launch57/PHASE4_BATCH2_EVIDENCE.json",
+        "commit_sha": "bd9698cdbaaca381ea7e4c4661b1cc815836f4fa",
+        "known_gaps": [
+          "independent_verification_pending",
+          "legacy_bypass_if_LAUNCH57_SMART_MONEY_BATCH2_CAP_IDS_emptied"
+        ]
       }
     },
     {
@@ -31533,10 +31803,11 @@
       "state_classification": "EXISTING_VERIFIED",
       "canonical_decision": "KEEP_DISTINCT",
       "canonical_owner": "cap646.institutional_official_production",
-      "canonical_implementation": "explicit_option_a",
+      "canonical_implementation": "launch57.smart_money_batch2",
       "runtime_entry": "cap646/runtime.py",
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/smart_money_batch2.py",
+        "onchain_tracker.py"
       ],
       "inputs": [
         "symbol",
@@ -31925,6 +32196,32 @@
         "not_in_current_build_scope": false,
         "not_in_launch_surface": false,
         "no_build": false
+      },
+      "launch57_phase4_batch2": {
+        "phase": "4_SMART_MONEY_INSTANT",
+        "batch": 2,
+        "launch_item_id": 19,
+        "builder_status": "PENDING_VERIFICATION",
+        "prior_pass_trusted_for_launch": "NO",
+        "runtime_path": "cap646/institutional_official_production.py → launch57/smart_money_batch2.py",
+        "consumer_paths": [
+          "launch57/smart_money_batch2.py",
+          "onchain_tracker.py"
+        ],
+        "backend_module": "launch57.smart_money_batch2",
+        "backend_entrypoint": "inter_entity_flow_intelligence",
+        "binding_source": "launch57_phase4_smart_money_batch2",
+        "semantic_oracle": "limited scope — no full paid leaderboard",
+        "tests_run": [
+          "tests/launch57/test_smart_money_batch2.py::test_inter_entity_limited_scope"
+        ],
+        "tests_result": "PASS",
+        "evidence_reference": "governance/launch57/PHASE4_BATCH2_EVIDENCE.json",
+        "commit_sha": "bd9698cdbaaca381ea7e4c4661b1cc815836f4fa",
+        "known_gaps": [
+          "independent_verification_pending",
+          "legacy_bypass_if_LAUNCH57_SMART_MONEY_BATCH2_CAP_IDS_emptied"
+        ]
       }
     },
     {
@@ -31946,10 +32243,12 @@
       "state_classification": "EXISTING_VERIFIED",
       "canonical_decision": "KEEP_DISTINCT",
       "canonical_owner": "cap646.institutional_official_production",
-      "canonical_implementation": "explicit_option_a",
+      "canonical_implementation": "launch57.smart_money_batch1",
       "runtime_entry": "cap646/runtime.py",
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/smart_money_batch1.py",
+        "launch57/smart_money_common.py",
+        "bd_platform/onchain_platform_layer.py"
       ],
       "inputs": [
         "symbol",
@@ -32306,6 +32605,33 @@
         "not_in_current_build_scope": false,
         "not_in_launch_surface": false,
         "no_build": false
+      },
+      "launch57_phase4_batch1": {
+        "phase": "4_SMART_MONEY_INSTANT",
+        "batch": 1,
+        "launch_item_id": 20,
+        "builder_status": "PENDING_VERIFICATION",
+        "prior_pass_trusted_for_launch": "NO",
+        "runtime_path": "cap646/institutional_official_production.py → launch57/smart_money_batch1.py",
+        "consumer_paths": [
+          "launch57/smart_money_batch1.py",
+          "launch57/smart_money_common.py",
+          "bd_platform/onchain_platform_layer.py"
+        ],
+        "backend_module": "launch57.smart_money_batch1",
+        "backend_entrypoint": "address_labels_cohorts",
+        "binding_source": "launch57_phase4_smart_money_batch1",
+        "semantic_oracle": "limited cohort nucleus on live spine; STALE blocks",
+        "tests_run": [
+          "tests/launch57/test_smart_money_batch1.py"
+        ],
+        "tests_result": "PASS",
+        "evidence_reference": "governance/launch57/PHASE4_BATCH1_EVIDENCE.json",
+        "commit_sha": "bd9698cdbaaca381ea7e4c4661b1cc815836f4fa",
+        "known_gaps": [
+          "independent_verification_pending",
+          "legacy_bypass_if_LAUNCH57_SMART_MONEY_BATCH1_CAP_IDS_emptied"
+        ]
       }
     },
     {
@@ -33853,10 +34179,11 @@
       "state_classification": "EXISTING_VERIFIED",
       "canonical_decision": "KEEP_DISTINCT",
       "canonical_owner": "cap646.institutional_official_production",
-      "canonical_implementation": "explicit_option_a",
+      "canonical_implementation": "launch57.smart_money_batch2",
       "runtime_entry": "cap646/runtime.py",
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/smart_money_batch2.py",
+        "whale_tracker.py"
       ],
       "inputs": [
         "symbol",
@@ -34252,6 +34579,32 @@
         "not_in_current_build_scope": false,
         "not_in_launch_surface": false,
         "no_build": false
+      },
+      "launch57_phase4_batch2": {
+        "phase": "4_SMART_MONEY_INSTANT",
+        "batch": 2,
+        "launch_item_id": 18,
+        "builder_status": "PENDING_VERIFICATION",
+        "prior_pass_trusted_for_launch": "NO",
+        "runtime_path": "cap646/institutional_official_production.py → launch57/smart_money_batch2.py",
+        "consumer_paths": [
+          "launch57/smart_money_batch2.py",
+          "whale_tracker.py"
+        ],
+        "backend_module": "launch57.smart_money_batch2",
+        "backend_entrypoint": "whale_accumulation_distribution_intelligence",
+        "binding_source": "launch57_phase4_smart_money_batch2",
+        "semantic_oracle": "whale alerts filtered on live spine",
+        "tests_run": [
+          "tests/launch57/test_smart_money_batch2.py::test_dispatch_all_batch2_caps"
+        ],
+        "tests_result": "PASS",
+        "evidence_reference": "governance/launch57/PHASE4_BATCH2_EVIDENCE.json",
+        "commit_sha": "bd9698cdbaaca381ea7e4c4661b1cc815836f4fa",
+        "known_gaps": [
+          "independent_verification_pending",
+          "legacy_bypass_if_LAUNCH57_SMART_MONEY_BATCH2_CAP_IDS_emptied"
+        ]
       }
     },
     {
@@ -75901,10 +76254,12 @@
       "state_classification": "EXISTING_VERIFIED",
       "canonical_decision": "KEEP_DISTINCT",
       "canonical_owner": "cap646.institutional_official_production",
-      "canonical_implementation": "explicit_option_a",
+      "canonical_implementation": "launch57.smart_money_batch3",
       "runtime_entry": "cap646/runtime.py",
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/smart_money_batch3.py",
+        "sentiment_manipulation_guard.py",
+        "whale_tracker.py"
       ],
       "inputs": [
         "symbol",
@@ -76221,6 +76576,33 @@
         "not_in_current_build_scope": false,
         "not_in_launch_surface": false,
         "no_build": false
+      },
+      "launch57_phase4_batch3": {
+        "phase": "4_SMART_MONEY_INSTANT",
+        "batch": 3,
+        "launch_item_id": 55,
+        "builder_status": "PENDING_VERIFICATION",
+        "prior_pass_trusted_for_launch": "NO",
+        "runtime_path": "cap646/institutional_official_production.py → launch57/smart_money_batch3.py",
+        "consumer_paths": [
+          "launch57/smart_money_batch3.py",
+          "sentiment_manipulation_guard.py",
+          "whale_tracker.py"
+        ],
+        "backend_module": "launch57.smart_money_batch3",
+        "backend_entrypoint": "pump_dump_manipulation_alerts",
+        "binding_source": "launch57_phase4_smart_money_batch3",
+        "semantic_oracle": "pump phrase + whale manipulation alerts on live spine",
+        "tests_run": [
+          "tests/launch57/test_smart_money_batch3.py::test_pump_dump_detects_phrases"
+        ],
+        "tests_result": "PASS",
+        "evidence_reference": "governance/launch57/PHASE4_BATCH3_EVIDENCE.json",
+        "commit_sha": "bd9698cdbaaca381ea7e4c4661b1cc815836f4fa",
+        "known_gaps": [
+          "independent_verification_pending",
+          "legacy_bypass_if_LAUNCH57_SMART_MONEY_BATCH3_CAP_IDS_emptied"
+        ]
       }
     },
     {
@@ -92808,10 +93190,11 @@
       "state_classification": "EXISTING_VERIFIED",
       "canonical_decision": "KEEP_DISTINCT",
       "canonical_owner": "cap646.institutional_official_production",
-      "canonical_implementation": "explicit_option_a",
+      "canonical_implementation": "launch57.smart_money_batch3",
       "runtime_entry": "cap646/runtime.py",
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/smart_money_batch3.py",
+        "bd_platform/derivatives_onchain_intelligence_layer.py"
       ],
       "inputs": [
         "symbol",
@@ -93128,6 +93511,32 @@
         "not_in_current_build_scope": false,
         "not_in_launch_surface": false,
         "no_build": false
+      },
+      "launch57_phase4_batch3": {
+        "phase": "4_SMART_MONEY_INSTANT",
+        "batch": 3,
+        "launch_item_id": 56,
+        "builder_status": "PENDING_VERIFICATION",
+        "prior_pass_trusted_for_launch": "NO",
+        "runtime_path": "cap646/institutional_official_production.py → launch57/smart_money_batch3.py",
+        "consumer_paths": [
+          "launch57/smart_money_batch3.py",
+          "bd_platform/derivatives_onchain_intelligence_layer.py"
+        ],
+        "backend_module": "launch57.smart_money_batch3",
+        "backend_entrypoint": "suspicious_activity_flags",
+        "binding_source": "launch57_phase4_smart_money_batch3",
+        "semantic_oracle": "mini AML flags only — not full investigation platform",
+        "tests_run": [
+          "tests/launch57/test_smart_money_batch3.py::test_suspicious_flags_mini_aml_not_full_platform"
+        ],
+        "tests_result": "PASS",
+        "evidence_reference": "governance/launch57/PHASE4_BATCH3_EVIDENCE.json",
+        "commit_sha": "bd9698cdbaaca381ea7e4c4661b1cc815836f4fa",
+        "known_gaps": [
+          "independent_verification_pending",
+          "legacy_bypass_if_LAUNCH57_SMART_MONEY_BATCH3_CAP_IDS_emptied"
+        ]
       }
     },
     {
@@ -287435,10 +287844,11 @@
       "state_classification": "EXISTING_VERIFIED",
       "canonical_decision": "KEEP_DISTINCT",
       "canonical_owner": "bd_platform.infra_status",
-      "canonical_implementation": "bd_platform.infra_status.infra_matrix",
+      "canonical_implementation": "launch57.smart_money_batch3",
       "runtime_entry": "cap978/verify.py",
       "actual_consumer_paths": [
-        "bd_platform.infra_status.infra_matrix"
+        "launch57/smart_money_batch3.py",
+        "bd_platform/institutional_b2b_layer.py"
       ],
       "inputs": [
         "symbol",
@@ -287743,6 +288153,32 @@
         "not_in_current_build_scope": false,
         "not_in_launch_surface": false,
         "no_build": false
+      },
+      "launch57_phase4_batch3": {
+        "phase": "4_SMART_MONEY_INSTANT",
+        "batch": 3,
+        "launch_item_id": 57,
+        "builder_status": "PENDING_VERIFICATION",
+        "prior_pass_trusted_for_launch": "NO",
+        "runtime_path": "cap646/runtime.py → cap978/verify.py → launch57/smart_money_batch3.py",
+        "consumer_paths": [
+          "launch57/smart_money_batch3.py",
+          "bd_platform/institutional_b2b_layer.py"
+        ],
+        "backend_module": "launch57.smart_money_batch3",
+        "backend_entrypoint": "exchange_transparency_risk_indicators",
+        "binding_source": "launch57_phase4_smart_money_batch3",
+        "semantic_oracle": "cautious indicators only — solvency/reserve guarantee FORBIDDEN",
+        "tests_run": [
+          "tests/launch57/test_smart_money_batch3.py::test_exchange_transparency_forbids_solvency_claim"
+        ],
+        "tests_result": "PASS",
+        "evidence_reference": "governance/launch57/PHASE4_BATCH3_EVIDENCE.json",
+        "commit_sha": "bd9698cdbaaca381ea7e4c4661b1cc815836f4fa",
+        "known_gaps": [
+          "independent_verification_pending",
+          "legacy_bypass_if_LAUNCH57_SMART_MONEY_BATCH3_CAP_IDS_emptied"
+        ]
       }
     },
     {
@@ -316507,6 +316943,81 @@
       "exit_code": 0,
       "stdout": ".............                                                            [100%]",
       "passed": true
+    }
+  },
+  "phase4_smart_money_batch1": {
+    "phase": "4_SMART_MONEY_INSTANT",
+    "batch": 1,
+    "build_order_executed": [
+      20,
+      16,
+      17,
+      13,
+      14
+    ],
+    "commit": "bd9698cdbaaca381ea7e4c4661b1cc815836f4fa",
+    "completed_at": "2026-09-16T21:59:58.259503+00:00",
+    "builder_status": "PENDING_VERIFICATION",
+    "tests": {
+      "command": "python3 -m pytest tests/launch57/test_smart_money_batch1.py -q",
+      "exit_code": 0,
+      "stdout": ".....                                                                    [100%]",
+      "passed": true
+    },
+    "phase3_baseline": "9adef8c0",
+    "open_debt": {
+      "legacy_bypass": "When LAUNCH57_SMART_MONEY_BATCH1_CAP_IDS emptied → batch01_dedicated/batch02_dedicated",
+      "fix_mandatory": "NO unless smart-money path blocked"
+    }
+  },
+  "phase4_smart_money_batch2": {
+    "phase": "4_SMART_MONEY_INSTANT",
+    "batch": 2,
+    "build_order_executed": [
+      15,
+      18,
+      19,
+      53,
+      54
+    ],
+    "commit": "bd9698cdbaaca381ea7e4c4661b1cc815836f4fa",
+    "completed_at": "2026-09-16T21:59:59.503381+00:00",
+    "builder_status": "PENDING_VERIFICATION",
+    "tests": {
+      "command": "python3 -m pytest tests/launch57/test_smart_money_batch2.py -q",
+      "exit_code": 0,
+      "stdout": "....                                                                     [100%]",
+      "passed": true
+    },
+    "phase3_baseline": "9adef8c0",
+    "open_debt": {
+      "legacy_bypass": "When LAUNCH57_SMART_MONEY_BATCH2_CAP_IDS emptied → batch01/batch02_dedicated",
+      "fix_mandatory": "NO unless smart-money path blocked"
+    }
+  },
+  "phase4_smart_money_batch3": {
+    "phase": "4_SMART_MONEY_INSTANT",
+    "batch": 3,
+    "build_order_executed": [
+      55,
+      56,
+      57
+    ],
+    "commit": "bd9698cdbaaca381ea7e4c4661b1cc815836f4fa",
+    "completed_at": "2026-09-16T22:00:00.751276+00:00",
+    "builder_status": "PENDING_VERIFICATION",
+    "tests": {
+      "command": "python3 -m pytest tests/launch57/test_smart_money_batch3.py tests/launch57/test_smart_money_institutional_wire.py -q",
+      "exit_code": 0,
+      "stdout": "........                                                                 [100%]",
+      "passed": true
+    },
+    "phase3_baseline": "9adef8c0",
+    "phase4_complete": true,
+    "open_debt": {
+      "legacy_bypass": "When LAUNCH57_SMART_MONEY_BATCH*_CAP_IDS emptied → batch01/batch02/batch10/batch12_dedicated",
+      "cap916_runtime": "cap978/verify.py intercept for extension scope >826",
+      "fix_mandatory": "NO unless smart-money path blocked"
     }
   }
 }

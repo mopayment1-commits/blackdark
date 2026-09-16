@@ -2,8 +2,8 @@
   "artifact": "LAUNCH57_REGISTER",
   "ssot_role": "launch57_truth_register_view",
   "authoritative_ssot": "BLACKDARK_CAPABILITY_CURRENT_STATE.json",
-  "phase": "3_DECISION_COMPLETE",
-  "generated_at": "2026-09-16T21:45:14.107472+00:00",
+  "phase": "4_SMART_MONEY_BATCH3_BUILD",
+  "generated_at": "2026-09-16T22:00:00.751276+00:00",
   "source_commit": "92b1d00e",
   "scope_lock": {
     "CURRENT_APPROVED_BUILD_SCOPE": "LAUNCH57",
@@ -985,22 +985,23 @@
         "cap646.institutional_official_production"
       ],
       "canonical_implementation": [
-        "explicit_option_a"
+        "launch57.smart_money_batch1"
       ],
       "runtime_entry": [
         "cap646/runtime.py"
       ],
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/smart_money_batch1.py",
+        "whale_signal_classifier.py"
       ],
       "tests_found": [],
       "evidence_found": [
         "ENGINEERING_AUDIT_826_REPORT.json"
       ],
-      "current_engineering_status": "PASS_ENGINEERING",
+      "current_engineering_status": "PENDING_VERIFICATION",
       "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
       "root_cause_if_not_pass_engineering": null,
-      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "pass_engineering_reconciliation": "PENDING_INDEPENDENT_VERIFICATION",
       "stub_generic_mock_findings": [
         {
           "launch_number": 13,
@@ -1013,7 +1014,26 @@
         }
       ],
       "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
-      "notes": ""
+      "notes": "",
+      "phase4_batch1_build": {
+        "builder_status": "PENDING_VERIFICATION",
+        "runtime_path": "cap646/institutional_official_production.py → launch57/smart_money_batch1.py",
+        "consumer_paths": [
+          "launch57/smart_money_batch1.py",
+          "whale_signal_classifier.py"
+        ],
+        "binding_source": "launch57_phase4_smart_money_batch1",
+        "handler_module": "launch57.smart_money_batch1",
+        "tests_found": [
+          "tests/launch57/test_smart_money_batch1.py::test_dispatch_all_batch1_caps"
+        ],
+        "evidence_found": [
+          "governance/launch57/PHASE4_BATCH1_EVIDENCE.json"
+        ],
+        "blocker": null,
+        "prior_pass_trusted_for_launch": "NO",
+        "commit_sha": "bd9698cdbaaca381ea7e4c4661b1cc815836f4fa"
+      }
     },
     {
       "launch_number": 14,
@@ -1042,13 +1062,14 @@
         "cap646.institutional_official_production"
       ],
       "canonical_implementation": [
-        "explicit_option_a"
+        "launch57.smart_money_batch1"
       ],
       "runtime_entry": [
         "cap646/runtime.py"
       ],
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/smart_money_batch1.py",
+        "bd_platform/free_tier_capabilities.py"
       ],
       "tests_found": [
         "tests/cap646/test_batch01_dedicated.py"
@@ -1056,10 +1077,10 @@
       "evidence_found": [
         "ENGINEERING_AUDIT_826_REPORT.json"
       ],
-      "current_engineering_status": "PASS_ENGINEERING",
+      "current_engineering_status": "PENDING_VERIFICATION",
       "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
       "root_cause_if_not_pass_engineering": null,
-      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "pass_engineering_reconciliation": "PENDING_INDEPENDENT_VERIFICATION",
       "stub_generic_mock_findings": [
         {
           "launch_number": 14,
@@ -1072,7 +1093,26 @@
         }
       ],
       "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
-      "notes": ""
+      "notes": "",
+      "phase4_batch1_build": {
+        "builder_status": "PENDING_VERIFICATION",
+        "runtime_path": "cap646/institutional_official_production.py → launch57/smart_money_batch1.py",
+        "consumer_paths": [
+          "launch57/smart_money_batch1.py",
+          "bd_platform/free_tier_capabilities.py"
+        ],
+        "binding_source": "launch57_phase4_smart_money_batch1",
+        "handler_module": "launch57.smart_money_batch1",
+        "tests_found": [
+          "tests/launch57/test_smart_money_batch1.py::test_token_screener_live"
+        ],
+        "evidence_found": [
+          "governance/launch57/PHASE4_BATCH1_EVIDENCE.json"
+        ],
+        "blocker": null,
+        "prior_pass_trusted_for_launch": "NO",
+        "commit_sha": "bd9698cdbaaca381ea7e4c4661b1cc815836f4fa"
+      }
     },
     {
       "launch_number": 15,
@@ -1101,22 +1141,23 @@
         "cap646.institutional_official_production"
       ],
       "canonical_implementation": [
-        "explicit_option_a"
+        "launch57.smart_money_batch2"
       ],
       "runtime_entry": [
         "cap646/runtime.py"
       ],
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/smart_money_batch2.py",
+        "bd_platform/address_intelligence.py"
       ],
       "tests_found": [],
       "evidence_found": [
         "ENGINEERING_AUDIT_826_REPORT.json"
       ],
-      "current_engineering_status": "PASS_ENGINEERING",
+      "current_engineering_status": "PENDING_VERIFICATION",
       "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
       "root_cause_if_not_pass_engineering": null,
-      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "pass_engineering_reconciliation": "PENDING_INDEPENDENT_VERIFICATION",
       "stub_generic_mock_findings": [
         {
           "launch_number": 15,
@@ -1129,7 +1170,26 @@
         }
       ],
       "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
-      "notes": ""
+      "notes": "",
+      "phase4_batch2_build": {
+        "builder_status": "PENDING_VERIFICATION",
+        "runtime_path": "cap646/institutional_official_production.py → launch57/smart_money_batch2.py",
+        "consumer_paths": [
+          "launch57/smart_money_batch2.py",
+          "bd_platform/address_intelligence.py"
+        ],
+        "binding_source": "launch57_phase4_smart_money_batch2",
+        "handler_module": "launch57.smart_money_batch2",
+        "tests_found": [
+          "tests/launch57/test_smart_money_batch2.py"
+        ],
+        "evidence_found": [
+          "governance/launch57/PHASE4_BATCH2_EVIDENCE.json"
+        ],
+        "blocker": null,
+        "prior_pass_trusted_for_launch": "NO",
+        "commit_sha": "bd9698cdbaaca381ea7e4c4661b1cc815836f4fa"
+      }
     },
     {
       "launch_number": 16,
@@ -1164,15 +1224,15 @@
         "cap646.institutional_official_production"
       ],
       "canonical_implementation": [
-        "explicit_option_a",
-        "explicit_option_a"
+        "launch57.smart_money_batch1"
       ],
       "runtime_entry": [
         "cap646/runtime.py",
         "cap646/runtime.py"
       ],
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/smart_money_batch1.py",
+        "cap646/dedicated_common.py"
       ],
       "tests_found": [
         "tests/test_sonar_pr356_new_code_coverage.py"
@@ -1180,10 +1240,10 @@
       "evidence_found": [
         "ENGINEERING_AUDIT_826_REPORT.json"
       ],
-      "current_engineering_status": "PASS_ENGINEERING",
+      "current_engineering_status": "PENDING_VERIFICATION",
       "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
       "root_cause_if_not_pass_engineering": null,
-      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "pass_engineering_reconciliation": "PENDING_INDEPENDENT_VERIFICATION",
       "stub_generic_mock_findings": [
         {
           "launch_number": 16,
@@ -1205,7 +1265,26 @@
         }
       ],
       "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
-      "notes": ""
+      "notes": "",
+      "phase4_batch1_build": {
+        "builder_status": "PENDING_VERIFICATION",
+        "runtime_path": "cap646/institutional_official_production.py → launch57/smart_money_batch1.py",
+        "consumer_paths": [
+          "launch57/smart_money_batch1.py",
+          "cap646/dedicated_common.py"
+        ],
+        "binding_source": "launch57_phase4_smart_money_batch1",
+        "handler_module": "launch57.smart_money_batch1",
+        "tests_found": [
+          "tests/launch57/test_smart_money_batch1.py::test_exchange_flow_live_path"
+        ],
+        "evidence_found": [
+          "governance/launch57/PHASE4_BATCH1_EVIDENCE.json"
+        ],
+        "blocker": null,
+        "prior_pass_trusted_for_launch": "NO",
+        "commit_sha": "bd9698cdbaaca381ea7e4c4661b1cc815836f4fa"
+      }
     },
     {
       "launch_number": 17,
@@ -1240,15 +1319,15 @@
         "cap646.institutional_official_production"
       ],
       "canonical_implementation": [
-        "explicit_option_a",
-        "explicit_option_a"
+        "launch57.smart_money_batch1"
       ],
       "runtime_entry": [
         "cap646/runtime.py",
         "cap646/runtime.py"
       ],
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/smart_money_batch1.py",
+        "exchange_internal_flow_filter.py"
       ],
       "tests_found": [
         "tests/test_d09_flow_filter.py"
@@ -1256,10 +1335,10 @@
       "evidence_found": [
         "ENGINEERING_AUDIT_826_REPORT.json"
       ],
-      "current_engineering_status": "PASS_ENGINEERING",
+      "current_engineering_status": "PENDING_VERIFICATION",
       "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
       "root_cause_if_not_pass_engineering": null,
-      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "pass_engineering_reconciliation": "PENDING_INDEPENDENT_VERIFICATION",
       "stub_generic_mock_findings": [
         {
           "launch_number": 17,
@@ -1281,7 +1360,26 @@
         }
       ],
       "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
-      "notes": ""
+      "notes": "",
+      "phase4_batch1_build": {
+        "builder_status": "PENDING_VERIFICATION",
+        "runtime_path": "launch57/smart_money_batch1.py:exchange_whale_ratio",
+        "consumer_paths": [
+          "launch57/smart_money_batch1.py",
+          "exchange_internal_flow_filter.py"
+        ],
+        "binding_source": "launch57_phase4_smart_money_batch1",
+        "handler_module": "launch57.smart_money_batch1",
+        "tests_found": [
+          "tests/launch57/test_smart_money_batch1.py::test_dispatch_all_batch1_caps"
+        ],
+        "evidence_found": [
+          "governance/launch57/PHASE4_BATCH1_EVIDENCE.json"
+        ],
+        "blocker": null,
+        "prior_pass_trusted_for_launch": "NO",
+        "commit_sha": "bd9698cdbaaca381ea7e4c4661b1cc815836f4fa"
+      }
     },
     {
       "launch_number": 18,
@@ -1316,24 +1414,24 @@
         "cap646.institutional_official_production"
       ],
       "canonical_implementation": [
-        "explicit_option_a",
-        "explicit_option_a"
+        "launch57.smart_money_batch2"
       ],
       "runtime_entry": [
         "cap646/runtime.py",
         "cap646/runtime.py"
       ],
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/smart_money_batch2.py",
+        "whale_tracker.py"
       ],
       "tests_found": [],
       "evidence_found": [
         "ENGINEERING_AUDIT_826_REPORT.json"
       ],
-      "current_engineering_status": "PASS_ENGINEERING",
+      "current_engineering_status": "PENDING_VERIFICATION",
       "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
       "root_cause_if_not_pass_engineering": null,
-      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "pass_engineering_reconciliation": "PENDING_INDEPENDENT_VERIFICATION",
       "stub_generic_mock_findings": [
         {
           "launch_number": 18,
@@ -1355,7 +1453,26 @@
         }
       ],
       "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
-      "notes": ""
+      "notes": "",
+      "phase4_batch2_build": {
+        "builder_status": "PENDING_VERIFICATION",
+        "runtime_path": "cap646/institutional_official_production.py → launch57/smart_money_batch2.py",
+        "consumer_paths": [
+          "launch57/smart_money_batch2.py",
+          "whale_tracker.py"
+        ],
+        "binding_source": "launch57_phase4_smart_money_batch2",
+        "handler_module": "launch57.smart_money_batch2",
+        "tests_found": [
+          "tests/launch57/test_smart_money_batch2.py::test_dispatch_all_batch2_caps"
+        ],
+        "evidence_found": [
+          "governance/launch57/PHASE4_BATCH2_EVIDENCE.json"
+        ],
+        "blocker": null,
+        "prior_pass_trusted_for_launch": "NO",
+        "commit_sha": "bd9698cdbaaca381ea7e4c4661b1cc815836f4fa"
+      }
     },
     {
       "launch_number": 19,
@@ -1384,22 +1501,23 @@
         "cap646.institutional_official_production"
       ],
       "canonical_implementation": [
-        "explicit_option_a"
+        "launch57.smart_money_batch2"
       ],
       "runtime_entry": [
         "cap646/runtime.py"
       ],
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/smart_money_batch2.py",
+        "onchain_tracker.py"
       ],
       "tests_found": [],
       "evidence_found": [
         "ENGINEERING_AUDIT_826_REPORT.json"
       ],
-      "current_engineering_status": "PASS_ENGINEERING",
+      "current_engineering_status": "PENDING_VERIFICATION",
       "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
       "root_cause_if_not_pass_engineering": null,
-      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "pass_engineering_reconciliation": "PENDING_INDEPENDENT_VERIFICATION",
       "stub_generic_mock_findings": [
         {
           "launch_number": 19,
@@ -1412,7 +1530,26 @@
         }
       ],
       "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
-      "notes": ""
+      "notes": "",
+      "phase4_batch2_build": {
+        "builder_status": "PENDING_VERIFICATION",
+        "runtime_path": "cap646/institutional_official_production.py → launch57/smart_money_batch2.py",
+        "consumer_paths": [
+          "launch57/smart_money_batch2.py",
+          "onchain_tracker.py"
+        ],
+        "binding_source": "launch57_phase4_smart_money_batch2",
+        "handler_module": "launch57.smart_money_batch2",
+        "tests_found": [
+          "tests/launch57/test_smart_money_batch2.py::test_inter_entity_limited_scope"
+        ],
+        "evidence_found": [
+          "governance/launch57/PHASE4_BATCH2_EVIDENCE.json"
+        ],
+        "blocker": null,
+        "prior_pass_trusted_for_launch": "NO",
+        "commit_sha": "bd9698cdbaaca381ea7e4c4661b1cc815836f4fa"
+      }
     },
     {
       "launch_number": 20,
@@ -1441,22 +1578,24 @@
         "cap646.institutional_official_production"
       ],
       "canonical_implementation": [
-        "explicit_option_a"
+        "launch57.smart_money_batch1"
       ],
       "runtime_entry": [
         "cap646/runtime.py"
       ],
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/smart_money_batch1.py",
+        "launch57/smart_money_common.py",
+        "bd_platform/onchain_platform_layer.py"
       ],
       "tests_found": [],
       "evidence_found": [
         "ENGINEERING_AUDIT_826_REPORT.json"
       ],
-      "current_engineering_status": "PASS_ENGINEERING",
+      "current_engineering_status": "PENDING_VERIFICATION",
       "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
       "root_cause_if_not_pass_engineering": null,
-      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "pass_engineering_reconciliation": "PENDING_INDEPENDENT_VERIFICATION",
       "stub_generic_mock_findings": [
         {
           "launch_number": 20,
@@ -1469,7 +1608,27 @@
         }
       ],
       "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
-      "notes": ""
+      "notes": "",
+      "phase4_batch1_build": {
+        "builder_status": "PENDING_VERIFICATION",
+        "runtime_path": "cap646/institutional_official_production.py → launch57/smart_money_batch1.py",
+        "consumer_paths": [
+          "launch57/smart_money_batch1.py",
+          "launch57/smart_money_common.py",
+          "bd_platform/onchain_platform_layer.py"
+        ],
+        "binding_source": "launch57_phase4_smart_money_batch1",
+        "handler_module": "launch57.smart_money_batch1",
+        "tests_found": [
+          "tests/launch57/test_smart_money_batch1.py"
+        ],
+        "evidence_found": [
+          "governance/launch57/PHASE4_BATCH1_EVIDENCE.json"
+        ],
+        "blocker": null,
+        "prior_pass_trusted_for_launch": "NO",
+        "commit_sha": "bd9698cdbaaca381ea7e4c4661b1cc815836f4fa"
+      }
     },
     {
       "launch_number": 21,
@@ -3621,22 +3780,23 @@
         "cap646.institutional_official_production"
       ],
       "canonical_implementation": [
-        "explicit_option_a"
+        "launch57.smart_money_batch2"
       ],
       "runtime_entry": [
         "cap646/runtime.py"
       ],
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/smart_money_batch2.py",
+        "bd_platform/whales_institutional_layer.py"
       ],
       "tests_found": [],
       "evidence_found": [
         "ENGINEERING_AUDIT_826_REPORT.json"
       ],
-      "current_engineering_status": "PASS_ENGINEERING",
+      "current_engineering_status": "PENDING_VERIFICATION",
       "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
       "root_cause_if_not_pass_engineering": null,
-      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "pass_engineering_reconciliation": "PENDING_INDEPENDENT_VERIFICATION",
       "stub_generic_mock_findings": [
         {
           "launch_number": 53,
@@ -3649,7 +3809,26 @@
         }
       ],
       "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
-      "notes": ""
+      "notes": "",
+      "phase4_batch2_build": {
+        "builder_status": "PENDING_VERIFICATION",
+        "runtime_path": "cap646/institutional_official_production.py → launch57/smart_money_batch2.py",
+        "consumer_paths": [
+          "launch57/smart_money_batch2.py",
+          "bd_platform/whales_institutional_layer.py"
+        ],
+        "binding_source": "launch57_phase4_smart_money_batch2",
+        "handler_module": "launch57.smart_money_batch2",
+        "tests_found": [
+          "tests/launch57/test_smart_money_batch2.py::test_dispatch_all_batch2_caps"
+        ],
+        "evidence_found": [
+          "governance/launch57/PHASE4_BATCH2_EVIDENCE.json"
+        ],
+        "blocker": null,
+        "prior_pass_trusted_for_launch": "NO",
+        "commit_sha": "bd9698cdbaaca381ea7e4c4661b1cc815836f4fa"
+      }
     },
     {
       "launch_number": 54,
@@ -3678,22 +3857,23 @@
         "cap646.institutional_official_production"
       ],
       "canonical_implementation": [
-        "explicit_option_a"
+        "launch57.smart_money_batch2"
       ],
       "runtime_entry": [
         "cap646/runtime.py"
       ],
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/smart_money_batch2.py",
+        "research_lab.py"
       ],
       "tests_found": [],
       "evidence_found": [
         "ENGINEERING_AUDIT_826_REPORT.json"
       ],
-      "current_engineering_status": "PASS_ENGINEERING",
+      "current_engineering_status": "PENDING_VERIFICATION",
       "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
       "root_cause_if_not_pass_engineering": null,
-      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "pass_engineering_reconciliation": "PENDING_INDEPENDENT_VERIFICATION",
       "stub_generic_mock_findings": [
         {
           "launch_number": 54,
@@ -3706,7 +3886,26 @@
         }
       ],
       "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
-      "notes": ""
+      "notes": "",
+      "phase4_batch2_build": {
+        "builder_status": "PENDING_VERIFICATION",
+        "runtime_path": "cap646/institutional_official_production.py → launch57/smart_money_batch2.py",
+        "consumer_paths": [
+          "launch57/smart_money_batch2.py",
+          "research_lab.py"
+        ],
+        "binding_source": "launch57_phase4_smart_money_batch2",
+        "handler_module": "launch57.smart_money_batch2",
+        "tests_found": [
+          "tests/launch57/test_smart_money_batch2.py::test_instant_token_dd_blocks_stale"
+        ],
+        "evidence_found": [
+          "governance/launch57/PHASE4_BATCH2_EVIDENCE.json"
+        ],
+        "blocker": null,
+        "prior_pass_trusted_for_launch": "NO",
+        "commit_sha": "bd9698cdbaaca381ea7e4c4661b1cc815836f4fa"
+      }
     },
     {
       "launch_number": 55,
@@ -3735,22 +3934,24 @@
         "cap646.institutional_official_production"
       ],
       "canonical_implementation": [
-        "explicit_option_a"
+        "launch57.smart_money_batch3"
       ],
       "runtime_entry": [
         "cap646/runtime.py"
       ],
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/smart_money_batch3.py",
+        "sentiment_manipulation_guard.py",
+        "whale_tracker.py"
       ],
       "tests_found": [],
       "evidence_found": [
         "ENGINEERING_AUDIT_826_REPORT.json"
       ],
-      "current_engineering_status": "PASS_ENGINEERING",
+      "current_engineering_status": "PENDING_VERIFICATION",
       "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
       "root_cause_if_not_pass_engineering": null,
-      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "pass_engineering_reconciliation": "PENDING_INDEPENDENT_VERIFICATION",
       "stub_generic_mock_findings": [
         {
           "launch_number": 55,
@@ -3763,7 +3964,27 @@
         }
       ],
       "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
-      "notes": ""
+      "notes": "",
+      "phase4_batch3_build": {
+        "builder_status": "PENDING_VERIFICATION",
+        "runtime_path": "cap646/institutional_official_production.py → launch57/smart_money_batch3.py",
+        "consumer_paths": [
+          "launch57/smart_money_batch3.py",
+          "sentiment_manipulation_guard.py",
+          "whale_tracker.py"
+        ],
+        "binding_source": "launch57_phase4_smart_money_batch3",
+        "handler_module": "launch57.smart_money_batch3",
+        "tests_found": [
+          "tests/launch57/test_smart_money_batch3.py::test_pump_dump_detects_phrases"
+        ],
+        "evidence_found": [
+          "governance/launch57/PHASE4_BATCH3_EVIDENCE.json"
+        ],
+        "blocker": null,
+        "prior_pass_trusted_for_launch": "NO",
+        "commit_sha": "bd9698cdbaaca381ea7e4c4661b1cc815836f4fa"
+      }
     },
     {
       "launch_number": 56,
@@ -3792,22 +4013,23 @@
         "cap646.institutional_official_production"
       ],
       "canonical_implementation": [
-        "explicit_option_a"
+        "launch57.smart_money_batch3"
       ],
       "runtime_entry": [
         "cap646/runtime.py"
       ],
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/smart_money_batch3.py",
+        "bd_platform/derivatives_onchain_intelligence_layer.py"
       ],
       "tests_found": [],
       "evidence_found": [
         "ENGINEERING_AUDIT_826_REPORT.json"
       ],
-      "current_engineering_status": "PASS_ENGINEERING",
+      "current_engineering_status": "PENDING_VERIFICATION",
       "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
       "root_cause_if_not_pass_engineering": null,
-      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "pass_engineering_reconciliation": "PENDING_INDEPENDENT_VERIFICATION",
       "stub_generic_mock_findings": [
         {
           "launch_number": 56,
@@ -3820,7 +4042,26 @@
         }
       ],
       "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
-      "notes": ""
+      "notes": "",
+      "phase4_batch3_build": {
+        "builder_status": "PENDING_VERIFICATION",
+        "runtime_path": "cap646/institutional_official_production.py → launch57/smart_money_batch3.py",
+        "consumer_paths": [
+          "launch57/smart_money_batch3.py",
+          "bd_platform/derivatives_onchain_intelligence_layer.py"
+        ],
+        "binding_source": "launch57_phase4_smart_money_batch3",
+        "handler_module": "launch57.smart_money_batch3",
+        "tests_found": [
+          "tests/launch57/test_smart_money_batch3.py::test_suspicious_flags_mini_aml_not_full_platform"
+        ],
+        "evidence_found": [
+          "governance/launch57/PHASE4_BATCH3_EVIDENCE.json"
+        ],
+        "blocker": null,
+        "prior_pass_trusted_for_launch": "NO",
+        "commit_sha": "bd9698cdbaaca381ea7e4c4661b1cc815836f4fa"
+      }
     },
     {
       "launch_number": 57,
@@ -3849,26 +4090,46 @@
         "bd_platform.infra_status"
       ],
       "canonical_implementation": [
-        "bd_platform.infra_status.infra_matrix"
+        "launch57.smart_money_batch3"
       ],
       "runtime_entry": [
         "cap978/verify.py"
       ],
       "actual_consumer_paths": [
-        "bd_platform.infra_status.infra_matrix"
+        "launch57/smart_money_batch3.py",
+        "bd_platform/institutional_b2b_layer.py"
       ],
       "tests_found": [],
       "evidence_found": [
         "BLACKDARK_CAPABILITY_PHANTOM_DISPOSITION.json#P2GM-916",
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
-      "current_engineering_status": "PASS_ENGINEERING",
+      "current_engineering_status": "PENDING_VERIFICATION",
       "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
       "root_cause_if_not_pass_engineering": null,
-      "pass_engineering_reconciliation": "EXISTING_PASS_EVIDENCE_FOUND",
+      "pass_engineering_reconciliation": "PENDING_INDEPENDENT_VERIFICATION",
       "stub_generic_mock_findings": [],
       "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
-      "notes": ""
+      "notes": "",
+      "phase4_batch3_build": {
+        "builder_status": "PENDING_VERIFICATION",
+        "runtime_path": "cap646/runtime.py → cap978/verify.py → launch57/smart_money_batch3.py",
+        "consumer_paths": [
+          "launch57/smart_money_batch3.py",
+          "bd_platform/institutional_b2b_layer.py"
+        ],
+        "binding_source": "launch57_phase4_smart_money_batch3",
+        "handler_module": "launch57.smart_money_batch3",
+        "tests_found": [
+          "tests/launch57/test_smart_money_batch3.py::test_exchange_transparency_forbids_solvency_claim"
+        ],
+        "evidence_found": [
+          "governance/launch57/PHASE4_BATCH3_EVIDENCE.json"
+        ],
+        "blocker": null,
+        "prior_pass_trusted_for_launch": "NO",
+        "commit_sha": "bd9698cdbaaca381ea7e4c4661b1cc815836f4fa"
+      }
     }
   ],
   "phantom_stub_generic_findings": [
@@ -5794,5 +6055,40 @@
     "PHASE3_COMPLETE": "YES",
     "MAX_BUILDER_STATUS": "PENDING_VERIFICATION",
     "STOP": "Phase 4 not started"
+  },
+  "phase4_batch1_verification": {
+    "PHASE": "4_SMART_MONEY_INSTANT",
+    "BATCH": 1,
+    "BUILD_ORDER_EXECUTED": [
+      20,
+      16,
+      17,
+      13,
+      14
+    ],
+    "MAX_BUILDER_STATUS": "PENDING_VERIFICATION"
+  },
+  "phase4_batch2_verification": {
+    "PHASE": "4_SMART_MONEY_INSTANT",
+    "BATCH": 2,
+    "BUILD_ORDER_EXECUTED": [
+      15,
+      18,
+      19,
+      53,
+      54
+    ],
+    "MAX_BUILDER_STATUS": "PENDING_VERIFICATION"
+  },
+  "phase4_batch3_verification": {
+    "PHASE": "4_SMART_MONEY_INSTANT",
+    "BATCH": 3,
+    "BUILD_ORDER_EXECUTED": [
+      55,
+      56,
+      57
+    ],
+    "MAX_BUILDER_STATUS": "PENDING_VERIFICATION",
+    "PHASE4_COMPLETE": true
   }
 }
