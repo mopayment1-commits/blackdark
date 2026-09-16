@@ -5702,10 +5702,12 @@
       "state_classification": "EXISTING_VERIFIED",
       "canonical_decision": "KEEP_DISTINCT",
       "canonical_owner": "cap646.institutional_official_production",
-      "canonical_implementation": "explicit_option_a",
+      "canonical_implementation": "launch57.derivatives_batch2",
       "runtime_entry": "cap646/runtime.py",
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/derivatives_batch2.py",
+        "instant_alert_engine.py",
+        "whale_tracker.py"
       ],
       "inputs": [
         "symbol",
@@ -6035,6 +6037,33 @@
         "not_in_current_build_scope": false,
         "not_in_launch_surface": false,
         "no_build": false
+      },
+      "launch57_phase5_batch2": {
+        "phase": "5_DERIVATIVES_HABITS",
+        "batch": 2,
+        "launch_item_id": 33,
+        "builder_status": "PENDING_VERIFICATION",
+        "prior_pass_trusted_for_launch": "NO",
+        "runtime_path": "cap646/institutional_official_production.py → launch57/derivatives_batch2.py",
+        "consumer_paths": [
+          "launch57/derivatives_batch2.py",
+          "instant_alert_engine.py",
+          "whale_tracker.py"
+        ],
+        "backend_module": "launch57.derivatives_batch2",
+        "backend_entrypoint": "smart_alerts_composite",
+        "binding_source": "launch57_phase5_derivatives_batch2",
+        "semantic_oracle": "local alert evaluation live; external push BLOCKED_EXTERNAL if telegram missing",
+        "tests_run": [
+          "tests/launch57/test_derivatives_batch2.py::test_smart_alerts_blocked_external_when_no_telegram"
+        ],
+        "tests_result": "PASS",
+        "evidence_reference": "governance/launch57/PHASE5_BATCH2_EVIDENCE.json",
+        "commit_sha": "2387cc105035ffb8edef0937529298129e2840ab",
+        "known_gaps": [
+          "independent_verification_pending",
+          "legacy_bypass_if_LAUNCH57_DERIVATIVES_BATCH2_CAP_IDS_emptied"
+        ]
       }
     },
     {
@@ -6394,10 +6423,11 @@
       "state_classification": "EXISTING_VERIFIED",
       "canonical_decision": "KEEP_DISTINCT",
       "canonical_owner": "cap646.institutional_official_production",
-      "canonical_implementation": "explicit_option_a",
+      "canonical_implementation": "launch57.derivatives_batch2",
       "runtime_entry": "cap646/runtime.py",
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/derivatives_batch2.py",
+        "bd_platform/security_trust_data_layer.py"
       ],
       "inputs": [
         "symbol",
@@ -6714,6 +6744,32 @@
         "not_in_current_build_scope": false,
         "not_in_launch_surface": false,
         "no_build": false
+      },
+      "launch57_phase5_batch2": {
+        "phase": "5_DERIVATIVES_HABITS",
+        "batch": 2,
+        "launch_item_id": 32,
+        "builder_status": "PENDING_VERIFICATION",
+        "prior_pass_trusted_for_launch": "NO",
+        "runtime_path": "cap646/institutional_official_production.py → launch57/derivatives_batch2.py",
+        "consumer_paths": [
+          "launch57/derivatives_batch2.py",
+          "bd_platform/security_trust_data_layer.py"
+        ],
+        "backend_module": "launch57.derivatives_batch2",
+        "backend_entrypoint": "limited_watchlists",
+        "binding_source": "launch57_phase5_derivatives_batch2",
+        "semantic_oracle": "limited watchlist scope — no full multi-venue mesh",
+        "tests_run": [
+          "tests/launch57/test_derivatives_batch2.py::test_limited_watchlists_scope"
+        ],
+        "tests_result": "PASS",
+        "evidence_reference": "governance/launch57/PHASE5_BATCH2_EVIDENCE.json",
+        "commit_sha": "2387cc105035ffb8edef0937529298129e2840ab",
+        "known_gaps": [
+          "independent_verification_pending",
+          "legacy_bypass_if_LAUNCH57_DERIVATIVES_BATCH2_CAP_IDS_emptied"
+        ]
       }
     },
     {
@@ -16810,10 +16866,11 @@
       "state_classification": "EXISTING_VERIFIED",
       "canonical_decision": "KEEP_DISTINCT",
       "canonical_owner": "cap646.institutional_official_production",
-      "canonical_implementation": "explicit_option_a",
+      "canonical_implementation": "launch57.derivatives_batch1",
       "runtime_entry": "cap646/runtime.py",
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/derivatives_batch1.py",
+        "bd_platform/derivatives_hub.py"
       ],
       "inputs": [
         "symbol",
@@ -17183,6 +17240,32 @@
         "not_in_current_build_scope": false,
         "not_in_launch_surface": false,
         "no_build": false
+      },
+      "launch57_phase5_batch1": {
+        "phase": "5_DERIVATIVES_HABITS",
+        "batch": 1,
+        "launch_item_id": 25,
+        "builder_status": "PENDING_VERIFICATION",
+        "prior_pass_trusted_for_launch": "NO",
+        "runtime_path": "cap646/institutional_official_production.py → launch57/derivatives_batch1.py",
+        "consumer_paths": [
+          "launch57/derivatives_batch1.py",
+          "bd_platform/derivatives_hub.py"
+        ],
+        "backend_module": "launch57.derivatives_batch1",
+        "backend_entrypoint": "futures_open_interest_intelligence",
+        "binding_source": "launch57_phase5_derivatives_batch1",
+        "semantic_oracle": "OI from derivatives hub on live spine",
+        "tests_run": [
+          "tests/launch57/test_derivatives_batch1.py"
+        ],
+        "tests_result": "PASS",
+        "evidence_reference": "governance/launch57/PHASE5_BATCH1_EVIDENCE.json",
+        "commit_sha": "2387cc105035ffb8edef0937529298129e2840ab",
+        "known_gaps": [
+          "independent_verification_pending",
+          "legacy_bypass_if_LAUNCH57_DERIVATIVES_BATCH1_CAP_IDS_emptied"
+        ]
       }
     },
     {
@@ -17542,10 +17625,12 @@
       "state_classification": "EXISTING_VERIFIED",
       "canonical_decision": "KEEP_DISTINCT",
       "canonical_owner": "cap646.institutional_official_production",
-      "canonical_implementation": "explicit_option_a",
+      "canonical_implementation": "launch57.derivatives_batch2",
       "runtime_entry": "cap646/runtime.py",
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/derivatives_batch2.py",
+        "cap646/fallbacks.py",
+        "live_book_hub.py"
       ],
       "inputs": [
         "symbol",
@@ -17976,6 +18061,33 @@
         "not_in_current_build_scope": false,
         "not_in_launch_surface": false,
         "no_build": false
+      },
+      "launch57_phase5_batch2": {
+        "phase": "5_DERIVATIVES_HABITS",
+        "batch": 2,
+        "launch_item_id": 30,
+        "builder_status": "PENDING_VERIFICATION",
+        "prior_pass_trusted_for_launch": "NO",
+        "runtime_path": "cap646/institutional_official_production.py → launch57/derivatives_batch2.py",
+        "consumer_paths": [
+          "launch57/derivatives_batch2.py",
+          "cap646/fallbacks.py",
+          "live_book_hub.py"
+        ],
+        "backend_module": "launch57.derivatives_batch2",
+        "backend_entrypoint": "order_book_intelligence",
+        "binding_source": "launch57_phase5_derivatives_batch2",
+        "semantic_oracle": "L1 top-of-book declared — deeper depth not claimed",
+        "tests_run": [
+          "tests/launch57/test_derivatives_batch2.py::test_order_book_l1_depth_declaration"
+        ],
+        "tests_result": "PASS",
+        "evidence_reference": "governance/launch57/PHASE5_BATCH2_EVIDENCE.json",
+        "commit_sha": "2387cc105035ffb8edef0937529298129e2840ab",
+        "known_gaps": [
+          "independent_verification_pending",
+          "legacy_bypass_if_LAUNCH57_DERIVATIVES_BATCH2_CAP_IDS_emptied"
+        ]
       }
     },
     {
@@ -19750,10 +19862,11 @@
       "state_classification": "EXISTING_VERIFIED",
       "canonical_decision": "KEEP_DISTINCT",
       "canonical_owner": "cap646.institutional_official_production",
-      "canonical_implementation": "explicit_option_a",
+      "canonical_implementation": "launch57.derivatives_batch2",
       "runtime_entry": "cap646/runtime.py",
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/derivatives_batch2.py",
+        "bd_platform/market_rankings.py"
       ],
       "inputs": [
         "symbol",
@@ -20077,6 +20190,32 @@
         "not_in_current_build_scope": false,
         "not_in_launch_surface": false,
         "no_build": false
+      },
+      "launch57_phase5_batch2": {
+        "phase": "5_DERIVATIVES_HABITS",
+        "batch": 2,
+        "launch_item_id": 31,
+        "builder_status": "PENDING_VERIFICATION",
+        "prior_pass_trusted_for_launch": "NO",
+        "runtime_path": "cap646/institutional_official_production.py → launch57/derivatives_batch2.py",
+        "consumer_paths": [
+          "launch57/derivatives_batch2.py",
+          "bd_platform/market_rankings.py"
+        ],
+        "backend_module": "launch57.derivatives_batch2",
+        "backend_entrypoint": "general_market_token_screener",
+        "binding_source": "launch57_phase5_derivatives_batch2",
+        "semantic_oracle": "general market rankings on live spine",
+        "tests_run": [
+          "tests/launch57/test_derivatives_batch2.py::test_dispatch_all_batch2_caps"
+        ],
+        "tests_result": "PASS",
+        "evidence_reference": "governance/launch57/PHASE5_BATCH2_EVIDENCE.json",
+        "commit_sha": "2387cc105035ffb8edef0937529298129e2840ab",
+        "known_gaps": [
+          "independent_verification_pending",
+          "legacy_bypass_if_LAUNCH57_DERIVATIVES_BATCH2_CAP_IDS_emptied"
+        ]
       }
     },
     {
@@ -29334,10 +29473,11 @@
       "state_classification": "EXISTING_VERIFIED",
       "canonical_decision": "KEEP_DISTINCT",
       "canonical_owner": "cap646.institutional_official_production",
-      "canonical_implementation": "explicit_option_a",
+      "canonical_implementation": "launch57.derivatives_batch1",
       "runtime_entry": "cap646/runtime.py",
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/derivatives_batch1.py",
+        "bd_platform/derivatives_hub.py"
       ],
       "inputs": [
         "symbol",
@@ -29765,6 +29905,32 @@
         "not_in_current_build_scope": false,
         "not_in_launch_surface": false,
         "no_build": false
+      },
+      "launch57_phase5_batch1": {
+        "phase": "5_DERIVATIVES_HABITS",
+        "batch": 1,
+        "launch_item_id": 25,
+        "builder_status": "PENDING_VERIFICATION",
+        "prior_pass_trusted_for_launch": "NO",
+        "runtime_path": "cap646/institutional_official_production.py → launch57/derivatives_batch1.py",
+        "consumer_paths": [
+          "launch57/derivatives_batch1.py",
+          "bd_platform/derivatives_hub.py"
+        ],
+        "backend_module": "launch57.derivatives_batch1",
+        "backend_entrypoint": "futures_open_interest_intelligence",
+        "binding_source": "launch57_phase5_derivatives_batch1",
+        "semantic_oracle": "OI from derivatives hub on live spine",
+        "tests_run": [
+          "tests/launch57/test_derivatives_batch1.py"
+        ],
+        "tests_result": "PASS",
+        "evidence_reference": "governance/launch57/PHASE5_BATCH1_EVIDENCE.json",
+        "commit_sha": "2387cc105035ffb8edef0937529298129e2840ab",
+        "known_gaps": [
+          "independent_verification_pending",
+          "legacy_bypass_if_LAUNCH57_DERIVATIVES_BATCH1_CAP_IDS_emptied"
+        ]
       }
     },
     {
@@ -29786,10 +29952,11 @@
       "state_classification": "EXISTING_VERIFIED",
       "canonical_decision": "KEEP_DISTINCT",
       "canonical_owner": "cap646.institutional_official_production",
-      "canonical_implementation": "explicit_option_a",
+      "canonical_implementation": "launch57.derivatives_batch1",
       "runtime_entry": "cap646/runtime.py",
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/derivatives_batch1.py",
+        "bd_platform/derivatives_hub.py"
       ],
       "inputs": [
         "symbol",
@@ -30218,6 +30385,32 @@
         "not_in_current_build_scope": false,
         "not_in_launch_surface": false,
         "no_build": false
+      },
+      "launch57_phase5_batch1": {
+        "phase": "5_DERIVATIVES_HABITS",
+        "batch": 1,
+        "launch_item_id": 26,
+        "builder_status": "PENDING_VERIFICATION",
+        "prior_pass_trusted_for_launch": "NO",
+        "runtime_path": "cap646/institutional_official_production.py → launch57/derivatives_batch1.py",
+        "consumer_paths": [
+          "launch57/derivatives_batch1.py",
+          "bd_platform/derivatives_hub.py"
+        ],
+        "backend_module": "launch57.derivatives_batch1",
+        "backend_entrypoint": "funding_rate_intelligence",
+        "binding_source": "launch57_phase5_derivatives_batch1",
+        "semantic_oracle": "funding rate on live spine; STALE blocks",
+        "tests_run": [
+          "tests/launch57/test_derivatives_batch1.py::test_funding_rate_blocks_stale"
+        ],
+        "tests_result": "PASS",
+        "evidence_reference": "governance/launch57/PHASE5_BATCH1_EVIDENCE.json",
+        "commit_sha": "2387cc105035ffb8edef0937529298129e2840ab",
+        "known_gaps": [
+          "independent_verification_pending",
+          "legacy_bypass_if_LAUNCH57_DERIVATIVES_BATCH1_CAP_IDS_emptied"
+        ]
       }
     },
     {
@@ -30239,10 +30432,11 @@
       "state_classification": "EXISTING_VERIFIED",
       "canonical_decision": "KEEP_DISTINCT",
       "canonical_owner": "cap646.institutional_official_production",
-      "canonical_implementation": "explicit_option_a",
+      "canonical_implementation": "launch57.derivatives_batch1",
       "runtime_entry": "cap646/runtime.py",
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/derivatives_batch1.py",
+        "bd_platform/heroes_capability_layer.py"
       ],
       "inputs": [
         "symbol",
@@ -30601,6 +30795,32 @@
         "not_in_current_build_scope": false,
         "not_in_launch_surface": false,
         "no_build": false
+      },
+      "launch57_phase5_batch1": {
+        "phase": "5_DERIVATIVES_HABITS",
+        "batch": 1,
+        "launch_item_id": 28,
+        "builder_status": "PENDING_VERIFICATION",
+        "prior_pass_trusted_for_launch": "NO",
+        "runtime_path": "cap646/institutional_official_production.py → launch57/derivatives_batch1.py",
+        "consumer_paths": [
+          "launch57/derivatives_batch1.py",
+          "bd_platform/heroes_capability_layer.py"
+        ],
+        "backend_module": "launch57.derivatives_batch1",
+        "backend_entrypoint": "taker_buy_sell_pressure",
+        "binding_source": "launch57_phase5_derivatives_batch1",
+        "semantic_oracle": "taker pressure + leverage on live spine",
+        "tests_run": [
+          "tests/launch57/test_derivatives_batch1.py::test_dispatch_all_batch1_caps"
+        ],
+        "tests_result": "PASS",
+        "evidence_reference": "governance/launch57/PHASE5_BATCH1_EVIDENCE.json",
+        "commit_sha": "2387cc105035ffb8edef0937529298129e2840ab",
+        "known_gaps": [
+          "independent_verification_pending",
+          "legacy_bypass_if_LAUNCH57_DERIVATIVES_BATCH1_CAP_IDS_emptied"
+        ]
       }
     },
     {
@@ -30622,10 +30842,11 @@
       "state_classification": "EXISTING_VERIFIED",
       "canonical_decision": "KEEP_DISTINCT",
       "canonical_owner": "cap646.institutional_official_production",
-      "canonical_implementation": "explicit_option_a",
+      "canonical_implementation": "launch57.derivatives_batch1",
       "runtime_entry": "cap646/runtime.py",
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/derivatives_batch1.py",
+        "bd_platform/liquidation_radar.py"
       ],
       "inputs": [
         "symbol",
@@ -31015,6 +31236,32 @@
         "not_in_current_build_scope": false,
         "not_in_launch_surface": false,
         "no_build": false
+      },
+      "launch57_phase5_batch1": {
+        "phase": "5_DERIVATIVES_HABITS",
+        "batch": 1,
+        "launch_item_id": 27,
+        "builder_status": "PENDING_VERIFICATION",
+        "prior_pass_trusted_for_launch": "NO",
+        "runtime_path": "cap646/institutional_official_production.py → launch57/derivatives_batch1.py",
+        "consumer_paths": [
+          "launch57/derivatives_batch1.py",
+          "bd_platform/liquidation_radar.py"
+        ],
+        "backend_module": "launch57.derivatives_batch1",
+        "backend_entrypoint": "liquidation_intelligence_light",
+        "binding_source": "launch57_phase5_derivatives_batch1",
+        "semantic_oracle": "light heatmap only — global coverage FORBIDDEN",
+        "tests_run": [
+          "tests/launch57/test_derivatives_batch1.py::test_liquidation_light_heatmap_disclaimer"
+        ],
+        "tests_result": "PASS",
+        "evidence_reference": "governance/launch57/PHASE5_BATCH1_EVIDENCE.json",
+        "commit_sha": "2387cc105035ffb8edef0937529298129e2840ab",
+        "known_gaps": [
+          "independent_verification_pending",
+          "legacy_bypass_if_LAUNCH57_DERIVATIVES_BATCH1_CAP_IDS_emptied"
+        ]
       }
     },
     {
@@ -31036,10 +31283,11 @@
       "state_classification": "EXISTING_VERIFIED",
       "canonical_decision": "KEEP_DISTINCT",
       "canonical_owner": "cap646.institutional_official_production",
-      "canonical_implementation": "explicit_option_a",
+      "canonical_implementation": "launch57.derivatives_batch1",
       "runtime_entry": "cap646/runtime.py",
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/derivatives_batch1.py",
+        "bd_platform/heroes_capability_layer.py"
       ],
       "inputs": [
         "symbol",
@@ -31396,6 +31644,32 @@
         "not_in_current_build_scope": false,
         "not_in_launch_surface": false,
         "no_build": false
+      },
+      "launch57_phase5_batch1": {
+        "phase": "5_DERIVATIVES_HABITS",
+        "batch": 1,
+        "launch_item_id": 28,
+        "builder_status": "PENDING_VERIFICATION",
+        "prior_pass_trusted_for_launch": "NO",
+        "runtime_path": "cap646/institutional_official_production.py → launch57/derivatives_batch1.py",
+        "consumer_paths": [
+          "launch57/derivatives_batch1.py",
+          "bd_platform/heroes_capability_layer.py"
+        ],
+        "backend_module": "launch57.derivatives_batch1",
+        "backend_entrypoint": "taker_buy_sell_pressure",
+        "binding_source": "launch57_phase5_derivatives_batch1",
+        "semantic_oracle": "taker pressure + leverage on live spine",
+        "tests_run": [
+          "tests/launch57/test_derivatives_batch1.py::test_dispatch_all_batch1_caps"
+        ],
+        "tests_result": "PASS",
+        "evidence_reference": "governance/launch57/PHASE5_BATCH1_EVIDENCE.json",
+        "commit_sha": "2387cc105035ffb8edef0937529298129e2840ab",
+        "known_gaps": [
+          "independent_verification_pending",
+          "legacy_bypass_if_LAUNCH57_DERIVATIVES_BATCH1_CAP_IDS_emptied"
+        ]
       }
     },
     {
@@ -31417,10 +31691,11 @@
       "state_classification": "EXISTING_VERIFIED",
       "canonical_decision": "KEEP_DISTINCT",
       "canonical_owner": "cap646.institutional_official_production",
-      "canonical_implementation": "explicit_option_a",
+      "canonical_implementation": "launch57.derivatives_batch1",
       "runtime_entry": "cap646/runtime.py",
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/derivatives_batch1.py",
+        "sentiment_engine.py"
       ],
       "inputs": [
         "symbol",
@@ -31782,6 +32057,32 @@
         "not_in_current_build_scope": false,
         "not_in_launch_surface": false,
         "no_build": false
+      },
+      "launch57_phase5_batch1": {
+        "phase": "5_DERIVATIVES_HABITS",
+        "batch": 1,
+        "launch_item_id": 29,
+        "builder_status": "PENDING_VERIFICATION",
+        "prior_pass_trusted_for_launch": "NO",
+        "runtime_path": "cap646/institutional_official_production.py → launch57/derivatives_batch1.py",
+        "consumer_paths": [
+          "launch57/derivatives_batch1.py",
+          "sentiment_engine.py"
+        ],
+        "backend_module": "launch57.derivatives_batch1",
+        "backend_entrypoint": "derivatives_sentiment_composite",
+        "binding_source": "launch57_phase5_derivatives_batch1",
+        "semantic_oracle": "composite from sentiment + derivatives on live spine",
+        "tests_run": [
+          "tests/launch57/test_derivatives_batch1.py::test_dispatch_all_batch1_caps"
+        ],
+        "tests_result": "PASS",
+        "evidence_reference": "governance/launch57/PHASE5_BATCH1_EVIDENCE.json",
+        "commit_sha": "2387cc105035ffb8edef0937529298129e2840ab",
+        "known_gaps": [
+          "independent_verification_pending",
+          "legacy_bypass_if_LAUNCH57_DERIVATIVES_BATCH1_CAP_IDS_emptied"
+        ]
       }
     },
     {
@@ -160146,10 +160447,12 @@
       "state_classification": "EXISTING_VERIFIED",
       "canonical_decision": "KEEP_DISTINCT",
       "canonical_owner": "cap646.institutional_official_production",
-      "canonical_implementation": "explicit_option_a",
+      "canonical_implementation": "launch57.derivatives_batch2",
       "runtime_entry": "cap646/runtime.py",
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/derivatives_batch2.py",
+        "cap646/fallbacks.py",
+        "live_book_hub.py"
       ],
       "inputs": [
         "symbol",
@@ -160463,6 +160766,33 @@
         "not_in_current_build_scope": false,
         "not_in_launch_surface": false,
         "no_build": false
+      },
+      "launch57_phase5_batch2": {
+        "phase": "5_DERIVATIVES_HABITS",
+        "batch": 2,
+        "launch_item_id": 30,
+        "builder_status": "PENDING_VERIFICATION",
+        "prior_pass_trusted_for_launch": "NO",
+        "runtime_path": "cap646/institutional_official_production.py → launch57/derivatives_batch2.py",
+        "consumer_paths": [
+          "launch57/derivatives_batch2.py",
+          "cap646/fallbacks.py",
+          "live_book_hub.py"
+        ],
+        "backend_module": "launch57.derivatives_batch2",
+        "backend_entrypoint": "order_book_intelligence",
+        "binding_source": "launch57_phase5_derivatives_batch2",
+        "semantic_oracle": "L1 top-of-book declared — deeper depth not claimed",
+        "tests_run": [
+          "tests/launch57/test_derivatives_batch2.py::test_order_book_l1_depth_declaration"
+        ],
+        "tests_result": "PASS",
+        "evidence_reference": "governance/launch57/PHASE5_BATCH2_EVIDENCE.json",
+        "commit_sha": "2387cc105035ffb8edef0937529298129e2840ab",
+        "known_gaps": [
+          "independent_verification_pending",
+          "legacy_bypass_if_LAUNCH57_DERIVATIVES_BATCH2_CAP_IDS_emptied"
+        ]
       }
     },
     {
@@ -317018,6 +317348,56 @@
       "legacy_bypass": "When LAUNCH57_SMART_MONEY_BATCH*_CAP_IDS emptied → batch01/batch02/batch10/batch12_dedicated",
       "cap916_runtime": "cap978/verify.py intercept for extension scope >826",
       "fix_mandatory": "NO unless smart-money path blocked"
+    }
+  },
+  "phase5_derivatives_batch1": {
+    "phase": "5_DERIVATIVES_HABITS",
+    "batch": 1,
+    "build_order_executed": [
+      25,
+      26,
+      27,
+      28,
+      29
+    ],
+    "commit": "2387cc105035ffb8edef0937529298129e2840ab",
+    "completed_at": "2026-09-16T22:13:50.055897+00:00",
+    "builder_status": "PENDING_VERIFICATION",
+    "tests": {
+      "command": "python3 -m pytest tests/launch57/test_derivatives_batch1.py -q",
+      "exit_code": 0,
+      "stdout": "....                                                                     [100%]",
+      "passed": true
+    },
+    "phase4_baseline": "00704dd1",
+    "open_debt": {
+      "legacy_bypass": "When LAUNCH57_DERIVATIVES_BATCH1_CAP_IDS emptied → batch02_dedicated",
+      "fix_mandatory": "NO unless derivatives path blocked"
+    }
+  },
+  "phase5_derivatives_batch2": {
+    "phase": "5_DERIVATIVES_HABITS",
+    "batch": 2,
+    "build_order_executed": [
+      30,
+      31,
+      32,
+      33
+    ],
+    "commit": "2387cc105035ffb8edef0937529298129e2840ab",
+    "completed_at": "2026-09-16T22:13:51.289633+00:00",
+    "builder_status": "PENDING_VERIFICATION",
+    "tests": {
+      "command": "python3 -m pytest tests/launch57/test_derivatives_batch{2,institutional_wire}.py -q",
+      "exit_code": 0,
+      "stdout": "........                                                                 [100%]",
+      "passed": true
+    },
+    "phase4_baseline": "00704dd1",
+    "phase5_complete": true,
+    "open_debt": {
+      "legacy_bypass": "When LAUNCH57_DERIVATIVES_BATCH*_CAP_IDS emptied → batch01/batch02/batch21_dedicated",
+      "fix_mandatory": "NO unless derivatives/habits path blocked"
     }
   }
 }
