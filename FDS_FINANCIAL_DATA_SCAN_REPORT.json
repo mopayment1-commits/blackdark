@@ -1,0 +1,13 @@
+{
+  "clean": true,
+  "files_scanned": 1874,
+  "pan_finding_count": 0,
+  "secret_finding_count": 0,
+  "findings": [],
+  "secret_scan": {
+    "clean": true,
+    "finding_count": 0,
+    "findings": []
+  },
+  "allowlist_entries": 8
+}

@@ -10,6 +10,8 @@ from fastapi.responses import JSONResponse, RedirectResponse
 from pydantic import BaseModel, Field
 
 from api.openapi_responses import COMMON_ERROR_RESPONSES
+from privileged_access.deps import require_financial_privilege
+from privileged_access.operations import ProtectedOperation
 from security_auth import (
     optional_user_from_request,
     require_admin,
@@ -284,9 +286,24 @@ async def org_add_member(
 
 
 @router.post("/orgs/{org_id}/roles", responses=COMMON_ERROR_RESPONSES)
-async def org_role_change(org_id: str, body: RoleChange, user: dict = Depends(require_authenticated)) -> dict[str, Any]:
+async def org_role_change(
+    org_id: str,
+    body: RoleChange,
+    user: dict = Depends(require_authenticated),
+    x_admin_totp: Annotated[str | None, Header(alias="X-Admin-TOTP")] = None,
+    x_mfa_code: Annotated[str | None, Header(alias="X-MFA-Code")] = None,
+    x_step_up_token: Annotated[str | None, Header(alias="X-Step-Up-Token")] = None,
+) -> dict[str, Any]:
     from org_tenant import set_member_role
 
+    await require_financial_privilege(
+        ProtectedOperation.INSTITUTIONAL_ROLE_CHANGE,
+        user=user,
+        org_id=org_id,
+        x_admin_totp=x_admin_totp,
+        x_mfa_code=x_mfa_code,
+        x_step_up_token=x_step_up_token,
+    )
     actor = str(user.get("email") or "").strip().lower()
     try:
         return set_member_role(org_id, body.email, body.role, actor_email=actor)

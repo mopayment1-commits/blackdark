@@ -31,7 +31,9 @@ def build_no_decision_surface(payload: dict[str, Any], *, why_not_engine: dict[s
         "decision_action": action or ("NO_DECISION" if is_no_decision else "AVAILABLE"),
         "decision_truth_state": state,
         "is_no_decision": is_no_decision,
-        "reason": why.get("human_explanation") or _default_reason(state, codes),
+        "reason": None,
+        "reason_message_key": _default_reason_key(state),
+        "reason_codes": codes,
         "evidence_gap": _evidence_gap(machine),
         "conflict": any("conflict" in c.lower() for c in codes),
         "stale_state": machine.get("freshness_state", {}).get("state") in {"STALE", "UNKNOWN"},
@@ -41,14 +43,14 @@ def build_no_decision_surface(payload: dict[str, Any], *, why_not_engine: dict[s
     }
 
 
-def _default_reason(state: str, codes: list[str]) -> str:
+def _default_reason_key(state: str) -> str:
     if state == "ABSTAINED":
-        return "NO DECISION — insufficient evidence to admit this opportunity."
+        return "dts.no_decision.abstained"
     if state == "REJECTED":
-        return f"NO DECISION — rejected ({', '.join(codes[:3]) or 'gate failure'})."
+        return "dts.no_decision.rejected"
     if state == "DEGRADED":
-        return "NO DECISION — degraded confidence; mandatory safety conditions not fully met."
-    return "Decision available."
+        return "dts.no_decision.degraded"
+    return "dts.action.no_decision"
 
 
 def _evidence_gap(machine: dict[str, Any]) -> dict[str, Any] | None:

@@ -62,3 +62,33 @@ async def build_accessibility_audit_report() -> dict[str, Any]:
 
 def run_accessibility_audit() -> dict[str, Any]:
     return run_static_wcag_audit()
+
+
+def audit_dts_accessibility_metadata(envelope: dict[str, Any] | None) -> dict[str, Any]:
+    """Validate DTS accessibility engineering metadata (DTS-056)."""
+    env = envelope or {}
+    global_meta = env.get("global") or {}
+    state_meta = env.get("state_presentation") or {}
+    issues: list[str] = []
+    if global_meta.get("color_only_meaning"):
+        issues.append("color_only_meaning")
+    if not global_meta.get("keyboard_navigation"):
+        issues.append("keyboard_navigation")
+    if not global_meta.get("screen_reader_labels"):
+        issues.append("screen_reader_labels")
+    if not state_meta.get("text_label") or not state_meta.get("symbol"):
+        issues.append("state_text_or_symbol_missing")
+    if not global_meta.get("no_decision_distinguishable_without_color"):
+        issues.append("no_decision_color_only")
+    surfaces = env.get("surfaces") or {}
+    for name, meta in surfaces.items():
+        if not meta.get("keyboard_accessible"):
+            issues.append(f"keyboard:{name}")
+        if meta.get("color_only_state"):
+            issues.append(f"color_only:{name}")
+    return {
+        "ok": not issues,
+        "issues": issues,
+        "standard": "WCAG 2.2 AA (DTS metadata)",
+        "generated_at": _utcnow(),
+    }

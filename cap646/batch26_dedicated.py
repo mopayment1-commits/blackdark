@@ -231,21 +231,62 @@ async def _cap643(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     )
 
 async def _cap644(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    return await wrap_with_backend(
+    from institutional_assurance import get_signed_capacity, verify_signed_capacity
+    from scale_readiness import scale_readiness_report
+
+    report = scale_readiness_report()
+    signed = get_signed_capacity()
+    payload: dict[str, Any] = {
+        "report": report,
+        "signed_load_evidence": report.get("signed_load_evidence") or {},
+        "signed_capacity": signed,
+        "capacity_verified": bool(signed and verify_signed_capacity(signed)),
+        "safe_operating_envelope": {
+            "environment": (signed or {}).get("environment"),
+            "workers": (signed or {}).get("workers"),
+            "concurrency": (signed or {}).get("requests"),
+            "p50_ms": (signed or {}).get("p50_ms"),
+            "p95_ms": (signed or {}).get("p95_ms"),
+            "p99_ms": (signed or {}).get("p99_ms"),
+            "error_rate": (signed or {}).get("error_rate"),
+            "ha_claim_eligible": (signed or {}).get("ha_claim_eligible"),
+            "proof_path": report.get("capacity_claim", {}).get("proof_path"),
+        },
+        "success": bool(report.get("signed_load_evidence", {}).get("present")),
+    }
+    return _wrap(
         644,
-        expected_surface=EXPECTED_SURFACE,
         symbol=symbol,
         payload_key="capacity_load_evidence",
-        params=params,
+        payload=payload,
+        extra={
+            "data_provenance": payload.get("report", {}).get("signed_load_evidence"),
+            "performance_gate": True,
+            "latency_ms": float((signed or {}).get("p50_ms") or 0.0),
+        },
     )
 
 async def _cap645(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    return await wrap_with_backend(
+    from pentest_attestation import external_review_readiness, pentest_attestation_status
+
+    attestation = pentest_attestation_status()
+    readiness = external_review_readiness()
+    payload: dict[str, Any] = {
+        "pentest_attestation": attestation,
+        "external_review_readiness": readiness,
+        "engineering_ready": bool(readiness.get("engineering_ready")),
+        "external_dependency_status": "PENDING",
+        "success": bool(attestation.get("product_complete")),
+    }
+    return _wrap(
         645,
-        expected_surface=EXPECTED_SURFACE,
         symbol=symbol,
         payload_key="security_verification_evidence",
-        params=params,
+        payload=payload,
+        extra={
+            "external_dependency_status": "PENDING",
+            "assurance_status": "PENDING_INDEPENDENT_ASSURANCE",
+        },
     )
 
 async def _cap646(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:

@@ -1,9 +1,9 @@
 {
   "phase": "P4_EVIDENCE_SIMULATION_CALIBRATION_HISTORY",
-  "verified_at_utc": "2026-09-14T21:36:43Z",
+  "verified_at_utc": "2026-09-14T22:02:40Z",
   "governing_spec_sha256": "9355e35fbd3da913d1d0db459c6a669dd91412a9c8f425c217830e1a2bc3fbd0",
-  "base_sha": "4116e6c1ac0afe88c412131f16a4997d2ccec002",
-  "implementation_sha": "4116e6c1ac0afe88c412131f16a4997d2ccec002",
+  "base_sha": "0fd3f3ccc3daa010f7f9a1ef59cf46f4768ad0ae",
+  "implementation_sha": "0fd3f3ccc3daa010f7f9a1ef59cf46f4768ad0ae",
   "dts_ids_covered": [
     "DTS-021",
     "DTS-022",

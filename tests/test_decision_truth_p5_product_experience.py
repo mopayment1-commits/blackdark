@@ -65,9 +65,10 @@ def test_why_not_reason_codes_and_human_explanation():
     out = govern_decision_payload(_complete_payload(liquidity_ok=False, depth_usd=1), run_data_governance=False)
     why = _product(out)["why_not_engine"]
     assert "machine_readable" in why
-    assert "human_explanation" in why
+    assert "message_keys" in why or "human_explanation" in why
     assert why["derived_from"] == "canonical_decision_contract"
     assert isinstance(why["machine_readable"]["reason_codes"], list)
+    assert (out.get("dts_i18n") or {}).get("why_not", {}).get("human_explanation")
 
 
 def test_stale_conflict_rejection_explanation():
@@ -76,9 +77,10 @@ def test_stale_conflict_rejection_explanation():
         run_data_governance=False,
     )
     why = _product(out)["why_not_engine"]
-    human = str(why["human_explanation"]).lower()
+    human = str((out.get("dts_i18n") or {}).get("why_not", {}).get("human_explanation") or "").lower()
     assert why["decision_state"] in {"REJECTED", "ABSTAINED", "DEGRADED", "UNAVAILABLE"}
-    assert "conflict" in human or "fresh" in human or "blocking" in human
+    assert why.get("message_keys")
+    assert "conflict" in human or "fresh" in human or "blocking" in human or "gate" in human
 
 
 def test_six_heroes_consume_canonical_dts():

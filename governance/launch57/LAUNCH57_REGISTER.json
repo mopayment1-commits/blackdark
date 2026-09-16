@@ -1,0 +1,5121 @@
+{
+  "artifact": "LAUNCH57_REGISTER",
+  "ssot_role": "launch57_truth_register_view",
+  "authoritative_ssot": "BLACKDARK_CAPABILITY_CURRENT_STATE.json",
+  "phase": "0.5_CANONICAL_SCOPE_RECONCILIATION",
+  "generated_at": "2026-09-16T19:09:57.033927+00:00",
+  "source_commit": "172188c3b17b1647d15148c603f53256c1acbc7d",
+  "scope_lock": {
+    "CURRENT_APPROVED_BUILD_SCOPE": "LAUNCH57",
+    "LAUNCH57_COUNT": 57,
+    "EVERYTHING_ELSE": "PARKED_OUT_OF_LAUNCH"
+  },
+  "six_heroes": {
+    "HERO_1": "Single-Sentence Oracle",
+    "HERO_2": "Public Accuracy Ledger",
+    "HERO_3": "Arbitrage Scanner",
+    "HERO_4": "Whale Signal vs Noise",
+    "HERO_5": "Stealth Advisor",
+    "HERO_6": "B2B Feed",
+    "SOURCE_FILES": [
+      "BLACKDARK_CAPABILITY_SIX_HERO_MATRIX.json",
+      "docs/HERO_SIX_BINDING_REPORT.json"
+    ]
+  },
+  "non_explicit_cap_reconciliation": {
+    "registration_metric_LAUNCH57_CANONICAL_CAPABILITY_REFERENCES": 54,
+    "launch_item_count": 57,
+    "metric_delta_57_minus_54": 3,
+    "metric_interpretation": "57 launch list items vs 54 unique canonical CAP-IDs referenced in explicit source text; does NOT equal count of items lacking CAP-ID in source (actual empty referenced_capability_ids=12)",
+    "items_without_explicit_cap_in_source_count": 12,
+    "items_without_explicit_cap_in_source_numbers": [
+      1,
+      2,
+      3,
+      5,
+      6,
+      44,
+      46,
+      47,
+      48,
+      49,
+      50,
+      52
+    ],
+    "three_primary_product_pillars_without_cap_in_governing_list_positions": [
+      {
+        "launch_number": 1,
+        "launch_name": "Six Heroes Command Home — «ماذا أفعل الآن؟»"
+      },
+      {
+        "launch_number": 2,
+        "launch_name": "Single-Sentence Oracle (ACT/WAIT/ABSTAIN)"
+      },
+      {
+        "launch_number": 3,
+        "launch_name": "Decision Certificate + hash"
+      }
+    ]
+  },
+  "summary": {
+    "TOTAL_LAUNCH57": 57,
+    "CANONICAL_MATCH_CONFIRMED": 45,
+    "CANONICAL_MATCH_UNRESOLVED": 10,
+    "IMPLICIT_MATCHES": 2,
+    "CURRENT_PASS_ENGINEERING": 47,
+    "NON_PASS_ENGINEERING": 10,
+    "ROOT_CAUSE_RESOLVED": 10,
+    "ROOT_CAUSE_UNRESOLVED": 0,
+    "STUB_OR_PHANTOM_FINDINGS": 59,
+    "PASS_REQUIRES_RECONCILIATION": 46
+  },
+  "launch57_register": [
+    {
+      "launch_number": 1,
+      "launch_name": "Six Heroes Command Home — «ماذا أفعل الآن؟»",
+      "source_text_from_launch57": "ناقص / جزئي",
+      "launch_reason_text": "Differentiator؛ منع فوضى 932",
+      "matched_canonical_capability_id": null,
+      "matched_capability_ids": [],
+      "match_status": "UNRESOLVED_CANONICAL_MAPPING",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": "product_composite_six_heroes_command_home",
+        "implicit_repo_paths": [
+          "decision_truth/product/command_view.py",
+          "decision_truth/product/six_heroes.py",
+          "api/routers/heroes.py"
+        ],
+        "canonical_launch_numbers_on_caps": []
+      },
+      "canonical_owner": [],
+      "canonical_implementation": [],
+      "runtime_entry": [],
+      "actual_consumer_paths": [
+        "api/routers/heroes.py",
+        "decision_truth/product/command_view.py",
+        "decision_truth/product/six_heroes.py"
+      ],
+      "tests_found": [],
+      "evidence_found": [],
+      "current_engineering_status": "NO_LINKED_CANONICAL",
+      "current_live_status": "NOT_LINKED",
+      "root_cause_if_not_pass_engineering": "CONSUMER_PATH_MISSING",
+      "pass_engineering_reconciliation": null,
+      "stub_generic_mock_findings": [],
+      "hero_mapping_status": "PRODUCT_COMPOSITE_ALL_SIX_HEROES",
+      "notes": "No explicit CAP-ID in LAUNCH57_IDS source; repo discovery only"
+    },
+    {
+      "launch_number": 2,
+      "launch_name": "Single-Sentence Oracle (ACT/WAIT/ABSTAIN)",
+      "source_text_from_launch57": "ملف + تجربة افتراضية",
+      "launch_reason_text": "Aha + مشاركة",
+      "matched_canonical_capability_id": null,
+      "matched_capability_ids": [],
+      "match_status": "UNRESOLVED_CANONICAL_MAPPING",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": "hero_product_surface_no_distinct_canonical_cap_row_for_single_sentence_oracle",
+        "implicit_repo_paths": [
+          "BLACKDARK_CAPABILITY_SIX_HERO_MATRIX.json#canonical_product_heroes[0]",
+          "docs/HERO_SIX_BINDING_REPORT.json",
+          "decision_truth/product/six_heroes.py",
+          "api/routers/heroes.py"
+        ],
+        "canonical_launch_numbers_on_caps": []
+      },
+      "canonical_owner": [],
+      "canonical_implementation": [],
+      "runtime_entry": [],
+      "actual_consumer_paths": [
+        "BLACKDARK_CAPABILITY_SIX_HERO_MATRIX.json#canonical_product_heroes[0]",
+        "api/routers/heroes.py",
+        "decision_truth/product/six_heroes.py",
+        "docs/HERO_SIX_BINDING_REPORT.json"
+      ],
+      "tests_found": [],
+      "evidence_found": [],
+      "current_engineering_status": "NO_LINKED_CANONICAL",
+      "current_live_status": "NOT_LINKED",
+      "root_cause_if_not_pass_engineering": "CONSUMER_PATH_MISSING",
+      "pass_engineering_reconciliation": null,
+      "stub_generic_mock_findings": [],
+      "hero_mapping_status": "HERO_1_SINGLE_SENTENCE_ORACLE",
+      "notes": "No explicit CAP-ID in LAUNCH57_IDS source; repo discovery only"
+    },
+    {
+      "launch_number": 3,
+      "launch_name": "Decision Certificate + hash",
+      "source_text_from_launch57": "يجب إكماله",
+      "launch_reason_text": "ثقة + فيروسية + B2B لاحقًا",
+      "matched_canonical_capability_id": "CAP-0641",
+      "matched_capability_ids": [
+        "CAP-0641"
+      ],
+      "match_status": "IMPLICIT_REPO_MATCH_OUTSIDE_LAUNCH57_SCOPE",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [],
+        "discovered_capability_ids": [
+          "CAP-0641"
+        ],
+        "implicit_mapping_basis": "canonical_name_decision_certificate_not_in_launch57_scope",
+        "implicit_repo_paths": [
+          "BLACKDARK_CAPABILITY_CURRENT_STATE.json canonical_name match",
+          "tests/test_heroes_quality_polish.py",
+          "trust_os_lenses.py"
+        ],
+        "canonical_launch_numbers_on_caps": []
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json canonical_name match",
+        "explicit_option_a",
+        "tests/test_heroes_quality_polish.py",
+        "trust_os_lenses.py"
+      ],
+      "tests_found": [],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 3,
+          "capability": "CAP-0641",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": "No explicit CAP-ID in LAUNCH57_IDS source; repo discovery only"
+    },
+    {
+      "launch_number": 4,
+      "launch_name": "Public Accuracy Ledger (حي فقط)",
+      "source_text_from_launch57": "CAP-0640 — بناء حقيقي",
+      "launch_reason_text": "خندق ثقة نادر",
+      "matched_canonical_capability_id": "CAP-0640",
+      "matched_capability_ids": [
+        "CAP-0640"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0640"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            4,
+            45
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "explicit_option_a"
+      ],
+      "tests_found": [
+        "tests/test_heroes_strategy.py"
+      ],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 4,
+          "capability": "CAP-0640",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    },
+    {
+      "launch_number": 5,
+      "launch_name": "Net-Edge / Cost Autopsy على كل فرصة أو إشارة",
+      "source_text_from_launch57": "ناقص جوهري",
+      "launch_reason_text": "تمايز vs بائعي الإشارات",
+      "matched_canonical_capability_id": null,
+      "matched_capability_ids": [
+        "CAP-0639",
+        "CAP-0635"
+      ],
+      "match_status": "IMPLICIT_REPO_MATCH_OUTSIDE_LAUNCH57_SCOPE",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [],
+        "discovered_capability_ids": [
+          "CAP-0639",
+          "CAP-0635"
+        ],
+        "implicit_mapping_basis": "net_edge_truth_runtime_modules",
+        "implicit_repo_paths": [
+          "net_edge_truth.py",
+          "decision_truth/net_edge.py",
+          "BLACKDARK_CAPABILITY_CURRENT_STATE.json CAP-0639"
+        ],
+        "canonical_launch_numbers_on_caps": []
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production",
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a",
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py",
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json CAP-0639",
+        "decision_truth/net_edge.py",
+        "explicit_option_a",
+        "net_edge_truth.py"
+      ],
+      "tests_found": [],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 5,
+          "capability": "CAP-0639",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        },
+        {
+          "launch_number": 5,
+          "capability": "CAP-0635",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        },
+        {
+          "file": "net_edge_truth.py",
+          "line": 27,
+          "symbol_or_route": "net_edge_truth",
+          "finding_type": "DEMO_CONSTANT",
+          "evidence": "FIN_004_DEMO_OPPORTUNITY: dict[str, Any] = {",
+          "impact": "discovery_only_phase0",
+          "launch_number": 5,
+          "capability": "Net-Edge / Cost Autopsy على كل فرصة أو إشارة"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": "No explicit CAP-ID in LAUNCH57_IDS source; repo discovery only"
+    },
+    {
+      "launch_number": 6,
+      "launch_name": "Evidence class ظاهر (LIVE / DELAYED / SIM)",
+      "source_text_from_launch57": "ناقص في UI",
+      "launch_reason_text": "صدق وتشغيل آمن للسمعة",
+      "matched_canonical_capability_id": null,
+      "matched_capability_ids": [],
+      "match_status": "UNRESOLVED_CANONICAL_MAPPING",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": "evidence_class_cross_cutting_not_single_cap",
+        "implicit_repo_paths": [
+          "cap646/evidence_class.py",
+          "user_exposure_log.py",
+          "decision_truth/evidence_taxonomy.py"
+        ],
+        "canonical_launch_numbers_on_caps": []
+      },
+      "canonical_owner": [],
+      "canonical_implementation": [],
+      "runtime_entry": [],
+      "actual_consumer_paths": [
+        "cap646/evidence_class.py",
+        "decision_truth/evidence_taxonomy.py",
+        "user_exposure_log.py"
+      ],
+      "tests_found": [],
+      "evidence_found": [],
+      "current_engineering_status": "NO_LINKED_CANONICAL",
+      "current_live_status": "NOT_LINKED",
+      "root_cause_if_not_pass_engineering": "CONSUMER_PATH_MISSING",
+      "pass_engineering_reconciliation": null,
+      "stub_generic_mock_findings": [],
+      "hero_mapping_status": "NOT_APPLICABLE",
+      "notes": "No explicit CAP-ID in LAUNCH57_IDS source; repo discovery only"
+    },
+    {
+      "launch_number": 7,
+      "launch_name": "Market Regime / Compass",
+      "source_text_from_launch57": "CAP-0035",
+      "launch_reason_text": "«في أي سوق أنا؟»",
+      "matched_canonical_capability_id": "CAP-0035",
+      "matched_capability_ids": [
+        "CAP-0035"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0035"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            7
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "explicit_option_a"
+      ],
+      "tests_found": [],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 7,
+          "capability": "CAP-0035",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    },
+    {
+      "launch_number": 8,
+      "launch_name": "Beginner Decision Mode",
+      "source_text_from_launch57": "CAP-0034",
+      "launch_reason_text": "جمهور أوسع + تحويل",
+      "matched_canonical_capability_id": "CAP-0034",
+      "matched_capability_ids": [
+        "CAP-0034"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0034"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            8
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "explicit_option_a"
+      ],
+      "tests_found": [],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 8,
+          "capability": "CAP-0034",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    },
+    {
+      "launch_number": 9,
+      "launch_name": "Cross-Signal Confirmation",
+      "source_text_from_launch57": "CAP-0031",
+      "launch_reason_text": "جودة قرار",
+      "matched_canonical_capability_id": "CAP-0031",
+      "matched_capability_ids": [
+        "CAP-0031"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0031"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            9
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "explicit_option_a"
+      ],
+      "tests_found": [],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 9,
+          "capability": "CAP-0031",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    },
+    {
+      "launch_number": 10,
+      "launch_name": "Contradiction Detection",
+      "source_text_from_launch57": "CAP-0032",
+      "launch_reason_text": "صدق المنتج",
+      "matched_canonical_capability_id": "CAP-0032",
+      "matched_capability_ids": [
+        "CAP-0032"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0032"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            10
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "explicit_option_a"
+      ],
+      "tests_found": [],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 10,
+          "capability": "CAP-0032",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    },
+    {
+      "launch_number": 11,
+      "launch_name": "Smart Money Actionability Score",
+      "source_text_from_launch57": "CAP-0033",
+      "launch_reason_text": "من المراقبة إلى الفعل",
+      "matched_canonical_capability_id": "CAP-0033",
+      "matched_capability_ids": [
+        "CAP-0033"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0033"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            11
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "explicit_option_a"
+      ],
+      "tests_found": [],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 11,
+          "capability": "CAP-0033",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    },
+    {
+      "launch_number": 12,
+      "launch_name": "Smart Money Conviction Engine",
+      "source_text_from_launch57": "CAP-0028",
+      "launch_reason_text": "سرد سمارت موني بدون نسخ Nansen",
+      "matched_canonical_capability_id": "CAP-0028",
+      "matched_capability_ids": [
+        "CAP-0028"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0028"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            12
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "explicit_option_a"
+      ],
+      "tests_found": [],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 12,
+          "capability": "CAP-0028",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    },
+    {
+      "launch_number": 13,
+      "launch_name": "Accumulation / Distribution Detection",
+      "source_text_from_launch57": "CAP-0005",
+      "launch_reason_text": "جوهر السмарт موني",
+      "matched_canonical_capability_id": "CAP-0005",
+      "matched_capability_ids": [
+        "CAP-0005"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0005"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            13
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "explicit_option_a"
+      ],
+      "tests_found": [],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 13,
+          "capability": "CAP-0005",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    },
+    {
+      "launch_number": 14,
+      "launch_name": "Smart Money Token Screener",
+      "source_text_from_launch57": "CAP-0006",
+      "launch_reason_text": "اكتشاف + عادة",
+      "matched_canonical_capability_id": "CAP-0006",
+      "matched_capability_ids": [
+        "CAP-0006"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0006"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            14
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "explicit_option_a"
+      ],
+      "tests_found": [
+        "tests/cap646/test_batch01_dedicated.py"
+      ],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 14,
+          "capability": "CAP-0006",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    },
+    {
+      "launch_number": 15,
+      "launch_name": "Entity-Aware Wallet Intelligence",
+      "source_text_from_launch57": "CAP-0014",
+      "launch_reason_text": "قرب Arkham/Nansen محدود وصادق",
+      "matched_canonical_capability_id": "CAP-0014",
+      "matched_capability_ids": [
+        "CAP-0014"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0014"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            15
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "explicit_option_a"
+      ],
+      "tests_found": [],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 15,
+          "capability": "CAP-0014",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    },
+    {
+      "launch_number": 16,
+      "launch_name": "Exchange Flow Intelligence (in/out/net)",
+      "source_text_from_launch57": "CAP-0015 / 0071",
+      "launch_reason_text": "تكافؤ CryptoQuant-class",
+      "matched_canonical_capability_id": "CAP-0015",
+      "matched_capability_ids": [
+        "CAP-0015",
+        "CAP-0071"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0015",
+          "CAP-0071"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            16
+          ],
+          [
+            16
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production",
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a",
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py",
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "explicit_option_a"
+      ],
+      "tests_found": [
+        "tests/test_sonar_pr356_new_code_coverage.py"
+      ],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 16,
+          "capability": "CAP-0015",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        },
+        {
+          "launch_number": 16,
+          "capability": "CAP-0071",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    },
+    {
+      "launch_number": 17,
+      "launch_name": "Exchange Whale Ratio + internal-flow filter",
+      "source_text_from_launch57": "CAP-0072 / 0075",
+      "launch_reason_text": "جودة تدفق",
+      "matched_canonical_capability_id": "CAP-0072",
+      "matched_capability_ids": [
+        "CAP-0072",
+        "CAP-0075"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0072",
+          "CAP-0075"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            17
+          ],
+          [
+            17
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production",
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a",
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py",
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "explicit_option_a"
+      ],
+      "tests_found": [
+        "tests/test_d09_flow_filter.py"
+      ],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 17,
+          "capability": "CAP-0072",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        },
+        {
+          "launch_number": 17,
+          "capability": "CAP-0075",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    },
+    {
+      "launch_number": 18,
+      "launch_name": "Whale Accumulation / Movement Alerts",
+      "source_text_from_launch57": "CAP-0081 / 0098",
+      "launch_reason_text": "احتفاظ + مشاركة",
+      "matched_canonical_capability_id": "CAP-0081",
+      "matched_capability_ids": [
+        "CAP-0081",
+        "CAP-0098"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0081",
+          "CAP-0098"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            18
+          ],
+          [
+            18
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production",
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a",
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py",
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "explicit_option_a"
+      ],
+      "tests_found": [],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 18,
+          "capability": "CAP-0081",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        },
+        {
+          "launch_number": 18,
+          "capability": "CAP-0098",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    },
+    {
+      "launch_number": 19,
+      "launch_name": "Inter-Entity Flow (محدود الإطلاق)",
+      "source_text_from_launch57": "CAP-0091",
+      "launch_reason_text": "تمايز دون leaderboard مدفوع كامل",
+      "matched_canonical_capability_id": "CAP-0091",
+      "matched_capability_ids": [
+        "CAP-0091"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0091"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            19
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "explicit_option_a"
+      ],
+      "tests_found": [],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 19,
+          "capability": "CAP-0091",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    },
+    {
+      "launch_number": 20,
+      "launch_name": "Address Labels & Cohorts (نواة محدودة)",
+      "source_text_from_launch57": "CAP-0092",
+      "launch_reason_text": "أساس السرد",
+      "matched_canonical_capability_id": "CAP-0092",
+      "matched_capability_ids": [
+        "CAP-0092"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0092"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            20
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "explicit_option_a"
+      ],
+      "tests_found": [],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 20,
+          "capability": "CAP-0092",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    },
+    {
+      "launch_number": 21,
+      "launch_name": "Spot metrics suite (صادق التحديث)",
+      "source_text_from_launch57": "CAP-0047",
+      "launch_reason_text": "Table stakes",
+      "matched_canonical_capability_id": "CAP-0047",
+      "matched_capability_ids": [
+        "CAP-0047"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0047"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            21
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "explicit_option_a"
+      ],
+      "tests_found": [],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "LIVE_VALIDATION_PENDING",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 21,
+          "capability": "CAP-0047",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    },
+    {
+      "launch_number": 22,
+      "launch_name": "Real-time / near-real-time prices",
+      "source_text_from_launch57": "CAP-0561 — إثبات",
+      "launch_reason_text": "مصداقية المنتج",
+      "matched_canonical_capability_id": "CAP-0561",
+      "matched_capability_ids": [
+        "CAP-0561"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0561"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            22
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "explicit_option_a"
+      ],
+      "tests_found": [],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 22,
+          "capability": "CAP-0561",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    },
+    {
+      "launch_number": 23,
+      "launch_name": "OHLCV",
+      "source_text_from_launch57": "CAP-0507 — إثبات",
+      "launch_reason_text": "أساس السياق",
+      "matched_canonical_capability_id": "CAP-0507",
+      "matched_capability_ids": [
+        "CAP-0507"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0507"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            23
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "explicit_option_a"
+      ],
+      "tests_found": [
+        "tests/cap646/test_option_a_production.py",
+        "tests/test_d01_data_state.py",
+        "tests/test_wave_01_data_engine.py",
+        "tests/test_wave_01_institutional.py",
+        "tests/test_wave_01_systems.py"
+      ],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "LIVE_VALIDATION_PENDING",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 23,
+          "capability": "CAP-0507",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    },
+    {
+      "launch_number": 24,
+      "launch_name": "Quote + symbol metadata",
+      "source_text_from_launch57": "CAP-0506 / 0513",
+      "launch_reason_text": "تشغيل الشاشات",
+      "matched_canonical_capability_id": "CAP-0506",
+      "matched_capability_ids": [
+        "CAP-0506",
+        "CAP-0513"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0506",
+          "CAP-0513"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            24
+          ],
+          [
+            24
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production",
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a",
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py",
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "explicit_option_a"
+      ],
+      "tests_found": [],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 24,
+          "capability": "CAP-0506",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        },
+        {
+          "launch_number": 24,
+          "capability": "CAP-0513",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    },
+    {
+      "launch_number": 25,
+      "launch_name": "Futures OI intelligence",
+      "source_text_from_launch57": "CAP-0085 / جزء 0048",
+      "launch_reason_text": "تكافؤ مشتقات",
+      "matched_canonical_capability_id": "CAP-0085",
+      "matched_capability_ids": [
+        "CAP-0085",
+        "CAP-0048"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0085",
+          "CAP-0048"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            25
+          ],
+          [
+            25
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production",
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a",
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py",
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "explicit_option_a"
+      ],
+      "tests_found": [],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 25,
+          "capability": "CAP-0085",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        },
+        {
+          "launch_number": 25,
+          "capability": "CAP-0048",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    },
+    {
+      "launch_number": 26,
+      "launch_name": "Funding rate intelligence",
+      "source_text_from_launch57": "CAP-0086",
+      "launch_reason_text": "قرارات المشتقات",
+      "matched_canonical_capability_id": "CAP-0086",
+      "matched_capability_ids": [
+        "CAP-0086"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0086"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            26
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "explicit_option_a"
+      ],
+      "tests_found": [],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 26,
+          "capability": "CAP-0086",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    },
+    {
+      "launch_number": 27,
+      "launch_name": "Liquidation intelligence / heatmap خفيف",
+      "source_text_from_launch57": "CAP-0088",
+      "launch_reason_text": "خطر قبل الصدمة",
+      "matched_canonical_capability_id": "CAP-0088",
+      "matched_capability_ids": [
+        "CAP-0088"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0088"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            27
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "explicit_option_a"
+      ],
+      "tests_found": [],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 27,
+          "capability": "CAP-0088",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    },
+    {
+      "launch_number": 28,
+      "launch_name": "Taker buy/sell + leverage ratio",
+      "source_text_from_launch57": "CAP-0089 / 0087",
+      "launch_reason_text": "ضغط حقيقي",
+      "matched_canonical_capability_id": "CAP-0089",
+      "matched_capability_ids": [
+        "CAP-0089",
+        "CAP-0087"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0089",
+          "CAP-0087"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            28
+          ],
+          [
+            28
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production",
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a",
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py",
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "explicit_option_a"
+      ],
+      "tests_found": [],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 28,
+          "capability": "CAP-0089",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        },
+        {
+          "launch_number": 28,
+          "capability": "CAP-0087",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    },
+    {
+      "launch_number": 29,
+      "launch_name": "Derivatives sentiment composite",
+      "source_text_from_launch57": "CAP-0090",
+      "launch_reason_text": "جملة واحدة للمشتقات",
+      "matched_canonical_capability_id": "CAP-0090",
+      "matched_capability_ids": [
+        "CAP-0090"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0090"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            29
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "explicit_option_a"
+      ],
+      "tests_found": [],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 29,
+          "capability": "CAP-0090",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    },
+    {
+      "launch_number": 30,
+      "launch_name": "Order book intelligence (L1 على الأقل)",
+      "source_text_from_launch57": "CAP-0050 / 0508",
+      "launch_reason_text": "عمق قصير الأمد",
+      "matched_canonical_capability_id": "CAP-0050",
+      "matched_capability_ids": [
+        "CAP-0050",
+        "CAP-0508"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0050",
+          "CAP-0508"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            30
+          ],
+          [
+            30
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production",
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a",
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py",
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "explicit_option_a"
+      ],
+      "tests_found": [],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 30,
+          "capability": "CAP-0050",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        },
+        {
+          "launch_number": 30,
+          "capability": "CAP-0508",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    },
+    {
+      "launch_number": 31,
+      "launch_name": "Token screener (سوق عام)",
+      "source_text_from_launch57": "CAP-0056",
+      "launch_reason_text": "اكتشاف",
+      "matched_canonical_capability_id": "CAP-0056",
+      "matched_capability_ids": [
+        "CAP-0056"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0056"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            31
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "explicit_option_a"
+      ],
+      "tests_found": [
+        "tests/cap646/test_batch01_dedicated.py"
+      ],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 31,
+          "capability": "CAP-0056",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    },
+    {
+      "launch_number": 32,
+      "launch_name": "Watchlists (توكن + محفظة محدودة)",
+      "source_text_from_launch57": "CAP-0019",
+      "launch_reason_text": "احتفاظ",
+      "matched_canonical_capability_id": "CAP-0019",
+      "matched_capability_ids": [
+        "CAP-0019"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0019"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            32
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "explicit_option_a"
+      ],
+      "tests_found": [],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 32,
+          "capability": "CAP-0019",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    },
+    {
+      "launch_number": 33,
+      "launch_name": "Smart Alerts (سعر + تدفق + حوت + قرار)",
+      "source_text_from_launch57": "CAP-0017 — live",
+      "launch_reason_text": "عادة يومية",
+      "matched_canonical_capability_id": "CAP-0017",
+      "matched_capability_ids": [
+        "CAP-0017"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0017"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            33
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "explicit_option_a"
+      ],
+      "tests_found": [
+        "tests/cap646/test_batch01_dedicated.py",
+        "tests/cap646/test_batch_range_dedicated.py",
+        "tests/test_charting_market_intelligence_batch301_400.py"
+      ],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "LIVE_VALIDATION_PENDING",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 33,
+          "capability": "CAP-0017",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    },
+    {
+      "launch_number": 34,
+      "launch_name": "Signal → Explanation workflow",
+      "source_text_from_launch57": "CAP-0025",
+      "launch_reason_text": "فهم + مشاركة",
+      "matched_canonical_capability_id": "CAP-0025",
+      "matched_capability_ids": [
+        "CAP-0025"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0025"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            34
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "explicit_option_a"
+      ],
+      "tests_found": [],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 34,
+          "capability": "CAP-0025",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    },
+    {
+      "launch_number": 35,
+      "launch_name": "Price-move explanation",
+      "source_text_from_launch57": "CAP-0026",
+      "launch_reason_text": "«لماذا تحركت؟»",
+      "matched_canonical_capability_id": "CAP-0026",
+      "matched_capability_ids": [
+        "CAP-0026"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0026"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            35
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "explicit_option_a"
+      ],
+      "tests_found": [],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 35,
+          "capability": "CAP-0026",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    },
+    {
+      "launch_number": 36,
+      "launch_name": "AI Research Agent + Copilot مربوط ببيانات المنصة فقط (شات على أسطح الإطلاق + footer امتثال)",
+      "source_text_from_launch57": "CAP-0024 موسّع",
+      "launch_reason_text": "بحث + لحظة واو فيديو 30ث",
+      "matched_canonical_capability_id": "CAP-0024",
+      "matched_capability_ids": [
+        "CAP-0024"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0024"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            36
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "explicit_option_a"
+      ],
+      "tests_found": [],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 36,
+          "capability": "CAP-0024",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    },
+    {
+      "launch_number": 37,
+      "launch_name": "Cross-market decision engine",
+      "source_text_from_launch57": "CAP-0029",
+      "launch_reason_text": "سبوت/مشتقات/تدفق",
+      "matched_canonical_capability_id": "CAP-0029",
+      "matched_capability_ids": [
+        "CAP-0029"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0029"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            37
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "explicit_option_a"
+      ],
+      "tests_found": [
+        "tests/cap646/test_batch01_dedicated.py"
+      ],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 37,
+          "capability": "CAP-0029",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    },
+    {
+      "launch_number": 38,
+      "launch_name": "MVRV / Z-Score (نواة BTC/ETH إن توفّر مصدر)",
+      "source_text_from_launch57": "CAP-0040",
+      "launch_reason_text": "ماكرو جزئي",
+      "matched_canonical_capability_id": "CAP-0040",
+      "matched_capability_ids": [
+        "CAP-0040"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0040"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            38
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "explicit_option_a"
+      ],
+      "tests_found": [],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 38,
+          "capability": "CAP-0040",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    },
+    {
+      "launch_number": 39,
+      "launch_name": "Point-in-time immutable metrics",
+      "source_text_from_launch57": "CAP-0061",
+      "launch_reason_text": "جدية مبكرة",
+      "matched_canonical_capability_id": "CAP-0061",
+      "matched_capability_ids": [
+        "CAP-0061"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0061"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            39
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "explicit_option_a"
+      ],
+      "tests_found": [],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 39,
+          "capability": "CAP-0061",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    },
+    {
+      "launch_number": 40,
+      "launch_name": "Data quality & provenance (ظاهر للمستخدم)",
+      "source_text_from_launch57": "CAP-0063 / 0500 — إثبات",
+      "launch_reason_text": "«من أين الرقم؟»",
+      "matched_canonical_capability_id": "CAP-0063",
+      "matched_capability_ids": [
+        "CAP-0063",
+        "CAP-0500"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0063",
+          "CAP-0500"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            40
+          ],
+          [
+            40
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production",
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a",
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py",
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "explicit_option_a"
+      ],
+      "tests_found": [
+        "tests/cap646/test_option_a_production.py"
+      ],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 40,
+          "capability": "CAP-0063",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        },
+        {
+          "launch_number": 40,
+          "capability": "CAP-0500",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    },
+    {
+      "launch_number": 41,
+      "launch_name": "Freshness assurance + تسمية delayed صريحة",
+      "source_text_from_launch57": "CAP-0630 — إثبات",
+      "launch_reason_text": "منع live كاذب",
+      "matched_canonical_capability_id": "CAP-0630",
+      "matched_capability_ids": [
+        "CAP-0630"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0630"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            41
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "explicit_option_a"
+      ],
+      "tests_found": [],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "LIVE_VALIDATION_PENDING",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 41,
+          "capability": "CAP-0630",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    },
+    {
+      "launch_number": 42,
+      "launch_name": "Unified exchange connector (مسار واحد)",
+      "source_text_from_launch57": "CAP-0504 — إثبات",
+      "launch_reason_text": "استقرار",
+      "matched_canonical_capability_id": "CAP-0504",
+      "matched_capability_ids": [
+        "CAP-0504"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0504"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            42
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "explicit_option_a"
+      ],
+      "tests_found": [],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 42,
+          "capability": "CAP-0504",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    },
+    {
+      "launch_number": 43,
+      "launch_name": "Spot–perp / arbitrage (Net-Edge إلزامي)",
+      "source_text_from_launch57": "CAP-0230 / 0635 — بعد بناء فقط",
+      "launch_reason_text": "حافة؛ ممنوع مُدَّعى",
+      "matched_canonical_capability_id": "CAP-0230",
+      "matched_capability_ids": [
+        "CAP-0230",
+        "CAP-0635"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0230",
+          "CAP-0635"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            43
+          ],
+          [
+            43
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production",
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a",
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py",
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "explicit_option_a"
+      ],
+      "tests_found": [],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 43,
+          "capability": "CAP-0230",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        },
+        {
+          "launch_number": 43,
+          "capability": "CAP-0635",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    },
+    {
+      "launch_number": 44,
+      "launch_name": "Shareable decision / oracle card (OG)",
+      "source_text_from_launch57": "ناقص",
+      "launch_reason_text": "فيروسية",
+      "matched_canonical_capability_id": null,
+      "matched_capability_ids": [],
+      "match_status": "UNRESOLVED_CANONICAL_MAPPING",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": "shareable_card_product_layer",
+        "implicit_repo_paths": [
+          "trust_os_lenses.py",
+          "decision_truth/product/delivery.py"
+        ],
+        "canonical_launch_numbers_on_caps": []
+      },
+      "canonical_owner": [],
+      "canonical_implementation": [],
+      "runtime_entry": [],
+      "actual_consumer_paths": [
+        "decision_truth/product/delivery.py",
+        "trust_os_lenses.py"
+      ],
+      "tests_found": [],
+      "evidence_found": [],
+      "current_engineering_status": "NO_LINKED_CANONICAL",
+      "current_live_status": "NOT_LINKED",
+      "root_cause_if_not_pass_engineering": "CONSUMER_PATH_MISSING",
+      "pass_engineering_reconciliation": null,
+      "stub_generic_mock_findings": [],
+      "hero_mapping_status": "NOT_APPLICABLE",
+      "notes": "No explicit CAP-ID in LAUNCH57_IDS source; repo discovery only"
+    },
+    {
+      "launch_number": 45,
+      "launch_name": "Shareable accuracy / outcome page",
+      "source_text_from_launch57": "امتداد 0640",
+      "launch_reason_text": "إثبات عام",
+      "matched_canonical_capability_id": "CAP-0640",
+      "matched_capability_ids": [
+        "CAP-0640"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0640"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            4,
+            45
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "explicit_option_a"
+      ],
+      "tests_found": [
+        "tests/test_heroes_strategy.py"
+      ],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 45,
+          "capability": "CAP-0640",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    },
+    {
+      "launch_number": 46,
+      "launch_name": "Guest trust surface",
+      "source_text_from_launch57": "ناقص",
+      "launch_reason_text": "انتشار بلا حساب",
+      "matched_canonical_capability_id": null,
+      "matched_capability_ids": [],
+      "match_status": "UNRESOLVED_CANONICAL_MAPPING",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": "anonymous_visitor_governance_surface",
+        "implicit_repo_paths": [
+          "governance/anonymous_visitor_governance.py",
+          "docs/BLACKDARK_ANONYMOUS_VISITOR_PUBLIC_INTELLIGENCE_EXPERIENCE_2026_FINAL.md"
+        ],
+        "canonical_launch_numbers_on_caps": []
+      },
+      "canonical_owner": [],
+      "canonical_implementation": [],
+      "runtime_entry": [],
+      "actual_consumer_paths": [
+        "docs/BLACKDARK_ANONYMOUS_VISITOR_PUBLIC_INTELLIGENCE_EXPERIENCE_2026_FINAL.md",
+        "governance/anonymous_visitor_governance.py"
+      ],
+      "tests_found": [],
+      "evidence_found": [],
+      "current_engineering_status": "NO_LINKED_CANONICAL",
+      "current_live_status": "NOT_LINKED",
+      "root_cause_if_not_pass_engineering": "CONSUMER_PATH_MISSING",
+      "pass_engineering_reconciliation": null,
+      "stub_generic_mock_findings": [],
+      "hero_mapping_status": "NOT_APPLICABLE",
+      "notes": "No explicit CAP-ID in LAUNCH57_IDS source; repo discovery only"
+    },
+    {
+      "launch_number": 47,
+      "launch_name": "One-click risk disclosure على كل قرار",
+      "source_text_from_launch57": "ناقص",
+      "launch_reason_text": "امتثال + ثقة",
+      "matched_canonical_capability_id": null,
+      "matched_capability_ids": [],
+      "match_status": "UNRESOLVED_CANONICAL_MAPPING",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": "risk_disclosure_product_layer_partial",
+        "implicit_repo_paths": [
+          "decision_truth/product/reject_proof.py",
+          "trust_os.py"
+        ],
+        "canonical_launch_numbers_on_caps": []
+      },
+      "canonical_owner": [],
+      "canonical_implementation": [],
+      "runtime_entry": [],
+      "actual_consumer_paths": [
+        "decision_truth/product/reject_proof.py",
+        "trust_os.py"
+      ],
+      "tests_found": [],
+      "evidence_found": [],
+      "current_engineering_status": "NO_LINKED_CANONICAL",
+      "current_live_status": "NOT_LINKED",
+      "root_cause_if_not_pass_engineering": "CONSUMER_PATH_MISSING",
+      "pass_engineering_reconciliation": null,
+      "stub_generic_mock_findings": [],
+      "hero_mapping_status": "NOT_APPLICABLE",
+      "notes": "No explicit CAP-ID in LAUNCH57_IDS source; repo discovery only"
+    },
+    {
+      "launch_number": 48,
+      "launch_name": "Abstain / reject reasons ظاهرة",
+      "source_text_from_launch57": "ناقص/جزئي",
+      "launch_reason_text": "صدق نادر",
+      "matched_canonical_capability_id": null,
+      "matched_capability_ids": [],
+      "match_status": "UNRESOLVED_CANONICAL_MAPPING",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": "abstain_reject_product_layer",
+        "implicit_repo_paths": [
+          "decision_truth/product/rejection_engine.py",
+          "decision_truth/product/no_decision.py"
+        ],
+        "canonical_launch_numbers_on_caps": []
+      },
+      "canonical_owner": [],
+      "canonical_implementation": [],
+      "runtime_entry": [],
+      "actual_consumer_paths": [
+        "decision_truth/product/no_decision.py",
+        "decision_truth/product/rejection_engine.py"
+      ],
+      "tests_found": [],
+      "evidence_found": [],
+      "current_engineering_status": "NO_LINKED_CANONICAL",
+      "current_live_status": "NOT_LINKED",
+      "root_cause_if_not_pass_engineering": "CONSUMER_PATH_MISSING",
+      "pass_engineering_reconciliation": null,
+      "stub_generic_mock_findings": [],
+      "hero_mapping_status": "NOT_APPLICABLE",
+      "notes": "No explicit CAP-ID in LAUNCH57_IDS source; repo discovery only"
+    },
+    {
+      "launch_number": 49,
+      "launch_name": "Personal decision history (محدود Free)",
+      "source_text_from_launch57": "ناقص",
+      "launch_reason_text": "احتفاظ",
+      "matched_canonical_capability_id": null,
+      "matched_capability_ids": [],
+      "match_status": "UNRESOLVED_CANONICAL_MAPPING",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": "decision_history_data_artifacts_partial",
+        "implicit_repo_paths": [
+          "data/decision_ledger.jsonl",
+          "data/user_exposure_log.jsonl"
+        ],
+        "canonical_launch_numbers_on_caps": []
+      },
+      "canonical_owner": [],
+      "canonical_implementation": [],
+      "runtime_entry": [],
+      "actual_consumer_paths": [
+        "data/decision_ledger.jsonl",
+        "data/user_exposure_log.jsonl"
+      ],
+      "tests_found": [],
+      "evidence_found": [],
+      "current_engineering_status": "NO_LINKED_CANONICAL",
+      "current_live_status": "NOT_LINKED",
+      "root_cause_if_not_pass_engineering": "CONSUMER_PATH_MISSING",
+      "pass_engineering_reconciliation": null,
+      "stub_generic_mock_findings": [],
+      "hero_mapping_status": "NOT_APPLICABLE",
+      "notes": "No explicit CAP-ID in LAUNCH57_IDS source; repo discovery only"
+    },
+    {
+      "launch_number": 50,
+      "launch_name": "Discipline / missed-opportunity mirror (خفيف)",
+      "source_text_from_launch57": "يُبسَّط",
+      "launch_reason_text": "تمايز سلوكي",
+      "matched_canonical_capability_id": null,
+      "matched_capability_ids": [],
+      "match_status": "UNRESOLVED_CANONICAL_MAPPING",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": "discipline_mirror_product_partial",
+        "implicit_repo_paths": [
+          "decision_truth/product/calm_default.py"
+        ],
+        "canonical_launch_numbers_on_caps": []
+      },
+      "canonical_owner": [],
+      "canonical_implementation": [],
+      "runtime_entry": [],
+      "actual_consumer_paths": [
+        "decision_truth/product/calm_default.py"
+      ],
+      "tests_found": [],
+      "evidence_found": [],
+      "current_engineering_status": "NO_LINKED_CANONICAL",
+      "current_live_status": "NOT_LINKED",
+      "root_cause_if_not_pass_engineering": "CONSUMER_PATH_MISSING",
+      "pass_engineering_reconciliation": null,
+      "stub_generic_mock_findings": [],
+      "hero_mapping_status": "NOT_APPLICABLE",
+      "notes": "No explicit CAP-ID in LAUNCH57_IDS source; repo discovery only"
+    },
+    {
+      "launch_number": 51,
+      "launch_name": "Research portal / short briefs",
+      "source_text_from_launch57": "CAP-0065 / 0100 مصغّر",
+      "launch_reason_text": "محتوى قابل للمشاركة",
+      "matched_canonical_capability_id": "CAP-0065",
+      "matched_capability_ids": [
+        "CAP-0065",
+        "CAP-0100"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0065",
+          "CAP-0100"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            51
+          ],
+          [
+            51
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production",
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a",
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py",
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "explicit_option_a"
+      ],
+      "tests_found": [],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 51,
+          "capability": "CAP-0065",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        },
+        {
+          "launch_number": 51,
+          "capability": "CAP-0100",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    },
+    {
+      "launch_number": 52,
+      "launch_name": "Capability library (بحث) — طبقة ثانية لا الرئيسية",
+      "source_text_from_launch57": "ناقص UX",
+      "launch_reason_text": "شفافية دون فوضى",
+      "matched_canonical_capability_id": null,
+      "matched_capability_ids": [],
+      "match_status": "UNRESOLVED_CANONICAL_MAPPING",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": "capability_catalog_search_ux_not_wired",
+        "implicit_repo_paths": [
+          "BLACKDARK_CAPABILITY_CURRENT_STATE.json"
+        ],
+        "canonical_launch_numbers_on_caps": []
+      },
+      "canonical_owner": [],
+      "canonical_implementation": [],
+      "runtime_entry": [],
+      "actual_consumer_paths": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json"
+      ],
+      "tests_found": [],
+      "evidence_found": [],
+      "current_engineering_status": "NO_LINKED_CANONICAL",
+      "current_live_status": "NOT_LINKED",
+      "root_cause_if_not_pass_engineering": "CONSUMER_PATH_MISSING",
+      "pass_engineering_reconciliation": null,
+      "stub_generic_mock_findings": [],
+      "hero_mapping_status": "NOT_APPLICABLE",
+      "notes": "No explicit CAP-ID in LAUNCH57_IDS source; repo discovery only"
+    },
+    {
+      "launch_number": 53,
+      "launch_name": "Instant Wallet Due Diligence",
+      "source_text_from_launch57": "CAP-0022",
+      "launch_reason_text": "واو فوري؛ فيديو إطلاق",
+      "matched_canonical_capability_id": "CAP-0022",
+      "matched_capability_ids": [
+        "CAP-0022"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0022"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            53
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "explicit_option_a"
+      ],
+      "tests_found": [],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 53,
+          "capability": "CAP-0022",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    },
+    {
+      "launch_number": 54,
+      "launch_name": "Instant Token Due Diligence",
+      "source_text_from_launch57": "CAP-0023",
+      "launch_reason_text": "«أثق في هذا؟» خلال ثوانٍ",
+      "matched_canonical_capability_id": "CAP-0023",
+      "matched_capability_ids": [
+        "CAP-0023"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0023"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            54
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "explicit_option_a"
+      ],
+      "tests_found": [],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 54,
+          "capability": "CAP-0023",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    },
+    {
+      "launch_number": 55,
+      "launch_name": "Pump & Dump / manipulation pattern alerts",
+      "source_text_from_launch57": "CAP-0238 أو مكافئ خفيف",
+      "launch_reason_text": "مشاركة + دهشة",
+      "matched_canonical_capability_id": "CAP-0238",
+      "matched_capability_ids": [
+        "CAP-0238"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0238"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            55
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "explicit_option_a"
+      ],
+      "tests_found": [],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 55,
+          "capability": "CAP-0238",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    },
+    {
+      "launch_number": 56,
+      "launch_name": "Suspicious activity flags (على مسارات توكن/سمارت موني — ليس AML كامل)",
+      "source_text_from_launch57": "CAP-0297 مصغّر",
+      "launch_reason_text": "احتيال صريح دون منصة تحقيق جنائي",
+      "matched_canonical_capability_id": "CAP-0297",
+      "matched_capability_ids": [
+        "CAP-0297"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0297"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            56
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "canonical_implementation": [
+        "explicit_option_a"
+      ],
+      "runtime_entry": [
+        "cap646/runtime.py"
+      ],
+      "actual_consumer_paths": [
+        "explicit_option_a"
+      ],
+      "tests_found": [],
+      "evidence_found": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "stub_generic_mock_findings": [
+        {
+          "launch_number": 56,
+          "capability": "CAP-0297",
+          "file": "cap646/runtime.py",
+          "symbol_or_route": "cap646.institutional_official_production",
+          "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+          "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+          "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+        }
+      ],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    },
+    {
+      "launch_number": 57,
+      "launch_name": "Exchange transparency / risk indicators (احتياطي معلن إن وُجد، شذوذ تدفق، حوادث — بدون شهادة ملاءة أو ضمان)",
+      "source_text_from_launch57": "CAP-0916 مصغّر/حذر",
+      "launch_reason_text": "سد فجوة «هل البورصة مقلقة؟» بعد FTX",
+      "matched_canonical_capability_id": "CAP-0916",
+      "matched_capability_ids": [
+        "CAP-0916"
+      ],
+      "match_status": "CANONICAL_MATCH_CONFIRMED",
+      "match_evidence": {
+        "explicit_referenced_capability_ids": [
+          "CAP-0916"
+        ],
+        "discovered_capability_ids": [],
+        "implicit_mapping_basis": null,
+        "implicit_repo_paths": [],
+        "canonical_launch_numbers_on_caps": [
+          [
+            57
+          ]
+        ]
+      },
+      "canonical_owner": [
+        "bd_platform.infra_status"
+      ],
+      "canonical_implementation": [
+        "bd_platform.infra_status.infra_matrix"
+      ],
+      "runtime_entry": [
+        "cap978/verify.py"
+      ],
+      "actual_consumer_paths": [
+        "bd_platform.infra_status.infra_matrix"
+      ],
+      "tests_found": [],
+      "evidence_found": [
+        "BLACKDARK_CAPABILITY_PHANTOM_DISPOSITION.json#P2GM-916",
+        "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
+      "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "EXISTING_PASS_EVIDENCE_FOUND",
+      "stub_generic_mock_findings": [],
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "notes": ""
+    }
+  ],
+  "phantom_stub_generic_findings": [
+    {
+      "launch_number": 3,
+      "capability": "CAP-0641",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 4,
+      "capability": "CAP-0640",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 5,
+      "capability": "CAP-0639",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 5,
+      "capability": "CAP-0635",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "file": "net_edge_truth.py",
+      "line": 27,
+      "symbol_or_route": "net_edge_truth",
+      "finding_type": "DEMO_CONSTANT",
+      "evidence": "FIN_004_DEMO_OPPORTUNITY: dict[str, Any] = {",
+      "impact": "discovery_only_phase0",
+      "launch_number": 5,
+      "capability": "Net-Edge / Cost Autopsy على كل فرصة أو إشارة"
+    },
+    {
+      "launch_number": 7,
+      "capability": "CAP-0035",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 8,
+      "capability": "CAP-0034",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 9,
+      "capability": "CAP-0031",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 10,
+      "capability": "CAP-0032",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 11,
+      "capability": "CAP-0033",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 12,
+      "capability": "CAP-0028",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 13,
+      "capability": "CAP-0005",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 14,
+      "capability": "CAP-0006",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 15,
+      "capability": "CAP-0014",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 16,
+      "capability": "CAP-0015",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 16,
+      "capability": "CAP-0071",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 17,
+      "capability": "CAP-0072",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 17,
+      "capability": "CAP-0075",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 18,
+      "capability": "CAP-0081",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 18,
+      "capability": "CAP-0098",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 19,
+      "capability": "CAP-0091",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 20,
+      "capability": "CAP-0092",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 21,
+      "capability": "CAP-0047",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 22,
+      "capability": "CAP-0561",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 23,
+      "capability": "CAP-0507",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 24,
+      "capability": "CAP-0506",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 24,
+      "capability": "CAP-0513",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 25,
+      "capability": "CAP-0085",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 25,
+      "capability": "CAP-0048",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 26,
+      "capability": "CAP-0086",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 27,
+      "capability": "CAP-0088",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 28,
+      "capability": "CAP-0089",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 28,
+      "capability": "CAP-0087",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 29,
+      "capability": "CAP-0090",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 30,
+      "capability": "CAP-0050",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 30,
+      "capability": "CAP-0508",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 31,
+      "capability": "CAP-0056",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 32,
+      "capability": "CAP-0019",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 33,
+      "capability": "CAP-0017",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 34,
+      "capability": "CAP-0025",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 35,
+      "capability": "CAP-0026",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 36,
+      "capability": "CAP-0024",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 37,
+      "capability": "CAP-0029",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 38,
+      "capability": "CAP-0040",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 39,
+      "capability": "CAP-0061",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 40,
+      "capability": "CAP-0063",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 40,
+      "capability": "CAP-0500",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 41,
+      "capability": "CAP-0630",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 42,
+      "capability": "CAP-0504",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 43,
+      "capability": "CAP-0230",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 43,
+      "capability": "CAP-0635",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 45,
+      "capability": "CAP-0640",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 51,
+      "capability": "CAP-0065",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 51,
+      "capability": "CAP-0100",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 53,
+      "capability": "CAP-0022",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 54,
+      "capability": "CAP-0023",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 55,
+      "capability": "CAP-0238",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": 56,
+      "capability": "CAP-0297",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "cap646.institutional_official_production",
+      "finding_type": "GENERIC_DELEGATE_WITHOUT_DISTINCT_CONSUMER_PATH",
+      "evidence": "canonical_implementation=explicit_option_a; actual_consumer_paths=['explicit_option_a']; runtime_entry=cap646/runtime.py",
+      "impact": "PASS_REQUIRES_RECONCILIATION; generic cap646 dispatch binding only"
+    },
+    {
+      "launch_number": "ALL_LAUNCH57",
+      "capability": "cap646/runtime.py",
+      "file": "cap646/runtime.py",
+      "symbol_or_route": "_route_handler",
+      "finding_type": "GENERIC_HANDLER_ROUTING_LAYER",
+      "evidence": "OPTION_A_IDS routes majority of capabilities through category handlers (e.g. handle_market_capability)",
+      "impact": "discovery_only; semantic implementation depends on per-cap handler resolution"
+    }
+  ],
+  "scope_integrity": {
+    "LAUNCH57_COUNT": 57,
+    "ACTUAL_LAUNCH_ITEMS": 57,
+    "PARKED_COUNT": 876,
+    "SCOPE_LEAKAGE_FOUND": "NO",
+    "EXTRA_LAUNCH_ITEMS": [],
+    "MISSING_LAUNCH_ITEMS": [
+      1,
+      2,
+      6,
+      44,
+      46,
+      47,
+      48,
+      49,
+      50,
+      52
+    ],
+    "MISSING_LAUNCH_ITEMS_NOTE": "Product surfaces / shared-core items without distinct canonical CAP rows (expected for #1,#2,#6,#44,#46-50,#52)"
+  },
+  "phase0_verification": {
+    "PHASE": "0_TRUTH",
+    "LAUNCH57_COUNT": 57,
+    "ALL_57_RECONCILED_OR_EXPLICITLY_UNRESOLVED": "YES",
+    "ALL_NON_PASS_LAUNCH_CAPABILITIES_HAVE_ROOT_CAUSE_OR_EXPLICIT_UNRESOLVED": "YES",
+    "STUB_GENERIC_MOCK_SCAN_COMPLETED": "YES",
+    "SIX_HERO_NAMES_RESOLVED_FROM_REPOSITORY": "YES",
+    "SCOPE_EXPANDED": "NO",
+    "BUILD_STARTED": "NO",
+    "CAPABILITY_IMPLEMENTATION_CHANGED": "NO",
+    "PASS_ENGINEERING_ISSUED": "NO",
+    "PASS_LIVE_ISSUED": "NO",
+    "PHASE_1_STARTED": "NO"
+  },
+  "phase0_baseline_commit": "172188c3",
+  "scope_lock_baseline_commit": "348c3457",
+  "phase0_5_summary": {
+    "TOTAL_LAUNCH57": 57,
+    "REUSE": 51,
+    "EXTEND": 0,
+    "NEW_OWNER": 0,
+    "ALIAS": 3,
+    "SHARED_CORE": 1,
+    "NEEDS_SCOPE_AMENDMENT": 2,
+    "UNRESOLVED": 0,
+    "PRODUCT_SURFACE": 9,
+    "CAPABILITY": 45,
+    "SHARED_CORE_CLASS": 1,
+    "COMPOSITE_PRODUCT_SURFACE": 2,
+    "PRIOR_PASS_TRUSTED_FOR_LAUNCH_YES": 0,
+    "PRIOR_PASS_TRUSTED_FOR_LAUNCH_NO": 57,
+    "PHASE_ELIGIBLE_YES": 57,
+    "PHASE_ELIGIBLE_NO": 0
+  },
+  "phase0_5_reconciliation": [
+    {
+      "launch_item_id": 1,
+      "launch_name": "Six Heroes Command Home — «ماذا أفعل الآن؟»",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "COMPOSITE:decision_truth/product/six_heroes.py+command_view.py+api/routers/heroes.py",
+      "matched_capability_ids": [],
+      "build_class": "COMPOSITE_PRODUCT_SURFACE",
+      "scope_decision": "LAUNCH57_ITEM_1_PRODUCT_COMPOSITE_NO_NEW_CAP",
+      "prior_engineering_status": "NO_LINKED_CANONICAL",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "CONSUMER_PATH_INCOMPLETE;COMMAND_HOME_PARTIAL",
+      "decision_evidence": [
+        "decision_truth/product/six_heroes.py",
+        "decision_truth/product/command_view.py",
+        "api/routers/heroes.py",
+        "BLACKDARK_CAPABILITY_SIX_HERO_MATRIX.json"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 2,
+      "launch_name": "Single-Sentence Oracle (ACT/WAIT/ABSTAIN)",
+      "canonical_decision": "ALIAS",
+      "canonical_owner_or_mapping": "HERO_1:Single-Sentence Oracle via trust_pulse.py+decision_truth pipeline",
+      "matched_capability_ids": [],
+      "build_class": "PRODUCT_SURFACE",
+      "scope_decision": "LAUNCH57_ITEM_2_HERO_PRODUCT_SURFACE",
+      "prior_engineering_status": "NO_LINKED_CANONICAL",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION;NO_DISTINCT_CANONICAL_CAP_ROW",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_SIX_HERO_MATRIX.json#canonical_product_heroes[0]",
+        "docs/HERO_SIX_BINDING_REPORT.json",
+        "trust_pulse.py",
+        "api/routers/heroes.py#single_sentence_oracle"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 3,
+      "launch_name": "Decision Certificate + hash",
+      "canonical_decision": "NEEDS_SCOPE_AMENDMENT",
+      "canonical_owner_or_mapping": "CAP-0641",
+      "matched_capability_ids": [
+        "CAP-0641"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "AMEND_CAP-0641_INTO_LAUNCH57_FOR_ITEM_3",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0641",
+        "cap646/handlers/verified.py#641",
+        "cap646/batch26_dedicated.py#641",
+        "decision_certificate.py",
+        "tests/test_heroes_quality_polish.py"
+      ],
+      "reconciliation_status": "COMPLETE",
+      "scope_amendment_caps": [
+        "CAP-0641"
+      ]
+    },
+    {
+      "launch_item_id": 4,
+      "launch_name": "Public Accuracy Ledger (حي فقط)",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0640",
+      "matched_capability_ids": [
+        "CAP-0640"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0640",
+        "cap646/handlers/verified.py#640",
+        "oracle_track_record.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 5,
+      "launch_name": "Net-Edge / Cost Autopsy على كل فرصة أو إشارة",
+      "canonical_decision": "NEEDS_SCOPE_AMENDMENT",
+      "canonical_owner_or_mapping": "CAP-0639(primary);CAP-0635(shared_core_dependency_for_cost_autopsy)",
+      "matched_capability_ids": [
+        "CAP-0639"
+      ],
+      "build_class": "COMPOSITE_PRODUCT_SURFACE",
+      "scope_decision": "AMEND_CAP-0639_INTO_LAUNCH57_FOR_ITEM_5;CAP-0635_REMAINS_ITEM_43_SHARED_CORE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0639",
+        "net_edge_truth.py",
+        "cap646/handlers/verified.py#639",
+        "decision_truth/net_edge.py",
+        "CAP-0635 already LAUNCH57 launch_numbers [43]"
+      ],
+      "reconciliation_status": "COMPLETE",
+      "shared_core_dependency_ids": [
+        "CAP-0635"
+      ],
+      "scope_amendment_caps": [
+        "CAP-0639"
+      ]
+    },
+    {
+      "launch_item_id": 6,
+      "launch_name": "Evidence class ظاهر (LIVE / DELAYED / SIM)",
+      "canonical_decision": "SHARED_CORE",
+      "canonical_owner_or_mapping": "cap646/evidence_class.py+decision_truth/evidence_taxonomy.py",
+      "matched_capability_ids": [],
+      "build_class": "SHARED_CORE",
+      "scope_decision": "LAUNCH57_CROSS_CUTTING_EVIDENCE_CLASS_REQUIREMENT",
+      "prior_engineering_status": "NO_LINKED_CANONICAL",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "UX_OR_API_CONSUMER_GAP;EVIDENCE_CLASS_UI_INCOMPLETE",
+      "decision_evidence": [
+        "cap646/evidence_class.py",
+        "decision_truth/evidence_taxonomy.py",
+        "user_exposure_log.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 7,
+      "launch_name": "Market Regime / Compass",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0035",
+      "matched_capability_ids": [
+        "CAP-0035"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0035",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 8,
+      "launch_name": "Beginner Decision Mode",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0034",
+      "matched_capability_ids": [
+        "CAP-0034"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0034",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 9,
+      "launch_name": "Cross-Signal Confirmation",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0031",
+      "matched_capability_ids": [
+        "CAP-0031"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0031",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 10,
+      "launch_name": "Contradiction Detection",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0032",
+      "matched_capability_ids": [
+        "CAP-0032"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0032",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 11,
+      "launch_name": "Smart Money Actionability Score",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0033",
+      "matched_capability_ids": [
+        "CAP-0033"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0033",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 12,
+      "launch_name": "Smart Money Conviction Engine",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0028",
+      "matched_capability_ids": [
+        "CAP-0028"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0028",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 13,
+      "launch_name": "Accumulation / Distribution Detection",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0005",
+      "matched_capability_ids": [
+        "CAP-0005"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0005",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 14,
+      "launch_name": "Smart Money Token Screener",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0006",
+      "matched_capability_ids": [
+        "CAP-0006"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0006",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 15,
+      "launch_name": "Entity-Aware Wallet Intelligence",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0014",
+      "matched_capability_ids": [
+        "CAP-0014"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0014",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 16,
+      "launch_name": "Exchange Flow Intelligence (in/out/net)",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0015+CAP-0071",
+      "matched_capability_ids": [
+        "CAP-0015",
+        "CAP-0071"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0015",
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0071",
+        "cap646/runtime.py",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 17,
+      "launch_name": "Exchange Whale Ratio + internal-flow filter",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0072+CAP-0075",
+      "matched_capability_ids": [
+        "CAP-0072",
+        "CAP-0075"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0072",
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0075",
+        "cap646/runtime.py",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 18,
+      "launch_name": "Whale Accumulation / Movement Alerts",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0081+CAP-0098",
+      "matched_capability_ids": [
+        "CAP-0081",
+        "CAP-0098"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0081",
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0098",
+        "cap646/runtime.py",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 19,
+      "launch_name": "Inter-Entity Flow (محدود الإطلاق)",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0091",
+      "matched_capability_ids": [
+        "CAP-0091"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0091",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 20,
+      "launch_name": "Address Labels & Cohorts (نواة محدودة)",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0092",
+      "matched_capability_ids": [
+        "CAP-0092"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0092",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 21,
+      "launch_name": "Spot metrics suite (صادق التحديث)",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0047",
+      "matched_capability_ids": [
+        "CAP-0047"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0047",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 22,
+      "launch_name": "Real-time / near-real-time prices",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0561",
+      "matched_capability_ids": [
+        "CAP-0561"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0561",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 23,
+      "launch_name": "OHLCV",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0507",
+      "matched_capability_ids": [
+        "CAP-0507"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0507",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 24,
+      "launch_name": "Quote + symbol metadata",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0506+CAP-0513",
+      "matched_capability_ids": [
+        "CAP-0506",
+        "CAP-0513"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0506",
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0513",
+        "cap646/runtime.py",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 25,
+      "launch_name": "Futures OI intelligence",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0085+CAP-0048",
+      "matched_capability_ids": [
+        "CAP-0085",
+        "CAP-0048"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0085",
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0048",
+        "cap646/runtime.py",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 26,
+      "launch_name": "Funding rate intelligence",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0086",
+      "matched_capability_ids": [
+        "CAP-0086"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0086",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 27,
+      "launch_name": "Liquidation intelligence / heatmap خفيف",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0088",
+      "matched_capability_ids": [
+        "CAP-0088"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0088",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 28,
+      "launch_name": "Taker buy/sell + leverage ratio",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0089+CAP-0087",
+      "matched_capability_ids": [
+        "CAP-0089",
+        "CAP-0087"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0089",
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0087",
+        "cap646/runtime.py",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 29,
+      "launch_name": "Derivatives sentiment composite",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0090",
+      "matched_capability_ids": [
+        "CAP-0090"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0090",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 30,
+      "launch_name": "Order book intelligence (L1 على الأقل)",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0050+CAP-0508",
+      "matched_capability_ids": [
+        "CAP-0050",
+        "CAP-0508"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0050",
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0508",
+        "cap646/runtime.py",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 31,
+      "launch_name": "Token screener (سوق عام)",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0056",
+      "matched_capability_ids": [
+        "CAP-0056"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0056",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 32,
+      "launch_name": "Watchlists (توكن + محفظة محدودة)",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0019",
+      "matched_capability_ids": [
+        "CAP-0019"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0019",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 33,
+      "launch_name": "Smart Alerts (سعر + تدفق + حوت + قرار)",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0017",
+      "matched_capability_ids": [
+        "CAP-0017"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0017",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 34,
+      "launch_name": "Signal → Explanation workflow",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0025",
+      "matched_capability_ids": [
+        "CAP-0025"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0025",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 35,
+      "launch_name": "Price-move explanation",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0026",
+      "matched_capability_ids": [
+        "CAP-0026"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0026",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 36,
+      "launch_name": "AI Research Agent + Copilot مربوط ببيانات المنصة فقط (شات على أسطح الإطلاق + footer امتثال)",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0024",
+      "matched_capability_ids": [
+        "CAP-0024"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0024",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 37,
+      "launch_name": "Cross-market decision engine",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0029",
+      "matched_capability_ids": [
+        "CAP-0029"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0029",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 38,
+      "launch_name": "MVRV / Z-Score (نواة BTC/ETH إن توفّر مصدر)",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0040",
+      "matched_capability_ids": [
+        "CAP-0040"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0040",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 39,
+      "launch_name": "Point-in-time immutable metrics",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0061",
+      "matched_capability_ids": [
+        "CAP-0061"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0061",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 40,
+      "launch_name": "Data quality & provenance (ظاهر للمستخدم)",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0063+CAP-0500",
+      "matched_capability_ids": [
+        "CAP-0063",
+        "CAP-0500"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0063",
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0500",
+        "cap646/runtime.py",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 41,
+      "launch_name": "Freshness assurance + تسمية delayed صريحة",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0630",
+      "matched_capability_ids": [
+        "CAP-0630"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0630",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 42,
+      "launch_name": "Unified exchange connector (مسار واحد)",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0504",
+      "matched_capability_ids": [
+        "CAP-0504"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0504",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 43,
+      "launch_name": "Spot–perp / arbitrage (Net-Edge إلزامي)",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0230+CAP-0635",
+      "matched_capability_ids": [
+        "CAP-0230",
+        "CAP-0635"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0230",
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0635",
+        "cap646/runtime.py",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 44,
+      "launch_name": "Shareable decision / oracle card (OG)",
+      "canonical_decision": "ALIAS",
+      "canonical_owner_or_mapping": "PRODUCT_SURFACE:decision_certificate.py+trust_os_lenses.py (presentation over CAP-0641/#3)",
+      "matched_capability_ids": [
+        "CAP-0641"
+      ],
+      "build_class": "PRODUCT_SURFACE",
+      "scope_decision": "LAUNCH57_ITEM_44_ALIAS_OF_CERTIFICATE_VIRAL_CARD",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "CONSUMER_PATH_INCOMPLETE;SCOPE_DEPENDS_ON_CAP-0641_AMENDMENT",
+      "decision_evidence": [
+        "decision_certificate.py",
+        "trust_os_lenses.py",
+        "trust_os.py#viral_atom"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 45,
+      "launch_name": "Shareable accuracy / outcome page",
+      "canonical_decision": "ALIAS",
+      "canonical_owner_or_mapping": "CAP-0640 presentation layer /oracle-accuracy (extension of #4)",
+      "matched_capability_ids": [
+        "CAP-0640"
+      ],
+      "build_class": "PRODUCT_SURFACE",
+      "scope_decision": "IN_LAUNCH57_SCOPE_ALIAS_OF_CAP-0640",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "LAUNCH57_IDS source: امتداد 0640",
+        "trust_compounding.py#/oracle-accuracy",
+        "trust_pulse.py#PATH_ORACLE_ACCURACY",
+        "CAP-0640 build_scope.launch_numbers includes 4 and 45"
+      ],
+      "reconciliation_status": "COMPLETE",
+      "cap0640_conflict_resolution": "A) #45 = PRODUCT_SURFACE / ALIAS presentation layer over #4"
+    },
+    {
+      "launch_item_id": 46,
+      "launch_name": "Guest trust surface",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "governance/anonymous_visitor_governance.py+anonymous visitor spec",
+      "matched_capability_ids": [],
+      "build_class": "PRODUCT_SURFACE",
+      "scope_decision": "LAUNCH57_ITEM_46_GUEST_TRUST_SURFACE",
+      "prior_engineering_status": "NO_LINKED_CANONICAL",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "CONSUMER_PATH_MISSING",
+      "decision_evidence": [
+        "governance/anonymous_visitor_governance.py",
+        "docs/BLACKDARK_ANONYMOUS_VISITOR_PUBLIC_INTELLIGENCE_EXPERIENCE_2026_FINAL.md",
+        "tests/test_p0_anonymous_route_foundation.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 47,
+      "launch_name": "One-click risk disclosure على كل قرار",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "decision_truth/product/reject_proof.py+decision_certificate.compliance_footer",
+      "matched_capability_ids": [],
+      "build_class": "PRODUCT_SURFACE",
+      "scope_decision": "LAUNCH57_ITEM_47_RISK_DISCLOSURE_OVERLAY",
+      "prior_engineering_status": "NO_LINKED_CANONICAL",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "CONSUMER_PATH_INCOMPLETE",
+      "decision_evidence": [
+        "decision_truth/product/reject_proof.py",
+        "decision_certificate.py#LEGAL_SHIELD_PREFIX"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 48,
+      "launch_name": "Abstain / reject reasons ظاهرة",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "decision_truth/product/rejection_engine.py+no_decision.py",
+      "matched_capability_ids": [],
+      "build_class": "PRODUCT_SURFACE",
+      "scope_decision": "LAUNCH57_ITEM_48_ABSTAIN_REJECT_VISIBILITY",
+      "prior_engineering_status": "NO_LINKED_CANONICAL",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "CONSUMER_PATH_INCOMPLETE",
+      "decision_evidence": [
+        "decision_truth/product/rejection_engine.py",
+        "decision_truth/product/no_decision.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 49,
+      "launch_name": "Personal decision history (محدود Free)",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "user_exposure_log.py+data/decision_ledger.jsonl",
+      "matched_capability_ids": [],
+      "build_class": "PRODUCT_SURFACE",
+      "scope_decision": "LAUNCH57_ITEM_49_LIMITED_FREE_HISTORY",
+      "prior_engineering_status": "NO_LINKED_CANONICAL",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "CONSUMER_PATH_INCOMPLETE;DATA_ARTIFACT_PARTIAL",
+      "decision_evidence": [
+        "user_exposure_log.py",
+        "data/decision_ledger.jsonl"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 50,
+      "launch_name": "Discipline / missed-opportunity mirror (خفيف)",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "discipline_mirror.py",
+      "matched_capability_ids": [],
+      "build_class": "PRODUCT_SURFACE",
+      "scope_decision": "LAUNCH57_ITEM_50_DISCIPLINE_MIRROR",
+      "prior_engineering_status": "NO_LINKED_CANONICAL",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "CONSUMER_PATH_INCOMPLETE",
+      "decision_evidence": [
+        "discipline_mirror.py",
+        "api/routers/heroes.py#discipline_mirror",
+        "templates/discipline.html"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 51,
+      "launch_name": "Research portal / short briefs",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0065+CAP-0100",
+      "matched_capability_ids": [
+        "CAP-0065",
+        "CAP-0100"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0065",
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0100",
+        "cap646/runtime.py",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 52,
+      "launch_name": "Capability library (بحث) — طبقة ثانية لا الرئيسية",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "BLACKDARK_CAPABILITY_CURRENT_STATE.json catalog search UX (secondary layer)",
+      "matched_capability_ids": [],
+      "build_class": "PRODUCT_SURFACE",
+      "scope_decision": "LAUNCH57_ITEM_52_SECONDARY_CAPABILITY_LIBRARY",
+      "prior_engineering_status": "NO_LINKED_CANONICAL",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "UX_OR_API_CONSUMER_GAP",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json",
+        "LAUNCH57_IDS source: ناقص UX"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 53,
+      "launch_name": "Instant Wallet Due Diligence",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0022",
+      "matched_capability_ids": [
+        "CAP-0022"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0022",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 54,
+      "launch_name": "Instant Token Due Diligence",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0023",
+      "matched_capability_ids": [
+        "CAP-0023"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0023",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 55,
+      "launch_name": "Pump & Dump / manipulation pattern alerts",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0238",
+      "matched_capability_ids": [
+        "CAP-0238"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0238",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 56,
+      "launch_name": "Suspicious activity flags (على مسارات توكن/سمارت موني — ليس AML كامل)",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0297",
+      "matched_capability_ids": [
+        "CAP-0297"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "GENERIC_DELEGATE_REQUIRES_ENGINEERING_RECONCILIATION",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0297",
+        "cap646/runtime.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    },
+    {
+      "launch_item_id": 57,
+      "launch_name": "Exchange transparency / risk indicators (احتياطي معلن إن وُجد، شذوذ تدفق، حوادث — بدون شهادة ملاءة أو ضمان)",
+      "canonical_decision": "REUSE",
+      "canonical_owner_or_mapping": "CAP-0916",
+      "matched_capability_ids": [
+        "CAP-0916"
+      ],
+      "build_class": "CAPABILITY",
+      "scope_decision": "IN_LAUNCH57_SCOPE",
+      "prior_engineering_status": "PASS_ENGINEERING",
+      "prior_pass_trusted_for_launch": "NO",
+      "phase_eligible": "YES",
+      "blocker": "ENGINEERING_RECONCILIATION_REQUIRED",
+      "decision_evidence": [
+        "BLACKDARK_CAPABILITY_CURRENT_STATE.json#CAP-0916",
+        "cap978/verify.py"
+      ],
+      "reconciliation_status": "COMPLETE"
+    }
+  ],
+  "scope_amendments_applied": [
+    {
+      "capability_id": "CAP-0641",
+      "launch_item_id": 3,
+      "action": "PARKED_OUT_OF_LAUNCH -> LAUNCH57"
+    },
+    {
+      "capability_id": "CAP-0639",
+      "launch_item_id": 5,
+      "action": "PARKED_OUT_OF_LAUNCH -> LAUNCH57"
+    }
+  ],
+  "phase0_5_verification": {
+    "LAUNCH57_COUNT": 57,
+    "ALL_57_HAVE_EXPLICIT_CANONICAL_DECISION": "YES",
+    "ALL_57_HAVE_BUILD_CLASS": "YES",
+    "ALL_57_HAVE_SCOPE_DECISION": "YES",
+    "ALL_57_HAVE_PRIOR_PASS_TRUST_STATE": "YES",
+    "ALL_57_HAVE_PHASE_ELIGIBILITY": "YES",
+    "ALL_SCOPE_AMENDMENTS_EXPLICIT": "YES",
+    "SCOPE_LEAKAGE_FOUND": "NO",
+    "BUILD_STARTED": "NO",
+    "PHASE_1_STARTED": "NO",
+    "PASS_ENGINEERING_ISSUED": "NO",
+    "PASS_LIVE_ISSUED": "NO"
+  }
+}
