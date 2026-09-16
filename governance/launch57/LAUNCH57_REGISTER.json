@@ -2,9 +2,9 @@
   "artifact": "LAUNCH57_REGISTER",
   "ssot_role": "launch57_truth_register_view",
   "authoritative_ssot": "BLACKDARK_CAPABILITY_CURRENT_STATE.json",
-  "phase": "0.5_CANONICAL_SCOPE_RECONCILIATION",
-  "generated_at": "2026-09-16T19:09:57.033927+00:00",
-  "source_commit": "172188c3b17b1647d15148c603f53256c1acbc7d",
+  "phase": "1_DATA_BATCH1_BUILD",
+  "generated_at": "2026-09-16T19:33:47.842094+00:00",
+  "source_commit": "df19b921",
   "scope_lock": {
     "CURRENT_APPROVED_BUILD_SCOPE": "LAUNCH57",
     "LAUNCH57_COUNT": 57,
@@ -1269,22 +1269,26 @@
         "cap646.institutional_official_production"
       ],
       "canonical_implementation": [
-        "explicit_option_a"
+        "launch57.data_batch1"
       ],
       "runtime_entry": [
         "cap646/runtime.py"
       ],
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/data_batch1.py",
+        "cap646/handlers/market.py",
+        "cap646/institutional_official_production.py"
       ],
-      "tests_found": [],
+      "tests_found": [
+        "tests/launch57/test_data_batch1.py::test_spot_metrics_unknown_not_zero"
+      ],
       "evidence_found": [
         "ENGINEERING_AUDIT_826_REPORT.json"
       ],
       "current_engineering_status": "PASS_ENGINEERING",
       "current_live_status": "LIVE_VALIDATION_PENDING",
       "root_cause_if_not_pass_engineering": null,
-      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "pass_engineering_reconciliation": "PENDING_INDEPENDENT_VERIFICATION",
       "stub_generic_mock_findings": [
         {
           "launch_number": 21,
@@ -1297,7 +1301,27 @@
         }
       ],
       "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
-      "notes": ""
+      "notes": "",
+      "phase1_batch1_build": {
+        "build_decision": "EXTEND",
+        "builder_status": "PENDING_VERIFICATION",
+        "runtime_path": "cap646/runtime.py → launch57/data_batch1.py:spot_market_metrics_suite",
+        "consumer_paths": [
+          "launch57/data_batch1.py",
+          "cap646/handlers/market.py",
+          "cap646/institutional_official_production.py"
+        ],
+        "binding_source": "launch57_phase1_batch1",
+        "tests_found": [
+          "tests/launch57/test_data_batch1.py::test_spot_metrics_unknown_not_zero"
+        ],
+        "evidence_found": [
+          "governance/launch57/PHASE1_BATCH1_EVIDENCE.json"
+        ],
+        "blocker": null,
+        "prior_pass_trusted_for_launch": "NO",
+        "commit_sha": "8aa4e1983b883d565285052c8a76015a32c37cf9"
+      }
     },
     {
       "launch_number": 22,
@@ -1326,22 +1350,27 @@
         "cap646.institutional_official_production"
       ],
       "canonical_implementation": [
-        "explicit_option_a"
+        "launch57.data_batch1"
       ],
       "runtime_entry": [
         "cap646/runtime.py"
       ],
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/data_batch1.py",
+        "cap646/institutional_official_production.py",
+        "api/routers/cap646.py"
       ],
-      "tests_found": [],
+      "tests_found": [
+        "tests/launch57/test_data_batch1.py::test_real_time_prices_rejects_stale_not_as_live",
+        "tests/launch57/test_data_batch1.py::test_real_time_prices_live_path"
+      ],
       "evidence_found": [
         "ENGINEERING_AUDIT_826_REPORT.json"
       ],
       "current_engineering_status": "PASS_ENGINEERING",
       "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
       "root_cause_if_not_pass_engineering": null,
-      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "pass_engineering_reconciliation": "PENDING_INDEPENDENT_VERIFICATION",
       "stub_generic_mock_findings": [
         {
           "launch_number": 22,
@@ -1354,7 +1383,28 @@
         }
       ],
       "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
-      "notes": ""
+      "notes": "",
+      "phase1_batch1_build": {
+        "build_decision": "EXTEND",
+        "builder_status": "PENDING_VERIFICATION",
+        "runtime_path": "cap646/runtime.py → launch57/data_batch1.py:real_time_prices",
+        "consumer_paths": [
+          "launch57/data_batch1.py",
+          "cap646/institutional_official_production.py",
+          "api/routers/cap646.py"
+        ],
+        "binding_source": "launch57_phase1_batch1",
+        "tests_found": [
+          "tests/launch57/test_data_batch1.py::test_real_time_prices_rejects_stale_not_as_live",
+          "tests/launch57/test_data_batch1.py::test_real_time_prices_live_path"
+        ],
+        "evidence_found": [
+          "governance/launch57/PHASE1_BATCH1_EVIDENCE.json"
+        ],
+        "blocker": null,
+        "prior_pass_trusted_for_launch": "NO",
+        "commit_sha": "8aa4e1983b883d565285052c8a76015a32c37cf9"
+      }
     },
     {
       "launch_number": 23,
@@ -1383,20 +1433,19 @@
         "cap646.institutional_official_production"
       ],
       "canonical_implementation": [
-        "explicit_option_a"
+        "launch57.data_batch1"
       ],
       "runtime_entry": [
         "cap646/runtime.py"
       ],
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/data_batch1.py",
+        "cap646/handlers/market.py",
+        "cap646/institutional_official_production.py"
       ],
       "tests_found": [
-        "tests/cap646/test_option_a_production.py",
-        "tests/test_d01_data_state.py",
-        "tests/test_wave_01_data_engine.py",
-        "tests/test_wave_01_institutional.py",
-        "tests/test_wave_01_systems.py"
+        "tests/launch57/test_data_batch1.py::test_ohlcv_full_bars_and_invariants",
+        "tests/launch57/test_data_batch1.py::test_ohlcv_invariants_detect_violation"
       ],
       "evidence_found": [
         "ENGINEERING_AUDIT_826_REPORT.json"
@@ -1404,7 +1453,7 @@
       "current_engineering_status": "PASS_ENGINEERING",
       "current_live_status": "LIVE_VALIDATION_PENDING",
       "root_cause_if_not_pass_engineering": null,
-      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "pass_engineering_reconciliation": "PENDING_INDEPENDENT_VERIFICATION",
       "stub_generic_mock_findings": [
         {
           "launch_number": 23,
@@ -1417,7 +1466,28 @@
         }
       ],
       "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
-      "notes": ""
+      "notes": "",
+      "phase1_batch1_build": {
+        "build_decision": "EXTEND",
+        "builder_status": "PENDING_VERIFICATION",
+        "runtime_path": "cap646/runtime.py → launch57/data_batch1.py:ohlcv",
+        "consumer_paths": [
+          "launch57/data_batch1.py",
+          "cap646/handlers/market.py",
+          "cap646/institutional_official_production.py"
+        ],
+        "binding_source": "launch57_phase1_batch1",
+        "tests_found": [
+          "tests/launch57/test_data_batch1.py::test_ohlcv_full_bars_and_invariants",
+          "tests/launch57/test_data_batch1.py::test_ohlcv_invariants_detect_violation"
+        ],
+        "evidence_found": [
+          "governance/launch57/PHASE1_BATCH1_EVIDENCE.json"
+        ],
+        "blocker": null,
+        "prior_pass_trusted_for_launch": "NO",
+        "commit_sha": "8aa4e1983b883d565285052c8a76015a32c37cf9"
+      }
     },
     {
       "launch_number": 24,
@@ -1452,24 +1522,26 @@
         "cap646.institutional_official_production"
       ],
       "canonical_implementation": [
-        "explicit_option_a",
-        "explicit_option_a"
+        "launch57.data_batch1"
       ],
       "runtime_entry": [
         "cap646/runtime.py",
         "cap646/runtime.py"
       ],
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/data_batch1.py",
+        "cap646/institutional_official_production.py"
       ],
-      "tests_found": [],
+      "tests_found": [
+        "tests/launch57/test_data_batch1.py::test_quote_and_metadata_distinct_contracts"
+      ],
       "evidence_found": [
         "ENGINEERING_AUDIT_826_REPORT.json"
       ],
       "current_engineering_status": "PASS_ENGINEERING",
       "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
       "root_cause_if_not_pass_engineering": null,
-      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "pass_engineering_reconciliation": "PENDING_INDEPENDENT_VERIFICATION",
       "stub_generic_mock_findings": [
         {
           "launch_number": 24,
@@ -1491,7 +1563,26 @@
         }
       ],
       "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
-      "notes": ""
+      "notes": "",
+      "phase1_batch1_build": {
+        "build_decision": "EXTEND",
+        "builder_status": "PENDING_VERIFICATION",
+        "runtime_path": "cap646/runtime.py → launch57/data_batch1.py:quote_data|symbol_metadata",
+        "consumer_paths": [
+          "launch57/data_batch1.py",
+          "cap646/institutional_official_production.py"
+        ],
+        "binding_source": "launch57_phase1_batch1",
+        "tests_found": [
+          "tests/launch57/test_data_batch1.py::test_quote_and_metadata_distinct_contracts"
+        ],
+        "evidence_found": [
+          "governance/launch57/PHASE1_BATCH1_EVIDENCE.json"
+        ],
+        "blocker": null,
+        "prior_pass_trusted_for_launch": "NO",
+        "commit_sha": "8aa4e1983b883d565285052c8a76015a32c37cf9"
+      }
     },
     {
       "launch_number": 25,
@@ -2567,22 +2658,26 @@
         "cap646.institutional_official_production"
       ],
       "canonical_implementation": [
-        "explicit_option_a"
+        "launch57.data_batch1"
       ],
       "runtime_entry": [
         "cap646/runtime.py"
       ],
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/data_batch1.py",
+        "cap646/institutional_official_production.py",
+        "api/routers/cap646.py"
       ],
-      "tests_found": [],
+      "tests_found": [
+        "tests/launch57/test_data_batch1.py::test_unified_exchange_connector_routes_without_synthetic"
+      ],
       "evidence_found": [
         "ENGINEERING_AUDIT_826_REPORT.json"
       ],
       "current_engineering_status": "PASS_ENGINEERING",
       "current_live_status": "NOT_APPLICABLE_INTERNAL_ONLY",
       "root_cause_if_not_pass_engineering": null,
-      "pass_engineering_reconciliation": "PASS_REQUIRES_RECONCILIATION",
+      "pass_engineering_reconciliation": "PENDING_INDEPENDENT_VERIFICATION",
       "stub_generic_mock_findings": [
         {
           "launch_number": 42,
@@ -2595,7 +2690,27 @@
         }
       ],
       "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
-      "notes": ""
+      "notes": "",
+      "phase1_batch1_build": {
+        "build_decision": "EXTEND",
+        "builder_status": "PENDING_VERIFICATION",
+        "runtime_path": "cap646/runtime.py → cap646/institutional_official_production.py → launch57/data_batch1.py:unified_exchange_connector",
+        "consumer_paths": [
+          "launch57/data_batch1.py",
+          "cap646/institutional_official_production.py",
+          "api/routers/cap646.py"
+        ],
+        "binding_source": "launch57_phase1_batch1",
+        "tests_found": [
+          "tests/launch57/test_data_batch1.py::test_unified_exchange_connector_routes_without_synthetic"
+        ],
+        "evidence_found": [
+          "governance/launch57/PHASE1_BATCH1_EVIDENCE.json"
+        ],
+        "blocker": null,
+        "prior_pass_trusted_for_launch": "NO",
+        "commit_sha": "8aa4e1983b883d565285052c8a76015a32c37cf9"
+      }
     },
     {
       "launch_number": 43,
@@ -5113,9 +5228,36 @@
     "ALL_57_HAVE_PHASE_ELIGIBILITY": "YES",
     "ALL_SCOPE_AMENDMENTS_EXPLICIT": "YES",
     "SCOPE_LEAKAGE_FOUND": "NO",
-    "BUILD_STARTED": "NO",
-    "PHASE_1_STARTED": "NO",
+    "BUILD_STARTED": "YES",
+    "PHASE_1_STARTED": "YES",
     "PASS_ENGINEERING_ISSUED": "NO",
     "PASS_LIVE_ISSUED": "NO"
+  },
+  "final_commit": "8aa4e1983b883d565285052c8a76015a32c37cf9",
+  "phase1_batch1_verification": {
+    "PHASE": "1_DATA",
+    "BATCH": 1,
+    "BUILD_ORDER_EXECUTED": [
+      42,
+      22,
+      23,
+      24,
+      21
+    ],
+    "LAUNCH57_COUNT": 57,
+    "SCOPE_EXPANDED": "NO",
+    "SCOPE_LEAKAGE_FOUND": "NO",
+    "PARKED_ITEM_BUILT": "NO",
+    "PASS_ENGINEERING_ISSUED": "NO",
+    "PASS_LIVE_ISSUED": "NO",
+    "READY_FOR_INDEPENDENT_VERIFICATION": [
+      42,
+      22,
+      23,
+      24,
+      21
+    ],
+    "NOT_COMPLETE": [],
+    "MAX_BUILDER_STATUS": "PENDING_VERIFICATION"
   }
 }

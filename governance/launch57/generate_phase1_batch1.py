@@ -149,12 +149,11 @@ def _update_cap_row(cap: dict, meta: dict, commit_sha: str, test_result: dict) -
     cap["canonical_implementation"] = "launch57.data_batch1"
     cap["actual_consumer_paths"] = meta["consumer_paths"]
     cap["data_sources"] = meta["data_sources"]
+    cap_num = int(cap["capability_id"].split("-")[1])
     cap["launch57_phase1_batch1"] = {
         "phase": "1_DATA",
         "batch": 1,
-        "launch_item_id": NUMERIC_TO_CAP.get(int(cap["capability_id"].split("-")[1]), None)
-        if "-" in cap.get("capability_id", "")
-        else None,
+        "launch_item_id": NUMERIC_TO_CAP.get(cap_num),
         "build_decision": meta["build_decision"],
         "builder_status": "PENDING_VERIFICATION",
         "prior_pass_trusted_for_launch": "NO",
@@ -187,7 +186,7 @@ def main() -> None:
     now = datetime.now(UTC).isoformat()
 
     ssot = json.loads(SSOT_PATH.read_text(encoding="utf-8"))
-    cap_index = {row["capability_id"]: row for row in ssot["capabilities"]}
+    cap_index = {row["capability_id"]: row for row in ssot["canonical_capabilities"]}
 
     for launch_id in BUILD_ORDER:
         meta = CAP_ROWS[launch_id]
