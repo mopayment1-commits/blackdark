@@ -21157,10 +21157,11 @@
       "state_classification": "EXISTING_VERIFIED",
       "canonical_decision": "KEEP_DISTINCT",
       "canonical_owner": "cap646.institutional_official_production",
-      "canonical_implementation": "explicit_option_a",
+      "canonical_implementation": "launch57.data_batch2",
       "runtime_entry": "cap646/runtime.py",
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/data_batch2.py",
+        "cap646/institutional_official_production.py"
       ],
       "inputs": [
         "symbol",
@@ -21171,7 +21172,8 @@
       ],
       "semantic_oracle": "VERIFIED_COMPLETE",
       "data_sources": [
-        "Reporting, Audit, Tax & Governance"
+        "oracle_track_record.public_track_record",
+        "hot_storage.get_hot_storage_stats"
       ],
       "data_lineage": [
         "catalog_declared"
@@ -21449,6 +21451,41 @@
         "not_in_current_build_scope": false,
         "not_in_launch_surface": false,
         "no_build": false
+      },
+      "launch57_phase1_batch2": {
+        "phase": "1_DATA",
+        "batch": 2,
+        "launch_item_id": 39,
+        "build_decision": "EXTEND",
+        "builder_status": "PENDING_VERIFICATION",
+        "prior_pass_trusted_for_launch": "NO",
+        "runtime_path": "cap646/runtime.py → launch57/data_batch2.py:point_in_time_immutable_metrics",
+        "consumer_paths": [
+          "launch57/data_batch2.py",
+          "cap646/institutional_official_production.py"
+        ],
+        "backend_module": "launch57.data_batch2",
+        "backend_entrypoint": "point_in_time_immutable_metrics",
+        "binding_source": "launch57_phase1_batch2",
+        "semantic_oracle": "snapshot_at + content_hash + immutable_chain.valid",
+        "tests_run": [
+          "tests/launch57/test_data_batch2.py::test_pit_immutable_metrics_hash_and_timestamp"
+        ],
+        "tests_result": "PASS",
+        "evidence_reference": "governance/launch57/PHASE1_BATCH2_EVIDENCE.json",
+        "commit_sha": "453108b897cd36b5e1badd63d5eb966960f6ecca",
+        "known_gaps": [
+          "independent_verification_pending"
+        ],
+        "anti_phantom": {
+          "generic_delegate_only": "NO",
+          "stub_remaining": "NO",
+          "hardcoded_success": "NO",
+          "production_mock": "NO",
+          "real_runtime_path_verified": "YES",
+          "real_consumer_path_verified": "YES",
+          "semantic_oracle_verified": "YES"
+        }
       }
     },
     {
@@ -21811,10 +21848,12 @@
       "state_classification": "EXISTING_VERIFIED",
       "canonical_decision": "KEEP_DISTINCT",
       "canonical_owner": "cap646.institutional_official_production",
-      "canonical_implementation": "explicit_option_a",
+      "canonical_implementation": "launch57.data_batch2",
       "runtime_entry": "cap646/runtime.py",
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/data_batch2.py",
+        "cap646/handlers/market.py",
+        "cap646/institutional_official_production.py"
       ],
       "inputs": [
         "symbol",
@@ -21825,7 +21864,8 @@
       ],
       "semantic_oracle": "VERIFIED_COMPLETE",
       "data_sources": [
-        "Reporting, Audit, Tax & Governance"
+        "data_provenance_score.compute_data_provenance_score",
+        "cap646.data_spine.normalization_report"
       ],
       "data_lineage": [
         "catalog_declared"
@@ -22098,6 +22138,43 @@
         "not_in_current_build_scope": false,
         "not_in_launch_surface": false,
         "no_build": false
+      },
+      "launch57_phase1_batch2": {
+        "phase": "1_DATA",
+        "batch": 2,
+        "launch_item_id": 40,
+        "build_decision": "EXTEND",
+        "builder_status": "PENDING_VERIFICATION",
+        "prior_pass_trusted_for_launch": "NO",
+        "runtime_path": "cap646/runtime.py → launch57/data_batch2.py:data_quality_provenance_layer|data_quality_normalization",
+        "consumer_paths": [
+          "launch57/data_batch2.py",
+          "cap646/handlers/market.py",
+          "cap646/institutional_official_production.py"
+        ],
+        "backend_module": "launch57.data_batch2",
+        "backend_entrypoint": "data_quality_provenance_layer",
+        "binding_source": "launch57_phase1_batch2",
+        "semantic_oracle": "distinct CAP-0063 vs CAP-0500; user_disclosure من أين الرقم؟",
+        "tests_run": [
+          "tests/launch57/test_data_batch2.py::test_provenance_layer_user_disclosure",
+          "tests/launch57/test_data_batch2.py::test_normalization_distinct_from_provenance_layer"
+        ],
+        "tests_result": "PASS",
+        "evidence_reference": "governance/launch57/PHASE1_BATCH2_EVIDENCE.json",
+        "commit_sha": "453108b897cd36b5e1badd63d5eb966960f6ecca",
+        "known_gaps": [
+          "independent_verification_pending"
+        ],
+        "anti_phantom": {
+          "generic_delegate_only": "NO",
+          "stub_remaining": "NO",
+          "hardcoded_success": "NO",
+          "production_mock": "NO",
+          "real_runtime_path_verified": "YES",
+          "real_consumer_path_verified": "YES",
+          "semantic_oracle_verified": "YES"
+        }
       }
     },
     {
@@ -156779,10 +156856,12 @@
       "state_classification": "EXISTING_VERIFIED",
       "canonical_decision": "KEEP_DISTINCT",
       "canonical_owner": "cap646.institutional_official_production",
-      "canonical_implementation": "explicit_option_a",
+      "canonical_implementation": "launch57.data_batch2",
       "runtime_entry": "cap646/runtime.py",
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/data_batch2.py",
+        "cap646/handlers/market.py",
+        "cap646/institutional_official_production.py"
       ],
       "inputs": [
         "symbol",
@@ -156793,7 +156872,8 @@
       ],
       "semantic_oracle": "VERIFIED_COMPLETE",
       "data_sources": [
-        "Data Platform, Quality & Connectors"
+        "data_provenance_score.compute_data_provenance_score",
+        "cap646.data_spine.normalization_report"
       ],
       "data_lineage": [
         "catalog_declared"
@@ -157072,6 +157152,43 @@
         "not_in_current_build_scope": false,
         "not_in_launch_surface": false,
         "no_build": false
+      },
+      "launch57_phase1_batch2": {
+        "phase": "1_DATA",
+        "batch": 2,
+        "launch_item_id": 40,
+        "build_decision": "EXTEND",
+        "builder_status": "PENDING_VERIFICATION",
+        "prior_pass_trusted_for_launch": "NO",
+        "runtime_path": "cap646/runtime.py → launch57/data_batch2.py:data_quality_provenance_layer|data_quality_normalization",
+        "consumer_paths": [
+          "launch57/data_batch2.py",
+          "cap646/handlers/market.py",
+          "cap646/institutional_official_production.py"
+        ],
+        "backend_module": "launch57.data_batch2",
+        "backend_entrypoint": "data_quality_normalization",
+        "binding_source": "launch57_phase1_batch2",
+        "semantic_oracle": "distinct CAP-0063 vs CAP-0500; user_disclosure من أين الرقم؟",
+        "tests_run": [
+          "tests/launch57/test_data_batch2.py::test_provenance_layer_user_disclosure",
+          "tests/launch57/test_data_batch2.py::test_normalization_distinct_from_provenance_layer"
+        ],
+        "tests_result": "PASS",
+        "evidence_reference": "governance/launch57/PHASE1_BATCH2_EVIDENCE.json",
+        "commit_sha": "453108b897cd36b5e1badd63d5eb966960f6ecca",
+        "known_gaps": [
+          "independent_verification_pending"
+        ],
+        "anti_phantom": {
+          "generic_delegate_only": "NO",
+          "stub_remaining": "NO",
+          "hardcoded_success": "NO",
+          "production_mock": "NO",
+          "real_runtime_path_verified": "YES",
+          "real_consumer_path_verified": "YES",
+          "semantic_oracle_verified": "YES"
+        }
       }
     },
     {
@@ -199003,10 +199120,12 @@
       "state_classification": "EXISTING_VERIFIED",
       "canonical_decision": "KEEP_DISTINCT",
       "canonical_owner": "cap646.institutional_official_production",
-      "canonical_implementation": "explicit_option_a",
+      "canonical_implementation": "launch57.data_batch2",
       "runtime_entry": "cap646/runtime.py",
       "actual_consumer_paths": [
-        "explicit_option_a"
+        "launch57/data_batch2.py",
+        "cap646/handlers/market.py",
+        "cap646/institutional_official_production.py"
       ],
       "inputs": [
         "symbol",
@@ -199017,7 +199136,8 @@
       ],
       "semantic_oracle": "VERIFIED_COMPLETE",
       "data_sources": [
-        "Data Platform, Quality & Connectors"
+        "cap646.data_spine.freshness_assurance_report",
+        "failure.freshness.classify_freshness"
       ],
       "data_lineage": [
         "catalog_declared"
@@ -199335,6 +199455,43 @@
         "not_in_current_build_scope": false,
         "not_in_launch_surface": false,
         "no_build": false
+      },
+      "launch57_phase1_batch2": {
+        "phase": "1_DATA",
+        "batch": 2,
+        "launch_item_id": 41,
+        "build_decision": "EXTEND",
+        "builder_status": "PENDING_VERIFICATION",
+        "prior_pass_trusted_for_launch": "NO",
+        "runtime_path": "cap646/runtime.py → launch57/data_batch2.py:freshness_update_assurance",
+        "consumer_paths": [
+          "launch57/data_batch2.py",
+          "cap646/handlers/market.py",
+          "cap646/institutional_official_production.py"
+        ],
+        "backend_module": "launch57.data_batch2",
+        "backend_entrypoint": "freshness_update_assurance",
+        "binding_source": "launch57_phase1_batch2",
+        "semantic_oracle": "DELAYED/STALE/UNKNOWN explicit labels; stale never presented as live",
+        "tests_run": [
+          "tests/launch57/test_data_batch2.py::test_freshness_rejects_stale_as_live",
+          "tests/launch57/test_data_batch2.py::test_freshness_delayed_label_explicit"
+        ],
+        "tests_result": "PASS",
+        "evidence_reference": "governance/launch57/PHASE1_BATCH2_EVIDENCE.json",
+        "commit_sha": "453108b897cd36b5e1badd63d5eb966960f6ecca",
+        "known_gaps": [
+          "independent_verification_pending"
+        ],
+        "anti_phantom": {
+          "generic_delegate_only": "NO",
+          "stub_remaining": "NO",
+          "hardcoded_success": "NO",
+          "production_mock": "NO",
+          "real_runtime_path_verified": "YES",
+          "real_consumer_path_verified": "YES",
+          "semantic_oracle_verified": "YES"
+        }
       }
     },
     {
@@ -315721,7 +315878,7 @@
       21
     ],
     "source_commit": "df19b921",
-    "final_commit": "673d74bd766edfadafb83140f191d82b2f8d7c01",
+    "final_commit": "453108b897cd36b5e1badd63d5eb966960f6ecca",
     "completed_at": "2026-09-16T19:34:01.010808+00:00",
     "register_artifact": "governance/launch57/LAUNCH57_REGISTER.json",
     "report_artifact": "governance/launch57/PHASE1_BATCH1_REPORT.md",
@@ -315749,6 +315906,121 @@
       "command": "python3 -m pytest tests/launch57/test_data_batch1.py -q",
       "exit_code": 0,
       "stdout": "............                                                             [100%]",
+      "stderr": "",
+      "passed": true
+    },
+    "batch2_order_executed": [
+      40,
+      41,
+      39
+    ],
+    "full_build_order_executed": [
+      42,
+      22,
+      23,
+      24,
+      21,
+      40,
+      41,
+      39
+    ],
+    "batch2_completed_at": "2026-09-16T19:48:26.638800+00:00",
+    "capabilities_built_batch2": [
+      [
+        "CAP-0063",
+        "CAP-0500"
+      ],
+      [
+        "CAP-0630"
+      ],
+      [
+        "CAP-0061"
+      ]
+    ],
+    "phase1_data_layer_complete": true,
+    "tests_all": {
+      "command": "python3 -m pytest tests/launch57/test_data_batch1.py tests/launch57/test_data_batch2.py -q",
+      "exit_code": 0,
+      "stdout": "....................                                                     [100%]",
+      "stderr": "",
+      "passed": true
+    }
+  },
+  "phase1_data_layer": {
+    "phase": "1_DATA",
+    "batch": 1,
+    "build_order_executed": [
+      42,
+      22,
+      23,
+      24,
+      21
+    ],
+    "source_commit": "df19b921",
+    "final_commit": "453108b897cd36b5e1badd63d5eb966960f6ecca",
+    "completed_at": "2026-09-16T19:34:01.010808+00:00",
+    "register_artifact": "governance/launch57/LAUNCH57_REGISTER.json",
+    "report_artifact": "governance/launch57/PHASE1_BATCH1_REPORT.md",
+    "evidence_artifact": "governance/launch57/PHASE1_BATCH1_EVIDENCE.json",
+    "verification": {
+      "PHASE": "1_DATA",
+      "BATCH": 1,
+      "LAUNCH57_COUNT": 57,
+      "SCOPE_EXPANDED": "NO",
+      "BUILD_STARTED": "YES",
+      "PHASE_1_STARTED": "YES",
+      "PASS_ENGINEERING_ISSUED": "NO",
+      "PASS_LIVE_ISSUED": "NO",
+      "INDEPENDENT_VERIFICATION_ISSUED": "NO",
+      "MAX_BUILDER_STATUS": "PENDING_VERIFICATION"
+    },
+    "capabilities_built": [
+      "CAP-0504",
+      "CAP-0561",
+      "CAP-0507",
+      "CAP-0506+CAP-0513",
+      "CAP-0047"
+    ],
+    "tests": {
+      "command": "python3 -m pytest tests/launch57/test_data_batch1.py -q",
+      "exit_code": 0,
+      "stdout": "............                                                             [100%]",
+      "stderr": "",
+      "passed": true
+    },
+    "batch2_order_executed": [
+      40,
+      41,
+      39
+    ],
+    "full_build_order_executed": [
+      42,
+      22,
+      23,
+      24,
+      21,
+      40,
+      41,
+      39
+    ],
+    "batch2_completed_at": "2026-09-16T19:48:26.638800+00:00",
+    "capabilities_built_batch2": [
+      [
+        "CAP-0063",
+        "CAP-0500"
+      ],
+      [
+        "CAP-0630"
+      ],
+      [
+        "CAP-0061"
+      ]
+    ],
+    "phase1_data_layer_complete": true,
+    "tests_all": {
+      "command": "python3 -m pytest tests/launch57/test_data_batch1.py tests/launch57/test_data_batch2.py -q",
+      "exit_code": 0,
+      "stdout": "....................                                                     [100%]",
       "stderr": "",
       "passed": true
     }
