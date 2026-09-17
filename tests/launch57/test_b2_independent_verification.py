@@ -278,10 +278,11 @@ async def test_b1_paths_bound_to_canonical_41_when_activated(monkeypatch):
 
 
 @pytest.mark.asyncio
-async def test_b2_retains_hash6_pending_without_evidence_class_output():
+async def test_b2_attaches_hash6_evidence_class_when_b3_activated():
     from launch57.data_batch2 import freshness_update_assurance
 
     out = await freshness_update_assurance(symbol="BTC", params={"quote_age_ms": 1000.0})
-    assert any(p.get("launch_number") == 6 for p in out["temporal_dependency_pending"])
-    assert "evidence_class" not in out
+    assert out["evidence_class_owner"] == "launch57.evidence_class_common"
+    assert "evidence_display" in out
+    assert not any(p.get("launch_number") == 6 for p in out["temporal_dependency_pending"])
     assert "ai_compliance_footer" not in str(out)

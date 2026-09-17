@@ -23,4 +23,6 @@ def finalize_b2_response(body: dict[str, Any]) -> dict[str, Any]:
     out["launch57_isolation_boundary"] = True
     out["legacy_runtime_dependencies"] = 0
     out["b2_isolation_leakage"] = 0
-    return out
+    from launch57.b3_evidence_bridge import apply_b3_evidence_reconciliation
+
+    return apply_b3_evidence_reconciliation(out)

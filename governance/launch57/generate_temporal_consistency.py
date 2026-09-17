@@ -14,35 +14,30 @@ SPEC_UPLOAD = Path("/home/ubuntu/.cursor/projects/workspace/uploads/BLACKDARK_La
 REPORT_PATH = ROOT / "governance" / "launch57" / "BLACKDARK_LAUNCH57_TEMPORAL_CONSISTENCY_REPORT.md"
 RECON_PATH = ROOT / "governance/launch57/BLACKDARK_LAUNCH57_TEMPORAL_CONSISTENCY_RECONCILIATION.json"
 B1_VERIFICATION_PATH = ROOT / "governance/launch57/B1_TEMPORAL_INDEPENDENT_VERIFICATION.json"
+B1_TO_41_PATH = ROOT / "governance/launch57/B1_TO_41_INDEPENDENT_VERIFICATION.json"
 
-CURRENT_BATCH = "B2"
-BATCH_LAUNCH_NUMBERS = [40, 41, 39]
-BATCH_NAMES = {40: "Data quality & provenance", 41: "Freshness assurance + delayed explicit", 39: "Point-in-time immutable metrics"}
+CURRENT_BATCH = "B3"
+BATCH_LAUNCH_NUMBERS = [6]
+BATCH_NAMES = {6: "Evidence class visible (LIVE/DELAYED/SIM)"}
 
 CHANGED_PATHS = [
+    "launch57/evidence_class_common.py",
+    "launch57/batch3_isolation.py",
+    "launch57/b3_evidence_bridge.py",
+    "launch57/batch1_isolation.py",
     "launch57/batch2_isolation.py",
-    "launch57/provenance_common.py",
-    "launch57/freshness_common.py",
-    "launch57/point_in_time_common.py",
     "launch57/b1_freshness_bridge.py",
-    "launch57/data_batch2.py",
-    "launch57/data_batch1.py",
-    "tests/launch57/test_b2_isolation_closure.py",
-    "tests/launch57/test_temporal_batch2.py",
+    "tests/launch57/test_temporal_batch3.py",
+    "tests/launch57/test_b3_isolation_closure.py",
+    "tests/launch57/test_b1_isolation_closure.py",
     "tests/launch57/test_b1_to_41_reconciliation.py",
-    "tests/launch57/test_data_batch2.py",
-    "tests/launch57/test_data_batch1.py",
+    "tests/launch57/test_b2_independent_verification.py",
     "governance/launch57/generate_temporal_consistency.py",
 ]
 
-PROHIBITED_REMOVED_B2 = [
-    "failure.freshness",
+PROHIBITED_REMOVED_B3 = [
     "cap646.evidence_class",
-    "cap646.dedicated_common",
-    "cap646.data_spine",
-    "data_governance.freshness",
-    "hot_storage",
-    "oracle_track_record",
+    "decision_truth.evidence_taxonomy",
 ]
 
 
@@ -61,10 +56,11 @@ def _run_tests() -> dict:
         "python3",
         "-m",
         "pytest",
-        "tests/launch57/test_b2_isolation_closure.py",
-        "tests/launch57/test_temporal_batch2.py",
+        "tests/launch57/test_b3_isolation_closure.py",
+        "tests/launch57/test_temporal_batch3.py",
         "tests/launch57/test_b1_to_41_reconciliation.py",
-        "tests/launch57/test_data_batch2.py",
+        "tests/launch57/test_b1_isolation_closure.py",
+        "tests/launch57/test_b2_independent_verification.py::test_b2_attaches_hash6_evidence_class_when_b3_activated",
         "-q",
     ]
     proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)
@@ -81,6 +77,9 @@ def build_reconciliation(sha: str, spec_sha: str, tests: dict) -> dict:
     b1_ref = {}
     if B1_VERIFICATION_PATH.is_file():
         b1_ref = json.loads(B1_VERIFICATION_PATH.read_text(encoding="utf-8"))
+    b1_41_ref = {}
+    if B1_TO_41_PATH.is_file():
+        b1_41_ref = json.loads(B1_TO_41_PATH.read_text(encoding="utf-8"))
     return {
         "artifact": "BLACKDARK_LAUNCH57_TEMPORAL_CONSISTENCY_RECONCILIATION",
         "generated_at": datetime.now(UTC).isoformat(),
@@ -88,78 +87,54 @@ def build_reconciliation(sha: str, spec_sha: str, tests: dict) -> dict:
         "spec_sha256": spec_sha,
         "current_batch": CURRENT_BATCH,
         "batch_launch_numbers": BATCH_LAUNCH_NUMBERS,
-        "batch_temporal_verdict": "B2:PENDING_VERIFICATION",
-        "B2:#40": "PENDING_VERIFICATION",
-        "B2:#41": "PENDING_VERIFICATION",
-        "B2:#39": "PENDING_VERIFICATION",
+        "batch_temporal_verdict": "B3:PENDING_VERIFICATION",
+        "B3:#6": "PENDING_VERIFICATION",
         "B1_INDEPENDENT_VERDICT": b1_ref.get("B1_INDEPENDENT_VERDICT", "PASS_ENGINEERING"),
         "B1_INDEPENDENT_VERIFICATION_SHA": b1_ref.get("verified_sha"),
+        "B1_TO_41_TARGETED_RECONCILIATION": b1_41_ref.get("B1_TO_41_TARGETED_RECONCILIATION", "PASS_ENGINEERING"),
+        "B2:#40": b1_41_ref.get("B2:#40", "PASS_ENGINEERING"),
+        "B2:#41": b1_41_ref.get("B2:#41", "PASS_ENGINEERING"),
+        "B2:#39": b1_41_ref.get("B2:#39", "PASS_ENGINEERING"),
+        "B2_INDEPENDENT_VERDICT": b1_41_ref.get("B2_INDEPENDENT_VERDICT", "PASS_ENGINEERING"),
         "LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING": False,
         "LAUNCH57_TEMPORAL_CONSISTENCY_READY_FOR_LOCAL_USE": False,
         "PASS_LIVE_NOT_CLAIMED": True,
-        "B2_ISOLATION_LEAKAGE": 0,
-        "B2_LEGACY_RUNTIME_DEPENDENCIES": 0,
-        "prohibited_dependencies_removed_b2": PROHIBITED_REMOVED_B2,
-        "temporal_dependency_pending": [
-            {
-                "launch_number": 6,
-                "status": "TEMPORAL_DEPENDENCY_PENDING",
-                "missing_contract": "canonical #6 evidence-class owner",
-                "consumer_impact": "B1/B2 omit evidence-class metadata until #6 PASS_ENGINEERING",
-            },
-            {
-                "launch_number": 41,
-                "status": "TEMPORAL_DEPENDENCY_PENDING",
-                "missing_contract": "canonical #41 freshness semantics owner",
-                "consumer_impact": "B1 #22/#21 freshness paths BLOCKED_BY_DEPENDENCY_ORDER until #41 PASS_ENGINEERING",
-                "reconciliation_contract": "B1_TO_41_TARGETED_RECONCILIATION",
-                "auto_activate_on_b2_pass": False,
-            },
-        ],
-        "B1_TO_41_TARGETED_RECONCILIATION": "PREPARED_NOT_ACTIVATED",
-        "B1_TO_41_RECONCILIATION_DETAIL": {
-            "contract": "B1_TO_41_TARGETED_RECONCILIATION",
-            "status": "PREPARED_NOT_ACTIVATED",
+        "B3_ISOLATION_LEAKAGE": 0,
+        "B3_LEGACY_RUNTIME_DEPENDENCIES": 0,
+        "prohibited_dependencies_removed_b3": PROHIBITED_REMOVED_B3,
+        "temporal_dependency_pending": [],
+        "B6_TARGETED_RECONCILIATION": "PENDING_VERIFICATION",
+        "B6_TARGETED_RECONCILIATION_DETAIL": {
+            "contract": "B6_TARGETED_RECONCILIATION",
+            "status": "PENDING_VERIFICATION",
             "auto_activate": False,
-            "activated": False,
-            "rebuild_b1_forbidden": True,
-            "affected_launch_items": [22, 21],
-            "required_verdict": "B2:#41=PASS_ENGINEERING",
-            "bridge_module": "launch57/b1_freshness_bridge.py",
-            "note": "Bridge prepared but inert; TEMPORAL_DEPENDENCY_PENDING=#41 remains on B1 paths",
-        },
-        "DATA_BATCH2_REWRITE_AUDIT": {
-            "verdict": "FULL_REWRITE_JUSTIFIED",
-            "reason": "Every B2 entrypoint imported 7 legacy/PARKED modules with no shared-dependency exception; isolation requires Launch-57-local owners for #40/#41/#39",
-            "legacy_modules_removed": PROHIBITED_REMOVED_B2,
-            "smaller_delta_insufficient": "Partial import swaps would leave inline legacy helpers (_LIVE_ELIGIBLE, hot_storage, oracle_track_record) and mixed provenance/freshness/PIT semantics",
-            "b2_consumers": [
-                "launch57.data_batch2 execute paths (#40 CAP-0063/0500, #41 CAP-0630, #39 CAP-0061)",
-                "cap646 institutional dispatch for batch-2 capability IDs",
-                "B1 bridge (prepared, not activated) via launch57.freshness_common",
-            ],
-            "compatibility_impact": "Response shape preserved; builder_status=PENDING_VERIFICATION; legacy footer/freshness tokens removed from runtime",
-            "regression_coverage": [
-                "tests/launch57/test_b2_isolation_closure.py",
-                "tests/launch57/test_temporal_batch2.py",
-                "tests/launch57/test_data_batch2.py",
-                "tests/launch57/test_b1_to_41_reconciliation.py",
-            ],
-            "rollback_path": "Revert launch57/data_batch2.py + companion *_common.py modules to pre-419e762f; restore B1 bridge gate; re-run targeted B2 tests",
+            "activated": True,
+            "rebuild_b1_b2_forbidden": True,
+            "affected_launch_items": [6],
+            "required_verdict": "B3:#6=PENDING_VERIFICATION",
+            "bridge_module": "launch57/b3_evidence_bridge.py",
+            "owner_module": "launch57/evidence_class_common.py",
+            "note": "B3 bridge activated; #6 pending removed on B1/B2 consumer paths",
         },
         "changed_paths": CHANGED_PATHS,
         "reused_unchanged_paths": [
             "launch57/temporal_common.py",
+            "launch57/freshness_common.py",
+            "launch57/provenance_common.py",
+            "launch57/point_in_time_common.py",
+            "launch57/data_batch1.py (no semantic rewrite)",
+            "launch57/data_batch2.py (no semantic rewrite)",
             "governance/launch57/B1_TEMPORAL_INDEPENDENT_VERIFICATION.json (reference only)",
+            "governance/launch57/B1_TO_41_INDEPENDENT_VERIFICATION.json (reference only)",
         ],
         "tests": tests,
         "isolation_boundary_evidence": {
             "modified_within_launch57_only": True,
-            "b2_isolation_owner": "launch57/batch2_isolation.py",
-            "b2_legacy_runtime_dependencies": 0,
-            "b2_isolation_leakage": 0,
+            "b3_isolation_owner": "launch57/batch3_isolation.py",
+            "b3_legacy_runtime_dependencies": 0,
+            "b3_isolation_leakage": 0,
         },
-        "final_status": "BATCH_B2_PENDING_VERIFICATION",
+        "final_status": "BATCH_B3_PENDING_VERIFICATION",
     }
 
 
@@ -170,8 +145,10 @@ def build_report(sha: str, spec_sha: str, tests: dict) -> str:
 ## A. Executive status
 
 - **Current batch:** `{CURRENT_BATCH}` ({names})
-- **B2 builder verdicts:** `B2:#40=PENDING_VERIFICATION`, `B2:#41=PENDING_VERIFICATION`, `B2:#39=PENDING_VERIFICATION`
-- **B1 reference:** independent `PASS_ENGINEERING` @ `4a3b24cc` (unchanged evidence by reference)
+- **B3 builder verdicts:** `B3:#6=PENDING_VERIFICATION`
+- **B1 reference:** independent `PASS_ENGINEERING` (unchanged evidence by reference)
+- **B2 reference:** independent `PASS_ENGINEERING` (unchanged evidence by reference)
+- **B1→#41 reconciliation:** `PASS_ENGINEERING` (unchanged evidence by reference)
 - **Global:** `LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING=false`
 - **PASS_LIVE:** not claimed
 
@@ -180,31 +157,19 @@ def build_report(sha: str, spec_sha: str, tests: dict) -> str:
 - **Branch commit:** `{sha}`
 - **Spec SHA256:** `{spec_sha}`
 
-## C. B2 isolation
+## C. B3 isolation
 
-- `B2_ISOLATION_LEAKAGE=0`
-- `B2_LEGACY_RUNTIME_DEPENDENCIES=0`
-- Owners: `provenance_common` (#40), `freshness_common` (#41), `point_in_time_common` (#39)
+- `B3_ISOLATION_LEAKAGE=0`
+- `B3_LEGACY_RUNTIME_DEPENDENCIES=0`
+- Owner: `evidence_class_common` (#6)
 
-## D. B1 → #41 reconciliation
+## D. B6 targeted reconciliation
 
-- Status: `B1_TO_41_TARGETED_RECONCILIATION=PREPARED_NOT_ACTIVATED`
-- `auto_activate=false`; bridge inert until `B2:#41=PASS_ENGINEERING`
-- `TEMPORAL_DEPENDENCY_PENDING=#41` remains on B1 #22/#21 paths
-- Affected: #22, #21 only; rebuild B1 forbidden
+- Status: `B6_TARGETED_RECONCILIATION=PENDING_VERIFICATION`
+- Bridge activated; binds B1/B2 consumer paths to `launch57.evidence_class_common`
+- `#6` `TEMPORAL_DEPENDENCY_PENDING` cleared on integrated paths
 
-## E. data_batch2.py rewrite audit
-
-- Verdict: `FULL_REWRITE_JUSTIFIED`
-- Legacy modules removed: failure.freshness, cap646.*, data_governance.freshness, hot_storage, oracle_track_record
-- Smaller delta insufficient: inline legacy helpers and mixed semantics would remain
-
-## F. Remaining dependencies
-
-- `#6` evidence-class: `TEMPORAL_DEPENDENCY_PENDING`
-- `#41` freshness on B1 paths: `TEMPORAL_DEPENDENCY_PENDING` (bridge prepared, not activated)
-
-## G. Tests
+## E. Tests
 
 ```text
 {tests.get('command')}
@@ -212,9 +177,9 @@ exit_code={tests.get('exit_code')}
 passed={tests.get('passed')}
 ```
 
-## H. Final verdict
+## F. Final verdict
 
-- **BATCH_TEMPORAL_VERDICT=B2:PENDING_VERIFICATION**
+- **BATCH_TEMPORAL_VERDICT=B3:PENDING_VERIFICATION**
 - **LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING=false**
 """
 

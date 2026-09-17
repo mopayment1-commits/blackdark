@@ -75,7 +75,8 @@ def test_reconciliation_activated_binds_canonical_41():
     assert out["b1_to_41_reconciliation"]["status"] == "PENDING_VERIFICATION"
     assert out["b1_to_41_reconciliation"]["binding_status"] == "ACTIVATED_BOUND_TO_LAUNCH57_41"
     assert not any(p.get("launch_number") == 41 for p in out["temporal_dependency_pending"])
-    assert any(p.get("launch_number") == 6 for p in out["temporal_dependency_pending"])
+    assert out["evidence_class_owner"] == "launch57.evidence_class_common"
+    assert not any(p.get("launch_number") == 6 for p in out["temporal_dependency_pending"])
     assert out["freshness_owner"] == "launch57.freshness_common"
     assert "freshness_semantics" not in out
 

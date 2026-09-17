@@ -9,6 +9,7 @@ from __future__ import annotations
 from typing import Any
 
 from launch57.batch1_isolation import TEMPORAL_DEPENDENCY_PENDING_6, TEMPORAL_DEPENDENCY_PENDING_41
+from launch57.b3_evidence_bridge import apply_b3_evidence_reconciliation
 from launch57.freshness_common import assess_freshness
 
 # Activated after independent B2:#41 PASS_ENGINEERING @ 6ad4ae4c (REOPEN_REASON=DEPENDENCY_CONTRACT_CHANGE).
@@ -94,4 +95,4 @@ def apply_b1_freshness_reconciliation(
         out["success"] = body.get("price_data_available", body.get("success", False))
     else:
         out["success"] = False
-    return out
+    return apply_b3_evidence_reconciliation(out)

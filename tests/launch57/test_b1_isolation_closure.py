@@ -71,7 +71,8 @@ async def test_real_time_prices_fails_closed_on_freshness_without_legacy(monkeyp
     assert out.get("b1_to_41_reconciliation", {}).get("status") == "PENDING_VERIFICATION"
     assert out["freshness_owner"] == "launch57.freshness_common"
     assert not any(p.get("launch_number") == 41 for p in out.get("temporal_dependency_pending", []))
-    assert any(p.get("launch_number") == 6 for p in out.get("temporal_dependency_pending", []))
+    assert out["evidence_class_owner"] == "launch57.evidence_class_common"
+    assert not any(p.get("launch_number") == 6 for p in out.get("temporal_dependency_pending", []))
 
 
 def _assert_no_prohibited_legacy_tokens(text: str) -> None:
