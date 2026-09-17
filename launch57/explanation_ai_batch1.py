@@ -90,7 +90,7 @@ async def signal_explanation_workflow(*, symbol: str, params: dict[str, Any] | N
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_explanation_ai_envelope(ai_compliance_footer(body), spine=spine)
+    return attach_explanation_ai_envelope(ai_compliance_footer(body), spine=spine, params=p)
 
 
 async def price_move_explanation(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -148,7 +148,7 @@ async def price_move_explanation(*, symbol: str, params: dict[str, Any] | None =
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_explanation_ai_envelope(ai_compliance_footer(body), spine=spine)
+    return attach_explanation_ai_envelope(ai_compliance_footer(body), spine=spine, params=p)
 
 
 async def ai_research_agent_grounded(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -201,7 +201,7 @@ async def ai_research_agent_grounded(*, symbol: str, params: dict[str, Any] | No
     )
     out = ai_compliance_footer(body)
     out["compliance_footer"] = {**(out.get("compliance_footer") or {}), **compliance}
-    return attach_explanation_ai_envelope(out, spine=spine)
+    return attach_explanation_ai_envelope(out, spine=spine, params=p)
 
 
 async def research_intelligence_portal(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -233,7 +233,7 @@ async def research_intelligence_portal(*, symbol: str, params: dict[str, Any] | 
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_explanation_ai_envelope(ai_compliance_footer(body))
+    return attach_explanation_ai_envelope(ai_compliance_footer(body), params=p)
 
 
 async def research_reports(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -265,7 +265,7 @@ async def research_reports(*, symbol: str, params: dict[str, Any] | None = None)
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_explanation_ai_envelope(ai_compliance_footer(body))
+    return attach_explanation_ai_envelope(ai_compliance_footer(body), params=p)
 
 
 _DISPATCH: dict[int, str] = {

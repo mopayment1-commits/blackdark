@@ -26,7 +26,15 @@ _RESEARCH_PORTAL_SCOPE = (
 )
 
 
-def attach_explanation_ai_envelope(body: dict[str, Any], *, spine: dict[str, Any] | None = None) -> dict[str, Any]:
+def attach_explanation_ai_envelope(
+    body: dict[str, Any],
+    *,
+    spine: dict[str, Any] | None = None,
+    params: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    from launch57.b9_research_explanation_bridge import finalize_b9_explanation_surface
+    from launch57.research_explanation_timing_common import B9_LAUNCH_NUMBERS
+
     out = attach_decision_envelope(body, spine=spine)
     out["explanation_ai_layer"] = {
         "phase": "6_EXPLANATION_AI",
@@ -36,6 +44,15 @@ def attach_explanation_ai_envelope(body: dict[str, Any], *, spine: dict[str, Any
         "evidence_class_visible": out.get("evidence_class_visible"),
         "ai_system_type": out.get("ai_system_type"),
     }
+    launch_id = int(out.get("launch_item_id") or 0)
+    if launch_id in B9_LAUNCH_NUMBERS:
+        p = dict(params or {})
+        out = finalize_b9_explanation_surface(
+            out,
+            payload=p,
+            spine=spine,
+            display_timezone=p.get("display_timezone"),
+        )
     return out
 
 
@@ -97,7 +114,7 @@ async def gated_explanation(
             binding_source=binding,
         )
         body["ai_system_type"] = classify_ai_type(launch_item_id=launch_item_id)
-        return attach_explanation_ai_envelope(body, spine=spine), None
+        return attach_explanation_ai_envelope(body, spine=spine, params=params), None
     return None, spine
 
 
