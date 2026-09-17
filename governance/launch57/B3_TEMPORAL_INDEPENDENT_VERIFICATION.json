@@ -1,0 +1,204 @@
+{
+  "artifact": "B3_TEMPORAL_INDEPENDENT_VERIFICATION",
+  "verification_type": "independent_engineering",
+  "VERIFIED_IMPLEMENTATION_SHA": "e279c3e9",
+  "verified_implementation_sha_full": "e279c3e9001a26d69b0b3f766a48fd82ed09c4eb",
+  "builder_implementation_commit": "5c4e9a15",
+  "builder_evidence_commit": "e279c3e9",
+  "verified_at": "2026-09-17T12:15:00+00:00",
+  "verifier": {
+    "role": "independent_verifier",
+    "session": "cursor-cloud-agent-independent-verification-b3",
+    "method": "read_only_delta_assessment_adversarial_runtime_replay_static_import_scan"
+  },
+  "B3_CANONICAL_SCOPE": {
+    "batch": "B3",
+    "launch_numbers": [6],
+    "canonical_names": {
+      "6": "Evidence class visible (LIVE/DELAYED/SIM)"
+    },
+    "execution_order": [6],
+    "integration_surfaces": [
+      "launch57.batch1_isolation",
+      "launch57.batch2_isolation",
+      "launch57.b1_freshness_bridge"
+    ],
+    "governing_sources": [
+      "BLACKDARK_Launch57_Global_Time_Temporal_Consistency_FROM_SCRATCH_SPEC_66d6.md §9",
+      "launch57/batch1_isolation.py (auto_activate_on_b3_pass → #6)",
+      "governance/launch57/B1_TO_41_INDEPENDENT_VERIFICATION.json (B3_AUTHORIZED=true)",
+      "governance/launch57/LAUNCH57_REGISTER.json (launch_number=6)",
+      "governance/launch57/B1_TEMPORAL_INDEPENDENT_VERIFICATION.json (B1=[42,22,23,24,21])",
+      "governance/launch57/generate_temporal_consistency.py (B2=[40,41,39]; remaining #6 pending)"
+    ],
+    "uniquely_resolved": true
+  },
+  "pre_verification_safety_gate": {
+    "target_sha_confirmed": true,
+    "delta_understood": true,
+    "no_implementation_write_required": true,
+    "protected_state_identified": true,
+    "pass": true
+  },
+  "delta_classification": {
+    "CANONICAL_B3_IMPLEMENTATION": [
+      "launch57/evidence_class_common.py",
+      "launch57/batch3_isolation.py",
+      "launch57/b3_evidence_bridge.py"
+    ],
+    "REQUIRED_B3_INTEGRATION": [
+      "launch57/batch1_isolation.py",
+      "launch57/batch2_isolation.py",
+      "launch57/b1_freshness_bridge.py"
+    ],
+    "UNAUTHORIZED_SCOPE_CHANGE": [],
+    "justified_integration_delta": true
+  },
+  "protected_state_assessment": {
+    "changed_integration_paths": [
+      "launch57/batch1_isolation.py",
+      "launch57/batch2_isolation.py",
+      "launch57/b1_freshness_bridge.py"
+    ],
+    "material_behavioral_impact_on_b1_b2_core": false,
+    "freshness_provenance_pit_semantics_rewritten": false,
+    "reopen_trigger": "NONE",
+    "verdict": "PRESERVE_VERIFIED_STATE",
+    "note": "Integration delta limited to isolation-envelope evidence-class attachment; B1/B2 canonical owners unchanged"
+  },
+  "canonical_owner_verification": {
+    "temporal_b1_b2_owner": "launch57.evidence_class_common",
+    "consumer_paths_reach_owner": true,
+    "legacy_runtime_reachable_on_b3_paths": false,
+    "parallel_temporal_owner_detected": false,
+    "pass": true
+  },
+  "semantics_verification": {
+    "live_from_fresh_binance_source": true,
+    "stale_freshness_downgrades_live_to_delayed": true,
+    "unknown_freshness_downgrades_live_to_delayed": true,
+    "sim_from_synthetic_source": true,
+    "delayed_from_replay_source": true,
+    "display_timezone_invariant": true,
+    "deterministic_repeated_classification": true,
+    "caller_explicit_production_verified_overrides_source": true,
+    "untrusted_evidence_class_escalation_detected": true,
+    "pass": false
+  },
+  "freshness_dependency_contract": {
+    "consumes_freshness_state_from_payload": true,
+    "duplicates_freshness_algorithm": false,
+    "stale_cannot_remain_live_user_label": true,
+    "unknown_cannot_remain_live_user_label": true,
+    "explicit_canonical_class_persists_despite_stale": true,
+    "pass": false,
+    "note": "Freshness downgrade affects user_facing_label only; caller-supplied canonical class remains PRODUCTION_VERIFIED under stale+synthetic escalation attempt"
+  },
+  "trust_boundary_verification": {
+    "defect": "UNTRUSTED_EVIDENCE_CLASS_ESCALATION",
+    "reproduction": {
+      "input": {
+        "evidence_class": "PRODUCTION_VERIFIED",
+        "source": "synthetic"
+      },
+      "observed_user_facing_label": "LIVE",
+      "observed_canonical_class": "PRODUCTION_VERIFIED",
+      "expected": "SIM (source-derived; caller assertion must not promote to LIVE)"
+    },
+    "additional_reproduction": {
+      "input": {
+        "evidence_class": "PRODUCTION_VERIFIED",
+        "source": "synthetic",
+        "freshness_state": "STALE"
+      },
+      "observed_user_facing_label": "DELAYED",
+      "observed_canonical_class": "PRODUCTION_VERIFIED",
+      "issue": "user label downgraded but canonical class remains caller-asserted PRODUCTION_VERIFIED"
+    },
+    "affected_path": "launch57/evidence_class_common.py:infer_canonical_evidence_class (explicit parameter accepted without source cross-check)",
+    "pass": false
+  },
+  "dependency_state_transition": {
+    "hash6_pending_cleared_on_integrated_paths": true,
+    "unrelated_pending_removed": false,
+    "later_batch_activated": false,
+    "global_temporal_pass_claimed": false,
+    "pass": true
+  },
+  "isolation_verification": {
+    "static_import_scan": {
+      "files": [
+        "launch57/evidence_class_common.py",
+        "launch57/b3_evidence_bridge.py",
+        "launch57/batch3_isolation.py",
+        "launch57/batch1_isolation.py",
+        "launch57/batch2_isolation.py",
+        "launch57/b1_freshness_bridge.py"
+      ],
+      "prohibited_modules_leaked": [],
+      "pass": true
+    },
+    "runtime_module_load_scan": {
+      "after_import_launch57_data_batch1_and_batch2": [],
+      "pass": true
+    },
+    "B3_ISOLATION_LEAKAGE": 0,
+    "B3_LEGACY_RUNTIME_DEPENDENCIES": 0,
+    "pass": true
+  },
+  "rollback_verification": {
+    "method": "runtime_gate_false_simulation",
+    "B3_EVIDENCE_RECONCILIATION_ACTIVATED_false": true,
+    "hash6_pending_restored": true,
+    "evidence_display_removed": true,
+    "requires_legacy_dependency": false,
+    "pass": true
+  },
+  "adversarial_tests": {
+    "b3_suite": {
+      "command": "python3 -m pytest tests/launch57/test_b3_isolation_closure.py tests/launch57/test_temporal_batch3.py -v",
+      "exit_code": 0,
+      "passed": 10,
+      "failed": 0
+    },
+    "independent_runtime_replay": {
+      "caller_escalation_synthetic_to_live": "FAIL",
+      "caller_escalation_replay_to_live_via_explicit": "FAIL",
+      "stale_unknown_downgrade": "PASS",
+      "timezone_invariance": "PASS",
+      "sim_remains_sim_without_caller_override": "PASS",
+      "rollback_gate": "PASS"
+    },
+    "pass": false,
+    "note": "Builder suite passes but does not cover caller-controlled explicit evidence_class escalation"
+  },
+  "secondary_defect_gate": {
+    "false_live_classification_proven": true,
+    "protected_state_regression_proven": false,
+    "hidden_legacy_dependency_proven": false,
+    "foreseeable_repair_cascade": "trust_gate_required_in_evidence_class_common",
+    "pass": false
+  },
+  "B3:#6": "NOT_COMPLETE",
+  "B3_INDEPENDENT_VERDICT": "NOT_COMPLETE",
+  "B4_AUTHORIZED": false,
+  "NEXT_PHASE_AUTHORIZATION_UNRESOLVED": true,
+  "B1_TO_41_TARGETED_RECONCILIATION": "PASS_ENGINEERING",
+  "B2_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+  "B2:#40": "PASS_ENGINEERING",
+  "B2:#41": "PASS_ENGINEERING",
+  "B2:#39": "PASS_ENGINEERING",
+  "PROTECTED_VERIFIED_STATE": "PRESERVED",
+  "LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING": false,
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "protected_state_reopen_trigger": "NONE",
+  "failed_requirement": "§9 SIM/trust boundary — caller-supplied evidence_class cannot promote synthetic/replay evidence to LIVE",
+  "smallest_safe_remediation": "Add trust gate in launch57/evidence_class_common.py: explicit/canonical evidence_class must be cross-validated against source hints; caller assertion alone must not yield PRODUCTION_VERIFIED/LIVE when source indicates SIMULATED/BACKTESTED",
+  "historical_artifacts_preserved": [
+    "governance/launch57/B3_TEMPORAL_IMPLEMENTATION_EVIDENCE.json",
+    "governance/launch57/B1_TEMPORAL_INDEPENDENT_VERIFICATION.json",
+    "governance/launch57/B2_TEMPORAL_INDEPENDENT_VERIFICATION.json",
+    "governance/launch57/B1_TO_41_INDEPENDENT_VERIFICATION.json"
+  ],
+  "implementation_modified_during_verification": false
+}
