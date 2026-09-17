@@ -55,4 +55,12 @@ python3 -m pytest tests/launch57/test_temporal_batch12.py tests/launch57/test_te
 - `B13_NOT_STARTED` = `true`
 - `PASS_ENGINEERING_NOT_CLAIMED` = `true`
 
-**STOP.** Await independent verification command. No B13. No self-granted `PASS_ENGINEERING`.
+## B12-DEFECT-001 remediation (PENDING_RE_VERIFICATION)
+
+**Prior IV:** `NOT_COMPLETE` @ `9cc23d12` — `utc_now()` fallback marked unknown timing as current.
+
+**Fix:** Remove `utc_now()` fallback for `last_update_time`; emit `risk_timestamp_unknown` and `presented_as_current=false` when both `last_update_time` and explicit current-path timestamps are absent. Stale `source_age_ms`, validity expiry, chronology, and explicit-timestamp paths unchanged.
+
+**B12-DEFECT-001 disposition:** REMEDIATED_PENDING_RE_IV
+
+**STOP.** Await independent re-verification. No B13. No self-granted `PASS_ENGINEERING`.

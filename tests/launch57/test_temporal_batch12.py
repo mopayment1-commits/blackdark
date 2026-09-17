@@ -118,6 +118,57 @@ def test_out_of_scope_launch_noop():
     assert "due_diligence_risk_timing" not in out
 
 
+def test_missing_last_update_and_source_age_not_current():
+    timing = build_due_diligence_risk_timing_context({}, risk={})
+    assert timing.last_update_time is None
+    assert timing.source_age_ms is None
+    assert timing.presented_as_current is False
+    assert timing.expired_reason == "risk_timestamp_unknown"
+
+
+def test_string_only_risk_flags_without_timestamp_not_falsely_current():
+    body = {
+        "launch_item_id": 53,
+        "success": True,
+        "due_diligence": {"risk_flags": ["elevated_surveillance_pattern"], "verdict": "review"},
+    }
+    out = finalize_b12_due_diligence_risk_surface(body, payload={})
+    assert out["presented_as_current"] is False
+    assert out["due_diligence_risk_timing"]["last_update_time"] is None
+    assert out["due_diligence_risk_timing"]["expired_reason"] == "risk_timestamp_unknown"
+
+
+def test_timestamp_missing_incident_row_not_falsely_current():
+    timing = build_due_diligence_risk_timing_context({}, risk={"id": "old_incident", "severity": "high"})
+    assert timing.presented_as_current is False
+    assert timing.expired_reason == "risk_timestamp_unknown"
+    current, all_rows = enrich_risk_incident_rows(
+        [{"id": "old_incident", "severity": "high"}],
+        payload={},
+    )
+    assert current == []
+    assert all_rows[0]["presented_as_current"] is False
+
+
+def test_explicit_valid_timestamp_remains_current():
+    timing = build_due_diligence_risk_timing_context({}, risk=_valid_risk())
+    assert timing.presented_as_current is True
+    assert timing.last_update_time is not None
+
+
+def test_explicit_stale_source_age_remains_stale():
+    timing = build_due_diligence_risk_timing_context({}, risk=_valid_risk(source_age_ms=1_000_000))
+    assert timing.presented_as_current is False
+    assert timing.expired_reason == "risk_source_stale"
+
+
+def test_stale_source_age_without_last_update_remains_stale():
+    timing = build_due_diligence_risk_timing_context({}, risk={"source_age_ms": 1_000_000})
+    assert timing.presented_as_current is False
+    assert timing.expired_reason == "risk_source_stale"
+    assert timing.last_update_time is None
+
+
 async def _fake_spine(symbol, params):
     return {
         "symbol": symbol,

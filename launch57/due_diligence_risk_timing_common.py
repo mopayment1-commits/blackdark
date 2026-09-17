@@ -20,7 +20,7 @@ DEFAULT_STALE_THRESHOLD_MS = 900_000.0
 
 @dataclass(frozen=True)
 class DueDiligenceRiskTimingContext:
-    last_update_time: str
+    last_update_time: str | None
     source_snapshot_time: str | None
     source_age_ms: float | None
     risk_validity_window: dict[str, Any]
@@ -114,8 +114,6 @@ def build_due_diligence_risk_timing_context(
         _first_present(governed, "last_update_time")
         or _first_present(row, "last_update_time", "last_updated_at", "updated_at", "timestamp", "record_time")
     )
-    if last_update_time is None:
-        last_update_time = to_rfc3339(utc_now())
 
     source_snapshot_time = _parse_instant(
         _first_present(governed, "source_snapshot_time")
@@ -130,7 +128,7 @@ def build_due_diligence_risk_timing_context(
         _first_present(governed, "risk_validity_window_end")
         or _first_present(row, "risk_validity_window_end", "expires_at", "valid_until")
     )
-    if window_end is None:
+    if window_end is None and last_update_time is not None:
         window_end = to_rfc3339(parse_rfc3339(last_update_time) + timedelta(seconds=window_sec))
 
     governed_window = governed.get("risk_validity_window")
@@ -138,27 +136,36 @@ def build_due_diligence_risk_timing_context(
         window_start = _parse_instant(governed_window.get("start")) or window_start
         window_end = _parse_instant(governed_window.get("end")) or window_end
 
+    duration_seconds = 0
+    if window_start is not None and window_end is not None:
+        duration_seconds = max(
+            0,
+            int((parse_rfc3339(window_end) - parse_rfc3339(window_start)).total_seconds()),
+        )
+
     risk_validity_window = {
         "start": window_start,
         "end": window_end,
-        "duration_seconds": max(
-            0,
-            int((parse_rfc3339(window_end) - parse_rfc3339(window_start)).total_seconds()),
-        ),
+        "duration_seconds": duration_seconds,
     }
 
     stale_threshold = _stale_threshold_ms(payload, row)
     source_age = _source_age_ms(row)
     now = utc_now()
     expired_reason: str | None = None
-    if source_age is not None and source_age > stale_threshold:
-        expired_reason = "risk_source_stale"
-    elif parse_rfc3339(window_end) < now:
-        expired_reason = "risk_validity_expired"
-    elif row.get("incident_without_timestamp_context"):
+    if row.get("incident_without_timestamp_context"):
         expired_reason = "incident_without_timestamp_context"
+    elif source_age is not None and source_age > stale_threshold:
+        expired_reason = "risk_source_stale"
+    elif last_update_time is None:
+        expired_reason = "risk_timestamp_unknown"
+    elif window_end is not None and parse_rfc3339(window_end) < now:
+        expired_reason = "risk_validity_expired"
 
     presented_as_current = expired_reason is None
+    local_render_last_update = (
+        local_render_instant(parse_rfc3339(last_update_time), zone) if last_update_time is not None else None
+    )
 
     return DueDiligenceRiskTimingContext(
         last_update_time=last_update_time,
@@ -169,7 +176,7 @@ def build_due_diligence_risk_timing_context(
         presented_as_current=presented_as_current,
         expired_reason=expired_reason,
         display_timezone=zone,
-        local_render_last_update_time=local_render_instant(parse_rfc3339(last_update_time), zone),
+        local_render_last_update_time=local_render_last_update,
     )
 
 
