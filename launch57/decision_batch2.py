@@ -20,6 +20,7 @@ from launch57.trust_adaptive_common import (
     build_approved_evidence_composition,
     build_level1_decision_disclosure,
     build_structured_conviction_disclosure,
+    compute_approved_decision_composite,
 )
 
 LAUNCH57_DECISION_BATCH2_CAP_IDS: frozenset[int] = frozenset({28, 29})
@@ -184,6 +185,7 @@ async def cross_market_decision_engine(*, symbol: str, params: dict[str, Any] | 
 
     multi_dim = build_multi_dim_analysis_73(asset=spine["symbol"])
     cross = cross_market_decision_intelligence_567(symbol=spine["symbol"])
+    decision_driving_composite = compute_approved_decision_composite(multi_dim)
     body = stamp_decision_batch(
         {
             "surface": "cross_market_decision_intelligence_engine",
@@ -192,7 +194,8 @@ async def cross_market_decision_engine(*, symbol: str, params: dict[str, Any] | 
             "decision_engine": {
                 "multi_dimensional": multi_dim,
                 "cross_market": cross,
-                "composite_score": multi_dim.get("composite_score"),
+                "composite_score": decision_driving_composite["composite_score"],
+                "decision_driving_composite": decision_driving_composite,
                 "spot_derivatives_flow": True,
             },
             "net_edge_gate": net_edge_gate,

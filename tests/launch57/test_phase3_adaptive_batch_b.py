@@ -65,6 +65,43 @@ async def test_capability_12_high_conviction_when_alert_fires(monkeypatch):
     assert out["adaptive_disclosure"]["level_1"]["answer_state"] == "high_conviction"
 
 
+def _multi_dim_with_macro(asset: str, *, macro_score: float):
+    return {
+        "ok": True,
+        "composite_score": 72,
+        "asset": asset,
+        "dimensions": {
+            "technical": {"score": 7, "weight": 0.3, "source": "ta_engine"},
+            "on_chain": {"score": 6, "weight": 0.25, "source": "on_chain_extension"},
+            "sentiment": {"score": 5, "weight": 0.2, "source": "sentiment_layer"},
+            "macro": {"score": macro_score, "weight": 0.25, "source": "external_macro"},
+        },
+    }
+
+
+@pytest.mark.asyncio
+async def test_capability_37_macro_does_not_change_decision_semantics(monkeypatch):
+    async def fake_spine(symbol, params=None):
+        return _live_spine(symbol)
+
+    scores = []
+    for macro_score in (1.0, 9.0):
+        monkeypatch.setattr("launch57.decision_batch2.load_decision_spine", fake_spine)
+        monkeypatch.setattr(
+            "bd_platform.pro_trader_layer.build_multi_dim_analysis_73",
+            lambda asset, macro_score=macro_score: _multi_dim_with_macro(asset, macro_score=macro_score),
+        )
+        monkeypatch.setattr(
+            "bd_platform.institutional_delivery_intelligence_layer.cross_market_decision_intelligence_567",
+            lambda symbol: {"cross_market": True, "symbol": symbol},
+        )
+        out = await cross_market_decision_engine(symbol="ETH", params={})
+        scores.append(out["decision_engine"]["composite_score"])
+
+    assert scores[0] == scores[1]
+    assert scores[0] > 0
+
+
 @pytest.mark.asyncio
 async def test_capability_37_flags_unapproved_evidence_composition(monkeypatch):
     async def fake_spine(symbol, params=None):
@@ -90,9 +127,10 @@ async def test_capability_37_flags_unapproved_evidence_composition(monkeypatch):
     out = await cross_market_decision_engine(symbol="ETH", params={})
     comp = out["approved_evidence_composition"]
     assert out["launch_item_id"] == 37
-    assert comp["approved_launch57_evidence_only"] is False
-    assert any(c.get("source") == "external_macro" for c in comp["unapproved_components"])
-    assert out["adaptive_disclosure"]["level_1"]["answer_state"] == "UNAPPROVED_EVIDENCE_PRESENT"
+    assert comp["approved_launch57_evidence_only"] is True
+    assert comp["unapproved_components"] == []
+    assert any(c.get("source") == "external_macro" for c in comp["observable_non_decision_driving"])
+    assert out["adaptive_disclosure"]["level_1"]["answer_state"] == "APPROVED_LAUNCH57_ONLY"
 
 
 @pytest.mark.asyncio

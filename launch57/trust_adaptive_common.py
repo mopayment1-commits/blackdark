@@ -434,6 +434,51 @@ def _is_approved_launch57_evidence_path(path: str) -> bool:
     return text.startswith("launch57.")
 
 
+def _is_approved_launch57_dimension_source(source: str) -> bool:
+    return str(source or "") in _APPROVED_LAUNCH57_COMPOSITION_DIMENSION_SOURCES
+
+
+def compute_approved_decision_composite(multi_dimensional: dict[str, Any]) -> dict[str, Any]:
+    """Derive #37 decision-driving composite from approved Launch-57 dimension sources only."""
+    dims = dict((multi_dimensional or {}).get("dimensions") or {})
+    approved_dims: dict[str, dict[str, Any]] = {}
+    excluded: list[dict[str, Any]] = []
+
+    for name, dim in dims.items():
+        source = str((dim or {}).get("source") or "")
+        if _is_approved_launch57_dimension_source(source):
+            approved_dims[name] = dict(dim or {})
+        else:
+            excluded.append(
+                {
+                    "dimension": name,
+                    "source": source,
+                    "decision_driving": False,
+                    "observable_only": True,
+                }
+            )
+
+    weight_sum = sum(float((dim or {}).get("weight") or 0) for dim in approved_dims.values())
+    if weight_sum > 0 and approved_dims:
+        composite = round(
+            sum(
+                float((dim or {}).get("score") or 0) * float((dim or {}).get("weight") or 0) / weight_sum
+                for dim in approved_dims.values()
+            ),
+            2,
+        )
+    else:
+        composite = 0.0
+
+    return {
+        "composite_score": composite,
+        "approved_dimensions": approved_dims,
+        "excluded_from_decision_driving": excluded,
+        "decision_driving_approved_only": True,
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
 def build_structured_conviction_disclosure(
     *,
     alert: dict[str, Any],
@@ -492,25 +537,31 @@ def build_approved_evidence_composition(
 ) -> dict[str, Any]:
     """Adaptive — Launch #37 composition of approved Launch-57 evidence only."""
     components: list[dict[str, Any]] = []
+    decision_driving = dict((decision_engine or {}).get("decision_driving_composite") or {})
+    excluded_observable = list(decision_driving.get("excluded_from_decision_driving") or [])
+
     spine_ref = dict((spine or {}).get("data_spine") or {})
     for key, path in spine_ref.items():
+        approved = _is_approved_launch57_evidence_path(str(path))
         components.append(
             {
                 "component": key,
                 "path": path,
-                "approved": _is_approved_launch57_evidence_path(str(path)),
+                "approved": approved,
+                "decision_driving": approved,
             }
         )
 
     multi = dict((decision_engine or {}).get("multi_dimensional") or {})
     for name, dim in dict(multi.get("dimensions") or {}).items():
         source = str((dim or {}).get("source") or "")
-        approved = source in _APPROVED_LAUNCH57_COMPOSITION_DIMENSION_SOURCES
+        approved = _is_approved_launch57_dimension_source(source)
         components.append(
             {
                 "component": f"dimension:{name}",
                 "source": source,
                 "approved": approved,
+                "decision_driving": approved,
             }
         )
 
@@ -521,14 +572,27 @@ def build_approved_evidence_composition(
                 "component": "cross_market",
                 "source": "launch57.decision_batch2:cross_market_decision_engine",
                 "approved": True,
+                "decision_driving": True,
             }
         )
 
-    unapproved = [c for c in components if not c.get("approved")]
+    decision_driving_unapproved = [c for c in components if c.get("decision_driving") and not c.get("approved")]
+    observable_non_decision_driving = [
+        {
+            "component": f"dimension:{item.get('dimension')}",
+            "source": item.get("source"),
+            "approved": False,
+            "decision_driving": False,
+            "observable_only": True,
+        }
+        for item in excluded_observable
+    ]
     return {
-        "approved_launch57_evidence_only": len(unapproved) == 0,
+        "approved_launch57_evidence_only": len(decision_driving_unapproved) == 0,
         "components": components,
-        "unapproved_components": unapproved,
+        "decision_driving_components": [c for c in components if c.get("decision_driving")],
+        "unapproved_components": decision_driving_unapproved,
+        "observable_non_decision_driving": observable_non_decision_driving,
         "composition_scope": "approved_launch57_evidence_only",
         "methodology_version": METHODOLOGY_VERSION,
     }
