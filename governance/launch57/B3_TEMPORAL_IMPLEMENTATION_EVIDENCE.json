@@ -5,11 +5,15 @@
   "base_sha": "424a389f9a1a3fb3d7282c0ec809f51a62d11b74",
   "B3_CANONICAL_SCOPE": {
     "batch": "B3",
-    "launch_numbers": [6],
+    "launch_numbers": [
+      6
+    ],
     "canonical_names": {
       "6": "Evidence class visible (LIVE/DELAYED/SIM)"
     },
-    "execution_order": [6],
+    "execution_order": [
+      6
+    ],
     "dependency_prerequisites": [
       "B1_INDEPENDENT_VERDICT=PASS_ENGINEERING",
       "B2:#40/#41/#39=PASS_ENGINEERING",
@@ -67,8 +71,15 @@
       "owner": "launch57.evidence_class_common",
       "bridge": "launch57.b3_evidence_bridge",
       "builder_status": "PENDING_VERIFICATION",
-      "direct_dependencies": ["launch57.temporal_common", "launch57.freshness_common (freshness downgrade only)"],
-      "consumers": ["launch57.batch1_isolation", "launch57.batch2_isolation", "launch57.b1_freshness_bridge"]
+      "direct_dependencies": [
+        "launch57.temporal_common",
+        "launch57.freshness_common (freshness downgrade only)"
+      ],
+      "consumers": [
+        "launch57.batch1_isolation",
+        "launch57.batch2_isolation",
+        "launch57.b1_freshness_bridge"
+      ]
     }
   ],
   "changed_paths": [
@@ -92,7 +103,10 @@
   "isolation_result": {
     "B3_ISOLATION_LEAKAGE": 0,
     "B3_LEGACY_RUNTIME_DEPENDENCIES": 0,
-    "prohibited_removed": ["cap646.evidence_class", "decision_truth.evidence_taxonomy"]
+    "prohibited_removed": [
+      "cap646.evidence_class",
+      "decision_truth.evidence_taxonomy"
+    ]
   },
   "targeted_tests": {
     "command": "python3 -m pytest tests/launch57/test_b3_isolation_closure.py tests/launch57/test_temporal_batch3.py tests/launch57/test_b1_to_41_reconciliation.py tests/launch57/test_b1_isolation_closure.py tests/launch57/test_b2_independent_verification.py -q",
@@ -109,5 +123,6 @@
   "LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING": false,
   "PASS_LIVE_NOT_CLAIMED": true,
   "protected_state_reopen_trigger": "NONE",
-  "next_permitted_action": "independent verification of B3 only"
+  "next_permitted_action": "independent verification of B3 only",
+  "final_implementation_sha": "5c4e9a151017799eb87e04001163c7e8b445cbbf"
 }
