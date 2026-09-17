@@ -11,7 +11,11 @@
     24,
     21
   ],
-  "batch_temporal_verdict": "PENDING_VERIFICATION",
+  "batch_temporal_verdict": "B1:PASS_ENGINEERING",
+  "B1_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+  "B1_AUTHORIZED_FOR_DEPENDENT_PROGRESS": true,
+  "B1_independent_verification_sha": "4a3b24cc7d69ab775ec2a60009dda7d6384d5f11",
+  "B1_independent_verification_artifact": "governance/launch57/B1_TEMPORAL_INDEPENDENT_VERIFICATION.json",
   "LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING": false,
   "LAUNCH57_TEMPORAL_CONSISTENCY_READY_FOR_LOCAL_USE": false,
   "PASS_LIVE_NOT_CLAIMED": true,
@@ -115,5 +119,5 @@
     ]
   },
   "branch_note": "cursor/launch57-phase8-launch-coherence-358c retains phase8 launch-coherence history; B1 isolation closure is an additive temporal batch on the same branch per execution order",
-  "final_status": "BATCH_B1_ISOLATION_CLOSED_PENDING_VERIFICATION"
+  "final_status": "BATCH_B1_INDEPENDENT_VERIFICATION_PASS_ENGINEERING"
 }

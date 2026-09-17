@@ -3,7 +3,8 @@
 ## A. Executive status
 
 - **Current batch:** `B1` (#42 Unified exchange connector, #22 Real-time / near-real-time prices, #23 OHLCV, #24 Quote + symbol metadata, #21 Spot metrics suite)
-- **Batch temporal verdict:** `PENDING_VERIFICATION` (builder does not self-certify `PASS_ENGINEERING`)
+- **Batch temporal verdict:** `B1:PASS_ENGINEERING` (independent verification on SHA `4a3b24cc`)
+- **Independent verifier:** `governance/launch57/B1_TEMPORAL_INDEPENDENT_VERIFICATION.json`
 - **Global:** `LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING=false`
 - **Local use ready:** `LAUNCH57_TEMPORAL_CONSISTENCY_READY_FOR_LOCAL_USE=false`
 - **PASS_LIVE:** not claimed (`PASS_LIVE_NOT_CLAIMED=true`)
@@ -104,7 +105,9 @@ passed=True
 
 ## U. Final verdict
 
-- **BATCH_TEMPORAL_VERDICT=B1:PENDING_VERIFICATION**
+- **B1_INDEPENDENT_VERDICT=PASS_ENGINEERING**
+- **B1_AUTHORIZED_FOR_DEPENDENT_PROGRESS=true**
+- **BATCH_TEMPORAL_VERDICT=B1:PASS_ENGINEERING** (B1 only; not global)
 - **B1_ISOLATION_LEAKAGE=0**
 - **LEGACY_RUNTIME_DEPENDENCIES=0**
 - **LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING=false** until all batches + Phase 8 reconciliation complete
