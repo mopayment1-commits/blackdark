@@ -4,8 +4,8 @@ Launch-57 Phase 2 Adaptive Batch A — trust-surface disclosure helpers.
 Support structure only (not a capability). Level-1 progressive disclosure and
 safety-floor fields for Launch #2–#5 (trust_batch1), #47–#48/#44–#46
 (trust_batch2), #7–#11 (decision_batch1), #12/#37 (decision_batch2), and
-#20/#16/#17/#13/#14 (smart_money_batch1) and #15/#18/#19/#53/#54
-# (smart_money_batch2) consumer paths.
+#20/#16/#17/#13/#14 (smart_money_batch1), #15/#18/#19/#53/#54
+# (smart_money_batch2), and #55/#56/#57 (smart_money_batch3) consumer paths.
 """
 
 from __future__ import annotations
@@ -1076,5 +1076,190 @@ def build_token_due_diligence_disclosure(
         "freshness_preserved": fresh,
         "stale_not_promoted_to_stronger_truth": not fresh,
         "limitations_visible": True,
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+_MANIPULATION_SCORE_THRESHOLD = 0.5
+_SUSPICIOUS_ACTIVITY_MIN_CONFIDENCE = 0.5
+_SUSPICIOUS_ACTIVITY_ELIGIBLE_SEVERITIES = frozenset({"medium", "high"})
+
+
+def apply_manipulation_pattern_qualification_filter(
+    *,
+    assessment: Any,
+    phrase_hits: list[str],
+    whale_alerts: list[dict[str, Any]] | None = None,
+) -> dict[str, Any]:
+    """Require canonical suspicious-pattern evidence before #55 manipulation alert fires."""
+    manipulation_flags = list(getattr(assessment, "manipulation_flags", None) or [])
+    if not manipulation_flags and isinstance(assessment, dict):
+        manipulation_flags = list(assessment.get("manipulation_flags") or [])
+
+    corroborated_whale_rows = [
+        a
+        for a in (whale_alerts or [])
+        if float((a or {}).get("manipulation_score") or 0) >= _MANIPULATION_SCORE_THRESHOLD
+    ]
+
+    pattern_evidence: list[dict[str, Any]] = []
+    if phrase_hits:
+        pattern_evidence.append({"type": "pump_dump_phrase", "phrases": phrase_hits})
+    if manipulation_flags:
+        pattern_evidence.append({"type": "sentiment_manipulation_flags", "flags": manipulation_flags})
+    for row in corroborated_whale_rows:
+        pattern_evidence.append(
+            {
+                "type": "whale_manipulation_score",
+                "manipulation_score": row.get("manipulation_score"),
+                "alert": row,
+            }
+        )
+
+    qualifying = bool(pattern_evidence)
+    return {
+        "manipulation_alert_fired": qualifying,
+        "pattern_evidence": pattern_evidence,
+        "corroborated_whale_rows": corroborated_whale_rows,
+        "movement_alone_excluded": True,
+        "no_legal_or_criminal_conclusion": True,
+        "runtime_qualification_applied": True,
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def build_manipulation_alert_disclosure(
+    filtered: dict[str, Any],
+    *,
+    assessment: Any | None = None,
+) -> dict[str, Any]:
+    """Adaptive — Launch #55 manipulation alert backed by pattern evidence only."""
+    rejected_reason = getattr(assessment, "rejected_reason", None) if assessment is not None else None
+    if rejected_reason is None and isinstance(assessment, dict):
+        rejected_reason = assessment.get("rejected_reason")
+    return {
+        "manipulation_from_pattern_evidence_only": True,
+        "movement_alone_not_sufficient": True,
+        "no_legal_or_criminal_conclusion": True,
+        "material_limitation_visible": True,
+        "uncertainty_qualified": not filtered.get("manipulation_alert_fired"),
+        "runtime_qualification_applied": bool(filtered.get("runtime_qualification_applied")),
+        "pattern_evidence_count": len(filtered.get("pattern_evidence") or []),
+        "rejected_reason_observable": rejected_reason,
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def apply_suspicious_activity_evidence_filter(
+    raw_flags: list[dict[str, Any]] | None,
+) -> dict[str, Any]:
+    """Gate #56 suspicion to evidence-backed flags; weak signals remain observable only."""
+    decision_driving: list[dict[str, Any]] = []
+    observable_only: list[dict[str, Any]] = []
+
+    for flag in raw_flags or []:
+        if not isinstance(flag, dict):
+            continue
+        confidence = float(flag.get("confidence") or 0)
+        severity = str(flag.get("severity") or "low").lower()
+        eligible = confidence >= _SUSPICIOUS_ACTIVITY_MIN_CONFIDENCE and severity in _SUSPICIOUS_ACTIVITY_ELIGIBLE_SEVERITIES
+        entry = {**flag, "decision_driving": eligible}
+        if eligible:
+            decision_driving.append(entry)
+        else:
+            observable_only.append(entry)
+
+    return {
+        "decision_driving_flags": decision_driving,
+        "observable_only_flags": observable_only,
+        "suspicion_eligible": bool(decision_driving),
+        "suspicion_count": len(decision_driving),
+        "weak_evidence_not_promoted": True,
+        "no_criminal_or_legal_conclusion": True,
+        "no_aml_classification_assertion": True,
+        "mini_aml_scope_preserved": True,
+        "runtime_filter_applied": True,
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def build_suspicious_activity_disclosure(
+    filtered: dict[str, Any],
+) -> dict[str, Any]:
+    """Adaptive — Launch #56 evidence-based suspicious activity with limited scope."""
+    return {
+        "evidence_based_suspicion_only": True,
+        "weak_evidence_not_promoted": filtered.get("weak_evidence_not_promoted"),
+        "no_criminal_or_legal_conclusion": True,
+        "no_aml_classification_assertion": True,
+        "mini_aml_scope_preserved": True,
+        "limitations_visible": True,
+        "uncertainty_qualified": bool(filtered.get("observable_only_flags")),
+        "runtime_filter_applied": bool(filtered.get("runtime_filter_applied")),
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def apply_exchange_transparency_risk_guard(
+    health: dict[str, Any],
+    *,
+    spine: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Keep #57 exchange output as transparency/risk indicators — never solvency certification."""
+    counterparty = dict((health or {}).get("counterparty_risk") or {})
+    fresh = bool((spine or {}).get("live_eligible")) and bool((spine or {}).get("presented_as_live"))
+    missing_counterparty = not counterparty
+    alert = dict((health or {}).get("alert_trigger") or {})
+
+    risk_context = {
+        "exchange": health.get("exchange"),
+        "withdrawal_latency_status": counterparty.get("withdrawal_latency_status"),
+        "abnormal_flow_pattern": counterparty.get("abnormal_flow_pattern"),
+        "alert_trigger": alert if alert else None,
+        "reserve_transparency_score_observable_only": counterparty.get("reserve_transparency_score"),
+        "health_score_observable_only": health.get("health_score"),
+        "incident_or_outage_signal_observable_only": alert.get("reason"),
+    }
+
+    conflicting = bool(
+        counterparty.get("withdrawal_latency_status") == "green"
+        and counterparty.get("abnormal_flow_pattern")
+    )
+
+    return {
+        "risk_indicators": risk_context,
+        "indicators_only": True,
+        "solvency_certificate_claim": "FORBIDDEN",
+        "reserve_guarantee_claim": "FORBIDDEN",
+        "exchange_safety_certification": "FORBIDDEN",
+        "decision_driving_solvency_assurance": False,
+        "freshness_preserved": fresh,
+        "missing_evidence_visible": missing_counterparty,
+        "stale_not_promoted_to_stronger_truth": not fresh,
+        "conflicting_evidence_visible": conflicting,
+        "runtime_guard_applied": True,
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def build_exchange_transparency_disclosure(
+    guarded: dict[str, Any],
+    *,
+    spine: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Adaptive — Launch #57 cautious exchange transparency; no solvency certification."""
+    fresh = bool((spine or {}).get("live_eligible")) and bool((spine or {}).get("presented_as_live"))
+    return {
+        "transparency_risk_indicators_only": True,
+        "solvency_certificate_forbidden": guarded.get("solvency_certificate_claim") == "FORBIDDEN",
+        "reserve_guarantee_forbidden": guarded.get("reserve_guarantee_claim") == "FORBIDDEN",
+        "exchange_safety_certification_forbidden": guarded.get("exchange_safety_certification") == "FORBIDDEN",
+        "decision_driving_solvency_assurance": guarded.get("decision_driving_solvency_assurance"),
+        "limitations_visible": True,
+        "freshness_preserved": fresh,
+        "missing_or_conflicting_evidence_visible": bool(
+            guarded.get("missing_evidence_visible") or guarded.get("conflicting_evidence_visible")
+        ),
+        "runtime_guard_applied": bool(guarded.get("runtime_guard_applied")),
         "methodology_version": METHODOLOGY_VERSION,
     }
