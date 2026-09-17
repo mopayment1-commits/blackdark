@@ -643,20 +643,71 @@ def build_exchange_flow_disclosure(
     }
 
 
+def apply_internal_flow_whale_significance_filter(
+    whale_payload: dict[str, Any],
+    classified: dict[str, Any],
+) -> dict[str, Any]:
+    """Apply canonical internal-flow classification to #17 whale/external-flow significance."""
+    classification = str(classified.get("classification") or "UNKNOWN")
+    internal = "INTERNAL" in classification.upper()
+    economic = classification == "ECONOMIC_FLOW"
+    raw_ratio = whale_payload.get("whale_filtered_ratio") or whale_payload.get("exchange_whale_ratio")
+
+    if internal:
+        return {
+            "exchange_whale_ratio": None,
+            "whale_significance_suppressed": True,
+            "significance_eligible": False,
+            "whale_bias": "suppressed_internal_flow",
+            "raw_whale_filtered_ratio": raw_ratio,
+            "internal_flow_classification": classification,
+            "runtime_filter_applied": True,
+            "methodology_version": METHODOLOGY_VERSION,
+        }
+    if economic:
+        return {
+            "exchange_whale_ratio": raw_ratio,
+            "whale_significance_suppressed": False,
+            "significance_eligible": True,
+            "whale_bias": whale_payload.get("whale_bias") or "neutral",
+            "raw_whale_filtered_ratio": raw_ratio,
+            "internal_flow_classification": classification,
+            "runtime_filter_applied": True,
+            "methodology_version": METHODOLOGY_VERSION,
+        }
+    return {
+        "exchange_whale_ratio": None,
+        "whale_significance_suppressed": True,
+        "significance_eligible": False,
+        "whale_bias": "unknown_flow",
+        "raw_whale_filtered_ratio": raw_ratio,
+        "internal_flow_classification": classification,
+        "runtime_filter_applied": True,
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
 def build_whale_ratio_internal_flow_disclosure(
     *,
     whale_payload: dict[str, Any],
     internal_flow: dict[str, Any] | None = None,
+    filtered: dict[str, Any] | None = None,
     payload: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Adaptive — Launch #17 whale ratio with internal-flow filter preserved."""
     internal = dict(internal_flow or (payload or {}).get("internal_flow_filter") or {})
     classification = str(internal.get("classification") or "")
     internal_detected = "INTERNAL" in classification.upper()
+    significance = dict(filtered or {})
+    suppressed = bool(significance.get("whale_significance_suppressed"))
     return {
-        "whale_ratio_interpretation": whale_payload.get("whale_bias") or "neutral",
+        "whale_ratio_interpretation": significance.get("whale_bias") or whale_payload.get("whale_bias") or "neutral",
         "internal_flow_filter_preserved": True,
-        "internal_not_counted_as_external_flow": internal_detected or bool(whale_payload.get("whale_filtered_ratio")),
+        "runtime_filter_applied": bool(significance.get("runtime_filter_applied")),
+        "internal_not_counted_as_external_flow": internal_detected and suppressed,
+        "significance_eligible": significance.get("significance_eligible"),
+        "whale_significance_suppressed": suppressed,
+        "internal_flow_classification": classification or significance.get("internal_flow_classification"),
         "noise_filter_applied_usd": whale_payload.get("noise_filter_usd"),
         "misclassification_guard_active": True,
         "methodology_version": METHODOLOGY_VERSION,

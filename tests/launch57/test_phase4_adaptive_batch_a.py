@@ -67,20 +67,36 @@ async def test_capability_16_exchange_flow_not_generic_movement(monkeypatch):
 
 
 @pytest.mark.asyncio
-async def test_capability_17_whale_ratio_preserves_internal_flow_filter(monkeypatch):
+async def test_capability_17_whale_ratio_runtime_internal_flow_filter(monkeypatch):
     async def fake_spine(symbol, params=None):
         return _live_spine(symbol)
 
+    whale_payload = {"whale_filtered_ratio": 1.5, "whale_bias": "long", "noise_filter_usd": 50000}
     monkeypatch.setattr("launch57.smart_money_batch1.load_decision_spine", fake_spine)
     monkeypatch.setattr(
         "bd_platform.market_analysis_layer.compute_whale_ls_ratio_114",
-        lambda seed=0: {"whale_filtered_ratio": 1.5, "whale_bias": "long", "noise_filter_usd": 50000},
+        lambda seed=0: whale_payload,
     )
-    out = await exchange_whale_ratio(symbol="BTC", params={})
-    disc = out["whale_ratio_internal_flow_disclosure"]
-    assert out["launch_item_id"] == 17
-    assert disc["internal_flow_filter_preserved"] is True
-    assert disc["misclassification_guard_active"] is True
+
+    def _classify_internal(**kw):
+        return {"classification": "INTERNAL_CONFIRMED", "confidence": 0.95}
+
+    def _classify_economic(**kw):
+        return {"classification": "ECONOMIC_FLOW", "confidence": 0.95}
+
+    monkeypatch.setattr("exchange_internal_flow_filter.classify_flow", _classify_internal)
+    internal_out = await exchange_whale_ratio(symbol="BTC", params={})
+    monkeypatch.setattr("exchange_internal_flow_filter.classify_flow", _classify_economic)
+    economic_out = await exchange_whale_ratio(symbol="BTC", params={})
+    assert internal_out is not None and economic_out is not None
+    assert internal_out["exchange_whale_ratio"] is None
+    assert economic_out["exchange_whale_ratio"] == 1.5
+    assert internal_out["whale_significance"]["whale_significance_suppressed"] is True
+    assert economic_out["whale_significance"]["whale_significance_suppressed"] is False
+    assert internal_out["whale_ratio_internal_flow_disclosure"]["runtime_filter_applied"] is True
+    assert internal_out["whale_ratio_internal_flow_disclosure"]["internal_not_counted_as_external_flow"] is True
+    assert internal_out["adaptive_disclosure"]["level_1"]["answer_state"] == "suppressed_internal_flow"
+    assert economic_out["adaptive_disclosure"]["level_1"]["answer_state"] == "long"
 
 
 @pytest.mark.asyncio
