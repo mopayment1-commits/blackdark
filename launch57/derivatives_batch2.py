@@ -318,7 +318,14 @@ async def smart_alerts_composite(*, symbol: str, params: dict[str, Any] | None =
         body["blocked_external"] = True
         body["blocked_external_reason"] = external.get("blocked_reason")
         body["external_push_live"] = False
-    return attach_derivatives_envelope(body, spine=spine, params=p)
+    from launch57.b8_alerts_bridge import finalize_b8_alert_surface
+
+    return finalize_b8_alert_surface(
+        attach_derivatives_envelope(body, spine=spine, params=p),
+        payload=p,
+        spine=spine,
+        display_timezone=p.get("display_timezone"),
+    )
 
 
 _DISPATCH: dict[int, str] = {
