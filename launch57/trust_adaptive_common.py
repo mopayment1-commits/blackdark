@@ -2,7 +2,8 @@
 Launch-57 Phase 2 Adaptive Batch A — trust-surface disclosure helpers.
 
 Support structure only (not a capability). Level-1 progressive disclosure and
-safety-floor fields for Launch #2, #3, #4, #5 consumer paths in trust_batch1.
+safety-floor fields for Launch #2–#5 (trust_batch1) and #47–#48/#44–#46
+(trust_batch2) consumer paths.
 """
 
 from __future__ import annotations
@@ -212,3 +213,106 @@ def attach_adaptive_disclosure(
     out["adaptive_disclosure"] = block
     out["safety_floor_visible"] = True
     return out
+
+
+APPROVED_LAUNCH57_PUBLIC_TRUST_SURFACES: tuple[dict[str, Any], ...] = (
+    {"launch_item_id": 2, "surface": "single_sentence_oracle", "module": "launch57.trust_batch1"},
+    {"launch_item_id": 3, "surface": "decision_certificate_institutional_dd_export", "module": "launch57.trust_batch1"},
+    {"launch_item_id": 4, "surface": "public_accuracy_ledger", "module": "launch57.trust_batch1"},
+    {"launch_item_id": 5, "surface": "net_edge_truth_score", "module": "launch57.trust_batch1"},
+    {"launch_item_id": 44, "surface": "shareable_decision_card", "module": "launch57.trust_batch2"},
+    {"launch_item_id": 45, "surface": "shareable_accuracy_page", "module": "launch57.trust_batch2"},
+    {"launch_item_id": 46, "surface": "guest_trust_surface", "module": "launch57.trust_batch2"},
+    {"launch_item_id": 47, "surface": "one_click_risk_disclosure", "module": "launch57.trust_batch2"},
+    {"launch_item_id": 48, "surface": "abstain_reject_reasons_visible", "module": "launch57.trust_batch2"},
+)
+
+
+def build_material_risk_access(
+    material_claims: dict[str, Any],
+    *,
+    reject_proof: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Adaptive — direct access to material risk for Launch #47."""
+    claims = list(material_claims.get("claims") or [])
+    ungrounded = [c for c in claims if c.get("status") in {"degraded", "suppressed"}]
+    primary = claims[0] if claims else None
+    return {
+        "direct_access": True,
+        "material_claims": claims,
+        "primary_material_risk": primary,
+        "ungrounded_material_claims": ungrounded,
+        "reject_proof": reject_proof,
+        "all_grounded": bool(material_claims.get("all_grounded")),
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def build_shareable_truth_context(
+    payload: dict[str, Any],
+    *,
+    evidence: dict[str, Any],
+    material_claims: dict[str, Any] | None = None,
+    timing: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Adaptive — shareable decision truth for Launch #44."""
+    user_label = str(evidence.get("user_facing_label") or "")
+    unsupported_live = user_label != "LIVE"
+    governed = _governed(payload)
+    decision_time = (
+        (timing or {}).get("decision_time")
+        or governed.get("decision_time")
+        or payload.get("decision_time")
+        or payload.get("timestamp")
+    )
+    material = material_claims or validate_material_claims_from_payload(payload)
+    return {
+        "evidence_class": evidence.get("canonical_evidence_class"),
+        "user_facing_evidence_label": user_label,
+        "decision_time": decision_time,
+        "issued_at": (timing or {}).get("issued_at") or governed.get("issued_at"),
+        "material_risk": build_material_risk_access(material),
+        "unsupported_live_claim_blocked": unsupported_live,
+        "live_claim_allowed": not unsupported_live,
+        "share_truth_preserved": True,
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def validate_material_claims_from_payload(payload: dict[str, Any]) -> dict[str, Any]:
+    """Delegate to decision_truth grounding when available; otherwise empty claims."""
+    try:
+        from decision_truth.product.grounding import validate_material_claims
+
+        return validate_material_claims(payload)
+    except Exception:
+        return {"claims": [], "total_material_claims": 0, "ungrounded_count": 0, "all_grounded": True}
+
+
+def build_abstention_reject_disclosure(
+    payload: dict[str, Any],
+    *,
+    no_decision: dict[str, Any],
+    rejection: dict[str, Any],
+) -> dict[str, Any]:
+    """Adaptive — first-class abstain/reject disclosure for Launch #48."""
+    state = str(no_decision.get("decision_truth_state") or payload.get("decision_truth_state") or "")
+    action = str(no_decision.get("decision_action") or payload.get("decision_action") or "")
+    return {
+        "first_class_state": bool(no_decision.get("first_class_state")),
+        "hidden_as_error": bool(no_decision.get("hidden_as_error")),
+        "decision_truth_state": state,
+        "decision_action": action,
+        "reason_codes": list(no_decision.get("reason_codes") or []),
+        "rejection_reason_categories": dict(rejection.get("rejection_reason_categories") or {}),
+        "dominant_rejection_causes": list(rejection.get("dominant_rejection_causes") or []),
+        "what_would_be_needed_to_reconsider": list(
+            no_decision.get("what_would_be_needed_to_reconsider") or []
+        ),
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def build_approved_public_trust_surfaces() -> list[dict[str, Any]]:
+    """Launch #46 — approved Launch-57 public trust surfaces only."""
+    return [dict(row) for row in APPROVED_LAUNCH57_PUBLIC_TRUST_SURFACES]
