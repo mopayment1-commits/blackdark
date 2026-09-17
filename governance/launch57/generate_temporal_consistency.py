@@ -25,34 +25,61 @@ BATCH_NAMES = {
 }
 
 CHANGED_PATHS = [
-    "launch57/temporal_common.py",
+    "launch57/batch1_isolation.py",
     "launch57/data_batch1.py",
+    "tests/launch57/test_b1_isolation_closure.py",
+    "tests/launch57/test_data_batch1.py",
     "tests/launch57/test_temporal_batch1.py",
     "governance/launch57/generate_temporal_consistency.py",
 ]
 
-REUSED_PATHS = [
-    "launch57/data_batch1.py (existing freshness via failure.freshness read-only)",
-    "cap646.evidence_class (read-only ai_compliance_footer)",
-    "data_governance.freshness.attach_data_freshness (read-only)",
+REUSED_UNCHANGED_PATHS = [
+    "launch57/temporal_common.py (B1 temporal primitives — unchanged in isolation closure)",
+]
+
+PROHIBITED_DEPENDENCIES_REMOVED = [
+    "failure.freshness (classify_freshness, FreshnessState)",
+    "cap646.evidence_class (ai_compliance_footer, reject_if_stale)",
+    "data_governance.freshness (attach_data_freshness)",
+    "data_provenance_score (compute_data_provenance_score in _attach_provenance)",
 ]
 
 TEMPORAL_DEPENDENCY_PENDING = [
     {
-        "capability_id": 6,
         "launch_number": 6,
-        "missing_contract": "user-visible evidence-class owner (#6) not PASS_ENGINEERING at execution SHA",
-        "consumer_impact": "B3 trust batch consumers; B1 uses read-only ai_compliance_footer only",
+        "status": "TEMPORAL_DEPENDENCY_PENDING",
+        "missing_contract": "canonical #6 user-visible evidence-class owner",
+        "consumer_impact": "B1 responses omit evidence-class metadata; integration only after #6 PASS_ENGINEERING + targeted reconciliation",
         "batch_blocked": False,
+        "reconciliation_contract": "B6_TARGETED_RECONCILIATION",
     },
     {
-        "capability_id": 630,
         "launch_number": 41,
-        "missing_contract": "freshness semantics runtime owner reconciliation deferred to B2 temporal batch",
-        "consumer_impact": "B1 uses classify_freshness read-only; canonical #41 temporal integration in B2",
+        "status": "TEMPORAL_DEPENDENCY_PENDING",
+        "missing_contract": "canonical #41 freshness semantics owner",
+        "consumer_impact": "B1 #22/#21 freshness paths use BLOCKED_BY_DEPENDENCY_ORDER; presented_as_live=false",
         "batch_blocked": False,
+        "reconciliation_contract": "B1_TO_41_TARGETED_RECONCILIATION",
+        "auto_activate_on_b2_pass": False,
     },
 ]
+
+B1_TO_41_TARGETED_RECONCILIATION = {
+    "contract_id": "B1_TO_41_TARGETED_RECONCILIATION",
+    "trigger_batch": "B2",
+    "trigger_sequence": "#40 → #41 → #39",
+    "activation": "explicit_only_after_41_pass_engineering",
+    "auto_activate": False,
+    "rebuild_b1_forbidden": True,
+    "required_steps": [
+        "verify #41 final tested SHA",
+        "identify only B1 paths whose semantics genuinely require freshness",
+        "replace TEMPORAL_DEPENDENCY_PENDING=#41 with canonical Launch-57 #41 contract",
+        "run targeted B1↔#41 integration/regression tests",
+        "verify no change to unaffected B1 behavior",
+        "remove #41 pending dependency only after successful reconciliation",
+    ],
+}
 
 
 def _git_sha() -> str:
@@ -66,7 +93,15 @@ def _spec_sha256() -> str:
 
 
 def _run_tests() -> dict:
-    cmd = ["python3", "-m", "pytest", "tests/launch57/test_temporal_batch1.py", "-q"]
+    cmd = [
+        "python3",
+        "-m",
+        "pytest",
+        "tests/launch57/test_b1_isolation_closure.py",
+        "tests/launch57/test_temporal_batch1.py",
+        "tests/launch57/test_data_batch1.py",
+        "-q",
+    ]
     proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)
     return {
         "command": " ".join(cmd),
@@ -109,27 +144,34 @@ def build_reconciliation(sha: str, spec_sha: str, tests: dict) -> dict:
         "recurrence_failures": [],
         "leap_second_policy_failures": [],
         "api_database_serialization_defects": [],
+        "B1_ISOLATION_LEAKAGE": 0,
+        "LEGACY_RUNTIME_DEPENDENCIES": 0,
         "temporal_dependency_pending": TEMPORAL_DEPENDENCY_PENDING,
+        "B1_TO_41_TARGETED_RECONCILIATION": B1_TO_41_TARGETED_RECONCILIATION,
         "external_blockers": [],
         "changed_paths": CHANGED_PATHS,
-        "reused_unchanged_paths": REUSED_PATHS,
+        "reused_unchanged_paths": REUSED_UNCHANGED_PATHS,
+        "prohibited_dependencies_removed": PROHIBITED_DEPENDENCIES_REMOVED,
         "tests": tests,
         "defects_fixed": [
-            "B1 market paths lacked canonical temporal envelope",
-            "OHLCV bar ordering relied on provider order without deterministic tie-break metadata",
-            "Provider future timestamps could reach real_time_prices without rejection",
-            "available_at could be implied from source-only timestamps",
+            "Removed failure.freshness runtime dependency from B1",
+            "Removed cap646.evidence_class runtime dependency from B1",
+            "Removed data_governance.freshness runtime dependency from B1",
+            "B1 freshness-dependent paths now BLOCKED_BY_DEPENDENCY_ORDER until B1_TO_41_TARGETED_RECONCILIATION",
         ],
         "isolation_boundary_evidence": {
             "modified_within_launch57_only": True,
-            "external_deps_read_only": [
-                "failure.freshness.classify_freshness",
+            "b1_isolation_owner": "launch57/batch1_isolation.py",
+            "legacy_runtime_dependencies": 0,
+            "b1_isolation_leakage": 0,
+            "prohibited_modules_absent_from_data_batch1": [
+                "failure.freshness",
                 "cap646.evidence_class",
                 "data_governance.freshness",
-                "market_context",
             ],
         },
-        "final_status": "BATCH_B1_PENDING_VERIFICATION",
+        "branch_note": "cursor/launch57-phase8-launch-coherence-358c retains phase8 launch-coherence history; B1 isolation closure is an additive temporal batch on the same branch per execution order",
+        "final_status": "BATCH_B1_ISOLATION_CLOSED_PENDING_VERIFICATION",
     }
 
 
@@ -144,6 +186,7 @@ def build_report(sha: str, spec_sha: str, tests: dict, recon: dict) -> str:
 - **Global:** `LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING=false`
 - **Local use ready:** `LAUNCH57_TEMPORAL_CONSISTENCY_READY_FOR_LOCAL_USE=false`
 - **PASS_LIVE:** not claimed (`PASS_LIVE_NOT_CLAIMED=true`)
+- **B1 isolation:** `B1_ISOLATION_LEAKAGE=0`, `LEGACY_RUNTIME_DEPENDENCIES=0`
 
 ## B. Baseline SHA
 
@@ -164,13 +207,15 @@ def build_report(sha: str, spec_sha: str, tests: dict, recon: dict) -> str:
 
 ## E. Freshness integration
 
-- `#41` governance owner: `PASS_ENGINEERING` at register view; B2 temporal integration deferred
-- B1 reuses `classify_freshness` read-only; no parallel freshness owner created
+- `#41` owner NOT integrated in B1 (`TEMPORAL_DEPENDENCY_PENDING=#41`)
+- B1 freshness-dependent paths: `freshness_semantics=BLOCKED_BY_DEPENDENCY_ORDER`, `presented_as_live=false`
+- Future mandatory contract: `B1_TO_41_TARGETED_RECONCILIATION` (explicit in B2; no auto-activation)
 
 ## F. Evidence/provenance timing
 
-- B1 `_attach_provenance` + `temporal` envelope on connector/price/OHLCV paths
+- B1 `_attach_b1_metadata` + `temporal` envelope on connector/price/OHLCV paths
 - Provider timestamp validation with future-skew rejection on `#22`
+- `#6` evidence-class metadata NOT attached (`TEMPORAL_DEPENDENCY_PENDING=#6`)
 
 ## G. Point-in-time integrity
 
@@ -239,7 +284,13 @@ passed={tests.get('passed')}
 ## U. Final verdict
 
 - **BATCH_TEMPORAL_VERDICT=B1:PENDING_VERIFICATION**
+- **B1_ISOLATION_LEAKAGE=0**
+- **LEGACY_RUNTIME_DEPENDENCIES=0**
 - **LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING=false** until all batches + Phase 8 reconciliation complete
+
+## Branch note
+
+`cursor/launch57-phase8-launch-coherence-358c` is retained intentionally: it carries Phase 8 launch-coherence work; B1 temporal/isolation closure is additive on the same branch per execution order (no rename for naming consistency).
 """
 
 

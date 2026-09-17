@@ -183,6 +183,9 @@ async def test_real_time_prices_attaches_temporal_envelope(monkeypatch):
     assert "temporal" in out
     assert out["temporal"]["availability_state"] == "KNOWN"
     assert out["temporal"]["source_time"] is not None
+    assert out["legacy_runtime_dependencies"] == 0
+    assert out["presented_as_live"] is False
+    assert any(p["launch_number"] == 41 for p in out["temporal_dependency_pending"])
 
 
 @pytest.mark.asyncio

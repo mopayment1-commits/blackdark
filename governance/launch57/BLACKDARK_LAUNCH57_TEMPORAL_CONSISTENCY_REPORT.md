@@ -7,10 +7,11 @@
 - **Global:** `LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING=false`
 - **Local use ready:** `LAUNCH57_TEMPORAL_CONSISTENCY_READY_FOR_LOCAL_USE=false`
 - **PASS_LIVE:** not claimed (`PASS_LIVE_NOT_CLAIMED=true`)
+- **B1 isolation:** `B1_ISOLATION_LEAKAGE=0`, `LEGACY_RUNTIME_DEPENDENCIES=0`
 
 ## B. Baseline SHA
 
-- **Branch commit:** `20184cecc4964444ccb03822c124f564c2b2d069`
+- **Branch commit:** `8052eaa8aef73de06079f60083d4a5968f499089`
 - **Spec SHA256:** `63aaed8b185a07e014d0a6028120ad94a6a3a18fa072472533aa2ac84f55684a`
 
 ## C. Canonical time architecture
@@ -27,13 +28,15 @@
 
 ## E. Freshness integration
 
-- `#41` governance owner: `PASS_ENGINEERING` at register view; B2 temporal integration deferred
-- B1 reuses `classify_freshness` read-only; no parallel freshness owner created
+- `#41` owner NOT integrated in B1 (`TEMPORAL_DEPENDENCY_PENDING=#41`)
+- B1 freshness-dependent paths: `freshness_semantics=BLOCKED_BY_DEPENDENCY_ORDER`, `presented_as_live=false`
+- Future mandatory contract: `B1_TO_41_TARGETED_RECONCILIATION` (explicit in B2; no auto-activation)
 
 ## F. Evidence/provenance timing
 
-- B1 `_attach_provenance` + `temporal` envelope on connector/price/OHLCV paths
+- B1 `_attach_b1_metadata` + `temporal` envelope on connector/price/OHLCV paths
 - Provider timestamp validation with future-skew rejection on `#22`
+- `#6` evidence-class metadata NOT attached (`TEMPORAL_DEPENDENCY_PENDING=#6`)
 
 ## G. Point-in-time integrity
 
@@ -72,7 +75,7 @@
 ## O. Tests
 
 ```text
-python3 -m pytest tests/launch57/test_temporal_batch1.py -q
+python3 -m pytest tests/launch57/test_b1_isolation_closure.py tests/launch57/test_temporal_batch1.py tests/launch57/test_data_batch1.py -q
 exit_code=0
 passed=True
 ```
@@ -102,4 +105,10 @@ passed=True
 ## U. Final verdict
 
 - **BATCH_TEMPORAL_VERDICT=B1:PENDING_VERIFICATION**
+- **B1_ISOLATION_LEAKAGE=0**
+- **LEGACY_RUNTIME_DEPENDENCIES=0**
 - **LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING=false** until all batches + Phase 8 reconciliation complete
+
+## Branch note
+
+`cursor/launch57-phase8-launch-coherence-358c` is retained intentionally: it carries Phase 8 launch-coherence work; B1 temporal/isolation closure is additive on the same branch per execution order (no rename for naming consistency).
