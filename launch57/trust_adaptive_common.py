@@ -4,7 +4,8 @@ Launch-57 Phase 2 Adaptive Batch A — trust-surface disclosure helpers.
 Support structure only (not a capability). Level-1 progressive disclosure and
 safety-floor fields for Launch #2–#5 (trust_batch1), #47–#48/#44–#46
 (trust_batch2), #7–#11 (decision_batch1), #12/#37 (decision_batch2), and
-#20/#16/#17/#13/#14 (smart_money_batch1) consumer paths.
+#20/#16/#17/#13/#14 (smart_money_batch1) and #15/#18/#19/#53/#54
+# (smart_money_batch2) consumer paths.
 """
 
 from __future__ import annotations
@@ -779,5 +780,301 @@ def build_smart_money_screener_disclosure(
         "raw_movement_not_collapsed_to_certainty": True,
         "attribution_inference_separated": True,
         "screener_count": len(screener),
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+_APPROVED_WALLET_DD_SOURCES: frozenset[str] = frozenset(
+    {
+        "launch57.smart_money_batch2:instant_wallet_due_diligence",
+        "launch57.data_batch1:real_time_prices",
+        "bd_platform.address_intelligence:search_address",
+        "bd_platform.whales_institutional_layer:analyze_wallet_surveillance_79",
+    }
+)
+
+_APPROVED_TOKEN_DD_SOURCES: frozenset[str] = frozenset(
+    {
+        "launch57.smart_money_batch2:instant_token_due_diligence",
+        "launch57.data_batch1:real_time_prices",
+        "bd_platform.free_integrations:holder_analytics",
+    }
+)
+
+
+def derive_entity_wallet_interpretation(intel: dict[str, Any]) -> dict[str, Any]:
+    """Derive #15 entity interpretation distinct from raw wallet movement."""
+    entity_label = intel.get("entity_label")
+    labels_payload = intel.get("labels")
+    label_rows: list[Any] = []
+    if isinstance(labels_payload, dict):
+        label_rows = list(labels_payload.get("labels") or [])
+    elif isinstance(labels_payload, list):
+        label_rows = labels_payload
+    data_state = str(intel.get("data_state") or "UNKNOWN").upper()
+    total_usd = float(intel.get("total_usd") or 0)
+    ok = bool(intel.get("ok"))
+
+    has_attribution = bool(entity_label) or len(label_rows) > 0
+    coverage_limited = data_state in ("PARTIAL", "MISSING", "UNKNOWN") or not ok
+
+    if not ok:
+        interpretation = "unknown_entity"
+        answer_state = "UNKNOWN"
+        certainty = "insufficient_evidence"
+    elif has_attribution and not coverage_limited:
+        interpretation = "attributed_entity"
+        answer_state = "ATTRIBUTED"
+        certainty = "qualified"
+    elif has_attribution and coverage_limited:
+        interpretation = "partially_attributed_entity"
+        answer_state = "PARTIALLY_ATTRIBUTED"
+        certainty = "qualified"
+    else:
+        interpretation = "unattributed_wallet_movement"
+        answer_state = "UNATTRIBUTED"
+        certainty = "insufficient_evidence"
+
+    return {
+        "entity_interpretation": interpretation,
+        "interpretation_distinct_from_raw_movement": True,
+        "raw_balance_usd_observable_only": total_usd,
+        "attribution_state": "known" if has_attribution else "unknown",
+        "coverage_limited": coverage_limited,
+        "certainty_not_implied": coverage_limited or not has_attribution,
+        "answer_state": answer_state,
+        "certainty": certainty,
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def build_entity_wallet_disclosure(
+    interpretation: dict[str, Any],
+    *,
+    intel: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Adaptive — Launch #15 entity interpretation distinct from raw movement."""
+    return {
+        "entity_interpretation_not_raw_movement": interpretation.get("interpretation_distinct_from_raw_movement"),
+        "attribution_uncertainty_visible": True,
+        "coverage_limits_visible": interpretation.get("coverage_limited"),
+        "certainty_not_implied": interpretation.get("certainty_not_implied"),
+        "attribution_state": interpretation.get("attribution_state"),
+        "entity_interpretation": interpretation.get("entity_interpretation"),
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def apply_whale_alert_qualification_filter(
+    alerts: list[dict[str, Any]],
+    *,
+    derivatives_context: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Apply canonical whale alert/inference logic — movement alone is not alert-worthy."""
+    from whale_signal_classifier import classify_whale_alert
+
+    qualified: list[dict[str, Any]] = []
+    excluded_noise: list[dict[str, Any]] = []
+    for alert in alerts or []:
+        if not isinstance(alert, dict):
+            continue
+        classification = classify_whale_alert(alert, derivatives_context=derivatives_context)
+        entry = {**alert, "whale_classification": classification}
+        if classification.get("actionable"):
+            qualified.append(entry)
+        else:
+            excluded_noise.append(entry)
+
+    return {
+        "alert_worthy_alerts": qualified,
+        "alert_worthy_count": len(qualified),
+        "excluded_noise_alerts": excluded_noise,
+        "movement_only_excluded": True,
+        "runtime_qualification_applied": True,
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def build_whale_alert_disclosure(
+    filtered: dict[str, Any],
+    *,
+    payload: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Adaptive — Launch #18 whale alerts from canonical qualification, not movement alone."""
+    return {
+        "alert_from_canonical_qualification": True,
+        "movement_presence_not_sufficient": True,
+        "runtime_qualification_applied": bool(filtered.get("runtime_qualification_applied")),
+        "alert_worthy_count": filtered.get("alert_worthy_count"),
+        "excluded_noise_count": len(filtered.get("excluded_noise_alerts") or []),
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def apply_inter_entity_internal_flow_filter(
+    ctx: dict[str, Any],
+    *,
+    payload: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Exclude internal exchange movement from decision-driving inter-entity semantics."""
+    from exchange_internal_flow_filter import classify_flow
+
+    raw_flows = list(ctx.get("flows") or ctx.get("inter_entity_flows") or [])
+    p = dict(payload or {})
+    eligible: list[dict[str, Any]] = []
+    excluded_internal: list[dict[str, Any]] = []
+
+    for flow in raw_flows:
+        flow_dict = dict(flow or {})
+        classified = classify_flow(
+            from_address=str(
+                flow_dict.get("from_address")
+                or flow_dict.get("from")
+                or p.get("from_address")
+                or "0x0000000000000000000000000000000000000000"
+            ),
+            to_address=str(
+                flow_dict.get("to_address")
+                or flow_dict.get("to")
+                or p.get("to_address")
+                or "0x0000000000000000000000000000000000000000"
+            ),
+            exchange=str(flow_dict.get("exchange") or p.get("exchange") or "binance"),
+            amount_usd=float(flow_dict.get("amount_usd") or p.get("amount_usd") or 0),
+            is_deposit=bool(flow_dict.get("is_deposit") or p.get("is_deposit")),
+            is_withdrawal=bool(flow_dict.get("is_withdrawal") or p.get("is_withdrawal")),
+        )
+        classification = str(classified.get("classification") or "UNKNOWN")
+        entry = {**flow_dict, "internal_flow_classification": classified}
+        if "INTERNAL" in classification.upper():
+            excluded_internal.append(entry)
+        elif classification == "ECONOMIC_FLOW":
+            eligible.append(entry)
+
+    return {
+        "inter_entity_flow_eligible": eligible,
+        "internal_flows_excluded": excluded_internal,
+        "inter_entity_eligible_count": len(eligible),
+        "internal_excluded_count": len(excluded_internal),
+        "inter_entity_semantics_eligible": len(eligible) > 0,
+        "runtime_filter_applied": True,
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def build_inter_entity_flow_disclosure(
+    filtered: dict[str, Any],
+    *,
+    payload: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Adaptive — Launch #19 internal movement excluded from inter-entity semantics."""
+    return {
+        "internal_not_inter_entity_flow": filtered.get("internal_excluded_count", 0) > 0
+        or bool(filtered.get("runtime_filter_applied")),
+        "external_economic_flow_eligible": filtered.get("inter_entity_eligible_count", 0) > 0,
+        "runtime_filter_applied": bool(filtered.get("runtime_filter_applied")),
+        "inter_entity_semantics_eligible": filtered.get("inter_entity_semantics_eligible"),
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def compute_approved_wallet_due_diligence_verdict(
+    *,
+    intel: dict[str, Any],
+    surveillance: dict[str, Any],
+    spine: dict[str, Any] | None = None,
+    observable_unapproved: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Derive #53 decision-driving verdict from approved Launch-57 evidence only."""
+    approved_flags: list[str] = []
+    if not intel.get("ok"):
+        approved_flags.append("address_lookup_failed")
+    if surveillance.get("surveillance_detected"):
+        approved_flags.append("elevated_surveillance_pattern")
+    fresh = bool((spine or {}).get("live_eligible")) and bool((spine or {}).get("presented_as_live"))
+    if spine is not None and not fresh:
+        approved_flags.append("stale_or_ineligible_spine")
+
+    verdict = "review" if approved_flags else "clear"
+    unapproved_flags = list((observable_unapproved or {}).get("risk_flags") or [])
+
+    return {
+        "verdict": verdict,
+        "risk_flags": approved_flags,
+        "decision_driving_approved_only": True,
+        "unapproved_observable_only": {
+            "risk_flags": unapproved_flags,
+            "decision_driving": False,
+        },
+        "approved_evidence_sources": sorted(_APPROVED_WALLET_DD_SOURCES),
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def build_wallet_due_diligence_disclosure(
+    approved: dict[str, Any],
+    *,
+    spine: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Adaptive — Launch #53 due diligence from approved evidence with limitations visible."""
+    fresh = bool((spine or {}).get("live_eligible")) and bool((spine or {}).get("presented_as_live"))
+    return {
+        "due_diligence_from_approved_launch57_evidence_only": approved.get("decision_driving_approved_only"),
+        "unapproved_inputs_observable_not_decision_driving": True,
+        "freshness_preserved": fresh,
+        "stale_not_promoted_to_stronger_truth": not fresh or approved.get("verdict") != "clear",
+        "limitations_visible": True,
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def compute_approved_token_due_diligence_verdict(
+    *,
+    holders: dict[str, Any],
+    financial_models: dict[str, Any],
+    spine: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Derive #54 decision-driving verdict from approved Launch-57 evidence only."""
+    approved_flags: list[str] = []
+    locked = float((holders.get("metrics") or {}).get("locked_supply_pct") or 0)
+    if locked > 70:
+        approved_flags.append("high_locked_supply")
+    if not holders.get("available"):
+        approved_flags.append("holder_data_unavailable")
+    fresh = bool((spine or {}).get("live_eligible")) and bool((spine or {}).get("presented_as_live"))
+    if spine is not None and not fresh:
+        approved_flags.append("stale_or_ineligible_spine")
+
+    verdict = "review" if approved_flags else "clear"
+    unapproved_observable: list[str] = []
+    if financial_models.get("error"):
+        unapproved_observable.append("financial_model_gap")
+
+    return {
+        "verdict": verdict,
+        "risk_flags": approved_flags,
+        "decision_driving_approved_only": True,
+        "unapproved_observable_only": {
+            "risk_flags": unapproved_observable,
+            "decision_driving": False,
+        },
+        "approved_evidence_sources": sorted(_APPROVED_TOKEN_DD_SOURCES),
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def build_token_due_diligence_disclosure(
+    approved: dict[str, Any],
+    *,
+    spine: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Adaptive — Launch #54 token due diligence from approved evidence with limitations visible."""
+    fresh = bool((spine or {}).get("live_eligible")) and bool((spine or {}).get("presented_as_live"))
+    return {
+        "due_diligence_from_approved_launch57_evidence_only": approved.get("decision_driving_approved_only"),
+        "unapproved_inputs_observable_not_decision_driving": True,
+        "freshness_preserved": fresh,
+        "stale_not_promoted_to_stronger_truth": not fresh,
+        "limitations_visible": True,
         "methodology_version": METHODOLOGY_VERSION,
     }
