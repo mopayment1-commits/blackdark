@@ -1,0 +1,63 @@
+{
+  "artifact": "PHASE8_E2E_JOURNEYS",
+  "generated_at": "2026-09-16T22:54:39.159509+00:00",
+  "journeys": [
+    {
+      "status": "PASS",
+      "steps": [
+        "data_spine",
+        "trust_oracle",
+        "command_home"
+      ],
+      "presented_as_live": true,
+      "evidence_class_visible": true,
+      "handler": "launch57.edge_ui_batch2",
+      "journey": "data_spine_trust_decision_command_home"
+    },
+    {
+      "status": "PASS",
+      "steps": [
+        "signal_explanation_34",
+        "price_move_35",
+        "share_card_44"
+      ],
+      "presented_as_live_final": true,
+      "blocked_external": null,
+      "journey": "smart_money_explanation_to_share"
+    },
+    {
+      "status": "PASS",
+      "steps": [
+        "net_edge_5",
+        "spot_perp_43"
+      ],
+      "blocked_without_opportunity": true,
+      "demo_opportunity_rejected": true,
+      "with_valid_opportunity_path": "launch57.trust_batch1:net_edge_truth_score",
+      "note": "FIN_004 demo rejected by design; cost_claim without opportunity blocked",
+      "journey": "net_edge_to_spot_perp"
+    },
+    {
+      "status": "PASS",
+      "steps": [
+        "guest_trust_46"
+      ],
+      "no_pii_leak": true,
+      "private_by_default": true,
+      "blocked_external": null,
+      "journey": "guest_trust_surface"
+    },
+    {
+      "status": "PASS",
+      "steps": [
+        "stale_spine",
+        "command_home_blocked"
+      ],
+      "presented_as_live": false,
+      "journey": "stale_blocks_presented_as_live"
+    }
+  ],
+  "passed": 5,
+  "total": 5,
+  "all_pass": true
+}

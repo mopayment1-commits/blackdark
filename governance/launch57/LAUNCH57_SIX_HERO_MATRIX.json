@@ -1,0 +1,1302 @@
+{
+  "artifact": "LAUNCH57_SIX_HERO_MATRIX",
+  "generated_at": "2026-09-16T22:54:37.071397+00:00",
+  "source_commit": "8ce0bc7c",
+  "canonical_product_heroes": [
+    "Single-Sentence Oracle",
+    "Public Accuracy Ledger",
+    "Arbitrage Scanner",
+    "Whale Signal vs Noise",
+    "Stealth Advisor",
+    "B2B Feed"
+  ],
+  "hero_source_authority": [
+    "governance/launch57/LAUNCH57_REGISTER.json#six_heroes",
+    "BLACKDARK_CAPABILITY_SIX_HERO_MATRIX.json",
+    "docs/HERO_SIX_BINDING_REPORT.json"
+  ],
+  "launch57_only": true,
+  "launch_item_count": 57,
+  "zero_parked_hero_dependencies": true,
+  "rows": [
+    {
+      "launch_number": 1,
+      "launch_name": "Six Heroes Command Home — «ماذا أفعل الآن؟»",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": "COMMAND_HOME_ORCHESTRATOR",
+      "hero_matrix": {
+        "Single-Sentence Oracle": "PRIMARY_FEED",
+        "Public Accuracy Ledger": "CONTEXT",
+        "Arbitrage Scanner": "CONTEXT",
+        "Whale Signal vs Noise": "CONTEXT",
+        "Stealth Advisor": "CONTEXT",
+        "B2B Feed": "CONTEXT"
+      },
+      "primary_heroes": [
+        "Single-Sentence Oracle"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "PRODUCT_COMPOSITE_ALL_SIX_HEROES",
+      "matched_capability_ids": []
+    },
+    {
+      "launch_number": 2,
+      "launch_name": "Single-Sentence Oracle (ACT/WAIT/ABSTAIN)",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "PRIMARY_FEED",
+        "Public Accuracy Ledger": "SECONDARY_FEED",
+        "Arbitrage Scanner": "NOT_APPLICABLE",
+        "Whale Signal vs Noise": "NOT_APPLICABLE",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [
+        "Single-Sentence Oracle"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "HERO_1_SINGLE_SENTENCE_ORACLE",
+      "matched_capability_ids": []
+    },
+    {
+      "launch_number": 3,
+      "launch_name": "Decision Certificate + hash",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "GATE",
+        "Public Accuracy Ledger": "DATA_QUALITY_GATE",
+        "Arbitrage Scanner": "NOT_APPLICABLE",
+        "Whale Signal vs Noise": "NOT_APPLICABLE",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0641"
+      ]
+    },
+    {
+      "launch_number": 4,
+      "launch_name": "Public Accuracy Ledger (حي فقط)",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "NOT_APPLICABLE",
+        "Public Accuracy Ledger": "PRIMARY_FEED",
+        "Arbitrage Scanner": "NOT_APPLICABLE",
+        "Whale Signal vs Noise": "NOT_APPLICABLE",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [
+        "Public Accuracy Ledger"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0640"
+      ]
+    },
+    {
+      "launch_number": 5,
+      "launch_name": "Net-Edge / Cost Autopsy على كل فرصة أو إشارة",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "CONFIDENCE_MODIFIER",
+        "Public Accuracy Ledger": "DATA_QUALITY_GATE",
+        "Arbitrage Scanner": "GATE",
+        "Whale Signal vs Noise": "NOT_APPLICABLE",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0639",
+        "CAP-0635"
+      ]
+    },
+    {
+      "launch_number": 6,
+      "launch_name": "Evidence class ظاهر (LIVE / DELAYED / SIM)",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "NOT_APPLICABLE",
+        "Public Accuracy Ledger": "NOT_APPLICABLE",
+        "Arbitrage Scanner": "NOT_APPLICABLE",
+        "Whale Signal vs Noise": "NOT_APPLICABLE",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "NOT_APPLICABLE",
+      "matched_capability_ids": []
+    },
+    {
+      "launch_number": 7,
+      "launch_name": "Market Regime / Compass",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "SECONDARY_FEED",
+        "Public Accuracy Ledger": "DATA_QUALITY_GATE",
+        "Arbitrage Scanner": "NOT_APPLICABLE",
+        "Whale Signal vs Noise": "PRIMARY_FEED",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [
+        "Whale Signal vs Noise"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0035"
+      ]
+    },
+    {
+      "launch_number": 8,
+      "launch_name": "Beginner Decision Mode",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "PRIMARY_FEED",
+        "Public Accuracy Ledger": "DATA_QUALITY_GATE",
+        "Arbitrage Scanner": "NOT_APPLICABLE",
+        "Whale Signal vs Noise": "NOT_APPLICABLE",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [
+        "Single-Sentence Oracle"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0034"
+      ]
+    },
+    {
+      "launch_number": 9,
+      "launch_name": "Cross-Signal Confirmation",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "PRIMARY_FEED",
+        "Public Accuracy Ledger": "DATA_QUALITY_GATE",
+        "Arbitrage Scanner": "NOT_APPLICABLE",
+        "Whale Signal vs Noise": "NOT_APPLICABLE",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [
+        "Single-Sentence Oracle"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0031"
+      ]
+    },
+    {
+      "launch_number": 10,
+      "launch_name": "Contradiction Detection",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "SECONDARY_FEED",
+        "Public Accuracy Ledger": "DATA_QUALITY_GATE",
+        "Arbitrage Scanner": "NOT_APPLICABLE",
+        "Whale Signal vs Noise": "PRIMARY_FEED",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [
+        "Whale Signal vs Noise"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0032"
+      ]
+    },
+    {
+      "launch_number": 11,
+      "launch_name": "Smart Money Actionability Score",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "SECONDARY_FEED",
+        "Public Accuracy Ledger": "DATA_QUALITY_GATE",
+        "Arbitrage Scanner": "NOT_APPLICABLE",
+        "Whale Signal vs Noise": "SECONDARY_FEED",
+        "Stealth Advisor": "PRIMARY_FEED",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [
+        "Stealth Advisor"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0033"
+      ]
+    },
+    {
+      "launch_number": 12,
+      "launch_name": "Smart Money Conviction Engine",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "SECONDARY_FEED",
+        "Public Accuracy Ledger": "DATA_QUALITY_GATE",
+        "Arbitrage Scanner": "NOT_APPLICABLE",
+        "Whale Signal vs Noise": "PRIMARY_FEED",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [
+        "Whale Signal vs Noise"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0028"
+      ]
+    },
+    {
+      "launch_number": 13,
+      "launch_name": "Accumulation / Distribution Detection",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "NOT_APPLICABLE",
+        "Public Accuracy Ledger": "DATA_QUALITY_GATE",
+        "Arbitrage Scanner": "NOT_APPLICABLE",
+        "Whale Signal vs Noise": "PRIMARY_FEED",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [
+        "Whale Signal vs Noise"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0005"
+      ]
+    },
+    {
+      "launch_number": 14,
+      "launch_name": "Smart Money Token Screener",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "NOT_APPLICABLE",
+        "Public Accuracy Ledger": "DATA_QUALITY_GATE",
+        "Arbitrage Scanner": "NOT_APPLICABLE",
+        "Whale Signal vs Noise": "PRIMARY_FEED",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [
+        "Whale Signal vs Noise"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0006"
+      ]
+    },
+    {
+      "launch_number": 15,
+      "launch_name": "Entity-Aware Wallet Intelligence",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "NOT_APPLICABLE",
+        "Public Accuracy Ledger": "DATA_QUALITY_GATE",
+        "Arbitrage Scanner": "NOT_APPLICABLE",
+        "Whale Signal vs Noise": "PRIMARY_FEED",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [
+        "Whale Signal vs Noise"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0014"
+      ]
+    },
+    {
+      "launch_number": 16,
+      "launch_name": "Exchange Flow Intelligence (in/out/net)",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "NOT_APPLICABLE",
+        "Public Accuracy Ledger": "DATA_QUALITY_GATE",
+        "Arbitrage Scanner": "NOT_APPLICABLE",
+        "Whale Signal vs Noise": "PRIMARY_FEED",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "SECONDARY_FEED"
+      },
+      "primary_heroes": [
+        "Whale Signal vs Noise"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0015",
+        "CAP-0071"
+      ]
+    },
+    {
+      "launch_number": 17,
+      "launch_name": "Exchange Whale Ratio + internal-flow filter",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "NOT_APPLICABLE",
+        "Public Accuracy Ledger": "DATA_QUALITY_GATE",
+        "Arbitrage Scanner": "NOT_APPLICABLE",
+        "Whale Signal vs Noise": "PRIMARY_FEED",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [
+        "Whale Signal vs Noise"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0072",
+        "CAP-0075"
+      ]
+    },
+    {
+      "launch_number": 18,
+      "launch_name": "Whale Accumulation / Movement Alerts",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "NOT_APPLICABLE",
+        "Public Accuracy Ledger": "DATA_QUALITY_GATE",
+        "Arbitrage Scanner": "NOT_APPLICABLE",
+        "Whale Signal vs Noise": "PRIMARY_FEED",
+        "Stealth Advisor": "SECONDARY_FEED",
+        "B2B Feed": "SECONDARY_FEED"
+      },
+      "primary_heroes": [
+        "Whale Signal vs Noise"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0081",
+        "CAP-0098"
+      ]
+    },
+    {
+      "launch_number": 19,
+      "launch_name": "Inter-Entity Flow (محدود الإطلاق)",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "NOT_APPLICABLE",
+        "Public Accuracy Ledger": "DATA_QUALITY_GATE",
+        "Arbitrage Scanner": "PRIMARY_FEED",
+        "Whale Signal vs Noise": "SECONDARY_FEED",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "SECONDARY_FEED"
+      },
+      "primary_heroes": [
+        "Arbitrage Scanner"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0091"
+      ]
+    },
+    {
+      "launch_number": 20,
+      "launch_name": "Address Labels & Cohorts (نواة محدودة)",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "NOT_APPLICABLE",
+        "Public Accuracy Ledger": "DATA_QUALITY_GATE",
+        "Arbitrage Scanner": "NOT_APPLICABLE",
+        "Whale Signal vs Noise": "PRIMARY_FEED",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "SECONDARY_FEED"
+      },
+      "primary_heroes": [
+        "Whale Signal vs Noise"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0092"
+      ]
+    },
+    {
+      "launch_number": 21,
+      "launch_name": "Spot metrics suite (صادق التحديث)",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": "CROSS_HERO_SYSTEM_FOUNDATION",
+      "hero_matrix": {
+        "Single-Sentence Oracle": "PRIMARY_FEED",
+        "Public Accuracy Ledger": "DATA_QUALITY_GATE",
+        "Arbitrage Scanner": "SECONDARY_FEED",
+        "Whale Signal vs Noise": "NOT_APPLICABLE",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "CONTEXT"
+      },
+      "primary_heroes": [
+        "Single-Sentence Oracle"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0047"
+      ]
+    },
+    {
+      "launch_number": 22,
+      "launch_name": "Real-time / near-real-time prices",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": "CROSS_HERO_SYSTEM_FOUNDATION",
+      "hero_matrix": {
+        "Single-Sentence Oracle": "NOT_APPLICABLE",
+        "Public Accuracy Ledger": "DATA_QUALITY_GATE",
+        "Arbitrage Scanner": "NOT_APPLICABLE",
+        "Whale Signal vs Noise": "NOT_APPLICABLE",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0561"
+      ]
+    },
+    {
+      "launch_number": 23,
+      "launch_name": "OHLCV",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": "CROSS_HERO_SYSTEM_FOUNDATION",
+      "hero_matrix": {
+        "Single-Sentence Oracle": "NOT_APPLICABLE",
+        "Public Accuracy Ledger": "DATA_QUALITY_GATE",
+        "Arbitrage Scanner": "NOT_APPLICABLE",
+        "Whale Signal vs Noise": "NOT_APPLICABLE",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "PRIMARY_FEED"
+      },
+      "primary_heroes": [
+        "B2B Feed"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0507"
+      ]
+    },
+    {
+      "launch_number": 24,
+      "launch_name": "Quote + symbol metadata",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": "CROSS_HERO_SYSTEM_FOUNDATION",
+      "hero_matrix": {
+        "Single-Sentence Oracle": "NOT_APPLICABLE",
+        "Public Accuracy Ledger": "DATA_QUALITY_GATE",
+        "Arbitrage Scanner": "PRIMARY_FEED",
+        "Whale Signal vs Noise": "NOT_APPLICABLE",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [
+        "Arbitrage Scanner"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0506",
+        "CAP-0513"
+      ]
+    },
+    {
+      "launch_number": 25,
+      "launch_name": "Futures OI intelligence",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "SECONDARY_FEED",
+        "Public Accuracy Ledger": "DATA_QUALITY_GATE",
+        "Arbitrage Scanner": "PRIMARY_FEED",
+        "Whale Signal vs Noise": "SECONDARY_FEED",
+        "Stealth Advisor": "SECONDARY_FEED",
+        "B2B Feed": "PRIMARY_FEED"
+      },
+      "primary_heroes": [
+        "Arbitrage Scanner",
+        "B2B Feed"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0085",
+        "CAP-0048"
+      ]
+    },
+    {
+      "launch_number": 26,
+      "launch_name": "Funding rate intelligence",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "SECONDARY_FEED",
+        "Public Accuracy Ledger": "DATA_QUALITY_GATE",
+        "Arbitrage Scanner": "PRIMARY_FEED",
+        "Whale Signal vs Noise": "SECONDARY_FEED",
+        "Stealth Advisor": "SECONDARY_FEED",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [
+        "Arbitrage Scanner"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0086"
+      ]
+    },
+    {
+      "launch_number": 27,
+      "launch_name": "Liquidation intelligence / heatmap خفيف",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "NOT_APPLICABLE",
+        "Public Accuracy Ledger": "DATA_QUALITY_GATE",
+        "Arbitrage Scanner": "PRIMARY_FEED",
+        "Whale Signal vs Noise": "SECONDARY_FEED",
+        "Stealth Advisor": "SECONDARY_FEED",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [
+        "Arbitrage Scanner"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0088"
+      ]
+    },
+    {
+      "launch_number": 28,
+      "launch_name": "Taker buy/sell + leverage ratio",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "SECONDARY_FEED",
+        "Public Accuracy Ledger": "DATA_QUALITY_GATE",
+        "Arbitrage Scanner": "PRIMARY_FEED",
+        "Whale Signal vs Noise": "NOT_APPLICABLE",
+        "Stealth Advisor": "SECONDARY_FEED",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [
+        "Arbitrage Scanner"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0089",
+        "CAP-0087"
+      ]
+    },
+    {
+      "launch_number": 29,
+      "launch_name": "Derivatives sentiment composite",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "SECONDARY_FEED",
+        "Public Accuracy Ledger": "DATA_QUALITY_GATE",
+        "Arbitrage Scanner": "NOT_APPLICABLE",
+        "Whale Signal vs Noise": "NOT_APPLICABLE",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "PRIMARY_FEED"
+      },
+      "primary_heroes": [
+        "B2B Feed"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0090"
+      ]
+    },
+    {
+      "launch_number": 30,
+      "launch_name": "Order book intelligence (L1 على الأقل)",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "SECONDARY_FEED",
+        "Public Accuracy Ledger": "DATA_QUALITY_GATE",
+        "Arbitrage Scanner": "SECONDARY_FEED",
+        "Whale Signal vs Noise": "NOT_APPLICABLE",
+        "Stealth Advisor": "SECONDARY_FEED",
+        "B2B Feed": "PRIMARY_FEED"
+      },
+      "primary_heroes": [
+        "B2B Feed"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0050",
+        "CAP-0508"
+      ]
+    },
+    {
+      "launch_number": 31,
+      "launch_name": "Token screener (سوق عام)",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "SECONDARY_FEED",
+        "Public Accuracy Ledger": "PRIMARY_FEED",
+        "Arbitrage Scanner": "NOT_APPLICABLE",
+        "Whale Signal vs Noise": "NOT_APPLICABLE",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [
+        "Public Accuracy Ledger"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0056"
+      ]
+    },
+    {
+      "launch_number": 32,
+      "launch_name": "Watchlists (توكن + محفظة محدودة)",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "NOT_APPLICABLE",
+        "Public Accuracy Ledger": "DATA_QUALITY_GATE",
+        "Arbitrage Scanner": "NOT_APPLICABLE",
+        "Whale Signal vs Noise": "PRIMARY_FEED",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [
+        "Whale Signal vs Noise"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0019"
+      ]
+    },
+    {
+      "launch_number": 33,
+      "launch_name": "Smart Alerts (سعر + تدفق + حوت + قرار)",
+      "engineering_status": "PASS_ENGINEERING_WITH_BLOCKED_EXTERNAL",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "NOT_APPLICABLE",
+        "Public Accuracy Ledger": "DATA_QUALITY_GATE",
+        "Arbitrage Scanner": "NOT_APPLICABLE",
+        "Whale Signal vs Noise": "NOT_APPLICABLE",
+        "Stealth Advisor": "PRIMARY_FEED",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [
+        "Stealth Advisor"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0017"
+      ]
+    },
+    {
+      "launch_number": 34,
+      "launch_name": "Signal → Explanation workflow",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "EXPLANATION_ONLY",
+        "Public Accuracy Ledger": "DATA_QUALITY_GATE",
+        "Arbitrage Scanner": "NOT_APPLICABLE",
+        "Whale Signal vs Noise": "SECONDARY_FEED",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0025"
+      ]
+    },
+    {
+      "launch_number": 35,
+      "launch_name": "Price-move explanation",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "EXPLANATION_ONLY",
+        "Public Accuracy Ledger": "DATA_QUALITY_GATE",
+        "Arbitrage Scanner": "NOT_APPLICABLE",
+        "Whale Signal vs Noise": "NOT_APPLICABLE",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0026"
+      ]
+    },
+    {
+      "launch_number": 36,
+      "launch_name": "AI Research Agent + Copilot مربوط ببيانات المنصة فقط (شات على أسطح الإطلاق + footer امتثال)",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "CONTEXT",
+        "Public Accuracy Ledger": "DATA_QUALITY_GATE",
+        "Arbitrage Scanner": "NOT_APPLICABLE",
+        "Whale Signal vs Noise": "CONTEXT",
+        "Stealth Advisor": "PRIMARY_FEED",
+        "B2B Feed": "SECONDARY_FEED"
+      },
+      "primary_heroes": [
+        "Stealth Advisor"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0024"
+      ]
+    },
+    {
+      "launch_number": 37,
+      "launch_name": "Cross-market decision engine",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "SECONDARY_FEED",
+        "Public Accuracy Ledger": "DATA_QUALITY_GATE",
+        "Arbitrage Scanner": "NOT_APPLICABLE",
+        "Whale Signal vs Noise": "PRIMARY_FEED",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [
+        "Whale Signal vs Noise"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0029"
+      ]
+    },
+    {
+      "launch_number": 38,
+      "launch_name": "MVRV / Z-Score (نواة BTC/ETH إن توفّر مصدر)",
+      "engineering_status": "PASS_ENGINEERING_WITH_BLOCKED_EXTERNAL",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "SECONDARY_FEED",
+        "Public Accuracy Ledger": "DATA_QUALITY_GATE",
+        "Arbitrage Scanner": "PRIMARY_FEED",
+        "Whale Signal vs Noise": "SECONDARY_FEED",
+        "Stealth Advisor": "SECONDARY_FEED",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [
+        "Arbitrage Scanner"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0040"
+      ]
+    },
+    {
+      "launch_number": 39,
+      "launch_name": "Point-in-time immutable metrics",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": "CROSS_HERO_SYSTEM_FOUNDATION",
+      "hero_matrix": {
+        "Single-Sentence Oracle": "NOT_APPLICABLE",
+        "Public Accuracy Ledger": "PRIMARY_FEED",
+        "Arbitrage Scanner": "NOT_APPLICABLE",
+        "Whale Signal vs Noise": "NOT_APPLICABLE",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [
+        "Public Accuracy Ledger"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0061"
+      ]
+    },
+    {
+      "launch_number": 40,
+      "launch_name": "Data quality & provenance (ظاهر للمستخدم)",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": "CROSS_HERO_SYSTEM_FOUNDATION",
+      "hero_matrix": {
+        "Single-Sentence Oracle": "NOT_APPLICABLE",
+        "Public Accuracy Ledger": "PRIMARY_FEED",
+        "Arbitrage Scanner": "NOT_APPLICABLE",
+        "Whale Signal vs Noise": "NOT_APPLICABLE",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [
+        "Public Accuracy Ledger"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0063",
+        "CAP-0500"
+      ]
+    },
+    {
+      "launch_number": 41,
+      "launch_name": "Freshness assurance + تسمية delayed صريحة",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": "CROSS_HERO_SYSTEM_FOUNDATION",
+      "hero_matrix": {
+        "Single-Sentence Oracle": "NOT_APPLICABLE",
+        "Public Accuracy Ledger": "DATA_QUALITY_GATE",
+        "Arbitrage Scanner": "NOT_APPLICABLE",
+        "Whale Signal vs Noise": "NOT_APPLICABLE",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "PRIMARY_FEED"
+      },
+      "primary_heroes": [
+        "B2B Feed"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0630"
+      ]
+    },
+    {
+      "launch_number": 42,
+      "launch_name": "Unified exchange connector (مسار واحد)",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": "CROSS_HERO_SYSTEM_FOUNDATION",
+      "hero_matrix": {
+        "Single-Sentence Oracle": "NOT_APPLICABLE",
+        "Public Accuracy Ledger": "DATA_QUALITY_GATE",
+        "Arbitrage Scanner": "PRIMARY_FEED",
+        "Whale Signal vs Noise": "NOT_APPLICABLE",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [
+        "Arbitrage Scanner"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0504"
+      ]
+    },
+    {
+      "launch_number": 43,
+      "launch_name": "Spot–perp / arbitrage (Net-Edge إلزامي)",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "GATE",
+        "Public Accuracy Ledger": "DATA_QUALITY_GATE",
+        "Arbitrage Scanner": "PRIMARY_FEED",
+        "Whale Signal vs Noise": "NOT_APPLICABLE",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [
+        "Arbitrage Scanner"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0230",
+        "CAP-0635"
+      ]
+    },
+    {
+      "launch_number": 44,
+      "launch_name": "Shareable decision / oracle card (OG)",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "PRIMARY_FEED",
+        "Public Accuracy Ledger": "SECONDARY_FEED",
+        "Arbitrage Scanner": "NOT_APPLICABLE",
+        "Whale Signal vs Noise": "NOT_APPLICABLE",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [
+        "Single-Sentence Oracle"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "NOT_APPLICABLE",
+      "matched_capability_ids": []
+    },
+    {
+      "launch_number": 45,
+      "launch_name": "Shareable accuracy / outcome page",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "SECONDARY_FEED",
+        "Public Accuracy Ledger": "PRIMARY_FEED",
+        "Arbitrage Scanner": "NOT_APPLICABLE",
+        "Whale Signal vs Noise": "NOT_APPLICABLE",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [
+        "Public Accuracy Ledger"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0640"
+      ]
+    },
+    {
+      "launch_number": 46,
+      "launch_name": "Guest trust surface",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "GATE",
+        "Public Accuracy Ledger": "PRIMARY_FEED",
+        "Arbitrage Scanner": "NOT_APPLICABLE",
+        "Whale Signal vs Noise": "NOT_APPLICABLE",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [
+        "Public Accuracy Ledger"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "NOT_APPLICABLE",
+      "matched_capability_ids": []
+    },
+    {
+      "launch_number": 47,
+      "launch_name": "One-click risk disclosure على كل قرار",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "NOT_APPLICABLE",
+        "Public Accuracy Ledger": "NOT_APPLICABLE",
+        "Arbitrage Scanner": "NOT_APPLICABLE",
+        "Whale Signal vs Noise": "NOT_APPLICABLE",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "NOT_APPLICABLE",
+      "matched_capability_ids": []
+    },
+    {
+      "launch_number": 48,
+      "launch_name": "Abstain / reject reasons ظاهرة",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "NOT_APPLICABLE",
+        "Public Accuracy Ledger": "NOT_APPLICABLE",
+        "Arbitrage Scanner": "NOT_APPLICABLE",
+        "Whale Signal vs Noise": "NOT_APPLICABLE",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "NOT_APPLICABLE",
+      "matched_capability_ids": []
+    },
+    {
+      "launch_number": 49,
+      "launch_name": "Personal decision history (محدود Free)",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "NOT_APPLICABLE",
+        "Public Accuracy Ledger": "NOT_APPLICABLE",
+        "Arbitrage Scanner": "NOT_APPLICABLE",
+        "Whale Signal vs Noise": "NOT_APPLICABLE",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "NOT_APPLICABLE",
+      "matched_capability_ids": []
+    },
+    {
+      "launch_number": 50,
+      "launch_name": "Discipline / missed-opportunity mirror (خفيف)",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "NOT_APPLICABLE",
+        "Public Accuracy Ledger": "NOT_APPLICABLE",
+        "Arbitrage Scanner": "NOT_APPLICABLE",
+        "Whale Signal vs Noise": "NOT_APPLICABLE",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "NOT_APPLICABLE",
+      "matched_capability_ids": []
+    },
+    {
+      "launch_number": 51,
+      "launch_name": "Research portal / short briefs",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "CONTEXT",
+        "Public Accuracy Ledger": "PRIMARY_FEED",
+        "Arbitrage Scanner": "NOT_APPLICABLE",
+        "Whale Signal vs Noise": "NOT_APPLICABLE",
+        "Stealth Advisor": "SECONDARY_FEED",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [
+        "Public Accuracy Ledger"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0065",
+        "CAP-0100"
+      ]
+    },
+    {
+      "launch_number": 52,
+      "launch_name": "Capability library (بحث) — طبقة ثانية لا الرئيسية",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": "SECONDARY_SEARCH_LAYER",
+      "hero_matrix": {
+        "Single-Sentence Oracle": "NOT_APPLICABLE",
+        "Public Accuracy Ledger": "NOT_APPLICABLE",
+        "Arbitrage Scanner": "NOT_APPLICABLE",
+        "Whale Signal vs Noise": "NOT_APPLICABLE",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "NOT_APPLICABLE",
+      "matched_capability_ids": []
+    },
+    {
+      "launch_number": 53,
+      "launch_name": "Instant Wallet Due Diligence",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "NOT_APPLICABLE",
+        "Public Accuracy Ledger": "PRIMARY_FEED",
+        "Arbitrage Scanner": "NOT_APPLICABLE",
+        "Whale Signal vs Noise": "SECONDARY_FEED",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [
+        "Public Accuracy Ledger"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0022"
+      ]
+    },
+    {
+      "launch_number": 54,
+      "launch_name": "Instant Token Due Diligence",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "NOT_APPLICABLE",
+        "Public Accuracy Ledger": "PRIMARY_FEED",
+        "Arbitrage Scanner": "NOT_APPLICABLE",
+        "Whale Signal vs Noise": "NOT_APPLICABLE",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [
+        "Public Accuracy Ledger"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0023"
+      ]
+    },
+    {
+      "launch_number": 55,
+      "launch_name": "Pump & Dump / manipulation pattern alerts",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "NOT_APPLICABLE",
+        "Public Accuracy Ledger": "DATA_QUALITY_GATE",
+        "Arbitrage Scanner": "NOT_APPLICABLE",
+        "Whale Signal vs Noise": "PRIMARY_FEED",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [
+        "Whale Signal vs Noise"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0238"
+      ]
+    },
+    {
+      "launch_number": 56,
+      "launch_name": "Suspicious activity flags (على مسارات توكن/سمارت موني — ليس AML كامل)",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "NOT_APPLICABLE",
+        "Public Accuracy Ledger": "DATA_QUALITY_GATE",
+        "Arbitrage Scanner": "NOT_APPLICABLE",
+        "Whale Signal vs Noise": "PRIMARY_FEED",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [
+        "Whale Signal vs Noise"
+      ],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0297"
+      ]
+    },
+    {
+      "launch_number": 57,
+      "launch_name": "Exchange transparency / risk indicators (احتياطي معلن إن وُجد، شذوذ تدفق، حوادث — بدون شهادة ملاءة أو ضمان)",
+      "engineering_status": "PASS_ENGINEERING",
+      "system_role": null,
+      "hero_matrix": {
+        "Single-Sentence Oracle": "NOT_APPLICABLE",
+        "Public Accuracy Ledger": "DATA_QUALITY_GATE",
+        "Arbitrage Scanner": "NOT_APPLICABLE",
+        "Whale Signal vs Noise": "NOT_APPLICABLE",
+        "Stealth Advisor": "NOT_APPLICABLE",
+        "B2B Feed": "NOT_APPLICABLE"
+      },
+      "primary_heroes": [],
+      "parked_out_of_launch": false,
+      "parked_hero_dependency": false,
+      "hero_mapping_status": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "matched_capability_ids": [
+        "CAP-0916"
+      ]
+    }
+  ]
+}
