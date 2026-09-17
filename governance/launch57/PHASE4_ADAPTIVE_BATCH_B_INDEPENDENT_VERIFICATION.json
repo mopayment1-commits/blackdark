@@ -1,0 +1,187 @@
+{
+  "artifact": "PHASE4_ADAPTIVE_BATCH_B_INDEPENDENT_VERIFICATION",
+  "verification_type": "independent_engineering",
+  "VERIFIED_IMPLEMENTATION_SHA": "4d19ca61",
+  "verified_implementation_sha_full": "4d19ca61bb2d04f74c4053fb1cf15748358c2513",
+  "builder_evidence_sha": "2607e1c3",
+  "builder_evidence_sha_full": "2607e1c375d36b1140791f1a5ed2c08ba026cbf7",
+  "verified_at": "2026-09-17T23:15:00+00:00",
+  "verifier": {
+    "role": "independent_verifier",
+    "session": "cursor-cloud-agent-phase4-adaptive-batch-b-iv",
+    "method": "read_only_delta_assessment_runtime_replay_static_import_scan_targeted_tests"
+  },
+  "entry_gate": {
+    "phase4_batch_a_independent_verdict": "PASS_ENGINEERING",
+    "phase4_batch_b_may_begin": true,
+    "verified_at_sha": "616314b6",
+    "builder_evidence": "governance/launch57/PHASE4_ADAPTIVE_BATCH_B_EVIDENCE.json",
+    "pass": true
+  },
+  "repository_state": {
+    "audited_head_sha": "2607e1c3",
+    "product_under_test_sha": "4d19ca61",
+    "later_product_changes_invalidating_verification": false,
+    "implementation_delta_base": "616314b6",
+    "implementation_delta_range": "616314b6..4d19ca61",
+    "product_files_changed": [
+      "launch57/trust_adaptive_common.py",
+      "launch57/smart_money_batch2.py"
+    ],
+    "register_changed": false,
+    "pass": true
+  },
+  "capability_verification": {
+    "15": {
+      "launch_number": 15,
+      "P4B:#15": "PASS_ENGINEERING",
+      "checks": {
+        "attribution_governs_entity_interpretation": true,
+        "raw_movement_alone_not_entity_certainty": true,
+        "interpretation_changes_with_attribution_state": true,
+        "same_total_usd_different_answer_state": true,
+        "certainty_not_implied_when_unattributed": true,
+        "runtime_path_not_disclosure_only": true,
+        "behavioral_test_fails_if_interpretation_bypassed": true,
+        "canonical_owner_preserved": "launch57.smart_money_batch2:entity_aware_wallet_intelligence",
+        "parallel_truth_path": false,
+        "parked_legacy_runtime_dependency": false
+      },
+      "consumer_path": "entity_aware_wallet_intelligence → search_address → derive_entity_wallet_interpretation → entity_wallet_disclosure",
+      "runtime_probes": {
+        "attributed_answer_state": "ATTRIBUTED",
+        "unattributed_answer_state": "UNATTRIBUTED",
+        "same_total_usd": true,
+        "certainty_not_implied_differs": true
+      },
+      "pass": true
+    },
+    "18": {
+      "launch_number": 18,
+      "P4B:#18": "PASS_ENGINEERING",
+      "checks": {
+        "raw_movement_alone_not_alert_worthy": true,
+        "canonical_classify_whale_alert_runtime": true,
+        "qualifying_signal_becomes_alert_worthy": true,
+        "movement_presence_not_sufficient_disclosed": true,
+        "limited_coverage_not_stronger_certainty": true,
+        "behavioral_test_fails_if_qualification_bypassed": true,
+        "canonical_owner_preserved": "launch57.smart_money_batch2:whale_accumulation_distribution_intelligence + whale_movement_alerts",
+        "parallel_truth_path": false,
+        "parked_legacy_runtime_dependency": false
+      },
+      "consumer_path": "whale_accumulation_distribution_intelligence → get_latest_whale_alerts → apply_whale_alert_qualification_filter → classify_whale_alert",
+      "runtime_probes": {
+        "noise_alert_worthy_count": 0,
+        "signal_alert_worthy_count": 1,
+        "noise_answer_state": "NO_QUALIFYING_ALERT",
+        "signal_answer_state": "ALERT_WORTHY"
+      },
+      "pass": true
+    },
+    "19": {
+      "launch_number": 19,
+      "P4B:#19": "PASS_ENGINEERING",
+      "checks": {
+        "internal_confirmed_excluded_from_inter_entity_semantics": true,
+        "economic_flow_remains_eligible": true,
+        "classify_flow_invoked_on_inter_entity_path": true,
+        "limited_scope_preserved": true,
+        "runtime_filter_not_disclosure_only": true,
+        "behavioral_test_fails_if_filter_bypassed": true,
+        "canonical_owner_preserved": "launch57.smart_money_batch2:inter_entity_flow_intelligence",
+        "parallel_truth_path": false,
+        "parked_legacy_runtime_dependency": false
+      },
+      "consumer_path": "inter_entity_flow_intelligence → build_onchain_context_safe → classify_flow → apply_inter_entity_internal_flow_filter",
+      "runtime_probes": {
+        "internal_confirmed_eligible_count": 0,
+        "economic_flow_eligible_count": 1,
+        "internal_answer_state": "INTERNAL_EXCLUDED",
+        "economic_answer_state": "INTER_ENTITY_ELIGIBLE"
+      },
+      "pass": true
+    },
+    "53": {
+      "launch_number": 53,
+      "P4B:#53": "PASS_ENGINEERING",
+      "checks": {
+        "unapproved_evidence_not_decision_driving": true,
+        "approved_verdict_stable_under_unapproved_probe": true,
+        "freshness_preserved_in_disclosure": true,
+        "limitations_visible": true,
+        "approved_evidence_sources_declared": true,
+        "behavioral_test_fails_if_unapproved_alters_verdict": true,
+        "canonical_owner_preserved": "launch57.smart_money_batch2:instant_wallet_due_diligence",
+        "parallel_truth_path": false,
+        "parked_legacy_runtime_dependency": false
+      },
+      "consumer_path": "instant_wallet_due_diligence → search_address + analyze_wallet_surveillance_79 → compute_approved_wallet_due_diligence_verdict",
+      "runtime_probes": {
+        "baseline_verdict": "clear",
+        "verdict_with_unapproved_probe": "clear",
+        "unapproved_in_observable_only": true
+      },
+      "pass": true
+    },
+    "54": {
+      "launch_number": 54,
+      "P4B:#54": "PASS_ENGINEERING",
+      "checks": {
+        "unapproved_financial_model_not_decision_driving": true,
+        "approved_verdict_stable_under_model_error": true,
+        "financial_model_gap_observable_only": true,
+        "freshness_preserved_in_disclosure": true,
+        "limitations_visible": true,
+        "behavioral_test_fails_if_unapproved_alters_verdict": true,
+        "canonical_owner_preserved": "launch57.smart_money_batch2:instant_token_due_diligence",
+        "parallel_truth_path": false,
+        "parked_legacy_runtime_dependency": false
+      },
+      "consumer_path": "instant_token_due_diligence → holder_analytics + compute_financial_models → compute_approved_token_due_diligence_verdict",
+      "runtime_probes": {
+        "baseline_verdict": "clear",
+        "verdict_with_model_error": "clear",
+        "financial_model_gap_observable_only": true
+      },
+      "pass": true
+    }
+  },
+  "shared_support_regression": {
+    "changed_functions": [
+      "derive_entity_wallet_interpretation",
+      "apply_whale_alert_qualification_filter",
+      "apply_inter_entity_internal_flow_filter",
+      "compute_approved_wallet_due_diligence_verdict",
+      "compute_approved_token_due_diligence_verdict"
+    ],
+    "consumers_of_changed_code": ["launch57/smart_money_batch2.py"],
+    "smart_money_batch2_regression_passed": true,
+    "phase4_batch_b_regression_passed": true,
+    "competing_truth_owner": false,
+    "pass": true
+  },
+  "targeted_tests": {
+    "command": "python3 -m pytest tests/launch57/test_phase4_adaptive_batch_b.py tests/launch57/test_smart_money_batch2.py -q",
+    "exit_code": 0,
+    "passed": 9,
+    "failed": 0,
+    "pass": true
+  },
+  "verdicts": {
+    "P4B:#15": "PASS_ENGINEERING",
+    "P4B:#18": "PASS_ENGINEERING",
+    "P4B:#19": "PASS_ENGINEERING",
+    "P4B:#53": "PASS_ENGINEERING",
+    "P4B:#54": "PASS_ENGINEERING",
+    "PHASE4_BATCH_B_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+    "PHASE4_BATCH_C_MAY_BEGIN": true
+  },
+  "confirmations": {
+    "PASS_LIVE_NOT_CLAIMED": true,
+    "REGISTER_STATUS_PROMOTION": false,
+    "PRODUCT_CODE_CHANGED_BY_IV": false
+  },
+  "residual_gaps": [],
+  "failed_requirement": null
+}
