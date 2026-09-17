@@ -1,0 +1,89 @@
+{
+  "artifact": "BLACKDARK_LAUNCH57_TEMPORAL_CONSISTENCY_RECONCILIATION",
+  "generated_at": "2026-09-17T04:27:46.166923+00:00",
+  "baseline_sha": "20184cecc4964444ccb03822c124f564c2b2d069",
+  "spec_sha256": "63aaed8b185a07e014d0a6028120ad94a6a3a18fa072472533aa2ac84f55684a",
+  "current_batch": "B1",
+  "batch_launch_numbers": [
+    42,
+    22,
+    23,
+    24,
+    21
+  ],
+  "batch_temporal_verdict": "PENDING_VERIFICATION",
+  "LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING": false,
+  "LAUNCH57_TEMPORAL_CONSISTENCY_READY_FOR_LOCAL_USE": false,
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "naive_datetime_findings": [],
+  "timezone_errors": [],
+  "stale_live_inconsistencies": [],
+  "ordering_failures": [],
+  "point_in_time_violations": [],
+  "lookahead_violations": [],
+  "dst_failures": [],
+  "chart_inconsistencies": [],
+  "alert_timing_failures": [],
+  "decision_timestamp_failures": [],
+  "timestamp_precision_unit_violations": [],
+  "equal_time_ordering_defects": [],
+  "provider_clock_skew_defects": [],
+  "host_clock_skew_defects": [],
+  "availability_time_unknown_fabrication_findings": [],
+  "dst_gap_fold_failures": [],
+  "tzdb_version_update_findings": [],
+  "recurrence_failures": [],
+  "leap_second_policy_failures": [],
+  "api_database_serialization_defects": [],
+  "temporal_dependency_pending": [
+    {
+      "capability_id": 6,
+      "launch_number": 6,
+      "missing_contract": "user-visible evidence-class owner (#6) not PASS_ENGINEERING at execution SHA",
+      "consumer_impact": "B3 trust batch consumers; B1 uses read-only ai_compliance_footer only",
+      "batch_blocked": false
+    },
+    {
+      "capability_id": 630,
+      "launch_number": 41,
+      "missing_contract": "freshness semantics runtime owner reconciliation deferred to B2 temporal batch",
+      "consumer_impact": "B1 uses classify_freshness read-only; canonical #41 temporal integration in B2",
+      "batch_blocked": false
+    }
+  ],
+  "external_blockers": [],
+  "changed_paths": [
+    "launch57/temporal_common.py",
+    "launch57/data_batch1.py",
+    "tests/launch57/test_temporal_batch1.py",
+    "governance/launch57/generate_temporal_consistency.py"
+  ],
+  "reused_unchanged_paths": [
+    "launch57/data_batch1.py (existing freshness via failure.freshness read-only)",
+    "cap646.evidence_class (read-only ai_compliance_footer)",
+    "data_governance.freshness.attach_data_freshness (read-only)"
+  ],
+  "tests": {
+    "command": "python3 -m pytest tests/launch57/test_temporal_batch1.py -q",
+    "exit_code": 0,
+    "stdout": ".......................                                                  [100%]\n",
+    "stderr": "",
+    "passed": true
+  },
+  "defects_fixed": [
+    "B1 market paths lacked canonical temporal envelope",
+    "OHLCV bar ordering relied on provider order without deterministic tie-break metadata",
+    "Provider future timestamps could reach real_time_prices without rejection",
+    "available_at could be implied from source-only timestamps"
+  ],
+  "isolation_boundary_evidence": {
+    "modified_within_launch57_only": true,
+    "external_deps_read_only": [
+      "failure.freshness.classify_freshness",
+      "cap646.evidence_class",
+      "data_governance.freshness",
+      "market_context"
+    ]
+  },
+  "final_status": "BATCH_B1_PENDING_VERIFICATION"
+}

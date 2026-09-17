@@ -6,12 +6,20 @@ Build order: #42 CAP-0504 → #22 CAP-0561 → #23 CAP-0507 → #24 CAP-0506/051
 
 from __future__ import annotations
 
-import time
 from datetime import UTC, datetime
 from decimal import Decimal
 from typing import Any
 
 from cap646.evidence_class import ai_compliance_footer, reject_if_stale
+from launch57.temporal_common import (
+    TimestampUnit,
+    build_market_temporal_envelope,
+    attach_temporal_envelope,
+    sort_by_temporal_key,
+    to_rfc3339,
+    utc_now,
+    validate_provider_timestamp,
+)
 from data_governance.freshness import attach_data_freshness
 from failure.freshness import FreshnessState, classify_freshness
 from market_context import (
@@ -45,7 +53,30 @@ _CONNECTOR_FETCHERS: tuple[tuple[str, str], ...] = (
 
 
 def _utcnow_iso() -> str:
-    return datetime.now(UTC).isoformat()
+    return to_rfc3339(utc_now())
+
+
+def _attach_market_temporal(
+    payload: dict[str, Any],
+    *,
+    source_raw: Any = None,
+    source_unit: TimestampUnit | None = None,
+    source_sequence: int | None = None,
+    ingestion_sequence: int | None = None,
+    immutable_event_id: str | None = None,
+) -> dict[str, Any]:
+    now = utc_now()
+    envelope = build_market_temporal_envelope(
+        source_raw=source_raw,
+        source_unit=source_unit,
+        observed_at=now,
+        ingested_at=now,
+        processed_at=now,
+        source_sequence=source_sequence,
+        ingestion_sequence=ingestion_sequence,
+        immutable_event_id=immutable_event_id,
+    )
+    return attach_temporal_envelope(payload, envelope)
 
 
 def _price_precision(price: float | None) -> int | None:
@@ -70,6 +101,7 @@ def _attach_provenance(payload: dict[str, Any], *, symbol: str, source: str | No
     out["source"] = source
     out["sources"] = [source] if source else []
     out["observed_at"] = _utcnow_iso()
+    out = _attach_market_temporal(out, source_raw=out.get("observed_at"))
     return attach_data_freshness(out, slo_class="T0")
 
 
@@ -191,6 +223,29 @@ async def real_time_prices(*, symbol: str, params: dict[str, Any] | None = None)
         FreshnessState.DELAYED.value,
     }
 
+    source_raw = ticker.get("timestamp") or ticker.get("event_time") or ticker.get("source_time")
+    source_validation = validate_provider_timestamp(source_raw) if source_raw is not None else None
+    if source_raw is not None and source_validation and not source_validation.ok:
+        body = {
+            "capability_id": 561,
+            "launch_item_id": 22,
+            "surface": "real_time_prices",
+            "symbol": asset,
+            "pair": pair,
+            "availability": "UNAVAILABLE",
+            "success": False,
+            "error": f"provider_timestamp_invalid:{source_validation.error}",
+            "provider_timestamp_validation": {
+                "ok": False,
+                "error": source_validation.error,
+                "raw": source_raw,
+            },
+            "backend_module": "launch57.data_batch1",
+            "backend_entrypoint": "real_time_prices",
+            "binding_source": "launch57_phase1_batch1",
+        }
+        return ai_compliance_footer(_attach_market_temporal(_attach_provenance(body, symbol=asset, source=None), source_raw=source_raw))
+
     body: dict[str, Any] = {
         "capability_id": 561,
         "launch_item_id": 22,
@@ -204,7 +259,7 @@ async def real_time_prices(*, symbol: str, params: dict[str, Any] | None = None)
         "volume": ticker.get("volume"),
         "quote_volume": ticker.get("quote_volume"),
         "provider": ticker.get("source"),
-        "event_timestamp": ticker.get("timestamp") or _utcnow_iso(),
+        "event_timestamp": to_rfc3339(source_validation.canonical) if source_validation and source_validation.canonical else _utcnow_iso(),
         "update_timestamp": _utcnow_iso(),
         "data_age_sec": age_sec,
         "freshness_state": freshness_state,
@@ -224,6 +279,12 @@ async def real_time_prices(*, symbol: str, params: dict[str, Any] | None = None)
     out["freshness_state"] = freshness_state
     out["freshness_evidence"] = fresh.to_dict()
     ok, out = reject_if_stale(out) if freshness_state == FreshnessState.STALE.value else (True, out)
+    out = _attach_market_temporal(
+        out,
+        source_raw=source_raw,
+        source_unit=source_validation.unit if source_validation else None,
+        immutable_event_id=f"{asset}:{pair}:{source_raw}",
+    )
     return ai_compliance_footer(out)
 
 
@@ -253,6 +314,19 @@ async def ohlcv(*, symbol: str, params: dict[str, Any] | None = None) -> dict[st
 
     bars, source_host = await fetch_binance_klines_bars(pair, interval=interval, limit=limit)
     violations = validate_ohlcv_invariants(bars) if bars else ["no_bars"]
+    ordered_bars = bars
+    if bars:
+        bar_rows = [
+            {
+                "open_time_ms": bar.get("open_time_ms"),
+                "source_sequence": idx,
+                "ingestion_sequence": idx,
+                "immutable_event_id": f"{pair}:{interval}:{bar.get('open_time_ms')}",
+                **bar,
+            }
+            for idx, bar in enumerate(bars)
+        ]
+        ordered_bars = sort_by_temporal_key(bar_rows, time_field="open_time_ms")
 
     body: dict[str, Any] = {
         "capability_id": 507,
@@ -263,8 +337,8 @@ async def ohlcv(*, symbol: str, params: dict[str, Any] | None = None) -> dict[st
         "interval": interval,
         "timezone": "UTC",
         "bar_order": "ascending_by_open_time",
-        "bars": bars,
-        "bar_count": len(bars),
+        "bars": ordered_bars,
+        "bar_count": len(ordered_bars),
         "partial_semantics": "incomplete_tail_candle_may_exist",
         "invariant_violations": violations,
         "provider": f"binance:{source_host}",
@@ -277,7 +351,14 @@ async def ohlcv(*, symbol: str, params: dict[str, Any] | None = None) -> dict[st
         body["error"] = "ohlcv_invariant_violation" if bars else "ohlcv_unavailable"
         body["success"] = False
 
-    return ai_compliance_footer(_attach_provenance(body, symbol=asset, source=body.get("provider")))
+    first_open = ordered_bars[0].get("open_time_ms") if ordered_bars else None
+    body = _attach_market_temporal(
+        _attach_provenance(body, symbol=asset, source=body.get("provider")),
+        source_raw=first_open,
+        source_unit=TimestampUnit.MILLISECONDS if first_open is not None else None,
+        immutable_event_id=f"{pair}:{interval}:ohlcv",
+    )
+    return ai_compliance_footer(body)
 
 
 async def quote_data(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
