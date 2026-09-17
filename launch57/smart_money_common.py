@@ -54,6 +54,17 @@ def attach_smart_money_envelope(
             spine=spine,
             fail_closed_on_mismatch=out.get("success") is not False,
         )
+    from launch57.b12_due_diligence_risk_bridge import finalize_b12_due_diligence_risk_surface
+    from launch57.due_diligence_risk_timing_common import B12_LAUNCH_NUMBERS
+
+    if launch_id in B12_LAUNCH_NUMBERS:
+        p = dict(params or {})
+        out = finalize_b12_due_diligence_risk_surface(
+            out,
+            payload=p,
+            spine=spine,
+            display_timezone=p.get("display_timezone"),
+        )
     return out
 
 
