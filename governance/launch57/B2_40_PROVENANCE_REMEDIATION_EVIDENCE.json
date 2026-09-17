@@ -2,6 +2,8 @@
   "artifact": "B2_40_PROVENANCE_REMEDIATION_EVIDENCE",
   "defect_id": "UNTRUSTED_PROVENANCE_GRADE_ESCALATION",
   "BASE_IMPLEMENTATION_SHA": "27f203a7",
+  "remediation_final_sha": "6ad4ae4c",
+  "remediation_final_sha_full": "6ad4ae4ce0730cfb5e4bbdda5be4ebc84ac3ebc6",
   "independent_verification_evidence": "governance/launch57/B2_TEMPORAL_INDEPENDENT_VERIFICATION.json",
   "independent_verification_evidence_commit": "5a133aae",
   "remediated_at": "2026-09-17T09:58:00+00:00",
