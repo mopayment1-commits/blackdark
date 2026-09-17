@@ -1,82 +1,138 @@
 {
   "artifact": "BLACKDARK_LAUNCH57_TEMPORAL_CONSISTENCY_RECONCILIATION",
-  "generated_at": "2026-09-17T12:02:36.058562+00:00",
-  "baseline_sha": "424a389f9a1a3fb3d7282c0ec809f51a62d11b74",
+  "batch": "B15",
+  "generated_at": "2026-09-17T20:06:06.434507+00:00",
+  "baseline_sha": "9a6dfaf86191431111bc664fd1bd804bd35cbae2",
   "spec_sha256": "63aaed8b185a07e014d0a6028120ad94a6a3a18fa072472533aa2ac84f55684a",
-  "current_batch": "B3",
-  "batch_launch_numbers": [
-    6
+  "governing_spec_sections": [
+    "§37",
+    "§38",
+    "§39",
+    "§40",
+    "§41",
+    "§42"
   ],
-  "batch_temporal_verdict": "B3:PENDING_VERIFICATION",
-  "B3:#6": "PENDING_VERIFICATION",
-  "B1_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
-  "B1_INDEPENDENT_VERIFICATION_SHA": "4a3b24cc7d69ab775ec2a60009dda7d6384d5f11",
+  "batch_independent_verdicts": {
+    "B1": "PASS_ENGINEERING",
+    "B2": "PASS_ENGINEERING",
+    "B3": "PASS_ENGINEERING",
+    "B4": "PASS_ENGINEERING",
+    "B5": "PASS_ENGINEERING",
+    "B6": "PASS_ENGINEERING",
+    "B7": "PASS_ENGINEERING",
+    "B8": "PASS_ENGINEERING",
+    "B9": "PASS_ENGINEERING",
+    "B10": "PASS_ENGINEERING",
+    "B11": "PASS_ENGINEERING",
+    "B12": "PASS_ENGINEERING",
+    "B13": "PASS_ENGINEERING",
+    "B14": "PASS_ENGINEERING"
+  },
+  "all_batches_b1_b14_pass_engineering": true,
   "B1_TO_41_TARGETED_RECONCILIATION": "PASS_ENGINEERING",
-  "B2:#40": "PASS_ENGINEERING",
-  "B2:#41": "PASS_ENGINEERING",
-  "B2:#39": "PASS_ENGINEERING",
-  "B2_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+  "integrated_temporal_reconciliation_pass": true,
+  "unresolved_temporal_inconsistencies": [],
+  "unresolved_dependency_order_defects": [],
+  "unresolved_scope_isolation_defects": [],
+  "unresolved_cross_batch_timestamp_conflicts": [],
+  "documented_residual_gaps": [
+    {
+      "id": "B14-ENVELOPE-COVERAGE",
+      "classification": "DOCUMENTED_RESIDUAL",
+      "description": "B14 infrastructure envelope not attached on every Launch-57 finalizer; unwired API paths rely on verified B1–B12 domain owners.",
+      "iv_source": "B14_TEMPORAL_INDEPENDENT_VERIFICATION.json residual_risks_accepted",
+      "blocks_global_pass": false
+    },
+    {
+      "id": "B13-CHART-COVERAGE",
+      "classification": "DOCUMENTED_RESIDUAL",
+      "description": "B13 chart display timing initially wired on ohlcv (#23); other chart consumers should route through attach_chart_envelope.",
+      "iv_source": "B13_TEMPORAL_INDEPENDENT_VERIFICATION.json",
+      "blocks_global_pass": false
+    }
+  ],
+  "external_blockers": [
+    {
+      "gate": "production_host_clock_sync",
+      "status": "NEEDS_EXTERNAL_VERIFICATION",
+      "spec": "§38 / §25"
+    },
+    {
+      "gate": "browser_device_timezone_detection",
+      "status": "NEEDS_EXTERNAL_VERIFICATION",
+      "spec": "§38"
+    },
+    {
+      "gate": "cross_device_persistence",
+      "status": "NEEDS_EXTERNAL_VERIFICATION",
+      "spec": "§38"
+    },
+    {
+      "gate": "production_alert_delivery_timing",
+      "status": "NEEDS_EXTERNAL_VERIFICATION",
+      "spec": "§38"
+    },
+    {
+      "gate": "production_dst_sensitive_scheduling",
+      "status": "NEEDS_EXTERNAL_VERIFICATION",
+      "spec": "§38 / §27"
+    },
+    {
+      "gate": "production_email_notification_rendering",
+      "status": "NEEDS_EXTERNAL_VERIFICATION",
+      "spec": "§38"
+    }
+  ],
+  "naive_datetime_findings": [],
+  "timezone_errors": [],
+  "stale_live_inconsistencies": [],
+  "ordering_failures": [],
+  "point_in_time_violations": [],
+  "lookahead_violations": [],
+  "dst_failures": [],
+  "chart_inconsistencies": [],
+  "alert_timing_failures": [],
+  "decision_timestamp_failures": [],
+  "timestamp_precision_unit_violations": [],
+  "equal_time_ordering_defects": [],
+  "provider_clock_skew_defects": [],
+  "host_clock_skew_defects": [],
+  "availability_time_unknown_or_fabrication_findings": [],
+  "dst_gap_fold_failures": [],
+  "tzdb_version_update_findings": [],
+  "recurrence_failures": [],
+  "leap_second_policy_failures": [],
+  "api_database_serialization_defects": [],
+  "iv_artifact_references": {
+    "B1": "B1_TEMPORAL_INDEPENDENT_VERIFICATION.json",
+    "B2": "B2_40_INDEPENDENT_VERIFICATION.json",
+    "B3": "B3_6_TRUST_BOUNDARY_INDEPENDENT_VERIFICATION.json",
+    "B4": "B4_TEMPORAL_INDEPENDENT_VERIFICATION.json",
+    "B5": "B5_TEMPORAL_INDEPENDENT_VERIFICATION.json",
+    "B6": "B6_TEMPORAL_INDEPENDENT_VERIFICATION.json",
+    "B7": "B7_TEMPORAL_INDEPENDENT_VERIFICATION.json",
+    "B8": "B8_TEMPORAL_INDEPENDENT_VERIFICATION.json",
+    "B9": "B9_TEMPORAL_INDEPENDENT_VERIFICATION.json",
+    "B10": "B10_TEMPORAL_INDEPENDENT_VERIFICATION.json",
+    "B11": "B11_TEMPORAL_INDEPENDENT_VERIFICATION.json",
+    "B12": "B12_TEMPORAL_INDEPENDENT_VERIFICATION.json",
+    "B13": "B13_TEMPORAL_INDEPENDENT_VERIFICATION.json",
+    "B14": "B14_TEMPORAL_INDEPENDENT_VERIFICATION.json"
+  },
+  "tests": {
+    "command": "python3 -m pytest tests/launch57/test_temporal_batch1.py tests/launch57/test_temporal_batch2.py tests/launch57/test_temporal_batch3.py tests/launch57/test_temporal_batch4.py tests/launch57/test_temporal_batch5.py tests/launch57/test_temporal_batch6.py tests/launch57/test_temporal_batch7.py tests/launch57/test_temporal_batch8.py tests/launch57/test_temporal_batch9.py tests/launch57/test_temporal_batch10.py tests/launch57/test_temporal_batch11.py tests/launch57/test_temporal_batch12.py tests/launch57/test_temporal_batch13.py tests/launch57/test_temporal_batch14.py -q",
+    "exit_code": 0,
+    "passed": 0,
+    "failed": 0,
+    "stdout_tail": "........................................................................ [ 44%]\n........................................................................ [ 89%]\n.................                                                        [100%]\n",
+    "stderr_tail": "",
+    "success": true
+  },
   "LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING": false,
   "LAUNCH57_TEMPORAL_CONSISTENCY_READY_FOR_LOCAL_USE": false,
   "PASS_LIVE_NOT_CLAIMED": true,
-  "B3_ISOLATION_LEAKAGE": 0,
-  "B3_LEGACY_RUNTIME_DEPENDENCIES": 0,
-  "prohibited_dependencies_removed_b3": [
-    "cap646.evidence_class",
-    "decision_truth.evidence_taxonomy"
-  ],
-  "temporal_dependency_pending": [],
-  "B6_TARGETED_RECONCILIATION": "PENDING_VERIFICATION",
-  "B6_TARGETED_RECONCILIATION_DETAIL": {
-    "contract": "B6_TARGETED_RECONCILIATION",
-    "status": "PENDING_VERIFICATION",
-    "auto_activate": false,
-    "activated": true,
-    "rebuild_b1_b2_forbidden": true,
-    "affected_launch_items": [
-      6
-    ],
-    "required_verdict": "B3:#6=PENDING_VERIFICATION",
-    "bridge_module": "launch57/b3_evidence_bridge.py",
-    "owner_module": "launch57/evidence_class_common.py",
-    "note": "B3 bridge activated; #6 pending removed on B1/B2 consumer paths"
-  },
-  "changed_paths": [
-    "launch57/evidence_class_common.py",
-    "launch57/batch3_isolation.py",
-    "launch57/b3_evidence_bridge.py",
-    "launch57/batch1_isolation.py",
-    "launch57/batch2_isolation.py",
-    "launch57/b1_freshness_bridge.py",
-    "tests/launch57/test_temporal_batch3.py",
-    "tests/launch57/test_b3_isolation_closure.py",
-    "tests/launch57/test_b1_isolation_closure.py",
-    "tests/launch57/test_b1_to_41_reconciliation.py",
-    "tests/launch57/test_b2_independent_verification.py",
-    "governance/launch57/generate_temporal_consistency.py"
-  ],
-  "reused_unchanged_paths": [
-    "launch57/temporal_common.py",
-    "launch57/freshness_common.py",
-    "launch57/provenance_common.py",
-    "launch57/point_in_time_common.py",
-    "launch57/data_batch1.py (no semantic rewrite)",
-    "launch57/data_batch2.py (no semantic rewrite)",
-    "governance/launch57/B1_TEMPORAL_INDEPENDENT_VERIFICATION.json (reference only)",
-    "governance/launch57/B1_TO_41_INDEPENDENT_VERIFICATION.json (reference only)"
-  ],
-  "tests": {
-    "command": "python3 -m pytest tests/launch57/test_b3_isolation_closure.py tests/launch57/test_temporal_batch3.py tests/launch57/test_b1_to_41_reconciliation.py tests/launch57/test_b1_isolation_closure.py tests/launch57/test_b2_independent_verification.py::test_b2_attaches_hash6_evidence_class_when_b3_activated -q",
-    "exit_code": 0,
-    "stdout": "...........................                                              [100%]\n",
-    "stderr": "",
-    "passed": true
-  },
-  "isolation_boundary_evidence": {
-    "modified_within_launch57_only": true,
-    "b3_isolation_owner": "launch57/batch3_isolation.py",
-    "b3_legacy_runtime_dependencies": 0,
-    "b3_isolation_leakage": 0
-  },
-  "final_status": "BATCH_B3_PENDING_VERIFICATION"
+  "PASS_ENGINEERING_NOT_CLAIMED": true,
+  "B15_IMPLEMENTATION_STATUS": "PENDING_VERIFICATION",
+  "B15_INDEPENDENT_VERDICT": "PENDING_VERIFICATION",
+  "final_status": "B15_INTEGRATED_RECONCILIATION_PENDING_VERIFICATION"
 }
