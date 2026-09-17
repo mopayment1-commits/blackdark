@@ -21,6 +21,11 @@ from launch57.decision_timing_common import (
     snapshot_decision_time_evidence_state,
 )
 from launch57.evidence_class_common import assess_user_evidence_class
+from launch57.trust_adaptive_common import (
+    attach_adaptive_disclosure,
+    build_level1_decision_disclosure,
+    build_net_edge_safety_floor,
+)
 
 LAUNCH57_TRUST_BATCH1_CAP_IDS: frozenset[int] = frozenset({639, 640, 641})
 
@@ -114,12 +119,27 @@ async def net_edge_truth_score(*, symbol: str, params: dict[str, Any] | None = N
         "backend_entrypoint": "net_edge_truth_score",
         "binding_source": "launch57_phase2_trust_batch1",
     }
-    return finalize_b6_net_edge_surface(
+    finalized = finalize_b6_net_edge_surface(
         body,
         payload=p,
         opportunity=opportunity,
         display_timezone=p.get("display_timezone"),
     )
+    if finalized.get("success"):
+        score = finalized.get("net_edge_truth_score") or {}
+        safety_floor = build_net_edge_safety_floor(score, opportunity)
+        disclosure = build_level1_decision_disclosure(
+            p,
+            launch_item_id=5,
+            surface="net_edge_truth_score",
+            answer_state="NET_EDGE_EVALUATED",
+            evidence_display=finalized.get("evidence_display"),
+            decision_timing=finalized.get("opportunity_timing"),
+            uncertainty="qualified" if score.get("reject") else "actionable_with_caveats",
+        )
+        finalized = attach_adaptive_disclosure(finalized, disclosure, extra={"net_edge_safety_floor": safety_floor})
+        finalized["net_edge_safety_floor"] = safety_floor
+    return finalized
 
 
 async def public_accuracy_ledger(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -180,17 +200,12 @@ async def decision_certificate_export(*, symbol: str, params: dict[str, Any] | N
         return apply_b4_trust_envelope(body)
 
     evidence = snapshot_decision_time_evidence_state(p, display_timezone=p.get("display_timezone"))
-    cert_payload = {
-        "symbol": symbol,
-        "tier": p.get("tier") or "free",
-        "decision_action": p.get("decision_action") or p.get("verdict") or "WAIT",
-        "decision_sentence": p.get("decision_sentence") or p.get("oracle"),
-        "prediction_id": p.get("prediction_id"),
-        "chain_hash": p.get("chain_hash"),
-        "opportunity_score": p.get("opportunity_score"),
-        "net_edge_truth": p.get("net_edge_truth"),
-    }
-    cert = build_launch57_decision_certificate(cert_payload, timing=timing, evidence=evidence)
+    cert_source = dict(p)
+    cert_source.setdefault("symbol", symbol)
+    cert_source.setdefault("tier", "free")
+    cert_source.setdefault("decision_action", p.get("verdict") or "WAIT")
+    cert_source.setdefault("decision_sentence", p.get("oracle"))
+    cert = build_launch57_decision_certificate(cert_source, timing=timing, evidence=evidence)
     governed = dict(p.get("governed_payload") or {})
     governed.setdefault("decision_time", timing.decision_time)
     governed.setdefault("issued_at", timing.issued_at)
@@ -225,7 +240,15 @@ async def decision_certificate_export(*, symbol: str, params: dict[str, Any] | N
     finalized["certificate"] = cert
     finalized["decision_certificate"] = cert
     finalized["certificate_hash"] = cert.get("certificate_hash")
-    return finalized
+    disclosure = build_level1_decision_disclosure(
+        p,
+        launch_item_id=3,
+        surface="decision_certificate_institutional_dd_export",
+        answer_state=str(cert.get("decision_action") or "WAIT"),
+        evidence_display=finalized.get("evidence_display"),
+        decision_timing=finalized.get("decision_timing"),
+    )
+    return attach_adaptive_disclosure(finalized, disclosure)
 
 
 async def single_sentence_oracle(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -264,7 +287,15 @@ async def single_sentence_oracle(*, symbol: str, params: dict[str, Any] | None =
         body["success"] = False
         body["error"] = "decision_timing_finalize_failed"
         return apply_b4_trust_envelope(body)
-    return finalized
+    disclosure = build_level1_decision_disclosure(
+        p,
+        launch_item_id=2,
+        surface="single_sentence_oracle",
+        answer_state=action,
+        evidence_display=finalized.get("evidence_display"),
+        decision_timing=finalized.get("decision_timing"),
+    )
+    return attach_adaptive_disclosure(finalized, disclosure)
 
 
 _DISPATCH_ENTRYPOINTS: dict[int, str] = {

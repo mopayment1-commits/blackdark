@@ -11,6 +11,7 @@ from typing import Any
 from launch57.batch5_isolation import finalize_b5_response
 from launch57.evidence_class_common import attach_evidence_class_metadata
 from launch57.public_accuracy_common import enrich_public_track_record, snapshot_ledger_evidence_state
+from launch57.trust_adaptive_common import attach_adaptive_disclosure, build_ledger_interpretation_context
 
 B5_PUBLIC_ACCURACY_ACTIVATED: bool = True
 
@@ -64,5 +65,23 @@ def finalize_b5_ledger_surface(
         (enriched.get("synthetic_demo_data") or {}).get("excluded_from_primary_metrics", True)
     )
     out["ledger_evidence_state"] = evidence.to_payload()
+    interpretation = build_ledger_interpretation_context(enriched)
+    out["ledger_interpretation_context"] = interpretation
+    out = attach_adaptive_disclosure(
+        out,
+        {
+            "layer": "level_1_decision",
+            "launch_item_id": 4,
+            "surface": "public_accuracy_ledger",
+            "answer_state": "LIVE_PRIMARY_LEDGER",
+            "evidence_class": evidence.user_facing_label,
+            "critical_limitation": {
+                "summary": "Public ledger excludes replay/simulation from primary live metrics.",
+            },
+            "safety_floor_visible": True,
+            "methodology_version": interpretation["methodology_version"],
+        },
+        extra={"ledger_interpretation_context": interpretation},
+    )
     out["b5_public_accuracy"] = b5_public_accuracy_state()
     return finalize_b5_response(out)

@@ -12,6 +12,7 @@ from dataclasses import dataclass
 from typing import Any
 
 from launch57.evidence_class_common import EvidenceClassAssessment, assess_user_evidence_class
+from launch57.trust_adaptive_common import build_certificate_adaptive_fields
 from launch57.temporal_common import (
     TemporalEnvelope,
     attach_temporal_envelope,
@@ -202,6 +203,7 @@ def build_launch57_decision_certificate(
     is_free = tier in ("", "free")
     watermark = "Free Proof" if is_free else None
 
+    adaptive_fields = build_certificate_adaptive_fields(payload)
     canonical_body = {
         "asset": str(payload.get("symbol") or payload.get("asset") or "").upper(),
         "prediction_id": payload.get("prediction_id"),
@@ -220,6 +222,9 @@ def build_launch57_decision_certificate(
         "canonical_evidence_class": evidence.canonical_evidence_class,
         "user_facing_evidence_label": evidence.user_facing_label,
         "decision_time_evidence_state": evidence.to_payload(),
+        "key_drivers": adaptive_fields["key_drivers"],
+        "contradictions": adaptive_fields["contradictions"],
+        "limitations": adaptive_fields["limitations"],
         "engine": payload.get("unified_engine") or "launch57_unified_v1",
         "certificate_hash_version": CERTIFICATE_HASH_VERSION,
         "methodology_version": METHODOLOGY_VERSION,
