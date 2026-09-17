@@ -1,8 +1,8 @@
 {
   "artifact": "BLACKDARK_LAUNCH57_TEMPORAL_CONSISTENCY_RECONCILIATION",
   "batch": "B15",
-  "generated_at": "2026-09-17T20:06:06.434507+00:00",
-  "baseline_sha": "9a6dfaf86191431111bc664fd1bd804bd35cbae2",
+  "generated_at": "2026-09-17T20:31:21.921599+00:00",
+  "baseline_sha": "54ae14ccb21369c6b8a110061e501ca74e12975e",
   "spec_sha256": "63aaed8b185a07e014d0a6028120ad94a6a3a18fa072472533aa2ac84f55684a",
   "governing_spec_sections": [
     "§37",
@@ -122,17 +122,21 @@
   "tests": {
     "command": "python3 -m pytest tests/launch57/test_temporal_batch1.py tests/launch57/test_temporal_batch2.py tests/launch57/test_temporal_batch3.py tests/launch57/test_temporal_batch4.py tests/launch57/test_temporal_batch5.py tests/launch57/test_temporal_batch6.py tests/launch57/test_temporal_batch7.py tests/launch57/test_temporal_batch8.py tests/launch57/test_temporal_batch9.py tests/launch57/test_temporal_batch10.py tests/launch57/test_temporal_batch11.py tests/launch57/test_temporal_batch12.py tests/launch57/test_temporal_batch13.py tests/launch57/test_temporal_batch14.py -q",
     "exit_code": 0,
+    "collected": 0,
     "passed": 0,
     "failed": 0,
     "stdout_tail": "........................................................................ [ 44%]\n........................................................................ [ 89%]\n.................                                                        [100%]\n",
     "stderr_tail": "",
     "success": true
   },
-  "LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING": false,
-  "LAUNCH57_TEMPORAL_CONSISTENCY_READY_FOR_LOCAL_USE": false,
+  "LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING": true,
+  "LAUNCH57_TEMPORAL_CONSISTENCY_READY_FOR_LOCAL_USE": true,
   "PASS_LIVE_NOT_CLAIMED": true,
-  "PASS_ENGINEERING_NOT_CLAIMED": true,
-  "B15_IMPLEMENTATION_STATUS": "PENDING_VERIFICATION",
-  "B15_INDEPENDENT_VERDICT": "PENDING_VERIFICATION",
-  "final_status": "B15_INTEGRATED_RECONCILIATION_PENDING_VERIFICATION"
+  "PASS_ENGINEERING_NOT_CLAIMED": false,
+  "B15_IMPLEMENTATION_STATUS": "PASS_ENGINEERING",
+  "B15_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+  "final_status": "B15_INTEGRATED_RECONCILIATION_PASS_ENGINEERING",
+  "iv_artifact": "B15_TEMPORAL_INDEPENDENT_VERIFICATION.json",
+  "iv_verified_at": "2026-09-17T20:30:00+00:00",
+  "iv_commit_sha": "78191fffa5b2cce0d211ededa1c49f8b4b4d44ce"
 }

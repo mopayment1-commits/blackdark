@@ -19,6 +19,7 @@ SPEC_UPLOAD = Path(
 )
 REPORT_PATH = GOV / "BLACKDARK_LAUNCH57_TEMPORAL_CONSISTENCY_REPORT.md"
 RECON_PATH = GOV / "BLACKDARK_LAUNCH57_TEMPORAL_CONSISTENCY_RECONCILIATION.json"
+B15_IV_PATH = GOV / "B15_TEMPORAL_INDEPENDENT_VERIFICATION.json"
 
 IV_ARTIFACTS: dict[str, str] = {
     "B1": "B1_TEMPORAL_INDEPENDENT_VERIFICATION.json",
@@ -72,6 +73,67 @@ def _spec_sha256() -> str:
 def _load_iv(batch: str) -> dict[str, Any]:
     path = GOV / IV_ARTIFACTS[batch]
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _load_b15_iv() -> dict[str, Any] | None:
+    if not B15_IV_PATH.is_file():
+        return None
+    return json.loads(B15_IV_PATH.read_text(encoding="utf-8"))
+
+
+def _b15_iv_closure_active(iv: dict[str, Any] | None) -> bool:
+    """True when authoritative B15 IV has granted global engineering PASS (SPEC §42)."""
+    if not iv:
+        return False
+    return (
+        iv.get("B15_INDEPENDENT_VERDICT") == "PASS_ENGINEERING"
+        and iv.get("LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING") is True
+    )
+
+
+def _b15_iv_commit_sha() -> str | None:
+    if not B15_IV_PATH.is_file():
+        return None
+    try:
+        return subprocess.check_output(
+            ["git", "log", "-1", "--format=%H", str(B15_IV_PATH.relative_to(ROOT))],
+            cwd=ROOT,
+            text=True,
+        ).strip()
+    except subprocess.CalledProcessError:
+        return None
+
+
+def _final_verdict_fields() -> dict[str, Any]:
+    """Derive §42 final fields from B15 IV when closure is active; else builder pending."""
+    iv = _load_b15_iv()
+    if _b15_iv_closure_active(iv):
+        iv_sha = _b15_iv_commit_sha()
+        fields: dict[str, Any] = {
+            "LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING": True,
+            "LAUNCH57_TEMPORAL_CONSISTENCY_READY_FOR_LOCAL_USE": iv.get(
+                "LAUNCH57_TEMPORAL_CONSISTENCY_READY_FOR_LOCAL_USE", True
+            ),
+            "PASS_LIVE_NOT_CLAIMED": True,
+            "PASS_ENGINEERING_NOT_CLAIMED": False,
+            "B15_IMPLEMENTATION_STATUS": iv.get("B15_IMPLEMENTATION_STATUS", "PASS_ENGINEERING"),
+            "B15_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+            "final_status": "B15_INTEGRATED_RECONCILIATION_PASS_ENGINEERING",
+            "iv_artifact": B15_IV_PATH.name,
+            "iv_verified_at": iv.get("verified_at"),
+        }
+        if iv_sha:
+            fields["iv_commit_sha"] = iv_sha
+        return fields
+    return {
+        "LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING": False,
+        "LAUNCH57_TEMPORAL_CONSISTENCY_READY_FOR_LOCAL_USE": False,
+        "PASS_LIVE_NOT_CLAIMED": True,
+        "PASS_ENGINEERING_NOT_CLAIMED": True,
+        "B15_IMPLEMENTATION_STATUS": "PENDING_VERIFICATION",
+        "B15_INDEPENDENT_VERDICT": "PENDING_VERIFICATION",
+        "final_status": "B15_INTEGRATED_RECONCILIATION_PENDING_VERIFICATION",
+    }
 
 
 def _batch_verdicts() -> dict[str, str]:
@@ -220,13 +282,7 @@ def build_reconciliation(sha: str, spec_sha: str, tests: dict[str, Any], verdict
         **findings,
         "iv_artifact_references": {b: IV_ARTIFACTS[b] for b in IV_ARTIFACTS},
         "tests": tests,
-        "LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING": False,
-        "LAUNCH57_TEMPORAL_CONSISTENCY_READY_FOR_LOCAL_USE": False,
-        "PASS_LIVE_NOT_CLAIMED": True,
-        "PASS_ENGINEERING_NOT_CLAIMED": True,
-        "B15_IMPLEMENTATION_STATUS": "PENDING_VERIFICATION",
-        "B15_INDEPENDENT_VERDICT": "PENDING_VERIFICATION",
-        "final_status": "B15_INTEGRATED_RECONCILIATION_PENDING_VERIFICATION",
+        **_final_verdict_fields(),
     }
 
 
@@ -238,16 +294,46 @@ def build_report(sha: str, spec_sha: str, tests: dict[str, Any], verdicts: dict[
     gap_lines = "\n".join(
         f"- **{g['id']}** ({g['classification']}): {g['description']}" for g in recon["documented_residual_gaps"]
     )
+    iv_closed = recon.get("B15_INDEPENDENT_VERDICT") == "PASS_ENGINEERING"
+    global_pass = recon.get("LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING")
+    if iv_closed:
+        exec_status = (
+            f"- **Global:** `LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING={global_pass}` (B15 IV @ "
+            f"`{recon.get('iv_commit_sha', 'B15_TEMPORAL_INDEPENDENT_VERIFICATION.json')}`)\n"
+            f"- **PASS_LIVE:** not claimed\n"
+            f"- **B15 status:** `B15_INDEPENDENT_VERDICT=PASS_ENGINEERING`"
+        )
+        final_section = f"""### IV final fields (§42)
+
+- `B15_INDEPENDENT_VERDICT=PASS_ENGINEERING`
+- `LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING={global_pass}`
+- `LAUNCH57_TEMPORAL_CONSISTENCY_READY_FOR_LOCAL_USE={recon.get('LAUNCH57_TEMPORAL_CONSISTENCY_READY_FOR_LOCAL_USE')}`
+- `PASS_LIVE_NOT_CLAIMED=true`
+- `PASS_ENGINEERING_NOT_CLAIMED=false`
+
+**STOP.** Launch-57 temporal engineering reconciliation closed. External §38 gates remain for PASS_LIVE only."""
+    else:
+        exec_status = (
+            "- **Global:** `LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING=false`\n"
+            "- **PASS_LIVE:** not claimed\n"
+            "- **Builder status:** `B15_IMPLEMENTATION_STATUS=PENDING_VERIFICATION`"
+        )
+        final_section = """### Builder final fields (§42)
+
+- `LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING=false`
+- `LAUNCH57_TEMPORAL_CONSISTENCY_READY_FOR_LOCAL_USE=false`
+- `PASS_LIVE_NOT_CLAIMED=true`
+- `B15_IMPLEMENTATION_STATUS=PENDING_VERIFICATION`
+
+**STOP.** Await B15 independent verification. Builder does not self-grant global temporal PASS."""
     return f"""# BLACKDARK Launch-57 Temporal Consistency Report
 
 ## A. Executive status
 
 - **Current batch:** `B15` (Phase 8 integrated temporal reconciliation)
 - **All B1–B14 independent verdicts:** `{recon['all_batches_b1_b14_pass_engineering']}`
-- **Integrated reconciliation pass (builder):** `{recon['integrated_temporal_reconciliation_pass']}`
-- **Global:** `LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING=false`
-- **PASS_LIVE:** not claimed
-- **Builder status:** `B15_IMPLEMENTATION_STATUS=PENDING_VERIFICATION`
+- **Integrated reconciliation pass:** `{recon['integrated_temporal_reconciliation_pass']}`
+{exec_status}
 
 ## B. Baseline SHA
 
@@ -323,6 +409,7 @@ def build_report(sha: str, spec_sha: str, tests: dict[str, Any], verdicts: dict[
 ```text
 {tests.get('command')}
 exit_code={tests.get('exit_code')}
+collected={tests.get('collected')}
 passed={tests.get('passed')}
 failed={tests.get('failed')}
 ```
@@ -362,14 +449,7 @@ failed={tests.get('failed')}
 
 {gap_lines}
 
-### Builder final fields (§42)
-
-- `LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING=false`
-- `LAUNCH57_TEMPORAL_CONSISTENCY_READY_FOR_LOCAL_USE=false`
-- `PASS_LIVE_NOT_CLAIMED=true`
-- `B15_IMPLEMENTATION_STATUS=PENDING_VERIFICATION`
-
-**STOP.** Await B15 independent verification. Builder does not self-grant global temporal PASS.
+{final_section}
 """
 
 

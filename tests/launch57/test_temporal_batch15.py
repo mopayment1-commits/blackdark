@@ -49,6 +49,8 @@ VERDICT_KEYS = {
 }
 
 REPORT_SECTIONS = list("ABCDEFGHIJKLMNOPQRSTU")
+B15_IV_PATH = GOV / "B15_TEMPORAL_INDEPENDENT_VERIFICATION.json"
+
 FINDING_BUCKETS = [
     "naive_datetime_findings",
     "timezone_errors",
@@ -99,6 +101,36 @@ def test_iv_artifacts_reference_pass_live_not_claimed(batch: str):
         assert iv["PASS_LIVE_NOT_CLAIMED"] is True
 
 
+def _expected_final_verdict_fields() -> dict:
+    """Expected §42 fields: IV closure when B15 IV PASS exists, else builder pending."""
+    if B15_IV_PATH.is_file():
+        iv = json.loads(B15_IV_PATH.read_text(encoding="utf-8"))
+        if (
+            iv.get("B15_INDEPENDENT_VERDICT") == "PASS_ENGINEERING"
+            and iv.get("LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING") is True
+        ):
+            return {
+                "LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING": True,
+                "LAUNCH57_TEMPORAL_CONSISTENCY_READY_FOR_LOCAL_USE": iv.get(
+                    "LAUNCH57_TEMPORAL_CONSISTENCY_READY_FOR_LOCAL_USE", True
+                ),
+                "PASS_LIVE_NOT_CLAIMED": True,
+                "PASS_ENGINEERING_NOT_CLAIMED": False,
+                "B15_IMPLEMENTATION_STATUS": iv.get("B15_IMPLEMENTATION_STATUS", "PASS_ENGINEERING"),
+                "B15_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+                "final_status": "B15_INTEGRATED_RECONCILIATION_PASS_ENGINEERING",
+            }
+    return {
+        "LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING": False,
+        "LAUNCH57_TEMPORAL_CONSISTENCY_READY_FOR_LOCAL_USE": False,
+        "PASS_LIVE_NOT_CLAIMED": True,
+        "PASS_ENGINEERING_NOT_CLAIMED": True,
+        "B15_IMPLEMENTATION_STATUS": "PENDING_VERIFICATION",
+        "B15_INDEPENDENT_VERDICT": "PENDING_VERIFICATION",
+        "final_status": "B15_INTEGRATED_RECONCILIATION_PENDING_VERIFICATION",
+    }
+
+
 def test_generator_produces_reconciliation_artifacts():
     proc = subprocess.run(
         ["python3", str(GENERATOR)],
@@ -114,17 +146,39 @@ def test_generator_produces_reconciliation_artifacts():
 def test_reconciliation_json_required_fields():
     subprocess.run(["python3", str(GENERATOR)], cwd=ROOT, check=True)
     recon = json.loads(RECON_PATH.read_text(encoding="utf-8"))
+    expected = _expected_final_verdict_fields()
     assert recon["artifact"] == "BLACKDARK_LAUNCH57_TEMPORAL_CONSISTENCY_RECONCILIATION"
     assert recon["batch"] == "B15"
     assert recon["all_batches_b1_b14_pass_engineering"] is True
-    assert recon["LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING"] is False
+    assert recon["LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING"] == expected[
+        "LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING"
+    ]
     assert recon["PASS_LIVE_NOT_CLAIMED"] is True
-    assert recon["PASS_ENGINEERING_NOT_CLAIMED"] is True
-    assert recon["B15_IMPLEMENTATION_STATUS"] == "PENDING_VERIFICATION"
+    assert recon["PASS_ENGINEERING_NOT_CLAIMED"] == expected["PASS_ENGINEERING_NOT_CLAIMED"]
+    assert recon["B15_IMPLEMENTATION_STATUS"] == expected["B15_IMPLEMENTATION_STATUS"]
+    assert recon["B15_INDEPENDENT_VERDICT"] == expected["B15_INDEPENDENT_VERDICT"]
+    assert recon["final_status"] == expected["final_status"]
     for bucket in FINDING_BUCKETS:
         assert bucket in recon
     assert recon["integrated_temporal_reconciliation_pass"] is True
     assert recon["unresolved_cross_batch_timestamp_conflicts"] == []
+
+
+def test_reconciliation_matches_b15_iv_when_closure_active():
+    if not B15_IV_PATH.is_file():
+        pytest.skip("B15 IV artifact not present")
+    iv = json.loads(B15_IV_PATH.read_text(encoding="utf-8"))
+    if iv.get("B15_INDEPENDENT_VERDICT") != "PASS_ENGINEERING":
+        pytest.skip("B15 IV closure not active")
+    subprocess.run(["python3", str(GENERATOR)], cwd=ROOT, check=True)
+    recon = json.loads(RECON_PATH.read_text(encoding="utf-8"))
+    assert recon["B15_INDEPENDENT_VERDICT"] == iv["B15_INDEPENDENT_VERDICT"]
+    assert recon["LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING"] == iv[
+        "LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING"
+    ]
+    assert recon["PASS_LIVE_NOT_CLAIMED"] is True
+    assert len(recon["external_blockers"]) == 6
+    assert all(b["status"] == "NEEDS_EXTERNAL_VERIFICATION" for b in recon["external_blockers"])
 
 
 def test_report_contains_sections_a_through_u():

@@ -4,14 +4,14 @@
 
 - **Current batch:** `B15` (Phase 8 integrated temporal reconciliation)
 - **All B1–B14 independent verdicts:** `True`
-- **Integrated reconciliation pass (builder):** `True`
-- **Global:** `LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING=false`
+- **Integrated reconciliation pass:** `True`
+- **Global:** `LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING=True` (B15 IV @ `78191fffa5b2cce0d211ededa1c49f8b4b4d44ce`)
 - **PASS_LIVE:** not claimed
-- **Builder status:** `B15_IMPLEMENTATION_STATUS=PENDING_VERIFICATION`
+- **B15 status:** `B15_INDEPENDENT_VERDICT=PASS_ENGINEERING`
 
 ## B. Baseline SHA
 
-- **Reconciliation SHA:** `9a6dfaf86191431111bc664fd1bd804bd35cbae2`
+- **Reconciliation SHA:** `54ae14ccb21369c6b8a110061e501ca74e12975e`
 - **Spec SHA256:** `63aaed8b185a07e014d0a6028120ad94a6a3a18fa072472533aa2ac84f55684a`
 - **B14 IV SHA:** `9a6dfaf8`
 
@@ -83,6 +83,7 @@
 ```text
 python3 -m pytest tests/launch57/test_temporal_batch1.py tests/launch57/test_temporal_batch2.py tests/launch57/test_temporal_batch3.py tests/launch57/test_temporal_batch4.py tests/launch57/test_temporal_batch5.py tests/launch57/test_temporal_batch6.py tests/launch57/test_temporal_batch7.py tests/launch57/test_temporal_batch8.py tests/launch57/test_temporal_batch9.py tests/launch57/test_temporal_batch10.py tests/launch57/test_temporal_batch11.py tests/launch57/test_temporal_batch12.py tests/launch57/test_temporal_batch13.py tests/launch57/test_temporal_batch14.py -q
 exit_code=0
+collected=0
 passed=0
 failed=0
 ```
@@ -141,11 +142,12 @@ failed=0
 - **B14-ENVELOPE-COVERAGE** (DOCUMENTED_RESIDUAL): B14 infrastructure envelope not attached on every Launch-57 finalizer; unwired API paths rely on verified B1–B12 domain owners.
 - **B13-CHART-COVERAGE** (DOCUMENTED_RESIDUAL): B13 chart display timing initially wired on ohlcv (#23); other chart consumers should route through attach_chart_envelope.
 
-### Builder final fields (§42)
+### IV final fields (§42)
 
-- `LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING=false`
-- `LAUNCH57_TEMPORAL_CONSISTENCY_READY_FOR_LOCAL_USE=false`
+- `B15_INDEPENDENT_VERDICT=PASS_ENGINEERING`
+- `LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING=True`
+- `LAUNCH57_TEMPORAL_CONSISTENCY_READY_FOR_LOCAL_USE=True`
 - `PASS_LIVE_NOT_CLAIMED=true`
-- `B15_IMPLEMENTATION_STATUS=PENDING_VERIFICATION`
+- `PASS_ENGINEERING_NOT_CLAIMED=false`
 
-**STOP.** Await B15 independent verification. Builder does not self-grant global temporal PASS.
+**STOP.** Launch-57 temporal engineering reconciliation closed. External §38 gates remain for PASS_LIVE only.
