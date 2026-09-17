@@ -120,7 +120,8 @@ def test_provenance_untrusted_grade_without_source_must_not_pass():
     """Caller-supplied decision_grade without source traceability must not succeed."""
     record, _ = build_provenance_record(symbol="BTC", params={"quality_state": "decision_grade"})
     assert record.source_authority is None
-    assert record.quality_state != QualityState.DECISION_GRADE
+    assert record.quality_state == QualityState.UNKNOWN
+    assert record.quality_score is None
 
 
 @pytest.mark.asyncio
@@ -130,6 +131,58 @@ async def test_provenance_api_untrusted_grade_without_source_must_not_pass():
     out = await data_quality_provenance_layer(symbol="BTC", params={"quality_state": "decision_grade"})
     assert out.get("provenance", {}).get("source_authority") is None
     assert out["success"] is False
+    assert out.get("quality_state") == "unknown"
+
+
+def test_provenance_untrusted_grade_with_invalid_source_authority_must_not_pass():
+    record, _ = build_provenance_record(
+        symbol="BTC",
+        params={"quality_state": "decision_grade", "source_authority": "   "},
+    )
+    assert record.quality_state == QualityState.UNKNOWN
+    assert record.quality_score is None
+
+
+def test_provenance_untrusted_grade_without_temporal_evidence_must_not_pass():
+    record, _ = build_provenance_record(
+        symbol="BTC",
+        params={"quality_state": "decision_grade", "source_authority": "launch57:test"},
+    )
+    assert record.quality_state == QualityState.UNKNOWN
+    assert record.quality_score is None
+
+
+def test_provenance_untrusted_score_without_validated_provenance_must_not_pass():
+    record, _ = build_provenance_record(
+        symbol="BTC",
+        params={"quality_state": "decision_grade", "quality_score": 99.0},
+    )
+    assert record.quality_state == QualityState.UNKNOWN
+    assert record.quality_score is None
+
+
+def test_provenance_valid_authoritative_source_remains_decision_grade():
+    record, _ = build_provenance_record(
+        symbol="BTC",
+        params={
+            "source_authority": "launch57:test",
+            "source_time": to_rfc3339(utc_now()),
+            "quality_state": "decision_grade",
+        },
+    )
+    assert record.quality_state == QualityState.DECISION_GRADE
+    assert record.quality_score == 85.0
+    assert record.posture == "verified_local"
+
+
+def test_provenance_trust_gate_regression_removal_would_allow_false_confidence():
+    """Fails if caller-controlled grade/score can bypass validated provenance evidence."""
+    record, _ = build_provenance_record(
+        symbol="BTC",
+        params={"quality_state": "decision_grade", "quality_score": 99.0},
+    )
+    assert record.quality_state != QualityState.DECISION_GRADE
+    assert record.quality_score is None
 
 
 def test_freshness_threshold_boundaries_are_deterministic():

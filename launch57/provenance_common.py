@@ -27,6 +27,9 @@ class QualityState(str, Enum):
     UNKNOWN = "unknown"
 
 
+_TRUSTED_ABOVE_CAUTION = frozenset({QualityState.DECISION_GRADE})
+
+
 @dataclass(frozen=True)
 class ProvenanceRecord:
     symbol: str
@@ -62,9 +65,78 @@ def _lineage_from_params(params: dict[str, Any]) -> list[str]:
     if isinstance(explicit, list) and explicit:
         return [str(x) for x in explicit]
     source = params.get("source_authority") or params.get("source")
-    if source:
+    if source and str(source).strip():
         return ["launch57.provenance_common", f"source:{source}"]
     return ["launch57.provenance_common", "source:unknown"]
+
+
+def _normalize_source_authority(params: dict[str, Any]) -> str | None:
+    raw = params.get("source_authority") or params.get("source")
+    if raw is None:
+        return None
+    text = str(raw).strip()
+    return text or None
+
+
+def _has_validated_trusted_provenance(
+    source_authority: str | None,
+    source_validation: Any,
+    lineage: list[str],
+) -> bool:
+    if not source_authority:
+        return False
+    if source_validation is None or not source_validation.ok:
+        return False
+    if "source:unknown" in lineage:
+        return False
+    return True
+
+
+def _evidence_derived_quality(
+    source_authority: str | None,
+    source_validation: Any,
+    lineage: list[str],
+) -> QualityState:
+    if _has_validated_trusted_provenance(source_authority, source_validation, lineage):
+        return QualityState.DECISION_GRADE
+    if source_authority:
+        return QualityState.CAUTION
+    return QualityState.UNKNOWN
+
+
+def _resolve_quality_state(
+    *,
+    source_authority: str | None,
+    source_validation: Any,
+    lineage: list[str],
+    explicit_quality: str | None,
+) -> QualityState:
+    evidence_state = _evidence_derived_quality(source_authority, source_validation, lineage)
+    if explicit_quality not in {s.value for s in QualityState}:
+        return evidence_state
+
+    requested = QualityState(explicit_quality)
+    if requested not in _TRUSTED_ABOVE_CAUTION:
+        return requested
+    if _has_validated_trusted_provenance(source_authority, source_validation, lineage):
+        return QualityState.DECISION_GRADE
+    return QualityState.UNKNOWN
+
+
+def _resolve_quality_score(
+    quality_state: QualityState,
+    explicit_score: Any,
+    trusted_provenance: bool,
+) -> float | None:
+    if quality_state in {QualityState.UNKNOWN, QualityState.INSUFFICIENT}:
+        return None
+    if quality_state == QualityState.DECISION_GRADE:
+        if not trusted_provenance:
+            return None
+        return float(explicit_score) if explicit_score is not None else 85.0
+    if quality_state == QualityState.CAUTION:
+        return float(explicit_score) if explicit_score is not None else 60.0
+    return float(explicit_score) if explicit_score is not None else None
 
 
 def build_provenance_record(
@@ -81,25 +153,18 @@ def build_provenance_record(
 
     observed = utc_now()
     lineage = _lineage_from_params(params)
-    source_authority = params.get("source_authority") or params.get("source")
+    source_authority = _normalize_source_authority(params)
     explicit_quality = params.get("quality_state")
     explicit_score = params.get("quality_score")
 
-    if explicit_quality in {s.value for s in QualityState}:
-        quality_state = QualityState(explicit_quality)
-    elif source_authority and source_validation and source_validation.ok:
-        quality_state = QualityState.DECISION_GRADE
-    elif source_authority:
-        quality_state = QualityState.CAUTION
-    else:
-        quality_state = QualityState.UNKNOWN
-
-    if quality_state == QualityState.UNKNOWN:
-        quality_score = None
-    else:
-        quality_score = float(explicit_score) if explicit_score is not None else (
-            85.0 if quality_state == QualityState.DECISION_GRADE else 60.0 if quality_state == QualityState.CAUTION else None
-        )
+    quality_state = _resolve_quality_state(
+        source_authority=source_authority,
+        source_validation=source_validation,
+        lineage=lineage,
+        explicit_quality=explicit_quality,
+    )
+    trusted_provenance = _has_validated_trusted_provenance(source_authority, source_validation, lineage)
+    quality_score = _resolve_quality_score(quality_state, explicit_score, trusted_provenance)
 
     envelope = build_market_temporal_envelope(
         source_raw=source_raw,
@@ -118,7 +183,7 @@ def build_provenance_record(
         source_time=to_rfc3339(source_validation.canonical) if source_validation and source_validation.canonical else None,
         availability_state=envelope.availability_state,
         timestamp_unit=envelope.timestamp_unit,
-        posture="verified_local" if quality_state == QualityState.DECISION_GRADE else "degraded_or_unknown",
+        posture="verified_local" if quality_state == QualityState.DECISION_GRADE and trusted_provenance else "degraded_or_unknown",
     )
     return record, envelope
 

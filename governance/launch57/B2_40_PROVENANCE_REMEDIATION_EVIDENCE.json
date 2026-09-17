@@ -1,0 +1,88 @@
+{
+  "artifact": "B2_40_PROVENANCE_REMEDIATION_EVIDENCE",
+  "defect_id": "UNTRUSTED_PROVENANCE_GRADE_ESCALATION",
+  "BASE_IMPLEMENTATION_SHA": "27f203a7",
+  "independent_verification_evidence": "governance/launch57/B2_TEMPORAL_INDEPENDENT_VERIFICATION.json",
+  "independent_verification_evidence_commit": "5a133aae",
+  "remediated_at": "2026-09-17T09:58:00+00:00",
+  "builder_session": "cursor-cloud-agent-b2-40-remediation",
+  "semantic_correction": {
+    "summary": "Trusted grade above CAUTION (decision_grade) now requires validated source_authority, valid source_time, and non-unknown lineage. Caller-asserted trusted grades/scores without evidence downgrade to UNKNOWN with no trusted score.",
+    "primary_path": "launch57/provenance_common.py",
+    "helpers_added": [
+      "_normalize_source_authority",
+      "_has_validated_trusted_provenance",
+      "_evidence_derived_quality",
+      "_resolve_quality_state",
+      "_resolve_quality_score"
+    ]
+  },
+  "changed_paths": [
+    "launch57/provenance_common.py",
+    "tests/launch57/test_b2_independent_verification.py",
+    "governance/launch57/B2_40_PROVENANCE_REMEDIATION_EVIDENCE.json"
+  ],
+  "unchanged_by_design": [
+    "launch57/freshness_common.py",
+    "launch57/point_in_time_common.py",
+    "launch57/data_batch2.py",
+    "launch57/b1_freshness_bridge.py",
+    "governance/launch57/B2_TEMPORAL_INDEPENDENT_VERIFICATION.json"
+  ],
+  "#40_PROVENANCE_FALSE_CONFIDENCE_DEFECT": "FIXED_LOCAL",
+  "B2:#40": "PENDING_VERIFICATION",
+  "B2:#41": "PASS_ENGINEERING",
+  "B2:#39": "PASS_ENGINEERING",
+  "B2_ISOLATION_LEAKAGE": 0,
+  "B2_LEGACY_RUNTIME_DEPENDENCIES": 0,
+  "B1_TO_41_TARGETED_RECONCILIATION": "PREPARED_NOT_ACTIVATED",
+  "LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING": false,
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "dependent_impact": {
+    "#39": {
+      "status": "PRESERVE_VERIFIED_STATE",
+      "reopen_trigger": null,
+      "REOPEN_REASON": null,
+      "minimum_regression_run": true,
+      "material_contract_change_detected": false
+    },
+    "#41": {
+      "status": "PRESERVE_VERIFIED_STATE",
+      "reopen_trigger": null,
+      "REOPEN_REASON": null
+    }
+  },
+  "isolation_preservation": {
+    "legacy_runtime_dependencies": 0,
+    "b2_isolation_leakage": 0,
+    "new_canonical_owner_created": false,
+    "legacy_parked_dependency_introduced": false
+  },
+  "targeted_tests": {
+    "hash40_adversarial": {
+      "command": "python3 -m pytest tests/launch57/test_b2_independent_verification.py -q -k provenance",
+      "passed": true
+    },
+    "hash40_api": {
+      "command": "python3 -m pytest tests/launch57/test_data_batch2.py::test_provenance_layer_user_disclosure tests/launch57/test_data_batch2.py::test_normalization_distinct_from_provenance_layer tests/launch57/test_temporal_batch2.py::test_provenance_unknown_when_source_missing -q",
+      "passed": true
+    },
+    "hash39_minimum_regression": {
+      "command": "python3 -m pytest tests/launch57/test_b2_independent_verification.py -q -k pit tests/launch57/test_data_batch2.py::test_pit_immutable_metrics_hash_and_timestamp -q",
+      "passed": true
+    },
+    "independent_suite_full": {
+      "command": "python3 -m pytest tests/launch57/test_b2_independent_verification.py -q",
+      "exit_code": 0,
+      "passed": 23,
+      "failed": 0
+    },
+    "previously_failing_cases_now_pass": [
+      "test_provenance_untrusted_grade_without_source_must_not_pass",
+      "test_provenance_api_untrusted_grade_without_source_must_not_pass",
+      "test_provenance_trust_gate_regression_removal_would_allow_false_confidence"
+    ]
+  },
+  "builder_self_certification": false,
+  "next_permitted_action": "independent verification of #40 remediation only"
+}
