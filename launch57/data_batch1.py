@@ -11,6 +11,7 @@ from typing import Any
 
 from launch57.batch1_isolation import finalize_b1_response
 from launch57.b1_freshness_bridge import apply_b1_freshness_reconciliation
+from launch57.chart_common import attach_chart_envelope
 from launch57.temporal_common import (
     TimestampUnit,
     attach_temporal_envelope,
@@ -306,7 +307,7 @@ async def ohlcv(*, symbol: str, params: dict[str, Any] | None = None) -> dict[st
             "backend_entrypoint": "ohlcv",
             "binding_source": "launch57_phase1_batch1",
         }
-        return finalize_b1_response(body)
+        return attach_chart_envelope(finalize_b1_response(body), params=params)
 
     bars, source_host = await fetch_binance_klines_bars(pair, interval=interval, limit=limit)
     violations = validate_ohlcv_invariants(bars) if bars else ["no_bars"]
@@ -354,7 +355,7 @@ async def ohlcv(*, symbol: str, params: dict[str, Any] | None = None) -> dict[st
         source_raw=first_open,
         source_unit=TimestampUnit.MILLISECONDS if first_open is not None else None,
     )
-    return finalize_b1_response(body)
+    return attach_chart_envelope(finalize_b1_response(body), params=params)
 
 
 async def quote_data(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
