@@ -201,7 +201,7 @@
       "paths_outside_launch57": [],
       "unrelated_capability_work": false,
       "b3_implementation": false,
-      "security_fail_closed_weakening": true,
+      "security_fail_closed_weakening_detected": false,
       "pass": true
     }
   },
