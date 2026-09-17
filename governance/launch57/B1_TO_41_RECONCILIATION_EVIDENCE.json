@@ -4,6 +4,8 @@
   "REOPEN_REASON": "DEPENDENCY_CONTRACT_CHANGE",
   "verified_hash41_implementation_sha": "6ad4ae4c",
   "reconciliation_base_sha": "76a271d1",
+  "reconciliation_final_sha": "7402df5c",
+  "reconciliation_final_sha_full": "7402df5cb981114ec61d24781278af5dd8ce257e",
   "authoritative_baseline": {
     "B1_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
     "B2:#40": "PASS_ENGINEERING",
