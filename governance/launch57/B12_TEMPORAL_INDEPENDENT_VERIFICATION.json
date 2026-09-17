@@ -1,15 +1,17 @@
 {
   "artifact": "B12_TEMPORAL_INDEPENDENT_VERIFICATION",
-  "verification_type": "independent_engineering",
-  "VERIFIED_IMPLEMENTATION_SHA": "6f4142d7",
-  "verified_implementation_sha_full": "6f4142d783fa50a1fbf7b6edeafe6198da00de27",
-  "builder_evidence_commit": "cc5e2995",
-  "head_at_iv": "cc5e2995",
-  "b12_code_unchanged_since_implementation": true,
-  "verified_at": "2026-09-17T19:26:00+00:00",
+  "verification_type": "independent_engineering_re_verification",
+  "VERIFIED_IMPLEMENTATION_SHA": "fc070463",
+  "verified_implementation_sha_full": "fc0704630abc424ae24a29890bda89e0a4dea6bc",
+  "original_implementation_sha": "6f4142d7",
+  "remediation_commit": "fc070463",
+  "builder_evidence_commit": "8178e341",
+  "head_at_iv": "8178e341",
+  "b12_code_unchanged_since_remediation": true,
+  "verified_at": "2026-09-17T19:34:00+00:00",
   "verifier": {
     "role": "independent_verifier",
-    "session": "cursor-cloud-agent-b12-temporal-independent-verification",
+    "session": "cursor-cloud-agent-b12-temporal-re-iv-defect-001",
     "method": "targeted_pytest_adversarial_runtime_static_import_scan_git_scope_check_surface_probes"
   },
   "scope": {
@@ -17,19 +19,37 @@
     "launch_numbers": [53, 54, 55, 56, 57],
     "domain": "Due Diligence / Risk",
     "governing_spec": "BLACKDARK_Launch57_Global_Time_Temporal_Consistency_FROM_SCRATCH_SPEC_66d6.md §21",
-    "plan": "governance/launch57/LAUNCH57_TEMPORAL_EXECUTION_PLAN_B1_B15.md §4, §10"
+    "plan": "governance/launch57/LAUNCH57_TEMPORAL_EXECUTION_PLAN_B1_B15.md §4, §10",
+    "re_iv_target": "B12-DEFECT-001"
   },
   "entry_gate": {
     "B11_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
     "B11_VERIFIED_IV_SHA": "5cb405a1",
-    "B11_IMPLEMENTATION_SHA": "5c9b3836",
-    "B10_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
-    "cc5e2995_product_code_delta_after_6f4142d7": "none — governance docs only",
+    "8178e341_product_code_delta_after_fc070463": "none — governance/evidence only",
+    "remediation_scope_limited_to_b12_defect_001": true,
     "b12_isolation_leakage": 0,
     "pass": true
   },
+  "prior_iv": {
+    "verdict": "NOT_COMPLETE",
+    "commit": "9cc23d12",
+    "defect": "B12-DEFECT-001",
+    "finding": "utc_now() fallback marked timestamp-missing risk as presented_as_current=true"
+  },
+  "remediation_verification": {
+    "B12-DEFECT-001": {
+      "disposition": "CLOSED",
+      "remediation_commit": "fc070463",
+      "changed_files": [
+        "launch57/due_diligence_risk_timing_common.py",
+        "tests/launch57/test_temporal_batch12.py",
+        "governance/launch57/B12_TEMPORAL_IMPLEMENTATION_REPORT.md"
+      ],
+      "pass": true
+    }
+  },
   "protected_state_verification": {
-    "frozen_owners_unmodified_in_6f4142d7": [
+    "frozen_owners_unmodified_in_fc070463": [
       "launch57/temporal_common.py",
       "launch57/evidence_class_common.py",
       "launch57/freshness_common.py",
@@ -45,16 +65,16 @@
       "launch57/personal_history_timing_common.py"
     ],
     "integration_only_changes": [
-      "launch57/smart_money_common.py"
+      "launch57/smart_money_common.py (unchanged in remediation)"
     ],
     "pass": true
   },
   "targeted_tests": {
     "command": "python3 -m pytest tests/launch57/test_temporal_batch12.py tests/launch57/test_temporal_batch7.py -q",
     "exit_code": 0,
-    "passed": 22,
+    "passed": 28,
     "failed": 0,
-    "b12_tests": 12,
+    "b12_tests": 18,
     "b7_regression_tests": 10,
     "pass": true
   },
@@ -68,135 +88,92 @@
       "pass": true
     }
   },
-  "spec_section_verification": {
-    "S21_source_age": {
-      "verdict": "PASS_ENGINEERING",
-      "code_path": "launch57/due_diligence_risk_timing_common.py:_source_age_ms / source_age_ms field",
-      "test": "test_due_diligence_risk_timing_preserves_spec_fields; IV stale_boundary probe",
-      "evidence": "source_age_ms surfaced when present; stale when > threshold"
+  "defect_retest_verification": {
+    "missing_last_update_and_source_age": {
+      "observed": "last_update_time=null, presented_as_current=false, expired_reason=risk_timestamp_unknown",
+      "pass": true
     },
-    "S21_last_update": {
-      "verdict": "PASS_ENGINEERING",
-      "code_path": "launch57/due_diligence_risk_timing_common.py:last_update_time resolution",
-      "test": "test_due_diligence_risk_timing_preserves_spec_fields",
-      "evidence": "last_update_time preserved when explicit; IV launch_probes #53–#57"
+    "string_only_risk_flags_no_timestamp": {
+      "observed": "#53 due_diligence string risk_flags → presented_as_current=false, last_update_time=null",
+      "pass": true
     },
-    "S21_stale_vs_current": {
-      "verdict": "PASS_ENGINEERING",
-      "code_path": "launch57/due_diligence_risk_timing_common.py:expired_reason risk_source_stale",
-      "test": "test_stale_risk_not_presented_as_current; IV fail_closed_53; stale_boundary",
-      "evidence": "source_age_ms > 900000ms → presented_as_current=false"
+    "timestamp_missing_incident_row": {
+      "observed": "incident row without timestamps → presented_as_current=false; current_rows=[]",
+      "pass": true
     },
-    "S21_event_chronology": {
-      "verdict": "PASS_ENGINEERING",
-      "code_path": "launch57/due_diligence_risk_timing_common.py:enrich_risk_incident_rows",
-      "test": "test_enrich_risk_incident_rows_preserves_chronology; IV chronology probe",
-      "evidence": "Row order [a,b] preserved through enrichment"
+    "fresh_source_age_without_last_update": {
+      "observed": "source_age_ms=1000 without last_update_time → presented_as_current=false (risk_timestamp_unknown)",
+      "pass": true
     },
-    "S21_no_old_incidents_without_timestamp_context": {
-      "verdict": "NOT_COMPLETE",
-      "code_path": "launch57/due_diligence_risk_timing_common.py:lines 117-118 utc_now fallback + presented_as_current=True",
-      "test": "IV adversarial_missing_last_update",
-      "evidence": "Row with no last_update_time and no source_age_ms → last_update_time=utc_now(), presented_as_current=true. #53 due_diligence with string risk_flags only → presented_as_current=true without timestamp context.",
-      "blocks_pass_engineering": true
+    "explicit_valid_timestamp": {
+      "observed": "valid last_update_time + source_age_ms → presented_as_current=true",
+      "pass": true
     },
-    "S21_launch_surface_coverage": {
-      "verdict": "PASS_ENGINEERING",
-      "evidence": "IV finalize probes activate due_diligence_risk_timing on #53–#57; b12_isolation_leakage=0 on all"
+    "explicit_stale_and_expired": {
+      "observed": "source_age_ms>threshold → risk_source_stale; past window_end → risk_validity_expired",
+      "pass": true
     }
   },
-  "adversarial_verification": {
-    "missing_last_update_must_not_false_current": {
-      "verdict": "NOT_COMPLETE",
-      "observed": "build_due_diligence_risk_timing_context({}, risk={}) → presented_as_current=true via utc_now() fallback",
-      "blocks_pass_engineering": true
-    },
-    "stale_with_source_age_no_last_update": {
-      "verdict": "PASS_ENGINEERING",
-      "observed": "source_age_ms=1000000 without last_update_time → presented_as_current=false, expired_reason=risk_source_stale",
+  "regression_verification": {
+    "chronology_preserved": {
+      "observed": "enrich_risk_incident_rows order [a,b] unchanged",
       "pass": true
     },
     "stale_validity_boundaries": {
-      "verdict": "PASS_ENGINEERING",
-      "observed": "900001ms stale / 899999ms current; risk_validity_expired on past window_end",
+      "observed": "899999ms current / 900001ms stale",
       "pass": true
     },
-    "old_incident_no_timestamp": {
-      "verdict": "NOT_COMPLETE",
-      "observed": "risk row {id:old_incident, severity:high} without timestamps → presented_as_current=true",
-      "blocks_pass_engineering": true
-    },
-    "explicit_incident_without_timestamp_context_flag": {
-      "verdict": "PASS_ENGINEERING",
-      "observed": "incident_without_timestamp_context=true → presented_as_current=false",
+    "launch_path_coverage_53_to_57": {
+      "observed": "due_diligence_risk_timing active on all five IDs; b12_isolation_leakage=0",
       "pass": true
     },
-    "launch_55_incident_row_filtering": {
-      "verdict": "PASS_ENGINEERING",
-      "observed": "whale_manipulation_alerts filters stale row; current=[fresh], all=2",
-      "pass": true
-    },
-    "launch_56_fail_closed_all_stale": {
-      "verdict": "PASS_ENGINEERING",
-      "observed": "all stale suspicious_activity_flags → success=false, presented_as_current=false",
-      "pass": true
-    },
-    "display_tz_canonical_unchanged": {
-      "verdict": "PASS_ENGINEERING",
-      "observed": "UTC and Africa/Cairo preserve identical canonical last_update_time",
-      "pass": true
-    },
-    "isolation_b12_path": {
-      "verdict": "PASS_ENGINEERING",
-      "observed": "b12_isolation_leakage=0; zero cap646 in B12 owner modules",
-      "pass": true
-    },
-    "out_of_scope_launch_15": {
-      "verdict": "PASS_ENGINEERING",
-      "observed": "finalize no-op for #15; no due_diligence_risk_timing",
-      "pass": true
-    },
-    "smart_money_common_pre_b12_regression": {
-      "verdict": "PASS_ENGINEERING",
-      "observed": "B7 regression 10/10 pass; B12 gated to B12_LAUNCH_NUMBERS only in attach_smart_money_envelope",
+    "pre_b12_smart_money_scope": {
+      "observed": "#15 noop; B7 regression 10/10",
       "pass": true
     }
   },
-  "defects": [
-    {
-      "id": "B12-DEFECT-001",
-      "severity": "material",
-      "control": "S21_no_old_incidents_without_timestamp_context",
-      "description": "Missing last_update_time falls back to utc_now() and marks risk presented_as_current=true without requiring timestamp context on incident/risk rows.",
-      "code_path": "launch57/due_diligence_risk_timing_common.py:117-118,161",
-      "repro": "build_due_diligence_risk_timing_context({}, risk={}) or finalize #53 due_diligence with string-only risk_flags",
-      "required_remediation": "Fail closed or mark not-current when last_update_time absent and no governed timestamp context; do not fabricate fresh last_update via utc_now() for current presentation"
-    }
-  ],
-  "verdict_table": {
+  "spec_section_verification": {
     "S21_source_age": "PASS_ENGINEERING",
     "S21_last_update": "PASS_ENGINEERING",
     "S21_stale_vs_current": "PASS_ENGINEERING",
     "S21_event_chronology": "PASS_ENGINEERING",
-    "S21_no_old_incidents_without_timestamp_context": "NOT_COMPLETE",
-    "S21_launch_surface_coverage": "PASS_ENGINEERING",
-    "B12:#53": "NOT_COMPLETE",
-    "B12:#54": "NOT_COMPLETE",
-    "B12:#55": "NOT_COMPLETE",
-    "B12:#56": "NOT_COMPLETE",
-    "B12:#57": "NOT_COMPLETE",
-    "B12_INDEPENDENT_VERDICT": "NOT_COMPLETE"
+    "S21_no_old_incidents_without_timestamp_context": "PASS_ENGINEERING",
+    "S21_launch_surface_coverage": "PASS_ENGINEERING"
   },
-  "B12:#53": "NOT_COMPLETE",
-  "B12:#54": "NOT_COMPLETE",
-  "B12:#55": "NOT_COMPLETE",
-  "B12:#56": "NOT_COMPLETE",
-  "B12:#57": "NOT_COMPLETE",
-  "B12_INDEPENDENT_VERDICT": "NOT_COMPLETE",
+  "defects": [],
+  "closed_defects": [
+    {
+      "id": "B12-DEFECT-001",
+      "prior_verdict": "NOT_COMPLETE",
+      "re_iv_verdict": "CLOSED",
+      "remediation_commit": "fc070463"
+    }
+  ],
+  "verdict_table": {
+    "B12-DEFECT-001": "CLOSED",
+    "S21_source_age": "PASS_ENGINEERING",
+    "S21_last_update": "PASS_ENGINEERING",
+    "S21_stale_vs_current": "PASS_ENGINEERING",
+    "S21_event_chronology": "PASS_ENGINEERING",
+    "S21_no_old_incidents_without_timestamp_context": "PASS_ENGINEERING",
+    "S21_launch_surface_coverage": "PASS_ENGINEERING",
+    "B12:#53": "PASS_ENGINEERING",
+    "B12:#54": "PASS_ENGINEERING",
+    "B12:#55": "PASS_ENGINEERING",
+    "B12:#56": "PASS_ENGINEERING",
+    "B12:#57": "PASS_ENGINEERING",
+    "B12_INDEPENDENT_VERDICT": "PASS_ENGINEERING"
+  },
+  "B12:#53": "PASS_ENGINEERING",
+  "B12:#54": "PASS_ENGINEERING",
+  "B12:#55": "PASS_ENGINEERING",
+  "B12:#56": "PASS_ENGINEERING",
+  "B12:#57": "PASS_ENGINEERING",
+  "B12_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+  "B12_IMPLEMENTATION_STATUS": "PASS_ENGINEERING",
   "B13_NOT_STARTED": true,
   "LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING": false,
   "PASS_LIVE_NOT_CLAIMED": true,
-  "PASS_ENGINEERING_NOT_CLAIMED": true,
   "protected_state": {
     "B1_INDEPENDENT_VERDICT": "PRESERVE_VERIFIED_STATE",
     "B4_INDEPENDENT_VERDICT": "PRESERVE_VERIFIED_STATE",
@@ -212,7 +189,8 @@
   "implementation_modified_during_verification": false,
   "historical_artifacts_preserved": [
     "governance/launch57/B12_TEMPORAL_IMPLEMENTATION_EVIDENCE.json",
-    "governance/launch57/B12_TEMPORAL_IMPLEMENTATION_REPORT.md"
+    "governance/launch57/B12_TEMPORAL_IMPLEMENTATION_REPORT.md",
+    "governance/launch57/B12_TEMPORAL_INDEPENDENT_VERIFICATION.json (prior NOT_COMPLETE at 9cc23d12)"
   ],
-  "next_permitted_action": "builder remediation of B12-DEFECT-001 then re-IV; no B13 until B12 PASS_ENGINEERING"
+  "next_permitted_action": "B13 entry per LAUNCH57_TEMPORAL_EXECUTION_PLAN_B1_B15.md prerequisites when authorized"
 }
