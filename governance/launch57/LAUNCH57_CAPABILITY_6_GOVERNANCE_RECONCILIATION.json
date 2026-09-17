@@ -1,0 +1,73 @@
+{
+  "artifact": "LAUNCH57_CAPABILITY_6_GOVERNANCE_RECONCILIATION",
+  "remediation_type": "governance_metadata_only",
+  "starting_head_sha": "d2bdac0bab1490ed011ec250a4dcd9459a8f7cf7",
+  "starting_head_sha_short": "d2bdac0b",
+  "authority_resolution_reference": {
+    "artifact": "LAUNCH57_CAPABILITY_6_AUTHORITY_RESOLUTION",
+    "commit": "d2bdac0b",
+    "CAPABILITY_6_AUTHORITY": "RESOLVED"
+  },
+  "authoritative_iv": {
+    "artifact": "B3_6_TRUST_BOUNDARY_INDEPENDENT_VERIFICATION",
+    "B3:#6": "PASS_ENGINEERING",
+    "canonical_owner": "launch57.evidence_class_common",
+    "verified_implementation_sha": "1b6e544f"
+  },
+  "register_authority": {
+    "primary_view": "governance/launch57/LAUNCH57_REGISTER.json",
+    "declared_ssot": "BLACKDARK_CAPABILITY_CURRENT_STATE.json",
+    "write_path": "incremental phase generators + governance reconciliation generators",
+    "generator": "governance/launch57/generate_capability_6_governance_reconciliation.py"
+  },
+  "root_cause": {
+    "summary": "LAUNCH57_REGISTER.json #6 retained Phase 0 discovery metadata because generate_phase2_batch1.py only assigned canonical_implementation to CAP-backed items (#3-#5), not SHARED_CORE #6; no post-B3_6 IV register reconciliation ran.",
+    "generator_would_partially_recreate_stale_nested_metadata": true,
+    "generator_mitigation": "generate_phase2_batch1.py ITEM_ROWS[6] consumer_paths aligned to Launch-57 owner; canonical register fields reconciled by this generator from B3_6 IV."
+  },
+  "reconciled_fields": {
+    "canonical_owner": [
+      "launch57.evidence_class_common"
+    ],
+    "canonical_implementation": [
+      "launch57.evidence_class_common"
+    ],
+    "runtime_entry": [
+      "launch57/evidence_class_common.py",
+      "launch57/trust_batch1.py"
+    ],
+    "actual_consumer_paths": [
+      "launch57/evidence_class_common.py",
+      "launch57/trust_batch1.py:user_evidence_display",
+      "launch57/trust_batch1.py:attach_trust_envelope",
+      "launch57/b4_decision_bridge.py:apply_b4_trust_envelope"
+    ],
+    "current_engineering_status": "PASS_ENGINEERING",
+    "pass_engineering_reconciliation": "PASS_ENGINEERING",
+    "root_cause_if_not_pass_engineering": null,
+    "public_taxonomy": [
+      "LIVE",
+      "DELAYED",
+      "SIM"
+    ]
+  },
+  "prior_register_state": {
+    "canonical_implementation": [],
+    "canonical_owner": [],
+    "actual_consumer_paths": [
+      "cap646/evidence_class.py",
+      "decision_truth/evidence_taxonomy.py",
+      "user_exposure_log.py"
+    ],
+    "current_engineering_status": "PENDING_VERIFICATION",
+    "root_cause_if_not_pass_engineering": "CONSUMER_PATH_MISSING",
+    "pass_engineering_reconciliation": "PENDING_INDEPENDENT_VERIFICATION"
+  },
+  "final_status": {
+    "PRODUCT_CODE_CHANGED": false,
+    "CAPABILITY_6_REBUILT": false,
+    "OTHER_CAPABILITY_SEMANTIC_METADATA_CHANGED": false,
+    "CAPABILITY_6_GOVERNANCE_METADATA_RECONCILED": true,
+    "PASS_LIVE_NOT_CLAIMED": true
+  }
+}

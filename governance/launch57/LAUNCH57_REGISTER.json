@@ -477,34 +477,47 @@
       "match_evidence": {
         "explicit_referenced_capability_ids": [],
         "discovered_capability_ids": [],
-        "implicit_mapping_basis": "evidence_class_cross_cutting_not_single_cap",
+        "implicit_mapping_basis": "launch57_canonical_owner_evidence_class_common",
         "implicit_repo_paths": [
-          "cap646/evidence_class.py",
-          "user_exposure_log.py",
-          "decision_truth/evidence_taxonomy.py"
+          "launch57/evidence_class_common.py",
+          "launch57/trust_batch1.py",
+          "launch57/b4_decision_bridge.py"
         ],
         "canonical_launch_numbers_on_caps": []
       },
-      "canonical_owner": [],
-      "canonical_implementation": [],
-      "runtime_entry": [],
+      "canonical_owner": [
+        "launch57.evidence_class_common"
+      ],
+      "canonical_implementation": [
+        "launch57.evidence_class_common"
+      ],
+      "runtime_entry": [
+        "launch57/evidence_class_common.py",
+        "launch57/trust_batch1.py"
+      ],
       "actual_consumer_paths": [
-        "cap646/evidence_class.py",
-        "decision_truth/evidence_taxonomy.py",
-        "user_exposure_log.py"
+        "launch57/evidence_class_common.py",
+        "launch57/trust_batch1.py:user_evidence_display",
+        "launch57/trust_batch1.py:attach_trust_envelope",
+        "launch57/b4_decision_bridge.py:apply_b4_trust_envelope"
       ],
       "tests_found": [
         "tests/launch57/test_trust_batch1.py::test_user_evidence_display_maps_live_delayed_sim",
         "tests/launch57/test_trust_batch1.py::test_attach_trust_envelope_includes_evidence_display"
       ],
-      "evidence_found": [],
-      "current_engineering_status": "PENDING_VERIFICATION",
+      "evidence_found": [
+        "governance/launch57/B3_6_TRUST_BOUNDARY_INDEPENDENT_VERIFICATION.json",
+        "governance/launch57/LAUNCH57_CAPABILITY_6_AUTHORITY_RESOLUTION.json",
+        "governance/launch57/B3_TEMPORAL_IMPLEMENTATION_EVIDENCE.json",
+        "governance/launch57/PHASE2_BATCH1_EVIDENCE.json"
+      ],
+      "current_engineering_status": "PASS_ENGINEERING",
       "current_live_status": "NOT_LINKED",
-      "root_cause_if_not_pass_engineering": "CONSUMER_PATH_MISSING",
-      "pass_engineering_reconciliation": "PENDING_INDEPENDENT_VERIFICATION",
+      "root_cause_if_not_pass_engineering": null,
+      "pass_engineering_reconciliation": "PASS_ENGINEERING",
       "stub_generic_mock_findings": [],
       "hero_mapping_status": "NOT_APPLICABLE",
-      "notes": "No explicit CAP-ID in LAUNCH57_IDS source; repo discovery only",
+      "notes": "SHARED_CORE cross-cutting item; canonical owner launch57.evidence_class_common (B3_6 IV PASS_ENGINEERING). Public taxonomy LIVE/DELAYED/SIM.",
       "phase2_batch1_build": {
         "build_decision": "EXTEND",
         "builder_status": "PENDING_VERIFICATION",
@@ -525,6 +538,33 @@
         "blocker": null,
         "prior_pass_trusted_for_launch": "NO",
         "commit_sha": "ade23819e2952bbaf260eec645d89c643b183b68"
+      },
+      "capability_6_governance_reconciliation": {
+        "reconciled_at": "2026-09-17T21:09:09.782371+00:00",
+        "reconciled_commit": "d2bdac0bab1490ed011ec250a4dcd9459a8f7cf7",
+        "authority_resolution_reference": "governance/launch57/LAUNCH57_CAPABILITY_6_AUTHORITY_RESOLUTION.json",
+        "authoritative_iv_reference": "governance/launch57/B3_6_TRUST_BOUNDARY_INDEPENDENT_VERIFICATION.json",
+        "canonical_owner_module": "launch57.evidence_class_common",
+        "canonical_owner_file": "launch57/evidence_class_common.py",
+        "public_taxonomy": [
+          "LIVE",
+          "DELAYED",
+          "SIM"
+        ],
+        "engineering_status": "PASS_ENGINEERING",
+        "prior_register_state": {
+          "canonical_implementation": [],
+          "canonical_owner": [],
+          "actual_consumer_paths": [
+            "cap646/evidence_class.py",
+            "decision_truth/evidence_taxonomy.py",
+            "user_exposure_log.py"
+          ],
+          "current_engineering_status": "PENDING_VERIFICATION",
+          "root_cause_if_not_pass_engineering": "CONSUMER_PATH_MISSING",
+          "pass_engineering_reconciliation": "PENDING_INDEPENDENT_VERIFICATION"
+        },
+        "root_cause": "Phase 2 batch1 generator updated only CAP-backed items (#3-#5) with canonical_implementation; #6 SHARED_CORE row retained Phase 0 discovery paths. No post-B3_6 IV register refresh was run."
       }
     },
     {
@@ -6562,5 +6602,14 @@
       "governance/launch57/PHASE8_LAUNCH_ISOLATION_EVIDENCE.json",
       "governance/launch57/PHASE8_PRE_LIVE_CHECKLIST.md"
     ]
+  },
+  "capability_6_governance_reconciliation": {
+    "reconciled_at": "2026-09-17T21:09:09.782371+00:00",
+    "reconciled_commit": "d2bdac0bab1490ed011ec250a4dcd9459a8f7cf7",
+    "launch_number": 6,
+    "canonical_owner_module": "launch57.evidence_class_common",
+    "engineering_status": "PASS_ENGINEERING",
+    "iv_reference": "governance/launch57/B3_6_TRUST_BOUNDARY_INDEPENDENT_VERIFICATION.json",
+    "authority_resolution_reference": "governance/launch57/LAUNCH57_CAPABILITY_6_AUTHORITY_RESOLUTION.json"
   }
 }
