@@ -4,6 +4,7 @@ Launch-57 Phase 2 — Trust Batch 1 canonical runtime spine.
 Build order: #6 evidence display → #5 CAP-0639 → #4 CAP-0640 → #3 CAP-0641 → #2 oracle sentence
 B4: #2/#3 decision timing via launch57.decision_timing_common (SPEC §13).
 B5: #4 public accuracy ledger timing via launch57.public_accuracy_common (SPEC §14).
+B6: #5/#43 net-edge timing via launch57.net_edge_timing_common (SPEC §15).
 """
 
 from __future__ import annotations
@@ -12,6 +13,7 @@ from typing import Any
 
 from launch57.b4_decision_bridge import apply_b4_trust_envelope, finalize_b4_decision_surface
 from launch57.b5_public_accuracy_bridge import finalize_b5_ledger_surface
+from launch57.b6_net_edge_bridge import finalize_b6_net_edge_surface
 from launch57.decision_timing_common import (
     build_decision_timing_context,
     build_launch57_decision_certificate,
@@ -112,7 +114,12 @@ async def net_edge_truth_score(*, symbol: str, params: dict[str, Any] | None = N
         "backend_entrypoint": "net_edge_truth_score",
         "binding_source": "launch57_phase2_trust_batch1",
     }
-    return attach_trust_envelope(body)
+    return finalize_b6_net_edge_surface(
+        body,
+        payload=p,
+        opportunity=opportunity,
+        display_timezone=p.get("display_timezone"),
+    )
 
 
 async def public_accuracy_ledger(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:

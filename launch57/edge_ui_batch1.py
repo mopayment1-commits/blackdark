@@ -10,6 +10,7 @@ from typing import Any
 
 from cap646.evidence_class import ai_compliance_footer
 from launch57.decision_common import require_net_edge_if_cost_claim, stamp_decision_batch
+from launch57.b6_net_edge_bridge import apply_b6_trust_envelope, enrich_arbitrage_opportunities_block
 from launch57.edge_ui_common import (
     attach_edge_ui_envelope,
     free_tier_history_limit,
@@ -89,25 +90,33 @@ async def spot_perp_arbitrage_scanner(*, symbol: str, params: dict[str, Any] | N
         if str(row.get("kind") or "") in _SPOT_PERP_KINDS
     ]
 
+    spot_block = enrich_arbitrage_opportunities_block(
+        {
+            "opportunities": opps[: int(p.get("limit") or 10)],
+            "scan_meta": {
+                "data_source": scan.get("data_source"),
+                "data_age_sec": scan.get("data_age_sec"),
+                "executable_count": scan.get("executable_count"),
+                "timestamp": scan.get("timestamp"),
+            },
+            "net_edge_evaluated": net_edge_result is not None,
+            "net_edge": (net_edge_result or {}).get("net_edge"),
+            "net_edge_path": "launch57.trust_batch1:net_edge_truth_score",
+        },
+        payload=p,
+        scan_meta=scan,
+        display_timezone=p.get("display_timezone"),
+    )
     body = stamp_decision_batch(
         {
             "surface": "spot_perp_arbitrage_scanner",
             "symbol": spine["symbol"],
-            "success": bool(opps) or bool(scan.get("counts")),
-            "spot_perp_arbitrage": {
-                "opportunities": opps[: int(p.get("limit") or 10)],
-                "scan_meta": {
-                    "data_source": scan.get("data_source"),
-                    "data_age_sec": scan.get("data_age_sec"),
-                    "executable_count": scan.get("executable_count"),
-                },
-                "net_edge_evaluated": net_edge_result is not None,
-                "net_edge": (net_edge_result or {}).get("net_edge"),
-                "net_edge_path": "launch57.trust_batch1:net_edge_truth_score",
-            },
+            "success": bool(spot_block.get("opportunities")) or bool(scan.get("counts")),
+            "spot_perp_arbitrage": spot_block,
             "cost_claim_allowed": bool(net_edge_result and not net_edge_result.get("blocked")),
             "freshness_state": spine["freshness_state"],
             "presented_as_live": spine["presented_as_live"],
+            "presented_as_current": bool(spot_block.get("opportunities")),
         },
         capability_id=230,
         launch_item_id=43,
@@ -115,6 +124,7 @@ async def spot_perp_arbitrage_scanner(*, symbol: str, params: dict[str, Any] | N
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
+    body = apply_b6_trust_envelope(body, display_timezone=p.get("display_timezone"))
     return attach_edge_ui_envelope(ai_compliance_footer(body), spine=spine)
 
 
