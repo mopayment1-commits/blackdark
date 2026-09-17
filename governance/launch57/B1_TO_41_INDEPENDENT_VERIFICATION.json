@@ -1,0 +1,116 @@
+{
+  "artifact": "B1_TO_41_INDEPENDENT_VERIFICATION",
+  "verification_type": "independent_engineering",
+  "VERIFIED_IMPLEMENTATION_SHA": "7402df5c",
+  "verified_implementation_sha_full": "7402df5cb981114ec61d24781278af5dd8ce257e",
+  "RECONCILIATION_BASE_SHA": "76a271d1",
+  "BUILDER_EVIDENCE_COMMIT": "37f2350a",
+  "verified_hash41_implementation_sha": "6ad4ae4c",
+  "verified_at": "2026-09-17T11:52:00+00:00",
+  "verifier": {
+    "role": "independent_verifier",
+    "session": "cursor-cloud-agent-independent-verification-b1-to-41",
+    "method": "read_only_delta_assessment_adversarial_runtime_replay"
+  },
+  "scope": {
+    "reconciliation": "B1_TO_41_TARGETED_RECONCILIATION",
+    "affected_launch_items": [22, 21],
+    "canonical_freshness_owner": "launch57.freshness_common"
+  },
+  "pre_verification_safety_gate": {
+    "target_sha_confirmed": true,
+    "delta_understood": true,
+    "no_implementation_write_required": true,
+    "no_legacy_dependency_required": true,
+    "protected_state_identified": true,
+    "pass": true
+  },
+  "B1_TO_41_TARGETED_RECONCILIATION": "PASS_ENGINEERING",
+  "B2_POST_VERIFICATION_RECONCILIATION_COMPLETE": true,
+  "B2:#40": "PASS_ENGINEERING",
+  "B2:#41": "PASS_ENGINEERING",
+  "B2:#39": "PASS_ENGINEERING",
+  "B2_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+  "B2_ISOLATION_LEAKAGE": 0,
+  "B2_LEGACY_RUNTIME_DEPENDENCIES": 0,
+  "#6_TEMPORAL_DEPENDENCY_PENDING": true,
+  "B3_AUTHORIZED": true,
+  "LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING": false,
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "protected_state": {
+    "B2:#40": "PRESERVE_VERIFIED_STATE",
+    "B2:#41": "PRESERVE_VERIFIED_STATE",
+    "B2:#39": "PRESERVE_VERIFIED_STATE",
+    "unaffected_B1": "PRESERVE_VERIFIED_STATE",
+    "reopen_triggers": "NONE"
+  },
+  "delta_verification_76a271d1_to_7402df5c": {
+    "runtime_paths_changed": [
+      "launch57/b1_freshness_bridge.py"
+    ],
+    "comment_only_paths": [
+      "launch57/data_batch1.py"
+    ],
+    "B1_TO_41_RECONCILIATION_ACTIVATED": true,
+    "hash40_hash41_hash39_unchanged": true,
+    "data_batch2_unchanged": true,
+    "unrelated_runtime_semantics_changed": false,
+    "pass": true
+  },
+  "canonical_41_binding": {
+    "hash22_freshness_owner": "launch57.freshness_common",
+    "hash21_freshness_owner": "launch57.freshness_common",
+    "delegates_to_assess_freshness": true,
+    "alternate_owner_detected": false,
+    "legacy_fallback_detected": false,
+    "pass": true
+  },
+  "hash22_reconciliation": {
+    "fresh_eligible": true,
+    "stale_not_live": true,
+    "future_fail_closed": true,
+    "pending_41_removed": true,
+    "pending_6_preserved": true,
+    "pass": true
+  },
+  "hash21_reconciliation": {
+    "fresh_eligible": true,
+    "stale_not_live": true,
+    "pending_41_removed": true,
+    "pending_6_preserved": true,
+    "pass": true
+  },
+  "dependency_state_integrity": {
+    "hash41_pending_removed_affected_paths_only": true,
+    "hash6_pending_preserved": true,
+    "unrelated_pending_removed": false,
+    "pass": true
+  },
+  "rollback_verification": {
+    "method": "runtime_gate_false_simulation",
+    "restored_status": "PREPARED_NOT_ACTIVATED",
+    "hash41_pending_restored": true,
+    "requires_legacy_dependency": false,
+    "pass": true
+  },
+  "blast_radius": {
+    "api_regression_outside_freshness": false,
+    "protected_state_invalidated": false,
+    "fail_open_path_detected": false,
+    "downstream_repair_required": false,
+    "pass": true
+  },
+  "targeted_tests": {
+    "command": "python3 -m pytest tests/launch57/test_b1_to_41_reconciliation.py tests/launch57/test_data_batch1.py::test_real_time_prices_rejects_stale_not_as_live tests/launch57/test_data_batch1.py::test_real_time_prices_live_path tests/launch57/test_data_batch1.py::test_ohlcv_full_bars_and_invariants tests/launch57/test_b1_isolation_closure.py::test_real_time_prices_fails_closed_on_freshness_without_legacy tests/launch57/test_b2_independent_verification.py::test_b1_bridge_activated_pending_verification tests/launch57/test_b2_independent_verification.py::test_b1_paths_bound_to_canonical_41_when_activated -q",
+    "exit_code": 0,
+    "passed": 19,
+    "failed": 0
+  },
+  "implementation_modified_during_verification": false,
+  "historical_artifacts_preserved": [
+    "governance/launch57/B1_TEMPORAL_INDEPENDENT_VERIFICATION.json",
+    "governance/launch57/B2_TEMPORAL_INDEPENDENT_VERIFICATION.json",
+    "governance/launch57/B2_40_INDEPENDENT_VERIFICATION.json",
+    "governance/launch57/B1_TO_41_RECONCILIATION_EVIDENCE.json"
+  ]
+}
