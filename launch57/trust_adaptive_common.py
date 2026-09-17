@@ -6,7 +6,7 @@ safety-floor fields for Launch #2–#5 (trust_batch1), #47–#48/#44–#46
 (trust_batch2), #7–#11 (decision_batch1), #12/#37 (decision_batch2), and
 #20/#16/#17/#13/#14 (smart_money_batch1), #15/#18/#19/#53/#54
 # (smart_money_batch2), #55/#56/#57 (smart_money_batch3), and
-# #25–#29 (derivatives_batch1) consumer paths.
+# #25–#29 (derivatives_batch1), and #30–#33 (derivatives_batch2) consumer paths.
 """
 
 from __future__ import annotations
@@ -1734,469 +1734,324 @@ def build_derivatives_composite_disclosure(semantics: dict[str, Any]) -> dict[st
     }
 
 
-def _direction_from_sign(value: float, *, positive: str, negative: str, neutral: str = "neutral") -> str:
-    if value > 0:
-        return positive
-    if value < 0:
-        return negative
-    return neutral
+def _book_top_levels(book: dict[str, Any] | None) -> tuple[float, float, float, float]:
+    row = dict(book or {})
+    bid = float(row.get("bid") or 0)
+    ask = float(row.get("ask") or 0)
+    bid_qty = float(row.get("bid_qty") or 0)
+    ask_qty = float(row.get("ask_qty") or 0)
+    bids = row.get("bids") or []
+    asks = row.get("asks") or []
+    if (not bid or not ask) and bids and asks:
+        bid = float(bids[0][0])
+        bid_qty = float(bids[0][1]) if len(bids[0]) > 1 else bid_qty
+        ask = float(asks[0][0])
+        ask_qty = float(asks[0][1]) if len(asks[0]) > 1 else ask_qty
+    return bid, ask, bid_qty, ask_qty
 
 
-def _taker_pressure_direction(ft: dict[str, Any]) -> str:
-    ratio = ft.get("taker_buy_sell_ratio")
-    if ratio is None:
-        buy = float(ft.get("taker_buy_ratio") or 0.5)
-        if buy > 0.5:
-            return "buy_pressure"
-        if buy < 0.5:
-            return "sell_pressure"
-        return "neutral"
-    taker = float(ratio or 1.0)
-    if taker > 1.0:
+def _order_book_pressure_direction(book: dict[str, Any] | None) -> str:
+    _, _, bid_qty, ask_qty = _book_top_levels(book)
+    if bid_qty > ask_qty:
         return "buy_pressure"
-    if taker < 1.0:
+    if ask_qty > bid_qty:
         return "sell_pressure"
     return "neutral"
 
 
-def _funding_pressure_direction(funding_rate: float | None) -> str:
-    return _direction_from_sign(
-        float(funding_rate or 0),
-        positive="long_crowded",
-        negative="short_crowded",
-    )
-
-
-def _price_context_direction(change_24h_pct: float | None) -> str:
-    return _direction_from_sign(
-        float(change_24h_pct or 0),
-        positive="up",
-        negative="down",
-        neutral="flat",
-    )
-
-
-def _coinglass_enhancement_available(overview: dict[str, Any] | None) -> bool:
-    cg = dict((overview or {}).get("coinglass") or {})
-    for key in ("funding", "liquidations", "open_interest"):
-        block = cg.get(key)
-        if isinstance(block, dict) and block.get("available"):
-            return True
-    return False
-
-
-def _funding_taker_contradiction(
-    funding_rate: float | None,
-    ft: dict[str, Any],
-) -> dict[str, Any] | None:
-    funding_dir = _funding_pressure_direction(funding_rate)
-    taker_dir = _taker_pressure_direction(ft)
-    if funding_dir == "long_crowded" and taker_dir == "sell_pressure":
-        return {
-            "type": "funding_taker_divergence",
-            "summary": "Funding implies crowded longs while taker flow shows sell pressure.",
-            "funding_direction": funding_dir,
-            "taker_direction": taker_dir,
+def apply_order_book_intelligence_semantics(
+    *,
+    book: dict[str, Any] | None,
+    spine: dict[str, Any] | None,
+    depth_level: str = "L1",
+) -> dict[str, Any]:
+    """Launch #30 — order-book contract semantics on L1 direct evidence."""
+    bid, ask, bid_qty, ask_qty = _book_top_levels(book)
+    available = bool(book) and bid > 0 and ask > 0
+    book_dir = _order_book_pressure_direction(book)
+    price_change = float((spine or {}).get("change_24h") or 0)
+    price_dir = _direction_from_sign(price_change, positive="up", negative="down", neutral="flat")
+    contradiction = None
+    if book_dir == "buy_pressure" and price_dir == "down":
+        contradiction = {
+            "type": "book_price_divergence",
+            "summary": "Top-of-book buy pressure diverges from negative 24h price context.",
+            "book_direction": book_dir,
+            "price_context_direction": price_dir,
         }
-    if funding_dir == "short_crowded" and taker_dir == "buy_pressure":
-        return {
-            "type": "funding_taker_divergence",
-            "summary": "Funding implies crowded shorts while taker flow shows buy pressure.",
-            "funding_direction": funding_dir,
-            "taker_direction": taker_dir,
+    elif book_dir == "sell_pressure" and price_dir == "up":
+        contradiction = {
+            "type": "book_price_divergence",
+            "summary": "Top-of-book sell pressure diverges from positive 24h price context.",
+            "book_direction": book_dir,
+            "price_context_direction": price_dir,
         }
-    return None
-
-
-def build_derivatives_contract_core(
-    *,
-    spine: dict[str, Any] | None,
-    ft: dict[str, Any] | None,
-    overview: dict[str, Any] | None = None,
-    evidence_class: str,
-    direction: str,
-    material_limitation: dict[str, Any] | None = None,
-    material_contradiction: dict[str, Any] | None = None,
-) -> dict[str, Any]:
-    """Adaptive — derivatives contract fields that must drive consumer semantics."""
-    fresh = bool((spine or {}).get("live_eligible")) and bool((spine or {}).get("presented_as_live"))
-    return {
-        "freshness_state": (spine or {}).get("freshness_state"),
-        "freshness_preserved": fresh,
-        "stale_not_promoted_to_stronger_truth": not fresh,
-        "direction": direction,
-        "evidence_class": evidence_class,
-        "material_limitation": material_limitation,
-        "material_contradiction": material_contradiction,
-        "runtime_contract_applied": True,
-        "methodology_version": METHODOLOGY_VERSION,
-    }
-
-
-def apply_open_interest_derivatives_semantics(
-    *,
-    overview: dict[str, Any] | None,
-    ft: dict[str, Any] | None,
-    spine: dict[str, Any] | None,
-) -> dict[str, Any]:
-    """Launch #25 — OI intelligence with direct evidence and visible limitations."""
-    free = dict(ft or {})
-    available = bool(free.get("available")) or float(free.get("open_interest_usd") or 0) > 0
-    direction = _price_context_direction(free.get("change_24h_pct"))
+    deeper_than_l1 = depth_level.upper() not in {"L1", "TOP_OF_BOOK"}
     limitation = {
-        "summary": "Open interest level is direct single-venue observation; OI trend delta not claimed without historical series.",
-        "single_venue_direct": True,
-        "aggregated_oi_requires_optional_coinglass": not _coinglass_enhancement_available(overview),
-    }
-    contradiction = _funding_taker_contradiction(free.get("funding_rate"), free)
-    contract = build_derivatives_contract_core(
-        spine=spine,
-        ft=free,
-        overview=overview,
-        evidence_class="direct",
-        direction=direction,
-        material_limitation=limitation,
-        material_contradiction=contradiction,
-    )
-    answer_state = "OI_OBSERVABLE" if available else "INSUFFICIENT_EVIDENCE"
-    if contradiction:
-        answer_state = "QUALIFIED_OI_CONTRADICTION"
-    return {
-        "contract": contract,
-        "answer_state": answer_state,
-        "oi_observable": available,
-        "open_interest_usd": free.get("open_interest_usd"),
-        "open_interest_contracts": free.get("open_interest_contracts"),
-        "price_context_direction": direction,
-        "methodology_version": METHODOLOGY_VERSION,
-    }
-
-
-def build_open_interest_derivatives_disclosure(semantics: dict[str, Any]) -> dict[str, Any]:
-    contract = semantics.get("contract") or {}
-    return {
-        "derivatives_contract_visible": True,
-        "evidence_class": contract.get("evidence_class"),
-        "direction": contract.get("direction"),
-        "material_limitation_visible": bool(contract.get("material_limitation")),
-        "material_contradiction_visible": bool(contract.get("material_contradiction")),
-        "single_venue_direct_not_aggregated_claim": True,
-        "runtime_contract_applied": bool(contract.get("runtime_contract_applied")),
-        "methodology_version": METHODOLOGY_VERSION,
-    }
-
-
-def apply_funding_rate_derivatives_semantics(
-    *,
-    overview: dict[str, Any] | None,
-    ft: dict[str, Any] | None,
-    spine: dict[str, Any] | None,
-) -> dict[str, Any]:
-    """Launch #26 — funding rate with direction and funding/taker contradiction wiring."""
-    free = dict(ft or {})
-    funding_rate = free.get("funding_rate")
-    available = funding_rate is not None and (bool(free.get("available")) or funding_rate != 0)
-    direction = _funding_pressure_direction(funding_rate)
-    limitation = {
-        "summary": "Funding rate is venue-snapshot direct evidence; cross-venue funding consensus not claimed on free tier.",
-        "single_venue_direct": True,
-        "optional_coinglass_enhancement_only": not _coinglass_enhancement_available(overview),
-    }
-    contradiction = _funding_taker_contradiction(funding_rate, free)
-    contract = build_derivatives_contract_core(
-        spine=spine,
-        ft=free,
-        overview=overview,
-        evidence_class="direct",
-        direction=direction,
-        material_limitation=limitation,
-        material_contradiction=contradiction,
-    )
-    answer_state = direction.upper() if available else "INSUFFICIENT_EVIDENCE"
-    if contradiction:
-        answer_state = "QUALIFIED_FUNDING_CONTRADICTION"
-    return {
-        "contract": contract,
-        "answer_state": answer_state,
-        "funding_observable": available,
-        "funding_rate": funding_rate,
-        "funding_rate_pct": free.get("funding_rate_pct"),
-        "funding_direction": direction,
-        "methodology_version": METHODOLOGY_VERSION,
-    }
-
-
-def build_funding_rate_derivatives_disclosure(semantics: dict[str, Any]) -> dict[str, Any]:
-    contract = semantics.get("contract") or {}
-    return {
-        "derivatives_contract_visible": True,
-        "evidence_class": contract.get("evidence_class"),
-        "direction": contract.get("direction"),
-        "material_limitation_visible": bool(contract.get("material_limitation")),
-        "material_contradiction_visible": bool(contract.get("material_contradiction")),
-        "funding_not_price_prediction": True,
-        "runtime_contract_applied": bool(contract.get("runtime_contract_applied")),
-        "methodology_version": METHODOLOGY_VERSION,
-    }
-
-
-def apply_liquidation_derivatives_semantics(
-    *,
-    radar: dict[str, Any] | None,
-    spine: dict[str, Any] | None,
-) -> dict[str, Any]:
-    """Launch #27 — liquidation light heatmap with scope limitation in decision semantics."""
-    alerts = list((radar or {}).get("alerts") or [])
-    available = bool(radar)
-    buy_side = sum(1 for a in alerts if "long" in str(a.get("type", "")).lower() or a.get("side") == "long")
-    sell_side = sum(1 for a in alerts if "short" in str(a.get("type", "")).lower() or a.get("side") == "short")
-    if buy_side > sell_side:
-        direction = "long_liquidation_bias"
-    elif sell_side > buy_side:
-        direction = "short_liquidation_bias"
-    else:
-        direction = "mixed_or_unspecified"
-    limitation = {
-        "summary": "Light liquidation heatmap preview only — not global liquidation coverage or full cascade mapping.",
-        "light_preview_only": True,
-        "global_liquidation_coverage_claim": "FORBIDDEN",
+        "summary": "L1 top-of-book depth at minimum — deeper L2/L3 ladders not claimed unless explicitly sourced.",
+        "depth_level": depth_level,
+        "deeper_than_l1_claimed": deeper_than_l1,
+        "l1_minimum_met": not deeper_than_l1,
     }
     contract = build_derivatives_contract_core(
         spine=spine,
         ft=None,
         evidence_class="direct",
-        direction=direction,
+        direction=book_dir,
         material_limitation=limitation,
-        material_contradiction=None,
+        material_contradiction=contradiction,
     )
-    answer_state = "LIQUIDATION_SIGNAL" if alerts else "NO_QUALIFYING_LIQUIDATION_CLUSTER"
+    answer_state = "BOOK_OBSERVABLE" if available else "INSUFFICIENT_EVIDENCE"
+    if contradiction:
+        answer_state = "QUALIFIED_BOOK_CONTRADICTION"
     return {
         "contract": contract,
         "answer_state": answer_state,
-        "liquidation_observable": available,
-        "alert_count": len(alerts),
-        "liquidation_direction": direction,
+        "book_observable": available,
+        "book_direction": book_dir,
+        "bid": bid,
+        "ask": ask,
+        "bid_qty": bid_qty,
+        "ask_qty": ask_qty,
         "methodology_version": METHODOLOGY_VERSION,
     }
 
 
-def build_liquidation_derivatives_disclosure(semantics: dict[str, Any]) -> dict[str, Any]:
+def build_order_book_intelligence_disclosure(semantics: dict[str, Any]) -> dict[str, Any]:
     contract = semantics.get("contract") or {}
     return {
-        "derivatives_contract_visible": True,
+        "order_book_contract_visible": True,
         "evidence_class": contract.get("evidence_class"),
         "direction": contract.get("direction"),
+        "l1_minimum_met": contract.get("material_limitation", {}).get("l1_minimum_met"),
         "material_limitation_visible": bool(contract.get("material_limitation")),
-        "light_heatmap_not_global_coverage": True,
+        "material_contradiction_visible": bool(contract.get("material_contradiction")),
         "runtime_contract_applied": bool(contract.get("runtime_contract_applied")),
         "methodology_version": METHODOLOGY_VERSION,
     }
 
 
-def apply_taker_leverage_derivatives_semantics(
+_APPROVED_GENERAL_MARKET_SCREENER_SCOPES: frozenset[str] = frozenset(
+    {"general_public_market", "general_market", "public_market"}
+)
+_UNSUPPORTED_SCREENER_SCOPE_FLAGS: frozenset[str] = frozenset(
+    {
+        "smart_money_only",
+        "on_chain_only",
+        "institutional_mesh",
+        "custom_sql",
+        "options_chain",
+        "derivatives_only",
+        "private_deal_flow",
+    }
+)
+
+
+def apply_general_market_screener_guard(
+    screener: list[dict[str, Any]] | Any,
     *,
-    ft: dict[str, Any] | None,
-    leverage_payload: dict[str, Any] | None,
-    spine: dict[str, Any] | None,
+    params: dict[str, Any] | None = None,
+    spine: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    """Launch #28 — taker pressure + leverage overhang with visible component disagreement."""
-    free = dict(ft or {})
-    leverage = dict(leverage_payload or {})
-    taker_dir = _taker_pressure_direction(free)
-    fragility = str(leverage.get("fragility") or "unknown").lower()
-    if fragility == "red":
-        leverage_dir = "elevated_deleveraging_risk"
-    elif fragility == "yellow":
-        leverage_dir = "moderate_overhang"
-    elif fragility == "green":
-        leverage_dir = "within_normal_range"
+    """Launch #31 — keep screener within approved general-market discovery scope."""
+    p = dict(params or {})
+    rows = list(screener) if isinstance(screener, list) else []
+    requested_scope = str(p.get("filter_scope") or p.get("screener_scope") or "general_public_market").lower()
+    unsupported_flags = sorted(flag for flag in _UNSUPPORTED_SCREENER_SCOPE_FLAGS if p.get(flag))
+    scope_rejected = requested_scope not in _APPROVED_GENERAL_MARKET_SCREENER_SCOPES or bool(unsupported_flags)
+    approved_rows = rows if not scope_rejected else []
+    answer_state = "GENERAL_MARKET_SCREENED" if approved_rows else "UNSUPPORTED_SCOPE_REJECTED"
+    if scope_rejected:
+        answer_state = "UNSUPPORTED_SCOPE_REJECTED"
+    elif not approved_rows:
+        answer_state = "NO_QUALIFYING_RESULTS"
+    limitation = {
+        "summary": "General public market discovery only — smart-money or institutional mesh filters are not promoted here.",
+        "approved_scope": "general_public_market",
+        "unsupported_scope_rejected": scope_rejected,
+    }
+    return {
+        "answer_state": answer_state,
+        "screener_rows": approved_rows,
+        "screener_observable": bool(rows),
+        "scope_rejected": scope_rejected,
+        "requested_scope": requested_scope,
+        "unsupported_flags": unsupported_flags,
+        "market_scope": "general_public_market",
+        "material_limitation": limitation,
+        "freshness_state": (spine or {}).get("freshness_state"),
+        "runtime_guard_applied": True,
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def build_general_market_screener_disclosure(guarded: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "general_market_discovery_only": True,
+        "unsupported_scope_not_promoted": guarded.get("scope_rejected") is not True,
+        "unsupported_scope_rejected": guarded.get("scope_rejected"),
+        "approved_scope": guarded.get("market_scope"),
+        "limitations_visible": True,
+        "runtime_guard_applied": bool(guarded.get("runtime_guard_applied")),
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+_APPROVED_WATCHLIST_DOMAINS: frozenset[str] = frozenset(
+    {"token", "wallet", "token_and_wallet", "token_wallet"}
+)
+_UNSUPPORTED_WATCHLIST_DOMAIN_FLAGS: frozenset[str] = frozenset(
+    {
+        "multi_venue_mesh",
+        "options_chain",
+        "full_alert_mesh",
+        "institutional_portfolio",
+        "cross_chain_all",
+        "derivatives_watch_mesh",
+    }
+)
+
+
+def apply_limited_watchlist_guard(
+    watches: list[dict[str, Any]] | None,
+    *,
+    params: dict[str, Any] | None = None,
+    spine: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Launch #32 — limited token + wallet watchlists; reject unsupported domains."""
+    p = dict(params or {})
+    rows = list(watches or [])
+    requested_domain = str(p.get("watchlist_domain") or "token_and_wallet").lower()
+    unsupported_flags = sorted(flag for flag in _UNSUPPORTED_WATCHLIST_DOMAIN_FLAGS if p.get(flag))
+    domain_rejected = requested_domain not in _APPROVED_WATCHLIST_DOMAINS or bool(unsupported_flags)
+    approved_rows = rows if not domain_rejected else []
+    if domain_rejected:
+        answer_state = "UNSUPPORTED_DOMAIN_REJECTED"
+    elif approved_rows:
+        answer_state = "WATCHLIST_OBSERVABLE"
     else:
-        leverage_dir = "unknown"
-    disagreements: list[dict[str, Any]] = []
-    if taker_dir == "buy_pressure" and fragility == "red":
-        disagreements.append(
-            {
-                "type": "taker_leverage_divergence",
-                "summary": "Taker flow shows buy pressure while leverage overhang fragility is elevated.",
-                "taker_direction": taker_dir,
-                "leverage_direction": leverage_dir,
-            }
-        )
-    if taker_dir == "sell_pressure" and fragility == "green":
-        disagreements.append(
-            {
-                "type": "taker_leverage_divergence",
-                "summary": "Taker flow shows sell pressure while leverage overhang reads within normal range.",
-                "taker_direction": taker_dir,
-                "leverage_direction": leverage_dir,
-            }
-        )
-    material_contradiction = disagreements[0] if disagreements else None
+        answer_state = "NO_QUALIFYING_WATCHES"
     limitation = {
-        "summary": "Composite of direct taker flow and leverage-overhang indicator — not a unified execution signal.",
-        "composite_components": ["taker_flow_direct", "leverage_overhang_indicator"],
+        "summary": "Limited launch watchlists — token + wallet tracking without full multi-venue alert mesh.",
+        "approved_domains": sorted(_APPROVED_WATCHLIST_DOMAINS),
+        "unsupported_domain_rejected": domain_rejected,
+        "full_multi_venue_mesh": False,
+        "limited_launch_scope": True,
     }
-    contract = build_derivatives_contract_core(
-        spine=spine,
-        ft=free,
-        evidence_class="composite",
-        direction=taker_dir if not disagreements else "mixed",
-        material_limitation=limitation,
-        material_contradiction=material_contradiction,
-    )
-    contract["component_directions"] = {
-        "taker": taker_dir,
-        "leverage": leverage_dir,
-    }
-    contract["material_disagreements"] = disagreements
-    contract["material_disagreement_visible"] = bool(disagreements)
-    available = taker_dir != "neutral" or leverage_dir != "unknown"
-    answer_state = "TAKER_PRESSURE" if taker_dir != "neutral" else "LEVERAGE_CONTEXT_ONLY"
-    if disagreements:
-        answer_state = "COMPONENT_DISAGREEMENT"
-    if not available:
-        answer_state = "INSUFFICIENT_EVIDENCE"
     return {
-        "contract": contract,
         "answer_state": answer_state,
-        "taker_direction": taker_dir,
-        "leverage_direction": leverage_dir,
-        "material_disagreements": disagreements,
+        "wallet_watchlists": approved_rows,
+        "watchlist_observable": bool(rows),
+        "domain_rejected": domain_rejected,
+        "requested_domain": requested_domain,
+        "unsupported_flags": unsupported_flags,
+        "material_limitation": limitation,
+        "freshness_state": (spine or {}).get("freshness_state"),
+        "runtime_guard_applied": True,
         "methodology_version": METHODOLOGY_VERSION,
     }
 
 
-def build_taker_leverage_derivatives_disclosure(semantics: dict[str, Any]) -> dict[str, Any]:
-    contract = semantics.get("contract") or {}
+def build_limited_watchlist_disclosure(guarded: dict[str, Any]) -> dict[str, Any]:
     return {
-        "derivatives_contract_visible": True,
-        "evidence_class": contract.get("evidence_class"),
-        "direction": contract.get("direction"),
-        "component_disagreement_visible": bool(semantics.get("material_disagreements")),
-        "material_limitation_visible": bool(contract.get("material_limitation")),
-        "runtime_contract_applied": bool(contract.get("runtime_contract_applied")),
+        "limited_launch_scope": True,
+        "token_wallet_only": guarded.get("domain_rejected") is not True,
+        "unsupported_domain_rejected": guarded.get("domain_rejected"),
+        "full_multi_venue_mesh": False,
+        "limitations_visible": True,
+        "runtime_guard_applied": bool(guarded.get("runtime_guard_applied")),
         "methodology_version": METHODOLOGY_VERSION,
     }
 
 
-def _sentiment_score_value(sentiment: dict[str, Any] | None) -> float | None:
-    if not isinstance(sentiment, dict):
-        return None
-    for key in ("score", "sentiment_score", "compound_score"):
-        if sentiment.get(key) is not None:
-            return float(sentiment[key])
-    compound = sentiment.get("sentiment_compound_index")
-    if isinstance(compound, dict) and compound:
-        first = next(iter(compound.values()))
-        if isinstance(first, dict) and first.get("score") is not None:
-            return float(first["score"])
-    return None
+APPROVED_SMART_ALERT_CLASSES: frozenset[str] = frozenset({"price", "flow", "whale", "decision"})
 
 
-def _sentiment_direction(score: float | None) -> str:
-    if score is None:
-        return "unknown"
-    return _direction_from_sign(score, positive="bullish", negative="bearish")
-
-
-def _derivatives_pressure_direction(ft: dict[str, Any] | None) -> str:
-    free = dict(ft or {})
-    funding_dir = _funding_pressure_direction(free.get("funding_rate"))
-    taker_dir = _taker_pressure_direction(free)
-    if funding_dir == "long_crowded" or taker_dir == "buy_pressure":
-        if funding_dir == "short_crowded" or taker_dir == "sell_pressure":
-            return "mixed"
-        return "bullish_pressure"
-    if funding_dir == "short_crowded" or taker_dir == "sell_pressure":
-        return "bearish_pressure"
-    return "neutral"
-
-
-def compute_derivatives_sentiment_composite(
+def apply_smart_alerts_qualification_filter(
+    evaluations: dict[str, Any],
     *,
-    sentiment: dict[str, Any] | None,
-    deriv_overview: dict[str, Any] | None,
-    spine: dict[str, Any] | None,
+    triggers: dict[str, Any] | None = None,
+    params: dict[str, Any] | None = None,
+    spine: dict[str, Any] | None = None,
+    symbol: str | None = None,
 ) -> dict[str, Any]:
-    """Launch #29 — composite that preserves visible material component disagreement."""
-    ft = dict((deriv_overview or {}).get("free_tier") or {})
-    sentiment_score = _sentiment_score_value(sentiment)
-    sentiment_dir = _sentiment_direction(sentiment_score)
-    deriv_dir = _derivatives_pressure_direction(ft)
-    disagreements: list[dict[str, Any]] = []
-    if (
-        sentiment_dir in {"bullish", "bearish"}
-        and deriv_dir in {"bullish_pressure", "bearish_pressure"}
-        and sentiment_dir != deriv_dir.replace("_pressure", "")
-    ):
-        disagreements.append(
-            {
-                "type": "sentiment_derivatives_divergence",
-                "summary": "Sentiment direction diverges from derivatives pressure components.",
-                "sentiment_direction": sentiment_dir,
-                "derivatives_direction": deriv_dir,
-            }
+    """Launch #33 — approved alert classes only; required fields on each emitted alert."""
+    from launch57.temporal_common import to_rfc3339, utc_now
+
+    p = dict(params or {})
+    fresh = bool((spine or {}).get("live_eligible")) and bool((spine or {}).get("presented_as_live"))
+    freshness_state = str((spine or {}).get("freshness_state") or "UNKNOWN")
+    target = str(symbol or (spine or {}).get("symbol") or p.get("symbol") or "UNKNOWN")
+    now = to_rfc3339(utc_now())
+
+    requested_classes = p.get("alert_classes") or p.get("alert_types")
+    if isinstance(requested_classes, str):
+        requested_classes = [requested_classes]
+    requested = [str(c).lower() for c in (requested_classes or [])]
+    unsupported_requested = sorted({c for c in requested if c not in APPROVED_SMART_ALERT_CLASSES})
+
+    qualified: dict[str, Any] = {}
+    rejected_unsupported: list[dict[str, Any]] = []
+    stale_blocked: list[str] = []
+
+    for channel, evaluation in dict(evaluations or {}).items():
+        channel_key = str(channel).lower()
+        if channel_key not in APPROVED_SMART_ALERT_CLASSES:
+            rejected_unsupported.append({"channel": channel_key, "reason": "unsupported_alert_class"})
+            continue
+        row = dict(evaluation) if isinstance(evaluation, dict) else {"value": evaluation}
+        trigger = dict((triggers or {}).get(channel_key) or {})
+        fired = bool(row.get("alert_fired") or row.get("ok"))
+        trigger_age_ms = row.get("trigger_age_ms") or row.get("alert_age_ms")
+        stale_evidence = trigger_age_ms is not None and float(trigger_age_ms) > float(
+            p.get("stale_threshold_ms") or 60_000.0
         )
-    funding_taker = _funding_taker_contradiction(ft.get("funding_rate"), ft)
-    if funding_taker:
-        disagreements.append(funding_taker)
-    components = {
-        "sentiment": {
-            "score": sentiment_score,
-            "direction": sentiment_dir,
-            "source": "sentiment_engine",
-        },
-        "derivatives": {
-            "funding_direction": _funding_pressure_direction(ft.get("funding_rate")),
-            "taker_direction": _taker_pressure_direction(ft),
-            "direction": deriv_dir,
-            "source": "bd_platform.derivatives_hub",
-        },
-    }
-    aligned = not disagreements and sentiment_score is not None
-    decision_score = round(float(sentiment_score), 4) if aligned and sentiment_score is not None else None
-    limitation = {
-        "summary": "Composite combines sentiment and derivatives components; disagreement suppresses unified decision score.",
-        "composite_not_hidden_when_components_disagree": True,
-    }
-    contract = build_derivatives_contract_core(
-        spine=spine,
-        ft=ft,
-        overview=deriv_overview,
-        evidence_class="composite",
-        direction=deriv_dir if not disagreements else "mixed",
-        material_limitation=limitation,
-        material_contradiction=disagreements[0] if disagreements else None,
-    )
-    contract["material_disagreements"] = disagreements
-    contract["material_disagreement_visible"] = bool(disagreements)
-    contract["components"] = components
-    answer_state = "ALIGNED_COMPOSITE" if aligned else "COMPONENT_DISAGREEMENT"
-    if sentiment_score is None and not ft:
-        answer_state = "INSUFFICIENT_EVIDENCE"
+        evidence_state = "LIVE" if fresh and not stale_evidence else "DELAYED"
+        if stale_evidence or not fresh:
+            fired = False
+            stale_blocked.append(channel_key)
+        stamped = {
+            **row,
+            "alert_class": channel_key,
+            "timestamp": row.get("timestamp") or trigger.get("timestamp") or now,
+            "freshness_state": freshness_state,
+            "evidence_state": evidence_state,
+            "reason": row.get("reason") or trigger.get("rule") or f"{channel_key}_evaluation",
+            "target": target,
+            "user_action_path": "in_app_evaluation_and_api_response",
+            "presented_as_live": evidence_state == "LIVE" and fired,
+            "approved_alert_class": True,
+        }
+        qualified[channel_key] = stamped
+
+    fired_channels = [c for c, row in qualified.items() if row.get("presented_as_live")]
+    answer_state = "ALERTS_FIRED" if fired_channels else "NO_CURRENT_ALERTS"
+    if unsupported_requested or rejected_unsupported:
+        answer_state = "UNSUPPORTED_ALERT_CLASS_REJECTED"
+    if stale_blocked and not fired_channels:
+        answer_state = "STALE_EVIDENCE_NOT_LIVE"
+
     return {
-        "contract": contract,
         "answer_state": answer_state,
-        "decision_driving_composite_score": decision_score,
-        "observable_sentiment_score": sentiment_score,
-        "components": components,
-        "material_disagreements": disagreements,
-        "composite_suppressed_due_to_disagreement": bool(disagreements),
+        "qualified_evaluations": qualified,
+        "fired_channels": fired_channels,
+        "unsupported_requested_classes": unsupported_requested,
+        "rejected_unsupported_classes": rejected_unsupported,
+        "stale_blocked_channels": stale_blocked,
+        "delayed_not_presented_as_live": bool(stale_blocked) or not fresh,
+        "approved_alert_classes_only": True,
+        "runtime_filter_applied": True,
         "methodology_version": METHODOLOGY_VERSION,
     }
 
 
-def build_derivatives_composite_disclosure(semantics: dict[str, Any]) -> dict[str, Any]:
-    contract = semantics.get("contract") or {}
+def build_smart_alerts_disclosure(filtered: dict[str, Any]) -> dict[str, Any]:
     return {
-        "derivatives_contract_visible": True,
-        "evidence_class": contract.get("evidence_class"),
-        "direction": contract.get("direction"),
-        "material_disagreement_visible": bool(semantics.get("material_disagreements")),
-        "composite_not_hidden_when_components_disagree": True,
-        "decision_driving_composite_suppressed_on_disagreement": bool(
-            semantics.get("composite_suppressed_due_to_disagreement")
-        ),
-        "runtime_contract_applied": bool(contract.get("runtime_contract_applied")),
+        "approved_alert_classes_only": True,
+        "approved_classes": sorted(APPROVED_SMART_ALERT_CLASSES),
+        "unsupported_class_rejected": bool(filtered.get("unsupported_requested_classes") or filtered.get("rejected_unsupported_classes")),
+        "delayed_not_presented_as_live": filtered.get("delayed_not_presented_as_live"),
+        "required_fields_stamped": True,
+        "runtime_filter_applied": bool(filtered.get("runtime_filter_applied")),
         "methodology_version": METHODOLOGY_VERSION,
     }
