@@ -106,6 +106,7 @@
     "passed": 19,
     "failed": 0
   },
+  "evidence_commit_sha": "81548d21",
   "implementation_modified_during_verification": false,
   "historical_artifacts_preserved": [
     "governance/launch57/B1_TEMPORAL_INDEPENDENT_VERIFICATION.json",
