@@ -3,7 +3,8 @@ Launch-57 Phase 2 Adaptive Batch A — trust-surface disclosure helpers.
 
 Support structure only (not a capability). Level-1 progressive disclosure and
 safety-floor fields for Launch #2–#5 (trust_batch1), #47–#48/#44–#46
-(trust_batch2), and #7–#11 (decision_batch1) consumer paths.
+(trust_batch2), #7–#11 (decision_batch1), and #12/#37 (decision_batch2)
+consumer paths.
 """
 
 from __future__ import annotations
@@ -411,5 +412,123 @@ def build_actionability_disclosure(
         "actionability_not_trade_instruction": True,
         "alert_count": len(alerts),
         "net_edge_gate_passed": not bool((net_edge_gate or {}).get("blocked")),
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+_APPROVED_LAUNCH57_COMPOSITION_DIMENSION_SOURCES: frozenset[str] = frozenset(
+    {
+        "ta_engine",
+        "on_chain_extension",
+        "sentiment_layer",
+        "launch57.data_batch1",
+        "launch57.data_batch2",
+        "launch57.decision_batch1",
+        "launch57.trust_batch1",
+    }
+)
+
+
+def _is_approved_launch57_evidence_path(path: str) -> bool:
+    text = str(path or "")
+    return text.startswith("launch57.")
+
+
+def build_structured_conviction_disclosure(
+    *,
+    alert: dict[str, Any],
+    conviction_score: float,
+    payload: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Adaptive — Launch #12 structured conviction with visible material disagreement."""
+    p = dict(payload or {})
+    opportunity = float(p.get("opportunity_level") or 0)
+    volume_z = float(p.get("volume_zscore") or 0)
+    alert_fired = bool(alert.get("alert_fired"))
+    disagreements: list[dict[str, Any]] = []
+
+    if opportunity >= 7 and not alert_fired:
+        disagreements.append(
+            {
+                "type": "high_opportunity_no_alert",
+                "summary": "Opportunity level elevated but contextual alert did not fire.",
+            }
+        )
+    if volume_z >= 2 and opportunity < 5:
+        disagreements.append(
+            {
+                "type": "volume_opportunity_divergence",
+                "summary": "Volume z-score elevated without matching opportunity level.",
+            }
+        )
+    governed = extract_material_contradiction(p)
+    if governed:
+        disagreements.append(governed)
+
+    if conviction_score >= 75:
+        band = "high_conviction"
+    elif conviction_score >= 40:
+        band = "moderate_conviction"
+    else:
+        band = "low_conviction"
+
+    return {
+        "structured_conviction": {
+            "score": conviction_score,
+            "band": band,
+            "alert_fired": alert_fired,
+        },
+        "material_disagreement_visible": True,
+        "material_disagreements": disagreements,
+        "disagreement_count": len(disagreements),
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def build_approved_evidence_composition(
+    decision_engine: dict[str, Any],
+    *,
+    spine: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Adaptive — Launch #37 composition of approved Launch-57 evidence only."""
+    components: list[dict[str, Any]] = []
+    spine_ref = dict((spine or {}).get("data_spine") or {})
+    for key, path in spine_ref.items():
+        components.append(
+            {
+                "component": key,
+                "path": path,
+                "approved": _is_approved_launch57_evidence_path(str(path)),
+            }
+        )
+
+    multi = dict((decision_engine or {}).get("multi_dimensional") or {})
+    for name, dim in dict(multi.get("dimensions") or {}).items():
+        source = str((dim or {}).get("source") or "")
+        approved = source in _APPROVED_LAUNCH57_COMPOSITION_DIMENSION_SOURCES
+        components.append(
+            {
+                "component": f"dimension:{name}",
+                "source": source,
+                "approved": approved,
+            }
+        )
+
+    cross = dict((decision_engine or {}).get("cross_market") or {})
+    if cross:
+        components.append(
+            {
+                "component": "cross_market",
+                "source": "launch57.decision_batch2:cross_market_decision_engine",
+                "approved": True,
+            }
+        )
+
+    unapproved = [c for c in components if not c.get("approved")]
+    return {
+        "approved_launch57_evidence_only": len(unapproved) == 0,
+        "components": components,
+        "unapproved_components": unapproved,
+        "composition_scope": "approved_launch57_evidence_only",
         "methodology_version": METHODOLOGY_VERSION,
     }
