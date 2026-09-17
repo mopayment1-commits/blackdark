@@ -11,7 +11,7 @@
 
 ## B. Baseline SHA
 
-- **Reconciliation SHA:** `54ae14ccb21369c6b8a110061e501ca74e12975e`
+- **Reconciliation SHA:** `3ec1a21c70f02e7dd51ec47e60d67b9a85a9e21a`
 - **Spec SHA256:** `63aaed8b185a07e014d0a6028120ad94a6a3a18fa072472533aa2ac84f55684a`
 - **B14 IV SHA:** `9a6dfaf8`
 
