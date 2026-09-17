@@ -2,8 +2,8 @@
 Launch-57 Phase 2 Adaptive Batch A — trust-surface disclosure helpers.
 
 Support structure only (not a capability). Level-1 progressive disclosure and
-safety-floor fields for Launch #2–#5 (trust_batch1) and #47–#48/#44–#46
-(trust_batch2) consumer paths.
+safety-floor fields for Launch #2–#5 (trust_batch1), #47–#48/#44–#46
+(trust_batch2), and #7–#11 (decision_batch1) consumer paths.
 """
 
 from __future__ import annotations
@@ -316,3 +316,100 @@ def build_abstention_reject_disclosure(
 def build_approved_public_trust_surfaces() -> list[dict[str, Any]]:
     """Launch #46 — approved Launch-57 public trust surfaces only."""
     return [dict(row) for row in APPROVED_LAUNCH57_PUBLIC_TRUST_SURFACES]
+
+
+def build_market_context_disclosure(market_compass: dict[str, Any]) -> dict[str, Any]:
+    """Adaptive — Launch #7 market context without standalone trade instruction."""
+    return {
+        "context_only": True,
+        "standalone_trade_instruction": False,
+        "market_regime": market_compass.get("regime"),
+        "compass_question": market_compass.get("compass_question"),
+        "interpretation_scope": "market_context_not_trade_signal",
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def build_beginner_simplification_disclosure(
+    clear_answer: dict[str, Any],
+    *,
+    payload: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Adaptive — Launch #8 simplification with material risk still visible."""
+    risk_score = clear_answer.get("risk_score")
+    material = validate_material_claims_from_payload(payload or {})
+    return {
+        "simplified_surface": True,
+        "material_risk_visible": True,
+        "risk_score": risk_score,
+        "material_risk": build_material_risk_access(material),
+        "insight_not_recommendation": bool(clear_answer.get("insight_not_recommendation")),
+        "disclaimer": clear_answer.get("disclaimer"),
+        "safety_floor_visible": True,
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def build_dependence_aware_confirmation(
+    *,
+    confirmed: bool,
+    price_change: float,
+    sentiment: dict[str, Any],
+    registry_stats: dict[str, Any],
+) -> dict[str, Any]:
+    """Adaptive — Launch #9; duplicated evidence is not independent confirmation."""
+    signals = list(sentiment.get("signals") or [])
+    normalized = [str(s).lower() for s in signals]
+    unique_types = set(normalized)
+    duplicated = len(signals) > len(unique_types) or len(unique_types) <= 1
+    independent = confirmed and not duplicated and len(unique_types) >= 2
+    return {
+        "raw_confirmed": confirmed,
+        "independent_confirmation": independent,
+        "duplicated_evidence_not_independent": duplicated,
+        "dependence_factors": {
+            "signal_count": len(signals),
+            "unique_signal_types": len(unique_types),
+            "same_source_risk": duplicated,
+            "registry_total": registry_stats.get("total"),
+        },
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def build_material_contradiction_impact(
+    contradictions: list[dict[str, Any]],
+) -> dict[str, Any]:
+    """Adaptive — Launch #10 explicit material contradiction and decision impact."""
+    material = contradictions[0] if contradictions else None
+    return {
+        "material_contradiction": material,
+        "contradiction_count": len(contradictions),
+        "decision_impact": "WAIT" if contradictions else "NONE",
+        "confidence_effect": "reduced" if contradictions else "unchanged",
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def build_actionability_disclosure(
+    score: float,
+    *,
+    alerts: list[Any],
+    net_edge_gate: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Adaptive — Launch #11 actionability without unsupported precision."""
+    if score >= 75:
+        band = "high_watch"
+    elif score >= 40:
+        band = "moderate_watch"
+    else:
+        band = "low_watch"
+    return {
+        "qualitative_band": band,
+        "unsupported_precision_blocked": True,
+        "raw_score_present": True,
+        "actionability_not_trade_instruction": True,
+        "alert_count": len(alerts),
+        "net_edge_gate_passed": not bool((net_edge_gate or {}).get("blocked")),
+        "methodology_version": METHODOLOGY_VERSION,
+    }
