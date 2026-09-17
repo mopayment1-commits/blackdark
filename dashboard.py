@@ -816,6 +816,13 @@ except Exception:
     logger.exception("Heroes router unavailable")
 
 try:
+    from api.routers.launch57_edge_ui import router as launch57_edge_ui_router
+
+    app.include_router(launch57_edge_ui_router)
+except Exception:
+    logger.exception("Launch-57 edge UI router unavailable")
+
+try:
     from api.routers.telegram import router as telegram_router
 
     app.include_router(telegram_router)

@@ -1,0 +1,23 @@
+{
+  "artifact": "PHASE7_BATCH1_EVIDENCE",
+  "phase": "7_EDGE_UI",
+  "batch": 1,
+  "source_commit": "74c609ce",
+  "final_commit": "147072522daf04109229763cfe4430dcd5393cfc",
+  "generated_at": "2026-09-16T22:40:49.212245+00:00",
+  "build_order": [
+    43,
+    38,
+    49,
+    50,
+    52
+  ],
+  "handler_module": "launch57.edge_ui_batch1",
+  "legacy_bypass_debt": "LAUNCH57_EDGE_UI_BATCH1_CAP_IDS empty → batch10_dedicated (230), batch26_dedicated (635), batch01_dedicated (40)",
+  "tests": {
+    "command": "python3 -m pytest tests/launch57/test_edge_ui_batch1.py tests/launch57/test_edge_ui_institutional_wire.py -q",
+    "exit_code": 0,
+    "stdout": "............                                                             [100%]",
+    "passed": true
+  }
+}
