@@ -1,7 +1,7 @@
 {
   "artifact": "BLACKDARK_LAUNCH57_TEMPORAL_CONSISTENCY_RECONCILIATION",
-  "generated_at": "2026-09-17T04:42:58.879714+00:00",
-  "baseline_sha": "8052eaa8aef73de06079f60083d4a5968f499089",
+  "generated_at": "2026-09-17T09:29:18.130569+00:00",
+  "baseline_sha": "e6abecc9c0c33e669b3c61db04c72e0d8ed2f866",
   "spec_sha256": "63aaed8b185a07e014d0a6028120ad94a6a3a18fa072472533aa2ac84f55684a",
   "current_batch": "B1",
   "batch_launch_numbers": [
@@ -11,11 +11,7 @@
     24,
     21
   ],
-  "batch_temporal_verdict": "B1:PASS_ENGINEERING",
-  "B1_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
-  "B1_AUTHORIZED_FOR_DEPENDENT_PROGRESS": true,
-  "B1_independent_verification_sha": "4a3b24cc7d69ab775ec2a60009dda7d6384d5f11",
-  "B1_independent_verification_artifact": "governance/launch57/B1_TEMPORAL_INDEPENDENT_VERIFICATION.json",
+  "batch_temporal_verdict": "PENDING_VERIFICATION",
   "LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING": false,
   "LAUNCH57_TEMPORAL_CONSISTENCY_READY_FOR_LOCAL_USE": false,
   "PASS_LIVE_NOT_CLAIMED": true,
@@ -119,5 +115,5 @@
     ]
   },
   "branch_note": "cursor/launch57-phase8-launch-coherence-358c retains phase8 launch-coherence history; B1 isolation closure is an additive temporal batch on the same branch per execution order",
-  "final_status": "BATCH_B1_INDEPENDENT_VERIFICATION_PASS_ENGINEERING"
+  "final_status": "BATCH_B1_ISOLATION_CLOSED_PENDING_VERIFICATION"
 }

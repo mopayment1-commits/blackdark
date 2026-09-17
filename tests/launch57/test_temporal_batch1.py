@@ -184,8 +184,8 @@ async def test_real_time_prices_attaches_temporal_envelope(monkeypatch):
     assert out["temporal"]["availability_state"] == "KNOWN"
     assert out["temporal"]["source_time"] is not None
     assert out["legacy_runtime_dependencies"] == 0
-    assert out["presented_as_live"] is False
-    assert any(p["launch_number"] == 41 for p in out["temporal_dependency_pending"])
+    assert out.get("b1_to_41_reconciliation", {}).get("status") == "BOUND_TO_LAUNCH57_41"
+    assert out["freshness_owner"] == "launch57.freshness_common"
 
 
 @pytest.mark.asyncio

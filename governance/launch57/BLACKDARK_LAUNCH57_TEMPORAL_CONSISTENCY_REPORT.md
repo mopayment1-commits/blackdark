@@ -3,8 +3,7 @@
 ## A. Executive status
 
 - **Current batch:** `B1` (#42 Unified exchange connector, #22 Real-time / near-real-time prices, #23 OHLCV, #24 Quote + symbol metadata, #21 Spot metrics suite)
-- **Batch temporal verdict:** `B1:PASS_ENGINEERING` (independent verification on SHA `4a3b24cc`)
-- **Independent verifier:** `governance/launch57/B1_TEMPORAL_INDEPENDENT_VERIFICATION.json`
+- **Batch temporal verdict:** `PENDING_VERIFICATION` (builder does not self-certify `PASS_ENGINEERING`)
 - **Global:** `LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING=false`
 - **Local use ready:** `LAUNCH57_TEMPORAL_CONSISTENCY_READY_FOR_LOCAL_USE=false`
 - **PASS_LIVE:** not claimed (`PASS_LIVE_NOT_CLAIMED=true`)
@@ -12,7 +11,7 @@
 
 ## B. Baseline SHA
 
-- **Branch commit:** `8052eaa8aef73de06079f60083d4a5968f499089`
+- **Branch commit:** `e6abecc9c0c33e669b3c61db04c72e0d8ed2f866`
 - **Spec SHA256:** `63aaed8b185a07e014d0a6028120ad94a6a3a18fa072472533aa2ac84f55684a`
 
 ## C. Canonical time architecture
@@ -105,9 +104,7 @@ passed=True
 
 ## U. Final verdict
 
-- **B1_INDEPENDENT_VERDICT=PASS_ENGINEERING**
-- **B1_AUTHORIZED_FOR_DEPENDENT_PROGRESS=true**
-- **BATCH_TEMPORAL_VERDICT=B1:PASS_ENGINEERING** (B1 only; not global)
+- **BATCH_TEMPORAL_VERDICT=B1:PENDING_VERIFICATION**
 - **B1_ISOLATION_LEAKAGE=0**
 - **LEGACY_RUNTIME_DEPENDENCIES=0**
 - **LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING=false** until all batches + Phase 8 reconciliation complete

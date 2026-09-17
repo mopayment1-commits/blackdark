@@ -64,9 +64,10 @@ async def test_real_time_prices_rejects_stale_not_as_live(monkeypatch):
     out = await real_time_prices(symbol="BTC", params={})
     assert out["capability_id"] == 561
     assert out["presented_as_live"] is False
-    assert out["freshness_semantics"] == "BLOCKED_BY_DEPENDENCY_ORDER"
+    assert out["freshness_state"] == "STALE"
     assert out["price"] == 100.0
-    assert any(p["launch_number"] == 41 for p in out["temporal_dependency_pending"])
+    assert out.get("b1_to_41_reconciliation", {}).get("status") == "BOUND_TO_LAUNCH57_41"
+    assert not any(p.get("launch_number") == 41 for p in out.get("temporal_dependency_pending", []))
 
 
 @pytest.mark.asyncio
@@ -82,11 +83,12 @@ async def test_real_time_prices_live_path(monkeypatch):
 
     out = await real_time_prices(symbol="BTC", params={})
     assert out["success"] is True
-    assert out["presented_as_live"] is False
-    assert out["freshness_semantics"] == "BLOCKED_BY_DEPENDENCY_ORDER"
+    assert out["presented_as_live"] is True
+    assert out["freshness_state"] in {"LIVE", "NEAR_LIVE"}
     assert out["price"] == 50000.0
     assert out["unit"] == "USDT"
     assert out["legacy_runtime_dependencies"] == 0
+    assert out.get("b1_to_41_reconciliation", {}).get("status") == "BOUND_TO_LAUNCH57_41"
 
 
 def test_ohlcv_invariants_detect_violation():

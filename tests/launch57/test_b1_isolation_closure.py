@@ -68,10 +68,10 @@ async def test_real_time_prices_fails_closed_on_freshness_without_legacy(monkeyp
     out = await real_time_prices(symbol="BTC", params={})
     assert out["legacy_runtime_dependencies"] == 0
     assert out["b1_isolation_leakage"] == 0
-    assert out["presented_as_live"] is False
-    assert "freshness_state" not in out
-    assert any(p["launch_number"] == 41 for p in out["temporal_dependency_pending"])
-    assert any(p["launch_number"] == 6 for p in out["temporal_dependency_pending"])
+    assert out["freshness_owner"] == "launch57.freshness_common"
+    assert out.get("b1_to_41_reconciliation", {}).get("status") == "BOUND_TO_LAUNCH57_41"
+    assert not any(p.get("launch_number") == 41 for p in out.get("temporal_dependency_pending", []))
+    assert any(p.get("launch_number") == 6 for p in out.get("temporal_dependency_pending", []))
 
 
 def _assert_no_prohibited_legacy_tokens(text: str) -> None:

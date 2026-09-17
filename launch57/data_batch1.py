@@ -10,6 +10,7 @@ from decimal import Decimal
 from typing import Any
 
 from launch57.batch1_isolation import finalize_b1_response
+from launch57.b1_freshness_bridge import apply_b1_freshness_reconciliation
 from launch57.temporal_common import (
     TimestampUnit,
     attach_temporal_envelope,
@@ -274,7 +275,13 @@ async def real_time_prices(*, symbol: str, params: dict[str, Any] | None = None)
         source_raw=source_raw,
         source_unit=source_validation.unit if source_validation else None,
     )
-    return finalize_b1_response(out, require_freshness_owner=True)
+    out = finalize_b1_response(out, require_freshness_owner=False)
+    return apply_b1_freshness_reconciliation(
+        out,
+        age_sec=age_sec if age_sec else None,
+        source_time=source_raw,
+        temporal=out.get("temporal"),
+    )
 
 
 async def ohlcv(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -523,9 +530,17 @@ async def spot_market_metrics_suite(*, symbol: str, params: dict[str, Any] | Non
     if metrics.get("price") is None:
         body["error"] = "metrics_unavailable"
 
-    return finalize_b1_response(
-        _attach_b1_metadata(body, source=data_source),
-        require_freshness_owner=True,
+    out = finalize_b1_response(_attach_b1_metadata(body, source=data_source), require_freshness_owner=False)
+    age_sec = None
+    if ticker and ticker.get("age_sec") is not None:
+        age_sec = float(ticker.get("age_sec"))
+    elif ticker and ticker.get("freshness_ms") is not None:
+        age_sec = float(ticker["freshness_ms"]) / 1000.0
+    return apply_b1_freshness_reconciliation(
+        out,
+        age_sec=age_sec,
+        source_time=(ticker or {}).get("timestamp"),
+        temporal=out.get("temporal"),
     )
 
 
