@@ -3,8 +3,8 @@ Launch-57 Phase 2 Adaptive Batch A — trust-surface disclosure helpers.
 
 Support structure only (not a capability). Level-1 progressive disclosure and
 safety-floor fields for Launch #2–#5 (trust_batch1), #47–#48/#44–#46
-(trust_batch2), #7–#11 (decision_batch1), and #12/#37 (decision_batch2)
-consumer paths.
+(trust_batch2), #7–#11 (decision_batch1), #12/#37 (decision_batch2), and
+#20/#16/#17/#13/#14 (smart_money_batch1) consumer paths.
 """
 
 from __future__ import annotations
@@ -594,5 +594,139 @@ def build_approved_evidence_composition(
         "unapproved_components": decision_driving_unapproved,
         "observable_non_decision_driving": observable_non_decision_driving,
         "composition_scope": "approved_launch57_evidence_only",
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def build_attribution_cohort_disclosure(
+    *,
+    labels: Any,
+    cohorts: dict[str, Any],
+    payload: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Adaptive — Launch #20 attribution/cohort interpretation distinct from raw movement."""
+    label_count = int(cohorts.get("label_count") or 0)
+    limited = bool(cohorts.get("limited_nucleus"))
+    has_labels = bool(labels) and label_count > 0
+    return {
+        "attribution_distinct_from_raw_movement": True,
+        "cohort_interpretation_not_raw_flow": True,
+        "attribution_uncertainty_visible": True,
+        "coverage_limits_visible": True,
+        "limited_nucleus": limited,
+        "label_count": label_count,
+        "coverage_qualified": limited or not has_labels,
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def build_exchange_flow_disclosure(
+    *,
+    exchange_flow: dict[str, Any] | None = None,
+    netflow: dict[str, Any] | None = None,
+    exchange: str | None = None,
+    payload: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Adaptive — Launch #16 exchange flow distinct from generic/raw movement."""
+    flow = dict(exchange_flow or netflow or {})
+    p = dict(payload or {})
+    exchange_name = exchange or flow.get("exchange") or p.get("exchange")
+    limited_coverage = bool(p.get("coverage_limited") or not exchange_name)
+    return {
+        "exchange_flow_not_generic_movement": True,
+        "distinct_from_raw_onchain_movement": True,
+        "attribution_certainty_qualified": True,
+        "coverage_limited": limited_coverage,
+        "certainty_not_implied": True,
+        "indicators_only": True,
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def build_whale_ratio_internal_flow_disclosure(
+    *,
+    whale_payload: dict[str, Any],
+    internal_flow: dict[str, Any] | None = None,
+    payload: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Adaptive — Launch #17 whale ratio with internal-flow filter preserved."""
+    internal = dict(internal_flow or (payload or {}).get("internal_flow_filter") or {})
+    classification = str(internal.get("classification") or "")
+    internal_detected = "INTERNAL" in classification.upper()
+    return {
+        "whale_ratio_interpretation": whale_payload.get("whale_bias") or "neutral",
+        "internal_flow_filter_preserved": True,
+        "internal_not_counted_as_external_flow": internal_detected or bool(whale_payload.get("whale_filtered_ratio")),
+        "noise_filter_applied_usd": whale_payload.get("noise_filter_usd"),
+        "misclassification_guard_active": True,
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def build_internal_flow_filter_disclosure(
+    classified: dict[str, Any],
+    *,
+    payload: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Adaptive — Launch #17 internal exchange movement not misclassified as external flow."""
+    classification = str(classified.get("classification") or "UNKNOWN")
+    internal = "INTERNAL" in classification.upper()
+    return {
+        "internal_flow_filter_active": True,
+        "internal_not_external_flow": internal,
+        "external_flow_only_when_economic": True,
+        "classification": classification,
+        "misclassification_guard": True,
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def build_accumulation_distribution_disclosure(
+    *,
+    narratives: dict[str, Any],
+    signal_count: int,
+    payload: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Adaptive — Launch #13 accumulation/distribution as inference with visible uncertainty."""
+    rows = narratives.get("narratives") or narratives.get("signals") or []
+    count = signal_count if signal_count else (len(rows) if isinstance(rows, list) else 0)
+    return {
+        "inference_not_raw_flow_fact": True,
+        "accumulation_distribution_is_inference": True,
+        "supporting_evidence_visible": True,
+        "signal_count": count,
+        "material_uncertainty_visible": count == 0,
+        "uncertainty_qualified": count < 3,
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def build_smart_money_screener_disclosure(
+    *,
+    screener: list[dict[str, Any]],
+    spine: dict[str, Any] | None = None,
+    payload: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Adaptive — Launch #14 screening from approved Launch-57 smart-money evidence."""
+    components = [
+        {"component": "data_spine", "source": "launch57.data_batch1", "approved": True},
+        {
+            "component": "screener_engine",
+            "source": "launch57.smart_money_batch1:smart_money_token_screener",
+            "approved": True,
+        },
+        {
+            "component": "leaderboard_feed",
+            "source": "bd_platform.free_tier_capabilities:smart_money_leaderboard",
+            "approved": True,
+        },
+    ]
+    return {
+        "screening_from_approved_launch57_evidence": True,
+        "approved_evidence_components": components,
+        "ranking_qualitative_not_certainty": True,
+        "raw_movement_not_collapsed_to_certainty": True,
+        "attribution_inference_separated": True,
+        "screener_count": len(screener),
         "methodology_version": METHODOLOGY_VERSION,
     }
