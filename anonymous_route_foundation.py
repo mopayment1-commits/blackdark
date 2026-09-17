@@ -195,9 +195,10 @@ PUBLIC_API_PREFIXES: tuple[str, ...] = (
     "/api/due-diligence/corpus-passport/public",
     "/api/locked-predictions",
     "/api/audience/",
-    "/api/alerts/generosity",
-    "/api/mev/sandwich-report",
-    "/api/fund/emerging-terminal",
+        "/api/alerts/generosity",
+        "/api/mev/sandwich-report",
+        "/api/whale/stealth-advisor",
+        "/api/fund/emerging-terminal",
     "/api/auth/oauth/status",
     "/oracle/",
 )
