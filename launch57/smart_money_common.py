@@ -65,7 +65,9 @@ def attach_smart_money_envelope(
             spine=spine,
             display_timezone=p.get("display_timezone"),
         )
-    return out
+    from launch57.infrastructure_boundary_common import attach_infrastructure_boundary
+
+    return attach_infrastructure_boundary(out, params=dict(params or {}))
 
 
 def cautious_exchange_footer() -> dict[str, str]:

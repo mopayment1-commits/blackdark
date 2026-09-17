@@ -19,8 +19,11 @@ def attach_chart_envelope(
     from launch57.b13_chart_display_bridge import finalize_b13_chart_surface
 
     p = dict(params or {})
-    return finalize_b13_chart_surface(
+    out = finalize_b13_chart_surface(
         body,
         payload=p,
         display_timezone=p.get("display_timezone"),
     )
+    from launch57.infrastructure_boundary_common import attach_infrastructure_boundary
+
+    return attach_infrastructure_boundary(out, params=p)

@@ -55,6 +55,15 @@ def _utcnow_iso() -> str:
     return to_rfc3339(utc_now())
 
 
+def _attach_infrastructure_boundary(
+    body: dict[str, Any],
+    params: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    from launch57.infrastructure_boundary_common import attach_infrastructure_boundary
+
+    return attach_infrastructure_boundary(body, params=dict(params or {}))
+
+
 def _attach_market_temporal(
     payload: dict[str, Any],
     *,
@@ -175,7 +184,10 @@ async def unified_exchange_connector(*, symbol: str, params: dict[str, Any] | No
     if not selected:
         body["error"] = "no_exchange_route_available"
         body["success"] = False
-    return finalize_b1_response(_attach_b1_metadata(body, source=body.get("selected_provider")))
+    return _attach_infrastructure_boundary(
+        finalize_b1_response(_attach_b1_metadata(body, source=body.get("selected_provider"))),
+        params=params,
+    )
 
 
 async def _fetch_ticker_via_connector(asset: str, pair: str, connector: dict[str, Any]) -> dict[str, Any] | None:
@@ -211,9 +223,12 @@ async def real_time_prices(*, symbol: str, params: dict[str, Any] | None = None)
             "backend_entrypoint": "real_time_prices",
             "binding_source": "launch57_phase1_batch1",
         }
-        return finalize_b1_response(
-            _attach_b1_metadata(body, source=None),
-            require_freshness_owner=True,
+        return _attach_infrastructure_boundary(
+            finalize_b1_response(
+                _attach_b1_metadata(body, source=None),
+                require_freshness_owner=True,
+            ),
+            params=params,
         )
 
     age_sec = float(ticker.get("age_sec") or 0)
@@ -242,9 +257,12 @@ async def real_time_prices(*, symbol: str, params: dict[str, Any] | None = None)
             "backend_entrypoint": "real_time_prices",
             "binding_source": "launch57_phase1_batch1",
         }
-        return finalize_b1_response(
-            _attach_b1_metadata(body, source=None, source_raw=source_raw),
-            require_freshness_owner=True,
+        return _attach_infrastructure_boundary(
+            finalize_b1_response(
+                _attach_b1_metadata(body, source=None, source_raw=source_raw),
+                require_freshness_owner=True,
+            ),
+            params=params,
         )
 
     body: dict[str, Any] = {
@@ -277,11 +295,14 @@ async def real_time_prices(*, symbol: str, params: dict[str, Any] | None = None)
         source_unit=source_validation.unit if source_validation else None,
     )
     out = finalize_b1_response(out, require_freshness_owner=False)
-    return apply_b1_freshness_reconciliation(
-        out,
-        age_sec=age_sec if age_sec else None,
-        source_time=source_raw,
-        temporal=out.get("temporal"),
+    return _attach_infrastructure_boundary(
+        apply_b1_freshness_reconciliation(
+            out,
+            age_sec=age_sec if age_sec else None,
+            source_time=source_raw,
+            temporal=out.get("temporal"),
+        ),
+        params=params,
     )  # canonical #41 freshness via b1_freshness_bridge
 
 
@@ -380,7 +401,7 @@ async def quote_data(*, symbol: str, params: dict[str, Any] | None = None) -> di
             "backend_entrypoint": "quote_data",
             "binding_source": "launch57_phase1_batch1",
         }
-        return finalize_b1_response(body)
+        return _attach_infrastructure_boundary(finalize_b1_response(body), params=params)
 
     price = float(ticker.get("price") or 0)
     quote = {
@@ -407,7 +428,10 @@ async def quote_data(*, symbol: str, params: dict[str, Any] | None = None) -> di
         "backend_entrypoint": "quote_data",
         "binding_source": "launch57_phase1_batch1",
     }
-    return finalize_b1_response(_attach_b1_metadata(body, source=str(ticker.get("source"))))
+    return _attach_infrastructure_boundary(
+        finalize_b1_response(_attach_b1_metadata(body, source=str(ticker.get("source")))),
+        params=params,
+    )
 
 
 async def symbol_metadata(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -431,7 +455,7 @@ async def symbol_metadata(*, symbol: str, params: dict[str, Any] | None = None) 
             "backend_entrypoint": "symbol_metadata",
             "binding_source": "launch57_phase1_batch1",
         }
-        return finalize_b1_response(body)
+        return _attach_infrastructure_boundary(finalize_b1_response(body), params=params)
 
     if meta.get("delisted"):
         body = {
@@ -448,7 +472,10 @@ async def symbol_metadata(*, symbol: str, params: dict[str, Any] | None = None) 
             "backend_entrypoint": "symbol_metadata",
             "binding_source": "launch57_phase1_batch1",
         }
-        return finalize_b1_response(_attach_b1_metadata(body, source=meta.get("provider")))
+        return _attach_infrastructure_boundary(
+            finalize_b1_response(_attach_b1_metadata(body, source=meta.get("provider"))),
+            params=params,
+        )
 
     body = {
         "capability_id": 513,
@@ -463,7 +490,10 @@ async def symbol_metadata(*, symbol: str, params: dict[str, Any] | None = None) 
         "backend_entrypoint": "symbol_metadata",
         "binding_source": "launch57_phase1_batch1",
     }
-    return finalize_b1_response(_attach_b1_metadata(body, source=meta.get("provider")))
+    return _attach_infrastructure_boundary(
+        finalize_b1_response(_attach_b1_metadata(body, source=meta.get("provider"))),
+        params=params,
+    )
 
 
 async def spot_market_metrics_suite(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -537,11 +567,14 @@ async def spot_market_metrics_suite(*, symbol: str, params: dict[str, Any] | Non
         age_sec = float(ticker.get("age_sec"))
     elif ticker and ticker.get("freshness_ms") is not None:
         age_sec = float(ticker["freshness_ms"]) / 1000.0
-    return apply_b1_freshness_reconciliation(
-        out,
-        age_sec=age_sec,
-        source_time=(ticker or {}).get("timestamp"),
-        temporal=out.get("temporal"),
+    return _attach_infrastructure_boundary(
+        apply_b1_freshness_reconciliation(
+            out,
+            age_sec=age_sec,
+            source_time=(ticker or {}).get("timestamp"),
+            temporal=out.get("temporal"),
+        ),
+        params=params,
     )
 
 
