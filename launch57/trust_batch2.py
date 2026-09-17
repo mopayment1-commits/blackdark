@@ -11,6 +11,26 @@ from typing import Any
 from launch57.trust_batch1 import attach_trust_envelope
 
 LAUNCH57_TRUST_BATCH2_ITEM_IDS: frozenset[int] = frozenset({47, 48, 44, 45, 46})
+_B10_LAUNCH_ITEMS: frozenset[int] = frozenset({44, 45, 46})
+
+
+def _finalize_trust_batch2_surface(
+    body: dict[str, Any],
+    *,
+    params: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    p = dict(params or {})
+    wrapped = attach_trust_envelope(body)
+    launch_id = int(body.get("launch_item_id") or 0)
+    if launch_id not in _B10_LAUNCH_ITEMS:
+        return wrapped
+    from launch57.b10_shareable_public_bridge import finalize_b10_shareable_surface
+
+    return finalize_b10_shareable_surface(
+        wrapped,
+        payload=p,
+        display_timezone=p.get("display_timezone"),
+    )
 
 
 def _base_payload(params: dict[str, Any] | None, *, symbol: str) -> dict[str, Any]:
@@ -124,13 +144,14 @@ async def shareable_decision_card(*, symbol: str, params: dict[str, Any] | None 
         "backend_entrypoint": "shareable_decision_card",
         "binding_source": "launch57_phase2_trust_batch2",
     }
-    return attach_trust_envelope(body)
+    return _finalize_trust_batch2_surface(body, params=p)
 
 
 async def shareable_accuracy_page(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
     """Launch #45 — shareable accuracy/outcome page (alias of CAP-0640 live ledger)."""
     from oracle_track_record import public_track_record
 
+    p = dict(params or {})
     ledger = public_track_record()
     cumulative = ledger.get("cumulative") or {}
     page = {
@@ -155,13 +176,14 @@ async def shareable_accuracy_page(*, symbol: str, params: dict[str, Any] | None 
         "backend_entrypoint": "shareable_accuracy_page",
         "binding_source": "launch57_phase2_trust_batch2",
     }
-    return attach_trust_envelope(body)
+    return _finalize_trust_batch2_surface(body, params=p)
 
 
 async def guest_trust_surface(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
     """Launch #46 — guest/anonymous trust surface."""
     from governance.anonymous_visitor_governance import anonymous_visitor_status
 
+    p = dict(params or {})
     status = anonymous_visitor_status()
     body = {
         "launch_item_id": 46,
@@ -181,7 +203,7 @@ async def guest_trust_surface(*, symbol: str, params: dict[str, Any] | None = No
         "backend_entrypoint": "guest_trust_surface",
         "binding_source": "launch57_phase2_trust_batch2",
     }
-    return attach_trust_envelope(body)
+    return _finalize_trust_batch2_surface(body, params=p)
 
 
 _DISPATCH_BY_LAUNCH_ITEM: dict[int, str] = {
