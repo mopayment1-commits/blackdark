@@ -99,7 +99,10 @@ def build_decision_timing_context(
     governed = dict(payload.get("governed_payload") or {})
     zone = str(display_timezone or payload.get("display_timezone") or governed.get("display_timezone") or "UTC")
 
-    decision_raw = governed.get("decision_time") or payload.get("decision_time")
+    if require_authoritative_decision_time:
+        decision_raw = governed.get("decision_time")
+    else:
+        decision_raw = governed.get("decision_time") or payload.get("decision_time")
     if decision_raw is None:
         if require_authoritative_decision_time:
             return None

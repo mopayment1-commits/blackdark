@@ -136,6 +136,23 @@ async def test_certificate_fail_closed_without_decision_time():
 
 
 @pytest.mark.asyncio
+async def test_certificate_rejects_caller_only_decision_time():
+    """UNTRUSTED_DECISION_TIME_ASSERTION remediation — no governed_payload."""
+    out = await decision_certificate_export(
+        symbol="ETH",
+        params={
+            "decision_time": "2020-01-01T00:00:00.000Z",
+            "decision_action": "WAIT",
+            "decision_sentence": "ETH: backdated caller attempt",
+        },
+    )
+    assert out["success"] is False
+    assert out["error"] == "decision_time_required"
+    assert out.get("certificate_hash") is None
+    assert out.get("certificate") is None
+
+
+@pytest.mark.asyncio
 async def test_certificate_includes_timestamp_and_hash_with_governed_time():
     out = await decision_certificate_export(
         symbol="ETH",
