@@ -140,6 +140,7 @@
       "test_provenance_trust_gate_regression_removal_would_allow_false_confidence": "pass"
     }
   },
+  "evidence_commit_sha": "d814cb99",
   "implementation_modified_during_verification": false,
   "historical_artifacts_preserved": [
     "governance/launch57/B2_TEMPORAL_INDEPENDENT_VERIFICATION.json",
