@@ -281,7 +281,7 @@ async def real_time_prices(*, symbol: str, params: dict[str, Any] | None = None)
         age_sec=age_sec if age_sec else None,
         source_time=source_raw,
         temporal=out.get("temporal"),
-    )
+    )  # inert until B1_TO_41_RECONCILIATION_ACTIVATED after #41 PASS_ENGINEERING
 
 
 async def ohlcv(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:

@@ -105,18 +105,47 @@ def build_reconciliation(sha: str, spec_sha: str, tests: dict) -> dict:
                 "launch_number": 6,
                 "status": "TEMPORAL_DEPENDENCY_PENDING",
                 "missing_contract": "canonical #6 evidence-class owner",
-                "consumer_impact": "B2 and B1 omit evidence-class metadata",
-            }
+                "consumer_impact": "B1/B2 omit evidence-class metadata until #6 PASS_ENGINEERING",
+            },
+            {
+                "launch_number": 41,
+                "status": "TEMPORAL_DEPENDENCY_PENDING",
+                "missing_contract": "canonical #41 freshness semantics owner",
+                "consumer_impact": "B1 #22/#21 freshness paths BLOCKED_BY_DEPENDENCY_ORDER until #41 PASS_ENGINEERING",
+                "reconciliation_contract": "B1_TO_41_TARGETED_RECONCILIATION",
+                "auto_activate_on_b2_pass": False,
+            },
         ],
-        "B1_TO_41_TARGETED_RECONCILIATION": {
-            "status": "IMPLEMENTED_PENDING_INDEPENDENT_VERIFICATION",
+        "B1_TO_41_TARGETED_RECONCILIATION": "PREPARED_NOT_ACTIVATED",
+        "B1_TO_41_RECONCILIATION_DETAIL": {
             "contract": "B1_TO_41_TARGETED_RECONCILIATION",
+            "status": "PREPARED_NOT_ACTIVATED",
             "auto_activate": False,
+            "activated": False,
             "rebuild_b1_forbidden": True,
             "affected_launch_items": [22, 21],
-            "reopen_reason": "DEPENDENCY_CONTRACT_CHANGE",
-            "b1_verified_base_sha": "4a3b24cc",
-            "note": "Targeted bridge only; unaffected B1 paths unchanged",
+            "required_verdict": "B2:#41=PASS_ENGINEERING",
+            "bridge_module": "launch57/b1_freshness_bridge.py",
+            "note": "Bridge prepared but inert; TEMPORAL_DEPENDENCY_PENDING=#41 remains on B1 paths",
+        },
+        "DATA_BATCH2_REWRITE_AUDIT": {
+            "verdict": "FULL_REWRITE_JUSTIFIED",
+            "reason": "Every B2 entrypoint imported 7 legacy/PARKED modules with no shared-dependency exception; isolation requires Launch-57-local owners for #40/#41/#39",
+            "legacy_modules_removed": PROHIBITED_REMOVED_B2,
+            "smaller_delta_insufficient": "Partial import swaps would leave inline legacy helpers (_LIVE_ELIGIBLE, hot_storage, oracle_track_record) and mixed provenance/freshness/PIT semantics",
+            "b2_consumers": [
+                "launch57.data_batch2 execute paths (#40 CAP-0063/0500, #41 CAP-0630, #39 CAP-0061)",
+                "cap646 institutional dispatch for batch-2 capability IDs",
+                "B1 bridge (prepared, not activated) via launch57.freshness_common",
+            ],
+            "compatibility_impact": "Response shape preserved; builder_status=PENDING_VERIFICATION; legacy footer/freshness tokens removed from runtime",
+            "regression_coverage": [
+                "tests/launch57/test_b2_isolation_closure.py",
+                "tests/launch57/test_temporal_batch2.py",
+                "tests/launch57/test_data_batch2.py",
+                "tests/launch57/test_b1_to_41_reconciliation.py",
+            ],
+            "rollback_path": "Revert launch57/data_batch2.py + companion *_common.py modules to pre-419e762f; restore B1 bridge gate; re-run targeted B2 tests",
         },
         "changed_paths": CHANGED_PATHS,
         "reused_unchanged_paths": [
@@ -159,15 +188,23 @@ def build_report(sha: str, spec_sha: str, tests: dict) -> str:
 
 ## D. B1 → #41 reconciliation
 
-- Status: `IMPLEMENTED_PENDING_INDEPENDENT_VERIFICATION`
-- Affected: #22, #21 only (`REOPEN_REASON=DEPENDENCY_CONTRACT_CHANGE`)
-- `auto_activate=false`; rebuild B1 forbidden
+- Status: `B1_TO_41_TARGETED_RECONCILIATION=PREPARED_NOT_ACTIVATED`
+- `auto_activate=false`; bridge inert until `B2:#41=PASS_ENGINEERING`
+- `TEMPORAL_DEPENDENCY_PENDING=#41` remains on B1 #22/#21 paths
+- Affected: #22, #21 only; rebuild B1 forbidden
 
-## E. Remaining dependency
+## E. data_batch2.py rewrite audit
 
-- `#6` evidence-class: `TEMPORAL_DEPENDENCY_PENDING` (not built in B2)
+- Verdict: `FULL_REWRITE_JUSTIFIED`
+- Legacy modules removed: failure.freshness, cap646.*, data_governance.freshness, hot_storage, oracle_track_record
+- Smaller delta insufficient: inline legacy helpers and mixed semantics would remain
 
-## F. Tests
+## F. Remaining dependencies
+
+- `#6` evidence-class: `TEMPORAL_DEPENDENCY_PENDING`
+- `#41` freshness on B1 paths: `TEMPORAL_DEPENDENCY_PENDING` (bridge prepared, not activated)
+
+## G. Tests
 
 ```text
 {tests.get('command')}
@@ -175,7 +212,7 @@ exit_code={tests.get('exit_code')}
 passed={tests.get('passed')}
 ```
 
-## G. Final verdict
+## H. Final verdict
 
 - **BATCH_TEMPORAL_VERDICT=B2:PENDING_VERIFICATION**
 - **LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING=false**

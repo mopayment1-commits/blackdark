@@ -2,113 +2,50 @@
 
 ## A. Executive status
 
-- **Current batch:** `B1` (#42 Unified exchange connector, #22 Real-time / near-real-time prices, #23 OHLCV, #24 Quote + symbol metadata, #21 Spot metrics suite)
-- **Batch temporal verdict:** `PENDING_VERIFICATION` (builder does not self-certify `PASS_ENGINEERING`)
+- **Current batch:** `B2` (#40 Data quality & provenance, #41 Freshness assurance + delayed explicit, #39 Point-in-time immutable metrics)
+- **B2 builder verdicts:** `B2:#40=PENDING_VERIFICATION`, `B2:#41=PENDING_VERIFICATION`, `B2:#39=PENDING_VERIFICATION`
+- **B1 reference:** independent `PASS_ENGINEERING` @ `4a3b24cc` (unchanged evidence by reference)
 - **Global:** `LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING=false`
-- **Local use ready:** `LAUNCH57_TEMPORAL_CONSISTENCY_READY_FOR_LOCAL_USE=false`
-- **PASS_LIVE:** not claimed (`PASS_LIVE_NOT_CLAIMED=true`)
-- **B1 isolation:** `B1_ISOLATION_LEAKAGE=0`, `LEGACY_RUNTIME_DEPENDENCIES=0`
+- **PASS_LIVE:** not claimed
 
 ## B. Baseline SHA
 
-- **Branch commit:** `e6abecc9c0c33e669b3c61db04c72e0d8ed2f866`
+- **Branch commit:** `419e762f66c300c138aa6d0b695585bb273170b1`
 - **Spec SHA256:** `63aaed8b185a07e014d0a6028120ad94a6a3a18fa072472533aa2ac84f55684a`
 
-## C. Canonical time architecture
+## C. B2 isolation
 
-- Launch-57 owner: `launch57/temporal_common.py`
-- UTC-aware canonical instants; RFC3339 serialization with `Z`
-- Separate fields: `event_time`, `source_time`, `observed_time`, `ingested_at`, `processed_at`, `available_at`
-- `available_at` never fabricated from source/event time alone
+- `B2_ISOLATION_LEAKAGE=0`
+- `B2_LEGACY_RUNTIME_DEPENDENCIES=0`
+- Owners: `provenance_common` (#40), `freshness_common` (#41), `point_in_time_common` (#39)
 
-## D. Timezone resolution
+## D. B1 → #41 reconciliation
 
-- IANA TZDB via `zoneinfo`; explicit precedence: request → account → session → browser → UTC
-- Display conversion does not alter canonical ordering (tested)
+- Status: `B1_TO_41_TARGETED_RECONCILIATION=PREPARED_NOT_ACTIVATED`
+- `auto_activate=false`; bridge inert until `B2:#41=PASS_ENGINEERING`
+- `TEMPORAL_DEPENDENCY_PENDING=#41` remains on B1 #22/#21 paths
+- Affected: #22, #21 only; rebuild B1 forbidden
 
-## E. Freshness integration
+## E. data_batch2.py rewrite audit
 
-- `#41` owner NOT integrated in B1 (`TEMPORAL_DEPENDENCY_PENDING=#41`)
-- B1 freshness-dependent paths: `freshness_semantics=BLOCKED_BY_DEPENDENCY_ORDER`, `presented_as_live=false`
-- Future mandatory contract: `B1_TO_41_TARGETED_RECONCILIATION` (explicit in B2; no auto-activation)
+- Verdict: `FULL_REWRITE_JUSTIFIED`
+- Legacy modules removed: failure.freshness, cap646.*, data_governance.freshness, hot_storage, oracle_track_record
+- Smaller delta insufficient: inline legacy helpers and mixed semantics would remain
 
-## F. Evidence/provenance timing
+## F. Remaining dependencies
 
-- B1 `_attach_b1_metadata` + `temporal` envelope on connector/price/OHLCV paths
-- Provider timestamp validation with future-skew rejection on `#22`
-- `#6` evidence-class metadata NOT attached (`TEMPORAL_DEPENDENCY_PENDING=#6`)
+- `#6` evidence-class: `TEMPORAL_DEPENDENCY_PENDING`
+- `#41` freshness on B1 paths: `TEMPORAL_DEPENDENCY_PENDING` (bridge prepared, not activated)
 
-## G. Point-in-time integrity
-
-- `resolve_available_at` + `point_in_time_eligible` guard UNKNOWN availability
-- B2 `#39` temporal integration deferred to batch B2
-
-## H. Decision timing
-
-- Not in B1 scope (deferred to B3/B4 temporal batches)
-
-## I. Charts/market data
-
-- OHLCV deterministic ordering by `open_time_ms` + sequence tie-break metadata
-- Chart display timezone policy documented; single UTC canonical storage in B1 payloads
-
-## J. Alerts
-
-- Deferred (B11 `#33`)
-
-## K. AI/research
-
-- Deferred (B12)
-
-## L. Public/shareable surfaces
-
-- Deferred (B4)
-
-## M. History
-
-- Deferred (B14)
-
-## N. DST/recurrence
-
-- Policy enums defined in `temporal_common`; scheduling tests deferred to alert/recurrence batches
-
-## O. Tests
+## G. Tests
 
 ```text
-python3 -m pytest tests/launch57/test_b1_isolation_closure.py tests/launch57/test_temporal_batch1.py tests/launch57/test_data_batch1.py -q
+python3 -m pytest tests/launch57/test_b2_isolation_closure.py tests/launch57/test_temporal_batch2.py tests/launch57/test_b1_to_41_reconciliation.py tests/launch57/test_data_batch2.py -q
 exit_code=0
 passed=True
 ```
 
-## P. Clock synchronization / skew
+## H. Final verdict
 
-- Provider future-skew budget enforced in B1 price path
-- Host clock sync: `NEEDS_EXTERNAL_VERIFICATION` for PASS_LIVE
-
-## Q. Precision / ordering / source timestamp trust
-
-- Explicit ms/s unit inference; deterministic ordering keys on OHLCV
-
-## R. TZDB / DST / recurrence
-
-- TZDB package recorded in envelope; DST gap/fold policy constants present
-
-## S. API / database temporal contracts
-
-- API payloads expose `temporal` object with RFC3339 instants
-- DB persistence unchanged in B1 (no migration outside Launch-57 boundary)
-
-## T. External gates
-
-- Production clock sync, cross-device TZ persistence: not claimed
-
-## U. Final verdict
-
-- **BATCH_TEMPORAL_VERDICT=B1:PENDING_VERIFICATION**
-- **B1_ISOLATION_LEAKAGE=0**
-- **LEGACY_RUNTIME_DEPENDENCIES=0**
-- **LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING=false** until all batches + Phase 8 reconciliation complete
-
-## Branch note
-
-`cursor/launch57-phase8-launch-coherence-358c` is retained intentionally: it carries Phase 8 launch-coherence work; B1 temporal/isolation closure is additive on the same branch per execution order (no rename for naming consistency).
+- **BATCH_TEMPORAL_VERDICT=B2:PENDING_VERIFICATION**
+- **LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING=false**

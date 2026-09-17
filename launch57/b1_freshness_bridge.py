@@ -1,15 +1,47 @@
 """
-B1 → #41 targeted reconciliation bridge.
+B1 → #41 targeted reconciliation bridge (PREPARED_NOT_ACTIVATED).
 
-REOPEN_REASON=DEPENDENCY_CONTRACT_CHANGE for B1 #22/#21 only.
+Activation is forbidden until #41 receives independent PASS_ENGINEERING.
 """
 
 from __future__ import annotations
 
 from typing import Any
 
-from launch57.batch1_isolation import TEMPORAL_DEPENDENCY_PENDING_6
-from launch57.freshness_common import FreshnessAssessment, assess_freshness
+from launch57.batch1_isolation import TEMPORAL_DEPENDENCY_PENDING_6, TEMPORAL_DEPENDENCY_PENDING_41
+from launch57.freshness_common import assess_freshness
+
+# Gate: remains False until independent #41 PASS_ENGINEERING + explicit activation.
+B1_TO_41_RECONCILIATION_ACTIVATED: bool = False
+
+
+def b1_to_41_reconciliation_state() -> dict[str, Any]:
+    return {
+        "contract": "B1_TO_41_TARGETED_RECONCILIATION",
+        "status": "PREPARED_NOT_ACTIVATED",
+        "auto_activate": False,
+        "activated": B1_TO_41_RECONCILIATION_ACTIVATED,
+        "required_verdict": "B2:#41=PASS_ENGINEERING",
+        "affected_launch_items": [22, 21],
+        "reopen_reason": "DEPENDENCY_CONTRACT_CHANGE",
+    }
+
+
+def prepare_b1_freshness_path(body: dict[str, Any]) -> dict[str, Any]:
+    """Keep #41 dependency pending; bridge prepared but inert."""
+    out = dict(body)
+    pending = list(out.get("temporal_dependency_pending") or [])
+    for item in (TEMPORAL_DEPENDENCY_PENDING_6, TEMPORAL_DEPENDENCY_PENDING_41):
+        if not any(p.get("launch_number") == item["launch_number"] for p in pending):
+            pending.append(item)
+    out["temporal_dependency_pending"] = pending
+    out["freshness_semantics"] = "BLOCKED_BY_DEPENDENCY_ORDER"
+    out["presented_as_live"] = False
+    out["b1_to_41_reconciliation"] = b1_to_41_reconciliation_state()
+    out["launch57_isolation_boundary"] = True
+    out["legacy_runtime_dependencies"] = 0
+    out["b1_isolation_leakage"] = 0
+    return out
 
 
 def apply_b1_freshness_reconciliation(
@@ -19,7 +51,10 @@ def apply_b1_freshness_reconciliation(
     source_time: Any = None,
     temporal: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    """Bind B1 freshness-dependent path to canonical Launch-57 #41 owner."""
+    """Bind B1 freshness path to #41 only when reconciliation is explicitly activated."""
+    if not B1_TO_41_RECONCILIATION_ACTIVATED:
+        return prepare_b1_freshness_path(body)
+
     temporal = temporal or body.get("temporal") or {}
     assessment = assess_freshness(
         age_sec=age_sec,
@@ -37,11 +72,9 @@ def apply_b1_freshness_reconciliation(
     out["temporal_dependency_pending"] = pending
     out.pop("freshness_semantics", None)
     out["b1_to_41_reconciliation"] = {
-        "status": "BOUND_TO_LAUNCH57_41",
-        "contract": "B1_TO_41_TARGETED_RECONCILIATION",
-        "reopen_reason": "DEPENDENCY_CONTRACT_CHANGE",
-        "auto_activate": False,
-        "affected_launch_items": [22, 21],
+        **b1_to_41_reconciliation_state(),
+        "status": "ACTIVATED_BOUND_TO_LAUNCH57_41",
+        "activated": True,
     }
     out["launch57_isolation_boundary"] = True
     out["legacy_runtime_dependencies"] = 0
