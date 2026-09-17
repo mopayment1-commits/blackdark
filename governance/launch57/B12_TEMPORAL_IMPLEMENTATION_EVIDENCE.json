@@ -1,9 +1,11 @@
 {
   "artifact": "B12_TEMPORAL_IMPLEMENTATION_EVIDENCE",
   "builder_session": "cursor-cloud-agent-b12-temporal-implementation",
-  "generated_at": "2026-09-17T19:06:00+00:00",
-  "base_sha": "5cb405a1",
+  "generated_at": "2026-09-17T19:30:00+00:00",
+  "base_sha": "9cc23d12",
   "implementation_commit": "6f4142d7",
+  "remediation_commit": "fc070463",
+  "b12_defect_001_disposition": "REMEDIATED_PENDING_RE_IV",
   "B12_CANONICAL_SCOPE": {
     "batch": "B12",
     "launch_numbers": [53, 54, 55, 56, 57],
