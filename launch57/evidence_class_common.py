@@ -54,6 +54,13 @@ _SOURCE_HINTS: dict[str, str] = {
 
 _STALE_FRESHNESS_STATES = frozenset({"STALE", "UNKNOWN"})
 
+_TRUST_RANK: dict[str, int] = {
+    "SIMULATED": 0,
+    "BACKTESTED": 1,
+    "SHADOW_LIVE_FORWARD": 2,
+    "PRODUCTION_VERIFIED": 3,
+}
+
 
 class UserEvidenceLabel(str, Enum):
     LIVE = "LIVE"
@@ -89,14 +96,11 @@ class EvidenceClassAssessment:
         }
 
 
-def infer_canonical_evidence_class(
+def _infer_from_source_context(
     *,
     source: str | None = None,
-    explicit: str | None = None,
     env_production: bool | None = None,
 ) -> str:
-    if explicit and explicit in EVIDENCE_CLASSES:
-        return explicit
     src = (source or "").lower()
     for hint, cls in _SOURCE_HINTS.items():
         if hint in src:
@@ -106,6 +110,25 @@ def infer_canonical_evidence_class(
     if env_production is True:
         return "PRODUCTION_VERIFIED"
     return "SHADOW_LIVE_FORWARD"
+
+
+def infer_canonical_evidence_class(
+    *,
+    source: str | None = None,
+    explicit: str | None = None,
+    env_production: bool | None = None,
+) -> str:
+    """Source-derived context governs; caller explicit may agree but cannot escalate trust."""
+    source_derived = _infer_from_source_context(source=source, env_production=env_production)
+    if not explicit or explicit not in EVIDENCE_CLASSES:
+        return source_derived
+    explicit_rank = _TRUST_RANK.get(explicit, 0)
+    source_rank = _TRUST_RANK.get(source_derived, 0)
+    if explicit_rank > source_rank:
+        return source_derived
+    if explicit != source_derived:
+        return source_derived
+    return explicit
 
 
 def assess_user_evidence_class(
@@ -138,7 +161,7 @@ def assess_user_evidence_class(
         user_facing_description=_USER_DESCRIPTIONS.get(user_label, ""),
         visible=True,
         promotion_policy="replay_and_simulation_never_become_production_metrics",
-        methodology_version="launch57-evidence-class-common-1.0",
+        methodology_version="launch57-evidence-class-common-1.1",
         owner="launch57.evidence_class_common",
         display_timezone_invariant=True,
         freshness_downgrade_applied=downgrade,
