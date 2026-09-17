@@ -3,6 +3,7 @@ Launch-57 Phase 2 — Trust Batch 1 canonical runtime spine.
 
 Build order: #6 evidence display → #5 CAP-0639 → #4 CAP-0640 → #3 CAP-0641 → #2 oracle sentence
 B4: #2/#3 decision timing via launch57.decision_timing_common (SPEC §13).
+B5: #4 public accuracy ledger timing via launch57.public_accuracy_common (SPEC §14).
 """
 
 from __future__ import annotations
@@ -10,6 +11,7 @@ from __future__ import annotations
 from typing import Any
 
 from launch57.b4_decision_bridge import apply_b4_trust_envelope, finalize_b4_decision_surface
+from launch57.b5_public_accuracy_bridge import finalize_b5_ledger_surface
 from launch57.decision_timing_common import (
     build_decision_timing_context,
     build_launch57_decision_certificate,
@@ -117,6 +119,7 @@ async def public_accuracy_ledger(*, symbol: str, params: dict[str, Any] | None =
     """Launch #4 / CAP-0640 — live ledger only; synthetic excluded from primary metrics."""
     from oracle_track_record import public_track_record
 
+    p = dict(params or {})
     ledger = public_track_record()
     cumulative = ledger.get("cumulative") or {}
     synthetic = ledger.get("synthetic_demo_data") or {}
@@ -133,11 +136,13 @@ async def public_accuracy_ledger(*, symbol: str, params: dict[str, Any] | None =
         "synthetic_excluded_from_primary": synthetic.get("excluded_from_primary_metrics", True),
         "shadow_ledger_not_production": True,
         "live_only_primary": True,
+        "source": p.get("source"),
+        "evidence_class": p.get("evidence_class"),
         "backend_module": "launch57.trust_batch1",
         "backend_entrypoint": "public_accuracy_ledger",
         "binding_source": "launch57_phase2_trust_batch1",
     }
-    return attach_trust_envelope(body)
+    return finalize_b5_ledger_surface(body, display_timezone=p.get("display_timezone"))
 
 
 async def decision_certificate_export(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
