@@ -68,10 +68,9 @@ async def test_real_time_prices_fails_closed_on_freshness_without_legacy(monkeyp
     out = await real_time_prices(symbol="BTC", params={})
     assert out["legacy_runtime_dependencies"] == 0
     assert out["b1_isolation_leakage"] == 0
-    assert out.get("freshness_semantics") == "BLOCKED_BY_DEPENDENCY_ORDER"
-    assert out.get("b1_to_41_reconciliation", {}).get("status") == "PREPARED_NOT_ACTIVATED"
-    assert out.get("b1_to_41_reconciliation", {}).get("auto_activate") is False
-    assert any(p.get("launch_number") == 41 for p in out.get("temporal_dependency_pending", []))
+    assert out.get("b1_to_41_reconciliation", {}).get("status") == "PENDING_VERIFICATION"
+    assert out["freshness_owner"] == "launch57.freshness_common"
+    assert not any(p.get("launch_number") == 41 for p in out.get("temporal_dependency_pending", []))
     assert any(p.get("launch_number") == 6 for p in out.get("temporal_dependency_pending", []))
 
 

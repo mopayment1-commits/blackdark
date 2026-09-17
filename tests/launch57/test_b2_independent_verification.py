@@ -248,18 +248,18 @@ def test_pit_retrieval_is_deterministic():
     assert a == b
 
 
-def test_b1_bridge_prepared_not_activated_and_import_inert():
+def test_b1_bridge_activated_pending_verification():
     import launch57.freshness_common  # noqa: F401
 
-    assert B1_TO_41_RECONCILIATION_ACTIVATED is False
+    assert B1_TO_41_RECONCILIATION_ACTIVATED is True
     state = b1_to_41_reconciliation_state()
-    assert state["status"] == "PREPARED_NOT_ACTIVATED"
+    assert state["status"] == "PENDING_VERIFICATION"
     assert state["auto_activate"] is False
-    assert state["activated"] is False
+    assert state["activated"] is True
 
 
 @pytest.mark.asyncio
-async def test_b1_paths_keep_pending_41_and_block_live(monkeypatch):
+async def test_b1_paths_bound_to_canonical_41_when_activated(monkeypatch):
     from launch57.data_batch1 import real_time_prices
 
     async def fake_connector(*, symbol: str, params=None):
@@ -272,9 +272,9 @@ async def test_b1_paths_keep_pending_41_and_block_live(monkeypatch):
     monkeypatch.setattr("launch57.data_batch1.fetch_binance_ticker", fake_ticker)
 
     out = await real_time_prices(symbol="BTC", params={})
-    assert out["b1_to_41_reconciliation"]["status"] == "PREPARED_NOT_ACTIVATED"
-    assert out["presented_as_live"] is False
-    assert any(p.get("launch_number") == 41 for p in out["temporal_dependency_pending"])
+    assert out["b1_to_41_reconciliation"]["status"] == "PENDING_VERIFICATION"
+    assert out["presented_as_live"] is True
+    assert not any(p.get("launch_number") == 41 for p in out["temporal_dependency_pending"])
 
 
 @pytest.mark.asyncio

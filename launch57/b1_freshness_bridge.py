@@ -1,7 +1,7 @@
 """
-B1 → #41 targeted reconciliation bridge (PREPARED_NOT_ACTIVATED).
+B1 → #41 targeted reconciliation bridge.
 
-Activation is forbidden until #41 receives independent PASS_ENGINEERING.
+Post-verification activation binds B1 #22/#21 to canonical launch57.freshness_common (#41).
 """
 
 from __future__ import annotations
@@ -11,19 +11,30 @@ from typing import Any
 from launch57.batch1_isolation import TEMPORAL_DEPENDENCY_PENDING_6, TEMPORAL_DEPENDENCY_PENDING_41
 from launch57.freshness_common import assess_freshness
 
-# Gate: remains False until independent #41 PASS_ENGINEERING + explicit activation.
-B1_TO_41_RECONCILIATION_ACTIVATED: bool = False
+# Activated after independent B2:#41 PASS_ENGINEERING @ 6ad4ae4c (REOPEN_REASON=DEPENDENCY_CONTRACT_CHANGE).
+B1_TO_41_RECONCILIATION_ACTIVATED: bool = True
+VERIFIED_HASH41_IMPLEMENTATION_SHA = "6ad4ae4c"
 
 
 def b1_to_41_reconciliation_state() -> dict[str, Any]:
-    return {
+    base = {
         "contract": "B1_TO_41_TARGETED_RECONCILIATION",
-        "status": "PREPARED_NOT_ACTIVATED",
         "auto_activate": False,
         "activated": B1_TO_41_RECONCILIATION_ACTIVATED,
-        "required_verdict": "B2:#41=PASS_ENGINEERING",
+        "verified_hash41_sha": VERIFIED_HASH41_IMPLEMENTATION_SHA,
         "affected_launch_items": [22, 21],
         "reopen_reason": "DEPENDENCY_CONTRACT_CHANGE",
+    }
+    if B1_TO_41_RECONCILIATION_ACTIVATED:
+        return {
+            **base,
+            "status": "PENDING_VERIFICATION",
+            "binding_status": "ACTIVATED_BOUND_TO_LAUNCH57_41",
+        }
+    return {
+        **base,
+        "status": "PREPARED_NOT_ACTIVATED",
+        "required_verdict": "B2:#41=PASS_ENGINEERING",
     }
 
 
@@ -37,7 +48,11 @@ def prepare_b1_freshness_path(body: dict[str, Any]) -> dict[str, Any]:
     out["temporal_dependency_pending"] = pending
     out["freshness_semantics"] = "BLOCKED_BY_DEPENDENCY_ORDER"
     out["presented_as_live"] = False
-    out["b1_to_41_reconciliation"] = b1_to_41_reconciliation_state()
+    out["b1_to_41_reconciliation"] = {
+        **b1_to_41_reconciliation_state(),
+        "status": "PREPARED_NOT_ACTIVATED",
+        "activated": False,
+    }
     out["launch57_isolation_boundary"] = True
     out["legacy_runtime_dependencies"] = 0
     out["b1_isolation_leakage"] = 0
@@ -71,11 +86,7 @@ def apply_b1_freshness_reconciliation(
         pending.append(TEMPORAL_DEPENDENCY_PENDING_6)
     out["temporal_dependency_pending"] = pending
     out.pop("freshness_semantics", None)
-    out["b1_to_41_reconciliation"] = {
-        **b1_to_41_reconciliation_state(),
-        "status": "ACTIVATED_BOUND_TO_LAUNCH57_41",
-        "activated": True,
-    }
+    out["b1_to_41_reconciliation"] = b1_to_41_reconciliation_state()
     out["launch57_isolation_boundary"] = True
     out["legacy_runtime_dependencies"] = 0
     out["b1_isolation_leakage"] = 0

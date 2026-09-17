@@ -281,7 +281,7 @@ async def real_time_prices(*, symbol: str, params: dict[str, Any] | None = None)
         age_sec=age_sec if age_sec else None,
         source_time=source_raw,
         temporal=out.get("temporal"),
-    )  # inert until B1_TO_41_RECONCILIATION_ACTIVATED after #41 PASS_ENGINEERING
+    )  # canonical #41 freshness via b1_freshness_bridge
 
 
 async def ohlcv(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -466,7 +466,7 @@ async def symbol_metadata(*, symbol: str, params: dict[str, Any] | None = None) 
 
 
 async def spot_market_metrics_suite(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
-    """Launch #21 / CAP-0047 — spot metrics; freshness semantics blocked until #41 reconciliation."""
+    """Launch #21 / CAP-0047 — spot metrics with canonical #41 freshness reconciliation."""
     params = dict(params or {})
     asset, pair = normalize_oracle_symbol(str(params.get("symbol") or symbol or "BTC"))
     limit = int(params.get("limit") or 20)
