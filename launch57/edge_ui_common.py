@@ -35,7 +35,15 @@ _MVRV_LICENSED_SOURCE_NOTE = (
 )
 
 
-def attach_edge_ui_envelope(body: dict[str, Any], *, spine: dict[str, Any] | None = None) -> dict[str, Any]:
+def attach_edge_ui_envelope(
+    body: dict[str, Any],
+    *,
+    spine: dict[str, Any] | None = None,
+    params: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    from launch57.b11_personal_history_bridge import finalize_b11_personal_history_surface
+    from launch57.personal_history_timing_common import B11_LAUNCH_NUMBERS
+
     out = attach_decision_envelope(body, spine=spine)
     out["edge_ui_layer"] = {
         "phase": "7_EDGE_UI",
@@ -44,6 +52,15 @@ def attach_edge_ui_envelope(body: dict[str, Any], *, spine: dict[str, Any] | Non
         "live_eligible": (spine or {}).get("live_eligible"),
         "evidence_class_visible": out.get("evidence_class_visible"),
     }
+    launch_id = int(out.get("launch_item_id") or 0)
+    if launch_id in B11_LAUNCH_NUMBERS:
+        p = dict(params or {})
+        out = finalize_b11_personal_history_surface(
+            out,
+            payload=p,
+            spine=spine,
+            display_timezone=p.get("display_timezone"),
+        )
     return out
 
 
@@ -83,7 +100,7 @@ async def gated_edge_ui(
             batch_module=module,
             binding_source=binding,
         )
-        return attach_edge_ui_envelope(body, spine=spine), None
+        return attach_edge_ui_envelope(body, spine=spine, params=params), None
     return None, spine
 
 

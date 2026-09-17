@@ -236,7 +236,7 @@ async def personal_decision_history(*, symbol: str, params: dict[str, Any] | Non
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_edge_ui_envelope(ai_compliance_footer(body))
+    return attach_edge_ui_envelope(ai_compliance_footer(body), params=p)
 
 
 async def discipline_mirror_light(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -264,7 +264,7 @@ async def discipline_mirror_light(*, symbol: str, params: dict[str, Any] | None 
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_edge_ui_envelope(ai_compliance_footer(body))
+    return attach_edge_ui_envelope(ai_compliance_footer(body), params=p)
 
 
 async def capability_library_search(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
