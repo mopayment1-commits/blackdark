@@ -57,7 +57,7 @@ async def _gated(
             batch_module=_MODULE,
             binding_source=_BINDING,
         )
-        return attach_smart_money_envelope(body, spine=spine), None
+        return attach_smart_money_envelope(body, spine=spine, params=params), None
     return None, spine
 
 
@@ -100,7 +100,7 @@ async def entity_aware_wallet_intelligence(*, symbol: str, params: dict[str, Any
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_smart_money_envelope(body, spine=spine)
+    return attach_smart_money_envelope(body, spine=spine, params=p)
 
 
 async def whale_accumulation_distribution_intelligence(
@@ -141,7 +141,7 @@ async def whale_accumulation_distribution_intelligence(
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_smart_money_envelope(body, spine=spine)
+    return attach_smart_money_envelope(body, spine=spine, params=p)
 
 
 async def whale_movement_alerts(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -183,7 +183,7 @@ async def whale_movement_alerts(*, symbol: str, params: dict[str, Any] | None = 
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_smart_money_envelope(body, spine=spine)
+    return attach_smart_money_envelope(body, spine=spine, params=p)
 
 
 async def inter_entity_flow_intelligence(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -221,7 +221,7 @@ async def inter_entity_flow_intelligence(*, symbol: str, params: dict[str, Any] 
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_smart_money_envelope(body, spine=spine)
+    return attach_smart_money_envelope(body, spine=spine, params=p)
 
 
 async def instant_wallet_due_diligence(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -271,7 +271,7 @@ async def instant_wallet_due_diligence(*, symbol: str, params: dict[str, Any] | 
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_smart_money_envelope(body, spine=spine)
+    return attach_smart_money_envelope(body, spine=spine, params=p)
 
 
 async def instant_token_due_diligence(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -320,7 +320,7 @@ async def instant_token_due_diligence(*, symbol: str, params: dict[str, Any] | N
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_smart_money_envelope(body, spine=spine)
+    return attach_smart_money_envelope(body, spine=spine, params=p)
 
 
 _DISPATCH: dict[int, str] = {

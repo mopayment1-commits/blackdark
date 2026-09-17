@@ -55,7 +55,7 @@ async def _gated(
             batch_module=_MODULE,
             binding_source=_BINDING,
         )
-        return attach_smart_money_envelope(body, spine=spine), None
+        return attach_smart_money_envelope(body, spine=spine, params=params), None
     return None, spine
 
 
@@ -112,7 +112,7 @@ async def pump_dump_manipulation_alerts(*, symbol: str, params: dict[str, Any] |
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_smart_money_envelope(body, spine=spine)
+    return attach_smart_money_envelope(body, spine=spine, params=p)
 
 
 async def suspicious_activity_flags(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -151,7 +151,7 @@ async def suspicious_activity_flags(*, symbol: str, params: dict[str, Any] | Non
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_smart_money_envelope(body, spine=spine)
+    return attach_smart_money_envelope(body, spine=spine, params=p)
 
 
 async def exchange_transparency_risk_indicators(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -206,7 +206,7 @@ async def exchange_transparency_risk_indicators(*, symbol: str, params: dict[str
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_smart_money_envelope(body, spine=spine)
+    return attach_smart_money_envelope(body, spine=spine, params=p)
 
 
 _DISPATCH: dict[int, str] = {

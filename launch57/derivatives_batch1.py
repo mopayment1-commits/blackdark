@@ -53,7 +53,7 @@ async def _gated(
             batch_module=_MODULE,
             binding_source=_BINDING,
         )
-        return attach_derivatives_envelope(body, spine=spine), None
+        return attach_derivatives_envelope(body, spine=spine, params=params), None
     return None, spine
 
 
@@ -93,7 +93,7 @@ async def futures_open_interest_intelligence(*, symbol: str, params: dict[str, A
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_derivatives_envelope(body, spine=spine)
+    return attach_derivatives_envelope(body, spine=spine, params=p)
 
 
 async def futures_intelligence_suite(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -129,7 +129,7 @@ async def futures_intelligence_suite(*, symbol: str, params: dict[str, Any] | No
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_derivatives_envelope(body, spine=spine)
+    return attach_derivatives_envelope(body, spine=spine, params=p)
 
 
 async def funding_rate_intelligence(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -167,7 +167,7 @@ async def funding_rate_intelligence(*, symbol: str, params: dict[str, Any] | Non
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_derivatives_envelope(body, spine=spine)
+    return attach_derivatives_envelope(body, spine=spine, params=p)
 
 
 async def liquidation_intelligence_light(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -213,7 +213,7 @@ async def liquidation_intelligence_light(*, symbol: str, params: dict[str, Any] 
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_derivatives_envelope(body, spine=spine)
+    return attach_derivatives_envelope(body, spine=spine, params=p)
 
 
 async def taker_buy_sell_pressure(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -252,7 +252,7 @@ async def taker_buy_sell_pressure(*, symbol: str, params: dict[str, Any] | None 
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_derivatives_envelope(body, spine=spine)
+    return attach_derivatives_envelope(body, spine=spine, params=p)
 
 
 async def estimated_leverage_ratio(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -289,7 +289,7 @@ async def estimated_leverage_ratio(*, symbol: str, params: dict[str, Any] | None
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_derivatives_envelope(body, spine=spine)
+    return attach_derivatives_envelope(body, spine=spine, params=p)
 
 
 async def derivatives_sentiment_composite(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -330,7 +330,7 @@ async def derivatives_sentiment_composite(*, symbol: str, params: dict[str, Any]
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_derivatives_envelope(body, spine=spine)
+    return attach_derivatives_envelope(body, spine=spine, params=p)
 
 
 _DISPATCH: dict[int, str] = {

@@ -57,7 +57,7 @@ async def _gated(
             batch_module=_MODULE,
             binding_source=_BINDING,
         )
-        return attach_smart_money_envelope(body, spine=spine), None
+        return attach_smart_money_envelope(body, spine=spine, params=params), None
     return None, spine
 
 
@@ -103,7 +103,7 @@ async def address_labels_cohorts(*, symbol: str, params: dict[str, Any] | None =
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_smart_money_envelope(body, spine=spine)
+    return attach_smart_money_envelope(body, spine=spine, params=p)
 
 
 async def exchange_flow_intelligence(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -148,7 +148,7 @@ async def exchange_flow_intelligence(*, symbol: str, params: dict[str, Any] | No
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_smart_money_envelope(body, spine=spine)
+    return attach_smart_money_envelope(body, spine=spine, params=p)
 
 
 async def exchange_flow_netflow_layer(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -186,7 +186,7 @@ async def exchange_flow_netflow_layer(*, symbol: str, params: dict[str, Any] | N
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_smart_money_envelope(body, spine=spine)
+    return attach_smart_money_envelope(body, spine=spine, params=p)
 
 
 async def exchange_whale_ratio(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -222,7 +222,7 @@ async def exchange_whale_ratio(*, symbol: str, params: dict[str, Any] | None = N
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_smart_money_envelope(body, spine=spine)
+    return attach_smart_money_envelope(body, spine=spine, params=p)
 
 
 async def internal_flow_filter(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -266,7 +266,7 @@ async def internal_flow_filter(*, symbol: str, params: dict[str, Any] | None = N
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_smart_money_envelope(body, spine=spine)
+    return attach_smart_money_envelope(body, spine=spine, params=p)
 
 
 async def accumulation_distribution_detection(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -304,7 +304,7 @@ async def accumulation_distribution_detection(*, symbol: str, params: dict[str, 
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_smart_money_envelope(body, spine=spine)
+    return attach_smart_money_envelope(body, spine=spine, params=p)
 
 
 async def smart_money_token_screener(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -354,7 +354,7 @@ async def smart_money_token_screener(*, symbol: str, params: dict[str, Any] | No
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_smart_money_envelope(body, spine=spine)
+    return attach_smart_money_envelope(body, spine=spine, params=p)
 
 
 _DISPATCH: dict[int, str] = {

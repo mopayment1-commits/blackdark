@@ -56,7 +56,7 @@ async def _gated(
             batch_module=_MODULE,
             binding_source=_BINDING,
         )
-        return attach_derivatives_envelope(body, spine=spine), None
+        return attach_derivatives_envelope(body, spine=spine, params=params), None
     return None, spine
 
 
@@ -98,7 +98,7 @@ async def order_book_intelligence(*, symbol: str, params: dict[str, Any] | None 
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_derivatives_envelope(body, spine=spine)
+    return attach_derivatives_envelope(body, spine=spine, params=p)
 
 
 async def l1_order_book_layer(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -136,7 +136,7 @@ async def l1_order_book_layer(*, symbol: str, params: dict[str, Any] | None = No
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_derivatives_envelope(body, spine=spine)
+    return attach_derivatives_envelope(body, spine=spine, params=p)
 
 
 async def general_market_token_screener(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -179,7 +179,7 @@ async def general_market_token_screener(*, symbol: str, params: dict[str, Any] |
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_derivatives_envelope(body, spine=spine)
+    return attach_derivatives_envelope(body, spine=spine, params=p)
 
 
 async def limited_watchlists(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -220,7 +220,7 @@ async def limited_watchlists(*, symbol: str, params: dict[str, Any] | None = Non
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_derivatives_envelope(body, spine=spine)
+    return attach_derivatives_envelope(body, spine=spine, params=p)
 
 
 async def smart_alerts_composite(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -318,7 +318,7 @@ async def smart_alerts_composite(*, symbol: str, params: dict[str, Any] | None =
         body["blocked_external"] = True
         body["blocked_external_reason"] = external.get("blocked_reason")
         body["external_push_live"] = False
-    return attach_derivatives_envelope(body, spine=spine)
+    return attach_derivatives_envelope(body, spine=spine, params=p)
 
 
 _DISPATCH: dict[int, str] = {

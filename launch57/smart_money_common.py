@@ -29,7 +29,15 @@ _LIMITED_INTER_ENTITY = (
 )
 
 
-def attach_smart_money_envelope(body: dict[str, Any], *, spine: dict[str, Any] | None = None) -> dict[str, Any]:
+def attach_smart_money_envelope(
+    body: dict[str, Any],
+    *,
+    spine: dict[str, Any] | None = None,
+    params: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    from launch57.b7_market_regime_bridge import finalize_b7_cross_signal_surface
+    from launch57.market_regime_timing_common import B7_LAUNCH_NUMBERS
+
     out = attach_decision_envelope(body, spine=spine)
     out["smart_money_layer"] = {
         "phase": "4_SMART_MONEY_INSTANT",
@@ -38,6 +46,14 @@ def attach_smart_money_envelope(body: dict[str, Any], *, spine: dict[str, Any] |
         "live_eligible": (spine or {}).get("live_eligible"),
         "evidence_class_visible": out.get("evidence_class_visible"),
     }
+    launch_id = int(out.get("launch_item_id") or 0)
+    if launch_id in B7_LAUNCH_NUMBERS:
+        out = finalize_b7_cross_signal_surface(
+            out,
+            payload=dict(params or {}),
+            spine=spine,
+            fail_closed_on_mismatch=out.get("success") is not False,
+        )
     return out
 
 

@@ -179,7 +179,14 @@ async def cross_market_decision_engine(*, symbol: str, params: dict[str, Any] | 
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_decision_envelope(body, spine=spine)
+    from launch57.b7_market_regime_bridge import finalize_b7_cross_signal_surface
+
+    return finalize_b7_cross_signal_surface(
+        attach_decision_envelope(body, spine=spine),
+        payload=p,
+        spine=spine,
+        fail_closed_on_mismatch=body.get("success") is not False,
+    )
 
 
 _DISPATCH_ENTRYPOINTS: dict[int, str] = {
