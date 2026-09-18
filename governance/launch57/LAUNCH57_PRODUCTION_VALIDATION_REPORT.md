@@ -44,12 +44,12 @@ No Launch-57 production consumer path is currently reachable.
 | PV-04 | V6 §2.2/§28 live SLI/SLO | Launch-57 surfaces | Stale Aug-2026 capacity artifact; no Launch-57 metrics | **Unsatisfied** | No current production latency/availability for Launch-57 |
 | PV-05 | V6 §2.2/§28 production rollback | Railway live rollback | Local rehearsal only | **Unsatisfied** | `GENUINE_EXTERNAL_ROLLBACK_VALIDATION_PENDING` |
 | PV-06 | V6 §2.2 live smoke/E2E | 14 E2E journeys | Engineering `SHADOW_LIVE_FORWARD` only | **Unsatisfied** | Not production proof |
-| PV-07 | Adaptive §38 host clock sync | Production NTP | B1–B15: NEEDS_EXTERNAL_VERIFICATION | **Unsatisfied** | §38 gate + no production host |
-| PV-08 | Adaptive §38 browser TZ detection | Real clients vs prod | B1–B15: NEEDS_EXTERNAL_VERIFICATION | **Unsatisfied** | §38 gate unresolved |
-| PV-09 | Adaptive §38 cross-device persistence | Prod persistence | B1–B15: NEEDS_EXTERNAL_VERIFICATION | **Unsatisfied** | §38 gate unresolved |
-| PV-10 | Adaptive §38 alert delivery timing | #33 alert transport | B1–B15 + #33 BLOCKED_EXTERNAL | **Unsatisfied** | §38 gate; telegram not configured |
-| PV-11 | Adaptive §38 DST scheduling | Prod schedule executor | B1–B15: NEEDS_EXTERNAL_VERIFICATION | **Unsatisfied** | §38 gate unresolved |
-| PV-12 | Adaptive §38 email/notification render | Prod notification stack | B1–B15: NEEDS_EXTERNAL_VERIFICATION | **Unsatisfied** | §38 gate unresolved |
+| PV-07 | B15 `external_live_gates` — production_host_clock_sync | Production NTP | B1–B15: NEEDS_EXTERNAL_VERIFICATION | **Unsatisfied** | B15 gate + no production host |
+| PV-08 | B15 `external_live_gates` — browser_device_timezone_detection | Real clients vs prod | B1–B15: NEEDS_EXTERNAL_VERIFICATION | **Unsatisfied** | B15 gate unresolved |
+| PV-09 | B15 `external_live_gates` — cross_device_persistence | Prod persistence | B1–B15: NEEDS_EXTERNAL_VERIFICATION | **Unsatisfied** | B15 gate unresolved |
+| PV-10 | B15 `external_live_gates` — production_alert_delivery_timing | #33 alert transport | B1–B15 + #33 BLOCKED_EXTERNAL | **Unsatisfied** | B15 gate; telegram not configured |
+| PV-11 | B15 `external_live_gates` — production_dst_sensitive_scheduling | Prod schedule executor | B1–B15: NEEDS_EXTERNAL_VERIFICATION | **Unsatisfied** | B15 gate unresolved |
+| PV-12 | B15 `external_live_gates` — production_email_notification_rendering | Prod notification stack | B1–B15: NEEDS_EXTERNAL_VERIFICATION | **Unsatisfied** | B15 gate unresolved |
 | PV-13 | Adaptive §40 #33 alerts | `launch57.derivatives_batch2` | BLOCKED_EXTERNAL | **Unsatisfied** | `telegram_delivery_credentials_not_configured` |
 | PV-14 | Adaptive §40 #38 MVRV | `launch57.edge_ui_batch1` | BLOCKED_EXTERNAL | **Unsatisfied** | `licensed_onchain_mvrv_source_not_configured_partial` |
 | PV-15 | Adaptive §31.1 human validation | User-facing Launch-57 UX | No usability artifacts | **Unsatisfied** | Human-validation evidence absent |

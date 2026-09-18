@@ -1,8 +1,23 @@
 {
   "artifact": "LAUNCH57_57_CAPABILITY_ADAPTIVE_RECONCILIATION",
   "session_type": "read_only_57_capability_adaptive_reconciliation",
-  "generated_at": "2026-09-17T20:54:46.451358+00:00",
-  "source_commit": "8750e0b9",
+  "generated_at": "2026-09-18T02:45:00+00:00",
+  "source_commit": "f1700f7c",
+  "supersession": {
+    "prior_generated_at": "2026-09-17T20:54:46.451358+00:00",
+    "prior_source_commit": "8750e0b9",
+    "hygiene_phase": 0,
+    "hygiene_gap_id": "G6",
+    "superseding_engineering_verdict": {
+      "artifact": "governance/launch57/PHASE8_LAUNCH_COHERENCE_INDEPENDENT_VERIFICATION.json",
+      "PHASE8_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+      "sha": "afa3bab0",
+      "implementation_sha": "f1700f7c",
+      "LAUNCH57_PRE_LIVE_CLOSED": "YES"
+    },
+    "support_plane_gap_register": "governance/launch57/SUPPORT_PLANE_GAP_REGISTER.json",
+    "note": "Historical matrix rows preserved; stale baseline fields corrected post Phase 5–8. Do not treat pre-hygiene progressive_disclosure=MISSING or #6 CONFLICT as current."
+  },
   "scope_lock": {
     "CURRENT_APPROVED_BUILD_SCOPE": "LAUNCH57",
     "LAUNCH57_COUNT": 57,
@@ -83,21 +98,23 @@
   "authority_reconciliation": {
     "register_hero_status_drifts": 49,
     "register_hero_drifts_resolved_via_phase8": 49,
-    "unresolved_authority_conflicts": 1,
+    "unresolved_authority_conflicts": 0,
     "authority_conflict_details": [
       {
         "launch_number": 6,
         "type": "CANONICAL_PATH_CONFLICT",
         "register_canonical": [],
         "runtime_owner": "launch57/evidence_class_common.py",
-        "unresolved": true
+        "unresolved": false,
+        "resolved_by": "governance/launch57/LAUNCH57_CAPABILITY_6_AUTHORITY_RESOLUTION.json",
+        "resolution_verdict": "CAPABILITY_6_AUTHORITY=RESOLVED"
       }
     ]
   },
   "engineering_baseline": {
     "phase8_pre_live_verdict": "LAUNCH57_PRE_LIVE_CLOSED=YES",
-    "e2e_passed": 5,
-    "e2e_total": 5,
+    "e2e_passed": 14,
+    "e2e_total": 14,
     "pass_live_granted": false,
     "hero_pass_engineering": 55,
     "hero_blocked_external": [
@@ -112,8 +129,8 @@
       "requirement": "Adaptive Spec §23"
     },
     "decision_contract": {
-      "state": "EXISTING_BUT_INCOMPLETE",
-      "evidence": "decision_truth/contract.py:DecisionContract; not referenced from launch57/*",
+      "state": "NON_GAP_SEMANTICS_ON_PATH",
+      "evidence": "launch57/trust_adaptive_common.py adaptive_disclosure.level_1 + domain disclosure blocks on canonical paths; decision_truth/contract.py class not required (Support Plane NG-F2)",
       "requirement": "Adaptive Spec §24"
     },
     "confidence_uncertainty": {
@@ -122,8 +139,8 @@
       "requirement": "Adaptive Spec §25"
     },
     "decision_boundary": {
-      "state": "EXISTING_BUT_INCOMPLETE",
-      "evidence": "invalidation/abstain in trust_batch* and decision_timing_common; no unified boundary contract across all material decision paths",
+      "state": "NON_GAP_PER_PATH",
+      "evidence": "decision_timing_common, shareable_public_timing_common, due_diligence_risk_timing_common on applicable paths (Support Plane NG-F4)",
       "requirement": "Adaptive Spec §26"
     },
     "trust_presentation": {
@@ -132,8 +149,8 @@
       "requirement": "Adaptive Spec §27"
     },
     "progressive_disclosure": {
-      "state": "MISSING",
-      "evidence": "No launch57 progressive disclosure layer implementation",
+      "state": "LEVEL_1_ONLY_L2_L5_OPEN",
+      "evidence": "launch57/trust_adaptive_common.py build_level1_decision_disclosure (layer level_1_decision); Phases 5–7 tests; no canonical L2–L5 layers (Support Plane G2)",
       "requirement": "Adaptive Spec §28"
     },
     "typed_launch57_graph": {
@@ -157,19 +174,11 @@
       "remediation_class": "local_engineering"
     },
     {
-      "gap_id": "decision_contract_wiring",
-      "governing_requirement": "Adaptive Spec §24 Decision Contract on material decision outputs",
-      "affected_capabilities": "all user-facing and decision-composition capabilities (47 of 57 excluding data spine 8, blocked 2, conflict 1)",
-      "current_repository_evidence": "decision_truth/contract.py:DecisionContract exists; zero launch57/* references",
-      "why_not_satisfied": "Support structure not bound into Launch-57 canonical runtime paths",
-      "remediation_class": "local_engineering"
-    },
-    {
       "gap_id": "progressive_disclosure",
-      "governing_requirement": "Adaptive Spec §28 Levels 1-5 progressive disclosure with safety floor",
+      "governing_requirement": "Adaptive Spec §28 Levels 2-5 progressive disclosure (L1 safety floor supported)",
       "affected_capabilities": "all user-facing and decision-composition capabilities (47 of 57 excluding data spine 8, blocked 2, conflict 1)",
-      "current_repository_evidence": "launch57/edge_ui_* and trust_batch* expose flat payloads; no disclosure layer model in launch57/",
-      "why_not_satisfied": "Support structure not bound into Launch-57 canonical runtime paths",
+      "current_repository_evidence": "launch57/trust_adaptive_common.py level_1_decision only; no canonical L2-L5 layer identifiers in launch57/* (Support Plane G2)",
+      "why_not_satisfied": "L2-L5 not integrated as canonical progressive disclosure layers",
       "remediation_class": "local_engineering"
     },
     {
@@ -1395,9 +1404,10 @@
     ],
     "support_structures_requiring_engineering": [
       "intent_router",
-      "decision_contract",
-      "decision_boundary",
-      "progressive_disclosure"
+      "progressive_disclosure_l2_l5",
+      "routing_composition_controls",
+      "accessibility_proof",
+      "human_validation_evidence"
     ],
     "governing_phase_order_preserved": {
       "Phase 1": [
@@ -1479,7 +1489,7 @@
     },
     "EXISTING_CAPABILITIES_REBUILT": 0,
     "PARKED_DEPENDENCIES_FOUND": 0,
-    "UNRESOLVED_AUTHORITY_CONFLICTS": 1
+    "UNRESOLVED_AUTHORITY_CONFLICTS": 0
   },
   "final_status": {
     "LAUNCH57_57_CAPABILITY_RECONCILIATION": "COMPLETE",

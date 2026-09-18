@@ -15,7 +15,7 @@
   "governing_sources": [
     "docs/standards/معيار_مؤسسي_صارم_لبناء_القدرات_والمميزات_وجاهزية_لجنة_الفحص_2026_v6.md §2.2 PASS_LIVE definition",
     "docs/standards/معيار_مؤسسي_صارم_لبناء_القدرات_والمميزات_وجاهزية_لجنة_الفحص_2026_v6.md §28 Operational Readiness",
-    "BLACKDARK_Launch57_Adaptive_Intelligence_Decision_Experience_FINAL_AUDITED_57.md §31.1 / §38 / §40",
+    "BLACKDARK_Launch57_Adaptive_Intelligence_Decision_Experience_FINAL_AUDITED_57.md §31.1 / §40",
     "governance/launch57/B1_B15_TEMPORAL_FINAL_CLOSURE_AUDIT_FINAL.json external_live_gates",
     "governance/launch57/PHASE8_PRE_LIVE_CLOSURE.json",
     "governance/launch57/PHASE8_LAUNCH_ISOLATION_EVIDENCE.json",
@@ -127,51 +127,51 @@
     },
     {
       "requirement_id": "PV-07",
-      "governing_requirement": "Adaptive Spec §38 — production_host_clock_sync",
+      "governing_requirement": "governance/launch57/B1_B15_TEMPORAL_FINAL_CLOSURE_AUDIT_FINAL.json external_live_gates — production_host_clock_sync",
       "production_path_environment": "Production host NTP/clock on deployed Launch-57 runtime",
-      "actual_production_evidence": "B1_B15_TEMPORAL_FINAL_CLOSURE_AUDIT_FINAL.json: NEEDS_EXTERNAL_VERIFICATION. No production NTP probe artifact.",
+      "actual_production_evidence": "B1_B15_TEMPORAL_FINAL_CLOSURE_AUDIT_FINAL.json external_live_gates: production_host_clock_sync NEEDS_EXTERNAL_VERIFICATION. No production NTP probe artifact.",
       "satisfied": false,
-      "blocker": "Temporal §38 gate unresolved; production host not deployed"
+      "blocker": "B15 external_live_gates production_host_clock_sync unresolved; production host not deployed"
     },
     {
       "requirement_id": "PV-08",
-      "governing_requirement": "Adaptive Spec §38 — browser_device_timezone_detection",
+      "governing_requirement": "governance/launch57/B1_B15_TEMPORAL_FINAL_CLOSURE_AUDIT_FINAL.json external_live_gates — browser_device_timezone_detection",
       "production_path_environment": "Real browser/client timezone detection against production Launch-57 UI/API",
-      "actual_production_evidence": "B1_B15: NEEDS_EXTERNAL_VERIFICATION. No production browser/device capture artifact.",
+      "actual_production_evidence": "B1_B15 external_live_gates: browser_device_timezone_detection NEEDS_EXTERNAL_VERIFICATION. No production browser/device capture artifact.",
       "satisfied": false,
-      "blocker": "Temporal §38 gate unresolved"
+      "blocker": "B15 external_live_gates browser_device_timezone_detection unresolved"
     },
     {
       "requirement_id": "PV-09",
-      "governing_requirement": "Adaptive Spec §38 — cross_device_persistence",
+      "governing_requirement": "governance/launch57/B1_B15_TEMPORAL_FINAL_CLOSURE_AUDIT_FINAL.json external_live_gates — cross_device_persistence",
       "production_path_environment": "Production persistence layer for timezone/preferences across devices",
-      "actual_production_evidence": "B1_B15: NEEDS_EXTERNAL_VERIFICATION. No multi-device production persistence evidence.",
+      "actual_production_evidence": "B1_B15 external_live_gates: cross_device_persistence NEEDS_EXTERNAL_VERIFICATION. No multi-device production persistence evidence.",
       "satisfied": false,
-      "blocker": "Temporal §38 gate unresolved; production persistence layer not evidenced live"
+      "blocker": "B15 external_live_gates cross_device_persistence unresolved; production persistence layer not evidenced live"
     },
     {
       "requirement_id": "PV-10",
-      "governing_requirement": "Adaptive Spec §38 — production_alert_delivery_timing",
+      "governing_requirement": "governance/launch57/B1_B15_TEMPORAL_FINAL_CLOSURE_AUDIT_FINAL.json external_live_gates — production_alert_delivery_timing",
       "production_path_environment": "Production alert transport for #33 and temporal alert surfaces",
-      "actual_production_evidence": "B1_B15: NEEDS_EXTERNAL_VERIFICATION. #33 additionally BLOCKED_EXTERNAL (telegram_delivery_credentials_not_configured).",
+      "actual_production_evidence": "B1_B15 external_live_gates: production_alert_delivery_timing NEEDS_EXTERNAL_VERIFICATION. #33 additionally BLOCKED_EXTERNAL (telegram_delivery_credentials_not_configured).",
       "satisfied": false,
-      "blocker": "Temporal §38 gate unresolved; #33 external delivery channel not proven live"
+      "blocker": "B15 external_live_gates production_alert_delivery_timing unresolved; #33 external delivery channel not proven live"
     },
     {
       "requirement_id": "PV-11",
-      "governing_requirement": "Adaptive Spec §38 — production_dst_sensitive_scheduling",
+      "governing_requirement": "governance/launch57/B1_B15_TEMPORAL_FINAL_CLOSURE_AUDIT_FINAL.json external_live_gates — production_dst_sensitive_scheduling",
       "production_path_environment": "Production schedule executor for DST-sensitive Launch-57 alerts/jobs",
-      "actual_production_evidence": "B1_B15: NEEDS_EXTERNAL_VERIFICATION. B14 library tested locally; no production schedule execution log.",
+      "actual_production_evidence": "B1_B15 external_live_gates: production_dst_sensitive_scheduling NEEDS_EXTERNAL_VERIFICATION. B14 library tested locally; no production schedule execution log.",
       "satisfied": false,
-      "blocker": "Temporal §38 gate unresolved"
+      "blocker": "B15 external_live_gates production_dst_sensitive_scheduling unresolved"
     },
     {
       "requirement_id": "PV-12",
-      "governing_requirement": "Adaptive Spec §38 — production_email_notification_rendering",
+      "governing_requirement": "governance/launch57/B1_B15_TEMPORAL_FINAL_CLOSURE_AUDIT_FINAL.json external_live_gates — production_email_notification_rendering",
       "production_path_environment": "Production email/notification rendering stack",
-      "actual_production_evidence": "B1_B15: NEEDS_EXTERNAL_VERIFICATION. No production notification render capture.",
+      "actual_production_evidence": "B1_B15 external_live_gates: production_email_notification_rendering NEEDS_EXTERNAL_VERIFICATION. No production notification render capture.",
       "satisfied": false,
-      "blocker": "Temporal §38 gate unresolved"
+      "blocker": "B15 external_live_gates production_email_notification_rendering unresolved"
     },
     {
       "requirement_id": "PV-13",
