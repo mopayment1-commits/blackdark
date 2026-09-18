@@ -1,0 +1,408 @@
+"""
+Launch-57 Support Plane — §23 Router Selection Sufficiency Contract.
+
+Support structure only (not a capability). Implements Adaptive Spec §23.1–§23.5 pipeline
+on composite paths (Command Home / multi-cap composition). Does not depend on PARKED
+parallel product routers (intent_router.py).
+"""
+
+from __future__ import annotations
+
+import json
+from pathlib import Path
+from typing import Any
+
+from launch57.edge_ui_common import LAUNCH57_SCOPE_IDS, launch57_home_eligible_ids
+
+_REGISTER = Path(__file__).resolve().parents[1] / "governance/launch57/LAUNCH57_REGISTER.json"
+
+BUILDER_STATUS = "PENDING_VERIFICATION"
+METHODOLOGY_VERSION = "launch57-router-selection-contract-1.0"
+
+# §32 minimal defaults — engineering budgets only; not measured production SLOs.
+DEFAULT_MAXIMUM_CANDIDATES = 12
+DEFAULT_LATENCY_CLASS = "interactive"
+DEFAULT_CACHE_POLICY = "no_cache_on_composite"
+DEFAULT_DEGRADATION_PATH = "abstain_with_explain"
+
+PIPELINE_STEPS: tuple[str, ...] = (
+    "intent",
+    "candidates",
+    "eligibility",
+    "dependence",
+    "conflict",
+    "budget",
+    "stop",
+    "abstain",
+    "explain",
+)
+
+# Command-home minimum sufficient cluster coverage (runtime deps on PASS_ENGINEERING spine).
+_COMMAND_HOME_MIN_SUFFICIENT_CLUSTERS: frozenset[str] = frozenset({"data_spine", "trust_surface"})
+
+_DEPENDENCE_CLUSTER_BY_BATCH: dict[str, str] = {
+    "data_batch1": "data_spine",
+    "data_batch2": "data_spine",
+    "evidence_class_common": "trust_surface",
+    "trust_batch1": "trust_surface",
+    "trust_batch2": "trust_surface",
+    "decision_batch1": "decision_layer",
+    "decision_batch2": "decision_layer",
+    "smart_money_batch1": "smart_money",
+    "smart_money_batch2": "smart_money",
+    "smart_money_batch3": "smart_money",
+    "derivatives_batch1": "derivatives",
+    "derivatives_batch2": "derivatives",
+    "explanation_ai_batch1": "explanation",
+    "edge_ui_batch1": "edge_ui",
+    "edge_ui_batch2": "edge_ui",
+}
+
+
+def _load_register_rows() -> list[dict[str, Any]]:
+    if not _REGISTER.exists():
+        return []
+    register = json.loads(_REGISTER.read_text(encoding="utf-8"))
+    return list(register.get("launch57_register") or [])
+
+
+def _batch_module_for(launch_id: int) -> str:
+    for row in _load_register_rows():
+        if row.get("launch_number") != launch_id:
+            continue
+        impl = row.get("canonical_implementation") or []
+        if isinstance(impl, list) and impl:
+            handler = str(impl[0])
+            if handler.startswith("launch57."):
+                return handler.split(".", 1)[1]
+            return handler
+        handler = str(row.get("runtime_handler") or "")
+        if handler.startswith("launch57."):
+            return handler.split(".", 1)[1]
+        return handler or "unknown"
+    return "unknown"
+
+
+def _dependence_cluster(launch_id: int) -> str:
+    module = _batch_module_for(launch_id)
+    if module in _DEPENDENCE_CLUSTER_BY_BATCH:
+        return _DEPENDENCE_CLUSTER_BY_BATCH[module]
+    for prefix, cluster in _DEPENDENCE_CLUSTER_BY_BATCH.items():
+        if module.startswith(prefix):
+            return cluster
+    return f"launch_{launch_id}"
+
+
+def build_intent_from_params(
+    *,
+    goal: str,
+    symbol: str,
+    params: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """§23.1 Intent Contract."""
+    p = dict(params or {})
+    return {
+        "user_goal": goal,
+        "asset_scope": str(symbol or "BTC").upper(),
+        "horizon": p.get("horizon") or "intraday",
+        "decision_type": p.get("decision_type") or "command_home_composition",
+        "required_safety_lenses": list(p.get("required_safety_lenses") or ["freshness", "evidence_class", "readiness"]),
+        "minimum_evidence_requirement": p.get("minimum_evidence_requirement") or "launch57_pass_engineering",
+        "desired_output_mode": p.get("desired_output_mode") or "six_heroes_command_home",
+    }
+
+
+def gather_candidates(*, intent: dict[str, Any]) -> list[dict[str, Any]]:
+    """§23.5 step 2 — candidate universe from Launch-57 SSOT only."""
+    eligible = launch57_home_eligible_ids()
+    rows: list[dict[str, Any]] = []
+    for row in _load_register_rows():
+        ln = row.get("launch_number")
+        if not isinstance(ln, int) or ln not in LAUNCH57_SCOPE_IDS:
+            continue
+        rows.append(
+            {
+                "launch_id": ln,
+                "launch_name": row.get("launch_name"),
+                "runtime_handler": row.get("runtime_handler"),
+                "engineering_status": row.get("current_engineering_status"),
+                "home_eligible": ln in eligible,
+                "dependence_cluster": _dependence_cluster(ln),
+                "parked": str(row.get("current_engineering_status") or "") in {"PARKED", "NO_LINKED_CANONICAL"},
+            }
+        )
+    return rows
+
+
+def apply_eligibility(
+    candidates: list[dict[str, Any]],
+    *,
+    intent: dict[str, Any],
+    spine: dict[str, Any] | None,
+    oracle: dict[str, Any] | None,
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    """§23.2 + §23.5 step 3 — eligibility and mandatory controls."""
+    selected: list[dict[str, Any]] = []
+    excluded: list[dict[str, Any]] = []
+    live_ok = bool((spine or {}).get("live_eligible"))
+    oracle_action = str((oracle or {}).get("decision_action") or "").upper()
+
+    for cand in candidates:
+        reasons: list[str] = []
+        ln = cand["launch_id"]
+        if ln not in LAUNCH57_SCOPE_IDS:
+            reasons.append("outside_launch57_scope")
+        if cand.get("parked"):
+            reasons.append("parked_capability")
+        if not cand.get("home_eligible"):
+            reasons.append("not_home_eligible")
+        if not live_ok:
+            reasons.append("freshness_mandatory_control_failed")
+        if oracle_action == "ABSTAIN" and cand.get("dependence_cluster") not in _COMMAND_HOME_MIN_SUFFICIENT_CLUSTERS:
+            reasons.append("oracle_abstain_excludes_optional")
+
+        if reasons:
+            excluded.append({**cand, "exclusion_reasons": reasons})
+        else:
+            selected.append({**cand, "mandatory_controls_passed": True})
+    return selected, excluded
+
+
+def apply_dependence_clustering(eligible: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], dict[str, list[int]]]:
+    """§23.5 step 4 — dependence clustering; shared ancestry not double-counted."""
+    clusters: dict[str, list[int]] = {}
+    for cand in eligible:
+        cluster = cand["dependence_cluster"]
+        clusters.setdefault(cluster, []).append(cand["launch_id"])
+    # Keep one representative per cluster for sufficiency counting (lowest launch_id).
+    representatives: list[dict[str, Any]] = []
+    seen_clusters: set[str] = set()
+    for cand in sorted(eligible, key=lambda c: c["launch_id"]):
+        cluster = cand["dependence_cluster"]
+        if cluster in seen_clusters:
+            continue
+        seen_clusters.add(cluster)
+        representatives.append({**cand, "dependence_representative": True})
+    return representatives, clusters
+
+
+def apply_conflict_coverage(
+    eligible: list[dict[str, Any]],
+    *,
+    oracle: dict[str, Any] | None,
+    spine: dict[str, Any] | None,
+) -> dict[str, Any]:
+    """§23.5 step 5 — material conflict visibility."""
+    governed = dict((oracle or {}).get("governed_payload") or {})
+    contradiction = governed.get("critical_contradiction") or governed.get("contradiction_state")
+    unresolved = bool(contradiction)
+    return {
+        "material_conflict_visible": unresolved,
+        "contradiction": contradiction,
+        "conflict_blocks_selection": unresolved,
+        "supporting_evidence_present": bool(oracle),
+        "opposing_evidence_visible": unresolved,
+    }
+
+
+def apply_budget(
+    eligible: list[dict[str, Any]],
+    *,
+    maximum_candidates: int = DEFAULT_MAXIMUM_CANDIDATES,
+) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    """§23.5 step 7 + minimal §32 budget fields."""
+    budget_meta = {
+        "maximum_candidates": maximum_candidates,
+        "latency_class": DEFAULT_LATENCY_CLASS,
+        "cache_policy": DEFAULT_CACHE_POLICY,
+        "degradation_path": DEFAULT_DEGRADATION_PATH,
+        "cost_ceiling": "engineering_default_not_measured_slo",
+    }
+    # Always retain one representative per minimum-sufficient cluster under budget pressure.
+    min_cluster_ids: set[int] = set()
+    for cluster in _COMMAND_HOME_MIN_SUFFICIENT_CLUSTERS:
+        cluster_cands = [c for c in eligible if c.get("dependence_cluster") == cluster]
+        if cluster_cands:
+            min_cluster_ids.add(min(c["launch_id"] for c in cluster_cands))
+    ordered = sorted(
+        eligible,
+        key=lambda c: (c["launch_id"] not in min_cluster_ids, c["launch_id"]),
+    )
+    kept: list[dict[str, Any]] = []
+    for cand in ordered:
+        if len(kept) >= maximum_candidates and cand["launch_id"] not in min_cluster_ids:
+            continue
+        kept.append(cand)
+    budget_meta["candidates_after_budget"] = len(kept)
+    budget_meta["candidates_before_budget"] = len(eligible)
+    return kept, budget_meta
+
+
+def apply_stop(
+    budgeted: list[dict[str, Any]],
+    *,
+    dependence_clusters: dict[str, list[int]],
+) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    """§23.5 step 8 — stop when required coverage satisfied within budget."""
+    selected_ids = {c["launch_id"] for c in budgeted}
+    cluster_coverage = {k: any(i in selected_ids for i in ids) for k, ids in dependence_clusters.items()}
+    min_met = all(cluster_coverage.get(cluster) for cluster in _COMMAND_HOME_MIN_SUFFICIENT_CLUSTERS)
+    stop_meta = {
+        "minimum_sufficient_met": min_met,
+        "minimum_sufficient_clusters": sorted(_COMMAND_HOME_MIN_SUFFICIENT_CLUSTERS),
+        "cluster_coverage": cluster_coverage,
+        "stopped_because": "minimum_sufficient_and_budget_satisfied" if min_met else "insufficient_coverage",
+    }
+    if min_met:
+        return budgeted, stop_meta
+    return [], stop_meta
+
+
+def apply_abstain(
+    *,
+    intent: dict[str, Any],
+    spine: dict[str, Any] | None,
+    conflict: dict[str, Any],
+    stop_meta: dict[str, Any],
+    selected: list[dict[str, Any]],
+) -> dict[str, Any]:
+    """§23.4 + §23.5 step 9."""
+    if spine and not spine.get("live_eligible"):
+        return {
+            "abstain": True,
+            "answer_state": "ABSTAIN",
+            "reason": "stale_or_not_live_eligible",
+            "explanation": "Freshness mandatory control failed — router abstains per §23.4.",
+        }
+    if conflict.get("conflict_blocks_selection"):
+        return {
+            "abstain": True,
+            "answer_state": "ABSTAIN",
+            "reason": "unresolved_material_conflict",
+            "explanation": "Material contradiction remains unresolved — router abstains per §23.4.",
+        }
+    if not stop_meta.get("minimum_sufficient_met") or not selected:
+        return {
+            "abstain": True,
+            "answer_state": "ABSTAIN",
+            "reason": "selection_sufficiency_failed",
+            "explanation": "Minimum sufficient Launch-57 candidate set not met — router abstains per §23.5.",
+        }
+    return {"abstain": False, "answer_state": "SELECTED", "reason": None, "explanation": None}
+
+
+def build_explain(
+    *,
+    intent: dict[str, Any],
+    excluded: list[dict[str, Any]],
+    selected: list[dict[str, Any]],
+    dependence_clusters: dict[str, list[int]],
+    budget_meta: dict[str, Any],
+    stop_meta: dict[str, Any],
+    abstain: dict[str, Any],
+) -> dict[str, Any]:
+    """§23.5 step 10 — inspectable selection/exclusion logic."""
+    return {
+        "intent_summary": intent.get("user_goal"),
+        "selected_launch_ids": sorted(c["launch_id"] for c in selected),
+        "excluded_count": len(excluded),
+        "exclusion_samples": [
+            {"launch_id": e["launch_id"], "reasons": e.get("exclusion_reasons", [])}
+            for e in excluded[:5]
+        ],
+        "dependence_clusters": dependence_clusters,
+        "budget": budget_meta,
+        "stop": stop_meta,
+        "abstain": abstain,
+        "pipeline_steps": list(PIPELINE_STEPS),
+        "methodology_version": METHODOLOGY_VERSION,
+        "builder_status": BUILDER_STATUS,
+        "isolation": {
+            "launch57_scope_only": True,
+            "no_parked_selection": True,
+            "parallel_product_router_not_source_of_truth": True,
+        },
+    }
+
+
+def run_router_selection_contract(
+    *,
+    goal: str,
+    symbol: str,
+    params: dict[str, Any] | None = None,
+    spine: dict[str, Any] | None = None,
+    oracle: dict[str, Any] | None = None,
+    maximum_candidates: int = DEFAULT_MAXIMUM_CANDIDATES,
+) -> dict[str, Any]:
+    """
+    Full §23.5 pipeline: intent → candidates → eligibility → dependence → conflict
+    → budget → stop → abstain → explain.
+    """
+    trace: dict[str, Any] = {"steps": {}}
+
+    intent = build_intent_from_params(goal=goal, symbol=symbol, params=params)
+    trace["steps"]["intent"] = intent
+
+    candidates = gather_candidates(intent=intent)
+    trace["steps"]["candidates"] = {"count": len(candidates), "launch57_scope_only": True}
+
+    eligible, excluded = apply_eligibility(candidates, intent=intent, spine=spine, oracle=oracle)
+    trace["steps"]["eligibility"] = {
+        "eligible_count": len(eligible),
+        "excluded_count": len(excluded),
+    }
+
+    representatives, dependence_clusters = apply_dependence_clustering(eligible)
+    trace["steps"]["dependence"] = {
+        "representative_count": len(representatives),
+        "clusters": dependence_clusters,
+    }
+
+    conflict = apply_conflict_coverage(representatives, oracle=oracle, spine=spine)
+    trace["steps"]["conflict"] = conflict
+
+    budgeted, budget_meta = apply_budget(representatives, maximum_candidates=maximum_candidates)
+    trace["steps"]["budget"] = budget_meta
+
+    selected, stop_meta = apply_stop(budgeted, dependence_clusters=dependence_clusters)
+    trace["steps"]["stop"] = stop_meta
+
+    abstain = apply_abstain(
+        intent=intent,
+        spine=spine,
+        conflict=conflict,
+        stop_meta=stop_meta,
+        selected=selected,
+    )
+    trace["steps"]["abstain"] = abstain
+
+    if abstain.get("abstain"):
+        selected = []
+
+    explain = build_explain(
+        intent=intent,
+        excluded=excluded,
+        selected=selected,
+        dependence_clusters=dependence_clusters,
+        budget_meta=budget_meta,
+        stop_meta=stop_meta,
+        abstain=abstain,
+    )
+    trace["steps"]["explain"] = explain
+
+    return {
+        "router_selection_contract": {
+            "governing_spec": "Adaptive Spec §23.5 Router Selection Sufficiency Contract",
+            "builder_status": BUILDER_STATUS,
+            "pipeline_steps": list(PIPELINE_STEPS),
+            "intent": intent,
+            "selected_launch_ids": explain["selected_launch_ids"],
+            "answer_state": abstain["answer_state"],
+            "abstain": abstain.get("abstain", False),
+            "abstain_reason": abstain.get("reason"),
+            "abstain_explanation": abstain.get("explanation"),
+            "budget": budget_meta,
+            "trace": trace,
+            "explain": explain,
+        }
+    }

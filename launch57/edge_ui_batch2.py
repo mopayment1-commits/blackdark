@@ -13,6 +13,7 @@ from decision_truth.product.command_view import build_command_view
 from decision_truth.product.six_heroes import build_six_heroes
 from launch57.decision_common import load_decision_spine, stale_gate_body, stamp_decision_batch
 from launch57.edge_ui_common import LAUNCH57_SCOPE_IDS, attach_edge_ui_envelope
+from launch57.router_selection_contract import run_router_selection_contract
 from launch57.trust_adaptive_common import (
     apply_command_home_guard,
     attach_adaptive_disclosure,
@@ -100,6 +101,56 @@ async def six_heroes_command_home(*, symbol: str, params: dict[str, Any] | None 
         return attach_edge_ui_envelope(ai_compliance_footer(body), spine=spine)
 
     oracle = await single_sentence_oracle(symbol=spine["symbol"], params=p)
+    router = run_router_selection_contract(
+        goal="six_heroes_command_home",
+        symbol=spine["symbol"],
+        params=p,
+        spine=spine,
+        oracle=oracle,
+    )
+    router_block = router.get("router_selection_contract") or {}
+    if router_block.get("abstain"):
+        body = stamp_decision_batch(
+            {
+                "surface": "six_heroes_command_home",
+                "symbol": spine["symbol"],
+                "success": False,
+                "answer_state": router_block.get("answer_state") or "ABSTAIN",
+                "six_heroes_command_home": {
+                    "question": "ماذا أفعل الآن؟",
+                    "router_selection_contract": router_block,
+                    "abstain": True,
+                    "abstain_reason": router_block.get("abstain_reason"),
+                    "abstain_explanation": router_block.get("abstain_explanation"),
+                    "eligible_launch57_ids": [],
+                    "launch57_scope_only": True,
+                    "excludes_parked": True,
+                    "consumer_path": "api/routers/launch57_edge_ui.py",
+                },
+                "freshness_state": spine["freshness_state"],
+                "presented_as_live": spine["presented_as_live"],
+            },
+            capability_id=0,
+            launch_item_id=1,
+            entrypoint="six_heroes_command_home",
+            batch_module=_MODULE,
+            binding_source=_BINDING,
+        )
+        wrapped = attach_edge_ui_envelope(ai_compliance_footer(body), spine=spine)
+        level1 = build_level1_decision_disclosure(
+            p,
+            launch_item_id=1,
+            surface="six_heroes_command_home",
+            answer_state="ABSTAIN",
+            evidence_display={"freshness_state": spine.get("freshness_state")},
+            uncertainty="insufficient_evidence",
+        )
+        return attach_adaptive_disclosure(
+            wrapped,
+            level1,
+            extra={"command_home_disclosure": {"abstain": True, "router": router_block.get("explain")}},
+        )
+
     oracle_block = oracle.get("single_sentence_oracle") or {}
     contract = {
         "decision_state": oracle.get("decision_action") or oracle_block.get("action"),
@@ -127,7 +178,12 @@ async def six_heroes_command_home(*, symbol: str, params: dict[str, Any] | None 
         spine=spine,
         params=p,
     )
-    eligible = guarded.get("eligible_launch57_ids") or []
+    guard_eligible = list(guarded.get("eligible_launch57_ids") or [])
+    if guarded.get("scope_rejected"):
+        eligible: list[int] = []
+    else:
+        router_selected = set(router_block.get("selected_launch_ids") or [])
+        eligible = sorted(set(guard_eligible) & router_selected) if router_selected else guard_eligible
 
     body = stamp_decision_batch(
         {
@@ -137,6 +193,7 @@ async def six_heroes_command_home(*, symbol: str, params: dict[str, Any] | None 
             "six_heroes_command_home": {
                 "question": "ماذا أفعل الآن؟",
                 "heroes": guarded.get("heroes"),
+                "oracle": oracle,
                 "command_view": guarded.get("command_view"),
                 "eligible_launch57_ids": eligible,
                 "launch57_scope_only": True,
@@ -145,6 +202,7 @@ async def six_heroes_command_home(*, symbol: str, params: dict[str, Any] | None 
                 "no_duplicate_capability_directory": True,
                 "six_heroes_primary": True,
                 "oracle_path": "launch57.trust_batch1:single_sentence_oracle",
+                "router_selection_contract": router_block,
                 "home_guard": guarded,
             },
             "freshness_state": spine["freshness_state"],

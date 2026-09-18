@@ -165,6 +165,7 @@ PUBLIC_HTML_PREFIXES: tuple[str, ...] = (
 PUBLIC_API_PREFIXES: tuple[str, ...] = (
     "/health/",
     PATH_API_TRUST_OS,
+    "/api/launch57/",
     "/api/strategy/",
     "/api/intent/",
     "/api/execution/",

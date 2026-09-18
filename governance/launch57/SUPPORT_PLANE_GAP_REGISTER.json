@@ -26,9 +26,12 @@
       "canonical_owner_path": "Distributed guards only: launch57/trust_adaptive_common.py:apply_command_home_guard; per-batch stale/readiness guards — no launch57/* unified router module",
       "required_proof": "Single governed router contract implementing §23.5 sufficiency/stop/abstain/explain across material composition paths",
       "current_evidence": "Phase 7B command-home guard + Phase 8 E2E isolation on /api/launch57/*; no cross-path intent→candidate→stop router",
-      "status": "CONFIRMED_GAP",
+      "status": "CONFIRMED_GAP_PARTIAL_P2",
       "remediation_class": "local_engineering",
-      "support_plane_phase": 1
+      "support_plane_phase": 2,
+      "phase2_owner": "launch57/router_selection_contract.py",
+      "phase2_builder_status": "PENDING_VERIFICATION",
+      "phase2_wire": "launch57/edge_ui_batch2.py:six_heroes_command_home"
     },
     "G2": {
       "gap_id": "G2",
@@ -147,7 +150,8 @@
   "dashboard_reachability": {
     "DASHBOARD_REACHABLE_PARALLEL_PATH": true,
     "CANONICAL_LAUNCH57_ENTRY": "/api/launch57/command-home",
-    "ISOLATION_GAP": true,
+    "ISOLATION_GAP": false,
+    "isolation_gap_remediated_phase": "P1",
     "isolation_gap_class": "P0_UI_PARALLEL_JOURNEY",
     "isolation_gap_phase": 1,
     "evidence": {

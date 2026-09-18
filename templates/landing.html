@@ -1140,27 +1140,29 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
         }
 
 
-        async function fetchOraclePayload(symbol, mode, lang) {
-            const preferQuick = mode !== 'pro';
-            const primary = preferQuick
-                ? `/oracle/${encodeURIComponent(symbol)}/quick?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`
-                : `/oracle/${encodeURIComponent(symbol)}?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`;
-            const fallback = preferQuick
-                ? `/oracle/${encodeURIComponent(symbol)}?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`
-                : `/oracle/${encodeURIComponent(symbol)}/quick?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`;
-            let response = await fetch(primary, { headers: { Accept: 'application/json' } });
-            let rawText = await response.text();
+        async function fetchLaunch57CommandHome(symbol) {
+            const sym = encodeURIComponent((symbol || 'BTC').toUpperCase());
+            const response = await fetch(`/api/launch57/command-home?symbol=${sym}&command_view=true`, {
+                headers: { Accept: 'application/json' },
+            });
             let data = null;
-            try {
-                data = rawText && !rawText.trim().startsWith('<') && !rawText.includes('Internal Server Error')
-                    ? JSON.parse(rawText) : null;
-            } catch (error) { console.debug(error); data = null; }
-            if (!data || !response.ok) {
-                response = await fetch(fallback, { headers: { Accept: 'application/json' } });
-                rawText = await response.text();
-                try { data = JSON.parse(rawText); } catch (error) { console.debug(error); data = null; }
-            }
+            try { data = await response.json(); } catch (error) { console.debug(error); data = null; }
             return { response, data };
+        }
+
+        function launch57ToLandingOracle(data) {
+            const home = (data && data.six_heroes_command_home) || {};
+            const oracle = home.oracle || data || {};
+            const sso = oracle.single_sentence_oracle || data.single_sentence_oracle || {};
+            const action = String(oracle.decision_action || sso.action || data.decision_truth_state || 'WAIT').toUpperCase();
+            return {
+                symbol: data.symbol || 'BTC',
+                decision_action: action,
+                verdict: action,
+                decision_sentence: sso.sentence || home.abstain_explanation || 'Launch-57 command home',
+                opportunity_score: oracle.net_edge_truth_score,
+                launch57_command_home: true,
+            };
         }
         function decideLandingAction(data) {
             const rawAction = String(data.decision_action || data.verdict || data.action || 'WAIT').toUpperCase();
@@ -1386,7 +1388,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             const t0 = performance.now();
             
             try {
-                const { response, data } = await fetchOraclePayload(symbol, mode, lang);
+                const { response, data } = await fetchLaunch57CommandHome(symbol);
                 const latencyMs = Math.round(performance.now() - t0);
                 if (!data) {
                     oracleEl.textContent = i18nT('oracle.error');
@@ -1394,6 +1396,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                     verdictEl.className = 'result-verdict verdict-wait';
                     return;
                 }
+                const mapped = launch57ToLandingOracle(data);
                 if (!response.ok) {
                     const detail = data.detail || {};
                     const msg = detail.message || i18nT('ui.quota_exceeded');
@@ -1405,22 +1408,23 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                     return;
                 }
                 
-                symbolEl.textContent = data.symbol || symbol;
-                scoreEl.textContent = data.opportunity_score ?? '--';
-                const action = decideLandingAction(data);
-                paintLandingVerdict(verdictEl, data, action);
-                oracleEl.textContent = fallbackDecisionSentence(data, symbol, action);
+                const display = mapped;
+                symbolEl.textContent = display.symbol || symbol;
+                scoreEl.textContent = display.opportunity_score ?? '--';
+                const action = decideLandingAction(display);
+                paintLandingVerdict(verdictEl, display, action);
+                oracleEl.textContent = fallbackDecisionSentence(display, symbol, action);
                 paintLandingFreshness(data);
-                paintLandingProMeta(proMeta, data, mode);
-                paintLandingUpgrade(upgradeEl, data);
+                paintLandingProMeta(proMeta, display, mode);
+                paintLandingUpgrade(upgradeEl, display);
                 const certEl = document.getElementById('landingCert');
                 const cert = data.decision_certificate || {};
-                renderLandingCertificate(certEl, cert, data);
-                renderLandingWhy(oracleEl, data, cert, latencyMs);
-                const followAction = data.decision_action || data.verdict || action || 'WAIT';
-                wireDisciplineMirror(document.getElementById('landingDiscipline'), data, symbol, followAction);
-                paintLandingCompliance(data);
-                updateShareLinks(data);
+                renderLandingCertificate(certEl, cert, display);
+                renderLandingWhy(oracleEl, display, cert, latencyMs);
+                const followAction = display.decision_action || display.verdict || action || 'WAIT';
+                wireDisciplineMirror(document.getElementById('landingDiscipline'), display, symbol, followAction);
+                paintLandingCompliance(display);
+                updateShareLinks(display);
             } catch (error) { console.debug(error); oracleEl.textContent = i18nT('ui.oracle_unavailable'); }
         }
 
@@ -1581,23 +1585,31 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
 
         async function loadLandingTrustPulse() {
             try {
-                const res = await fetch('/api/trust-pulse?symbol=BTC&ux_mode=beginner&lang=en');
-                if (!res.ok) return;
-                renderLandingPulse(await res.json());
+                const { response, data } = await fetchLaunch57CommandHome('BTC');
+                if (!response.ok || !data) return;
+                const home = data.six_heroes_command_home || {};
+                const oracle = home.oracle || data;
+                const sso = oracle.single_sentence_oracle || {};
+                renderLandingPulse({
+                    symbol: data.symbol || 'BTC',
+                    action: oracle.decision_action || sso.action || 'WAIT',
+                    sentence: sso.sentence || 'Launch-57 command home',
+                    price: data.price,
+                    change_24h: data.change_24h,
+                    freshness: { state: data.freshness_state, stale: data.freshness_state === 'STALE' },
+                    why: { factors: [] },
+                    proof: {},
+                    launch57_command_home: true,
+                });
             } catch (error) { console.debug(error); }
         }
 
         function startLandingPulseStream() {
-            try {
-                if (landingPulseEs) landingPulseEs.close();
-                landingPulseEs = new EventSource('/api/trust-pulse/stream?symbol=BTC');
-                landingPulseEs.onmessage = (ev) => {
-                    try {
-                        const d = JSON.parse(ev.data);
-                        if (d.pulse) renderLandingPulse(d.pulse);
-                    } catch (error) { console.debug(error); }
-                };
-            } catch (error) { console.debug(error); }
+            if (landingPulseEs) {
+                try { landingPulseEs.close(); } catch (error) { console.debug(error); }
+                landingPulseEs = null;
+            }
+            setInterval(() => loadLandingTrustPulse(), 60000);
         }
 
         document.getElementById('lpShareBtn')?.addEventListener('click', (e) => {
