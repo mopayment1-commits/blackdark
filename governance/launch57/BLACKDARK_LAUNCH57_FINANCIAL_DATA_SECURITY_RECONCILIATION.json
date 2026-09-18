@@ -1,7 +1,7 @@
 {
   "artifact": "BLACKDARK_LAUNCH57_FINANCIAL_DATA_SECURITY_RECONCILIATION",
-  "generated_at": "2026-09-18T14:19:56.568153+00:00",
-  "implementation_sha": "0e490cee",
+  "generated_at": "2026-09-18T14:21:39.468800+00:00",
+  "implementation_sha": "0e9c4547",
   "baseline_sha": "34fb4b75fb31abff6e370d0309fca0c8e9e8d036389011a5ce3b78625c5ff199",
   "financial_security_version": "launch57-financial-security-1.0.0",
   "scope": "LAUNCH57_IDS",
@@ -144,7 +144,7 @@
       "launch_surface": false,
       "standalone_capability": false,
       "evidence_class": "INTERNAL_SUPPORT_ONLY",
-      "source_sha": "0e490cee",
+      "source_sha": "0e9c4547",
       "financial_security_version": "launch57-financial-security-1.0.0"
     },
     {
@@ -160,7 +160,7 @@
       "launch_surface": false,
       "standalone_capability": false,
       "evidence_class": "INTERNAL_SUPPORT_ONLY",
-      "source_sha": "0e490cee",
+      "source_sha": "0e9c4547",
       "financial_security_version": "launch57-financial-security-1.0.0"
     },
     {
@@ -178,7 +178,7 @@
       "launch_surface": false,
       "standalone_capability": false,
       "evidence_class": "INTERNAL_SUPPORT_ONLY",
-      "source_sha": "0e490cee",
+      "source_sha": "0e9c4547",
       "financial_security_version": "launch57-financial-security-1.0.0"
     },
     {
@@ -193,7 +193,7 @@
       "launch_surface": false,
       "standalone_capability": false,
       "evidence_class": "INTERNAL_SUPPORT_ONLY",
-      "source_sha": "0e490cee",
+      "source_sha": "0e9c4547",
       "financial_security_version": "launch57-financial-security-1.0.0"
     },
     {
@@ -210,7 +210,7 @@
       "standalone_capability": false,
       "evidence_class": "INTERNAL_SUPPORT_ONLY",
       "reuse_only": true,
-      "source_sha": "0e490cee",
+      "source_sha": "0e9c4547",
       "financial_security_version": "launch57-financial-security-1.0.0"
     },
     {
@@ -242,7 +242,7 @@
       "standalone_capability": false,
       "evidence_class": "INTERNAL_SUPPORT_ONLY",
       "reuse_only": true,
-      "source_sha": "0e490cee",
+      "source_sha": "0e9c4547",
       "financial_security_version": "launch57-financial-security-1.0.0"
     }
   ],
