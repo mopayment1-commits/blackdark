@@ -1,7 +1,7 @@
 {
   "artifact": "BLACKDARK_LAUNCH57_LIVE_SIM_EVIDENCE_SEPARATION",
-  "generated_at": "2026-09-18T15:01:22.314166+00:00",
-  "implementation_sha": "a04b1797",
+  "generated_at": "2026-09-18T15:01:46.813979+00:00",
+  "implementation_sha": "c7114d46",
   "baseline_sha": "be79474e7a59c25b7ce991cdb3d11c7967ad0c25188d756a217d1f5b8bb1d5b9",
   "canonical_user_labels": [
     "LIVE",
