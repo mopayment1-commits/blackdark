@@ -1,7 +1,7 @@
 # BLACKDARK Launch-57 Decision Truth Report
 
-**Generated:** 2026-09-18T14:36:04.413753+00:00  
-**Implementation SHA:** `747db3e6`  
+**Generated:** 2026-09-18T14:37:09.736838+00:00  
+**Implementation SHA:** `1999f962`  
 **Baseline SHA:** `05a9c7097be6396c62be152e657ed5ac729cde75ecceb2ccbb53109c10147782`  
 **Scope:** Launch-57 decision truth rule set (INTERNAL_SUPPORT_ONLY)
 
