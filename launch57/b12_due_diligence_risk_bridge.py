@@ -98,6 +98,21 @@ def finalize_b12_due_diligence_risk_surface(
             out["success"] = False
             out["error"] = out.get("error") or timing.expired_reason or "risk_expired"
             out["presented_as_current"] = False
+    else:
+        observables = list(out.get("suspicious_activity_observable") or [])
+        if observables and all(isinstance(row, dict) for row in observables):
+            current_rows, all_rows = enrich_risk_incident_rows(
+                observables, payload=p, spine=spine, display_timezone=zone
+            )
+            out["suspicious_activity_observable"] = current_rows
+            out["suspicious_activity_observable_all"] = all_rows
+            out["expired_filtered"] = len(all_rows) - len(current_rows)
+            out["presented_as_current_only"] = True
+            out["presented_as_current"] = bool(current_rows) or not all_rows
+            if all_rows and not current_rows:
+                out["success"] = False
+                out["error"] = out.get("error") or timing.expired_reason or "risk_expired"
+                out["presented_as_current"] = False
 
     if not timing.presented_as_current and out.get("success") is not False:
         out["success"] = False
@@ -123,4 +138,9 @@ def _extract_risk_content(body: dict[str, Any]) -> dict[str, Any]:
             first = block[0]
             if isinstance(first, dict):
                 return first
+    observable = body.get("suspicious_activity_observable")
+    if isinstance(observable, list) and observable:
+        first = observable[0]
+        if isinstance(first, dict):
+            return first
     return {}
