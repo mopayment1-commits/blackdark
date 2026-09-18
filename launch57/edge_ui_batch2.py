@@ -14,11 +14,12 @@ from decision_truth.product.six_heroes import build_six_heroes
 from launch57.decision_common import load_decision_spine, stale_gate_body, stamp_decision_batch
 from launch57.edge_ui_common import LAUNCH57_SCOPE_IDS, attach_edge_ui_envelope
 from launch57.router_selection_contract import run_router_selection_contract
+from launch57.accessibility_common import attach_launch57_accessibility
 from launch57.trust_adaptive_common import (
     apply_command_home_guard,
     attach_adaptive_disclosure,
     build_command_home_disclosure,
-    build_level1_decision_disclosure,
+    build_progressive_disclosure_stack,
 )
 from launch57.trust_batch1 import single_sentence_oracle
 
@@ -65,15 +66,21 @@ def _attach_edge_adaptive(
         if semantics.get("scope_rejected") or str(semantics.get("answer_state", "")).startswith("BLOCKED")
         else "standard"
     )
-    level1 = build_level1_decision_disclosure(
-        governed_p,
+    progressive = build_progressive_disclosure_stack(
+        {**wrapped, **governed_p},
         launch_item_id=launch_item_id,
         surface=surface,
         answer_state=semantics.get("answer_state"),
         evidence_display=wrapped.get("evidence_display"),
         uncertainty=uncertainty,
     )
-    return attach_adaptive_disclosure(wrapped, level1, extra={disclosure_key: disclosure})
+    out = attach_adaptive_disclosure(
+        wrapped,
+        progressive["level_1"],
+        extra={disclosure_key: disclosure},
+        progressive_stack=progressive,
+    )
+    return attach_launch57_accessibility(out, surface=surface, lang=str(p.get("lang") or "en"))
 
 
 async def six_heroes_command_home(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -137,19 +144,22 @@ async def six_heroes_command_home(*, symbol: str, params: dict[str, Any] | None 
             binding_source=_BINDING,
         )
         wrapped = attach_edge_ui_envelope(ai_compliance_footer(body), spine=spine)
-        level1 = build_level1_decision_disclosure(
-            p,
+        abstain_body = {**wrapped, "six_heroes_command_home": body.get("six_heroes_command_home") or {}}
+        progressive = build_progressive_disclosure_stack(
+            abstain_body,
             launch_item_id=1,
             surface="six_heroes_command_home",
             answer_state="ABSTAIN",
             evidence_display={"freshness_state": spine.get("freshness_state")},
             uncertainty="insufficient_evidence",
         )
-        return attach_adaptive_disclosure(
+        out = attach_adaptive_disclosure(
             wrapped,
-            level1,
+            progressive["level_1"],
             extra={"command_home_disclosure": {"abstain": True, "router": router_block.get("explain")}},
+            progressive_stack=progressive,
         )
+        return attach_launch57_accessibility(out, surface="six_heroes_command_home", lang=str(p.get("lang") or "en"))
 
     oracle_block = oracle.get("single_sentence_oracle") or {}
     contract = {

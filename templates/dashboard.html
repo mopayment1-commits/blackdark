@@ -1362,13 +1362,42 @@
             } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Continuity unavailable</div>'; }
         }
 
+        function commandHomeToHalfLifeHeat(data) {
+            const home = (data && data.six_heroes_command_home) || {};
+            const oracle = home.oracle || {};
+            const action = home.abstain ? 'ABSTAIN' : (oracle.decision_action || 'WAIT');
+            const freshness = String(data.freshness_state || 'UNKNOWN').toUpperCase();
+            let remaining = 45;
+            let label = 'WARM';
+            let color = '#eab308';
+            if (freshness === 'STALE' || action === 'ABSTAIN') {
+                remaining = 5; label = 'CRITICAL'; color = '#ef4444';
+            } else if (action === 'ACT' || action === 'BUY' || action === 'SELL') {
+                remaining = 15; label = 'HOT'; color = '#f59e0b';
+            } else if (action === 'WAIT') {
+                remaining = 30; label = 'WARM'; color = '#eab308';
+            } else {
+                remaining = 60; label = 'COOL'; color = '#22d3ee';
+            }
+            const expected = 60;
+            const angle = Math.min(360, Math.max(0, (1 - (remaining / expected)) * 360));
+            return {
+                band: { label, color },
+                half_life: { remaining_seconds: remaining },
+                sweep_degrees: angle,
+                desk_line: `Launch-57 command home · ${freshness} · ${action} — desk timing grounded (no legacy oracle fetch).`,
+            };
+        }
+
         async function loadHalfLifeClock() {
             const svg = document.getElementById('halfLifeSvg');
             const line = document.getElementById('halfLifeLine');
             if (!svg || !line) return;
             try {
-                const res = await fetch('/api/oracle/half-life/heat');
-                const d = await res.json();
+                let data = lastCommandHome;
+                if (!data) data = await loadCommandHome(false);
+                if (!data) throw new Error('launch57_command_home_required');
+                const d = commandHomeToHalfLifeHeat(data);
                 const bandColor = /^#[0-9a-fA-F]{3,8}$/.test(String(d.band?.color || '')) ? d.band.color : '#22d3ee';
                 const remaining = Number.isFinite(Number(d.half_life?.remaining_seconds))
                     ? Math.max(0, Math.floor(Number(d.half_life.remaining_seconds)))
@@ -1699,7 +1728,7 @@
             applyLang();
             bindLensBar();
             applyAudienceFromQuery();
-            loadCommandHome(true);
+            loadCommandHome(true).then(() => loadHalfLifeClock());
             startTrustPulseStream();
             startDashboardStream();
             initChart();
@@ -1712,7 +1741,6 @@
             loadSubscriberValue();
             loadMevReport();
             runStealthAdvisor();
-            loadHalfLifeClock();
             applyAntiHypeClass();
             loadSinceYouLeft();
             loadTgStatus();

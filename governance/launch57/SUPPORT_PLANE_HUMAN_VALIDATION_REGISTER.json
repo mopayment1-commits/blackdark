@@ -1,0 +1,24 @@
+{
+  "artifact": "SUPPORT_PLANE_HUMAN_VALIDATION_REGISTER",
+  "governing_requirement": "Adaptive Spec §31.1 — Human Validation & Usability Evaluation Loop",
+  "builder_status": "PENDING_VERIFICATION",
+  "engineering_baseline_only": true,
+  "study_status": "NOT_STARTED",
+  "wcag_target_reference": "WCAG 2.2 AA where applicable (institutional SSOT)",
+  "required_dimensions": {
+    "task_success": {"status": "PENDING", "threshold": "project-approved before test cycle"},
+    "time_to_insight": {"status": "PENDING", "threshold": "project-approved before test cycle"},
+    "comprehension_reason_limitation_uncertainty": {"status": "PENDING", "threshold": "project-approved before test cycle"},
+    "critical_omission_rate": {"status": "PENDING", "threshold": "project-approved before test cycle"},
+    "explanation_corrects_misunderstanding": {"status": "PENDING", "threshold": "project-approved before test cycle"},
+    "automation_bias_indicators": {"status": "PENDING", "threshold": "project-approved before test cycle"},
+    "perceived_user_control": {"status": "PENDING", "threshold": "project-approved before test cycle"},
+    "accessibility_task_completion": {"status": "PENDING", "threshold": "project-approved before test cycle"}
+  },
+  "surfaces_in_scope": [
+    "templates/dashboard.html — trust-pulse / command home",
+    "templates/landing.html — Get Decision / trust pulse"
+  ],
+  "evidence_chain_owner": "governance/launch57/SUPPORT_PLANE_HUMAN_VALIDATION_REGISTER.json",
+  "note": "Register establishes §31.1 dimension coverage in-repo; completed human studies remain external/PENDING."
+}

@@ -23,9 +23,9 @@
       "title": "§23 Router Selection Sufficiency Contract incomplete",
       "governing_requirement": "Adaptive Spec §23.1–§23.5 — governed Launch-57 intent routing with eligibility, mandatory controls, dependence/conflict handling, stop, abstain, explain",
       "applicability": "Cross-capability composition and user-facing decision orchestration on Launch-57 paths",
-      "canonical_owner_path": "Distributed guards only: launch57/trust_adaptive_common.py:apply_command_home_guard; per-batch stale/readiness guards — no launch57/* unified router module",
+      "canonical_owner_path": "launch57/router_selection_contract.py → launch57/edge_ui_batch2.py:six_heroes_command_home (Command Home composite); cross-path composition OPEN",
       "required_proof": "Single governed router contract implementing §23.5 sufficiency/stop/abstain/explain across material composition paths",
-      "current_evidence": "Phase 7B command-home guard + Phase 8 E2E isolation on /api/launch57/*; no cross-path intent→candidate→stop router",
+      "current_evidence": "P2 pipeline wired on Command Home (IV PASS_ENGINEERING @ 1628e7e1); FULL_CROSS_PATH_§23=false; other composite paths not wired",
       "status": "CONFIRMED_GAP_PARTIAL_P2",
       "remediation_class": "local_engineering",
       "support_plane_phase": 2,
@@ -40,8 +40,8 @@
       "applicability": "All material decision surfaces on canonical Launch-57 consumer paths",
       "canonical_owner_path": "launch57/trust_adaptive_common.py:build_level1_decision_disclosure (L1 only); layer id level_1_decision repo-wide in launch57/*",
       "required_proof": "Canonical progressive layers L2–L5 on consumer responses without hiding safety floor",
-      "current_evidence": "L1 present and tested (Phases 5–7); repo-wide search shows no level_2–level_5 layer identifiers in launch57/*",
-      "status": "CONFIRMED_GAP",
+      "current_evidence": "L1–L5 stack on Command Home via build_progressive_disclosure_stack (repair); cross-cap consumer paths still L1-only",
+      "status": "CONFIRMED_GAP_PARTIAL_COMMAND_HOME",
       "remediation_class": "local_engineering",
       "support_plane_phase": 1,
       "non_gap_subset": "Level-1 Safety Floor (§3.2) — supported on canonical paths"
@@ -67,8 +67,8 @@
       "applicability": "Applicable in-scope Launch-57 user-facing surfaces",
       "canonical_owner_path": "No launch57-specific accessibility evidence chain; DTS accessibility exists off-path (decision_truth/cross_cutting/accessibility.py)",
       "required_proof": "Launch-57-surface accessibility evaluation against project-approved target",
-      "current_evidence": "No tests/launch57 accessibility artifacts; no wiring of DTS accessibility into /api/launch57/* consumer paths",
-      "status": "CONFIRMED_GAP",
+      "current_evidence": "launch57/accessibility_common.py wired to Command Home API; engineering baseline tests; full WCAG audit/human task completion OPEN",
+      "status": "CONFIRMED_GAP_PARTIAL_ENGINEERING_BASELINE",
       "remediation_class": "mixed",
       "support_plane_phase": 1,
       "evidence_note": "Project-approved WCAG target not resolved from in-repo governing sources alone"
@@ -80,8 +80,8 @@
       "applicability": "User-facing Launch-57 decision experience where applicable",
       "canonical_owner_path": "No governance/launch57 human-validation artifact owner",
       "required_proof": "Usability/human-validation study artifacts with §31.1 dimensions",
-      "current_evidence": "No governance/launch57 human-validation artifacts; engineering tests only",
-      "status": "CONFIRMED_GAP",
+      "current_evidence": "governance/launch57/SUPPORT_PLANE_HUMAN_VALIDATION_REGISTER.json with §31.1 dimensions PENDING; no completed study artifacts",
+      "status": "CONFIRMED_GAP_PARTIAL_REGISTER_ONLY",
       "remediation_class": "mixed",
       "support_plane_phase": 1,
       "evidence_note": "Cannot establish absence of off-repo studies"
@@ -93,8 +93,8 @@
       "applicability": "Evidence hygiene only",
       "canonical_owner_path": "governance/launch57/LAUNCH57_57_CAPABILITY_ADAPTIVE_RECONCILIATION.json",
       "required_proof": "Reconciliation reflects post–Phase 5–8 state with supersession pointer to Phase 8 IV",
-      "current_evidence": "Artifact @ 8750e0b9 predated L1 disclosure, #6 resolution, 14/14 E2E; hygiene update applied Phase 0",
-      "status": "CONFIRMED_GAP_HYGIENE_REMEDIATED",
+      "current_evidence": "Supersession pointer present; gap_control + matrix exact_gap updated post P1–P3 repair (2026-09-18)",
+      "status": "CLOSED_HYGIENE_REMEDIATED",
       "remediation_class": "documentation",
       "support_plane_phase": 0
     },
@@ -149,43 +149,29 @@
     }
   ],
   "dashboard_reachability": {
-    "DASHBOARD_REACHABLE_PARALLEL_PATH": true,
+    "DASHBOARD_REACHABLE": true,
     "CANONICAL_LAUNCH57_ENTRY": "/api/launch57/command-home",
     "ISOLATION_GAP": false,
+    "P0_DECISION_JOURNEY_ISOLATED": true,
     "isolation_gap_remediated_phase": "P1",
-    "isolation_gap_class": "P0_UI_PARALLEL_JOURNEY",
-    "isolation_gap_phase": 1,
+    "residual_desk_widgets_non_launch57": true,
+    "residual_note": "Desk-only widgets (arbitrage/whales/mev) may call non-Launch-57 APIs; P0 decision path uses command-home only; half-life clock grounded via commandHomeToHalfLifeHeat (repair D-UI-01)",
     "evidence": {
       "primary_shell_route": {
         "path": "/dashboard",
         "handler": "dashboard.py:1716-1718",
         "template": "templates/dashboard.html"
       },
-      "landing_links_to_dashboard": {
-        "template": "templates/landing.html",
-        "examples": [
-          "/dashboard?lens=prove",
-          "/dashboard?lens=prove#trust-pulse"
-        ],
-        "landing_route": "dashboard.py:1563-1564 (/)"
+      "default_boot": {
+        "function": "boot()",
+        "calls": "loadCommandHome(true) — templates/dashboard.html",
+        "legacy_decision_paths_absent": [
+          "fetch('/api/intent/router')",
+          "fetch('/api/trust-pulse')",
+          "fetch('/oracle/{sym}')",
+          "fetch('/api/oracle/')"
+        ]
       },
-      "parallel_non_canonical_client_calls": [
-        {
-          "call": "fetch('/api/intent/router')",
-          "file": "templates/dashboard.html:1615",
-          "backend": "api/routers/heroes.py:360-365 → intent_router.py"
-        },
-        {
-          "call": "fetch('/api/trust-pulse?...')",
-          "file": "templates/dashboard.html:732",
-          "backend": "dashboard.py:1962-1978 → trust_pulse.py"
-        },
-        {
-          "call": "fetch('/oracle/{sym}?...')",
-          "file": "templates/dashboard.html:948",
-          "backend": "dashboard.py:3046-3085 (legacy oracle pipeline)"
-        }
-      ],
       "canonical_launch57_routes_mounted": {
         "mount": "dashboard.py:819-821",
         "router": "api/routers/launch57_edge_ui.py",
@@ -195,11 +181,12 @@
           "/api/launch57/discipline-mirror",
           "/api/launch57/capability-library"
         ],
-        "referenced_in_dashboard_html": false
+        "referenced_in_dashboard_html": true,
+        "constant": "LAUNCH57_COMMAND_HOME = '/api/launch57/command-home'"
       },
-      "cap646_dispatch": "cap646/institutional_official_production.py → launch57/* batch executors"
+      "iv_evidence": "governance/launch57/SUPPORT_PLANE_P1_P2_INDEPENDENT_VERIFICATION.json — PHASE1_ISOLATION PASS_ENGINEERING"
     },
-    "verdict_note": "Dashboard is reachable to v1 users via / and /dashboard. Primary shell uses legacy parallel decision paths, not /api/launch57/*. Canonical Launch-57 API entry exists but is not wired into dashboard.html client boot flow."
+    "verdict_note": "Dashboard reachable; default decision journey isolated to /api/launch57/command-home. Legacy intent/router/trust-pulse/oracle decision fetches removed from templates. Half-life desk widget derives from command home (no /api/oracle fetch)."
   },
   "pass_scope_narrowing": {
     "policy": "PASS_ENGINEERING not revoked; labels document handler-level PASS vs full-spec support-plane dependencies",

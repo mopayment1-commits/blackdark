@@ -26,6 +26,9 @@ def test_dashboard_boot_uses_launch57_command_home():
     assert "fetch('/api/intent/router')" not in dash
     assert re.search(r"fetch\(['\"]\/api\/trust-pulse", dash) is None
     assert re.search(r"fetch\(['\"]\/oracle\/", dash) is None
+    assert re.search(r"fetch\(['\"]\/api\/oracle\/", dash) is None
+    assert "commandHomeToHalfLifeHeat" in dash
+    assert "loadCommandHome" in dash.split("function loadHalfLifeClock", 1)[1]
 
 
 def test_dashboard_legacy_loaders_delegate_to_command_home():

@@ -15,7 +15,7 @@ from __future__ import annotations
 
 from typing import Any
 
-METHODOLOGY_VERSION = "launch57-trust-adaptive-common-1.0"
+METHODOLOGY_VERSION = "launch57-trust-adaptive-common-1.1"
 
 
 def _governed(payload: dict[str, Any]) -> dict[str, Any]:
@@ -206,15 +206,142 @@ def build_net_edge_safety_floor(score: dict[str, Any], opportunity: dict[str, An
     }
 
 
+def build_level2_why_disclosure(payload: dict[str, Any], level1: dict[str, Any]) -> dict[str, Any]:
+    """Adaptive spec §28 Level 2 — concise why."""
+    home = payload.get("six_heroes_command_home") or {}
+    router = home.get("router_selection_contract") or {}
+    explain = router.get("explain") or {}
+    oracle = home.get("oracle") or payload.get("single_sentence_oracle") or {}
+    sso = oracle.get("single_sentence_oracle") if isinstance(oracle, dict) else {}
+    if not sso and isinstance(oracle, dict):
+        sso = oracle
+    governed = _governed(payload)
+    concise = (
+        _first_text(sso.get("sentence"))
+        or _first_text(explain.get("selection_summary"))
+        or _first_text(governed.get("why_summary"))
+        or _first_text(home.get("abstain_explanation"))
+    )
+    return {
+        "layer": "level_2_why",
+        "concise_explanation": concise,
+        "selection_summary": explain.get("selection_summary"),
+        "safety_floor_visible": True,
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def build_level3_drivers_disclosure(payload: dict[str, Any], level1: dict[str, Any]) -> dict[str, Any]:
+    """Adaptive spec §28 Level 3 — supporting/opposing drivers."""
+    home = payload.get("six_heroes_command_home") or {}
+    heroes = _as_list(home.get("heroes"))
+    governed = _governed(payload)
+    supporting = _as_list(governed.get("supporting_factors") or governed.get("drivers"))
+    opposing = _as_list(governed.get("opposing_factors") or governed.get("contradictions"))
+    if not supporting and heroes:
+        supporting = [
+            {"label": h.get("title") or h.get("hero"), "state": h.get("state")}
+            for h in heroes[:6]
+            if isinstance(h, dict)
+        ]
+    contradiction = level1.get("critical_contradiction")
+    if contradiction and not opposing:
+        opposing = [contradiction]
+    return {
+        "layer": "level_3_drivers",
+        "supporting_factors": supporting,
+        "opposing_factors": opposing,
+        "safety_floor_visible": True,
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def build_level4_evidence_disclosure(payload: dict[str, Any], level1: dict[str, Any]) -> dict[str, Any]:
+    """Adaptive spec §28 Level 4 — sources, provenance, timestamps."""
+    evidence = payload.get("evidence_display") or {}
+    home = payload.get("six_heroes_command_home") or {}
+    router = home.get("router_selection_contract") or {}
+    return {
+        "layer": "level_4_evidence",
+        "evidence_class": level1.get("evidence_class") or evidence.get("canonical_evidence_class"),
+        "freshness_state": level1.get("freshness_state") or evidence.get("freshness_state"),
+        "provenance": {
+            "consumer_path": home.get("consumer_path") or payload.get("consumer_path"),
+            "oracle_path": home.get("oracle_path"),
+            "selected_launch_ids": router.get("selected_launch_ids") or [],
+        },
+        "deeper_evidence_link": level1.get("deeper_evidence_link"),
+        "safety_floor_visible": True,
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def build_level5_expert_disclosure(payload: dict[str, Any], level1: dict[str, Any]) -> dict[str, Any]:
+    """Adaptive spec §28 Level 5 — methodology, assumptions, limitations."""
+    home = payload.get("six_heroes_command_home") or {}
+    router = home.get("router_selection_contract") or {}
+    limitation = level1.get("critical_limitation")
+    return {
+        "layer": "level_5_expert",
+        "methodology_version": METHODOLOGY_VERSION,
+        "router_methodology_version": router.get("methodology_version"),
+        "builder_status": router.get("builder_status"),
+        "assumptions": [
+            "Launch-57 scope only",
+            "PASS_ENGINEERING eligible capabilities",
+            "No PARKED capability selection",
+        ],
+        "limitations": _as_list(limitation) if limitation else [],
+        "invalidation_condition": level1.get("invalidation_condition"),
+        "next_recheck": level1.get("next_recheck"),
+        "safety_floor_visible": True,
+    }
+
+
+def build_progressive_disclosure_stack(
+    payload: dict[str, Any],
+    *,
+    launch_item_id: int,
+    surface: str,
+    answer_state: str | None,
+    evidence_display: dict[str, Any] | None = None,
+    decision_timing: dict[str, Any] | None = None,
+    uncertainty: str | None = None,
+) -> dict[str, Any]:
+    """Adaptive spec §28 Levels 1–5 canonical stack (safety floor always visible)."""
+    level1 = build_level1_decision_disclosure(
+        payload,
+        launch_item_id=launch_item_id,
+        surface=surface,
+        answer_state=answer_state,
+        evidence_display=evidence_display,
+        decision_timing=decision_timing,
+        uncertainty=uncertainty,
+    )
+    return {
+        "level_1": level1,
+        "level_2": build_level2_why_disclosure(payload, level1),
+        "level_3": build_level3_drivers_disclosure(payload, level1),
+        "level_4": build_level4_evidence_disclosure(payload, level1),
+        "level_5": build_level5_expert_disclosure(payload, level1),
+        "safety_floor_visible": True,
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
 def attach_adaptive_disclosure(
     body: dict[str, Any],
     disclosure: dict[str, Any],
     *,
     extra: dict[str, Any] | None = None,
+    progressive_stack: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     out = dict(body)
     block = dict(extra or {})
-    block["level_1"] = disclosure
+    if progressive_stack:
+        block.update(progressive_stack)
+    else:
+        block["level_1"] = disclosure
     out["adaptive_disclosure"] = block
     out["safety_floor_visible"] = True
     return out
