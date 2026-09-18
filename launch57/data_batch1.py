@@ -12,6 +12,12 @@ from typing import Any
 from launch57.batch1_isolation import finalize_b1_response
 from launch57.b1_freshness_bridge import apply_b1_freshness_reconciliation
 from launch57.chart_common import attach_chart_envelope
+from launch57.data_governance_common import (
+    attach_material_observation,
+    build_launch57_source_registry,
+    build_price_reconciliation_from_probe,
+    connector_fetchers_from_registry,
+)
 from launch57.temporal_common import (
     TimestampUnit,
     attach_temporal_envelope,
@@ -41,14 +47,7 @@ LAUNCH_ITEM_BY_CAP: dict[int, int] = {
     47: 21,
 }
 
-_CONNECTOR_FETCHERS: tuple[tuple[str, str], ...] = (
-    ("binance", "primary"),
-    ("kraken", "fallback"),
-    ("okx", "fallback"),
-    ("bybit", "fallback"),
-    ("coingecko", "fallback"),
-    ("coinbase", "fallback"),
-)
+_CONNECTOR_FETCHERS: tuple[tuple[str, str], ...] = connector_fetchers_from_registry()
 
 
 def _utcnow_iso() -> str:
@@ -163,6 +162,20 @@ async def unified_exchange_connector(*, symbol: str, params: dict[str, Any] | No
             )
 
     selected = next((r for r in routes if r.get("available")), None)
+    registry = build_launch57_source_registry()
+    registry_by_provider = {entry["provider"]: entry for entry in registry}
+    for route in routes:
+        meta = registry_by_provider.get(str(route.get("provider")))
+        if meta:
+            route["source_id"] = meta["source_id"]
+            route["source_role"] = meta["source_role"]
+            route["rights_licensing_status"] = meta["rights_licensing_status"]
+
+    reconciliation = build_price_reconciliation_from_probe(
+        primary_price=probe.get("resolved_price"),
+        primary_source=str(probe.get("resolved_source") or (selected or {}).get("provider") or ""),
+        probe=probe,
+    )
     body: dict[str, Any] = {
         "capability_id": 504,
         "launch_item_id": 42,
@@ -174,6 +187,8 @@ async def unified_exchange_connector(*, symbol: str, params: dict[str, Any] | No
         "routes": routes,
         "selected_provider": (selected or {}).get("provider"),
         "health_probe": probe,
+        "launch57_source_registry": registry,
+        "cross_source_reconciliation": reconciliation,
         "timeout_policy": {"rest_total_s": 12, "retry": "host_failover"},
         "success": selected is not None,
         "failure_state": None if selected else "UNAVAILABLE",
@@ -184,10 +199,16 @@ async def unified_exchange_connector(*, symbol: str, params: dict[str, Any] | No
     if not selected:
         body["error"] = "no_exchange_route_available"
         body["success"] = False
-    return _attach_infrastructure_boundary(
-        finalize_b1_response(_attach_b1_metadata(body, source=body.get("selected_provider"))),
-        params=params,
+    out = finalize_b1_response(_attach_b1_metadata(body, source=body.get("selected_provider")))
+    out = attach_material_observation(
+        out,
+        source=str(body.get("selected_provider")),
+        asset_id=asset,
+        data_type="exchange_connector",
+        normalized_value=probe.get("resolved_price"),
+        unit="USDT",
     )
+    return _attach_infrastructure_boundary(out, params=params)
 
 
 async def _fetch_ticker_via_connector(asset: str, pair: str, connector: dict[str, Any]) -> dict[str, Any] | None:
@@ -295,15 +316,30 @@ async def real_time_prices(*, symbol: str, params: dict[str, Any] | None = None)
         source_unit=source_validation.unit if source_validation else None,
     )
     out = finalize_b1_response(out, require_freshness_owner=False)
-    return _attach_infrastructure_boundary(
-        apply_b1_freshness_reconciliation(
-            out,
-            age_sec=age_sec if age_sec else None,
-            source_time=source_raw,
-            temporal=out.get("temporal"),
-        ),
-        params=params,
-    )  # canonical #41 freshness via b1_freshness_bridge
+    out = apply_b1_freshness_reconciliation(
+        out,
+        age_sec=age_sec if age_sec else None,
+        source_time=source_raw,
+        temporal=out.get("temporal"),
+    )
+    out["cross_source_reconciliation"] = build_price_reconciliation_from_probe(
+        primary_price=price,
+        primary_source=str(ticker.get("source")),
+        probe=connector.get("health_probe"),
+    )
+    out = attach_material_observation(
+        out,
+        source=str(ticker.get("source")),
+        asset_id=asset,
+        data_type="real_time_price",
+        event_time=source_raw,
+        raw_value=price,
+        normalized_value=price,
+        unit="USDT",
+        precision=_price_precision(price),
+        freshness_state=out.get("freshness_state"),
+    )
+    return _attach_infrastructure_boundary(out, params=params)  # canonical #41 freshness via b1_freshness_bridge
 
 
 async def ohlcv(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:

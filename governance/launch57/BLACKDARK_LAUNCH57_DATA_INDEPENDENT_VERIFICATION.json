@@ -1,0 +1,29 @@
+{
+  "artifact": "BLACKDARK_LAUNCH57_DATA_INDEPENDENT_VERIFICATION",
+  "verification_type": "engineering_closure",
+  "verified_at": "2026-09-18T13:52:25.014076+00:00",
+  "implementation_sha": "a09cc39b",
+  "verdict": "PASS_ENGINEERING",
+  "LAUNCH57_DATA_PASS_ENGINEERING": true,
+  "LAUNCH57_DATA_READY_FOR_LOCAL_USE": true,
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "checks": {
+    "SOURCE_REGISTRY_PASS": true,
+    "MULTI_SOURCE_RECONCILIATION_PASS": true,
+    "DATA_TRUST_OBSERVATION_CONTRACT_PASS": true,
+    "SOURCE_CONFLICT_POLICY_PASS": true,
+    "FRESHNESS_OWNER_41_WIRED": true,
+    "QUALITY_OWNER_40_WIRED": true,
+    "PIT_OWNER_39_WIRED": true,
+    "CONNECTOR_42_REGISTRY_WIRED": true,
+    "PREMATURE_100_SOURCE_EXPANSION": false,
+    "LEGACY_DATA_GOVERNANCE_PARALLEL_ONLY": true
+  },
+  "test_evidence": {
+    "command": "python3 -m pytest tests/launch57/test_data_batch1.py tests/launch57/test_data_batch2.py tests/launch57/test_data_governance.py -q",
+    "exit_code": "0",
+    "stdout_tail": "...............................                                          [100%]",
+    "stderr_tail": "",
+    "passed": true
+  }
+}
