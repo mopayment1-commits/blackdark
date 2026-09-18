@@ -1,7 +1,7 @@
 {
   "artifact": "BLACKDARK_LAUNCH57_FAILURE_DEGRADED_RECOVERY_RECONCILIATION",
-  "generated_at": "2026-09-18T14:28:33.252082+00:00",
-  "implementation_sha": "c3b723cb",
+  "generated_at": "2026-09-18T14:29:33.604884+00:00",
+  "implementation_sha": "a9d0f142",
   "baseline_sha": "736d4ef528289dd71d5a2bcc02e8a9885c4b6e1479fde4342d1ff0f31129dd23",
   "failure_recovery_version": "launch57-failure-recovery-1.0.0",
   "scope": "LAUNCH57_IDS",
@@ -146,7 +146,7 @@
       "standalone_capability": false,
       "evidence_class": "INTERNAL_SUPPORT_ONLY",
       "reuse_only": true,
-      "source_sha": "c3b723cb",
+      "source_sha": "a9d0f142",
       "failure_recovery_version": "launch57-failure-recovery-1.0.0"
     },
     {
@@ -186,7 +186,7 @@
       "standalone_capability": false,
       "evidence_class": "INTERNAL_SUPPORT_ONLY",
       "reuse_only": true,
-      "source_sha": "c3b723cb",
+      "source_sha": "a9d0f142",
       "failure_recovery_version": "launch57-failure-recovery-1.0.0"
     },
     {
@@ -205,7 +205,7 @@
       "standalone_capability": false,
       "evidence_class": "INTERNAL_SUPPORT_ONLY",
       "reuse_only": true,
-      "source_sha": "c3b723cb",
+      "source_sha": "a9d0f142",
       "failure_recovery_version": "launch57-failure-recovery-1.0.0"
     },
     {
@@ -223,7 +223,7 @@
       "launch_surface": false,
       "standalone_capability": false,
       "evidence_class": "INTERNAL_SUPPORT_ONLY",
-      "source_sha": "c3b723cb",
+      "source_sha": "a9d0f142",
       "failure_recovery_version": "launch57-failure-recovery-1.0.0"
     },
     {
@@ -241,7 +241,7 @@
       "launch_surface": false,
       "standalone_capability": false,
       "evidence_class": "INTERNAL_SUPPORT_ONLY",
-      "source_sha": "c3b723cb",
+      "source_sha": "a9d0f142",
       "failure_recovery_version": "launch57-failure-recovery-1.0.0"
     },
     {
@@ -281,7 +281,7 @@
       "standalone_capability": false,
       "evidence_class": "INTERNAL_SUPPORT_ONLY",
       "reuse_only": true,
-      "source_sha": "c3b723cb",
+      "source_sha": "a9d0f142",
       "failure_recovery_version": "launch57-failure-recovery-1.0.0"
     },
     {
@@ -301,7 +301,7 @@
       "standalone_capability": false,
       "evidence_class": "INTERNAL_SUPPORT_ONLY",
       "reuse_only": true,
-      "source_sha": "c3b723cb",
+      "source_sha": "a9d0f142",
       "failure_recovery_version": "launch57-failure-recovery-1.0.0"
     },
     {
@@ -340,7 +340,7 @@
       "launch_surface": false,
       "standalone_capability": false,
       "evidence_class": "INTERNAL_SUPPORT_ONLY",
-      "source_sha": "c3b723cb",
+      "source_sha": "a9d0f142",
       "failure_recovery_version": "launch57-failure-recovery-1.0.0"
     }
   ],
