@@ -70,7 +70,14 @@ def finalize_b10_shareable_surface(
         out["presented_as_current"] = False
 
     out["b10_shareable_public_timing"] = b10_shareable_public_timing_state()
+    from launch57.failure_recovery_common import attach_failure_recovery_envelope
+
     out = attach_financial_security_envelope(
+        out,
+        surface_type="public",
+        launch_item_id=launch_id,
+    )
+    out = attach_failure_recovery_envelope(
         out,
         surface_type="public",
         launch_item_id=launch_id,

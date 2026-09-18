@@ -54,7 +54,14 @@ def attach_explanation_ai_envelope(
             spine=spine,
             display_timezone=p.get("display_timezone"),
         )
-    return attach_financial_security_envelope(
+    from launch57.failure_recovery_common import attach_failure_recovery_envelope
+
+    out = attach_financial_security_envelope(
+        out,
+        surface_type="ai",
+        launch_item_id=launch_id or None,
+    )
+    return attach_failure_recovery_envelope(
         out,
         surface_type="ai",
         launch_item_id=launch_id or None,

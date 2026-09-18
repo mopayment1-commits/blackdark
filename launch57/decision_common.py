@@ -61,7 +61,9 @@ def stale_gate_body(
     spine: dict[str, Any],
     entrypoint: str,
 ) -> dict[str, Any]:
-    return {
+    from launch57.failure_recovery_common import attach_failure_recovery_envelope
+
+    body = {
         "capability_id": capability_id,
         "launch_item_id": launch_item_id,
         "surface": surface,
@@ -77,6 +79,7 @@ def stale_gate_body(
         "backend_entrypoint": entrypoint,
         "binding_source": "launch57_phase3_decision_spine",
     }
+    return attach_failure_recovery_envelope(body, launch_item_id=launch_item_id)
 
 
 async def require_net_edge_if_cost_claim(
@@ -109,6 +112,8 @@ async def require_net_edge_if_cost_claim(
 
 
 def attach_decision_envelope(body: dict[str, Any], *, spine: dict[str, Any] | None = None) -> dict[str, Any]:
+    from launch57.failure_recovery_common import attach_failure_recovery_envelope
+
     out = attach_trust_envelope(dict(body))
     out["decision_layer"] = {
         "phase": "3_DECISION",
@@ -117,7 +122,8 @@ def attach_decision_envelope(body: dict[str, Any], *, spine: dict[str, Any] | No
         "live_eligible": (spine or {}).get("live_eligible"),
         "evidence_class_visible": out.get("evidence_class_visible"),
     }
-    return out
+    launch_id = int(out.get("launch_item_id") or 0)
+    return attach_failure_recovery_envelope(out, launch_item_id=launch_id or None)
 
 
 def stamp_decision_batch(

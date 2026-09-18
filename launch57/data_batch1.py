@@ -18,6 +18,7 @@ from launch57.data_governance_common import (
     build_price_reconciliation_from_probe,
     connector_fetchers_from_registry,
 )
+from launch57.failure_recovery_common import attach_failure_recovery_envelope
 from launch57.financial_security_common import attach_financial_security_envelope, build_credential_boundary_metadata
 from launch57.temporal_common import (
     TimestampUnit,
@@ -214,6 +215,7 @@ async def unified_exchange_connector(*, symbol: str, params: dict[str, Any] | No
         credential_scope="public_rest",
     )
     out = attach_financial_security_envelope(out, surface_type="internal", launch_item_id=42)
+    out = attach_failure_recovery_envelope(out, surface_type="internal", launch_item_id=42)
     return _attach_infrastructure_boundary(out, params=params)
 
 
