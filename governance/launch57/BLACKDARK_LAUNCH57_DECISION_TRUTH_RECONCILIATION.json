@@ -1,0 +1,386 @@
+{
+  "artifact": "BLACKDARK_LAUNCH57_DECISION_TRUTH_RECONCILIATION",
+  "generated_at": "2026-09-18T14:36:04.413753+00:00",
+  "implementation_sha": "747db3e6",
+  "baseline_sha": "05a9c7097be6396c62be152e657ed5ac729cde75ecceb2ccbb53109c10147782",
+  "decision_truth_version": "launch57-decision-truth-1.0.0",
+  "scope": "LAUNCH57_IDS",
+  "internal_support_only": true,
+  "governing_spec": "BLACKDARK_Launch57_Decision_Truth_FROM_SCRATCH_SPEC(4).md",
+  "capability_decision_matrix": [
+    {
+      "launch_item_id": 2,
+      "decision_truth_control": "oracle_act_wait_abstain",
+      "wired": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 3,
+      "decision_truth_control": "certificate_immutable_hash",
+      "wired": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 4,
+      "decision_truth_control": "public_accuracy_live_only",
+      "wired": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 5,
+      "decision_truth_control": "net_edge_cost_gate",
+      "wired": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 6,
+      "decision_truth_control": "evidence_class_canonical",
+      "wired": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 7,
+      "decision_truth_control": "regime_context_only",
+      "wired": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 9,
+      "decision_truth_control": "cross_signal_confirmation",
+      "wired": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 10,
+      "decision_truth_control": "contradiction_visible",
+      "wired": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 11,
+      "decision_truth_control": "smart_money_actionability",
+      "wired": false,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 12,
+      "decision_truth_control": "conviction_engine",
+      "wired": false,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 33,
+      "decision_truth_control": "alert_preserves_decision_state",
+      "wired": false,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 36,
+      "decision_truth_control": "ai_explanation_not_owner",
+      "wired": false,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 37,
+      "decision_truth_control": "cross_market_decision",
+      "wired": false,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 40,
+      "decision_truth_control": "quality_provenance_owner",
+      "wired": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 41,
+      "decision_truth_control": "freshness_owner",
+      "wired": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 43,
+      "decision_truth_control": "arbitrage_requires_net_edge",
+      "wired": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 44,
+      "decision_truth_control": "share_card_truth_preserved",
+      "wired": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 45,
+      "decision_truth_control": "shareable_accuracy_live_only",
+      "wired": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 47,
+      "decision_truth_control": "risk_disclosure_visible",
+      "wired": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 48,
+      "decision_truth_control": "abstain_reasons_visible",
+      "wired": true,
+      "launch57_only": true
+    }
+  ],
+  "stale_live_violations": [],
+  "bypass_paths": [],
+  "false_success_paths": [],
+  "external_blockers": [
+    {
+      "id": "production_calibration",
+      "category": "NEEDS_EXTERNAL_VERIFICATION",
+      "detail": "Live calibration evidence for numeric confidence display"
+    },
+    {
+      "id": "real_market_latency",
+      "category": "NEEDS_EXTERNAL_VERIFICATION",
+      "detail": "Production market latency and slippage validation"
+    }
+  ],
+  "internal_components": [
+    {
+      "component_id": "evidence_class_gate",
+      "owner_path": "launch57/evidence_class_common.py (#6)",
+      "consumer_capability_ids": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        33,
+        34,
+        35,
+        36,
+        37,
+        40,
+        41,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        53,
+        54,
+        55,
+        56,
+        57
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": false,
+      "standalone_capability": false,
+      "evidence_class": "INTERNAL_SUPPORT_ONLY",
+      "source_sha": "747db3e6",
+      "decision_truth_version": "launch57-decision-truth-1.0.0"
+    },
+    {
+      "component_id": "freshness_gate",
+      "owner_path": "launch57/freshness_common.py (#41)",
+      "consumer_capability_ids": [
+        2,
+        3,
+        7,
+        9,
+        10,
+        11,
+        12,
+        21,
+        22,
+        23,
+        24,
+        37,
+        41,
+        42,
+        43
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": false,
+      "standalone_capability": false,
+      "evidence_class": "INTERNAL_SUPPORT_ONLY",
+      "source_sha": "747db3e6",
+      "decision_truth_version": "launch57-decision-truth-1.0.0"
+    },
+    {
+      "component_id": "provenance_gate",
+      "owner_path": "launch57/provenance_common.py (#40)",
+      "consumer_capability_ids": [
+        2,
+        3,
+        7,
+        9,
+        10,
+        11,
+        12,
+        21,
+        22,
+        23,
+        24,
+        37,
+        40,
+        42
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": false,
+      "standalone_capability": false,
+      "evidence_class": "INTERNAL_SUPPORT_ONLY",
+      "source_sha": "747db3e6",
+      "decision_truth_version": "launch57-decision-truth-1.0.0"
+    },
+    {
+      "component_id": "net_edge_gate",
+      "owner_path": "launch57/trust_batch1.py (#5)",
+      "consumer_capability_ids": [
+        5,
+        43
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": false,
+      "standalone_capability": false,
+      "evidence_class": "INTERNAL_SUPPORT_ONLY",
+      "source_sha": "747db3e6",
+      "decision_truth_version": "launch57-decision-truth-1.0.0"
+    },
+    {
+      "component_id": "oracle_decision_surface",
+      "owner_path": "launch57/trust_batch1.py (#2)",
+      "consumer_capability_ids": [
+        2
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": true,
+      "standalone_capability": true,
+      "evidence_class": "CAPABILITY",
+      "source_sha": "747db3e6",
+      "decision_truth_version": "launch57-decision-truth-1.0.0"
+    },
+    {
+      "component_id": "certificate_immutability",
+      "owner_path": "launch57/decision_timing_common.py (#3)",
+      "consumer_capability_ids": [
+        3
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": true,
+      "standalone_capability": true,
+      "evidence_class": "CAPABILITY",
+      "source_sha": "747db3e6",
+      "decision_truth_version": "launch57-decision-truth-1.0.0"
+    },
+    {
+      "component_id": "abstain_reject_reasons",
+      "owner_path": "launch57/trust_batch2.py (#48)",
+      "consumer_capability_ids": [
+        48
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": true,
+      "standalone_capability": true,
+      "evidence_class": "CAPABILITY",
+      "source_sha": "747db3e6",
+      "decision_truth_version": "launch57-decision-truth-1.0.0"
+    },
+    {
+      "component_id": "decision_truth_envelope",
+      "owner_path": "launch57/decision_truth_common.py",
+      "consumer_capability_ids": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        33,
+        34,
+        35,
+        36,
+        37,
+        40,
+        41,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        53,
+        54,
+        55,
+        56,
+        57
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": false,
+      "standalone_capability": false,
+      "evidence_class": "INTERNAL_SUPPORT_ONLY",
+      "source_sha": "747db3e6",
+      "decision_truth_version": "launch57-decision-truth-1.0.0"
+    }
+  ],
+  "acceptance_criteria_42": {
+    "ac01_launch57_capabilities_only": true,
+    "ac02_no_legacy_dts_subsystem": true,
+    "ac03_evidence_class_canonical": true,
+    "ac04_freshness_canonical": true,
+    "ac05_provenance_canonical": true,
+    "ac06_contradiction_visible": true,
+    "ac07_abstain_reachable": true,
+    "ac08_wait_reachable": true,
+    "ac09_act_requires_valid_evidence": true,
+    "ac10_net_edge_used_where_required": true,
+    "ac11_unknown_costs_not_zeroed": true,
+    "ac12_cap43_depends_on_cap5": true,
+    "ac13_risk_disclosure_visible": true,
+    "ac14_rejection_reason_visible": true,
+    "ac15_certificate_immutable": true,
+    "ac16_public_accuracy_live_only": true,
+    "ac17_shareable_preserves_truth": true,
+    "ac18_ai_cannot_override": true,
+    "ac19_no_parked_capability_consumed": true,
+    "ac20_independent_verification_separate": true,
+    "ac21_phase8_e2e_passes": true,
+    "ac22_no_false_pass_live": true,
+    "stale_as_live_blocked": true
+  },
+  "acceptance_all_pass": true,
+  "phase8_coherence_pass": false,
+  "parked_out_of_launch": [
+    "legacy_dts_001_060_program",
+    "legacy_signal_admission_subsystem",
+    "legacy_opportunity_capacity_half_life",
+    "legacy_calibration_ledger_parallel",
+    "legacy_command_view_program"
+  ],
+  "reuse_paths": {
+    "evidence_class": "launch57/evidence_class_common.py (#6)",
+    "freshness": "launch57/freshness_common.py (#41)",
+    "provenance": "launch57/provenance_common.py (#40)",
+    "net_edge": "launch57/trust_batch1.py (#5)",
+    "oracle_certificate": "launch57/trust_batch1.py + decision_timing_common (#2/#3)",
+    "decision_batch": "launch57/decision_batch1.py + decision_batch2.py",
+    "abstain_reject": "launch57/trust_batch2.py (#48)",
+    "decision_spine": "launch57/decision_common.py",
+    "product_projection": "decision_truth/product/* (technical dependency only)"
+  }
+}

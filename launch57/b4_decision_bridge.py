@@ -15,6 +15,7 @@ from launch57.decision_timing_common import (
     snapshot_decision_time_evidence_state,
 )
 from launch57.evidence_class_common import attach_evidence_class_metadata
+from launch57.decision_truth_common import attach_decision_truth_envelope
 from launch57.failure_recovery_common import attach_failure_recovery_envelope
 from launch57.teis_support_common import attach_teis_support_envelope
 
@@ -45,12 +46,11 @@ def apply_b4_trust_envelope(body: dict[str, Any], *, display_timezone: str | Non
         ),
     }
     out["b4_decision_timing"] = b4_decision_timing_state()
-    return finalize_b4_response(
-        attach_failure_recovery_envelope(
-            attach_teis_support_envelope(out),
-            launch_item_id=int(out.get("launch_item_id") or 0) or None,
-        )
-    )
+    launch_id = int(out.get("launch_item_id") or 0) or None
+    wrapped = attach_teis_support_envelope(out)
+    wrapped = attach_failure_recovery_envelope(wrapped, launch_item_id=launch_id)
+    wrapped = attach_decision_truth_envelope(wrapped, launch_item_id=launch_id)
+    return finalize_b4_response(wrapped)
 
 
 def finalize_b4_decision_surface(
@@ -76,9 +76,8 @@ def finalize_b4_decision_surface(
     out["decision_time_evidence_state"] = evidence.to_payload()
     out = attach_decision_temporal_envelope(out, timing)
     out["b4_decision_timing"] = b4_decision_timing_state()
-    return finalize_b4_response(
-        attach_failure_recovery_envelope(
-            attach_teis_support_envelope(out),
-            launch_item_id=int(out.get("launch_item_id") or 0) or None,
-        )
-    )
+    launch_id = int(out.get("launch_item_id") or 0) or None
+    wrapped = attach_teis_support_envelope(out)
+    wrapped = attach_failure_recovery_envelope(wrapped, launch_item_id=launch_id)
+    wrapped = attach_decision_truth_envelope(wrapped, launch_item_id=launch_id)
+    return finalize_b4_response(wrapped)
