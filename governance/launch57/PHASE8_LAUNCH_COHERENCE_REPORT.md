@@ -1,6 +1,6 @@
 # Phase 8 Launch Coherence Report
 
-COMMIT: 8ce0bc7c41e89c7b23a75f476a80b2375eee1582
+COMMIT: f1700f7cc19dae6ebd099f29bca1a787d40776b4
 VERDICT: LAUNCH57_PRE_LIVE_CLOSED=YES
 
 ## Six Heroes (from repo product records only)
@@ -13,8 +13,8 @@ VERDICT: LAUNCH57_PRE_LIVE_CLOSED=YES
 - HERO_6: B2B Feed
 
 Matrix rows: 57
-Graph nodes: 57 edges: 195
-E2E: 5/5
+Graph nodes: 57 edges: 200
+E2E: 14/14
 Isolation: True
 
 Builder status: PENDING_VERIFICATION (coherence artifacts only)

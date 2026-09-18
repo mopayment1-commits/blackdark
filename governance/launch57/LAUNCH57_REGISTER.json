@@ -3,7 +3,7 @@
   "ssot_role": "launch57_truth_register_view",
   "authoritative_ssot": "BLACKDARK_CAPABILITY_CURRENT_STATE.json",
   "phase": "8_LAUNCH_COHERENCE",
-  "generated_at": "2026-09-16T23:02:15.850776+00:00",
+  "generated_at": "2026-09-18T01:15:35.676755+00:00",
   "source_commit": "92b1d00e",
   "scope_lock": {
     "CURRENT_APPROVED_BUILD_SCOPE": "LAUNCH57",
@@ -6594,7 +6594,7 @@
     "builder_status": "PENDING_VERIFICATION",
     "pre_live_verdict": "LAUNCH57_PRE_LIVE_CLOSED=YES",
     "pass_live_granted": false,
-    "commit_sha": "8ce0bc7c41e89c7b23a75f476a80b2375eee1582",
+    "commit_sha": "f1700f7cc19dae6ebd099f29bca1a787d40776b4",
     "evidence_paths": [
       "governance/launch57/LAUNCH57_SIX_HERO_MATRIX.json",
       "governance/launch57/LAUNCH57_CAPABILITY_SYSTEM_GRAPH.json",
