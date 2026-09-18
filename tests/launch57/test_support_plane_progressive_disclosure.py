@@ -55,6 +55,7 @@ def test_command_home_api_includes_progressive_disclosure_layers(monkeypatch):
     monkeypatch.setattr("launch57.edge_ui_batch2.single_sentence_oracle", fake_oracle)
 
     client = TestClient(app)
+    client.cookies.set("bd_token", "support-plane-disclosure-test")
     body = client.get("/api/launch57/command-home", params={"symbol": "BTC"}).json()
     disclosure = body.get("adaptive_disclosure") or {}
     for layer in ("level_1", "level_2", "level_3", "level_4", "level_5"):

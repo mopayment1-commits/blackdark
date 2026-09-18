@@ -1140,9 +1140,9 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
         }
 
 
-        async function fetchLaunch57CommandHome(symbol) {
+        async function fetchLaunch57GuestTrust(symbol) {
             const sym = encodeURIComponent((symbol || 'BTC').toUpperCase());
-            const response = await fetch(`/api/launch57/command-home?symbol=${sym}&command_view=true`, {
+            const response = await fetch(`/api/launch57/guest-trust?symbol=${sym}`, {
                 headers: { Accept: 'application/json' },
             });
             let data = null;
@@ -1151,6 +1151,21 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
         }
 
         function launch57ToLandingOracle(data) {
+            if (data && data.guest_trust) {
+                const proofs = (data.guest_trust.public_intelligence_proofs || data.guest_trust.approved_public_trust_surfaces || []);
+                const proof = proofs[0] || {};
+                const disclosure = data.adaptive_disclosure || {};
+                const l1 = disclosure.level_1 || {};
+                return {
+                    symbol: data.symbol || 'BTC',
+                    decision_action: 'WAIT',
+                    verdict: 'WAIT',
+                    decision_sentence: l1.summary || proof.proof_id || 'Explore public Launch-57 intelligence — create a free account for personalized decisions.',
+                    opportunity_score: null,
+                    launch57_guest_trust: true,
+                    public_proofs: proofs,
+                };
+            }
             const home = (data && data.six_heroes_command_home) || {};
             const oracle = home.oracle || data || {};
             const sso = oracle.single_sentence_oracle || data.single_sentence_oracle || {};
@@ -1388,7 +1403,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             const t0 = performance.now();
             
             try {
-                const { response, data } = await fetchLaunch57CommandHome(symbol);
+                const { response, data } = await fetchLaunch57GuestTrust(symbol);
                 const latencyMs = Math.round(performance.now() - t0);
                 if (!data) {
                     oracleEl.textContent = i18nT('oracle.error');
@@ -1585,21 +1600,22 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
 
         async function loadLandingTrustPulse() {
             try {
-                const { response, data } = await fetchLaunch57CommandHome('BTC');
+                const { response, data } = await fetchLaunch57GuestTrust('BTC');
                 if (!response.ok || !data) return;
-                const home = data.six_heroes_command_home || {};
-                const oracle = home.oracle || data;
-                const sso = oracle.single_sentence_oracle || {};
+                const proofs = (data.guest_trust && data.guest_trust.public_intelligence_proofs) || [];
+                const proof = proofs[0] || {};
+                const disclosure = data.adaptive_disclosure || {};
+                const l1 = disclosure.level_1 || {};
                 renderLandingPulse({
                     symbol: data.symbol || 'BTC',
-                    action: oracle.decision_action || sso.action || 'WAIT',
-                    sentence: sso.sentence || 'Launch-57 command home',
+                    action: 'WAIT',
+                    sentence: l1.summary || proof.proof_id || 'Public Launch-57 intelligence',
                     price: data.price,
                     change_24h: data.change_24h,
                     freshness: { state: data.freshness_state, stale: data.freshness_state === 'STALE' },
                     why: { factors: [] },
-                    proof: {},
-                    launch57_command_home: true,
+                    proof: proof,
+                    launch57_guest_trust: true,
                 });
             } catch (error) { console.debug(error); }
         }

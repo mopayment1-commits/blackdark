@@ -1,0 +1,377 @@
+{
+  "artifact": "SPEC_02_REQUIREMENTS_REGISTER",
+  "domain": "SPEC_02_ANONYMOUS_VISITOR_PUBLIC_INTELLIGENCE",
+  "generated_at": "2026-09-18T23:02:38.854807+00:00",
+  "spec_version": "launch57-spec02-anonymous-visitor-public-intelligence-1.0.0",
+  "requirement_count": 26,
+  "requirements": [
+    {
+      "req_id": "REQ-S02-001",
+      "title": "PRIVATE_BY_DEFAULT scope lock",
+      "spec_section": "§2, §0",
+      "launch_ids": [],
+      "owner_modules": [
+        "anonymous_route_foundation"
+      ],
+      "tests": [
+        "test_spec02"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S02-002",
+      "title": "Explicit anonymous eligible capabilities §3",
+      "spec_section": "§3",
+      "launch_ids": [
+        4,
+        6,
+        7,
+        46,
+        52
+      ],
+      "owner_modules": [
+        "launch57.anonymous_visitor_common"
+      ],
+      "tests": [
+        "test_anonymous_visitor.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S02-003",
+      "title": "Denied-by-default capabilities §4",
+      "spec_section": "§4",
+      "launch_ids": [
+        1,
+        49,
+        50
+      ],
+      "owner_modules": [
+        "launch57.anonymous_visitor_common"
+      ],
+      "tests": [
+        "test_spec02"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S02-004",
+      "title": "Guest Trust Surface #46 canonical",
+      "spec_section": "§5",
+      "launch_ids": [
+        46
+      ],
+      "owner_modules": [
+        "launch57.trust_batch2"
+      ],
+      "tests": [
+        "test_trust_batch2.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S02-005",
+      "title": "Prohibited anonymous surface §7",
+      "spec_section": "§7",
+      "launch_ids": [
+        49,
+        50
+      ],
+      "owner_modules": [
+        "api/routers/launch57_edge_ui.py"
+      ],
+      "tests": [
+        "test_spec02"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S02-006",
+      "title": "Public intelligence proof index §8",
+      "spec_section": "§8",
+      "launch_ids": [
+        4,
+        6,
+        7,
+        40,
+        41,
+        44
+      ],
+      "owner_modules": [
+        "launch57.anonymous_visitor_common"
+      ],
+      "tests": [
+        "test_anonymous_visitor.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S02-007",
+      "title": "Evidence class honesty §10",
+      "spec_section": "§10",
+      "launch_ids": [
+        6
+      ],
+      "owner_modules": [
+        "launch57.evidence_class_common"
+      ],
+      "tests": [],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S02-008",
+      "title": "Freshness degradation §11",
+      "spec_section": "§11",
+      "launch_ids": [
+        41
+      ],
+      "owner_modules": [
+        "launch57.data_governance_common"
+      ],
+      "tests": [],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S02-009",
+      "title": "Account gate at persistence boundary §20",
+      "spec_section": "§20",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57.anonymous_visitor_common"
+      ],
+      "tests": [
+        "test_anonymous_visitor.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S02-010",
+      "title": "Anonymous route inventory §22",
+      "spec_section": "§22",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57.anonymous_visitor_common"
+      ],
+      "tests": [
+        "test_spec02"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S02-011",
+      "title": "Server-side enforcement not client-only §22",
+      "spec_section": "§22",
+      "launch_ids": [],
+      "owner_modules": [
+        "anonymous_route_foundation"
+      ],
+      "tests": [
+        "test_spec02"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S02-012",
+      "title": "Launch-57 public API explicit allowlist",
+      "spec_section": "§22, §23",
+      "launch_ids": [
+        46,
+        52
+      ],
+      "owner_modules": [
+        "anonymous_route_foundation"
+      ],
+      "tests": [
+        "test_spec02"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S02-013",
+      "title": "Private Launch-57 routes deny anonymous",
+      "spec_section": "§4, §22",
+      "launch_ids": [
+        1,
+        49,
+        50
+      ],
+      "owner_modules": [
+        "api/routers/launch57_edge_ui.py"
+      ],
+      "tests": [
+        "test_spec02"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S02-014",
+      "title": "Licensing gate §25",
+      "spec_section": "§25",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57.anonymous_visitor_common"
+      ],
+      "tests": [
+        "test_anonymous_visitor.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S02-015",
+      "title": "Public/private PII boundary §26",
+      "spec_section": "§26",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57.identity_auth_common"
+      ],
+      "tests": [
+        "test_identity_auth.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S02-016",
+      "title": "Rate limits on public paths",
+      "spec_section": "§23",
+      "launch_ids": [],
+      "owner_modules": [
+        "governance/anonymous_visitor_governance"
+      ],
+      "tests": [
+        "test_anonymous_visitor.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S02-017",
+      "title": "Landing anonymous journey uses guest-trust",
+      "spec_section": "§5, §6",
+      "launch_ids": [
+        46
+      ],
+      "owner_modules": [
+        "templates/landing.html"
+      ],
+      "tests": [
+        "test_spec02"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S02-018",
+      "title": "No legacy anonymous program as SoT",
+      "spec_section": "§0",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57.anonymous_visitor_common"
+      ],
+      "tests": [
+        "test_anonymous_visitor.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S02-019",
+      "title": "Capability library public discovery #52",
+      "spec_section": "§3",
+      "launch_ids": [
+        52
+      ],
+      "owner_modules": [
+        "launch57.edge_ui_batch1"
+      ],
+      "tests": [
+        "test_spec02"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S02-020",
+      "title": "AV-01 explicit ANONYMOUS state",
+      "spec_section": "AV-01",
+      "launch_ids": [],
+      "owner_modules": [
+        "governance/anonymous_visitor_governance"
+      ],
+      "tests": [
+        "test_anonymous_visitor.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S02-021",
+      "title": "AV-03 deny-by-default allowlist",
+      "spec_section": "AV-03",
+      "launch_ids": [],
+      "owner_modules": [
+        "anonymous_route_foundation"
+      ],
+      "tests": [
+        "test_spec02"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S02-022",
+      "title": "AV-09 no personalization for anonymous",
+      "spec_section": "AV-09",
+      "launch_ids": [
+        49,
+        50
+      ],
+      "owner_modules": [
+        "launch57.anonymous_visitor_common"
+      ],
+      "tests": [
+        "test_spec02"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S02-023",
+      "title": "AV-10 account gate boundary",
+      "spec_section": "AV-10",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57.anonymous_visitor_common"
+      ],
+      "tests": [
+        "test_anonymous_visitor.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S02-024",
+      "title": "AV-24 public/private leakage tests",
+      "spec_section": "AV-24",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57.identity_auth_common"
+      ],
+      "tests": [
+        "test_identity_auth.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S02-025",
+      "title": "Independent verification adversarial probes",
+      "spec_section": "§35",
+      "launch_ids": [],
+      "owner_modules": [],
+      "tests": [
+        "test_spec02"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S02-026",
+      "title": "PASS_LIVE not claimed",
+      "spec_section": "§0",
+      "launch_ids": [],
+      "owner_modules": [],
+      "tests": [],
+      "mandatory": true
+    }
+  ]
+}

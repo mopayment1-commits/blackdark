@@ -137,7 +137,9 @@ def test_command_home_consumer_path_has_router_and_disclosure(monkeypatch):
     monkeypatch.setattr("launch57.edge_ui_batch2.load_decision_spine", fake_spine)
     monkeypatch.setattr("launch57.edge_ui_batch2.single_sentence_oracle", fake_oracle)
 
-    body = TestClient(app).get("/api/launch57/command-home", params={"symbol": "BTC"}).json()
+    client = TestClient(app)
+    client.cookies.set("bd_token", "spec01-adaptive-decision-test")
+    body = client.get("/api/launch57/command-home", params={"symbol": "BTC"}).json()
     assert body.get("router_selection_contract") or (body.get("six_heroes_command_home") or {}).get(
         "router_selection_contract"
     )

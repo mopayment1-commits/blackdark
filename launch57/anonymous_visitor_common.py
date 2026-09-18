@@ -136,6 +136,17 @@ _LAUNCH57_ANONYMOUS_SURFACE_REGISTRY: tuple[dict[str, Any], ...] = (
     {"launch_item_id": 57, "surface": "exchange_transparency_public", "module": "launch57.trust_batch1"},
 )
 
+LAUNCH57_ANONYMOUS_PUBLIC_PATHS_EXACT: frozenset[str] = frozenset(
+    {
+        "/api/launch57/guest-trust",
+        "/api/launch57/capability-library",
+    }
+)
+
+LAUNCH57_ANONYMOUS_PUBLIC_PATH_PREFIXES: tuple[str, ...] = (
+    "/api/launch57/capability-library/",
+)
+
 _LAUNCH57_API_ROUTES: tuple[dict[str, Any], ...] = (
     {
         "method": "GET",
@@ -147,6 +158,7 @@ _LAUNCH57_API_ROUTES: tuple[dict[str, Any], ...] = (
         "cache_policy": "short_public",
         "license_status": "launch57_governed",
         "owner": "launch57.trust_batch2",
+        "test_evidence": "tests/launch57/test_spec02_anonymous_visitor_public_intelligence.py::test_guest_trust_anonymous_allowed",
     },
     {
         "method": "GET",
@@ -158,6 +170,31 @@ _LAUNCH57_API_ROUTES: tuple[dict[str, Any], ...] = (
         "cache_policy": "short_public",
         "license_status": "launch57_governed",
         "owner": "launch57.edge_ui_batch1",
+        "test_evidence": "tests/launch57/test_spec02_anonymous_visitor_public_intelligence.py::test_capability_library_anonymous_allowed",
+    },
+    {
+        "method": "GET",
+        "path": "/api/launch57/capability-library/compare",
+        "launch_item_id": 52,
+        "auth_expectation": "ANONYMOUS",
+        "data_classification": "PUBLIC_INTELLIGENCE",
+        "rate_limit": "default_public",
+        "cache_policy": "short_public",
+        "license_status": "launch57_governed",
+        "owner": "launch57.edge_ui_batch1",
+        "test_evidence": "tests/launch57/test_spec02_anonymous_visitor_public_intelligence.py::test_capability_library_anonymous_allowed",
+    },
+    {
+        "method": "GET",
+        "path": "/api/launch57/capability-library/{launch_number}",
+        "launch_item_id": 52,
+        "auth_expectation": "ANONYMOUS",
+        "data_classification": "PUBLIC_INTELLIGENCE",
+        "rate_limit": "default_public",
+        "cache_policy": "short_public",
+        "license_status": "launch57_governed",
+        "owner": "launch57.edge_ui_batch1",
+        "test_evidence": "tests/launch57/test_spec02_anonymous_visitor_public_intelligence.py::test_capability_library_anonymous_allowed",
     },
     {
         "method": "GET",
@@ -169,8 +206,64 @@ _LAUNCH57_API_ROUTES: tuple[dict[str, Any], ...] = (
         "cache_policy": "none",
         "license_status": "n/a",
         "owner": "launch57.edge_ui_batch2",
+        "test_evidence": "tests/launch57/test_spec02_anonymous_visitor_public_intelligence.py::test_command_home_anonymous_denied",
+    },
+    {
+        "method": "GET",
+        "path": "/api/launch57/decision-history",
+        "launch_item_id": 49,
+        "auth_expectation": "AUTHENTICATED",
+        "data_classification": "USER_PRIVATE",
+        "rate_limit": "authenticated",
+        "cache_policy": "none",
+        "license_status": "n/a",
+        "owner": "launch57.edge_ui_batch1",
+        "test_evidence": "tests/launch57/test_spec02_anonymous_visitor_public_intelligence.py::test_decision_history_anonymous_denied",
+    },
+    {
+        "method": "GET",
+        "path": "/api/launch57/discipline-mirror",
+        "launch_item_id": 50,
+        "auth_expectation": "AUTHENTICATED",
+        "data_classification": "USER_PRIVATE",
+        "rate_limit": "authenticated",
+        "cache_policy": "none",
+        "license_status": "n/a",
+        "owner": "launch57.edge_ui_batch1",
+        "test_evidence": "tests/launch57/test_spec02_anonymous_visitor_public_intelligence.py::test_discipline_mirror_anonymous_denied",
     },
 )
+
+
+def is_launch57_anonymous_public_path(path: str) -> bool:
+    if path in LAUNCH57_ANONYMOUS_PUBLIC_PATHS_EXACT:
+        return True
+    return any(path.startswith(prefix) for prefix in LAUNCH57_ANONYMOUS_PUBLIC_PATH_PREFIXES)
+
+
+def enforce_launch57_anonymous_boundary(
+    launch_item_id: int,
+    *,
+    has_auth_signal: bool,
+) -> dict[str, Any]:
+    """Fail-closed Launch-57 handler guard — spec §4 / §22."""
+    if has_auth_signal:
+        return {"allowed": True, "reason": "authenticated", "launch_item_id": launch_item_id}
+    eligibility = verify_anonymous_eligibility(launch_item_id)
+    if eligibility.get("eligible"):
+        return {
+            "allowed": True,
+            "reason": eligibility.get("reason"),
+            "launch_item_id": launch_item_id,
+            "anonymous": True,
+        }
+    return {
+        "allowed": False,
+        "reason": eligibility.get("reason"),
+        "launch_item_id": launch_item_id,
+        "fail_closed": True,
+        "auth_state_required": "AUTHENTICATED",
+    }
 
 
 class AnonymousAuthState(str, Enum):
@@ -259,11 +352,21 @@ def reference_anonymous_route_allowlist() -> dict[str, Any]:
         is_anonymous_route_allowed,
     )
 
-    launch57_paths = [
+    from anonymous_route_foundation import (
+        LAUNCH57_PUBLIC_API_EXACT,
+        LAUNCH57_PUBLIC_API_PREFIXES,
+    )
+
+    launch57_paths = sorted(LAUNCH57_ANONYMOUS_PUBLIC_PATHS_EXACT)
+    private_paths = [
         row["path"]
         for row in _LAUNCH57_API_ROUTES
-        if row["auth_expectation"] == "ANONYMOUS"
+        if row["auth_expectation"] != "ANONYMOUS"
     ]
+    public_allowed = all(is_anonymous_route_allowed("GET", path) for path in launch57_paths)
+    private_denied = all(
+        not is_anonymous_route_allowed("GET", path) for path in private_paths
+    )
     return {
         "contract_version": CONTRACT_VERSION,
         "private_by_default": PRIVATE_BY_DEFAULT,
@@ -271,9 +374,14 @@ def reference_anonymous_route_allowlist() -> dict[str, Any]:
         "exact_paths_count": len(ANONYMOUS_ROUTE_ALLOWLIST_EXACT),
         "prefixes_count": len(ANONYMOUS_ROUTE_ALLOWLIST_PREFIXES),
         "launch57_public_routes": launch57_paths,
-        "launch57_prefix_allowed": all(
-            is_anonymous_route_allowed("GET", path) for path in launch57_paths
-        ),
+        "launch57_public_prefixes": list(LAUNCH57_ANONYMOUS_PUBLIC_PATH_PREFIXES),
+        "launch57_private_routes": private_paths,
+        "launch57_public_exact_in_foundation": sorted(LAUNCH57_PUBLIC_API_EXACT),
+        "launch57_public_prefixes_in_foundation": list(LAUNCH57_PUBLIC_API_PREFIXES),
+        "launch57_public_allowed": public_allowed,
+        "launch57_private_denied_anonymous": private_denied,
+        "launch57_prefix_allowed": public_allowed and private_denied,
+        "no_broad_launch57_prefix": "/api/launch57/" not in ANONYMOUS_ROUTE_ALLOWLIST_PREFIXES,
         "no_public_route_by_omission": True,
         "owner_path": "anonymous_route_foundation.py",
     }
@@ -281,13 +389,22 @@ def reference_anonymous_route_allowlist() -> dict[str, Any]:
 
 def build_anonymous_route_inventory() -> list[dict[str, Any]]:
     """Machine-verifiable Launch-57 route inventory (spec §22)."""
-    inventory = list(_LAUNCH57_API_ROUTES)
+    from anonymous_route_foundation import is_anonymous_route_allowed
+
+    inventory = [dict(row) for row in _LAUNCH57_API_ROUTES]
     allowlist = reference_anonymous_route_allowlist()
     for row in inventory:
-        row["allowlist_backed"] = (
-            row["auth_expectation"] == "ANONYMOUS" and allowlist["launch57_prefix_allowed"]
-        ) or row["auth_expectation"] != "ANONYMOUS"
-        row["server_side_enforced"] = True
+        path = row["path"]
+        probe_path = path.replace("{launch_number}", "1")
+        anonymous_ok = is_anonymous_route_allowed(row["method"], probe_path)
+        if row["auth_expectation"] == "ANONYMOUS":
+            row["allowlist_backed"] = anonymous_ok and allowlist["launch57_public_allowed"]
+            row["server_side_enforced"] = anonymous_ok
+            row["expected_no_cookie_status"] = 200
+        else:
+            row["allowlist_backed"] = not anonymous_ok and allowlist["launch57_private_denied_anonymous"]
+            row["server_side_enforced"] = not anonymous_ok
+            row["expected_no_cookie_status"] = 401
         row["client_only_guard_forbidden"] = True
     return inventory
 
@@ -490,7 +607,9 @@ def acceptance_criteria_status() -> dict[str, bool]:
         "av01_explicit_anonymous_state": gov.get("anonymous_state") == "ANONYMOUS",
         "av02_route_inventory_exists": len(inventory) > 0,
         "av03_deny_by_default_allowlist": private_default["private_by_default"] is True
-        and allowlist["launch57_prefix_allowed"] is True,
+        and allowlist["launch57_prefix_allowed"] is True
+        and allowlist.get("no_broad_launch57_prefix") is True
+        and allowlist.get("launch57_private_denied_anonymous") is True,
         "av04_homepage_value_explained": True,
         "av05_real_product_proof_exists": len(proofs) > 0,
         "av06_public_decision_truth_surface": any(p["launch_item_id"] == 44 for p in proofs),

@@ -41,8 +41,8 @@ def test_dashboard_legacy_loaders_delegate_to_command_home():
 
 def test_landing_default_journey_uses_launch57():
     land = _read(LANDING)
-    assert "/api/launch57/command-home" in land
-    assert "fetchLaunch57CommandHome" in land
+    assert "/api/launch57/guest-trust" in land
+    assert "fetchLaunch57GuestTrust" in land
     assert re.search(r"fetch\(['\"]\/api\/trust-pulse", land) is None
     assert "EventSource('/api/trust-pulse/stream" not in land
     assert re.search(r"fetch\([^)]*\/oracle\/", land) is None
@@ -80,6 +80,7 @@ def test_command_home_api_reachable(monkeypatch):
     monkeypatch.setattr("launch57.edge_ui_batch2.single_sentence_oracle", fake_oracle)
 
     client = TestClient(app)
+    client.cookies.set("bd_token", "support-plane-phase1-test")
     res = client.get("/api/launch57/command-home", params={"symbol": "BTC"})
     assert res.status_code == 200
     body = res.json()
@@ -93,6 +94,7 @@ def test_command_home_eligible_ids_within_launch57():
     from dashboard import app
 
     client = TestClient(app)
+    client.cookies.set("bd_token", "support-plane-phase1-test")
     body = client.get("/api/launch57/command-home", params={"symbol": "BTC"}).json()
     home = body.get("six_heroes_command_home") or {}
     eligible = home.get("eligible_launch57_ids") or []
