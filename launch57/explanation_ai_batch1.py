@@ -12,11 +12,22 @@ from cap646.evidence_class import ai_compliance_footer
 from launch57.decision_common import stamp_decision_batch
 from launch57.explanation_ai_common import (
     attach_explanation_ai_envelope,
-    build_short_brief,
     classify_ai_type,
     gated_explanation,
     platform_data_only_footer,
     research_portal_scope_footer,
+)
+from launch57.trust_adaptive_common import (
+    apply_price_move_explanation_semantics,
+    apply_research_agent_grounding_filter,
+    apply_research_portal_evidence_filter,
+    apply_signal_explanation_semantics,
+    attach_adaptive_disclosure,
+    build_level1_decision_disclosure,
+    build_price_move_explanation_disclosure,
+    build_research_agent_disclosure,
+    build_research_portal_disclosure,
+    build_signal_explanation_disclosure,
 )
 
 LAUNCH57_EXPLANATION_AI_BATCH1_CAP_IDS: frozenset[int] = frozenset({25, 26, 24, 65, 100})
@@ -31,6 +42,59 @@ LAUNCH_ITEM_BY_CAP: dict[int, int] = {
 
 _BINDING = "launch57_phase6_explanation_ai_batch1"
 _MODULE = "launch57.explanation_ai_batch1"
+
+
+def _governed_params(p: dict[str, Any], semantics: dict[str, Any], spine: dict[str, Any] | None) -> dict[str, Any]:
+    out = dict(p)
+    governed = dict(out.get("governed_payload") or {})
+    contract = semantics.get("contract") or {}
+    if contract.get("material_limitation"):
+        governed["critical_limitation"] = contract["material_limitation"]
+    if semantics.get("unsupported_causal_rejected") or semantics.get("unsupported_input_rejected"):
+        governed["unsupported_input_rejected"] = True
+    out["governed_payload"] = governed
+    if spine:
+        out["freshness_state"] = spine.get("freshness_state")
+    return out
+
+
+def _attach_explanation_adaptive(
+    wrapped: dict[str, Any],
+    *,
+    p: dict[str, Any],
+    spine: dict[str, Any] | None,
+    launch_item_id: int,
+    surface: str,
+    semantics: dict[str, Any],
+    disclosure_key: str,
+    disclosure: dict[str, Any],
+) -> dict[str, Any]:
+    contract = semantics.get("contract") or {}
+    if contract:
+        wrapped["explanation_contract"] = contract
+        wrapped["evidence_class_visible"] = contract.get("evidence_class")
+    wrapped["evidence_display"] = {
+        "canonical_evidence_class": contract.get("evidence_class"),
+        "freshness_state": (spine or {}).get("freshness_state"),
+        "uncertainty": contract.get("uncertainty"),
+    }
+    governed_p = _governed_params(p, semantics, spine)
+    uncertainty = contract.get("uncertainty") or (
+        "qualified"
+        if semantics.get("unsupported_causal_rejected")
+        or semantics.get("unsupported_input_rejected")
+        or semantics.get("unsupported_evidence_rejected")
+        else "standard"
+    )
+    level1 = build_level1_decision_disclosure(
+        governed_p,
+        launch_item_id=launch_item_id,
+        surface=surface,
+        answer_state=semantics.get("answer_state"),
+        evidence_display=wrapped.get("evidence_display"),
+        uncertainty=uncertainty,
+    )
+    return attach_adaptive_disclosure(wrapped, level1, extra={disclosure_key: disclosure})
 
 
 async def signal_explanation_workflow(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -71,13 +135,23 @@ async def signal_explanation_workflow(*, symbol: str, params: dict[str, Any] | N
             ],
         }
     )
+    semantics = apply_signal_explanation_semantics(
+        footprint=footprint,
+        why_block=why,
+        spine=spine,
+        params=p,
+    )
+    qualified = semantics.get("qualified_explanation") or {}
     body = stamp_decision_batch(
         {
             "surface": "signal_explanation_workflow",
             "symbol": spine["symbol"],
-            "success": bool(footprint or why.get("ready")),
+            "success": bool(semantics.get("signal_observable")) and not semantics.get("unsupported_causal_rejected"),
             "signal": footprint,
-            "explanation": why,
+            "explanation": qualified,
+            "explanation_semantics": semantics,
+            "observed_facts": semantics.get("observed_facts"),
+            "inferences": semantics.get("inferences"),
             "workflow": ["signal_detected", "context_attached", "explanation_rendered"],
             "ai_system_type": classify_ai_type(launch_item_id=34),
             "price_context_from": "launch57.decision_common:load_decision_spine",
@@ -90,7 +164,18 @@ async def signal_explanation_workflow(*, symbol: str, params: dict[str, Any] | N
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_explanation_ai_envelope(ai_compliance_footer(body), spine=spine, params=p)
+    wrapped = attach_explanation_ai_envelope(ai_compliance_footer(body), spine=spine, params=p)
+    disclosure = build_signal_explanation_disclosure(semantics)
+    return _attach_explanation_adaptive(
+        wrapped,
+        p=p,
+        spine=spine,
+        launch_item_id=34,
+        surface="signal_explanation_workflow",
+        semantics=semantics,
+        disclosure_key="signal_explanation_disclosure",
+        disclosure=disclosure,
+    )
 
 
 async def price_move_explanation(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -126,18 +211,20 @@ async def price_move_explanation(*, symbol: str, params: dict[str, Any] | None =
     if compound:
         reasons.append("sentiment_context_attached")
 
+    semantics = apply_price_move_explanation_semantics(
+        change=change,
+        price=price,
+        sentiment=compound,
+        reasons_raw=reasons,
+        spine=spine,
+    )
     body = stamp_decision_batch(
         {
             "surface": "price_move_explanation",
             "symbol": spine["symbol"],
-            "success": price is not None,
-            "price_move_explanation": {
-                "change_24h_pct": change,
-                "price": price,
-                "reasons": reasons,
-                "sentiment": compound,
-                "price_source": "launch57.decision_common:load_decision_spine",
-            },
+            "success": semantics.get("answer_state") == "PRICE_MOVE_EXPLAINED",
+            "price_move_explanation": semantics.get("price_move_explanation"),
+            "price_move_semantics": semantics,
             "ai_system_type": classify_ai_type(launch_item_id=35),
             "freshness_state": spine["freshness_state"],
             "presented_as_live": spine["presented_as_live"],
@@ -148,7 +235,18 @@ async def price_move_explanation(*, symbol: str, params: dict[str, Any] | None =
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_explanation_ai_envelope(ai_compliance_footer(body), spine=spine, params=p)
+    wrapped = attach_explanation_ai_envelope(ai_compliance_footer(body), spine=spine, params=p)
+    disclosure = build_price_move_explanation_disclosure(semantics)
+    return _attach_explanation_adaptive(
+        wrapped,
+        p=p,
+        spine=spine,
+        launch_item_id=35,
+        surface="price_move_explanation",
+        semantics=semantics,
+        disclosure_key="price_move_explanation_disclosure",
+        disclosure=disclosure,
+    )
 
 
 async def ai_research_agent_grounded(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -170,22 +268,21 @@ async def ai_research_agent_grounded(*, symbol: str, params: dict[str, Any] | No
         return blocked
 
     report = await build_research_lab_report()
-    grounded_keys = [k for k in ("oracle_audit", "whale_intelligence", "sentiment", "onchain", "macro_regime") if report.get(k)]
-    grounded = {
-        "symbol": spine["symbol"],
-        "research_lab": report,
-        "grounded_sources": grounded_keys,
-        "platform_data_only": True,
-        "agent_summary": f"Grounded research snapshot for {spine['symbol']} from platform data spine.",
-        "llm_used": False,
-    }
+    filtered = apply_research_agent_grounding_filter(
+        report,
+        params=p,
+        spine=spine,
+        symbol=spine["symbol"],
+    )
+    grounded = filtered.get("research_agent") or {}
     compliance = platform_data_only_footer(surfaces=["launch_chat", "footer_compliance", "copilot_panel"])
     body = stamp_decision_batch(
         {
             "surface": "ai_research_agent_grounded",
             "symbol": spine["symbol"],
-            "success": bool(report),
+            "success": bool(filtered.get("supported_claims")) and not filtered.get("unsupported_input_rejected"),
             "research_agent": grounded,
+            "research_agent_qualification": filtered,
             "ai_system_type": classify_ai_type(launch_item_id=36),
             "platform_data_only": True,
             "copilot_compliance_footer": compliance,
@@ -201,7 +298,18 @@ async def ai_research_agent_grounded(*, symbol: str, params: dict[str, Any] | No
     )
     out = ai_compliance_footer(body)
     out["compliance_footer"] = {**(out.get("compliance_footer") or {}), **compliance}
-    return attach_explanation_ai_envelope(out, spine=spine, params=p)
+    wrapped = attach_explanation_ai_envelope(out, spine=spine, params=p)
+    disclosure = build_research_agent_disclosure(filtered)
+    return _attach_explanation_adaptive(
+        wrapped,
+        p=p,
+        spine=spine,
+        launch_item_id=36,
+        surface="ai_research_agent_grounded",
+        semantics=filtered,
+        disclosure_key="research_agent_disclosure",
+        disclosure=disclosure,
+    )
 
 
 async def research_intelligence_portal(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -211,17 +319,19 @@ async def research_intelligence_portal(*, symbol: str, params: dict[str, Any] | 
     p = dict(params or {})
     asset = str(p.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")
     track = public_track_record()
-    brief = build_short_brief(symbol=asset, track_record=track)
+    filtered = apply_research_portal_evidence_filter(track, {}, params=p, symbol=asset)
+    brief = filtered.get("qualified_brief") or {}
     scope = research_portal_scope_footer()
     body = stamp_decision_batch(
         {
             "surface": "research_intelligence_portal",
             "symbol": asset,
-            "success": bool(track),
+            "success": filtered.get("answer_state") == "RESEARCH_BRIEF_GROUNDED",
             "research_portal": {
                 "track_record": track,
                 "short_brief": brief,
                 "portal_status": "limited_launch",
+                "portal_qualification": filtered,
             },
             "ai_system_type": classify_ai_type(launch_item_id=51),
             "research_portal_scope": scope,
@@ -233,7 +343,18 @@ async def research_intelligence_portal(*, symbol: str, params: dict[str, Any] | 
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_explanation_ai_envelope(ai_compliance_footer(body), params=p)
+    wrapped = attach_explanation_ai_envelope(ai_compliance_footer(body), params=p)
+    disclosure = build_research_portal_disclosure(filtered)
+    return _attach_explanation_adaptive(
+        wrapped,
+        p=p,
+        spine=None,
+        launch_item_id=51,
+        surface="research_intelligence_portal",
+        semantics=filtered,
+        disclosure_key="research_portal_disclosure",
+        disclosure=disclosure,
+    )
 
 
 async def research_reports(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -243,17 +364,19 @@ async def research_reports(*, symbol: str, params: dict[str, Any] | None = None)
     p = dict(params or {})
     asset = str(p.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")
     track = public_track_record()
-    brief = build_short_brief(symbol=asset, track_record=track)
+    filtered = apply_research_portal_evidence_filter(track, {}, params=p, symbol=asset)
+    brief = filtered.get("qualified_brief") or {}
     scope = research_portal_scope_footer()
     body = stamp_decision_batch(
         {
             "surface": "research_reports",
             "symbol": asset,
-            "success": bool(track),
+            "success": filtered.get("answer_state") == "RESEARCH_BRIEF_GROUNDED",
             "research_reports": {
                 "track_record": track,
                 "report_feed": "institutional_limited_launch",
                 "short_brief": brief,
+                "portal_qualification": filtered,
             },
             "ai_system_type": classify_ai_type(launch_item_id=51),
             "research_portal_scope": scope,
@@ -265,7 +388,18 @@ async def research_reports(*, symbol: str, params: dict[str, Any] | None = None)
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_explanation_ai_envelope(ai_compliance_footer(body), params=p)
+    wrapped = attach_explanation_ai_envelope(ai_compliance_footer(body), params=p)
+    disclosure = build_research_portal_disclosure(filtered)
+    return _attach_explanation_adaptive(
+        wrapped,
+        p=p,
+        spine=None,
+        launch_item_id=51,
+        surface="research_reports",
+        semantics=filtered,
+        disclosure_key="research_portal_disclosure",
+        disclosure=disclosure,
+    )
 
 
 _DISPATCH: dict[int, str] = {

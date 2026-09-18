@@ -63,9 +63,11 @@ async def test_price_move_explanation_rule_based_live(monkeypatch):
     out = await price_move_explanation(symbol="BTC", params={})
     assert out["launch_item_id"] == 35
     assert out["ai_system_type"] == "RULE_BASED"
-    assert out["price_move_explanation"]["reasons"][0] == "strong_24h_rally"
-    assert out["price_move_explanation"]["price_source"] == "launch57.decision_common:load_decision_spine"
-    assert out.get("evidence_class_visible") is True
+    pme = out["price_move_explanation"]
+    assert pme["observed_facts"]["change_24h_pct"] == 4.2
+    assert any(r.get("reason") == "strong_24h_rally" for r in pme["inferences"])
+    assert pme["observed_facts"]["price_source"] == "launch57.decision_common:load_decision_spine"
+    assert out.get("evidence_class_visible") == "direct"
 
 
 @pytest.mark.asyncio

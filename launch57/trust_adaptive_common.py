@@ -6,7 +6,8 @@ safety-floor fields for Launch #2–#5 (trust_batch1), #47–#48/#44–#46
 (trust_batch2), #7–#11 (decision_batch1), #12/#37 (decision_batch2), and
 #20/#16/#17/#13/#14 (smart_money_batch1), #15/#18/#19/#53/#54
 # (smart_money_batch2), #55/#56/#57 (smart_money_batch3), and
-# #25–#29 (derivatives_batch1), and #30–#33 (derivatives_batch2) consumer paths.
+# #25–#29 (derivatives_batch1), #30–#33 (derivatives_batch2), and
+# #34–#36/#51 (explanation_ai_batch1) consumer paths.
 """
 
 from __future__ import annotations
@@ -2052,6 +2053,428 @@ def build_smart_alerts_disclosure(filtered: dict[str, Any]) -> dict[str, Any]:
         "unsupported_class_rejected": bool(filtered.get("unsupported_requested_classes") or filtered.get("rejected_unsupported_classes")),
         "delayed_not_presented_as_live": filtered.get("delayed_not_presented_as_live"),
         "required_fields_stamped": True,
+        "runtime_filter_applied": bool(filtered.get("runtime_filter_applied")),
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+_OBSERVED_SIGNAL_SOURCES: frozenset[str] = frozenset(
+    {"footprint", "platform_spine", "live book footprint", "order_flow"}
+)
+_INFERENCE_MARKERS: frozenset[str] = frozenset({"checked", "aligned", "suggests", "implies"})
+_UNSUPPORTED_CAUSAL_PARAM_FLAGS: frozenset[str] = frozenset(
+    {
+        "assert_causality",
+        "causal_claim",
+        "causal_factors",
+        "establish_cause",
+        "decision_certainty",
+    }
+)
+
+
+def build_explanation_contract_core(
+    *,
+    spine: dict[str, Any] | None,
+    evidence_class: str,
+    uncertainty: str = "standard",
+    material_limitation: dict[str, Any] | None = None,
+    material_contradiction: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Adaptive — explanation contract fields that must drive consumer semantics."""
+    fresh = bool((spine or {}).get("live_eligible")) and bool((spine or {}).get("presented_as_live"))
+    return {
+        "freshness_state": (spine or {}).get("freshness_state"),
+        "freshness_preserved": fresh,
+        "stale_not_promoted_to_stronger_truth": not fresh,
+        "evidence_class": evidence_class,
+        "uncertainty": uncertainty,
+        "causal_certainty_established": False,
+        "material_limitation": material_limitation,
+        "material_contradiction": material_contradiction,
+        "runtime_contract_applied": True,
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def _classify_signal_factor(factor: dict[str, Any]) -> str:
+    source = str(factor.get("source") or "").lower()
+    detail = str(factor.get("detail") or "").lower()
+    factor_text = str(factor.get("factor") or "").lower()
+    if source in _OBSERVED_SIGNAL_SOURCES or "footprint" in detail:
+        return "observed"
+    if any(marker in detail for marker in _INFERENCE_MARKERS) or any(
+        marker in factor_text for marker in ("alignment", "because", "caused", "drives")
+    ):
+        return "inference"
+    if source in {"market", "model"}:
+        return "inference"
+    return "observed"
+
+
+def apply_signal_explanation_semantics(
+    *,
+    footprint: dict[str, Any] | None,
+    why_block: dict[str, Any] | None,
+    spine: dict[str, Any] | None,
+    params: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Launch #34 — observed signal facts distinct from inference; no fabricated causality."""
+    p = dict(params or {})
+    why = dict(why_block or {})
+    factors = list(why.get("top_3_factors") or [])
+    unsupported_flags = sorted(flag for flag in _UNSUPPORTED_CAUSAL_PARAM_FLAGS if p.get(flag))
+    unsupported_causal = bool(unsupported_flags) or bool(p.get("causal_claim"))
+
+    observed: list[dict[str, Any]] = []
+    inferences: list[dict[str, Any]] = []
+    rejected_causal: list[dict[str, Any]] = []
+
+    for raw in factors:
+        row = dict(raw)
+        proposition_class = _classify_signal_factor(row)
+        if unsupported_causal and proposition_class == "inference":
+            rejected_causal.append({**row, "proposition_class": "unsupported_causal_rejected"})
+            continue
+        row["proposition_class"] = proposition_class
+        row["presented_as_established_fact"] = proposition_class == "observed"
+        if proposition_class == "observed":
+            observed.append(row)
+        else:
+            inferences.append(row)
+
+    if footprint:
+        observed.append(
+            {
+                "factor": "Order-flow footprint snapshot",
+                "detail": "platform footprint feed",
+                "source": "footprint",
+                "proposition_class": "observed",
+                "presented_as_established_fact": True,
+            }
+        )
+
+    qualified_why = {
+        **why,
+        "top_3_factors": observed + inferences,
+        "observed_facts": observed,
+        "inferences": inferences,
+        "causal_certainty_established": False,
+        "unsupported_causal_rejected": unsupported_causal,
+        "why_text": "\n".join(
+            f"{i}. {f['factor']}" + (f" — {f['detail']}" if f.get("detail") else "")
+            + (" (observed)" if f.get("proposition_class") == "observed" else " (inference, not causal fact)")
+            for i, f in enumerate(observed + inferences, 1)
+        ),
+        "ready": bool(observed or inferences),
+    }
+
+    limitation = {
+        "summary": "Signal explanation cites observed footprint context; causal mechanism and decision certainty are not established.",
+        "causal_certainty_established": False,
+        "inference_labeled": bool(inferences),
+    }
+    uncertainty = "qualified" if inferences or unsupported_causal else "standard"
+    contract = build_explanation_contract_core(
+        spine=spine,
+        evidence_class="composite",
+        uncertainty=uncertainty,
+        material_limitation=limitation,
+    )
+
+    if unsupported_causal:
+        answer_state = "UNSUPPORTED_CAUSALITY_REJECTED"
+    elif observed:
+        answer_state = "SIGNAL_EXPLAINED" if not inferences else "INFERENCE_QUALIFIED"
+    else:
+        answer_state = "INSUFFICIENT_OBSERVED_SIGNAL"
+
+    return {
+        "contract": contract,
+        "answer_state": answer_state,
+        "qualified_explanation": qualified_why,
+        "observed_facts": observed,
+        "inferences": inferences,
+        "rejected_unsupported_causal": rejected_causal,
+        "unsupported_causal_rejected": unsupported_causal,
+        "signal_observable": bool(footprint or observed),
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def build_signal_explanation_disclosure(semantics: dict[str, Any]) -> dict[str, Any]:
+    contract = semantics.get("contract") or {}
+    return {
+        "explanation_contract_visible": True,
+        "causal_certainty_established": False,
+        "observed_vs_inference_separated": True,
+        "unsupported_causal_rejected": semantics.get("unsupported_causal_rejected"),
+        "material_limitation_visible": bool(contract.get("material_limitation")),
+        "runtime_contract_applied": bool(contract.get("runtime_contract_applied")),
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+_PRICE_MOVE_INFERENCE_REASONS: frozenset[str] = frozenset(
+    {
+        "strong_24h_rally",
+        "sharp_24h_drawdown",
+        "muted_price_action",
+        "sentiment_context_attached",
+    }
+)
+
+
+def apply_price_move_explanation_semantics(
+    *,
+    change: float,
+    price: float | None,
+    sentiment: dict[str, Any] | None,
+    reasons_raw: list[str] | None,
+    spine: dict[str, Any] | None,
+) -> dict[str, Any]:
+    """Launch #35 — observed price facts distinct from interpretive inference."""
+    observed_facts = {
+        "change_24h_pct": change,
+        "price": price,
+        "price_source": "launch57.decision_common:load_decision_spine",
+        "proposition_class": "observed",
+        "presented_as_established_fact": True,
+    }
+    inferences: list[dict[str, Any]] = []
+    for reason in list(reasons_raw or []):
+        if reason in _PRICE_MOVE_INFERENCE_REASONS:
+            inferences.append(
+                {
+                    "reason": reason,
+                    "proposition_class": "inference",
+                    "presented_as_established_fact": False,
+                }
+            )
+        else:
+            inferences.append(
+                {
+                    "reason": reason,
+                    "proposition_class": "inference",
+                    "presented_as_established_fact": False,
+                }
+            )
+
+    if sentiment:
+        inferences.append(
+            {
+                "reason": "sentiment_context_attached",
+                "proposition_class": "inference",
+                "presented_as_established_fact": False,
+                "sentiment": sentiment,
+            }
+        )
+
+    limitation = {
+        "summary": "Observed 24h price change is direct spine fact; move labels and sentiment are inference, not observed cause.",
+        "observed_vs_inference_separated": True,
+    }
+    contract = build_explanation_contract_core(
+        spine=spine,
+        evidence_class="direct",
+        uncertainty="qualified" if inferences else "standard",
+        material_limitation=limitation,
+    )
+    answer_state = "PRICE_MOVE_EXPLAINED" if price is not None else "INSUFFICIENT_OBSERVED_PRICE"
+
+    return {
+        "contract": contract,
+        "answer_state": answer_state,
+        "price_move_explanation": {
+            "observed_facts": observed_facts,
+            "inferences": inferences,
+            "sentiment": sentiment or {},
+        },
+        "observed_facts": observed_facts,
+        "inferences": inferences,
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def build_price_move_explanation_disclosure(semantics: dict[str, Any]) -> dict[str, Any]:
+    contract = semantics.get("contract") or {}
+    return {
+        "explanation_contract_visible": True,
+        "observed_vs_inference_separated": True,
+        "inference_not_observed_fact": bool(semantics.get("inferences")),
+        "material_limitation_visible": bool(contract.get("material_limitation")),
+        "runtime_contract_applied": bool(contract.get("runtime_contract_applied")),
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+APPROVED_PLATFORM_RESEARCH_KEYS: frozenset[str] = frozenset(
+    {"oracle_audit", "whale_intelligence", "sentiment", "onchain", "macro_regime"}
+)
+_UNSUPPORTED_RESEARCH_INPUT_FLAGS: frozenset[str] = frozenset(
+    {
+        "external_research",
+        "web_sources",
+        "user_prompt_injection",
+        "autonomous_scope",
+        "confidence_override",
+        "unapproved_context",
+    }
+)
+
+
+def apply_research_agent_grounding_filter(
+    report: dict[str, Any],
+    *,
+    params: dict[str, Any] | None = None,
+    spine: dict[str, Any] | None = None,
+    symbol: str | None = None,
+) -> dict[str, Any]:
+    """Launch #36 — grounded only in approved platform research keys; unapproved input cannot drive claims."""
+    p = dict(params or {})
+    target = str(symbol or (spine or {}).get("symbol") or p.get("symbol") or "UNKNOWN")
+    unsupported_flags = sorted(flag for flag in _UNSUPPORTED_RESEARCH_INPUT_FLAGS if p.get(flag))
+    unsupported_input = bool(unsupported_flags) or bool(p.get("external_research"))
+
+    supported_claims = {
+        key: report[key]
+        for key in APPROVED_PLATFORM_RESEARCH_KEYS
+        if isinstance(report, dict) and report.get(key) is not None
+    }
+    grounded_keys = sorted(supported_claims)
+    agent_summary = (
+        f"Grounded research snapshot for {target} from platform data spine "
+        f"({', '.join(grounded_keys) or 'no approved sections'})."
+    )
+
+    limitation = {
+        "summary": "Platform-data grounding only — external web or user-injected context cannot alter supported claims.",
+        "platform_data_only": True,
+        "autonomous_capability_scope": False,
+        "llm_used": False,
+    }
+    contract = build_explanation_contract_core(
+        spine=spine,
+        evidence_class="composite",
+        uncertainty="qualified" if unsupported_input else "standard",
+        material_limitation=limitation,
+    )
+    answer_state = "GROUNDED_SNAPSHOT" if supported_claims else "INSUFFICIENT_PLATFORM_DATA"
+    if unsupported_input:
+        answer_state = "UNSUPPORTED_INPUT_REJECTED"
+
+    return {
+        "contract": contract,
+        "answer_state": answer_state,
+        "research_agent": {
+            "symbol": target,
+            "research_lab": {k: report.get(k) for k in grounded_keys},
+            "grounded_sources": grounded_keys,
+            "supported_claims": supported_claims,
+            "platform_data_only": True,
+            "agent_summary": agent_summary,
+            "llm_used": False,
+            "unsupported_input_rejected": unsupported_input,
+            "rejected_input_flags": unsupported_flags,
+        },
+        "supported_claims": supported_claims,
+        "unsupported_input_rejected": unsupported_input,
+        "runtime_filter_applied": True,
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def build_research_agent_disclosure(filtered: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "platform_data_only": True,
+        "approved_keys_only": sorted(APPROVED_PLATFORM_RESEARCH_KEYS),
+        "unsupported_input_rejected": filtered.get("unsupported_input_rejected"),
+        "autonomous_scope_not_created": True,
+        "runtime_filter_applied": bool(filtered.get("runtime_filter_applied")),
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+_UNSUPPORTED_PORTAL_EVIDENCE_FLAGS: frozenset[str] = frozenset(
+    {
+        "supplemental_evidence",
+        "external_brief",
+        "custom_hit_rate",
+        "custom_summary",
+        "unapproved_research_feed",
+    }
+)
+
+
+def apply_research_portal_evidence_filter(
+    track_record: dict[str, Any],
+    brief: dict[str, Any],
+    *,
+    params: dict[str, Any] | None = None,
+    symbol: str | None = None,
+) -> dict[str, Any]:
+    """Launch #51 — approved oracle track record only; unapproved evidence cannot alter brief claims."""
+    p = dict(params or {})
+    asset = str(symbol or p.get("symbol") or "BTC").upper().replace("/USDT", "")
+    unsupported_flags = sorted(flag for flag in _UNSUPPORTED_PORTAL_EVIDENCE_FLAGS if p.get(flag))
+    unsupported_evidence = bool(unsupported_flags)
+
+    cumulative = dict((track_record or {}).get("cumulative") or {})
+    resolved = int(cumulative.get("resolved_predictions") or 0)
+    hit = cumulative.get("hit_rate_percent")
+    headline = f"{asset} research brief — platform oracle track record"
+    if resolved > 0 and hit is not None:
+        summary = (
+            f"Live-only oracle metrics: {resolved} resolved predictions, "
+            f"{hit}% hit rate (correct-only definition)."
+        )
+    else:
+        summary = "Limited launch brief — cumulative oracle metrics pending more live resolutions."
+
+    qualified_brief = {
+        "headline": headline,
+        "summary": summary,
+        "shareable": True,
+        "max_length_chars": 480,
+        "symbol": asset,
+        "metrics_scope": cumulative.get("metrics_scope") or "live_only",
+        "evidence_source": "oracle_track_record.public_track_record",
+        "approved_launch57_evidence_only": True,
+        "unsupported_evidence_rejected": unsupported_evidence,
+    }
+
+    limitation = {
+        "summary": "Limited launch research portal — short briefs from approved oracle track record only.",
+        "separate_research_platform": False,
+        "full_institutional_research_suite": False,
+    }
+    contract = build_explanation_contract_core(
+        spine=None,
+        evidence_class="direct",
+        uncertainty="qualified" if unsupported_evidence else "standard",
+        material_limitation=limitation,
+    )
+    answer_state = "RESEARCH_BRIEF_GROUNDED" if track_record else "INSUFFICIENT_APPROVED_EVIDENCE"
+    if unsupported_evidence:
+        answer_state = "UNSUPPORTED_EVIDENCE_REJECTED"
+
+    return {
+        "contract": contract,
+        "answer_state": answer_state,
+        "qualified_brief": qualified_brief,
+        "track_record": track_record,
+        "unsupported_evidence_rejected": unsupported_evidence,
+        "rejected_evidence_flags": unsupported_flags,
+        "runtime_filter_applied": True,
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def build_research_portal_disclosure(filtered: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "approved_launch57_evidence_only": True,
+        "separate_research_platform": False,
+        "unsupported_evidence_rejected": filtered.get("unsupported_evidence_rejected"),
         "runtime_filter_applied": bool(filtered.get("runtime_filter_applied")),
         "methodology_version": METHODOLOGY_VERSION,
     }
