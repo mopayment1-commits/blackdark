@@ -2847,3 +2847,120 @@ def build_capability_library_disclosure(guarded: dict[str, Any]) -> dict[str, An
         "runtime_guard_applied": True,
         "methodology_version": METHODOLOGY_VERSION,
     }
+
+
+_COMMAND_HOME_BYPASS_FLAGS: frozenset[str] = frozenset(
+    {
+        "include_parked",
+        "secondary_registry",
+        "override_readiness",
+        "include_not_ready",
+        "bypass_readiness",
+        "inject_capabilities",
+    }
+)
+_COMMAND_HOME_OVERRIDE_KEYS: frozenset[str] = frozenset(
+    {
+        "eligible_launch57_ids",
+        "surfaced_capabilities",
+        "capability_directory",
+    }
+)
+
+
+def apply_command_home_guard(
+    *,
+    heroes: dict[str, Any],
+    command_view: dict[str, Any] | None,
+    oracle: dict[str, Any],
+    spine: dict[str, Any] | None,
+    params: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Launch #1 — command home exposes only Launch-57 PASS_ENGINEERING capabilities; no PARKED/not-ready."""
+    from launch57.edge_ui_common import LAUNCH57_SCOPE_IDS, launch57_home_eligible_ids
+
+    p = dict(params or {})
+    bypass_flags = sorted(flag for flag in _COMMAND_HOME_BYPASS_FLAGS if p.get(flag))
+    override_attempted = any(key in p for key in _COMMAND_HOME_OVERRIDE_KEYS)
+    scope_rejected = bool(bypass_flags or override_attempted)
+
+    canonical_eligible = launch57_home_eligible_ids()
+    surfaced = sorted(canonical_eligible) if not scope_rejected else []
+
+    injected = list(p.get("surfaced_capabilities") or p.get("capability_directory") or [])
+    rejected_not_ready: list[dict[str, Any]] = []
+    for row in injected:
+        ln = row.get("launch_number")
+        status = str(row.get("engineering_status") or row.get("readiness") or "")
+        if not isinstance(ln, int) or ln not in LAUNCH57_SCOPE_IDS:
+            rejected_not_ready.append(row)
+            scope_rejected = True
+            continue
+        if ln not in canonical_eligible or status in _EXCLUDED_LIBRARY_STATUSES:
+            rejected_not_ready.append(row)
+            scope_rejected = True
+
+    governed = dict(p.get("governed_payload") or {})
+    oracle_governed = dict(oracle.get("governed_payload") or {})
+    merged_payload = {**p, "governed_payload": {**governed, **oracle_governed}}
+    if oracle:
+        merged_payload.setdefault("freshness_state", (spine or {}).get("freshness_state"))
+        merged_payload.setdefault("evidence_class", oracle.get("evidence_class"))
+
+    limitation = {
+        "summary": (
+            "Command home surfaces only Launch-57 PASS_ENGINEERING capabilities from SSOT — "
+            "PARKED/not-ready excluded; Six Heroes remain primary surfaces."
+        ),
+        "launch57_scope_only": True,
+        "readiness_filtered": True,
+        "no_duplicate_capability_directory": True,
+        "six_heroes_primary_surfaces": True,
+    }
+    contract = build_edge_ui_contract_core(
+        spine=spine,
+        evidence_class=str(oracle.get("evidence_class") or oracle.get("canonical_evidence_class") or "composite"),
+        material_limitation=limitation,
+    )
+
+    if spine and not spine.get("live_eligible"):
+        answer_state = "STALE_READINESS_BLOCKED"
+    elif scope_rejected:
+        answer_state = "UNSUPPORTED_READINESS_SCOPE_REJECTED"
+    else:
+        answer_state = "COMMAND_HOME_GROUNDED"
+
+    return {
+        "contract": contract,
+        "answer_state": answer_state,
+        "eligible_launch57_ids": surfaced,
+        "heroes": heroes,
+        "command_view": command_view if not scope_rejected else None,
+        "scope_rejected": scope_rejected,
+        "readiness_bypass_rejected": bool(bypass_flags),
+        "metadata_override_rejected": override_attempted,
+        "rejected_not_ready": rejected_not_ready,
+        "rejected_flags": bypass_flags,
+        "launch57_scope_only": True,
+        "excludes_parked": True,
+        "excludes_non_launch57_ids": True,
+        "no_duplicate_capability_directory": True,
+        "six_heroes_primary": True,
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "oracle_path": "launch57.trust_batch1:single_sentence_oracle",
+        "freshness_preserved": bool((spine or {}).get("live_eligible")),
+        "provenance_preserved": True,
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def build_command_home_disclosure(guarded: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "launch57_scope_only": True,
+        "readiness_filtered": True,
+        "excludes_parked": True,
+        "no_duplicate_capability_directory": True,
+        "scope_rejected": guarded.get("scope_rejected"),
+        "runtime_guard_applied": True,
+        "methodology_version": METHODOLOGY_VERSION,
+    }
