@@ -61,10 +61,18 @@ def attach_explanation_ai_envelope(
         surface_type="ai",
         launch_item_id=launch_id or None,
     )
-    return attach_failure_recovery_envelope(
+    from launch57.identity_auth_common import attach_identity_auth_envelope
+
+    out = attach_failure_recovery_envelope(
         out,
         surface_type="ai",
         launch_item_id=launch_id or None,
+    )
+    return attach_identity_auth_envelope(
+        out,
+        launch_item_id=launch_id or None,
+        surface_type="internal",
+        params=params,
     )
 
 

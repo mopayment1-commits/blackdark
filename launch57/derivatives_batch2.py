@@ -328,7 +328,9 @@ async def limited_watchlists(*, symbol: str, params: dict[str, Any] | None = Non
     )
     wrapped = attach_derivatives_envelope(body, spine=spine, params=p)
     disclosure = build_limited_watchlist_disclosure(guarded)
-    return _attach_habits_adaptive(
+    from launch57.identity_auth_common import attach_identity_auth_envelope
+
+    adapted = _attach_habits_adaptive(
         wrapped,
         p=p,
         spine=spine,
@@ -337,6 +339,12 @@ async def limited_watchlists(*, symbol: str, params: dict[str, Any] | None = Non
         semantics=guarded,
         disclosure_key="limited_watchlist_disclosure",
         disclosure=disclosure,
+    )
+    return attach_identity_auth_envelope(
+        adapted,
+        launch_item_id=32,
+        surface_type="private",
+        params=p,
     )
 
 
@@ -455,7 +463,9 @@ async def smart_alerts_composite(*, symbol: str, params: dict[str, Any] | None =
         display_timezone=p.get("display_timezone"),
     )
     disclosure = build_smart_alerts_disclosure(filtered)
-    return _attach_habits_adaptive(
+    from launch57.identity_auth_common import attach_identity_auth_envelope
+
+    adapted = _attach_habits_adaptive(
         wrapped,
         p=p,
         spine=spine,
@@ -464,6 +474,12 @@ async def smart_alerts_composite(*, symbol: str, params: dict[str, Any] | None =
         semantics=filtered,
         disclosure_key="smart_alerts_disclosure",
         disclosure=disclosure,
+    )
+    return attach_identity_auth_envelope(
+        adapted,
+        launch_item_id=33,
+        surface_type="private",
+        params=p,
     )
 
 

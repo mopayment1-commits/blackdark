@@ -308,10 +308,18 @@ async def guest_trust_surface(*, symbol: str, params: dict[str, Any] | None = No
         answer_state="GUEST_TRUST",
         uncertainty="qualified",
     )
-    return attach_adaptive_disclosure(
+    from launch57.identity_auth_common import attach_identity_auth_envelope
+
+    disclosed = attach_adaptive_disclosure(
         finalized,
         disclosure,
         extra={"approved_public_trust_surfaces": approved_surfaces},
+    )
+    return attach_identity_auth_envelope(
+        disclosed,
+        launch_item_id=46,
+        surface_type="public",
+        params=p,
     )
 
 

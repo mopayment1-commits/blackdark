@@ -340,7 +340,9 @@ async def personal_decision_history(*, symbol: str, params: dict[str, Any] | Non
     )
     wrapped = attach_edge_ui_envelope(ai_compliance_footer(body), params=p)
     disclosure = build_personal_history_disclosure(guarded)
-    return _attach_edge_adaptive(
+    from launch57.identity_auth_common import attach_identity_auth_envelope
+
+    adapted = _attach_edge_adaptive(
         wrapped,
         p=p,
         spine=None,
@@ -349,6 +351,12 @@ async def personal_decision_history(*, symbol: str, params: dict[str, Any] | Non
         semantics=guarded,
         disclosure_key="personal_history_disclosure",
         disclosure=disclosure,
+    )
+    return attach_identity_auth_envelope(
+        adapted,
+        launch_item_id=49,
+        surface_type="private",
+        params=p,
     )
 
 
@@ -382,7 +390,9 @@ async def discipline_mirror_light(*, symbol: str, params: dict[str, Any] | None 
     )
     wrapped = attach_edge_ui_envelope(ai_compliance_footer(body), params=p)
     disclosure = build_discipline_mirror_disclosure(guarded)
-    return _attach_edge_adaptive(
+    from launch57.identity_auth_common import attach_identity_auth_envelope
+
+    adapted = _attach_edge_adaptive(
         wrapped,
         p=p,
         spine=None,
@@ -391,6 +401,12 @@ async def discipline_mirror_light(*, symbol: str, params: dict[str, Any] | None 
         semantics=guarded,
         disclosure_key="discipline_mirror_disclosure",
         disclosure=disclosure,
+    )
+    return attach_identity_auth_envelope(
+        adapted,
+        launch_item_id=50,
+        surface_type="private",
+        params=p,
     )
 
 

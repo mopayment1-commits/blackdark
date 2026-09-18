@@ -1,0 +1,436 @@
+{
+  "artifact": "BLACKDARK_LAUNCH57_IDENTITY_AUTH_PROFILE_RECONCILIATION",
+  "generated_at": "2026-09-18T14:45:48.633156+00:00",
+  "implementation_sha": "f3d7d738",
+  "baseline_sha": "27db8354023b2e197bdb6b6d804c3296f6289a9de511bea8a283f28a31764a6a",
+  "identity_auth_version": "launch57-identity-auth-1.0.0",
+  "scope": "LAUNCH57_IDS",
+  "internal_support_only": true,
+  "governing_spec": "BLACKDARK_Launch57_Identity_Auth_Profile_FROM_SCRATCH_SPEC(4).md",
+  "enabled_auth_methods": [
+    {
+      "method": "email_password",
+      "enabled": true,
+      "password_hash": "pbkdf2_sha256",
+      "email_verification": true
+    },
+    {
+      "method": "totp_mfa",
+      "enabled": true,
+      "optional": true
+    },
+    {
+      "method": "passkeys_webauthn",
+      "enabled": false,
+      "interface_ready": true,
+      "production_verification": "NEEDS_EXTERNAL_VERIFICATION"
+    },
+    {
+      "method": "recovery_codes",
+      "enabled": true,
+      "production_verification": "NEEDS_EXTERNAL_VERIFICATION"
+    }
+  ],
+  "session_defects": [],
+  "recovery_defects": [],
+  "mfa_step_up_bypasses": [],
+  "account_linking_defects": [],
+  "cross_user_access_defects": [],
+  "public_private_leaks": [],
+  "entitlement_auth_confusion": [],
+  "logging_leaks": [],
+  "external_blockers": [
+    {
+      "id": "real_email_delivery",
+      "category": "NEEDS_EXTERNAL_VERIFICATION",
+      "detail": "Production email delivery for verification/reset"
+    },
+    {
+      "id": "google_oidc_production",
+      "category": "NEEDS_EXTERNAL_VERIFICATION",
+      "detail": "Google OIDC dashboard configuration"
+    },
+    {
+      "id": "passkeys_cross_device",
+      "category": "NEEDS_EXTERNAL_VERIFICATION",
+      "detail": "Passkeys across target devices"
+    },
+    {
+      "id": "totp_production",
+      "category": "NEEDS_EXTERNAL_VERIFICATION",
+      "detail": "TOTP MFA production validation"
+    },
+    {
+      "id": "rate_limiting_production",
+      "category": "NEEDS_EXTERNAL_VERIFICATION",
+      "detail": "Production rate limiting and abuse protection"
+    },
+    {
+      "id": "session_revocation_production",
+      "category": "NEEDS_EXTERNAL_VERIFICATION",
+      "detail": "Remote session revocation in production"
+    }
+  ],
+  "internal_components": [
+    {
+      "component_id": "canonical_user_id",
+      "owner_path": "database.create_user / identity_service (reused)",
+      "consumer_capability_ids": [
+        32,
+        33,
+        50,
+        49
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": false,
+      "standalone_capability": false,
+      "evidence_class": "INTERNAL_SUPPORT_ONLY",
+      "reuse_only": true,
+      "source_sha": "f3d7d738",
+      "identity_auth_version": "launch57-identity-auth-1.0.0"
+    },
+    {
+      "component_id": "anonymous_route_boundary",
+      "owner_path": "anonymous_route_foundation.py (reused)",
+      "consumer_capability_ids": [
+        51,
+        4,
+        52,
+        44,
+        45,
+        46
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": false,
+      "standalone_capability": false,
+      "evidence_class": "INTERNAL_SUPPORT_ONLY",
+      "reuse_only": true,
+      "source_sha": "f3d7d738",
+      "identity_auth_version": "launch57-identity-auth-1.0.0"
+    },
+    {
+      "component_id": "identity_architecture",
+      "owner_path": "identity_service.identity_architecture (reused)",
+      "consumer_capability_ids": [
+        32,
+        33,
+        4,
+        44,
+        45,
+        46,
+        49,
+        50,
+        51,
+        52
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": false,
+      "standalone_capability": false,
+      "evidence_class": "INTERNAL_SUPPORT_ONLY",
+      "reuse_only": true,
+      "source_sha": "f3d7d738",
+      "identity_auth_version": "launch57-identity-auth-1.0.0"
+    },
+    {
+      "component_id": "identity_governance",
+      "owner_path": "governance/identity_governance.py (reused)",
+      "consumer_capability_ids": [
+        32,
+        33,
+        4,
+        44,
+        45,
+        46,
+        49,
+        50,
+        51,
+        52
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": false,
+      "standalone_capability": false,
+      "evidence_class": "INTERNAL_SUPPORT_ONLY",
+      "reuse_only": true,
+      "source_sha": "f3d7d738",
+      "identity_auth_version": "launch57-identity-auth-1.0.0"
+    },
+    {
+      "component_id": "anonymous_visitor_governance",
+      "owner_path": "governance/anonymous_visitor_governance.py (reused)",
+      "consumer_capability_ids": [
+        4,
+        46
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": false,
+      "standalone_capability": false,
+      "evidence_class": "INTERNAL_SUPPORT_ONLY",
+      "reuse_only": true,
+      "source_sha": "f3d7d738",
+      "identity_auth_version": "launch57-identity-auth-1.0.0"
+    },
+    {
+      "component_id": "step_up_auth",
+      "owner_path": "privileged_access/step_up.py (reused)",
+      "consumer_capability_ids": [
+        32,
+        33,
+        4,
+        44,
+        45,
+        46,
+        49,
+        50,
+        51,
+        52
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": false,
+      "standalone_capability": false,
+      "evidence_class": "INTERNAL_SUPPORT_ONLY",
+      "reuse_only": true,
+      "source_sha": "f3d7d738",
+      "identity_auth_version": "launch57-identity-auth-1.0.0"
+    },
+    {
+      "component_id": "cross_user_isolation",
+      "owner_path": "launch57/financial_security_common.verify_cross_user_access (reused)",
+      "consumer_capability_ids": [
+        32,
+        33,
+        50,
+        49
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": false,
+      "standalone_capability": false,
+      "evidence_class": "INTERNAL_SUPPORT_ONLY",
+      "reuse_only": true,
+      "source_sha": "f3d7d738",
+      "identity_auth_version": "launch57-identity-auth-1.0.0"
+    },
+    {
+      "component_id": "launch57_identity_envelope",
+      "owner_path": "launch57/identity_auth_common.py",
+      "consumer_capability_ids": [
+        32,
+        33,
+        4,
+        44,
+        45,
+        46,
+        49,
+        50,
+        51,
+        52
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": false,
+      "standalone_capability": false,
+      "evidence_class": "INTERNAL_SUPPORT_ONLY",
+      "source_sha": "f3d7d738",
+      "identity_auth_version": "launch57-identity-auth-1.0.0"
+    }
+  ],
+  "identity_touchpoint_matrix": [
+    {
+      "launch_item_id": 4,
+      "identity_control": "public_accuracy_ledger_anonymous_ok",
+      "wired": true,
+      "private_state": false,
+      "anonymous_allowed": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 32,
+      "identity_control": "watchlists_private_authenticated",
+      "wired": true,
+      "private_state": true,
+      "anonymous_allowed": false,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 33,
+      "identity_control": "smart_alerts_private_authenticated",
+      "wired": true,
+      "private_state": true,
+      "anonymous_allowed": false,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 44,
+      "identity_control": "share_card_public_safe",
+      "wired": true,
+      "private_state": false,
+      "anonymous_allowed": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 45,
+      "identity_control": "shareable_outcome_public_safe",
+      "wired": true,
+      "private_state": false,
+      "anonymous_allowed": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 46,
+      "identity_control": "guest_trust_anonymous_boundary",
+      "wired": true,
+      "private_state": false,
+      "anonymous_allowed": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 49,
+      "identity_control": "personal_history_private_authenticated",
+      "wired": true,
+      "private_state": true,
+      "anonymous_allowed": false,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 50,
+      "identity_control": "discipline_mirror_private_authenticated",
+      "wired": true,
+      "private_state": true,
+      "anonymous_allowed": false,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 51,
+      "identity_control": "research_portal_auth_aware",
+      "wired": true,
+      "private_state": false,
+      "anonymous_allowed": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 52,
+      "identity_control": "capability_library_public_search",
+      "wired": true,
+      "private_state": false,
+      "anonymous_allowed": true,
+      "launch57_only": true
+    }
+  ],
+  "acceptance_criteria_51": {
+    "ac01_immutable_user_identity": true,
+    "ac02_supported_auth_methods": true,
+    "ac03_passwords_safely_stored": true,
+    "ac04_account_recovery_reference": true,
+    "ac05_account_linking_safe": true,
+    "ac06_session_rotation_reference": true,
+    "ac07_session_revoke_reference": true,
+    "ac08_sensitive_actions_step_up": true,
+    "ac09_auth_separate_from_entitlement": true,
+    "ac10_cross_user_fails_closed": true,
+    "ac11_anonymous_public_boundaries": true,
+    "ac12_private_state_protected": true,
+    "ac13_billing_truth_not_duplicated": true,
+    "ac14_profile_minimal": true,
+    "ac15_export_deletion_controlled": true,
+    "ac16_logs_no_auth_secrets": true,
+    "ac17_errors_resist_enumeration": true,
+    "ac18_tests_pass": true,
+    "ac19_independent_verification_separate": true,
+    "ac20_no_false_pass_live": true,
+    "public_boundary_ok": true
+  },
+  "acceptance_all_pass": true,
+  "identity_architecture": {
+    "product": "BLACKDARK Trust OS",
+    "primary_authenticator": "email",
+    "login_methods": [
+      "email_password",
+      "google_oauth",
+      "github_oauth"
+    ],
+    "phone_auth": false,
+    "username": {
+      "login": false,
+      "public_handle": true,
+      "pattern": "^[a-z][a-z0-9_]{2,23}$"
+    },
+    "password_policy": {
+      "min_length": 10,
+      "max_length": 128,
+      "block_common": true,
+      "hash": "pbkdf2_sha256"
+    },
+    "email_verification": true,
+    "password_reset": true,
+    "mfa": "totp_optional",
+    "avatar": {
+      "default": "initials_svg",
+      "upload": true,
+      "max_bytes": 2097152
+    },
+    "oauth": {
+      "enabled": false,
+      "providers": {
+        "google": false,
+        "github": false
+      },
+      "callback_path": "/api/auth/oauth/{provider}/callback",
+      "start_path": "/api/auth/oauth/{provider}/start",
+      "note": "Set OAUTH_GOOGLE_CLIENT_ID/SECRET and/or OAUTH_GITHUB_CLIENT_ID/SECRET plus APP_BASE_URL to enable social login."
+    },
+    "profile_fields": [
+      "email",
+      "display_name",
+      "username",
+      "avatar",
+      "ui_lang",
+      "ux_mode",
+      "timezone",
+      "telegram_chat_id",
+      "tier",
+      "mfa",
+      "email_verified"
+    ],
+    "standards": [
+      "NIST SP 800-63B (password length + blocked commons)",
+      "OWASP ASVS session / recovery",
+      "OAuth 2.0 state CSRF",
+      "GDPR export/erase (existing privacy routes)"
+    ],
+    "billing_note": "USD self-serve via hosted PSP \u2014 card data never stored here.",
+    "canonical_key": "user_id",
+    "immutable_user_id": true,
+    "launch57_reference_only": true,
+    "legacy_id_program_excluded": true
+  },
+  "anonymous_boundary": {
+    "contract_version": "anonymous_route_foundation.p0.1.0",
+    "private_by_default": true,
+    "anonymous_state": "ANONYMOUS",
+    "auth_flow_routes_allowed": true,
+    "launch57_reference_only": true,
+    "owner_path": "anonymous_route_foundation.py"
+  },
+  "step_up_controls": {
+    "step_up_auth": "privileged_access.step_up",
+    "issue_grant": "privileged_access.step_up.issue_step_up_grant",
+    "verify_grant": "privileged_access.step_up.verify_step_up_grant",
+    "sensitive_actions_require_step_up": true,
+    "fail_closed_on_missing_step_up": true,
+    "launch57_reference_only": true
+  },
+  "parked_out_of_launch": [
+    "legacy_id_001_072_program",
+    "legacy_institutional_identity_full_program",
+    "social_profile_features",
+    "gamification_identity"
+  ],
+  "reuse_paths": {
+    "identity_service": "identity_service.py (password, tokens, avatar, architecture)",
+    "anonymous_route_foundation": "anonymous_route_foundation.py (P0 route boundary)",
+    "identity_governance": "governance/identity_governance.py",
+    "anonymous_visitor_governance": "governance/anonymous_visitor_governance.py (#46)",
+    "privileged_access_step_up": "privileged_access/step_up.py",
+    "cross_user_isolation": "launch57/financial_security_common.verify_cross_user_access",
+    "mfa_service": "mfa_service.py (TOTP reference)",
+    "auth_router": "api/routers/auth.py (runtime auth endpoints)"
+  }
+}

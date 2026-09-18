@@ -82,6 +82,14 @@ def finalize_b10_shareable_surface(
         surface_type="public",
         launch_item_id=launch_id,
     )
+    from launch57.identity_auth_common import attach_identity_auth_envelope
+
+    out = attach_identity_auth_envelope(
+        out,
+        launch_item_id=launch_id,
+        surface_type="public",
+        params=p,
+    )
     return finalize_b10_response(out)
 
 
