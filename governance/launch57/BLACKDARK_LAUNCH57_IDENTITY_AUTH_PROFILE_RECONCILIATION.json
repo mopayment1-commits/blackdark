@@ -1,7 +1,7 @@
 {
   "artifact": "BLACKDARK_LAUNCH57_IDENTITY_AUTH_PROFILE_RECONCILIATION",
-  "generated_at": "2026-09-18T14:45:48.633156+00:00",
-  "implementation_sha": "f3d7d738",
+  "generated_at": "2026-09-18T14:46:21.717191+00:00",
+  "implementation_sha": "176e0bff",
   "baseline_sha": "27db8354023b2e197bdb6b6d804c3296f6289a9de511bea8a283f28a31764a6a",
   "identity_auth_version": "launch57-identity-auth-1.0.0",
   "scope": "LAUNCH57_IDS",
@@ -86,7 +86,7 @@
       "standalone_capability": false,
       "evidence_class": "INTERNAL_SUPPORT_ONLY",
       "reuse_only": true,
-      "source_sha": "f3d7d738",
+      "source_sha": "176e0bff",
       "identity_auth_version": "launch57-identity-auth-1.0.0"
     },
     {
@@ -105,7 +105,7 @@
       "standalone_capability": false,
       "evidence_class": "INTERNAL_SUPPORT_ONLY",
       "reuse_only": true,
-      "source_sha": "f3d7d738",
+      "source_sha": "176e0bff",
       "identity_auth_version": "launch57-identity-auth-1.0.0"
     },
     {
@@ -128,7 +128,7 @@
       "standalone_capability": false,
       "evidence_class": "INTERNAL_SUPPORT_ONLY",
       "reuse_only": true,
-      "source_sha": "f3d7d738",
+      "source_sha": "176e0bff",
       "identity_auth_version": "launch57-identity-auth-1.0.0"
     },
     {
@@ -151,7 +151,7 @@
       "standalone_capability": false,
       "evidence_class": "INTERNAL_SUPPORT_ONLY",
       "reuse_only": true,
-      "source_sha": "f3d7d738",
+      "source_sha": "176e0bff",
       "identity_auth_version": "launch57-identity-auth-1.0.0"
     },
     {
@@ -166,7 +166,7 @@
       "standalone_capability": false,
       "evidence_class": "INTERNAL_SUPPORT_ONLY",
       "reuse_only": true,
-      "source_sha": "f3d7d738",
+      "source_sha": "176e0bff",
       "identity_auth_version": "launch57-identity-auth-1.0.0"
     },
     {
@@ -189,7 +189,7 @@
       "standalone_capability": false,
       "evidence_class": "INTERNAL_SUPPORT_ONLY",
       "reuse_only": true,
-      "source_sha": "f3d7d738",
+      "source_sha": "176e0bff",
       "identity_auth_version": "launch57-identity-auth-1.0.0"
     },
     {
@@ -206,7 +206,7 @@
       "standalone_capability": false,
       "evidence_class": "INTERNAL_SUPPORT_ONLY",
       "reuse_only": true,
-      "source_sha": "f3d7d738",
+      "source_sha": "176e0bff",
       "identity_auth_version": "launch57-identity-auth-1.0.0"
     },
     {
@@ -228,7 +228,7 @@
       "launch_surface": false,
       "standalone_capability": false,
       "evidence_class": "INTERNAL_SUPPORT_ONLY",
-      "source_sha": "f3d7d738",
+      "source_sha": "176e0bff",
       "identity_auth_version": "launch57-identity-auth-1.0.0"
     }
   ],

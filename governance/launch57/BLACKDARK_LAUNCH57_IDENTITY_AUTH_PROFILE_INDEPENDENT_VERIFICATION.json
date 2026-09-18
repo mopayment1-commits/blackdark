@@ -1,8 +1,8 @@
 {
   "artifact": "BLACKDARK_LAUNCH57_IDENTITY_AUTH_PROFILE_INDEPENDENT_VERIFICATION",
   "verification_type": "engineering_closure",
-  "verified_at": "2026-09-18T14:45:48.633156+00:00",
-  "implementation_sha": "f3d7d738",
+  "verified_at": "2026-09-18T14:46:21.717191+00:00",
+  "implementation_sha": "176e0bff",
   "baseline_sha": "27db8354023b2e197bdb6b6d804c3296f6289a9de511bea8a283f28a31764a6a",
   "verdict": "PASS_ENGINEERING",
   "LAUNCH57_IDENTITY_AUTH_PASS_ENGINEERING": true,
