@@ -1,7 +1,7 @@
 {
   "artifact": "SPEC_03_INDEPENDENT_VERIFICATION",
   "domain": "SPEC_03_BILLING_SUBSCRIPTION_ENTITLEMENT",
-  "verification_sha": "aae033f25c5f7db1e2a1dd37a9b10d4a8ac55658",
+  "verification_sha": "b64011ef83d1e086e61c1934ef357f3d471dc8a8",
   "probe_count": 9,
   "passed_count": 9,
   "failed_count": 0,
@@ -54,5 +54,5 @@
     }
   ],
   "PASS_LIVE_NOT_CLAIMED": true,
-  "generated_at": "2026-09-18T23:19:37.013871+00:00"
+  "generated_at": "2026-09-18T23:19:49.917658+00:00"
 }

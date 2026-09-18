@@ -1,7 +1,7 @@
 {
   "artifact": "SPEC_03_REQUIREMENTS_REGISTER",
   "domain": "SPEC_03_BILLING_SUBSCRIPTION_ENTITLEMENT",
-  "generated_at": "2026-09-18T23:19:37.013871+00:00",
+  "generated_at": "2026-09-18T23:19:49.917658+00:00",
   "spec_version": "launch57-spec03-billing-subscription-entitlement-1.0.0",
   "requirement_count": 26,
   "requirements": [

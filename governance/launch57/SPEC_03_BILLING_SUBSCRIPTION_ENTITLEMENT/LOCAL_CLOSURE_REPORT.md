@@ -15,7 +15,7 @@ Billing, Subscription & Entitlement — Launch-57 FILE 03 only.
 
 ## Builder
 
-- SHA: `aae033f25c5f7db1e2a1dd37a9b10d4a8ac55658`
+- SHA: `b64011ef83d1e086e61c1934ef357f3d471dc8a8`
 - Builder status: `PASS_ENGINEERING`
 - Runtime truth YES: 26/26
 - `entitlement_matrix_ok`: True

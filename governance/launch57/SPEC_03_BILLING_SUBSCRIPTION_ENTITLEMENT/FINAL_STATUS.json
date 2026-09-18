@@ -3,7 +3,7 @@
   "domain": "SPEC_03_BILLING_SUBSCRIPTION_ENTITLEMENT",
   "spec_version": "launch57-spec03-billing-subscription-entitlement-1.0.0",
   "governing_spec": "/home/ubuntu/.cursor/projects/workspace/uploads/BLACKDARK_Launch57_Billing_Subscription_Entitlement_FROM_SCRATCH_SPEC_4__1__8540.md",
-  "final_sha": "aae033f25c5f7db1e2a1dd37a9b10d4a8ac55658",
+  "final_sha": "b64011ef83d1e086e61c1934ef357f3d471dc8a8",
   "branch": "cursor/launch57-phase8-launch-coherence-358c",
   "PASS_ENGINEERING": true,
   "LOCAL_INSTITUTIONAL_CLOSURE": true,
@@ -32,5 +32,5 @@
     "passed": true,
     "summary": "........................................................................ [100%]\n"
   },
-  "generated_at": "2026-09-18T23:19:37.013871+00:00"
+  "generated_at": "2026-09-18T23:19:49.917658+00:00"
 }
