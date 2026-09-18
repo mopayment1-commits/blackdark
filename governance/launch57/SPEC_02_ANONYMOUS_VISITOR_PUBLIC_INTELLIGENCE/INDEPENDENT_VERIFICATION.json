@@ -1,7 +1,7 @@
 {
   "artifact": "SPEC_02_INDEPENDENT_VERIFICATION",
   "domain": "SPEC_02_ANONYMOUS_VISITOR_PUBLIC_INTELLIGENCE",
-  "verification_sha": "511ca3091da01c381cb8e864aab5ef1720ba3a4b",
+  "verification_sha": "a370d1c3e9f0cf5215870e5735841e8b333ea5ba",
   "probe_count": 9,
   "passed_count": 9,
   "failed_count": 0,
@@ -54,5 +54,5 @@
     }
   ],
   "PASS_LIVE_NOT_CLAIMED": true,
-  "generated_at": "2026-09-18T23:02:38.854807+00:00"
+  "generated_at": "2026-09-18T23:03:19.385230+00:00"
 }

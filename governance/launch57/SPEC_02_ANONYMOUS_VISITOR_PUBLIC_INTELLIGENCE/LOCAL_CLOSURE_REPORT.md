@@ -15,7 +15,7 @@ Anonymous Visitor & Public Intelligence — Launch-57 FILE 02 only.
 
 ## Builder
 
-- SHA: `511ca3091da01c381cb8e864aab5ef1720ba3a4b`
+- SHA: `a370d1c3e9f0cf5215870e5735841e8b333ea5ba`
 - Builder status: `PASS_ENGINEERING`
 - Runtime truth YES: 26/26
 - `public_surface_matrix_ok`: True
@@ -32,7 +32,7 @@ Anonymous Visitor & Public Intelligence — Launch-57 FILE 02 only.
 python3 -m pytest tests/launch57/test_spec02_anonymous_visitor_public_intelligence.py tests/launch57/test_anonymous_visitor.py tests/launch57/test_trust_batch2.py tests/launch57/test_identity_auth.py tests/test_p0_anonymous_route_foundation.py -q --tb=no
 exit_code=0
 utine)."}
-{"timestamp": "2026-09-18 23:03:01,401", "level": "ERROR", "logger": "asyncio", "message": "Unclosed connector\nconnections: ['deque([(<aiohttp.client_proto.ResponseHandler object at 0x7f8648544d00>, 310762.260614115)])', 'deque([(<aiohttp.client_proto.ResponseHandler object at 0x7f86483ab310>, 310762.326406477)])']\nconnector: <aiohttp.connector.TCPConnector object at 0x7f8648485fa0>"}
+{"timestamp": "2026-09-18 23:03:41,961", "level": "ERROR", "logger": "asyncio", "message": "Unclosed connector\nconnections: ['deque([(<aiohttp.client_proto.ResponseHandler object at 0x7fa444bae270>, 310802.806173761)])', 'deque([(<aiohttp.client_proto.ResponseHandler object at 0x7fa444fc3070>, 310802.899804216)])']\nconnector: <aiohttp.connector.TCPConnector object at 0x7fa444ec38f0>"}
 
 ```
 
