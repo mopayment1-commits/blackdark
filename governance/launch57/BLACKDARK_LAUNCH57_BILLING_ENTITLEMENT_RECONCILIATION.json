@@ -1,7 +1,7 @@
 {
   "artifact": "BLACKDARK_LAUNCH57_BILLING_ENTITLEMENT_RECONCILIATION",
-  "generated_at": "2026-09-18T14:53:42.105969+00:00",
-  "implementation_sha": "1104a28a",
+  "generated_at": "2026-09-18T14:54:00.437910+00:00",
+  "implementation_sha": "eb123361",
   "baseline_sha": "cb30a0ad073f9cf52dde0a5b18cd4353ecc21eb045e73fb84c5e7c65969f67ef",
   "billing_entitlement_version": "launch57-billing-entitlement-1.0.0",
   "scope": "LAUNCH57_IDS",
@@ -119,7 +119,7 @@
       "standalone_capability": false,
       "evidence_class": "INTERNAL_SUPPORT_ONLY",
       "reuse_only": true,
-      "source_sha": "1104a28a",
+      "source_sha": "eb123361",
       "billing_entitlement_version": "launch57-billing-entitlement-1.0.0"
     },
     {
@@ -139,7 +139,7 @@
       "standalone_capability": false,
       "evidence_class": "INTERNAL_SUPPORT_ONLY",
       "reuse_only": true,
-      "source_sha": "1104a28a",
+      "source_sha": "eb123361",
       "billing_entitlement_version": "launch57-billing-entitlement-1.0.0"
     },
     {
@@ -159,7 +159,7 @@
       "standalone_capability": false,
       "evidence_class": "INTERNAL_SUPPORT_ONLY",
       "reuse_only": true,
-      "source_sha": "1104a28a",
+      "source_sha": "eb123361",
       "billing_entitlement_version": "launch57-billing-entitlement-1.0.0"
     },
     {
@@ -179,7 +179,7 @@
       "standalone_capability": false,
       "evidence_class": "INTERNAL_SUPPORT_ONLY",
       "reuse_only": true,
-      "source_sha": "1104a28a",
+      "source_sha": "eb123361",
       "billing_entitlement_version": "launch57-billing-entitlement-1.0.0"
     },
     {
@@ -199,7 +199,7 @@
       "standalone_capability": false,
       "evidence_class": "INTERNAL_SUPPORT_ONLY",
       "reuse_only": true,
-      "source_sha": "1104a28a",
+      "source_sha": "eb123361",
       "billing_entitlement_version": "launch57-billing-entitlement-1.0.0"
     },
     {
@@ -219,7 +219,7 @@
       "standalone_capability": false,
       "evidence_class": "INTERNAL_SUPPORT_ONLY",
       "reuse_only": true,
-      "source_sha": "1104a28a",
+      "source_sha": "eb123361",
       "billing_entitlement_version": "launch57-billing-entitlement-1.0.0"
     },
     {
@@ -238,7 +238,7 @@
       "launch_surface": false,
       "standalone_capability": false,
       "evidence_class": "INTERNAL_SUPPORT_ONLY",
-      "source_sha": "1104a28a",
+      "source_sha": "eb123361",
       "billing_entitlement_version": "launch57-billing-entitlement-1.0.0"
     }
   ],

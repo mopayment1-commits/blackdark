@@ -1,7 +1,7 @@
 # BLACKDARK Launch-57 Billing Entitlement Report
 
-**Generated:** 2026-09-18T14:53:42.105969+00:00  
-**Implementation SHA:** `1104a28a`  
+**Generated:** 2026-09-18T14:54:00.437910+00:00  
+**Implementation SHA:** `eb123361`  
 **Baseline SHA:** `cb30a0ad073f9cf52dde0a5b18cd4353ecc21eb045e73fb84c5e7c65969f67ef`  
 **Scope:** Launch-57 billing/subscription/entitlement baseline (INTERNAL_SUPPORT_ONLY)
 

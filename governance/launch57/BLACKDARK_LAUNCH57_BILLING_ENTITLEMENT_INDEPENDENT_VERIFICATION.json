@@ -1,8 +1,8 @@
 {
   "artifact": "BLACKDARK_LAUNCH57_BILLING_ENTITLEMENT_INDEPENDENT_VERIFICATION",
   "verification_type": "engineering_closure",
-  "verified_at": "2026-09-18T14:53:42.105969+00:00",
-  "implementation_sha": "1104a28a",
+  "verified_at": "2026-09-18T14:54:00.437910+00:00",
+  "implementation_sha": "eb123361",
   "baseline_sha": "cb30a0ad073f9cf52dde0a5b18cd4353ecc21eb045e73fb84c5e7c65969f67ef",
   "verdict": "PASS_ENGINEERING",
   "LAUNCH57_BILLING_ENTITLEMENT_PASS_ENGINEERING": true,
