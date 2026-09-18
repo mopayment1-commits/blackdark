@@ -1,7 +1,7 @@
 {
   "artifact": "BLACKDARK_LAUNCH57_ANONYMOUS_VISITOR_INDEPENDENT_VERIFICATION",
-  "generated_at": "2026-09-18T15:18:11.776103+00:00",
-  "implementation_sha": "c8df2144",
+  "generated_at": "2026-09-18T15:19:49.545269+00:00",
+  "implementation_sha": "bce06315",
   "baseline_sha": "176bd73fefd589322b61b65b6787c094df80601dcbb1fb8b2051921d3c85928d",
   "builder_status": "PENDING_VERIFICATION",
   "PASS_ENGINEERING_ANONYMOUS_PUBLIC_INTELLIGENCE": false,
@@ -26,7 +26,7 @@
     "command": "python3 -m pytest tests/launch57/test_anonymous_visitor.py tests/launch57/test_trust_batch2.py tests/launch57/test_identity_auth.py tests/launch57/test_phase2_adaptive_batch_b.py tests/launch57/test_phase8_e2e_acceptance.py tests/test_p0_anonymous_route_foundation.py -q",
     "exit_code": "0",
     "stdout_tail": "ortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]\n\ntests/test_p0_anonymous_route_foundation.py::test_api_stream_boundary_no_cookie\n  /home/ubuntu/.local/lib/python3.12/site-packages/httpx/_client.py:1053: StarletteDeprecationWarning: You should not use the 'timeout' argument with the TestClient. See https://github.com/Kludex/starlette/issues/1108 for more information.\n    return self.request(\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html",
-    "stderr_tail": "e\": \"Unclosed connector\\nconnections: ['deque([(<aiohttp.client_proto.ResponseHandler object at 0x7fd34b3e19b0>, 301300.227606262)])']\\nconnector: <aiohttp.connector.TCPConnector object at 0x7fd34b3c5730>\"}\n{\"timestamp\": \"2026-09-18 15:18:21,268\", \"level\": \"ERROR\", \"logger\": \"asyncio\", \"message\": \"Unclosed connector\\nconnections: ['deque([(<aiohttp.client_proto.ResponseHandler object at 0x7fd34b3e0de0>, 301300.399739035)])']\\nconnector: <aiohttp.connector.TCPConnector object at 0x7fd34b5c28d0>\"}",
+    "stderr_tail": "instance with async coroutines, add `await exchange.close()` to your code into a place when you're done with the exchange and don't need the exchange instance anymore (at the end of your async coroutine).\"}\n{\"timestamp\": \"2026-09-18 15:19:58,830\", \"level\": \"ERROR\", \"logger\": \"asyncio\", \"message\": \"Unclosed connector\\nconnections: ['deque([(<aiohttp.client_proto.ResponseHandler object at 0x7fef2e1803d0>, 301397.751542507)])']\\nconnector: <aiohttp.connector.TCPConnector object at 0x7fef345b9a90>\"}",
     "passed": true
   },
   "acceptance_criteria": {
