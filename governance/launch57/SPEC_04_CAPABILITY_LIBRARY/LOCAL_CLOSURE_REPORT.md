@@ -15,7 +15,7 @@ Capability Library — Launch-57 FILE 04 only (#52 secondary discoverability lay
 
 ## Builder
 
-- SHA: `ed9db6b5513933bacda27acde6b89a65eecd5b4b`
+- SHA: `c98c18e88ed34bc18b9089d154a66e789cfac442`
 - Builder status: `PASS_ENGINEERING`
 - Runtime truth YES: 25/25
 - `library_scope_ok`: True

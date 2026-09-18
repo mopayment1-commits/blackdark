@@ -1,7 +1,7 @@
 {
   "artifact": "SPEC_04_REQUIREMENTS_REGISTER",
   "domain": "SPEC_04_CAPABILITY_LIBRARY",
-  "generated_at": "2026-09-18T23:39:05.432498+00:00",
+  "generated_at": "2026-09-18T23:39:59.355743+00:00",
   "spec_version": "launch57-spec04-capability-library-1.0.0",
   "requirement_count": 25,
   "requirements": [

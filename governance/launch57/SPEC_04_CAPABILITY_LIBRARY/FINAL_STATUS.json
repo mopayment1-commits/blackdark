@@ -3,7 +3,7 @@
   "domain": "SPEC_04_CAPABILITY_LIBRARY",
   "spec_version": "launch57-spec04-capability-library-1.0.0",
   "governing_spec": "/home/ubuntu/.cursor/projects/workspace/uploads/BLACKDARK_Launch57_Capability_Library_FROM_SCRATCH_SPEC_4__1__0797.md",
-  "final_sha": "ed9db6b5513933bacda27acde6b89a65eecd5b4b",
+  "final_sha": "c98c18e88ed34bc18b9089d154a66e789cfac442",
   "branch": "cursor/launch57-phase8-launch-coherence-358c",
   "PASS_ENGINEERING": true,
   "LOCAL_INSTITUTIONAL_CLOSURE": true,
@@ -32,5 +32,5 @@
     "passed": true,
     "summary": "blic_intelligence.py::test_guest_trust_anonymous_allowed\n  /home/ubuntu/.local/lib/python3.12/site-packages/fastapi/openapi/utils.py:303: UserWarning: Duplicate Operation ID storage_legacy_purge_api_storage_legacy_purge_post for function storage_legacy_purge at /workspace/dashboard.py\n    warnings.warn(message, stacklevel=1)\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n"
   },
-  "generated_at": "2026-09-18T23:39:05.432498+00:00"
+  "generated_at": "2026-09-18T23:39:59.355743+00:00"
 }

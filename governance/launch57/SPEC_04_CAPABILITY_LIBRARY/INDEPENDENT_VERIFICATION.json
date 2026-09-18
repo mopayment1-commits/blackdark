@@ -1,7 +1,7 @@
 {
   "artifact": "SPEC_04_INDEPENDENT_VERIFICATION",
   "domain": "SPEC_04_CAPABILITY_LIBRARY",
-  "verification_sha": "ed9db6b5513933bacda27acde6b89a65eecd5b4b",
+  "verification_sha": "c98c18e88ed34bc18b9089d154a66e789cfac442",
   "probe_count": 10,
   "passed_count": 10,
   "failed_count": 0,
@@ -59,5 +59,5 @@
     }
   ],
   "PASS_LIVE_NOT_CLAIMED": true,
-  "generated_at": "2026-09-18T23:39:05.432498+00:00"
+  "generated_at": "2026-09-18T23:39:59.355743+00:00"
 }
