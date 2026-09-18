@@ -76,11 +76,14 @@ def attach_explanation_ai_envelope(
         surface_type="internal",
         params=params,
     )
-    return attach_billing_entitlement_envelope(
+    from launch57.compounding_evidence_common import attach_compounding_evidence_envelope
+
+    out = attach_billing_entitlement_envelope(
         out,
         launch_item_id=launch_id or None,
         params=params,
     )
+    return attach_compounding_evidence_envelope(out, launch_item_id=launch_id or None)
 
 
 def platform_data_only_footer(*, surfaces: list[str] | None = None) -> dict[str, Any]:

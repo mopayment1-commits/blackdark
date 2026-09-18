@@ -1,0 +1,264 @@
+{
+  "artifact": "BLACKDARK_LAUNCH57_EVIDENCE_LINEAGE_INDEX",
+  "generated_at": "2026-09-18T15:01:22.314166+00:00",
+  "implementation_sha": "a04b1797",
+  "baseline_sha": "be79474e7a59c25b7ce991cdb3d11c7967ad0c25188d756a217d1f5b8bb1d5b9",
+  "compounding_evidence_version": "launch57-compounding-evidence-1.0.0",
+  "scope": "LAUNCH57_IDS",
+  "lineage_edges": [
+    {
+      "lineage_id": "decision_to_certificate",
+      "from": "decision_evidence",
+      "to": "decision_certificate",
+      "owner": "launch57/decision_truth_common.py + trust_batch1",
+      "launch57_only": true
+    },
+    {
+      "lineage_id": "certificate_to_outcome",
+      "from": "decision_certificate",
+      "to": "outcome_evidence",
+      "owner": "launch57/teis_support_common.py",
+      "launch57_only": true
+    },
+    {
+      "lineage_id": "decision_to_public_accuracy",
+      "from": "decision_evidence",
+      "to": "public_accuracy_history",
+      "owner": "launch57/public_accuracy_common.py (#4)",
+      "launch57_only": true
+    },
+    {
+      "lineage_id": "provenance_freshness_to_decision",
+      "from": "data_provenance_freshness_history",
+      "to": "decision_evidence",
+      "owner": "launch57/provenance_common.py + freshness_common.py",
+      "launch57_only": true
+    }
+  ],
+  "asset_classes": [
+    {
+      "asset_class": "decision_evidence",
+      "launch57_only": true,
+      "strategic_asset_not_user_capability": true
+    },
+    {
+      "asset_class": "outcome_evidence",
+      "launch57_only": true,
+      "strategic_asset_not_user_capability": true
+    },
+    {
+      "asset_class": "public_accuracy_history",
+      "launch57_only": true,
+      "strategic_asset_not_user_capability": true
+    },
+    {
+      "asset_class": "data_provenance_freshness_history",
+      "launch57_only": true,
+      "strategic_asset_not_user_capability": true
+    },
+    {
+      "asset_class": "source_reliability_history",
+      "launch57_only": true,
+      "strategic_asset_not_user_capability": true
+    },
+    {
+      "asset_class": "methodology_version_history",
+      "launch57_only": true,
+      "strategic_asset_not_user_capability": true
+    },
+    {
+      "asset_class": "failure_incident_history",
+      "launch57_only": true,
+      "strategic_asset_not_user_capability": true
+    },
+    {
+      "asset_class": "security_reliability_evidence",
+      "launch57_only": true,
+      "strategic_asset_not_user_capability": true
+    },
+    {
+      "asset_class": "capability_verification_evidence",
+      "launch57_only": true,
+      "strategic_asset_not_user_capability": true
+    },
+    {
+      "asset_class": "selected_market_event_history",
+      "launch57_only": true,
+      "strategic_asset_not_user_capability": true
+    },
+    {
+      "asset_class": "research_evidence",
+      "launch57_only": true,
+      "strategic_asset_not_user_capability": true
+    },
+    {
+      "asset_class": "product_usage_learning_evidence",
+      "launch57_only": true,
+      "strategic_asset_not_user_capability": true
+    },
+    {
+      "asset_class": "capability_economics_evidence",
+      "launch57_only": true,
+      "strategic_asset_not_user_capability": true
+    },
+    {
+      "asset_class": "distribution_attribution_evidence",
+      "launch57_only": true,
+      "strategic_asset_not_user_capability": true
+    },
+    {
+      "asset_class": "institutional_requirement_evidence",
+      "launch57_only": true,
+      "strategic_asset_not_user_capability": true
+    },
+    {
+      "asset_class": "ip_ownership_rights_evidence",
+      "launch57_only": true,
+      "strategic_asset_not_user_capability": true
+    },
+    {
+      "asset_class": "acquisition_due_diligence_evidence",
+      "launch57_only": true,
+      "strategic_asset_not_user_capability": true
+    }
+  ],
+  "internal_components": [
+    {
+      "component_id": "teis_support_layer",
+      "owner_path": "launch57/teis_support_common.py (reused)",
+      "consumer_capability_ids": [
+        2,
+        3,
+        4,
+        7,
+        9,
+        10,
+        37,
+        48,
+        50
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": false,
+      "standalone_capability": false,
+      "evidence_class": "INTERNAL_SUPPORT_ONLY",
+      "reuse_only": true,
+      "source_sha": "a04b1797",
+      "compounding_evidence_version": "launch57-compounding-evidence-1.0.0"
+    },
+    {
+      "component_id": "public_accuracy_boundary",
+      "owner_path": "launch57/public_accuracy_common.py (reused)",
+      "consumer_capability_ids": [
+        4,
+        45
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": false,
+      "standalone_capability": false,
+      "evidence_class": "INTERNAL_SUPPORT_ONLY",
+      "reuse_only": true,
+      "source_sha": "a04b1797",
+      "compounding_evidence_version": "launch57-compounding-evidence-1.0.0"
+    },
+    {
+      "component_id": "oracle_track_record",
+      "owner_path": "oracle_track_record.py (reused)",
+      "consumer_capability_ids": [
+        4,
+        45,
+        51
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": false,
+      "standalone_capability": false,
+      "evidence_class": "INTERNAL_SUPPORT_ONLY",
+      "reuse_only": true,
+      "source_sha": "a04b1797",
+      "compounding_evidence_version": "launch57-compounding-evidence-1.0.0"
+    },
+    {
+      "component_id": "decision_truth_layer",
+      "owner_path": "launch57/decision_truth_common.py (reused)",
+      "consumer_capability_ids": [
+        2,
+        3,
+        48
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": false,
+      "standalone_capability": false,
+      "evidence_class": "INTERNAL_SUPPORT_ONLY",
+      "reuse_only": true,
+      "source_sha": "a04b1797",
+      "compounding_evidence_version": "launch57-compounding-evidence-1.0.0"
+    },
+    {
+      "component_id": "data_governance_layer",
+      "owner_path": "launch57/data_governance_common.py (reused)",
+      "consumer_capability_ids": [
+        40,
+        41,
+        42
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": false,
+      "standalone_capability": false,
+      "evidence_class": "INTERNAL_SUPPORT_ONLY",
+      "reuse_only": true,
+      "source_sha": "a04b1797",
+      "compounding_evidence_version": "launch57-compounding-evidence-1.0.0"
+    },
+    {
+      "component_id": "failure_recovery_layer",
+      "owner_path": "launch57/failure_recovery_common.py (reused)",
+      "consumer_capability_ids": [
+        48,
+        50
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": false,
+      "standalone_capability": false,
+      "evidence_class": "INTERNAL_SUPPORT_ONLY",
+      "reuse_only": true,
+      "source_sha": "a04b1797",
+      "compounding_evidence_version": "launch57-compounding-evidence-1.0.0"
+    },
+    {
+      "component_id": "provenance_freshness_owners",
+      "owner_path": "launch57/provenance_common.py + freshness_common.py (reused)",
+      "consumer_capability_ids": [
+        40,
+        41
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": false,
+      "standalone_capability": false,
+      "evidence_class": "INTERNAL_SUPPORT_ONLY",
+      "reuse_only": true,
+      "source_sha": "a04b1797",
+      "compounding_evidence_version": "launch57-compounding-evidence-1.0.0"
+    },
+    {
+      "component_id": "launch57_compounding_envelope",
+      "owner_path": "launch57/compounding_evidence_common.py",
+      "consumer_capability_ids": [
+        2,
+        3,
+        4,
+        44,
+        45,
+        46,
+        48,
+        49,
+        50,
+        51
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": false,
+      "standalone_capability": false,
+      "evidence_class": "INTERNAL_SUPPORT_ONLY",
+      "source_sha": "a04b1797",
+      "compounding_evidence_version": "launch57-compounding-evidence-1.0.0"
+    }
+  ]
+}

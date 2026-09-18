@@ -360,7 +360,10 @@ async def personal_decision_history(*, symbol: str, params: dict[str, Any] | Non
         surface_type="private",
         params=p,
     )
-    return attach_billing_entitlement_envelope(adapted, launch_item_id=49, params=p)
+    from launch57.compounding_evidence_common import attach_compounding_evidence_envelope
+
+    adapted = attach_billing_entitlement_envelope(adapted, launch_item_id=49, params=p)
+    return attach_compounding_evidence_envelope(adapted, launch_item_id=49)
 
 
 async def discipline_mirror_light(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -413,7 +416,10 @@ async def discipline_mirror_light(*, symbol: str, params: dict[str, Any] | None 
         surface_type="private",
         params=p,
     )
-    return attach_billing_entitlement_envelope(adapted, launch_item_id=50, params=p)
+    from launch57.compounding_evidence_common import attach_compounding_evidence_envelope
+
+    adapted = attach_billing_entitlement_envelope(adapted, launch_item_id=50, params=p)
+    return attach_compounding_evidence_envelope(adapted, launch_item_id=50)
 
 
 async def capability_library_search(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:

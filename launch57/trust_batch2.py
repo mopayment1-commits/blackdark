@@ -323,7 +323,10 @@ async def guest_trust_surface(*, symbol: str, params: dict[str, Any] | None = No
         surface_type="public",
         params=p,
     )
-    return attach_billing_entitlement_envelope(disclosed, launch_item_id=46, params=p)
+    from launch57.compounding_evidence_common import attach_compounding_evidence_envelope
+
+    disclosed = attach_billing_entitlement_envelope(disclosed, launch_item_id=46, params=p)
+    return attach_compounding_evidence_envelope(disclosed, launch_item_id=46)
 
 
 _DISPATCH_BY_LAUNCH_ITEM: dict[int, str] = {
