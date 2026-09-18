@@ -1,0 +1,208 @@
+{
+  "artifact": "SUPPORT_PLANE_P1_P2_INDEPENDENT_VERIFICATION",
+  "verification_type": "independent_engineering",
+  "scope": "Launch-57 Support Plane Phase 1 (isolation) + Phase 2 (§23 router on Command Home composite path) only",
+  "verified_at": "2026-09-18T03:10:00+00:00",
+  "verifier": {
+    "role": "independent_verifier",
+    "session": "cursor-cloud-agent-support-plane-p1-p2-iv",
+    "method": "read_only_static_probes_runtime_http_targeted_pytest_no_product_changes"
+  },
+  "implementation_under_test": {
+    "implementation_sha": "1628e7e1",
+    "implementation_sha_full": "1628e7e1f8cf744a94eb5c74129930fb79edf701",
+    "audited_head_sha": "a3c1170d",
+    "audited_head_sha_full": "a3c1170da928c448a424f2fa684feef7b9b1526f",
+    "head_note": "HEAD a3c1170d is docs-only after 1628e7e1; isolation+router code present at 1628e7e1",
+    "product_baseline_sha": "f1700f7c",
+    "entry_gate_phase0_sha": "da116cf8"
+  },
+  "forbidden_in_iv_session": [
+    "NO_BUILD",
+    "NO_PHASE_3_5",
+    "NO_PASS_LIVE",
+    "NO_MASS_PASS_ENGINEERING_REVOKE"
+  ],
+  "test_execution": {
+    "primary_command": "python3 -m pytest tests/launch57/test_support_plane_phase1_isolation.py tests/launch57/test_router_selection_contract.py -q",
+    "primary_result": {
+      "passed": 14,
+      "failed": 0,
+      "exit_code": 0
+    },
+    "supplementary_commands": [
+      "python3 -m pytest tests/test_trust_pulse.py -q",
+      "python3 -m pytest tests/launch57/test_phase7_adaptive_batch_b.py -q"
+    ],
+    "supplementary_results": [
+      {"suite": "tests/test_trust_pulse.py", "passed": 6, "failed": 0, "exit_code": 0},
+      {"suite": "tests/launch57/test_phase7_adaptive_batch_b.py", "passed": 5, "failed": 0, "exit_code": 0}
+    ],
+    "combined_iv_related_passed": 25,
+    "combined_iv_related_failed": 0
+  },
+  "phase1_isolation": {
+    "verdict": "PASS_ENGINEERING",
+    "ISOLATION_GAP": false,
+    "CANONICAL_LAUNCH57_ENTRY": "/api/launch57/command-home",
+    "probes": {
+      "a_default_boot_command_home": {
+        "pass": true,
+        "evidence": [
+          "templates/dashboard.html:1697-1702 boot() calls loadCommandHome(true)",
+          "templates/dashboard.html:585 LAUNCH57_COMMAND_HOME constant",
+          "tests/launch57/test_support_plane_phase1_isolation.py::test_dashboard_boot_uses_launch57_command_home"
+        ]
+      },
+      "b_landing_pulse_and_get_decision": {
+        "pass": true,
+        "evidence": [
+          "templates/landing.html:1143-1147 fetchLaunch57CommandHome → /api/launch57/command-home",
+          "templates/landing.html:1391 consultOracle uses fetchLaunch57CommandHome",
+          "templates/landing.html:1588 loadLandingTrustPulse uses fetchLaunch57CommandHome",
+          "tests/launch57/test_support_plane_phase1_isolation.py::test_landing_default_journey_uses_launch57"
+        ]
+      },
+      "c_legacy_not_default_data_sources": {
+        "pass": true,
+        "evidence": [
+          "templates/dashboard.html: no fetch('/api/intent/router'), no fetch('/api/trust-pulse'), no fetch('/oracle/')",
+          "templates/landing.html: no fetch('/api/trust-pulse'), no EventSource('/api/trust-pulse/stream'), no fetch to /oracle/",
+          "loadTrustPulse/askOracle delegate to loadCommandHome (templates/dashboard.html:836, 1029)",
+          "tests/launch57/test_support_plane_phase1_isolation.py::test_dashboard_legacy_loaders_delegate_to_command_home"
+        ]
+      },
+      "d_isolation_gap_false_proof": {
+        "pass": true,
+        "evidence": [
+          "Static: default journey fetches only /api/launch57/command-home in dashboard+landing templates",
+          "Integration: tests/launch57/test_support_plane_phase1_isolation.py::test_command_home_api_reachable (HTTP 200, launch57_scope_only=true)",
+          "Runtime: anonymous GET /api/launch57/command-home → HTTP 200 launch_item_id=1 (TestClient probe 2026-09-18)"
+        ]
+      },
+      "e_legacy_routes_exist_not_default": {
+        "pass": true,
+        "evidence": [
+          "dashboard.py:1962 /api/trust-pulse, :3046 /oracle/{symbol} still mounted",
+          "api/routers/heroes.py /api/intent/router still exists",
+          "templates/dashboard.html: legacy paths absent from default boot/client fetch"
+        ]
+      },
+      "f_no_parked_non_launch57_primary_feed": {
+        "pass": true,
+        "evidence": [
+          "launch57/edge_ui_batch2.py apply_command_home_guard + router intersection",
+          "tests/launch57/test_phase7_adaptive_batch_b.py::test_capability_1_rejects_parked_readiness_bypass",
+          "tests/launch57/test_phase7_adaptive_batch_b.py::test_capability_1_rejects_metadata_override (launch_id 99 rejected)",
+          "tests/launch57/test_support_plane_phase1_isolation.py::test_command_home_eligible_ids_within_launch57"
+        ]
+      }
+    },
+    "anonymous_allowlist": {
+      "pass": true,
+      "evidence": "anonymous_route_foundation.py:168 PUBLIC_API_PREFIXES includes /api/launch57/"
+    }
+  },
+  "phase2_section23_command_home": {
+    "verdict": "PASS_ENGINEERING",
+    "governing_spec": "Adaptive Spec §23.5 Router Selection Sufficiency Contract",
+    "wired_composite_path": "launch57/edge_ui_batch2.py:six_heroes_command_home",
+    "wire_proof": "launch57/edge_ui_batch2.py:104 run_router_selection_contract(...)",
+    "module_owner": "launch57/router_selection_contract.py",
+    "module_builder_status": "PENDING_VERIFICATION",
+    "FULL_CROSS_PATH_§23": false,
+    "full_cross_path_note": "§23 router wired only on Command Home composite path; other composite paths not probed in this IV",
+    "pipeline_steps": {
+      "intent": {
+        "pass": true,
+        "symbol": "build_intent_from_params",
+        "evidence": "tests/launch57/test_router_selection_contract.py::test_happy_path_selects_eligible_candidates"
+      },
+      "candidates": {
+        "pass": true,
+        "symbol": "gather_candidates",
+        "evidence": "tests/launch57/test_router_selection_contract.py::test_happy_path_selects_eligible_candidates"
+      },
+      "eligibility": {
+        "pass": true,
+        "symbol": "apply_eligibility",
+        "evidence": "tests/launch57/test_router_selection_contract.py::test_ineligible_parked_excluded"
+      },
+      "dependence": {
+        "pass": true,
+        "symbol": "apply_dependence_clustering",
+        "evidence": "tests/launch57/test_router_selection_contract.py::test_happy_path_selects_eligible_candidates"
+      },
+      "conflict": {
+        "pass": true,
+        "symbol": "apply_conflict_coverage",
+        "evidence": "tests/launch57/test_router_selection_contract.py::test_conflict_handling_abstains"
+      },
+      "budget": {
+        "pass": true,
+        "symbol": "apply_budget",
+        "evidence": "tests/launch57/test_router_selection_contract.py::test_budget_stop_limits_candidates"
+      },
+      "stop": {
+        "pass": true,
+        "symbol": "apply_stop",
+        "evidence": "tests/launch57/test_router_selection_contract.py::test_budget_stop_limits_candidates"
+      },
+      "abstain": {
+        "pass": true,
+        "symbol": "apply_abstain",
+        "evidence": "tests/launch57/test_router_selection_contract.py::test_abstain_on_stale_spine"
+      },
+      "explain": {
+        "pass": true,
+        "symbol": "build_explain",
+        "evidence": "tests/launch57/test_router_selection_contract.py::test_explain_step_present"
+      }
+    },
+    "adversarial_probes": {
+      "parked_ineligible_not_selected": {
+        "pass": true,
+        "evidence": "tests/launch57/test_router_selection_contract.py::test_ineligible_parked_excluded"
+      },
+      "conflict_abstain_no_silent_success": {
+        "pass": true,
+        "evidence": [
+          "tests/launch57/test_router_selection_contract.py::test_conflict_handling_abstains",
+          "launch57/edge_ui_batch2.py:112-152 abstain branch success=false with abstain_explanation"
+        ]
+      },
+      "budget_stop_limits": {
+        "pass": true,
+        "evidence": "tests/launch57/test_router_selection_contract.py::test_budget_stop_limits_candidates"
+      },
+      "stale_spine_abstain": {
+        "pass": true,
+        "evidence": "tests/launch57/test_router_selection_contract.py::test_abstain_on_stale_spine"
+      },
+      "command_home_calls_router": {
+        "pass": true,
+        "evidence": "tests/launch57/test_router_selection_contract.py::test_command_home_wires_router"
+      }
+    }
+  },
+  "gap_honesty": {
+    "G1_§23_router": "PARTIAL — Command Home composite only; FULL_CROSS_PATH_§23=false",
+    "G2_§28_L2_L5": "OPEN — not closed in this IV",
+    "G3_§32_full_instrumentation": "OPEN — minimal budget defaults only in router",
+    "G4_accessibility": "OPEN",
+    "G5_human_validation": "OPEN",
+    "G2_G3_G4_G5_STILL_OPEN": true
+  },
+  "verdicts": {
+    "PHASE1_ISOLATION": "PASS_ENGINEERING",
+    "PHASE2_§23_COMMAND_HOME": "PASS_ENGINEERING",
+    "SUPPORT_PLANE_P1_P2_INDEPENDENT_VERDICT": "PASS_ENGINEERING"
+  },
+  "confirmations": {
+    "PASS_LIVE_NOT_CLAIMED": true,
+    "SUPPORT_PLANE_PASS_NOT_CLAIMED": true,
+    "NO_MASS_REVOKE": true,
+    "NO_PRODUCT_CHANGES_IN_IV_SESSION": true
+  },
+  "blockers": []
+}
