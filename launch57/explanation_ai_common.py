@@ -33,6 +33,7 @@ def attach_explanation_ai_envelope(
     params: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     from launch57.b9_research_explanation_bridge import finalize_b9_explanation_surface
+    from launch57.financial_security_common import attach_financial_security_envelope
     from launch57.research_explanation_timing_common import B9_LAUNCH_NUMBERS
 
     out = attach_decision_envelope(body, spine=spine)
@@ -53,7 +54,11 @@ def attach_explanation_ai_envelope(
             spine=spine,
             display_timezone=p.get("display_timezone"),
         )
-    return out
+    return attach_financial_security_envelope(
+        out,
+        surface_type="ai",
+        launch_item_id=launch_id or None,
+    )
 
 
 def platform_data_only_footer(*, surfaces: list[str] | None = None) -> dict[str, Any]:

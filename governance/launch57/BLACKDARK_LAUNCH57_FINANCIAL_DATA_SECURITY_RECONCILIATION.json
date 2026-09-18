@@ -1,0 +1,454 @@
+{
+  "artifact": "BLACKDARK_LAUNCH57_FINANCIAL_DATA_SECURITY_RECONCILIATION",
+  "generated_at": "2026-09-18T14:19:56.568153+00:00",
+  "implementation_sha": "0e490cee",
+  "baseline_sha": "34fb4b75fb31abff6e370d0309fca0c8e9e8d036389011a5ce3b78625c5ff199",
+  "financial_security_version": "launch57-financial-security-1.0.0",
+  "scope": "LAUNCH57_IDS",
+  "internal_support_only": true,
+  "governing_spec": "BLACKDARK_Launch57_Financial_Data_Secret_Security_FROM_SCRATCH_SPEC(4).md",
+  "sensitive_data_classes": [
+    {
+      "class_id": "FDS-C1_RESTRICTED_PAYMENT_AUTH",
+      "policy": "NEVER_STORE_LOG_CACHE_BACKUP_AI",
+      "launch57_applicable": true
+    },
+    {
+      "class_id": "FDS-C2_RESTRICTED_CARD",
+      "policy": "NO_BACKEND_PAN_WHERE_TOKENIZED_AVAILABLE",
+      "launch57_applicable": true
+    },
+    {
+      "class_id": "FDS-C3_RESTRICTED_BANKING",
+      "policy": "TOKENIZED_PROVIDER_PREFERRED",
+      "launch57_applicable": false,
+      "note": "No bank-linking in Launch-57 scope"
+    },
+    {
+      "class_id": "FDS-C4_FINANCIAL_CREDENTIALS",
+      "policy": "SECRET_MANAGER_ONLY_NO_PLAINTEXT",
+      "launch57_applicable": true
+    },
+    {
+      "class_id": "FDS-C5_SENSITIVE_FINANCIAL",
+      "policy": "NEED_TO_KNOW_ENCRYPTED_AUDITED",
+      "launch57_applicable": true
+    },
+    {
+      "class_id": "FDS-C6_PAYMENT_REFERENCES",
+      "policy": "MINIMUM_NECESSARY_PROTECTED",
+      "launch57_applicable": true
+    },
+    {
+      "class_id": "PUBLIC_MARKET",
+      "policy": "PUBLIC_ELIGIBILITY_PER_RIGHTS",
+      "launch57_applicable": true
+    },
+    {
+      "class_id": "INTERNAL_AUDIT",
+      "policy": "ROLE_PURPOSE_LIMITED",
+      "launch57_applicable": true
+    }
+  ],
+  "secret_locations": [
+    {
+      "secret_class": "exchange_api",
+      "storage": "environment_secret_manager",
+      "in_source_code": false,
+      "in_frontend": false,
+      "launch57_capabilities": [
+        42,
+        43
+      ]
+    },
+    {
+      "secret_class": "webhook_signing",
+      "storage": "environment_secret_manager",
+      "in_source_code": false,
+      "verification": "transport_webhook_env",
+      "launch57_capabilities": [],
+      "note": "Billing path; not Launch-57 product surface"
+    },
+    {
+      "secret_class": "telegram_delivery",
+      "storage": "environment_variables",
+      "in_source_code": false,
+      "launch57_capabilities": [
+        33
+      ],
+      "blocked_without_config": true
+    },
+    {
+      "secret_class": "payment_provider",
+      "storage": "environment_secret_manager",
+      "in_source_code": false,
+      "production_verification": "NEEDS_EXTERNAL_VERIFICATION"
+    }
+  ],
+  "violations": [],
+  "public_private_leaks": [],
+  "authz_failures": [],
+  "cross_user_failures": [],
+  "webhook_failures": [],
+  "ai_secret_leaks": [],
+  "logging_leaks": [],
+  "environment_isolation_issues": [],
+  "external_blockers": [
+    {
+      "id": "production_kms_policy",
+      "category": "NEEDS_EXTERNAL_VERIFICATION",
+      "detail": "Production KMS/Secret Manager policy verification"
+    },
+    {
+      "id": "production_tls_waf",
+      "category": "NEEDS_EXTERNAL_VERIFICATION",
+      "detail": "Production TLS/WAF configuration"
+    },
+    {
+      "id": "stripe_dashboard_config",
+      "category": "NEEDS_EXTERNAL_VERIFICATION",
+      "detail": "Payment provider dashboard configuration"
+    },
+    {
+      "id": "telegram_credentials",
+      "category": "BLOCKED_EXTERNAL",
+      "detail": "Launch #33 telegram push requires TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID"
+    }
+  ],
+  "internal_components": [
+    {
+      "component_id": "secret_redaction",
+      "owner_path": "launch57/financial_security_common.py",
+      "consumer_capability_ids": [
+        3,
+        4,
+        32,
+        33,
+        36,
+        42,
+        43,
+        44,
+        45,
+        46,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": false,
+      "standalone_capability": false,
+      "evidence_class": "INTERNAL_SUPPORT_ONLY",
+      "source_sha": "0e490cee",
+      "financial_security_version": "launch57-financial-security-1.0.0"
+    },
+    {
+      "component_id": "ai_llm_boundary",
+      "owner_path": "launch57/financial_security_common.py",
+      "consumer_capability_ids": [
+        34,
+        35,
+        36,
+        51
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": false,
+      "standalone_capability": false,
+      "evidence_class": "INTERNAL_SUPPORT_ONLY",
+      "source_sha": "0e490cee",
+      "financial_security_version": "launch57-financial-security-1.0.0"
+    },
+    {
+      "component_id": "public_private_projection",
+      "owner_path": "launch57/financial_security_common.py",
+      "consumer_capability_ids": [
+        4,
+        44,
+        45,
+        46,
+        51,
+        52
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": false,
+      "standalone_capability": false,
+      "evidence_class": "INTERNAL_SUPPORT_ONLY",
+      "source_sha": "0e490cee",
+      "financial_security_version": "launch57-financial-security-1.0.0"
+    },
+    {
+      "component_id": "credential_boundary",
+      "owner_path": "launch57/financial_security_common.py",
+      "consumer_capability_ids": [
+        42,
+        43,
+        33
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": false,
+      "standalone_capability": false,
+      "evidence_class": "INTERNAL_SUPPORT_ONLY",
+      "source_sha": "0e490cee",
+      "financial_security_version": "launch57-financial-security-1.0.0"
+    },
+    {
+      "component_id": "privileged_access_reference",
+      "owner_path": "privileged_access/",
+      "consumer_capability_ids": [
+        32,
+        33,
+        49,
+        50
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": false,
+      "standalone_capability": false,
+      "evidence_class": "INTERNAL_SUPPORT_ONLY",
+      "reuse_only": true,
+      "source_sha": "0e490cee",
+      "financial_security_version": "launch57-financial-security-1.0.0"
+    },
+    {
+      "component_id": "incident_playbook_reference",
+      "owner_path": "fds_retention_incident/incident_playbook.py",
+      "consumer_capability_ids": [
+        3,
+        4,
+        32,
+        33,
+        36,
+        42,
+        43,
+        44,
+        45,
+        46,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": false,
+      "standalone_capability": false,
+      "evidence_class": "INTERNAL_SUPPORT_ONLY",
+      "reuse_only": true,
+      "source_sha": "0e490cee",
+      "financial_security_version": "launch57-financial-security-1.0.0"
+    }
+  ],
+  "acceptance_criteria_32": {
+    "ac01_no_raw_card_auth_data": true,
+    "ac02_payment_tokenized_provider_hosted": true,
+    "ac03_secrets_not_in_source": true,
+    "ac04_secrets_not_plaintext_db": true,
+    "ac05_secrets_not_in_browser": true,
+    "ac06_secrets_not_logged": true,
+    "ac07_secrets_excluded_from_ai": true,
+    "ac08_mfa_protects_privileged": true,
+    "ac09_resource_authorization_enforced": true,
+    "ac10_public_private_boundaries": true,
+    "ac11_cross_user_denied": true,
+    "ac12_environments_separated": true,
+    "ac13_webhooks_verified": true,
+    "ac14_credential_rotation_supported": true,
+    "ac15_private_state_protected": true,
+    "ac16_public_surfaces_safe_projection": true,
+    "ac17_incident_path_exists": true,
+    "ac18_security_tests_pass": true,
+    "ac19_independent_verification_separate": true,
+    "ac20_no_false_pass_live": true
+  },
+  "acceptance_all_pass": true,
+  "capability_findings": [
+    {
+      "launch_item_id": 3,
+      "security_control": "certificate_no_private_input_leak",
+      "launch57_only": true,
+      "wired": false,
+      "owner": "launch57.financial_security_common"
+    },
+    {
+      "launch_item_id": 4,
+      "security_control": "public_accuracy_no_private_user_data",
+      "launch57_only": true,
+      "wired": false,
+      "owner": "launch57.financial_security_common"
+    },
+    {
+      "launch_item_id": 32,
+      "security_control": "watchlist_private_per_user",
+      "launch57_only": true,
+      "wired": false,
+      "owner": "launch57.financial_security_common"
+    },
+    {
+      "launch_item_id": 33,
+      "security_control": "alerts_private_delivery_credential_blocked_external",
+      "launch57_only": true,
+      "wired": true,
+      "owner": "launch57.financial_security_common"
+    },
+    {
+      "launch_item_id": 36,
+      "security_control": "ai_strict_secret_boundary",
+      "launch57_only": true,
+      "wired": true,
+      "owner": "launch57.financial_security_common"
+    },
+    {
+      "launch_item_id": 42,
+      "security_control": "connector_credential_isolation_public_rest",
+      "launch57_only": true,
+      "wired": true,
+      "owner": "launch57.financial_security_common"
+    },
+    {
+      "launch_item_id": 43,
+      "security_control": "arbitrage_no_unrestricted_execution",
+      "launch57_only": true,
+      "wired": false,
+      "owner": "launch57.financial_security_common"
+    },
+    {
+      "launch_item_id": 44,
+      "security_control": "shareable_public_safe_projection",
+      "launch57_only": true,
+      "wired": true,
+      "owner": "launch57.financial_security_common"
+    },
+    {
+      "launch_item_id": 45,
+      "security_control": "accuracy_page_public_only",
+      "launch57_only": true,
+      "wired": true,
+      "owner": "launch57.financial_security_common"
+    },
+    {
+      "launch_item_id": 46,
+      "security_control": "guest_trust_public_only",
+      "launch57_only": true,
+      "wired": true,
+      "owner": "launch57.financial_security_common"
+    },
+    {
+      "launch_item_id": 49,
+      "security_control": "personal_history_private_readonly",
+      "launch57_only": true,
+      "wired": false,
+      "owner": "launch57.financial_security_common"
+    },
+    {
+      "launch_item_id": 50,
+      "security_control": "discipline_mirror_private_reflective",
+      "launch57_only": true,
+      "wired": false,
+      "owner": "launch57.financial_security_common"
+    },
+    {
+      "launch_item_id": 53,
+      "security_control": "wallet_dd_protect_user_input",
+      "launch57_only": true,
+      "wired": false,
+      "owner": "launch57.financial_security_common"
+    },
+    {
+      "launch_item_id": 57,
+      "security_control": "exchange_risk_public_private_per_rights",
+      "launch57_only": true,
+      "wired": false,
+      "owner": "launch57.financial_security_common"
+    }
+  ],
+  "payment_flow": {
+    "provider_hosted_tokenized": true,
+    "raw_pan_cvv_path": "FORBIDDEN",
+    "custom_card_form_to_backend": "FORBIDDEN",
+    "allowed_references": [
+      "customer_id",
+      "subscription_id",
+      "payment_method_reference",
+      "payment_intent_reference",
+      "tokenized_reference",
+      "last4",
+      "brand"
+    ],
+    "production_stripe_config": "NEEDS_EXTERNAL_VERIFICATION"
+  },
+  "webhook_security": {
+    "tls_required": true,
+    "signature_verification": true,
+    "invalid_signature_rejection": true,
+    "replay_resistance": true,
+    "timestamp_validation": true,
+    "idempotency": true,
+    "duplicate_event_handling": true,
+    "sanitized_logging": true,
+    "implementation_reference": "transport_webhook_env.webhook_lifecycle",
+    "stripe_wired": true,
+    "launch57_scoped": true,
+    "production_verification": "NEEDS_EXTERNAL_VERIFICATION"
+  },
+  "environment_isolation": {
+    "current_environment": "development",
+    "production_detected": false,
+    "prod_secrets_in_dev_forbidden": true,
+    "prod_data_in_test_forbidden": true,
+    "synthetic_data_preferred": true,
+    "environment_specific_credentials": true,
+    "break_glass_disabled_by_default": true,
+    "external_kms_verification": "NOT_APPLICABLE_LOCAL"
+  },
+  "privileged_access": {
+    "policy_engine": "privileged_access.policy",
+    "step_up_auth": "privileged_access.step_up",
+    "break_glass": "privileged_access.break_glass",
+    "mfa_required_for_privileged": true,
+    "least_privilege": true,
+    "no_shared_admin_account": true,
+    "no_loopback_bypass": true,
+    "auditable": true,
+    "launch57_reference_only": true,
+    "legacy_fds_path_reused": true
+  },
+  "incident_playbook": {
+    "playbook_version": "fds-financial-incident-v1",
+    "lifecycle_steps": [
+      "DETECT",
+      "CONTAIN",
+      "PRESERVE_EVIDENCE",
+      "REVOKE_ROTATE",
+      "SCOPE",
+      "ERADICATE",
+      "RECOVER",
+      "ESCALATE_NOTIFY",
+      "POST_INCIDENT_REVIEW",
+      "CONTROL_IMPROVEMENT"
+    ],
+    "launch57_reference_only": true,
+    "path": "fds_retention_incident/incident_playbook.py"
+  },
+  "parked_out_of_launch": [
+    "legacy_fds_full_spec_parallel_closure",
+    "institutional_banking_flows",
+    "raw_card_collection_path",
+    "unrestricted_exchange_execution"
+  ],
+  "reuse_paths": {
+    "privileged_access": "privileged_access/ (step_up, break_glass, policy)",
+    "incident_playbook": "fds_retention_incident/incident_playbook.py",
+    "webhook_verification": "transport_webhook_env.webhook_lifecycle",
+    "security_sanitize_patterns": "security_sanitize.py (dashboard legacy; patterns reused in launch57)",
+    "trust_adaptive_guards": "launch57/trust_adaptive_common.py (#49/#50)",
+    "derivatives_alerts_boundary": "launch57/derivatives_common.py (#33)"
+  }
+}

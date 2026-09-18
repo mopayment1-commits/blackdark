@@ -10,6 +10,7 @@ from typing import Any
 
 from launch57.batch10_isolation import finalize_b10_response
 from launch57.b9_research_explanation_bridge import apply_b9_trust_envelope
+from launch57.financial_security_common import attach_financial_security_envelope
 from launch57.shareable_public_timing_common import (
     B10_LAUNCH_NUMBERS,
     attach_shareable_public_temporal_envelope,
@@ -69,6 +70,11 @@ def finalize_b10_shareable_surface(
         out["presented_as_current"] = False
 
     out["b10_shareable_public_timing"] = b10_shareable_public_timing_state()
+    out = attach_financial_security_envelope(
+        out,
+        surface_type="public",
+        launch_item_id=launch_id,
+    )
     return finalize_b10_response(out)
 
 

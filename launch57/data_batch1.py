@@ -18,6 +18,7 @@ from launch57.data_governance_common import (
     build_price_reconciliation_from_probe,
     connector_fetchers_from_registry,
 )
+from launch57.financial_security_common import attach_financial_security_envelope, build_credential_boundary_metadata
 from launch57.temporal_common import (
     TimestampUnit,
     attach_temporal_envelope,
@@ -208,6 +209,11 @@ async def unified_exchange_connector(*, symbol: str, params: dict[str, Any] | No
         normalized_value=probe.get("resolved_price"),
         unit="USDT",
     )
+    out["credential_boundary"] = build_credential_boundary_metadata(
+        launch_item_id=42,
+        credential_scope="public_rest",
+    )
+    out = attach_financial_security_envelope(out, surface_type="internal", launch_item_id=42)
     return _attach_infrastructure_boundary(out, params=params)
 
 
