@@ -275,11 +275,20 @@ async def shareable_accuracy_page(*, symbol: str, params: dict[str, Any] | None 
 
 async def guest_trust_surface(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
     """Launch #46 — guest/anonymous trust surface."""
-    from governance.anonymous_visitor_governance import anonymous_visitor_status
+    from launch57.anonymous_visitor_common import (
+        attach_anonymous_visitor_envelope,
+        build_anonymous_route_inventory,
+        build_public_intelligence_proof_index,
+        reference_anonymous_visitor_governance,
+        verify_private_by_default,
+    )
 
     p = dict(params or {})
-    status = anonymous_visitor_status()
+    status = reference_anonymous_visitor_governance()
     approved_surfaces = build_approved_public_trust_surfaces()
+    private_default = verify_private_by_default()
+    public_proofs = build_public_intelligence_proof_index()
+    route_inventory = build_anonymous_route_inventory()
     body = {
         "launch_item_id": 46,
         "surface": "guest_trust_surface",
@@ -294,7 +303,12 @@ async def guest_trust_surface(*, symbol: str, params: dict[str, Any] | None = No
             "no_pii_leak": status.get("no_pii_leak"),
             "visitor_tier_gating": status.get("visitor_tier_gating"),
             "route_inventory": status.get("route_inventory"),
+            "launch57_route_inventory": route_inventory,
+            "public_intelligence_proofs": public_proofs,
+            "private_by_default_guard": private_default,
             "approved_public_trust_surfaces": approved_surfaces,
+            "not_duplicate_private_app": True,
+            "secondary_public_layer": True,
         },
         "backend_module": "launch57.trust_batch2",
         "backend_entrypoint": "guest_trust_surface",
@@ -313,7 +327,10 @@ async def guest_trust_surface(*, symbol: str, params: dict[str, Any] | None = No
     disclosed = attach_adaptive_disclosure(
         finalized,
         disclosure,
-        extra={"approved_public_trust_surfaces": approved_surfaces},
+        extra={
+            "approved_public_trust_surfaces": approved_surfaces,
+            "public_intelligence_proofs": public_proofs,
+        },
     )
     from launch57.billing_entitlement_common import attach_billing_entitlement_envelope
 
@@ -326,7 +343,8 @@ async def guest_trust_surface(*, symbol: str, params: dict[str, Any] | None = No
     from launch57.compounding_evidence_common import attach_compounding_evidence_envelope
 
     disclosed = attach_billing_entitlement_envelope(disclosed, launch_item_id=46, params=p)
-    return attach_compounding_evidence_envelope(disclosed, launch_item_id=46)
+    disclosed = attach_compounding_evidence_envelope(disclosed, launch_item_id=46)
+    return attach_anonymous_visitor_envelope(disclosed, launch_item_id=46, params=p)
 
 
 _DISPATCH_BY_LAUNCH_ITEM: dict[int, str] = {

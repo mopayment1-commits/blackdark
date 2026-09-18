@@ -9,6 +9,13 @@ from api.openapi_responses import COMMON_ERROR_RESPONSES
 router = APIRouter(tags=["launch57-edge-ui"], responses=COMMON_ERROR_RESPONSES)
 
 
+@router.get("/api/launch57/guest-trust")
+async def launch57_guest_trust(symbol: str = Query("BTC")):
+    from launch57.trust_batch2 import guest_trust_surface
+
+    return await guest_trust_surface(symbol=symbol, params={"symbol": symbol, "user_key": "anonymous"})
+
+
 @router.get("/api/launch57/command-home")
 async def launch57_command_home(symbol: str = Query("BTC"), command_view: bool = Query(True)):
     from launch57.edge_ui_batch2 import six_heroes_command_home

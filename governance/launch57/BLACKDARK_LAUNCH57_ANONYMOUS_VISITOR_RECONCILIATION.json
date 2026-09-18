@@ -1,0 +1,494 @@
+{
+  "artifact": "BLACKDARK_LAUNCH57_ANONYMOUS_VISITOR_RECONCILIATION",
+  "generated_at": "2026-09-18T15:18:11.776103+00:00",
+  "implementation_sha": "c8df2144",
+  "baseline_sha": "176bd73fefd589322b61b65b6787c094df80601dcbb1fb8b2051921d3c85928d",
+  "anonymous_visitor_version": "launch57-anonymous-visitor-1.0.0",
+  "scope": "LAUNCH57_IDS",
+  "canonical_owner": "launch57.trust_batch2:guest_trust_surface",
+  "support_layer": "launch57.anonymous_visitor_common",
+  "governance_reference": "governance/anonymous_visitor_governance.py",
+  "route_foundation": "anonymous_route_foundation.py",
+  "private_by_default": {
+    "private_by_default": true,
+    "public_only_by_explicit_declaration": true,
+    "anonymous_eligible_count": 24,
+    "anonymous_denied_count": 33,
+    "eligible_denied_overlap": [],
+    "no_overlap": true,
+    "launch57_scope_only": true
+  },
+  "route_allowlist": {
+    "contract_version": "anonymous_route_foundation.p0.1.0",
+    "private_by_default": true,
+    "anonymous_state": "ANONYMOUS",
+    "exact_paths_count": 98,
+    "prefixes_count": 42,
+    "launch57_public_routes": [
+      "/api/launch57/guest-trust",
+      "/api/launch57/capability-library"
+    ],
+    "launch57_prefix_allowed": true,
+    "no_public_route_by_omission": true,
+    "owner_path": "anonymous_route_foundation.py"
+  },
+  "route_inventory": [
+    {
+      "method": "GET",
+      "path": "/api/launch57/guest-trust",
+      "launch_item_id": 46,
+      "auth_expectation": "ANONYMOUS",
+      "data_classification": "PUBLIC_INTELLIGENCE",
+      "rate_limit": "default_public",
+      "cache_policy": "short_public",
+      "license_status": "launch57_governed",
+      "owner": "launch57.trust_batch2",
+      "allowlist_backed": true,
+      "server_side_enforced": true,
+      "client_only_guard_forbidden": true
+    },
+    {
+      "method": "GET",
+      "path": "/api/launch57/capability-library",
+      "launch_item_id": 52,
+      "auth_expectation": "ANONYMOUS",
+      "data_classification": "PUBLIC_INTELLIGENCE",
+      "rate_limit": "default_public",
+      "cache_policy": "short_public",
+      "license_status": "launch57_governed",
+      "owner": "launch57.edge_ui_batch1",
+      "allowlist_backed": true,
+      "server_side_enforced": true,
+      "client_only_guard_forbidden": true
+    },
+    {
+      "method": "GET",
+      "path": "/api/launch57/command-home",
+      "launch_item_id": 1,
+      "auth_expectation": "AUTHENTICATED",
+      "data_classification": "PRIVATE",
+      "rate_limit": "authenticated",
+      "cache_policy": "none",
+      "license_status": "n/a",
+      "owner": "launch57.edge_ui_batch2",
+      "allowlist_backed": true,
+      "server_side_enforced": true,
+      "client_only_guard_forbidden": true
+    }
+  ],
+  "public_intelligence_proofs": [
+    {
+      "proof_id": "market_regime",
+      "launch_item_id": 7,
+      "owner": "launch57.decision_common",
+      "fabricated_proof_forbidden": true,
+      "simulated_as_live_forbidden": true,
+      "launch57_only": true
+    },
+    {
+      "proof_id": "public_accuracy",
+      "launch_item_id": 4,
+      "owner": "launch57.trust_batch1",
+      "live_only": true,
+      "fabricated_proof_forbidden": true,
+      "simulated_as_live_forbidden": true,
+      "launch57_only": true
+    },
+    {
+      "proof_id": "shareable_outcome",
+      "launch_item_id": 45,
+      "owner": "launch57.trust_batch2",
+      "fabricated_proof_forbidden": true,
+      "simulated_as_live_forbidden": true,
+      "launch57_only": true
+    },
+    {
+      "proof_id": "data_trust",
+      "launch_item_id": 40,
+      "owner": "launch57.data_governance_common",
+      "fabricated_proof_forbidden": true,
+      "simulated_as_live_forbidden": true,
+      "launch57_only": true
+    },
+    {
+      "proof_id": "freshness",
+      "launch_item_id": 41,
+      "owner": "launch57.data_governance_common",
+      "fabricated_proof_forbidden": true,
+      "simulated_as_live_forbidden": true,
+      "launch57_only": true
+    },
+    {
+      "proof_id": "evidence_class",
+      "launch_item_id": 6,
+      "owner": "launch57.evidence_class_common",
+      "fabricated_proof_forbidden": true,
+      "simulated_as_live_forbidden": true,
+      "launch57_only": true
+    },
+    {
+      "proof_id": "shareable_decision",
+      "launch_item_id": 44,
+      "owner": "launch57.trust_batch2",
+      "fabricated_proof_forbidden": true,
+      "simulated_as_live_forbidden": true,
+      "launch57_only": true
+    }
+  ],
+  "approved_public_surfaces": [
+    {
+      "launch_item_id": 4,
+      "surface": "public_accuracy_ledger",
+      "module": "launch57.trust_batch1",
+      "anonymous_eligible": true,
+      "launch57_only": true,
+      "secondary_aggregation": true
+    },
+    {
+      "launch_item_id": 6,
+      "surface": "evidence_class",
+      "module": "launch57.evidence_class_common",
+      "anonymous_eligible": true,
+      "launch57_only": true,
+      "secondary_aggregation": true
+    },
+    {
+      "launch_item_id": 7,
+      "surface": "market_regime_compass",
+      "module": "launch57.decision_common",
+      "anonymous_eligible": true,
+      "launch57_only": true,
+      "secondary_aggregation": true
+    },
+    {
+      "launch_item_id": 21,
+      "surface": "spot_metrics_suite",
+      "module": "launch57.data_batch1",
+      "anonymous_eligible": true,
+      "launch57_only": true,
+      "secondary_aggregation": true
+    },
+    {
+      "launch_item_id": 22,
+      "surface": "realtime_prices",
+      "module": "launch57.data_batch1",
+      "anonymous_eligible": true,
+      "launch57_only": true,
+      "secondary_aggregation": true
+    },
+    {
+      "launch_item_id": 23,
+      "surface": "ohlcv",
+      "module": "launch57.data_batch1",
+      "anonymous_eligible": true,
+      "launch57_only": true,
+      "secondary_aggregation": true
+    },
+    {
+      "launch_item_id": 24,
+      "surface": "quote_symbol_metadata",
+      "module": "launch57.data_batch1",
+      "anonymous_eligible": true,
+      "launch57_only": true,
+      "secondary_aggregation": true
+    },
+    {
+      "launch_item_id": 25,
+      "surface": "futures_oi_summary",
+      "module": "launch57.derivatives_batch1",
+      "anonymous_eligible": true,
+      "launch57_only": true,
+      "secondary_aggregation": true
+    },
+    {
+      "launch_item_id": 26,
+      "surface": "funding_rate_summary",
+      "module": "launch57.derivatives_batch1",
+      "anonymous_eligible": true,
+      "launch57_only": true,
+      "secondary_aggregation": true
+    },
+    {
+      "launch_item_id": 27,
+      "surface": "liquidation_summary",
+      "module": "launch57.derivatives_batch1",
+      "anonymous_eligible": true,
+      "launch57_only": true,
+      "secondary_aggregation": true
+    },
+    {
+      "launch_item_id": 29,
+      "surface": "derivatives_sentiment_summary",
+      "module": "launch57.derivatives_batch1",
+      "anonymous_eligible": true,
+      "launch57_only": true,
+      "secondary_aggregation": true
+    },
+    {
+      "launch_item_id": 31,
+      "surface": "token_screener_public",
+      "module": "launch57.smart_money_batch2",
+      "anonymous_eligible": true,
+      "launch57_only": true,
+      "secondary_aggregation": true
+    },
+    {
+      "launch_item_id": 34,
+      "surface": "signal_explanation_public_example",
+      "module": "launch57.explanation_ai_batch1",
+      "anonymous_eligible": true,
+      "launch57_only": true,
+      "secondary_aggregation": true
+    },
+    {
+      "launch_item_id": 35,
+      "surface": "price_move_explanation_public_example",
+      "module": "launch57.explanation_ai_batch1",
+      "anonymous_eligible": true,
+      "launch57_only": true,
+      "secondary_aggregation": true
+    },
+    {
+      "launch_item_id": 40,
+      "surface": "data_quality_provenance",
+      "module": "launch57.data_governance_common",
+      "anonymous_eligible": true,
+      "launch57_only": true,
+      "secondary_aggregation": true
+    },
+    {
+      "launch_item_id": 41,
+      "surface": "freshness_assurance",
+      "module": "launch57.data_governance_common",
+      "anonymous_eligible": true,
+      "launch57_only": true,
+      "secondary_aggregation": true
+    },
+    {
+      "launch_item_id": 44,
+      "surface": "shareable_decision_card",
+      "module": "launch57.trust_batch2",
+      "anonymous_eligible": true,
+      "launch57_only": true,
+      "secondary_aggregation": true
+    },
+    {
+      "launch_item_id": 45,
+      "surface": "shareable_accuracy_page",
+      "module": "launch57.trust_batch2",
+      "anonymous_eligible": true,
+      "launch57_only": true,
+      "secondary_aggregation": true
+    },
+    {
+      "launch_item_id": 46,
+      "surface": "guest_trust_surface",
+      "module": "launch57.trust_batch2",
+      "anonymous_eligible": true,
+      "launch57_only": true,
+      "secondary_aggregation": false
+    },
+    {
+      "launch_item_id": 47,
+      "surface": "one_click_risk_disclosure",
+      "module": "launch57.trust_batch2",
+      "anonymous_eligible": true,
+      "launch57_only": true,
+      "secondary_aggregation": true
+    },
+    {
+      "launch_item_id": 48,
+      "surface": "abstain_reject_reasons_visible",
+      "module": "launch57.trust_batch2",
+      "anonymous_eligible": true,
+      "launch57_only": true,
+      "secondary_aggregation": true
+    },
+    {
+      "launch_item_id": 51,
+      "surface": "research_portal_briefs",
+      "module": "launch57.explanation_ai_common",
+      "anonymous_eligible": true,
+      "launch57_only": true,
+      "secondary_aggregation": true
+    },
+    {
+      "launch_item_id": 52,
+      "surface": "capability_library_search",
+      "module": "launch57.edge_ui_batch1",
+      "anonymous_eligible": true,
+      "launch57_only": true,
+      "secondary_aggregation": true
+    },
+    {
+      "launch_item_id": 57,
+      "surface": "exchange_transparency_public",
+      "module": "launch57.trust_batch1",
+      "anonymous_eligible": true,
+      "launch57_only": true,
+      "secondary_aggregation": true
+    }
+  ],
+  "licensing_gate": {
+    "license_public_display_pass_required": true,
+    "inferred_licensing_forbidden": true,
+    "unlicensed_raw_provider_blocked": true,
+    "launch57_governed_sources_only": true,
+    "production_license_verification": "NEEDS_EXTERNAL_VERIFICATION",
+    "owner_paths": [
+      "launch57/data_governance_common.py",
+      "governance/anonymous_visitor_governance.py"
+    ]
+  },
+  "components": [
+    {
+      "component_id": "anonymous_route_foundation",
+      "owner_path": "anonymous_route_foundation.py (reused)",
+      "consumer_capability_ids": [
+        46
+      ],
+      "launch_scope": "LAUNCH57",
+      "reuse_only": true
+    },
+    {
+      "component_id": "anonymous_visitor_governance",
+      "owner_path": "governance/anonymous_visitor_governance.py (reused)",
+      "consumer_capability_ids": [
+        46
+      ],
+      "launch_scope": "LAUNCH57",
+      "reuse_only": true
+    },
+    {
+      "component_id": "identity_auth_boundary",
+      "owner_path": "launch57/identity_auth_common.py (reused)",
+      "consumer_capability_ids": [
+        4,
+        6,
+        7,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        29,
+        31,
+        34,
+        35,
+        40,
+        41,
+        44,
+        45,
+        46,
+        47,
+        48,
+        51,
+        52,
+        57
+      ],
+      "launch_scope": "LAUNCH57",
+      "reuse_only": true
+    },
+    {
+      "component_id": "guest_trust_surface",
+      "owner_path": "launch57/trust_batch2.py:guest_trust_surface",
+      "consumer_capability_ids": [
+        46
+      ],
+      "launch_scope": "LAUNCH57",
+      "reuse_only": true
+    },
+    {
+      "component_id": "launch57_anonymous_envelope",
+      "owner_path": "launch57/anonymous_visitor_common.py",
+      "consumer_capability_ids": [
+        4,
+        6,
+        7,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        29,
+        31,
+        34,
+        35,
+        40,
+        41,
+        44,
+        45,
+        46,
+        47,
+        48,
+        51,
+        52,
+        57
+      ],
+      "launch_scope": "LAUNCH57",
+      "reuse_only": false
+    }
+  ],
+  "api_routes": [
+    "/api/launch57/guest-trust",
+    "/api/launch57/capability-library"
+  ],
+  "acceptance_criteria_av30": {
+    "av01_explicit_anonymous_state": true,
+    "av02_route_inventory_exists": true,
+    "av03_deny_by_default_allowlist": true,
+    "av04_homepage_value_explained": true,
+    "av05_real_product_proof_exists": true,
+    "av06_public_decision_truth_surface": true,
+    "av07_public_evidence_passport": true,
+    "av08_public_accuracy_proof": true,
+    "av09_no_personalization_for_anonymous": true,
+    "av10_account_gate_at_boundary": true,
+    "av11_public_licensing_verified": true,
+    "av12_attribution_implemented": true,
+    "av13_rate_limiting": true,
+    "av14_resource_cost_protections": true,
+    "av15_anonymous_streaming_policy": true,
+    "av16_consent_manager": true,
+    "av17_no_nonessential_tracking_before_consent": true,
+    "av18_public_financial_messaging_reviewable": true,
+    "av19_no_guaranteed_return_claims": true,
+    "av20_wcag_assessed": true,
+    "av21_mobile_critical_journey": true,
+    "av22_seo_indexing_policy": true,
+    "av23_gated_structured_data": true,
+    "av24_public_private_leakage_tests": false,
+    "av25_cache_cdn_controls": true,
+    "av26_abuse_resource_tests": true,
+    "av27_public_legal_links": true,
+    "av28_public_share_links": true,
+    "av29_privacy_safe_analytics": true,
+    "av30_machine_verifiable_closure": true,
+    "public_routes_classified": true,
+    "private_routes_not_anonymous": true,
+    "removed_non_spec_surfaces": true,
+    "phase8_e2e_passes": true
+  },
+  "parked_contamination": [],
+  "external_blockers": [
+    {
+      "id": "PASS_LIVE",
+      "category": "NEEDS_EXTERNAL_VERIFICATION",
+      "detail": "Production CDN/WAF and live anonymous traffic validation"
+    },
+    {
+      "id": "provider_commercial_license",
+      "category": "NEEDS_EXTERNAL_VERIFICATION",
+      "detail": "Provider commercial-license approval for all public data sources"
+    },
+    {
+      "id": "production_consent_jurisdiction",
+      "category": "LEGAL_REVIEW_REQUIRED",
+      "detail": "Jurisdiction-specific cookie-consent verification in production"
+    }
+  ]
+}

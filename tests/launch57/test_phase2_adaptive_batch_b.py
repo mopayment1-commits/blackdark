@@ -109,8 +109,11 @@ async def test_capability_46_approved_public_trust_surfaces_only(monkeypatch):
     )
     out = await guest_trust_surface(symbol="BTC", params={})
     approved = out["approved_public_trust_surfaces"]
+    launch_ids = {row["launch_item_id"] for row in approved}
     assert out["launch_item_id"] == 46
-    assert len(approved) >= 8
-    assert all(row["module"].startswith("launch57.trust_batch") for row in approved)
-    assert {row["launch_item_id"] for row in approved} >= {44, 45, 46, 47, 48}
+    assert len(approved) >= 20
+    assert all(row["module"].startswith("launch57.") for row in approved)
+    assert all(row.get("anonymous_eligible") for row in approved)
+    assert launch_ids >= {4, 44, 45, 46, 47, 48, 52}
+    assert 2 not in launch_ids and 3 not in launch_ids and 5 not in launch_ids
     assert out["adaptive_disclosure"]["level_1"]["launch_item_id"] == 46

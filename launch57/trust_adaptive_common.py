@@ -468,8 +468,10 @@ def build_abstention_reject_disclosure(
 
 
 def build_approved_public_trust_surfaces() -> list[dict[str, Any]]:
-    """Launch #46 — approved Launch-57 public trust surfaces only."""
-    return [dict(row) for row in APPROVED_LAUNCH57_PUBLIC_TRUST_SURFACES]
+    """Launch #46 — approved Launch-57 public trust surfaces only (spec §3)."""
+    from launch57.anonymous_visitor_common import build_approved_public_trust_surfaces as _build
+
+    return _build()
 
 
 def build_market_context_disclosure(market_compass: dict[str, Any]) -> dict[str, Any]:

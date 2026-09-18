@@ -1,0 +1,71 @@
+{
+  "artifact": "BLACKDARK_LAUNCH57_ANONYMOUS_ROUTE_INVENTORY",
+  "generated_at": "2026-09-18T15:18:11.776103+00:00",
+  "implementation_sha": "c8df2144",
+  "baseline_sha": "176bd73fefd589322b61b65b6787c094df80601dcbb1fb8b2051921d3c85928d",
+  "anonymous_visitor_version": "launch57-anonymous-visitor-1.0.0",
+  "scope": "LAUNCH57_IDS",
+  "route_inventory": [
+    {
+      "method": "GET",
+      "path": "/api/launch57/guest-trust",
+      "launch_item_id": 46,
+      "auth_expectation": "ANONYMOUS",
+      "data_classification": "PUBLIC_INTELLIGENCE",
+      "rate_limit": "default_public",
+      "cache_policy": "short_public",
+      "license_status": "launch57_governed",
+      "owner": "launch57.trust_batch2",
+      "allowlist_backed": true,
+      "server_side_enforced": true,
+      "client_only_guard_forbidden": true
+    },
+    {
+      "method": "GET",
+      "path": "/api/launch57/capability-library",
+      "launch_item_id": 52,
+      "auth_expectation": "ANONYMOUS",
+      "data_classification": "PUBLIC_INTELLIGENCE",
+      "rate_limit": "default_public",
+      "cache_policy": "short_public",
+      "license_status": "launch57_governed",
+      "owner": "launch57.edge_ui_batch1",
+      "allowlist_backed": true,
+      "server_side_enforced": true,
+      "client_only_guard_forbidden": true
+    },
+    {
+      "method": "GET",
+      "path": "/api/launch57/command-home",
+      "launch_item_id": 1,
+      "auth_expectation": "AUTHENTICATED",
+      "data_classification": "PRIVATE",
+      "rate_limit": "authenticated",
+      "cache_policy": "none",
+      "license_status": "n/a",
+      "owner": "launch57.edge_ui_batch2",
+      "allowlist_backed": true,
+      "server_side_enforced": true,
+      "client_only_guard_forbidden": true
+    }
+  ],
+  "allowlist": {
+    "contract_version": "anonymous_route_foundation.p0.1.0",
+    "private_by_default": true,
+    "anonymous_state": "ANONYMOUS",
+    "exact_paths_count": 98,
+    "prefixes_count": 42,
+    "launch57_public_routes": [
+      "/api/launch57/guest-trust",
+      "/api/launch57/capability-library"
+    ],
+    "launch57_prefix_allowed": true,
+    "no_public_route_by_omission": true,
+    "owner_path": "anonymous_route_foundation.py"
+  },
+  "ACCIDENTAL_PUBLIC_ROUTES": [],
+  "PRIVATE_DATA_EXPOSURE_PATHS": [],
+  "PUBLIC_ROUTES_WITHOUT_EXPLICIT_CLASSIFICATION": [],
+  "UNLICENSED_PUBLIC_DATA_SOURCES": [],
+  "CLIENT_ONLY_AUTHORIZATION_BOUNDARIES": []
+}
