@@ -1,0 +1,35 @@
+{
+  "artifact": "SPEC_05_FINAL_STATUS",
+  "domain": "SPEC_05_COMMERCIAL_CAPABILITY_INVENTORY",
+  "spec_version": "launch57-spec05-commercial-capability-inventory-1.0.0",
+  "governing_spec": "/home/ubuntu/.cursor/projects/workspace/uploads/BLACKDARK_Launch57_Commercial_Capability_Inventory_FROM_SCRATCH_SPEC_4__1__268d.md",
+  "final_sha": "05caa606cd2068a0a5a8512c8279ea329f45ff5d",
+  "branch": "cursor/launch57-phase8-launch-coherence-358c",
+  "PASS_ENGINEERING": true,
+  "LOCAL_INSTITUTIONAL_CLOSURE": true,
+  "LOCAL_WORK_REMAINING": 0,
+  "LOCAL_ENGINEERING_GAP_COUNT": 0,
+  "LOCAL_ENGINEERING_GAPS": [],
+  "PASS_LIVE": false,
+  "LIVE_VALIDATION_PENDING": true,
+  "live_blockers_only": [
+    "PASS_LIVE requires live commercial licensing and provider rights verification",
+    "Material cost/rights unknowns require external assurance before tier design",
+    "Production entitlement sync validation under real subscriber traffic (FILE 03)"
+  ],
+  "inventory_count_valid": true,
+  "launch57_only_ok": true,
+  "BUILDER_STATUS": "PASS_ENGINEERING",
+  "IV_STATUS": "PASS_ENGINEERING",
+  "tests_pass": true,
+  "runtime_truth_yes_count": 25,
+  "runtime_truth_total": 25,
+  "closure_status": "CLOSED_LOCAL",
+  "tests": {
+    "command": "python3 -m pytest tests/launch57/test_spec05_commercial_capability_inventory.py tests/launch57/test_commercial_inventory.py tests/launch57/test_spec03_billing_subscription_entitlement.py tests/launch57/test_spec04_capability_library.py -q --tb=no",
+    "exit_code": 0,
+    "passed": true,
+    "summary": "12/site-packages/starlette/testclient.py:53\n  /home/ubuntu/.local/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.\n    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n"
+  },
+  "generated_at": "2026-09-18T23:47:33.766243+00:00"
+}

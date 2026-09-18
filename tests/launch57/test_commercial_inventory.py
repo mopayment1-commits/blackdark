@@ -74,6 +74,8 @@ def test_each_record_has_required_fields():
         assert row.get("canonical_name")
         assert row.get("engineering_state")
         assert row.get("access_states")
+        assert row.get("primary_type") in {"EXTERNAL", "INTERNAL"}
+        assert row.get("entity_commercial_class") in {"CAPABILITY", "INTERNAL_ENABLER"}
         assert row.get("commercial_use_state")
         assert row.get("evidence_references")
         assert row.get("audit_only") is True
