@@ -19,6 +19,20 @@ from launch57.edge_ui_common import (
     mvrv_source_blocker_note,
     read_decision_history_rows,
 )
+from launch57.trust_adaptive_common import (
+    apply_capability_library_guard,
+    apply_discipline_mirror_guard,
+    apply_mvrv_provenance_guard,
+    apply_personal_history_guard,
+    apply_spot_perp_net_edge_semantics,
+    attach_adaptive_disclosure,
+    build_capability_library_disclosure,
+    build_discipline_mirror_disclosure,
+    build_level1_decision_disclosure,
+    build_mvrv_provenance_disclosure,
+    build_personal_history_disclosure,
+    build_spot_perp_net_edge_disclosure,
+)
 
 LAUNCH57_EDGE_UI_BATCH1_CAP_IDS: frozenset[int] = frozenset({230, 635, 40})
 
@@ -32,6 +46,52 @@ _BINDING = "launch57_phase7_edge_ui_batch1"
 _MODULE = "launch57.edge_ui_batch1"
 
 _SPOT_PERP_KINDS = frozenset({"spot_futures", "funding", "basis"})
+
+
+def _governed_params(p: dict[str, Any], semantics: dict[str, Any], spine: dict[str, Any] | None) -> dict[str, Any]:
+    out = dict(p)
+    governed = dict(out.get("governed_payload") or {})
+    contract = semantics.get("contract") or {}
+    if contract.get("material_limitation"):
+        governed["critical_limitation"] = contract["material_limitation"]
+    if semantics.get("behavioral_learning_rejected"):
+        governed["unsupported_learning_scope"] = True
+    out["governed_payload"] = governed
+    if spine:
+        out["freshness_state"] = spine.get("freshness_state")
+    return out
+
+
+def _attach_edge_adaptive(
+    wrapped: dict[str, Any],
+    *,
+    p: dict[str, Any],
+    spine: dict[str, Any] | None,
+    launch_item_id: int,
+    surface: str,
+    semantics: dict[str, Any],
+    disclosure_key: str,
+    disclosure: dict[str, Any],
+) -> dict[str, Any]:
+    contract = semantics.get("contract") or {}
+    if contract:
+        wrapped["edge_ui_contract"] = contract
+        wrapped["evidence_class_visible"] = contract.get("evidence_class")
+    wrapped["evidence_display"] = {
+        "canonical_evidence_class": contract.get("evidence_class"),
+        "freshness_state": (spine or {}).get("freshness_state"),
+    }
+    governed_p = _governed_params(p, semantics, spine)
+    uncertainty = "qualified" if semantics.get("behavioral_learning_rejected") or semantics.get("answer_state", "").startswith("BLOCKED") else "standard"
+    level1 = build_level1_decision_disclosure(
+        governed_p,
+        launch_item_id=launch_item_id,
+        surface=surface,
+        answer_state=semantics.get("answer_state"),
+        evidence_display=wrapped.get("evidence_display"),
+        uncertainty=uncertainty,
+    )
+    return attach_adaptive_disclosure(wrapped, level1, extra={disclosure_key: disclosure})
 
 
 async def spot_perp_arbitrage_scanner(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -107,16 +167,25 @@ async def spot_perp_arbitrage_scanner(*, symbol: str, params: dict[str, Any] | N
         scan_meta=scan,
         display_timezone=p.get("display_timezone"),
     )
+    semantics = apply_spot_perp_net_edge_semantics(
+        spot_block.get("opportunities"),
+        net_edge_result=net_edge_result,
+        params=p,
+        spine=spine,
+    )
+    spot_block["opportunities"] = semantics.get("qualified_opportunities")
+    spot_block["net_edge_semantics"] = semantics
+    spot_block["executable_count"] = semantics.get("executable_count")
     body = stamp_decision_batch(
         {
             "surface": "spot_perp_arbitrage_scanner",
             "symbol": spine["symbol"],
-            "success": bool(spot_block.get("opportunities")) or bool(scan.get("counts")),
+            "success": bool(spot_block.get("opportunities")) and semantics.get("executable_count", 0) > 0,
             "spot_perp_arbitrage": spot_block,
             "cost_claim_allowed": bool(net_edge_result and not net_edge_result.get("blocked")),
             "freshness_state": spine["freshness_state"],
             "presented_as_live": spine["presented_as_live"],
-            "presented_as_current": bool(spot_block.get("opportunities")),
+            "presented_as_current": bool(semantics.get("executable_count")),
         },
         capability_id=230,
         launch_item_id=43,
@@ -125,7 +194,18 @@ async def spot_perp_arbitrage_scanner(*, symbol: str, params: dict[str, Any] | N
         binding_source=_BINDING,
     )
     body = apply_b6_trust_envelope(body, display_timezone=p.get("display_timezone"))
-    return attach_edge_ui_envelope(ai_compliance_footer(body), spine=spine)
+    wrapped = attach_edge_ui_envelope(ai_compliance_footer(body), spine=spine)
+    disclosure = build_spot_perp_net_edge_disclosure(semantics)
+    return _attach_edge_adaptive(
+        wrapped,
+        p=p,
+        spine=spine,
+        launch_item_id=43,
+        surface="spot_perp_arbitrage_scanner",
+        semantics=semantics,
+        disclosure_key="spot_perp_net_edge_disclosure",
+        disclosure=disclosure,
+    )
 
 
 async def unified_arbitrage_opportunity_engine(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -183,18 +263,26 @@ async def mvrv_mvrv_z_score_suite(*, symbol: str, params: dict[str, Any] | None 
             "disclaimer": mvrv_source_blocker_note(),
         }
 
-    any_live = any(s.get("presented_as_live") for s in source_status.values())
+    guarded = apply_mvrv_provenance_guard(
+        cores,
+        source_status,
+        asset=asset,
+        spine=spine,
+        params=p,
+    )
+    any_live = any(s.get("presented_as_live") for s in guarded.get("source_status", {}).values())
     body = stamp_decision_batch(
         {
             "surface": "mvrv_mvrv_z_score_suite",
             "symbol": asset,
-            "success": bool(cores),
+            "success": bool(guarded.get("cores")),
             "mvrv_z_score_suite": {
-                "cores": cores,
-                "source_status": source_status,
+                "cores": guarded.get("cores"),
+                "source_status": guarded.get("source_status"),
                 "macro_reference": macro_ref if macro_ref.get("indicators") else None,
-                "licensed_source_configured": False,
-                "no_phantom_live_values": True,
+                "licensed_source_configured": guarded.get("licensed_source_configured"),
+                "no_phantom_live_values": guarded.get("no_phantom_live_values"),
+                "mvrv_guard": guarded,
             },
             "freshness_state": spine["freshness_state"],
             "presented_as_live": any_live,
@@ -205,7 +293,18 @@ async def mvrv_mvrv_z_score_suite(*, symbol: str, params: dict[str, Any] | None 
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_edge_ui_envelope(ai_compliance_footer(body), spine=spine)
+    wrapped = attach_edge_ui_envelope(ai_compliance_footer(body), spine=spine)
+    disclosure = build_mvrv_provenance_disclosure(guarded)
+    return _attach_edge_adaptive(
+        wrapped,
+        p=p,
+        spine=spine,
+        launch_item_id=38,
+        surface="mvrv_mvrv_z_score_suite",
+        semantics=guarded,
+        disclosure_key="mvrv_provenance_disclosure",
+        disclosure=disclosure,
+    )
 
 
 async def personal_decision_history(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -214,19 +313,22 @@ async def personal_decision_history(*, symbol: str, params: dict[str, Any] | Non
     tier = str(p.get("tier") or "free").lower()
     limit = int(p.get("limit") or free_tier_history_limit())
     rows = read_decision_history_rows(limit=limit, tier=tier)
+    guarded = apply_personal_history_guard(rows, params=p, tier=tier)
 
     body = stamp_decision_batch(
         {
             "surface": "personal_decision_history",
             "symbol": str(p.get("symbol") or symbol or "BTC"),
-            "success": True,
+            "success": guarded.get("answer_state") == "HISTORY_OBSERVABLE",
             "personal_decision_history": {
-                "decisions": rows,
-                "count": len(rows),
+                "decisions": guarded.get("decisions"),
+                "count": guarded.get("count"),
                 "tier": tier,
                 "free_limit": free_tier_history_limit(),
                 "limited_free": tier == "free",
                 "source": "decision_ledger.jsonl",
+                "history_guard": guarded,
+                "history_only": True,
             },
             "consumer_path": "api/routers/launch57_edge_ui.py",
         },
@@ -236,7 +338,18 @@ async def personal_decision_history(*, symbol: str, params: dict[str, Any] | Non
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_edge_ui_envelope(ai_compliance_footer(body), params=p)
+    wrapped = attach_edge_ui_envelope(ai_compliance_footer(body), params=p)
+    disclosure = build_personal_history_disclosure(guarded)
+    return _attach_edge_adaptive(
+        wrapped,
+        p=p,
+        spine=None,
+        launch_item_id=49,
+        surface="personal_decision_history",
+        semantics=guarded,
+        disclosure_key="personal_history_disclosure",
+        disclosure=disclosure,
+    )
 
 
 async def discipline_mirror_light(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -246,15 +359,18 @@ async def discipline_mirror_light(*, symbol: str, params: dict[str, Any] | None 
     p = dict(params or {})
     user_key = str(p.get("user_key") or "anonymous")
     mirror = personal_mirror(user_key, limit=int(p.get("limit") or 20))
+    guarded = apply_discipline_mirror_guard(mirror, params=p)
+    reflective = dict(guarded.get("discipline_mirror") or {})
     body = stamp_decision_batch(
         {
             "surface": "discipline_mirror_light",
             "symbol": str(p.get("symbol") or symbol or "BTC"),
-            "success": "error" not in mirror,
+            "success": guarded.get("answer_state") == "MIRROR_OBSERVABLE",
             "discipline_mirror": {
-                **mirror,
+                **reflective,
                 "lightweight": True,
                 "missed_movement_mirror": True,
+                "mirror_guard": guarded,
             },
             "consumer_path": "api/routers/launch57_edge_ui.py",
         },
@@ -264,7 +380,18 @@ async def discipline_mirror_light(*, symbol: str, params: dict[str, Any] | None 
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_edge_ui_envelope(ai_compliance_footer(body), params=p)
+    wrapped = attach_edge_ui_envelope(ai_compliance_footer(body), params=p)
+    disclosure = build_discipline_mirror_disclosure(guarded)
+    return _attach_edge_adaptive(
+        wrapped,
+        p=p,
+        spine=None,
+        launch_item_id=50,
+        surface="discipline_mirror_light",
+        semantics=guarded,
+        disclosure_key="discipline_mirror_disclosure",
+        disclosure=disclosure,
+    )
 
 
 async def capability_library_search(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -272,18 +399,22 @@ async def capability_library_search(*, symbol: str, params: dict[str, Any] | Non
     p = dict(params or {})
     query = str(p.get("query") or p.get("q") or "")
     entries = launch57_library_entries(query=query or None)
+    guarded = apply_capability_library_guard(entries, params=p)
     body = stamp_decision_batch(
         {
             "surface": "capability_library_search",
             "symbol": str(p.get("symbol") or symbol or "BTC"),
-            "success": True,
+            "success": guarded.get("answer_state") == "LIBRARY_GROUNDED",
             "capability_library": {
-                "results": entries,
-                "count": len(entries),
+                "results": guarded.get("results"),
+                "count": guarded.get("count"),
                 "secondary_layer": True,
                 "not_primary_home": True,
                 "launch57_scope_only": True,
                 "query": query or None,
+                "library_guard": guarded,
+                "ssot_source": guarded.get("ssot_source"),
+                "no_second_registry": True,
             },
             "consumer_path": "api/routers/launch57_edge_ui.py",
         },
@@ -293,7 +424,18 @@ async def capability_library_search(*, symbol: str, params: dict[str, Any] | Non
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_edge_ui_envelope(ai_compliance_footer(body))
+    wrapped = attach_edge_ui_envelope(ai_compliance_footer(body))
+    disclosure = build_capability_library_disclosure(guarded)
+    return _attach_edge_adaptive(
+        wrapped,
+        p=p,
+        spine=None,
+        launch_item_id=52,
+        surface="capability_library_search",
+        semantics=guarded,
+        disclosure_key="capability_library_disclosure",
+        disclosure=disclosure,
+    )
 
 
 _DISPATCH: dict[int, str] = {

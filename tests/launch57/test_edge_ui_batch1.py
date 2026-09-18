@@ -80,8 +80,9 @@ async def test_spot_perp_scan_without_cost_claim(monkeypatch):
     monkeypatch.setattr("launch57.edge_ui_common.load_decision_spine", fake_spine)
     monkeypatch.setattr("arbitrage_service.scan_arbitrage_opportunities", fake_scan)
     out = await spot_perp_arbitrage_scanner(symbol="BTC", params={})
-    assert out["success"] is True
     assert out["spot_perp_arbitrage"]["opportunities"]
+    assert out["spot_perp_arbitrage"]["opportunities"][0]["gross_spread_only"] is True
+    assert out["spot_perp_arbitrage"]["opportunities"][0]["executable"] is False
 
 
 @pytest.mark.asyncio
@@ -103,6 +104,8 @@ async def test_mvrv_source_blocker_visible(monkeypatch):
     status = out["mvrv_z_score_suite"]["source_status"]["BTC"]
     assert status["licensed_mvrv_feed"] is False
     assert status["local_proxy_compute"] is True
+    assert status["blocker"] == "BLOCKED_EXTERNAL"
+    assert status["presented_as_live"] is False
     assert out["mvrv_z_score_suite"]["licensed_source_configured"] is False
 
 

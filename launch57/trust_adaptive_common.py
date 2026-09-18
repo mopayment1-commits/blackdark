@@ -7,7 +7,8 @@ safety-floor fields for Launch #2–#5 (trust_batch1), #47–#48/#44–#46
 #20/#16/#17/#13/#14 (smart_money_batch1), #15/#18/#19/#53/#54
 # (smart_money_batch2), #55/#56/#57 (smart_money_batch3), and
 # #25–#29 (derivatives_batch1), #30–#33 (derivatives_batch2), and
-# #34–#36/#51 (explanation_ai_batch1) consumer paths.
+# #34–#36/#51 (explanation_ai_batch1), and #43/#38/#49/#50/#52
+# (edge_ui_batch1) consumer paths.
 """
 
 from __future__ import annotations
@@ -2476,5 +2477,373 @@ def build_research_portal_disclosure(filtered: dict[str, Any]) -> dict[str, Any]
         "separate_research_platform": False,
         "unsupported_evidence_rejected": filtered.get("unsupported_evidence_rejected"),
         "runtime_filter_applied": bool(filtered.get("runtime_filter_applied")),
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+_MVRV_APPROVED_CORES: frozenset[str] = frozenset({"BTC", "ETH"})
+_BEHAVIORAL_LEARNING_FLAGS: frozenset[str] = frozenset(
+    {
+        "behavioral_learning",
+        "learning_model",
+        "train_on_history",
+        "feedback_loop",
+        "reinforcement_update",
+    }
+)
+_EXCLUDED_LIBRARY_STATUSES: frozenset[str] = frozenset(
+    {
+        "PARKED",
+        "NO_LINKED_CANONICAL",
+        "NOT_LINKED",
+        "STUB",
+        "PHANTOM",
+    }
+)
+
+
+def build_edge_ui_contract_core(
+    *,
+    spine: dict[str, Any] | None,
+    evidence_class: str,
+    material_limitation: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    fresh = bool((spine or {}).get("live_eligible")) and bool((spine or {}).get("presented_as_live"))
+    return {
+        "freshness_state": (spine or {}).get("freshness_state"),
+        "freshness_preserved": fresh,
+        "evidence_class": evidence_class,
+        "material_limitation": material_limitation,
+        "runtime_contract_applied": True,
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def apply_spot_perp_net_edge_semantics(
+    opportunities: list[dict[str, Any]] | None,
+    *,
+    net_edge_result: dict[str, Any] | None = None,
+    params: dict[str, Any] | None = None,
+    spine: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Launch #43 — gross spread is not executable without approved #5 Net-Edge on same opportunity."""
+    p = dict(params or {})
+    rows = list(opportunities or [])
+    net_edge = (net_edge_result or {}).get("net_edge") if net_edge_result and not net_edge_result.get("blocked") else None
+    net_edge_passing = bool(net_edge and (net_edge.get("pass") or net_edge.get("cost_claim_allowed")))
+    requested_opportunity = p.get("opportunity")
+
+    qualified: list[dict[str, Any]] = []
+    executable_count = 0
+    for row in rows:
+        stamped = dict(row)
+        same_opportunity = bool(requested_opportunity) and stamped.get("id") == requested_opportunity.get("id")
+        gate_passed = net_edge_passing and same_opportunity
+        stamped.update(
+            {
+                "executable": gate_passed,
+                "gross_spread_only": not gate_passed,
+                "net_edge_gate_passed": gate_passed,
+                "net_edge_evaluated": bool(net_edge_result and not net_edge_result.get("blocked")),
+                "presented_as_actionable": gate_passed,
+                "net_edge_path": "launch57.trust_batch1:net_edge_truth_score",
+            }
+        )
+        if gate_passed:
+            executable_count += 1
+        qualified.append(stamped)
+
+    limitation = {
+        "summary": "Gross spread from scan is not executable edge until approved Net-Edge (#5) evaluates the same opportunity.",
+        "gross_edge_not_actionable_without_cost_treatment": True,
+        "net_edge_required_path": "launch57.trust_batch1:net_edge_truth_score",
+    }
+    contract = build_edge_ui_contract_core(
+        spine=spine,
+        evidence_class="composite",
+        material_limitation=limitation,
+    )
+    answer_state = "NET_EDGE_QUALIFIED" if executable_count else "GROSS_SPREAD_NOT_EXECUTABLE"
+    if net_edge_result and net_edge_result.get("blocked"):
+        answer_state = "NET_EDGE_GATE_BLOCKED"
+
+    return {
+        "contract": contract,
+        "answer_state": answer_state,
+        "qualified_opportunities": qualified,
+        "executable_count": executable_count,
+        "gross_spread_only_count": len(qualified) - executable_count,
+        "net_edge_gate_passed": net_edge_passing,
+        "net_edge_result": net_edge_result,
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def build_spot_perp_net_edge_disclosure(semantics: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "gross_spread_not_executable_without_net_edge": True,
+        "net_edge_path": "launch57.trust_batch1:net_edge_truth_score",
+        "executable_count": semantics.get("executable_count"),
+        "runtime_contract_applied": bool((semantics.get("contract") or {}).get("runtime_contract_applied")),
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def apply_mvrv_provenance_guard(
+    cores: dict[str, Any],
+    source_status: dict[str, Any],
+    *,
+    asset: str,
+    spine: dict[str, Any] | None,
+    params: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Launch #38 — BTC/ETH only; licensed provenance or preserved external blocker."""
+    p = dict(params or {})
+    licensed_configured = bool(p.get("licensed_mvrv_source_configured"))
+    filtered_cores: dict[str, Any] = {}
+    filtered_status: dict[str, Any] = {}
+
+    for target in sorted(_MVRV_APPROVED_CORES):
+        if target not in cores and asset not in _MVRV_APPROVED_CORES:
+            continue
+        if asset in _MVRV_APPROVED_CORES and target != asset:
+            continue
+        mvrv = dict(cores.get(target) or {})
+        has_proxy = bool(mvrv.get("z_score") is not None and mvrv.get("ok"))
+        licensed_live = licensed_configured and has_proxy
+        status = dict(source_status.get(target) or {})
+        status.update(
+            {
+                "licensed_mvrv_feed": licensed_configured,
+                "local_proxy_compute": has_proxy and not licensed_configured,
+                "reference_only": has_proxy and not licensed_configured,
+                "blocker": None if licensed_live else "BLOCKED_EXTERNAL",
+                "blocker_reason": None if licensed_live else "licensed_onchain_mvrv_source_not_configured",
+                "presented_as_live": bool(licensed_live and (spine or {}).get("presented_as_live")),
+                "provenance": "licensed_feed" if licensed_configured else "reference_only_no_licensed_source",
+            }
+        )
+        if has_proxy and not licensed_configured:
+            filtered_cores[target] = {
+                **mvrv,
+                "reference_only": True,
+                "licensed_values": False,
+                "presented_as_live": False,
+            }
+        elif licensed_live:
+            filtered_cores[target] = mvrv
+        else:
+            filtered_cores[target] = mvrv
+        filtered_status[target] = status
+
+    out_of_scope = asset not in _MVRV_APPROVED_CORES and asset != "BTC"
+    limitation = {
+        "summary": "MVRV/Z limited to BTC/ETH core; licensed on-chain feed required for LIVE values.",
+        "btc_eth_only": True,
+        "licensed_source_required": not licensed_configured,
+    }
+    contract = build_edge_ui_contract_core(
+        spine=spine,
+        evidence_class="direct" if licensed_configured else "reference_only",
+        material_limitation=limitation,
+    )
+    any_live = any(s.get("presented_as_live") for s in filtered_status.values())
+    answer_state = "MVRV_LICENSED_OBSERVABLE" if any_live else "BLOCKED_EXTERNAL_NO_LICENSED_SOURCE"
+    if out_of_scope and asset not in filtered_cores:
+        answer_state = "OUT_OF_SCOPE_NON_BTC_ETH"
+
+    return {
+        "contract": contract,
+        "answer_state": answer_state,
+        "cores": filtered_cores,
+        "source_status": filtered_status,
+        "licensed_source_configured": licensed_configured,
+        "no_phantom_live_values": not any_live or licensed_configured,
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def build_mvrv_provenance_disclosure(guarded: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "btc_eth_only": True,
+        "licensed_source_configured": guarded.get("licensed_source_configured"),
+        "blocked_external_preserved": guarded.get("answer_state") == "BLOCKED_EXTERNAL_NO_LICENSED_SOURCE",
+        "no_phantom_live_values": guarded.get("no_phantom_live_values"),
+        "runtime_guard_applied": True,
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def apply_personal_history_guard(
+    rows: list[dict[str, Any]] | None,
+    *,
+    params: dict[str, Any] | None = None,
+    tier: str = "free",
+) -> dict[str, Any]:
+    """Launch #49 — personal history is read-only; not behavioral-learning input."""
+    p = dict(params or {})
+    unsupported_flags = sorted(flag for flag in _BEHAVIORAL_LEARNING_FLAGS if p.get(flag))
+    learning_rejected = bool(unsupported_flags)
+    history_rows = list(rows or [])
+
+    sanitized = [
+        {
+            **row,
+            "history_only": True,
+            "behavioral_learning_input": False,
+            "market_evidence": False,
+        }
+        for row in history_rows
+    ]
+
+    limitation = {
+        "summary": "Personal decision history is archival read-only — not a behavioral-learning training surface.",
+        "behavioral_learning": False,
+        "history_only": True,
+    }
+    contract = build_edge_ui_contract_core(spine=None, evidence_class="historical", material_limitation=limitation)
+    answer_state = "HISTORY_OBSERVABLE" if sanitized and not learning_rejected else "UNSUPPORTED_LEARNING_SCOPE_REJECTED"
+    if learning_rejected:
+        answer_state = "UNSUPPORTED_LEARNING_SCOPE_REJECTED"
+
+    return {
+        "contract": contract,
+        "answer_state": answer_state,
+        "decisions": sanitized if not learning_rejected else [],
+        "count": len(sanitized) if not learning_rejected else 0,
+        "tier": tier,
+        "history_only": True,
+        "behavioral_learning_rejected": learning_rejected,
+        "rejected_flags": unsupported_flags,
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def build_personal_history_disclosure(guarded: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "history_only": True,
+        "behavioral_learning_rejected": guarded.get("behavioral_learning_rejected"),
+        "runtime_guard_applied": True,
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def apply_discipline_mirror_guard(
+    mirror: dict[str, Any],
+    *,
+    params: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Launch #50 — reflective mirror only; user behavior is not market/financial evidence."""
+    p = dict(params or {})
+    unsupported_flags = sorted(flag for flag in _BEHAVIORAL_LEARNING_FLAGS if p.get(flag))
+    learning_rejected = bool(unsupported_flags)
+    base = dict(mirror) if isinstance(mirror, dict) else {}
+
+    reflective = {
+        **base,
+        "reflective_only": True,
+        "market_evidence": False,
+        "financial_truth": False,
+        "behavioral_learning_surface": False,
+        "private_coaching_only": True,
+        "presented_as_market_signal": False,
+    }
+    for key in ("hero_deepening",):
+        reflective.pop(key, None)
+
+    limitation = {
+        "summary": "Discipline mirror is private reflective coaching — not market evidence or financial truth.",
+        "reflective_only": True,
+    }
+    contract = build_edge_ui_contract_core(spine=None, evidence_class="reflective", material_limitation=limitation)
+    answer_state = "MIRROR_OBSERVABLE" if "error" not in base and not learning_rejected else "UNSUPPORTED_LEARNING_SCOPE_REJECTED"
+    if learning_rejected:
+        answer_state = "UNSUPPORTED_LEARNING_SCOPE_REJECTED"
+        reflective = {"error": "behavioral_learning_not_in_scope", "private": True, "reflective_only": True}
+
+    return {
+        "contract": contract,
+        "answer_state": answer_state,
+        "discipline_mirror": reflective,
+        "reflective_only": True,
+        "behavioral_learning_rejected": learning_rejected,
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def build_discipline_mirror_disclosure(guarded: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "reflective_only": True,
+        "market_evidence": False,
+        "behavioral_learning_rejected": guarded.get("behavioral_learning_rejected"),
+        "runtime_guard_applied": True,
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def apply_capability_library_guard(
+    entries: list[dict[str, Any]] | None,
+    *,
+    params: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Launch #52 — Launch-57 SSOT library only; no PARKED capabilities or second registry."""
+    p = dict(params or {})
+    inject_parked = bool(p.get("include_parked") or p.get("secondary_registry"))
+    rows = list(entries or [])
+
+    approved: list[dict[str, Any]] = []
+    rejected_parked: list[dict[str, Any]] = []
+    for row in rows:
+        ln = row.get("launch_number")
+        status = str(row.get("engineering_status") or "")
+        if not isinstance(ln, int) or ln < 1 or ln > 57:
+            continue
+        if status in _EXCLUDED_LIBRARY_STATUSES or inject_parked:
+            rejected_parked.append(row)
+            continue
+        approved.append(
+            {
+                "launch_number": ln,
+                "launch_name": row.get("launch_name"),
+                "engineering_status": status,
+                "handler_module": row.get("handler_module"),
+                "secondary_layer": True,
+                "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+                "canonical_identity_preserved": True,
+            }
+        )
+
+    limitation = {
+        "summary": "Secondary capability library derives from Launch-57 SSOT only — no PARKED items or parallel registry.",
+        "launch57_scope_only": True,
+        "separate_research_platform": False,
+    }
+    contract = build_edge_ui_contract_core(spine=None, evidence_class="catalog", material_limitation=limitation)
+    answer_state = "LIBRARY_GROUNDED" if approved and not inject_parked else "UNSUPPORTED_REGISTRY_SCOPE_REJECTED"
+    if inject_parked:
+        answer_state = "UNSUPPORTED_REGISTRY_SCOPE_REJECTED"
+
+    return {
+        "contract": contract,
+        "answer_state": answer_state,
+        "results": approved if not inject_parked else [],
+        "count": len(approved) if not inject_parked else 0,
+        "rejected_parked": rejected_parked,
+        "launch57_scope_only": True,
+        "secondary_layer": True,
+        "not_primary_home": True,
+        "no_second_registry": True,
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "methodology_version": METHODOLOGY_VERSION,
+    }
+
+
+def build_capability_library_disclosure(guarded: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "launch57_scope_only": True,
+        "no_second_registry": True,
+        "parked_excluded": True,
+        "ssot_derived": True,
+        "runtime_guard_applied": True,
         "methodology_version": METHODOLOGY_VERSION,
     }
