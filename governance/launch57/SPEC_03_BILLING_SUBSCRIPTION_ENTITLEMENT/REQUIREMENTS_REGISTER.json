@@ -1,0 +1,344 @@
+{
+  "artifact": "SPEC_03_REQUIREMENTS_REGISTER",
+  "domain": "SPEC_03_BILLING_SUBSCRIPTION_ENTITLEMENT",
+  "generated_at": "2026-09-18T23:19:37.013871+00:00",
+  "spec_version": "launch57-spec03-billing-subscription-entitlement-1.0.0",
+  "requirement_count": 26,
+  "requirements": [
+    {
+      "req_id": "REQ-S03-001",
+      "title": "BILLING_STATE != ENTITLEMENT_STATE",
+      "spec_section": "§3",
+      "launch_ids": [],
+      "owner_modules": [
+        "billing/subscription_engine.py"
+      ],
+      "tests": [
+        "test_billing_entitlement.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S03-002",
+      "title": "Canonical tier set FREE/PRO/ELITE/QUANT/INSTITUTIONAL",
+      "spec_section": "§2",
+      "launch_ids": [],
+      "owner_modules": [
+        "billing/plan_registry.py"
+      ],
+      "tests": [
+        "test_billing_subscription_engine.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S03-003",
+      "title": "FREE internal — no paid subscription required",
+      "spec_section": "§4",
+      "launch_ids": [],
+      "owner_modules": [
+        "billing/subscription_engine.py"
+      ],
+      "tests": [
+        "test_billing_subscription_engine.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S03-004",
+      "title": "Paid access requires verified payment evidence",
+      "spec_section": "§5",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/billing_entitlement_common.py"
+      ],
+      "tests": [
+        "test_spec03"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S03-005",
+      "title": "Canonical subscription flow (no webhook→tier shortcut)",
+      "spec_section": "§6",
+      "launch_ids": [],
+      "owner_modules": [
+        "billing/webhook_processor.py"
+      ],
+      "tests": [
+        "test_billing_subscription_engine.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S03-006",
+      "title": "Billing state model",
+      "spec_section": "§7",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/billing_entitlement_common.py"
+      ],
+      "tests": [
+        "test_billing_entitlement.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S03-007",
+      "title": "Entitlement state model",
+      "spec_section": "§8",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/billing_entitlement_common.py"
+      ],
+      "tests": [
+        "test_billing_entitlement.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S03-008",
+      "title": "Paid-through semantics",
+      "spec_section": "§9",
+      "launch_ids": [],
+      "owner_modules": [
+        "billing/subscription_engine.py"
+      ],
+      "tests": [
+        "test_billing_subscription_engine.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S03-009",
+      "title": "Product/price registry canonical",
+      "spec_section": "§10",
+      "launch_ids": [],
+      "owner_modules": [
+        "billing/plan_registry.py"
+      ],
+      "tests": [
+        "test_billing_subscription_engine.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S03-010",
+      "title": "Durable event inbox + idempotency",
+      "spec_section": "§22, §24",
+      "launch_ids": [],
+      "owner_modules": [
+        "transport_webhook_env/webhook_lifecycle.py"
+      ],
+      "tests": [
+        "test_spec03"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S03-011",
+      "title": "Webhook signature verification fail-closed",
+      "spec_section": "§23",
+      "launch_ids": [],
+      "owner_modules": [
+        "dashboard.py"
+      ],
+      "tests": [
+        "test_spec03"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S03-012",
+      "title": "Out-of-order event protection",
+      "spec_section": "§25",
+      "launch_ids": [],
+      "owner_modules": [
+        "billing/event_ordering.py"
+      ],
+      "tests": [
+        "test_spec03"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S03-013",
+      "title": "Financial arithmetic — no float for money",
+      "spec_section": "§26",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/billing_entitlement_common.py"
+      ],
+      "tests": [
+        "test_billing_entitlement.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S03-014",
+      "title": "Server-side capability enforcement",
+      "spec_section": "§27",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/billing_entitlement_common.py"
+      ],
+      "tests": [
+        "test_spec03"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S03-015",
+      "title": "ENTITLEMENT_CAPABILITY_SCOPE = LAUNCH57_IDS",
+      "spec_section": "§28",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/billing_entitlement_common.py"
+      ],
+      "tests": [
+        "test_billing_entitlement.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S03-016",
+      "title": "Tier variables separate from capabilities",
+      "spec_section": "§29",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/billing_entitlement_common.py"
+      ],
+      "tests": [
+        "test_billing_entitlement.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S03-017",
+      "title": "Anonymous/Free/Paid boundary alignment",
+      "spec_section": "§31",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/billing_entitlement_common.py"
+      ],
+      "tests": [
+        "test_spec03"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S03-018",
+      "title": "Reconciliation guard exists",
+      "spec_section": "§21",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/failure_recovery_common.py"
+      ],
+      "tests": [
+        "test_failure_recovery.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S03-019",
+      "title": "Payment failure grace — no blind instant revoke",
+      "spec_section": "§16",
+      "launch_ids": [],
+      "owner_modules": [
+        "billing/subscription_engine.py"
+      ],
+      "tests": [
+        "test_billing_subscription_engine.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S03-020",
+      "title": "Cancel at period end preserves paid-through",
+      "spec_section": "§18",
+      "launch_ids": [],
+      "owner_modules": [
+        "billing/subscription_engine.py"
+      ],
+      "tests": [
+        "test_billing_subscription_engine.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S03-021",
+      "title": "PCI — no raw card on BLACKDARK servers",
+      "spec_section": "§37",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/financial_security_common.py"
+      ],
+      "tests": [
+        "test_financial_security.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S03-022",
+      "title": "Audit trail on subscription transitions",
+      "spec_section": "§38",
+      "launch_ids": [],
+      "owner_modules": [
+        "billing/audit_ledger.py"
+      ],
+      "tests": [
+        "test_billing_subscription_engine.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S03-023",
+      "title": "Client tier param cannot unlock paid surfaces",
+      "spec_section": "§5, §27",
+      "launch_ids": [
+        33,
+        49
+      ],
+      "owner_modules": [
+        "launch57/edge_ui_batch1.py"
+      ],
+      "tests": [
+        "test_spec03"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S03-024",
+      "title": "Independent verification adversarial probes",
+      "spec_section": "§45",
+      "launch_ids": [],
+      "owner_modules": [],
+      "tests": [
+        "test_spec03"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S03-025",
+      "title": "PASS_LIVE not claimed",
+      "spec_section": "§46",
+      "launch_ids": [],
+      "owner_modules": [],
+      "tests": [],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S03-026",
+      "title": "Acceptance criteria AC01–AC20 engineering gate",
+      "spec_section": "§49",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/billing_entitlement_common.py"
+      ],
+      "tests": [
+        "test_billing_entitlement.py"
+      ],
+      "mandatory": true
+    }
+  ]
+}

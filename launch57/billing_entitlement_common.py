@@ -143,6 +143,25 @@ _TIER_VARIABLES: dict[int, dict[str, Any]] = {
     52: {"search_depth": "public", "variable": "library_search"},
 }
 
+# Minimum paid tier for Launch-57 surfaces that must not unlock on client tier params alone.
+MINIMUM_PAID_TIER_BY_LAUNCH_ITEM: dict[int, str] = {
+    33: "pro",
+    51: "pro",
+}
+
+_INVALID_PAID_GRANT_SOURCES = frozenset(
+    {
+        "checkout_redirect",
+        "success_page",
+        "query_parameter",
+        "client_state",
+        "unsigned_webhook",
+        "stale_provider_cache",
+        "self_asserted_tier",
+        "client_tier_param",
+    }
+)
+
 
 def _git_sha(short: bool = True) -> str:
     try:
@@ -283,6 +302,166 @@ def verify_launch57_capability_scope(launch_item_id: int) -> dict[str, Any]:
     }
 
 
+def resolve_effective_entitlement_tier(
+    params: dict[str, Any] | None = None,
+    *,
+    subscription: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Server-side tier resolution — client tier params never grant paid access alone (§5, §27)."""
+    from launch57.identity_auth_common import resolve_auth_context
+
+    try:
+        from billing.plan_registry import normalize_plan, plan_rank
+    except Exception:
+        return {
+            "effective_tier": "free",
+            "requested_tier": "free",
+            "verified": False,
+            "client_tier_honored": False,
+            "unverified_paid_claim": True,
+            "source": "plan_registry_unavailable",
+            "fail_closed": True,
+        }
+
+    p = dict(params or {})
+    auth = resolve_auth_context(p)
+    requested = normalize_plan(str(p.get("tier") or "free"))
+    has_billing_proof = subscription is not None or bool(p.get("verified_subscription_tier"))
+
+    verified_tier = "free"
+    source = "internal_free_default"
+    verified = True
+
+    if subscription is not None:
+        from billing.subscription_engine import effective_plan, entitlement_allowed
+
+        if entitlement_allowed(subscription):
+            verified_tier = normalize_plan(effective_plan(subscription))
+            source = "subscription_projection"
+            verified = True
+    elif p.get("verified_subscription_tier"):
+        verified_tier = normalize_plan(str(p["verified_subscription_tier"]))
+        source = "verified_subscription_param"
+        verified = True
+    elif auth.get("anonymous") and not has_billing_proof:
+        return {
+            "effective_tier": "free",
+            "requested_tier": requested,
+            "verified": requested == "free",
+            "client_tier_honored": requested == "free",
+            "unverified_paid_claim": plan_rank(requested) > plan_rank("free"),
+            "source": "anonymous_free_only",
+            "anonymous": True,
+            "fail_closed": plan_rank(requested) > plan_rank("free"),
+        }
+    elif plan_rank(requested) > plan_rank("free"):
+        verified_tier = "free"
+        source = "client_tier_rejected"
+        verified = False
+
+    req_rank = plan_rank(requested)
+    eff_rank = plan_rank(verified_tier)
+    effective = verified_tier if req_rank > eff_rank else requested
+
+    return {
+        "effective_tier": effective,
+        "requested_tier": requested,
+        "verified_tier": verified_tier,
+        "verified": verified or effective == "free",
+        "client_tier_honored": requested == effective and verified,
+        "unverified_paid_claim": req_rank > eff_rank and not verified,
+        "source": source,
+        "anonymous": False,
+        "fail_closed": req_rank > eff_rank and not verified,
+    }
+
+
+def apply_entitlement_gated_params(
+    params: dict[str, Any] | None = None,
+    *,
+    subscription: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Mutate params with server-resolved tier before handler logic runs."""
+    p = dict(params or {})
+    resolution = resolve_effective_entitlement_tier(p, subscription=subscription)
+    p["tier"] = resolution["effective_tier"]
+    p["_entitlement_resolution"] = resolution
+    return p
+
+
+def enforce_launch57_entitlement(
+    *,
+    launch_item_id: int,
+    params: dict[str, Any] | None = None,
+    subscription: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Fail-closed Launch-57 entitlement gate (§27–§28, §31)."""
+    try:
+        from billing.plan_registry import normalize_plan, plan_rank
+    except Exception:
+        return {
+            "launch_item_id": launch_item_id,
+            "allowed": False,
+            "fail_closed": True,
+            "reason": "plan_registry_unavailable",
+            "server_side_enforced": True,
+        }
+
+    p = apply_entitlement_gated_params(params, subscription=subscription)
+    resolution = p["_entitlement_resolution"]
+    scope = verify_launch57_capability_scope(launch_item_id)
+    minimum = MINIMUM_PAID_TIER_BY_LAUNCH_ITEM.get(launch_item_id)
+    effective = normalize_plan(str(p.get("tier") or "free"))
+
+    allowed = scope["in_launch57_scope"]
+    reason = "ok" if allowed else "out_of_launch57_scope"
+
+    if resolution.get("anonymous") and launch_item_id in {32, 33, 49, 50}:
+        allowed = False
+        reason = "anonymous_paid_or_private_surface"
+
+    if resolution.get("unverified_paid_claim"):
+        allowed = False
+        reason = "unverified_paid_tier_claim"
+
+    if minimum and allowed and plan_rank(effective) < plan_rank(minimum):
+        allowed = False
+        reason = f"minimum_tier_{minimum}_required"
+
+    return {
+        "launch_item_id": launch_item_id,
+        "allowed": allowed,
+        "fail_closed": not allowed,
+        "reason": reason,
+        "effective_tier": effective,
+        "minimum_tier": minimum,
+        "entitlement_resolution": resolution,
+        "launch57_scope": scope,
+        "server_side_enforced": True,
+    }
+
+
+def build_entitlement_denied_body(
+    *,
+    launch_item_id: int,
+    surface: str,
+    gate: dict[str, Any],
+    symbol: str = "BTC",
+) -> dict[str, Any]:
+    """Standard fail-closed payload when entitlement gate denies access."""
+    return {
+        "launch_item_id": launch_item_id,
+        "surface": surface,
+        "symbol": symbol,
+        "success": False,
+        "entitlement_denied": True,
+        "entitlement_gate": gate,
+        "answer_state": "ENTITLEMENT_DENIED",
+        "reason": gate.get("reason"),
+        "server_side_enforced": True,
+    }
+
+
 def verify_capability_entitlement(
     *,
     launch_item_id: int,
@@ -389,7 +568,9 @@ def attach_billing_entitlement_envelope(
     """Attach billing/entitlement metadata without creating a product surface."""
     out = dict(body)
     launch_id = launch_item_id or int(out.get("launch_item_id") or 0)
-    billing_ctx = resolve_billing_context(params, body=out)
+    p = dict(params or {})
+    resolution = resolve_effective_entitlement_tier(p)
+    billing_ctx = resolve_billing_context({**p, "tier": resolution["effective_tier"]}, body=out)
 
     separation = verify_billing_entitlement_separation(
         billing_state=billing_ctx["billing_state"],
@@ -397,13 +578,12 @@ def attach_billing_entitlement_envelope(
     )
     entitlement_check = verify_capability_entitlement(
         launch_item_id=launch_id,
-        requested_tier=billing_ctx["tier"],
-        effective_tier=billing_ctx["tier"],
+        requested_tier=resolution["requested_tier"],
+        effective_tier=resolution["effective_tier"],
     )
-    tier_is_free = billing_ctx["tier"] == "free"
     unverified_check = verify_no_unverified_paid_grant(
-        grant_source="server_evaluated" if tier_is_free else "client_tier_param",
-        verified=tier_is_free,
+        grant_source="client_tier_param" if resolution.get("unverified_paid_claim") else "server_evaluated",
+        verified=resolution.get("verified", False),
     )
     reconciliation = build_reconciliation_context()
 
@@ -415,6 +595,7 @@ def attach_billing_entitlement_envelope(
         "internal_support_only": True,
         "launch_item_id": launch_id or None,
         "billing_context": billing_ctx,
+        "entitlement_resolution": resolution,
         "billing_entitlement_separation": separation,
         "capability_entitlement": entitlement_check,
         "unverified_grant_check": unverified_check,

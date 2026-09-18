@@ -309,9 +309,27 @@ async def mvrv_mvrv_z_score_suite(*, symbol: str, params: dict[str, Any] | None 
 
 async def personal_decision_history(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
     """Launch #49 — personal decision history (limited Free tier)."""
-    p = dict(params or {})
+    from launch57.billing_entitlement_common import (
+        apply_entitlement_gated_params,
+        attach_billing_entitlement_envelope,
+        build_entitlement_denied_body,
+        enforce_launch57_entitlement,
+    )
+
+    p = apply_entitlement_gated_params(dict(params or {}))
+    gate = enforce_launch57_entitlement(launch_item_id=49, params=p)
+    if not gate["allowed"]:
+        denied = build_entitlement_denied_body(
+            launch_item_id=49,
+            surface="personal_decision_history",
+            gate=gate,
+            symbol=str(p.get("symbol") or symbol or "BTC"),
+        )
+        return attach_billing_entitlement_envelope(denied, launch_item_id=49, params=p)
     tier = str(p.get("tier") or "free").lower()
     limit = int(p.get("limit") or free_tier_history_limit())
+    if tier == "free":
+        limit = min(limit, free_tier_history_limit())
     rows = read_decision_history_rows(limit=limit, tier=tier)
     guarded = apply_personal_history_guard(rows, params=p, tier=tier)
 

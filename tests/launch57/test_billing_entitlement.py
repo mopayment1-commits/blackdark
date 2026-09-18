@@ -109,7 +109,8 @@ def test_attach_envelope_reports_unverified_paid_tier_param():
     )
     envelope = out["launch57_billing_entitlement"]
     assert envelope["unverified_grant_check"]["verified"] is False
-    assert envelope["billing_context"]["tier"] == "pro"
+    assert envelope["billing_context"]["tier"] == "free"
+    assert envelope["entitlement_resolution"]["unverified_paid_claim"] is True
 
 
 def test_touchpoint_matrix():
@@ -134,6 +135,22 @@ def test_record_billing_signal(tmp_path, monkeypatch):
     lines = store.read_text(encoding="utf-8").strip().splitlines()
     assert len(lines) == 1
     assert json.loads(lines[0])["launch_item_id"] == 33
+
+
+def test_resolve_effective_tier_caps_client_pro():
+    from launch57.billing_entitlement_common import resolve_effective_entitlement_tier
+
+    row = resolve_effective_entitlement_tier({"tier": "pro"})
+    assert row["effective_tier"] == "free"
+    assert row["unverified_paid_claim"] is True
+
+
+def test_enforce_launch57_entitlement_smart_alerts():
+    from launch57.billing_entitlement_common import enforce_launch57_entitlement
+
+    gate = enforce_launch57_entitlement(launch_item_id=33, params={"tier": "pro"})
+    assert gate["allowed"] is False
+    assert gate["server_side_enforced"] is True
 
 
 def test_acceptance_criteria_engineering_gate():

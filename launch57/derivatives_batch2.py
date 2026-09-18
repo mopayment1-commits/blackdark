@@ -359,7 +359,24 @@ async def smart_alerts_composite(*, symbol: str, params: dict[str, Any] | None =
     from instant_alert_engine import engine_stats
     from whale_tracker import get_latest_whale_alerts
 
-    p = dict(params or {})
+    from launch57.billing_entitlement_common import (
+        apply_entitlement_gated_params,
+        attach_billing_entitlement_envelope,
+        build_entitlement_denied_body,
+        enforce_launch57_entitlement,
+    )
+
+    p = apply_entitlement_gated_params(dict(params or {}))
+    gate = enforce_launch57_entitlement(launch_item_id=33, params=p)
+    if not gate["allowed"]:
+        denied = build_entitlement_denied_body(
+            launch_item_id=33,
+            surface="smart_alerts",
+            gate=gate,
+            symbol=str(p.get("symbol") or symbol or "BTC"),
+        )
+        return attach_billing_entitlement_envelope(denied, launch_item_id=33, params=p)
+
     blocked, spine = await _gated(
         capability_id=17,
         launch_item_id=33,
@@ -371,6 +388,7 @@ async def smart_alerts_composite(*, symbol: str, params: dict[str, Any] | None =
     if blocked:
         return blocked
 
+    effective_tier = str(p.get("tier") or "free")
     price = float(spine.get("price") or 0)
     change = float(spine.get("change_24h") or 0)
     exchange, netflow = exchange_netflow_probe(p, spine["symbol"])
@@ -397,7 +415,7 @@ async def smart_alerts_composite(*, symbol: str, params: dict[str, Any] | None =
         "threshold": float(p.get("whale_threshold") or 1),
     }
     decision_alert = evaluate_contextual_alert_65(
-        user_tier=str(p.get("tier") or "pro"),
+        user_tier=effective_tier,
         price=price,
         opportunity_level=float(p.get("opportunity_level") or 6.0),
         volume_zscore=float(p.get("volume_zscore") or 1.5),
@@ -405,9 +423,9 @@ async def smart_alerts_composite(*, symbol: str, params: dict[str, Any] | None =
     ) if price > 0 else {"alert_fired": False, "reason": "price_unavailable"}
 
     evaluations = {
-        "price": evaluate_flexible_alert_75(user_tier=str(p.get("tier") or "pro"), trigger=price_trigger),
-        "flow": evaluate_flexible_alert_75(user_tier=str(p.get("tier") or "pro"), trigger=flow_trigger),
-        "whale": evaluate_flexible_alert_75(user_tier=str(p.get("tier") or "pro"), trigger=whale_trigger),
+        "price": evaluate_flexible_alert_75(user_tier=effective_tier, trigger=price_trigger),
+        "flow": evaluate_flexible_alert_75(user_tier=effective_tier, trigger=flow_trigger),
+        "whale": evaluate_flexible_alert_75(user_tier=effective_tier, trigger=whale_trigger),
         "decision": decision_alert,
     }
     triggers = {
