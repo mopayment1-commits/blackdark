@@ -15,6 +15,7 @@ from launch57.decision_timing_common import (
     snapshot_decision_time_evidence_state,
 )
 from launch57.evidence_class_common import attach_evidence_class_metadata
+from launch57.teis_support_common import attach_teis_support_envelope
 
 B4_DECISION_TIMING_ACTIVATED: bool = True
 
@@ -43,7 +44,7 @@ def apply_b4_trust_envelope(body: dict[str, Any], *, display_timezone: str | Non
         ),
     }
     out["b4_decision_timing"] = b4_decision_timing_state()
-    return finalize_b4_response(out)
+    return finalize_b4_response(attach_teis_support_envelope(out))
 
 
 def finalize_b4_decision_surface(
@@ -69,4 +70,4 @@ def finalize_b4_decision_surface(
     out["decision_time_evidence_state"] = evidence.to_payload()
     out = attach_decision_temporal_envelope(out, timing)
     out["b4_decision_timing"] = b4_decision_timing_state()
-    return finalize_b4_response(out)
+    return finalize_b4_response(attach_teis_support_envelope(out))

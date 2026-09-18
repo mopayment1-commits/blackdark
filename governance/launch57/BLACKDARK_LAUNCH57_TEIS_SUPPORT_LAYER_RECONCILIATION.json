@@ -1,0 +1,184 @@
+{
+  "artifact": "BLACKDARK_LAUNCH57_TEIS_SUPPORT_LAYER_RECONCILIATION",
+  "generated_at": "2026-09-18T14:07:28.353879+00:00",
+  "implementation_sha": "2db8f8e7",
+  "teis_version": "launch57-teis-1.0.0",
+  "scope": "LAUNCH57_IDS",
+  "internal_support_only": true,
+  "governing_spec": "BLACKDARK_Launch57_Temporal_Evidence_Intelligence_Support_Layer.md",
+  "temporal_b1_b15_pass_engineering": true,
+  "internal_components": [
+    {
+      "component_id": "temporal_envelope",
+      "owner_path": "launch57/temporal_common.py",
+      "consumer_capability_ids": [
+        22,
+        23,
+        24,
+        39,
+        40,
+        41
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": false,
+      "standalone_capability": false,
+      "evidence_class": "INTERNAL_SUPPORT_ONLY",
+      "source_sha": "2db8f8e7",
+      "teis_version": "launch57-teis-1.0.0"
+    },
+    {
+      "component_id": "evidence_class_mapping",
+      "owner_path": "launch57/evidence_class_common.py",
+      "consumer_capability_ids": [
+        6,
+        4,
+        45,
+        2,
+        3
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": false,
+      "standalone_capability": false,
+      "evidence_class": "INTERNAL_SUPPORT_ONLY",
+      "source_sha": "2db8f8e7",
+      "teis_version": "launch57-teis-1.0.0"
+    },
+    {
+      "component_id": "point_in_time_store",
+      "owner_path": "launch57/point_in_time_common.py",
+      "consumer_capability_ids": [
+        39
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": false,
+      "standalone_capability": false,
+      "evidence_class": "INTERNAL_SUPPORT_ONLY",
+      "source_sha": "2db8f8e7",
+      "teis_version": "launch57-teis-1.0.0"
+    },
+    {
+      "component_id": "decision_timing",
+      "owner_path": "launch57/decision_timing_common.py",
+      "consumer_capability_ids": [
+        2,
+        3,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        37
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": false,
+      "standalone_capability": false,
+      "evidence_class": "INTERNAL_SUPPORT_ONLY",
+      "source_sha": "2db8f8e7",
+      "teis_version": "launch57-teis-1.0.0"
+    },
+    {
+      "component_id": "public_accuracy_boundary",
+      "owner_path": "launch57/public_accuracy_common.py",
+      "consumer_capability_ids": [
+        4,
+        45
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": false,
+      "standalone_capability": false,
+      "evidence_class": "INTERNAL_SUPPORT_ONLY",
+      "source_sha": "2db8f8e7",
+      "teis_version": "launch57-teis-1.0.0"
+    },
+    {
+      "component_id": "teis_outcome_contract",
+      "owner_path": "launch57/teis_support_common.py",
+      "consumer_capability_ids": [
+        2,
+        4,
+        7,
+        9,
+        10,
+        11,
+        12,
+        33,
+        37
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": false,
+      "standalone_capability": false,
+      "evidence_class": "INTERNAL_SUPPORT_ONLY",
+      "source_sha": "2db8f8e7",
+      "teis_version": "launch57-teis-1.0.0"
+    },
+    {
+      "component_id": "teis_failure_corpus",
+      "owner_path": "launch57/teis_support_common.py",
+      "consumer_capability_ids": [
+        2,
+        10,
+        48,
+        50
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": false,
+      "standalone_capability": false,
+      "evidence_class": "INTERNAL_SUPPORT_ONLY",
+      "source_sha": "2db8f8e7",
+      "teis_version": "launch57-teis-1.0.0"
+    },
+    {
+      "component_id": "teis_reproducibility_manifest",
+      "owner_path": "launch57/teis_support_common.py",
+      "consumer_capability_ids": [
+        2,
+        3,
+        4,
+        7,
+        37
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": false,
+      "standalone_capability": false,
+      "evidence_class": "INTERNAL_SUPPORT_ONLY",
+      "source_sha": "2db8f8e7",
+      "teis_version": "launch57-teis-1.0.0"
+    }
+  ],
+  "acceptance_criteria_27": {
+    "no_new_capability_in_launch57_ids": true,
+    "no_parallel_roadmap": true,
+    "all_internal_components_mapped": true,
+    "unmapped_components_unbuilt": true,
+    "evidence_mapping_deterministic": true,
+    "replay_shadow_cannot_become_live": true,
+    "public_accuracy_live_only_boundary": true,
+    "temporal_leakage_testable": true,
+    "reproducibility_tied_to_sha": true,
+    "independent_verification_separate": true,
+    "no_support_component_grants_pass": true,
+    "no_public_parked_exposure": true,
+    "cap43_blocked_without_cap5": true,
+    "cap38_source_conditional": true,
+    "cap36_platform_grounded": true,
+    "cap57_no_solvency_cert": true,
+    "phase8_coherence_mandatory": true,
+    "pre_live_governed_by_launch57": true
+  },
+  "acceptance_all_pass": true,
+  "parked_out_of_launch": [
+    "user_facing_market_time_machine",
+    "standalone_learning_value_engine",
+    "standalone_champion_challenger_product",
+    "legacy_failure_corpus_direct_path",
+    "phase_ii_iii_data_moat"
+  ],
+  "reuse_paths": {
+    "temporal": "launch57/temporal_common.py + B1-B15 batches",
+    "evidence_class": "launch57/evidence_class_common.py (#6)",
+    "pit": "launch57/point_in_time_common.py (#39)",
+    "public_accuracy": "launch57/public_accuracy_common.py (#4/#45)",
+    "decision_timing": "launch57/decision_timing_common.py"
+  }
+}
