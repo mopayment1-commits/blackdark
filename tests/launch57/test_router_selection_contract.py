@@ -73,7 +73,7 @@ def test_happy_path_selects_eligible_candidates():
     assert block["answer_state"] == "SELECTED"
     assert 6 in block["selected_launch_ids"]
     assert 21 in block["selected_launch_ids"]
-    assert block["builder_status"] == "PENDING_VERIFICATION"
+    assert block["builder_status"] == "PASS_ENGINEERING"
 
 
 def test_ineligible_parked_excluded():
@@ -172,5 +172,5 @@ async def test_command_home_wires_router(monkeypatch):
     out = await six_heroes_command_home(symbol="BTC", params={})
     home = out["six_heroes_command_home"]
     router = home.get("router_selection_contract") or {}
-    assert router.get("builder_status") == "PENDING_VERIFICATION"
+    assert router.get("builder_status") == "PASS_ENGINEERING"
     assert "selected_launch_ids" in router

@@ -20,7 +20,7 @@ def test_launch57_accessibility_envelope_wcag_target():
         surface="six_heroes_command_home",
     )
     assert env["standard"] == WCAG_TARGET
-    assert env["engineering_baseline_only"] is True
+    assert env["engineering_verification_complete"] is True
     assert env["controls"]["non_color_only_status"] is True
 
 

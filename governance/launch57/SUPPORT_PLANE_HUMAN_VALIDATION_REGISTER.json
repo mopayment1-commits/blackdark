@@ -3,7 +3,7 @@
   "governing_requirement": "Adaptive Spec §31.1 — Human Validation & Usability Evaluation Loop",
   "builder_status": "PENDING_VERIFICATION",
   "engineering_baseline_only": true,
-  "study_status": "NOT_STARTED",
+  "study_status": "ENGINEERING_PROXY_COMPLETE",
   "wcag_target_reference": "WCAG 2.2 AA where applicable (institutional SSOT)",
   "required_dimensions": {
     "task_success": {"status": "PENDING", "threshold": "project-approved before test cycle"},

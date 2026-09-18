@@ -1728,19 +1728,22 @@
             applyLang();
             bindLensBar();
             applyAudienceFromQuery();
-            loadCommandHome(true).then(() => loadHalfLifeClock());
+            loadCommandHome(true).then(() => { if (currentLens === 'desk') loadHalfLifeClock(); });
             startTrustPulseStream();
             startDashboardStream();
             initChart();
             loadChart();
             loadMarket();
             loadOI();
-            loadArbitrage(false);
-            loadWhales(false);
+            if (currentLens === 'desk') {
+                loadArbitrage(false);
+                loadWhales(false);
+                loadMevReport();
+                runStealthAdvisor();
+                loadHalfLifeClock();
+            }
             loadDailyReport();
             loadSubscriberValue();
-            loadMevReport();
-            runStealthAdvisor();
             applyAntiHypeClass();
             loadSinceYouLeft();
             loadTgStatus();

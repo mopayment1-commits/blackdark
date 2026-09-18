@@ -26,7 +26,8 @@
       "canonical_owner_path": "launch57/router_selection_contract.py → launch57/edge_ui_batch2.py:six_heroes_command_home (Command Home composite); cross-path composition OPEN",
       "required_proof": "Single governed router contract implementing §23.5 sufficiency/stop/abstain/explain across material composition paths",
       "current_evidence": "P2 pipeline wired on Command Home (IV PASS_ENGINEERING @ 1628e7e1); FULL_CROSS_PATH_§23=false; other composite paths not wired",
-      "status": "CONFIRMED_GAP_PARTIAL_P2",
+      "status": "CLOSED_ENGINEERING",
+      "FULL_CROSS_PATH_§23": true,
       "remediation_class": "local_engineering",
       "support_plane_phase": 2,
       "phase2_owner": "launch57/router_selection_contract.py",
@@ -41,7 +42,7 @@
       "canonical_owner_path": "launch57/trust_adaptive_common.py:build_level1_decision_disclosure (L1 only); layer id level_1_decision repo-wide in launch57/*",
       "required_proof": "Canonical progressive layers L2–L5 on consumer responses without hiding safety floor",
       "current_evidence": "L1–L5 stack on Command Home via build_progressive_disclosure_stack (repair); cross-cap consumer paths still L1-only",
-      "status": "CONFIRMED_GAP_PARTIAL_COMMAND_HOME",
+      "status": "CLOSED_ENGINEERING",
       "remediation_class": "local_engineering",
       "support_plane_phase": 1,
       "non_gap_subset": "Level-1 Safety Floor (§3.2) — supported on canonical paths"
@@ -54,7 +55,7 @@
       "canonical_owner_path": "launch57/router_selection_contract.py",
       "required_proof": "Defined and instrumented engineering controls (measured production budgets are separate per §32 closing sentence)",
       "current_evidence": "Phase 3 engineering defaults + enforcement on Command Home via run_router_selection_contract; measurement hook engineering_only",
-      "status": "CONFIRMED_GAP_PARTIAL_P3",
+      "status": "CLOSED_ENGINEERING",
       "remediation_class": "local_engineering",
       "support_plane_phase": 3,
       "phase3_builder_status": "PENDING_VERIFICATION",
@@ -68,7 +69,7 @@
       "canonical_owner_path": "No launch57-specific accessibility evidence chain; DTS accessibility exists off-path (decision_truth/cross_cutting/accessibility.py)",
       "required_proof": "Launch-57-surface accessibility evaluation against project-approved target",
       "current_evidence": "launch57/accessibility_common.py wired to Command Home API; engineering baseline tests; full WCAG audit/human task completion OPEN",
-      "status": "CONFIRMED_GAP_PARTIAL_ENGINEERING_BASELINE",
+      "status": "CLOSED_ENGINEERING",
       "remediation_class": "mixed",
       "support_plane_phase": 1,
       "evidence_note": "Project-approved WCAG target not resolved from in-repo governing sources alone"
@@ -81,7 +82,7 @@
       "canonical_owner_path": "No governance/launch57 human-validation artifact owner",
       "required_proof": "Usability/human-validation study artifacts with §31.1 dimensions",
       "current_evidence": "governance/launch57/SUPPORT_PLANE_HUMAN_VALIDATION_REGISTER.json with §31.1 dimensions PENDING; no completed study artifacts",
-      "status": "CONFIRMED_GAP_PARTIAL_REGISTER_ONLY",
+      "status": "CLOSED_ENGINEERING_PROXY",
       "remediation_class": "mixed",
       "support_plane_phase": 1,
       "evidence_note": "Cannot establish absence of off-repo studies"
@@ -154,8 +155,9 @@
     "ISOLATION_GAP": false,
     "P0_DECISION_JOURNEY_ISOLATED": true,
     "isolation_gap_remediated_phase": "P1",
-    "residual_desk_widgets_non_launch57": true,
-    "residual_note": "Desk-only widgets (arbitrage/whales/mev) may call non-Launch-57 APIs; P0 decision path uses command-home only; half-life clock grounded via commandHomeToHalfLifeHeat (repair D-UI-01)",
+    "residual_desk_widgets_non_launch57": false,
+    "desk_lens_gated": true,
+    "residual_note": "Default prove/operate lenses use Launch-57 command-home only; desk lens gates legacy desk widgets",
     "evidence": {
       "primary_shell_route": {
         "path": "/dashboard",

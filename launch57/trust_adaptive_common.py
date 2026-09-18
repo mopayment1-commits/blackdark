@@ -335,11 +335,33 @@ def attach_adaptive_disclosure(
     *,
     extra: dict[str, Any] | None = None,
     progressive_stack: dict[str, Any] | None = None,
+    params: dict[str, Any] | None = None,
+    apply_full_support_plane: bool = True,
 ) -> dict[str, Any]:
+    """Attach adaptive disclosure; optionally apply full support-plane envelope."""
+    if apply_full_support_plane and progressive_stack is None:
+        from launch57.support_plane_envelope import finalize_launch57_consumer_response
+
+        return finalize_launch57_consumer_response(body, disclosure, extra=extra, params=params)
     out = dict(body)
     block = dict(extra or {})
     if progressive_stack:
         block.update(progressive_stack)
+    elif disclosure.get("layer") == "level_1_decision":
+        launch_item_id = int(disclosure.get("launch_item_id") or body.get("launch_item_id") or 0)
+        surface = str(disclosure.get("surface") or body.get("surface") or "")
+        if launch_item_id and surface:
+            stack = build_progressive_disclosure_stack(
+                out,
+                launch_item_id=launch_item_id,
+                surface=surface,
+                answer_state=disclosure.get("answer_state"),
+                evidence_display=out.get("evidence_display"),
+                uncertainty=disclosure.get("uncertainty"),
+            )
+            block.update(stack)
+        else:
+            block["level_1"] = disclosure
     else:
         block["level_1"] = disclosure
     out["adaptive_disclosure"] = block

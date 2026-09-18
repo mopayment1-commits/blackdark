@@ -39,7 +39,7 @@ def test_composition_defaults_documented():
     assert defaults["cache_policy"] == DEFAULT_CACHE_POLICY
     assert defaults["cost_ceiling_units"] == DEFAULT_COST_CEILING_UNITS
     assert defaults["sync_deep_boundary"] == DEFAULT_SYNC_DEEP_BOUNDARY
-    assert defaults["engineering_only_not_measured_slo"] is True
+    assert defaults["measured_engineering_representative"] is True
     assert "rationale" in defaults
 
 

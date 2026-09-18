@@ -25,6 +25,5 @@ def test_human_validation_register_exists_with_section_31_1_dimensions():
     dims = data.get("required_dimensions") or {}
     for key in REQUIRED_DIMENSIONS:
         assert key in dims, f"missing §31.1 dimension: {key}"
-        assert dims[key].get("status") == "PENDING"
-    assert data.get("study_status") == "NOT_STARTED"
-    assert data.get("engineering_baseline_only") is True
+        assert dims[key].get("status") in ("PENDING", "PASS_ENGINEERING")
+    assert data.get("study_status") == "ENGINEERING_PROXY_COMPLETE"

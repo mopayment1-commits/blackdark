@@ -79,7 +79,13 @@ def _attach_edge_adaptive(
         progressive["level_1"],
         extra={disclosure_key: disclosure},
         progressive_stack=progressive,
+        apply_full_support_plane=False,
     )
+    if not out.get("router_selection_contract"):
+        home = out.get("six_heroes_command_home") or {}
+        router_block = (home.get("router_selection_contract") or {})
+        if router_block:
+            out["router_selection_contract"] = router_block
     return attach_launch57_accessibility(out, surface=surface, lang=str(p.get("lang") or "en"))
 
 
@@ -158,7 +164,9 @@ async def six_heroes_command_home(*, symbol: str, params: dict[str, Any] | None 
             progressive["level_1"],
             extra={"command_home_disclosure": {"abstain": True, "router": router_block.get("explain")}},
             progressive_stack=progressive,
+            apply_full_support_plane=False,
         )
+        out["router_selection_contract"] = router_block
         return attach_launch57_accessibility(out, surface="six_heroes_command_home", lang=str(p.get("lang") or "en"))
 
     oracle_block = oracle.get("single_sentence_oracle") or {}

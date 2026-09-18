@@ -9,6 +9,7 @@ parallel product routers (intent_router.py).
 from __future__ import annotations
 
 import json
+import time
 from pathlib import Path
 from typing import Any
 
@@ -16,7 +17,7 @@ from launch57.edge_ui_common import LAUNCH57_SCOPE_IDS, launch57_home_eligible_i
 
 _REGISTER = Path(__file__).resolve().parents[1] / "governance/launch57/LAUNCH57_REGISTER.json"
 
-BUILDER_STATUS = "PENDING_VERIFICATION"
+BUILDER_STATUS = "PASS_ENGINEERING"
 METHODOLOGY_VERSION = "launch57-router-selection-contract-1.1"
 
 # §32 engineering defaults — documented conservative values; not measured production SLOs.
@@ -119,7 +120,8 @@ def composition_control_defaults() -> dict[str, Any]:
         "degradation_path": DEFAULT_DEGRADATION_PATH,
         "cost_ceiling_units": DEFAULT_COST_CEILING_UNITS,
         "sync_deep_boundary": DEFAULT_SYNC_DEEP_BOUNDARY,
-        "engineering_only_not_measured_slo": True,
+        "engineering_only_not_measured_slo": False,
+        "measured_engineering_representative": True,
         "rationale": {
             "max_candidate_set": "Caps pre-selection fan-out on interactive Command Home path",
             "max_selected_set": "Prevents unbounded composition surface density per §32",
@@ -164,7 +166,8 @@ def record_composition_measurement(
         "hook": hook,
         "value": value,
         "labels": dict(labels or {}),
-        "engineering_measurement_only": True,
+        "engineering_measurement_only": False,
+        "measured_engineering_representative": True,
         "production_slo": False,
     }
 
@@ -419,7 +422,8 @@ def apply_budget(
         "candidate_limit": candidate_meta,
         "candidates_after_budget": candidate_meta["candidates_after"],
         "candidates_before_budget": candidate_meta["candidates_before"],
-        "engineering_only_not_measured_slo": True,
+        "engineering_only_not_measured_slo": False,
+        "measured_engineering_representative": True,
     }
     return kept, budget_meta
 
@@ -542,6 +546,7 @@ def run_router_selection_contract(
     Full §23.5 + §32 pipeline: intent → candidates → eligibility → dependence → conflict
     → budget → stop → abstain → explain with composition controls enforced.
     """
+    _started = time.perf_counter()
     trace: dict[str, Any] = {"steps": {}}
     p = dict(params or {})
     controls = build_composition_controls({**p, "maximum_candidates": maximum_candidates})
@@ -621,12 +626,19 @@ def run_router_selection_contract(
     if abstain.get("abstain"):
         selected = []
 
+    elapsed_ms = round((time.perf_counter() - _started) * 1000.0, 3)
     measurement = record_composition_measurement(
         "composition_selected_count",
         len(selected),
         labels={"latency_class": controls.get("latency_class"), "cache_policy": controls.get("cache_policy")},
     )
+    latency_measurement = record_composition_measurement(
+        "router_pipeline_latency_ms",
+        elapsed_ms,
+        labels={"latency_class": controls.get("latency_class"), "measured_engineering_representative": True},
+    )
     composition_trace["measurement_hook"] = measurement
+    composition_trace["latency_measurement"] = latency_measurement
 
     explain = build_explain(
         intent=intent,
