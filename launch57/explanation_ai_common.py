@@ -68,10 +68,17 @@ def attach_explanation_ai_envelope(
         surface_type="ai",
         launch_item_id=launch_id or None,
     )
-    return attach_identity_auth_envelope(
+    from launch57.billing_entitlement_common import attach_billing_entitlement_envelope
+
+    out = attach_identity_auth_envelope(
         out,
         launch_item_id=launch_id or None,
         surface_type="internal",
+        params=params,
+    )
+    return attach_billing_entitlement_envelope(
+        out,
+        launch_item_id=launch_id or None,
         params=params,
     )
 

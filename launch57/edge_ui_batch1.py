@@ -352,12 +352,15 @@ async def personal_decision_history(*, symbol: str, params: dict[str, Any] | Non
         disclosure_key="personal_history_disclosure",
         disclosure=disclosure,
     )
-    return attach_identity_auth_envelope(
+    from launch57.billing_entitlement_common import attach_billing_entitlement_envelope
+
+    adapted = attach_identity_auth_envelope(
         adapted,
         launch_item_id=49,
         surface_type="private",
         params=p,
     )
+    return attach_billing_entitlement_envelope(adapted, launch_item_id=49, params=p)
 
 
 async def discipline_mirror_light(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -402,12 +405,15 @@ async def discipline_mirror_light(*, symbol: str, params: dict[str, Any] | None 
         disclosure_key="discipline_mirror_disclosure",
         disclosure=disclosure,
     )
-    return attach_identity_auth_envelope(
+    from launch57.billing_entitlement_common import attach_billing_entitlement_envelope
+
+    adapted = attach_identity_auth_envelope(
         adapted,
         launch_item_id=50,
         surface_type="private",
         params=p,
     )
+    return attach_billing_entitlement_envelope(adapted, launch_item_id=50, params=p)
 
 
 async def capability_library_search(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:

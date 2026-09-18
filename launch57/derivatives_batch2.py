@@ -340,12 +340,15 @@ async def limited_watchlists(*, symbol: str, params: dict[str, Any] | None = Non
         disclosure_key="limited_watchlist_disclosure",
         disclosure=disclosure,
     )
-    return attach_identity_auth_envelope(
+    from launch57.billing_entitlement_common import attach_billing_entitlement_envelope
+
+    adapted = attach_identity_auth_envelope(
         adapted,
         launch_item_id=32,
         surface_type="private",
         params=p,
     )
+    return attach_billing_entitlement_envelope(adapted, launch_item_id=32, params=p)
 
 
 async def smart_alerts_composite(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -475,12 +478,15 @@ async def smart_alerts_composite(*, symbol: str, params: dict[str, Any] | None =
         disclosure_key="smart_alerts_disclosure",
         disclosure=disclosure,
     )
-    return attach_identity_auth_envelope(
+    from launch57.billing_entitlement_common import attach_billing_entitlement_envelope
+
+    adapted = attach_identity_auth_envelope(
         adapted,
         launch_item_id=33,
         surface_type="private",
         params=p,
     )
+    return attach_billing_entitlement_envelope(adapted, launch_item_id=33, params=p)
 
 
 _DISPATCH: dict[int, str] = {
