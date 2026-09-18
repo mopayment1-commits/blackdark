@@ -424,15 +424,34 @@ async def discipline_mirror_light(*, symbol: str, params: dict[str, Any] | None 
 
 async def capability_library_search(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
     """Launch #52 — secondary capability library (search), not primary home."""
+    from launch57.capability_library_common import search_library
+    from launch57.identity_auth_common import attach_identity_auth_envelope
+    from launch57.billing_entitlement_common import attach_billing_entitlement_envelope
+    from launch57.compounding_evidence_common import attach_compounding_evidence_envelope
+    from launch57.capability_library_common import attach_capability_library_envelope
+
     p = dict(params or {})
     query = str(p.get("query") or p.get("q") or "")
-    entries = launch57_library_entries(query=query or None)
+    functional_area = p.get("functional_area") or p.get("area")
+    searched = search_library(
+        query=query or None,
+        functional_area=str(functional_area) if functional_area else None,
+        locale=p.get("locale"),
+    )
+    entries = searched.get("results") or []
     guarded = apply_capability_library_guard(entries, params=p)
+    answer_state = guarded.get("answer_state")
+    if searched.get("answer_state") == "NO_VALID_MATCH":
+        answer_state = "NO_VALID_MATCH"
+    elif answer_state == "LIBRARY_GROUNDED" and searched.get("answer_state"):
+        answer_state = searched["answer_state"]
+
+    success = answer_state in {"LIBRARY_GROUNDED", "NO_VALID_MATCH"}
     body = stamp_decision_batch(
         {
             "surface": "capability_library_search",
             "symbol": str(p.get("symbol") or symbol or "BTC"),
-            "success": guarded.get("answer_state") == "LIBRARY_GROUNDED",
+            "success": success,
             "capability_library": {
                 "results": guarded.get("results"),
                 "count": guarded.get("count"),
@@ -440,9 +459,13 @@ async def capability_library_search(*, symbol: str, params: dict[str, Any] | Non
                 "not_primary_home": True,
                 "launch57_scope_only": True,
                 "query": query or None,
+                "functional_area": functional_area,
                 "library_guard": guarded,
+                "search": searched,
                 "ssot_source": guarded.get("ssot_source"),
                 "no_second_registry": True,
+                "no_valid_match": searched.get("no_valid_match", False),
+                "canonical_count": searched.get("canonical_count"),
             },
             "consumer_path": "api/routers/launch57_edge_ui.py",
         },
@@ -454,16 +477,98 @@ async def capability_library_search(*, symbol: str, params: dict[str, Any] | Non
     )
     wrapped = attach_edge_ui_envelope(ai_compliance_footer(body))
     disclosure = build_capability_library_disclosure(guarded)
-    return _attach_edge_adaptive(
+    adapted = _attach_edge_adaptive(
         wrapped,
         p=p,
         spine=None,
         launch_item_id=52,
         surface="capability_library_search",
-        semantics=guarded,
+        semantics={**guarded, "answer_state": answer_state},
         disclosure_key="capability_library_disclosure",
         disclosure=disclosure,
     )
+    adapted = attach_identity_auth_envelope(adapted, launch_item_id=52, params=p, surface_type="public")
+    adapted = attach_billing_entitlement_envelope(adapted, launch_item_id=52, params=p)
+    adapted = attach_compounding_evidence_envelope(adapted, launch_item_id=52)
+    return attach_capability_library_envelope(adapted, launch_item_id=52, params=p)
+
+
+async def capability_library_detail(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
+    """Launch #52 — capability detail page projection."""
+    from launch57.capability_library_common import (
+        attach_capability_library_envelope,
+        resolve_capability_detail,
+    )
+    from launch57.identity_auth_common import attach_identity_auth_envelope
+    from launch57.billing_entitlement_common import attach_billing_entitlement_envelope
+    from launch57.compounding_evidence_common import attach_compounding_evidence_envelope
+
+    p = dict(params or {})
+    launch_number = int(p.get("launch_number") or p.get("launch_item_id") or 0)
+    authenticated = str(p.get("user_key") or "anonymous") != "anonymous"
+    detail = resolve_capability_detail(launch_number, authenticated=authenticated)
+    body = stamp_decision_batch(
+        {
+            "surface": "capability_library_detail",
+            "symbol": str(p.get("symbol") or symbol or "BTC"),
+            "success": detail.get("found", False),
+            "capability_library_detail": detail,
+            "consumer_path": "api/routers/launch57_edge_ui.py",
+        },
+        capability_id=0,
+        launch_item_id=52,
+        entrypoint="capability_library_detail",
+        batch_module=_MODULE,
+        binding_source=_BINDING,
+    )
+    wrapped = attach_edge_ui_envelope(ai_compliance_footer(body))
+    adapted = attach_identity_auth_envelope(
+        wrapped,
+        launch_item_id=52,
+        params=p,
+        surface_type="authenticated" if authenticated else "public",
+    )
+    adapted = attach_billing_entitlement_envelope(adapted, launch_item_id=52, params=p)
+    adapted = attach_compounding_evidence_envelope(adapted, launch_item_id=52)
+    return attach_capability_library_envelope(adapted, launch_item_id=52, params=p)
+
+
+async def capability_library_compare(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
+    """Launch #52 — compare up to four Launch-57 capabilities."""
+    from launch57.capability_library_common import (
+        attach_capability_library_envelope,
+        compare_capabilities,
+    )
+    from launch57.identity_auth_common import attach_identity_auth_envelope
+    from launch57.billing_entitlement_common import attach_billing_entitlement_envelope
+    from launch57.compounding_evidence_common import attach_compounding_evidence_envelope
+
+    p = dict(params or {})
+    raw_ids = p.get("launch_numbers") or p.get("compare") or []
+    if isinstance(raw_ids, str):
+        launch_numbers = [int(x.strip()) for x in raw_ids.split(",") if x.strip().isdigit()]
+    else:
+        launch_numbers = [int(x) for x in raw_ids if str(x).isdigit()]
+    compared = compare_capabilities(launch_numbers)
+    body = stamp_decision_batch(
+        {
+            "surface": "capability_library_compare",
+            "symbol": str(p.get("symbol") or symbol or "BTC"),
+            "success": compared.get("answer_state") == "COMPARE_GROUNDED",
+            "capability_library_compare": compared,
+            "consumer_path": "api/routers/launch57_edge_ui.py",
+        },
+        capability_id=0,
+        launch_item_id=52,
+        entrypoint="capability_library_compare",
+        batch_module=_MODULE,
+        binding_source=_BINDING,
+    )
+    wrapped = attach_edge_ui_envelope(ai_compliance_footer(body))
+    adapted = attach_identity_auth_envelope(wrapped, launch_item_id=52, params=p, surface_type="public")
+    adapted = attach_billing_entitlement_envelope(adapted, launch_item_id=52, params=p)
+    adapted = attach_compounding_evidence_envelope(adapted, launch_item_id=52)
+    return attach_capability_library_envelope(adapted, launch_item_id=52, params=p)
 
 
 _DISPATCH: dict[int, str] = {

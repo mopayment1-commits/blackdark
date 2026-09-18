@@ -1,0 +1,56 @@
+{
+  "artifact": "BLACKDARK_LAUNCH57_CAPABILITY_LIBRARY_INDEPENDENT_VERIFICATION",
+  "generated_at": "2026-09-18T15:08:43.828721+00:00",
+  "implementation_sha": "3f179170",
+  "baseline_sha": "70877222ce5002b8bb84de049f5f9bba98a953081023c0b6921e7a383b89c421",
+  "builder_status": "PENDING_VERIFICATION",
+  "LAUNCH57_CAPABILITY_LIBRARY_PASS_ENGINEERING": true,
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "PASS_ENGINEERING_NOT_CLAIMED_BY_ENVELOPE": true,
+  "scope_lock": {
+    "CURRENT_APPROVED_BUILD_SCOPE": "LAUNCH57",
+    "LAUNCH57_COUNT": 57,
+    "EVERYTHING_ELSE": "PARKED_OUT_OF_LAUNCH"
+  },
+  "verification_checks": {
+    "library_count_57": true,
+    "zero_parked_exposed": true,
+    "zero_duplicate_ids": true,
+    "search_correctness": true,
+    "visibility_correctness": true,
+    "hero_mapping_truth": true,
+    "no_competing_ssot": true,
+    "tests_pass": true
+  },
+  "tests": {
+    "command": "python3 -m pytest tests/launch57/test_capability_library.py tests/launch57/test_edge_ui_batch1.py tests/launch57/test_phase7_adaptive_batch_a.py tests/launch57/test_identity_auth.py tests/launch57/test_billing_entitlement.py tests/launch57/test_phase8_e2e_acceptance.py -q",
+    "exit_code": "0",
+    "stdout_tail": "age_maintenance at /workspace/dashboard.py\n    warnings.warn(message, stacklevel=1)\n\ntests/launch57/test_phase8_e2e_acceptance.py::test_all_e2e_journeys_pass\n  /home/ubuntu/.local/lib/python3.12/site-packages/fastapi/openapi/utils.py:303: UserWarning: Duplicate Operation ID storage_legacy_purge_api_storage_legacy_purge_post for function storage_legacy_purge at /workspace/dashboard.py\n    warnings.warn(message, stacklevel=1)\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html",
+    "stderr_tail": "",
+    "passed": true
+  },
+  "acceptance_criteria": {
+    "ac01_library_count_57": true,
+    "ac02_no_out_of_scope": true,
+    "ac03_no_duplicate_identity": true,
+    "ac04_no_second_ssot": true,
+    "ac05_search_by_name": true,
+    "ac06_search_by_intent": true,
+    "ac07_arabic_and_english": true,
+    "ac08_detail_pages_resolve": true,
+    "ac09_current_status_accurate": true,
+    "ac10_evidence_state_accurate": true,
+    "ac11_freshness_state_accurate": true,
+    "ac12_limitations_visible": true,
+    "ac13_hero_mappings_canonical": true,
+    "ac14_dependencies_canonical": true,
+    "ac15_comparison_factual": true,
+    "ac16_public_private_enforced": true,
+    "ac17_no_private_leakage": true,
+    "ac18_no_metadata_only_pass": true,
+    "ac19_independent_verification_separate": true,
+    "ac20_phase8_e2e": true,
+    "invalid_query_safe": true,
+    "secondary_layer_preserved": true
+  }
+}

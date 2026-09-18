@@ -1,0 +1,422 @@
+{
+  "artifact": "BLACKDARK_LAUNCH57_CAPABILITY_LIBRARY_INDEX",
+  "generated_at": "2026-09-18T15:08:43.828721+00:00",
+  "implementation_sha": "3f179170",
+  "baseline_sha": "70877222ce5002b8bb84de049f5f9bba98a953081023c0b6921e7a383b89c421",
+  "capability_library_version": "launch57-capability-library-1.0.0",
+  "scope": "LAUNCH57_IDS",
+  "library_count": 57,
+  "entries": [
+    {
+      "launch_number": 1,
+      "canonical_name": "Six Heroes Command Home — «ماذا أفعل الآن؟»",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": "Personal Decision Tools",
+      "consumer_surface": "launch57/edge_ui_batch2.py"
+    },
+    {
+      "launch_number": 2,
+      "canonical_name": "Single-Sentence Oracle (ACT/WAIT/ABSTAIN)",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": "Decision Intelligence",
+      "consumer_surface": "BLACKDARK_CAPABILITY_SIX_HERO_MATRIX.json#canonical_product_heroes[0]"
+    },
+    {
+      "launch_number": 3,
+      "canonical_name": "Decision Certificate + hash",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": "Trust & Evidence",
+      "consumer_surface": "launch57/trust_batch1.py"
+    },
+    {
+      "launch_number": 4,
+      "canonical_name": "Public Accuracy Ledger (حي فقط)",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": "Trust & Evidence",
+      "consumer_surface": "launch57/trust_batch1.py"
+    },
+    {
+      "launch_number": 5,
+      "canonical_name": "Net-Edge / Cost Autopsy على كل فرصة أو إشارة",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": "Decision Intelligence",
+      "consumer_surface": "launch57/trust_batch1.py"
+    },
+    {
+      "launch_number": 6,
+      "canonical_name": "Evidence class ظاهر (LIVE / DELAYED / SIM)",
+      "engineering_status": "PASS_ENGINEERING",
+      "functional_area": "Decision Intelligence",
+      "consumer_surface": "launch57/evidence_class_common.py"
+    },
+    {
+      "launch_number": 7,
+      "canonical_name": "Market Regime / Compass",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": "Market Data",
+      "consumer_surface": "launch57/decision_batch1.py"
+    },
+    {
+      "launch_number": 8,
+      "canonical_name": "Beginner Decision Mode",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": "Market Data",
+      "consumer_surface": "launch57/decision_batch1.py"
+    },
+    {
+      "launch_number": 9,
+      "canonical_name": "Cross-Signal Confirmation",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": "Market Data",
+      "consumer_surface": "launch57/decision_batch1.py"
+    },
+    {
+      "launch_number": 10,
+      "canonical_name": "Contradiction Detection",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": "Market Data",
+      "consumer_surface": "launch57/decision_batch1.py"
+    },
+    {
+      "launch_number": 11,
+      "canonical_name": "Smart Money Actionability Score",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": "Market Data",
+      "consumer_surface": "launch57/decision_batch1.py"
+    },
+    {
+      "launch_number": 12,
+      "canonical_name": "Smart Money Conviction Engine",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": "Risk",
+      "consumer_surface": "launch57/decision_batch2.py"
+    },
+    {
+      "launch_number": 13,
+      "canonical_name": "Accumulation / Distribution Detection",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": "Risk",
+      "consumer_surface": "launch57/smart_money_batch1.py"
+    },
+    {
+      "launch_number": 14,
+      "canonical_name": "Smart Money Token Screener",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": "Smart Money",
+      "consumer_surface": "launch57/smart_money_batch1.py"
+    },
+    {
+      "launch_number": 15,
+      "canonical_name": "Entity-Aware Wallet Intelligence",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": "Smart Money",
+      "consumer_surface": "launch57/smart_money_batch2.py"
+    },
+    {
+      "launch_number": 16,
+      "canonical_name": "Exchange Flow Intelligence (in/out/net)",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": "Smart Money",
+      "consumer_surface": "launch57/smart_money_batch1.py"
+    },
+    {
+      "launch_number": 17,
+      "canonical_name": "Exchange Whale Ratio + internal-flow filter",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": "Smart Money",
+      "consumer_surface": "launch57/smart_money_batch1.py"
+    },
+    {
+      "launch_number": 18,
+      "canonical_name": "Whale Accumulation / Movement Alerts",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": "Smart Money",
+      "consumer_surface": "launch57/smart_money_batch2.py"
+    },
+    {
+      "launch_number": 19,
+      "canonical_name": "Inter-Entity Flow (محدود الإطلاق)",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": "Smart Money",
+      "consumer_surface": "launch57/smart_money_batch2.py"
+    },
+    {
+      "launch_number": 20,
+      "canonical_name": "Address Labels & Cohorts (نواة محدودة)",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": "Smart Money",
+      "consumer_surface": "launch57/smart_money_batch1.py"
+    },
+    {
+      "launch_number": 21,
+      "canonical_name": "Spot metrics suite (صادق التحديث)",
+      "engineering_status": "PASS_ENGINEERING",
+      "functional_area": "Market Data",
+      "consumer_surface": "launch57/data_batch1.py"
+    },
+    {
+      "launch_number": 22,
+      "canonical_name": "Real-time / near-real-time prices",
+      "engineering_status": "PASS_ENGINEERING",
+      "functional_area": "Market Data",
+      "consumer_surface": "launch57/data_batch1.py"
+    },
+    {
+      "launch_number": 23,
+      "canonical_name": "OHLCV",
+      "engineering_status": "PASS_ENGINEERING",
+      "functional_area": "Market Data",
+      "consumer_surface": "launch57/data_batch1.py"
+    },
+    {
+      "launch_number": 24,
+      "canonical_name": "Quote + symbol metadata",
+      "engineering_status": "PASS_ENGINEERING",
+      "functional_area": "Market Data",
+      "consumer_surface": "launch57/data_batch1.py"
+    },
+    {
+      "launch_number": 25,
+      "canonical_name": "Futures OI intelligence",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": "Market Data",
+      "consumer_surface": "launch57/derivatives_batch1.py"
+    },
+    {
+      "launch_number": 26,
+      "canonical_name": "Funding rate intelligence",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": "Market Data",
+      "consumer_surface": "launch57/derivatives_batch1.py"
+    },
+    {
+      "launch_number": 27,
+      "canonical_name": "Liquidation intelligence / heatmap خفيف",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": "Derivatives",
+      "consumer_surface": "launch57/derivatives_batch1.py"
+    },
+    {
+      "launch_number": 28,
+      "canonical_name": "Taker buy/sell + leverage ratio",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": "Derivatives",
+      "consumer_surface": "launch57/derivatives_batch1.py"
+    },
+    {
+      "launch_number": 29,
+      "canonical_name": "Derivatives sentiment composite",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": "Derivatives",
+      "consumer_surface": "launch57/derivatives_batch1.py"
+    },
+    {
+      "launch_number": 30,
+      "canonical_name": "Order book intelligence (L1 على الأقل)",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": "Derivatives",
+      "consumer_surface": "launch57/derivatives_batch2.py"
+    },
+    {
+      "launch_number": 31,
+      "canonical_name": "Token screener (سوق عام)",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": "Derivatives",
+      "consumer_surface": "launch57/derivatives_batch2.py"
+    },
+    {
+      "launch_number": 32,
+      "canonical_name": "Watchlists (توكن + محفظة محدودة)",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": "Alerts & Monitoring",
+      "consumer_surface": "launch57/derivatives_batch2.py"
+    },
+    {
+      "launch_number": 33,
+      "canonical_name": "Smart Alerts (سعر + تدفق + حوت + قرار)",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": "Alerts & Monitoring",
+      "consumer_surface": "launch57/derivatives_batch2.py"
+    },
+    {
+      "launch_number": 34,
+      "canonical_name": "Signal → Explanation workflow",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": "Risk",
+      "consumer_surface": "launch57/explanation_ai_batch1.py"
+    },
+    {
+      "launch_number": 35,
+      "canonical_name": "Price-move explanation",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": "Due Diligence",
+      "consumer_surface": "launch57/explanation_ai_batch1.py"
+    },
+    {
+      "launch_number": 36,
+      "canonical_name": "AI Research Agent + Copilot مربوط ببيانات المنصة فقط (شات على أسطح الإطلاق + footer امتثال)",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": "Due Diligence",
+      "consumer_surface": "launch57/explanation_ai_batch1.py"
+    },
+    {
+      "launch_number": 37,
+      "canonical_name": "Cross-market decision engine",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": "Due Diligence",
+      "consumer_surface": "launch57/decision_batch2.py"
+    },
+    {
+      "launch_number": 38,
+      "canonical_name": "MVRV / Z-Score (نواة BTC/ETH إن توفّر مصدر)",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": "Due Diligence",
+      "consumer_surface": "launch57/edge_ui_batch1.py"
+    },
+    {
+      "launch_number": 39,
+      "canonical_name": "Point-in-time immutable metrics",
+      "engineering_status": "PASS_ENGINEERING",
+      "functional_area": "Market Data",
+      "consumer_surface": "launch57/data_batch2.py"
+    },
+    {
+      "launch_number": 40,
+      "canonical_name": "Data quality & provenance (ظاهر للمستخدم)",
+      "engineering_status": "PASS_ENGINEERING",
+      "functional_area": "Trust & Evidence",
+      "consumer_surface": "launch57/data_batch2.py"
+    },
+    {
+      "launch_number": 41,
+      "canonical_name": "Freshness assurance + تسمية delayed صريحة",
+      "engineering_status": "PASS_ENGINEERING",
+      "functional_area": "Trust & Evidence",
+      "consumer_surface": "launch57/data_batch2.py"
+    },
+    {
+      "launch_number": 42,
+      "canonical_name": "Unified exchange connector (مسار واحد)",
+      "engineering_status": "PASS_ENGINEERING",
+      "functional_area": "Trust & Evidence",
+      "consumer_surface": "launch57/data_batch1.py"
+    },
+    {
+      "launch_number": 43,
+      "canonical_name": "Spot–perp / arbitrage (Net-Edge إلزامي)",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": "Derivatives",
+      "consumer_surface": "launch57/edge_ui_batch1.py"
+    },
+    {
+      "launch_number": 44,
+      "canonical_name": "Shareable decision / oracle card (OG)",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": "Trust & Evidence",
+      "consumer_surface": "launch57/trust_batch2.py"
+    },
+    {
+      "launch_number": 45,
+      "canonical_name": "Shareable accuracy / outcome page",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": "Trust & Evidence",
+      "consumer_surface": "launch57/trust_batch2.py"
+    },
+    {
+      "launch_number": 46,
+      "canonical_name": "Guest trust surface",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": "Trust & Evidence",
+      "consumer_surface": "launch57/trust_batch2.py"
+    },
+    {
+      "launch_number": 47,
+      "canonical_name": "One-click risk disclosure على كل قرار",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": "Decision Intelligence",
+      "consumer_surface": "launch57/trust_batch2.py"
+    },
+    {
+      "launch_number": 48,
+      "canonical_name": "Abstain / reject reasons ظاهرة",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": "Decision Intelligence",
+      "consumer_surface": "launch57/trust_batch2.py"
+    },
+    {
+      "launch_number": 49,
+      "canonical_name": "Personal decision history (محدود Free)",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": "Personal Decision Tools",
+      "consumer_surface": "launch57/edge_ui_batch1.py"
+    },
+    {
+      "launch_number": 50,
+      "canonical_name": "Discipline / missed-opportunity mirror (خفيف)",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": "Personal Decision Tools",
+      "consumer_surface": "launch57/edge_ui_batch1.py"
+    },
+    {
+      "launch_number": 51,
+      "canonical_name": "Research portal / short briefs",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": "Research & Explanation",
+      "consumer_surface": "launch57/explanation_ai_batch1.py"
+    },
+    {
+      "launch_number": 52,
+      "canonical_name": "Capability library (بحث) — طبقة ثانية لا الرئيسية",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": "Research & Explanation",
+      "consumer_surface": "launch57/edge_ui_batch1.py"
+    },
+    {
+      "launch_number": 53,
+      "canonical_name": "Instant Wallet Due Diligence",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": null,
+      "consumer_surface": "launch57/smart_money_batch2.py"
+    },
+    {
+      "launch_number": 54,
+      "canonical_name": "Instant Token Due Diligence",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": null,
+      "consumer_surface": "launch57/smart_money_batch2.py"
+    },
+    {
+      "launch_number": 55,
+      "canonical_name": "Pump & Dump / manipulation pattern alerts",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": null,
+      "consumer_surface": "launch57/smart_money_batch3.py"
+    },
+    {
+      "launch_number": 56,
+      "canonical_name": "Suspicious activity flags (على مسارات توكن/سمارت موني — ليس AML كامل)",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": null,
+      "consumer_surface": "launch57/smart_money_batch3.py"
+    },
+    {
+      "launch_number": 57,
+      "canonical_name": "Exchange transparency / risk indicators (احتياطي معلن إن وُجد، شذوذ تدفق، حوادث — بدون شهادة ملاءة أو ضمان)",
+      "engineering_status": "PENDING_VERIFICATION",
+      "functional_area": null,
+      "consumer_surface": "launch57/smart_money_batch3.py"
+    }
+  ],
+  "functional_areas": [
+    "Market Data",
+    "Smart Money",
+    "Derivatives",
+    "Decision Intelligence",
+    "Trust & Evidence",
+    "Alerts & Monitoring",
+    "Research & Explanation",
+    "Due Diligence",
+    "Risk",
+    "Personal Decision Tools"
+  ]
+}

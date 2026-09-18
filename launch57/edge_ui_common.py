@@ -123,50 +123,13 @@ def launch57_home_eligible_ids() -> frozenset[int]:
 
 
 def launch57_library_entries(*, query: str | None = None) -> list[dict[str, Any]]:
-    """Secondary capability library — Launch-57 scope with PASS_ENGINEERING only."""
-    if not _LAUNCH57_REGISTER.exists():
-        return []
-    register = json.loads(_LAUNCH57_REGISTER.read_text(encoding="utf-8"))
-    q = (query or "").strip().lower()
-    rows: list[dict[str, Any]] = []
-    eligible = launch57_home_eligible_ids()
-    for item in register.get("launch57_register", []):
-        ln = item.get("launch_number")
-        if not isinstance(ln, int) or ln not in eligible:
-            continue
-        name = str(item.get("launch_name") or "")
-        if q and q not in name.lower() and q not in str(ln):
-            continue
-        impl = item.get("canonical_implementation") or []
-        handler = None
-        for key in (
-            "phase6_batch1_build",
-            "phase5_batch2_build",
-            "phase5_batch1_build",
-            "phase4_batch3_build",
-            "phase4_batch2_build",
-            "phase4_batch1_build",
-            "phase3_batch2_build",
-            "phase3_batch1_build",
-            "phase2_batch2_build",
-            "phase2_batch1_build",
-            "phase1_batch2_build",
-            "phase1_batch1_build",
-        ):
-            build = item.get(key) or {}
-            if build.get("handler_module"):
-                handler = build["handler_module"]
-                break
-        rows.append(
-            {
-                "launch_number": ln,
-                "launch_name": name,
-                "engineering_status": item.get("current_engineering_status"),
-                "handler_module": handler,
-                "secondary_layer": True,
-            }
-        )
-    return sorted(rows, key=lambda r: r["launch_number"])
+    """Secondary capability library — all 57 Launch-57 entries (spec §2, §5)."""
+    from launch57.capability_library_common import load_canonical_library_entries, search_library
+
+    if query:
+        searched = search_library(query=query)
+        return searched.get("results") or []
+    return load_canonical_library_entries()
 
 
 def read_decision_history_rows(*, limit: int, tier: str = "free") -> list[dict[str, Any]]:

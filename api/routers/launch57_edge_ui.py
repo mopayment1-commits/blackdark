@@ -38,7 +38,34 @@ async def launch57_discipline_mirror(
 
 
 @router.get("/api/launch57/capability-library")
-async def launch57_capability_library(q: str | None = Query(None)):
+async def launch57_capability_library(
+    q: str | None = Query(None),
+    area: str | None = Query(None),
+    locale: str | None = Query(None),
+):
     from launch57.edge_ui_batch1 import capability_library_search
 
-    return await capability_library_search(symbol="BTC", params={"query": q or ""})
+    return await capability_library_search(
+        symbol="BTC",
+        params={"query": q or "", "functional_area": area, "locale": locale},
+    )
+
+
+@router.get("/api/launch57/capability-library/compare")
+async def launch57_capability_library_compare(compare: str = Query(..., description="Comma-separated launch numbers")):
+    from launch57.edge_ui_batch1 import capability_library_compare
+
+    return await capability_library_compare(symbol="BTC", params={"compare": compare})
+
+
+@router.get("/api/launch57/capability-library/{launch_number}")
+async def launch57_capability_library_detail(
+    launch_number: int,
+    user_key: str = Query("anonymous"),
+):
+    from launch57.edge_ui_batch1 import capability_library_detail
+
+    return await capability_library_detail(
+        symbol="BTC",
+        params={"launch_number": launch_number, "user_key": user_key},
+    )
