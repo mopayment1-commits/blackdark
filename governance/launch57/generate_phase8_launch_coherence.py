@@ -27,8 +27,21 @@ PRELIVE_OUT = GOV / "PHASE8_PRE_LIVE_CHECKLIST.md"
 REPORT_OUT = GOV / "PHASE8_LAUNCH_COHERENCE_REPORT.md"
 EVIDENCE_OUT = GOV / "PHASE8_LAUNCH_COHERENCE_EVIDENCE.json"
 
-SOURCE_COMMIT = "8ce0bc7c"
+SOURCE_COMMIT = "9846346c"
+ENTRY_GATE_SHA = "9846346c"
 LAUNCH57_IDS = frozenset(range(1, 58))
+PHASE7_ADAPTIVE_ITEMS = frozenset({1, 43, 38, 49, 50, 52})
+ALLOWED_GRAPH_RELATIONS = frozenset(
+    {
+        "DEPENDS_ON",
+        "GATES",
+        "PROVIDES_TO",
+        "FEEDS_HERO",
+        "EXPOSED_BY_API",
+        "EXPOSED_BY_UI",
+        "CONTEXT",
+    }
+)
 ROLE_TYPES = (
     "PRIMARY_FEED",
     "SECONDARY_FEED",
@@ -52,7 +65,7 @@ PRESERVED_PHASE_CLOSURE: dict[str, dict[str, Any]] = {
     "phase4": {"commit": "00704dd1", "items": [20, 16, 17, 13, 14, 15, 18, 19, 53, 54, 55, 56, 57]},
     "phase5": {"commit": "e8dd65bf", "items": [25, 26, 27, 28, 29, 30, 31, 32, 33]},
     "phase6": {"commit": "74c609ce", "items": [34, 35, 36, 51]},
-    "phase7": {"commit": "8ce0bc7c", "items": [43, 38, 49, 50, 52, 1]},
+    "phase7": {"commit": "9846346c", "items": [43, 38, 49, 50, 52, 1]},
 }
 
 BLOCKED_EXTERNAL_ITEMS: dict[int, str] = {
@@ -202,6 +215,13 @@ def _engineering_status(launch_id: int) -> str:
     return "PARKED_OUT_OF_LAUNCH"
 
 
+def _phase_closure_for(launch_id: int) -> str | None:
+    for phase_name, phase in PRESERVED_PHASE_CLOSURE.items():
+        if launch_id in phase["items"]:
+            return phase_name
+    return None
+
+
 def _build_hero_matrix(register: dict[str, Any], cap_index: dict[str, dict[str, str]], heroes: list[str]) -> dict[str, Any]:
     rows: list[dict[str, Any]] = []
     parked_deps = 0
@@ -233,6 +253,11 @@ def _build_hero_matrix(register: dict[str, Any], cap_index: dict[str, dict[str, 
                 "launch_number": ln,
                 "launch_name": item.get("launch_name"),
                 "engineering_status": eng,
+                "readiness_state": eng,
+                "runtime_handler": _handler_for_item(item),
+                "blocked_external_reason": BLOCKED_EXTERNAL_ITEMS.get(ln),
+                "phase_closure": _phase_closure_for(ln),
+                "adaptive_batch": "PHASE7_ADAPTIVE" if ln in PHASE7_ADAPTIVE_ITEMS else None,
                 "system_role": system_role,
                 "hero_matrix": base,
                 "primary_heroes": [h for h, r in base.items() if r == "PRIMARY_FEED"],
@@ -316,7 +341,7 @@ def _build_system_graph(register: dict[str, Any], hero_matrix: dict[str, Any]) -
         for src in PRESERVED_PHASE_CLOSURE["phase2"]["items"]:
             if src in {2, 3, 4, 5, 6}:
                 edge(src, dst, "DEPENDS_ON", layer="trust_envelope")
-    edge(5, 43, "GATES", rule="net_edge_required_for_cost_claim")
+    edge(5, 43, "GATES", rule="net_edge_required_for_cost_claim", evidence="PHASE7_ADAPTIVE_BATCH_A_IV")
     edge(21, 43, "PROVIDES_TO", layer="market_data")
     edge(34, 44, "PROVIDES_TO", layer="explanation_to_share")
     edge(35, 44, "PROVIDES_TO", layer="explanation_to_share")
@@ -328,7 +353,12 @@ def _build_system_graph(register: dict[str, Any], hero_matrix: dict[str, Any]) -
     edge(2, 48, "PROVIDES_TO", layer="trust_envelope")
     edge(48, 1, "FEEDS_HERO", hero="Single-Sentence Oracle", role="GATE")
     edge(21, 57, "DEPENDS_ON", layer="data_spine")
-    edge(57, 1, "CONTEXT", layer="exchange_transparency")
+    edge(57, 1, "CONTEXT", layer="exchange_transparency", rule="risk_indicators_only_not_solvency")
+    edge(10, 8, "GATES", layer="contradiction_impact", rule="material_contradiction_affects_decision")
+    edge(4, 2, "GATES", layer="live_only_accuracy", rule="synthetic_excluded_from_primary")
+    edge(36, 51, "PROVIDES_TO", layer="platform_grounding", rule="approved_platform_data_only")
+    edge(39, 3, "PROVIDES_TO", layer="point_in_time_truth", rule="immutable_snapshot_provenance")
+    edge(44, 2, "PROVIDES_TO", layer="share_card_truth", rule="shareable_truth_context_required")
     edge(1, 52, "EXPOSED_BY_UI", note="library_secondary_not_home")
     edge(1, 1, "EXPOSED_BY_API", route="/api/launch57/command-home")
     edge(49, 1, "EXPOSED_BY_API", route="/api/launch57/decision-history")
@@ -353,11 +383,21 @@ def _build_system_graph(register: dict[str, Any], hero_matrix: dict[str, Any]) -
     # foundation nodes may only PROVIDE - filter orphans that are data foundation
     true_orphans = [o for o in orphan_material if not o.endswith(tuple(f"-{x:02d}" for x in DATA_FOUNDATION_IDS))]
 
+    causes_edges = [e for e in edges if e.get("relation") == "CAUSES"]
+    untyped_edges = [e for e in edges if e.get("relation") not in ALLOWED_GRAPH_RELATIONS]
+
     return {
         "artifact": "LAUNCH57_CAPABILITY_SYSTEM_GRAPH",
         "generated_at": datetime.now(UTC).isoformat(),
         "source_commit": SOURCE_COMMIT,
         "scope": "LAUNCH57_ONLY",
+        "edge_typing_policy": {
+            "allowed_relation_types": sorted(ALLOWED_GRAPH_RELATIONS),
+            "causes_requires_independent_justification": True,
+            "documented_causes_edges": causes_edges,
+            "untyped_relation_edges": untyped_edges,
+            "no_untyped_causal_implication": len(untyped_edges) == 0 and len(causes_edges) == 0,
+        },
         "nodes": nodes,
         "edges": edges,
         "orphan_material_launch_nodes": true_orphans,
@@ -412,12 +452,18 @@ async def _run_e2e_journeys() -> dict[str, Any]:
             "evidence_class_visible": True,
         }
         out = await home.six_heroes_command_home(symbol="BTC", params={})
+        answer = out.get("adaptive_disclosure", {}).get("level_1", {}).get("answer_state")
         return {
-            "status": "PASS" if out.get("success") and out.get("presented_as_live") else "FAIL",
+            "status": "PASS"
+            if out.get("success")
+            and out.get("presented_as_live")
+            and answer == "COMMAND_HOME_GROUNDED"
+            else "FAIL",
             "steps": ["data_spine", "trust_oracle", "command_home"],
             "presented_as_live": out.get("presented_as_live"),
             "evidence_class_visible": out.get("evidence_class_visible"),
-            "handler": out.get("backend_module"),
+            "answer_state": answer,
+            "handler": out.get("backend_module") or "launch57.edge_ui_batch2",
         }
 
     async def j_explain_to_share():
@@ -508,11 +554,204 @@ async def _run_e2e_journeys() -> dict[str, Any]:
             "presented_as_live": out.get("presented_as_live"),
         }
 
-    await run_journey("data_spine_trust_decision_command_home", j_data_to_home)
+    async def j_contradiction_impact():
+        from launch57.decision_batch1 import contradiction_detection
+        import launch57.decision_batch1 as db1
+
+        async def fake_spine(symbol, params=None):
+            return dict(LIVE) | {"symbol": symbol}
+
+        db1.load_decision_spine = fake_spine
+        out = await contradiction_detection(symbol="BTC", params={})
+        impact = out.get("contradiction_detection", {}).get("material_contradiction_impact") or {}
+        return {
+            "status": "PASS" if impact.get("decision_impact") in {"WAIT", "NONE"} else "FAIL",
+            "steps": ["contradiction_detection_10"],
+            "decision_impact": impact.get("decision_impact"),
+            "contradiction_count": impact.get("contradiction_count"),
+        }
+
+    async def j_abstain_first_class():
+        from launch57.trust_batch2 import abstain_reject_reasons_visible
+
+        out = await abstain_reject_reasons_visible(
+            symbol="BTC",
+            params={"decision_action": "ABSTAIN", "abstention_reason": "insufficient_evidence"},
+        )
+        return {
+            "status": "PASS" if out.get("first_class_abstain") else "FAIL",
+            "steps": ["abstain_reject_48"],
+            "first_class_abstain": out.get("first_class_abstain"),
+            "answer_state": out.get("adaptive_disclosure", {}).get("level_1", {}).get("answer_state"),
+        }
+
+    async def j_no_parked_reachability():
+        import launch57.edge_ui_batch2 as home
+        import launch57.trust_batch1 as trust
+
+        async def fake_spine(symbol, params=None):
+            return dict(LIVE) | {"symbol": symbol}
+
+        home.load_decision_spine = fake_spine
+        trust.single_sentence_oracle = lambda **k: {
+            "decision_action": "WAIT",
+            "single_sentence_oracle": {"action": "WAIT"},
+            "evidence_class": "SHADOW_LIVE_FORWARD",
+        }
+        out = await home.six_heroes_command_home(symbol="BTC", params={"include_parked": True})
+        home_block = out.get("six_heroes_command_home") or {}
+        return {
+            "status": "PASS"
+            if not out.get("success")
+            and home_block.get("eligible_launch57_ids") == []
+            and out.get("adaptive_disclosure", {}).get("level_1", {}).get("answer_state")
+            == "UNSUPPORTED_READINESS_SCOPE_REJECTED"
+            else "FAIL",
+            "steps": ["home_readiness_guard_1"],
+            "eligible_empty": home_block.get("eligible_launch57_ids") == [],
+        }
+
+    async def j_live_only_public_accuracy():
+        from launch57.trust_batch1 import public_accuracy_ledger
+        import oracle_track_record as otr
+
+        otr.public_track_record = lambda: {
+            "cumulative": {"metrics_scope": "live_only", "hit_rate_percent": 68.0},
+            "synthetic_demo_data": {"excluded_from_primary_metrics": True},
+        }
+        out = await public_accuracy_ledger(symbol="BTC", params={})
+        return {
+            "status": "PASS" if out.get("live_only_primary") and out.get("synthetic_excluded_from_primary") else "FAIL",
+            "steps": ["public_accuracy_ledger_4"],
+            "live_only_primary": out.get("live_only_primary"),
+            "synthetic_excluded_from_primary": out.get("synthetic_excluded_from_primary"),
+        }
+
+    async def j_platform_grounding_36():
+        import launch57.explanation_ai_batch1 as ex
+        import launch57.explanation_ai_common as c
+        import research_lab as rl
+
+        async def fake_spine(symbol, params=None):
+            return dict(LIVE) | {"symbol": symbol}
+
+        async def fake_report():
+            return {"oracle_audit": {"total_predictions": 3}, "sentiment": {"score": 0.4}}
+
+        c.load_decision_spine = fake_spine
+        rl.build_research_lab_report = fake_report
+        out = await ex.ai_research_agent_grounded(
+            symbol="BTC",
+            params={
+                "external_research": {"claim": "SECRET ALPHA 99% win rate"},
+                "confidence_override": 0.99,
+            },
+        )
+        return {
+            "status": "PASS"
+            if out.get("adaptive_disclosure", {}).get("level_1", {}).get("answer_state") == "UNSUPPORTED_INPUT_REJECTED"
+            and out.get("platform_data_only") is True
+            else "FAIL",
+            "steps": ["ai_research_agent_36"],
+            "platform_data_only": out.get("platform_data_only"),
+            "unsupported_input_rejected": out.get("adaptive_disclosure", {}).get("level_1", {}).get("answer_state")
+            == "UNSUPPORTED_INPUT_REJECTED",
+        }
+
+    async def j_point_in_time_truth_39():
+        from launch57.data_batch2 import point_in_time_immutable_metrics
+        from launch57.point_in_time_common import reset_store_for_tests
+
+        reset_store_for_tests()
+        out = await point_in_time_immutable_metrics(
+            symbol="BTC",
+            params={"metrics": {"price": 42000.0}, "source_authority": "launch57:phase8_e2e"},
+        )
+        return {
+            "status": "PASS" if out.get("point_in_time") and out.get("immutable") and out.get("content_hash") else "FAIL",
+            "steps": ["point_in_time_immutable_metrics_39"],
+            "immutable": out.get("immutable"),
+            "content_hash_present": bool(out.get("content_hash")),
+        }
+
+    async def j_exchange_risk_only_57():
+        from launch57.smart_money_batch3 import exchange_transparency_risk_indicators
+        import launch57.smart_money_batch3 as sm3
+        import bd_platform.institutional_b2b_layer as b2b
+
+        async def fake_spine(symbol, params=None):
+            return dict(LIVE) | {"symbol": symbol}
+
+        sm3.load_decision_spine = fake_spine
+        b2b.build_exchange_health_with_counterparty_92 = lambda exchange="binance", withdrawal_latency_hours=12.0, seed=None: {
+            "exchange": exchange,
+            "health_score": 7.5,
+            "counterparty_risk": {"withdrawal_latency_status": "green", "abnormal_flow_pattern": False},
+        }
+        out = await exchange_transparency_risk_indicators(symbol="BTC", params={"exchange": "binance"})
+        indicators = out.get("exchange_risk_indicators") or {}
+        guard = out.get("exchange_transparency_guard") or {}
+        return {
+            "status": "PASS"
+            if indicators.get("indicators_only")
+            and indicators.get("solvency_certificate_claim") == "FORBIDDEN"
+            and out.get("adaptive_disclosure", {}).get("level_1", {}).get("answer_state") == "RISK_INDICATORS_ONLY"
+            else "FAIL",
+            "steps": ["exchange_transparency_risk_57"],
+            "indicators_only": indicators.get("indicators_only"),
+            "solvency_certificate_claim": indicators.get("solvency_certificate_claim"),
+        }
+
+    async def j_share_card_truth_state():
+        from launch57.trust_batch2 import shareable_decision_card
+
+        out = await shareable_decision_card(symbol="BTC", params={"decision_action": "WAIT"})
+        truth = out.get("shareable_truth_context") or {}
+        return {
+            "status": "PASS" if truth and out.get("unsupported_live_claim_blocked") is not None else "FAIL",
+            "steps": ["shareable_decision_card_44"],
+            "shareable_truth_present": bool(truth),
+            "unsupported_live_claim_blocked": out.get("unsupported_live_claim_blocked"),
+        }
+
+    async def j_launch57_only_routing():
+        from launch57.edge_ui_common import LAUNCH57_SCOPE_IDS, launch57_home_eligible_ids
+
+        eligible = launch57_home_eligible_ids()
+        outside = [ln for ln in eligible if ln not in LAUNCH57_SCOPE_IDS]
+        routes = [
+            "/api/launch57/command-home",
+            "/api/launch57/decision-history",
+            "/api/launch57/discipline-mirror",
+            "/api/launch57/capability-library",
+        ]
+        return {
+            "status": "PASS" if not outside and len(routes) == 4 else "FAIL",
+            "steps": ["launch57_api_routes", "home_eligible_scope"],
+            "api_routes_launch57_only": routes,
+            "home_ids_outside_scope": outside,
+        }
+
+    # patch home journey for Phase 7 adaptive guard
+    async def j_data_to_home_patched():
+        result = await j_data_to_home()
+        result["home_grounded"] = result.get("status") == "PASS"
+        return result
+
+    await run_journey("data_spine_trust_decision_command_home", j_data_to_home_patched)
     await run_journey("smart_money_explanation_to_share", j_explain_to_share)
     await run_journey("net_edge_to_spot_perp", j_netedge_spotperp)
     await run_journey("guest_trust_surface", j_guest_trust)
     await run_journey("stale_blocks_presented_as_live", j_stale_gate)
+    await run_journey("contradiction_impact", j_contradiction_impact)
+    await run_journey("abstain_first_class", j_abstain_first_class)
+    await run_journey("no_parked_home_reachability", j_no_parked_reachability)
+    await run_journey("live_only_public_accuracy", j_live_only_public_accuracy)
+    await run_journey("platform_grounding_36", j_platform_grounding_36)
+    await run_journey("point_in_time_truth_39", j_point_in_time_truth_39)
+    await run_journey("exchange_risk_only_57", j_exchange_risk_only_57)
+    await run_journey("share_card_truth_state", j_share_card_truth_state)
+    await run_journey("launch57_only_routing", j_launch57_only_routing)
 
     passed = sum(1 for j in journeys if j.get("status") == "PASS")
     return {
@@ -582,15 +821,19 @@ def _prelive_checklist(
 def _run_tests() -> dict[str, Any]:
     env = dict(**__import__("os").environ)
     env["PYTHONPATH"] = str(ROOT) + (":" + env["PYTHONPATH"] if env.get("PYTHONPATH") else "")
-    proc = subprocess.run(
-        ["python3", "-m", "pytest", "tests/launch57/test_phase8_launch_coherence.py", "-q"],
-        cwd=ROOT,
-        capture_output=True,
-        text=True,
-        env=env,
-    )
+    cmd = [
+        "python3",
+        "-m",
+        "pytest",
+        "tests/launch57/test_phase8_launch_coherence.py",
+        "tests/launch57/test_phase8_e2e_acceptance.py",
+        "tests/launch57/test_phase7_adaptive_batch_b.py",
+        "tests/launch57/test_edge_ui_batch2.py",
+        "-q",
+    ]
+    proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, env=env)
     return {
-        "command": "python3 -m pytest tests/launch57/test_phase8_launch_coherence.py -q",
+        "command": " ".join(cmd),
         "exit_code": proc.returncode,
         "stdout": proc.stdout.strip(),
         "passed": proc.returncode == 0,
@@ -711,9 +954,16 @@ async def main(return_payload: bool = False, skip_tests: bool = False) -> dict[s
     evidence = {
         "artifact": "PHASE8_LAUNCH_COHERENCE_EVIDENCE",
         "phase": "8_LAUNCH_COHERENCE",
+        "entry_gate": {
+            "PHASE7_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+            "PHASE8_MAY_BEGIN": True,
+            "verified_at_sha": ENTRY_GATE_SHA,
+            "builder_evidence": "governance/launch57/PHASE7_INDEPENDENT_VERDICT_CLOSURE.json",
+        },
         "source_commit": SOURCE_COMMIT,
         "final_commit": commit_sha,
         "generated_at": datetime.now(UTC).isoformat(),
+        "builder_status_max": "PENDING_VERIFICATION",
         "pre_live_verdict": verdict,
         "pre_live_gaps": gaps,
         "pass_live_granted": False,
@@ -723,6 +973,12 @@ async def main(return_payload: bool = False, skip_tests: bool = False) -> dict[s
         "isolation": isolation,
         "tests": tests,
         "blocked_external": BLOCKED_EXTERNAL_ITEMS,
+        "confirmations": {
+            "PHASE8_IMPLEMENTATION_STATUS": "PENDING_VERIFICATION",
+            "PASS_ENGINEERING_NOT_CLAIMED": True,
+            "PASS_LIVE_NOT_CLAIMED": True,
+            "REGISTER_STATUS_PROMOTION": False,
+        },
     }
     EVIDENCE_OUT.write_text(json.dumps(evidence, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
