@@ -1,0 +1,578 @@
+{
+  "artifact": "BLACKDARK_LAUNCH57_COST_RIGHTS_MATRIX",
+  "generated_at": "2026-09-18T15:24:51.349787+00:00",
+  "implementation_sha": "2e5cf3d3",
+  "matrix": [
+    {
+      "launch_number": 1,
+      "canonical_name": "Six Heroes Command Home — «ماذا أفعل الآن؟»",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 2,
+      "canonical_name": "Single-Sentence Oracle (ACT/WAIT/ABSTAIN)",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 3,
+      "canonical_name": "Decision Certificate + hash",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 4,
+      "canonical_name": "Public Accuracy Ledger (حي فقط)",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 5,
+      "canonical_name": "Net-Edge / Cost Autopsy على كل فرصة أو إشارة",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 6,
+      "canonical_name": "Evidence class ظاهر (LIVE / DELAYED / SIM)",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 7,
+      "canonical_name": "Market Regime / Compass",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 8,
+      "canonical_name": "Beginner Decision Mode",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 9,
+      "canonical_name": "Cross-Signal Confirmation",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 10,
+      "canonical_name": "Contradiction Detection",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 11,
+      "canonical_name": "Smart Money Actionability Score",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 12,
+      "canonical_name": "Smart Money Conviction Engine",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 13,
+      "canonical_name": "Accumulation / Distribution Detection",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 14,
+      "canonical_name": "Smart Money Token Screener",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 15,
+      "canonical_name": "Entity-Aware Wallet Intelligence",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 16,
+      "canonical_name": "Exchange Flow Intelligence (in/out/net)",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 17,
+      "canonical_name": "Exchange Whale Ratio + internal-flow filter",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 18,
+      "canonical_name": "Whale Accumulation / Movement Alerts",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 19,
+      "canonical_name": "Inter-Entity Flow (محدود الإطلاق)",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 20,
+      "canonical_name": "Address Labels & Cohorts (نواة محدودة)",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 21,
+      "canonical_name": "Spot metrics suite (صادق التحديث)",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 22,
+      "canonical_name": "Real-time / near-real-time prices",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 23,
+      "canonical_name": "OHLCV",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 24,
+      "canonical_name": "Quote + symbol metadata",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 25,
+      "canonical_name": "Futures OI intelligence",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 26,
+      "canonical_name": "Funding rate intelligence",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 27,
+      "canonical_name": "Liquidation intelligence / heatmap خفيف",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 28,
+      "canonical_name": "Taker buy/sell + leverage ratio",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 29,
+      "canonical_name": "Derivatives sentiment composite",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 30,
+      "canonical_name": "Order book intelligence (L1 على الأقل)",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 31,
+      "canonical_name": "Token screener (سوق عام)",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 32,
+      "canonical_name": "Watchlists (توكن + محفظة محدودة)",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 33,
+      "canonical_name": "Smart Alerts (سعر + تدفق + حوت + قرار)",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 34,
+      "canonical_name": "Signal → Explanation workflow",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 35,
+      "canonical_name": "Price-move explanation",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 36,
+      "canonical_name": "AI Research Agent + Copilot مربوط ببيانات المنصة فقط (شات على أسطح الإطلاق + footer امتثال)",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 37,
+      "canonical_name": "Cross-market decision engine",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 38,
+      "canonical_name": "MVRV / Z-Score (نواة BTC/ETH إن توفّر مصدر)",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 39,
+      "canonical_name": "Point-in-time immutable metrics",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 40,
+      "canonical_name": "Data quality & provenance (ظاهر للمستخدم)",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 41,
+      "canonical_name": "Freshness assurance + تسمية delayed صريحة",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 42,
+      "canonical_name": "Unified exchange connector (مسار واحد)",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 43,
+      "canonical_name": "Spot–perp / arbitrage (Net-Edge إلزامي)",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 44,
+      "canonical_name": "Shareable decision / oracle card (OG)",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 45,
+      "canonical_name": "Shareable accuracy / outcome page",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 46,
+      "canonical_name": "Guest trust surface",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 47,
+      "canonical_name": "One-click risk disclosure على كل قرار",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 48,
+      "canonical_name": "Abstain / reject reasons ظاهرة",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 49,
+      "canonical_name": "Personal decision history (محدود Free)",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 50,
+      "canonical_name": "Discipline / missed-opportunity mirror (خفيف)",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 51,
+      "canonical_name": "Research portal / short briefs",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 52,
+      "canonical_name": "Capability library (بحث) — طبقة ثانية لا الرئيسية",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 53,
+      "canonical_name": "Instant Wallet Due Diligence",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 54,
+      "canonical_name": "Instant Token Due Diligence",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 55,
+      "canonical_name": "Pump & Dump / manipulation pattern alerts",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 56,
+      "canonical_name": "Suspicious activity flags (على مسارات توكن/سمارت موني — ليس AML كامل)",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    },
+    {
+      "launch_number": 57,
+      "canonical_name": "Exchange transparency / risk indicators (احتياطي معلن إن وُجد، شذوذ تدفق، حوادث — بدون شهادة ملاءة أو ضمان)",
+      "variable_cost_risk": "UNKNOWN",
+      "cost_evidence_class": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "licensing_verified": false,
+      "external_evidence_required": true,
+      "audit_only": true
+    }
+  ],
+  "external_evidence_required": true
+}

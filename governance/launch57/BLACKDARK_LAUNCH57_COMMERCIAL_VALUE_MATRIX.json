@@ -1,0 +1,2108 @@
+{
+  "artifact": "BLACKDARK_LAUNCH57_COMMERCIAL_VALUE_MATRIX",
+  "generated_at": "2026-09-18T15:24:51.349787+00:00",
+  "implementation_sha": "2e5cf3d3",
+  "matrix": [
+    {
+      "launch_number": 1,
+      "canonical_name": "Six Heroes Command Home — «ماذا أفعل الآن؟»",
+      "commercial_roles": [
+        "RETENTION_DRIVER",
+        "DISCOVERY_DRIVER"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Home;roles=('RETENTION_DRIVER', 'DISCOVERY_DRIVER')"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Home;roles=('RETENTION_DRIVER', 'DISCOVERY_DRIVER')"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Home;roles=('RETENTION_DRIVER', 'DISCOVERY_DRIVER')"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Home;roles=('RETENTION_DRIVER', 'DISCOVERY_DRIVER')"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Home;roles=('RETENTION_DRIVER', 'DISCOVERY_DRIVER')"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Home;roles=('RETENTION_DRIVER', 'DISCOVERY_DRIVER')"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Home;roles=('RETENTION_DRIVER', 'DISCOVERY_DRIVER')"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 2,
+      "canonical_name": "Single-Sentence Oracle (ACT/WAIT/ABSTAIN)",
+      "commercial_roles": [
+        "AHA_MOMENT",
+        "TRUST_DRIVER",
+        "CONVERSION_TRIGGER"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=('AHA_MOMENT', 'TRUST_DRIVER', 'CONVERSION_TRIGGER')"
+        },
+        "conversion": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=('AHA_MOMENT', 'TRUST_DRIVER', 'CONVERSION_TRIGGER');conversion_surface"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=('AHA_MOMENT', 'TRUST_DRIVER', 'CONVERSION_TRIGGER')"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=('AHA_MOMENT', 'TRUST_DRIVER', 'CONVERSION_TRIGGER')"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=('AHA_MOMENT', 'TRUST_DRIVER', 'CONVERSION_TRIGGER')"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=('AHA_MOMENT', 'TRUST_DRIVER', 'CONVERSION_TRIGGER')"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=('AHA_MOMENT', 'TRUST_DRIVER', 'CONVERSION_TRIGGER')"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 3,
+      "canonical_name": "Decision Certificate + hash",
+      "commercial_roles": null,
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "trust": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=();trust_asset"
+        },
+        "institutional": {
+          "value": "MEDIUM",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=();institutional_candidate"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 4,
+      "canonical_name": "Public Accuracy Ledger (حي فقط)",
+      "commercial_roles": [
+        "TRUST_DRIVER",
+        "VIRAL_DRIVER",
+        "FREE_HOOK"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "CRITICAL",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=('TRUST_DRIVER', 'VIRAL_DRIVER', 'FREE_HOOK');public_hook"
+        },
+        "conversion": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=('TRUST_DRIVER', 'VIRAL_DRIVER', 'FREE_HOOK');conversion_surface"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=('TRUST_DRIVER', 'VIRAL_DRIVER', 'FREE_HOOK')"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=('TRUST_DRIVER', 'VIRAL_DRIVER', 'FREE_HOOK')"
+        },
+        "viral": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=('TRUST_DRIVER', 'VIRAL_DRIVER', 'FREE_HOOK');viral_candidate"
+        },
+        "trust": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=('TRUST_DRIVER', 'VIRAL_DRIVER', 'FREE_HOOK');trust_asset"
+        },
+        "institutional": {
+          "value": "MEDIUM",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=('TRUST_DRIVER', 'VIRAL_DRIVER', 'FREE_HOOK');institutional_candidate"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 5,
+      "canonical_name": "Net-Edge / Cost Autopsy على كل فرصة أو إشارة",
+      "commercial_roles": null,
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 6,
+      "canonical_name": "Evidence class ظاهر (LIVE / DELAYED / SIM)",
+      "commercial_roles": null,
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "trust": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=();trust_asset"
+        },
+        "institutional": {
+          "value": "MEDIUM",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=();institutional_candidate"
+        }
+      },
+      "commercial_use_state": "READY_FOR_CURRENT_SURFACE"
+    },
+    {
+      "launch_number": 7,
+      "canonical_name": "Market Regime / Compass",
+      "commercial_roles": null,
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 8,
+      "canonical_name": "Beginner Decision Mode",
+      "commercial_roles": null,
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 9,
+      "canonical_name": "Cross-Signal Confirmation",
+      "commercial_roles": null,
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 10,
+      "canonical_name": "Contradiction Detection",
+      "commercial_roles": null,
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 11,
+      "canonical_name": "Smart Money Actionability Score",
+      "commercial_roles": null,
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 12,
+      "canonical_name": "Smart Money Conviction Engine",
+      "commercial_roles": null,
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 13,
+      "canonical_name": "Accumulation / Distribution Detection",
+      "commercial_roles": null,
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 14,
+      "canonical_name": "Smart Money Token Screener",
+      "commercial_roles": null,
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "retention": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=();retention_candidate"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 15,
+      "canonical_name": "Entity-Aware Wallet Intelligence",
+      "commercial_roles": null,
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 16,
+      "canonical_name": "Exchange Flow Intelligence (in/out/net)",
+      "commercial_roles": null,
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 17,
+      "canonical_name": "Exchange Whale Ratio + internal-flow filter",
+      "commercial_roles": null,
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 18,
+      "canonical_name": "Whale Accumulation / Movement Alerts",
+      "commercial_roles": null,
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "retention": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=();retention_candidate"
+        },
+        "viral": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=();viral_candidate"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 19,
+      "canonical_name": "Inter-Entity Flow (محدود الإطلاق)",
+      "commercial_roles": null,
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 20,
+      "canonical_name": "Address Labels & Cohorts (نواة محدودة)",
+      "commercial_roles": null,
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 21,
+      "canonical_name": "Spot metrics suite (صادق التحديث)",
+      "commercial_roles": null,
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        }
+      },
+      "commercial_use_state": "READY_FOR_CURRENT_SURFACE"
+    },
+    {
+      "launch_number": 22,
+      "canonical_name": "Real-time / near-real-time prices",
+      "commercial_roles": null,
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        }
+      },
+      "commercial_use_state": "READY_FOR_CURRENT_SURFACE"
+    },
+    {
+      "launch_number": 23,
+      "canonical_name": "OHLCV",
+      "commercial_roles": null,
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        }
+      },
+      "commercial_use_state": "READY_FOR_CURRENT_SURFACE"
+    },
+    {
+      "launch_number": 24,
+      "canonical_name": "Quote + symbol metadata",
+      "commercial_roles": null,
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        }
+      },
+      "commercial_use_state": "READY_FOR_CURRENT_SURFACE"
+    },
+    {
+      "launch_number": 25,
+      "canonical_name": "Futures OI intelligence",
+      "commercial_roles": null,
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 26,
+      "canonical_name": "Funding rate intelligence",
+      "commercial_roles": null,
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 27,
+      "canonical_name": "Liquidation intelligence / heatmap خفيف",
+      "commercial_roles": null,
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 28,
+      "canonical_name": "Taker buy/sell + leverage ratio",
+      "commercial_roles": null,
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 29,
+      "canonical_name": "Derivatives sentiment composite",
+      "commercial_roles": null,
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 30,
+      "canonical_name": "Order book intelligence (L1 على الأقل)",
+      "commercial_roles": null,
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 31,
+      "canonical_name": "Token screener (سوق عام)",
+      "commercial_roles": null,
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 32,
+      "canonical_name": "Watchlists (توكن + محفظة محدودة)",
+      "commercial_roles": [
+        "RETENTION_DRIVER",
+        "HABIT_DRIVER"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER', 'HABIT_DRIVER')"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER', 'HABIT_DRIVER')"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER', 'HABIT_DRIVER')"
+        },
+        "retention": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER', 'HABIT_DRIVER');retention_candidate"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER', 'HABIT_DRIVER')"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER', 'HABIT_DRIVER')"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER', 'HABIT_DRIVER')"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 33,
+      "canonical_name": "Smart Alerts (سعر + تدفق + حوت + قرار)",
+      "commercial_roles": [
+        "RETENTION_DRIVER",
+        "UPGRADE_TRIGGER"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER', 'UPGRADE_TRIGGER')"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER', 'UPGRADE_TRIGGER')"
+        },
+        "upgrade": {
+          "value": "MEDIUM",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER', 'UPGRADE_TRIGGER');tier_gated_depth"
+        },
+        "retention": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER', 'UPGRADE_TRIGGER');retention_candidate"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER', 'UPGRADE_TRIGGER')"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER', 'UPGRADE_TRIGGER')"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER', 'UPGRADE_TRIGGER')"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 34,
+      "canonical_name": "Signal → Explanation workflow",
+      "commercial_roles": null,
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 35,
+      "canonical_name": "Price-move explanation",
+      "commercial_roles": null,
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 36,
+      "canonical_name": "AI Research Agent + Copilot مربوط ببيانات المنصة فقط (شات على أسطح الإطلاق + footer امتثال)",
+      "commercial_roles": [
+        "PROFESSIONAL_DIFFERENTIATOR",
+        "UPGRADE_TRIGGER"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=('PROFESSIONAL_DIFFERENTIATOR', 'UPGRADE_TRIGGER')"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=('PROFESSIONAL_DIFFERENTIATOR', 'UPGRADE_TRIGGER')"
+        },
+        "upgrade": {
+          "value": "MEDIUM",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=('PROFESSIONAL_DIFFERENTIATOR', 'UPGRADE_TRIGGER');tier_gated_depth"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=('PROFESSIONAL_DIFFERENTIATOR', 'UPGRADE_TRIGGER')"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=('PROFESSIONAL_DIFFERENTIATOR', 'UPGRADE_TRIGGER')"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=('PROFESSIONAL_DIFFERENTIATOR', 'UPGRADE_TRIGGER')"
+        },
+        "institutional": {
+          "value": "MEDIUM",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=('PROFESSIONAL_DIFFERENTIATOR', 'UPGRADE_TRIGGER');institutional_candidate"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 37,
+      "canonical_name": "Cross-market decision engine",
+      "commercial_roles": null,
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 38,
+      "canonical_name": "MVRV / Z-Score (نواة BTC/ETH إن توفّر مصدر)",
+      "commercial_roles": null,
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Edge;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Edge;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Edge;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Edge;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Edge;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Edge;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Edge;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 39,
+      "canonical_name": "Point-in-time immutable metrics",
+      "commercial_roles": null,
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "institutional": {
+          "value": "MEDIUM",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=();institutional_candidate"
+        }
+      },
+      "commercial_use_state": "READY_FOR_CURRENT_SURFACE"
+    },
+    {
+      "launch_number": 40,
+      "canonical_name": "Data quality & provenance (ظاهر للمستخدم)",
+      "commercial_roles": null,
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "trust": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=();trust_asset"
+        },
+        "institutional": {
+          "value": "MEDIUM",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=();institutional_candidate"
+        }
+      },
+      "commercial_use_state": "READY_FOR_CURRENT_SURFACE"
+    },
+    {
+      "launch_number": 41,
+      "canonical_name": "Freshness assurance + تسمية delayed صريحة",
+      "commercial_roles": null,
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "trust": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=();trust_asset"
+        },
+        "institutional": {
+          "value": "MEDIUM",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=();institutional_candidate"
+        }
+      },
+      "commercial_use_state": "READY_FOR_CURRENT_SURFACE"
+    },
+    {
+      "launch_number": 42,
+      "canonical_name": "Unified exchange connector (مسار واحد)",
+      "commercial_roles": null,
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "institutional": {
+          "value": "MEDIUM",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=();institutional_candidate"
+        }
+      },
+      "commercial_use_state": "READY_FOR_CURRENT_SURFACE"
+    },
+    {
+      "launch_number": 43,
+      "canonical_name": "Spot–perp / arbitrage (Net-Edge إلزامي)",
+      "commercial_roles": [
+        "PROFESSIONAL_DIFFERENTIATOR"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Edge;roles=('PROFESSIONAL_DIFFERENTIATOR',)"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Edge;roles=('PROFESSIONAL_DIFFERENTIATOR',)"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Edge;roles=('PROFESSIONAL_DIFFERENTIATOR',)"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Edge;roles=('PROFESSIONAL_DIFFERENTIATOR',)"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Edge;roles=('PROFESSIONAL_DIFFERENTIATOR',)"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Edge;roles=('PROFESSIONAL_DIFFERENTIATOR',)"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Edge;roles=('PROFESSIONAL_DIFFERENTIATOR',)"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 44,
+      "canonical_name": "Shareable decision / oracle card (OG)",
+      "commercial_roles": [
+        "VIRAL_DRIVER",
+        "TRUST_DRIVER"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Public / Viral / Guest;roles=('VIRAL_DRIVER', 'TRUST_DRIVER')"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Public / Viral / Guest;roles=('VIRAL_DRIVER', 'TRUST_DRIVER')"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Public / Viral / Guest;roles=('VIRAL_DRIVER', 'TRUST_DRIVER')"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Public / Viral / Guest;roles=('VIRAL_DRIVER', 'TRUST_DRIVER')"
+        },
+        "viral": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Public / Viral / Guest;roles=('VIRAL_DRIVER', 'TRUST_DRIVER');viral_candidate"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Public / Viral / Guest;roles=('VIRAL_DRIVER', 'TRUST_DRIVER')"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Public / Viral / Guest;roles=('VIRAL_DRIVER', 'TRUST_DRIVER')"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 45,
+      "canonical_name": "Shareable accuracy / outcome page",
+      "commercial_roles": [
+        "VIRAL_DRIVER",
+        "TRUST_DRIVER"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Public / Viral / Guest;roles=('VIRAL_DRIVER', 'TRUST_DRIVER')"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Public / Viral / Guest;roles=('VIRAL_DRIVER', 'TRUST_DRIVER')"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Public / Viral / Guest;roles=('VIRAL_DRIVER', 'TRUST_DRIVER')"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Public / Viral / Guest;roles=('VIRAL_DRIVER', 'TRUST_DRIVER')"
+        },
+        "viral": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Public / Viral / Guest;roles=('VIRAL_DRIVER', 'TRUST_DRIVER');viral_candidate"
+        },
+        "trust": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Public / Viral / Guest;roles=('VIRAL_DRIVER', 'TRUST_DRIVER');trust_asset"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Public / Viral / Guest;roles=('VIRAL_DRIVER', 'TRUST_DRIVER')"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 46,
+      "canonical_name": "Guest trust surface",
+      "commercial_roles": [
+        "FREE_HOOK",
+        "TRUST_DRIVER",
+        "CONVERSION_TRIGGER"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "CRITICAL",
+          "ASSESSMENT_BASIS": "launch_group=Public / Viral / Guest;roles=('FREE_HOOK', 'TRUST_DRIVER', 'CONVERSION_TRIGGER');public_hook"
+        },
+        "conversion": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Public / Viral / Guest;roles=('FREE_HOOK', 'TRUST_DRIVER', 'CONVERSION_TRIGGER');conversion_surface"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Public / Viral / Guest;roles=('FREE_HOOK', 'TRUST_DRIVER', 'CONVERSION_TRIGGER')"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Public / Viral / Guest;roles=('FREE_HOOK', 'TRUST_DRIVER', 'CONVERSION_TRIGGER')"
+        },
+        "viral": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Public / Viral / Guest;roles=('FREE_HOOK', 'TRUST_DRIVER', 'CONVERSION_TRIGGER');viral_candidate"
+        },
+        "trust": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Public / Viral / Guest;roles=('FREE_HOOK', 'TRUST_DRIVER', 'CONVERSION_TRIGGER');trust_asset"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Public / Viral / Guest;roles=('FREE_HOOK', 'TRUST_DRIVER', 'CONVERSION_TRIGGER')"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 47,
+      "canonical_name": "One-click risk disclosure على كل قرار",
+      "commercial_roles": null,
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "trust": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=();trust_asset"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 48,
+      "canonical_name": "Abstain / reject reasons ظاهرة",
+      "commercial_roles": null,
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "trust": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=();trust_asset"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 49,
+      "canonical_name": "Personal decision history (محدود Free)",
+      "commercial_roles": [
+        "RETENTION_DRIVER",
+        "HABIT_DRIVER"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER', 'HABIT_DRIVER')"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER', 'HABIT_DRIVER')"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER', 'HABIT_DRIVER')"
+        },
+        "retention": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER', 'HABIT_DRIVER');retention_candidate"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER', 'HABIT_DRIVER')"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER', 'HABIT_DRIVER')"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER', 'HABIT_DRIVER')"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 50,
+      "canonical_name": "Discipline / missed-opportunity mirror (خفيف)",
+      "commercial_roles": [
+        "RETENTION_DRIVER"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER',)"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER',)"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER',)"
+        },
+        "retention": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER',);retention_candidate"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER',)"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER',)"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER',)"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 51,
+      "canonical_name": "Research portal / short briefs",
+      "commercial_roles": [
+        "RETENTION_DRIVER",
+        "DISCOVERY_DRIVER"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=('RETENTION_DRIVER', 'DISCOVERY_DRIVER')"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=('RETENTION_DRIVER', 'DISCOVERY_DRIVER')"
+        },
+        "upgrade": {
+          "value": "MEDIUM",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=('RETENTION_DRIVER', 'DISCOVERY_DRIVER');tier_gated_depth"
+        },
+        "retention": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=('RETENTION_DRIVER', 'DISCOVERY_DRIVER');retention_candidate"
+        },
+        "viral": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=('RETENTION_DRIVER', 'DISCOVERY_DRIVER');viral_candidate"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=('RETENTION_DRIVER', 'DISCOVERY_DRIVER')"
+        },
+        "institutional": {
+          "value": "MEDIUM",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=('RETENTION_DRIVER', 'DISCOVERY_DRIVER');institutional_candidate"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 52,
+      "canonical_name": "Capability library (بحث) — طبقة ثانية لا الرئيسية",
+      "commercial_roles": [
+        "DISCOVERY_DRIVER"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('DISCOVERY_DRIVER',)"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('DISCOVERY_DRIVER',)"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('DISCOVERY_DRIVER',)"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('DISCOVERY_DRIVER',)"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('DISCOVERY_DRIVER',)"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('DISCOVERY_DRIVER',)"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('DISCOVERY_DRIVER',)"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 53,
+      "canonical_name": "Instant Wallet Due Diligence",
+      "commercial_roles": [
+        "INSTITUTIONAL_DIFFERENTIATOR"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=('INSTITUTIONAL_DIFFERENTIATOR',)"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=('INSTITUTIONAL_DIFFERENTIATOR',)"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=('INSTITUTIONAL_DIFFERENTIATOR',)"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=('INSTITUTIONAL_DIFFERENTIATOR',)"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=('INSTITUTIONAL_DIFFERENTIATOR',)"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=('INSTITUTIONAL_DIFFERENTIATOR',)"
+        },
+        "institutional": {
+          "value": "MEDIUM",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=('INSTITUTIONAL_DIFFERENTIATOR',);institutional_candidate"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 54,
+      "canonical_name": "Instant Token Due Diligence",
+      "commercial_roles": [
+        "INSTITUTIONAL_DIFFERENTIATOR"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=('INSTITUTIONAL_DIFFERENTIATOR',)"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=('INSTITUTIONAL_DIFFERENTIATOR',)"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=('INSTITUTIONAL_DIFFERENTIATOR',)"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=('INSTITUTIONAL_DIFFERENTIATOR',)"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=('INSTITUTIONAL_DIFFERENTIATOR',)"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=('INSTITUTIONAL_DIFFERENTIATOR',)"
+        },
+        "institutional": {
+          "value": "MEDIUM",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=('INSTITUTIONAL_DIFFERENTIATOR',);institutional_candidate"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 55,
+      "canonical_name": "Pump & Dump / manipulation pattern alerts",
+      "commercial_roles": null,
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=()"
+        },
+        "viral": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=();viral_candidate"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 56,
+      "canonical_name": "Suspicious activity flags (على مسارات توكن/سمارت موني — ليس AML كامل)",
+      "commercial_roles": null,
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    },
+    {
+      "launch_number": 57,
+      "canonical_name": "Exchange transparency / risk indicators (احتياطي معلن إن وُجد، شذوذ تدفق، حوادث — بدون شهادة ملاءة أو ضمان)",
+      "commercial_roles": [
+        "INSTITUTIONAL_DIFFERENTIATOR",
+        "TRUST_DRIVER"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=('INSTITUTIONAL_DIFFERENTIATOR', 'TRUST_DRIVER')"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=('INSTITUTIONAL_DIFFERENTIATOR', 'TRUST_DRIVER')"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=('INSTITUTIONAL_DIFFERENTIATOR', 'TRUST_DRIVER')"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=('INSTITUTIONAL_DIFFERENTIATOR', 'TRUST_DRIVER')"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=('INSTITUTIONAL_DIFFERENTIATOR', 'TRUST_DRIVER')"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=('INSTITUTIONAL_DIFFERENTIATOR', 'TRUST_DRIVER')"
+        },
+        "institutional": {
+          "value": "MEDIUM",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=('INSTITUTIONAL_DIFFERENTIATOR', 'TRUST_DRIVER');institutional_candidate"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING"
+    }
+  ]
+}

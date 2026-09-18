@@ -1,0 +1,22 @@
+{
+  "artifact": "BLACKDARK_LAUNCH57_INDEPENDENT_RECOMPUTATION",
+  "generated_at": "2026-09-18T15:24:51.349787+00:00",
+  "implementation_sha": "2e5cf3d3",
+  "INDEPENDENT_RECOMPUTATION_MATCH": true,
+  "SELF_REFERENTIAL_AUDIT_EVIDENCE_COUNT": 0,
+  "direct_register_count": 57,
+  "inventory_count": 57,
+  "counter_reconciled_count": 57,
+  "status_recompute": {
+    "PENDING_VERIFICATION": 48,
+    "PASS_ENGINEERING": 9
+  },
+  "counter_status_pass": 9,
+  "sources": [
+    "governance/launch57/LAUNCH57_REGISTER.json",
+    "launch57/identity_auth_common.py",
+    "launch57/billing_entitlement_common.py",
+    "launch57/anonymous_visitor_common.py"
+  ],
+  "tests_pass": true
+}
