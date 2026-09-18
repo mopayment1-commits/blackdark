@@ -1,7 +1,7 @@
 {
   "artifact": "SPEC_05_INDEPENDENT_VERIFICATION",
   "domain": "SPEC_05_COMMERCIAL_CAPABILITY_INVENTORY",
-  "verification_sha": "05caa606cd2068a0a5a8512c8279ea329f45ff5d",
+  "verification_sha": "30b80601480f7d68faa5772e5d587067ef169429",
   "probe_count": 13,
   "passed_count": 13,
   "failed_count": 0,
@@ -74,5 +74,5 @@
     }
   ],
   "PASS_LIVE_NOT_CLAIMED": true,
-  "generated_at": "2026-09-18T23:47:33.766243+00:00"
+  "generated_at": "2026-09-18T23:49:37.547038+00:00"
 }
