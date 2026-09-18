@@ -1,0 +1,303 @@
+{
+  "artifact": "LAUNCH57_PRODUCTION_VALIDATION",
+  "check_type": "read_only_production_validation",
+  "validated_at": "2026-09-18T01:25:49+00:00",
+  "audited_head_sha": "afa3bab0",
+  "entry_gates": {
+    "PHASE8_INDEPENDENT_VERDICT": {
+      "verdict": "PASS_ENGINEERING",
+      "sha": "afa3bab0",
+      "implementation_sha": "f1700f7c"
+    },
+    "LAUNCH57_PRE_LIVE_CLOSED": "YES",
+    "pass": true
+  },
+  "governing_sources": [
+    "docs/standards/معيار_مؤسسي_صارم_لبناء_القدرات_والمميزات_وجاهزية_لجنة_الفحص_2026_v6.md §2.2 PASS_LIVE definition",
+    "docs/standards/معيار_مؤسسي_صارم_لبناء_القدرات_والمميزات_وجاهزية_لجنة_الفحص_2026_v6.md §28 Operational Readiness",
+    "BLACKDARK_Launch57_Adaptive_Intelligence_Decision_Experience_FINAL_AUDITED_57.md §31.1 / §38 / §40",
+    "governance/launch57/B1_B15_TEMPORAL_FINAL_CLOSURE_AUDIT_FINAL.json external_live_gates",
+    "governance/launch57/PHASE8_PRE_LIVE_CLOSURE.json",
+    "governance/launch57/PHASE8_LAUNCH_ISOLATION_EVIDENCE.json",
+    "governance/launch57/LAUNCH57_57_CAPABILITY_ADAPTIVE_RECONCILIATION.json"
+  ],
+  "production_environments": {
+    "canonical_hosts": [
+      "https://blackdark-production.up.railway.app",
+      "https://blackdark.io",
+      "https://www.blackdark.io"
+    ],
+    "launch57_consumer_api_routes": [
+      "/api/launch57/command-home",
+      "/api/launch57/decision-history",
+      "/api/launch57/discipline-mirror",
+      "/api/launch57/capability-library"
+    ],
+    "cap646_dispatch_path": "api/routers/cap646.py → cap978.unified → cap646.runtime.execute_capability → cap646.institutional_official_production → launch57/*"
+  },
+  "production_probe_session": {
+    "method": "live_https_probe_no_auth",
+    "probed_at": "2026-09-18T01:25:49+00:00",
+    "results": [
+      {
+        "url": "https://blackdark-production.up.railway.app/health/live",
+        "http_status": 404,
+        "body_excerpt": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\"}",
+        "launch57_reachable": false
+      },
+      {
+        "url": "https://blackdark-production.up.railway.app/api/launch57/command-home",
+        "http_status": 404,
+        "body_excerpt": "{\"status\":\"error\",\"code\":404,\"message\":\"Application not found\"}",
+        "launch57_reachable": false
+      },
+      {
+        "url": "https://blackdark.io/health/live",
+        "http_status": 0,
+        "error": "Could not resolve host: blackdark.io",
+        "launch57_reachable": false
+      },
+      {
+        "url": "https://blackdark.io/api/launch57/command-home",
+        "http_status": 0,
+        "error": "Could not resolve host: blackdark.io",
+        "launch57_reachable": false
+      }
+    ],
+    "any_launch57_production_path_reachable": false
+  },
+  "excluded_evidence_classes": [
+    "PASS_ENGINEERING",
+    "engineering_tests",
+    "staging",
+    "replay",
+    "shadow",
+    "SHADOW_LIVE_FORWARD",
+    "local_rehearsal",
+    "UI_presence_only"
+  ],
+  "applicable_requirements": [
+    {
+      "requirement_id": "PV-01",
+      "governing_requirement": "V6 §2.2 — production deployment successful on intended live environment",
+      "production_path_environment": "https://blackdark-production.up.railway.app / https://blackdark.io",
+      "actual_production_evidence": "Live HTTPS probe 2026-09-18: Railway host returns HTTP 404 Application not found; blackdark.io DNS unresolved from probe environment. No current deploy-success artifact for Launch-57 head f1700f7c.",
+      "satisfied": false,
+      "blocker": "No reachable production deployment; historical data/institutional_assurance/signed_capacity.json (2026-08-22) predates current head and does not attest deploy at f1700f7c"
+    },
+    {
+      "requirement_id": "PV-02",
+      "governing_requirement": "V6 §2.2 — real consumer/user path works in production",
+      "production_path_environment": "GET /api/launch57/command-home, /decision-history, /discipline-mirror, /capability-library on production hosts",
+      "actual_production_evidence": "All four Launch-57 API routes unreachable: Railway 404; blackdark.io DNS failure. Engineering path verified only in PHASE8_E2E_JOURNEYS.json (in-process, SHADOW_LIVE_FORWARD).",
+      "satisfied": false,
+      "blocker": "Launch-57 consumer API routes have zero successful production HTTP responses"
+    },
+    {
+      "requirement_id": "PV-03",
+      "governing_requirement": "V6 §2.2 — required production data sources and entitlements available on live path",
+      "production_path_environment": "cap646.institutional_official_production → launch57/* on production runtime",
+      "actual_production_evidence": "No production runtime invocation evidence for any Launch-57 capability. #38 licensed MVRV source not configured (BLOCKED_EXTERNAL). #33 telegram delivery credentials not configured (BLOCKED_EXTERNAL).",
+      "satisfied": false,
+      "blocker": "Production runtime not reachable; two Launch-57 capabilities carry valid BLOCKED_EXTERNAL production dependencies (#33, #38)"
+    },
+    {
+      "requirement_id": "PV-04",
+      "governing_requirement": "V6 §2.2 / §28 — production SLI/SLO or operational indicators measured from live environment for Launch-57 surfaces",
+      "production_path_environment": "Production latency/availability for /api/launch57/* and cap646 Launch-57 dispatch",
+      "actual_production_evidence": "data/institutional_assurance/signed_capacity.json measures generic /health/live and /oracle/BTC (2026-08-22); excludes Launch-57 routes; production host now 404. data/uptime_probes.jsonl shows monitor_live/monitor_ready fail against local target, not authoritative production.",
+      "satisfied": false,
+      "blocker": "No measured production latency/availability/cache/API-cost evidence for Launch-57 paths at current head"
+    },
+    {
+      "requirement_id": "PV-05",
+      "governing_requirement": "V6 §2.2 / §28 — production rollback/recovery proven on live environment",
+      "production_path_environment": "Railway production deploy rollback",
+      "actual_production_evidence": "data/production_readiness/local_rollback_rehearsal.json — LOCAL_ROLLBACK_REHEARSAL_PASS=true; GENUINE_EXTERNAL_ROLLBACK_VALIDATION_PENDING=1. No live Railway rollback attestation.",
+      "satisfied": false,
+      "blocker": "Only local Docker rollback rehearsal; external production rollback validation pending (G-13-005)"
+    },
+    {
+      "requirement_id": "PV-06",
+      "governing_requirement": "V6 §2.2 — required live smoke/E2E on production paths (not engineering replay)",
+      "production_path_environment": "14 Launch E2E journeys on production consumer paths",
+      "actual_production_evidence": "PHASE8_E2E_JOURNEYS.json — 14/14 PASS in engineering generator with evidence_class_visible SHADOW_LIVE_FORWARD on primary journey; no production HTTP journey log.",
+      "satisfied": false,
+      "blocker": "E2E evidence is engineering/in-process only; explicitly not production proof"
+    },
+    {
+      "requirement_id": "PV-07",
+      "governing_requirement": "Adaptive Spec §38 — production_host_clock_sync",
+      "production_path_environment": "Production host NTP/clock on deployed Launch-57 runtime",
+      "actual_production_evidence": "B1_B15_TEMPORAL_FINAL_CLOSURE_AUDIT_FINAL.json: NEEDS_EXTERNAL_VERIFICATION. No production NTP probe artifact.",
+      "satisfied": false,
+      "blocker": "Temporal §38 gate unresolved; production host not deployed"
+    },
+    {
+      "requirement_id": "PV-08",
+      "governing_requirement": "Adaptive Spec §38 — browser_device_timezone_detection",
+      "production_path_environment": "Real browser/client timezone detection against production Launch-57 UI/API",
+      "actual_production_evidence": "B1_B15: NEEDS_EXTERNAL_VERIFICATION. No production browser/device capture artifact.",
+      "satisfied": false,
+      "blocker": "Temporal §38 gate unresolved"
+    },
+    {
+      "requirement_id": "PV-09",
+      "governing_requirement": "Adaptive Spec §38 — cross_device_persistence",
+      "production_path_environment": "Production persistence layer for timezone/preferences across devices",
+      "actual_production_evidence": "B1_B15: NEEDS_EXTERNAL_VERIFICATION. No multi-device production persistence evidence.",
+      "satisfied": false,
+      "blocker": "Temporal §38 gate unresolved; production persistence layer not evidenced live"
+    },
+    {
+      "requirement_id": "PV-10",
+      "governing_requirement": "Adaptive Spec §38 — production_alert_delivery_timing",
+      "production_path_environment": "Production alert transport for #33 and temporal alert surfaces",
+      "actual_production_evidence": "B1_B15: NEEDS_EXTERNAL_VERIFICATION. #33 additionally BLOCKED_EXTERNAL (telegram_delivery_credentials_not_configured).",
+      "satisfied": false,
+      "blocker": "Temporal §38 gate unresolved; #33 external delivery channel not proven live"
+    },
+    {
+      "requirement_id": "PV-11",
+      "governing_requirement": "Adaptive Spec §38 — production_dst_sensitive_scheduling",
+      "production_path_environment": "Production schedule executor for DST-sensitive Launch-57 alerts/jobs",
+      "actual_production_evidence": "B1_B15: NEEDS_EXTERNAL_VERIFICATION. B14 library tested locally; no production schedule execution log.",
+      "satisfied": false,
+      "blocker": "Temporal §38 gate unresolved"
+    },
+    {
+      "requirement_id": "PV-12",
+      "governing_requirement": "Adaptive Spec §38 — production_email_notification_rendering",
+      "production_path_environment": "Production email/notification rendering stack",
+      "actual_production_evidence": "B1_B15: NEEDS_EXTERNAL_VERIFICATION. No production notification render capture.",
+      "satisfied": false,
+      "blocker": "Temporal §38 gate unresolved"
+    },
+    {
+      "requirement_id": "PV-13",
+      "governing_requirement": "Adaptive Spec §40 — #33 Smart Alerts live delivery channel",
+      "production_path_environment": "launch57.derivatives_batch2 smart alerts → production transport",
+      "actual_production_evidence": "PHASE8_PRE_LIVE_CLOSURE.json blocked_external_ids [33]: telegram_delivery_credentials_not_configured. PHASE5 engineering only.",
+      "satisfied": false,
+      "blocker": "BLOCKED_EXTERNAL: telegram_delivery_credentials_not_configured"
+    },
+    {
+      "requirement_id": "PV-14",
+      "governing_requirement": "Adaptive Spec §40 — #38 licensed on-chain MVRV/Z-Score provenance (BTC/ETH)",
+      "production_path_environment": "launch57.edge_ui_batch1 mvrv_zscore → licensed production data source",
+      "actual_production_evidence": "PHASE8_PRE_LIVE_CLOSURE.json blocked_external_ids [38]: licensed_onchain_mvrv_source_not_configured_partial. Engineering abstention/blocker preserved.",
+      "satisfied": false,
+      "blocker": "BLOCKED_EXTERNAL: licensed_onchain_mvrv_source_not_configured_partial"
+    },
+    {
+      "requirement_id": "PV-15",
+      "governing_requirement": "Adaptive Spec §31.1 — human validation / usability-safety evidence for user-facing decision experience",
+      "production_path_environment": "Launch-57 user-facing surfaces (#1–#57 decision composition and Six Heroes)",
+      "actual_production_evidence": "LAUNCH57_57_CAPABILITY_ADAPTIVE_RECONCILIATION.json gap human_validation: no governance/launch57 human-validation or usability evaluation artifacts. Engineering tests only.",
+      "satisfied": false,
+      "blocker": "No production human-validation or usability-safety study artifacts; §31.1 evidence absent"
+    },
+    {
+      "requirement_id": "PV-16",
+      "governing_requirement": "Adaptive Spec §9 / Launch #6 — evidence class LIVE/DELAYED/SIM correctly exposed from production provenance and freshness",
+      "production_path_environment": "launch57.evidence_class_common + freshness_common (#6, #40, #41) on production responses",
+      "actual_production_evidence": "Engineering controls verified in Phase 1–8 IV. No production response captures showing LIVE vs DELAYED vs SIM classification with production provenance timestamps.",
+      "satisfied": false,
+      "blocker": "No production HTTP captures of evidence-class/freshness/provenance fields"
+    },
+    {
+      "requirement_id": "PV-17",
+      "governing_requirement": "Adaptive Spec §24/§28 — calibration evidence for numeric confidence/boundaries actually exposed to users",
+      "production_path_environment": "Production oracle/decision outputs with confidence scores and material boundaries",
+      "actual_production_evidence": "Engineering calibration tests in decision_truth/calibration.py and phase IV runtime probes. No forward production calibration effectiveness record for exposed Launch-57 confidence fields.",
+      "satisfied": false,
+      "blocker": "No production forward-calibration or live confidence-boundary effectiveness evidence"
+    },
+    {
+      "requirement_id": "PV-18",
+      "governing_requirement": "Adaptive Spec §2/#48 — production abstention/reject/degradation behavior under real failure modes",
+      "production_path_environment": "Production runtime abstain/reject/degrade paths (trust_batch2, edge_ui guards)",
+      "actual_production_evidence": "Engineering adversarial probes in PHASE8_LAUNCH_COHERENCE_INDEPENDENT_VERIFICATION.json. No production fault-injection or controlled-degradation log.",
+      "satisfied": false,
+      "blocker": "Abstention/degradation proven only in engineering replay; no production failure-mode evidence"
+    },
+    {
+      "requirement_id": "PV-19",
+      "governing_requirement": "Phase 8 isolation — production cannot reach PARKED / non-Launch57 paths",
+      "production_path_environment": "Production /api/launch57/* and cap646 Launch-57 dispatch vs PARKED capability IDs",
+      "actual_production_evidence": "PHASE8_LAUNCH_ISOLATION_EVIDENCE.json — engineering isolation pass (parked_out_of_launch_not_in_home, phantom_launch_paths_observed=false). No production penetration test or live route scan.",
+      "satisfied": false,
+      "blocker": "Isolation proven in engineering only; production runtime unreachable for live verification"
+    },
+    {
+      "requirement_id": "PV-20",
+      "governing_requirement": "V6 §28 — production monitoring/alerts/health for Launch-57 critical paths",
+      "production_path_environment": "Production /health/live, /health/ready, monitoring for Launch-57 routes",
+      "actual_production_evidence": "Live probe: /health/live → 404 Application not found. data/uptime_probes.jsonl local monitor_live/monitor_ready predominantly fail.",
+      "satisfied": false,
+      "blocker": "Production health endpoints unreachable; no live monitoring evidence for Launch-57"
+    }
+  ],
+  "not_applicable_requirements": [
+    {
+      "requirement_id": "PV-NA-01",
+      "governing_requirement": "Phase engineering-only PASS_LIVE flags in phase2_batch1/batch2_verification",
+      "reason": "Register explicitly marks PASS_LIVE NOT_APPLICABLE for Phase 2 engineering batches; superseded by this production validation gate"
+    },
+    {
+      "requirement_id": "PV-NA-02",
+      "governing_requirement": "FDS FIPS-140-3 module certificate (FDS-08)",
+      "reason": "Institutional FDS external attestation; not a Launch-57 capability production gate unless Launch-57 deploy is live (blocked by PV-01)"
+    }
+  ],
+  "summary": {
+    "applicable_count": 20,
+    "satisfied_count": 0,
+    "unsatisfied_count": 20,
+    "not_applicable_count": 2,
+    "blocked_external_launch_items": [33, 38],
+    "temporal_section38_gates_unresolved": 6,
+    "production_deploy_reachable": false
+  },
+  "verdicts": {
+    "LAUNCH57_PRODUCTION_VALIDATION": "PASS_LIVE_NOT_GRANTED",
+    "PASS_LIVE_GRANTED": false,
+    "PASS_LIVE_ISSUED": "NO",
+    "unresolved_production_requirement_ids": [
+      "PV-01",
+      "PV-02",
+      "PV-03",
+      "PV-04",
+      "PV-05",
+      "PV-06",
+      "PV-07",
+      "PV-08",
+      "PV-09",
+      "PV-10",
+      "PV-11",
+      "PV-12",
+      "PV-13",
+      "PV-14",
+      "PV-15",
+      "PV-16",
+      "PV-17",
+      "PV-18",
+      "PV-19",
+      "PV-20"
+    ]
+  },
+  "confirmations": {
+    "PASS_LIVE_NOT_CLAIMED": true,
+    "PASS_ENGINEERING_PRESERVED": true,
+    "LAUNCH57_PRE_LIVE_CLOSED_PRESERVED": true,
+    "PRODUCT_CODE_CHANGED_BY_VALIDATION": false,
+    "REGISTER_STATUS_PROMOTION": false
+  },
+  "historical_evidence_preserved": [
+    "governance/launch57/PHASE8_LAUNCH_COHERENCE_INDEPENDENT_VERIFICATION.json",
+    "governance/launch57/PHASE8_PRE_LIVE_CLOSURE.json",
+    "governance/launch57/B1_B15_TEMPORAL_FINAL_CLOSURE_AUDIT_FINAL.json",
+    "data/institutional_assurance/signed_capacity.json",
+    "data/production_readiness/local_rollback_rehearsal.json"
+  ]
+}
