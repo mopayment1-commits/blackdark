@@ -2,7 +2,7 @@
 
 **Phase:** 3 — Routing/Composition engineering controls  
 **HEAD before:** `34a0b0a6`  
-**Implementation commit:** _(see git log)_  
+**Implementation commit:** `7e835261`  
 **Status:** `SUPPORT_PLANE_P3_STATUS = PENDING_VERIFICATION`
 
 ## Governing requirement (Adaptive Spec §32)
@@ -16,7 +16,7 @@ This phase implements **documented engineering defaults** and enforcement on the
 | | SHA |
 | --- | --- |
 | Before | `34a0b0a6` |
-| After | _(commit after push)_ |
+| After | `7e835261` |
 
 ## B) Files changed
 
