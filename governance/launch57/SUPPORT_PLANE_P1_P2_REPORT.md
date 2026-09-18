@@ -9,7 +9,7 @@
 | | SHA |
 | --- | --- |
 | Before (Phase 0) | `da116cf8` |
-| After (Phase 1+2) | _(see commit)_ |
+| After (Phase 1+2) | `1628e7e1` |
 
 Product baseline `f1700f7c` handler cores unchanged; support-plane + UI journey isolation added.
 
