@@ -17,13 +17,29 @@ from launch57.edge_ui_common import LAUNCH57_SCOPE_IDS, launch57_home_eligible_i
 _REGISTER = Path(__file__).resolve().parents[1] / "governance/launch57/LAUNCH57_REGISTER.json"
 
 BUILDER_STATUS = "PENDING_VERIFICATION"
-METHODOLOGY_VERSION = "launch57-router-selection-contract-1.0"
+METHODOLOGY_VERSION = "launch57-router-selection-contract-1.1"
 
-# §32 minimal defaults — engineering budgets only; not measured production SLOs.
-DEFAULT_MAXIMUM_CANDIDATES = 12
+# §32 engineering defaults — documented conservative values; not measured production SLOs.
+# Adaptive Spec §32: maximum candidate set, maximum selected set, latency class, cache policy,
+# degradation path, cost ceiling, synchronous vs deeper analysis boundary.
+DEFAULT_MAX_CANDIDATE_SET = 12
+DEFAULT_MAX_SELECTED_SET = 6
+DEFAULT_MAXIMUM_CANDIDATES = DEFAULT_MAX_CANDIDATE_SET  # backward-compatible alias
 DEFAULT_LATENCY_CLASS = "interactive"
 DEFAULT_CACHE_POLICY = "no_cache_on_composite"
 DEFAULT_DEGRADATION_PATH = "abstain_with_explain"
+DEFAULT_COST_CEILING_UNITS = 12
+DEFAULT_SYNC_DEEP_BOUNDARY = "sync_only"
+
+# Modules treated as deeper-than-sync for Command Home composite (excluded on sync_only paths).
+_DEEP_ANALYSIS_MODULE_PREFIXES: tuple[str, ...] = (
+    "explanation_ai_batch",
+    "smart_money_batch3",
+)
+
+# Per-candidate engineering cost units (not production billing).
+_DEFAULT_COST_UNIT = 1
+_DEEP_ANALYSIS_COST_UNIT = 3
 
 PIPELINE_STEPS: tuple[str, ...] = (
     "intent",
@@ -91,6 +107,184 @@ def _dependence_cluster(launch_id: int) -> str:
         if module.startswith(prefix):
             return cluster
     return f"launch_{launch_id}"
+
+
+def composition_control_defaults() -> dict[str, Any]:
+    """§32 documented engineering defaults (not production SLOs)."""
+    return {
+        "max_candidate_set": DEFAULT_MAX_CANDIDATE_SET,
+        "max_selected_set": DEFAULT_MAX_SELECTED_SET,
+        "latency_class": DEFAULT_LATENCY_CLASS,
+        "cache_policy": DEFAULT_CACHE_POLICY,
+        "degradation_path": DEFAULT_DEGRADATION_PATH,
+        "cost_ceiling_units": DEFAULT_COST_CEILING_UNITS,
+        "sync_deep_boundary": DEFAULT_SYNC_DEEP_BOUNDARY,
+        "engineering_only_not_measured_slo": True,
+        "rationale": {
+            "max_candidate_set": "Caps pre-selection fan-out on interactive Command Home path",
+            "max_selected_set": "Prevents unbounded composition surface density per §32",
+            "latency_class": "Command Home is user-facing sync/interactive",
+            "cache_policy": "Composite responses must not serve stale cached cross-cap bundles",
+            "degradation_path": "Fail closed via §23 abstain+explain when limits exceeded",
+            "cost_ceiling_units": "Conservative unit budget before abstain (1 unit/sync, 3/deep)",
+            "sync_deep_boundary": "Command Home excludes deep-analysis modules on sync path",
+        },
+    }
+
+
+def build_composition_controls(params: dict[str, Any] | None = None) -> dict[str, Any]:
+    """Build §32 controls from defaults with optional test/param overrides."""
+    controls = composition_control_defaults()
+    p = dict(params or {})
+    override = dict(p.get("composition_controls") or {})
+    for key in (
+        "max_candidate_set",
+        "max_selected_set",
+        "latency_class",
+        "cache_policy",
+        "degradation_path",
+        "cost_ceiling_units",
+        "sync_deep_boundary",
+    ):
+        if key in override:
+            controls[key] = override[key]
+    if "maximum_candidates" in p and "max_candidate_set" not in override:
+        controls["max_candidate_set"] = int(p["maximum_candidates"])
+    return controls
+
+
+def record_composition_measurement(
+    hook: str,
+    value: float | int,
+    *,
+    labels: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Optional engineering measurement hook — not a production SLO attestation."""
+    return {
+        "hook": hook,
+        "value": value,
+        "labels": dict(labels or {}),
+        "engineering_measurement_only": True,
+        "production_slo": False,
+    }
+
+
+def _analysis_depth_for_candidate(cand: dict[str, Any]) -> str:
+    module = _batch_module_for(int(cand["launch_id"]))
+    for prefix in _DEEP_ANALYSIS_MODULE_PREFIXES:
+        if module.startswith(prefix):
+            return "deep_analysis"
+    return "sync"
+
+
+def _cost_units_for_candidate(cand: dict[str, Any]) -> int:
+    return _DEEP_ANALYSIS_COST_UNIT if _analysis_depth_for_candidate(cand) == "deep_analysis" else _DEFAULT_COST_UNIT
+
+
+def annotate_candidate_profiles(candidates: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Attach §32 cost/depth profiles for composition enforcement."""
+    out: list[dict[str, Any]] = []
+    for cand in candidates:
+        enriched = dict(cand)
+        enriched["analysis_depth"] = _analysis_depth_for_candidate(cand)
+        enriched["cost_units"] = _cost_units_for_candidate(cand)
+        out.append(enriched)
+    return out
+
+
+def apply_sync_deep_boundary(
+    candidates: list[dict[str, Any]],
+    *,
+    controls: dict[str, Any],
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]], dict[str, Any]]:
+    """§32 sync vs deep-analysis boundary."""
+    boundary = str(controls.get("sync_deep_boundary") or DEFAULT_SYNC_DEEP_BOUNDARY)
+    if boundary != "sync_only":
+        meta = {"sync_deep_boundary": boundary, "deep_excluded": 0, "enforced": False}
+        return candidates, [], meta
+    kept: list[dict[str, Any]] = []
+    excluded: list[dict[str, Any]] = []
+    for cand in candidates:
+        if cand.get("analysis_depth") == "deep_analysis":
+            excluded.append({**cand, "exclusion_reasons": ["sync_deep_boundary_deep_analysis_excluded"]})
+        else:
+            kept.append(cand)
+    return kept, excluded, {
+        "sync_deep_boundary": boundary,
+        "deep_excluded": len(excluded),
+        "enforced": True,
+    }
+
+
+def apply_candidate_set_limit(
+    candidates: list[dict[str, Any]],
+    *,
+    controls: dict[str, Any],
+) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    """§32 maximum candidate set."""
+    limit = int(controls.get("max_candidate_set") or DEFAULT_MAX_CANDIDATE_SET)
+    if len(candidates) <= limit:
+        return candidates, {
+            "max_candidate_set": limit,
+            "candidates_before": len(candidates),
+            "candidates_after": len(candidates),
+            "truncated": False,
+        }
+    # Preserve lowest launch_id representatives (deterministic).
+    ordered = sorted(candidates, key=lambda c: c["launch_id"])
+    kept = ordered[:limit]
+    return kept, {
+        "max_candidate_set": limit,
+        "candidates_before": len(candidates),
+        "candidates_after": len(kept),
+        "truncated": True,
+        "truncated_launch_ids": sorted(c["launch_id"] for c in ordered[limit:]),
+    }
+
+
+def apply_selected_set_and_cost_limits(
+    selected: list[dict[str, Any]],
+    *,
+    controls: dict[str, Any],
+    dependence_clusters: dict[str, list[int]],
+) -> tuple[list[dict[str, Any]], dict[str, Any], bool]:
+    """§32 maximum selected set + cost ceiling."""
+    max_selected = int(controls.get("max_selected_set") or DEFAULT_MAX_SELECTED_SET)
+    cost_ceiling = int(controls.get("cost_ceiling_units") or DEFAULT_COST_CEILING_UNITS)
+    min_cluster_ids: set[int] = set()
+    for cluster in _COMMAND_HOME_MIN_SUFFICIENT_CLUSTERS:
+        cluster_cands = [c for c in selected if c.get("dependence_cluster") == cluster]
+        if cluster_cands:
+            min_cluster_ids.add(min(c["launch_id"] for c in cluster_cands))
+
+    ordered = sorted(
+        selected,
+        key=lambda c: (c["launch_id"] not in min_cluster_ids, c.get("cost_units", 1), c["launch_id"]),
+    )
+    kept: list[dict[str, Any]] = []
+    total_cost = 0
+    limit_breached = False
+    for cand in ordered:
+        cost = int(cand.get("cost_units") or _DEFAULT_COST_UNIT)
+        if len(kept) >= max_selected:
+            limit_breached = True
+            continue
+        if total_cost + cost > cost_ceiling:
+            limit_breached = True
+            continue
+        kept.append(cand)
+        total_cost += cost
+
+    meta = {
+        "max_selected_set": max_selected,
+        "cost_ceiling_units": cost_ceiling,
+        "selected_before": len(selected),
+        "selected_after": len(kept),
+        "total_cost_units": total_cost,
+        "limit_breached": limit_breached,
+        "dependence_clusters": dependence_clusters,
+    }
+    return kept, meta, limit_breached
 
 
 def build_intent_from_params(
@@ -209,32 +403,24 @@ def apply_budget(
     eligible: list[dict[str, Any]],
     *,
     maximum_candidates: int = DEFAULT_MAXIMUM_CANDIDATES,
+    controls: dict[str, Any] | None = None,
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
-    """§23.5 step 7 + minimal §32 budget fields."""
+    """§23.5 step 7 + §32 composition controls (candidate limit)."""
+    ctrl = dict(controls or build_composition_controls({"maximum_candidates": maximum_candidates}))
+    ctrl["max_candidate_set"] = int(ctrl.get("max_candidate_set") or maximum_candidates)
+    kept, candidate_meta = apply_candidate_set_limit(eligible, controls=ctrl)
     budget_meta = {
-        "maximum_candidates": maximum_candidates,
-        "latency_class": DEFAULT_LATENCY_CLASS,
-        "cache_policy": DEFAULT_CACHE_POLICY,
-        "degradation_path": DEFAULT_DEGRADATION_PATH,
-        "cost_ceiling": "engineering_default_not_measured_slo",
+        "maximum_candidates": ctrl["max_candidate_set"],
+        "latency_class": ctrl.get("latency_class") or DEFAULT_LATENCY_CLASS,
+        "cache_policy": ctrl.get("cache_policy") or DEFAULT_CACHE_POLICY,
+        "degradation_path": ctrl.get("degradation_path") or DEFAULT_DEGRADATION_PATH,
+        "cost_ceiling_units": ctrl.get("cost_ceiling_units") or DEFAULT_COST_CEILING_UNITS,
+        "sync_deep_boundary": ctrl.get("sync_deep_boundary") or DEFAULT_SYNC_DEEP_BOUNDARY,
+        "candidate_limit": candidate_meta,
+        "candidates_after_budget": candidate_meta["candidates_after"],
+        "candidates_before_budget": candidate_meta["candidates_before"],
+        "engineering_only_not_measured_slo": True,
     }
-    # Always retain one representative per minimum-sufficient cluster under budget pressure.
-    min_cluster_ids: set[int] = set()
-    for cluster in _COMMAND_HOME_MIN_SUFFICIENT_CLUSTERS:
-        cluster_cands = [c for c in eligible if c.get("dependence_cluster") == cluster]
-        if cluster_cands:
-            min_cluster_ids.add(min(c["launch_id"] for c in cluster_cands))
-    ordered = sorted(
-        eligible,
-        key=lambda c: (c["launch_id"] not in min_cluster_ids, c["launch_id"]),
-    )
-    kept: list[dict[str, Any]] = []
-    for cand in ordered:
-        if len(kept) >= maximum_candidates and cand["launch_id"] not in min_cluster_ids:
-            continue
-        kept.append(cand)
-    budget_meta["candidates_after_budget"] = len(kept)
-    budget_meta["candidates_before_budget"] = len(eligible)
     return kept, budget_meta
 
 
@@ -265,8 +451,22 @@ def apply_abstain(
     conflict: dict[str, Any],
     stop_meta: dict[str, Any],
     selected: list[dict[str, Any]],
+    composition_meta: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    """§23.4 + §23.5 step 9."""
+    """§23.4 + §23.5 step 9 + §32 degradation."""
+    comp = dict(composition_meta or {})
+    if comp.get("composition_limit_breached"):
+        path = str(comp.get("degradation_path") or DEFAULT_DEGRADATION_PATH)
+        if path == "abstain_with_explain":
+            return {
+                "abstain": True,
+                "answer_state": "ABSTAIN",
+                "reason": "composition_controls_exceeded",
+                "explanation": (
+                    "§32 composition limits exceeded on sync Command Home path — "
+                    "abstain with explain per degradation_path."
+                ),
+            }
     if spine and not spine.get("live_eligible"):
         return {
             "abstain": True,
@@ -300,6 +500,8 @@ def build_explain(
     budget_meta: dict[str, Any],
     stop_meta: dict[str, Any],
     abstain: dict[str, Any],
+    composition_controls: dict[str, Any] | None = None,
+    composition_trace: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """§23.5 step 10 — inspectable selection/exclusion logic."""
     return {
@@ -314,6 +516,8 @@ def build_explain(
         "budget": budget_meta,
         "stop": stop_meta,
         "abstain": abstain,
+        "composition_controls": composition_controls,
+        "composition_trace": composition_trace,
         "pipeline_steps": list(PIPELINE_STEPS),
         "methodology_version": METHODOLOGY_VERSION,
         "builder_status": BUILDER_STATUS,
@@ -335,10 +539,13 @@ def run_router_selection_contract(
     maximum_candidates: int = DEFAULT_MAXIMUM_CANDIDATES,
 ) -> dict[str, Any]:
     """
-    Full §23.5 pipeline: intent → candidates → eligibility → dependence → conflict
-    → budget → stop → abstain → explain.
+    Full §23.5 + §32 pipeline: intent → candidates → eligibility → dependence → conflict
+    → budget → stop → abstain → explain with composition controls enforced.
     """
     trace: dict[str, Any] = {"steps": {}}
+    p = dict(params or {})
+    controls = build_composition_controls({**p, "maximum_candidates": maximum_candidates})
+    composition_trace: dict[str, Any] = {}
 
     intent = build_intent_from_params(goal=goal, symbol=symbol, params=params)
     trace["steps"]["intent"] = intent
@@ -347,12 +554,18 @@ def run_router_selection_contract(
     trace["steps"]["candidates"] = {"count": len(candidates), "launch57_scope_only": True}
 
     eligible, excluded = apply_eligibility(candidates, intent=intent, spine=spine, oracle=oracle)
+    eligible = annotate_candidate_profiles(eligible)
+    sync_kept, sync_excluded, sync_meta = apply_sync_deep_boundary(eligible, controls=controls)
+    excluded.extend(sync_excluded)
+    composition_trace["sync_deep_boundary"] = sync_meta
+    trace["steps"]["composition_sync_deep"] = sync_meta
+
     trace["steps"]["eligibility"] = {
-        "eligible_count": len(eligible),
+        "eligible_count": len(sync_kept),
         "excluded_count": len(excluded),
     }
 
-    representatives, dependence_clusters = apply_dependence_clustering(eligible)
+    representatives, dependence_clusters = apply_dependence_clustering(sync_kept)
     trace["steps"]["dependence"] = {
         "representative_count": len(representatives),
         "clusters": dependence_clusters,
@@ -361,11 +574,39 @@ def run_router_selection_contract(
     conflict = apply_conflict_coverage(representatives, oracle=oracle, spine=spine)
     trace["steps"]["conflict"] = conflict
 
-    budgeted, budget_meta = apply_budget(representatives, maximum_candidates=maximum_candidates)
+    budgeted, budget_meta = apply_budget(representatives, maximum_candidates=maximum_candidates, controls=controls)
     trace["steps"]["budget"] = budget_meta
+    composition_trace["candidate_limit"] = budget_meta.get("candidate_limit")
 
     selected, stop_meta = apply_stop(budgeted, dependence_clusters=dependence_clusters)
     trace["steps"]["stop"] = stop_meta
+
+    selected, selected_meta, limit_breached = apply_selected_set_and_cost_limits(
+        selected,
+        controls=controls,
+        dependence_clusters=dependence_clusters,
+    )
+    composition_trace["selected_and_cost"] = selected_meta
+    trace["steps"]["composition_selected_cost"] = selected_meta
+    composition_meta = {
+        "composition_limit_breached": limit_breached,
+        "degradation_path": controls.get("degradation_path"),
+    }
+
+    # Re-check minimum sufficient after §32 trimming.
+    if selected:
+        selected_ids = {c["launch_id"] for c in selected}
+        cluster_coverage = {
+            cluster: any(i in selected_ids for i in ids) for cluster, ids in dependence_clusters.items()
+        }
+        if not all(cluster_coverage.get(c) for c in _COMMAND_HOME_MIN_SUFFICIENT_CLUSTERS):
+            composition_meta["composition_limit_breached"] = True
+            selected = []
+            stop_meta = {
+                **stop_meta,
+                "minimum_sufficient_met": False,
+                "stopped_because": "composition_controls_removed_minimum_sufficient",
+            }
 
     abstain = apply_abstain(
         intent=intent,
@@ -373,11 +614,19 @@ def run_router_selection_contract(
         conflict=conflict,
         stop_meta=stop_meta,
         selected=selected,
+        composition_meta=composition_meta,
     )
     trace["steps"]["abstain"] = abstain
 
     if abstain.get("abstain"):
         selected = []
+
+    measurement = record_composition_measurement(
+        "composition_selected_count",
+        len(selected),
+        labels={"latency_class": controls.get("latency_class"), "cache_policy": controls.get("cache_policy")},
+    )
+    composition_trace["measurement_hook"] = measurement
 
     explain = build_explain(
         intent=intent,
@@ -387,12 +636,14 @@ def run_router_selection_contract(
         budget_meta=budget_meta,
         stop_meta=stop_meta,
         abstain=abstain,
+        composition_controls=controls,
+        composition_trace=composition_trace,
     )
     trace["steps"]["explain"] = explain
 
     return {
         "router_selection_contract": {
-            "governing_spec": "Adaptive Spec §23.5 Router Selection Sufficiency Contract",
+            "governing_spec": "Adaptive Spec §23.5 + §32 Runtime/Cost/Performance",
             "builder_status": BUILDER_STATUS,
             "pipeline_steps": list(PIPELINE_STEPS),
             "intent": intent,
@@ -402,6 +653,8 @@ def run_router_selection_contract(
             "abstain_reason": abstain.get("reason"),
             "abstain_explanation": abstain.get("explanation"),
             "budget": budget_meta,
+            "composition_controls": controls,
+            "composition_trace": composition_trace,
             "trace": trace,
             "explain": explain,
         }

@@ -50,14 +50,15 @@
       "gap_id": "G3",
       "title": "§32 Routing/Composition engineering controls incomplete",
       "governing_requirement": "Adaptive Spec §32 — candidate/selected set limits, latency class, cache policy, degradation path, cost ceiling, sync vs deep-analysis boundary",
-      "applicability": "Launch-57 routing/composition layer",
-      "canonical_owner_path": "No launch57/* instrumentation owner for §32 budgets",
+      "applicability": "Launch-57 routing/composition layer (Command Home composite path)",
+      "canonical_owner_path": "launch57/router_selection_contract.py",
       "required_proof": "Defined and instrumented engineering controls (measured production budgets are separate per §32 closing sentence)",
-      "current_evidence": "No maximum_candidate, latency_class, cache_policy, degradation_path, or cost_ceiling controls in launch57/*",
-      "status": "CONFIRMED_GAP",
+      "current_evidence": "Phase 3 engineering defaults + enforcement on Command Home via run_router_selection_contract; measurement hook engineering_only",
+      "status": "CONFIRMED_GAP_PARTIAL_P3",
       "remediation_class": "local_engineering",
-      "support_plane_phase": 1,
-      "production_only_subset": "Measured runtime/cost proof — LAUNCH57_PRODUCTION_VALIDATION PV-04"
+      "support_plane_phase": 3,
+      "phase3_builder_status": "PENDING_VERIFICATION",
+      "production_only_subset": "Measured runtime/cost proof — LAUNCH57_PRODUCTION_VALIDATION PV-04; §32 closing sentence"
     },
     "G4": {
       "gap_id": "G4",
