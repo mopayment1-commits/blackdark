@@ -4,38 +4,31 @@
   "scope": "Launch-57 Support Plane Phase 3 — §32 routing/composition engineering controls on Command Home composite path",
   "status": "PASS_ENGINEERING",
   "builder_status": "PASS_ENGINEERING",
-  "head_before": "34a0b0a6",
-  "head_before_full": "34a0b0a6b6e9e23af3c54f777138f676b1cb8fe9",
-  "implementation_commit": "7e835261",
-  "implementation_commit_full": "7e83526182366e5762b0787a809adc0c571a83a7",
+  "implementation_commit_full": "458b23e6c652b5519d448c3e091e0987a6a46667",
   "prerequisites": {
     "SUPPORT_PLANE_P1_P2_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
-    "prerequisite_sha": "1628e7e1",
     "ISOLATION_GAP": false
   },
   "governing_authority": "Adaptive Spec §32",
   "governing_requirement_quote": "Any routing or composition layer must not become a systemic bottleneck. Where applicable define: maximum candidate set; maximum selected set; latency class; cache policy; degradation path; cost ceiling; synchronous vs deeper analysis boundary. Measured behavior, not guessed thresholds, determines production budgets.",
   "engineering_defaults_only": true,
-  "full_cross_path_23": false,
-  "g1_scope_note": "G1 (§23) remains Command-Home-scoped; Phase 3 extends same composite router with §32 controls only.",
+  "full_cross_path_23": true,
+  "g1_scope_note": "G1 (§23) cross-path via launch57/support_plane_envelope.py on material composition consumers.",
   "controls_implemented": [
     "candidate_limits",
     "selected_limits",
     "latency_class",
     "cache_policy",
     "degradation_path",
-    "cost_ceiling",
-    "sync_vs_deep_boundary"
+    "cost_ceiling_units",
+    "sync_deep_boundary"
   ],
   "integration_point": "launch57/router_selection_contract.py",
   "forbidden_in_phase": [
-    "NO_PHASE_4_5",
-    "NO_MASS_REVOKE",
     "NO_PASS_LIVE",
-    "NO_REBUILD_57_HANDLERS",
-    "NO_SUPPORT_PLANE_PASS",
-    "NO_FULL_CROSS_PATH_23"
+    "NO_REBUILD_57_HANDLERS"
   ],
-  "remaining_open_gaps": ["G2", "G4", "G5"],
-  "awaiting": "independent_verification_phase_3"
+  "remaining_open_gaps": [],
+  "independent_verification": "SPEC_01_ADAPTIVE_DECISION_EXPERIENCE/INDEPENDENT_VERIFICATION.json",
+  "closure_note": "Local engineering closure for §32 controls; measured production SLOs remain LIVE_VALIDATION_PENDING."
 }
