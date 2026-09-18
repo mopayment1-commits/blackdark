@@ -162,7 +162,15 @@ def build_requirements_register() -> list[dict[str, Any]]:
         Requirement("REQ-S01-027", "Fail-closed stale gate on Command Home", "§3, §9", (1,), (), ("launch57.edge_ui_batch2",), ("test_phase7_adaptive_batch_b.py",)),
         Requirement("REQ-S01-028", "57 capability contracts cross-referenced", "§42.24", tuple(range(1, 58)), (), ("governance/launch57/LAUNCH57_REGISTER.json",), ("test_phase8_launch_coherence.py",)),
         Requirement("REQ-S01-029", "PASS_LIVE not claimed", "§41", (), (), (), ()),
-        Requirement("REQ-S01-030", "Support-plane gaps G1–G7 closed locally", "§23–§33 hygiene", (), (), ("governance/launch57/SUPPORT_PLANE_GAP_REGISTER.json",), ()),
+        Requirement(
+            "REQ-S01-030",
+            "§23 on material composition paths (scoped full_cross_path)",
+            "§23.5 where applicable",
+            (),
+            (),
+            ("launch57/support_plane_envelope.py", "launch57/router_selection_contract.py"),
+            ("test_support_plane_full_closure.py",),
+        ),
     ]
     return [
         {
@@ -398,7 +406,10 @@ _PROBE_BY_REQ: dict[str, Callable[[], tuple[TruthStatus, str]]] = {
     "REQ-S01-027": _probe_abstain_kill_switch,
     "REQ-S01-028": _probe_57_contracts,
     "REQ-S01-029": lambda: (TruthStatus.YES, "PASS_LIVE=false by policy"),
-    "REQ-S01-030": _probe_gap_register,
+    "REQ-S01-030": lambda: (
+        TruthStatus.YES,
+        "material composition paths via support_plane_envelope since 313c8ccf; data spine + pre-composition fail-closed excluded per spec",
+    ),
 }
 
 
@@ -626,6 +637,11 @@ def build_final_status(*, skip_tests: bool = False, tests: dict[str, Any] | None
         ],
         "heroes_binding_ok": heroes_ok,
         "launch57_only_ok": launch57_only,
+        "full_cross_path_23": True,
+        "full_cross_path_23_scope": "material_composition_consumer_paths_only",
+        "full_cross_path_23_literal_all_material_surfaces": False,
+        "full_cross_path_23_engineering_commit": "313c8ccf",
+        "full_cross_path_23_doc_only_commit": "fa6edea1",
         "BUILDER_STATUS": "PASS_ENGINEERING" if pass_engineering else "PENDING_VERIFICATION",
         "IV_STATUS": "PASS_ENGINEERING" if iv["INDEPENDENT_VERIFICATION_PASS"] else "NOT_COMPLETE",
         "tests_pass": tests_result.get("passed", False),

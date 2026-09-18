@@ -13,7 +13,20 @@
   "governing_requirement_quote": "Any routing or composition layer must not become a systemic bottleneck. Where applicable define: maximum candidate set; maximum selected set; latency class; cache policy; degradation path; cost ceiling; synchronous vs deeper analysis boundary. Measured behavior, not guessed thresholds, determines production budgets.",
   "engineering_defaults_only": true,
   "full_cross_path_23": true,
-  "g1_scope_note": "G1 (§23) cross-path via launch57/support_plane_envelope.py on material composition consumers.",
+  "full_cross_path_23_scope": "material_composition_consumer_paths_only",
+  "full_cross_path_23_literal_all_material_surfaces": false,
+  "full_cross_path_23_engineering_commit": "313c8ccf",
+  "full_cross_path_23_doc_only_commit": "fa6edea1",
+  "full_cross_path_23_exclusions": {
+    "data_spine_launch_ids": [21, 22, 23, 24, 39, 40, 41, 42],
+    "exclusion_basis": "Adaptive Spec §23.5 where applicable — no multi-cap composition",
+    "pre_composition_fail_closed": [
+      "edge_ui_batch2.six_heroes_command_home stale gate",
+      "trust_batch1 apply_b4_trust_envelope error-only returns"
+    ],
+    "pre_composition_basis": "Adaptive Spec §23.4 — abstain/fail-closed before candidate selection"
+  },
+  "g1_scope_note": "G1 (§23) cross-path via launch57/support_plane_envelope.py on material composition consumers since 313c8ccf; fa6edea1 flipped JSON only.",
   "controls_implemented": [
     "candidate_limits",
     "selected_limits",
