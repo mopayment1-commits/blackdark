@@ -1,8 +1,8 @@
 {
   "artifact": "BLACKDARK_LAUNCH57_TEMPORAL_CONSISTENCY_RECONCILIATION",
   "batch": "B15",
-  "generated_at": "2026-09-17T20:32:09.612246+00:00",
-  "baseline_sha": "3ec1a21c70f02e7dd51ec47e60d67b9a85a9e21a",
+  "generated_at": "2026-09-18T15:27:27.529957+00:00",
+  "baseline_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454",
   "spec_sha256": "63aaed8b185a07e014d0a6028120ad94a6a3a18fa072472533aa2ac84f55684a",
   "governing_spec_sections": [
     "§37",

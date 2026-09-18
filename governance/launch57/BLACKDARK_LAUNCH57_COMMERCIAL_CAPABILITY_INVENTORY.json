@@ -1,12 +1,12 @@
 {
   "artifact": "BLACKDARK_LAUNCH57_COMMERCIAL_CAPABILITY_INVENTORY",
-  "generated_at": "2026-09-18T15:24:51.349787+00:00",
-  "implementation_sha": "2e5cf3d3",
+  "generated_at": "2026-09-18T15:27:40.281539+00:00",
+  "implementation_sha": "49851007",
   "baseline_sha": "2fc4393408c1c1b3d8cb28b5768428ad5c24c2b24604d9ff57d99b0ee5a33d47",
   "audit_baseline": {
     "AUDIT_BRANCH": "cursor/launch57-phase8-launch-coherence-358c",
-    "AUDIT_BASELINE_SHA": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb",
-    "CURRENT_HEAD_SHA_AT_START": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb",
+    "AUDIT_BASELINE_SHA": "4985100756073c562bf4f7f4a7efbf4e1adb2454",
+    "CURRENT_HEAD_SHA_AT_START": "4985100756073c562bf4f7f4a7efbf4e1adb2454",
     "WORKTREE_DIRTY": true,
     "UNCOMMITTED_FILES": [
       "LACKDARK_CAPABILITY_CURRENT_STATE.json",
@@ -93,10 +93,7 @@
       "data/v4_v2_lineage_registry.jsonl",
       "data/v4_v2_source_rights_registry.jsonl",
       "data/webhook_lifecycle_evidence.jsonl",
-      "governance/launch57/generate_commercial_inventory_closure.py",
-      "launch57/commercial_inventory_common.py",
-      "launch57/pit_observation_store.json",
-      "tests/launch57/test_commercial_inventory.py"
+      "launch57/pit_observation_store.json"
     ],
     "BRANCH_AMBIGUITY_WARNING": false,
     "AUDIT_MODE": "AUDIT_ONLY",
@@ -178,7 +175,7 @@
         "tests_found": [],
         "evidence_found": [],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification",
@@ -257,7 +254,7 @@
         ],
         "evidence_found": [],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification",
@@ -340,7 +337,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification"
@@ -425,7 +422,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification"
@@ -510,7 +507,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification"
@@ -595,7 +592,7 @@
           "governance/launch57/PHASE2_BATCH1_EVIDENCE.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [],
       "parked_out_of_launch": false,
@@ -673,7 +670,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification"
@@ -751,7 +748,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification"
@@ -830,7 +827,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification"
@@ -908,7 +905,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification"
@@ -987,7 +984,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification"
@@ -1065,7 +1062,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification"
@@ -1143,7 +1140,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification"
@@ -1223,7 +1220,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification"
@@ -1301,7 +1298,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification"
@@ -1383,7 +1380,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification"
@@ -1465,7 +1462,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification"
@@ -1545,7 +1542,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification"
@@ -1623,7 +1620,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification"
@@ -1702,7 +1699,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification"
@@ -1784,7 +1781,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [],
       "parked_out_of_launch": false,
@@ -1865,7 +1862,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [],
       "parked_out_of_launch": false,
@@ -1946,7 +1943,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [],
       "parked_out_of_launch": false,
@@ -2027,7 +2024,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [],
       "parked_out_of_launch": false,
@@ -2106,7 +2103,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification"
@@ -2185,7 +2182,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification"
@@ -2264,7 +2261,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification"
@@ -2344,7 +2341,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification"
@@ -2423,7 +2420,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification"
@@ -2504,7 +2501,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification"
@@ -2585,7 +2582,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification"
@@ -2666,7 +2663,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification"
@@ -2752,7 +2749,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification"
@@ -2832,7 +2829,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification"
@@ -2912,7 +2909,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification"
@@ -2994,7 +2991,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification"
@@ -3075,7 +3072,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification"
@@ -3153,7 +3150,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification"
@@ -3233,7 +3230,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [],
       "parked_out_of_launch": false,
@@ -3317,7 +3314,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [],
       "parked_out_of_launch": false,
@@ -3399,7 +3396,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [],
       "parked_out_of_launch": false,
@@ -3478,7 +3475,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [],
       "parked_out_of_launch": false,
@@ -3559,7 +3556,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification"
@@ -3636,7 +3633,7 @@
         ],
         "evidence_found": [],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification",
@@ -3720,7 +3717,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification"
@@ -3798,7 +3795,7 @@
         ],
         "evidence_found": [],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification",
@@ -3875,7 +3872,7 @@
         ],
         "evidence_found": [],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification",
@@ -3952,7 +3949,7 @@
         ],
         "evidence_found": [],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification",
@@ -4029,7 +4026,7 @@
         "tests_found": [],
         "evidence_found": [],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification",
@@ -4104,7 +4101,7 @@
         "tests_found": [],
         "evidence_found": [],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification",
@@ -4188,7 +4185,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification"
@@ -4262,7 +4259,7 @@
         "tests_found": [],
         "evidence_found": [],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification",
@@ -4344,7 +4341,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification"
@@ -4425,7 +4422,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification"
@@ -4504,7 +4501,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification"
@@ -4582,7 +4579,7 @@
           "ENGINEERING_AUDIT_826_REPORT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification"
@@ -4666,7 +4663,7 @@
           "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
         ],
         "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-        "audit_sha": "2e5cf3d35f72ba092f2503c4f4d116863a93dffb"
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
       },
       "commercial_blockers": [
         "engineering_pending_verification"

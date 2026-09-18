@@ -1,7 +1,7 @@
 # Launch-57 Commercial Capability Inventory Audit Report
 
-- Generated: 2026-09-18T15:24:51.349787+00:00
-- Audit SHA: `2e5cf3d35f72…`
+- Generated: 2026-09-18T15:27:40.281539+00:00
+- Audit SHA: `498510075607…`
 - Branch: `cursor/launch57-phase8-launch-coherence-358c`
 - Mode: **AUDIT_ONLY**
 
@@ -15,7 +15,7 @@
 
 ## B. Baseline SHA
 
-- `AUDIT_BASELINE_SHA`: `2e5cf3d35f72ba092f2503c4f4d116863a93dffb`
+- `AUDIT_BASELINE_SHA`: `4985100756073c562bf4f7f4a7efbf4e1adb2454`
 - `WORKTREE_DIRTY`: **True**
 
 ## C. 57/57 Reconciliation
