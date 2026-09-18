@@ -79,12 +79,18 @@ async def launch57_capability_library(
     q: str | None = Query(None),
     area: str | None = Query(None),
     locale: str | None = Query(None),
+    include_parked: bool = Query(False),
 ):
     from launch57.edge_ui_batch1 import capability_library_search
 
     return await capability_library_search(
         symbol="BTC",
-        params={"query": q or "", "functional_area": area, "locale": locale},
+        params={
+            "query": q or "",
+            "functional_area": area,
+            "locale": locale,
+            "include_parked": include_parked,
+        },
     )
 
 

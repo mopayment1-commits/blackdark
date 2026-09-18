@@ -115,7 +115,10 @@ async def test_personal_decision_history_free_limit(monkeypatch):
         "launch57.edge_ui_common.read_decision_history_rows",
         lambda **kwargs: [{"decision_id": "d1"}],
     )
-    out = await personal_decision_history(symbol="BTC", params={"tier": "free", "limit": 50})
+    out = await personal_decision_history(
+        symbol="BTC",
+        params={"tier": "free", "limit": 50, "user_key": "user-1", "subject_id": "user-1"},
+    )
     assert out["launch_item_id"] == 49
     assert out["personal_decision_history"]["limited_free"] is True
     assert out["personal_decision_history"]["free_limit"] == 10

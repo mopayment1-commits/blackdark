@@ -376,6 +376,28 @@ def resolve_effective_entitlement_tier(
     }
 
 
+async def try_load_subscription_from_params(
+    params: dict[str, Any] | None = None,
+) -> dict[str, Any] | None:
+    """Server-side subscription lookup — never trust client tier params alone."""
+    p = dict(params or {})
+    uid = p.get("user_id")
+    if uid is None:
+        for key in ("subject_id", "user_key"):
+            raw = p.get(key)
+            if raw is not None and str(raw).isdigit():
+                uid = int(raw)
+                break
+    if uid is None:
+        return None
+    try:
+        from billing.subscription_store import get_by_user_id
+
+        return await get_by_user_id(int(uid))
+    except Exception:
+        return None
+
+
 def apply_entitlement_gated_params(
     params: dict[str, Any] | None = None,
     *,

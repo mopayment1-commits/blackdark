@@ -1,0 +1,63 @@
+{
+  "artifact": "SPEC_04_INDEPENDENT_VERIFICATION",
+  "domain": "SPEC_04_CAPABILITY_LIBRARY",
+  "verification_sha": "ed9db6b5513933bacda27acde6b89a65eecd5b4b",
+  "probe_count": 10,
+  "passed_count": 10,
+  "failed_count": 0,
+  "INDEPENDENT_VERIFICATION_PASS": true,
+  "probes": [
+    {
+      "probe": "iv_anonymous_library_allow",
+      "pass": true,
+      "detail": "status=200"
+    },
+    {
+      "probe": "iv_catalog_count_57",
+      "pass": true,
+      "detail": "canonical_count=57"
+    },
+    {
+      "probe": "iv_search_no_handler_module",
+      "pass": true,
+      "detail": "results=57"
+    },
+    {
+      "probe": "iv_detail_anonymous_no_handler",
+      "pass": true,
+      "detail": "keys=['launch_number', 'canonical_name', 'canonical_cap_ids', 'short_purpose', 'primary_user_question', 'main_input', 'main_output', 'launch_phase']"
+    },
+    {
+      "probe": "iv_free_tier_param_no_paid_fields",
+      "pass": true,
+      "detail": "tier=pro without subscription"
+    },
+    {
+      "probe": "iv_verified_pro_paid_detail",
+      "pass": true,
+      "detail": "launch57.trust_batch1"
+    },
+    {
+      "probe": "iv_parked_injection_rejected",
+      "pass": true,
+      "detail": "success=False"
+    },
+    {
+      "probe": "iv_secondary_not_primary",
+      "pass": true,
+      "detail": "{'secondary': True, 'not_home': True}"
+    },
+    {
+      "probe": "iv_command_home_still_auth_gated",
+      "pass": true,
+      "detail": "FILE 01 command-home remains authenticated"
+    },
+    {
+      "probe": "iv_scope_exactly_57",
+      "pass": true,
+      "detail": "{'library_count': 57, 'expected_count': 57, 'exactly_57': True, 'missing_launch_numbers': [], 'duplicate_count': 0, 'parked_exposed': 0, 'no_second_registry': True, 'ssot_source': 'governance/launch57/LAUNCH57_REGISTER.json', 'launch57_scope_only': True}"
+    }
+  ],
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "generated_at": "2026-09-18T23:39:05.432498+00:00"
+}

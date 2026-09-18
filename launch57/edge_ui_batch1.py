@@ -442,13 +442,21 @@ async def discipline_mirror_light(*, symbol: str, params: dict[str, Any] | None 
 
 async def capability_library_search(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
     """Launch #52 — secondary capability library (search), not primary home."""
-    from launch57.capability_library_common import search_library
+    from launch57.capability_library_common import (
+        attach_capability_library_envelope,
+        resolve_library_visibility,
+        search_library,
+    )
     from launch57.identity_auth_common import attach_identity_auth_envelope
     from launch57.billing_entitlement_common import attach_billing_entitlement_envelope
     from launch57.compounding_evidence_common import attach_compounding_evidence_envelope
-    from launch57.capability_library_common import attach_capability_library_envelope
+
+    from launch57.billing_entitlement_common import try_load_subscription_from_params
 
     p = dict(params or {})
+    subscription = await try_load_subscription_from_params(p)
+    visibility = resolve_library_visibility(p, subscription=subscription)
+    p = visibility["params"]
     query = str(p.get("query") or p.get("q") or "")
     functional_area = p.get("functional_area") or p.get("area")
     searched = search_library(
@@ -457,7 +465,7 @@ async def capability_library_search(*, symbol: str, params: dict[str, Any] | Non
         locale=p.get("locale"),
     )
     entries = searched.get("results") or []
-    guarded = apply_capability_library_guard(entries, params=p)
+    guarded = apply_capability_library_guard(entries, params={**p, "_library_visibility": visibility})
     answer_state = guarded.get("answer_state")
     if searched.get("answer_state") == "NO_VALID_MATCH":
         answer_state = "NO_VALID_MATCH"
@@ -516,15 +524,21 @@ async def capability_library_detail(*, symbol: str, params: dict[str, Any] | Non
     from launch57.capability_library_common import (
         attach_capability_library_envelope,
         resolve_capability_detail,
+        resolve_library_visibility,
     )
     from launch57.identity_auth_common import attach_identity_auth_envelope
     from launch57.billing_entitlement_common import attach_billing_entitlement_envelope
     from launch57.compounding_evidence_common import attach_compounding_evidence_envelope
 
+    from launch57.billing_entitlement_common import try_load_subscription_from_params
+
     p = dict(params or {})
+    subscription = await try_load_subscription_from_params(p)
+    visibility = resolve_library_visibility(p, subscription=subscription)
+    p = visibility["params"]
     launch_number = int(p.get("launch_number") or p.get("launch_item_id") or 0)
-    authenticated = str(p.get("user_key") or "anonymous") != "anonymous"
-    detail = resolve_capability_detail(launch_number, authenticated=authenticated)
+    authenticated = visibility["authenticated"]
+    detail = resolve_capability_detail(launch_number, authenticated=authenticated, visibility=visibility)
     body = stamp_decision_batch(
         {
             "surface": "capability_library_detail",
@@ -556,18 +570,24 @@ async def capability_library_compare(*, symbol: str, params: dict[str, Any] | No
     from launch57.capability_library_common import (
         attach_capability_library_envelope,
         compare_capabilities,
+        resolve_library_visibility,
     )
     from launch57.identity_auth_common import attach_identity_auth_envelope
     from launch57.billing_entitlement_common import attach_billing_entitlement_envelope
     from launch57.compounding_evidence_common import attach_compounding_evidence_envelope
 
+    from launch57.billing_entitlement_common import try_load_subscription_from_params
+
     p = dict(params or {})
+    subscription = await try_load_subscription_from_params(p)
+    visibility = resolve_library_visibility(p, subscription=subscription)
+    p = visibility["params"]
     raw_ids = p.get("launch_numbers") or p.get("compare") or []
     if isinstance(raw_ids, str):
         launch_numbers = [int(x.strip()) for x in raw_ids.split(",") if x.strip().isdigit()]
     else:
         launch_numbers = [int(x) for x in raw_ids if str(x).isdigit()]
-    compared = compare_capabilities(launch_numbers)
+    compared = compare_capabilities(launch_numbers, visibility=visibility)
     body = stamp_decision_batch(
         {
             "surface": "capability_library_compare",

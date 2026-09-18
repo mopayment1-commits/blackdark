@@ -24,6 +24,16 @@ _SIGNAL_STORE = (
 
 LAUNCH57_CAPABILITY_IDS: frozenset[int] = frozenset(range(1, 58))
 
+# Spec §16 — implementation detail visible only with verified paid entitlement (FILE 03).
+_PAID_DETAIL_FIELDS: frozenset[str] = frozenset(
+    {
+        "handler_module",
+        "consumer_surface",
+        "dependencies",
+        "provenance_owner",
+    }
+)
+
 _EXCLUDED_LIBRARY_STATUSES: frozenset[str] = frozenset(
     {
         "PARKED",
@@ -236,11 +246,112 @@ def _consumer_surface(item: dict[str, Any], hero_row: dict[str, Any] | None) -> 
     return _handler_module(item)
 
 
+def resolve_library_visibility(
+    params: dict[str, Any] | None = None,
+    *,
+    subscription: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Server-side library visibility — paid implementation detail requires verified subscription."""
+    from launch57.billing_entitlement_common import apply_entitlement_gated_params
+
+    p = apply_entitlement_gated_params(params, subscription=subscription)
+    resolution = p["_entitlement_resolution"]
+    try:
+        from billing.plan_registry import normalize_plan, plan_rank
+
+        tier = normalize_plan(str(p.get("tier") or "free"))
+        paid_detail = (
+            plan_rank(tier) >= plan_rank("pro")
+            and not bool(resolution.get("unverified_paid_claim"))
+            and bool(resolution.get("verified"))
+        )
+    except Exception:
+        tier = "free"
+        paid_detail = False
+
+    return {
+        "anonymous": bool(resolution.get("anonymous")),
+        "authenticated": not bool(resolution.get("anonymous")),
+        "effective_tier": tier,
+        "paid_detail": paid_detail,
+        "public_safe_only": not paid_detail,
+        "entitlement_resolution": resolution,
+        "params": p,
+    }
+
+
+def project_library_record(
+    record: dict[str, Any],
+    visibility: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Strip paid-only implementation fields for anonymous/free users (spec §16, FILE 03)."""
+    vis = visibility or {}
+    if vis.get("paid_detail"):
+        out = dict(record)
+        out["public_safe_projection"] = False
+        return out
+    out = {k: v for k, v in record.items() if k not in _PAID_DETAIL_FIELDS}
+    out["public_safe_projection"] = True
+    return out
+
+
+def project_library_search_row(
+    row: dict[str, Any],
+    visibility: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Minimal search row — never exposes handler_module without verified paid detail."""
+    vis = visibility or {}
+    base = {
+        "launch_number": row.get("launch_number"),
+        "launch_name": row.get("launch_name") or row.get("canonical_name"),
+        "canonical_name": row.get("canonical_name"),
+        "short_purpose": row.get("short_purpose"),
+        "functional_area": row.get("functional_area"),
+        "engineering_status": row.get("engineering_status") or row.get("current_engineering_state"),
+        "evidence_class": row.get("evidence_class"),
+        "freshness": row.get("freshness"),
+        "known_limitation": row.get("known_limitation"),
+        "secondary_layer": True,
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "canonical_identity_preserved": True,
+        "public_safe_projection": not vis.get("paid_detail"),
+    }
+    if vis.get("paid_detail"):
+        for field in _PAID_DETAIL_FIELDS:
+            if field in row:
+                base[field] = row[field]
+    return {k: v for k, v in base.items() if v is not None or k in {"launch_number", "secondary_layer"}}
+
+
+def project_library_detail(
+    detail: dict[str, Any],
+    visibility: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Apply visibility to capability detail projection."""
+    if not detail.get("found"):
+        return detail
+    vis = visibility or {}
+    out = dict(detail)
+    record = out.get("record")
+    if isinstance(record, dict):
+        out["record"] = project_library_record(record, vis)
+    if not vis.get("paid_detail"):
+        for field in ("used_by", "dependencies", "provenance_owner"):
+            out.pop(field, None)
+    out["visibility"] = {
+        "paid_detail": vis.get("paid_detail", False),
+        "public_safe_only": vis.get("public_safe_only", True),
+        "effective_tier": vis.get("effective_tier", "free"),
+    }
+    return out
+
+
 def build_capability_record(
     item: dict[str, Any],
     *,
     hero_row: dict[str, Any] | None = None,
     authenticated: bool = False,
+    paid_detail: bool = False,
 ) -> dict[str, Any]:
     """Structured capability record from Launch-57 SSOT (spec §5)."""
     ln = int(item["launch_number"])
@@ -276,9 +387,12 @@ def build_capability_record(
         "launch_name": item.get("launch_name"),
     }
 
-    if not authenticated:
-        record.pop("handler_module", None)
+    if not (authenticated and paid_detail):
+        for field in _PAID_DETAIL_FIELDS:
+            record.pop(field, None)
         record["public_safe_projection"] = True
+    else:
+        record["public_safe_projection"] = False
     return record
 
 
@@ -408,6 +522,8 @@ def resolve_capability_detail(
     launch_number: int,
     *,
     authenticated: bool = False,
+    paid_detail: bool = False,
+    visibility: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Capability detail page projection (spec §6)."""
     if launch_number not in LAUNCH57_CAPABILITY_IDS:
@@ -426,7 +542,15 @@ def resolve_capability_detail(
         return {"found": False, "answer_state": "PARKED_EXCLUDED", "launch_number": launch_number}
 
     hero_row = _hero_row_by_launch().get(launch_number)
-    record = build_capability_record(item, hero_row=hero_row, authenticated=authenticated)
+    vis = visibility if visibility is not None else resolve_library_visibility()
+    paid = paid_detail or bool(vis.get("paid_detail"))
+    auth = authenticated or bool(vis.get("authenticated"))
+    record = build_capability_record(
+        item,
+        hero_row=hero_row,
+        authenticated=auth,
+        paid_detail=paid,
+    )
     detail = {
         "found": True,
         "answer_state": "DETAIL_RESOLVED",
@@ -448,10 +572,14 @@ def resolve_capability_detail(
         "not_primary_home": True,
         "ssot_derived": True,
     }
-    return detail
+    return project_library_detail(detail, vis)
 
 
-def compare_capabilities(launch_numbers: list[int]) -> dict[str, Any]:
+def compare_capabilities(
+    launch_numbers: list[int],
+    *,
+    visibility: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     """Compare up to 4 Launch-57 capabilities (spec §14)."""
     unique = []
     for ln in launch_numbers:
@@ -462,26 +590,27 @@ def compare_capabilities(launch_numbers: list[int]) -> dict[str, Any]:
     if len(unique) < 2:
         return {"answer_state": "COMPARE_REQUIRES_TWO", "requested": len(unique)}
 
+    vis = visibility or resolve_library_visibility()
     rows = []
     for ln in unique:
-        detail = resolve_capability_detail(ln)
+        detail = resolve_capability_detail(ln, visibility=vis)
         if not detail.get("found"):
             return {"answer_state": "COMPARE_OUT_OF_SCOPE", "invalid_launch_number": ln}
         rec = detail["record"]
-        rows.append(
-            {
-                "launch_number": ln,
-                "purpose": rec.get("short_purpose"),
-                "input": rec.get("main_input"),
-                "output": rec.get("main_output"),
-                "launch_phase": rec.get("launch_phase"),
-                "evidence_state": rec.get("evidence_class"),
-                "freshness": rec.get("freshness"),
-                "primary_consumer": rec.get("consumer_surface"),
-                "limitation": rec.get("known_limitation"),
-                "dependency": rec.get("dependencies"),
-            }
-        )
+        row = {
+            "launch_number": ln,
+            "purpose": rec.get("short_purpose"),
+            "input": rec.get("main_input"),
+            "output": rec.get("main_output"),
+            "launch_phase": rec.get("launch_phase"),
+            "evidence_state": rec.get("evidence_class"),
+            "freshness": rec.get("freshness"),
+            "limitation": rec.get("known_limitation"),
+        }
+        if vis.get("paid_detail"):
+            row["primary_consumer"] = rec.get("consumer_surface")
+            row["dependency"] = rec.get("dependencies")
+        rows.append(row)
     return {
         "answer_state": "COMPARE_GROUNDED",
         "comparison": rows,

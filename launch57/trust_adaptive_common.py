@@ -2942,27 +2942,20 @@ def apply_capability_library_guard(
     inject_parked = bool(p.get("include_parked") or p.get("secondary_registry"))
     rows = list(entries or [])
 
+    from launch57.capability_library_common import project_library_search_row, resolve_library_visibility
+
+    visibility = resolve_library_visibility(p)
     approved: list[dict[str, Any]] = []
     rejected_parked: list[dict[str, Any]] = []
     for row in rows:
         ln = row.get("launch_number")
-        status = str(row.get("engineering_status") or "")
+        status = str(row.get("engineering_status") or row.get("current_engineering_state") or "")
         if not isinstance(ln, int) or ln < 1 or ln > 57:
             continue
         if status in _EXCLUDED_LIBRARY_STATUSES or inject_parked:
             rejected_parked.append(row)
             continue
-        approved.append(
-            {
-                "launch_number": ln,
-                "launch_name": row.get("launch_name"),
-                "engineering_status": status,
-                "handler_module": row.get("handler_module"),
-                "secondary_layer": True,
-                "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
-                "canonical_identity_preserved": True,
-            }
-        )
+        approved.append(project_library_search_row(row, visibility))
 
     limitation = {
         "summary": "Secondary capability library derives from Launch-57 SSOT only — no PARKED items or parallel registry.",
