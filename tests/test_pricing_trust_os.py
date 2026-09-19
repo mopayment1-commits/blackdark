@@ -14,7 +14,8 @@ def test_pricing_catalog_five_official_tiers():
     by_id = {t["id"]: t for t in cat["tiers"]}
     assert by_id["free"]["price_usd_month"] == 0
     assert by_id["pro"]["price_usd_month"] == 19.99
-    assert by_id["pro"]["popular"] is True
+    assert by_id["elite"]["popular"] is True
+    assert "popular" not in by_id["pro"]
     assert by_id["pro"]["trial_days"] == 7
     assert by_id["elite"]["price_usd_month"] == 49.99
     assert by_id["elite"]["trial_days"] == 7

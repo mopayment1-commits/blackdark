@@ -84,7 +84,6 @@ def _tier_card(plan_id: str) -> dict[str, Any]:
     elif plan_id == "pro":
         card.update(
             {
-                "popular": True,
                 "cta": "Start 7-Day Trial",
                 "cta_href": "/login?tab=register&plan=pro",
                 "signup_plan": "pro",
@@ -94,10 +93,11 @@ def _tier_card(plan_id: str) -> dict[str, Any]:
     elif plan_id == "elite":
         card.update(
             {
+                "popular": True,
                 "cta": "Start 7-Day Trial",
                 "cta_href": "/login?tab=register&plan=elite",
                 "signup_plan": "elite",
-                "promise": "Edge tools + evidence pack for serious desks.",
+                "promise": "MOST POPULAR — Net-Edge, Wallet/Token DD, AI copilot, smart-money desk depth.",
             }
         )
     elif plan_id == "quant":

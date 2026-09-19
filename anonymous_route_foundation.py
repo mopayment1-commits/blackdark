@@ -166,6 +166,7 @@ PUBLIC_HTML_PREFIXES: tuple[str, ...] = (
 LAUNCH57_PUBLIC_API_EXACT: frozenset[str] = frozenset(
     {
         "/api/launch57/guest-trust",
+        "/api/launch57/tier-distribution",
         "/api/launch57/capability-library",
     }
 )

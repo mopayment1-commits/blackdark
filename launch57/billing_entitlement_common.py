@@ -143,11 +143,14 @@ _TIER_VARIABLES: dict[int, dict[str, Any]] = {
     52: {"search_depth": "public", "variable": "library_search"},
 }
 
-# Minimum paid tier for Launch-57 surfaces that must not unlock on client tier params alone.
-MINIMUM_PAID_TIER_BY_LAUNCH_ITEM: dict[int, str] = {
-    33: "pro",
-    51: "pro",
-}
+def _load_minimum_paid_tiers() -> dict[int, str]:
+    from launch57.tier_distribution import minimum_paid_tier_by_launch_item
+
+    return minimum_paid_tier_by_launch_item()
+
+
+# Minimum paid tier for Launch-57 surfaces — sourced from launch57/tier_distribution.py
+MINIMUM_PAID_TIER_BY_LAUNCH_ITEM: dict[int, str] = _load_minimum_paid_tiers()
 
 _INVALID_PAID_GRANT_SOURCES = frozenset(
     {
@@ -449,6 +452,20 @@ def enforce_launch57_entitlement(
     if minimum and allowed and plan_rank(effective) < plan_rank(minimum):
         allowed = False
         reason = f"minimum_tier_{minimum}_required"
+
+    try:
+        from launch57.tier_distribution import enforce_launch57_tier_access
+
+        tier_gate = enforce_launch57_tier_access(
+            launch_item_id=launch_item_id,
+            params=p,
+            subscription=subscription,
+        )
+        if not tier_gate["allowed"]:
+            allowed = False
+            reason = tier_gate.get("reason") or reason
+    except Exception:
+        pass
 
     return {
         "launch_item_id": launch_item_id,

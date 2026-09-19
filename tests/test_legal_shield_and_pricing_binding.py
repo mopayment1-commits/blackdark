@@ -13,7 +13,8 @@ def test_founder_confirmed_price_ladder():
     assert by["free"]["price_usd_month"] == 0
     assert by["free"]["name"] == "DISCOVER / FREE"
     assert by["pro"]["price_usd_month"] == 19.99
-    assert by["pro"]["popular"] is True
+    assert by["pro"].get("popular") is not True
+    assert by["elite"]["popular"] is True
     assert by["elite"]["price_usd_month"] == 49.99
     assert by["elite"]["name"] == "SEE THE EDGE / ELITE"
     assert by["quant"]["price_usd_month"] == 129.99

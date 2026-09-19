@@ -73,7 +73,7 @@ PLAN_DEFINITIONS: dict[str, dict[str, Any]] = {
         "price_display": "$19.99/mo or $199/yr",
         "self_serve": True,
         "trial_days": PAID_TRIAL_DAYS,
-        "popular": True,
+        "popular": False,
     },
     "elite": {
         "id": "elite",
@@ -87,7 +87,7 @@ PLAN_DEFINITIONS: dict[str, dict[str, Any]] = {
         "price_display": "$49.99/mo or $499/yr",
         "self_serve": True,
         "trial_days": PAID_TRIAL_DAYS,
-        "popular": False,
+        "popular": True,
     },
     "quant": {
         "id": "quant",
