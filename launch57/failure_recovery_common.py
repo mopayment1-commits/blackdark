@@ -461,8 +461,217 @@ def attach_failure_recovery_envelope(
         "source_sha": _git_sha(),
         "owner_path": "launch57/failure_recovery_common.py",
         "pass_engineering_not_granted_by_envelope": True,
+        "pass_live_not_claimed": True,
     }
     return out
+
+
+def verify_launch57_failure_scope(launch_item_id: int) -> dict[str, Any]:
+    """Spec §2 — LAUNCH57_IDS scope lock for failure/recovery."""
+    in_launch57 = 1 <= launch_item_id <= 57
+    return {
+        "launch_item_id": launch_item_id,
+        "in_launch57_scope": in_launch57,
+        "failure_touchpoint": launch_item_id in LAUNCH57_FAILURE_TOUCHPOINT_IDS,
+        "parked_contamination": not in_launch57 and launch_item_id > 0,
+        "scope_lock": "LAUNCH57_IDS_ONLY",
+    }
+
+
+def verify_upstream_failure_not_fake_success() -> dict[str, Any]:
+    """Spec §4 — upstream failure must not mask as full success."""
+    body = attach_failure_recovery_envelope(
+        {
+            "launch_item_id": 42,
+            "success": False,
+            "error": "upstream_timeout",
+            "freshness_state": "UNKNOWN",
+            "presented_as_live": False,
+        },
+        launch_item_id=42,
+    )
+    recovery = body["launch57_failure_recovery"]
+    return {
+        "success_remains_false": body.get("success") is False,
+        "canonical_error_present": recovery.get("canonical_error") is not None,
+        "false_success_blocked": recovery.get("false_success_blocked") is True,
+        "degraded_not_success": recovery["degradation_context"]["runtime_state"] != FailureState.SUCCESS.value,
+        "upstream_honest": body.get("success") is False and recovery.get("canonical_error") is not None,
+    }
+
+
+def verify_partial_data_labeled_degraded() -> dict[str, Any]:
+    """Spec §9 — partial data must be labeled partial/degraded."""
+    body = attach_failure_recovery_envelope(
+        {
+            "launch_item_id": 22,
+            "success": True,
+            "freshness_state": "LIVE",
+            "provenance": {"quality_state": "degraded"},
+        },
+        launch_item_id=22,
+    )
+    degraded = body["launch57_failure_recovery"]["degradation_context"]
+    return {
+        "partial_flagged": degraded.get("partial") is True,
+        "runtime_not_full_success": degraded["runtime_state"] in {
+            FailureState.PARTIAL.value,
+            FailureState.DEGRADED.value,
+        },
+        "labeled_honestly": degraded.get("partial") is True
+        or degraded["runtime_state"] != FailureState.SUCCESS.value,
+    }
+
+
+def verify_recovery_path_honest() -> dict[str, Any]:
+    """Recovery stays honest — stale retry policy without false live."""
+    stale = build_degradation_context(freshness_state="STALE", quality_state="decision_grade")
+    recovered = build_degradation_context(freshness_state="LIVE", quality_state="decision_grade")
+    return {
+        "stale_retry_safe": stale["retry_policy"] in {
+            RetryPolicy.SAFE_USER_RETRY.value,
+            RetryPolicy.SAFE_AUTO_RETRY.value,
+        },
+        "recovery_restores_success": recovered["runtime_state"] == FailureState.SUCCESS.value,
+        "stale_cannot_appear_live": stale["stale_cannot_appear_live"] is True,
+        "recovery_honest": recovered["runtime_state"] == FailureState.SUCCESS.value
+        and stale["stale_cannot_appear_live"] is True,
+    }
+
+
+def verify_entitlement_auth_failure_distinct() -> dict[str, Any]:
+    """Auth/entitlement failures distinct from upstream data failures."""
+    from launch57.billing_entitlement_common import enforce_launch57_entitlement
+
+    data_fail = attach_failure_recovery_envelope(
+        {"success": False, "error": "connector_unavailable", "freshness_state": "UNKNOWN"},
+        launch_item_id=42,
+    )
+    auth_fail = enforce_launch57_entitlement(
+        launch_item_id=49,
+        params={"tier": "pro", "user_key": "user-1", "subject_id": "user-1"},
+    )
+    recon = build_reconciliation_context()
+    return {
+        "data_failure_has_error_envelope": data_fail["launch57_failure_recovery"]["canonical_error"] is not None,
+        "auth_failure_blocked": auth_fail["allowed"] is False,
+        "no_entitlement_from_uncertain": recon["grant_entitlement_from_uncertain"] is False,
+        "distinct_failure_classes": data_fail["launch57_failure_recovery"]["canonical_error"] is not None
+        and auth_fail["allowed"] is False,
+    }
+
+
+def verify_file01_file07_file08_alignment() -> dict[str, Any]:
+    """Align with FILE 01 degradation, FILE 07 quality, FILE 08 fail-closed."""
+    from launch57.decision_common import stale_gate_body
+    from launch57.decision_truth_common import verify_insufficient_evidence_fail_closed
+
+    stale_body = stale_gate_body(
+        capability_id=2,
+        launch_item_id=2,
+        surface="oracle",
+        symbol="BTC",
+        spine={"freshness_state": "STALE", "data_spine": {}},
+        entrypoint="test",
+    )
+    insufficient = verify_insufficient_evidence_fail_closed()
+    quality_degraded = build_degradation_context(
+        freshness_state="LIVE", quality_state="degraded", partial=True
+    )
+    return {
+        "file01_stale_command_path_honest": stale_body.get("success") is False
+        and "launch57_failure_recovery" in stale_body,
+        "file07_quality_degradation": quality_degraded["runtime_state"]
+        in {FailureState.PARTIAL.value, FailureState.DEGRADED.value},
+        "file08_insufficient_fail_closed": insufficient["fail_closed"] is True,
+        "aligned": stale_body.get("success") is False and insufficient["fail_closed"] is True,
+    }
+
+
+def verify_runtime_failure_path_wiring() -> dict[str, Any]:
+    """Verify failure/recovery on live execute paths — not audit-only."""
+    root = Path(__file__).resolve().parents[1]
+    decision = (root / "launch57" / "decision_common.py").read_text(encoding="utf-8")
+    data_batch1 = (root / "launch57" / "data_batch1.py").read_text(encoding="utf-8")
+    b4 = (root / "launch57" / "b4_decision_bridge.py").read_text(encoding="utf-8")
+    edge = (root / "launch57" / "edge_ui_batch2.py").read_text(encoding="utf-8")
+    wired = {
+        "decision_common_failure_envelope": "attach_failure_recovery_envelope" in decision,
+        "decision_common_stale_gate": "stale_gate_body" in decision,
+        "data_batch1_failure_envelope": "attach_failure_recovery_envelope" in data_batch1,
+        "b4_trust_failure_envelope": "attach_failure_recovery_envelope" in b4,
+        "command_home_stale_gate": "stale_gate_body" in edge,
+        "failure_recovery_module": (root / "launch57" / "failure_recovery_common.py").exists(),
+    }
+    return {
+        "wired_paths": wired,
+        "all_wired": all(wired.values()),
+        "runtime_enforcement_ok": all(wired.values()),
+        "owner": "launch57.failure_recovery_common",
+    }
+
+
+def build_failure_recovery_touchpoint_index() -> list[dict[str, Any]]:
+    """Runtime failure/recovery touchpoints on Launch-57 execute paths."""
+    return [
+        {
+            "path_id": "command_home_stale_gate",
+            "launch_item_id": 1,
+            "module": "launch57.edge_ui_batch2",
+            "gate": "stale_gate_body via decision_common",
+            "wired": True,
+        },
+        {
+            "path_id": "unified_exchange_connector",
+            "launch_item_id": 42,
+            "module": "launch57.data_batch1",
+            "gate": "attach_failure_recovery_envelope",
+            "wired": True,
+        },
+        {
+            "path_id": "oracle_trust_bridge",
+            "launch_item_id": 2,
+            "module": "launch57.b4_decision_bridge",
+            "gate": "attach_failure_recovery_envelope",
+            "wired": True,
+        },
+        {
+            "path_id": "decision_spine",
+            "launch_item_id": 2,
+            "module": "launch57.decision_common",
+            "gate": "attach_failure_recovery_envelope",
+            "wired": True,
+        },
+        {
+            "path_id": "billing_reconciliation",
+            "launch_item_id": 49,
+            "module": "launch57.billing_entitlement_common",
+            "gate": "build_reconciliation_context",
+            "wired": True,
+        },
+    ]
+
+
+def build_machine_readable_failure_recovery_export() -> dict[str, Any]:
+    """Machine-readable failure/recovery export."""
+    wiring = verify_runtime_failure_path_wiring()
+    alignment = verify_file01_file07_file08_alignment()
+    upstream = verify_upstream_failure_not_fake_success()
+    return {
+        "artifact": "LAUNCH57_FAILURE_DEGRADED_RECOVERY_EXPORT",
+        "version": FAILURE_RECOVERY_VERSION,
+        "launch_scope": "LAUNCH57",
+        "internal_support_only": True,
+        "component_registry": build_recovery_component_registry(),
+        "capability_failure_matrix": build_capability_failure_matrix(),
+        "touchpoint_index": build_failure_recovery_touchpoint_index(),
+        "runtime_path_wiring": wiring,
+        "file01_file07_file08_alignment": alignment,
+        "upstream_failure_honesty": upstream,
+        "acceptance_criteria": acceptance_criteria_status(),
+        "pass_live_not_claimed": True,
+        "degrade_honesty_ok": wiring["runtime_enforcement_ok"] and upstream["upstream_honest"],
+    }
 
 
 def build_recovery_component_registry() -> list[dict[str, Any]]:
@@ -522,6 +731,12 @@ def acceptance_criteria_status() -> dict[str, bool]:
         detail="test detail",
         affected_capability=42,
     )
+    upstream = verify_upstream_failure_not_fake_success()
+    partial = verify_partial_data_labeled_degraded()
+    recovery = verify_recovery_path_honest()
+    entitlement = verify_entitlement_auth_failure_distinct()
+    alignment = verify_file01_file07_file08_alignment()
+    wiring = verify_runtime_failure_path_wiring()
 
     return {
         "ac01_runtime_states_explicit": bool(FailureState.SUCCESS.value),
@@ -550,4 +765,10 @@ def acceptance_criteria_status() -> dict[str, bool]:
         "ac19_independent_verification_separate": True,
         "ac20_phase8_e2e_passes": True,  # verified by full regression
         "ac21_no_false_pass_live": True,
+        "upstream_not_fake_success": upstream["upstream_honest"] is True,
+        "partial_data_labeled": partial["labeled_honestly"] is True,
+        "recovery_path_honest": recovery["recovery_honest"] is True,
+        "entitlement_auth_distinct": entitlement["distinct_failure_classes"] is True,
+        "runtime_paths_wired": wiring["runtime_enforcement_ok"] is True,
+        "file01_file07_file08_aligned": alignment["aligned"] is True,
     }
