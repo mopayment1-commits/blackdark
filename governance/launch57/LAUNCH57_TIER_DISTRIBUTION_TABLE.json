@@ -337,8 +337,8 @@
     {
       "launch_number": 22,
       "launch_name": "Real-time / near-real-time prices",
-      "surface_path": "/#pricing",
-      "button_or_route": "Pricing honesty rail",
+      "surface_path": "/api/launch57/real-time-prices",
+      "button_or_route": "Live price + freshness badge",
       "tier": "floor",
       "minimum_tier": "free",
       "gated": false,

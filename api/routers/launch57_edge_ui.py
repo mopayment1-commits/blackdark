@@ -76,6 +76,14 @@ async def launch57_guest_trust(symbol: str = Query("BTC")):
     return await guest_trust_surface(symbol=symbol, params={"symbol": symbol, "user_key": "anonymous"})
 
 
+@router.get("/api/launch57/real-time-prices")
+async def launch57_real_time_prices(symbol: str = Query("BTC")):
+    """Launch #22 — floor-tier live/near-live price with freshness (not subscription pricing)."""
+    from launch57.data_batch1 import real_time_prices
+
+    return await real_time_prices(symbol=symbol, params={"symbol": symbol, "user_key": "anonymous"})
+
+
 @router.get("/api/launch57/command-home")
 async def launch57_command_home(
     request: Request,

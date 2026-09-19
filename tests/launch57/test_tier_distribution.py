@@ -126,3 +126,52 @@ def test_minimum_tier_mapping_samples():
     assert minimum_tier_for(3) == "pro"
     assert minimum_tier_for(5) == "elite"
     assert minimum_tier_for(43) == "quant"
+
+
+def test_launch22_surface_is_real_time_prices_not_subscription_pricing():
+    table = build_launch57_distribution_table()
+    row22 = next(r for r in table if r["launch_number"] == 22)
+    assert row22["surface_path"] == "/api/launch57/real-time-prices"
+    assert row22["surface_path"] != "/#pricing"
+    assert row22["status"] == "PENDING_VERIFICATION"
+
+
+def test_launch22_public_api_returns_price_with_freshness_badge(monkeypatch):
+    from dashboard import app
+
+    async def fake_connector(*, symbol: str, params=None):
+        return {"success": True, "selected_provider": "binance"}
+
+    async def fake_ticker(pair: str):
+        return {"price": 50000.0, "source": "binance:api.binance.com", "age_sec": 1.0, "change_24h": 1.2}
+
+    monkeypatch.setattr("launch57.data_batch1.unified_exchange_connector", fake_connector)
+    monkeypatch.setattr("launch57.data_batch1.fetch_binance_ticker", fake_ticker)
+
+    client = TestClient(app)
+    res = client.get("/api/launch57/real-time-prices", params={"symbol": "BTC"})
+    assert res.status_code == 200
+    body = res.json()
+    assert body["launch_item_id"] == 22
+    assert body["surface"] == "real_time_prices"
+    assert body["price"] == 50000.0
+    assert body["freshness_state"] in {"LIVE", "NEAR_LIVE", "DELAYED", "STALE"}
+    assert body.get("presented_as_live") is True
+
+
+@pytest.mark.asyncio
+async def test_kill_real_time_prices_path_not_presented_as_live(monkeypatch):
+    async def fake_connector(*, symbol: str, params=None):
+        return {"success": True, "selected_provider": "binance"}
+
+    async def fake_ticker(pair: str):
+        return {"price": 100.0, "source": "binance:api.binance.com", "age_sec": 120.0}
+
+    monkeypatch.setattr("launch57.data_batch1.unified_exchange_connector", fake_connector)
+    monkeypatch.setattr("launch57.data_batch1.fetch_binance_ticker", fake_ticker)
+
+    from launch57.data_batch1 import real_time_prices
+
+    out = await real_time_prices(symbol="BTC", params={})
+    assert out["freshness_state"] == "STALE"
+    assert out["presented_as_live"] is False

@@ -62,7 +62,7 @@ _DISTRIBUTION: dict[int, tuple[str, str, str, bool, bool]] = {
     19: (TIER_ELITE, "/dashboard?lens=desk", "Inter-entity flow (limited)", True, True),
     20: (TIER_ELITE, "/dashboard?lens=desk", "Address labels & cohorts", True, True),
     21: (TIER_PRO, "/dashboard?lens=operate", "Spot metrics suite", True, True),
-    22: (TIER_FLOOR, "/#pricing", "Pricing honesty rail", False, False),
+    22: (TIER_FLOOR, "/api/launch57/real-time-prices", "Live price + freshness badge", False, False),
     23: (TIER_PRO, "/dashboard?lens=operate", "OHLCV depth", True, True),
     24: (TIER_PRO, "/dashboard?lens=operate", "Quote + symbol metadata", True, True),
     25: (TIER_PRO, "/dashboard?lens=operate", "Futures OI", True, True),
