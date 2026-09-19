@@ -12,7 +12,7 @@
 ## Builder (implementation)
 
 - Domain: Adaptive Intelligence & Decision Experience
-- SHA: `fa6edea137dafbb15d40ab2d291c785b659f4379`
+- SHA: `ecd0e9be598d8c899f949cb508d85b197a8aa63c`
 - Builder status: `PASS_ENGINEERING`
 - Runtime truth YES: 30/30
 
@@ -27,8 +27,8 @@
 ```
 python3 -m pytest tests/launch57/test_support_plane_full_closure.py tests/launch57/test_support_plane_phase1_isolation.py tests/launch57/test_support_plane_phase3_composition_controls.py tests/launch57/test_support_plane_progressive_disclosure.py tests/launch57/test_support_plane_accessibility_baseline.py tests/launch57/test_support_plane_human_validation_register.py tests/launch57/test_router_selection_contract.py tests/launch57/test_phase2_adaptive_batch_a.py tests/launch57/test_phase2_adaptive_batch_b.py tests/launch57/test_phase7_adaptive_batch_a.py tests/launch57/test_phase7_adaptive_batch_b.py tests/launch57/test_phase8_e2e_acceptance.py -q --tb=no
 exit_code=0
-test_phase8_e2e_acceptance.py::test_all_e2e_journeys_pass
-  /home/ubuntu/.local/lib/python3.12/site-packages/fastapi/openapi/utils.py:303: UserWarning: Duplicate Operation ID storage_legacy_purge_api_storage_legacy_purge_get for function storage_legacy_purge at /workspace/dashboard.py
+est_phase8_e2e_acceptance.py::test_all_e2e_journeys_pass
+  /home/ubuntu/.local/lib/python3.12/site-packages/fastapi/openapi/utils.py:303: UserWarning: Duplicate Operation ID storage_legacy_purge_api_storage_legacy_purge_post for function storage_legacy_purge at /workspace/dashboard.py
     warnings.warn(message, stacklevel=1)
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html

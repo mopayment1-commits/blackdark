@@ -1,7 +1,7 @@
 {
   "artifact": "SPEC_01_INDEPENDENT_VERIFICATION",
   "domain": "SPEC_01_ADAPTIVE_DECISION_EXPERIENCE",
-  "verification_sha": "fa6edea137dafbb15d40ab2d291c785b659f4379",
+  "verification_sha": "ecd0e9be598d8c899f949cb508d85b197a8aa63c",
   "probe_count": 6,
   "passed_count": 6,
   "failed_count": 0,
@@ -40,5 +40,5 @@
   ],
   "PASS_LIVE_NOT_CLAIMED": true,
   "note": "Adversarial engineering IV — not production user-study or WCAG audit",
-  "generated_at": "2026-09-18T19:36:19.650210+00:00"
+  "generated_at": "2026-09-19T09:37:40.517684+00:00"
 }

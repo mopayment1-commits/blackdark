@@ -1,7 +1,7 @@
 {
   "artifact": "SPEC_01_REQUIREMENTS_REGISTER",
   "domain": "SPEC_01_ADAPTIVE_DECISION_EXPERIENCE",
-  "generated_at": "2026-09-18T19:36:19.650210+00:00",
+  "generated_at": "2026-09-19T09:37:40.517684+00:00",
   "spec_version": "launch57-spec01-adaptive-decision-experience-1.0.0",
   "requirement_count": 30,
   "requirements": [
@@ -601,14 +601,17 @@
     },
     {
       "req_id": "REQ-S01-030",
-      "title": "Support-plane gaps G1–G7 closed locally",
-      "spec_section": "§23–§33 hygiene",
+      "title": "§23 on material composition paths (scoped full_cross_path)",
+      "spec_section": "§23.5 where applicable",
       "launch_ids": [],
       "six_heroes": [],
       "owner_modules": [
-        "governance/launch57/SUPPORT_PLANE_GAP_REGISTER.json"
+        "launch57/support_plane_envelope.py",
+        "launch57/router_selection_contract.py"
       ],
-      "tests": [],
+      "tests": [
+        "test_support_plane_full_closure.py"
+      ],
       "mandatory": true
     }
   ]

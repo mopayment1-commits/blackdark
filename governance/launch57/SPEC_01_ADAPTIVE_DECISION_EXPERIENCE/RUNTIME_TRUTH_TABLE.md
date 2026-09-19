@@ -31,4 +31,4 @@
 | REQ-S01-027 | §3, §9 | **YES** | stale spine triggers abstain+reason |
 | REQ-S01-028 | §42.24 | **YES** | 57/57 register rows with implementation cross-ref |
 | REQ-S01-029 | §41 | **YES** | PASS_LIVE=false by policy |
-| REQ-S01-030 | §23–§33 hygiene | **YES** | G1–G7 closed or hygiene-remediated |
+| REQ-S01-030 | §23.5 where applicable | **YES** | material composition paths via support_plane_envelope since 313c8ccf; data spine + pre-composition fail-closed excluded per spec |
