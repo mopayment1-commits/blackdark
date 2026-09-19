@@ -1,0 +1,330 @@
+{
+  "artifact": "SPEC_05_REQUIREMENTS_REGISTER",
+  "domain": "SPEC_05_COMMERCIAL_CAPABILITY_INVENTORY",
+  "generated_at": "2026-09-18T23:49:37.547038+00:00",
+  "spec_version": "launch57-spec05-commercial-capability-inventory-1.0.0",
+  "requirement_count": 25,
+  "requirements": [
+    {
+      "req_id": "REQ-S05-001",
+      "title": "LAUNCH57_COMMERCIAL_INVENTORY_COUNT = 57",
+      "spec_section": "§2",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/commercial_inventory_common.py"
+      ],
+      "tests": [
+        "test_commercial_inventory.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S05-002",
+      "title": "AUDIT_ONLY — no pricing/plan/entitlement changes",
+      "spec_section": "§3",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/commercial_inventory_common.py"
+      ],
+      "tests": [
+        "test_spec05"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S05-003",
+      "title": "Frozen audit baseline recorded",
+      "spec_section": "§4",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/commercial_inventory_common.py"
+      ],
+      "tests": [
+        "test_commercial_inventory.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S05-004",
+      "title": "Canonical audit record per capability",
+      "spec_section": "§6",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/commercial_inventory_common.py"
+      ],
+      "tests": [
+        "test_commercial_inventory.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S05-005",
+      "title": "Engineering status from SSOT not docs",
+      "spec_section": "§7",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/commercial_inventory_common.py"
+      ],
+      "tests": [
+        "test_commercial_inventory.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S05-006",
+      "title": "Commercial surface state classification",
+      "spec_section": "§8",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/commercial_inventory_common.py"
+      ],
+      "tests": [
+        "test_spec05"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S05-007",
+      "title": "Commercial roles with evidence basis",
+      "spec_section": "§10",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/commercial_inventory_common.py"
+      ],
+      "tests": [
+        "test_spec05"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S05-008",
+      "title": "Commercial value dimensions with ASSESSMENT_BASIS",
+      "spec_section": "§11",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/commercial_inventory_common.py"
+      ],
+      "tests": [
+        "test_spec05"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S05-009",
+      "title": "Launch-native capability groups",
+      "spec_section": "§12",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/commercial_inventory_common.py"
+      ],
+      "tests": [
+        "test_spec05"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S05-010",
+      "title": "Tier variables separate — not counted in 57",
+      "spec_section": "§13",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/commercial_inventory_common.py"
+      ],
+      "tests": [
+        "test_commercial_inventory.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S05-011",
+      "title": "Tierability audit statuses",
+      "spec_section": "§14",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/commercial_inventory_common.py"
+      ],
+      "tests": [
+        "test_spec05"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S05-012",
+      "title": "Anonymous/Free/Paid/Institutional boundary",
+      "spec_section": "§15",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/commercial_inventory_common.py"
+      ],
+      "tests": [
+        "test_spec05"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S05-013",
+      "title": "PRIMARY_TYPE EXTERNAL | INTERNAL",
+      "spec_section": "A-BLOCK-0116",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/commercial_inventory_common.py"
+      ],
+      "tests": [
+        "test_spec05"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S05-014",
+      "title": "ENTITY_COMMERCIAL_CLASS per record",
+      "spec_section": "A-BLOCK-0133",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/commercial_inventory_common.py"
+      ],
+      "tests": [
+        "test_spec05"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S05-015",
+      "title": "Reconciliation counters §33",
+      "spec_section": "§33",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/commercial_inventory_common.py"
+      ],
+      "tests": [
+        "test_commercial_inventory.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S05-016",
+      "title": "Independent recomputation",
+      "spec_section": "§34–§35",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/commercial_inventory_common.py"
+      ],
+      "tests": [
+        "test_commercial_inventory.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S05-017",
+      "title": "No PARKED as launch-commercial primary",
+      "spec_section": "§2",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/commercial_inventory_common.py"
+      ],
+      "tests": [
+        "test_spec05"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S05-018",
+      "title": "FILE 03 entitlement matrix alignment",
+      "spec_section": "§15",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/billing_entitlement_common.py"
+      ],
+      "tests": [
+        "test_spec05"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S05-019",
+      "title": "FILE 04 library scope alignment",
+      "spec_section": "§2",
+      "launch_ids": [
+        52
+      ],
+      "owner_modules": [
+        "launch57/capability_library_common.py"
+      ],
+      "tests": [
+        "test_spec05"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S05-020",
+      "title": "Machine-readable inventory export",
+      "spec_section": "A-BLOCK-0314",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/commercial_inventory_common.py"
+      ],
+      "tests": [
+        "test_spec05"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S05-021",
+      "title": "Unwired capability detection",
+      "spec_section": "A-BLOCK-0314",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/commercial_inventory_common.py"
+      ],
+      "tests": [
+        "test_spec05"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S05-022",
+      "title": "PASS_LIVE not claimed",
+      "spec_section": "§7",
+      "launch_ids": [],
+      "owner_modules": [],
+      "tests": [],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S05-023",
+      "title": "Acceptance criteria engineering gate",
+      "spec_section": "§24",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/commercial_inventory_common.py"
+      ],
+      "tests": [
+        "test_spec05"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S05-024",
+      "title": "Independent verification adversarial probes",
+      "spec_section": "§22",
+      "launch_ids": [],
+      "owner_modules": [],
+      "tests": [
+        "test_spec05"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S05-025",
+      "title": "COMMERCIAL_READY_FOR_TIER_DESIGN honest false when unknowns",
+      "spec_section": "§36",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/commercial_inventory_common.py"
+      ],
+      "tests": [
+        "test_commercial_inventory.py"
+      ],
+      "mandatory": true
+    }
+  ]
+}

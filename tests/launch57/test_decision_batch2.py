@@ -70,7 +70,12 @@ async def test_cross_market_live_path(monkeypatch):
     monkeypatch.setattr("launch57.decision_batch2.load_decision_spine", fake_spine)
     monkeypatch.setattr(
         "bd_platform.pro_trader_layer.build_multi_dim_analysis_73",
-        lambda asset: {"ok": True, "composite_score": 72, "asset": asset},
+        lambda asset: {
+            "ok": True,
+            "composite_score": 72,
+            "asset": asset,
+            "dimensions": {"technical": {"score": 72, "weight": 1.0, "source": "ta_engine"}},
+        },
     )
     monkeypatch.setattr(
         "bd_platform.institutional_delivery_intelligence_layer.cross_market_decision_intelligence_567",
@@ -102,7 +107,11 @@ async def test_execute_dispatch_batch2_caps(monkeypatch):
     monkeypatch.setattr("launch57.decision_batch2.load_decision_spine", fake_spine)
     monkeypatch.setattr(
         "bd_platform.pro_trader_layer.build_multi_dim_analysis_73",
-        lambda asset: {"ok": True, "composite_score": 50},
+        lambda asset: {
+            "ok": True,
+            "composite_score": 50,
+            "dimensions": {"technical": {"score": 50, "weight": 1.0, "source": "ta_engine"}},
+        },
     )
     monkeypatch.setattr(
         "bd_platform.institutional_delivery_intelligence_layer.cross_market_decision_intelligence_567",

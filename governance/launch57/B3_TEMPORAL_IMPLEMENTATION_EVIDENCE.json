@@ -1,0 +1,128 @@
+{
+  "artifact": "B3_TEMPORAL_IMPLEMENTATION_EVIDENCE",
+  "builder_session": "cursor-cloud-agent-b3-temporal-implementation",
+  "generated_at": "2026-09-17T12:10:00+00:00",
+  "base_sha": "424a389f9a1a3fb3d7282c0ec809f51a62d11b74",
+  "B3_CANONICAL_SCOPE": {
+    "batch": "B3",
+    "launch_numbers": [
+      6
+    ],
+    "canonical_names": {
+      "6": "Evidence class visible (LIVE/DELAYED/SIM)"
+    },
+    "execution_order": [
+      6
+    ],
+    "dependency_prerequisites": [
+      "B1_INDEPENDENT_VERDICT=PASS_ENGINEERING",
+      "B2:#40/#41/#39=PASS_ENGINEERING",
+      "B2_INDEPENDENT_VERDICT=PASS_ENGINEERING",
+      "B1_TO_41_TARGETED_RECONCILIATION=PASS_ENGINEERING",
+      "B3_AUTHORIZED=true"
+    ],
+    "governing_sources": [
+      "BLACKDARK_Launch57_Global_Time_Temporal_Consistency_FROM_SCRATCH_SPEC_66d6.md §9",
+      "launch57/batch1_isolation.py (auto_activate_on_b3_pass)",
+      "governance/launch57/B1_TO_41_INDEPENDENT_VERIFICATION.json (B3_AUTHORIZED)",
+      "governance/launch57/BLACKDARK_LAUNCH57_TEMPORAL_CONSISTENCY_RECONCILIATION.json (remaining #6 pending)"
+    ]
+  },
+  "entry_gate": {
+    "B1_TO_41_TARGETED_RECONCILIATION": "PASS_ENGINEERING",
+    "B2_POST_VERIFICATION_RECONCILIATION_COMPLETE": true,
+    "B2:#40": "PASS_ENGINEERING",
+    "B2:#41": "PASS_ENGINEERING",
+    "B2:#39": "PASS_ENGINEERING",
+    "B2_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+    "B3_AUTHORIZED": true,
+    "LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING": false,
+    "PASS_LIVE_NOT_CLAIMED": true,
+    "pass": true
+  },
+  "pre_execution_safety_gate": {
+    "objective": "Launch-57-local #6 evidence-class owner for B1/B2 temporal consumer paths",
+    "authorized_write_scope": [
+      "launch57/evidence_class_common.py",
+      "launch57/batch3_isolation.py",
+      "launch57/b3_evidence_bridge.py",
+      "launch57/batch1_isolation.py",
+      "launch57/batch2_isolation.py",
+      "launch57/b1_freshness_bridge.py",
+      "tests/launch57/test_temporal_batch3.py",
+      "tests/launch57/test_b3_isolation_closure.py",
+      "governance/launch57/"
+    ],
+    "protected_state_preserved": {
+      "B2:#40": "PRESERVE_VERIFIED_STATE",
+      "B2:#41": "PRESERVE_VERIFIED_STATE",
+      "B2:#39": "PRESERVE_VERIFIED_STATE",
+      "unaffected_B1": "PRESERVE_VERIFIED_STATE",
+      "reopen_triggers": "NONE"
+    },
+    "no_legacy_runtime_dependency": true,
+    "pass": true
+  },
+  "capabilities": [
+    {
+      "launch_number": 6,
+      "canonical_name": "Evidence class visible (LIVE/DELAYED/SIM)",
+      "disposition": "BUILD",
+      "owner": "launch57.evidence_class_common",
+      "bridge": "launch57.b3_evidence_bridge",
+      "builder_status": "PENDING_VERIFICATION",
+      "direct_dependencies": [
+        "launch57.temporal_common",
+        "launch57.freshness_common (freshness downgrade only)"
+      ],
+      "consumers": [
+        "launch57.batch1_isolation",
+        "launch57.batch2_isolation",
+        "launch57.b1_freshness_bridge"
+      ]
+    }
+  ],
+  "changed_paths": [
+    "launch57/evidence_class_common.py",
+    "launch57/batch3_isolation.py",
+    "launch57/b3_evidence_bridge.py",
+    "launch57/batch1_isolation.py",
+    "launch57/batch2_isolation.py",
+    "launch57/b1_freshness_bridge.py",
+    "tests/launch57/test_temporal_batch3.py",
+    "tests/launch57/test_b3_isolation_closure.py",
+    "tests/launch57/test_b1_isolation_closure.py",
+    "tests/launch57/test_b1_to_41_reconciliation.py",
+    "tests/launch57/test_b2_independent_verification.py",
+    "governance/launch57/generate_temporal_consistency.py",
+    "governance/launch57/B3_TEMPORAL_IMPLEMENTATION_EVIDENCE.json",
+    "governance/launch57/BLACKDARK_LAUNCH57_TEMPORAL_CONSISTENCY_RECONCILIATION.json",
+    "governance/launch57/BLACKDARK_LAUNCH57_TEMPORAL_CONSISTENCY_REPORT.md"
+  ],
+  "rollback_path": "Set B3_EVIDENCE_RECONCILIATION_ACTIVATED=False in launch57/b3_evidence_bridge.py; revert batch1/batch2 isolation bridge hooks; re-run targeted B1/B2/B3 tests",
+  "isolation_result": {
+    "B3_ISOLATION_LEAKAGE": 0,
+    "B3_LEGACY_RUNTIME_DEPENDENCIES": 0,
+    "prohibited_removed": [
+      "cap646.evidence_class",
+      "decision_truth.evidence_taxonomy"
+    ]
+  },
+  "targeted_tests": {
+    "command": "python3 -m pytest tests/launch57/test_b3_isolation_closure.py tests/launch57/test_temporal_batch3.py tests/launch57/test_b1_to_41_reconciliation.py tests/launch57/test_b1_isolation_closure.py tests/launch57/test_b2_independent_verification.py -q",
+    "exit_code": 0,
+    "passed": true
+  },
+  "B3_LOCAL_IMPLEMENTATION": "COMPLETE",
+  "B3:#6": "PENDING_VERIFICATION",
+  "B1_TO_41_TARGETED_RECONCILIATION": "PASS_ENGINEERING",
+  "B2_POST_VERIFICATION_RECONCILIATION_COMPLETE": true,
+  "B2_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+  "B2_ISOLATION_LEAKAGE": 0,
+  "B2_LEGACY_RUNTIME_DEPENDENCIES": 0,
+  "LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING": false,
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "protected_state_reopen_trigger": "NONE",
+  "next_permitted_action": "independent verification of B3 only",
+  "final_implementation_sha": "5c4e9a151017799eb87e04001163c7e8b445cbbf"
+}

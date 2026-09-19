@@ -1,0 +1,79 @@
+{
+  "artifact": "B4_TEMPORAL_IMPLEMENTATION_EVIDENCE",
+  "builder_session": "cursor-cloud-agent-b4-temporal-implementation",
+  "generated_at": "2026-09-17T14:10:00+00:00",
+  "base_sha": "ef7d55fe7a1eb1838dfbc724d25ba120c25b4d4a",
+  "B4_CANONICAL_SCOPE": {
+    "batch": "B4",
+    "launch_numbers": [2, 3],
+    "canonical_names": {
+      "2": "Single-Sentence Oracle (ACT/WAIT/ABSTAIN)",
+      "3": "Decision Certificate + hash"
+    },
+    "governing_sources": [
+      "governance/launch57/LAUNCH57_TEMPORAL_EXECUTION_PLAN_B1_B15.md §9.2, §10",
+      "BLACKDARK_Launch57_Global_Time_Temporal_Consistency_FROM_SCRATCH_SPEC_66d6.md §13"
+    ]
+  },
+  "entry_gate": {
+    "B1_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+    "B1_TO_41_TARGETED_RECONCILIATION": "PASS_ENGINEERING",
+    "B2_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+    "B3:#6": "PASS_ENGINEERING",
+    "B3_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+    "B3_TRUST_BOUNDARY_REMEDIATION_VERIFIED": true,
+    "LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING": false,
+    "PASS_LIVE_NOT_CLAIMED": true,
+    "pass": true
+  },
+  "implementation_summary": {
+    "objective": "SPEC §13 decision timing for Launch #2 and #3 with B3 trust gate and Launch-57-local certificate builder",
+    "owners": {
+      "2": "launch57/trust_batch1.py:single_sentence_oracle",
+      "3": "launch57/trust_batch1.py:decision_certificate_export",
+      "temporal": "launch57/decision_timing_common.py",
+      "bridge": "launch57/b4_decision_bridge.py",
+      "isolation": "launch57/batch4_isolation.py"
+    },
+    "legacy_removed_from_b4_path": [
+      "cap646.evidence_class",
+      "decision_certificate.build_decision_certificate"
+    ]
+  },
+  "changed_paths": [
+    "launch57/trust_batch1.py",
+    "launch57/decision_timing_common.py",
+    "launch57/batch4_isolation.py",
+    "launch57/b4_decision_bridge.py",
+    "tests/launch57/test_trust_batch1.py",
+    "tests/launch57/test_temporal_batch4.py",
+    "governance/launch57/B4_TEMPORAL_IMPLEMENTATION_EVIDENCE.json",
+    "governance/launch57/B4_TEMPORAL_IMPLEMENTATION_REPORT.md"
+  ],
+  "protected_state": {
+    "B1_INDEPENDENT_VERDICT": "PRESERVE_VERIFIED_STATE",
+    "B2_INDEPENDENT_VERDICT": "PRESERVE_VERIFIED_STATE",
+    "B3:#6": "PRESERVE_VERIFIED_STATE",
+    "frozen_owner_modules_unmodified": [
+      "launch57/temporal_common.py",
+      "launch57/evidence_class_common.py",
+      "launch57/freshness_common.py",
+      "launch57/provenance_common.py",
+      "launch57/point_in_time_common.py"
+    ]
+  },
+  "B4:#2": "PENDING_VERIFICATION",
+  "B4:#3": "PENDING_VERIFICATION",
+  "B4_INDEPENDENT_VERDICT": "PENDING_VERIFICATION",
+  "B4_IMPLEMENTATION_STATUS": "PENDING_VERIFICATION",
+  "PASS_ENGINEERING_NOT_CLAIMED": true,
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "tests": {
+    "command": "python3 -m pytest tests/launch57/test_temporal_batch4.py tests/launch57/test_trust_batch1.py -v",
+    "exit_code": 0,
+    "passed": 19,
+    "failed": 0,
+    "pass": true
+  },
+  "next_permitted_action": "independent verification of B4 temporal implementation only"
+}

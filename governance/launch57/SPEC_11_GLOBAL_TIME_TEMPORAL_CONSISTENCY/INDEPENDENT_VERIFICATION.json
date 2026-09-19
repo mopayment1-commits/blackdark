@@ -1,0 +1,73 @@
+{
+  "artifact": "SPEC_11_INDEPENDENT_VERIFICATION",
+  "domain": "SPEC_11_GLOBAL_TIME_TEMPORAL_CONSISTENCY",
+  "verification_sha": "16212bb66062dde30bbcd71f9f8ea29b6734a7f6",
+  "probe_count": 12,
+  "passed_count": 12,
+  "failed_count": 0,
+  "INDEPENDENT_VERIFICATION_PASS": true,
+  "probes": [
+    {
+      "probe": "iv_cairo_vs_utc_canonical_invariant",
+      "pass": true,
+      "detail": "{'canonical_unchanged': True, 'display_differs_by_zone': True, 'canonical_independent_of_display': True, 'iana_zones_resolved': True, 'order_invariant': True, 'ok': True}"
+    },
+    {
+      "probe": "iv_naive_datetime_fail_closed",
+      "pass": true,
+      "detail": "{'naive_rejected': True, 'aware_serialized_utc': True, 'fail_closed': True}"
+    },
+    {
+      "probe": "iv_available_at_not_fabricated",
+      "pass": true,
+      "detail": "{'unknown_without_observation': True, 'known_with_observation': True, 'pit_eligible_only_when_known': True, 'pit_ineligible_when_unknown': True, 'ok': True}"
+    },
+    {
+      "probe": "iv_untrusted_decision_time_rejected",
+      "pass": true,
+      "detail": "{'untrusted_rejected': True, 'trusted_accepted': True, 'gate_ok': True}"
+    },
+    {
+      "probe": "iv_expired_not_presented_as_current",
+      "pass": true,
+      "detail": "{'alert_stale_not_current': True, 'net_edge_stale_not_current': True, 'shareable_stale_not_current': True, 'ok': True}"
+    },
+    {
+      "probe": "iv_file06_file08_temporal_aligned",
+      "pass": true,
+      "detail": "{'file06_sim_not_live': True, 'file08_stale_net_edge_refused': True, 'aligned': True}"
+    },
+    {
+      "probe": "iv_runtime_temporal_paths_wired",
+      "pass": true,
+      "detail": "{'temporal_primitives': True, 'decision_timing_wired': True, 'net_edge_timing_wired': True, 'alert_timing_wired': True, 'shareable_timing_wired': True, 'history_timing_wired': True, 'infrastructure_temporal_wired': True}"
+    },
+    {
+      "probe": "iv_b1_b15_batches_closed",
+      "pass": true,
+      "detail": "{'iv_artifacts_present': True, 'missing_batches': [], 'all_batches_pass_engineering': True, 'not_pass_batches': [], 'b15_global_pass': True, 'ok': True}"
+    },
+    {
+      "probe": "iv_no_parked_temporal_scope",
+      "pass": true,
+      "detail": "out of scope"
+    },
+    {
+      "probe": "iv_machine_readable_export",
+      "pass": true,
+      "detail": "LAUNCH57_GLOBAL_TIME_TEMPORAL_CONSISTENCY_EXPORT"
+    },
+    {
+      "probe": "iv_temporal_envelope_honest",
+      "pass": true,
+      "detail": "envelope"
+    },
+    {
+      "probe": "iv_pass_live_not_claimed",
+      "pass": true,
+      "detail": "honest"
+    }
+  ],
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "generated_at": "2026-09-19T00:56:17.840787+00:00"
+}

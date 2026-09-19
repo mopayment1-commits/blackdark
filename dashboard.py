@@ -124,6 +124,38 @@ def render_page(request: Request, name: str, context: dict[str, Any] | None = No
     return response
 
 
+def render_dashboard_auth_required(request: Request) -> HTMLResponse:
+    """Human login gate for anonymous /dashboard — never raw JSON."""
+    lens = (request.query_params.get("lens") or "prove").strip().lower()
+    if lens not in {"prove", "operate", "desk", "room"}:
+        lens = "prove"
+    lens_labels = {
+        "prove": "Prove",
+        "operate": "Operate",
+        "desk": "Desk",
+        "room": "Room",
+    }
+    lens_hints = {
+        "prove": "Try the public oracle demo on the homepage while you sign up.",
+        "operate": "Operate opens after you create a free account.",
+        "desk": "Desk is available after sign-in.",
+        "room": "Room surfaces open after sign-in.",
+    }
+    response = render_page(
+        request,
+        "auth_required.html",
+        {
+            "lens": lens,
+            "lens_label": lens_labels.get(lens, "Prove"),
+            "lens_hint": lens_hints.get(lens, lens_hints["prove"]),
+            "public_prove_href": "/#try-oracle",
+        },
+    )
+    response.status_code = 401
+    response.headers["X-Blackdark-Auth-Boundary"] = "dashboard-auth-required-html"
+    return response
+
+
 def _sector_for_asset(asset: str) -> str:
     return config.SECTOR_MAP.get(asset.upper(), "Other")
 
@@ -625,6 +657,9 @@ async def anonymous_route_enforcement_middleware(request: Request, call_next):
 
     denial = enforce_anonymous_route_boundary(request)
     if denial is not None:
+        path = request.url.path or ""
+        if path == "/dashboard" and (request.method or "GET").upper() == "GET":
+            return render_dashboard_auth_required(request)
         return denial
     return await call_next(request)
 
@@ -2201,7 +2236,7 @@ async def faq_page(request: Request):
         {
             "page": "faq",
             "title": "FAQ",
-            "lead": "Straight answers on Proof Pass, Decision Pro, Decision Desk, sharing, and AI Chat.",
+            "lead": "Straight answers on DISCOVER / FREE, DECIDE / PRO, ELITE, QUANT, INSTITUTIONAL, sharing, and AI Chat.",
             "faq": FAQ_ITEMS,
             **_footer_ctx(),
         },
@@ -2248,14 +2283,26 @@ async def status_page(request: Request):
     from site_services import public_status_report
 
     status = public_status_report()
+    guest_trust: dict[str, Any] = {}
+    try:
+        from launch57.trust_batch2 import guest_trust_surface
+
+        payload = await guest_trust_surface(
+            symbol="BTC",
+            params={"symbol": "BTC", "user_key": "anonymous"},
+        )
+        guest_trust = dict(payload.get("guest_trust") or {})
+    except Exception:
+        guest_trust = {}
     return templates.TemplateResponse(
         request,
         STR_UTILITY_HTML,
         {
             "page": "status",
             "title": "System status",
-            "lead": "Public engineering posture — no secrets, no contractual SLA unless contracted.",
+            "lead": "Public guest trust and engineering posture — no secrets, no contractual SLA unless contracted.",
             "status": status,
+            "guest_trust": guest_trust,
             **_footer_ctx(),
         },
     )
@@ -4832,7 +4879,7 @@ async def checkout_cancel(request: Request):
         {
             "page": "cancel",
             "title": "Checkout cancelled",
-            "lead": "No charge was made. You can restart Decision Pro anytime — or stay on Proof Pass.",
+            "lead": "No charge was made. You can restart DECIDE / PRO anytime — or stay on DISCOVER / FREE.",
             **_footer_ctx(),
         },
     )

@@ -18,7 +18,7 @@ from net_edge_truth import FIN_004_DEMO_OPPORTUNITY
 
 
 def test_user_evidence_display_maps_live_delayed_sim():
-    live = user_evidence_display({"evidence_class": "PRODUCTION_VERIFIED"})
+    live = user_evidence_display({"source": "production"})
     assert live["user_facing_label"] == "LIVE"
     assert live["visible"] is True
 
@@ -28,12 +28,16 @@ def test_user_evidence_display_maps_live_delayed_sim():
     sim = user_evidence_display({"source": "synthetic"})
     assert sim["user_facing_label"] == "SIM"
 
+    escalated = user_evidence_display({"source": "synthetic", "evidence_class": "PRODUCTION_VERIFIED"})
+    assert escalated["user_facing_label"] == "SIM"
+
 
 def test_attach_trust_envelope_includes_evidence_display():
-    out = attach_trust_envelope({"symbol": "BTC", "success": True})
+    out = attach_trust_envelope({"symbol": "BTC", "success": True, "source": "oracle"})
     assert out["evidence_class_visible"] is True
     assert out["evidence_display"]["launch_item_id"] == 6
     assert out["compliance_footer"]["evidence_class"]
+    assert out["b4_decision_timing"]["activated"] is True
 
 
 @pytest.mark.asyncio
@@ -96,11 +100,19 @@ async def test_public_accuracy_ledger_live_only_primary(monkeypatch):
 async def test_decision_certificate_includes_hash():
     out = await decision_certificate_export(
         symbol="ETH",
-        params={"decision_action": "WAIT", "decision_sentence": "ETH: wait for clarity"},
+        params={
+            "governed_payload": {
+                "decision_time": "2026-09-17T12:00:00.000Z",
+                "issued_at": "2026-09-17T12:00:01.000Z",
+            },
+            "decision_action": "WAIT",
+            "decision_sentence": "ETH: wait for clarity",
+        },
     )
     assert out["capability_id"] == 641
     assert out["certificate_hash"]
     assert out["certificate"]["certificate_hash"] == out["certificate_hash"]
+    assert out["decision_timing"]["decision_time"] == "2026-09-17T12:00:00.000Z"
 
 
 @pytest.mark.asyncio
@@ -113,6 +125,8 @@ async def test_single_sentence_oracle_act_wait_abstain():
     assert out["decision_action"] == "ACT"
     assert "ACT" in out["decision_sentence"]
     assert out["evidence_display"]["visible"] is True
+    assert out["decision_timing"]["decision_time"]
+    assert out["temporal"]["decision_time"]
 
 
 @pytest.mark.asyncio

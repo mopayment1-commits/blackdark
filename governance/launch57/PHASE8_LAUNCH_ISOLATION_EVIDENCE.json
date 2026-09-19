@@ -1,6 +1,6 @@
 {
   "artifact": "PHASE8_LAUNCH_ISOLATION_EVIDENCE",
-  "generated_at": "2026-09-16T22:54:39.162802+00:00",
+  "generated_at": "2026-09-18T01:15:31.468945+00:00",
   "launch57_scope_ids": [
     1,
     2,
@@ -61,6 +61,7 @@
     57
   ],
   "home_eligible_ids": [
+    6,
     21,
     22,
     23,

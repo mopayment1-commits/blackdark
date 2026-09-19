@@ -1,0 +1,186 @@
+{
+  "artifact": "LAUNCH57_CAPABILITY_6_AUTHORITY_RESOLUTION",
+  "session_type": "read_only_capability_6_authority_resolution",
+  "generated_at": "2026-09-17T21:05:00+00:00",
+  "source_commit": "9ba5106d",
+  "scope": {
+    "launch_number": 6,
+    "launch_name": "Evidence class ظاهر (LIVE / DELAYED / SIM)",
+    "review_scope": "CAPABILITY_6_ONLY"
+  },
+  "authority_chain": [
+    "BLACKDARK_NEW_BUILD_57_CAPABILITIES.md",
+    "BLACKDARK — خطة البناء النهائية (Launch-57)",
+    "BLACKDARK_Launch57_Adaptive_Intelligence_Decision_Experience_FINAL_AUDITED_57.md",
+    "governance/launch57/LAUNCH57_REGISTER.json",
+    "repository implementation and verification evidence"
+  ],
+  "governing_sources_consulted": {
+    "supreme_ssot": "BLACKDARK_NEW_BUILD_57_CAPABILITIES.md (Launch-57 list item #6: Evidence class visible LIVE/DELAYED/SIM)",
+    "build_plan": "Phase 2 build order 6→5→4→3→2; B3 temporal batch owner assignment for #6",
+    "adaptive_spec": "BLACKDARK_Launch57_Adaptive_Intelligence_Decision_Experience_FINAL_AUDITED_57.md §9",
+    "register": "governance/launch57/LAUNCH57_REGISTER.json#launch_number=6",
+    "phase0_5": "governance/launch57/PHASE0_5_RECONCILIATION_REPORT.md#6",
+    "phase2_builder": "governance/launch57/PHASE2_BATCH1_EVIDENCE.json#items.6",
+    "b3_builder": "governance/launch57/B3_TEMPORAL_IMPLEMENTATION_EVIDENCE.json",
+    "b3_iv": "governance/launch57/B3_6_TRUST_BOUNDARY_INDEPENDENT_VERIFICATION.json",
+    "hero_matrix": "governance/launch57/LAUNCH57_SIX_HERO_MATRIX.json#launch_number=6",
+    "system_graph": "governance/launch57/LAUNCH57_CAPABILITY_SYSTEM_GRAPH.json#LAUNCH-06"
+  },
+  "trace": {
+    "canonical_capability_identity": {
+      "launch_number": 6,
+      "launch_name": "Evidence class ظاهر (LIVE / DELAYED / SIM)",
+      "scope_class": "LAUNCH57",
+      "matched_canonical_capability_id": null,
+      "build_class": "SHARED_CORE",
+      "notes": "Cross-cutting Launch-57 requirement without distinct CAP-ID row; identity fixed by supreme SSOT and adaptive spec §9"
+    },
+    "authoritative_contract": {
+      "public_user_facing_taxonomy": ["LIVE", "DELAYED", "SIM"],
+      "governing_rules": [
+        "fresh production evidence → LIVE",
+        "stale/late production evidence → DELAYED",
+        "replay/simulation/shadow → governed canonical mapping; public label must remain within LIVE/DELAYED/SIM",
+        "unknown freshness → never LIVE",
+        "no alternative public evidence taxonomy"
+      ],
+      "source_sections": [
+        "Adaptive Spec §9",
+        "Adaptive Spec §27 (public taxonomy remains #6)",
+        "Adaptive Spec §2.7 (SIM≠LIVE; DELAYED≠LIVE)"
+      ]
+    },
+    "intended_canonical_runtime_owner": "launch57.evidence_class_common",
+    "actual_implementation_paths": [
+      "launch57/evidence_class_common.py",
+      "launch57/b3_evidence_bridge.py",
+      "launch57/b4_decision_bridge.py",
+      "launch57/b5_public_accuracy_bridge.py",
+      "launch57/trust_batch1.py"
+    ],
+    "actual_consumer_paths": [
+      "launch57/trust_batch1.py:user_evidence_display",
+      "launch57/trust_batch1.py:attach_trust_envelope",
+      "launch57/b4_decision_bridge.py:apply_b4_trust_envelope",
+      "launch57/decision_timing_common.py",
+      "launch57/public_accuracy_common.py",
+      "launch57/market_regime_timing_common.py",
+      "launch57/b1_freshness_bridge.py (via batch isolation hooks)",
+      "launch57/batch1_isolation.py",
+      "launch57/batch2_isolation.py"
+    ],
+    "authoritative_verification_artifacts": [
+      "governance/launch57/B3_6_TRUST_BOUNDARY_INDEPENDENT_VERIFICATION.json",
+      "governance/launch57/B3_TEMPORAL_IMPLEMENTATION_EVIDENCE.json",
+      "governance/launch57/PHASE2_BATCH1_EVIDENCE.json",
+      "tests/launch57/test_b3_trust_boundary.py",
+      "tests/launch57/test_trust_batch1.py::test_user_evidence_display_maps_live_delayed_sim",
+      "tests/launch57/test_trust_batch1.py::test_attach_trust_envelope_includes_evidence_display",
+      "tests/launch57/test_temporal_batch3.py",
+      "tests/launch57/test_b3_isolation_closure.py"
+    ],
+    "evidence_class_common_classification": "CANONICAL_OWNER",
+    "evidence_class_common_classification_rationale": "B3 builder disposition BUILD with owner launch57.evidence_class_common; B3_6 IV names canonical_owner launch57.evidence_class_common and grants B3:#6 PASS_ENGINEERING; module declares canonical #6 owner and sets owner field in assessment payload"
+  },
+  "supporting_canonical_components": [
+    {
+      "module": "launch57/trust_batch1.py",
+      "role": "primary consumer/API surface for user_evidence_display and attach_trust_envelope"
+    },
+    {
+      "module": "launch57/b4_decision_bridge.py",
+      "role": "trust envelope integration for #2/#3 decision surfaces; explicitly avoids cap646.evidence_class for evidence display"
+    },
+    {
+      "module": "launch57/b3_evidence_bridge.py",
+      "role": "B3 temporal bridge binding #6 owner into batch isolation paths"
+    },
+    {
+      "module": "launch57/decision_timing_common.py",
+      "role": "decision-surface evidence assessment via assess_user_evidence_class"
+    },
+    {
+      "module": "launch57/public_accuracy_common.py",
+      "role": "ledger timing surfaces attach #6 evidence assessment"
+    },
+    {
+      "module": "launch57/market_regime_timing_common.py",
+      "role": "regime timing surfaces attach #6 evidence assessment"
+    }
+  ],
+  "non_canonical_paths": [
+    {
+      "path": "cap646/evidence_class.py",
+      "classification": "NON_CANONICAL_DUPLICATE",
+      "status": "superseded for Launch-57 #6 ownership by launch57/evidence_class_common.py",
+      "remaining_use": "ai_compliance_footer only in launch57/edge_ui_batch1.py, edge_ui_batch2.py, explanation_ai_batch1.py; not the #6 taxonomy owner on Launch-57 trust/decision paths"
+    },
+    {
+      "path": "decision_truth/evidence_taxonomy.py",
+      "classification": "NON_CANONICAL_DUPLICATE",
+      "status": "pre-Phase-2 discovery reference only; B3 isolation removed prohibited dependency on Launch-57 consumer paths"
+    }
+  ],
+  "register_conflict_analysis": {
+    "observed_register_state": {
+      "canonical_implementation": [],
+      "actual_consumer_paths": [
+        "cap646/evidence_class.py",
+        "decision_truth/evidence_taxonomy.py",
+        "user_exposure_log.py"
+      ],
+      "current_engineering_status": "PENDING_VERIFICATION",
+      "root_cause_if_not_pass_engineering": "CONSUMER_PATH_MISSING"
+    },
+    "empty_canonical_implementation_classification": "stale_incomplete_governance_metadata",
+    "classification_rationale": "Register row reflects Phase 0 discovery and pre-B3-IV snapshot. Superseding authority exists in Phase 2 builder evidence (items.6), B3 implementation evidence (owner launch57.evidence_class_common), and B3_6 independent verification (B3:#6 PASS_ENGINEERING). Register was not regenerated after IV closure.",
+    "actual_authority_conflict": false,
+    "register_vs_runtime_conflict": "metadata_only_not_product_authority_conflict"
+  },
+  "taxonomy_consistency_check": {
+    "required_public_taxonomy": ["LIVE", "DELAYED", "SIM"],
+    "implemented_public_taxonomy": ["LIVE", "DELAYED", "SIM"],
+    "internal_canonical_classes": [
+      "BACKTESTED",
+      "SIMULATED",
+      "SHADOW_LIVE_FORWARD",
+      "PRODUCTION_VERIFIED"
+    ],
+    "public_mapping": {
+      "PRODUCTION_VERIFIED": "LIVE",
+      "SHADOW_LIVE_FORWARD": "LIVE",
+      "BACKTESTED": "DELAYED",
+      "SIMULATED": "SIM"
+    },
+    "competing_public_taxonomy_detected": false,
+    "stale_live_downgrade_to_delayed": true,
+    "caller_escalation_blocked": true,
+    "verification_basis": "B3_6_TRUST_BOUNDARY_INDEPENDENT_VERIFICATION.json adversarial_contradictory_source_tests + tests/launch57/test_trust_batch1.py",
+    "pass": true
+  },
+  "verdict": {
+    "CAPABILITY_6_AUTHORITY": "RESOLVED",
+    "authoritative_owner_path": "launch57/evidence_class_common.py (module launch57.evidence_class_common)",
+    "authoritative_consumer_paths": [
+      "launch57/trust_batch1.py:user_evidence_display",
+      "launch57/trust_batch1.py:attach_trust_envelope",
+      "launch57/b4_decision_bridge.py:apply_b4_trust_envelope"
+    ],
+    "authoritative_verification_evidence": [
+      "governance/launch57/B3_6_TRUST_BOUNDARY_INDEPENDENT_VERIFICATION.json (B3:#6=PASS_ENGINEERING)",
+      "governance/launch57/B3_TEMPORAL_IMPLEMENTATION_EVIDENCE.json (owner=launch57.evidence_class_common)",
+      "tests/launch57/test_b3_trust_boundary.py (23 passed at IV)",
+      "tests/launch57/test_trust_batch1.py"
+    ],
+    "register_conflict_reason": "LAUNCH57_REGISTER.json launch_number=6 was not refreshed after Phase 2/B3 build and B3_6 IV; it still records Phase 0 discovery paths (cap646/decision_truth) and empty canonical_implementation while engineering verification artifacts assign ownership to launch57.evidence_class_common",
+    "product_remediation_required": false,
+    "governance_metadata_remediation_required": true
+  },
+  "final_status": {
+    "PRODUCT_CODE_CHANGED": false,
+    "CAPABILITY_6_REBUILT": false,
+    "OTHER_CAPABILITIES_REVIEWED": false,
+    "PASS_LIVE_NOT_CLAIMED": true
+  }
+}

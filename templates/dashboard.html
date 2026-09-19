@@ -142,8 +142,8 @@
         <div class="nav-inner">
             <a href="/" class="logo">BLACKDARK</a>
             <div style="display:flex;align-items:center;flex-wrap:wrap;gap:.5rem;margin-inline-start:auto;justify-content:flex-end">
-                <span class="tier" id="userTier">Guest · Proof Pass</span>
-                <button class="btn-upgrade" id="upgradeBtn" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">Decision Pro $29</button>
+                <span class="tier" id="userTier">Guest · DISCOVER / FREE</span>
+                <button class="btn-upgrade" id="upgradeBtn" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">DECIDE / PRO $19.99</button>
                 <div class="nav-links">
                     <a class="lens-nav" href="/dashboard?lens=prove#trust-pulse">Prove</a>
                     <a class="lens-nav" href="/dashboard?lens=operate">Operate</a>
@@ -275,7 +275,7 @@
 
         <section id="operate-digest" class="section-operate-plus hide-in-room">
             <h2>Operate digest</h2>
-            <p class="sub">Daily research brief + subscriber value — Decision Pro / Decision Desk</p>
+            <p class="sub">Daily research brief + subscriber value — DECIDE / PRO and above</p>
             <div class="toolbar" style="margin-bottom:.65rem">
                 <button class="btn secondary" type="button" data-bd-call="loadDailyReport">Refresh daily report</button>
                 <button class="btn secondary" type="button" data-bd-call="loadSubscriberValue">Refresh value</button>
@@ -300,7 +300,7 @@
 
         <section id="half-life-clock" class="section-desk-only hide-in-room">
             <h2>Half-Life Heat Clock</h2>
-            <p class="sub">Decision Desk · seconds = money · urgency bands from Opportunity Half-Life</p>
+            <p class="sub">SEE THE EDGE / ELITE · seconds = money · urgency bands from Opportunity Half-Life</p>
             <div class="toolbar">
                 <button class="btn secondary" type="button" data-bd-call="loadHalfLifeClock">Refresh clock</button>
                 <a class="btn secondary" href="/kill-rate">Kill-Rate Board</a>
@@ -352,8 +352,8 @@
             <h2>AI Chat</h2>
             <p class="sub">Operate+ · explains the current decision context — does not replace the Oracle or guarantee outcomes</p>
             <div id="chatGate" class="empty" style="display:none">
-                AI Chat is on Decision Pro and Decision Desk.
-                <button class="btn" style="margin-top:.65rem" type="button" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">Start Decision Pro</button>
+                AI Chat is on DECIDE / PRO and paid tiers above.
+                <button class="btn" style="margin-top:.65rem" type="button" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">Start DECIDE / PRO</button>
                 <div style="margin-top:.5rem;font-size:.75rem"><a href="/faq">FAQ</a> · <a href="/how-it-works">How it works</a></div>
             </div>
             <div id="chatPanel" style="display:none">
@@ -508,7 +508,7 @@
             } catch (error) { console.debug(error); appendChat('assistant', 'Chat unavailable right now — try again or use Get Decision.'); }
         }
 
-        let nextUpgrade = { checkout_tier: 'pro', href: '/create-checkout-session?tier=pro', cta: 'Decision Pro $29' };
+        let nextUpgrade = { checkout_tier: 'pro', href: '/create-checkout-session?tier=pro', cta: 'DECIDE / PRO $19.99' };
 
         function applyUpgradeButton() {
             const btn = document.getElementById('upgradeBtn');
@@ -579,8 +579,130 @@
         }
 
         let lastPulse = null;
-        let pulseEs = null;
+        let lastCommandHome = null;
+        let launch57PollTimer = null;
         const TP_STORE = 'bd_trust_pulse_last';
+        const LAUNCH57_COMMAND_HOME = '/api/launch57/command-home';
+        const LAUNCH57_PRIMARY_INTENTS = [
+            { id: 'decide', label: 'Decide', action: 'launch57_decide', hint: 'Launch-57 command home — Act/Wait + Why + Proof.' },
+            { id: 'verify', label: 'Verify', action: 'navigate', path: '/oracle-accuracy', hint: 'Public Accuracy Ledger — hits and misses.' },
+            { id: 'my_book', label: 'My book', action: 'portfolio', hint: 'Portfolio risk — Operate+ lens.' },
+            { id: 'alerts', label: 'Alerts', action: 'alerts', hint: 'Inbox after Launch-57 gates.' },
+        ];
+
+        function commandHomeUrl(sym) {
+            const symbol = (sym || document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
+            const qs = new URLSearchParams({ symbol, command_view: 'true' });
+            return LAUNCH57_COMMAND_HOME + '?' + qs.toString();
+        }
+
+        function commandHomeToPulse(data) {
+            const home = (data && data.six_heroes_command_home) || {};
+            const oracle = home.oracle || data || {};
+            const sso = oracle.single_sentence_oracle || data.single_sentence_oracle || {};
+            const level1 = ((data && data.adaptive_disclosure) || {}).level_1 || {};
+            const action = String(oracle.decision_action || sso.action || data.decision_truth_state || 'WAIT').toUpperCase();
+            const factors = [];
+            const heroBlock = home.heroes || {};
+            const heroes = heroBlock.heroes || heroBlock;
+            Object.keys(heroes || {}).forEach((key) => {
+                const row = heroes[key];
+                if (row && row.state === 'AVAILABLE' && row.data) {
+                    factors.push({ factor: key.replace(/_/g, ' '), detail: JSON.stringify(row.data).slice(0, 120) });
+                }
+            });
+            if (!factors.length && level1.critical_limitation) {
+                factors.push({ factor: 'Limitation', detail: (level1.critical_limitation.summary || level1.critical_limitation) });
+            }
+            return {
+                symbol: data.symbol || oracle.symbol || 'BTC',
+                action: action === 'BUY' ? 'ACT' : action,
+                sentence: sso.sentence || level1.abstention_reason || 'Launch-57 command home — governed decision surface.',
+                price: data.price,
+                change_24h: data.change_24h,
+                freshness: { state: data.freshness_state || 'unknown', stale: data.freshness_state === 'STALE' },
+                why: { grasp_line: 'Why (Launch-57 command home)', factors },
+                proof: { evidence_class: data.evidence_class_visible || oracle.evidence_class },
+                ledger: { label: 'Launch-57 grounded', href: '/oracle-accuracy', honesty_line: 'Launch-57 scope only — PARKED paths excluded from default journey.' },
+                launch57_command_home: true,
+            };
+        }
+
+        async function loadCommandHome(force) {
+            const sym = (document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
+            try {
+                const url = commandHomeUrl(sym) + (force ? '&_=' + Date.now() : '');
+                const res = await fetch(url, { headers: authHeaders() });
+                if (!res.ok) throw new Error('launch57_command_home_fail');
+                const data = await res.json();
+                lastCommandHome = data;
+                renderTrustPulse(commandHomeToPulse(data));
+                renderLaunch57Intents(data);
+                const box = document.getElementById('oracleBox');
+                const el = document.getElementById('oracleContent');
+                if (box && el) {
+                    box.classList.add('show');
+                    renderLaunch57Decision(el, data, { sym, mode: document.getElementById('uxMode')?.value || 'beginner', lang: currentLang() });
+                }
+                return data;
+            } catch (error) {
+                console.debug(error);
+                document.getElementById('tpFresh').textContent = 'Unavailable';
+                document.getElementById('tpSentence').textContent = 'Launch-57 command home unavailable.';
+                return null;
+            }
+        }
+
+        function renderLaunch57Decision(el, data, { sym, mode, lang }) {
+            const home = (data && data.six_heroes_command_home) || {};
+            const oracle = home.oracle || data || {};
+            const sso = oracle.single_sentence_oracle || {};
+            const abstain = home.abstain || data.answer_state === 'ABSTAIN';
+            const mapped = {
+                symbol: data.symbol || sym,
+                decision_action: abstain ? 'ABSTAIN' : (oracle.decision_action || sso.action || 'WAIT'),
+                decision_sentence: home.abstain_explanation || sso.sentence || 'Launch-57 command home',
+                verdict: abstain ? 'ABSTAIN' : (oracle.decision_action || 'WAIT'),
+                price: data.price,
+                change_24h: data.change_24h,
+                ux_mode: mode,
+                lang,
+                opportunity_score: oracle.net_edge_truth_score || '—',
+                confidence: oracle.confidence,
+                launch57_command_home: true,
+                router_selection: home.router_selection_contract,
+            };
+            renderOracleDecision(el, mapped, { sym, mode, lang });
+        }
+
+        function renderLaunch57Intents(data) {
+            const grid = document.getElementById('intentGrid');
+            const q = document.getElementById('intentQuestion');
+            const hint = document.getElementById('intentHint');
+            if (!grid) return;
+            const home = (data && data.six_heroes_command_home) || {};
+            if (q) q.textContent = home.question || 'ماذا أفعل الآن؟';
+            const intents = LAUNCH57_PRIMARY_INTENTS;
+            grid.innerHTML = intents.map(it =>
+                `<button type="button" class="intent-btn" data-id="${esc(it.id)}" data-action="${esc(it.action||'')}" data-path="${esc(it.path||'')}">${esc(it.label)}</button>`
+            ).join('');
+            grid.querySelectorAll('.intent-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    grid.querySelectorAll('.intent-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    const id = btn.dataset.id;
+                    const action = btn.dataset.action;
+                    const path = btn.dataset.path || '';
+                    const row = intents.find(x => x.id === id) || {};
+                    if (hint) hint.textContent = row.hint || '';
+                    if (action === 'navigate' && path) { location.assign(path); return; }
+                    if (action === 'launch57_decide') { scrollToId('trust-pulse'); loadCommandHome(true); return; }
+                    if (action === 'portfolio') { scrollToId('portfolio'); return; }
+                    if (action === 'alerts') { scrollToId('alerts'); loadInbox(); return; }
+                });
+            });
+            if (hint && !hint.textContent) hint.textContent = 'Launch-57 only — Decide · Verify · My book · Alerts.';
+        }
 
         function readLastPulseVisit() {
             try { return JSON.parse(localStorage.getItem(TP_STORE) || 'null'); } catch (error) { console.debug(error); return null; }
@@ -711,54 +833,14 @@
         }
 
         async function loadTrustPulse(force) {
-            const sym = (document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
-            const prev = readLastPulseVisit();
-            const mode = document.getElementById('uxMode')?.value || 'beginner';
-            const qs = new URLSearchParams({
-                symbol: sym,
-                ux_mode: mode,
-                lang: 'en',
-            });
-            // force refreshes cache only — never spam prediction_id on every boot
-            if (force) qs.set('force', 'true');
-            if (prev && prev.action) {
-                qs.set('previous_action', prev.action);
-                if (prev.seen_at) qs.set('previous_seen_at', prev.seen_at);
-            }
-            if (prev && prev.factors && prev.factors.length) {
-                try { qs.set('previous_factors', JSON.stringify(prev.factors.slice(0, 5))); } catch (error) { console.debug(error); }
-            }
-            try {
-                const res = await fetch('/api/trust-pulse?' + qs.toString(), { headers: authHeaders() });
-                if (!res.ok) throw new Error('pulse_fail');
-                const p = await res.json();
-                renderTrustPulse(p);
-            } catch (error) { console.debug(error); document.getElementById('tpFresh').textContent = 'Unavailable';
-                document.getElementById('tpSentence').textContent = 'Trust Pulse unavailable — use Get Decision below.'; }
+            return loadCommandHome(force);
         }
 
         function startTrustPulseStream() {
-            if (pulseEs) { try { pulseEs.close(); } catch (error) { console.debug(error); } }
-            const sym = (document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
-            const url = '/api/trust-pulse/stream?symbol=' + encodeURIComponent(sym);
-            try {
-                pulseEs = new EventSource(url);
-                pulseEs.onmessage = (ev) => {
-                    try {
-                        const d = JSON.parse(ev.data);
-                        if (d.pulse) renderTrustPulse(d.pulse, { fromStream: true });
-                        else if (d.type === 'connected') {
-                            document.getElementById('tpFresh').textContent = 'Live stream on';
-                        }
-                    } catch (error) { console.debug(error); }
-                };
-                pulseEs.onerror = () => {
-                    const fresh = document.getElementById('tpFresh');
-                    if (fresh && !String(fresh.textContent||'').includes('ago')) {
-                        fresh.textContent = 'Reconnecting…';
-                    }
-                };
-            } catch (error) { console.debug(error); }
+            if (launch57PollTimer) clearInterval(launch57PollTimer);
+            launch57PollTimer = setInterval(() => loadCommandHome(false), 60000);
+            const fresh = document.getElementById('tpFresh');
+            if (fresh) fresh.textContent = 'Launch-57 command home';
         }
 
         function shareTrustPulse() {
@@ -783,9 +865,8 @@
 
         function setSymbol(s) {
             document.getElementById('symbol').value = s;
-            askOracle();
+            loadCommandHome(true);
             loadChart();
-            loadTrustPulse(true);
             startTrustPulseStream();
         }
 
@@ -945,10 +1026,9 @@
             }
             el.innerHTML = '<div class="loading">' + esc(i18nT('oracle.analyzing')) + '</div>';
             try {
-                const url = '/oracle/' + encodeURIComponent(sym) + '?ux_mode=' + encodeURIComponent(mode) + '&lang=' + encodeURIComponent(lang);
-                const res = await fetch(url, { headers: authHeaders() });
-                if (!res.ok) throw new Error('fail');
-                renderOracleDecision(el, await res.json(), { sym, mode, lang });
+                const data = await loadCommandHome(true);
+                if (!data) throw new Error('fail');
+                renderLaunch57Decision(el, data, { sym, mode, lang });
             } catch (error) {
                 console.debug(error);
                 const empty = document.createElement('div');
@@ -1282,13 +1362,42 @@
             } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Continuity unavailable</div>'; }
         }
 
+        function commandHomeToHalfLifeHeat(data) {
+            const home = (data && data.six_heroes_command_home) || {};
+            const oracle = home.oracle || {};
+            const action = home.abstain ? 'ABSTAIN' : (oracle.decision_action || 'WAIT');
+            const freshness = String(data.freshness_state || 'UNKNOWN').toUpperCase();
+            let remaining = 45;
+            let label = 'WARM';
+            let color = '#eab308';
+            if (freshness === 'STALE' || action === 'ABSTAIN') {
+                remaining = 5; label = 'CRITICAL'; color = '#ef4444';
+            } else if (action === 'ACT' || action === 'BUY' || action === 'SELL') {
+                remaining = 15; label = 'HOT'; color = '#f59e0b';
+            } else if (action === 'WAIT') {
+                remaining = 30; label = 'WARM'; color = '#eab308';
+            } else {
+                remaining = 60; label = 'COOL'; color = '#22d3ee';
+            }
+            const expected = 60;
+            const angle = Math.min(360, Math.max(0, (1 - (remaining / expected)) * 360));
+            return {
+                band: { label, color },
+                half_life: { remaining_seconds: remaining },
+                sweep_degrees: angle,
+                desk_line: `Launch-57 command home · ${freshness} · ${action} — desk timing grounded (no legacy oracle fetch).`,
+            };
+        }
+
         async function loadHalfLifeClock() {
             const svg = document.getElementById('halfLifeSvg');
             const line = document.getElementById('halfLifeLine');
             if (!svg || !line) return;
             try {
-                const res = await fetch('/api/oracle/half-life/heat');
-                const d = await res.json();
+                let data = lastCommandHome;
+                if (!data) data = await loadCommandHome(false);
+                if (!data) throw new Error('launch57_command_home_required');
+                const d = commandHomeToHalfLifeHeat(data);
                 const bandColor = /^#[0-9a-fA-F]{3,8}$/.test(String(d.band?.color || '')) ? d.band.color : '#22d3ee';
                 const remaining = Number.isFinite(Number(d.half_life?.remaining_seconds))
                     ? Math.max(0, Math.floor(Number(d.half_life.remaining_seconds)))
@@ -1607,66 +1716,11 @@
         }
 
         async function loadIntentRouter() {
-            const grid = document.getElementById('intentGrid');
-            const q = document.getElementById('intentQuestion');
-            const hint = document.getElementById('intentHint');
-            if (!grid) return;
-            try {
-                const res = await fetch('/api/intent/router');
-                const d = await res.json();
-                if (q && d.question) q.textContent = d.question;
-                if (q && d.memory_line) {
-                    /* keep question; memory lives in lens promise */
-                }
-                const intents = d.primary_entries || d.intents || [];
-                grid.innerHTML = intents.map(it =>
-                    `<button type="button" class="intent-btn" data-id="${esc(it.id)}" data-action="${esc(it.action||'')}" data-path="${esc(it.path||'')}">${esc(it.label)}</button>`
-                ).join('');
-                grid.querySelectorAll('.intent-btn').forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        grid.querySelectorAll('.intent-btn').forEach(b => b.classList.remove('active'));
-                        btn.classList.add('active');
-                        const id = btn.dataset.id;
-                        const action = btn.dataset.action;
-                        const path = btn.dataset.path || '';
-                        const row = intents.find(x => x.id === id) || {};
-                        if (hint) hint.textContent = row.hint || '';
-                        if (action === 'navigate' && (path === '/b2b' || path === '/oracle-accuracy')) {
-                            location.assign(path);
-                            return;
-                        }
-                        if (action === 'oracle') {
-                            scrollToId('trust-pulse');
-                            loadTrustPulse(true);
-                            askOracle();
-                            return;
-                        }
-                        if (action === 'whales') {
-                            scrollToId('whales');
-                            loadWhales(true);
-                            return;
-                        }
-                        if (action === 'portfolio') {
-                            scrollToId('portfolio');
-                            return;
-                        }
-                        if (action === 'arbitrage') {
-                            scrollToId('arbitrage');
-                            loadArbitrage(true);
-                            return;
-                        }
-                        if (action === 'alerts') {
-                            scrollToId('alerts');
-                            loadInbox();
-                            return;
-                        }
-                        if (path.includes('#')) {
-                            const hid = path.split('#')[1];
-                            scrollToId(hid);
-                        }
-                    });
-                });
-            } catch (error) { console.debug(error); if (hint) hint.textContent = 'Intent router unavailable — use Get Decision below.'; }
+            if (lastCommandHome) {
+                renderLaunch57Intents(lastCommandHome);
+                return;
+            }
+            await loadCommandHome(false);
         }
 
         function boot() {
@@ -1674,22 +1728,22 @@
             applyLang();
             bindLensBar();
             applyAudienceFromQuery();
-            loadIntentRouter();
-            loadTrustPulse(true);
+            loadCommandHome(true).then(() => { if (currentLens === 'desk') loadHalfLifeClock(); });
             startTrustPulseStream();
             startDashboardStream();
-            askOracle();
             initChart();
             loadChart();
             loadMarket();
             loadOI();
-            loadArbitrage(false);
-            loadWhales(false);
+            if (currentLens === 'desk') {
+                loadArbitrage(false);
+                loadWhales(false);
+                loadMevReport();
+                runStealthAdvisor();
+                loadHalfLifeClock();
+            }
             loadDailyReport();
             loadSubscriberValue();
-            loadMevReport();
-            runStealthAdvisor();
-            loadHalfLifeClock();
             applyAntiHypeClass();
             loadSinceYouLeft();
             loadTgStatus();

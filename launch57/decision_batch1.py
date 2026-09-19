@@ -15,6 +15,15 @@ from launch57.decision_common import (
     stale_gate_body,
     stamp_decision_batch,
 )
+from launch57.trust_adaptive_common import (
+    attach_adaptive_disclosure,
+    build_actionability_disclosure,
+    build_beginner_simplification_disclosure,
+    build_dependence_aware_confirmation,
+    build_level1_decision_disclosure,
+    build_market_context_disclosure,
+    build_material_contradiction_impact,
+)
 
 LAUNCH57_DECISION_BATCH1_CAP_IDS: frozenset[int] = frozenset({35, 34, 31, 32, 33})
 
@@ -83,7 +92,25 @@ async def market_regime_compass(*, symbol: str, params: dict[str, Any] | None = 
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_decision_envelope(body, spine=spine)
+    from launch57.b7_market_regime_bridge import finalize_b7_cross_signal_surface
+
+    finalized = finalize_b7_cross_signal_surface(
+        attach_decision_envelope(body, spine=spine),
+        payload=p,
+        spine=spine,
+        fail_closed_on_mismatch=body.get("success") is not False,
+    )
+    context = build_market_context_disclosure(finalized.get("market_compass") or body["market_compass"])
+    finalized["market_context_disclosure"] = context
+    disclosure = build_level1_decision_disclosure(
+        p,
+        launch_item_id=7,
+        surface="market_compass_regime_engine",
+        answer_state=str((finalized.get("market_compass") or {}).get("regime") or "MARKET_CONTEXT"),
+        evidence_display=finalized.get("evidence_display"),
+        uncertainty="qualified",
+    )
+    return attach_adaptive_disclosure(finalized, disclosure, extra={"market_context_disclosure": context})
 
 
 async def beginner_decision_mode(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -135,7 +162,20 @@ async def beginner_decision_mode(*, symbol: str, params: dict[str, Any] | None =
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_decision_envelope(body, spine=spine)
+    wrapped = attach_decision_envelope(body, spine=spine)
+    simplification = build_beginner_simplification_disclosure(answer, payload=p)
+    wrapped["beginner_simplification_disclosure"] = simplification
+    disclosure = build_level1_decision_disclosure(
+        p,
+        launch_item_id=8,
+        surface="beginner_decision_mode",
+        answer_state=str(answer.get("verdict") or "Neutral"),
+        evidence_display=wrapped.get("evidence_display"),
+        uncertainty="qualified",
+    )
+    if simplification.get("risk_score") is not None and float(simplification["risk_score"]) >= 7:
+        disclosure["critical_limitation"] = {"summary": "Elevated risk score remains visible in beginner mode."}
+    return attach_adaptive_disclosure(wrapped, disclosure, extra={"beginner_simplification_disclosure": simplification})
 
 
 async def cross_signal_confirmation(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -193,7 +233,28 @@ async def cross_signal_confirmation(*, symbol: str, params: dict[str, Any] | Non
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_decision_envelope(body, spine=spine)
+    dependence = build_dependence_aware_confirmation(
+        confirmed=confirmed,
+        price_change=change,
+        sentiment=sentiment,
+        registry_stats=stats,
+    )
+    body["cross_signal_confirmation"]["dependence_aware_confirmation"] = dependence
+    body["cross_signal_confirmation"]["independent_confirmation"] = dependence["independent_confirmation"]
+    wrapped = attach_decision_envelope(body, spine=spine)
+    disclosure = build_level1_decision_disclosure(
+        p,
+        launch_item_id=9,
+        surface="cross_signal_confirmation",
+        answer_state="CONFIRMED" if dependence["independent_confirmation"] else "UNCONFIRMED",
+        evidence_display=wrapped.get("evidence_display"),
+        uncertainty="qualified" if dependence["independent_confirmation"] else "insufficient_evidence",
+    )
+    return attach_adaptive_disclosure(
+        wrapped,
+        disclosure,
+        extra={"dependence_aware_confirmation": dependence},
+    )
 
 
 async def contradiction_detection(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -251,7 +312,20 @@ async def contradiction_detection(*, symbol: str, params: dict[str, Any] | None 
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_decision_envelope(body, spine=spine)
+    impact = build_material_contradiction_impact(contradictions)
+    body["contradiction_detection"]["material_contradiction_impact"] = impact
+    wrapped = attach_decision_envelope(body, spine=spine)
+    disclosure = build_level1_decision_disclosure(
+        p,
+        launch_item_id=10,
+        surface="contradiction_detection",
+        answer_state=impact["decision_impact"],
+        evidence_display=wrapped.get("evidence_display"),
+        uncertainty="qualified" if contradictions else "actionable_with_caveats",
+    )
+    if impact["material_contradiction"]:
+        disclosure["critical_contradiction"] = impact["material_contradiction"]
+    return attach_adaptive_disclosure(wrapped, disclosure, extra={"material_contradiction_impact": impact})
 
 
 async def smart_money_actionability_score(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -326,7 +400,25 @@ async def smart_money_actionability_score(*, symbol: str, params: dict[str, Any]
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_decision_envelope(body, spine=spine)
+    from launch57.b7_market_regime_bridge import finalize_b7_cross_signal_surface
+
+    finalized = finalize_b7_cross_signal_surface(
+        attach_decision_envelope(body, spine=spine),
+        payload=p,
+        spine=spine,
+        fail_closed_on_mismatch=body.get("success") is not False,
+    )
+    actionability = build_actionability_disclosure(score, alerts=alerts, net_edge_gate=net_edge_gate)
+    finalized["actionability_disclosure"] = actionability
+    disclosure = build_level1_decision_disclosure(
+        p,
+        launch_item_id=11,
+        surface="smart_money_actionability_score",
+        answer_state=actionability["qualitative_band"],
+        evidence_display=finalized.get("evidence_display"),
+        uncertainty="qualified",
+    )
+    return attach_adaptive_disclosure(finalized, disclosure, extra={"actionability_disclosure": actionability})
 
 
 _DISPATCH_ENTRYPOINTS: dict[int, str] = {

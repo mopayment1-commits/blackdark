@@ -1,0 +1,214 @@
+{
+  "artifact": "BLACKDARK_LAUNCH57_DATA_CAPABILITY_SOURCE_MATRIX",
+  "generated_at": "2026-09-18T13:52:25.014076+00:00",
+  "implementation_sha": "a09cc39b",
+  "data_critical_capability_count": 22,
+  "rows": [
+    {
+      "launch_item_id": 21,
+      "runtime_owner": "launch57.data_batch1",
+      "entrypoint": "spot_market_metrics_suite",
+      "active_sources": [
+        "launch57:binance",
+        "launch57:kraken",
+        "launch57:okx",
+        "launch57:bybit",
+        "launch57:coingecko",
+        "launch57:coinbase"
+      ],
+      "source_roles_documented": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 22,
+      "runtime_owner": "launch57.data_batch1",
+      "entrypoint": "real_time_prices",
+      "active_sources": [
+        "launch57:binance",
+        "launch57:kraken",
+        "launch57:okx",
+        "launch57:bybit",
+        "launch57:coingecko",
+        "launch57:coinbase"
+      ],
+      "source_roles_documented": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 23,
+      "runtime_owner": "launch57.data_batch1",
+      "entrypoint": "ohlcv",
+      "active_sources": [
+        "launch57:binance"
+      ],
+      "source_roles_documented": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 24,
+      "runtime_owner": "launch57.data_batch1",
+      "entrypoint": "quote_data|symbol_metadata",
+      "active_sources": [
+        "launch57:binance",
+        "launch57:coingecko"
+      ],
+      "source_roles_documented": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 25,
+      "runtime_owner": "launch57.derivatives_batch1",
+      "entrypoint": "futures_open_interest_intelligence",
+      "active_sources": [],
+      "source_roles_documented": false,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 26,
+      "runtime_owner": "launch57.derivatives_batch1",
+      "entrypoint": "funding_rate_intelligence",
+      "active_sources": [],
+      "source_roles_documented": false,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 27,
+      "runtime_owner": "launch57.derivatives_batch1",
+      "entrypoint": "liquidation_intelligence",
+      "active_sources": [],
+      "source_roles_documented": false,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 28,
+      "runtime_owner": "launch57.derivatives_batch1",
+      "entrypoint": "taker_buy_sell_pressure",
+      "active_sources": [],
+      "source_roles_documented": false,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 29,
+      "runtime_owner": "launch57.derivatives_batch1",
+      "entrypoint": "derivatives_sentiment_composite",
+      "active_sources": [],
+      "source_roles_documented": false,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 30,
+      "runtime_owner": "launch57.derivatives_batch2",
+      "entrypoint": "order_book_intelligence",
+      "active_sources": [],
+      "source_roles_documented": false,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 31,
+      "runtime_owner": null,
+      "entrypoint": null,
+      "active_sources": [],
+      "source_roles_documented": false,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 38,
+      "runtime_owner": "launch57.edge_ui_batch1",
+      "entrypoint": "mvrv_zscore_btc_eth",
+      "active_sources": [
+        "launch57:coingecko"
+      ],
+      "source_roles_documented": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 39,
+      "runtime_owner": "launch57.data_batch2",
+      "entrypoint": "point_in_time_immutable_metrics",
+      "active_sources": [],
+      "source_roles_documented": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 40,
+      "runtime_owner": "launch57.data_batch2",
+      "entrypoint": "data_quality_provenance_layer",
+      "active_sources": [],
+      "source_roles_documented": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 41,
+      "runtime_owner": "launch57.data_batch2",
+      "entrypoint": "freshness_update_assurance",
+      "active_sources": [],
+      "source_roles_documented": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 42,
+      "runtime_owner": "launch57.data_batch1",
+      "entrypoint": "unified_exchange_connector",
+      "active_sources": [
+        "launch57:binance",
+        "launch57:kraken",
+        "launch57:okx",
+        "launch57:bybit",
+        "launch57:coingecko",
+        "launch57:coinbase"
+      ],
+      "source_roles_documented": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 43,
+      "runtime_owner": "launch57.edge_ui_batch1",
+      "entrypoint": "spot_perp_net_edge",
+      "active_sources": [
+        "launch57:binance"
+      ],
+      "source_roles_documented": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 53,
+      "runtime_owner": "launch57.smart_money_batch2",
+      "entrypoint": "instant_wallet_due_diligence",
+      "active_sources": [],
+      "source_roles_documented": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 54,
+      "runtime_owner": "launch57.smart_money_batch2",
+      "entrypoint": "instant_token_due_diligence",
+      "active_sources": [],
+      "source_roles_documented": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 55,
+      "runtime_owner": "launch57.smart_money_batch3",
+      "entrypoint": "manipulation_pattern_alerts",
+      "active_sources": [],
+      "source_roles_documented": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 56,
+      "runtime_owner": "launch57.smart_money_batch3",
+      "entrypoint": "suspicious_activity_flags",
+      "active_sources": [],
+      "source_roles_documented": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 57,
+      "runtime_owner": "launch57.smart_money_batch3",
+      "entrypoint": "exchange_transparency_risk_indicators",
+      "active_sources": [],
+      "source_roles_documented": true,
+      "launch57_only": true
+    }
+  ]
+}

@@ -1,8 +1,23 @@
 {
   "artifact": "LAUNCH57_CAPABILITY_SYSTEM_GRAPH",
-  "generated_at": "2026-09-16T22:54:37.071869+00:00",
-  "source_commit": "8ce0bc7c",
+  "generated_at": "2026-09-18T01:15:29.169721+00:00",
+  "source_commit": "9846346c",
   "scope": "LAUNCH57_ONLY",
+  "edge_typing_policy": {
+    "allowed_relation_types": [
+      "CONTEXT",
+      "DEPENDS_ON",
+      "EXPOSED_BY_API",
+      "EXPOSED_BY_UI",
+      "FEEDS_HERO",
+      "GATES",
+      "PROVIDES_TO"
+    ],
+    "causes_requires_independent_justification": true,
+    "documented_causes_edges": [],
+    "untyped_relation_edges": [],
+    "no_untyped_causal_implication": true
+  },
   "nodes": [
     {
       "id": "LAUNCH-01",
@@ -66,7 +81,7 @@
       "name": "Evidence class ظاهر (LIVE / DELAYED / SIM)",
       "scope_origin": "LAUNCH57",
       "engineering_status": "PASS_ENGINEERING",
-      "handler_module": null,
+      "handler_module": "launch57.evidence_class_common",
       "primary_heroes": [],
       "system_role": null
     },
@@ -1217,7 +1232,8 @@
       "from": "LAUNCH-05",
       "to": "LAUNCH-43",
       "relation": "GATES",
-      "rule": "net_edge_required_for_cost_claim"
+      "rule": "net_edge_required_for_cost_claim",
+      "evidence": "PHASE7_ADAPTIVE_BATCH_A_IV"
     },
     {
       "from": "LAUNCH-21",
@@ -1291,7 +1307,43 @@
       "from": "LAUNCH-57",
       "to": "LAUNCH-01",
       "relation": "CONTEXT",
-      "layer": "exchange_transparency"
+      "layer": "exchange_transparency",
+      "rule": "risk_indicators_only_not_solvency"
+    },
+    {
+      "from": "LAUNCH-10",
+      "to": "LAUNCH-08",
+      "relation": "GATES",
+      "layer": "contradiction_impact",
+      "rule": "material_contradiction_affects_decision"
+    },
+    {
+      "from": "LAUNCH-04",
+      "to": "LAUNCH-02",
+      "relation": "GATES",
+      "layer": "live_only_accuracy",
+      "rule": "synthetic_excluded_from_primary"
+    },
+    {
+      "from": "LAUNCH-36",
+      "to": "LAUNCH-51",
+      "relation": "PROVIDES_TO",
+      "layer": "platform_grounding",
+      "rule": "approved_platform_data_only"
+    },
+    {
+      "from": "LAUNCH-39",
+      "to": "LAUNCH-03",
+      "relation": "PROVIDES_TO",
+      "layer": "point_in_time_truth",
+      "rule": "immutable_snapshot_provenance"
+    },
+    {
+      "from": "LAUNCH-44",
+      "to": "LAUNCH-02",
+      "relation": "PROVIDES_TO",
+      "layer": "share_card_truth",
+      "rule": "shareable_truth_context_required"
     },
     {
       "from": "LAUNCH-01",

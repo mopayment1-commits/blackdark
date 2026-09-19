@@ -1,0 +1,618 @@
+{
+  "artifact": "SPEC_01_REQUIREMENTS_REGISTER",
+  "domain": "SPEC_01_ADAPTIVE_DECISION_EXPERIENCE",
+  "generated_at": "2026-09-19T09:37:40.517684+00:00",
+  "spec_version": "launch57-spec01-adaptive-decision-experience-1.0.0",
+  "requirement_count": 30,
+  "requirements": [
+    {
+      "req_id": "REQ-S01-001",
+      "title": "LAUNCH57 scope lock",
+      "spec_section": "§0, §2.8",
+      "launch_ids": [],
+      "six_heroes": [],
+      "owner_modules": [
+        "launch57.edge_ui_common"
+      ],
+      "tests": [],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S01-002",
+      "title": "Six Heroes primary decision surfaces",
+      "spec_section": "§2.2, §36",
+      "launch_ids": [
+        1
+      ],
+      "six_heroes": [
+        "Single-Sentence Oracle",
+        "Public Accuracy Ledger",
+        "Arbitrage Scanner",
+        "Whale Signal vs Noise",
+        "Stealth Advisor",
+        "B2B Feed"
+      ],
+      "owner_modules": [
+        "launch57.edge_ui_batch2"
+      ],
+      "tests": [
+        "test_phase7_adaptive_batch_b.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S01-003",
+      "title": "Calm surface — Command Home not capability dump",
+      "spec_section": "§2.1, §4",
+      "launch_ids": [
+        1
+      ],
+      "six_heroes": [
+        "Single-Sentence Oracle",
+        "Public Accuracy Ledger",
+        "Arbitrage Scanner",
+        "Whale Signal vs Noise",
+        "Stealth Advisor",
+        "B2B Feed"
+      ],
+      "owner_modules": [
+        "launch57.edge_ui_batch2"
+      ],
+      "tests": [
+        "test_phase7_adaptive_batch_b.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S01-004",
+      "title": "Level-1 safety floor on material surfaces",
+      "spec_section": "§3.2, §28 L1",
+      "launch_ids": [],
+      "six_heroes": [],
+      "owner_modules": [
+        "launch57.trust_adaptive_common"
+      ],
+      "tests": [
+        "test_support_plane_progressive_disclosure.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S01-005",
+      "title": "No evidence-class promotion LIVE≠SIM/DELAYED",
+      "spec_section": "§2.7, §9",
+      "launch_ids": [
+        6
+      ],
+      "six_heroes": [],
+      "owner_modules": [
+        "launch57.evidence_class_common"
+      ],
+      "tests": [
+        "test_capability_6_governance_reconciliation.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S01-006",
+      "title": "Reuse canonical launch57 paths before build",
+      "spec_section": "§2.8, §33",
+      "launch_ids": [],
+      "six_heroes": [],
+      "owner_modules": [
+        "launch57.support_plane_envelope"
+      ],
+      "tests": [],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S01-007",
+      "title": "Intent contract fields",
+      "spec_section": "§23.1",
+      "launch_ids": [],
+      "six_heroes": [],
+      "owner_modules": [
+        "launch57.router_selection_contract"
+      ],
+      "tests": [
+        "test_router_selection_contract.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S01-008",
+      "title": "Candidate eligibility LAUNCH57-only",
+      "spec_section": "§23.2",
+      "launch_ids": [],
+      "six_heroes": [],
+      "owner_modules": [
+        "launch57.router_selection_contract"
+      ],
+      "tests": [
+        "test_router_selection_contract.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S01-009",
+      "title": "Mandatory trust/risk controls on routing",
+      "spec_section": "§23.3",
+      "launch_ids": [],
+      "six_heroes": [],
+      "owner_modules": [
+        "launch57.router_selection_contract"
+      ],
+      "tests": [
+        "test_router_selection_contract.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S01-010",
+      "title": "Abstention first-class",
+      "spec_section": "§23.4",
+      "launch_ids": [
+        2
+      ],
+      "six_heroes": [
+        "Single-Sentence Oracle"
+      ],
+      "owner_modules": [
+        "launch57.router_selection_contract"
+      ],
+      "tests": [
+        "test_router_selection_contract.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S01-011",
+      "title": "Router selection sufficiency §23.5",
+      "spec_section": "§23.5",
+      "launch_ids": [
+        1
+      ],
+      "six_heroes": [
+        "Single-Sentence Oracle",
+        "Public Accuracy Ledger",
+        "Arbitrage Scanner",
+        "Whale Signal vs Noise",
+        "Stealth Advisor",
+        "B2B Feed"
+      ],
+      "owner_modules": [
+        "launch57.router_selection_contract"
+      ],
+      "tests": [
+        "test_router_selection_contract.py",
+        "test_support_plane_full_closure.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S01-012",
+      "title": "Progressive disclosure L2–L5",
+      "spec_section": "§28 L2–L5",
+      "launch_ids": [],
+      "six_heroes": [],
+      "owner_modules": [
+        "launch57.trust_adaptive_common"
+      ],
+      "tests": [
+        "test_support_plane_progressive_disclosure.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S01-013",
+      "title": "Cross-path support-plane envelope",
+      "spec_section": "§23+§28+§31",
+      "launch_ids": [],
+      "six_heroes": [],
+      "owner_modules": [
+        "launch57.support_plane_envelope"
+      ],
+      "tests": [
+        "test_support_plane_full_closure.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S01-014",
+      "title": "Accessibility engineering baseline §31",
+      "spec_section": "§31",
+      "launch_ids": [
+        1
+      ],
+      "six_heroes": [
+        "Single-Sentence Oracle",
+        "Public Accuracy Ledger",
+        "Arbitrage Scanner",
+        "Whale Signal vs Noise",
+        "Stealth Advisor",
+        "B2B Feed"
+      ],
+      "owner_modules": [
+        "launch57.accessibility_common"
+      ],
+      "tests": [
+        "test_support_plane_accessibility_baseline.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S01-015",
+      "title": "Human validation engineering proxy §31.1",
+      "spec_section": "§31.1",
+      "launch_ids": [
+        1
+      ],
+      "six_heroes": [
+        "Single-Sentence Oracle",
+        "Public Accuracy Ledger",
+        "Arbitrage Scanner",
+        "Whale Signal vs Noise",
+        "Stealth Advisor",
+        "B2B Feed"
+      ],
+      "owner_modules": [],
+      "tests": [
+        "test_support_plane_human_validation_register.py",
+        "test_support_plane_full_closure.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S01-016",
+      "title": "Composition controls §32",
+      "spec_section": "§32",
+      "launch_ids": [
+        1
+      ],
+      "six_heroes": [],
+      "owner_modules": [
+        "launch57.router_selection_contract"
+      ],
+      "tests": [
+        "test_support_plane_phase3_composition_controls.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S01-017",
+      "title": "SSOT/runtime integration",
+      "spec_section": "§33",
+      "launch_ids": [],
+      "six_heroes": [],
+      "owner_modules": [
+        "governance/launch57/LAUNCH57_REGISTER.json"
+      ],
+      "tests": [
+        "test_phase8_launch_coherence.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S01-018",
+      "title": "Six-Hero matrix complete",
+      "spec_section": "§36",
+      "launch_ids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57
+      ],
+      "six_heroes": [
+        "Single-Sentence Oracle",
+        "Public Accuracy Ledger",
+        "Arbitrage Scanner",
+        "Whale Signal vs Noise",
+        "Stealth Advisor",
+        "B2B Feed"
+      ],
+      "owner_modules": [
+        "governance/launch57/LAUNCH57_SIX_HERO_MATRIX.json"
+      ],
+      "tests": [
+        "test_phase8_launch_coherence.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S01-019",
+      "title": "E2E journey coherence",
+      "spec_section": "§39",
+      "launch_ids": [],
+      "six_heroes": [
+        "Single-Sentence Oracle",
+        "Public Accuracy Ledger",
+        "Arbitrage Scanner",
+        "Whale Signal vs Noise",
+        "Stealth Advisor",
+        "B2B Feed"
+      ],
+      "owner_modules": [],
+      "tests": [
+        "test_phase8_e2e_acceptance.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S01-020",
+      "title": "Command Home #1 built last + readiness filter",
+      "spec_section": "§4, §37",
+      "launch_ids": [
+        1
+      ],
+      "six_heroes": [
+        "Single-Sentence Oracle",
+        "Public Accuracy Ledger",
+        "Arbitrage Scanner",
+        "Whale Signal vs Noise",
+        "Stealth Advisor",
+        "B2B Feed"
+      ],
+      "owner_modules": [
+        "launch57.edge_ui_batch2"
+      ],
+      "tests": [
+        "test_phase7_adaptive_batch_b.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S01-021",
+      "title": "Oracle ACT/WAIT/ABSTAIN #2",
+      "spec_section": "§5",
+      "launch_ids": [
+        2
+      ],
+      "six_heroes": [
+        "Single-Sentence Oracle"
+      ],
+      "owner_modules": [
+        "launch57.trust_batch1"
+      ],
+      "tests": [
+        "test_trust_batch1.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S01-022",
+      "title": "No legacy intent_router on default journey",
+      "spec_section": "§2.8, §38",
+      "launch_ids": [
+        1
+      ],
+      "six_heroes": [],
+      "owner_modules": [
+        "templates/dashboard.html"
+      ],
+      "tests": [
+        "test_support_plane_phase1_isolation.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S01-023",
+      "title": "Qualitative uncertainty default",
+      "spec_section": "§25",
+      "launch_ids": [],
+      "six_heroes": [],
+      "owner_modules": [
+        "launch57.trust_adaptive_common"
+      ],
+      "tests": [
+        "test_phase3_adaptive_batch_a.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S01-024",
+      "title": "Trust dimensions separated",
+      "spec_section": "§27",
+      "launch_ids": [
+        6
+      ],
+      "six_heroes": [],
+      "owner_modules": [
+        "launch57.evidence_class_common"
+      ],
+      "tests": [],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S01-025",
+      "title": "Phase 8 typed graph Launch-57 only",
+      "spec_section": "§27.1",
+      "launch_ids": [],
+      "six_heroes": [],
+      "owner_modules": [
+        "governance/launch57/LAUNCH57_CAPABILITY_SYSTEM_GRAPH.json"
+      ],
+      "tests": [
+        "test_phase8_launch_coherence.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S01-026",
+      "title": "Independent verification discipline",
+      "spec_section": "§35",
+      "launch_ids": [],
+      "six_heroes": [],
+      "owner_modules": [],
+      "tests": [
+        "test_spec01_adaptive_decision_experience.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S01-027",
+      "title": "Fail-closed stale gate on Command Home",
+      "spec_section": "§3, §9",
+      "launch_ids": [
+        1
+      ],
+      "six_heroes": [],
+      "owner_modules": [
+        "launch57.edge_ui_batch2"
+      ],
+      "tests": [
+        "test_phase7_adaptive_batch_b.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S01-028",
+      "title": "57 capability contracts cross-referenced",
+      "spec_section": "§42.24",
+      "launch_ids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57
+      ],
+      "six_heroes": [],
+      "owner_modules": [
+        "governance/launch57/LAUNCH57_REGISTER.json"
+      ],
+      "tests": [
+        "test_phase8_launch_coherence.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S01-029",
+      "title": "PASS_LIVE not claimed",
+      "spec_section": "§41",
+      "launch_ids": [],
+      "six_heroes": [],
+      "owner_modules": [],
+      "tests": [],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S01-030",
+      "title": "§23 on material composition paths (scoped full_cross_path)",
+      "spec_section": "§23.5 where applicable",
+      "launch_ids": [],
+      "six_heroes": [],
+      "owner_modules": [
+        "launch57/support_plane_envelope.py",
+        "launch57/router_selection_contract.py"
+      ],
+      "tests": [
+        "test_support_plane_full_closure.py"
+      ],
+      "mandatory": true
+    }
+  ]
+}

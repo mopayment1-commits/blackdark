@@ -1,0 +1,4699 @@
+{
+  "artifact": "BLACKDARK_LAUNCH57_COMMERCIAL_CAPABILITY_INVENTORY",
+  "generated_at": "2026-09-18T15:27:40.281539+00:00",
+  "implementation_sha": "49851007",
+  "baseline_sha": "2fc4393408c1c1b3d8cb28b5768428ad5c24c2b24604d9ff57d99b0ee5a33d47",
+  "audit_baseline": {
+    "AUDIT_BRANCH": "cursor/launch57-phase8-launch-coherence-358c",
+    "AUDIT_BASELINE_SHA": "4985100756073c562bf4f7f4a7efbf4e1adb2454",
+    "CURRENT_HEAD_SHA_AT_START": "4985100756073c562bf4f7f4a7efbf4e1adb2454",
+    "WORKTREE_DIRTY": true,
+    "UNCOMMITTED_FILES": [
+      "LACKDARK_CAPABILITY_CURRENT_STATE.json",
+      "governance/launch57/B11_TEMPORAL_IMPLEMENTATION_EVIDENCE.json",
+      "governance/launch57/B12_TEMPORAL_IMPLEMENTATION_EVIDENCE.json",
+      "governance/launch57/B13_TEMPORAL_IMPLEMENTATION_EVIDENCE.json",
+      "governance/launch57/B4_TEMPORAL_INDEPENDENT_VERIFICATION.json",
+      "governance/launch57/B4_TEMPORAL_REMEDIATION_EVIDENCE.json",
+      "governance/launch57/B5_TEMPORAL_IMPLEMENTATION_EVIDENCE.json",
+      "governance/launch57/B8_TEMPORAL_IMPLEMENTATION_EVIDENCE.json",
+      "governance/launch57/B9_TEMPORAL_INDEPENDENT_VERIFICATION.json",
+      "governance/launch57/BLACKDARK_LAUNCH57_TEMPORAL_CONSISTENCY_RECONCILIATION.json",
+      "governance/launch57/BLACKDARK_LAUNCH57_TEMPORAL_CONSISTENCY_REPORT.md",
+      "governance/launch57/LAUNCH57_CAPABILITY_SYSTEM_GRAPH.json",
+      "governance/launch57/LAUNCH57_REGISTER.json",
+      "governance/launch57/LAUNCH57_SIX_HERO_MATRIX.json",
+      "governance/launch57/PHASE8_E2E_JOURNEYS.json",
+      "governance/launch57/PHASE8_LAUNCH_COHERENCE_EVIDENCE.json",
+      "governance/launch57/PHASE8_LAUNCH_COHERENCE_REPORT.md",
+      "governance/launch57/PHASE8_LAUNCH_ISOLATION_EVIDENCE.json",
+      "governance/launch57/PHASE8_PRE_LIVE_CHECKLIST.md",
+      ".closure_control_plane_worktree/",
+      ".g0_repair_worktree/",
+      ".pr_clean_verify_worktree/",
+      "artifacts/",
+      "data/access_review_evidence.jsonl",
+      "data/address_balance_snapshots.jsonl",
+      "data/backup_lifecycle_evidence.jsonl",
+      "data/break_glass_events.jsonl",
+      "data/decision_ledger.jsonl",
+      "data/decision_truth_preregister.jsonl",
+      "data/dependency_waivers.json",
+      "data/financial_incident_drill_evidence.jsonl",
+      "data/financial_incident_evidence.jsonl",
+      "data/governance_raw_landing.jsonl",
+      "data/in_app_alerts.jsonl",
+      "data/institutional/",
+      "data/institutional_commerce/",
+      "data/intelligence_flywheel_feedback.jsonl",
+      "data/kill_rate_events.jsonl",
+      "data/locked_predictions.jsonl",
+      "data/models/oracle_direction_ens20260913_2327.joblib",
+      "data/models/oracle_direction_ens20260914_1000.joblib",
+      "data/models/oracle_direction_ens20260914_1213.joblib",
+      "data/models/oracle_direction_ens20260914_1315.joblib",
+      "data/models/oracle_direction_ens20260914_1418.joblib",
+      "data/models/oracle_direction_ens20260914_2026.joblib",
+      "data/models/oracle_direction_ens20260914_2030.joblib",
+      "data/models/oracle_direction_ens20260914_2056.joblib",
+      "data/models/oracle_direction_ens20260914_2120.joblib",
+      "data/models/oracle_direction_ens20260914_2130.joblib",
+      "data/models/oracle_direction_ens20260914_2133.joblib",
+      "data/models/oracle_direction_ens20260914_2159.joblib",
+      "data/models/oracle_direction_ens20260914_2233.joblib",
+      "data/models/oracle_direction_ens20260914_2237.joblib",
+      "data/models/oracle_direction_ens20260914_2303.joblib",
+      "data/models/oracle_direction_ens20260914_2341.joblib",
+      "data/models/oracle_direction_ens20260915_0007.joblib",
+      "data/models/oracle_direction_ens20260915_0045.joblib",
+      "data/models/oracle_direction_ens20260915_0111.joblib",
+      "data/models/oracle_direction_ens20260915_0149.joblib",
+      "data/models/oracle_direction_ens20260915_0431.joblib",
+      "data/models/oracle_direction_ens20260916_1955.joblib",
+      "data/models/oracle_direction_ens20260916_2018.joblib",
+      "data/models/oracle_direction_ens20260916_2210.joblib",
+      "data/models/oracle_direction_ens20260916_2233.joblib",
+      "data/models/oracle_direction_v20260914_0726.joblib",
+      "data/models/oracle_direction_v20260914_2017.joblib",
+      "data/monitoring_alert_state.json",
+      "data/oracle_audit_chain.jsonl",
+      "data/orgs/",
+      "data/privileged_sessions.json",
+      "data/production_access_audit.jsonl",
+      "data/secret_lifecycle_evidence.jsonl",
+      "data/security_events.jsonl",
+      "data/service_identity_evidence.jsonl",
+      "data/signal_registry.jsonl",
+      "data/sovereign_signal_definitions.json",
+      "data/step_up_grants.jsonl",
+      "data/streaming_event_queue.jsonl",
+      "data/uptime_probes.jsonl",
+      "data/usage_analytics_events.jsonl",
+      "data/user_exposure_log.jsonl",
+      "data/v4_v2_lineage_registry.jsonl",
+      "data/v4_v2_source_rights_registry.jsonl",
+      "data/webhook_lifecycle_evidence.jsonl",
+      "launch57/pit_observation_store.json"
+    ],
+    "BRANCH_AMBIGUITY_WARNING": false,
+    "AUDIT_MODE": "AUDIT_ONLY",
+    "baseline_selection_reason": "Launch-57 phase8 coherence branch active development"
+  },
+  "commercial_inventory_version": "launch57-commercial-inventory-audit-1.0.0",
+  "audit_mode": "AUDIT_ONLY",
+  "scope": "LAUNCH57_IDS",
+  "not_a_new_ssot": true,
+  "inventory_count": 57,
+  "capabilities": [
+    {
+      "launch_number": 1,
+      "canonical_name": "Six Heroes Command Home — «ماذا أفعل الآن؟»",
+      "canonical_cap_ids": null,
+      "canonical_owner": null,
+      "aliases": [],
+      "launch_phase": "phase7",
+      "launch_group": "Home",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/edge_ui_batch2.py",
+      "access_states": [
+        "AUTHENTICATED_FREE"
+      ],
+      "commercial_roles": [
+        "RETENTION_DRIVER",
+        "DISCOVERY_DRIVER"
+      ],
+      "user_segments": [
+        "Active Retail"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Home;roles=('RETENTION_DRIVER', 'DISCOVERY_DRIVER')"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Home;roles=('RETENTION_DRIVER', 'DISCOVERY_DRIVER')"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Home;roles=('RETENTION_DRIVER', 'DISCOVERY_DRIVER')"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Home;roles=('RETENTION_DRIVER', 'DISCOVERY_DRIVER')"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Home;roles=('RETENTION_DRIVER', 'DISCOVERY_DRIVER')"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Home;roles=('RETENTION_DRIVER', 'DISCOVERY_DRIVER')"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Home;roles=('RETENTION_DRIVER', 'DISCOVERY_DRIVER')"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.edge_ui_batch2"
+        ],
+        "consumer_paths": [
+          "launch57/edge_ui_batch2.py",
+          "decision_truth/product/six_heroes.py",
+          "decision_truth/product/command_view.py",
+          "launch57/trust_batch1.py",
+          "api/routers/launch57_edge_ui.py"
+        ],
+        "tests_found": [],
+        "evidence_found": [],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification",
+        "CONSUMER_PATH_MISSING"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 2,
+      "canonical_name": "Single-Sentence Oracle (ACT/WAIT/ABSTAIN)",
+      "canonical_cap_ids": null,
+      "canonical_owner": null,
+      "aliases": [],
+      "launch_phase": "phase2",
+      "launch_group": "Trust & Decision",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "BLACKDARK_CAPABILITY_SIX_HERO_MATRIX.json#canonical_product_heroes[0]",
+      "access_states": [
+        "AUTHENTICATED_FREE"
+      ],
+      "commercial_roles": [
+        "AHA_MOMENT",
+        "TRUST_DRIVER",
+        "CONVERSION_TRIGGER"
+      ],
+      "user_segments": [
+        "Active Retail"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=('AHA_MOMENT', 'TRUST_DRIVER', 'CONVERSION_TRIGGER')"
+        },
+        "conversion": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=('AHA_MOMENT', 'TRUST_DRIVER', 'CONVERSION_TRIGGER');conversion_surface"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=('AHA_MOMENT', 'TRUST_DRIVER', 'CONVERSION_TRIGGER')"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=('AHA_MOMENT', 'TRUST_DRIVER', 'CONVERSION_TRIGGER')"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=('AHA_MOMENT', 'TRUST_DRIVER', 'CONVERSION_TRIGGER')"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=('AHA_MOMENT', 'TRUST_DRIVER', 'CONVERSION_TRIGGER')"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=('AHA_MOMENT', 'TRUST_DRIVER', 'CONVERSION_TRIGGER')"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [],
+        "consumer_paths": [
+          "BLACKDARK_CAPABILITY_SIX_HERO_MATRIX.json#canonical_product_heroes[0]",
+          "api/routers/heroes.py",
+          "decision_truth/product/six_heroes.py",
+          "docs/HERO_SIX_BINDING_REPORT.json"
+        ],
+        "tests_found": [
+          "tests/launch57/test_trust_batch1.py::test_single_sentence_oracle_act_wait_abstain"
+        ],
+        "evidence_found": [],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification",
+        "CONSUMER_PATH_MISSING"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 3,
+      "canonical_name": "Decision Certificate + hash",
+      "canonical_cap_ids": [
+        "CAP-0641"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase2",
+      "launch_group": "Trust & Decision",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/trust_batch1.py",
+      "access_states": [
+        "AUTHENTICATED_FREE",
+        "INSTITUTIONAL_ONLY"
+      ],
+      "commercial_roles": null,
+      "user_segments": [
+        "Active Retail"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "trust": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=();trust_asset"
+        },
+        "institutional": {
+          "value": "MEDIUM",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=();institutional_candidate"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.trust_batch1"
+        ],
+        "consumer_paths": [
+          "launch57/trust_batch1.py",
+          "decision_certificate.py",
+          "cap646/institutional_official_production.py"
+        ],
+        "tests_found": [
+          "tests/launch57/test_trust_batch1.py::test_decision_certificate_includes_hash"
+        ],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 4,
+      "canonical_name": "Public Accuracy Ledger (حي فقط)",
+      "canonical_cap_ids": [
+        "CAP-0640"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase2",
+      "launch_group": "Trust & Decision",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/trust_batch1.py",
+      "access_states": [
+        "PUBLIC_ANONYMOUS"
+      ],
+      "commercial_roles": [
+        "TRUST_DRIVER",
+        "VIRAL_DRIVER",
+        "FREE_HOOK"
+      ],
+      "user_segments": [
+        "Public Visitor"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "CRITICAL",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=('TRUST_DRIVER', 'VIRAL_DRIVER', 'FREE_HOOK');public_hook"
+        },
+        "conversion": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=('TRUST_DRIVER', 'VIRAL_DRIVER', 'FREE_HOOK');conversion_surface"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=('TRUST_DRIVER', 'VIRAL_DRIVER', 'FREE_HOOK')"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=('TRUST_DRIVER', 'VIRAL_DRIVER', 'FREE_HOOK')"
+        },
+        "viral": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=('TRUST_DRIVER', 'VIRAL_DRIVER', 'FREE_HOOK');viral_candidate"
+        },
+        "trust": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=('TRUST_DRIVER', 'VIRAL_DRIVER', 'FREE_HOOK');trust_asset"
+        },
+        "institutional": {
+          "value": "MEDIUM",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=('TRUST_DRIVER', 'VIRAL_DRIVER', 'FREE_HOOK');institutional_candidate"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.trust_batch1"
+        ],
+        "consumer_paths": [
+          "launch57/trust_batch1.py",
+          "oracle_track_record.py",
+          "cap646/institutional_official_production.py"
+        ],
+        "tests_found": [
+          "tests/launch57/test_trust_batch1.py::test_public_accuracy_ledger_live_only_primary"
+        ],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 5,
+      "canonical_name": "Net-Edge / Cost Autopsy على كل فرصة أو إشارة",
+      "canonical_cap_ids": [
+        "CAP-0639",
+        "CAP-0635"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production",
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase2",
+      "launch_group": "Trust & Decision",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/trust_batch1.py",
+      "access_states": [
+        "AUTHENTICATED_FREE"
+      ],
+      "commercial_roles": null,
+      "user_segments": [
+        "Active Retail"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.trust_batch1"
+        ],
+        "consumer_paths": [
+          "launch57/trust_batch1.py",
+          "cap646/institutional_official_production.py",
+          "net_edge_truth.py"
+        ],
+        "tests_found": [
+          "tests/launch57/test_trust_batch1.py::test_net_edge_rejects_missing_opportunity_no_demo",
+          "tests/launch57/test_trust_batch1.py::test_net_edge_rejects_demo_opportunity",
+          "tests/launch57/test_trust_batch1.py::test_net_edge_scores_real_opportunity"
+        ],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 6,
+      "canonical_name": "Evidence class ظاهر (LIVE / DELAYED / SIM)",
+      "canonical_cap_ids": null,
+      "canonical_owner": [
+        "launch57.evidence_class_common"
+      ],
+      "aliases": [],
+      "launch_phase": "phase2",
+      "launch_group": "Trust & Decision",
+      "engineering_state": "PASS_ENGINEERING",
+      "pass_live": "not_applicable",
+      "consumer_surface": "launch57/evidence_class_common.py",
+      "access_states": [
+        "INTERNAL_SUPPORT_ONLY",
+        "PUBLIC_ANONYMOUS"
+      ],
+      "commercial_roles": null,
+      "user_segments": [
+        "Public Visitor"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "trust": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=();trust_asset"
+        },
+        "institutional": {
+          "value": "MEDIUM",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=();institutional_candidate"
+        }
+      },
+      "commercial_use_state": "READY_FOR_CURRENT_SURFACE",
+      "release_maturity": "GA",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.evidence_class_common"
+        ],
+        "consumer_paths": [
+          "launch57/evidence_class_common.py",
+          "launch57/trust_batch1.py:user_evidence_display",
+          "launch57/trust_batch1.py:attach_trust_envelope",
+          "launch57/b4_decision_bridge.py:apply_b4_trust_envelope"
+        ],
+        "tests_found": [
+          "tests/launch57/test_trust_batch1.py::test_user_evidence_display_maps_live_delayed_sim",
+          "tests/launch57/test_trust_batch1.py::test_attach_trust_envelope_includes_evidence_display"
+        ],
+        "evidence_found": [
+          "governance/launch57/B3_6_TRUST_BOUNDARY_INDEPENDENT_VERIFICATION.json",
+          "governance/launch57/LAUNCH57_CAPABILITY_6_AUTHORITY_RESOLUTION.json",
+          "governance/launch57/B3_TEMPORAL_IMPLEMENTATION_EVIDENCE.json",
+          "governance/launch57/PHASE2_BATCH1_EVIDENCE.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 7,
+      "canonical_name": "Market Regime / Compass",
+      "canonical_cap_ids": [
+        "CAP-0035"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase3",
+      "launch_group": "Trust & Decision",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/decision_batch1.py",
+      "access_states": [
+        "AUTHENTICATED_FREE",
+        "PUBLIC_ANONYMOUS"
+      ],
+      "commercial_roles": null,
+      "user_segments": [
+        "Public Visitor"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.decision_batch1"
+        ],
+        "consumer_paths": [
+          "launch57/decision_batch1.py",
+          "launch57/decision_common.py",
+          "weight_aggregator.py"
+        ],
+        "tests_found": [],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 8,
+      "canonical_name": "Beginner Decision Mode",
+      "canonical_cap_ids": [
+        "CAP-0034"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase3",
+      "launch_group": "Trust & Decision",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/decision_batch1.py",
+      "access_states": [
+        "AUTHENTICATED_FREE"
+      ],
+      "commercial_roles": null,
+      "user_segments": [
+        "Active Retail"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.decision_batch1"
+        ],
+        "consumer_paths": [
+          "launch57/decision_batch1.py",
+          "bd_platform/retail_intelligence_layer.py"
+        ],
+        "tests_found": [],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 9,
+      "canonical_name": "Cross-Signal Confirmation",
+      "canonical_cap_ids": [
+        "CAP-0031"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase3",
+      "launch_group": "Trust & Decision",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/decision_batch1.py",
+      "access_states": [
+        "AUTHENTICATED_FREE"
+      ],
+      "commercial_roles": null,
+      "user_segments": [
+        "Active Retail"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.decision_batch1"
+        ],
+        "consumer_paths": [
+          "launch57/decision_batch1.py",
+          "signal_registry.py",
+          "sentiment_gate.py"
+        ],
+        "tests_found": [],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 10,
+      "canonical_name": "Contradiction Detection",
+      "canonical_cap_ids": [
+        "CAP-0032"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase3",
+      "launch_group": "Trust & Decision",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/decision_batch1.py",
+      "access_states": [
+        "AUTHENTICATED_FREE"
+      ],
+      "commercial_roles": null,
+      "user_segments": [
+        "Active Retail"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.decision_batch1"
+        ],
+        "consumer_paths": [
+          "launch57/decision_batch1.py",
+          "sentiment_gate.py"
+        ],
+        "tests_found": [],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 11,
+      "canonical_name": "Smart Money Actionability Score",
+      "canonical_cap_ids": [
+        "CAP-0033"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase3",
+      "launch_group": "Trust & Decision",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/decision_batch1.py",
+      "access_states": [
+        "AUTHENTICATED_FREE"
+      ],
+      "commercial_roles": null,
+      "user_segments": [
+        "Active Retail"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.decision_batch1"
+        ],
+        "consumer_paths": [
+          "launch57/decision_batch1.py",
+          "whale_tracker.py",
+          "launch57/trust_batch1.py"
+        ],
+        "tests_found": [],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 12,
+      "canonical_name": "Smart Money Conviction Engine",
+      "canonical_cap_ids": [
+        "CAP-0028"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase3",
+      "launch_group": "Trust & Decision",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/decision_batch2.py",
+      "access_states": [
+        "AUTHENTICATED_FREE"
+      ],
+      "commercial_roles": null,
+      "user_segments": [
+        "Active Retail"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.decision_batch2"
+        ],
+        "consumer_paths": [
+          "launch57/decision_batch2.py",
+          "bd_platform/retail_intelligence_layer.py"
+        ],
+        "tests_found": [],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 13,
+      "canonical_name": "Accumulation / Distribution Detection",
+      "canonical_cap_ids": [
+        "CAP-0005"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase4",
+      "launch_group": "Smart Money / Wallet / Flow",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/smart_money_batch1.py",
+      "access_states": [
+        "AUTHENTICATED_FREE"
+      ],
+      "commercial_roles": null,
+      "user_segments": [
+        "Active Retail"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.smart_money_batch1"
+        ],
+        "consumer_paths": [
+          "launch57/smart_money_batch1.py",
+          "whale_signal_classifier.py"
+        ],
+        "tests_found": [],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 14,
+      "canonical_name": "Smart Money Token Screener",
+      "canonical_cap_ids": [
+        "CAP-0006"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase4",
+      "launch_group": "Smart Money / Wallet / Flow",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/smart_money_batch1.py",
+      "access_states": [
+        "AUTHENTICATED_FREE"
+      ],
+      "commercial_roles": null,
+      "user_segments": [
+        "Active Retail"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "retention": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=();retention_candidate"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.smart_money_batch1"
+        ],
+        "consumer_paths": [
+          "launch57/smart_money_batch1.py",
+          "bd_platform/free_tier_capabilities.py"
+        ],
+        "tests_found": [
+          "tests/cap646/test_batch01_dedicated.py"
+        ],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 15,
+      "canonical_name": "Entity-Aware Wallet Intelligence",
+      "canonical_cap_ids": [
+        "CAP-0014"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase4",
+      "launch_group": "Smart Money / Wallet / Flow",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/smart_money_batch2.py",
+      "access_states": [
+        "AUTHENTICATED_FREE"
+      ],
+      "commercial_roles": null,
+      "user_segments": [
+        "Active Retail"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.smart_money_batch2"
+        ],
+        "consumer_paths": [
+          "launch57/smart_money_batch2.py",
+          "bd_platform/address_intelligence.py"
+        ],
+        "tests_found": [],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 16,
+      "canonical_name": "Exchange Flow Intelligence (in/out/net)",
+      "canonical_cap_ids": [
+        "CAP-0015",
+        "CAP-0071"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production",
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase4",
+      "launch_group": "Smart Money / Wallet / Flow",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/smart_money_batch1.py",
+      "access_states": [
+        "AUTHENTICATED_FREE"
+      ],
+      "commercial_roles": null,
+      "user_segments": [
+        "Active Retail"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.smart_money_batch1"
+        ],
+        "consumer_paths": [
+          "launch57/smart_money_batch1.py",
+          "cap646/dedicated_common.py"
+        ],
+        "tests_found": [
+          "tests/test_sonar_pr356_new_code_coverage.py"
+        ],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 17,
+      "canonical_name": "Exchange Whale Ratio + internal-flow filter",
+      "canonical_cap_ids": [
+        "CAP-0072",
+        "CAP-0075"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production",
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase4",
+      "launch_group": "Smart Money / Wallet / Flow",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/smart_money_batch1.py",
+      "access_states": [
+        "AUTHENTICATED_FREE"
+      ],
+      "commercial_roles": null,
+      "user_segments": [
+        "Active Retail"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.smart_money_batch1"
+        ],
+        "consumer_paths": [
+          "launch57/smart_money_batch1.py",
+          "exchange_internal_flow_filter.py"
+        ],
+        "tests_found": [
+          "tests/test_d09_flow_filter.py"
+        ],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 18,
+      "canonical_name": "Whale Accumulation / Movement Alerts",
+      "canonical_cap_ids": [
+        "CAP-0081",
+        "CAP-0098"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production",
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase4",
+      "launch_group": "Smart Money / Wallet / Flow",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/smart_money_batch2.py",
+      "access_states": [
+        "AUTHENTICATED_FREE"
+      ],
+      "commercial_roles": null,
+      "user_segments": [
+        "Active Retail"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "retention": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=();retention_candidate"
+        },
+        "viral": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=();viral_candidate"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.smart_money_batch2"
+        ],
+        "consumer_paths": [
+          "launch57/smart_money_batch2.py",
+          "whale_tracker.py"
+        ],
+        "tests_found": [],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 19,
+      "canonical_name": "Inter-Entity Flow (محدود الإطلاق)",
+      "canonical_cap_ids": [
+        "CAP-0091"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase4",
+      "launch_group": "Smart Money / Wallet / Flow",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/smart_money_batch2.py",
+      "access_states": [
+        "AUTHENTICATED_FREE"
+      ],
+      "commercial_roles": null,
+      "user_segments": [
+        "Active Retail"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.smart_money_batch2"
+        ],
+        "consumer_paths": [
+          "launch57/smart_money_batch2.py",
+          "onchain_tracker.py"
+        ],
+        "tests_found": [],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 20,
+      "canonical_name": "Address Labels & Cohorts (نواة محدودة)",
+      "canonical_cap_ids": [
+        "CAP-0092"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase4",
+      "launch_group": "Smart Money / Wallet / Flow",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/smart_money_batch1.py",
+      "access_states": [
+        "AUTHENTICATED_FREE"
+      ],
+      "commercial_roles": null,
+      "user_segments": [
+        "Active Retail"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Smart Money / Wallet / Flow;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.smart_money_batch1"
+        ],
+        "consumer_paths": [
+          "launch57/smart_money_batch1.py",
+          "launch57/smart_money_common.py",
+          "bd_platform/onchain_platform_layer.py"
+        ],
+        "tests_found": [],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 21,
+      "canonical_name": "Spot metrics suite (صادق التحديث)",
+      "canonical_cap_ids": [
+        "CAP-0047"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase1",
+      "launch_group": "Market Data / Quality",
+      "engineering_state": "PASS_ENGINEERING",
+      "pass_live": "not_applicable",
+      "consumer_surface": "launch57/data_batch1.py",
+      "access_states": [
+        "AUTHENTICATED_FREE",
+        "PUBLIC_ANONYMOUS"
+      ],
+      "commercial_roles": null,
+      "user_segments": [
+        "Public Visitor"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        }
+      },
+      "commercial_use_state": "READY_FOR_CURRENT_SURFACE",
+      "release_maturity": "GA",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.data_batch1"
+        ],
+        "consumer_paths": [
+          "launch57/data_batch1.py",
+          "cap646/handlers/market.py",
+          "cap646/institutional_official_production.py"
+        ],
+        "tests_found": [
+          "tests/launch57/test_data_batch1.py::test_spot_metrics_unknown_not_zero"
+        ],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 22,
+      "canonical_name": "Real-time / near-real-time prices",
+      "canonical_cap_ids": [
+        "CAP-0561"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase1",
+      "launch_group": "Market Data / Quality",
+      "engineering_state": "PASS_ENGINEERING",
+      "pass_live": "not_applicable",
+      "consumer_surface": "launch57/data_batch1.py",
+      "access_states": [
+        "AUTHENTICATED_FREE",
+        "PUBLIC_ANONYMOUS"
+      ],
+      "commercial_roles": null,
+      "user_segments": [
+        "Public Visitor"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        }
+      },
+      "commercial_use_state": "READY_FOR_CURRENT_SURFACE",
+      "release_maturity": "GA",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.data_batch1"
+        ],
+        "consumer_paths": [
+          "launch57/data_batch1.py",
+          "cap646/institutional_official_production.py",
+          "api/routers/cap646.py"
+        ],
+        "tests_found": [
+          "tests/launch57/test_data_batch1.py::test_real_time_prices_rejects_stale_not_as_live",
+          "tests/launch57/test_data_batch1.py::test_real_time_prices_live_path"
+        ],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 23,
+      "canonical_name": "OHLCV",
+      "canonical_cap_ids": [
+        "CAP-0507"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase1",
+      "launch_group": "Market Data / Quality",
+      "engineering_state": "PASS_ENGINEERING",
+      "pass_live": "not_applicable",
+      "consumer_surface": "launch57/data_batch1.py",
+      "access_states": [
+        "AUTHENTICATED_FREE",
+        "PUBLIC_ANONYMOUS"
+      ],
+      "commercial_roles": null,
+      "user_segments": [
+        "Public Visitor"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        }
+      },
+      "commercial_use_state": "READY_FOR_CURRENT_SURFACE",
+      "release_maturity": "GA",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.data_batch1"
+        ],
+        "consumer_paths": [
+          "launch57/data_batch1.py",
+          "cap646/handlers/market.py",
+          "cap646/institutional_official_production.py"
+        ],
+        "tests_found": [
+          "tests/launch57/test_data_batch1.py::test_ohlcv_full_bars_and_invariants",
+          "tests/launch57/test_data_batch1.py::test_ohlcv_invariants_detect_violation"
+        ],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 24,
+      "canonical_name": "Quote + symbol metadata",
+      "canonical_cap_ids": [
+        "CAP-0506",
+        "CAP-0513"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production",
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase1",
+      "launch_group": "Market Data / Quality",
+      "engineering_state": "PASS_ENGINEERING",
+      "pass_live": "not_applicable",
+      "consumer_surface": "launch57/data_batch1.py",
+      "access_states": [
+        "AUTHENTICATED_FREE",
+        "PUBLIC_ANONYMOUS"
+      ],
+      "commercial_roles": null,
+      "user_segments": [
+        "Public Visitor"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        }
+      },
+      "commercial_use_state": "READY_FOR_CURRENT_SURFACE",
+      "release_maturity": "GA",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.data_batch1"
+        ],
+        "consumer_paths": [
+          "launch57/data_batch1.py",
+          "cap646/institutional_official_production.py"
+        ],
+        "tests_found": [
+          "tests/launch57/test_data_batch1.py::test_quote_and_metadata_distinct_contracts"
+        ],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 25,
+      "canonical_name": "Futures OI intelligence",
+      "canonical_cap_ids": [
+        "CAP-0085",
+        "CAP-0048"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production",
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase5",
+      "launch_group": "Derivatives / Market Structure",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/derivatives_batch1.py",
+      "access_states": [
+        "AUTHENTICATED_FREE",
+        "PUBLIC_ANONYMOUS"
+      ],
+      "commercial_roles": null,
+      "user_segments": [
+        "Public Visitor"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.derivatives_batch1"
+        ],
+        "consumer_paths": [
+          "launch57/derivatives_batch1.py",
+          "bd_platform/derivatives_hub.py"
+        ],
+        "tests_found": [],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 26,
+      "canonical_name": "Funding rate intelligence",
+      "canonical_cap_ids": [
+        "CAP-0086"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase5",
+      "launch_group": "Derivatives / Market Structure",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/derivatives_batch1.py",
+      "access_states": [
+        "AUTHENTICATED_FREE",
+        "PUBLIC_ANONYMOUS"
+      ],
+      "commercial_roles": null,
+      "user_segments": [
+        "Public Visitor"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.derivatives_batch1"
+        ],
+        "consumer_paths": [
+          "launch57/derivatives_batch1.py",
+          "bd_platform/derivatives_hub.py"
+        ],
+        "tests_found": [],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 27,
+      "canonical_name": "Liquidation intelligence / heatmap خفيف",
+      "canonical_cap_ids": [
+        "CAP-0088"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase5",
+      "launch_group": "Derivatives / Market Structure",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/derivatives_batch1.py",
+      "access_states": [
+        "AUTHENTICATED_FREE",
+        "PUBLIC_ANONYMOUS"
+      ],
+      "commercial_roles": null,
+      "user_segments": [
+        "Public Visitor"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.derivatives_batch1"
+        ],
+        "consumer_paths": [
+          "launch57/derivatives_batch1.py",
+          "bd_platform/liquidation_radar.py"
+        ],
+        "tests_found": [],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 28,
+      "canonical_name": "Taker buy/sell + leverage ratio",
+      "canonical_cap_ids": [
+        "CAP-0089",
+        "CAP-0087"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production",
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase5",
+      "launch_group": "Derivatives / Market Structure",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/derivatives_batch1.py",
+      "access_states": [
+        "AUTHENTICATED_FREE"
+      ],
+      "commercial_roles": null,
+      "user_segments": [
+        "Active Retail"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.derivatives_batch1"
+        ],
+        "consumer_paths": [
+          "launch57/derivatives_batch1.py",
+          "bd_platform/heroes_capability_layer.py"
+        ],
+        "tests_found": [],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 29,
+      "canonical_name": "Derivatives sentiment composite",
+      "canonical_cap_ids": [
+        "CAP-0090"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase5",
+      "launch_group": "Derivatives / Market Structure",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/derivatives_batch1.py",
+      "access_states": [
+        "AUTHENTICATED_FREE",
+        "PUBLIC_ANONYMOUS"
+      ],
+      "commercial_roles": null,
+      "user_segments": [
+        "Public Visitor"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.derivatives_batch1"
+        ],
+        "consumer_paths": [
+          "launch57/derivatives_batch1.py",
+          "sentiment_engine.py"
+        ],
+        "tests_found": [],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 30,
+      "canonical_name": "Order book intelligence (L1 على الأقل)",
+      "canonical_cap_ids": [
+        "CAP-0050",
+        "CAP-0508"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production",
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase5",
+      "launch_group": "Derivatives / Market Structure",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/derivatives_batch2.py",
+      "access_states": [
+        "AUTHENTICATED_FREE"
+      ],
+      "commercial_roles": null,
+      "user_segments": [
+        "Active Retail"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Derivatives / Market Structure;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.derivatives_batch2"
+        ],
+        "consumer_paths": [
+          "launch57/derivatives_batch2.py",
+          "cap646/fallbacks.py",
+          "live_book_hub.py"
+        ],
+        "tests_found": [],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 31,
+      "canonical_name": "Token screener (سوق عام)",
+      "canonical_cap_ids": [
+        "CAP-0056"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase5",
+      "launch_group": "Discovery / Habit / Monitoring",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/derivatives_batch2.py",
+      "access_states": [
+        "AUTHENTICATED_FREE",
+        "PUBLIC_ANONYMOUS"
+      ],
+      "commercial_roles": null,
+      "user_segments": [
+        "Public Visitor"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.derivatives_batch2"
+        ],
+        "consumer_paths": [
+          "launch57/derivatives_batch2.py",
+          "bd_platform/market_rankings.py"
+        ],
+        "tests_found": [
+          "tests/cap646/test_batch01_dedicated.py"
+        ],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 32,
+      "canonical_name": "Watchlists (توكن + محفظة محدودة)",
+      "canonical_cap_ids": [
+        "CAP-0019"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase5",
+      "launch_group": "Discovery / Habit / Monitoring",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/derivatives_batch2.py",
+      "access_states": [
+        "PAID_PRIVATE"
+      ],
+      "commercial_roles": [
+        "RETENTION_DRIVER",
+        "HABIT_DRIVER"
+      ],
+      "user_segments": [
+        "Active Retail"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER', 'HABIT_DRIVER')"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER', 'HABIT_DRIVER')"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER', 'HABIT_DRIVER')"
+        },
+        "retention": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER', 'HABIT_DRIVER');retention_candidate"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER', 'HABIT_DRIVER')"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER', 'HABIT_DRIVER')"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER', 'HABIT_DRIVER')"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.derivatives_batch2"
+        ],
+        "consumer_paths": [
+          "launch57/derivatives_batch2.py",
+          "bd_platform/security_trust_data_layer.py"
+        ],
+        "tests_found": [],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 33,
+      "canonical_name": "Smart Alerts (سعر + تدفق + حوت + قرار)",
+      "canonical_cap_ids": [
+        "CAP-0017"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase5",
+      "launch_group": "Discovery / Habit / Monitoring",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/derivatives_batch2.py",
+      "access_states": [
+        "PAID_PRIVATE"
+      ],
+      "commercial_roles": [
+        "RETENTION_DRIVER",
+        "UPGRADE_TRIGGER"
+      ],
+      "user_segments": [
+        "Active Retail"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER', 'UPGRADE_TRIGGER')"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER', 'UPGRADE_TRIGGER')"
+        },
+        "upgrade": {
+          "value": "MEDIUM",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER', 'UPGRADE_TRIGGER');tier_gated_depth"
+        },
+        "retention": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER', 'UPGRADE_TRIGGER');retention_candidate"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER', 'UPGRADE_TRIGGER')"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER', 'UPGRADE_TRIGGER')"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER', 'UPGRADE_TRIGGER')"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.derivatives_batch2"
+        ],
+        "consumer_paths": [
+          "launch57/derivatives_batch2.py",
+          "instant_alert_engine.py",
+          "whale_tracker.py"
+        ],
+        "tests_found": [
+          "tests/cap646/test_batch01_dedicated.py",
+          "tests/cap646/test_batch_range_dedicated.py",
+          "tests/test_charting_market_intelligence_batch301_400.py"
+        ],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 34,
+      "canonical_name": "Signal → Explanation workflow",
+      "canonical_cap_ids": [
+        "CAP-0025"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase6",
+      "launch_group": "Explanation / AI / Research",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/explanation_ai_batch1.py",
+      "access_states": [
+        "AUTHENTICATED_FREE",
+        "PUBLIC_ANONYMOUS"
+      ],
+      "commercial_roles": null,
+      "user_segments": [
+        "Public Visitor"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.explanation_ai_batch1"
+        ],
+        "consumer_paths": [
+          "launch57/explanation_ai_batch1.py",
+          "bd_platform/footprint_analytics.py",
+          "heroes_quality.py"
+        ],
+        "tests_found": [],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 35,
+      "canonical_name": "Price-move explanation",
+      "canonical_cap_ids": [
+        "CAP-0026"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase6",
+      "launch_group": "Explanation / AI / Research",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/explanation_ai_batch1.py",
+      "access_states": [
+        "AUTHENTICATED_FREE",
+        "PUBLIC_ANONYMOUS"
+      ],
+      "commercial_roles": null,
+      "user_segments": [
+        "Public Visitor"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.explanation_ai_batch1"
+        ],
+        "consumer_paths": [
+          "launch57/explanation_ai_batch1.py",
+          "launch57/decision_common.py",
+          "sentiment_engine.py"
+        ],
+        "tests_found": [],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 36,
+      "canonical_name": "AI Research Agent + Copilot مربوط ببيانات المنصة فقط (شات على أسطح الإطلاق + footer امتثال)",
+      "canonical_cap_ids": [
+        "CAP-0024"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase6",
+      "launch_group": "Explanation / AI / Research",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/explanation_ai_batch1.py",
+      "access_states": [
+        "AUTHENTICATED_FREE",
+        "INSTITUTIONAL_ONLY"
+      ],
+      "commercial_roles": [
+        "PROFESSIONAL_DIFFERENTIATOR",
+        "UPGRADE_TRIGGER"
+      ],
+      "user_segments": [
+        "Active Retail"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=('PROFESSIONAL_DIFFERENTIATOR', 'UPGRADE_TRIGGER')"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=('PROFESSIONAL_DIFFERENTIATOR', 'UPGRADE_TRIGGER')"
+        },
+        "upgrade": {
+          "value": "MEDIUM",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=('PROFESSIONAL_DIFFERENTIATOR', 'UPGRADE_TRIGGER');tier_gated_depth"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=('PROFESSIONAL_DIFFERENTIATOR', 'UPGRADE_TRIGGER')"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=('PROFESSIONAL_DIFFERENTIATOR', 'UPGRADE_TRIGGER')"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=('PROFESSIONAL_DIFFERENTIATOR', 'UPGRADE_TRIGGER')"
+        },
+        "institutional": {
+          "value": "MEDIUM",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=('PROFESSIONAL_DIFFERENTIATOR', 'UPGRADE_TRIGGER');institutional_candidate"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.explanation_ai_batch1"
+        ],
+        "consumer_paths": [
+          "launch57/explanation_ai_batch1.py",
+          "research_lab.py"
+        ],
+        "tests_found": [],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 37,
+      "canonical_name": "Cross-market decision engine",
+      "canonical_cap_ids": [
+        "CAP-0029"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase3",
+      "launch_group": "Trust & Decision",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/decision_batch2.py",
+      "access_states": [
+        "AUTHENTICATED_FREE"
+      ],
+      "commercial_roles": null,
+      "user_segments": [
+        "Active Retail"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.decision_batch2"
+        ],
+        "consumer_paths": [
+          "launch57/decision_batch2.py",
+          "bd_platform/pro_trader_layer.py",
+          "bd_platform/institutional_delivery_intelligence_layer.py"
+        ],
+        "tests_found": [
+          "tests/cap646/test_batch01_dedicated.py"
+        ],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 38,
+      "canonical_name": "MVRV / Z-Score (نواة BTC/ETH إن توفّر مصدر)",
+      "canonical_cap_ids": [
+        "CAP-0040"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase7",
+      "launch_group": "Edge",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/edge_ui_batch1.py",
+      "access_states": [
+        "AUTHENTICATED_FREE"
+      ],
+      "commercial_roles": null,
+      "user_segments": [
+        "Active Retail"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Edge;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Edge;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Edge;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Edge;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Edge;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Edge;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Edge;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.edge_ui_batch1"
+        ],
+        "consumer_paths": [
+          "launch57/edge_ui_batch1.py",
+          "bd_platform/mvrv_realignment.py"
+        ],
+        "tests_found": [],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 39,
+      "canonical_name": "Point-in-time immutable metrics",
+      "canonical_cap_ids": [
+        "CAP-0061"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase1",
+      "launch_group": "Market Data / Quality",
+      "engineering_state": "PASS_ENGINEERING",
+      "pass_live": "not_applicable",
+      "consumer_surface": "launch57/data_batch2.py",
+      "access_states": [
+        "INTERNAL_SUPPORT_ONLY"
+      ],
+      "commercial_roles": null,
+      "user_segments": [
+        "Active Retail"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "institutional": {
+          "value": "MEDIUM",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=();institutional_candidate"
+        }
+      },
+      "commercial_use_state": "READY_FOR_CURRENT_SURFACE",
+      "release_maturity": "GA",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.data_batch2"
+        ],
+        "consumer_paths": [
+          "launch57/data_batch2.py",
+          "cap646/institutional_official_production.py"
+        ],
+        "tests_found": [
+          "tests/launch57/test_data_batch2.py::test_pit_immutable_metrics_hash_and_timestamp"
+        ],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 40,
+      "canonical_name": "Data quality & provenance (ظاهر للمستخدم)",
+      "canonical_cap_ids": [
+        "CAP-0063",
+        "CAP-0500"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production",
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase1",
+      "launch_group": "Market Data / Quality",
+      "engineering_state": "PASS_ENGINEERING",
+      "pass_live": "not_applicable",
+      "consumer_surface": "launch57/data_batch2.py",
+      "access_states": [
+        "AUTHENTICATED_FREE",
+        "INSTITUTIONAL_ONLY",
+        "PUBLIC_ANONYMOUS"
+      ],
+      "commercial_roles": null,
+      "user_segments": [
+        "Public Visitor"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "trust": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=();trust_asset"
+        },
+        "institutional": {
+          "value": "MEDIUM",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=();institutional_candidate"
+        }
+      },
+      "commercial_use_state": "READY_FOR_CURRENT_SURFACE",
+      "release_maturity": "GA",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.data_batch2"
+        ],
+        "consumer_paths": [
+          "launch57/data_batch2.py",
+          "cap646/handlers/market.py",
+          "cap646/institutional_official_production.py"
+        ],
+        "tests_found": [
+          "tests/launch57/test_data_batch2.py::test_provenance_layer_user_disclosure",
+          "tests/launch57/test_data_batch2.py::test_normalization_distinct_from_provenance_layer"
+        ],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 41,
+      "canonical_name": "Freshness assurance + تسمية delayed صريحة",
+      "canonical_cap_ids": [
+        "CAP-0630"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase1",
+      "launch_group": "Market Data / Quality",
+      "engineering_state": "PASS_ENGINEERING",
+      "pass_live": "not_applicable",
+      "consumer_surface": "launch57/data_batch2.py",
+      "access_states": [
+        "AUTHENTICATED_FREE",
+        "INSTITUTIONAL_ONLY",
+        "PUBLIC_ANONYMOUS"
+      ],
+      "commercial_roles": null,
+      "user_segments": [
+        "Public Visitor"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "trust": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=();trust_asset"
+        },
+        "institutional": {
+          "value": "MEDIUM",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=();institutional_candidate"
+        }
+      },
+      "commercial_use_state": "READY_FOR_CURRENT_SURFACE",
+      "release_maturity": "GA",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.data_batch2"
+        ],
+        "consumer_paths": [
+          "launch57/data_batch2.py",
+          "cap646/handlers/market.py",
+          "cap646/institutional_official_production.py"
+        ],
+        "tests_found": [
+          "tests/launch57/test_data_batch2.py::test_freshness_rejects_stale_as_live",
+          "tests/launch57/test_data_batch2.py::test_freshness_delayed_label_explicit"
+        ],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 42,
+      "canonical_name": "Unified exchange connector (مسار واحد)",
+      "canonical_cap_ids": [
+        "CAP-0504"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase1",
+      "launch_group": "Market Data / Quality",
+      "engineering_state": "PASS_ENGINEERING",
+      "pass_live": "not_applicable",
+      "consumer_surface": "launch57/data_batch1.py",
+      "access_states": [
+        "INTERNAL_SUPPORT_ONLY"
+      ],
+      "commercial_roles": null,
+      "user_segments": [
+        "Active Retail"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=()"
+        },
+        "institutional": {
+          "value": "MEDIUM",
+          "ASSESSMENT_BASIS": "launch_group=Market Data / Quality;roles=();institutional_candidate"
+        }
+      },
+      "commercial_use_state": "READY_FOR_CURRENT_SURFACE",
+      "release_maturity": "GA",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.data_batch1"
+        ],
+        "consumer_paths": [
+          "launch57/data_batch1.py",
+          "cap646/institutional_official_production.py",
+          "api/routers/cap646.py"
+        ],
+        "tests_found": [
+          "tests/launch57/test_data_batch1.py::test_unified_exchange_connector_routes_without_synthetic"
+        ],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 43,
+      "canonical_name": "Spot–perp / arbitrage (Net-Edge إلزامي)",
+      "canonical_cap_ids": [
+        "CAP-0230",
+        "CAP-0635"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production",
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase7",
+      "launch_group": "Edge",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/edge_ui_batch1.py",
+      "access_states": [
+        "AUTHENTICATED_FREE"
+      ],
+      "commercial_roles": [
+        "PROFESSIONAL_DIFFERENTIATOR"
+      ],
+      "user_segments": [
+        "Active Retail"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Edge;roles=('PROFESSIONAL_DIFFERENTIATOR',)"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Edge;roles=('PROFESSIONAL_DIFFERENTIATOR',)"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Edge;roles=('PROFESSIONAL_DIFFERENTIATOR',)"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Edge;roles=('PROFESSIONAL_DIFFERENTIATOR',)"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Edge;roles=('PROFESSIONAL_DIFFERENTIATOR',)"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Edge;roles=('PROFESSIONAL_DIFFERENTIATOR',)"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Edge;roles=('PROFESSIONAL_DIFFERENTIATOR',)"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.edge_ui_batch1"
+        ],
+        "consumer_paths": [
+          "launch57/edge_ui_batch1.py",
+          "arbitrage_service.py",
+          "launch57/trust_batch1.py"
+        ],
+        "tests_found": [],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 44,
+      "canonical_name": "Shareable decision / oracle card (OG)",
+      "canonical_cap_ids": null,
+      "canonical_owner": null,
+      "aliases": [],
+      "launch_phase": "phase2",
+      "launch_group": "Public / Viral / Guest",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/trust_batch2.py",
+      "access_states": [
+        "PUBLIC_ANONYMOUS"
+      ],
+      "commercial_roles": [
+        "VIRAL_DRIVER",
+        "TRUST_DRIVER"
+      ],
+      "user_segments": [
+        "Public Visitor"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Public / Viral / Guest;roles=('VIRAL_DRIVER', 'TRUST_DRIVER')"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Public / Viral / Guest;roles=('VIRAL_DRIVER', 'TRUST_DRIVER')"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Public / Viral / Guest;roles=('VIRAL_DRIVER', 'TRUST_DRIVER')"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Public / Viral / Guest;roles=('VIRAL_DRIVER', 'TRUST_DRIVER')"
+        },
+        "viral": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Public / Viral / Guest;roles=('VIRAL_DRIVER', 'TRUST_DRIVER');viral_candidate"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Public / Viral / Guest;roles=('VIRAL_DRIVER', 'TRUST_DRIVER')"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Public / Viral / Guest;roles=('VIRAL_DRIVER', 'TRUST_DRIVER')"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.trust_batch2"
+        ],
+        "consumer_paths": [
+          "launch57/trust_batch2.py",
+          "decision_certificate.py"
+        ],
+        "tests_found": [
+          "tests/launch57/test_trust_batch2.py::test_shareable_decision_card_og_metadata"
+        ],
+        "evidence_found": [],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification",
+        "CONSUMER_PATH_MISSING"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 45,
+      "canonical_name": "Shareable accuracy / outcome page",
+      "canonical_cap_ids": [
+        "CAP-0640"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase2",
+      "launch_group": "Public / Viral / Guest",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/trust_batch2.py",
+      "access_states": [
+        "PUBLIC_ANONYMOUS"
+      ],
+      "commercial_roles": [
+        "VIRAL_DRIVER",
+        "TRUST_DRIVER"
+      ],
+      "user_segments": [
+        "Public Visitor"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Public / Viral / Guest;roles=('VIRAL_DRIVER', 'TRUST_DRIVER')"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Public / Viral / Guest;roles=('VIRAL_DRIVER', 'TRUST_DRIVER')"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Public / Viral / Guest;roles=('VIRAL_DRIVER', 'TRUST_DRIVER')"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Public / Viral / Guest;roles=('VIRAL_DRIVER', 'TRUST_DRIVER')"
+        },
+        "viral": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Public / Viral / Guest;roles=('VIRAL_DRIVER', 'TRUST_DRIVER');viral_candidate"
+        },
+        "trust": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Public / Viral / Guest;roles=('VIRAL_DRIVER', 'TRUST_DRIVER');trust_asset"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Public / Viral / Guest;roles=('VIRAL_DRIVER', 'TRUST_DRIVER')"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.trust_batch2"
+        ],
+        "consumer_paths": [
+          "launch57/trust_batch2.py",
+          "oracle_track_record.py"
+        ],
+        "tests_found": [
+          "tests/launch57/test_trust_batch2.py::test_shareable_accuracy_page_live_only"
+        ],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 46,
+      "canonical_name": "Guest trust surface",
+      "canonical_cap_ids": null,
+      "canonical_owner": null,
+      "aliases": [],
+      "launch_phase": "phase2",
+      "launch_group": "Public / Viral / Guest",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/trust_batch2.py",
+      "access_states": [
+        "PUBLIC_ANONYMOUS"
+      ],
+      "commercial_roles": [
+        "FREE_HOOK",
+        "TRUST_DRIVER",
+        "CONVERSION_TRIGGER"
+      ],
+      "user_segments": [
+        "Public Visitor"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "CRITICAL",
+          "ASSESSMENT_BASIS": "launch_group=Public / Viral / Guest;roles=('FREE_HOOK', 'TRUST_DRIVER', 'CONVERSION_TRIGGER');public_hook"
+        },
+        "conversion": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Public / Viral / Guest;roles=('FREE_HOOK', 'TRUST_DRIVER', 'CONVERSION_TRIGGER');conversion_surface"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Public / Viral / Guest;roles=('FREE_HOOK', 'TRUST_DRIVER', 'CONVERSION_TRIGGER')"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Public / Viral / Guest;roles=('FREE_HOOK', 'TRUST_DRIVER', 'CONVERSION_TRIGGER')"
+        },
+        "viral": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Public / Viral / Guest;roles=('FREE_HOOK', 'TRUST_DRIVER', 'CONVERSION_TRIGGER');viral_candidate"
+        },
+        "trust": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Public / Viral / Guest;roles=('FREE_HOOK', 'TRUST_DRIVER', 'CONVERSION_TRIGGER');trust_asset"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Public / Viral / Guest;roles=('FREE_HOOK', 'TRUST_DRIVER', 'CONVERSION_TRIGGER')"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.trust_batch2"
+        ],
+        "consumer_paths": [
+          "launch57/trust_batch2.py",
+          "governance/anonymous_visitor_governance.py"
+        ],
+        "tests_found": [
+          "tests/launch57/test_trust_batch2.py::test_guest_trust_surface"
+        ],
+        "evidence_found": [],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification",
+        "CONSUMER_PATH_MISSING"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 47,
+      "canonical_name": "One-click risk disclosure على كل قرار",
+      "canonical_cap_ids": null,
+      "canonical_owner": null,
+      "aliases": [],
+      "launch_phase": "phase2",
+      "launch_group": "Trust & Decision",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/trust_batch2.py",
+      "access_states": [
+        "AUTHENTICATED_FREE",
+        "PUBLIC_ANONYMOUS"
+      ],
+      "commercial_roles": null,
+      "user_segments": [
+        "Public Visitor"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "trust": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=();trust_asset"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.trust_batch2"
+        ],
+        "consumer_paths": [
+          "launch57/trust_batch2.py",
+          "decision_truth/product/reject_proof.py",
+          "decision_certificate.py"
+        ],
+        "tests_found": [
+          "tests/launch57/test_trust_batch2.py::test_one_click_risk_disclosure"
+        ],
+        "evidence_found": [],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification",
+        "CONSUMER_PATH_MISSING"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 48,
+      "canonical_name": "Abstain / reject reasons ظاهرة",
+      "canonical_cap_ids": null,
+      "canonical_owner": null,
+      "aliases": [],
+      "launch_phase": "phase2",
+      "launch_group": "Trust & Decision",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/trust_batch2.py",
+      "access_states": [
+        "AUTHENTICATED_FREE",
+        "PUBLIC_ANONYMOUS"
+      ],
+      "commercial_roles": null,
+      "user_segments": [
+        "Public Visitor"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        },
+        "trust": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=();trust_asset"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Trust & Decision;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.trust_batch2"
+        ],
+        "consumer_paths": [
+          "launch57/trust_batch2.py",
+          "decision_truth/product/no_decision.py",
+          "decision_truth/product/rejection_engine.py"
+        ],
+        "tests_found": [
+          "tests/launch57/test_trust_batch2.py::test_abstain_reject_reasons_first_class"
+        ],
+        "evidence_found": [],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification",
+        "CONSUMER_PATH_MISSING"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 49,
+      "canonical_name": "Personal decision history (محدود Free)",
+      "canonical_cap_ids": null,
+      "canonical_owner": null,
+      "aliases": [],
+      "launch_phase": "phase7",
+      "launch_group": "Discovery / Habit / Monitoring",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/edge_ui_batch1.py",
+      "access_states": [
+        "PAID_PRIVATE"
+      ],
+      "commercial_roles": [
+        "RETENTION_DRIVER",
+        "HABIT_DRIVER"
+      ],
+      "user_segments": [
+        "Active Retail"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER', 'HABIT_DRIVER')"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER', 'HABIT_DRIVER')"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER', 'HABIT_DRIVER')"
+        },
+        "retention": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER', 'HABIT_DRIVER');retention_candidate"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER', 'HABIT_DRIVER')"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER', 'HABIT_DRIVER')"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER', 'HABIT_DRIVER')"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.edge_ui_batch1"
+        ],
+        "consumer_paths": [
+          "launch57/edge_ui_batch1.py",
+          "decision_ledger.py",
+          "api/routers/launch57_edge_ui.py"
+        ],
+        "tests_found": [],
+        "evidence_found": [],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification",
+        "CONSUMER_PATH_MISSING"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 50,
+      "canonical_name": "Discipline / missed-opportunity mirror (خفيف)",
+      "canonical_cap_ids": null,
+      "canonical_owner": null,
+      "aliases": [],
+      "launch_phase": "phase7",
+      "launch_group": "Discovery / Habit / Monitoring",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/edge_ui_batch1.py",
+      "access_states": [
+        "PAID_PRIVATE"
+      ],
+      "commercial_roles": [
+        "RETENTION_DRIVER"
+      ],
+      "user_segments": [
+        "Active Retail"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER',)"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER',)"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER',)"
+        },
+        "retention": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER',);retention_candidate"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER',)"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER',)"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('RETENTION_DRIVER',)"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.edge_ui_batch1"
+        ],
+        "consumer_paths": [
+          "launch57/edge_ui_batch1.py",
+          "discipline_mirror.py"
+        ],
+        "tests_found": [],
+        "evidence_found": [],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification",
+        "CONSUMER_PATH_MISSING"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 51,
+      "canonical_name": "Research portal / short briefs",
+      "canonical_cap_ids": [
+        "CAP-0065",
+        "CAP-0100"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production",
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase6",
+      "launch_group": "Explanation / AI / Research",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/explanation_ai_batch1.py",
+      "access_states": [
+        "PUBLIC_ANONYMOUS"
+      ],
+      "commercial_roles": [
+        "RETENTION_DRIVER",
+        "DISCOVERY_DRIVER"
+      ],
+      "user_segments": [
+        "Public Visitor"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=('RETENTION_DRIVER', 'DISCOVERY_DRIVER')"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=('RETENTION_DRIVER', 'DISCOVERY_DRIVER')"
+        },
+        "upgrade": {
+          "value": "MEDIUM",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=('RETENTION_DRIVER', 'DISCOVERY_DRIVER');tier_gated_depth"
+        },
+        "retention": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=('RETENTION_DRIVER', 'DISCOVERY_DRIVER');retention_candidate"
+        },
+        "viral": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=('RETENTION_DRIVER', 'DISCOVERY_DRIVER');viral_candidate"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=('RETENTION_DRIVER', 'DISCOVERY_DRIVER')"
+        },
+        "institutional": {
+          "value": "MEDIUM",
+          "ASSESSMENT_BASIS": "launch_group=Explanation / AI / Research;roles=('RETENTION_DRIVER', 'DISCOVERY_DRIVER');institutional_candidate"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.explanation_ai_batch1"
+        ],
+        "consumer_paths": [
+          "launch57/explanation_ai_batch1.py",
+          "oracle_track_record.py"
+        ],
+        "tests_found": [],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 52,
+      "canonical_name": "Capability library (بحث) — طبقة ثانية لا الرئيسية",
+      "canonical_cap_ids": null,
+      "canonical_owner": null,
+      "aliases": [],
+      "launch_phase": "phase7",
+      "launch_group": "Discovery / Habit / Monitoring",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/edge_ui_batch1.py",
+      "access_states": [
+        "PUBLIC_ANONYMOUS"
+      ],
+      "commercial_roles": [
+        "DISCOVERY_DRIVER"
+      ],
+      "user_segments": [
+        "Public Visitor"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('DISCOVERY_DRIVER',)"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('DISCOVERY_DRIVER',)"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('DISCOVERY_DRIVER',)"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('DISCOVERY_DRIVER',)"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('DISCOVERY_DRIVER',)"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('DISCOVERY_DRIVER',)"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Discovery / Habit / Monitoring;roles=('DISCOVERY_DRIVER',)"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.edge_ui_batch1"
+        ],
+        "consumer_paths": [
+          "launch57/edge_ui_batch1.py",
+          "governance/launch57/LAUNCH57_REGISTER.json"
+        ],
+        "tests_found": [],
+        "evidence_found": [],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification",
+        "CONSUMER_PATH_MISSING"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 53,
+      "canonical_name": "Instant Wallet Due Diligence",
+      "canonical_cap_ids": [
+        "CAP-0022"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase4",
+      "launch_group": "Due Diligence / Risk",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/smart_money_batch2.py",
+      "access_states": [
+        "AUTHENTICATED_FREE",
+        "INSTITUTIONAL_ONLY"
+      ],
+      "commercial_roles": [
+        "INSTITUTIONAL_DIFFERENTIATOR"
+      ],
+      "user_segments": [
+        "Active Retail"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=('INSTITUTIONAL_DIFFERENTIATOR',)"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=('INSTITUTIONAL_DIFFERENTIATOR',)"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=('INSTITUTIONAL_DIFFERENTIATOR',)"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=('INSTITUTIONAL_DIFFERENTIATOR',)"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=('INSTITUTIONAL_DIFFERENTIATOR',)"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=('INSTITUTIONAL_DIFFERENTIATOR',)"
+        },
+        "institutional": {
+          "value": "MEDIUM",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=('INSTITUTIONAL_DIFFERENTIATOR',);institutional_candidate"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.smart_money_batch2"
+        ],
+        "consumer_paths": [
+          "launch57/smart_money_batch2.py",
+          "bd_platform/whales_institutional_layer.py"
+        ],
+        "tests_found": [],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 54,
+      "canonical_name": "Instant Token Due Diligence",
+      "canonical_cap_ids": [
+        "CAP-0023"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase4",
+      "launch_group": "Due Diligence / Risk",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/smart_money_batch2.py",
+      "access_states": [
+        "AUTHENTICATED_FREE",
+        "INSTITUTIONAL_ONLY"
+      ],
+      "commercial_roles": [
+        "INSTITUTIONAL_DIFFERENTIATOR"
+      ],
+      "user_segments": [
+        "Active Retail"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=('INSTITUTIONAL_DIFFERENTIATOR',)"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=('INSTITUTIONAL_DIFFERENTIATOR',)"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=('INSTITUTIONAL_DIFFERENTIATOR',)"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=('INSTITUTIONAL_DIFFERENTIATOR',)"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=('INSTITUTIONAL_DIFFERENTIATOR',)"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=('INSTITUTIONAL_DIFFERENTIATOR',)"
+        },
+        "institutional": {
+          "value": "MEDIUM",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=('INSTITUTIONAL_DIFFERENTIATOR',);institutional_candidate"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.smart_money_batch2"
+        ],
+        "consumer_paths": [
+          "launch57/smart_money_batch2.py",
+          "research_lab.py"
+        ],
+        "tests_found": [],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 55,
+      "canonical_name": "Pump & Dump / manipulation pattern alerts",
+      "canonical_cap_ids": [
+        "CAP-0238"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase4",
+      "launch_group": "Due Diligence / Risk",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/smart_money_batch3.py",
+      "access_states": [
+        "AUTHENTICATED_FREE"
+      ],
+      "commercial_roles": null,
+      "user_segments": [
+        "Active Retail"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=()"
+        },
+        "viral": {
+          "value": "HIGH",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=();viral_candidate"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.smart_money_batch3"
+        ],
+        "consumer_paths": [
+          "launch57/smart_money_batch3.py",
+          "sentiment_manipulation_guard.py",
+          "whale_tracker.py"
+        ],
+        "tests_found": [],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 56,
+      "canonical_name": "Suspicious activity flags (على مسارات توكن/سمارت موني — ليس AML كامل)",
+      "canonical_cap_ids": [
+        "CAP-0297"
+      ],
+      "canonical_owner": [
+        "cap646.institutional_official_production"
+      ],
+      "aliases": [],
+      "launch_phase": "phase4",
+      "launch_group": "Due Diligence / Risk",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/smart_money_batch3.py",
+      "access_states": [
+        "AUTHENTICATED_FREE"
+      ],
+      "commercial_roles": null,
+      "user_segments": [
+        "Active Retail"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=()"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=()"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=()"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=()"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=()"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=()"
+        },
+        "institutional": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=()"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.smart_money_batch3"
+        ],
+        "consumer_paths": [
+          "launch57/smart_money_batch3.py",
+          "bd_platform/derivatives_onchain_intelligence_layer.py"
+        ],
+        "tests_found": [],
+        "evidence_found": [
+          "ENGINEERING_AUDIT_826_REPORT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    },
+    {
+      "launch_number": 57,
+      "canonical_name": "Exchange transparency / risk indicators (احتياطي معلن إن وُجد، شذوذ تدفق، حوادث — بدون شهادة ملاءة أو ضمان)",
+      "canonical_cap_ids": [
+        "CAP-0916"
+      ],
+      "canonical_owner": [
+        "bd_platform.infra_status"
+      ],
+      "aliases": [],
+      "launch_phase": "phase4",
+      "launch_group": "Due Diligence / Risk",
+      "engineering_state": "PENDING_VERIFICATION",
+      "pass_live": false,
+      "consumer_surface": "launch57/smart_money_batch3.py",
+      "access_states": [
+        "AUTHENTICATED_FREE",
+        "INSTITUTIONAL_ONLY",
+        "PUBLIC_ANONYMOUS"
+      ],
+      "commercial_roles": [
+        "INSTITUTIONAL_DIFFERENTIATOR",
+        "TRUST_DRIVER"
+      ],
+      "user_segments": [
+        "Public Visitor"
+      ],
+      "commercial_value": {
+        "free": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=('INSTITUTIONAL_DIFFERENTIATOR', 'TRUST_DRIVER')"
+        },
+        "conversion": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=('INSTITUTIONAL_DIFFERENTIATOR', 'TRUST_DRIVER')"
+        },
+        "upgrade": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=('INSTITUTIONAL_DIFFERENTIATOR', 'TRUST_DRIVER')"
+        },
+        "retention": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=('INSTITUTIONAL_DIFFERENTIATOR', 'TRUST_DRIVER')"
+        },
+        "viral": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=('INSTITUTIONAL_DIFFERENTIATOR', 'TRUST_DRIVER')"
+        },
+        "trust": {
+          "value": "UNKNOWN",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=('INSTITUTIONAL_DIFFERENTIATOR', 'TRUST_DRIVER')"
+        },
+        "institutional": {
+          "value": "MEDIUM",
+          "ASSESSMENT_BASIS": "launch_group=Due Diligence / Risk;roles=('INSTITUTIONAL_DIFFERENTIATOR', 'TRUST_DRIVER');institutional_candidate"
+        }
+      },
+      "commercial_use_state": "NOT_READY_ENGINEERING",
+      "release_maturity": "PREVIEW",
+      "variable_cost_risk": "UNKNOWN",
+      "rights_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "tier_variables_separate": true,
+      "evidence_references": {
+        "implementation": [
+          "launch57.smart_money_batch3"
+        ],
+        "consumer_paths": [
+          "launch57/smart_money_batch3.py",
+          "bd_platform/institutional_b2b_layer.py"
+        ],
+        "tests_found": [],
+        "evidence_found": [
+          "BLACKDARK_CAPABILITY_PHANTOM_DISPOSITION.json#P2GM-916",
+          "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
+        ],
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "audit_sha": "4985100756073c562bf4f7f4a7efbf4e1adb2454"
+      },
+      "commercial_blockers": [
+        "engineering_pending_verification"
+      ],
+      "parked_out_of_launch": false,
+      "audit_only": true
+    }
+  ],
+  "reconciliation_counters": {
+    "LAUNCH57_EXPECTED_COUNT": 57,
+    "LAUNCH57_RECONCILED_COUNT": 57,
+    "ALIASES_COUNT": 0,
+    "DUPLICATE_CANONICAL_COUNT": 0,
+    "PASS_ENGINEERING_COUNT": 9,
+    "PENDING_VERIFICATION_COUNT": 48,
+    "NOT_COMPLETE_COUNT": 0,
+    "BLOCKED_EXTERNAL_COUNT": 0,
+    "PASS_LIVE_COUNT": 0,
+    "PUBLIC_ANONYMOUS_COUNT": 24,
+    "AUTHENTICATED_FREE_COUNT": 44,
+    "PAID_PRIVATE_COUNT": 4,
+    "INSTITUTIONAL_RELEVANT_COUNT": 12,
+    "NOT_SURFACED_COUNT": 0,
+    "MATERIAL_COST_UNKNOWNS": 57,
+    "MATERIAL_RIGHTS_UNKNOWNS": 57,
+    "COMMERCIAL_BLOCKERS": [
+      "engineering_pending_verification",
+      "CONSUMER_PATH_MISSING"
+    ],
+    "UNRESOLVED_CANONICAL_IDS": [],
+    "LAUNCH57_INVENTORY_COMPLETE": true
+  }
+}

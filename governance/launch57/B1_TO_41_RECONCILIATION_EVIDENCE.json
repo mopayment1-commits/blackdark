@@ -1,0 +1,86 @@
+{
+  "artifact": "B1_TO_41_RECONCILIATION_EVIDENCE",
+  "session_type": "post_verification_reconciliation_builder",
+  "REOPEN_REASON": "DEPENDENCY_CONTRACT_CHANGE",
+  "verified_hash41_implementation_sha": "6ad4ae4c",
+  "reconciliation_base_sha": "76a271d1",
+  "reconciliation_final_sha": "7402df5c",
+  "reconciliation_final_sha_full": "7402df5cb981114ec61d24781278af5dd8ce257e",
+  "authoritative_baseline": {
+    "B1_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+    "B2:#40": "PASS_ENGINEERING",
+    "B2:#41": "PASS_ENGINEERING",
+    "B2:#39": "PASS_ENGINEERING",
+    "B2_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+    "B2_AUTHORIZED_FOR_POST_VERIFICATION_RECONCILIATION": true
+  },
+  "pre_execution_safety_gate": {
+    "objective": "Activate prepared B1→#41 bridge for #22/#21 only",
+    "write_scope": [
+      "launch57/b1_freshness_bridge.py",
+      "launch57/data_batch1.py (comments only)"
+    ],
+    "protected_verified_state": [
+      "B2:#40",
+      "B2:#41",
+      "B2:#39",
+      "unaffected B1 paths"
+    ],
+    "legacy_dependency_required": false,
+    "rollback_path": "Set B1_TO_41_RECONCILIATION_ACTIVATED=False in launch57/b1_freshness_bridge.py",
+    "pass": true
+  },
+  "dependency_transition": {
+    "from": "B1_TO_41_TARGETED_RECONCILIATION=PREPARED_NOT_ACTIVATED",
+    "to": "B1_TO_41_TARGETED_RECONCILIATION=PENDING_VERIFICATION",
+    "affected_launch_items": [22, 21],
+    "canonical_freshness_owner": "launch57.freshness_common",
+    "temporal_dependency_pending_41_removed_on_affected_paths": true,
+    "temporal_dependency_pending_6_preserved": true
+  },
+  "B1_TO_41_RECONCILIATION_LOCAL_IMPLEMENTATION": "COMPLETE",
+  "B1_TO_41_TARGETED_RECONCILIATION": "PENDING_VERIFICATION",
+  "B2:#40": "PASS_ENGINEERING",
+  "B2:#41": "PASS_ENGINEERING",
+  "B2:#39": "PASS_ENGINEERING",
+  "B2_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+  "B2_ISOLATION_LEAKAGE": 0,
+  "B2_LEGACY_RUNTIME_DEPENDENCIES": 0,
+  "LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING": false,
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "protected_state_preservation": {
+    "#39": "PRESERVE_VERIFIED_STATE",
+    "#41": "PRESERVE_VERIFIED_STATE",
+    "#40": "PRESERVE_VERIFIED_STATE",
+    "new_reopen_triggers": "NONE"
+  },
+  "changed_paths": [
+    "launch57/b1_freshness_bridge.py",
+    "launch57/data_batch1.py",
+    "tests/launch57/test_b1_to_41_reconciliation.py",
+    "tests/launch57/test_data_batch1.py",
+    "tests/launch57/test_b1_isolation_closure.py",
+    "tests/launch57/test_temporal_batch1.py",
+    "tests/launch57/test_b2_independent_verification.py"
+  ],
+  "targeted_tests": {
+    "command": "python3 -m pytest tests/launch57/test_b1_to_41_reconciliation.py tests/launch57/test_data_batch1.py::test_real_time_prices_rejects_stale_not_as_live tests/launch57/test_data_batch1.py::test_real_time_prices_live_path tests/launch57/test_b1_isolation_closure.py::test_real_time_prices_fails_closed_on_freshness_without_legacy tests/launch57/test_temporal_batch1.py::test_real_time_prices_attaches_temporal_envelope tests/launch57/test_b2_independent_verification.py::test_b1_bridge_activated_pending_verification tests/launch57/test_b2_independent_verification.py::test_b1_paths_bound_to_canonical_41_when_activated -q",
+    "exit_code": 0,
+    "passed": 18,
+    "failed": 0
+  },
+  "verification_coverage": {
+    "hash22_fresh_valid": true,
+    "hash22_stale_not_live": true,
+    "hash22_unknown_not_live": true,
+    "hash21_fresh_valid": true,
+    "hash21_stale_not_live": true,
+    "hash21_unknown_not_live": true,
+    "delayed_label_explicit": true,
+    "future_timestamp_fail_closed": true,
+    "rollback_gate_regression": true,
+    "no_legacy_dependency": true
+  },
+  "builder_self_certification": false,
+  "next_permitted_action": "independent verification of B1→#41 reconciliation only"
+}

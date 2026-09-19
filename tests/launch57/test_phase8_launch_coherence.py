@@ -45,6 +45,8 @@ def test_matrix_complete_no_parked_dependency(phase8_artifacts):
     assert matrix["zero_parked_hero_dependencies"] is True
     for row in matrix["rows"]:
         assert len(row["hero_matrix"]) == 6
+        assert row.get("readiness_state")
+        assert "runtime_handler" in row
         for role in row["hero_matrix"].values():
             assert role in {
                 "PRIMARY_FEED",
@@ -60,19 +62,45 @@ def test_matrix_complete_no_parked_dependency(phase8_artifacts):
             }
 
 
+def test_matrix_launch1_has_phase7_adaptive_evidence(phase8_artifacts):
+    row = next(r for r in phase8_artifacts["matrix"]["rows"] if r["launch_number"] == 1)
+    assert row["adaptive_batch"] == "PHASE7_ADAPTIVE"
+    assert row["runtime_handler"] == "launch57.edge_ui_batch2"
+    assert row["readiness_state"] == "PASS_ENGINEERING"
+
+
 def test_system_graph_no_orphans(phase8_artifacts):
     graph = phase8_artifacts["graph"]
     assert graph["zero_orphan_material_in_launch_scope"] is True
     assert graph["orphan_material_launch_nodes"] == []
 
 
+def test_system_graph_edge_typing_policy(phase8_artifacts):
+    policy = phase8_artifacts["graph"]["edge_typing_policy"]
+    assert policy["causes_requires_independent_justification"] is True
+    assert policy["no_untyped_causal_implication"] is True
+    assert policy["documented_causes_edges"] == []
+
+
 def test_e2e_journeys_pass(phase8_artifacts):
     e2e = phase8_artifacts["e2e"]
     assert e2e["all_pass"] is True
+    assert e2e["total"] >= 13
     for journey in e2e["journeys"]:
         assert journey["status"] == "PASS"
     stale = next(j for j in e2e["journeys"] if j["journey"] == "stale_blocks_presented_as_live")
     assert stale["presented_as_live"] is False
+    required = {
+        "data_spine_trust_decision_command_home",
+        "net_edge_to_spot_perp",
+        "no_parked_home_reachability",
+        "platform_grounding_36",
+        "point_in_time_truth_39",
+        "exchange_risk_only_57",
+        "launch57_only_routing",
+    }
+    names = {j["journey"] for j in e2e["journeys"]}
+    assert required.issubset(names)
 
 
 def test_launch_surface_isolation(phase8_artifacts):
@@ -87,6 +115,8 @@ def test_pre_live_closed_without_pass_live(phase8_artifacts):
     ev = phase8_artifacts["evidence"]
     assert ev["pre_live_verdict"] == "LAUNCH57_PRE_LIVE_CLOSED=YES"
     assert ev["pass_live_granted"] is False
+    assert ev["entry_gate"]["PHASE7_INDEPENDENT_VERDICT"] == "PASS_ENGINEERING"
+    assert ev["confirmations"]["PHASE8_IMPLEMENTATION_STATUS"] == "PENDING_VERIFICATION"
     assert "NO PASS_LIVE" in phase8_artifacts["checklist"]
 
 

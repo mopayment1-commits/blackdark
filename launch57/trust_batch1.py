@@ -2,14 +2,30 @@
 Launch-57 Phase 2 — Trust Batch 1 canonical runtime spine.
 
 Build order: #6 evidence display → #5 CAP-0639 → #4 CAP-0640 → #3 CAP-0641 → #2 oracle sentence
+B4: #2/#3 decision timing via launch57.decision_timing_common (SPEC §13).
+B5: #4 public accuracy ledger timing via launch57.public_accuracy_common (SPEC §14).
+B6: #5/#43 net-edge timing via launch57.net_edge_timing_common (SPEC §15).
 """
 
 from __future__ import annotations
 
-from datetime import UTC, datetime
 from typing import Any
 
-from cap646.evidence_class import EVIDENCE_CLASSES, ai_compliance_footer, attach_evidence_metadata
+from launch57.b4_decision_bridge import apply_b4_trust_envelope, finalize_b4_decision_surface
+from launch57.b5_public_accuracy_bridge import finalize_b5_ledger_surface
+from launch57.b6_net_edge_bridge import finalize_b6_net_edge_surface
+from launch57.decision_timing_common import (
+    build_decision_timing_context,
+    build_launch57_decision_certificate,
+    build_oracle_decision_record,
+    snapshot_decision_time_evidence_state,
+)
+from launch57.evidence_class_common import assess_user_evidence_class
+from launch57.trust_adaptive_common import (
+    attach_adaptive_disclosure,
+    build_level1_decision_disclosure,
+    build_net_edge_safety_floor,
+)
 
 LAUNCH57_TRUST_BATCH1_CAP_IDS: frozenset[int] = frozenset({639, 640, 641})
 
@@ -19,48 +35,16 @@ LAUNCH_ITEM_BY_CAP: dict[int, int] = {
     641: 3,
 }
 
-# User-facing evidence taxonomy (Launch #6) — maps canonical classes to LIVE/DELAYED/SIM.
-_USER_EVIDENCE_LABELS: dict[str, str] = {
-    "PRODUCTION_VERIFIED": "LIVE",
-    "SHADOW_LIVE_FORWARD": "LIVE",
-    "BACKTESTED": "DELAYED",
-    "SIMULATED": "SIM",
-}
-
-_USER_EVIDENCE_DESCRIPTIONS: dict[str, str] = {
-    "LIVE": "Production or shadow-live forward evidence — not replay.",
-    "DELAYED": "Historical or backtested evidence — not presented as live performance.",
-    "SIM": "Simulated or synthetic — never promoted to live metrics.",
-}
-
-
-def _utcnow_iso() -> str:
-    return datetime.now(UTC).isoformat()
-
 
 def user_evidence_display(payload: dict[str, Any]) -> dict[str, Any]:
-    """Launch #6 — visible evidence class (LIVE / DELAYED / SIM) for product surfaces."""
-    meta = attach_evidence_metadata(dict(payload))
-    canonical = str(meta.get("evidence_class") or "SHADOW_LIVE_FORWARD")
-    user_label = _USER_EVIDENCE_LABELS.get(canonical, "DELAYED")
-    return {
-        "launch_item_id": 6,
-        "canonical_evidence_class": canonical,
-        "user_facing_label": user_label,
-        "user_facing_description": _USER_EVIDENCE_DESCRIPTIONS.get(user_label, ""),
-        "taxonomy": list(EVIDENCE_CLASSES),
-        "visible": True,
-        "promotion_policy": "replay_and_simulation_never_become_production_metrics",
-        "methodology_version": "launch57-trust-evidence-display-1.0",
-    }
+    """Launch #6 — visible evidence class (LIVE / DELAYED / SIM) via canonical #6 owner."""
+    assessment = assess_user_evidence_class(payload)
+    return assessment.to_payload()
 
 
 def attach_trust_envelope(body: dict[str, Any]) -> dict[str, Any]:
     """Attach Launch #6 evidence display + compliance footer to trust outputs."""
-    out = ai_compliance_footer(dict(body))
-    out["evidence_display"] = user_evidence_display(out)
-    out["evidence_class_visible"] = True
-    return out
+    return apply_b4_trust_envelope(body)
 
 
 def _is_demo_opportunity(opportunity: dict[str, Any] | None) -> bool:
@@ -70,7 +54,6 @@ def _is_demo_opportunity(opportunity: dict[str, Any] | None) -> bool:
 
     if opportunity.get("demo") or opportunity.get("synthetic") or opportunity.get("source") == "demo":
         return True
-    # Structural match to shared demo constant — never treat as live economics.
     demo_keys = ("net_profit_usdt", "quote_amount", "total_slippage_bps", "quote_age_ms")
     if all(opportunity.get(k) == FIN_004_DEMO_OPPORTUNITY.get(k) for k in demo_keys):
         return True
@@ -136,13 +119,34 @@ async def net_edge_truth_score(*, symbol: str, params: dict[str, Any] | None = N
         "backend_entrypoint": "net_edge_truth_score",
         "binding_source": "launch57_phase2_trust_batch1",
     }
-    return attach_trust_envelope(body)
+    finalized = finalize_b6_net_edge_surface(
+        body,
+        payload=p,
+        opportunity=opportunity,
+        display_timezone=p.get("display_timezone"),
+    )
+    if finalized.get("success"):
+        score = finalized.get("net_edge_truth_score") or {}
+        safety_floor = build_net_edge_safety_floor(score, opportunity)
+        disclosure = build_level1_decision_disclosure(
+            p,
+            launch_item_id=5,
+            surface="net_edge_truth_score",
+            answer_state="NET_EDGE_EVALUATED",
+            evidence_display=finalized.get("evidence_display"),
+            decision_timing=finalized.get("opportunity_timing"),
+            uncertainty="qualified" if score.get("reject") else "actionable_with_caveats",
+        )
+        finalized = attach_adaptive_disclosure(finalized, disclosure, extra={"net_edge_safety_floor": safety_floor})
+        finalized["net_edge_safety_floor"] = safety_floor
+    return finalized
 
 
 async def public_accuracy_ledger(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
     """Launch #4 / CAP-0640 — live ledger only; synthetic excluded from primary metrics."""
     from oracle_track_record import public_track_record
 
+    p = dict(params or {})
     ledger = public_track_record()
     cumulative = ledger.get("cumulative") or {}
     synthetic = ledger.get("synthetic_demo_data") or {}
@@ -159,29 +163,53 @@ async def public_accuracy_ledger(*, symbol: str, params: dict[str, Any] | None =
         "synthetic_excluded_from_primary": synthetic.get("excluded_from_primary_metrics", True),
         "shadow_ledger_not_production": True,
         "live_only_primary": True,
+        "source": p.get("source"),
+        "evidence_class": p.get("evidence_class"),
         "backend_module": "launch57.trust_batch1",
         "backend_entrypoint": "public_accuracy_ledger",
         "binding_source": "launch57_phase2_trust_batch1",
     }
-    return attach_trust_envelope(body)
+    return finalize_b5_ledger_surface(body, display_timezone=p.get("display_timezone"))
 
 
 async def decision_certificate_export(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
-    """Launch #3 / CAP-0641 — decision certificate + hash."""
-    from decision_certificate import build_decision_certificate
-
+    """Launch #3 / CAP-0641 — decision certificate + hash (Launch-57-local builder)."""
     p = dict(params or {})
-    cert_payload = {
-        "symbol": symbol,
-        "tier": p.get("tier") or "free",
-        "decision_action": p.get("decision_action") or p.get("verdict") or "WAIT",
-        "decision_sentence": p.get("decision_sentence") or p.get("oracle"),
-        "prediction_id": p.get("prediction_id"),
-        "chain_hash": p.get("chain_hash"),
-        "opportunity_score": p.get("opportunity_score"),
-        "net_edge_truth": p.get("net_edge_truth"),
-    }
-    cert = build_decision_certificate(cert_payload)
+    p["symbol"] = symbol
+
+    timing = build_decision_timing_context(
+        p,
+        display_timezone=p.get("display_timezone"),
+        require_authoritative_decision_time=True,
+    )
+    if timing is None:
+        body = {
+            "capability_id": 641,
+            "launch_item_id": 3,
+            "surface": "decision_certificate_institutional_dd_export",
+            "symbol": symbol,
+            "success": False,
+            "error": "decision_time_required",
+            "certificate": None,
+            "decision_certificate": None,
+            "certificate_hash": None,
+            "backend_module": "launch57.trust_batch1",
+            "backend_entrypoint": "decision_certificate_export",
+            "binding_source": "launch57_phase2_trust_batch1",
+        }
+        return apply_b4_trust_envelope(body)
+
+    evidence = snapshot_decision_time_evidence_state(p, display_timezone=p.get("display_timezone"))
+    cert_source = dict(p)
+    cert_source.setdefault("symbol", symbol)
+    cert_source.setdefault("tier", "free")
+    cert_source.setdefault("decision_action", p.get("verdict") or "WAIT")
+    cert_source.setdefault("decision_sentence", p.get("oracle"))
+    cert = build_launch57_decision_certificate(cert_source, timing=timing, evidence=evidence)
+    governed = dict(p.get("governed_payload") or {})
+    governed.setdefault("decision_time", timing.decision_time)
+    governed.setdefault("issued_at", timing.issued_at)
+    governed.setdefault("certificate_timestamp", timing.certificate_timestamp)
     body = {
         "capability_id": 641,
         "launch_item_id": 3,
@@ -192,16 +220,41 @@ async def decision_certificate_export(*, symbol: str, params: dict[str, Any] | N
         "decision_certificate": cert,
         "certificate_hash": cert.get("certificate_hash"),
         "export_format": p.get("format") or "json",
+        "governed_payload": governed,
+        "decision_time": timing.decision_time,
+        "source": p.get("source"),
+        "evidence_class": p.get("evidence_class"),
         "backend_module": "launch57.trust_batch1",
         "backend_entrypoint": "decision_certificate_export",
         "binding_source": "launch57_phase2_trust_batch1",
     }
-    return attach_trust_envelope(body)
+    finalized = finalize_b4_decision_surface(
+        body,
+        display_timezone=p.get("display_timezone"),
+        require_authoritative_decision_time=False,
+    )
+    if finalized is None:
+        body["success"] = False
+        body["error"] = "decision_timing_finalize_failed"
+        return apply_b4_trust_envelope(body)
+    finalized["certificate"] = cert
+    finalized["decision_certificate"] = cert
+    finalized["certificate_hash"] = cert.get("certificate_hash")
+    disclosure = build_level1_decision_disclosure(
+        p,
+        launch_item_id=3,
+        surface="decision_certificate_institutional_dd_export",
+        answer_state=str(cert.get("decision_action") or "WAIT"),
+        evidence_display=finalized.get("evidence_display"),
+        decision_timing=finalized.get("decision_timing"),
+    )
+    return attach_adaptive_disclosure(finalized, disclosure)
 
 
 async def single_sentence_oracle(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
     """Launch #2 — Single-Sentence Oracle (ACT/WAIT/ABSTAIN) product surface."""
     p = dict(params or {})
+    p["symbol"] = symbol
     governed = p.get("governed_payload")
 
     if governed:
@@ -217,24 +270,32 @@ async def single_sentence_oracle(*, symbol: str, params: dict[str, Any] | None =
             action = "WAIT" if action not in {"ACT", "WAIT", "ABSTAIN", "CAUTION"} else action
         sentence = p.get("decision_sentence") or f"{symbol}: {action} — governed oracle sentence."
 
-    body = {
-        "launch_item_id": 2,
-        "surface": "single_sentence_oracle",
-        "symbol": symbol,
-        "success": True,
-        "decision_action": action,
-        "decision_sentence": sentence,
-        "single_sentence_oracle": {
-            "action": action,
-            "sentence": sentence,
-            "shareable": True,
-        },
-        "hero": "HERO_1_SINGLE_SENTENCE_ORACLE",
-        "backend_module": "launch57.trust_batch1",
-        "backend_entrypoint": "single_sentence_oracle",
-        "binding_source": "launch57_phase2_trust_batch1",
-    }
-    return attach_trust_envelope(body)
+    timing = build_decision_timing_context(p, display_timezone=p.get("display_timezone"))
+    evidence = snapshot_decision_time_evidence_state(p, display_timezone=p.get("display_timezone"))
+    body = build_oracle_decision_record(
+        p,
+        timing=timing,
+        evidence=evidence,
+        action=action,
+        sentence=sentence,
+    )
+    for key in ("source", "evidence_class", "canonical_evidence_class", "freshness_state", "governed_payload"):
+        if key in p:
+            body[key] = p[key]
+    finalized = finalize_b4_decision_surface(body, display_timezone=p.get("display_timezone"))
+    if finalized is None:
+        body["success"] = False
+        body["error"] = "decision_timing_finalize_failed"
+        return apply_b4_trust_envelope(body)
+    disclosure = build_level1_decision_disclosure(
+        p,
+        launch_item_id=2,
+        surface="single_sentence_oracle",
+        answer_state=action,
+        evidence_display=finalized.get("evidence_display"),
+        decision_timing=finalized.get("decision_timing"),
+    )
+    return attach_adaptive_disclosure(finalized, disclosure)
 
 
 _DISPATCH_ENTRYPOINTS: dict[int, str] = {

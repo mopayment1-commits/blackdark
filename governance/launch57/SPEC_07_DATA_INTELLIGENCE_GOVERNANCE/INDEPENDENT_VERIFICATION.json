@@ -1,0 +1,63 @@
+{
+  "artifact": "SPEC_07_INDEPENDENT_VERIFICATION",
+  "domain": "SPEC_07_DATA_INTELLIGENCE_GOVERNANCE",
+  "verification_sha": "8fcd9703acc41a277adca217078e111a9c622727",
+  "probe_count": 10,
+  "passed_count": 10,
+  "failed_count": 0,
+  "INDEPENDENT_VERIFICATION_PASS": true,
+  "probes": [
+    {
+      "probe": "iv_material_write_without_governance_fails",
+      "pass": true,
+      "detail": "missing_observation_contract"
+    },
+    {
+      "probe": "iv_stale_not_presented_as_live",
+      "pass": true,
+      "detail": "STALE"
+    },
+    {
+      "probe": "iv_sim_not_production",
+      "pass": true,
+      "detail": "SIM"
+    },
+    {
+      "probe": "iv_conflict_no_silent_average",
+      "pass": true,
+      "detail": "CONFLICT"
+    },
+    {
+      "probe": "iv_runtime_paths_wired",
+      "pass": true,
+      "detail": "{'data_batch1_material_observation': True, 'data_batch1_reconciliation': True, 'data_batch1_execute_router': True, 'data_batch2_provenance': True, 'data_batch2_freshness': True, 'data_batch2_execute_router': True, 'decision_common_freshness_spine': True}"
+    },
+    {
+      "probe": "iv_no_parked_data_scope",
+      "pass": true,
+      "detail": "out of scope"
+    },
+    {
+      "probe": "iv_file06_aligned",
+      "pass": true,
+      "detail": "{'file06_sim_live_separation': True, 'file06_outcome_gate_honest': True, 'aligned': True}"
+    },
+    {
+      "probe": "iv_machine_readable_export",
+      "pass": true,
+      "detail": "LAUNCH57_DATA_INTELLIGENCE_GOVERNANCE_EXPORT"
+    },
+    {
+      "probe": "iv_material_observation_on_live_path",
+      "pass": true,
+      "detail": "True"
+    },
+    {
+      "probe": "iv_pass_live_not_claimed",
+      "pass": true,
+      "detail": "honest"
+    }
+  ],
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "generated_at": "2026-09-19T00:09:20.293105+00:00"
+}

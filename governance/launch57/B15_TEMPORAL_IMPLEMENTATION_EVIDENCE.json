@@ -1,0 +1,94 @@
+{
+  "artifact": "B15_TEMPORAL_IMPLEMENTATION_EVIDENCE",
+  "builder_session": "cursor-cloud-agent-b15-temporal-reconciliation",
+  "generated_at": "2026-09-17T20:08:00+00:00",
+  "base_sha": "9a6dfaf8",
+  "implementation_commit": "6089b277",
+  "B15_CANONICAL_SCOPE": {
+    "batch": "B15",
+    "domain": "Phase 8 integrated temporal reconciliation",
+    "governing_sources": [
+      "governance/launch57/LAUNCH57_TEMPORAL_EXECUTION_PLAN_B1_B15.md §4, §12",
+      "BLACKDARK_Launch57_Global_Time_Temporal_Consistency_FROM_SCRATCH_SPEC_66d6.md §37–§42"
+    ],
+    "quoted_plan_section_4": "B15 | PLANNED_NOT_STARTED | §37–§42 | Phase 8 integrated temporal reconciliation | — | —",
+    "quoted_plan_section_12": "### B15 — Final Integration Batch — SPEC §: 37–42 — Domain: Independent verification, production/external gates, acceptance criteria, required final report, machine reconciliation artifact, final verdict fields. — Produces: LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING evaluation only after B1–B14 all PASS_ENGINEERING. — Entry: B14 PASS_ENGINEERING IV required.",
+    "quoted_spec_sections": {
+      "§37": "Independent verification — builder cannot self-certify",
+      "§38": "Production/external gates — NEEDS_EXTERNAL_VERIFICATION; no false PASS_LIVE",
+      "§39": "Acceptance criteria — 30 local engineering criteria including integrated reconciliation",
+      "§40": "Required final report — BLACKDARK_LAUNCH57_TEMPORAL_CONSISTENCY_REPORT.md sections A–U",
+      "§41": "Required machine artifact — BLACKDARK_LAUNCH57_TEMPORAL_CONSISTENCY_RECONCILIATION.json",
+      "§42": "Final verdict fields — LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING; builder forbidden from global PASS until IV"
+    },
+    "applicability_boundaries": [
+      "Reconciliation and evidence only; no product semantic changes",
+      "B1–B14 frozen owners unmodified",
+      "Builder does not grant global PASS_ENGINEERING or PASS_LIVE",
+      "External gates classified per §38, not treated as engineering defects"
+    ]
+  },
+  "entry_gate": {
+    "B14_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+    "B14_VERIFIED_IV_SHA": "9a6dfaf8",
+    "B13_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+    "B1_B14_ALL_PASS_ENGINEERING": true,
+    "LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING": false,
+    "PASS_LIVE_NOT_CLAIMED": true,
+    "pass": true
+  },
+  "implementation_summary": {
+    "objective": "SPEC §40–§42 Phase 8 integrated temporal reconciliation across B1–B14 IV artifacts",
+    "deliverables": {
+      "generator": "governance/launch57/generate_b15_temporal_reconciliation.py",
+      "machine_artifact": "governance/launch57/BLACKDARK_LAUNCH57_TEMPORAL_CONSISTENCY_RECONCILIATION.json",
+      "final_report": "governance/launch57/BLACKDARK_LAUNCH57_TEMPORAL_CONSISTENCY_REPORT.md",
+      "tests": "tests/launch57/test_temporal_batch15.py"
+    },
+    "reconciliation_findings": {
+      "all_batches_b1_b14_pass_engineering": true,
+      "integrated_temporal_reconciliation_pass": true,
+      "unresolved_cross_batch_timestamp_conflicts": [],
+      "unresolved_temporal_inconsistencies": [],
+      "documented_residual_gaps": [
+        "B14-ENVELOPE-COVERAGE",
+        "B13-CHART-COVERAGE"
+      ],
+      "external_blockers": 6
+    }
+  },
+  "changed_paths": [
+    "governance/launch57/generate_b15_temporal_reconciliation.py",
+    "governance/launch57/BLACKDARK_LAUNCH57_TEMPORAL_CONSISTENCY_RECONCILIATION.json",
+    "governance/launch57/BLACKDARK_LAUNCH57_TEMPORAL_CONSISTENCY_REPORT.md",
+    "tests/launch57/test_temporal_batch15.py",
+    "governance/launch57/B15_TEMPORAL_IMPLEMENTATION_EVIDENCE.json",
+    "governance/launch57/B15_TEMPORAL_IMPLEMENTATION_REPORT.md"
+  ],
+  "protected_state": {
+    "B1_B14_INDEPENDENT_VERDICT": "PRESERVE_VERIFIED_STATE",
+    "frozen_owner_modules_unmodified": true,
+    "product_code_changes": false
+  },
+  "B15_INDEPENDENT_VERDICT": "PENDING_VERIFICATION",
+  "B15_IMPLEMENTATION_STATUS": "PENDING_VERIFICATION",
+  "LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING": false,
+  "LAUNCH57_TEMPORAL_CONSISTENCY_READY_FOR_LOCAL_USE": false,
+  "PASS_ENGINEERING_NOT_CLAIMED": true,
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "tests": {
+    "b15_command": "python3 -m pytest tests/launch57/test_temporal_batch15.py -q",
+    "b15_passed": 21,
+    "integrated_command": "python3 -m pytest tests/launch57/test_temporal_batch1.py … test_temporal_batch14.py -q",
+    "integrated_collected": 161,
+    "integrated_exit_code": 0,
+    "pass": true
+  },
+  "residual_risks_for_iv": [
+    "Builder integrated reconciliation pass does not imply global LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING.",
+    "B14/B13 documented residual gaps remain; not silently repaired in B15.",
+    "Six §38 external gates remain NEEDS_EXTERNAL_VERIFICATION.",
+    "Global PASS requires B15 independent verification on final SHA per §42."
+  ],
+  "next_permitted_action": "independent verification of B15 integrated temporal reconciliation only"
+}

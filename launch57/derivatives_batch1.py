@@ -10,6 +10,20 @@ from typing import Any
 
 from launch57.decision_common import load_decision_spine, stale_gate_body, stamp_decision_batch
 from launch57.derivatives_common import attach_derivatives_envelope, light_heatmap_footer
+from launch57.trust_adaptive_common import (
+    apply_funding_rate_derivatives_semantics,
+    apply_liquidation_derivatives_semantics,
+    apply_open_interest_derivatives_semantics,
+    apply_taker_leverage_derivatives_semantics,
+    attach_adaptive_disclosure,
+    build_derivatives_composite_disclosure,
+    build_funding_rate_derivatives_disclosure,
+    build_level1_decision_disclosure,
+    build_liquidation_derivatives_disclosure,
+    build_open_interest_derivatives_disclosure,
+    build_taker_leverage_derivatives_disclosure,
+    compute_derivatives_sentiment_composite,
+)
 
 LAUNCH57_DERIVATIVES_BATCH1_CAP_IDS: frozenset[int] = frozenset({85, 48, 86, 88, 89, 87, 90})
 
@@ -25,6 +39,52 @@ LAUNCH_ITEM_BY_CAP: dict[int, int] = {
 
 _BINDING = "launch57_phase5_derivatives_batch1"
 _MODULE = "launch57.derivatives_batch1"
+
+
+def _governed_params(p: dict[str, Any], semantics: dict[str, Any], spine: dict[str, Any]) -> dict[str, Any]:
+    out = dict(p)
+    governed = dict(out.get("governed_payload") or {})
+    contract = semantics.get("contract") or {}
+    if contract.get("material_contradiction"):
+        governed["critical_contradiction"] = contract["material_contradiction"]
+    if contract.get("material_limitation"):
+        governed["critical_limitation"] = contract["material_limitation"]
+    if semantics.get("material_disagreements"):
+        governed["contradictions"] = semantics["material_disagreements"]
+    out["governed_payload"] = governed
+    out["freshness_state"] = spine.get("freshness_state")
+    return out
+
+
+def _attach_derivatives_adaptive(
+    wrapped: dict[str, Any],
+    *,
+    p: dict[str, Any],
+    spine: dict[str, Any],
+    launch_item_id: int,
+    surface: str,
+    semantics: dict[str, Any],
+    disclosure_key: str,
+    disclosure: dict[str, Any],
+) -> dict[str, Any]:
+    contract = semantics.get("contract") or {}
+    wrapped["derivatives_contract"] = contract
+    wrapped["evidence_class_visible"] = contract.get("evidence_class")
+    wrapped["evidence_display"] = {
+        "canonical_evidence_class": contract.get("evidence_class"),
+        "freshness_state": spine.get("freshness_state"),
+    }
+    governed_p = _governed_params(p, semantics, spine)
+    uncertainty = "qualified" if contract.get("material_contradiction") or semantics.get("material_disagreements") else "standard"
+    level1 = build_level1_decision_disclosure(
+        governed_p,
+        launch_item_id=launch_item_id,
+        surface=surface,
+        answer_state=semantics.get("answer_state"),
+        evidence_display=wrapped.get("evidence_display"),
+        uncertainty=uncertainty,
+    )
+    return attach_adaptive_disclosure(wrapped, level1, extra={disclosure_key: disclosure})
 
 
 async def _gated(
@@ -53,7 +113,7 @@ async def _gated(
             batch_module=_MODULE,
             binding_source=_BINDING,
         )
-        return attach_derivatives_envelope(body, spine=spine), None
+        return attach_derivatives_envelope(body, spine=spine, params=params), None
     return None, spine
 
 
@@ -75,14 +135,16 @@ async def futures_open_interest_intelligence(*, symbol: str, params: dict[str, A
 
     overview = await derivatives_overview(spine["symbol"])
     ft = (overview.get("free_tier") or {}) if isinstance(overview, dict) else {}
+    semantics = apply_open_interest_derivatives_semantics(overview=overview, ft=ft, spine=spine)
     body = stamp_decision_batch(
         {
             "surface": "futures_open_interest_intelligence",
             "symbol": spine["symbol"],
-            "success": bool(overview),
-            "open_interest_usd": ft.get("open_interest_usd"),
-            "open_interest_contracts": ft.get("open_interest_contracts"),
+            "success": bool(semantics.get("oi_observable")),
+            "open_interest_usd": semantics.get("open_interest_usd"),
+            "open_interest_contracts": semantics.get("open_interest_contracts"),
             "derivatives_overview": overview,
+            "derivatives_semantics": semantics,
             "price_context_from": "launch57.data_batch1",
             "freshness_state": spine["freshness_state"],
             "presented_as_live": spine["presented_as_live"],
@@ -93,7 +155,18 @@ async def futures_open_interest_intelligence(*, symbol: str, params: dict[str, A
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_derivatives_envelope(body, spine=spine)
+    wrapped = attach_derivatives_envelope(body, spine=spine, params=p)
+    disclosure = build_open_interest_derivatives_disclosure(semantics)
+    return _attach_derivatives_adaptive(
+        wrapped,
+        p=p,
+        spine=spine,
+        launch_item_id=25,
+        surface="futures_open_interest_intelligence",
+        semantics=semantics,
+        disclosure_key="open_interest_derivatives_disclosure",
+        disclosure=disclosure,
+    )
 
 
 async def futures_intelligence_suite(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -113,12 +186,15 @@ async def futures_intelligence_suite(*, symbol: str, params: dict[str, Any] | No
         return blocked
 
     overview = await derivatives_overview(spine["symbol"])
+    ft = (overview.get("free_tier") or {}) if isinstance(overview, dict) else {}
+    semantics = apply_open_interest_derivatives_semantics(overview=overview, ft=ft, spine=spine)
     body = stamp_decision_batch(
         {
             "surface": "futures_intelligence_suite",
             "symbol": spine["symbol"],
-            "success": bool(overview),
+            "success": bool(semantics.get("oi_observable")),
             "futures_intelligence_suite": overview,
+            "derivatives_semantics": semantics,
             "alias_launch_item": 25,
             "freshness_state": spine["freshness_state"],
             "presented_as_live": spine["presented_as_live"],
@@ -129,7 +205,18 @@ async def futures_intelligence_suite(*, symbol: str, params: dict[str, Any] | No
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_derivatives_envelope(body, spine=spine)
+    wrapped = attach_derivatives_envelope(body, spine=spine, params=p)
+    disclosure = build_open_interest_derivatives_disclosure(semantics)
+    return _attach_derivatives_adaptive(
+        wrapped,
+        p=p,
+        spine=spine,
+        launch_item_id=25,
+        surface="futures_intelligence_suite",
+        semantics=semantics,
+        disclosure_key="open_interest_derivatives_disclosure",
+        disclosure=disclosure,
+    )
 
 
 async def funding_rate_intelligence(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -150,14 +237,17 @@ async def funding_rate_intelligence(*, symbol: str, params: dict[str, Any] | Non
 
     overview = await derivatives_overview(spine["symbol"])
     ft = (overview.get("free_tier") or {}) if isinstance(overview, dict) else {}
+    semantics = apply_funding_rate_derivatives_semantics(overview=overview, ft=ft, spine=spine)
     body = stamp_decision_batch(
         {
             "surface": "funding_rate_intelligence",
             "symbol": spine["symbol"],
-            "success": bool(overview),
-            "funding_rate": ft.get("funding_rate"),
-            "funding_rate_pct": ft.get("funding_rate_pct"),
+            "success": bool(semantics.get("funding_observable")),
+            "funding_rate": semantics.get("funding_rate"),
+            "funding_rate_pct": semantics.get("funding_rate_pct"),
+            "funding_direction": semantics.get("funding_direction"),
             "derivatives_overview": overview,
+            "derivatives_semantics": semantics,
             "freshness_state": spine["freshness_state"],
             "presented_as_live": spine["presented_as_live"],
         },
@@ -167,7 +257,18 @@ async def funding_rate_intelligence(*, symbol: str, params: dict[str, Any] | Non
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_derivatives_envelope(body, spine=spine)
+    wrapped = attach_derivatives_envelope(body, spine=spine, params=p)
+    disclosure = build_funding_rate_derivatives_disclosure(semantics)
+    return _attach_derivatives_adaptive(
+        wrapped,
+        p=p,
+        spine=spine,
+        launch_item_id=26,
+        surface="funding_rate_intelligence",
+        semantics=semantics,
+        disclosure_key="funding_rate_derivatives_disclosure",
+        disclosure=disclosure,
+    )
 
 
 async def liquidation_intelligence_light(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -188,6 +289,7 @@ async def liquidation_intelligence_light(*, symbol: str, params: dict[str, Any] 
 
     radar = await liquidation_radar(spine["symbol"])
     alerts = radar.get("alerts") or []
+    semantics = apply_liquidation_derivatives_semantics(radar=radar, spine=spine)
     heatmap = {
         "asset": spine["symbol"],
         "alert_count": len(alerts),
@@ -201,9 +303,10 @@ async def liquidation_intelligence_light(*, symbol: str, params: dict[str, Any] 
         {
             "surface": "liquidation_intelligence",
             "symbol": spine["symbol"],
-            "success": bool(radar),
+            "success": semantics.get("answer_state") == "LIQUIDATION_SIGNAL",
             "liquidation": radar,
             "liquidation_heatmap_light": heatmap,
+            "derivatives_semantics": semantics,
             "freshness_state": spine["freshness_state"],
             "presented_as_live": spine["presented_as_live"],
         },
@@ -213,7 +316,18 @@ async def liquidation_intelligence_light(*, symbol: str, params: dict[str, Any] 
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_derivatives_envelope(body, spine=spine)
+    wrapped = attach_derivatives_envelope(body, spine=spine, params=p)
+    disclosure = build_liquidation_derivatives_disclosure(semantics)
+    return _attach_derivatives_adaptive(
+        wrapped,
+        p=p,
+        spine=spine,
+        launch_item_id=27,
+        surface="liquidation_intelligence",
+        semantics=semantics,
+        disclosure_key="liquidation_derivatives_disclosure",
+        disclosure=disclosure,
+    )
 
 
 async def taker_buy_sell_pressure(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -235,14 +349,17 @@ async def taker_buy_sell_pressure(*, symbol: str, params: dict[str, Any] | None 
     overview = await derivatives_overview(spine["symbol"])
     ft = (overview.get("free_tier") or {}) if isinstance(overview, dict) else {}
     buy = float(ft.get("taker_buy_ratio") or 0.5)
+    semantics = apply_taker_leverage_derivatives_semantics(ft=ft, leverage_payload=None, spine=spine)
     body = stamp_decision_batch(
         {
             "surface": "taker_buy_sell_pressure",
             "symbol": spine["symbol"],
-            "success": bool(overview),
+            "success": semantics.get("answer_state") not in {"INSUFFICIENT_EVIDENCE"},
             "taker_buy_ratio": buy,
             "taker_sell_ratio": round(1 - buy, 4),
+            "taker_direction": semantics.get("taker_direction"),
             "derivatives": ft,
+            "derivatives_semantics": semantics,
             "freshness_state": spine["freshness_state"],
             "presented_as_live": spine["presented_as_live"],
         },
@@ -252,11 +369,23 @@ async def taker_buy_sell_pressure(*, symbol: str, params: dict[str, Any] | None 
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_derivatives_envelope(body, spine=spine)
+    wrapped = attach_derivatives_envelope(body, spine=spine, params=p)
+    disclosure = build_taker_leverage_derivatives_disclosure(semantics)
+    return _attach_derivatives_adaptive(
+        wrapped,
+        p=p,
+        spine=spine,
+        launch_item_id=28,
+        surface="taker_buy_sell_pressure",
+        semantics=semantics,
+        disclosure_key="taker_leverage_derivatives_disclosure",
+        disclosure=disclosure,
+    )
 
 
 async def estimated_leverage_ratio(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
     """Launch #28 / CAP-0087 — estimated leverage ratio."""
+    from bd_platform.derivatives_hub import derivatives_overview
     from bd_platform.heroes_capability_layer import leverage_ratio_overhang_197
 
     p = dict(params or {})
@@ -271,14 +400,19 @@ async def estimated_leverage_ratio(*, symbol: str, params: dict[str, Any] | None
     if blocked:
         return blocked
 
+    overview = await derivatives_overview(spine["symbol"])
+    ft = (overview.get("free_tier") or {}) if isinstance(overview, dict) else {}
     payload = leverage_ratio_overhang_197(symbol=spine["symbol"])
+    semantics = apply_taker_leverage_derivatives_semantics(ft=ft, leverage_payload=payload, spine=spine)
     body = stamp_decision_batch(
         {
             "surface": "estimated_leverage_ratio",
             "symbol": spine["symbol"],
-            "success": bool(payload),
+            "success": semantics.get("answer_state") not in {"INSUFFICIENT_EVIDENCE"},
             "estimated_leverage_ratio": payload.get("leverage_ratio") or payload.get("estimated_leverage_ratio"),
+            "leverage_direction": semantics.get("leverage_direction"),
             "leverage_payload": payload,
+            "derivatives_semantics": semantics,
             "alias_launch_item": 28,
             "freshness_state": spine["freshness_state"],
             "presented_as_live": spine["presented_as_live"],
@@ -289,7 +423,18 @@ async def estimated_leverage_ratio(*, symbol: str, params: dict[str, Any] | None
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_derivatives_envelope(body, spine=spine)
+    wrapped = attach_derivatives_envelope(body, spine=spine, params=p)
+    disclosure = build_taker_leverage_derivatives_disclosure(semantics)
+    return _attach_derivatives_adaptive(
+        wrapped,
+        p=p,
+        spine=spine,
+        launch_item_id=28,
+        surface="estimated_leverage_ratio",
+        semantics=semantics,
+        disclosure_key="taker_leverage_derivatives_disclosure",
+        disclosure=disclosure,
+    )
 
 
 async def derivatives_sentiment_composite(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -311,15 +456,20 @@ async def derivatives_sentiment_composite(*, symbol: str, params: dict[str, Any]
 
     sentiment = await build_sentiment_context_safe(spine["symbol"])
     deriv = await derivatives_overview(spine["symbol"])
-    composite = sentiment.get("score")
+    semantics = compute_derivatives_sentiment_composite(sentiment=sentiment, deriv_overview=deriv, spine=spine)
+    decision_score = semantics.get("decision_driving_composite_score")
+    observable_score = semantics.get("observable_sentiment_score")
     body = stamp_decision_batch(
         {
             "surface": "derivatives_market_sentiment_composite",
             "symbol": spine["symbol"],
-            "success": bool(sentiment or deriv),
+            "success": semantics.get("answer_state") not in {"INSUFFICIENT_EVIDENCE"},
             "sentiment": sentiment,
             "derivatives": deriv,
-            "composite_score": composite,
+            "composite_score": decision_score,
+            "observable_sentiment_score": observable_score,
+            "derivatives_semantics": semantics,
+            "material_disagreements": semantics.get("material_disagreements"),
             "one_line_summary": f"{spine['symbol']} derivatives composite from live spine + sentiment",
             "freshness_state": spine["freshness_state"],
             "presented_as_live": spine["presented_as_live"],
@@ -330,7 +480,18 @@ async def derivatives_sentiment_composite(*, symbol: str, params: dict[str, Any]
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_derivatives_envelope(body, spine=spine)
+    wrapped = attach_derivatives_envelope(body, spine=spine, params=p)
+    disclosure = build_derivatives_composite_disclosure(semantics)
+    return _attach_derivatives_adaptive(
+        wrapped,
+        p=p,
+        spine=spine,
+        launch_item_id=29,
+        surface="derivatives_market_sentiment_composite",
+        semantics=semantics,
+        disclosure_key="derivatives_composite_disclosure",
+        disclosure=disclosure,
+    )
 
 
 _DISPATCH: dict[int, str] = {

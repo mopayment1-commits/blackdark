@@ -1,0 +1,93 @@
+{
+  "artifact": "B8_TEMPORAL_IMPLEMENTATION_EVIDENCE",
+  "builder_session": "cursor-cloud-agent-b8-temporal-implementation",
+  "generated_at": "2026-09-17T18:25:00+00:00",
+  "base_sha": "aff658c7",
+  "implementation_commit": "PENDING_COMMIT",
+  "B8_CANONICAL_SCOPE": {
+    "batch": "B8",
+    "launch_numbers": [33],
+    "domain": "Alerts",
+    "governing_sources": [
+      "governance/launch57/LAUNCH57_TEMPORAL_EXECUTION_PLAN_B1_B15.md §9.3, §10",
+      "BLACKDARK_Launch57_Global_Time_Temporal_Consistency_FROM_SCRATCH_SPEC_66d6.md §17"
+    ],
+    "quoted_plan_section_4": "B8 | PLANNED_NOT_STARTED | §17 | 33 | — | —",
+    "quoted_plan_section_10": "### B8 — Alerts (`PLANNED_NOT_STARTED`) — SPEC §: 17 — Launch numbers: 33",
+    "quoted_spec_requirements": [
+      "trigger_time",
+      "delivery_window",
+      "stale_threshold / expiry",
+      "no expired alert presented as current",
+      "timezone display must not rewrite canonical trigger instant"
+    ]
+  },
+  "entry_gate": {
+    "B7_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+    "B7_VERIFIED_IV_SHA": "aff658c7",
+    "B7_IMPLEMENTATION_SHA": "6ab76a8c",
+    "B6_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+    "B5_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+    "B4_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+    "LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING": false,
+    "PASS_LIVE_NOT_CLAIMED": true,
+    "pass": true
+  },
+  "implementation_summary": {
+    "objective": "SPEC §17 alert temporal rules for Launch #33 smart alerts composite",
+    "owners": {
+      "temporal": "launch57/alert_timing_common.py",
+      "bridge": "launch57/b8_alerts_bridge.py",
+      "isolation": "launch57/batch8_isolation.py",
+      "integration": [
+        "launch57/derivatives_batch2.py (#33 smart_alerts_composite)"
+      ]
+    },
+    "spec_rules_implemented": [
+      "trigger_time",
+      "delivery_window",
+      "stale_threshold",
+      "no_expired_alert_presented_as_current",
+      "display_timezone_local_render_without_canonical_rewrite",
+      "blocked_external_delivery_preserved"
+    ]
+  },
+  "changed_paths": [
+    "launch57/alert_timing_common.py",
+    "launch57/b8_alerts_bridge.py",
+    "launch57/batch8_isolation.py",
+    "launch57/derivatives_batch2.py",
+    "tests/launch57/test_temporal_batch8.py",
+    "governance/launch57/B8_TEMPORAL_IMPLEMENTATION_EVIDENCE.json",
+    "governance/launch57/B8_TEMPORAL_IMPLEMENTATION_REPORT.md"
+  ],
+  "protected_state": {
+    "B1_INDEPENDENT_VERDICT": "PRESERVE_VERIFIED_STATE",
+    "B7_INDEPENDENT_VERDICT": "PRESERVE_VERIFIED_STATE",
+    "frozen_owner_modules_unmodified": [
+      "launch57/temporal_common.py",
+      "launch57/evidence_class_common.py",
+      "launch57/freshness_common.py",
+      "launch57/provenance_common.py",
+      "launch57/point_in_time_common.py",
+      "launch57/decision_timing_common.py",
+      "launch57/public_accuracy_common.py",
+      "launch57/net_edge_timing_common.py",
+      "launch57/market_regime_timing_common.py"
+    ]
+  },
+  "B8:#33": "PENDING_VERIFICATION",
+  "B8_INDEPENDENT_VERDICT": "PENDING_VERIFICATION",
+  "B8_IMPLEMENTATION_STATUS": "PENDING_VERIFICATION",
+  "PASS_ENGINEERING_NOT_CLAIMED": true,
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "B9_NOT_STARTED": true,
+  "tests": {
+    "command": "python3 -m pytest tests/launch57/test_temporal_batch8.py tests/launch57/test_derivatives_batch2.py tests/launch57/test_temporal_batch7.py tests/launch57/test_decision_batch1.py tests/launch57/test_decision_batch2.py tests/launch57/test_smart_money_batch1.py tests/launch57/test_derivatives_batch1.py tests/launch57/test_trust_batch1.py tests/launch57/test_edge_ui_batch1.py tests/launch57/test_temporal_batch6.py tests/launch57/test_temporal_batch5.py tests/launch57/test_temporal_batch4.py -q",
+    "exit_code": 0,
+    "passed": 88,
+    "failed": 0,
+    "pass": true
+  },
+  "next_permitted_action": "independent verification of B8 temporal implementation only"
+}

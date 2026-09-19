@@ -1,0 +1,26 @@
+{
+  "artifact": "BLACKDARK_LAUNCH57_TEIS_INDEPENDENT_VERIFICATION",
+  "verification_type": "engineering_closure",
+  "verified_at": "2026-09-18T14:07:28.353879+00:00",
+  "implementation_sha": "2db8f8e7",
+  "verdict": "PASS_ENGINEERING",
+  "LAUNCH57_TEIS_PASS_ENGINEERING": true,
+  "LAUNCH57_TEIS_READY_FOR_LOCAL_USE": true,
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "checks": {
+    "NO_NEW_CAPABILITY": true,
+    "INTERNAL_SUPPORT_ONLY": true,
+    "EVIDENCE_CLASS_MAPPING_PASS": true,
+    "REPLAY_NOT_LIVE_PASS": true,
+    "TEMPORAL_LEAKAGE_TESTABLE": true,
+    "B1_B15_TEMPORAL_FOUNDATION_PASS": true,
+    "PUBLIC_ACCURACY_LIVE_ONLY_BOUNDARY": true,
+    "PREMATURE_PRODUCT_SURFACE": false
+  },
+  "test_evidence": {
+    "command": "python3 -m pytest tests/launch57/test_teis_support_layer.py tests/launch57/test_temporal_batch15.py -q",
+    "exit_code": "0",
+    "stdout_tail": "...................................                                      [100%]",
+    "passed": true
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "artifact": "B12_TEMPORAL_IMPLEMENTATION_EVIDENCE",
+  "builder_session": "cursor-cloud-agent-b12-temporal-implementation",
+  "generated_at": "2026-09-17T19:30:00+00:00",
+  "base_sha": "9cc23d12",
+  "implementation_commit": "6f4142d7",
+  "remediation_commit": "fc070463",
+  "b12_defect_001_disposition": "REMEDIATED_PENDING_RE_IV",
+  "B12_CANONICAL_SCOPE": {
+    "batch": "B12",
+    "launch_numbers": [53, 54, 55, 56, 57],
+    "domain": "Due Diligence / Risk",
+    "governing_sources": [
+      "governance/launch57/LAUNCH57_TEMPORAL_EXECUTION_PLAN_B1_B15.md §4, §10",
+      "BLACKDARK_Launch57_Global_Time_Temporal_Consistency_FROM_SCRATCH_SPEC_66d6.md §21"
+    ],
+    "quoted_plan_section_4": "B12 | PLANNED_NOT_STARTED | §21 | 53, 54, 55, 56, 57 | — | —",
+    "quoted_plan_section_10": "### B12 — Due Diligence / Risk (`PLANNED_NOT_STARTED`) — SPEC §: 21 — Launch numbers: 53, 54, 55, 56, 57",
+    "quoted_spec_requirements": [
+      "show source age (source_age_ms)",
+      "show last update (last_update_time)",
+      "distinguish stale vs current",
+      "preserve event chronology",
+      "avoid presenting old incidents as current risk without timestamp context",
+      "timezone display must not rewrite canonical last-update instant"
+    ]
+  },
+  "entry_gate": {
+    "B11_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+    "B11_VERIFIED_IV_SHA": "5cb405a1",
+    "B11_IMPLEMENTATION_SHA": "5c9b3836",
+    "B11_isolation_leakage": 0,
+    "B10_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+    "LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING": false,
+    "PASS_LIVE_NOT_CLAIMED": true,
+    "pass": true
+  },
+  "implementation_summary": {
+    "objective": "SPEC §21 due-diligence/risk temporal rules for Launches #53–#57",
+    "owners": {
+      "temporal": "launch57/due_diligence_risk_timing_common.py",
+      "bridge": "launch57/b12_due_diligence_risk_bridge.py",
+      "isolation": "launch57/batch12_isolation.py",
+      "integration": [
+        "launch57/smart_money_common.py (#53–#57 via attach_smart_money_envelope)",
+        "launch57/smart_money_batch2.py (#53 instant_wallet_due_diligence, #54 instant_token_due_diligence)",
+        "launch57/smart_money_batch3.py (#55 pump_dump_manipulation_alerts, #56 suspicious_activity_flags, #57 exchange_transparency_risk_indicators)"
+      ]
+    },
+    "spec_rules_implemented": [
+      "last_update_time",
+      "source_snapshot_time",
+      "source_age_ms",
+      "risk_validity_window",
+      "stale_threshold_ms",
+      "no_stale_or_expired_risk_presented_as_current",
+      "display_timezone_local_render_without_canonical_rewrite",
+      "enrich_risk_incident_rows current vs all audit split",
+      "event_chronology_preserved_in_enrichment"
+    ]
+  },
+  "changed_paths": [
+    "launch57/due_diligence_risk_timing_common.py",
+    "launch57/b12_due_diligence_risk_bridge.py",
+    "launch57/batch12_isolation.py",
+    "launch57/smart_money_common.py",
+    "tests/launch57/test_temporal_batch12.py",
+    "governance/launch57/B12_TEMPORAL_IMPLEMENTATION_EVIDENCE.json",
+    "governance/launch57/B12_TEMPORAL_IMPLEMENTATION_REPORT.md"
+  ],
+  "protected_state": {
+    "B1_INDEPENDENT_VERDICT": "PRESERVE_VERIFIED_STATE",
+    "B11_INDEPENDENT_VERDICT": "PRESERVE_VERIFIED_STATE",
+    "frozen_owner_modules_unmodified": [
+      "launch57/temporal_common.py",
+      "launch57/evidence_class_common.py",
+      "launch57/freshness_common.py",
+      "launch57/provenance_common.py",
+      "launch57/point_in_time_common.py",
+      "launch57/decision_timing_common.py",
+      "launch57/public_accuracy_common.py",
+      "launch57/net_edge_timing_common.py",
+      "launch57/market_regime_timing_common.py",
+      "launch57/alert_timing_common.py",
+      "launch57/research_explanation_timing_common.py",
+      "launch57/shareable_public_timing_common.py",
+      "launch57/personal_history_timing_common.py"
+    ]
+  },
+  "B12:#53": "PENDING_VERIFICATION",
+  "B12:#54": "PENDING_VERIFICATION",
+  "B12:#55": "PENDING_VERIFICATION",
+  "B12:#56": "PENDING_VERIFICATION",
+  "B12:#57": "PENDING_VERIFICATION",
+  "B12_INDEPENDENT_VERDICT": "PENDING_VERIFICATION",
+  "B12_IMPLEMENTATION_STATUS": "PENDING_VERIFICATION",
+  "PASS_ENGINEERING_NOT_CLAIMED": true,
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "B13_NOT_STARTED": true,
+  "tests": {
+    "command": "python3 -m pytest tests/launch57/test_temporal_batch12.py tests/launch57/test_temporal_batch11.py tests/launch57/test_temporal_batch10.py tests/launch57/test_temporal_batch9.py tests/launch57/test_temporal_batch8.py tests/launch57/test_temporal_batch7.py tests/launch57/test_temporal_batch6.py tests/launch57/test_temporal_batch5.py tests/launch57/test_temporal_batch4.py -q",
+    "exit_code": 0,
+    "passed": 89,
+    "failed": 0,
+    "b12_tests": 12,
+    "regression_tests": 77,
+    "pass": true
+  },
+  "residual_risks_for_iv": [
+    "Rows without explicit last_update_time fall back to utc_now() — may mask missing provenance.",
+    "Default risk validity window is 86400s; default stale threshold is 900000ms — overridable via payload/governed fields.",
+    "Launch #15 and other smart-money surfaces outside #53–#57 intentionally out of B12 scope.",
+    "String-only risk_flags on #53/#54 are not per-row enriched; surface-level timing applies.",
+    "smart_money_batch2/3 retain pre-existing bd_platform source calls; B12 adds timing envelope only."
+  ],
+  "next_permitted_action": "independent verification of B12 temporal implementation only"
+}

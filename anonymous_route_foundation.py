@@ -105,6 +105,7 @@ PUBLIC_HTML_EXACT: frozenset[str] = frozenset(
         "/about",
         "/how-it-works",
         "/faq",
+        "/status",
         "/legal",
         "/cookies",
         "/disclaimer",
@@ -161,10 +162,23 @@ PUBLIC_HTML_PREFIXES: tuple[str, ...] = (
     "/oracle/",
 )
 
+# Launch-57 anonymous public API — explicit paths only (SPEC_02 §22; no broad prefix).
+LAUNCH57_PUBLIC_API_EXACT: frozenset[str] = frozenset(
+    {
+        "/api/launch57/guest-trust",
+        "/api/launch57/capability-library",
+    }
+)
+
+LAUNCH57_PUBLIC_API_PREFIXES: tuple[str, ...] = (
+    "/api/launch57/capability-library/",
+)
+
 # --- Evidence/read API prefixes (historical public developer surface) ---
 PUBLIC_API_PREFIXES: tuple[str, ...] = (
     "/health/",
     PATH_API_TRUST_OS,
+    *LAUNCH57_PUBLIC_API_PREFIXES,
     "/api/strategy/",
     "/api/intent/",
     "/api/execution/",
@@ -206,6 +220,7 @@ PUBLIC_API_PREFIXES: tuple[str, ...] = (
 PUBLIC_API_EXACT: frozenset[str] = frozenset(
     {
         PATH_API_TRUST_OS,
+        *LAUNCH57_PUBLIC_API_EXACT,
         "/api/audit-challenge",
         "/api/security/status",
         "/api/security/external-review-readiness",

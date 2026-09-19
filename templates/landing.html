@@ -703,7 +703,7 @@
         <div class="nav-container">
             <a class="logo" href="/">BLACKDARK</a>
             <div class="nav-links">
-                <a href="/dashboard?lens=prove">{{ t('nav.prove') }}</a>
+                <a href="/#try-oracle">{{ t('nav.prove') }}</a>
                 <a href="/dashboard?lens=operate">{{ t('nav.operate') }}</a>
                 <a href="/dashboard?lens=desk">{{ t('nav.desk') }}</a>
                 <a href="/data-room?lens=room">{{ t('nav.room') }}</a>
@@ -711,7 +711,7 @@
             </div>
             <div class="nav-right">
                 {% include 'partials/top_utility.html' %}
-                <a href="/dashboard?lens=prove#trust-pulse" class="nav-cta">{{ t('nav.open_proof') }}</a>
+                <a href="/#try-oracle" class="nav-cta">{{ t('nav.open_proof') }}</a>
             </div>
         </div>
     </nav>
@@ -761,7 +761,7 @@
                     <div class="tp-mini-why" id="lpWhy"></div>
                     <div class="tp-mini-proof" id="lpProof"></div>
                     <div class="tp-mini-cta">
-                        <a href="/dashboard?lens=prove#trust-pulse" class="btn-primary" style="padding:.55rem 1.1rem;font-size:.9rem">{{ t('pulse.open_full') }}</a>
+                        <a href="/#try-oracle" class="btn-primary" style="padding:.55rem 1.1rem;font-size:.9rem">{{ t('pulse.open_full') }}</a>
                         <button type="button" class="btn-secondary" style="padding:.55rem 1.1rem;font-size:.9rem;cursor:pointer" id="lpShareBtn">{{ t('pulse.share') }}</button>
                     </div>
                     <p class="tp-mini-foot bd-anti-hype">{{ t('pulse.foot') }}</p>
@@ -789,7 +789,7 @@
         </div>
         <div class="hero-cta">
             <a href="/oracle-accuracy" class="btn-primary">{{ t('seal.cta.ledger') }}</a>
-            <a href="/dashboard?lens=prove#trust-pulse" class="btn-secondary">{{ t('seal.cta.proof') }}</a>
+            <a href="/#try-oracle" class="btn-secondary">{{ t('seal.cta.proof') }}</a>
         </div>
     </section>
 
@@ -817,7 +817,7 @@
             </div>
         </div>
         <p style="text-align:center;margin-top:1.5rem">
-            <a href="/dashboard?lens=prove" class="btn-primary">{{ t('lenses.cta') }}</a>
+            <a href="/#try-oracle" class="btn-primary">{{ t('lenses.cta') }}</a>
             <a href="/login?tab=register" class="btn-secondary" style="margin-inline-start:.5rem">{{ t('nav.signup') }}</a>
             <a href="/#pricing" class="btn-secondary" style="margin-inline-start:.5rem">{{ t('nav.pricing') }}</a>
         </p>
@@ -867,7 +867,7 @@
                     <label class="field-label" for="landingUxMode" style="display:inline-flex;flex-direction:column;gap:.25rem;font-size:.75rem;color:var(--text-muted);text-align:left">Experience
                     <select id="landingUxMode" name="landingUxMode" style="background:var(--bg-elevated);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.55rem">
                         <option value="beginner" selected>Beginner</option>
-                        <option value="pro">Decision Pro</option>
+                        <option value="pro">DECIDE / PRO</option>
                     </select>
                     </label>
                     <input type="hidden" id="landingLang" value="en" aria-label="landingLang">
@@ -953,23 +953,24 @@
             
             <div class="pricing-grid bd-pricing-grid">
                 <div class="pricing-card bd-price-tier">
-                    <h3>{{ t('pricing.proof_pass') }}</h3>
-                    <div class="price">$0<span>/month</span></div>
+                    <h3>{{ t('pricing.discover_free') }}</h3>
+                    <div class="price">$0<span>{{ t('pricing.mo') }}</span></div>
                     <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.5rem">{{ t('pricing.proof_promise') }}</p>
                     <ul>
-                        <li>Trust Pulse + OQS Why</li>
+                        <li>Public Prove surface (Trust Pulse + Why)</li>
                         <li>Shareable Decision Certificate</li>
-                        <li>3 certified decisions / day</li>
+                        <li>Daily certified decision limit</li>
                         <li>Public Accuracy Ledger</li>
                         <li>Free Proof watermark</li>
                     </ul>
                     <a href="/login?tab=register&plan=free" class="btn-secondary btn">{{ t('pricing.cta.free_signup') }}</a>
                 </div>
-                
+
                 <div class="pricing-card bd-price-tier popular">
                     <div class="bd-popular-badge">{{ t('pricing.popular') }}</div>
-                    <h3>{{ t('pricing.decision_pro') }}</h3>
-                    <div class="price">$29<span>/month USD</span></div>
+                    <h3>{{ t('pricing.decide_pro') }}</h3>
+                    <div class="price">$19.99<span>{{ t('pricing.mo_usd') }}</span></div>
+                    <p style="color:var(--text-muted);font-size:0.9rem;margin:-0.5rem 0 0.5rem">{{ t('pricing.or_year') }} $199{{ t('pricing.year_suffix') }}</p>
                     <p style="color:var(--success);font-size:0.85rem;margin-bottom:0.75rem">{{ t('pricing.trial_note') }}</p>
                     <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.5rem">{{ t('pricing.pro_promise') }}</p>
                     <ul>
@@ -981,29 +982,45 @@
                     </ul>
                     <a href="/login?tab=register&plan=pro" class="btn-primary btn">{{ t('pricing.cta.trial') }}</a>
                 </div>
-                
+
                 <div class="pricing-card bd-price-tier">
-                    <h3>{{ t('pricing.decision_desk') }}</h3>
-                    <div class="price">$49<span>/month USD</span></div>
-                    <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.5rem">{{ t('pricing.desk_promise') }}</p>
+                    <h3>{{ t('pricing.see_edge_elite') }}</h3>
+                    <div class="price">$49.99<span>{{ t('pricing.mo_usd') }}</span></div>
+                    <p style="color:var(--text-muted);font-size:0.9rem;margin:-0.5rem 0 0.5rem">{{ t('pricing.or_year') }} $499{{ t('pricing.year_suffix') }}</p>
+                    <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.5rem">{{ t('pricing.elite_promise') }}</p>
                     <ul>
-                        <li>Everything in Decision Pro</li>
+                        <li>Everything in DECIDE / PRO</li>
                         <li>Whale Signal vs Noise</li>
                         <li>Stealth advisory views</li>
                         <li>Evidence Pack + API priority</li>
                     </ul>
-                    <a href="/login?tab=register&plan=whale" class="btn-primary btn">{{ t('pricing.cta.desk') }}</a>
+                    <a href="/login?tab=register&plan=elite" class="btn-primary btn">{{ t('pricing.cta.elite') }}</a>
                     <a href="/b2b" class="btn-secondary btn" style="margin-top:0.5rem">{{ t('pricing.cta.b2b') }}</a>
                 </div>
 
                 <div class="pricing-card bd-price-tier">
-                    <h3>{{ t('pricing.institutional') }}</h3>
+                    <h3>{{ t('pricing.execute_quant') }}</h3>
+                    <div class="price">$129.99<span>{{ t('pricing.mo_usd') }}</span></div>
+                    <p style="color:var(--text-muted);font-size:0.9rem;margin:-0.5rem 0 0.5rem">{{ t('pricing.or_year') }} $1,299{{ t('pricing.year_suffix') }}</p>
+                    <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.5rem">{{ t('pricing.quant_promise') }}</p>
+                    <ul>
+                        <li>Quant backtesting suite</li>
+                        <li>100k API calls / month</li>
+                        <li>40h backtest hours / month</li>
+                        <li>Systematic workflow depth</li>
+                    </ul>
+                    <a href="/login?tab=register&plan=quant" class="btn-primary btn">{{ t('pricing.cta.quant') }}</a>
+                </div>
+
+                <div class="pricing-card bd-price-tier">
+                    <h3>{{ t('pricing.scale_institutional') }}</h3>
                     <div class="price" style="font-size:1.55rem">{{ t('pricing.from_open') }}</div>
                     <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.5rem">{{ t('pricing.inst_promise') }}</p>
                     <ul>
                         <li>Data Room + Compliance pack</li>
                         <li>SSO / enforced MFA</li>
                         <li>SLA · Integration Addendum</li>
+                        <li>Talk to us — not self-serve checkout</li>
                     </ul>
                     <a href="/login?tab=register&plan=institutional" class="btn-primary btn">{{ t('pricing.cta.talk') }}</a>
                 </div>
@@ -1018,7 +1035,7 @@
                 <label for="instCompany" style="color:var(--text-muted);font-size:.85rem">Firm</label>
                 <input id="instCompany" type="text" name="company" placeholder="Firm" style="padding:.7rem .85rem;border-radius:8px;border:1px solid var(--border);background:#1a1a24;color:var(--text)">
                 <label for="instBudget" style="color:var(--text-muted);font-size:.85rem">Budget band USD</label>
-                <input id="instBudget" type="text" name="budget_usd" placeholder="Budget band USD (e.g. from 3000)" style="padding:.7rem .85rem;border-radius:8px;border:1px solid var(--border);background:#1a1a24;color:var(--text)">
+                <input id="instBudget" type="text" name="budget_usd" placeholder="Budget band USD (e.g. from 999/mo)" style="padding:.7rem .85rem;border-radius:8px;border:1px solid var(--border);background:#1a1a24;color:var(--text)">
                 <label for="instMessage" style="color:var(--text-muted);font-size:.85rem">Use case</label>
                 <textarea id="instMessage" name="message" rows="3" placeholder="Use case / seats / SLA needs" style="padding:.7rem .85rem;border-radius:8px;border:1px solid var(--border);background:#1a1a24;color:var(--text)"></textarea>
                 <button type="submit" class="btn-primary btn">{{ t('pricing.cta.talk') }}</button>
@@ -1140,27 +1157,44 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
         }
 
 
-        async function fetchOraclePayload(symbol, mode, lang) {
-            const preferQuick = mode !== 'pro';
-            const primary = preferQuick
-                ? `/oracle/${encodeURIComponent(symbol)}/quick?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`
-                : `/oracle/${encodeURIComponent(symbol)}?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`;
-            const fallback = preferQuick
-                ? `/oracle/${encodeURIComponent(symbol)}?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`
-                : `/oracle/${encodeURIComponent(symbol)}/quick?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`;
-            let response = await fetch(primary, { headers: { Accept: 'application/json' } });
-            let rawText = await response.text();
+        async function fetchLaunch57GuestTrust(symbol) {
+            const sym = encodeURIComponent((symbol || 'BTC').toUpperCase());
+            const response = await fetch(`/api/launch57/guest-trust?symbol=${sym}`, {
+                headers: { Accept: 'application/json' },
+            });
             let data = null;
-            try {
-                data = rawText && !rawText.trim().startsWith('<') && !rawText.includes('Internal Server Error')
-                    ? JSON.parse(rawText) : null;
-            } catch (error) { console.debug(error); data = null; }
-            if (!data || !response.ok) {
-                response = await fetch(fallback, { headers: { Accept: 'application/json' } });
-                rawText = await response.text();
-                try { data = JSON.parse(rawText); } catch (error) { console.debug(error); data = null; }
-            }
+            try { data = await response.json(); } catch (error) { console.debug(error); data = null; }
             return { response, data };
+        }
+
+        function launch57ToLandingOracle(data) {
+            if (data && data.guest_trust) {
+                const proofs = (data.guest_trust.public_intelligence_proofs || data.guest_trust.approved_public_trust_surfaces || []);
+                const proof = proofs[0] || {};
+                const disclosure = data.adaptive_disclosure || {};
+                const l1 = disclosure.level_1 || {};
+                return {
+                    symbol: data.symbol || 'BTC',
+                    decision_action: 'WAIT',
+                    verdict: 'WAIT',
+                    decision_sentence: l1.summary || proof.proof_id || 'Explore public Launch-57 intelligence — create a free account for personalized decisions.',
+                    opportunity_score: null,
+                    launch57_guest_trust: true,
+                    public_proofs: proofs,
+                };
+            }
+            const home = (data && data.six_heroes_command_home) || {};
+            const oracle = home.oracle || data || {};
+            const sso = oracle.single_sentence_oracle || data.single_sentence_oracle || {};
+            const action = String(oracle.decision_action || sso.action || data.decision_truth_state || 'WAIT').toUpperCase();
+            return {
+                symbol: data.symbol || 'BTC',
+                decision_action: action,
+                verdict: action,
+                decision_sentence: sso.sentence || home.abstain_explanation || 'Launch-57 command home',
+                opportunity_score: oracle.net_edge_truth_score,
+                launch57_command_home: true,
+            };
         }
         function decideLandingAction(data) {
             const rawAction = String(data.decision_action || data.verdict || data.action || 'WAIT').toUpperCase();
@@ -1386,7 +1420,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             const t0 = performance.now();
             
             try {
-                const { response, data } = await fetchOraclePayload(symbol, mode, lang);
+                const { response, data } = await fetchLaunch57GuestTrust(symbol);
                 const latencyMs = Math.round(performance.now() - t0);
                 if (!data) {
                     oracleEl.textContent = i18nT('oracle.error');
@@ -1394,6 +1428,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                     verdictEl.className = 'result-verdict verdict-wait';
                     return;
                 }
+                const mapped = launch57ToLandingOracle(data);
                 if (!response.ok) {
                     const detail = data.detail || {};
                     const msg = detail.message || i18nT('ui.quota_exceeded');
@@ -1405,22 +1440,23 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                     return;
                 }
                 
-                symbolEl.textContent = data.symbol || symbol;
-                scoreEl.textContent = data.opportunity_score ?? '--';
-                const action = decideLandingAction(data);
-                paintLandingVerdict(verdictEl, data, action);
-                oracleEl.textContent = fallbackDecisionSentence(data, symbol, action);
+                const display = mapped;
+                symbolEl.textContent = display.symbol || symbol;
+                scoreEl.textContent = display.opportunity_score ?? '--';
+                const action = decideLandingAction(display);
+                paintLandingVerdict(verdictEl, display, action);
+                oracleEl.textContent = fallbackDecisionSentence(display, symbol, action);
                 paintLandingFreshness(data);
-                paintLandingProMeta(proMeta, data, mode);
-                paintLandingUpgrade(upgradeEl, data);
+                paintLandingProMeta(proMeta, display, mode);
+                paintLandingUpgrade(upgradeEl, display);
                 const certEl = document.getElementById('landingCert');
                 const cert = data.decision_certificate || {};
-                renderLandingCertificate(certEl, cert, data);
-                renderLandingWhy(oracleEl, data, cert, latencyMs);
-                const followAction = data.decision_action || data.verdict || action || 'WAIT';
-                wireDisciplineMirror(document.getElementById('landingDiscipline'), data, symbol, followAction);
-                paintLandingCompliance(data);
-                updateShareLinks(data);
+                renderLandingCertificate(certEl, cert, display);
+                renderLandingWhy(oracleEl, display, cert, latencyMs);
+                const followAction = display.decision_action || display.verdict || action || 'WAIT';
+                wireDisciplineMirror(document.getElementById('landingDiscipline'), display, symbol, followAction);
+                paintLandingCompliance(display);
+                updateShareLinks(display);
             } catch (error) { console.debug(error); oracleEl.textContent = i18nT('ui.oracle_unavailable'); }
         }
 
@@ -1581,23 +1617,32 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
 
         async function loadLandingTrustPulse() {
             try {
-                const res = await fetch('/api/trust-pulse?symbol=BTC&ux_mode=beginner&lang=en');
-                if (!res.ok) return;
-                renderLandingPulse(await res.json());
+                const { response, data } = await fetchLaunch57GuestTrust('BTC');
+                if (!response.ok || !data) return;
+                const proofs = (data.guest_trust && data.guest_trust.public_intelligence_proofs) || [];
+                const proof = proofs[0] || {};
+                const disclosure = data.adaptive_disclosure || {};
+                const l1 = disclosure.level_1 || {};
+                renderLandingPulse({
+                    symbol: data.symbol || 'BTC',
+                    action: 'WAIT',
+                    sentence: l1.summary || proof.proof_id || 'Public Launch-57 intelligence',
+                    price: data.price,
+                    change_24h: data.change_24h,
+                    freshness: { state: data.freshness_state, stale: data.freshness_state === 'STALE' },
+                    why: { factors: [] },
+                    proof: proof,
+                    launch57_guest_trust: true,
+                });
             } catch (error) { console.debug(error); }
         }
 
         function startLandingPulseStream() {
-            try {
-                if (landingPulseEs) landingPulseEs.close();
-                landingPulseEs = new EventSource('/api/trust-pulse/stream?symbol=BTC');
-                landingPulseEs.onmessage = (ev) => {
-                    try {
-                        const d = JSON.parse(ev.data);
-                        if (d.pulse) renderLandingPulse(d.pulse);
-                    } catch (error) { console.debug(error); }
-                };
-            } catch (error) { console.debug(error); }
+            if (landingPulseEs) {
+                try { landingPulseEs.close(); } catch (error) { console.debug(error); }
+                landingPulseEs = null;
+            }
+            setInterval(() => loadLandingTrustPulse(), 60000);
         }
 
         document.getElementById('lpShareBtn')?.addEventListener('click', (e) => {
@@ -1621,9 +1666,9 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 const ops = d.ops_readiness || {};
                 const provider = d.active_provider || 'none';
                 if (ops.launch_ready || d.billing_configured) {
-                    el.textContent = 'USD payments ready · ' + provider + ' hosted checkout · Decision Pro $29 · Decision Desk $49 · Institutional from $3,000 → open';
+                    el.textContent = 'USD payments ready · ' + provider + ' hosted checkout · DECIDE/PRO $19.99 · SEE THE EDGE/ELITE $49.99 · EXECUTE THE EDGE/QUANT $129.99 · INSTITUTIONAL from $999/mo → Talk to us';
                 } else {
-                    el.textContent = 'USD payment rails live in product · finish Lemon/Stripe KYC + checkout URLs for live charges. Proof Pass ($0) and Sign up work now. Profile → Plan & billing.';
+                    el.textContent = 'USD payment rails live in product · finish Lemon/Stripe KYC + checkout URLs for live charges. DISCOVER/FREE ($0) and Sign up work now. Profile → Plan & billing.';
                     el.style.color = 'var(--text-muted)';
                 }
             } catch (error) { console.debug(error); el.textContent = 'Payment status: see /api/billing/payments · Profile & Billing for checkout.';

@@ -1,0 +1,338 @@
+{
+  "artifact": "SPEC_13_REQUIREMENTS_REGISTER",
+  "domain": "SPEC_13_TEMPORAL_EVIDENCE_INTELLIGENCE_SUPPORT_LAYER",
+  "generated_at": "2026-09-19T01:17:26.883211+00:00",
+  "spec_version": "launch57-spec13-temporal-evidence-intelligence-support-layer-1.0.0",
+  "requirement_count": 24,
+  "requirements": [
+    {
+      "req_id": "REQ-S13-001",
+      "title": "Launch-57 TEIS scope lock only",
+      "spec_section": "§2",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/teis_support_common.py"
+      ],
+      "tests": [
+        "test_teis_support_layer.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S13-002",
+      "title": "INTERNAL_SUPPORT_ONLY classification",
+      "spec_section": "§2",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/teis_support_common.py"
+      ],
+      "tests": [
+        "test_teis_support_layer.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S13-003",
+      "title": "No parallel capability registry",
+      "spec_section": "§2",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/teis_support_common.py"
+      ],
+      "tests": [
+        "test_teis_support_layer.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S13-004",
+      "title": "Temporal integrity available_at policy",
+      "spec_section": "§4",
+      "launch_ids": [
+        39,
+        40,
+        41
+      ],
+      "owner_modules": [
+        "launch57/teis_support_common.py"
+      ],
+      "tests": [
+        "test_teis_support_layer.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S13-005",
+      "title": "Evidence class mapping LIVE/DELAYED/SIM",
+      "spec_section": "§5",
+      "launch_ids": [
+        6
+      ],
+      "owner_modules": [
+        "launch57/teis_support_common.py"
+      ],
+      "tests": [
+        "test_teis_support_layer.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S13-006",
+      "title": "Replay/shadow never shown as LIVE",
+      "spec_section": "§5–§6",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/teis_support_common.py"
+      ],
+      "tests": [
+        "test_teis_support_layer.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S13-007",
+      "title": "Outcome contract unresolved honesty",
+      "spec_section": "§2C",
+      "launch_ids": [
+        2,
+        3
+      ],
+      "owner_modules": [
+        "launch57/teis_support_common.py"
+      ],
+      "tests": [
+        "test_teis_support_layer.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S13-008",
+      "title": "Replay fidelity assessment",
+      "spec_section": "§2F",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/teis_support_common.py"
+      ],
+      "tests": [
+        "test_teis_support_layer.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S13-009",
+      "title": "Evaluation dependence metadata",
+      "spec_section": "§2B",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/teis_support_common.py"
+      ],
+      "tests": [
+        "test_teis_support_layer.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S13-010",
+      "title": "Reproducibility manifest tied to SHA",
+      "spec_section": "§14",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/teis_support_common.py"
+      ],
+      "tests": [
+        "test_teis_support_layer.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S13-011",
+      "title": "Internal failure corpus support",
+      "spec_section": "§2D",
+      "launch_ids": [
+        10,
+        48
+      ],
+      "owner_modules": [
+        "launch57/teis_support_common.py"
+      ],
+      "tests": [
+        "test_teis_support_layer.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S13-012",
+      "title": "FILE 06 evidence class alignment",
+      "spec_section": "§5",
+      "launch_ids": [
+        6
+      ],
+      "owner_modules": [
+        "launch57/compounding_evidence_common.py"
+      ],
+      "tests": [
+        "test_spec06"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S13-013",
+      "title": "FILE 08 decision truth alignment",
+      "spec_section": "§25",
+      "launch_ids": [
+        2,
+        3
+      ],
+      "owner_modules": [
+        "launch57/decision_truth_common.py"
+      ],
+      "tests": [
+        "test_spec08"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S13-014",
+      "title": "FILE 11 global time alignment",
+      "spec_section": "§4",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/global_time_temporal_consistency_common.py"
+      ],
+      "tests": [
+        "test_spec11"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S13-015",
+      "title": "No duplicate temporal SSOT",
+      "spec_section": "§1",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/temporal_common.py"
+      ],
+      "tests": [
+        "test_spec13"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S13-016",
+      "title": "Support layer on intelligence paths",
+      "spec_section": "§45",
+      "launch_ids": [
+        2,
+        4,
+        51
+      ],
+      "owner_modules": [
+        "launch57/b4_decision_bridge.py"
+      ],
+      "tests": [
+        "test_spec13"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S13-017",
+      "title": "Runtime TEIS paths wired",
+      "spec_section": "§45",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/decision_common.py"
+      ],
+      "tests": [
+        "test_spec13"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S13-018",
+      "title": "Degradation fail-closed or labeled",
+      "spec_section": "§4",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/teis_support_common.py"
+      ],
+      "tests": [
+        "test_spec13"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S13-019",
+      "title": "available_at not fabricated",
+      "spec_section": "§4",
+      "launch_ids": [
+        39
+      ],
+      "owner_modules": [
+        "launch57/teis_support_common.py"
+      ],
+      "tests": [
+        "test_spec13"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S13-020",
+      "title": "No PARKED TEIS scope",
+      "spec_section": "§2",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/teis_support_common.py"
+      ],
+      "tests": [
+        "test_spec13"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S13-021",
+      "title": "PASS_LIVE not claimed",
+      "spec_section": "§52",
+      "launch_ids": [],
+      "owner_modules": [],
+      "tests": [],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S13-022",
+      "title": "Acceptance criteria engineering gate",
+      "spec_section": "§27",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/teis_support_common.py"
+      ],
+      "tests": [
+        "test_spec13"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S13-023",
+      "title": "Independent verification adversarial probes",
+      "spec_section": "§50",
+      "launch_ids": [],
+      "owner_modules": [],
+      "tests": [
+        "test_spec13"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S13-024",
+      "title": "Envelope cannot grant PASS_ENGINEERING",
+      "spec_section": "§53",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/teis_support_common.py"
+      ],
+      "tests": [
+        "test_teis_support_layer.py"
+      ],
+      "mandatory": true
+    }
+  ]
+}

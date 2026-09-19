@@ -1,0 +1,125 @@
+{
+  "artifact": "B14_TEMPORAL_IMPLEMENTATION_EVIDENCE",
+  "builder_session": "cursor-cloud-agent-b14-temporal-implementation",
+  "generated_at": "2026-09-17T20:05:00+00:00",
+  "base_sha": "20655eb2",
+  "implementation_commit": "d8a02fa1",
+  "B14_CANONICAL_SCOPE": {
+    "batch": "B14",
+    "launch_numbers": "cross-cutting (no single launch owner)",
+    "domain": "Infrastructure Temporal",
+    "governing_sources": [
+      "governance/launch57/LAUNCH57_TEMPORAL_EXECUTION_PLAN_B1_B15.md §4, §11, §13 R3",
+      "BLACKDARK_Launch57_Global_Time_Temporal_Consistency_FROM_SCRATCH_SPEC_66d6.md §23–§27, §23A, §24A, §25A–§27A"
+    ],
+    "quoted_plan_section_4": "B14 | PLANNED_NOT_STARTED | §23–§27, §23A, §24A, §25A–§27A | API/DB/clock/DST/scheduling (cross-cutting) | — | —",
+    "quoted_plan_section_11": "### B14 — Infrastructure Temporal (`PLANNED_NOT_STARTED`) — SPEC §: 23, 23A, 24, 24A, 25, 25A, 25B, 26, 26A, 27, 27A — Domain: API serialization, database storage, server clock discipline, wall vs monotonic clock, clock skew budget, DST/ambiguous local time, scheduling, recurrence. — Entry: B12 `PASS_ENGINEERING` IV required.",
+    "quoted_spec_requirements": [
+      "§23/§23A RFC3339 API serialization; UTC Z preferred; no ambiguous local strings; epoch requires explicit unit contract",
+      "§24/§24A timezone-aware DB storage; instant vs civil-time intent separate; no silent naive reinterpretation",
+      "§25/§25A/§25B synchronized clocks; wall vs monotonic separation; context-specific skew budget with fail-closed degradation",
+      "§26/§26A DST gap/fold deterministic policy; no silent invention of nonexistent local times",
+      "§27/§27A scheduling stores local wall time + IANA zone + recurrence; derive UTC occurrences"
+    ],
+    "applicability_boundaries": [
+      "Cross-cutting infrastructure temporal only; no single launch owner",
+      "Delegates primitives to frozen launch57.temporal_common (B1); no competing truth path",
+      "B15 not started; no global PASS_ENGINEERING claim",
+      "PASS_LIVE not claimed"
+    ]
+  },
+  "entry_gate": {
+    "B13_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+    "B13_VERIFIED_IV_SHA": "20655eb2",
+    "B12_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+    "B12_VERIFIED_IV_SHA": "edf755eb",
+    "LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING": false,
+    "PASS_LIVE_NOT_CLAIMED": true,
+    "pass": true
+  },
+  "implementation_summary": {
+    "objective": "SPEC §23–§27 infrastructure temporal rules (API/DB/clock/DST/scheduling cross-cutting)",
+    "owners": {
+      "temporal": "launch57/infrastructure_temporal_common.py",
+      "bridge": "launch57/b14_infrastructure_temporal_bridge.py",
+      "isolation": "launch57/batch14_isolation.py",
+      "integration": [
+        "launch57/infrastructure_boundary_common.py",
+        "launch57/data_batch1.py (all API response finalizers)",
+        "launch57/chart_common.py (chains after B13)",
+        "launch57/smart_money_common.py (attach_smart_money_envelope)"
+      ]
+    },
+    "spec_rules_implemented": [
+      "api_rfc3339_utc_z_serialization",
+      "reject_ambiguous_local_api_timestamps",
+      "epoch_timestamp_explicit_unit_contract",
+      "db_instant_and_civil_intent_separate_storage",
+      "legacy_naive_timestamp_classify_no_silent_reinterpret",
+      "wall_clock_for_instants_monotonic_for_elapsed",
+      "context_specific_clock_skew_budget_fail_closed",
+      "dst_gap_fold_classify_and_resolve_with_explicit_policy",
+      "schedule_civil_time_recurrence_with_iana_zone",
+      "derive_utc_occurrence_from_civil_intent"
+    ]
+  },
+  "changed_paths": [
+    "launch57/infrastructure_temporal_common.py",
+    "launch57/b14_infrastructure_temporal_bridge.py",
+    "launch57/batch14_isolation.py",
+    "launch57/infrastructure_boundary_common.py",
+    "launch57/data_batch1.py",
+    "launch57/chart_common.py",
+    "launch57/smart_money_common.py",
+    "tests/launch57/test_temporal_batch14.py",
+    "governance/launch57/B14_TEMPORAL_IMPLEMENTATION_EVIDENCE.json",
+    "governance/launch57/B14_TEMPORAL_IMPLEMENTATION_REPORT.md"
+  ],
+  "protected_state": {
+    "B1_INDEPENDENT_VERDICT": "PRESERVE_VERIFIED_STATE",
+    "B13_INDEPENDENT_VERDICT": "PRESERVE_VERIFIED_STATE",
+    "frozen_owner_modules_unmodified": [
+      "launch57/temporal_common.py",
+      "launch57/evidence_class_common.py",
+      "launch57/freshness_common.py",
+      "launch57/provenance_common.py",
+      "launch57/point_in_time_common.py",
+      "launch57/decision_timing_common.py",
+      "launch57/public_accuracy_common.py",
+      "launch57/net_edge_timing_common.py",
+      "launch57/market_regime_timing_common.py",
+      "launch57/alert_timing_common.py",
+      "launch57/research_explanation_timing_common.py",
+      "launch57/shareable_public_timing_common.py",
+      "launch57/personal_history_timing_common.py",
+      "launch57/due_diligence_risk_timing_common.py",
+      "launch57/chart_display_timing_common.py"
+    ]
+  },
+  "B14_INFRASTRUCTURE_CROSS_CUTTING": "PENDING_VERIFICATION",
+  "B14_INDEPENDENT_VERDICT": "PENDING_VERIFICATION",
+  "B14_IMPLEMENTATION_STATUS": "PENDING_VERIFICATION",
+  "PASS_ENGINEERING_NOT_CLAIMED": true,
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "B15_NOT_STARTED": true,
+  "tests": {
+    "command": "python3 -m pytest tests/launch57/test_temporal_batch14.py tests/launch57/test_temporal_batch13.py tests/launch57/test_temporal_batch12.py tests/launch57/test_temporal_batch1.py tests/launch57/test_data_batch1.py -q",
+    "exit_code": 0,
+    "passed": 83,
+    "failed": 0,
+    "b14_tests": 21,
+    "b13_regression_tests": 9,
+    "b12_regression_tests": 18,
+    "b1_regression_tests": 23,
+    "data_batch1_regression_tests": 12,
+    "pass": true
+  },
+  "residual_risks_for_iv": [
+    "Initial integration wired on data_batch1 API finalizers, chart_common (post-B13), and smart_money_common; other Launch-57 surfaces should route through attach_infrastructure_boundary.",
+    "Clock skew budget defaults are context-specific constants; production sync state is not probed in local tests.",
+    "DST gap detection uses UTC-scan classification; exotic zones should be adversarially probed.",
+    "Schedule recurrence derives next occurrence with daily civil-time intent; full RFC5545 mapping not implemented.",
+    "B1 temporal_common.py unchanged; B14 delegates serialization/clock primitives without competing owner."
+  ],
+  "next_permitted_action": "independent verification of B14 temporal implementation only"
+}

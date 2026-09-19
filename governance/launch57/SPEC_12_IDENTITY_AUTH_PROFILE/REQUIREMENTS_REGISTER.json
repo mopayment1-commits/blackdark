@@ -1,0 +1,337 @@
+{
+  "artifact": "SPEC_12_REQUIREMENTS_REGISTER",
+  "domain": "SPEC_12_IDENTITY_AUTH_PROFILE",
+  "generated_at": "2026-09-19T01:07:44.860563+00:00",
+  "spec_version": "launch57-spec12-identity-auth-profile-1.0.0",
+  "requirement_count": 24,
+  "requirements": [
+    {
+      "req_id": "REQ-S12-001",
+      "title": "Launch-57 identity scope lock only",
+      "spec_section": "§2",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/identity_auth_common.py"
+      ],
+      "tests": [
+        "test_identity_auth.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S12-002",
+      "title": "Immutable canonical user_id",
+      "spec_section": "§3",
+      "launch_ids": [],
+      "owner_modules": [
+        "identity_service.py"
+      ],
+      "tests": [
+        "test_identity_auth.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S12-003",
+      "title": "Modern password hashing; weak forbidden",
+      "spec_section": "§6",
+      "launch_ids": [],
+      "owner_modules": [
+        "identity_service.py"
+      ],
+      "tests": [
+        "test_spec12"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S12-004",
+      "title": "Supported auth methods registry",
+      "spec_section": "§4",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/identity_auth_common.py"
+      ],
+      "tests": [
+        "test_identity_auth.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S12-005",
+      "title": "Email verification separate from entitlement",
+      "spec_section": "§13",
+      "launch_ids": [],
+      "owner_modules": [
+        "identity_service.py"
+      ],
+      "tests": [
+        "test_identity_auth.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S12-006",
+      "title": "Password reset reference",
+      "spec_section": "§16",
+      "launch_ids": [],
+      "owner_modules": [
+        "identity_service.py"
+      ],
+      "tests": [
+        "test_identity_auth.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S12-007",
+      "title": "Session cookies HttpOnly/SameSite/Secure",
+      "spec_section": "§19",
+      "launch_ids": [],
+      "owner_modules": [
+        "security_middleware.py"
+      ],
+      "tests": [
+        "test_spec12"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S12-008",
+      "title": "Step-up for sensitive actions",
+      "spec_section": "§11",
+      "launch_ids": [],
+      "owner_modules": [
+        "privileged_access/step_up.py"
+      ],
+      "tests": [
+        "test_identity_auth.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S12-009",
+      "title": "Authentication ≠ authorization",
+      "spec_section": "§25",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/identity_auth_common.py"
+      ],
+      "tests": [
+        "test_identity_auth.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S12-010",
+      "title": "Anonymous/public boundary",
+      "spec_section": "§26",
+      "launch_ids": [
+        4,
+        44,
+        45,
+        46
+      ],
+      "owner_modules": [
+        "launch57/identity_auth_common.py"
+      ],
+      "tests": [
+        "test_identity_auth.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S12-011",
+      "title": "Private Launch-57 state protected",
+      "spec_section": "§27",
+      "launch_ids": [
+        32,
+        33,
+        49,
+        50
+      ],
+      "owner_modules": [
+        "launch57/identity_auth_common.py"
+      ],
+      "tests": [
+        "test_identity_auth.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S12-012",
+      "title": "FILE 02 anonymous denied on private routes",
+      "spec_section": "§26",
+      "launch_ids": [
+        32,
+        49
+      ],
+      "owner_modules": [
+        "launch57/anonymous_visitor_common.py"
+      ],
+      "tests": [
+        "test_spec02"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S12-013",
+      "title": "FILE 03 verified session entitlement binding",
+      "spec_section": "§25",
+      "launch_ids": [
+        33
+      ],
+      "owner_modules": [
+        "launch57/billing_entitlement_common.py"
+      ],
+      "tests": [
+        "test_spec03"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S12-014",
+      "title": "Login rate limit configured",
+      "spec_section": "§23",
+      "launch_ids": [],
+      "owner_modules": [
+        "security_auth.py"
+      ],
+      "tests": [
+        "test_spec12"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S12-015",
+      "title": "Password not logged; FILE 10 aligned",
+      "spec_section": "§39",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/identity_auth_common.py"
+      ],
+      "tests": [
+        "test_spec12"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S12-016",
+      "title": "IDOR profile/history blocked",
+      "spec_section": "§27",
+      "launch_ids": [
+        49,
+        50
+      ],
+      "owner_modules": [
+        "launch57/identity_auth_common.py"
+      ],
+      "tests": [
+        "test_spec12"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S12-017",
+      "title": "Runtime identity paths wired",
+      "spec_section": "§45",
+      "launch_ids": [
+        32,
+        49,
+        52
+      ],
+      "owner_modules": [
+        "launch57/edge_ui_batch1.py"
+      ],
+      "tests": [
+        "test_spec12"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S12-018",
+      "title": "Account state model reference",
+      "spec_section": "§15",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/identity_auth_common.py"
+      ],
+      "tests": [
+        "test_identity_auth.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S12-019",
+      "title": "MFA/OAuth governance reference",
+      "spec_section": "§7–§10",
+      "launch_ids": [],
+      "owner_modules": [
+        "governance/identity_governance.py"
+      ],
+      "tests": [
+        "test_identity_auth.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S12-020",
+      "title": "No PARKED identity scope",
+      "spec_section": "§2",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/identity_auth_common.py"
+      ],
+      "tests": [
+        "test_spec12"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S12-021",
+      "title": "PASS_LIVE not claimed",
+      "spec_section": "§52",
+      "launch_ids": [],
+      "owner_modules": [],
+      "tests": [],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S12-022",
+      "title": "Acceptance criteria engineering gate",
+      "spec_section": "§51",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/identity_auth_common.py"
+      ],
+      "tests": [
+        "test_spec12"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S12-023",
+      "title": "Independent verification adversarial probes",
+      "spec_section": "§50",
+      "launch_ids": [],
+      "owner_modules": [],
+      "tests": [
+        "test_spec12"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S12-024",
+      "title": "Envelope cannot grant PASS_ENGINEERING",
+      "spec_section": "§53",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/identity_auth_common.py"
+      ],
+      "tests": [
+        "test_identity_auth.py"
+      ],
+      "mandatory": true
+    }
+  ]
+}

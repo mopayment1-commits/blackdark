@@ -310,8 +310,18 @@
         </div>
         {% elif page == 'status' %}
         <div class="card">
+            {% set gt = guest_trust or {} %}
+            <h2>Guest trust (public)</h2>
+            <p class="deny">Anonymous visitors see only approved public intelligence — private app surfaces stay behind sign-in.</p>
+            <ul class="channel-list">
+                <li><strong style="color:var(--fg)">Private by default</strong> · {{ 'yes' if gt.private_by_default else '—' }}</li>
+                <li><strong style="color:var(--fg)">Public readiness</strong> · {{ gt.public_readiness or '—' }}</li>
+                <li><strong style="color:var(--fg)">Anonymous state</strong> · {{ gt.anonymous_state or '—' }}</li>
+            </ul>
+            <p><a href="/api/launch57/guest-trust?symbol=BTC">Guest trust JSON</a> · <a href="/">Homepage Trust Pulse</a></p>
             {% set st = status or {} %}
             {% set overall = (st.overall or 'unknown') %}
+            <h2>System components</h2>
             <p>
                 Overall:
                 <span class="status-pill {% if overall == 'operational' %}status-ok{% elif overall == 'degraded' %}status-deg{% else %}status-bad{% endif %}">
@@ -410,11 +420,11 @@
         </div>
         {% elif page == 'cancel' %}
         <div class="card">
-            <p>No charge was made. Your Proof Pass still works — Trust Pulse and the Ledger stay free.</p>
+            <p>No charge was made. Your DISCOVER / FREE tier still works — public Prove and the Ledger stay available.</p>
             <h2>What you can do next</h2>
             <ul>
                 <li><a href="/dashboard">Open Trust Pulse</a> — one live Act / Wait with Why</li>
-                <li><a href="/#pricing">Restart Decision Pro</a> — $29 USD when you are ready</li>
+                <li><a href="/#pricing">Restart DECIDE / PRO</a> — $19.99/mo or $199/yr when you are ready</li>
                 <li><a href="/oracle-accuracy">Verify the Public Accuracy Ledger</a></li>
             </ul>
             <p class="deny"><strong style="color:var(--fg)">Anti-Hype</strong> · Checkout cancel is not a penalty · No fake scarcity timers</p>

@@ -51,7 +51,8 @@ async def process_stripe_event(event: dict[str, Any]) -> dict[str, Any]:
                 auto_renew_consent=True,
                 provider_event_id=event_id,
             )
-            return {"handled": True, "action": "checkout_completed", **result}
+            action = "duplicate_ignored" if result.get("duplicate") else "checkout_completed"
+            return {"handled": True, "action": action, **result}
         return {"handled": False, "reason": "missing_email_or_subscription"}
 
     if event_type in {"customer.subscription.updated", "customer.subscription.created"}:

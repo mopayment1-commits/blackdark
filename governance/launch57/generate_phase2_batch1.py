@@ -23,11 +23,12 @@ ITEM_ROWS: dict[int, dict] = {
         "cap_ids": [],
         "build_decision": "EXTEND",
         "entrypoint": "user_evidence_display / attach_trust_envelope",
-        "runtime_path": "launch57/trust_batch1.py:attach_trust_envelope (cross-cutting on all trust outputs)",
+        "runtime_path": "launch57/evidence_class_common.py → launch57/trust_batch1.py:attach_trust_envelope",
         "consumer_paths": [
-            "launch57/trust_batch1.py",
-            "cap646/evidence_class.py",
-            "decision_truth/evidence_taxonomy.py",
+            "launch57/evidence_class_common.py",
+            "launch57/trust_batch1.py:user_evidence_display",
+            "launch57/trust_batch1.py:attach_trust_envelope",
+            "launch57/b4_decision_bridge.py:apply_b4_trust_envelope",
         ],
         "semantic_oracle": "canonical evidence_class → user_facing LIVE|DELAYED|SIM visible on every trust surface",
         "tests": [
