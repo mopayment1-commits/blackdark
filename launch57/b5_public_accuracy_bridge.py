@@ -84,7 +84,9 @@ def finalize_b5_ledger_surface(
         extra={"ledger_interpretation_context": interpretation},
     )
     from launch57.compounding_evidence_common import attach_compounding_evidence_envelope
+    from launch57.teis_support_common import attach_teis_support_envelope
 
     out["b5_public_accuracy"] = b5_public_accuracy_state()
+    out = attach_teis_support_envelope(out)
     out = attach_compounding_evidence_envelope(out, launch_item_id=4)
     return finalize_b5_response(out)

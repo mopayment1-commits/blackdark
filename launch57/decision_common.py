@@ -81,7 +81,9 @@ def stale_gate_body(
         "binding_source": "launch57_phase3_decision_spine",
     }
     from launch57.compounding_evidence_common import attach_compounding_evidence_envelope
+    from launch57.teis_support_common import attach_teis_support_envelope
 
+    body = attach_teis_support_envelope(body)
     body = attach_failure_recovery_envelope(body, launch_item_id=launch_item_id)
     body = attach_decision_truth_envelope(body, launch_item_id=launch_item_id)
     return attach_compounding_evidence_envelope(body, launch_item_id=launch_item_id)
@@ -131,7 +133,9 @@ def attach_decision_envelope(body: dict[str, Any], *, spine: dict[str, Any] | No
     from launch57.decision_truth_common import attach_decision_truth_envelope
 
     from launch57.compounding_evidence_common import attach_compounding_evidence_envelope
+    from launch57.teis_support_common import attach_teis_support_envelope
 
+    out = attach_teis_support_envelope(out)
     out = attach_failure_recovery_envelope(out, launch_item_id=launch_id or None)
     out = attach_decision_truth_envelope(out, launch_item_id=launch_id or None)
     return attach_compounding_evidence_envelope(out, launch_item_id=launch_id or None)

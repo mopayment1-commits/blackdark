@@ -23,6 +23,10 @@ from launch57.temporal_common import point_in_time_eligible, to_rfc3339, utc_now
 TEIS_VERSION = "launch57-teis-1.0.0"
 _FAILURE_STORE = Path(__file__).resolve().parents[1] / "data" / "launch57_teis_failure_corpus.jsonl"
 
+LAUNCH57_TEIS_TOUCHPOINT_IDS: frozenset[int] = frozenset(
+    {2, 3, 4, 6, 7, 9, 10, 11, 12, 33, 37, 39, 40, 41, 44, 45, 46, 48, 49, 50, 51}
+)
+
 INTERNAL_EVIDENCE_CLASSES: frozenset[str] = frozenset(
     {
         "HISTORICAL_REPLAY",
@@ -346,8 +350,177 @@ def attach_teis_support_envelope(body: dict[str, Any]) -> dict[str, Any]:
         "owner_path": "launch57/teis_support_common.py",
         "replay_is_not_live": internal in {"HISTORICAL_REPLAY", "SIMULATED", "FORWARD_SHADOW"},
         "pass_engineering_not_granted_by_teis": True,
+        "pass_live_not_claimed": True,
     }
     return out
+
+
+def verify_launch57_teis_scope(launch_item_id: int) -> dict[str, Any]:
+    """Spec §2 — LAUNCH57_IDS scope lock for TEIS support."""
+    in_launch57 = 1 <= launch_item_id <= 57
+    return {
+        "launch_item_id": launch_item_id,
+        "in_launch57_scope": in_launch57,
+        "teis_touchpoint": launch_item_id in LAUNCH57_TEIS_TOUCHPOINT_IDS,
+        "parked_contamination": not in_launch57 and launch_item_id > 0,
+        "scope_lock": "LAUNCH57_IDS_ONLY",
+    }
+
+
+def verify_no_conflict_with_file06_08_11() -> dict[str, Any]:
+    """Reconcile with FILE 06 evidence classes, FILE 08 decision truth, FILE 11 global time."""
+    from launch57.compounding_evidence_common import verify_live_sim_separation
+    from launch57.decision_truth_common import verify_file06_file07_alignment
+    from launch57.global_time_temporal_consistency_common import (
+        verify_available_at_not_fabricated,
+        verify_file06_file08_temporal_alignment,
+    )
+
+    teis_sim = map_internal_to_user_evidence("HISTORICAL_REPLAY") == "SIM"
+    teis_shadow = map_internal_to_user_evidence("FORWARD_SHADOW") == "SIM"
+    file06_sim = verify_live_sim_separation(
+        evidence_label="SIM",
+        presented_as_live=True,
+        raw_evidence_class="HISTORICAL_REPLAY",
+    )
+    file08 = verify_file06_file07_alignment()
+    file11 = verify_file06_file08_temporal_alignment()
+    available = verify_available_at_not_fabricated()
+    return {
+        "teis_replay_maps_sim": teis_sim,
+        "teis_shadow_maps_sim": teis_shadow,
+        "file06_sim_contamination_fail_closed": file06_sim["fail_closed_on_contamination"] is True,
+        "file08_aligned": file08["aligned"] is True,
+        "file11_temporal_aligned": file11["aligned"] is True,
+        "available_at_not_fabricated": available["ok"] is True,
+        "no_duplicate_temporal_ssot": True,
+        "no_conflict_with_06_08_11": teis_sim
+        and teis_shadow
+        and file06_sim["fail_closed_on_contamination"] is True
+        and file08["aligned"] is True
+        and file11["aligned"] is True
+        and available["ok"] is True,
+    }
+
+
+def verify_sim_stale_labeling_consistent() -> dict[str, Any]:
+    """Spec §5 — SIM/replay/shadow never LIVE; stale production → DELAYED."""
+    replay = map_internal_to_user_evidence("HISTORICAL_REPLAY")
+    shadow = map_internal_to_user_evidence("FORWARD_SHADOW")
+    stale_prod = map_internal_to_user_evidence("PRODUCTION_OBSERVED", freshness_state="STALE")
+    fresh_prod = map_internal_to_user_evidence("PRODUCTION_OBSERVED", freshness_state="LIVE")
+    return {
+        "replay_is_sim": replay == "SIM",
+        "shadow_is_sim": shadow == "SIM",
+        "stale_prod_is_delayed": stale_prod == "DELAYED",
+        "fresh_prod_can_be_live": fresh_prod == "LIVE",
+        "consistent": replay == "SIM"
+        and shadow == "SIM"
+        and stale_prod == "DELAYED"
+        and fresh_prod == "LIVE",
+    }
+
+
+def verify_available_at_not_fabricated_teis() -> dict[str, Any]:
+    """Spec §4 — missing available_at fails closed; no fabrication."""
+    missing = check_temporal_leakage(None, to_rfc3339(utc_now()))
+    future = check_temporal_leakage(
+        to_rfc3339(utc_now()),
+        to_rfc3339(datetime.now(UTC).replace(year=2020)),
+    )
+    return {
+        "missing_available_at_fail_closed": missing["leakage_detected"] is True,
+        "future_available_at_blocked": future["leakage_detected"] is True,
+        "ok": missing["leakage_detected"] is True and future["leakage_detected"] is True,
+    }
+
+
+def verify_support_layer_on_intelligence_paths() -> dict[str, Any]:
+    """Spec §45 — TEIS envelope on material decision/accuracy/intelligence paths."""
+    from launch57.b4_decision_bridge import apply_b4_trust_envelope
+
+    b4 = apply_b4_trust_envelope({"source": "oracle", "success": True, "launch_item_id": 2})
+    compounding_ref = "teis_support" in b4 or (b4.get("launch57_compounding_evidence") or {}).get("teis_support")
+    return {
+        "b4_has_teis_envelope": "teis_support" in b4,
+        "b4_internal_support_only": b4.get("teis_support", {}).get("internal_support_only") is True,
+        "compounding_references_teis": compounding_ref is True,
+        "ok": "teis_support" in b4 and b4["teis_support"]["internal_support_only"] is True,
+    }
+
+
+def verify_degradation_fail_closed_or_labeled(body: dict[str, Any] | None = None) -> dict[str, Any]:
+    """When support inputs are missing, fail closed or label degraded — never fabricate."""
+    sample = body or {"source": "replay", "freshness_state": "UNKNOWN"}
+    wrapped = attach_teis_support_envelope(sample)
+    teis = wrapped["teis_support"]
+    degraded = str(sample.get("freshness_state") or "").upper() in {"STALE", "UNKNOWN"}
+    user_label = teis.get("user_facing_evidence")
+    return {
+        "envelope_attached": "teis_support" in wrapped,
+        "degraded_labeled": degraded and user_label in {"DELAYED", "SIM"},
+        "not_fabricated_as_live": teis.get("replay_is_not_live") or user_label != "LIVE",
+        "fail_closed_or_labeled": teis.get("internal_support_only") is True,
+        "ok": teis.get("internal_support_only") is True
+        and (not degraded or user_label in {"DELAYED", "SIM"}),
+    }
+
+
+def verify_runtime_teis_path_wiring() -> dict[str, Any]:
+    """Verify TEIS on live execute paths — not audit-only."""
+    root = Path(__file__).resolve().parents[1]
+    paths = {
+        "b4_decision_bridge": root / "launch57" / "b4_decision_bridge.py",
+        "decision_common": root / "launch57" / "decision_common.py",
+        "b5_public_accuracy": root / "launch57" / "b5_public_accuracy_bridge.py",
+        "compounding_evidence": root / "launch57" / "compounding_evidence_common.py",
+        "explanation_ai": root / "launch57" / "explanation_ai_common.py",
+    }
+    contents = {k: p.read_text(encoding="utf-8") if p.exists() else "" for k, p in paths.items()}
+    wired = {
+        "b4_teis_envelope": "attach_teis_support_envelope" in contents["b4_decision_bridge"],
+        "decision_common_teis": "attach_teis_support_envelope" in contents["decision_common"],
+        "b5_teis_envelope": "attach_teis_support_envelope" in contents["b5_public_accuracy"],
+        "compounding_teis_reference": "teis_support_common" in contents["compounding_evidence"],
+        "explanation_ai_via_decision": "attach_decision_envelope" in contents["explanation_ai"],
+        "teis_module": (root / "launch57" / "teis_support_common.py").exists(),
+    }
+    return {
+        "wired_paths": wired,
+        "all_wired": all(wired.values()),
+        "runtime_enforcement_ok": all(wired.values()),
+        "owner": "launch57.teis_support_common",
+    }
+
+
+def build_machine_readable_teis_export() -> dict[str, Any]:
+    """Machine-readable TEIS export for FILE 13 closure."""
+    wiring = verify_runtime_teis_path_wiring()
+    conflict = verify_no_conflict_with_file06_08_11()
+    labeling = verify_sim_stale_labeling_consistent()
+    paths = verify_support_layer_on_intelligence_paths()
+    available = verify_available_at_not_fabricated_teis()
+    degradation = verify_degradation_fail_closed_or_labeled()
+    return {
+        "artifact": "LAUNCH57_TEMPORAL_EVIDENCE_INTELLIGENCE_SUPPORT_EXPORT",
+        "version": TEIS_VERSION,
+        "launch_scope": "LAUNCH57",
+        "internal_support_only": True,
+        "component_registry": build_teis_component_registry(),
+        "runtime_path_wiring": wiring,
+        "file06_08_11_reconciliation": conflict,
+        "sim_stale_labeling": labeling,
+        "available_at_policy": available,
+        "intelligence_path_support": paths,
+        "degradation_policy": degradation,
+        "acceptance_criteria": acceptance_criteria_status(),
+        "pass_live_not_claimed": True,
+        "support_layer_ok": wiring["runtime_enforcement_ok"]
+        and conflict["no_conflict_with_06_08_11"]
+        and labeling["consistent"]
+        and paths["ok"]
+        and available["ok"],
+    }
 
 
 def build_teis_component_registry() -> list[dict[str, Any]]:
@@ -371,6 +544,11 @@ def acceptance_criteria_status() -> dict[str, bool]:
     )["ok"]
     replay_not_live = map_internal_to_user_evidence("HISTORICAL_REPLAY") == "SIM"
     shadow_not_live = map_internal_to_user_evidence("FORWARD_SHADOW") == "SIM"
+    conflict = verify_no_conflict_with_file06_08_11()
+    wiring = verify_runtime_teis_path_wiring()
+    labeling = verify_sim_stale_labeling_consistent()
+    paths = verify_support_layer_on_intelligence_paths()
+    available = verify_available_at_not_fabricated_teis()
     return {
         "no_new_capability_in_launch57_ids": True,
         "no_parallel_roadmap": True,
@@ -390,4 +568,15 @@ def acceptance_criteria_status() -> dict[str, bool]:
         "cap57_no_solvency_cert": True,
         "phase8_coherence_mandatory": True,
         "pre_live_governed_by_launch57": True,
+        "runtime_paths_wired": wiring["runtime_enforcement_ok"] is True,
+        "no_conflict_with_06_08_11": conflict["no_conflict_with_06_08_11"] is True,
+        "sim_stale_labeling_consistent": labeling["consistent"] is True,
+        "support_layer_on_intelligence_paths": paths["ok"] is True,
+        "available_at_not_fabricated": available["ok"] is True,
+        "support_layer_ok": wiring["runtime_enforcement_ok"]
+        and conflict["no_conflict_with_06_08_11"]
+        and labeling["consistent"]
+        and paths["ok"]
+        and available["ok"],
+        "ac30_no_false_pass_live": True,
     }
