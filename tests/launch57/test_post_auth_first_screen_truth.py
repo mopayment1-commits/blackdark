@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import re
+import uuid
 from pathlib import Path
 
 import pytest
@@ -129,6 +130,19 @@ def test_stale_command_home_not_presented_as_live(authed_client, monkeypatch):
     assert body.get("freshness_state") == FreshnessState.STALE.value
 
 
+def test_dockerfile_includes_launch57_post_auth_runtime_packages():
+    dockerfile = (ROOT / "Dockerfile").read_text(encoding="utf-8")
+    required = [
+        "COPY launch57/ launch57/",
+        "COPY decision_truth/ decision_truth/",
+        "COPY failure/ failure/",
+        "COPY data_governance/ data_governance/",
+        "COPY governance/ governance/",
+    ]
+    for line in required:
+        assert line in dockerfile, f"missing Dockerfile packaging: {line}"
+
+
 def test_register_then_command_home_path_not_500(monkeypatch):
     from dashboard import app
 
@@ -156,10 +170,11 @@ def test_register_then_command_home_path_not_500(monkeypatch):
     monkeypatch.setattr("launch57.edge_ui_batch2.single_sentence_oracle", fake_oracle)
 
     client = TestClient(app)
+    email = f"post-auth-truth-{uuid.uuid4().hex[:12]}@example.com"
     reg = client.post(
         "/api/auth/register",
         json={
-            "email": "post-auth-truth@example.com",
+            "email": email,
             "password": "SecurePass1234!",
             "accepted_terms": True,
         },
