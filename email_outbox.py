@@ -82,10 +82,16 @@ def enqueue_email(
         "sent_at": None,
         "error": None,
     }
-    with _LOCK:
-        _PATH.parent.mkdir(parents=True, exist_ok=True)
-        with _PATH.open("a", encoding="utf-8") as fh:
-            fh.write(json.dumps(_redact_for_disk(row), separators=(",", ":"), default=str) + "\n")
+    try:
+        with _LOCK:
+            _PATH.parent.mkdir(parents=True, exist_ok=True)
+            with _PATH.open("a", encoding="utf-8") as fh:
+                fh.write(json.dumps(_redact_for_disk(row), separators=(",", ":"), default=str) + "\n")
+    except OSError:
+        # Railway/ephemeral disks may block data/ writes — never fail signup on outbox I/O.
+        row = dict(row)
+        row["status"] = "queue_failed"
+        row["error"] = "outbox_write_failed"
     # Return in-memory row (includes clear body) for immediate senders.
     return dict(row)
 

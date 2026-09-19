@@ -253,6 +253,47 @@ def test_register_not_500_when_kms_provider_local_dev_but_master_key_set(
     assert res.status_code == 200
 
 
+def test_register_not_500_when_email_outbox_read_only(client, tmp_path, monkeypatch):
+    """Production disks may deny writes to data/email_outbox.jsonl."""
+    import asyncio
+    import os
+    import stat
+    from pathlib import Path
+
+    import database
+
+    monkeypatch.setattr(database.config, "DB_PATH", str(tmp_path / "outbox.db"))
+    monkeypatch.setenv("ENV", "production")
+    monkeypatch.setenv("SECRETS_MASTER_KEY", "production-master-key-32chars!!")
+    monkeypatch.delenv("SESSION_TOKEN_PEPPER", raising=False)
+
+    async def _init():
+        await database.init_db()
+
+    asyncio.run(_init())
+
+    outbox = Path("data/email_outbox.jsonl")
+    outbox.parent.mkdir(parents=True, exist_ok=True)
+    outbox.touch(exist_ok=True)
+    os.chmod(outbox, stat.S_IRUSR)
+    try:
+        res = client.post(
+            "/api/auth/register",
+            json={
+                "email": "outboxro@example.com",
+                "password": "strong-pass-1234",
+                "accepted_terms": True,
+                "plan": "free",
+            },
+            headers={"X-Forwarded-Proto": "https"},
+        )
+    finally:
+        os.chmod(outbox, stat.S_IRWXU)
+
+    assert res.status_code != 500
+    assert res.status_code == 200
+
+
 def test_register_missing_session_secrets_not_500(client, tmp_path, monkeypatch):
     """Misconfigured production secrets must not surface as silent 500."""
     import asyncio
