@@ -33,6 +33,15 @@
             width:100%; padding:.75rem 1rem; margin-bottom:.9rem; background:#1a1a24;
             border:1px solid var(--border); border-radius:10px; color:var(--text);
         }
+        .password-field { position:relative; margin-bottom:.9rem; }
+        .password-field input { margin-bottom:0; padding-right:6.5rem; }
+        .password-toggle {
+            position:absolute; right:.45rem; top:50%; transform:translateY(-50%);
+            width:auto; min-width:auto; padding:.35rem .55rem; margin:0;
+            background:transparent; border:none; color:var(--accent);
+            font-size:.72rem; font-weight:600; cursor:pointer; text-decoration:underline;
+        }
+        .password-toggle:hover { color:#67e8f9; }
         input:invalid:not(:placeholder-shown) { border-color: var(--danger); }
         .check { display:flex; gap:.55rem; align-items:flex-start; font-size:.78rem; color:#a1a1aa; margin:0 0 1rem; }
         .check input { margin-top:.2rem; }
@@ -87,7 +96,10 @@
                 <label for="regEmail">Email</label>
                 <input type="email" id="regEmail" autocomplete="email" placeholder="you@email.com">
                 <label for="regPassword">Password (12+ characters)</label>
-                <input type="password" id="regPassword" minlength="12" autocomplete="new-password" placeholder="At least 12 characters">
+                <div class="password-field">
+                    <input type="password" id="regPassword" minlength="12" autocomplete="new-password" placeholder="At least 12 characters">
+                    <button type="button" class="password-toggle" id="regPasswordToggle" aria-label="Show password" aria-pressed="false">Show password</button>
+                </div>
                 <label class="check">
                     <input type="checkbox" id="regTerms">
                     <span>I agree to the <a href="/terms" target="_blank">Terms</a>, <a href="/privacy" target="_blank">Privacy</a>, and <a href="/disclaimer" target="_blank">Disclaimer</a></span>
@@ -106,7 +118,10 @@
                 <label for="loginEmail">{{ t('login.email') }}</label>
                 <input type="email" id="loginEmail" required autocomplete="username" placeholder="you@email.com">
                 <label for="loginPassword">{{ t('login.pass_label') }}</label>
-                <input type="password" id="loginPassword" required autocomplete="current-password">
+                <div class="password-field">
+                    <input type="password" id="loginPassword" required autocomplete="current-password">
+                    <button type="button" class="password-toggle" id="loginPasswordToggle" aria-label="Show password" aria-pressed="false">Show password</button>
+                </div>
                 <div class="row-links">
                     <button type="button" class="linkish" data-bd-call="showForgot">{{ t('auth.forgot_pass') }}</button>
                     <button type="button" class="linkish" data-bd-call="showForgotUsername">{{ t('auth.forgot_username') }}</button>
@@ -180,10 +195,66 @@
             document.getElementById('forgotUserForm').classList.remove('hidden');
             document.getElementById('msg').textContent = '';
         }
-        function setMsg(text, ok) {
+        function setMsg(text, ok, opts) {
             const msg = document.getElementById('msg');
             msg.className = 'msg ' + (ok ? 'ok' : 'error');
-            msg.textContent = text;
+            if (opts && opts.html) msg.innerHTML = text;
+            else msg.textContent = text;
+        }
+        function togglePassword(inputId, btnId) {
+            const input = document.getElementById(inputId);
+            const btn = document.getElementById(btnId);
+            if (!input || !btn) return;
+            const show = input.type === 'password';
+            input.type = show ? 'text' : 'password';
+            btn.textContent = show ? 'Hide password' : 'Show password';
+            btn.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+            btn.setAttribute('aria-pressed', show ? 'true' : 'false');
+        }
+        async function readApiError(res) {
+            const ct = (res.headers.get('content-type') || '').toLowerCase();
+            if (ct.includes('application/json')) {
+                try {
+                    const d = await res.json();
+                    if (typeof d.detail === 'string') return d.detail;
+                    if (Array.isArray(d.detail)) {
+                        return d.detail.map((x) => x.msg || String(x)).join('; ');
+                    }
+                    if (typeof d.message === 'string') return d.message;
+                    if (typeof d.error === 'string') return d.error;
+                    return 'Server error (' + res.status + '). Please try again.';
+                } catch (_) {
+                    return 'Server returned an unreadable response (' + res.status + '). Please try again.';
+                }
+            }
+            try {
+                const text = (await res.text()).trim();
+                if (text.startsWith('<')) {
+                    return 'Server error (' + res.status + '). Please try again.';
+                }
+                return text.slice(0, 240) || 'Server error (' + res.status + '). Please try again.';
+            } catch (_) {
+                return 'Could not read server response (' + res.status + '). Please try again.';
+            }
+        }
+        async function readApiJson(res) {
+            const ct = (res.headers.get('content-type') || '').toLowerCase();
+            if (!ct.includes('application/json')) {
+                throw new Error(await readApiError(res));
+            }
+            try {
+                return await res.json();
+            } catch (_) {
+                throw new Error('Server returned an unreadable response. Please try again.');
+            }
+        }
+        function loginErrorMessage(raw) {
+            const msg = (raw || '').trim();
+            if (!msg) return 'Email or password is incorrect. Please try again.';
+            if (/invalid email or password/i.test(msg)) {
+                return 'Email or password is incorrect. Please try again.';
+            }
+            return msg;
         }
         function signupPlan() {
             const params = new URLSearchParams(window.location.search);
@@ -216,13 +287,6 @@
             if (data.user) localStorage.setItem('bd_user', JSON.stringify(data.user));
             window.location.href = resolvePostAuthUrl(data);
         }
-        async function detail(res) {
-            const d = await res.json().catch(() => ({}));
-            const err = d.detail;
-            if (typeof err === 'string') return err;
-            if (Array.isArray(err)) return err.map(x => x.msg || JSON.stringify(x)).join('; ');
-            return d.message || 'Request failed';
-        }
         function validateRegisterForm() {
             const email = document.getElementById('regEmail').value.trim();
             const password = document.getElementById('regPassword').value;
@@ -245,8 +309,11 @@
                         password: document.getElementById('loginPassword').value
                     })
                 });
-                const d = await res.json();
-                if (!res.ok) throw new Error(typeof d.detail === 'string' ? d.detail : 'Login failed');
+                if (!res.ok) {
+                    setMsg(loginErrorMessage(await readApiError(res)), false);
+                    return;
+                }
+                const d = await readApiJson(res);
                 if (d.mfa_required) {
                     mfaChallenge = d.mfa_challenge;
                     hideAll();
@@ -255,7 +322,10 @@
                     return;
                 }
                 saveAuth(d);
-            } catch (error) { console.debug(error); setMsg(error.message, false); }
+            } catch (error) {
+                console.debug(error);
+                setMsg(error.message || 'Sign in failed. Please try again.', false);
+            }
         }
         async function doMfa(e) {
             e.preventDefault();
@@ -269,10 +339,16 @@
                         code: document.getElementById('mfaCode').value.trim()
                     })
                 });
-                const d = await res.json();
-                if (!res.ok) throw new Error(typeof d.detail === 'string' ? d.detail : 'MFA failed');
+                if (!res.ok) {
+                    setMsg(await readApiError(res), false);
+                    return;
+                }
+                const d = await readApiJson(res);
                 saveAuth(d);
-            } catch (error) { console.debug(error); setMsg(error.message, false); }
+            } catch (error) {
+                console.debug(error);
+                setMsg(error.message || 'Verification failed. Please try again.', false);
+            }
         }
         async function doRegister(e) {
             e.preventDefault();
@@ -289,13 +365,28 @@
                         plan: signupPlan()
                     })
                 });
-                const d = await res.json();
-                if (!res.ok) throw new Error(typeof d.detail === 'string' ? d.detail : await detail(res));
+                if (!res.ok) {
+                    const errText = await readApiError(res);
+                    if (/already registered/i.test(errText)) {
+                        setMsg(
+                            'This email is already registered. <a href="/login">Sign in</a> to your account instead.',
+                            false,
+                            { html: true }
+                        );
+                        return;
+                    }
+                    setMsg(errText, false);
+                    return;
+                }
+                const d = await readApiJson(res);
                 if (d.email_verification && d.email_verification.debug_link) {
                     console.info('Verify email:', d.email_verification.debug_link);
                 }
                 saveAuth(d);
-            } catch (error) { console.debug(error); setMsg(error.message, false); }
+            } catch (error) {
+                console.debug(error);
+                setMsg(error.message || 'Registration failed. Please try again.', false);
+            }
         }
         async function doForgot(e) {
             e.preventDefault();
@@ -305,8 +396,11 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email: document.getElementById('forgotEmail').value })
                 });
-                const d = await res.json();
-                if (!res.ok) throw new Error(d.detail || 'Request failed');
+                if (!res.ok) {
+                    setMsg(await readApiError(res), false);
+                    return;
+                }
+                const d = await readApiJson(res);
                 let text = d.message || 'Check your email.';
                 if (d.debug_link) text += ' (dev link logged to console)';
                 if (d.debug_link) console.info('Reset link:', d.debug_link);
@@ -321,9 +415,16 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email: document.getElementById('forgotUserEmail').value })
                 });
-                const d = await res.json();
+                if (!res.ok) {
+                    setMsg(await readApiError(res), false);
+                    return;
+                }
+                const d = await readApiJson(res);
                 setMsg(d.message || 'If an account exists, a reminder was sent.', true);
-            } catch (error) { console.debug(error); setMsg(error.message, false); }
+            } catch (error) {
+                console.debug(error);
+                setMsg(error.message || 'Could not send reminder. Please try again.', false);
+            }
         }
         function googleLoginUri() {
             const params = new URLSearchParams(window.location.search);
@@ -362,7 +463,23 @@
         }
         Object.assign(window, {
             showRegister, showLogin, showForgot, showForgotUsername,
-            doLogin, doMfa, doRegister, doForgot, doForgotUsername
+            doLogin, doMfa, doRegister, doForgot, doForgotUsername, togglePassword
+        });
+        document.getElementById('loginForm')?.addEventListener('submit', doLogin);
+        document.getElementById('registerForm')?.addEventListener('submit', doRegister);
+        document.getElementById('mfaForm')?.addEventListener('submit', doMfa);
+        document.getElementById('forgotForm')?.addEventListener('submit', doForgot);
+        document.getElementById('forgotUserForm')?.addEventListener('submit', doForgotUsername);
+        document.getElementById('loginPasswordToggle')?.addEventListener('click', () => {
+            togglePassword('loginPassword', 'loginPasswordToggle');
+        });
+        document.getElementById('regPasswordToggle')?.addEventListener('click', () => {
+            togglePassword('regPassword', 'regPasswordToggle');
+        });
+        document.querySelector('[data-bd-call="showForgot"]')?.addEventListener('click', showForgot);
+        document.querySelector('[data-bd-call="showForgotUsername"]')?.addEventListener('click', showForgotUsername);
+        document.querySelectorAll('[data-bd-call="showLogin"]').forEach((el) => {
+            el.addEventListener('click', showLogin);
         });
         try { localStorage.removeItem('bd_token'); localStorage.removeItem('token'); } catch (_) {}
         syncPlanFromUrl();

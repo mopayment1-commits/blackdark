@@ -89,6 +89,32 @@ def test_google_credential_endpoint_blocked_without_client_id(client, monkeypatc
     assert "not configured" in res.json()["detail"].lower()
 
 
+def test_login_forms_bind_submit_without_csp_events():
+    html = Path("templates/login.html").read_text(encoding="utf-8")
+    assert "getElementById('loginForm')?.addEventListener('submit', doLogin)" in html
+    assert "getElementById('registerForm')?.addEventListener('submit', doRegister)" in html
+
+
+def test_password_toggle_controls_present():
+    html = Path("templates/login.html").read_text(encoding="utf-8")
+    assert "togglePassword" in html
+    assert 'id="loginPasswordToggle"' in html
+    assert 'id="regPasswordToggle"' in html
+    assert "Show password" in html
+    assert "Hide password" in html
+    assert "input.type = show ? 'text' : 'password'" in html
+
+
+def test_non_json_api_errors_handled_gracefully():
+    html = Path("templates/login.html").read_text(encoding="utf-8")
+    assert "readApiError" in html
+    assert "readApiJson" in html
+    assert "unreadable response" in html
+    assert "loginErrorMessage" in html
+    assert "already registered" in html.lower()
+    assert 'href="/login">Sign in</a>' in html
+
+
 def test_google_signin_uses_redirect_mode_not_popup_only():
     """Fails if GIS reverts to popup-only (callback fetch) without redirect login_uri."""
     html = Path("templates/login.html").read_text(encoding="utf-8")
