@@ -221,6 +221,38 @@ def test_google_login_post_valid_credential_shape_not_500(client, monkeypatch, t
     assert res.headers.get("location") == "/dashboard"
 
 
+def test_register_missing_session_secrets_not_500(client, tmp_path, monkeypatch):
+    """Misconfigured production secrets must not surface as silent 500."""
+    import asyncio
+
+    import database
+
+    monkeypatch.setattr(database.config, "DB_PATH", str(tmp_path / "nosecrets.db"))
+    monkeypatch.setenv("ENV", "production")
+    monkeypatch.delenv("SESSION_TOKEN_PEPPER", raising=False)
+    monkeypatch.delenv("SECRETS_MASTER_KEY", raising=False)
+    monkeypatch.delenv("SECRETS_VAULT_KEY", raising=False)
+    monkeypatch.delenv("MFA_ENCRYPTION_KEY", raising=False)
+
+    async def _init():
+        await database.init_db()
+
+    asyncio.run(_init())
+    res = client.post(
+        "/api/auth/register",
+        json={
+            "email": "nosecrets@example.com",
+            "password": "strong-pass-1234",
+            "accepted_terms": True,
+            "plan": "free",
+        },
+        headers={"X-Forwarded-Proto": "https"},
+    )
+    assert res.status_code != 500
+    assert res.status_code == 503
+    assert "SESSION_TOKEN_PEPPER" in res.json()["detail"]
+
+
 def test_register_api_rejects_short_password(client, tmp_path, monkeypatch):
     import database
 
