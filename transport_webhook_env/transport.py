@@ -49,19 +49,39 @@ def _peer_ip(request: Request) -> str | None:
     return str(getattr(client, "host", None) or "")
 
 
+def _production_ingress_forwarded_proto(request: Request) -> str | None:
+    """Railway / reverse-proxy contract: trust ingress forwarding headers in production."""
+    proto = (request.headers.get("x-forwarded-proto") or "").split(",")[0].strip().lower()
+    if proto in {"https", "http"}:
+        return proto
+    raw = (request.headers.get("forwarded") or "").strip()
+    if not raw:
+        return None
+    for entry in raw.split(","):
+        for token in entry.split(";"):
+            piece = token.strip()
+            if not piece.lower().startswith("proto="):
+                continue
+            val = piece.split("=", 1)[1].strip().strip('"').strip("'").lower()
+            if val in {"https", "http"}:
+                return val
+    return None
+
+
 def _trusted_forwarded_proto(request: Request) -> str | None:
     peer = _peer_ip(request)
     nets = trusted_proxy_networks()
-    if not nets or not peer:
-        return None
-    try:
-        addr = ipaddress.ip_address(peer)
-    except ValueError:
-        return None
-    if not any(addr in net for net in nets):
-        return None
-    proto = (request.headers.get("x-forwarded-proto") or "").split(",")[0].strip().lower()
-    return proto or None
+    if nets and peer:
+        try:
+            addr = ipaddress.ip_address(peer)
+        except ValueError:
+            return None
+        if any(addr in net for net in nets):
+            proto = (request.headers.get("x-forwarded-proto") or "").split(",")[0].strip().lower()
+            return proto or None
+    if _is_production():
+        return _production_ingress_forwarded_proto(request)
+    return None
 
 
 def request_effective_scheme(request: Request) -> str:
