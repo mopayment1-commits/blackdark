@@ -287,12 +287,17 @@ def _normalize_zone_id(value: str | None) -> str | None:
 
 
 def local_render_instant(canonical_utc: datetime, zone_id: str) -> str:
+    """Render canonical UTC instant for display in zone_id without mutating storage form."""
     aware = require_aware(canonical_utc, field_name="local_render")
     try:
         zone: tzinfo = ZoneInfo(zone_id) if zone_id != "UTC" else UTC
     except ZoneInfoNotFoundError:
         zone = UTC
-    return to_rfc3339(aware.astimezone(zone))
+    local_dt = aware.astimezone(zone)
+    text = local_dt.isoformat(timespec="milliseconds")
+    if text.endswith("+00:00"):
+        return text[:-6] + "Z"
+    return text
 
 
 def point_in_time_eligible(available_at: str | None, decision_time: str) -> bool:

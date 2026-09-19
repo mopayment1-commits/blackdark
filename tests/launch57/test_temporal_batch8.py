@@ -149,7 +149,15 @@ async def test_smart_alerts_surface_includes_b8_timing(monkeypatch):
         "bd_platform.retail_intelligence_layer.evaluate_contextual_alert_65",
         lambda **kw: {"alert_fired": True, "trigger_age_ms": 1000},
     )
-    out = await smart_alerts_composite(symbol="BTC", params={})
+    out = await smart_alerts_composite(
+        symbol="BTC",
+        params={
+            "tier": "pro",
+            "verified_subscription_tier": "pro",
+            "user_key": "u-test",
+            "subject_id": "u-test",
+        },
+    )
     assert out["launch_item_id"] == 33
     assert out["b8_alert_timing"]["activated"] is True
     assert out["alert_timing"]["presented_as_current"] is True

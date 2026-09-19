@@ -115,7 +115,10 @@ async def test_personal_decision_history_includes_b11_timing(monkeypatch):
         "launch57.edge_ui_common.read_decision_history_rows",
         lambda limit, tier: [{"decision_id": "d1", "record_age_ms": 1000, "record_time": _ts(0)}],
     )
-    out = await personal_decision_history(symbol="BTC", params={"tier": "free"})
+    out = await personal_decision_history(
+        symbol="BTC",
+        params={"tier": "free", "user_key": "u-test", "subject_id": "u-test"},
+    )
     assert out["launch_item_id"] == 49
     assert out["b11_personal_history_timing"]["activated"] is True
     assert out["personal_history_timing"]["presented_as_current"] is True
