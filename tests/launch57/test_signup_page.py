@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from pathlib import Path
+
 import pytest
 from fastapi.testclient import TestClient
 
@@ -85,6 +87,43 @@ def test_google_credential_endpoint_blocked_without_client_id(client, monkeypatc
     )
     assert res.status_code == 503
     assert "not configured" in res.json()["detail"].lower()
+
+
+def test_google_signin_uses_redirect_mode_not_popup_only():
+    """Fails if GIS reverts to popup-only (callback fetch) without redirect login_uri."""
+    html = Path("templates/login.html").read_text(encoding="utf-8")
+    dashboard = Path("dashboard.py").read_text(encoding="utf-8")
+    assert "ux_mode: 'redirect'" in html
+    assert "login_uri" in html
+    assert "googleLoginUri" in html
+    assert '@app.post("/login")' in dashboard
+    assert "/api/auth/oauth/google/credential" not in html
+
+
+def test_google_gis_redirect_post_login_route(client, monkeypatch):
+    monkeypatch.setenv("OAUTH_GOOGLE_CLIENT_ID", "test-client-id.apps.googleusercontent.com")
+
+    async def fake_verify(_credential: str):
+        return {
+            "provider": "google",
+            "subject": "sub-1",
+            "email": "google-user@example.com",
+            "name": "Google User",
+        }
+
+    async def fake_login(_profile):
+        return {"token": "session-token-abc", "user": {"email": "google-user@example.com"}}
+
+    monkeypatch.setattr("oauth_service.verify_google_credential", fake_verify)
+    monkeypatch.setattr("oauth_service.login_or_link_oauth_user", fake_login)
+
+    res = client.post(
+        "/login?tab=register&plan=free",
+        data={"credential": "x" * 24},
+        follow_redirects=False,
+    )
+    assert res.status_code == 303
+    assert res.headers.get("location") == "/dashboard"
 
 
 def test_register_api_rejects_short_password(client, tmp_path, monkeypatch):

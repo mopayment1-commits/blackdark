@@ -1442,6 +1442,26 @@ async def _build_opportunity_explanation(
         }
     )
 
+def _google_login_uri_base(request: Request) -> str:
+    base = (os.getenv("APP_BASE_URL") or "").strip().rstrip("/")
+    if not base:
+        base = str(request.base_url).rstrip("/")
+    return f"{base}/login"
+
+
+def _google_post_auth_redirect(plan: str | None, next_path: str | None) -> str:
+    from pricing_catalog import normalize_signup_plan
+
+    selected = normalize_signup_plan(plan or "free")
+    if selected in {"pro", "elite", "quant"}:
+        return f"/create-checkout-session?tier={selected}"
+    if selected == "institutional":
+        return "/data-room?from=signup"
+    if next_path and next_path.startswith("/") and not next_path.startswith("//"):
+        return next_path
+    return "/dashboard"
+
+
 # ========== LANDING PAGE (ROOT) ==========
 @app.get("/login", response_class=HTMLResponse)
 async def login_page(request: Request):
@@ -1450,8 +1470,47 @@ async def login_page(request: Request):
     return render_page(
         request,
         "login.html",
-        {**_footer_ctx(), "google_signin": google_signin_status()},
+        {
+            **_footer_ctx(),
+            "google_signin": google_signin_status(),
+            "google_login_uri_base": _google_login_uri_base(request),
+        },
     )
+
+
+@app.post("/login")
+async def login_google_gis_redirect(request: Request):
+    """Google Identity Services redirect UX — credential POST from accounts.google.com."""
+    from urllib.parse import quote
+
+    from oauth_service import google_signin_status, login_or_link_oauth_user, verify_google_credential
+    from security_middleware import attach_session_cookie
+
+    if google_signin_status()["state"] != "CONFIGURED":
+        return RedirectResponse(url="/login?google_error=not_configured", status_code=303)
+
+    form = await request.form()
+    credential = form.get("credential")
+    if not credential:
+        return RedirectResponse(url="/login?google_error=missing_credential", status_code=303)
+
+    try:
+        profile = await verify_google_credential(str(credential))
+        result = await login_or_link_oauth_user(profile)
+    except ValueError as exc:
+        return RedirectResponse(url=f"/login?google_error={quote(str(exc)[:120])}", status_code=303)
+    except Exception:
+        return RedirectResponse(url="/login?google_error=signin_failed", status_code=303)
+
+    dest = _google_post_auth_redirect(
+        request.query_params.get("plan"),
+        request.query_params.get("next"),
+    )
+    resp = RedirectResponse(url=dest, status_code=303)
+    token = result.get("token")
+    if token:
+        attach_session_cookie(resp, str(token))
+    return resp
 
 
 @app.get("/pricing")

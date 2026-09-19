@@ -151,6 +151,7 @@
         let mfaChallenge = null;
         const googleConfigured = {{ 'true' if google_signin.state == 'CONFIGURED' else 'false' }};
         const googleClientId = {{ google_signin.client_id|tojson if google_signin.state == 'CONFIGURED' else 'null' }};
+        const googleLoginUriBase = {{ google_login_uri_base|tojson }};
 
         function hideAll() {
             ['registerShell','loginShell','mfaForm','forgotForm','forgotUserForm'].forEach(id => {
@@ -324,21 +325,14 @@
                 setMsg(d.message || 'If an account exists, a reminder was sent.', true);
             } catch (error) { console.debug(error); setMsg(error.message, false); }
         }
-        async function handleGoogleCredential(response) {
-            try {
-                const res = await fetch('/api/auth/oauth/google/credential', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    credentials: 'same-origin',
-                    body: JSON.stringify({
-                        credential: response.credential,
-                        plan: signupPlan()
-                    })
-                });
-                const d = await res.json();
-                if (!res.ok) throw new Error(await detail(res));
-                saveAuth(d);
-            } catch (error) { console.debug(error); setMsg(error.message, false); }
+        function googleLoginUri() {
+            const params = new URLSearchParams(window.location.search);
+            const keep = new URLSearchParams();
+            for (const key of ['tab', 'plan', 'next']) {
+                if (params.has(key)) keep.set(key, params.get(key));
+            }
+            const qs = keep.toString();
+            return googleLoginUriBase + (qs ? '?' + qs : '');
         }
         function initGoogleSignIn() {
             if (!googleConfigured || !googleClientId) return;
@@ -346,9 +340,9 @@
                 if (!window.google?.accounts?.id) return;
                 window.google.accounts.id.initialize({
                     client_id: googleClientId,
-                    callback: handleGoogleCredential,
-                    auto_select: false,
-                    cancel_on_tap_outside: true
+                    ux_mode: 'redirect',
+                    login_uri: googleLoginUri(),
+                    auto_select: false
                 });
                 const host = document.getElementById('googleBtnHost');
                 if (host) {
@@ -368,7 +362,7 @@
         }
         Object.assign(window, {
             showRegister, showLogin, showForgot, showForgotUsername,
-            doLogin, doMfa, doRegister, doForgot, doForgotUsername, handleGoogleCredential
+            doLogin, doMfa, doRegister, doForgot, doForgotUsername
         });
         try { localStorage.removeItem('bd_token'); localStorage.removeItem('token'); } catch (_) {}
         syncPlanFromUrl();
@@ -377,6 +371,7 @@
         if (params.get('tab') === 'register') showRegister();
         else showLogin();
         if (params.get('reset') === '1') setMsg('Password updated — you can sign in.', true);
+        if (params.get('google_error')) setMsg('Google sign-in failed. Try again or use email.', false);
     </script>
     {% include "partials/site_footer.html" %}
 </body>
