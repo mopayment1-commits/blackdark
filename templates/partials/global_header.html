@@ -1,0 +1,67 @@
+{# Unified global header — fixed-height bar, primary links + session-aware right chrome #}
+<style>
+  .bd-global-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    background: rgba(10, 10, 15, 0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid #2a2a35;
+    padding: 0 1.25rem;
+  }
+  .bd-global-header-inner {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-height: 52px;
+  }
+  .bd-global-logo {
+    font-family: var(--bd-font-display, system-ui, sans-serif);
+    font-size: 1.15rem;
+    font-weight: 800;
+    letter-spacing: .04em;
+    color: #22d3ee;
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .bd-global-links {
+    display: inline-flex;
+    align-items: center;
+    gap: 1.1rem;
+    flex-wrap: wrap;
+  }
+  .bd-global-links a {
+    color: #a1a1aa;
+    text-decoration: none;
+    font-size: .82rem;
+    font-weight: 600;
+    white-space: nowrap;
+    padding: 0;
+    background: none;
+    border: none;
+  }
+  .bd-global-links a:hover { color: #e4e4e7; }
+  @media (max-width: 900px) {
+    .bd-global-links { display: none; }
+  }
+</style>
+<nav class="bd-global-header" aria-label="Primary">
+  <div class="bd-global-header-inner">
+    <a class="bd-global-logo" href="/">BLACKDARK</a>
+    <div class="bd-global-links" data-chrome="primary-nav">
+      <a href="/dashboard?lens=prove#trust-pulse">{{ t('nav.prove') if t is defined else 'Prove' }}</a>
+      <a href="/dashboard?lens=operate">{{ t('nav.operate') if t is defined else 'Operate' }}</a>
+      <a href="/dashboard?lens=desk">{{ t('nav.desk') if t is defined else 'Desk' }}</a>
+      <a href="/data-room?lens=room">{{ t('nav.room') if t is defined else 'Room' }}</a>
+      <a href="/oracle-accuracy">{{ t('nav.verify') if t is defined else 'Verify' }}</a>
+    </div>
+    {% include 'partials/top_utility.html' %}
+  </div>
+</nav>

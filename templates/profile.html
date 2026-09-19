@@ -32,11 +32,8 @@
     </style>
 </head>
 <body>
-<div class="wrap">
-    <div class="nav">
-        <div><a href="/dashboard">Dashboard</a> · <a href="/">Home</a> · <a href="/#pricing">Pricing</a></div>
-        {% include 'partials/top_utility.html' %}
-    </div>
+{% include 'partials/global_header.html' %}
+<div class="wrap" style="margin-top:1rem">
     <h1>Your profile</h1>
     <p class="sub">Identity, security, and USD plan — not a social network. Login is always your email. Hosted Lemon/Stripe checkout — card data never touches BLACKDARK.</p>
     <div id="gate" class="card">Loading…</div>

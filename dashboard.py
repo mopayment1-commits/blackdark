@@ -716,6 +716,8 @@ async def _resolve_html_auth_user(request: Request) -> dict | None:
 
 
 def _header_user_payload(user: dict[str, Any]) -> dict[str, Any]:
+    from auth_service import TIER_FEATURES, normalize_tier
+
     name = str(user.get("name") or "").strip()
     email = str(user.get("email") or "").strip()
     if name:
@@ -725,7 +727,18 @@ def _header_user_payload(user: dict[str, Any]) -> dict[str, Any]:
     else:
         display = "Account"
     initial = (display[0] if display else "U").upper()
-    return {"display": display, "initial": initial, "email": email}
+    tier = normalize_tier(str(user.get("tier") or "free"))
+    tier_meta = TIER_FEATURES.get(tier) or TIER_FEATURES["free"]
+    tier_label = str(tier_meta.get("label") or tier).upper()
+    show_upgrade = tier not in {"elite", "whale", "quant", "institutional"}
+    return {
+        "display": display,
+        "initial": initial,
+        "email": email,
+        "tier": tier,
+        "tier_label": tier_label,
+        "show_upgrade": show_upgrade,
+    }
 
 
 @app.middleware("http")

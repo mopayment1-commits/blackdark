@@ -110,15 +110,7 @@
     </style>
 </head>
 <body>
-    <nav style="display:flex;justify-content:space-between;align-items:center;gap:.75rem;flex-wrap:wrap;padding:1rem 1.25rem">
-        <a href="/" class="logo">BLACKDARK</a>
-        <div style="display:flex;gap:1rem;flex-wrap:wrap;align-items:center">
-            <a href="/">Home</a>
-            <a href="/login?next=/dashboard">Dashboard</a>
-            <a href="/#pricing">Pricing</a>
-        </div>
-        {% include "partials/top_utility.html" %}
-    </nav>
+    {% include 'partials/global_header.html' %}
 
     <section class="hero">
         <div class="badge">LIVE · PUBLIC AUDIT</div>

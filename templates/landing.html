@@ -677,10 +677,8 @@
         .tp-mini-foot { margin:0; }
         
         @media (max-width: 768px) {
-            /* Hide lens marketing links only — NEVER hide Language / Login / Sign up / Pricing */
-            .nav-links { display: none; }
-            .nav-right { width: 100%; justify-content: flex-end; }
-            .nav-cta { display: none; }
+            /* Primary lens links collapse on small screens — auth chrome stays visible */
+            .bd-global-links { display: none; }
             .hero { padding: 5.5rem 1rem 1.5rem; min-height: auto; }
             .hero-bleed-img { object-position: 62% 38%; }
             .hero-cta { flex-direction: column; align-items: stretch; }
@@ -699,22 +697,7 @@
     <div class="bg-grid"></div>
     <div class="bg-glow"></div>
 
-    <nav aria-label="Primary">
-        <div class="nav-container">
-            <a class="logo" href="/">BLACKDARK</a>
-            <div class="nav-links">
-                <a href="/#try-oracle">{{ t('nav.prove') }}</a>
-                <a href="/dashboard?lens=operate">{{ t('nav.operate') }}</a>
-                <a href="/dashboard?lens=desk">{{ t('nav.desk') }}</a>
-                <a href="/data-room?lens=room">{{ t('nav.room') }}</a>
-                <a href="/oracle-accuracy">{{ t('nav.verify') }}</a>
-            </div>
-            <div class="nav-right">
-                {% include 'partials/top_utility.html' %}
-                <a href="/#try-oracle" class="nav-cta">{{ t('nav.open_proof') }}</a>
-            </div>
-        </div>
-    </nav>
+    {% include 'partials/global_header.html' %}
 
     <main id="main">
     <section class="hero" id="top" aria-label="BLACKDARK sealed hero">

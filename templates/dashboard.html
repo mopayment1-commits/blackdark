@@ -138,24 +138,7 @@
     </style>
 </head>
 <body>
-    <nav>
-        <div class="nav-inner">
-            <a href="/" class="logo">BLACKDARK</a>
-            <div style="display:flex;align-items:center;flex-wrap:wrap;gap:.5rem;margin-inline-start:auto;justify-content:flex-end">
-                <span class="tier" id="userTier">Guest · DISCOVER / FREE</span>
-                <button class="btn-upgrade" id="upgradeBtn" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">DECIDE / PRO $19.99</button>
-                <div class="nav-links">
-                    <a class="lens-nav" href="/dashboard?lens=prove#trust-pulse">Prove</a>
-                    <a class="lens-nav" href="/dashboard?lens=operate">Operate</a>
-                    <a class="lens-nav" href="/dashboard?lens=desk">Desk</a>
-                    <a class="lens-nav" href="/data-room?lens=room">Room</a>
-                    <a href="/oracle-accuracy">Verify</a>
-                    <a href="/profile">Profile &amp; Billing</a>
-                </div>
-                {% include 'partials/top_utility.html' %}
-            </div>
-        </div>
-    </nav>
+    {% include 'partials/global_header.html' %}
 
     <main id="top">
         <div class="hero">
@@ -508,7 +491,7 @@
             } catch (error) { console.debug(error); appendChat('assistant', 'Chat unavailable right now — try again or use Get Decision.'); }
         }
 
-        let nextUpgrade = { checkout_tier: 'pro', href: '/create-checkout-session?tier=pro', cta: 'DECIDE / PRO $19.99' };
+        let nextUpgrade = { checkout_tier: 'pro', href: '/create-checkout-session?tier=pro', cta: 'Upgrade' };
 
         function applyUpgradeButton() {
             const btn = document.getElementById('upgradeBtn');
@@ -518,7 +501,7 @@
                 return;
             }
             btn.style.display = '';
-            btn.textContent = nextUpgrade.cta || nextUpgrade.label || 'Upgrade';
+            btn.textContent = 'Upgrade';
             btn.onclick = () => {
                 if (nextUpgrade.checkout_tier) upgradeTier(nextUpgrade.checkout_tier);
                 else location.href = nextUpgrade.href || '/data-room';
@@ -539,15 +522,17 @@
                 }
                 if (d.authenticated) {
                     userTierId = (d.user && d.user.tier) || (d.tier && d.tier.id) || 'free';
-                    tierEl.textContent = (d.user.email || '') + ' · ' + (d.tier?.label || d.user.tier);
-                    authLink.textContent = 'Logout';
-                    authLink.href = '#';
-                    authLink.onclick = async e => {
-                        e.preventDefault();
-                        await fetch('/api/auth/logout', { method: 'POST', headers: authHeaders(), credentials: 'same-origin' });
-                        try { localStorage.removeItem('bd_token'); localStorage.removeItem('token'); } catch (_) {}
-                        location.reload();
-                    };
+                    if (tierEl) tierEl.textContent = String(d.tier?.label || d.user?.tier || 'FREE').toUpperCase();
+                    if (authLink) {
+                        authLink.textContent = 'Logout';
+                        authLink.href = '#';
+                        authLink.onclick = async e => {
+                            e.preventDefault();
+                            await fetch('/api/auth/logout', { method: 'POST', headers: authHeaders(), credentials: 'same-origin' });
+                            try { localStorage.removeItem('bd_token'); localStorage.removeItem('token'); } catch (_) {}
+                            location.reload();
+                        };
+                    }
                     try {
                         const up = await fetch('/api/pricing/upgrade-path?tier=' + encodeURIComponent(userTierId));
                         nextUpgrade = await up.json();

@@ -1,13 +1,14 @@
-{# Global header chrome — Pricing · Language · Account (SSR session-aware) #}
+{# Global header right chrome — session-aware; no heavy button frame #}
 <style>
   .bd-header-util {
     display: inline-flex;
     align-items: center;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: flex-end;
-    gap: .55rem .75rem;
+    gap: .65rem .85rem;
     margin-inline-start: auto;
     font-size: .8rem;
+    min-height: 52px;
   }
   .bd-header-text {
     color: #a1a1aa;
@@ -22,45 +23,54 @@
   }
   .bd-header-text:hover { color: #22d3ee; }
   .bd-header-signup { color: #22d3ee; font-weight: 700; }
+  .bd-tier-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: .12rem .5rem;
+    border-radius: 999px;
+    background: rgba(255,255,255,.05);
+    color: #a1a1aa;
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+  .bd-header-upgrade {
+    color: #22d3ee;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: .78rem;
+    white-space: nowrap;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font: inherit;
+    padding: .15rem 0;
+  }
+  .bd-header-upgrade:hover { color: #67e8f9; }
   .bd-account-menu { position: relative; display: inline-flex; align-items: center; }
   .bd-account-trigger {
     display: inline-flex;
     align-items: center;
-    gap: .4rem;
-    padding: .2rem .45rem .2rem .2rem;
-    border: none;
-    border-radius: 999px;
-    background: rgba(255,255,255,.04);
-    color: #e4e4e7;
-    cursor: pointer;
-    font: inherit;
-    font-size: .78rem;
-    font-weight: 600;
-  }
-  .bd-account-trigger:hover { color: #22d3ee; }
-  .bd-account-avatar {
-    width: 1.65rem;
-    height: 1.65rem;
-    border-radius: 50%;
-    display: inline-flex;
-    align-items: center;
     justify-content: center;
+    width: 1.85rem;
+    height: 1.85rem;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
     background: linear-gradient(135deg, #22d3ee, #06b6d4);
     color: #0a0a0f;
+    cursor: pointer;
+    font: inherit;
     font-size: .72rem;
     font-weight: 800;
   }
-  .bd-account-label {
-    max-width: 8.5rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
+  .bd-account-trigger:hover { filter: brightness(1.08); }
   .bd-account-dropdown {
     position: absolute;
     top: calc(100% + .35rem);
     inset-inline-end: 0;
-    min-width: 10rem;
+    min-width: 11rem;
     padding: .35rem;
     border-radius: 10px;
     border: 1px solid #2a2a35;
@@ -68,6 +78,7 @@
     box-shadow: 0 10px 30px rgba(0,0,0,.45);
     z-index: 10000;
   }
+  .bd-account-dropdown.hidden { display: none; }
   .bd-account-dropdown a,
   .bd-account-dropdown button {
     display: block;
@@ -89,27 +100,32 @@
     color: #22d3ee;
   }
   @media (max-width: 768px) {
-    .bd-account-label { display: none; }
-    .bd-header-util { gap: .4rem .55rem; }
+    .bd-header-util { gap: .45rem .6rem; }
   }
 </style>
-<nav class="bd-header-util" data-chrome="auth-lang-pay" aria-label="Language, account, and pricing">
-  <a class="bd-header-text" href="/#pricing">{{ t('nav.pricing') if t is defined else 'Pricing' }}</a>
-  {% include 'partials/lang_switcher.html' %}
+<nav class="bd-header-util" data-chrome="auth-lang-pay" aria-label="Account and language">
   {% if header_authenticated and header_user %}
+  <span class="bd-tier-badge" id="userTier">{{ header_user.tier_label }}</span>
+  {% if header_user.show_upgrade %}
+  <button type="button" class="bd-header-upgrade" id="upgradeBtn">{{ t('ui.upgrade') if t is defined else 'Upgrade' }}</button>
+  {% else %}
+  <button type="button" class="bd-header-upgrade" id="upgradeBtn" hidden>Upgrade</button>
+  {% endif %}
   <div class="bd-account-menu">
-    <button type="button" class="bd-account-trigger" id="bdAccountTrigger" aria-haspopup="true" aria-expanded="false" aria-controls="bdAccountMenu">
-      <span class="bd-account-avatar" aria-hidden="true">{{ header_user.initial }}</span>
-      <span class="bd-account-label">{{ header_user.display }}</span>
+    <button type="button" class="bd-account-trigger" id="bdAccountTrigger" aria-haspopup="true" aria-expanded="false" aria-controls="bdAccountMenu" title="{{ header_user.display }}">
+      <span id="bdAccountAvatar" aria-hidden="true">{{ header_user.initial }}</span>
     </button>
     <div class="bd-account-dropdown hidden" id="bdAccountMenu" role="menu">
-      <a href="/dashboard" role="menuitem">{{ t('nav.dashboard') if t is defined else 'Dashboard' }}</a>
+      <a href="/dashboard" role="menuitem">{{ t('nav.account') if t is defined else 'Account' }}</a>
+      <a href="/profile" role="menuitem">{{ t('nav.profile_billing') if t is defined else 'Profile & Billing' }}</a>
       <button type="button" id="bdHeaderLogout" role="menuitem">{{ t('nav.logout') if t is defined else 'Logout' }}</button>
     </div>
   </div>
   {% else %}
+  {% include 'partials/lang_switcher.html' %}
   <a class="bd-header-text" href="/login" id="bdUtilLogin">{{ t('nav.login') if t is defined else 'Login' }}</a>
   <a class="bd-header-text bd-header-signup" href="/login?tab=register" id="bdUtilSignup">{{ t('nav.signup') if t is defined else 'Sign up' }}</a>
+  <a class="bd-header-text" href="/#pricing" id="bdUtilPricing">{{ t('nav.pricing') if t is defined else 'Pricing' }}</a>
   {% endif %}
 </nav>
 <script>
