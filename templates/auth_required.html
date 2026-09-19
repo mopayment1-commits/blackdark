@@ -43,8 +43,8 @@
         <p><a href="{{ public_prove_href }}">Open public Prove demo</a> on the homepage — no account needed.</p>
         {% endif %}
         <div class="actions">
-            <a class="btn btn-primary" href="/login">Login</a>
-            <a class="btn btn-secondary" href="/login?tab=register">Sign up</a>
+            <a class="btn btn-primary" href="/login{% if next_path %}?next={{ next_path | urlencode }}{% endif %}">Login</a>
+            <a class="btn btn-secondary" href="/login?tab=register{% if next_path %}&amp;next={{ next_path | urlencode }}{% endif %}">Sign up</a>
         </div>
         <p class="home"><a href="/">← Back to homepage</a></p>
     </main>

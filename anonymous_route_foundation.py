@@ -123,6 +123,8 @@ PUBLIC_HTML_EXACT: frozenset[str] = frozenset(
         "/model-card",
         "/msa",
         "/pricing",
+        "/refund",
+        "/identity-standards",
         "/privacy",
         "/terms",
         "/trust",

@@ -172,7 +172,7 @@
         <div class="msg" id="msg"></div>
         <div class="footer-links">
             <a href="/">Home</a> · <a href="/profile">Profile &amp; Billing</a> · <a href="/dashboard">Dashboard</a> · <a href="/#pricing">Pricing</a><br>
-            <a href="/refund">Refunds</a> · <a href="/api/auth/identity">Identity standards</a>
+            <a href="/refund">Refunds</a> · <a href="/identity-standards">Identity standards</a>
         </div>
     </div>
     <script type="module">
@@ -227,7 +227,8 @@
             // Prefer HttpOnly cookie session — do not store reusable bearer in localStorage (XSS).
             try { localStorage.removeItem('bd_token'); localStorage.removeItem('token'); } catch (_) {}
             if (data.user) localStorage.setItem('bd_user', JSON.stringify(data.user));
-            const next = (data.next && data.next.href) || '/profile?welcome=1';
+            const urlNext = new URLSearchParams(window.location.search).get('next');
+            const next = urlNext || (data.next && data.next.href) || '/profile?welcome=1';
             window.location.href = next;
         }
         async function detail(res) {

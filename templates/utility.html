@@ -418,6 +418,19 @@
             </div>
             <p style="margin-top:1.25rem" class="deny">Not financial advice. AI cannot guarantee returns. Verify on the <a href="/oracle-accuracy">Public Accuracy Ledger</a>.</p>
         </div>
+        {% elif page == 'identity_standards' %}
+        <div class="card">
+            <p class="deny">Public summary for visitors — not a credential export. Sign in for account-specific settings.</p>
+            {% if identity %}
+            <h2>Architecture</h2>
+            <ul class="channel-list">
+                {% for key, value in identity.items() %}
+                <li><strong style="color:var(--fg)">{{ key }}</strong> · {{ value }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            <p><a href="/login?next=/profile">Profile &amp; Billing</a> · <a href="/privacy">Privacy</a> · <a href="/compliance">Compliance</a></p>
+        </div>
         {% elif page == 'cancel' %}
         <div class="card">
             <p>No charge was made. Your DISCOVER / FREE tier still works — public Prove and the Ledger stay available.</p>

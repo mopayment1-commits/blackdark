@@ -124,6 +124,37 @@ def render_page(request: Request, name: str, context: dict[str, Any] | None = No
     return response
 
 
+def _auth_required_next_path(request: Request) -> str:
+    path = request.url.path or "/"
+    query = str(request.url.query or "")
+    return path + (f"?{query}" if query else "")
+
+
+def render_surface_auth_required(
+    request: Request,
+    *,
+    lens: str,
+    lens_label: str,
+    lens_hint: str,
+    boundary: str = "surface-auth-required-html",
+) -> HTMLResponse:
+    """Human login gate for private HTML surfaces — never raw JSON in the browser."""
+    response = render_page(
+        request,
+        "auth_required.html",
+        {
+            "lens": lens,
+            "lens_label": lens_label,
+            "lens_hint": lens_hint,
+            "public_prove_href": "/#try-oracle",
+            "next_path": _auth_required_next_path(request),
+        },
+    )
+    response.status_code = 401
+    response.headers["X-Blackdark-Auth-Boundary"] = boundary
+    return response
+
+
 def render_dashboard_auth_required(request: Request) -> HTMLResponse:
     """Human login gate for anonymous /dashboard — never raw JSON."""
     lens = (request.query_params.get("lens") or "prove").strip().lower()
@@ -141,19 +172,36 @@ def render_dashboard_auth_required(request: Request) -> HTMLResponse:
         "desk": "Desk is available after sign-in.",
         "room": "Room surfaces open after sign-in.",
     }
-    response = render_page(
+    return render_surface_auth_required(
         request,
-        "auth_required.html",
-        {
-            "lens": lens,
-            "lens_label": lens_labels.get(lens, "Prove"),
-            "lens_hint": lens_hints.get(lens, lens_hints["prove"]),
-            "public_prove_href": "/#try-oracle",
-        },
+        lens=lens,
+        lens_label=lens_labels.get(lens, "Prove"),
+        lens_hint=lens_hints.get(lens, lens_hints["prove"]),
+        boundary="dashboard-auth-required-html",
     )
-    response.status_code = 401
-    response.headers["X-Blackdark-Auth-Boundary"] = "dashboard-auth-required-html"
-    return response
+
+
+def render_profile_auth_required(request: Request) -> HTMLResponse:
+    return render_surface_auth_required(
+        request,
+        lens="profile",
+        lens_label="Profile & Billing",
+        lens_hint="Sign in to manage identity, security, and your USD plan.",
+        boundary="profile-auth-required-html",
+    )
+
+
+_HTML_AUTH_GATE_EXACT: frozenset[str] = frozenset({"/profile", "/dashboard", "/discipline-mirror"})
+
+
+def anonymous_denial_should_be_html(request: Request) -> bool:
+    if (request.method or "GET").upper() != "GET":
+        return False
+    path = request.url.path or ""
+    if path in _HTML_AUTH_GATE_EXACT:
+        return True
+    accept = (request.headers.get("accept") or "").lower()
+    return "text/html" in accept
 
 
 def _sector_for_asset(asset: str) -> str:
@@ -658,8 +706,19 @@ async def anonymous_route_enforcement_middleware(request: Request, call_next):
     denial = enforce_anonymous_route_boundary(request)
     if denial is not None:
         path = request.url.path or ""
-        if path == "/dashboard" and (request.method or "GET").upper() == "GET":
-            return render_dashboard_auth_required(request)
+        if anonymous_denial_should_be_html(request):
+            if path == "/dashboard":
+                return render_dashboard_auth_required(request)
+            if path == "/profile":
+                return render_profile_auth_required(request)
+            if path == "/discipline-mirror":
+                return render_surface_auth_required(
+                    request,
+                    lens="discipline",
+                    lens_label="Discipline Mirror",
+                    lens_hint="Your private discipline mirror opens after sign-in.",
+                    boundary="discipline-auth-required-html",
+                )
         return denial
     return await call_next(request)
 
@@ -1387,6 +1446,29 @@ async def _build_opportunity_explanation(
 @app.get("/login", response_class=HTMLResponse)
 async def login_page(request: Request):
     return render_page(request, "login.html", _footer_ctx())
+
+
+@app.get("/pricing")
+async def pricing_page_redirect():
+    """Visitor pricing is the homepage plan cards — not a JSON catalog."""
+    return RedirectResponse(url="/#pricing", status_code=302)
+
+
+@app.get("/identity-standards", response_class=HTMLResponse)
+async def identity_standards_page(request: Request):
+    from identity_service import identity_architecture
+
+    return render_page(
+        request,
+        "utility.html",
+        {
+            **_footer_ctx(),
+            "page": "identity_standards",
+            "title": "Identity standards",
+            "lead": "How BLACKDARK handles accounts, sessions, and privileged access — public summary for visitors.",
+            "identity": identity_architecture(),
+        },
+    )
 
 
 @app.get("/register")

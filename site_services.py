@@ -191,7 +191,7 @@ def footer_manifest() -> dict[str, Any]:
         "tagline": "Trust OS — Decide. Prove it. Share it.",
         "story": "Prove → Operate → Desk → Room",
         "product": [
-            {"label": "Trust Pulse", "href": "/dashboard?lens=prove#trust-pulse"},
+            {"label": "Trust Pulse", "href": "/#trust-pulse"},
             {"label": "Decide", "href": "/dashboard?lens=prove#decide"},
             {"label": "Verify", "href": "/oracle-accuracy"},
             {"label": "Dashboard", "href": "/dashboard"},
