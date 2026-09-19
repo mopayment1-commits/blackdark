@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BLACKDARK — Login</title>
     <link rel="stylesheet" href="/static/css/trust-os.css">
+    {% if google_signin.state == 'CONFIGURED' %}
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    {% endif %}
     <style>
         :root { --bg:#0a0a0f; --card:#111118; --border:#2a2a35; --text:#e4e4e7; --muted:#71717a; --accent:#22d3ee; --danger:#ef4444; --ok:#22c55e; }
         * { margin:0; padding:0; box-sizing:border-box; }
@@ -22,27 +25,15 @@
             backdrop-filter: blur(8px);
         }
         .login-chrome .brand { font-family: var(--bd-font-display); font-weight: 800; color: #22d3ee; text-decoration: none; letter-spacing: .04em; }
-        .card { width:min(520px,100%); background:var(--card); border:1px solid var(--border); border-radius:18px; padding:2rem; animation: bdPulseIn .45s var(--bd-ease-out) both; }
-        .plan-grid { display:grid; gap:.55rem; margin:0 0 1rem; }
-        .plan-card {
-            display:block; border:1px solid var(--border); border-radius:12px; padding:.7rem .8rem;
-            background:#14141c; cursor:pointer; transition: border-color .15s ease, background .15s ease;
-        }
-        .plan-card:hover { border-color:#3f3f4a; }
-        .plan-card.active { border-color:var(--accent); background:rgba(34,211,238,.08); }
-        .plan-card input { position:absolute; opacity:0; pointer-events:none; }
-        .plan-top { display:flex; justify-content:space-between; gap:.5rem; align-items:baseline; }
-        .plan-name { font-weight:700; font-size:.92rem; }
-        .plan-price { color:var(--accent); font-weight:800; font-size:.92rem; white-space:nowrap; }
-        .plan-promise { color:var(--muted); font-size:.75rem; margin-top:.25rem; line-height:1.35; }
-        .plan-badge { display:inline-block; font-size:.65rem; font-weight:700; color:#0a0a0f; background:var(--accent); border-radius:999px; padding:.1rem .45rem; margin-inline-start:.35rem; }
-        h1 { font-family: var(--bd-font-display); font-size:2rem; font-weight:800; margin-bottom:.25rem; color:var(--accent); letter-spacing:.04em; }
+        .card { width:min(420px,100%); background:var(--card); border:1px solid var(--border); border-radius:18px; padding:2rem; animation: bdPulseIn .45s var(--bd-ease-out) both; }
+        h1 { font-family: var(--bd-font-display); font-size:1.65rem; font-weight:800; margin-bottom:.35rem; color:var(--text); letter-spacing:.02em; line-height:1.25; }
         .lead { color:var(--muted); font-size:.9rem; margin-bottom:1.25rem; line-height:1.45; }
         label { display:block; font-size:.78rem; color:#a1a1aa; margin-bottom:.35rem; }
         input[type=email], input[type=password], input[type=text] {
             width:100%; padding:.75rem 1rem; margin-bottom:.9rem; background:#1a1a24;
             border:1px solid var(--border); border-radius:10px; color:var(--text);
         }
+        input:invalid:not(:placeholder-shown) { border-color: var(--danger); }
         .check { display:flex; gap:.55rem; align-items:flex-start; font-size:.78rem; color:#a1a1aa; margin:0 0 1rem; }
         .check input { margin-top:.2rem; }
         button, .btn {
@@ -51,25 +42,25 @@
         }
         .btn-primary { background:linear-gradient(135deg,#22d3ee,#06b6d4); color:#0a0a0f; }
         .btn-secondary { background:#1a1a24; color:var(--text); border:1px solid var(--border); }
-        .btn-oauth { background:#fff; color:#111; border:1px solid #ddd; }
+        .btn-oauth { background:#fff; color:#111; border:1px solid #ddd; display:flex; align-items:center; justify-content:center; gap:.5rem; min-height:48px; }
+        .btn-oauth:disabled { opacity:.55; cursor:not-allowed; background:#2a2a35; color:#a1a1aa; border-color:var(--border); }
+        .google-host { display:flex; justify-content:center; margin-bottom:.65rem; min-height:48px; }
+        .google-host > div { width:100% !important; }
         .msg { font-size:.85rem; min-height:1.2rem; margin-top:.35rem; }
         .msg.error { color:var(--danger); }
         .msg.ok { color:var(--ok); }
-        .tabs { display:flex; gap:.5rem; margin-bottom:1.1rem; }
-        .tab { flex:1; text-align:center; padding:.5rem; border-radius:8px; cursor:pointer; background:#1a1a24; color:var(--muted); border:none; font-family:inherit; font-size:.85rem; }
-        .tab.active { background:rgba(34,211,238,.15); color:var(--accent); }
         .footer-links { text-align:center; margin-top:1rem; font-size:.85rem; }
+        .switch-link { text-align:center; margin-top:1rem; font-size:.88rem; color:var(--muted); }
         a { color:var(--accent); text-decoration:none; }
         .divider { display:flex; align-items:center; gap:.75rem; color:var(--muted); font-size:.75rem; margin:1rem 0; }
         .divider::before, .divider::after { content:""; flex:1; height:1px; background:var(--border); }
         .hidden { display:none !important; }
         .row-links { display:flex; justify-content:space-between; margin:-.35rem 0 .9rem; font-size:.8rem; }
-            .row-links .linkish {
+        .row-links .linkish {
             background: none; border: none; color: #22d3ee; cursor: pointer;
             font: inherit; padding: 0; text-decoration: underline;
         }
-        .plan-grid-label { display:block; margin-bottom:.5rem; font-weight:600; }
-</style>
+    </style>
 </head>
 <body>
     <div class="login-chrome">
@@ -77,117 +68,104 @@
         {% include 'partials/top_utility.html' %}
     </div>
     <div class="card" style="margin-top:3.5rem">
-        <h1>BLACKDARK</h1>
-        <p class="lead">{{ t('login.lead') }}</p>
+        <div id="registerShell" class="hidden">
+            <h1>Create your free account</h1>
+            <p class="lead">Free — no card required. Start with proof, upgrade when ready.</p>
 
-        <div class="tabs" role="tablist">
-            <button type="button" class="tab active" id="tabLogin" role="tab" data-bd-call="showTab" data-bd-args="[&quot;login&quot;]" data-bd-keydown-call="showTab" data-bd-keys="enter space" data-bd-args="[&quot;login&quot;]">{{ t('login.tab.login') }}</button>
-            <button type="button" class="tab" id="tabRegister" role="tab" data-bd-call="showTab" data-bd-args="[&quot;register&quot;]" data-bd-keydown-call="showTab" data-bd-keys="enter space" data-bd-args="[&quot;register&quot;]">{{ t('login.tab.signup') }}</button>
-        </div>
-
-        <div id="oauthBox" class="hidden">
-            <button type="button" class="btn btn-oauth" id="googleBtn" data-bd-call="startOAuth" data-bd-args="[&quot;google&quot;]">{{ t('auth.google') }}</button>
-            <button type="button" class="btn btn-secondary hidden" id="githubBtn" data-bd-call="startOAuth" data-bd-args="[&quot;github&quot;]">{{ t('auth.github') }}</button>
-            <div class="divider">{{ t('auth.or_email') }}</div>
-        </div>
-
-        <form id="loginForm" data-bd-submit-call="doLogin">
-            <label for="loginEmail">{{ t('login.email') }}</label>
-            <input type="email" id="loginEmail" required autocomplete="username" placeholder="you@email.com">
-            <label for="loginPassword">{{ t('login.pass_label') }}</label>
-            <input type="password" id="loginPassword" required minlength="10" autocomplete="current-password">
-            <div class="row-links">
-                <button type="button" class="linkish" data-bd-call="showForgot">{{ t('auth.forgot_pass') }}</button>
-                <button type="button" class="linkish" data-bd-call="showForgotUsername">{{ t('auth.forgot_username') }}</button>
+            <div id="googleSigninArea">
+                {% if google_signin.state == 'CONFIGURED' %}
+                <div id="googleBtnHost" class="google-host" aria-label="Continue with Google"></div>
+                {% else %}
+                <button type="button" class="btn btn-oauth" id="googleBtnDisabled" disabled>Google sign-in not configured</button>
+                {% endif %}
             </div>
-            <button type="submit" class="btn-primary">{{ t('login.submit') }}</button>
-        </form>
+
+            <div class="divider">or continue with email</div>
+
+            <form id="registerForm" data-bd-submit-call="doRegister" novalidate>
+                <input type="hidden" id="regPlan" name="regPlan" value="free">
+                <label for="regEmail">Email</label>
+                <input type="email" id="regEmail" autocomplete="email" placeholder="you@email.com">
+                <label for="regPassword">Password (12+ characters)</label>
+                <input type="password" id="regPassword" minlength="12" autocomplete="new-password" placeholder="At least 12 characters">
+                <label class="check">
+                    <input type="checkbox" id="regTerms">
+                    <span>I agree to the <a href="/terms" target="_blank">Terms</a>, <a href="/privacy" target="_blank">Privacy</a>, and <a href="/disclaimer" target="_blank">Disclaimer</a></span>
+                </label>
+                <button type="submit" class="btn-primary" id="regSubmit">Create account</button>
+            </form>
+
+            <p class="switch-link">Already have an account? <a href="/login" id="signInLink">Sign in</a></p>
+        </div>
+
+        <div id="loginShell">
+            <h1>Sign in</h1>
+            <p class="lead">{{ t('login.lead') }}</p>
+
+            <form id="loginForm" data-bd-submit-call="doLogin">
+                <label for="loginEmail">{{ t('login.email') }}</label>
+                <input type="email" id="loginEmail" required autocomplete="username" placeholder="you@email.com">
+                <label for="loginPassword">{{ t('login.pass_label') }}</label>
+                <input type="password" id="loginPassword" required autocomplete="current-password">
+                <div class="row-links">
+                    <button type="button" class="linkish" data-bd-call="showForgot">{{ t('auth.forgot_pass') }}</button>
+                    <button type="button" class="linkish" data-bd-call="showForgotUsername">{{ t('auth.forgot_username') }}</button>
+                </div>
+                <button type="submit" class="btn-primary">{{ t('login.submit') }}</button>
+            </form>
+
+            <p class="switch-link">New here? <a href="/login?tab=register" id="signUpLink">Create your free account</a></p>
+        </div>
 
         <form id="mfaForm" class="hidden" data-bd-submit-call="doMfa">
+            <h1>Verify sign-in</h1>
             <label for="mfaCode">Authenticator code</label>
             <input type="text" id="mfaCode" inputmode="numeric" autocomplete="one-time-code" placeholder="6-digit code or recovery" required>
             <button type="submit" class="btn-primary">Verify MFA</button>
-            <button type="button" class="btn-secondary" data-bd-call="showTab" data-bd-args="[&quot;login&quot;]">Back</button>
-        </form>
-
-        <form id="registerForm" class="hidden" data-bd-submit-call="doRegister">
-            <div class="plan-grid" id="planGrid" role="radiogroup" aria-labelledby="planGridLabel">
-            <div id="planGridLabel" class="plan-grid-label">Choose your plan</div>
-                <label class="plan-card active" data-plan="free">
-                    <input type="radio" name="regPlan" value="free" checked>
-                    <div class="plan-top"><span class="plan-name">DISCOVER / FREE</span><span class="plan-price">$0</span></div>
-                    <div class="plan-promise">Public Prove surface + daily decision limit — honest $0 entry.</div>
-                </label>
-                <label class="plan-card" data-plan="pro">
-                    <input type="radio" name="regPlan" value="pro">
-                    <div class="plan-top"><span class="plan-name">DECIDE / PRO</span><span class="plan-price">$19.99</span></div>
-                    <div class="plan-promise">$19.99/mo or $199/yr · 7-day trial · unlimited decisions · Portfolio AI.</div>
-                </label>
-                <label class="plan-card" data-plan="elite">
-                    <input type="radio" name="regPlan" value="elite">
-                    <div class="plan-top"><span class="plan-name">SEE THE EDGE / ELITE <span class="plan-badge">MOST POPULAR</span></span><span class="plan-price">$49.99</span></div>
-                    <div class="plan-promise">$49.99/mo or $499/yr · Stealth, Evidence Pack, B2B/API priority.</div>
-                </label>
-                <label class="plan-card" data-plan="quant">
-                    <input type="radio" name="regPlan" value="quant">
-                    <div class="plan-top"><span class="plan-name">EXECUTE THE EDGE / QUANT</span><span class="plan-price">$129.99</span></div>
-                    <div class="plan-promise">$129.99/mo or $1,299/yr · backtesting + API scale for systematic desks.</div>
-                </label>
-                <label class="plan-card" data-plan="institutional">
-                    <input type="radio" name="regPlan" value="institutional">
-                    <div class="plan-top"><span class="plan-name">SCALE THE EDGE / INSTITUTIONAL</span><span class="plan-price">From $999/mo</span></div>
-                    <div class="plan-promise">Talk to us — Data Room / SLA / roles (not self-serve checkout).</div>
-                </label>
-            </div>
-            <label for="regName">Display name</label>
-            <input type="text" id="regName" maxlength="80" placeholder="How we greet you" autocomplete="name">
-            <label for="regUsername">Public username (optional)</label>
-            <input type="text" id="regUsername" maxlength="24" placeholder="e.g. alex_trade" autocomplete="nickname">
-            <label for="regEmail">Email</label>
-            <input type="email" id="regEmail" required autocomplete="email">
-            <label for="regPassword">Password (10+ chars)</label>
-            <input type="password" id="regPassword" required minlength="10" autocomplete="new-password">
-            <label class="check">
-                <input type="checkbox" id="regTerms" required>
-                <span>{{ t('auth.accept_terms') }} (<a href="/terms" target="_blank">Terms</a> · <a href="/privacy" target="_blank">Privacy</a> · <a href="/disclaimer" target="_blank">Disclaimer</a>)</span>
-            </label>
-            <button type="submit" class="btn-primary" id="regSubmit">{{ t('auth.create') }}</button>
+            <button type="button" class="btn-secondary" data-bd-call="showLogin">Back</button>
         </form>
 
         <form id="forgotForm" class="hidden" data-bd-submit-call="doForgot">
+            <h1>Reset password</h1>
             <label for="forgotEmail">Account email</label>
             <input type="email" id="forgotEmail" required>
             <button type="submit" class="btn-primary">Send reset link</button>
-            <button type="button" class="btn-secondary" data-bd-call="showTab" data-bd-args="[&quot;login&quot;]">Back to login</button>
+            <button type="button" class="btn-secondary" data-bd-call="showLogin">Back to sign in</button>
         </form>
 
         <form id="forgotUserForm" class="hidden" data-bd-submit-call="doForgotUsername">
-            <p class="lead" style="margin-bottom:.75rem">Login uses your <strong>email</strong>. Enter it to receive a reminder (and your optional @username).</p>
+            <h1>Username reminder</h1>
+            <p class="lead" style="margin-bottom:.75rem">Login uses your <strong>email</strong>. Enter it to receive a reminder.</p>
             <label for="forgotUserEmail">Email</label>
             <input type="email" id="forgotUserEmail" required>
             <button type="submit" class="btn-primary">Send reminder</button>
-            <button type="button" class="btn-secondary" data-bd-call="showTab" data-bd-args="[&quot;login&quot;]">Back</button>
+            <button type="button" class="btn-secondary" data-bd-call="showLogin">Back</button>
         </form>
 
-        <div class="msg" id="msg"></div>
+        <div class="msg" id="msg" role="alert" aria-live="polite"></div>
         <div class="footer-links">
-            <a href="/">Home</a> · <a href="/login?next=/profile">Profile &amp; Billing</a> · <a href="/login?next=/dashboard">Dashboard</a> · <a href="/#pricing">Pricing</a><br>
-            <a href="/refund">Refunds</a> · <a href="/identity-standards">Identity standards</a>
+            <a href="/">Home</a> · <a href="/#pricing">Pricing</a>
         </div>
     </div>
     <script type="module">
         let mfaChallenge = null;
+        const googleConfigured = {{ 'true' if google_signin.state == 'CONFIGURED' else 'false' }};
+        const googleClientId = {{ google_signin.client_id|tojson if google_signin.state == 'CONFIGURED' else 'null' }};
 
         function hideAll() {
-            ['loginForm','registerForm','mfaForm','forgotForm','forgotUserForm'].forEach(id => {
+            ['registerShell','loginShell','mfaForm','forgotForm','forgotUserForm'].forEach(id => {
                 document.getElementById(id).classList.add('hidden');
             });
         }
-        function showTab(which) {
+        function showRegister() {
             hideAll();
-            document.getElementById(which === 'register' ? 'registerForm' : 'loginForm').classList.remove('hidden');
-            document.getElementById('tabLogin').classList.toggle('active', which === 'login');
-            document.getElementById('tabRegister').classList.toggle('active', which === 'register');
+            document.getElementById('registerShell').classList.remove('hidden');
+            document.getElementById('msg').textContent = '';
+            mfaChallenge = null;
+        }
+        function showLogin() {
+            hideAll();
+            document.getElementById('loginShell').classList.remove('hidden');
             document.getElementById('msg').textContent = '';
             mfaChallenge = null;
         }
@@ -206,30 +184,36 @@
             msg.className = 'msg ' + (ok ? 'ok' : 'error');
             msg.textContent = text;
         }
-        function selectedPlan() {
-            const el = document.querySelector('input[name="regPlan"]:checked');
-            return (el && el.value) || 'free';
+        function signupPlan() {
+            const params = new URLSearchParams(window.location.search);
+            const raw = (params.get('plan') || document.getElementById('regPlan')?.value || 'free').toLowerCase();
+            const allowed = ['free', 'pro', 'elite', 'quant', 'institutional'];
+            return allowed.includes(raw) ? raw : 'free';
         }
-        function syncPlanCards() {
-            const plan = selectedPlan();
-            document.querySelectorAll('.plan-card').forEach(card => {
-                card.classList.toggle('active', card.dataset.plan === plan);
-            });
-            const btn = document.getElementById('regSubmit');
-            if (!btn) return;
-            if (plan === 'pro') btn.textContent = 'Create account · start 7-day DECIDE / PRO trial';
-            else if (plan === 'elite') btn.textContent = 'Create account · continue to ELITE $49.99';
-            else if (plan === 'quant') btn.textContent = 'Create account · continue to QUANT $129.99';
-            else if (plan === 'institutional') btn.textContent = 'Create account · Talk to us';
-            else btn.textContent = 'Create free DISCOVER account';
+        function syncPlanFromUrl() {
+            const plan = signupPlan();
+            const el = document.getElementById('regPlan');
+            if (el) el.value = plan;
+        }
+        function resolvePostAuthUrl(data) {
+            const params = new URLSearchParams(window.location.search);
+            const plan = (data?.selected_plan || signupPlan() || 'free').toLowerCase();
+            const urlNext = params.get('next');
+            if (['pro', 'elite', 'quant'].includes(plan)) {
+                return `/create-checkout-session?tier=${encodeURIComponent(plan)}`;
+            }
+            if (plan === 'institutional') {
+                return '/data-room?from=signup';
+            }
+            if (urlNext && urlNext.startsWith('/') && !urlNext.startsWith('//')) {
+                return urlNext;
+            }
+            return '/dashboard';
         }
         function saveAuth(data) {
-            // Prefer HttpOnly cookie session — do not store reusable bearer in localStorage (XSS).
             try { localStorage.removeItem('bd_token'); localStorage.removeItem('token'); } catch (_) {}
             if (data.user) localStorage.setItem('bd_user', JSON.stringify(data.user));
-            const urlNext = new URLSearchParams(window.location.search).get('next');
-            const next = urlNext || (data.next && data.next.href) || '/profile?welcome=1';
-            window.location.href = next;
+            window.location.href = resolvePostAuthUrl(data);
         }
         async function detail(res) {
             const d = await res.json().catch(() => ({}));
@@ -237,6 +221,16 @@
             if (typeof err === 'string') return err;
             if (Array.isArray(err)) return err.map(x => x.msg || JSON.stringify(x)).join('; ');
             return d.message || 'Request failed';
+        }
+        function validateRegisterForm() {
+            const email = document.getElementById('regEmail').value.trim();
+            const password = document.getElementById('regPassword').value;
+            const terms = document.getElementById('regTerms').checked;
+            if (!email) { setMsg('Please enter your email address.', false); return false; }
+            if (!password) { setMsg('Please enter a password.', false); return false; }
+            if (password.length < 12) { setMsg('Password must be at least 12 characters.', false); return false; }
+            if (!terms) { setMsg('Please accept the Terms, Privacy, and Disclaimer to continue.', false); return false; }
+            return true;
         }
         async function doLogin(e) {
             e.preventDefault();
@@ -281,32 +275,24 @@
         }
         async function doRegister(e) {
             e.preventDefault();
+            if (!validateRegisterForm()) return;
             try {
                 const res = await fetch('/api/auth/register', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     credentials: 'same-origin',
                     body: JSON.stringify({
-                        name: document.getElementById('regName').value,
-                        username: document.getElementById('regUsername').value,
-                        email: document.getElementById('regEmail').value,
+                        email: document.getElementById('regEmail').value.trim(),
                         password: document.getElementById('regPassword').value,
                         accepted_terms: document.getElementById('regTerms').checked,
-                        plan: selectedPlan()
+                        plan: signupPlan()
                     })
                 });
                 const d = await res.json();
-                if (!res.ok) {
-                    const err = d.detail;
-                    let text = 'Registration failed';
-                    if (typeof err === 'string') text = err;
-                    else if (Array.isArray(err)) text = err.map(x => x.msg || JSON.stringify(x)).join('; ');
-                    throw new Error(text);
-                }
+                if (!res.ok) throw new Error(typeof d.detail === 'string' ? d.detail : await detail(res));
                 if (d.email_verification && d.email_verification.debug_link) {
                     console.info('Verify email:', d.email_verification.debug_link);
                 }
-                if (d.next && d.next.message) setMsg(d.next.message, true);
                 saveAuth(d);
             } catch (error) { console.debug(error); setMsg(error.message, false); }
         }
@@ -338,47 +324,59 @@
                 setMsg(d.message || 'If an account exists, a reminder was sent.', true);
             } catch (error) { console.debug(error); setMsg(error.message, false); }
         }
-        async function startOAuth(provider) {
+        async function handleGoogleCredential(response) {
             try {
-                const res = await fetch('/api/auth/oauth/' + provider + '/start');
+                const res = await fetch('/api/auth/oauth/google/credential', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'same-origin',
+                    body: JSON.stringify({
+                        credential: response.credential,
+                        plan: signupPlan()
+                    })
+                });
                 const d = await res.json();
-                if (!res.ok) throw new Error(d.detail || 'OAuth not configured');
-                window.location.href = d.authorize_url;
+                if (!res.ok) throw new Error(await detail(res));
+                saveAuth(d);
             } catch (error) { console.debug(error); setMsg(error.message, false); }
         }
-        Object.assign(window, {
-            showTab, showForgot, showForgotUsername, startOAuth, doLogin, doMfa, doRegister, doForgot, doForgotUsername, syncPlanCards
-        });
-        async function loadOAuth() {
-            try {
-                const res = await fetch('/api/auth/oauth/status');
-                const d = await res.json();
-                if (d.enabled) {
-                    document.getElementById('oauthBox').classList.remove('hidden');
-                    if (d.providers && d.providers.google) document.getElementById('googleBtn').classList.remove('hidden');
-                    else document.getElementById('googleBtn').classList.add('hidden');
-                    if (d.providers && d.providers.github) document.getElementById('githubBtn').classList.remove('hidden');
+        function initGoogleSignIn() {
+            if (!googleConfigured || !googleClientId) return;
+            const boot = () => {
+                if (!window.google?.accounts?.id) return;
+                window.google.accounts.id.initialize({
+                    client_id: googleClientId,
+                    callback: handleGoogleCredential,
+                    auto_select: false,
+                    cancel_on_tap_outside: true
+                });
+                const host = document.getElementById('googleBtnHost');
+                if (host) {
+                    window.google.accounts.id.renderButton(host, {
+                        type: 'standard',
+                        theme: 'outline',
+                        size: 'large',
+                        text: 'continue_with',
+                        shape: 'rectangular',
+                        logo_alignment: 'left',
+                        width: Math.min(380, host.offsetWidth || 380)
+                    });
                 }
-            } catch (error) { console.debug(error); }
+            };
+            if (window.google?.accounts?.id) boot();
+            else window.addEventListener('load', boot, { once: true });
         }
-        document.querySelectorAll('input[name="regPlan"]').forEach(el => {
-            el.addEventListener('change', syncPlanCards);
-        });
-        document.querySelectorAll('.plan-card').forEach(card => {
-            card.addEventListener('click', () => {
-                const input = card.querySelector('input[name="regPlan"]');
-                if (input) { input.checked = true; syncPlanCards(); }
-            });
+        Object.assign(window, {
+            showRegister, showLogin, showForgot, showForgotUsername,
+            doLogin, doMfa, doRegister, doForgot, doForgotUsername, handleGoogleCredential
         });
         try { localStorage.removeItem('bd_token'); localStorage.removeItem('token'); } catch (_) {}
-        await loadOAuth();
+        syncPlanFromUrl();
+        initGoogleSignIn();
         const params = new URLSearchParams(location.search);
-        if (params.get('tab') === 'register') showTab('register');
-        const plan = (params.get('plan') || 'free').toLowerCase();
-        const planInput = document.querySelector('input[name="regPlan"][value="' + plan + '"]');
-        if (planInput) planInput.checked = true;
-        syncPlanCards();
-        if (params.get('reset') === '1') setMsg('Password updated — you can log in.', true);
+        if (params.get('tab') === 'register') showRegister();
+        else showLogin();
+        if (params.get('reset') === '1') setMsg('Password updated — you can sign in.', true);
     </script>
     {% include "partials/site_footer.html" %}
 </body>

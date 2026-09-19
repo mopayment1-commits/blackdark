@@ -105,12 +105,13 @@ def test_register_requires_terms_and_sets_username(tmp_path, monkeypatch):
 def test_login_template_has_mfa_and_oauth_and_forgot():
     html = Path("templates/login.html").read_text(encoding="utf-8")
     assert "mfaForm" in html
-    assert ("Continue with Google" in html) or ("auth.google" in html)
+    assert "Create your free account" in html
+    assert "googleBtnHost" in html or "Google sign-in not configured" in html
     assert ("Forgot password" in html) or ("auth.forgot_pass" in html)
-    assert "accepted_terms" in html or "regTerms" in html
-    assert 'name="regPlan"' in html
-    assert 'data-plan="pro"' in html
-    assert 'data-plan="institutional"' in html
+    assert "regTerms" in html
+    assert 'id="regPlan"' in html
+    assert "plan-grid" not in html
+    assert 'minlength="12"' in html
     assert Path("templates/profile.html").is_file()
     assert Path("templates/reset_password.html").is_file()
     assert Path("docs/AUTH_IDENTITY_PROFILE.md").is_file()

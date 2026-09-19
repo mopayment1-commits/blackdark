@@ -26,17 +26,65 @@ def oauth_providers_configured() -> dict[str, bool]:
     }
 
 
+def google_signin_status() -> dict[str, Any]:
+    """Google Identity Services (GIS) — client_id only; no redirect secret required."""
+    client_id = os.getenv("OAUTH_GOOGLE_CLIENT_ID", "").strip()
+    if client_id:
+        return {"state": "CONFIGURED", "client_id": client_id}
+    return {
+        "state": "BLOCKED_EXTERNAL",
+        "blocked_key": "missing_oauth_google_client_id",
+        "message": "Google sign-in not configured",
+    }
+
+
 def oauth_status() -> dict[str, Any]:
     configured = oauth_providers_configured()
+    gis = google_signin_status()
     return {
-        "enabled": any(configured.values()),
+        "enabled": any(configured.values()) or gis["state"] == "CONFIGURED",
         "providers": configured,
+        "google_signin": gis,
         "callback_path": "/api/auth/oauth/{provider}/callback",
         "start_path": "/api/auth/oauth/{provider}/start",
         "note": (
             "Set OAUTH_GOOGLE_CLIENT_ID/SECRET and/or OAUTH_GITHUB_CLIENT_ID/SECRET "
             "plus APP_BASE_URL to enable social login."
         ),
+    }
+
+
+async def verify_google_credential(credential: str) -> dict[str, Any]:
+    """Verify a Google Identity Services ID token and return an OAuth profile."""
+    import httpx
+
+    gis = google_signin_status()
+    if gis["state"] != "CONFIGURED":
+        raise ValueError(gis.get("message") or "Google sign-in not configured")
+    client_id = str(gis["client_id"])
+    token = (credential or "").strip()
+    if not token:
+        raise ValueError("Missing Google credential")
+    async with httpx.AsyncClient(timeout=20.0) as client:
+        resp = await client.get(
+            "https://oauth2.googleapis.com/tokeninfo",
+            params={"id_token": token},
+        )
+        if resp.status_code != 200:
+            raise ValueError("Invalid Google credential")
+        data = resp.json()
+    if str(data.get("aud") or "") != client_id:
+        raise ValueError("Google credential audience mismatch")
+    if str(data.get("email_verified", "")).lower() not in {"true", "1"}:
+        raise ValueError("Google email not verified")
+    email = (data.get("email") or "").strip().lower()
+    if not email:
+        raise ValueError("Google did not return email")
+    return {
+        "provider": "google",
+        "subject": str(data.get("sub") or ""),
+        "email": email,
+        "name": str(data.get("name") or ""),
     }
 
 

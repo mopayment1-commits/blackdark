@@ -1445,7 +1445,13 @@ async def _build_opportunity_explanation(
 # ========== LANDING PAGE (ROOT) ==========
 @app.get("/login", response_class=HTMLResponse)
 async def login_page(request: Request):
-    return render_page(request, "login.html", _footer_ctx())
+    from oauth_service import google_signin_status
+
+    return render_page(
+        request,
+        "login.html",
+        {**_footer_ctx(), "google_signin": google_signin_status()},
+    )
 
 
 @app.get("/pricing")
