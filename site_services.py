@@ -192,11 +192,12 @@ def footer_manifest() -> dict[str, Any]:
         "story": "Prove → Operate → Desk → Room",
         "product": [
             {"label": "Trust Pulse", "href": "/#trust-pulse"},
-            {"label": "Decide", "href": "/dashboard?lens=prove#decide"},
+            {"label": "Decide", "href": "/login?next=/dashboard%3Flens%3Dprove"},
             {"label": "Verify", "href": "/oracle-accuracy"},
-            {"label": "Dashboard", "href": "/dashboard"},
+            {"label": "Dashboard", "href": "/login?next=/dashboard"},
             {"label": "Pricing", "href": "/#pricing"},
-            {"label": "AI Chat", "href": "/dashboard?lens=operate#ai-chat"},
+            {"label": "Profile & Billing", "href": "/login?next=/profile"},
+            {"label": "AI Chat", "href": "/login?next=/dashboard%3Flens%3Doperate"},
         ],
         "trust": [
             {"label": "How it works", "href": "/how-it-works"},

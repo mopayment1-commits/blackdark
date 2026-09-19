@@ -4744,6 +4744,18 @@ async def portfolio_analyze(
         raise HTTPException(status_code=400, detail="No assets provided")
     return await _analyze_portfolio_holdings(assets)
 
+@app.get("/join-waitlist", response_class=HTMLResponse)
+async def join_waitlist_page(request: Request):
+    """Visitor waitlist lives on the homepage — never a bare POST endpoint."""
+    return RedirectResponse(url="/#waitlist", status_code=302)
+
+
+@app.get("/trust", response_class=HTMLResponse)
+async def trust_page_redirect(request: Request):
+    """Legacy /trust bookmark → public compliance HTML."""
+    return RedirectResponse(url="/compliance", status_code=302)
+
+
 @app.post("/join-waitlist", responses=COMMON_ERROR_RESPONSES)
 async def join_waitlist(data: dict, background_tasks: BackgroundTasks):
     from database import insert_waitlist_signup

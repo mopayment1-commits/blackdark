@@ -1056,7 +1056,7 @@
                 {{ t('pricing.pay_note') }}
                 {{ t('pricing.manage') }} <a href="/login?next=/profile" style="color:var(--accent)">Profile</a>.
                 Not financial advice; we do not guarantee accuracy. Read the <a href="/refund" style="color:var(--accent)">Refund Policy</a>.
-                Catalog: <a href="/api/pricing" style="color:var(--accent)">/api/pricing</a> · Payments: <a href="/api/billing/payments" style="color:var(--accent)">/api/billing/payments</a>
+                Plans: <a href="/#pricing" style="color:var(--accent)">Pricing</a> · Billing: <a href="/login?next=/profile" style="color:var(--accent)">Profile &amp; Billing</a> · <a href="/refund" style="color:var(--accent)">Refund Policy</a>
             </p>
         </div>
     </section>
@@ -1388,7 +1388,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
         function wireDisciplineMirror(disc, data, symbol, followAction) {
             disc.style.display = 'block';
             disc.innerHTML =
-                `<div style="font-size:.85rem;color:var(--text-muted);margin-bottom:.4rem"><strong style="color:var(--text)">Discipline Mirror</strong> (private) — cure for Dashboard Tourism. Did you follow this signal? <a href="/discipline-mirror" style="color:var(--accent)">Open my mirror</a> · <a href="/errors" style="color:var(--accent)">See public misses</a></div>` +
+                `<div style="font-size:.85rem;color:var(--text-muted);margin-bottom:.4rem"><strong style="color:var(--text)">Discipline Mirror</strong> (private) — cure for Dashboard Tourism. Did you follow this signal? <a href="/login?next=/discipline-mirror" style="color:var(--accent)">Open my mirror</a> · <a href="/oracle-accuracy#losing" style="color:var(--accent)">See public misses</a></div>` +
                 `<button type="button" class="btn-secondary" id="followedYes">Yes, I followed</button> ` +
                 `<button type="button" class="btn-secondary" id="followedNo">No, I overrode</button>` +
                 `<div id="disciplineMsg" style="margin-top:.4rem;font-size:.78rem;color:var(--text-muted)"></div>`;
@@ -1458,7 +1458,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                     oracleEl.textContent = msg;
                     if (detail.upgrade_url || detail.error === 'quota_exceeded') {
                         upgradeEl.style.display = 'block';
-                        upgradeEl.innerHTML = `<a class="btn-primary" href="${esc(safeUrl(detail.upgrade_url) || '/create-checkout-session?tier=pro')}">Upgrade to Pro</a>`;
+                        upgradeEl.innerHTML = `<a class="btn-primary" href="${esc(safeUrl(detail.upgrade_url) || '/login?tab=register&plan=pro')}">Upgrade to Pro</a>`;
                     }
                     return;
                 }

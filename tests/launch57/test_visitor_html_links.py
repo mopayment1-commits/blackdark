@@ -76,6 +76,21 @@ def test_launch22_real_time_prices_public_json_for_page_fetch(client, monkeypatc
     assert body["freshness_state"] in {"LIVE", "NEAR_LIVE", "DELAYED", "STALE"}
 
 
+def test_visitor_nav_audit_closure():
+    import subprocess
+    import sys
+
+    proc = subprocess.run(
+        [sys.executable, "scripts/audit_visitor_nav_links.py"],
+        cwd=str(__import__("pathlib").Path(__file__).resolve().parents[2]),
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 0, proc.stdout + proc.stderr
+    assert "PUBLIC_NAV_JSON_RESPONSES = 0" in proc.stdout
+    assert "PUBLIC_DEAD_BUTTONS = 0" in proc.stdout
+
+
 @pytest.mark.asyncio
 async def test_kill_real_time_prices_not_live_badge(monkeypatch):
     async def fake_connector(*, symbol: str, params=None):
