@@ -73,6 +73,8 @@ _SENSITIVE_KEY_SUBSTRINGS: frozenset[str] = frozenset(
         "private_key",
         "refresh_token",
         "access_token",
+        "session_token",
+        "session_secret",
         "bearer",
         "authorization",
         "stripe_secret",
