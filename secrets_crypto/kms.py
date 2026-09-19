@@ -16,16 +16,17 @@ _METHODOLOGY_VERSION = "envelope-v1"
 
 def _provider() -> str:
     explicit = (os.getenv("KMS_PROVIDER") or "").strip().lower()
+    # Production with vault master material must not honor stale KMS_PROVIDER=local_dev.
+    if is_production_crypto_env() and (
+        (os.getenv("SECRETS_MASTER_KEY") or "").strip()
+        or (os.getenv("KMS_MASTER_SECRET") or "").strip()
+    ):
+        return "managed_env"
     if explicit:
         return explicit
     if (os.getenv("VAULT_ADDR") or "").strip() and (os.getenv("VAULT_TOKEN") or "").strip():
         return "hashicorp"
     if (os.getenv("KMS_KEY_ID") or "").strip() or (os.getenv("KMS_KEY_ARN") or "").strip():
-        return "managed_env"
-    if is_production_crypto_env() and (
-        (os.getenv("SECRETS_MASTER_KEY") or "").strip()
-        or (os.getenv("KMS_MASTER_SECRET") or "").strip()
-    ):
         return "managed_env"
     return "local_dev"
 

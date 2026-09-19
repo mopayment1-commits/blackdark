@@ -65,6 +65,7 @@ INFRASTRUCTURE_EXACT: frozenset[str] = frozenset(
         "/health/ready",
         "/health/viral",
         "/metrics",
+        "/api/build-info",
     }
 )
 

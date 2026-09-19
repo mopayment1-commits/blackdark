@@ -221,6 +221,38 @@ def test_google_login_post_valid_credential_shape_not_500(client, monkeypatch, t
     assert res.headers.get("location") == "/dashboard"
 
 
+def test_register_not_500_when_kms_provider_local_dev_but_master_key_set(
+    client, tmp_path, monkeypatch
+):
+    """Railway may still have KMS_PROVIDER=local_dev while SECRETS_MASTER_KEY is set."""
+    import asyncio
+
+    import database
+
+    monkeypatch.setattr(database.config, "DB_PATH", str(tmp_path / "kms.db"))
+    monkeypatch.setenv("ENV", "production")
+    monkeypatch.setenv("SECRETS_MASTER_KEY", "production-master-key-32chars!!")
+    monkeypatch.setenv("KMS_PROVIDER", "local_dev")
+    monkeypatch.delenv("SESSION_TOKEN_PEPPER", raising=False)
+
+    async def _init():
+        await database.init_db()
+
+    asyncio.run(_init())
+    res = client.post(
+        "/api/auth/register",
+        json={
+            "email": "kmsoverride@example.com",
+            "password": "strong-pass-1234",
+            "accepted_terms": True,
+            "plan": "free",
+        },
+        headers={"X-Forwarded-Proto": "https"},
+    )
+    assert res.status_code != 500
+    assert res.status_code == 200
+
+
 def test_register_missing_session_secrets_not_500(client, tmp_path, monkeypatch):
     """Misconfigured production secrets must not surface as silent 500."""
     import asyncio
