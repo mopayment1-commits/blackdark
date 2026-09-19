@@ -561,16 +561,26 @@ def build_specs_13_local_closure_ledger(*, file13_status: dict[str, Any] | None 
         file_num = int(file_num_str) if file_num_str.isdigit() else 0
         artifact_closure = payload.get("closure_status")
         owner_accepted = file_num in _OWNER_ACCEPTED_CLOSED_LOCAL
-        effective_closure = "CLOSED_LOCAL" if owner_accepted else artifact_closure
+        artifact_matches_owner = artifact_closure == "CLOSED_LOCAL"
+        effective_closure = artifact_closure if artifact_matches_owner else (
+            "CLOSED_LOCAL" if owner_accepted else artifact_closure
+        )
         entry = {
             "file": file_num_str,
             "domain": payload.get("domain"),
             "closure_status": effective_closure,
             "artifact_closure_status": artifact_closure,
             "owner_accepted": owner_accepted,
-            "PASS_ENGINEERING": True if owner_accepted else payload.get("PASS_ENGINEERING"),
-            "LOCAL_INSTITUTIONAL_CLOSURE": True if owner_accepted else payload.get("LOCAL_INSTITUTIONAL_CLOSURE"),
-            "LOCAL_WORK_REMAINING": 0 if owner_accepted else payload.get("LOCAL_WORK_REMAINING"),
+            "artifact_aligned_with_owner": artifact_matches_owner,
+            "PASS_ENGINEERING": payload.get("PASS_ENGINEERING") if artifact_matches_owner else (
+                True if owner_accepted else payload.get("PASS_ENGINEERING")
+            ),
+            "LOCAL_INSTITUTIONAL_CLOSURE": payload.get("LOCAL_INSTITUTIONAL_CLOSURE") if artifact_matches_owner else (
+                True if owner_accepted else payload.get("LOCAL_INSTITUTIONAL_CLOSURE")
+            ),
+            "LOCAL_WORK_REMAINING": payload.get("LOCAL_WORK_REMAINING") if artifact_matches_owner else (
+                0 if owner_accepted else payload.get("LOCAL_WORK_REMAINING")
+            ),
             "PASS_LIVE": False,
             "LIVE_VALIDATION_PENDING": True,
             "final_sha": payload.get("final_sha"),

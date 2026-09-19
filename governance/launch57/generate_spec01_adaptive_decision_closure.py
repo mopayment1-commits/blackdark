@@ -110,7 +110,7 @@ def main() -> None:
     truth = build_runtime_truth_table()
     tests = run_targeted_tests()
     iv = independent_verification()
-    status = build_final_status()
+    status = build_final_status(tests=tests)
 
     (OUT / "REQUIREMENTS_REGISTER.json").write_text(
         json.dumps(requirements, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"

@@ -108,7 +108,14 @@ async def test_capability_49_history_only_rejects_behavioral_learning(monkeypatc
         lambda **kwargs: [{"decision_id": "d1"}],
     )
 
-    out = await personal_decision_history(symbol="BTC", params={"behavioral_learning": True})
+    out = await personal_decision_history(
+        symbol="BTC",
+        params={
+            "behavioral_learning": True,
+            "user_key": "user-1",
+            "subject_id": "user-1",
+        },
+    )
     assert out["launch_item_id"] == 49
     assert out["success"] is False
     assert out["personal_decision_history"]["decisions"] == []
