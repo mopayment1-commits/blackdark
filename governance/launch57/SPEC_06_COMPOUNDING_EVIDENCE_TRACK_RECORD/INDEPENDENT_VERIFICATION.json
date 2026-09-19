@@ -1,0 +1,68 @@
+{
+  "artifact": "SPEC_06_INDEPENDENT_VERIFICATION",
+  "domain": "SPEC_06_COMPOUNDING_EVIDENCE_TRACK_RECORD",
+  "verification_sha": "8b69aed55b7540fa79193a4a725413aade4865e6",
+  "probe_count": 11,
+  "passed_count": 11,
+  "failed_count": 0,
+  "INDEPENDENT_VERIFICATION_PASS": true,
+  "probes": [
+    {
+      "probe": "iv_append_only_integrity",
+      "pass": true,
+      "detail": "True"
+    },
+    {
+      "probe": "iv_sim_cannot_be_live",
+      "pass": true,
+      "detail": "SIM"
+    },
+    {
+      "probe": "iv_unresolved_blocks_accuracy",
+      "pass": true,
+      "detail": "no outcome"
+    },
+    {
+      "probe": "iv_honest_accuracy_reporting",
+      "pass": true,
+      "detail": "1"
+    },
+    {
+      "probe": "iv_no_parked_track_record",
+      "pass": true,
+      "detail": "out of scope"
+    },
+    {
+      "probe": "iv_file02_file03_aligned",
+      "pass": true,
+      "detail": "{'file02_public_accuracy_anonymous': True, 'file02_private_history_anonymous_denied': True, 'file03_unverified_tier_cannot_unlock_history': True, 'sim_cannot_present_as_live': True, 'aligned': True}"
+    },
+    {
+      "probe": "iv_machine_readable_export",
+      "pass": true,
+      "detail": "LAUNCH57_COMPOUNDING_TRACK_RECORD_EXPORT"
+    },
+    {
+      "probe": "iv_guest_trust_public_read",
+      "pass": true,
+      "detail": "status=200"
+    },
+    {
+      "probe": "iv_history_auth_gated",
+      "pass": true,
+      "detail": "status=401"
+    },
+    {
+      "probe": "iv_envelope_flags_sim_contamination",
+      "pass": true,
+      "detail": "SIM+live"
+    },
+    {
+      "probe": "iv_pass_live_not_claimed",
+      "pass": true,
+      "detail": "honest"
+    }
+  ],
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "generated_at": "2026-09-19T00:02:55.391608+00:00"
+}
