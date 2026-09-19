@@ -68,8 +68,41 @@ def authed_client():
     return client
 
 
-def test_dashboard_page_200_with_session_cookie(authed_client):
-    res = authed_client.get("/dashboard")
+def test_dashboard_page_200_with_session_cookie(authed_client, monkeypatch):
+    from failure.freshness import FreshnessState
+
+    async def fake_spine(symbol, params=None):
+        return {
+            "symbol": symbol,
+            "freshness_state": FreshnessState.LIVE.value,
+            "live_eligible": True,
+            "presented_as_live": True,
+            "price": 50000.0,
+            "change_24h": 1.0,
+            "data_spine": {},
+        }
+
+    async def fake_oracle(**kwargs):
+        return {
+            "decision_action": "WAIT",
+            "single_sentence_oracle": {"action": "WAIT", "sentence": "BTC: WAIT"},
+            "evidence_class": "SHADOW_LIVE_FORWARD",
+        }
+
+    monkeypatch.setattr("launch57.edge_ui_batch2.load_decision_spine", fake_spine)
+    monkeypatch.setattr("launch57.edge_ui_batch2.single_sentence_oracle", fake_oracle)
+
+    reg = authed_client.post(
+        "/api/auth/register",
+        json={
+            "email": f"post-auth-dash-{uuid.uuid4().hex[:10]}@example.com",
+            "password": "SecurePass1234!",
+            "accepted_terms": True,
+        },
+        headers={"Origin": "https://testserver"},
+    )
+    assert reg.status_code == 200, reg.text
+    res = authed_client.get("/dashboard", headers={"Accept": "text/html"})
     assert res.status_code == 200
     assert "trust-pulse" in res.text
     assert "loadCommandHome" in res.text

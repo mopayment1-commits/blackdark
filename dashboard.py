@@ -698,10 +698,43 @@ except Exception:
     pass
 
 
+async def _resolve_html_auth_user(request: Request) -> dict | None:
+    """Valid session only — stale/invalid bd_token must not unlock private HTML surfaces."""
+    from auth_service import get_user_from_token
+
+    auth = (request.headers.get("authorization") or "").strip()
+    token: str | None = None
+    if auth.lower().startswith("bearer "):
+        token = auth[7:].strip()
+    elif request.cookies.get("bd_token"):
+        from security_middleware import cookie_to_session_bearer
+
+        token = cookie_to_session_bearer(request.cookies.get("bd_token"))
+    if not token:
+        return None
+    return await get_user_from_token(token)
+
+
 @app.middleware("http")
 async def anonymous_route_enforcement_middleware(request: Request, call_next):
     """P0 — PRIVATE_BY_DEFAULT server-side boundary for cookie-less requests."""
     from anonymous_route_foundation import enforce_anonymous_route_boundary
+
+    path = request.url.path or ""
+    if path in _HTML_AUTH_GATE_EXACT and anonymous_denial_should_be_html(request):
+        if await _resolve_html_auth_user(request) is None:
+            if path == "/dashboard":
+                return render_dashboard_auth_required(request)
+            if path == "/profile":
+                return render_profile_auth_required(request)
+            if path == "/discipline-mirror":
+                return render_surface_auth_required(
+                    request,
+                    lens="discipline",
+                    lens_label="Discipline Mirror",
+                    lens_hint="Your private discipline mirror opens after sign-in.",
+                    boundary="discipline-auth-required-html",
+                )
 
     denial = enforce_anonymous_route_boundary(request)
     if denial is not None:

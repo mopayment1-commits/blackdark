@@ -93,7 +93,21 @@ async def launch57_command_home(
     _require_launch57_auth(request, 1)
     from launch57.edge_ui_batch2 import six_heroes_command_home
 
-    return await six_heroes_command_home(symbol=symbol, params={"symbol": symbol, "command_view": command_view})
+    try:
+        return await six_heroes_command_home(symbol=symbol, params={"symbol": symbol, "command_view": command_view})
+    except RuntimeError as exc:
+        if "kill_switch" in str(exc):
+            raise HTTPException(
+                status_code=503,
+                detail={
+                    "detail": "Launch-57 command home disabled",
+                    "launch_item_id": 1,
+                    "reason": str(exc),
+                    "success": False,
+                },
+                headers={"X-Blackdark-Launch57-Kill-Switch": "edge-ui-batch2"},
+            ) from exc
+        raise
 
 
 @router.get("/api/launch57/decision-history")

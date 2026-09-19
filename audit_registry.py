@@ -104,7 +104,20 @@ async def record_audit_log(
         "metadata_json": json.dumps(meta, ensure_ascii=False, sort_keys=True, default=str),
         "signing_key_version": current_signing_key_version(),
     }
-    row["signature"] = sign_record(row)
+    try:
+        row["signature"] = sign_record(row)
+    except RuntimeError as exc:
+        msg = str(exc)
+        if (
+            "AUDIT_SIGNING_KEY" in msg
+            or "audit_signing" in msg.lower()
+            or "audit_dev_signing_key_forbidden" in msg
+        ):
+            logger.warning("audit_signing_degraded path=%s reason=%s", request_path, exc)
+            row["signature"] = ""
+            row["audit_signing_degraded"] = True
+        else:
+            raise
 
     async with get_connection() as db:
         cur = await db.execute(

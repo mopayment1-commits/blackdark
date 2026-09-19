@@ -1172,11 +1172,15 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
         }
 
         function _lpFreshnessBadge(freshnessState, presentedAsLive) {
-            const state = String(freshnessState || '').toUpperCase();
-            if (state === 'STALE') return { label: 'STALE', stale: true };
+            const state = String(freshnessState || 'UNKNOWN').toUpperCase();
+            const liveOk = presentedAsLive === true;
+            if (state === 'STALE') return { label: 'Stale — not live', stale: true };
+            if (state === 'UNKNOWN') return { label: 'Freshness unknown', stale: true };
+            if (!liveOk) return { label: 'DELAYED', stale: false };
             if (state === 'DELAYED') return { label: 'DELAYED', stale: false };
-            if (state === 'LIVE' || state === 'NEAR_LIVE') return { label: state === 'NEAR_LIVE' ? 'NEAR LIVE' : 'LIVE', stale: false };
-            if (presentedAsLive) return { label: 'LIVE', stale: false };
+            if (state === 'LIVE' || state === 'NEAR_LIVE') {
+                return { label: state === 'NEAR_LIVE' ? 'NEAR LIVE' : 'LIVE', stale: false };
+            }
             return { label: 'DELAYED', stale: false };
         }
 
@@ -1332,12 +1336,11 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             const freshChip = document.getElementById('oracleFreshnessLabel');
             const fresh = data.data_freshness || {};
             if (!freshChip) return;
-            const state = String(fresh.state || fresh.status || '').toLowerCase();
-            const stale = fresh.stale === true || state === 'stale';
-            const knownFresh = state === 'fresh' || state === 'ok' || state === 'live';
-            freshChip.textContent = stale
-                ? (fresh.label || 'Stale — not live')
-                : (fresh.label || (knownFresh ? 'Live' : 'Freshness unknown'));
+            const state = String(fresh.state || fresh.status || data.freshness_state || 'UNKNOWN').toUpperCase();
+            const presentedLive = data.presented_as_live === true && fresh.presented_as_live !== false;
+            const stale = fresh.stale === true || state === 'STALE' || state === 'UNKNOWN' || !presentedLive;
+            freshChip.textContent = fresh.label
+                || _lpFreshnessBadge(state, presentedLive).label;
             const wrap = document.getElementById('oracleFreshnessChip');
             if (!wrap) return;
             wrap.title = fresh.state ? `Freshness: ${fresh.state}` : 'Data freshness';

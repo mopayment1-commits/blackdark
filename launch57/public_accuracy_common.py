@@ -54,16 +54,25 @@ def _parse_instant(value: Any) -> str | None:
 
 
 def _is_live_eligible(record: dict[str, Any]) -> bool:
+    if record.get("synthetic") is True:
+        return False
+    explicit = str(record.get("evidence_class") or record.get("canonical_evidence_class") or "").upper()
+    if explicit in {"SIMULATED", "SIM", "BACKTESTED"}:
+        return False
     try:
         from oracle_integrity import is_synthetic_prediction
 
         if is_synthetic_prediction(record):
             return False
     except ImportError:
-        if record.get("synthetic"):
-            return False
+        pass
     evidence = assess_user_evidence_class(record)
-    return evidence.user_facing_label != "SIM"
+    if evidence.user_facing_label == "SIM":
+        return False
+    # Public ledger live-primary scope: shadow/replay never presented as live metrics.
+    if evidence.canonical_evidence_class != "PRODUCTION_VERIFIED":
+        return False
+    return evidence.user_facing_label == "LIVE"
 
 
 def _build_evaluation_window(decision_time: str, outcome_time: str | None) -> dict[str, Any]:
@@ -91,7 +100,21 @@ def _merge_chain_records(records: list[dict[str, Any]]) -> dict[int, dict[str, A
         if event == "prediction_created" or record.get("resolved") is False:
             slot["decision_time"] = _parse_instant(record.get("decision_time") or record.get("timestamp"))
             slot["created_chain_seq"] = record.get("seq")
-            slot.update({k: record.get(k) for k in ("asset", "verdict", "source", "chain_hash") if record.get(k) is not None})
+            slot.update(
+                {
+                    k: record.get(k)
+                    for k in (
+                        "asset",
+                        "verdict",
+                        "source",
+                        "chain_hash",
+                        "evidence_class",
+                        "canonical_evidence_class",
+                        "synthetic",
+                    )
+                    if record.get(k) is not None
+                }
+            )
         if event == "prediction_resolved" or record.get("resolved") is True:
             slot["outcome_time"] = _parse_instant(record.get("outcome_time") or record.get("timestamp"))
             if not slot.get("decision_time"):
@@ -100,7 +123,16 @@ def _merge_chain_records(records: list[dict[str, Any]]) -> dict[int, dict[str, A
             slot.update(
                 {
                     k: record.get(k)
-                    for k in ("label", "outcome", "accuracy_score", "price_after_24h", "chain_hash")
+                    for k in (
+                        "label",
+                        "outcome",
+                        "accuracy_score",
+                        "price_after_24h",
+                        "chain_hash",
+                        "evidence_class",
+                        "canonical_evidence_class",
+                        "synthetic",
+                    )
                     if record.get(k) is not None
                 }
             )
@@ -122,6 +154,12 @@ def build_ledger_entry_timing(
         return None
     outcome_time = _parse_instant(record.get("outcome_time"))
     evidence = assess_user_evidence_class(record, display_timezone=display_timezone)
+    user_label = evidence.user_facing_label
+    if record.get("synthetic") is True or str(record.get("evidence_class") or "").upper() in {
+        "SIMULATED",
+        "SIM",
+    }:
+        user_label = "SIM"
     live_eligible = _is_live_eligible(record)
     zone = str(display_timezone or "UTC")
     return LedgerEntryTiming(
@@ -130,7 +168,7 @@ def build_ledger_entry_timing(
         outcome_time=outcome_time,
         evaluation_window=_build_evaluation_window(decision_time, outcome_time),
         evidence_class=evidence.canonical_evidence_class,
-        user_facing_evidence_label=evidence.user_facing_label,
+        user_facing_evidence_label=user_label,
         live_only_eligible=live_eligible,
         display_timezone=zone,
         local_render_decision_time=local_render_instant(parse_rfc3339(decision_time), zone),
