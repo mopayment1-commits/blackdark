@@ -81,8 +81,8 @@ def test_profile_has_lang_billing_and_signup_gate():
     assert "top_utility.html" in profile
     assert 'lang="{{ lang|default(\'en\') }}"' in profile or 'lang="{{ lang|default(' in profile
     assert "create-checkout-session?tier=pro" in profile
-    assert "create-checkout-session?tier=whale" in profile
-    assert "Decision Desk $49" in profile
+    assert "create-checkout-session?tier=elite" in profile
+    assert "SEE THE EDGE / ELITE $49.99" in profile
     assert "tab=register" in profile
     assert "billingReady" in profile
 
@@ -96,11 +96,17 @@ def test_dashboard_and_accuracy_include_top_utility():
 
 def test_pricing_ladder_visible_on_landing():
     land = _landing()
-    assert "Decision Desk" in land
-    assert "$49" in land
-    assert "$29" in land
-    assert "pricing.from_open" in land or "From $3,000" in land or "3,000" in land
-    assert "Whale Desk" not in land
-    assert "$199" not in land
+    assert "pricing.decide_pro" in land
+    assert "pricing.see_edge_elite" in land
+    assert "pricing.execute_quant" in land
+    assert "pricing.scale_institutional" in land
+    assert "$19.99" in land
+    assert "$49.99" in land
+    assert "$129.99" in land
+    assert "pricing.from_open" in land or "From $999" in land
+    assert "Decision Desk" not in land
+    assert "$29" not in land
+    assert "3,000" not in land
+    assert "pricing.popular" in land
     assert "billingReadyLine" in land
     assert "/login?tab=register" in land

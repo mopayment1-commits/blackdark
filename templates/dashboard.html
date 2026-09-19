@@ -142,8 +142,8 @@
         <div class="nav-inner">
             <a href="/" class="logo">BLACKDARK</a>
             <div style="display:flex;align-items:center;flex-wrap:wrap;gap:.5rem;margin-inline-start:auto;justify-content:flex-end">
-                <span class="tier" id="userTier">Guest · Proof Pass</span>
-                <button class="btn-upgrade" id="upgradeBtn" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">Decision Pro $29</button>
+                <span class="tier" id="userTier">Guest · DISCOVER / FREE</span>
+                <button class="btn-upgrade" id="upgradeBtn" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">DECIDE / PRO $19.99</button>
                 <div class="nav-links">
                     <a class="lens-nav" href="/dashboard?lens=prove#trust-pulse">Prove</a>
                     <a class="lens-nav" href="/dashboard?lens=operate">Operate</a>
@@ -275,7 +275,7 @@
 
         <section id="operate-digest" class="section-operate-plus hide-in-room">
             <h2>Operate digest</h2>
-            <p class="sub">Daily research brief + subscriber value — Decision Pro / Decision Desk</p>
+            <p class="sub">Daily research brief + subscriber value — DECIDE / PRO and above</p>
             <div class="toolbar" style="margin-bottom:.65rem">
                 <button class="btn secondary" type="button" data-bd-call="loadDailyReport">Refresh daily report</button>
                 <button class="btn secondary" type="button" data-bd-call="loadSubscriberValue">Refresh value</button>
@@ -300,7 +300,7 @@
 
         <section id="half-life-clock" class="section-desk-only hide-in-room">
             <h2>Half-Life Heat Clock</h2>
-            <p class="sub">Decision Desk · seconds = money · urgency bands from Opportunity Half-Life</p>
+            <p class="sub">SEE THE EDGE / ELITE · seconds = money · urgency bands from Opportunity Half-Life</p>
             <div class="toolbar">
                 <button class="btn secondary" type="button" data-bd-call="loadHalfLifeClock">Refresh clock</button>
                 <a class="btn secondary" href="/kill-rate">Kill-Rate Board</a>
@@ -352,8 +352,8 @@
             <h2>AI Chat</h2>
             <p class="sub">Operate+ · explains the current decision context — does not replace the Oracle or guarantee outcomes</p>
             <div id="chatGate" class="empty" style="display:none">
-                AI Chat is on Decision Pro and Decision Desk.
-                <button class="btn" style="margin-top:.65rem" type="button" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">Start Decision Pro</button>
+                AI Chat is on DECIDE / PRO and paid tiers above.
+                <button class="btn" style="margin-top:.65rem" type="button" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">Start DECIDE / PRO</button>
                 <div style="margin-top:.5rem;font-size:.75rem"><a href="/faq">FAQ</a> · <a href="/how-it-works">How it works</a></div>
             </div>
             <div id="chatPanel" style="display:none">
@@ -508,7 +508,7 @@
             } catch (error) { console.debug(error); appendChat('assistant', 'Chat unavailable right now — try again or use Get Decision.'); }
         }
 
-        let nextUpgrade = { checkout_tier: 'pro', href: '/create-checkout-session?tier=pro', cta: 'Decision Pro $29' };
+        let nextUpgrade = { checkout_tier: 'pro', href: '/create-checkout-session?tier=pro', cta: 'DECIDE / PRO $19.99' };
 
         function applyUpgradeButton() {
             const btn = document.getElementById('upgradeBtn');

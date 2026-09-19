@@ -2236,7 +2236,7 @@ async def faq_page(request: Request):
         {
             "page": "faq",
             "title": "FAQ",
-            "lead": "Straight answers on Proof Pass, Decision Pro, Decision Desk, sharing, and AI Chat.",
+            "lead": "Straight answers on DISCOVER / FREE, DECIDE / PRO, ELITE, QUANT, INSTITUTIONAL, sharing, and AI Chat.",
             "faq": FAQ_ITEMS,
             **_footer_ctx(),
         },
@@ -4879,7 +4879,7 @@ async def checkout_cancel(request: Request):
         {
             "page": "cancel",
             "title": "Checkout cancelled",
-            "lead": "No charge was made. You can restart Decision Pro anytime — or stay on Proof Pass.",
+            "lead": "No charge was made. You can restart DECIDE / PRO anytime — or stay on DISCOVER / FREE.",
             **_footer_ctx(),
         },
     )

@@ -115,23 +115,28 @@
             <div id="planGridLabel" class="plan-grid-label">Choose your plan</div>
                 <label class="plan-card active" data-plan="free">
                     <input type="radio" name="regPlan" value="free" checked>
-                    <div class="plan-top"><span class="plan-name">Proof Pass</span><span class="plan-price">$0</span></div>
-                    <div class="plan-promise">Act/Wait + Why + shareable Proof Card — 3 certified decisions/day.</div>
+                    <div class="plan-top"><span class="plan-name">DISCOVER / FREE</span><span class="plan-price">$0</span></div>
+                    <div class="plan-promise">Public Prove surface + daily decision limit — honest $0 entry.</div>
                 </label>
                 <label class="plan-card" data-plan="pro">
                     <input type="radio" name="regPlan" value="pro">
-                    <div class="plan-top"><span class="plan-name">Decision Pro <span class="plan-badge">Recommended</span></span><span class="plan-price">$29</span></div>
-                    <div class="plan-promise">7-day trial · unlimited decisions · Portfolio AI · no Free Proof watermark.</div>
+                    <div class="plan-top"><span class="plan-name">DECIDE / PRO <span class="plan-badge">MOST POPULAR</span></span><span class="plan-price">$19.99</span></div>
+                    <div class="plan-promise">$19.99/mo or $199/yr · 7-day trial · unlimited decisions · Portfolio AI.</div>
                 </label>
-                <label class="plan-card" data-plan="whale">
-                    <input type="radio" name="regPlan" value="whale">
-                    <div class="plan-top"><span class="plan-name">Decision Desk</span><span class="plan-price">$49</span></div>
-                    <div class="plan-promise">Everything in Pro + whale filter, Stealth Advisor, B2B/API, Evidence Pack.</div>
+                <label class="plan-card" data-plan="elite">
+                    <input type="radio" name="regPlan" value="elite">
+                    <div class="plan-top"><span class="plan-name">SEE THE EDGE / ELITE</span><span class="plan-price">$49.99</span></div>
+                    <div class="plan-promise">$49.99/mo or $499/yr · Stealth, Evidence Pack, B2B/API priority.</div>
+                </label>
+                <label class="plan-card" data-plan="quant">
+                    <input type="radio" name="regPlan" value="quant">
+                    <div class="plan-top"><span class="plan-name">EXECUTE THE EDGE / QUANT</span><span class="plan-price">$129.99</span></div>
+                    <div class="plan-promise">$129.99/mo or $1,299/yr · backtesting + API scale for systematic desks.</div>
                 </label>
                 <label class="plan-card" data-plan="institutional">
                     <input type="radio" name="regPlan" value="institutional">
-                    <div class="plan-top"><span class="plan-name">Institutional</span><span class="plan-price">From $3,000→open</span></div>
-                    <div class="plan-promise">Data Room / SLA / roles — Talk to us (not self-serve checkout).</div>
+                    <div class="plan-top"><span class="plan-name">SCALE THE EDGE / INSTITUTIONAL</span><span class="plan-price">From $999/mo</span></div>
+                    <div class="plan-promise">Talk to us — Data Room / SLA / roles (not self-serve checkout).</div>
                 </label>
             </div>
             <label for="regName">Display name</label>
@@ -212,10 +217,11 @@
             });
             const btn = document.getElementById('regSubmit');
             if (!btn) return;
-            if (plan === 'pro') btn.textContent = 'Create account · start 7-day Pro trial';
-            else if (plan === 'whale') btn.textContent = 'Create account · continue to Desk $49';
+            if (plan === 'pro') btn.textContent = 'Create account · start 7-day DECIDE / PRO trial';
+            else if (plan === 'elite') btn.textContent = 'Create account · continue to ELITE $49.99';
+            else if (plan === 'quant') btn.textContent = 'Create account · continue to QUANT $129.99';
             else if (plan === 'institutional') btn.textContent = 'Create account · Talk to us';
-            else btn.textContent = 'Create free Proof Pass account';
+            else btn.textContent = 'Create free DISCOVER account';
         }
         function saveAuth(data) {
             // Prefer HttpOnly cookie session — do not store reusable bearer in localStorage (XSS).

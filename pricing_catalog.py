@@ -2,7 +2,8 @@
 BLACKDARK Trust OS — Pricing catalog (binding).
 
 Official tiers: FREE · PRO · ELITE · QUANT · INSTITUTIONAL
-FREE $0 · PRO $19 · ELITE $49 · QUANT $199 · INSTITUTIONAL custom pricing
+DISCOVER/FREE $0 · DECIDE/PRO $19.99/mo · SEE THE EDGE/ELITE $49.99/mo ·
+EXECUTE THE EDGE/QUANT $129.99/mo · SCALE THE EDGE/INSTITUTIONAL from $999/mo
 7-day trial on all paid self-serve tiers.
 """
 
@@ -64,13 +65,19 @@ def _tier_card(plan_id: str) -> dict[str, Any]:
     }
     if "price_cents" in p:
         card["price_cents"] = p["price_cents"]
+    if p.get("price_usd_year"):
+        card["price_usd_year"] = p["price_usd_year"]
+    if p.get("popular"):
+        card["popular"] = True
+    if p.get("billing_note"):
+        card["billing_note"] = p["billing_note"]
     if plan_id == "free":
         card.update(
             {
                 "cta": "Start free",
                 "cta_href": "/login?tab=register&plan=free",
                 "signup_plan": "free",
-                "promise": "Take a clear decision and prove it publicly — before you pay.",
+                "promise": "Public Prove surface + daily decision limit — honest $0 entry.",
                 "limits": {"oracle_daily_limit": 3, "certificate_watermark": "Free Proof"},
             }
         )
@@ -81,7 +88,7 @@ def _tier_card(plan_id: str) -> dict[str, Any]:
                 "cta": "Start 7-Day Trial",
                 "cta_href": "/login?tab=register&plan=pro",
                 "signup_plan": "pro",
-                "promise": "Stop rationing decisions — run a daily verified habit.",
+                "promise": "Daily verified habit — unlimited certified decisions after trial.",
             }
         )
     elif plan_id == "elite":
@@ -106,11 +113,11 @@ def _tier_card(plan_id: str) -> dict[str, Any]:
         card.update(
             {
                 "price_usd_month_from": p.get("price_usd_month_from", 999),
-                "price_note": "Custom contracts. Sales-led activation.",
+                "price_note": p.get("price_note", "Talk to us — not self-serve checkout."),
                 "cta": "Talk to us",
                 "cta_href": "/login?tab=register&plan=institutional",
                 "signup_plan": "institutional",
-                "promise": "Trust system inside the official decision room.",
+                "promise": "Room lens — Data Room, SLA, integration addendum. Sales-led only.",
             }
         )
     return card

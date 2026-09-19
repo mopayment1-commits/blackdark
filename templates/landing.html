@@ -867,7 +867,7 @@
                     <label class="field-label" for="landingUxMode" style="display:inline-flex;flex-direction:column;gap:.25rem;font-size:.75rem;color:var(--text-muted);text-align:left">Experience
                     <select id="landingUxMode" name="landingUxMode" style="background:var(--bg-elevated);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.55rem">
                         <option value="beginner" selected>Beginner</option>
-                        <option value="pro">Decision Pro</option>
+                        <option value="pro">DECIDE / PRO</option>
                     </select>
                     </label>
                     <input type="hidden" id="landingLang" value="en" aria-label="landingLang">
@@ -953,23 +953,24 @@
             
             <div class="pricing-grid bd-pricing-grid">
                 <div class="pricing-card bd-price-tier">
-                    <h3>{{ t('pricing.proof_pass') }}</h3>
-                    <div class="price">$0<span>/month</span></div>
+                    <h3>{{ t('pricing.discover_free') }}</h3>
+                    <div class="price">$0<span>{{ t('pricing.mo') }}</span></div>
                     <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.5rem">{{ t('pricing.proof_promise') }}</p>
                     <ul>
-                        <li>Trust Pulse + OQS Why</li>
+                        <li>Public Prove surface (Trust Pulse + Why)</li>
                         <li>Shareable Decision Certificate</li>
-                        <li>3 certified decisions / day</li>
+                        <li>Daily certified decision limit</li>
                         <li>Public Accuracy Ledger</li>
                         <li>Free Proof watermark</li>
                     </ul>
                     <a href="/login?tab=register&plan=free" class="btn-secondary btn">{{ t('pricing.cta.free_signup') }}</a>
                 </div>
-                
+
                 <div class="pricing-card bd-price-tier popular">
                     <div class="bd-popular-badge">{{ t('pricing.popular') }}</div>
-                    <h3>{{ t('pricing.decision_pro') }}</h3>
-                    <div class="price">$29<span>/month USD</span></div>
+                    <h3>{{ t('pricing.decide_pro') }}</h3>
+                    <div class="price">$19.99<span>{{ t('pricing.mo_usd') }}</span></div>
+                    <p style="color:var(--text-muted);font-size:0.9rem;margin:-0.5rem 0 0.5rem">{{ t('pricing.or_year') }} $199{{ t('pricing.year_suffix') }}</p>
                     <p style="color:var(--success);font-size:0.85rem;margin-bottom:0.75rem">{{ t('pricing.trial_note') }}</p>
                     <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.5rem">{{ t('pricing.pro_promise') }}</p>
                     <ul>
@@ -981,29 +982,45 @@
                     </ul>
                     <a href="/login?tab=register&plan=pro" class="btn-primary btn">{{ t('pricing.cta.trial') }}</a>
                 </div>
-                
+
                 <div class="pricing-card bd-price-tier">
-                    <h3>{{ t('pricing.decision_desk') }}</h3>
-                    <div class="price">$49<span>/month USD</span></div>
-                    <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.5rem">{{ t('pricing.desk_promise') }}</p>
+                    <h3>{{ t('pricing.see_edge_elite') }}</h3>
+                    <div class="price">$49.99<span>{{ t('pricing.mo_usd') }}</span></div>
+                    <p style="color:var(--text-muted);font-size:0.9rem;margin:-0.5rem 0 0.5rem">{{ t('pricing.or_year') }} $499{{ t('pricing.year_suffix') }}</p>
+                    <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.5rem">{{ t('pricing.elite_promise') }}</p>
                     <ul>
-                        <li>Everything in Decision Pro</li>
+                        <li>Everything in DECIDE / PRO</li>
                         <li>Whale Signal vs Noise</li>
                         <li>Stealth advisory views</li>
                         <li>Evidence Pack + API priority</li>
                     </ul>
-                    <a href="/login?tab=register&plan=whale" class="btn-primary btn">{{ t('pricing.cta.desk') }}</a>
+                    <a href="/login?tab=register&plan=elite" class="btn-primary btn">{{ t('pricing.cta.elite') }}</a>
                     <a href="/b2b" class="btn-secondary btn" style="margin-top:0.5rem">{{ t('pricing.cta.b2b') }}</a>
                 </div>
 
                 <div class="pricing-card bd-price-tier">
-                    <h3>{{ t('pricing.institutional') }}</h3>
+                    <h3>{{ t('pricing.execute_quant') }}</h3>
+                    <div class="price">$129.99<span>{{ t('pricing.mo_usd') }}</span></div>
+                    <p style="color:var(--text-muted);font-size:0.9rem;margin:-0.5rem 0 0.5rem">{{ t('pricing.or_year') }} $1,299{{ t('pricing.year_suffix') }}</p>
+                    <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.5rem">{{ t('pricing.quant_promise') }}</p>
+                    <ul>
+                        <li>Quant backtesting suite</li>
+                        <li>100k API calls / month</li>
+                        <li>40h backtest hours / month</li>
+                        <li>Systematic workflow depth</li>
+                    </ul>
+                    <a href="/login?tab=register&plan=quant" class="btn-primary btn">{{ t('pricing.cta.quant') }}</a>
+                </div>
+
+                <div class="pricing-card bd-price-tier">
+                    <h3>{{ t('pricing.scale_institutional') }}</h3>
                     <div class="price" style="font-size:1.55rem">{{ t('pricing.from_open') }}</div>
                     <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.5rem">{{ t('pricing.inst_promise') }}</p>
                     <ul>
                         <li>Data Room + Compliance pack</li>
                         <li>SSO / enforced MFA</li>
                         <li>SLA · Integration Addendum</li>
+                        <li>Talk to us — not self-serve checkout</li>
                     </ul>
                     <a href="/login?tab=register&plan=institutional" class="btn-primary btn">{{ t('pricing.cta.talk') }}</a>
                 </div>
@@ -1018,7 +1035,7 @@
                 <label for="instCompany" style="color:var(--text-muted);font-size:.85rem">Firm</label>
                 <input id="instCompany" type="text" name="company" placeholder="Firm" style="padding:.7rem .85rem;border-radius:8px;border:1px solid var(--border);background:#1a1a24;color:var(--text)">
                 <label for="instBudget" style="color:var(--text-muted);font-size:.85rem">Budget band USD</label>
-                <input id="instBudget" type="text" name="budget_usd" placeholder="Budget band USD (e.g. from 3000)" style="padding:.7rem .85rem;border-radius:8px;border:1px solid var(--border);background:#1a1a24;color:var(--text)">
+                <input id="instBudget" type="text" name="budget_usd" placeholder="Budget band USD (e.g. from 999/mo)" style="padding:.7rem .85rem;border-radius:8px;border:1px solid var(--border);background:#1a1a24;color:var(--text)">
                 <label for="instMessage" style="color:var(--text-muted);font-size:.85rem">Use case</label>
                 <textarea id="instMessage" name="message" rows="3" placeholder="Use case / seats / SLA needs" style="padding:.7rem .85rem;border-radius:8px;border:1px solid var(--border);background:#1a1a24;color:var(--text)"></textarea>
                 <button type="submit" class="btn-primary btn">{{ t('pricing.cta.talk') }}</button>
@@ -1649,9 +1666,9 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 const ops = d.ops_readiness || {};
                 const provider = d.active_provider || 'none';
                 if (ops.launch_ready || d.billing_configured) {
-                    el.textContent = 'USD payments ready · ' + provider + ' hosted checkout · Decision Pro $29 · Decision Desk $49 · Institutional from $3,000 → open';
+                    el.textContent = 'USD payments ready · ' + provider + ' hosted checkout · DECIDE/PRO $19.99 · SEE THE EDGE/ELITE $49.99 · EXECUTE THE EDGE/QUANT $129.99 · INSTITUTIONAL from $999/mo → Talk to us';
                 } else {
-                    el.textContent = 'USD payment rails live in product · finish Lemon/Stripe KYC + checkout URLs for live charges. Proof Pass ($0) and Sign up work now. Profile → Plan & billing.';
+                    el.textContent = 'USD payment rails live in product · finish Lemon/Stripe KYC + checkout URLs for live charges. DISCOVER/FREE ($0) and Sign up work now. Profile → Plan & billing.';
                     el.style.color = 'var(--text-muted)';
                 }
             } catch (error) { console.debug(error); el.textContent = 'Payment status: see /api/billing/payments · Profile & Billing for checkout.';

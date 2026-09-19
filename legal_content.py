@@ -22,7 +22,7 @@ LEGAL_PAGES: dict[str, dict[str, str]] = {
 <h2>2. Service Description</h2>
 <p>BLACKDARK provides AI-assisted crypto market intelligence, analytics, and alerts. We do not execute trades on your behalf unless you explicitly enable live execution with your own exchange API keys.</p>
 <h2>3. Accounts & Subscriptions</h2>
-<p>Proof Pass (Free), Decision Pro, Decision Desk, and Institutional are described on our pricing page. Prices for self-serve plans are in <strong>USD</strong>. Decision Pro trials convert to paid USD subscriptions unless cancelled before trial end. Refunds follow our <a href="/refund">Refund Policy</a> and applicable law. Card data is processed by Lemon Squeezy or Stripe — never stored on BLACKDARK servers.</p>
+<p>DISCOVER / FREE, DECIDE / PRO, SEE THE EDGE / ELITE, EXECUTE THE EDGE / QUANT, and SCALE THE EDGE / INSTITUTIONAL are described on our pricing page. Self-serve prices are in <strong>USD</strong> ($19.99/mo or $199/yr for PRO; $49.99/mo or $499/yr for ELITE; $129.99/mo or $1,299/yr for QUANT; INSTITUTIONAL from $999/mo via Talk to us). Paid trials convert to USD subscriptions unless cancelled before trial end. Refunds follow our <a href="/refund">Refund Policy</a> and applicable law. Card data is processed by Lemon Squeezy or Stripe — never stored on BLACKDARK servers.</p>
 <h2>4. Acceptable Use</h2>
 <p>You may not scrape, resell, or redistribute our proprietary feeds without a B2B agreement. Automated abuse, credential sharing, or reverse engineering is prohibited.</p>
 <h2>5. Intellectual Property</h2>
@@ -79,15 +79,15 @@ LEGAL_PAGES: dict[str, dict[str, str]] = {
         "updated": "August 8, 2026",
         "html": """
 <h2>Currency</h2>
-<p>Self-serve subscriptions (Decision Pro, Decision Desk) are priced and charged in <strong>USD</strong>.</p>
+<p>Self-serve subscriptions (DECIDE / PRO, SEE THE EDGE / ELITE, EXECUTE THE EDGE / QUANT) are priced and charged in <strong>USD</strong> per the public pricing page.</p>
 <h2>Trials</h2>
-<p>Decision Pro may include a 7-day trial. Cancel before the trial ends to avoid the first USD charge. Manage billing via the customer portal provided by Stripe or Lemon Squeezy.</p>
+<p>Paid self-serve tiers may include a 7-day trial. Cancel before the trial ends to avoid the first USD charge. Manage billing via the customer portal provided by Stripe or Lemon Squeezy.</p>
 <h2>Paid periods</h2>
 <p>Monthly USD fees are generally non-refundable once a paid billing period has started, except where required by law or in the case of a clear billing error (duplicate charge, wrong plan).</p>
 <h2>How to request</h2>
 <p>Email support with your account email and checkout/order reference. Do <strong>not</strong> send card numbers. Refunds are executed by the payment processor.</p>
 <h2>Institutional</h2>
-<p>Custom contracts (from $3,000/mo USD) use invoice and wire terms in the signed agreement — not this self-serve policy.</p>
+<p>Custom INSTITUTIONAL contracts (from $999/mo USD and up) use invoice and wire terms in the signed agreement — not this self-serve policy.</p>
 <h2>Not investment returns</h2>
 <p>Subscription fees pay for software access and decision intelligence tools. We do not guarantee trading profits. See the Risk Disclaimer.</p>
 """,
