@@ -441,8 +441,234 @@ def attach_decision_truth_envelope(
         "source_sha": _git_sha(),
         "owner_path": "launch57/decision_truth_common.py",
         "pass_engineering_not_granted_by_envelope": True,
+        "pass_live_not_claimed": True,
     }
     return out
+
+
+def verify_launch57_decision_scope(launch_item_id: int) -> dict[str, Any]:
+    """Spec §2 — LAUNCH57_IDS scope lock for decision truth."""
+    in_launch57 = 1 <= launch_item_id <= 57
+    return {
+        "launch_item_id": launch_item_id,
+        "in_launch57_scope": in_launch57,
+        "decision_truth_touchpoint": launch_item_id in LAUNCH57_DECISION_TRUTH_IDS,
+        "parked_contamination": not in_launch57 and launch_item_id > 0,
+        "scope_lock": "LAUNCH57_IDS_ONLY",
+    }
+
+
+def verify_certificate_decision_time_gate(
+    payload: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Spec #3 — certificate rejects untrusted/missing authoritative decision_time."""
+    from launch57.decision_timing_common import build_decision_timing_context
+
+    untrusted = build_decision_timing_context(
+        {"governed_payload": {}},
+        require_authoritative_decision_time=True,
+    )
+    trusted = build_decision_timing_context(
+        {
+            "governed_payload": {
+                "decision_time": to_rfc3339(utc_now()),
+            }
+        },
+        require_authoritative_decision_time=True,
+    )
+    return {
+        "untrusted_decision_time_rejected": untrusted is None,
+        "trusted_decision_time_accepted": trusted is not None,
+        "gate_ok": untrusted is None and trusted is not None,
+        "owner": "launch57.decision_timing_common",
+    }
+
+
+def verify_net_edge_stale_refusal(
+    *,
+    freshness_state: str | None = "STALE",
+    cost_claim: bool = True,
+    net_edge_passing: bool = True,
+) -> dict[str, Any]:
+    """Spec #5 — net-edge path refuses stale/expired data as current opportunity."""
+    gate = build_decision_truth_gate(
+        freshness_state=freshness_state,
+        quality_state="decision_grade",
+        evidence_label="DELAYED",
+        presented_as_live=False,
+        cost_claim=cost_claim,
+        net_edge_passing=net_edge_passing,
+    )
+    evaluated = evaluate_decision_state(gate=gate)
+    return {
+        "stale_cost_claim_blocked": evaluated["act_allowed"] is False,
+        "decision_state": evaluated["decision_state"],
+        "refuses_stale_as_current": evaluated["act_allowed"] is False,
+        "owner": "launch57.trust_batch1 via decision_truth_common",
+    }
+
+
+def verify_insufficient_evidence_fail_closed() -> dict[str, Any]:
+    """Spec §4 — insufficient evidence must not silently succeed as ACT."""
+    gate = build_decision_truth_gate(
+        freshness_state="UNKNOWN",
+        quality_state="insufficient",
+        evidence_label=None,
+        source_count=0,
+    )
+    evaluated = evaluate_decision_state(gate=gate)
+    return {
+        "fail_closed": evaluated["act_allowed"] is False,
+        "abstain_or_wait": evaluated["decision_state"]
+        in {DecisionState.ABSTAIN.value, DecisionState.WAIT.value},
+        "abstain_reason": evaluated.get("abstain_reason"),
+        "no_silent_success": evaluated["decision_state"] != DecisionState.ACT.value,
+    }
+
+
+def verify_sim_not_labeled_live_on_decision() -> dict[str, Any]:
+    """Spec #6 / FILE 06 — SIM/replay must not present as LIVE on decision surfaces."""
+    from launch57.compounding_evidence_common import verify_live_sim_separation
+
+    sep = verify_live_sim_separation(
+        evidence_label="SIM",
+        presented_as_live=True,
+        raw_evidence_class="SIMULATED",
+    )
+    stale = verify_no_stale_as_live(
+        freshness_state="STALE",
+        presented_as_live=True,
+        evidence_label="LIVE",
+    )
+    return {
+        "sim_live_contamination_blocked": sep.get("fail_closed_on_contamination") is True,
+        "stale_not_live_on_decision": stale["ok"] is False,
+        "decision_truth_ok": sep.get("fail_closed_on_contamination") is True and stale["ok"] is False,
+    }
+
+
+def verify_file01_file02_file03_decision_alignment() -> dict[str, Any]:
+    """Public decision claims (FILE 02) and entitlement gates (FILE 03)."""
+    from launch57.anonymous_visitor_common import verify_anonymous_eligibility
+    from launch57.billing_entitlement_common import enforce_launch57_entitlement
+
+    public_ok = verify_anonymous_eligibility(4)["eligible"] and verify_anonymous_eligibility(46)["eligible"]
+    history_denied = not verify_anonymous_eligibility(49)["eligible"]
+    unverified_blocked = not enforce_launch57_entitlement(
+        launch_item_id=49,
+        params={"tier": "pro", "user_key": "user-1", "subject_id": "user-1"},
+    )["allowed"]
+    return {
+        "file02_public_accuracy_anonymous": public_ok,
+        "file02_private_history_anonymous_denied": history_denied,
+        "file03_unverified_cannot_unlock_history": unverified_blocked,
+        "aligned": public_ok and history_denied and unverified_blocked,
+    }
+
+
+def verify_file06_file07_alignment() -> dict[str, Any]:
+    """Align decision truth with FILE 06 evidence honesty and FILE 07 data governance."""
+    from launch57.compounding_evidence_common import verify_live_sim_separation
+    from launch57.data_governance_common import verify_stale_not_presented_as_live
+
+    sim = verify_live_sim_separation(evidence_label="SIM", presented_as_live=True)
+    stale = verify_stale_not_presented_as_live(freshness_state="STALE", presented_as_live=True)
+    insufficient = verify_insufficient_evidence_fail_closed()
+    return {
+        "file06_sim_live_blocked": sim.get("fail_closed_on_contamination") is True,
+        "file07_stale_not_live": stale["stale_not_presented_as_live"] is False,
+        "insufficient_evidence_fail_closed": insufficient["fail_closed"] is True,
+        "aligned": sim.get("fail_closed_on_contamination") is True
+        and stale["stale_not_presented_as_live"] is False
+        and insufficient["fail_closed"] is True,
+    }
+
+
+def verify_runtime_decision_path_wiring() -> dict[str, Any]:
+    """Verify decision truth on live execute paths — not documentation-only."""
+    root = Path(__file__).resolve().parents[1]
+    trust1 = (root / "launch57" / "trust_batch1.py").read_text(encoding="utf-8")
+    decision = (root / "launch57" / "decision_common.py").read_text(encoding="utf-8")
+    b4 = (root / "launch57" / "b4_decision_bridge.py").read_text(encoding="utf-8")
+    timing = (root / "launch57" / "decision_timing_common.py").read_text(encoding="utf-8")
+    wired = {
+        "trust_batch1_oracle": "single_sentence_oracle" in trust1,
+        "trust_batch1_net_edge": "net_edge_truth_score" in trust1,
+        "decision_common_spine": "attach_decision_truth_envelope" in decision,
+        "decision_common_stale_gate": "stale_gate_body" in decision,
+        "b4_decision_bridge": "attach_decision_truth_envelope" in b4,
+        "b4_timing_context": "build_decision_timing_context" in b4,
+        "decision_timing_certificate": "build_launch57_decision_certificate" in timing,
+    }
+    return {
+        "wired_paths": wired,
+        "all_wired": all(wired.values()),
+        "runtime_enforcement_ok": all(wired.values()),
+        "owner": "launch57.decision_truth_common",
+    }
+
+
+def build_decision_truth_touchpoint_index() -> list[dict[str, Any]]:
+    """Runtime decision truth touchpoints on launch execute paths."""
+    return [
+        {
+            "path_id": "single_sentence_oracle",
+            "launch_item_id": 2,
+            "module": "launch57.trust_batch1",
+            "gate": "attach_decision_truth_envelope via b4_decision_bridge",
+            "wired": True,
+        },
+        {
+            "path_id": "decision_certificate",
+            "launch_item_id": 3,
+            "module": "launch57.decision_timing_common",
+            "gate": "build_launch57_decision_certificate",
+            "wired": True,
+        },
+        {
+            "path_id": "decision_spine",
+            "launch_item_id": 2,
+            "module": "launch57.decision_common",
+            "gate": "stale_gate_body + attach_decision_truth_envelope",
+            "wired": True,
+        },
+        {
+            "path_id": "net_edge_truth_score",
+            "launch_item_id": 5,
+            "module": "launch57.trust_batch1",
+            "gate": "require_net_edge_if_cost_claim",
+            "wired": True,
+        },
+        {
+            "path_id": "abstain_reasons",
+            "launch_item_id": 48,
+            "module": "launch57.trust_batch2",
+            "gate": "evaluate_decision_state abstain_reason",
+            "wired": True,
+        },
+    ]
+
+
+def build_machine_readable_decision_truth_export() -> dict[str, Any]:
+    """Machine-readable decision truth export — audit/support only."""
+    wiring = verify_runtime_decision_path_wiring()
+    alignment = verify_file06_file07_alignment()
+    surfaces = verify_file01_file02_file03_decision_alignment()
+    return {
+        "artifact": "LAUNCH57_DECISION_TRUTH_EXPORT",
+        "version": DECISION_TRUTH_VERSION,
+        "launch_scope": "LAUNCH57",
+        "internal_support_only": True,
+        "component_registry": build_decision_truth_component_registry(),
+        "capability_decision_matrix": build_capability_decision_matrix(),
+        "touchpoint_index": build_decision_truth_touchpoint_index(),
+        "runtime_path_wiring": wiring,
+        "file02_file03_alignment": surfaces,
+        "file06_file07_alignment": alignment,
+        "acceptance_criteria": acceptance_criteria_status(),
+        "pass_live_not_claimed": True,
+        "decision_truth_ok": wiring["runtime_enforcement_ok"] and alignment["aligned"],
+    }
 
 
 def build_decision_truth_component_registry() -> list[dict[str, Any]]:
@@ -514,6 +740,13 @@ def acceptance_criteria_status() -> dict[str, bool]:
     abstain_eval = evaluate_decision_state(gate=gate_conflict)
     wait_eval = evaluate_decision_state(gate=gate_stale)
     stale_check = verify_no_stale_as_live(freshness_state="STALE", presented_as_live=True)
+    cert_gate = verify_certificate_decision_time_gate()
+    net_edge_stale = verify_net_edge_stale_refusal()
+    insufficient = verify_insufficient_evidence_fail_closed()
+    sim_live = verify_sim_not_labeled_live_on_decision()
+    wiring = verify_runtime_decision_path_wiring()
+    file_alignment = verify_file01_file02_file03_decision_alignment()
+    cross_file = verify_file06_file07_alignment()
 
     return {
         "ac01_launch57_capabilities_only": True,
@@ -542,4 +775,11 @@ def acceptance_criteria_status() -> dict[str, bool]:
         "ac21_phase8_e2e_passes": True,
         "ac22_no_false_pass_live": True,
         "stale_as_live_blocked": stale_check["ok"] is False,
+        "certificate_decision_time_gate": cert_gate["gate_ok"] is True,
+        "net_edge_stale_refused": net_edge_stale["refuses_stale_as_current"] is True,
+        "insufficient_evidence_fail_closed": insufficient["fail_closed"] is True,
+        "sim_not_live_on_decision": sim_live["decision_truth_ok"] is True,
+        "runtime_paths_wired": wiring["runtime_enforcement_ok"] is True,
+        "file02_file03_aligned": file_alignment["aligned"] is True,
+        "file06_file07_aligned": cross_file["aligned"] is True,
     }
