@@ -596,11 +596,71 @@
             return LAUNCH57_COMMAND_HOME + '?' + qs.toString();
         }
 
+        function mapCanonicalEvidenceLabel(canonical) {
+            const key = String(canonical || '').toUpperCase();
+            const map = {
+                PRODUCTION_VERIFIED: 'LIVE',
+                SHADOW_LIVE_FORWARD: 'LIVE',
+                BACKTESTED: 'DELAYED',
+                SIMULATED: 'SIM',
+            };
+            if (map[key]) return map[key];
+            if (['LIVE', 'DELAYED', 'SIM'].includes(key)) return key;
+            return 'DELAYED';
+        }
+
+        function freshnessUiLabel(state, presentedAsLive, delayedLabel) {
+            const s = String(state || 'UNKNOWN').toUpperCase();
+            if (s === 'STALE') return 'Stale — not live';
+            if (s === 'UNKNOWN') return 'Freshness unknown — not live';
+            if (!presentedAsLive) return 'Not presented as live';
+            if (s === 'LIVE') return 'LIVE';
+            if (s === 'NEAR_LIVE') return 'NEAR LIVE';
+            if (s === 'DELAYED') return delayedLabel || 'DELAYED';
+            return s.replace(/_/g, ' ');
+        }
+
         function commandHomeToPulse(data) {
             const home = (data && data.six_heroes_command_home) || {};
             const oracle = home.oracle || data || {};
             const sso = oracle.single_sentence_oracle || data.single_sentence_oracle || {};
             const level1 = ((data && data.adaptive_disclosure) || {}).level_1 || {};
+            const evidenceDisp = (data && data.evidence_display) || {};
+            const freshnessState = String(data.freshness_state || 'UNKNOWN').toUpperCase();
+            const presentedAsLive = data.presented_as_live === true && data.decision_live_blocked !== true;
+            const staleBlocked = freshnessState === 'STALE'
+                || freshnessState === 'UNKNOWN'
+                || data.decision_live_blocked === true
+                || data.success === false
+                || !presentedAsLive;
+            const userEvidence = evidenceDisp.user_facing_label
+                || mapCanonicalEvidenceLabel(data.evidence_class_visible || oracle.evidence_class);
+            if (staleBlocked || data.success === false) {
+                return {
+                    symbol: data.symbol || oracle.symbol || 'BTC',
+                    action: 'WAIT',
+                    sentence: level1.abstention_reason
+                        || data.error
+                        || 'Launch-57 blocked — data not live-eligible.',
+                    price: data.price,
+                    change_24h: data.change_24h,
+                    freshness: {
+                        state: freshnessState,
+                        stale: true,
+                        presented_as_live: false,
+                        label: freshnessUiLabel(freshnessState, false, data.delayed_label),
+                    },
+                    why: {
+                        grasp_line: 'Why (Launch-57 command home)',
+                        factors: [{ factor: 'Freshness gate', detail: freshnessUiLabel(freshnessState, false, data.delayed_label) }],
+                    },
+                    proof: { evidence_class: userEvidence, canonical_evidence_class: data.evidence_class_visible || oracle.evidence_class },
+                    ledger: { label: 'Launch-57 grounded', href: '/oracle-accuracy', honesty_line: 'Stale or unknown data is never presented as live.' },
+                    presented_as_live: false,
+                    decision_live_blocked: true,
+                    launch57_command_home: true,
+                };
+            }
             const action = String(oracle.decision_action || sso.action || data.decision_truth_state || 'WAIT').toUpperCase();
             const factors = [];
             const heroBlock = home.heroes || {};
@@ -620,10 +680,20 @@
                 sentence: sso.sentence || level1.abstention_reason || 'Launch-57 command home — governed decision surface.',
                 price: data.price,
                 change_24h: data.change_24h,
-                freshness: { state: data.freshness_state || 'unknown', stale: data.freshness_state === 'STALE' },
+                freshness: {
+                    state: freshnessState,
+                    stale: staleBlocked,
+                    presented_as_live: presentedAsLive,
+                    label: freshnessUiLabel(freshnessState, presentedAsLive, data.delayed_label),
+                },
                 why: { grasp_line: 'Why (Launch-57 command home)', factors },
-                proof: { evidence_class: data.evidence_class_visible || oracle.evidence_class },
+                proof: {
+                    evidence_class: userEvidence,
+                    canonical_evidence_class: data.evidence_class_visible || oracle.evidence_class,
+                },
                 ledger: { label: 'Launch-57 grounded', href: '/oracle-accuracy', honesty_line: 'Launch-57 scope only — PARKED paths excluded from default journey.' },
+                presented_as_live: presentedAsLive,
+                decision_live_blocked: false,
                 launch57_command_home: true,
             };
         }
@@ -757,6 +827,11 @@
             const proof = p.proof || {};
             const ledger = p.ledger || {};
             const chips = [];
+            const ev = proof.evidence_class;
+            if (ev) {
+                const evCls = ev === 'SIM' ? 'warn' : (ev === 'DELAYED' ? '' : 'ok');
+                chips.push(`<span class="tp-chip ${evCls}">Evidence: ${esc(ev)}</span>`);
+            }
             chips.push(`<a class="tp-chip ok" href="${safeShareUrl(ledger.href)||'/oracle-accuracy'}">${esc(ledger.label||'Verified on Ledger')}</a>`);
             if (proof.certificate_hash) chips.push(`<span class="tp-chip">cert ${esc(String(proof.certificate_hash).slice(0,12))}…</span>`);
             if (proof.prediction_id) chips.push(`<span class="tp-chip">id ${esc(proof.prediction_id)}</span>`);
@@ -814,12 +889,14 @@
             const fresh = p.freshness || {};
             const dot = document.getElementById('tpDot');
             dot.className = freshnessDotClass(fresh);
-            const freshState = String(fresh.state || fresh.status || '').toLowerCase();
-            const stale = fresh.stale === true || freshState === 'stale';
-            const knownFresh = freshState === 'fresh' || freshState === 'ok' || freshState === 'live';
-            document.getElementById('tpFresh').textContent = stale
-                ? (fresh.label || 'Stale — not live')
-                : (fresh.label || (knownFresh ? 'Live' : 'Freshness unknown'));
+            const freshState = String(fresh.state || fresh.status || 'UNKNOWN').toUpperCase();
+            const presentedLive = fresh.presented_as_live === true && p.presented_as_live !== false && p.decision_live_blocked !== true;
+            const stale = fresh.stale === true
+                || freshState === 'STALE'
+                || freshState === 'UNKNOWN'
+                || !presentedLive;
+            document.getElementById('tpFresh').textContent = fresh.label
+                || freshnessUiLabel(freshState, presentedLive, null);
             document.getElementById('tpProof').innerHTML = buildPulseChips(p);
             renderPulseFlip(p, fromStream);
             renderPulseContinuity(p);
