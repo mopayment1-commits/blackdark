@@ -11,7 +11,11 @@
         body {
             font-family: var(--bd-font-body);
             background: radial-gradient(1200px 600px at 10% -10%, rgba(34,211,238,.12), transparent), var(--bg);
-            color: var(--text); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:1.5rem;
+            color: var(--text); min-height:100vh; padding:0 1.5rem 1.5rem;
+        }
+        .gate-wrap {
+            min-height: calc(100vh - 52px);
+            display:flex; align-items:center; justify-content:center;
         }
         .card {
             width:min(520px,100%); background:var(--card); border:1px solid var(--border);
@@ -35,18 +39,21 @@
     </style>
 </head>
 <body>
-    <main class="card" role="main">
-        <div class="lens-tag">{{ lens_label }} lens</div>
-        <h1>Account required</h1>
-        <p>This dashboard surface needs a signed-in session. {{ lens_hint }}</p>
-        {% if lens == 'prove' %}
-        <p><a href="{{ public_prove_href }}">Open public Prove demo</a> on the homepage — no account needed.</p>
-        {% endif %}
-        <div class="actions">
-            <a class="btn btn-primary" href="/login{% if next_path %}?next={{ next_path | urlencode }}{% endif %}">Login</a>
-            <a class="btn btn-secondary" href="/login?tab=register{% if next_path %}&amp;next={{ next_path | urlencode }}{% endif %}">Sign up</a>
-        </div>
-        <p class="home"><a href="/">← Back to homepage</a></p>
-    </main>
+    {% include 'partials/global_header.html' %}
+    <div class="gate-wrap">
+        <main class="card" role="main">
+            <div class="lens-tag">{{ lens_label }} lens</div>
+            <h1>Account required</h1>
+            <p>This dashboard surface needs a signed-in session. {{ lens_hint }}</p>
+            {% if lens == 'prove' %}
+            <p><a href="{{ public_prove_href }}">Open public Prove demo</a> on the homepage — no account needed.</p>
+            {% endif %}
+            <div class="actions">
+                <a class="btn btn-primary" id="gateLoginBtn" href="/login{% if next_path %}?next={{ next_path | urlencode }}{% endif %}">Login</a>
+                <a class="btn btn-secondary" href="/login?tab=register{% if next_path %}&amp;next={{ next_path | urlencode }}{% endif %}">Sign up</a>
+            </div>
+            <p class="home"><a href="/">← Back to homepage</a></p>
+        </main>
+    </div>
 </body>
 </html>

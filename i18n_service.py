@@ -667,6 +667,24 @@ def resolve_request_lang(request: Any) -> str:
     return DEFAULT_LANG
 
 
+def resolve_nav_active(request: Any) -> str | None:
+    """Active product tab for global header (Prove / Operate / Desk / Room / Verify)."""
+    try:
+        path = getattr(getattr(request, "url", None), "path", "") or ""
+        if path.startswith("/oracle-accuracy"):
+            return "verify"
+        if path.startswith("/data-room"):
+            return "room"
+        if path.startswith("/dashboard"):
+            lens = str(getattr(request, "query_params", {}).get("lens", "") or "").lower()
+            if lens in {"prove", "operate", "desk", "room"}:
+                return lens
+            return "prove"
+    except Exception:
+        pass
+    return None
+
+
 def template_context(request: Any, extra: dict[str, Any] | None = None) -> dict[str, Any]:
     lang = resolve_request_lang(request)
     meta = locale_meta(lang)
@@ -688,6 +706,7 @@ def template_context(request: Any, extra: dict[str, Any] | None = None) -> dict[
         "locales_json": json.dumps(list_locales(), ensure_ascii=False),
         "header_user": header_user,
         "header_authenticated": bool(header_user),
+        "nav_active": resolve_nav_active(request),
     }
     if extra:
         ctx.update(extra)

@@ -35,19 +35,6 @@
     letter-spacing: .04em;
     text-transform: uppercase;
   }
-  .bd-header-upgrade {
-    color: #22d3ee;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: .78rem;
-    white-space: nowrap;
-    background: none;
-    border: none;
-    cursor: pointer;
-    font: inherit;
-    padding: .15rem 0;
-  }
-  .bd-header-upgrade:hover { color: #67e8f9; }
   .bd-account-menu { position: relative; display: inline-flex; align-items: center; }
   .bd-account-trigger {
     display: inline-flex;
@@ -106,17 +93,11 @@
 <nav class="bd-header-util" data-chrome="auth-lang-pay" aria-label="Account and language">
   {% if header_authenticated and header_user %}
   <span class="bd-tier-badge" id="userTier">{{ header_user.tier_label }}</span>
-  {% if header_user.show_upgrade %}
-  <button type="button" class="bd-header-upgrade" id="upgradeBtn">{{ t('ui.upgrade') if t is defined else 'Upgrade' }}</button>
-  {% else %}
-  <button type="button" class="bd-header-upgrade" id="upgradeBtn" hidden>Upgrade</button>
-  {% endif %}
   <div class="bd-account-menu">
     <button type="button" class="bd-account-trigger" id="bdAccountTrigger" aria-haspopup="true" aria-expanded="false" aria-controls="bdAccountMenu" title="{{ header_user.display }}">
       <span id="bdAccountAvatar" aria-hidden="true">{{ header_user.initial }}</span>
     </button>
     <div class="bd-account-dropdown hidden" id="bdAccountMenu" role="menu">
-      <a href="/dashboard" role="menuitem">{{ t('nav.account') if t is defined else 'Account' }}</a>
       <a href="/profile" role="menuitem">{{ t('nav.profile_billing') if t is defined else 'Profile & Billing' }}</a>
       <button type="button" id="bdHeaderLogout" role="menuitem">{{ t('nav.logout') if t is defined else 'Logout' }}</button>
     </div>

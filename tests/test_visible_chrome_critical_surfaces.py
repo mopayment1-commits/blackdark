@@ -30,6 +30,7 @@ def test_top_utility_has_anonymous_chrome_branches():
     assert "header_authenticated" in util
     assert "bd-tier-badge" in util
     assert "/profile" in util
+    assert "bd-header-upgrade" not in util
 
 
 def test_lang_switcher_lists_twenty_five_locales():

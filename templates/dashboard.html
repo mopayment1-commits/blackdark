@@ -70,6 +70,7 @@
         footer { text-align: center; color: #71717a; font-size: .78rem; padding: 1.5rem; }
 
         .lens-bar { display:flex; gap:.4rem; justify-content:center; flex-wrap:wrap; margin:0 auto 1rem; max-width:720px; }
+        #lensBar { display: none !important; }
         .lens-btn {
             padding:.45rem 1rem; border-radius:999px; border:1px solid #2a2a35;
             background:#111118; color:#e4e4e7; font-size:.82rem; font-weight:700; cursor:pointer;
@@ -1707,6 +1708,9 @@
             document.querySelectorAll('.lens-btn').forEach(b => {
                 b.classList.toggle('active', b.dataset.lens === currentLens);
             });
+            if (typeof window.syncGlobalNavActive === 'function') {
+                window.syncGlobalNavActive(currentLens);
+            }
             const mode = document.getElementById('uxMode');
             if (mode) mode.value = (currentLens === 'prove') ? 'beginner' : 'pro';
             try {

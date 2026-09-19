@@ -1,4 +1,4 @@
-{# Unified global header — fixed-height bar, primary links + session-aware right chrome #}
+{# Unified global header — fixed-height bar, product nav + session-aware right chrome #}
 <style>
   .bd-global-header {
     position: sticky;
@@ -31,11 +31,26 @@
     white-space: nowrap;
     flex-shrink: 0;
   }
+  .bd-nav-toggle {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    margin-inline-start: .25rem;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: #a1a1aa;
+    font-size: 1.1rem;
+    cursor: pointer;
+  }
+  .bd-nav-toggle:hover { color: #22d3ee; }
   .bd-global-links {
     display: inline-flex;
     align-items: center;
     gap: 1.1rem;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
   }
   .bd-global-links a {
     color: #a1a1aa;
@@ -48,20 +63,83 @@
     border: none;
   }
   .bd-global-links a:hover { color: #e4e4e7; }
+  .bd-global-links a.active,
+  .bd-nav-panel a.active {
+    color: #22d3ee;
+  }
+  .bd-nav-panel {
+    display: none;
+    position: absolute;
+    top: 52px;
+    inset-inline: 0;
+    padding: .65rem 1.25rem 1rem;
+    background: rgba(10, 10, 15, 0.98);
+    border-bottom: 1px solid #2a2a35;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: .65rem;
+    z-index: 999;
+  }
+  .bd-nav-panel.open { display: flex; }
+  .bd-nav-panel a {
+    color: #a1a1aa;
+    text-decoration: none;
+    font-size: .88rem;
+    font-weight: 600;
+  }
+  .bd-nav-panel a:hover { color: #e4e4e7; }
   @media (max-width: 900px) {
     .bd-global-links { display: none; }
+    .bd-nav-toggle { display: inline-flex; }
+    .bd-global-header { position: sticky; }
+    .bd-global-header-inner { position: relative; }
   }
 </style>
 <nav class="bd-global-header" aria-label="Primary">
   <div class="bd-global-header-inner">
     <a class="bd-global-logo" href="/">BLACKDARK</a>
+    <button type="button" class="bd-nav-toggle" id="bdNavToggle" aria-expanded="false" aria-controls="bdNavPanel" aria-label="Open menu">☰</button>
     <div class="bd-global-links" data-chrome="primary-nav">
-      <a href="/dashboard?lens=prove#trust-pulse">{{ t('nav.prove') if t is defined else 'Prove' }}</a>
-      <a href="/dashboard?lens=operate">{{ t('nav.operate') if t is defined else 'Operate' }}</a>
-      <a href="/dashboard?lens=desk">{{ t('nav.desk') if t is defined else 'Desk' }}</a>
-      <a href="/data-room?lens=room">{{ t('nav.room') if t is defined else 'Room' }}</a>
-      <a href="/oracle-accuracy">{{ t('nav.verify') if t is defined else 'Verify' }}</a>
+      <a href="/dashboard?lens=prove#trust-pulse" data-nav-key="prove"{% if nav_active == 'prove' %} class="active" aria-current="page"{% endif %}>{{ t('nav.prove') if t is defined else 'Prove' }}</a>
+      <a href="/dashboard?lens=operate" data-nav-key="operate"{% if nav_active == 'operate' %} class="active" aria-current="page"{% endif %}>{{ t('nav.operate') if t is defined else 'Operate' }}</a>
+      <a href="/dashboard?lens=desk" data-nav-key="desk"{% if nav_active == 'desk' %} class="active" aria-current="page"{% endif %}>{{ t('nav.desk') if t is defined else 'Desk' }}</a>
+      <a href="/data-room?lens=room" data-nav-key="room"{% if nav_active == 'room' %} class="active" aria-current="page"{% endif %}>{{ t('nav.room') if t is defined else 'Room' }}</a>
+      <a href="/oracle-accuracy" data-nav-key="verify"{% if nav_active == 'verify' %} class="active" aria-current="page"{% endif %}>{{ t('nav.verify') if t is defined else 'Verify' }}</a>
     </div>
     {% include 'partials/top_utility.html' %}
   </div>
+  <div class="bd-nav-panel" id="bdNavPanel" aria-label="Product navigation">
+    <a href="/dashboard?lens=prove#trust-pulse" data-nav-key="prove"{% if nav_active == 'prove' %} class="active" aria-current="page"{% endif %}>{{ t('nav.prove') if t is defined else 'Prove' }}</a>
+    <a href="/dashboard?lens=operate" data-nav-key="operate"{% if nav_active == 'operate' %} class="active" aria-current="page"{% endif %}>{{ t('nav.operate') if t is defined else 'Operate' }}</a>
+    <a href="/dashboard?lens=desk" data-nav-key="desk"{% if nav_active == 'desk' %} class="active" aria-current="page"{% endif %}>{{ t('nav.desk') if t is defined else 'Desk' }}</a>
+    <a href="/data-room?lens=room" data-nav-key="room"{% if nav_active == 'room' %} class="active" aria-current="page"{% endif %}>{{ t('nav.room') if t is defined else 'Room' }}</a>
+    <a href="/oracle-accuracy" data-nav-key="verify"{% if nav_active == 'verify' %} class="active" aria-current="page"{% endif %}>{{ t('nav.verify') if t is defined else 'Verify' }}</a>
+  </div>
 </nav>
+<script>
+(function () {
+  const toggle = document.getElementById('bdNavToggle');
+  const panel = document.getElementById('bdNavPanel');
+  if (!toggle || !panel) return;
+  function closePanel() {
+    panel.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+  }
+  toggle.addEventListener('click', function (event) {
+    event.stopPropagation();
+    const open = panel.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  document.addEventListener('click', function (event) {
+    if (!toggle.contains(event.target) && !panel.contains(event.target)) closePanel();
+  });
+  window.syncGlobalNavActive = function (key) {
+    document.querySelectorAll('[data-nav-key]').forEach(function (link) {
+      const active = link.getAttribute('data-nav-key') === key;
+      link.classList.toggle('active', active);
+      if (active) link.setAttribute('aria-current', 'page');
+      else link.removeAttribute('aria-current');
+    });
+  };
+})();
+</script>
