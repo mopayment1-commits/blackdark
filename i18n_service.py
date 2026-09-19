@@ -670,6 +670,13 @@ def resolve_request_lang(request: Any) -> str:
 def template_context(request: Any, extra: dict[str, Any] | None = None) -> dict[str, Any]:
     lang = resolve_request_lang(request)
     meta = locale_meta(lang)
+    header_user = None
+    try:
+        st = getattr(request, "state", None)
+        if st is not None:
+            header_user = getattr(st, "header_user", None)
+    except Exception:
+        header_user = None
     ctx: dict[str, Any] = {
         "lang": lang,
         "dir": meta["dir"],
@@ -679,6 +686,8 @@ def template_context(request: Any, extra: dict[str, Any] | None = None) -> dict[
         "i18n": catalog_for(lang),
         "i18n_json": json.dumps(catalog_for(lang), ensure_ascii=False),
         "locales_json": json.dumps(list_locales(), ensure_ascii=False),
+        "header_user": header_user,
+        "header_authenticated": bool(header_user),
     }
     if extra:
         ctx.update(extra)

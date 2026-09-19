@@ -715,6 +715,32 @@ async def _resolve_html_auth_user(request: Request) -> dict | None:
     return await get_user_from_token(token)
 
 
+def _header_user_payload(user: dict[str, Any]) -> dict[str, Any]:
+    name = str(user.get("name") or "").strip()
+    email = str(user.get("email") or "").strip()
+    if name:
+        display = name
+    elif email and "@" in email:
+        display = email.split("@", 1)[0]
+    else:
+        display = "Account"
+    initial = (display[0] if display else "U").upper()
+    return {"display": display, "initial": initial, "email": email}
+
+
+@app.middleware("http")
+async def header_session_middleware(request: Request, call_next):
+    """Expose validated session user for global header chrome (SSR)."""
+    request.state.header_user = None
+    try:
+        user = await _resolve_html_auth_user(request)
+        if user:
+            request.state.header_user = _header_user_payload(user)
+    except Exception:
+        request.state.header_user = None
+    return await call_next(request)
+
+
 @app.middleware("http")
 async def anonymous_route_enforcement_middleware(request: Request, call_next):
     """P0 — PRIVATE_BY_DEFAULT server-side boundary for cookie-less requests."""
@@ -1782,8 +1808,10 @@ async def landing_page(request: Request):
     from i18n_service import resolve_request_lang, template_context
 
     lang = resolve_request_lang(request)
+    auth_segment = "auth" if getattr(request.state, "header_user", None) else "anon"
+    cache_key = f"{lang}:{auth_segment}"
     now = time.time()
-    hit = _landing_html_cache.get(lang)
+    hit = _landing_html_cache.get(cache_key)
     if hit and (now - hit[0]) < _LANDING_HTML_CACHE_TTL:
         response = HTMLResponse(hit[1])
         response.set_cookie(
@@ -1802,7 +1830,7 @@ async def landing_page(request: Request):
     ctx["telegram_bot_username"] = _cfg.TELEGRAM_BOT_USERNAME
     ctx["telegram_bot_url"] = f"https://t.me/{_cfg.TELEGRAM_BOT_USERNAME}" if _cfg.TELEGRAM_BOT_USERNAME else None
     html = templates.get_template("landing.html").render({"request": request, **ctx})
-    _landing_html_cache[lang] = (now, html)
+    _landing_html_cache[cache_key] = (now, html)
     # Bound memory if many locales are probed.
     if len(_landing_html_cache) > 32:
         oldest = sorted(_landing_html_cache.items(), key=lambda kv: kv[1][0])[:8]

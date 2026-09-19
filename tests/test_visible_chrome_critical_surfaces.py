@@ -30,7 +30,8 @@ def test_top_utility_has_lang_login_signup_pricing():
     assert "/login" in util
     assert "/login?tab=register" in util
     assert "/#pricing" in util
-    assert "bd-top-utility" in util
+    assert "bd-header-util" in util
+    assert "header_authenticated" in util
 
 
 def test_lang_switcher_lists_twenty_five_locales():
@@ -69,7 +70,7 @@ def test_lang_switcher_lists_twenty_five_locales():
 
 def test_login_has_register_tab_and_top_chrome():
     login = (ROOT / "templates/login.html").read_text(encoding="utf-8")
-    assert 'id="tabRegister"' in login
+    assert 'id="registerShell"' in login
     assert "top_utility.html" in login
     assert "login-chrome" in login
     assert "doRegister" in login

@@ -1,6 +1,4 @@
-{# Language switcher — English default; full UI reload on change.
-   Always render a control (fallback locales) so the top-right never goes blank.
-   Executable JS lives in /static/js/bd_i18n.js (Sonar-analyzable). Boot via JSON. #}
+{# Compact language switcher for global header #}
 {% set _locales = locales if locales is defined and locales else [
   {"code":"en","native":"English"},{"code":"es","native":"Español"},{"code":"ar","native":"العربية"},
   {"code":"pt","native":"Português (Brasil)"},{"code":"fr","native":"Français"},{"code":"de","native":"Deutsch"},
@@ -18,43 +16,40 @@
     position: relative;
     display: inline-flex;
     align-items: center;
-    gap: .35rem;
-    padding: .2rem .35rem .2rem .55rem;
-    border: 1px solid rgba(34, 211, 238, .45);
-    border-radius: 10px;
-    background: rgba(10, 10, 15, .72);
-    box-shadow: 0 0 0 1px rgba(34, 211, 238, .08);
+    gap: .2rem;
   }
-  .bd-lang-wrap label {
-    font-size: .68rem;
-    font-weight: 700;
-    letter-spacing: .04em;
-    text-transform: uppercase;
-    color: #22d3ee;
-    white-space: nowrap;
+  .bd-lang-wrap label { display: none; }
+  .bd-lang-icon {
+    font-size: .85rem;
+    line-height: 1;
+    color: #71717a;
+    user-select: none;
   }
   .bd-lang-select {
     background: transparent;
-    color: var(--text, #e4e4e7);
+    color: #a1a1aa;
     border: 0;
-    border-radius: 8px;
-    padding: .35rem .2rem .35rem .15rem;
-    font-size: .8rem;
+    border-radius: 6px;
+    padding: .15rem .1rem;
+    font-size: .75rem;
     font-weight: 600;
-    max-width: 9.5rem;
+    max-width: 7.5rem;
     cursor: pointer;
     appearance: auto;
   }
-  .bd-lang-select:focus { outline: 2px solid #22d3ee; outline-offset: 1px; }
+  .bd-lang-select:hover,
+  .bd-lang-select:focus {
+    color: #22d3ee;
+    outline: none;
+  }
   @media (max-width: 768px) {
-    .bd-lang-wrap label { display: none; }
-    .bd-lang-select { max-width: 7.5rem; font-size: .75rem; }
-    .bd-lang-wrap { padding: .15rem .25rem; }
+    .bd-lang-select { max-width: 5.5rem; font-size: .72rem; }
   }
 </style>
 <div class="bd-lang-wrap" data-i18n-skip title="Choose language / اختر اللغة">
+  <span class="bd-lang-icon" aria-hidden="true">🌐</span>
   <label for="bdLangSelect">{{ t('lang.label') if t is defined else 'Language' }}</label>
-  <select id="bdLangSelect" class="bd-lang-select" data-bd-change-call="BD_I18N.setLang" data-bd-pass-value="1">
+  <select id="bdLangSelect" class="bd-lang-select" data-bd-change-call="BD_I18N.setLang" data-bd-pass-value="1" aria-label="Language">
     {% for loc in _locales %}
     <option value="{{ loc.code }}" {% if loc.code == _lang %}selected{% endif %}>{{ loc.native }}</option>
     {% endfor %}

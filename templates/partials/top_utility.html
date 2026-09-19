@@ -1,75 +1,150 @@
-{# FIXED top-right chrome — Language · Login · Sign up · Pricing
-   position:fixed so it cannot be scrolled away or collapsed with nav-links. #}
+{# Global header chrome — Pricing · Language · Account (SSR session-aware) #}
 <style>
-  .bd-fixed-chrome {
-    position: fixed;
-    top: 0.65rem;
-    inset-inline-end: 0.65rem;
-    z-index: 9999;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 0.35rem;
-    max-width: min(96vw, 22rem);
-    pointer-events: none;
-  }
-  .bd-fixed-chrome > * { pointer-events: auto; }
-  .bd-top-utility {
+  .bd-header-util {
     display: inline-flex;
     align-items: center;
     flex-wrap: wrap;
     justify-content: flex-end;
-    gap: .4rem .45rem;
-    padding: .4rem .5rem;
-    border-radius: 12px;
-    border: 1px solid rgba(34, 211, 238, .45);
-    background: rgba(10, 10, 15, .92);
-    box-shadow: 0 8px 28px rgba(0,0,0,.45);
-    backdrop-filter: blur(8px);
+    gap: .55rem .75rem;
+    margin-inline-start: auto;
+    font-size: .8rem;
   }
-  .bd-top-utility a.bd-util-link {
+  .bd-header-text {
+    color: #a1a1aa;
+    text-decoration: none;
+    font-weight: 600;
+    white-space: nowrap;
+    padding: .15rem 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font: inherit;
+  }
+  .bd-header-text:hover { color: #22d3ee; }
+  .bd-header-signup { color: #22d3ee; font-weight: 700; }
+  .bd-account-menu { position: relative; display: inline-flex; align-items: center; }
+  .bd-account-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    padding: .2rem .45rem .2rem .2rem;
+    border: none;
+    border-radius: 999px;
+    background: rgba(255,255,255,.04);
+    color: #e4e4e7;
+    cursor: pointer;
+    font: inherit;
+    font-size: .78rem;
+    font-weight: 600;
+  }
+  .bd-account-trigger:hover { color: #22d3ee; }
+  .bd-account-avatar {
+    width: 1.65rem;
+    height: 1.65rem;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #22d3ee, #06b6d4);
+    color: #0a0a0f;
+    font-size: .72rem;
+    font-weight: 800;
+  }
+  .bd-account-label {
+    max-width: 8.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .bd-account-dropdown {
+    position: absolute;
+    top: calc(100% + .35rem);
+    inset-inline-end: 0;
+    min-width: 10rem;
+    padding: .35rem;
+    border-radius: 10px;
+    border: 1px solid #2a2a35;
+    background: #111118;
+    box-shadow: 0 10px 30px rgba(0,0,0,.45);
+    z-index: 10000;
+  }
+  .bd-account-dropdown a,
+  .bd-account-dropdown button {
+    display: block;
+    width: 100%;
+    text-align: start;
+    padding: .5rem .65rem;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
     color: #e4e4e7;
     text-decoration: none;
-    font-weight: 700;
-    font-size: .78rem;
-    padding: .4rem .55rem;
-    border-radius: 8px;
-    border: 1px solid #2a2a35;
-    white-space: nowrap;
-    background: #14141c;
+    font: inherit;
+    font-size: .8rem;
+    cursor: pointer;
   }
-  .bd-top-utility a.bd-util-link:hover {
-    border-color: #22d3ee;
+  .bd-account-dropdown a:hover,
+  .bd-account-dropdown button:hover {
+    background: rgba(34, 211, 238, .08);
     color: #22d3ee;
-  }
-  .bd-top-utility a.bd-util-signup {
-    color: #0a0a0f !important;
-    background: linear-gradient(135deg, #22d3ee, #06b6d4) !important;
-    border: none !important;
-  }
-  .bd-top-utility a.bd-util-pricing {
-    border-color: rgba(34, 211, 238, .55);
-    color: #22d3ee;
-  }
-  .bd-chrome-hint {
-    font-size: .68rem;
-    color: #a1a1aa;
-    background: rgba(10,10,15,.85);
-    padding: .2rem .45rem;
-    border-radius: 6px;
   }
   @media (max-width: 768px) {
-    .bd-fixed-chrome { top: 0.4rem; inset-inline-end: 0.4rem; }
-    .bd-top-utility a.bd-util-link { font-size: .7rem; padding: .32rem .42rem; }
-    .bd-chrome-hint { display: none; }
+    .bd-account-label { display: none; }
+    .bd-header-util { gap: .4rem .55rem; }
   }
 </style>
-<div class="bd-fixed-chrome" data-chrome="auth-lang-pay" aria-label="Language, account, and pricing">
-  <div class="bd-top-utility">
-    {% include 'partials/lang_switcher.html' %}
-    <a class="bd-util-link bd-util-pricing" href="/#pricing">{{ t('nav.pricing') if t is defined else 'Pricing' }}</a>
-    <a class="bd-util-link" href="/login" id="bdUtilLogin">{{ t('nav.login') if t is defined else 'Login' }}</a>
-    <a class="bd-util-link bd-util-signup" href="/login?tab=register" id="bdUtilSignup">{{ t('nav.signup') if t is defined else 'Sign up' }}</a>
+<nav class="bd-header-util" data-chrome="auth-lang-pay" aria-label="Language, account, and pricing">
+  <a class="bd-header-text" href="/#pricing">{{ t('nav.pricing') if t is defined else 'Pricing' }}</a>
+  {% include 'partials/lang_switcher.html' %}
+  {% if header_authenticated and header_user %}
+  <div class="bd-account-menu">
+    <button type="button" class="bd-account-trigger" id="bdAccountTrigger" aria-haspopup="true" aria-expanded="false" aria-controls="bdAccountMenu">
+      <span class="bd-account-avatar" aria-hidden="true">{{ header_user.initial }}</span>
+      <span class="bd-account-label">{{ header_user.display }}</span>
+    </button>
+    <div class="bd-account-dropdown hidden" id="bdAccountMenu" role="menu">
+      <a href="/dashboard" role="menuitem">{{ t('nav.dashboard') if t is defined else 'Dashboard' }}</a>
+      <button type="button" id="bdHeaderLogout" role="menuitem">{{ t('nav.logout') if t is defined else 'Logout' }}</button>
+    </div>
   </div>
-  <div class="bd-chrome-hint">Language · Login · Pay</div>
-</div>
+  {% else %}
+  <a class="bd-header-text" href="/login" id="bdUtilLogin">{{ t('nav.login') if t is defined else 'Login' }}</a>
+  <a class="bd-header-text bd-header-signup" href="/login?tab=register" id="bdUtilSignup">{{ t('nav.signup') if t is defined else 'Sign up' }}</a>
+  {% endif %}
+</nav>
+<script>
+(function () {
+  const trigger = document.getElementById('bdAccountTrigger');
+  const menu = document.getElementById('bdAccountMenu');
+  const logoutBtn = document.getElementById('bdHeaderLogout');
+  if (trigger && menu) {
+    trigger.addEventListener('click', function (event) {
+      event.stopPropagation();
+      const hidden = menu.classList.toggle('hidden');
+      trigger.setAttribute('aria-expanded', hidden ? 'false' : 'true');
+    });
+    document.addEventListener('click', function (event) {
+      if (!trigger.contains(event.target) && !menu.contains(event.target)) {
+        menu.classList.add('hidden');
+        trigger.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', async function () {
+      try {
+        await fetch('/api/auth/logout', {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: { 'Origin': window.location.origin }
+        });
+      } catch (error) { console.debug(error); }
+      try {
+        localStorage.removeItem('bd_user');
+        localStorage.removeItem('bd_token');
+      } catch (_) {}
+      window.location.href = '/';
+    });
+  }
+})();
+</script>
