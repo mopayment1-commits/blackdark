@@ -50,6 +50,14 @@
             margin-bottom:.65rem; display:inline-block; text-align:center; text-decoration:none;
         }
         .btn-primary { background:linear-gradient(135deg,#22d3ee,#06b6d4); color:#0a0a0f; }
+        .btn-primary:disabled { opacity:.72; cursor:not-allowed; }
+        .btn-spinner {
+            display:inline-block; width:.9rem; height:.9rem; margin-inline-end:.45rem;
+            border:2px solid rgba(10,10,15,.25); border-top-color:#0a0a0f;
+            border-radius:50%; vertical-align:-.15rem;
+            animation: loginSpin .7s linear infinite;
+        }
+        @keyframes loginSpin { to { transform: rotate(360deg); } }
         .btn-secondary { background:#1a1a24; color:var(--text); border:1px solid var(--border); }
         .btn-oauth { background:#fff; color:#111; border:1px solid #ddd; display:flex; align-items:center; justify-content:center; gap:.5rem; min-height:48px; }
         .btn-oauth:disabled { opacity:.55; cursor:not-allowed; background:#2a2a35; color:#a1a1aa; border-color:var(--border); }
@@ -126,7 +134,7 @@
                     <button type="button" class="linkish" data-bd-call="showForgot">{{ t('auth.forgot_pass') }}</button>
                     <button type="button" class="linkish" data-bd-call="showForgotUsername">{{ t('auth.forgot_username') }}</button>
                 </div>
-                <button type="submit" class="btn-primary">{{ t('login.submit') }}</button>
+                <button type="submit" class="btn-primary" id="loginSubmitBtn">{{ t('login.submit') }}</button>
             </form>
 
             <p class="switch-link">New here? <a href="/login?tab=register" id="signUpLink">Create your free account</a></p>
@@ -297,8 +305,27 @@
             if (!terms) { setMsg('Please accept the Terms, Privacy, and Disclaimer to continue.', false); return false; }
             return true;
         }
+        function setLoginSubmitLoading(loading) {
+            const btn = document.getElementById('loginSubmitBtn');
+            if (!btn) return;
+            if (loading) {
+                if (!btn.dataset.defaultLabel) {
+                    btn.dataset.defaultLabel = (btn.textContent || 'Sign in').trim();
+                }
+                btn.disabled = true;
+                btn.setAttribute('aria-busy', 'true');
+                btn.innerHTML = '<span class="btn-spinner" aria-hidden="true"></span> Signing in…';
+                return;
+            }
+            btn.disabled = false;
+            btn.removeAttribute('aria-busy');
+            btn.textContent = btn.dataset.defaultLabel || 'Sign in';
+        }
         async function doLogin(e) {
             e.preventDefault();
+            const loginBtn = document.getElementById('loginSubmitBtn');
+            if (loginBtn?.disabled) return;
+            setLoginSubmitLoading(true);
             try {
                 const res = await fetch('/api/auth/login', {
                     method: 'POST',
@@ -311,6 +338,7 @@
                 });
                 if (!res.ok) {
                     setMsg(loginErrorMessage(await readApiError(res)), false);
+                    setLoginSubmitLoading(false);
                     return;
                 }
                 const d = await readApiJson(res);
@@ -319,12 +347,14 @@
                     hideAll();
                     document.getElementById('mfaForm').classList.remove('hidden');
                     setMsg('Enter your authenticator code to finish login.', true);
+                    setLoginSubmitLoading(false);
                     return;
                 }
                 saveAuth(d);
             } catch (error) {
                 console.debug(error);
                 setMsg(error.message || 'Sign in failed. Please try again.', false);
+                setLoginSubmitLoading(false);
             }
         }
         async function doMfa(e) {

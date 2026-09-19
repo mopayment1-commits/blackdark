@@ -95,6 +95,22 @@ def test_login_forms_bind_submit_without_csp_events():
     assert "getElementById('registerForm')?.addEventListener('submit', doRegister)" in html
 
 
+def test_login_submit_shows_loading_before_fetch():
+    html = Path("templates/login.html").read_text(encoding="utf-8")
+    assert 'id="loginSubmitBtn"' in html
+    assert "function setLoginSubmitLoading" in html
+    assert "Signing in…" in html
+    assert "aria-busy" in html
+    assert "btn-spinner" in html
+    login_fn = html.split("async function doLogin(e)", 1)[1].split("async function doMfa", 1)[0]
+    assert "if (loginBtn?.disabled) return" in login_fn
+    assert "setLoginSubmitLoading(true)" in login_fn
+    assert login_fn.index("setLoginSubmitLoading(true)") < login_fn.index("await fetch('/api/auth/login'")
+    assert "setLoginSubmitLoading(false)" in login_fn
+    assert "saveAuth(d)" in login_fn
+    assert login_fn.rindex("setLoginSubmitLoading(true)") < login_fn.index("saveAuth(d)")
+
+
 def test_password_toggle_controls_present():
     html = Path("templates/login.html").read_text(encoding="utf-8")
     assert "togglePassword" in html
