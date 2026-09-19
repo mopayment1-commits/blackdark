@@ -105,6 +105,7 @@ PUBLIC_HTML_EXACT: frozenset[str] = frozenset(
         "/about",
         "/how-it-works",
         "/faq",
+        "/status",
         "/legal",
         "/cookies",
         "/disclaimer",
