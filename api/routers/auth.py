@@ -120,9 +120,17 @@ async def auth_register(body: AuthRegisterBody, background_tasks: BackgroundTask
         return resp
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
+    except HTTPException:
+        raise
     except RuntimeError as exc:
         logger.exception("auth_register_runtime_failure")
         raise HTTPException(status_code=503, detail=str(exc)) from exc
+    except Exception as exc:
+        logger.exception("auth_register_failure")
+        raise HTTPException(
+            status_code=503,
+            detail=f"registration_unavailable:{type(exc).__name__}",
+        ) from exc
 
 
 @router.post("/login", responses=COMMON_ERROR_RESPONSES)
