@@ -1,0 +1,73 @@
+{
+  "artifact": "SPEC_13_INDEPENDENT_VERIFICATION",
+  "domain": "SPEC_13_TEMPORAL_EVIDENCE_INTELLIGENCE_SUPPORT_LAYER",
+  "verification_sha": "a6a9394995f02e74862fdeac562682a43f4b94b1",
+  "probe_count": 12,
+  "passed_count": 12,
+  "failed_count": 0,
+  "INDEPENDENT_VERIFICATION_PASS": true,
+  "probes": [
+    {
+      "probe": "iv_no_conflict_with_06_08_11",
+      "pass": true,
+      "detail": "{'teis_replay_maps_sim': True, 'teis_shadow_maps_sim': True, 'file06_sim_contamination_fail_closed': True, 'file08_aligned': True, 'file11_temporal_aligned': True, 'available_at_not_fabricated': True, 'no_duplicate_temporal_ssot': True, 'no_conflict_with_06_08_11': True}"
+    },
+    {
+      "probe": "iv_sim_stale_labeling_consistent",
+      "pass": true,
+      "detail": "{'replay_is_sim': True, 'shadow_is_sim': True, 'stale_prod_is_delayed': True, 'fresh_prod_can_be_live': True, 'consistent': True}"
+    },
+    {
+      "probe": "iv_support_layer_on_intelligence_paths",
+      "pass": true,
+      "detail": "{'b4_has_teis_envelope': True, 'b4_internal_support_only': True, 'compounding_references_teis': True, 'ok': True}"
+    },
+    {
+      "probe": "iv_runtime_teis_paths_wired",
+      "pass": true,
+      "detail": "{'b4_teis_envelope': True, 'decision_common_teis': True, 'b5_teis_envelope': True, 'compounding_teis_reference': True, 'explanation_ai_via_decision': True, 'teis_module': True}"
+    },
+    {
+      "probe": "iv_available_at_not_fabricated",
+      "pass": true,
+      "detail": "{'missing_available_at_fail_closed': True, 'future_available_at_blocked': True, 'ok': True}"
+    },
+    {
+      "probe": "iv_temporal_leakage_blocked",
+      "pass": true,
+      "detail": "{'ok': False, 'leakage_detected': True, 'available_at': '2026-09-18T15:00:00Z', 'decision_time': '2026-09-18T12:00:00Z', 'policy': 'available_at_le_decision_time'}"
+    },
+    {
+      "probe": "iv_replay_never_live",
+      "pass": true,
+      "detail": "replay→SIM"
+    },
+    {
+      "probe": "iv_degradation_fail_closed_or_labeled",
+      "pass": true,
+      "detail": "{'envelope_attached': True, 'degraded_labeled': True, 'not_fabricated_as_live': True, 'fail_closed_or_labeled': True, 'ok': True}"
+    },
+    {
+      "probe": "iv_no_parked_teis_scope",
+      "pass": true,
+      "detail": "out of scope"
+    },
+    {
+      "probe": "iv_teis_envelope_honest",
+      "pass": true,
+      "detail": "envelope"
+    },
+    {
+      "probe": "iv_machine_readable_export",
+      "pass": true,
+      "detail": "LAUNCH57_TEMPORAL_EVIDENCE_INTELLIGENCE_SUPPORT_EXPORT"
+    },
+    {
+      "probe": "iv_pass_live_not_claimed",
+      "pass": true,
+      "detail": "honest"
+    }
+  ],
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "generated_at": "2026-09-19T01:17:26.883211+00:00"
+}
