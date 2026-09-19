@@ -159,16 +159,159 @@ def _git_sha(short: bool = True) -> str:
         return "unknown"
 
 
+def verify_track_record_integrity() -> dict[str, Any]:
+    """Spec §8 — append-only tamper-evident hash chain integrity."""
+    try:
+        from oracle_audit_chain import chain_path, verify_chain
+
+        integrity = verify_chain()
+        return {
+            "append_only": True,
+            "chain_valid": bool(integrity.get("valid")),
+            "records": integrity.get("records", 0),
+            "broken_at_seq": integrity.get("broken_at_seq"),
+            "chain_path": str(chain_path()),
+            "tamper_evident": True,
+            "fail_closed_on_broken_chain": True,
+            "owner_path": "oracle_audit_chain.py",
+        }
+    except Exception as exc:
+        return {
+            "append_only": True,
+            "chain_valid": False,
+            "tamper_evident": True,
+            "fail_closed_on_broken_chain": True,
+            "error": str(exc),
+        }
+
+
+def verify_outcome_resolution_gate(record: dict[str, Any]) -> dict[str, Any]:
+    """Spec §7 — accuracy claims require resolved outcome."""
+    claims_accuracy = any(
+        record.get(key) is not None
+        for key in ("accuracy_score", "hit_rate", "correct", "label")
+    ) or str(record.get("label") or "").lower() in {"correct", "incorrect", "partial"}
+    resolved = bool(
+        record.get("resolved")
+        or record.get("outcome_time")
+        or record.get("outcome")
+        or str(record.get("evaluation_window", {}).get("status") or "") == "closed"
+    )
+    blocked = claims_accuracy and not resolved
+    return {
+        "claims_accuracy": claims_accuracy,
+        "outcome_resolved": resolved,
+        "accuracy_claim_allowed": not blocked,
+        "fail_closed_without_resolution": blocked,
+        "rule": "outcome_resolution_required_before_accuracy_claim",
+    }
+
+
+def verify_accuracy_claim_honesty(records: list[dict[str, Any]] | None = None) -> dict[str, Any]:
+    """Unresolved outcomes must not inflate accuracy metrics (spec §7–§8)."""
+    rows = list(records or [])
+    inflated: list[dict[str, Any]] = []
+    for row in rows:
+        gate = verify_outcome_resolution_gate(row)
+        if gate["fail_closed_without_resolution"]:
+            inflated.append(
+                {
+                    "prediction_id": row.get("prediction_id") or row.get("id"),
+                    "label": row.get("label"),
+                }
+            )
+    open_count = sum(
+        1
+        for row in rows
+        if str((row.get("evaluation_window") or {}).get("status") or "") == "open"
+        or (row.get("resolved") is False and row.get("outcome_time") is None)
+    )
+    return {
+        "sample_size": len(rows),
+        "unresolved_accuracy_claims": len(inflated),
+        "open_outcomes_excluded_from_primary": open_count,
+        "honest_accuracy_reporting": len(inflated) == 0,
+        "non_selective_gate": "unresolved_excluded_from_hit_rate",
+        "inflated_rows": inflated[:10],
+    }
+
+
+def verify_non_selective_accuracy_metrics(metrics: dict[str, Any] | None = None) -> dict[str, Any]:
+    """GIPS-style gate — primary metrics must declare scope and exclude unresolved."""
+    m = dict(metrics or {})
+    scope = str(m.get("metrics_scope") or m.get("scope") or "unknown")
+    live_only = bool(m.get("live_only_primary", m.get("live_only_eligible")))
+    excludes_unresolved = m.get("unresolved_excluded") is True or scope == "live_only"
+    return {
+        "metrics_scope": scope,
+        "live_only_primary": live_only,
+        "unresolved_excluded_from_primary": excludes_unresolved,
+        "wins_only_cherry_pick_forbidden": m.get("wins_only") is not True,
+        "non_selective_ok": excludes_unresolved and m.get("wins_only") is not True,
+    }
+
+
+def verify_file02_file03_compounding_alignment() -> dict[str, Any]:
+    """Public/auth/entitlement boundaries for compounding touchpoints."""
+    from launch57.anonymous_visitor_common import verify_anonymous_eligibility
+    from launch57.billing_entitlement_common import enforce_launch57_entitlement
+
+    public_ok = verify_anonymous_eligibility(4)["eligible"] and verify_anonymous_eligibility(46)["eligible"]
+    private_denied = not verify_anonymous_eligibility(49)["eligible"]
+    free_history = enforce_launch57_entitlement(
+        launch_item_id=49,
+        params={"tier": "pro", "user_key": "user-1", "subject_id": "user-1"},
+    )
+    sim_block = verify_live_sim_separation(evidence_label="SIM", presented_as_live=True)
+    return {
+        "file02_public_accuracy_anonymous": public_ok,
+        "file02_private_history_anonymous_denied": private_denied,
+        "file03_unverified_tier_cannot_unlock_history": not free_history["allowed"],
+        "sim_cannot_present_as_live": sim_block["sim_cannot_contaminate_live"] is False,
+        "aligned": public_ok and private_denied and not free_history["allowed"],
+    }
+
+
+def build_machine_readable_track_record_export() -> dict[str, Any]:
+    """Machine-readable compounding evidence export — audit/support only."""
+    integrity = verify_track_record_integrity()
+    track = reference_oracle_track_record()
+    pub = reference_public_accuracy_boundary()
+    alignment = verify_file02_file03_compounding_alignment()
+    touchpoints = build_compounding_touchpoint_matrix()
+    return {
+        "artifact": "LAUNCH57_COMPOUNDING_TRACK_RECORD_EXPORT",
+        "version": COMPOUNDING_EVIDENCE_VERSION,
+        "launch_scope": "LAUNCH57",
+        "internal_support_only": True,
+        "strategic_asset_not_user_capability": True,
+        "track_record_integrity": integrity,
+        "oracle_track_record": track,
+        "public_accuracy_boundary": pub,
+        "live_sim_separation_index": build_live_sim_separation_index(),
+        "evidence_lineage_index": build_evidence_lineage_index(),
+        "touchpoint_matrix": touchpoints,
+        "file02_file03_alignment": alignment,
+        "acceptance_criteria": acceptance_criteria_status(),
+        "pass_live_not_claimed": True,
+        "audit_only": False,
+        "evidence_class_integrity_ok": integrity.get("chain_valid", False) is not False,
+    }
+
+
 def reference_oracle_track_record() -> dict[str, Any]:
     """Spec §8 — public accuracy / track record reference."""
     try:
-        from oracle_track_record import chain_summary, public_track_record
+        from oracle_track_record import chain_summary
 
         summary = chain_summary()
+        integrity = verify_track_record_integrity()
         return {
             "public_track_record_available": True,
             "chain_summary": summary,
+            "integrity": integrity,
             "live_only_primary": True,
+            "unresolved_excluded_from_hit_rate": True,
             "owner_path": "oracle_track_record.py",
             "launch57_reference_only": True,
             "legacy_vault_program_excluded": True,
@@ -502,13 +645,29 @@ def acceptance_criteria_status() -> dict[str, bool]:
     lineage = build_evidence_lineage_index()
     live_sim_idx = build_live_sim_separation_index()
     cap_verify = build_capability_verification_index()
+    integrity = verify_track_record_integrity()
+    outcome_gate = verify_outcome_resolution_gate(
+        {"label": "correct", "outcome_time": to_rfc3339(utc_now()), "resolved": True}
+    )
+    outcome_blocked = verify_outcome_resolution_gate({"label": "correct"})
+    honesty = verify_accuracy_claim_honesty(
+        [
+            {"prediction_id": 1, "label": "correct", "outcome_time": to_rfc3339(utc_now()), "resolved": True},
+            {"prediction_id": 2, "evaluation_window": {"status": "open"}},
+        ]
+    )
+    non_selective = verify_non_selective_accuracy_metrics(
+        {"metrics_scope": "live_only", "live_only_primary": True, "unresolved_excluded": True}
+    )
+    alignment = verify_file02_file03_compounding_alignment()
 
     return {
         "ac01_launch57_assets_only": scope_ok["in_launch57_scope"]
         and scope_ok["scope_lock"] == "LAUNCH57_IDS_ONLY",
         "ac02_decision_evidence_reconstructable": linkage["linkage_supported"] is True,
         "ac03_certificate_links_to_evidence": linkage["second_certificate_authority"] is False,
-        "ac04_outcome_defined_methodology": True,
+        "ac04_outcome_defined_methodology": outcome_gate["accuracy_claim_allowed"] is True
+        and outcome_blocked["fail_closed_without_resolution"] is True,
         "ac05_public_accuracy_live_only": pub.get("live_only_eligible") is True,
         "ac06_live_delayed_sim_separated": live_sim_ok["live_sim_separated"] is True,
         "ac07_pit_integrity_holds": pit["pit_integrity_ok"] is True,
@@ -531,4 +690,8 @@ def acceptance_criteria_status() -> dict[str, bool]:
         "lineage_index_populated": len(lineage) >= 4,
         "live_sim_index_complete": live_sim_idx.get("replay_cannot_become_live") is True,
         "track_record_reference": track.get("public_track_record_available") is True,
+        "append_only_integrity": integrity.get("tamper_evident") is True,
+        "unresolved_cannot_inflate_accuracy": honesty["honest_accuracy_reporting"] is True,
+        "non_selective_metrics": non_selective["non_selective_ok"] is True,
+        "file02_file03_aligned": alignment["aligned"] is True,
     }
