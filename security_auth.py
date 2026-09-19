@@ -55,14 +55,33 @@ def login_rate_limit_backend() -> str:
     return _rate_limit_backend
 
 
+def _session_token_pepper() -> str:
+    """Session hashing secret — dedicated pepper first, then vault/MFA keys (Railway parity)."""
+    for env_name in (
+        "SESSION_TOKEN_PEPPER",
+        "SECRETS_MASTER_KEY",
+        "SECRETS_VAULT_KEY",
+        "MFA_ENCRYPTION_KEY",
+    ):
+        value = os.getenv(env_name, "").strip()
+        if value:
+            if env_name != "SESSION_TOKEN_PEPPER" and is_production_env():
+                logger.warning(
+                    "SESSION_TOKEN_PEPPER unset — using %s for session hashing",
+                    env_name,
+                )
+            return value
+    if is_production_env():
+        raise RuntimeError(
+            "SESSION_TOKEN_PEPPER must be set in production "
+            "(or configure SECRETS_MASTER_KEY / SECRETS_VAULT_KEY / MFA_ENCRYPTION_KEY)"
+        )
+    logger.warning("SESSION_TOKEN_PEPPER unset — using insecure dev default")
+    return "blackdark-session-pepper-change-me"
+
+
 def hash_session_token(token: str) -> str:
-    pepper = os.getenv("SESSION_TOKEN_PEPPER", "").strip()
-    if not pepper:
-        if is_production_env():
-            raise RuntimeError("SESSION_TOKEN_PEPPER must be set in production")
-        pepper = "blackdark-session-pepper-change-me"
-        logger.warning("SESSION_TOKEN_PEPPER unset — using insecure dev default")
-    return hashlib.sha256(f"{pepper}:{token}".encode()).hexdigest()
+    return hashlib.sha256(f"{_session_token_pepper()}:{token}".encode()).hexdigest()
 
 
 def _memory_login_rate_limit(key: str) -> None:

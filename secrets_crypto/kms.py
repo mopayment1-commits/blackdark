@@ -22,6 +22,11 @@ def _provider() -> str:
         return "hashicorp"
     if (os.getenv("KMS_KEY_ID") or "").strip() or (os.getenv("KMS_KEY_ARN") or "").strip():
         return "managed_env"
+    if is_production_crypto_env() and (
+        (os.getenv("SECRETS_MASTER_KEY") or "").strip()
+        or (os.getenv("KMS_MASTER_SECRET") or "").strip()
+    ):
+        return "managed_env"
     return "local_dev"
 
 

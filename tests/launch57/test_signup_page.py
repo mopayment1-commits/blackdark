@@ -152,6 +152,75 @@ def test_google_gis_redirect_post_login_route(client, monkeypatch):
     assert res.headers.get("location") == "/dashboard"
 
 
+def test_register_not_500_when_session_pepper_missing_but_master_key_set(
+    client, tmp_path, monkeypatch
+):
+    """Reproduces production 500: create_session before SESSION_TOKEN_PEPPER fallback."""
+    import asyncio
+
+    import database
+
+    monkeypatch.setattr(database.config, "DB_PATH", str(tmp_path / "sess.db"))
+    monkeypatch.setenv("ENV", "production")
+    monkeypatch.setenv("SECRETS_MASTER_KEY", "production-master-key-32chars!!")
+    monkeypatch.delenv("SESSION_TOKEN_PEPPER", raising=False)
+    monkeypatch.setenv("IDENTITY_DEBUG_TOKENS", "true")
+
+    async def _init():
+        await database.init_db()
+
+    asyncio.run(_init())
+    res = client.post(
+        "/api/auth/register",
+        json={
+            "email": "sessfallback@example.com",
+            "password": "strong-pass-1234",
+            "accepted_terms": True,
+            "plan": "free",
+        },
+        headers={"X-Forwarded-Proto": "https"},
+    )
+    assert res.status_code != 500
+    assert res.status_code == 200
+
+
+def test_google_login_post_valid_credential_shape_not_500(client, monkeypatch, tmp_path):
+    import asyncio
+
+    import database
+
+    monkeypatch.setattr(database.config, "DB_PATH", str(tmp_path / "google_sess.db"))
+    monkeypatch.setenv("ENV", "production")
+    monkeypatch.setenv("SECRETS_MASTER_KEY", "production-master-key-32chars!!")
+    monkeypatch.delenv("SESSION_TOKEN_PEPPER", raising=False)
+    monkeypatch.setenv("OAUTH_GOOGLE_CLIENT_ID", "test-client-id.apps.googleusercontent.com")
+
+    async def _init():
+        await database.init_db()
+
+    asyncio.run(_init())
+
+    async def fake_verify(_credential: str):
+        return {
+            "provider": "google",
+            "subject": "google-sub-prod",
+            "email": "google-sess@example.com",
+            "name": "Google Sess",
+        }
+
+    monkeypatch.setattr("oauth_service.verify_google_credential", fake_verify)
+
+    res = client.post(
+        "/login?plan=free",
+        data={"credential": "eyJhbGciOiJIUzI1NiJ9." + ("x" * 24)},
+        headers={"X-Forwarded-Proto": "https"},
+        follow_redirects=False,
+    )
+    assert res.status_code != 500
+    assert res.status_code == 303
+    assert res.headers.get("location") == "/dashboard"
+
+
 def test_register_api_rejects_short_password(client, tmp_path, monkeypatch):
     import database
 
