@@ -197,9 +197,9 @@
         </div>
         <div class="entry-rail hide-in-room" id="entryRail" aria-label="Primary entries"></div>
         <div class="intent-wrap hide-in-room" id="intentWrap">
-            <div class="intent-q" id="intentQuestion">What do you need?</div>
+            <div class="intent-q" id="intentQuestion">{{ t('dash.intent.question') }}</div>
             <div class="intent-grid" id="intentGrid"></div>
-            <div class="intent-hint" id="intentHint">Four doors — Decide · Verify · My book · Alerts. Analytical tool, not advice.</div>
+            <div class="intent-hint" id="intentHint">{{ t('dash.intent.hint') }}</div>
         </div>
         <div class="toolbar hide-in-room" style="justify-content:center;margin-bottom:.75rem">
             <label for="uxMode" class="sr-only">UX mode</label>
@@ -777,7 +777,7 @@
             const hint = document.getElementById('intentHint');
             if (!grid) return;
             const home = (data && data.six_heroes_command_home) || {};
-            if (q) q.textContent = home.question || 'ماذا أفعل الآن؟';
+            if (q) q.textContent = home.question || i18nT('dash.intent.question');
             const intents = LAUNCH57_PRIMARY_INTENTS;
             grid.innerHTML = intents.map(it =>
                 `<button type="button" class="intent-btn" data-id="${esc(it.id)}" data-action="${esc(it.action||'')}" data-path="${esc(it.path||'')}">${esc(it.label)}</button>`

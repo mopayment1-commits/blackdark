@@ -91,10 +91,15 @@ async def launch57_command_home(
     command_view: bool = Query(True),
 ):
     _require_launch57_auth(request, 1)
+    from i18n_service import resolve_request_lang
     from launch57.edge_ui_batch2 import six_heroes_command_home
 
+    lang = resolve_request_lang(request)
     try:
-        return await six_heroes_command_home(symbol=symbol, params={"symbol": symbol, "command_view": command_view})
+        return await six_heroes_command_home(
+            symbol=symbol,
+            params={"symbol": symbol, "command_view": command_view, "lang": lang},
+        )
     except RuntimeError as exc:
         if "kill_switch" in str(exc):
             raise HTTPException(

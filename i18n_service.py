@@ -234,6 +234,8 @@ EN: dict[str, str] = {
     "dash.symbol": "Symbol",
     "dash.stealth.sub": "Whale audience · advisory slice sizing — not a stealth-routing guarantee",
     "dash.portfolio.sub": "Risk in plain language — private holdings stay in-browser",
+    "dash.intent.question": "What do you need?",
+    "dash.intent.hint": "Four doors — Decide · Verify · My book · Alerts. Analytical tool, not advice.",
     # Login
     "login.trial": "7-Day Pro Trial on signup — code LAUNCHPRO = 14 days",
     "login.tab.login": "Login",

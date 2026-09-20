@@ -27,6 +27,12 @@ _BINDING = "launch57_phase7_edge_ui_batch2"
 _MODULE = "launch57.edge_ui_batch2"
 
 
+def _command_home_question(lang: str | None) -> str:
+    from i18n_service import t
+
+    return t("dash.intent.question", lang)
+
+
 def _governed_params(p: dict[str, Any], semantics: dict[str, Any], spine: dict[str, Any] | None) -> dict[str, Any]:
     out = dict(p)
     governed = dict(out.get("governed_payload") or {})
@@ -92,6 +98,8 @@ def _attach_edge_adaptive(
 async def six_heroes_command_home(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
     """Launch #1 — command home from governed oracle/decision/trust only; LAUNCH57 PASS items."""
     p = dict(params or {})
+    lang = str(p.get("lang") or "en")
+    question = _command_home_question(lang)
     asset = str(p.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")
     spine = await load_decision_spine(asset, p)
 
@@ -130,7 +138,7 @@ async def six_heroes_command_home(*, symbol: str, params: dict[str, Any] | None 
                 "success": False,
                 "answer_state": router_block.get("answer_state") or "ABSTAIN",
                 "six_heroes_command_home": {
-                    "question": "ماذا أفعل الآن؟",
+                    "question": question,
                     "router_selection_contract": router_block,
                     "abstain": True,
                     "abstain_reason": router_block.get("abstain_reason"),
@@ -209,7 +217,7 @@ async def six_heroes_command_home(*, symbol: str, params: dict[str, Any] | None 
             "symbol": spine["symbol"],
             "success": guarded.get("answer_state") == "COMMAND_HOME_GROUNDED",
             "six_heroes_command_home": {
-                "question": "ماذا أفعل الآن؟",
+                "question": question,
                 "heroes": guarded.get("heroes"),
                 "oracle": oracle,
                 "command_view": guarded.get("command_view"),
