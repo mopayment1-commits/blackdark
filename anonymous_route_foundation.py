@@ -179,6 +179,7 @@ LAUNCH57_PUBLIC_API_EXACT: frozenset[str] = frozenset(
         "/api/launch57/point-in-time-metrics",
         "/api/launch57/data-provenance",
         "/api/launch57/freshness",
+        "/api/launch57/evidence-class",
         "/api/launch57/unified-exchange",
         "/api/launch57/tier-distribution",
         "/api/launch57/capability-library",

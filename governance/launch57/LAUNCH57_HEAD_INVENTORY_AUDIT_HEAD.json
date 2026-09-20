@@ -30,23 +30,23 @@
       "launch_number": 1,
       "launch_name": "Six Heroes Command Home — «ماذا أفعل الآن؟»",
       "cap_id": "UNMAPPED",
-      "consumer_path": "/dashboard#trust-pulse → GET /api/launch57/command-home (launch_item_id=1)",
-      "works_now": "PARTIAL",
-      "goal_met": "جزئي — مسار ظاهر؛ جملة الإطلاق («Differentiator؛ منع فوضى 932…») غير مكتملة بعد",
-      "test_exists": "نعم tests/launch57/test_trust_pulse_launch57_consumer_path.py::test_command_home_to_pulse_requires_launch_items_1_and_2",
+      "consumer_path": "/dashboard#trust-pulse#tpCommandQuestion → GET /api/launch57/command-home (command_question; UNAVAILABLE explicit)",
+      "works_now": "WORKS",
+      "goal_met": "نعم — سؤال «ماذا أفعل الآن؟» ظاهر؛ فشل → UNAVAILABLE صريح لا شاشة صامتة",
+      "test_exists": "نعم tests/launch57/test_partial_upgrade_batch_i.py::test_command_home_exposes_question_launch_1",
       "hero_bound": "Single-Sentence Oracle",
-      "notes": "dashboard+API موصول؛ PENDING independent goal proof"
+      "notes": "Batch I — PENDING_VERIFICATION"
     },
     {
       "launch_number": 2,
       "launch_name": "Single-Sentence Oracle (ACT/WAIT/ABSTAIN)",
       "cap_id": "UNMAPPED",
-      "consumer_path": "/dashboard#trust-pulse → command-home.oracle (launch_item_id=2)",
-      "works_now": "PARTIAL",
-      "goal_met": "جزئي — مسار ظاهر؛ جملة الإطلاق («Aha + مشاركة…») غير مكتملة بعد",
-      "test_exists": "نعم tests/launch57/test_trust_pulse_launch57_consumer_path.py::test_command_home_to_pulse_requires_launch_items_1_and_2",
+      "consumer_path": "/dashboard#trust-pulse → GET /api/launch57/single-sentence-oracle (launch_item_id=2; منفصل عن composite)",
+      "works_now": "WORKS",
+      "goal_met": "نعم — ACT/WAIT/ABSTAIN عبر route مستقل؛ يعمل حتى لو فشل command-home",
+      "test_exists": "نعم tests/launch57/test_partial_upgrade_batch_i.py::test_single_sentence_oracle_route_launch_2",
       "hero_bound": "Single-Sentence Oracle",
-      "notes": "dashboard+API موصول؛ PENDING independent goal proof"
+      "notes": "Batch I — PENDING_VERIFICATION"
     },
     {
       "launch_number": 3,
@@ -85,12 +85,12 @@
       "launch_number": 6,
       "launch_name": "Evidence class ظاهر (LIVE / DELAYED / SIM)",
       "cap_id": "UNMAPPED",
-      "consumer_path": "/dashboard#trust-pulse → Evidence chip (LIVE/DELAYED/SIM)",
+      "consumer_path": "/dashboard#trust-pulse → GET /api/launch57/evidence-class → chip data-launch-item-id=6",
       "works_now": "WORKS",
-      "goal_met": "نعم — chip LIVE/DELAYED/SIM على Trust Pulse؛ test_evidence_class_visible_on_pulse_unchanged",
-      "test_exists": "نعم tests/launch57/test_trust_visible_batch_b.py::test_evidence_class_visible_on_pulse_unchanged",
+      "goal_met": "نعم — شريحة Evidence مربوطة بـ launch_item_id=6 عبر route مستقل",
+      "test_exists": "نعم tests/launch57/test_partial_upgrade_batch_i.py::test_evidence_class_route_launch_6",
       "hero_bound": "NONE",
-      "notes": "مسار UI ثابت؛ لم يُكسر في دفعات A–F؛ لا handler kill منفصل"
+      "notes": "Batch I — PENDING_VERIFICATION"
     },
     {
       "launch_number": 7,

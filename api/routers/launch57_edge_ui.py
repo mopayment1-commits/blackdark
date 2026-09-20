@@ -729,6 +729,70 @@ async def launch57_command_home(
         raise
 
 
+@router.get("/api/launch57/single-sentence-oracle")
+async def launch57_single_sentence_oracle(
+    request: Request,
+    symbol: str = Query("BTC"),
+    decision_action: str | None = Query(None),
+    decision_sentence: str | None = Query(None),
+):
+    """Launch #2 — independent ACT/WAIT/ABSTAIN judgment surface (not composite-only)."""
+    _require_launch57_auth(request, 2)
+    from launch57.trust_batch1 import single_sentence_oracle
+
+    params: dict[str, Any] = {"symbol": symbol}
+    if decision_action:
+        params["decision_action"] = decision_action
+    if decision_sentence:
+        params["decision_sentence"] = decision_sentence
+    try:
+        return await single_sentence_oracle(symbol=symbol, params=params)
+    except RuntimeError as exc:
+        if "kill_switch" in str(exc):
+            raise HTTPException(
+                status_code=500,
+                detail={
+                    "detail": "Launch-57 single-sentence oracle disabled",
+                    "launch_item_id": 2,
+                    "reason": str(exc),
+                    "success": False,
+                },
+                headers={"X-Blackdark-Launch57-Kill-Switch": "trust-batch1"},
+            ) from exc
+        raise
+
+
+@router.get("/api/launch57/evidence-class")
+async def launch57_evidence_class(
+    symbol: str = Query("BTC"),
+    evidence_class: str | None = Query(None),
+    freshness_state: str | None = Query(None),
+):
+    """Launch #6 — visible evidence class (LIVE / DELAYED / SIM) with launch_item_id=6."""
+    from launch57.trust_batch1 import evidence_class_surface
+
+    params: dict[str, Any] = {"symbol": symbol}
+    if evidence_class:
+        params["evidence_class"] = evidence_class
+    if freshness_state:
+        params["freshness_state"] = freshness_state
+    try:
+        return await evidence_class_surface(symbol=symbol, params=params)
+    except RuntimeError as exc:
+        if "kill_switch" in str(exc):
+            raise HTTPException(
+                status_code=500,
+                detail={
+                    "detail": "Launch-57 evidence class disabled",
+                    "launch_item_id": 6,
+                    "reason": str(exc),
+                    "success": False,
+                },
+                headers={"X-Blackdark-Launch57-Kill-Switch": "trust-batch1"},
+            ) from exc
+        raise
+
+
 @router.get("/api/launch57/decision-history")
 async def launch57_decision_history(
     request: Request,
