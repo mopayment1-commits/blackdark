@@ -182,6 +182,7 @@ LAUNCH57_PUBLIC_API_EXACT: frozenset[str] = frozenset(
         "/api/launch57/evidence-class",
         "/api/launch57/unified-exchange",
         "/api/launch57/tier-distribution",
+        "/api/launch57/product-isolation",
         "/api/launch57/capability-library",
         "/api/launch57/public-accuracy",
         "/api/launch57/spot-metrics",
