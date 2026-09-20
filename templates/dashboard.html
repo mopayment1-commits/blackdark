@@ -149,6 +149,8 @@
         #trust-pulse.tp-loading .tp-action { min-height: 2.4rem; min-width: 5rem; display: inline-block; }
         #trust-pulse.tp-loading .tp-sym { min-height: 1rem; }
         #trust-pulse.tp-loading .tp-sentence { min-height: 1.1rem; }
+        .tp-abstain-reasons { margin-top: .5rem; padding: .5rem .65rem; border-radius: 8px; background: rgba(245,158,11,.08); border: 1px solid rgba(245,158,11,.25); font-size: .85rem; }
+        .tp-abstain-reasons strong { color: #fbbf24; display: block; margin-bottom: .35rem; }
         @keyframes tpSkeleton {
             0% { background-position: 100% 0; }
             100% { background-position: -100% 0; }
@@ -172,9 +174,10 @@
                 <span class="tp-live"><span class="tp-dot" id="tpDot"></span><span id="tpFresh">Connecting…</span></span>
             </div>
             <output id="tpFlip" class="tp-flip"></output>
-            <div class="tp-action WAIT" id="tpAction">—</div>
+            <div class="tp-action WAIT" id="tpAction" role="button" tabindex="0" title="Click for Launch-57 risk disclosure (#47)" data-bd-call="openRiskDisclosure" style="cursor:pointer">—</div>
             <div class="tp-sym" id="tpSym">Loading decision…</div>
             <div class="tp-sentence" id="tpSentence">One clear Act / Wait with a reviewable why.</div>
+            <div id="tpAbstainReasons" class="tp-abstain-reasons" hidden aria-live="polite"></div>
             <div class="tp-why">
                 <h3 id="tpWhyTitle">Why (under 5 seconds)</h3>
                 <div id="tpFactors"><div class="empty" style="padding:.25rem 0">Loading factors…</div></div>
@@ -236,6 +239,12 @@
             <p class="sub">What changed since your last visit</p>
             <div id="sinceYouLeftBox" class="empty">Loading continuity…</div>
             <a class="btn secondary" href="/since-you-left" style="margin-top:.65rem;display:inline-flex;text-decoration:none">Open full page</a>
+        </section>
+
+        <section id="launch57-decision-intelligence" aria-label="Launch-57 decision intelligence">
+            <h2>Decision Intelligence</h2>
+            <p class="sub" id="l57DecisionNote">Launch-57 regime, signals, conviction (#7–#12) — claims hidden when unavailable.</p>
+            <div class="tp-proof" id="l57DecisionChips"><span class="tp-chip">Loading decision intelligence…</span></div>
         </section>
 
         <section id="launch57-data-spine" aria-label="Launch-57 data spine">
@@ -438,12 +447,31 @@
             window.open(url, '_blank', 'noopener');
             setTimeout(() => URL.revokeObjectURL(url), 60000);
         }
+        function openRiskDisclosure() {
+            const risk = lastVisibleDisclosure.risk;
+            if (!risk || Number(risk.launch_item_id) !== 47) return;
+            const payload = risk.risk_disclosure || risk.material_risk || risk;
+            window._lastRiskDisclosureJson = payload;
+            const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            window.open(url, '_blank', 'noopener');
+            setTimeout(() => URL.revokeObjectURL(url), 60000);
+        }
         function clearVisibleTrust() {
             lastVisibleTrust = { certificate: null, ledger: null, netEdge: null };
+        }
+        function clearVisibleDisclosure() {
+            lastVisibleDisclosure = { risk: null, abstain: null };
+            const abstainEl = document.getElementById('tpAbstainReasons');
+            if (abstainEl) {
+                abstainEl.hidden = true;
+                abstainEl.innerHTML = '';
+            }
         }
         function onUxModeChange() {
             askOracle();
             loadTrustPulse(true);
+            loadLaunch57DecisionIntelligence(null, lastPulse);
         }
         function copyLastCertShare() {
             if (navigator.clipboard && window._lastCertShare) {
@@ -624,7 +652,17 @@
         const LAUNCH57_DATA_PROVENANCE = '/api/launch57/data-provenance';
         const LAUNCH57_FRESHNESS = '/api/launch57/freshness';
         const LAUNCH57_UNIFIED_EXCHANGE = '/api/launch57/unified-exchange';
+        const LAUNCH57_MARKET_REGIME = '/api/launch57/market-regime';
+        const LAUNCH57_BEGINNER_MODE = '/api/launch57/beginner-mode';
+        const LAUNCH57_CROSS_SIGNAL = '/api/launch57/cross-signal-confirmation';
+        const LAUNCH57_CONTRADICTION = '/api/launch57/contradiction-detection';
+        const LAUNCH57_ACTIONABILITY = '/api/launch57/actionability-score';
+        const LAUNCH57_CONVICTION = '/api/launch57/conviction-engine';
+        const LAUNCH57_RISK_DISCLOSURE = '/api/launch57/risk-disclosure';
+        const LAUNCH57_ABSTAIN_REASONS = '/api/launch57/abstain-reasons';
         let lastVisibleTrust = { certificate: null, ledger: null, netEdge: null };
+        let lastVisibleDisclosure = { risk: null, abstain: null };
+        let lastLaunch57DecisionIntel = null;
         let lastLaunch57DataSpine = null;
         const LAUNCH57_PRIMARY_INTENTS = [
             { id: 'decide', label: 'Decide', action: 'launch57_decide', hint: 'Launch-57 command home — Act/Wait + Why + Proof.' },
@@ -931,6 +969,167 @@
                 clearVisibleTrust();
             }
             if (lastPulse) renderTrustPulse(lastPulse);
+            prefetchVisibleDisclosure(pulse);
+        }
+
+        function renderAbstainReasonsBlock(pulse) {
+            const el = document.getElementById('tpAbstainReasons');
+            if (!el) return;
+            const act = String((pulse && pulse.action) || '').toUpperCase();
+            if (!['WAIT', 'ABSTAIN'].includes(act) || !pulse.launch57_oracle_bound) {
+                el.hidden = true;
+                el.innerHTML = '';
+                return;
+            }
+            const abstain = lastVisibleDisclosure.abstain;
+            if (!abstain || Number(abstain.launch_item_id) !== 48) {
+                el.hidden = true;
+                el.innerHTML = '';
+                return;
+            }
+            const disc = abstain.abstention_reject_disclosure || {};
+            const reasons = disc.reasons || disc.visible_reasons || abstain.no_decision?.reasons || [];
+            const lines = [];
+            if (disc.summary) lines.push(esc(disc.summary));
+            if (Array.isArray(reasons)) {
+                reasons.slice(0, 5).forEach((r, i) => {
+                    if (typeof r === 'string') lines.push(`${i + 1}. ${esc(r)}`);
+                    else lines.push(`${i + 1}. ${esc(r.reason || r.factor || r.label || 'Reason')}${r.detail ? ' — ' + esc(r.detail) : ''}`);
+                });
+            }
+            if (!lines.length && pulse.why && pulse.why.factors && pulse.why.factors.length) {
+                pulse.why.factors.slice(0, 3).forEach((f, i) => {
+                    lines.push(`${i + 1}. ${esc(f.factor || 'Reason')}${f.detail ? ' — ' + esc(f.detail) : ''}`);
+                });
+            }
+            if (!lines.length) {
+                el.hidden = true;
+                el.innerHTML = '';
+                return;
+            }
+            el.hidden = false;
+            el.innerHTML = `<strong>Why ${esc(act)} (#48)</strong><div class="tp-factor">${lines.join('</div><div class="tp-factor">')}</div>`;
+        }
+
+        async function prefetchVisibleDisclosure(pulse) {
+            if (!pulse || !pulse.launch57_oracle_bound || pulse.action === 'UNAVAILABLE') {
+                clearVisibleDisclosure();
+                return;
+            }
+            const sym = pulse.symbol || 'BTC';
+            const action = String(pulse.action || 'WAIT').toUpperCase();
+            const truthState = action === 'ABSTAIN' ? 'ABSTAINED' : (action === 'WAIT' ? 'ABSTAINED' : 'AVAILABLE');
+            const qsRisk = new URLSearchParams({
+                symbol: sym,
+                decision_action: action,
+                decision_truth_state: truthState,
+            });
+            const qsAbstain = new URLSearchParams({
+                symbol: sym,
+                decision_action: action,
+                decision_truth_state: truthState,
+            });
+            try {
+                const fetches = [
+                    fetch(LAUNCH57_RISK_DISCLOSURE + '?' + qsRisk.toString(), { headers: authHeaders() }),
+                ];
+                if (['WAIT', 'ABSTAIN'].includes(action)) {
+                    fetches.push(fetch(LAUNCH57_ABSTAIN_REASONS + '?' + qsAbstain.toString(), { headers: authHeaders() }));
+                }
+                const [riskRes, abstainRes] = await Promise.all(fetches);
+                if (riskRes.ok) {
+                    const riskBody = await riskRes.json();
+                    lastVisibleDisclosure.risk = Number(riskBody.launch_item_id) === 47 ? riskBody : null;
+                } else {
+                    lastVisibleDisclosure.risk = null;
+                }
+                if (['WAIT', 'ABSTAIN'].includes(action) && abstainRes && abstainRes.ok) {
+                    const abstainBody = await abstainRes.json();
+                    lastVisibleDisclosure.abstain = Number(abstainBody.launch_item_id) === 48 ? abstainBody : null;
+                } else {
+                    lastVisibleDisclosure.abstain = null;
+                }
+            } catch (error) {
+                console.debug(error);
+                clearVisibleDisclosure();
+            }
+            renderAbstainReasonsBlock(pulse);
+            if (lastPulse) renderTrustPulse(lastPulse);
+        }
+
+        function renderLaunch57DecisionIntel(intel) {
+            const chipsEl = document.getElementById('l57DecisionChips');
+            const noteEl = document.getElementById('l57DecisionNote');
+            if (!chipsEl) return;
+            const chips = [];
+            const regime = intel && intel.regime;
+            if (regime && regime.success && regime.market_compass && regime.market_compass.regime) {
+                chips.push(`<span class="tp-chip ok">Regime: ${esc(regime.market_compass.regime)}</span>`);
+            }
+            const beginner = intel && intel.beginner;
+            if (beginner && beginner.success && beginner.clear_answer) {
+                const ans = beginner.clear_answer;
+                chips.push(`<span class="tp-chip ok">Beginner: ${esc(ans.verdict || ans.action || 'mode')}</span>`);
+            }
+            const cross = intel && intel.crossSignal;
+            if (cross && cross.success && cross.cross_signal_confirmation) {
+                const confirmed = cross.cross_signal_confirmation.confirmed;
+                chips.push(`<span class="tp-chip ${confirmed ? 'ok' : ''}">Cross-signal: ${confirmed ? 'confirmed' : 'unconfirmed'}</span>`);
+            }
+            const contra = intel && intel.contradiction;
+            if (contra && contra.success && contra.contradiction_detection) {
+                const count = contra.contradiction_detection.count || 0;
+                chips.push(`<span class="tp-chip ${count ? 'warn' : 'ok'}">Contradictions: ${esc(String(count))}</span>`);
+            }
+            const actionability = intel && intel.actionability;
+            if (actionability && actionability.success && actionability.actionability_score != null) {
+                chips.push(`<span class="tp-chip ok">Actionability: ${esc(String(Math.round(actionability.actionability_score)))}</span>`);
+            }
+            const conviction = intel && intel.conviction;
+            if (conviction && conviction.success && conviction.conviction_score != null && conviction.conviction_score > 0) {
+                chips.push(`<span class="tp-chip ok">Conviction: ${esc(String(Math.round(conviction.conviction_score)))}</span>`);
+            }
+            chipsEl.innerHTML = chips.length
+                ? chips.join('')
+                : '<span class="tp-chip">Decision intelligence unavailable — no claims shown.</span>';
+            if (noteEl) {
+                noteEl.textContent = chips.length
+                    ? 'Launch-57 governed decision surfaces (#7–#12). Claims hidden when handlers fail.'
+                    : 'Launch-57 decision intelligence unavailable — claims hidden (fail-closed).';
+            }
+        }
+
+        async function loadLaunch57DecisionIntelligence(forceSym, pulse) {
+            const sym = (forceSym || document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
+            const mode = document.getElementById('uxMode')?.value || 'beginner';
+            const verdict = pulse && pulse.action ? String(pulse.action) : 'WAIT';
+            const intel = { symbol: sym };
+            const qs = new URLSearchParams({ symbol: sym });
+            try {
+                const fetches = [
+                    fetch(LAUNCH57_MARKET_REGIME + '?' + qs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_CROSS_SIGNAL + '?' + qs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_CONTRADICTION + '?' + qs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_ACTIONABILITY + '?' + qs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_CONVICTION + '?' + qs.toString(), { headers: authHeaders() }),
+                ];
+                if (mode === 'beginner') {
+                    const bqs = new URLSearchParams({ symbol: sym, verdict });
+                    fetches.push(fetch(LAUNCH57_BEGINNER_MODE + '?' + bqs.toString(), { headers: authHeaders() }));
+                }
+                const results = await Promise.all(fetches);
+                if (results[0].ok) intel.regime = await results[0].json();
+                if (results[1].ok) intel.crossSignal = await results[1].json();
+                if (results[2].ok) intel.contradiction = await results[2].json();
+                if (results[3].ok) intel.actionability = await results[3].json();
+                if (results[4].ok) intel.conviction = await results[4].json();
+                if (mode === 'beginner' && results[5] && results[5].ok) intel.beginner = await results[5].json();
+            } catch (error) {
+                console.debug(error);
+            }
+            lastLaunch57DecisionIntel = intel;
+            renderLaunch57DecisionIntel(intel);
+            return intel;
         }
 
         async function prefetchShareProof(pulse) {
@@ -1004,9 +1203,11 @@
                     if (pulse.launch57_oracle_bound) {
                         prefetchShareProof(pulse);
                         prefetchVisibleTrust(pulse, data);
+                        loadLaunch57DecisionIntelligence(sym, pulse);
                     } else {
                         setShareProofButton(false);
                         clearVisibleTrust();
+                        clearVisibleDisclosure();
                     }
                     renderLaunch57Intents(data);
                     const box = document.getElementById('oracleBox');
@@ -1024,6 +1225,7 @@
                     if (sentenceEl) sentenceEl.textContent = 'Launch-57 command home unavailable.';
                     setShareProofButton(false);
                     clearVisibleTrust();
+                    clearVisibleDisclosure();
                     setTrustPulseLoading(false);
                     return null;
                 } finally {
@@ -1232,6 +1434,15 @@
             document.getElementById('tpFresh').textContent = fresh.label
                 || freshnessUiLabel(freshState, presentedLive, null);
             document.getElementById('tpProof').innerHTML = buildPulseChips(p);
+            renderAbstainReasonsBlock(p);
+            const actionEl2 = document.getElementById('tpAction');
+            if (actionEl2) {
+                const clickable = p.launch57_oracle_bound && act !== 'UNAVAILABLE' && lastVisibleDisclosure.risk;
+                actionEl2.style.cursor = clickable ? 'pointer' : 'default';
+                actionEl2.title = clickable
+                    ? 'Click for Launch-57 risk disclosure (#47)'
+                    : 'Launch-57 decision';
+            }
             renderPulseFlip(p, fromStream);
             renderPulseContinuity(p);
             const ledger = p.ledger || {};
@@ -1285,6 +1496,7 @@
         function setSymbol(s) {
             document.getElementById('symbol').value = s;
             loadCommandHome(true);
+            loadLaunch57DecisionIntelligence(s, lastPulse);
             loadLaunch57DataSpine(s);
             loadChart();
             startTrustPulseStream();
