@@ -95,23 +95,9 @@ def validate_email(email: str) -> str:
 
 
 def validate_password(password: str, *, email: str = "") -> None:
-    if len(password) < 12:
-        raise ValueError("Password must be at least 12 characters")
-    if len(password) > 128:
-        raise ValueError("Password too long")
-    lowered = password.lower().strip()
-    blocked = set(_COMMON_PASSWORDS)
-    extra = os.getenv("IDENTITY_BLOCKED_PASSWORDS", "")
-    if extra:
-        blocked.update(x.strip().lower() for x in extra.split(",") if x.strip())
-    if lowered in blocked:
-        raise ValueError("Password is too common — choose a stronger one")
-    local = (email or "").split("@")[0].lower()
-    if local and len(local) >= 4 and local in lowered:
-        raise ValueError("Password must not contain your email local-part")
-    # Reject all-numeric
-    if password.isdigit():
-        raise ValueError("Password must not be only numbers")
+    from password_security import validate_password_policy
+
+    validate_password_policy(password, email=email)
 
 
 def validate_username(username: str) -> str:
@@ -187,10 +173,8 @@ def identity_architecture() -> dict[str, Any]:
             "pattern": USERNAME_RE.pattern,
         },
         "password_policy": {
-            "min_length": 10,
-            "max_length": 128,
+            **__import__("password_security").password_policy_metadata(),
             "block_common": True,
-            "hash": "pbkdf2_sha256",
         },
         "email_verification": True,
         "password_reset": True,

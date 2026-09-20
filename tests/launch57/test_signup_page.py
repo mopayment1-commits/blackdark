@@ -40,7 +40,7 @@ def test_register_tab_calm_html(client):
     assert "or continue with email" in html
     assert 'id="regEmail"' in html
     assert 'id="regPassword"' in html
-    assert 'minlength="12"' in html
+    assert 'minlength="15"' in html
     assert 'class="auth-tabs"' in html
     assert 'id="tabRegister"' in html
     assert "Anonymous access denied" not in html

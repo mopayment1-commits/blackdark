@@ -147,6 +147,7 @@ async def auth_login(
         ip = request.client.host or "unknown"
     check_login_rate_limit(f"ip:{ip}")
     try:
+        check_login_rate_limit(f"account:{body.email.strip().lower()}")
         result = await login_user(body.email, body.password, mfa_code=body.mfa_code)
         if result.get("mfa_required"):
             return result
@@ -158,6 +159,9 @@ async def auth_login(
         _attach_session_cookie(resp, result.get("token"))
         return resp
     except ValueError as exc:
+        from security_auth import record_login_failure
+
+        record_login_failure(f"ip:{ip}")
         raise HTTPException(status_code=401, detail=str(exc)) from exc
 
 
@@ -238,44 +242,46 @@ async def auth_mfa_disable(
 @router.post("/forgot-password")
 async def auth_forgot_password(body: AuthForgotPasswordBody, request: Request):
     """Always returns generic success to avoid account enumeration."""
+    import asyncio
+    import time
+
     from database import fetch_user_by_email
     from identity_service import send_password_reset_email, validate_email
     from security_auth import check_login_rate_limit
 
+    started = time.perf_counter()
     ip = (request.headers.get("x-forwarded-for") or "").split(",")[0].strip() or "unknown"
     check_login_rate_limit(f"forgot:{ip}")
-    try:
-        email = validate_email(body.email)
-    except ValueError:
-        return {
-            "ok": True,
-            "message": "If an account exists for that email, a reset link was sent.",
-        }
-    user = await fetch_user_by_email(email)
-    debug: dict[str, Any] = {}
-    if user and int(user.get("password_is_set") if user.get("password_is_set") is not None else 1):
-        try:
-            debug = await send_password_reset_email(int(user["id"]), email)
-        except Exception:
-            pass
-    payload = {
+    generic = {
         "ok": True,
         "message": "If an account exists for that email, a reset link was sent.",
     }
+    debug: dict[str, Any] = {}
+    try:
+        email = validate_email(body.email)
+        check_login_rate_limit(f"account:{email}")
+        user = await fetch_user_by_email(email)
+        if user and int(user.get("password_is_set") if user.get("password_is_set") is not None else 1):
+            try:
+                debug = await send_password_reset_email(int(user["id"]), email)
+            except Exception:
+                pass
+    except ValueError:
+        pass
+    elapsed = time.perf_counter() - started
+    min_delay = float(os.getenv("IDENTITY_FORGOT_MIN_DELAY_SEC", "0.25"))
+    if elapsed < min_delay:
+        await asyncio.sleep(min_delay - elapsed)
     if debug.get("debug_token"):
-        payload["debug_token"] = debug["debug_token"]
-        payload["debug_link"] = debug.get("debug_link")
-    return payload
+        generic["debug_token"] = debug["debug_token"]
+        generic["debug_link"] = debug.get("debug_link")
+    return generic
 
 
 @router.post("/reset-password", responses=COMMON_ERROR_RESPONSES)
 async def auth_reset_password(body: AuthResetPasswordBody):
-    from auth_service import create_session, hash_password
-    from database import (
-        delete_user_sessions_for_user,
-        fetch_user_by_id,
-        update_user_profile_fields,
-    )
+    from auth_service import hash_password
+    from database import delete_user_sessions_for_user, fetch_user_by_id, update_user_profile_fields
     from identity_service import consume_auth_token, validate_password
 
     try:
@@ -293,22 +299,15 @@ async def auth_reset_password(body: AuthResetPasswordBody):
             },
         )
         await delete_user_sessions_for_user(user_id)
-        session = await create_session(user_id)
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
-    resp = JSONResponse(
-        _session_response_body(
-            {
-                "ok": True,
-                "message": "Password updated. You are signed in.",
-                "token": session["token"],
-                "expires_at": session["expires_at"],
-                "user": {"id": user_id, "email": email, "name": user.get("name") or ""},
-            }
-        )
+    return JSONResponse(
+        {
+            "ok": True,
+            "message": "Password updated. Sign in with your new password.",
+            "auto_login": False,
+        }
     )
-    _attach_session_cookie(resp, session["token"])
-    return resp
 
 
 @router.post("/change-password", responses=COMMON_ERROR_RESPONSES)

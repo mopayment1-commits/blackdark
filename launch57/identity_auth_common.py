@@ -697,19 +697,26 @@ def verify_idor_profile_history_blocked() -> dict[str, Any]:
 
 def verify_weak_hashing_forbidden() -> dict[str, Any]:
     """Spec §6 — MD5/SHA1/raw SHA must not be used for password storage."""
+    from password_security import (
+        PRIMARY_HASH_SCHEME,
+        hash_password,
+        is_weak_hash_rejected,
+        verify_password,
+    )
+
     arch = reference_identity_architecture()
     algo = str(arch.get("password_policy", {}).get("hash", "")).lower()
-    forbidden_exact = frozenset(
-        {"md5", "sha1", "sha-1", "sha256", "sha-256", "sha512", "sha-512", "plaintext"}
+    sample = hash_password("engineering-argon2id-sample-15")
+    weak_sample_rejected = is_weak_hash_rejected("md5$deadbeef") and not verify_password(
+        "x", "md5$deadbeef"
     )
-    approved_exact = frozenset({"pbkdf2_sha256", "argon2id", "argon2", "scrypt", "bcrypt"})
-    weak = algo in forbidden_exact
-    approved = algo in approved_exact or algo.startswith("pbkdf2_") or algo.startswith("argon2")
+    approved = algo == PRIMARY_HASH_SCHEME and sample.startswith("$argon2")
     return {
         "hash_algorithm": algo,
-        "weak_forbidden": not weak,
+        "weak_forbidden": weak_sample_rejected,
         "approved_algorithm": approved,
-        "ok": bool(algo) and approved and not weak,
+        "ok": bool(algo) and approved and weak_sample_rejected,
+        "primary_scheme": PRIMARY_HASH_SCHEME,
     }
 
 
