@@ -65,6 +65,7 @@ INFRASTRUCTURE_EXACT: frozenset[str] = frozenset(
         "/health/ready",
         "/health/viral",
         "/metrics",
+        "/api/build-info",
     }
 )
 
@@ -105,6 +106,7 @@ PUBLIC_HTML_EXACT: frozenset[str] = frozenset(
         "/about",
         "/how-it-works",
         "/faq",
+        "/status",
         "/legal",
         "/cookies",
         "/disclaimer",
@@ -122,12 +124,18 @@ PUBLIC_HTML_EXACT: frozenset[str] = frozenset(
         "/model-card",
         "/msa",
         "/pricing",
+        "/refund",
+        "/identity-standards",
+        "/b2b",
+        "/sla",
+        "/platform",
+        "/institutional",
+        "/cap646",
         "/privacy",
         "/terms",
         "/trust",
         "/errors",
         PATH_ORACLE_ACCURACY,
-        "/discipline-mirror",
         "/kill-rate",
         "/contradiction-replay",
         "/proof-arena",
@@ -161,10 +169,32 @@ PUBLIC_HTML_PREFIXES: tuple[str, ...] = (
     "/oracle/",
 )
 
+# Launch-57 anonymous public API — explicit paths only (SPEC_02 §22; no broad prefix).
+LAUNCH57_PUBLIC_API_EXACT: frozenset[str] = frozenset(
+    {
+        "/api/launch57/guest-trust",
+        "/api/launch57/real-time-prices",
+        "/api/launch57/ohlcv",
+        "/api/launch57/quote",
+        "/api/launch57/point-in-time-metrics",
+        "/api/launch57/data-provenance",
+        "/api/launch57/freshness",
+        "/api/launch57/unified-exchange",
+        "/api/launch57/tier-distribution",
+        "/api/launch57/capability-library",
+        "/api/launch57/public-accuracy",
+    }
+)
+
+LAUNCH57_PUBLIC_API_PREFIXES: tuple[str, ...] = (
+    "/api/launch57/capability-library/",
+)
+
 # --- Evidence/read API prefixes (historical public developer surface) ---
 PUBLIC_API_PREFIXES: tuple[str, ...] = (
     "/health/",
     PATH_API_TRUST_OS,
+    *LAUNCH57_PUBLIC_API_PREFIXES,
     "/api/strategy/",
     "/api/intent/",
     "/api/execution/",
@@ -206,6 +236,7 @@ PUBLIC_API_PREFIXES: tuple[str, ...] = (
 PUBLIC_API_EXACT: frozenset[str] = frozenset(
     {
         PATH_API_TRUST_OS,
+        *LAUNCH57_PUBLIC_API_EXACT,
         "/api/audit-challenge",
         "/api/security/status",
         "/api/security/external-review-readiness",
@@ -224,7 +255,6 @@ PUBLIC_API_EXACT: frozenset[str] = frozenset(
         "/compliance",
         "/data-room",
         PATH_ORACLE_ACCURACY,
-        "/discipline-mirror",
         "/kill-rate",
         "/contradiction-replay",
         "/proof-arena",

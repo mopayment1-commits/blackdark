@@ -1,0 +1,28 @@
+{
+  "artifact": "BLACKDARK_LAUNCH57_BILLING_ENTITLEMENT_INDEPENDENT_VERIFICATION",
+  "verification_type": "engineering_closure",
+  "verified_at": "2026-09-18T14:54:00.437910+00:00",
+  "implementation_sha": "eb123361",
+  "baseline_sha": "cb30a0ad073f9cf52dde0a5b18cd4353ecc21eb045e73fb84c5e7c65969f67ef",
+  "verdict": "PASS_ENGINEERING",
+  "LAUNCH57_BILLING_ENTITLEMENT_PASS_ENGINEERING": true,
+  "LAUNCH57_BILLING_ENTITLEMENT_READY_FOR_LOCAL_USE": true,
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "checks": {
+    "BILLING_ENTITLEMENT_SEPARATION": true,
+    "REDIRECT_GRANT_BLOCKED": true,
+    "WEBHOOK_IDEMPOTENT": true,
+    "CANONICAL_PRICE_REGISTRY": true,
+    "SERVER_SIDE_GATING": true,
+    "LAUNCH57_SCOPE_ONLY": true,
+    "RECONCILIATION_GUARD": true,
+    "NO_FALSE_PASS_LIVE": true
+  },
+  "test_evidence": {
+    "command": "python3 -m pytest tests/launch57/test_billing_entitlement.py tests/launch57/test_identity_auth.py tests/launch57/test_edge_ui_batch1.py tests/launch57/test_derivatives_batch2.py tests/launch57/test_trust_batch2.py tests/launch57/test_financial_security.py tests/launch57/test_failure_recovery.py tests/launch57/test_phase8_e2e_acceptance.py -q",
+    "exit_code": "0",
+    "stdout_tail": "orage_maintenance at /workspace/dashboard.py\n    warnings.warn(message, stacklevel=1)\n\ntests/launch57/test_trust_batch2.py::test_execute_dispatch_launch_items\n  /home/ubuntu/.local/lib/python3.12/site-packages/fastapi/openapi/utils.py:303: UserWarning: Duplicate Operation ID storage_legacy_purge_api_storage_legacy_purge_get for function storage_legacy_purge at /workspace/dashboard.py\n    warnings.warn(message, stacklevel=1)\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html",
+    "stderr_tail": "",
+    "passed": true
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "artifact": "PHASE5_ADAPTIVE_BATCH_B_EVIDENCE",
+  "phase": "5_ADAPTIVE_BATCH_B",
+  "build_order": [
+    30,
+    31,
+    32,
+    33
+  ],
+  "entry_gate": {
+    "PHASE5_BATCH_A_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+    "PHASE5_BATCH_B_MAY_BEGIN": true,
+    "verified_at_sha": "563c4940"
+  },
+  "starting_head_sha": "563c4940",
+  "implementation_sha": "7b3ee26b11c4b1cfcf1d6d892a40b6662c30e34e",
+  "generated_at": "2026-09-17T23:49:02.336994+00:00",
+  "builder_status_max": "PENDING_VERIFICATION",
+  "items": {
+    "30": {
+      "governing_requirement": "Adaptive Spec §24/§28 — order-book contract on L1 with freshness, direction, contradiction, limitation, direct evidence",
+      "proven_adaptive_gap": "L1 disclaimer present but order-book contract semantics not enforced in consumer output",
+      "execution_disposition": "ADAPTIVE_GAP_IMPLEMENTATION_REQUIRED",
+      "canonical_path_reused": "launch57.derivatives_batch2:order_book_intelligence + cap646.fallbacks.resolve_order_book",
+      "shared_support_path": "launch57.trust_adaptive_common:apply_order_book_intelligence_semantics",
+      "builder_state": "PENDING_VERIFICATION"
+    },
+    "31": {
+      "governing_requirement": "Adaptive Spec §24 — general-market screener must not promote unsupported filtering scope",
+      "proven_adaptive_gap": "Screener returned rankings without rejecting unsupported institutional/smart-money scope requests",
+      "execution_disposition": "ADAPTIVE_GAP_IMPLEMENTATION_REQUIRED",
+      "canonical_path_reused": "launch57.derivatives_batch2:general_market_token_screener + bd_platform.market_rankings",
+      "shared_support_path": "launch57.trust_adaptive_common:apply_general_market_screener_guard",
+      "builder_state": "PENDING_VERIFICATION"
+    },
+    "32": {
+      "governing_requirement": "Adaptive Spec §24 — limited token+wallet watchlists; unsupported domains rejected",
+      "proven_adaptive_gap": "Watchlist footer present but unsupported domains could still be accepted in consumer semantics",
+      "execution_disposition": "ADAPTIVE_GAP_IMPLEMENTATION_REQUIRED",
+      "canonical_path_reused": "launch57.derivatives_batch2:limited_watchlists + list_etherscan_watchlist_246",
+      "shared_support_path": "launch57.trust_adaptive_common:apply_limited_watchlist_guard",
+      "builder_state": "PENDING_VERIFICATION"
+    },
+    "33": {
+      "governing_requirement": "Adaptive Spec §17/§40 — approved alert classes only; required fields; delayed evidence not LIVE",
+      "proven_adaptive_gap": "Alerts fired without class qualification, required-field stamping, or stale-evidence LIVE guard",
+      "execution_disposition": "ADAPTIVE_GAP_IMPLEMENTATION_REQUIRED",
+      "canonical_path_reused": "launch57.derivatives_batch2:smart_alerts_composite + b8_alerts_bridge",
+      "shared_support_path": "launch57.trust_adaptive_common:apply_smart_alerts_qualification_filter",
+      "builder_state": "PENDING_VERIFICATION"
+    }
+  },
+  "product_files_changed": [
+    "launch57/trust_adaptive_common.py",
+    "launch57/derivatives_batch2.py"
+  ],
+  "support_files_changed": [
+    "launch57/trust_adaptive_common.py"
+  ],
+  "tests": {
+    "command": "python3 -m pytest tests/launch57/test_phase5_adaptive_batch_b.py tests/launch57/test_derivatives_batch2.py tests/launch57/test_phase5_adaptive_batch_a.py tests/launch57/test_derivatives_batch1.py -q",
+    "exit_code": 0,
+    "stdout": "......................                                                   [100%]",
+    "stderr": "",
+    "passed": true
+  },
+  "confirmations": {
+    "PHASE5_BATCH_B_IMPLEMENTATION_STATUS": "PENDING_VERIFICATION",
+    "PHASE6_NOT_STARTED": true,
+    "PASS_ENGINEERING_NOT_CLAIMED": true,
+    "PASS_LIVE_NOT_CLAIMED": true,
+    "REGISTER_STATUS_PROMOTION": false
+  }
+}

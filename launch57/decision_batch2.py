@@ -15,6 +15,13 @@ from launch57.decision_common import (
     stale_gate_body,
     stamp_decision_batch,
 )
+from launch57.trust_adaptive_common import (
+    attach_adaptive_disclosure,
+    build_approved_evidence_composition,
+    build_level1_decision_disclosure,
+    build_structured_conviction_disclosure,
+    compute_approved_decision_composite,
+)
 
 LAUNCH57_DECISION_BATCH2_CAP_IDS: frozenset[int] = frozenset({28, 29})
 
@@ -99,7 +106,28 @@ async def smart_money_conviction_engine(*, symbol: str, params: dict[str, Any] |
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_decision_envelope(body, spine=spine)
+    wrapped = attach_decision_envelope(body, spine=spine)
+    conviction_disclosure = build_structured_conviction_disclosure(
+        alert=alert,
+        conviction_score=conviction,
+        payload=p,
+    )
+    wrapped["structured_conviction_disclosure"] = conviction_disclosure
+    band = conviction_disclosure["structured_conviction"]["band"]
+    uncertainty = "qualified" if conviction_disclosure["disagreement_count"] else "standard"
+    disclosure = build_level1_decision_disclosure(
+        p,
+        launch_item_id=12,
+        surface="smart_money_conviction_engine",
+        answer_state=band,
+        evidence_display=wrapped.get("evidence_display"),
+        uncertainty=uncertainty,
+    )
+    return attach_adaptive_disclosure(
+        wrapped,
+        disclosure,
+        extra={"structured_conviction_disclosure": conviction_disclosure},
+    )
 
 
 async def cross_market_decision_engine(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -157,6 +185,7 @@ async def cross_market_decision_engine(*, symbol: str, params: dict[str, Any] | 
 
     multi_dim = build_multi_dim_analysis_73(asset=spine["symbol"])
     cross = cross_market_decision_intelligence_567(symbol=spine["symbol"])
+    decision_driving_composite = compute_approved_decision_composite(multi_dim)
     body = stamp_decision_batch(
         {
             "surface": "cross_market_decision_intelligence_engine",
@@ -165,7 +194,8 @@ async def cross_market_decision_engine(*, symbol: str, params: dict[str, Any] | 
             "decision_engine": {
                 "multi_dimensional": multi_dim,
                 "cross_market": cross,
-                "composite_score": multi_dim.get("composite_score"),
+                "composite_score": decision_driving_composite["composite_score"],
+                "decision_driving_composite": decision_driving_composite,
                 "spot_derivatives_flow": True,
             },
             "net_edge_gate": net_edge_gate,
@@ -179,7 +209,37 @@ async def cross_market_decision_engine(*, symbol: str, params: dict[str, Any] | 
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_decision_envelope(body, spine=spine)
+    from launch57.b7_market_regime_bridge import finalize_b7_cross_signal_surface
+
+    finalized = finalize_b7_cross_signal_surface(
+        attach_decision_envelope(body, spine=spine),
+        payload=p,
+        spine=spine,
+        fail_closed_on_mismatch=body.get("success") is not False,
+    )
+    composition = build_approved_evidence_composition(
+        finalized.get("decision_engine") or body["decision_engine"],
+        spine=spine,
+    )
+    finalized["approved_evidence_composition"] = composition
+    answer_state = (
+        "APPROVED_LAUNCH57_ONLY"
+        if composition["approved_launch57_evidence_only"]
+        else "UNAPPROVED_EVIDENCE_PRESENT"
+    )
+    disclosure = build_level1_decision_disclosure(
+        p,
+        launch_item_id=37,
+        surface="cross_market_decision_intelligence_engine",
+        answer_state=answer_state,
+        evidence_display=finalized.get("evidence_display"),
+        uncertainty="qualified" if not composition["approved_launch57_evidence_only"] else "standard",
+    )
+    return attach_adaptive_disclosure(
+        finalized,
+        disclosure,
+        extra={"approved_evidence_composition": composition},
+    )
 
 
 _DISPATCH_ENTRYPOINTS: dict[int, str] = {

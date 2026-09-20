@@ -1,6 +1,6 @@
 {
   "artifact": "PHASE8_E2E_JOURNEYS",
-  "generated_at": "2026-09-16T22:54:39.159509+00:00",
+  "generated_at": "2026-09-18T01:15:31.466134+00:00",
   "journeys": [
     {
       "status": "PASS",
@@ -10,8 +10,10 @@
         "command_home"
       ],
       "presented_as_live": true,
-      "evidence_class_visible": true,
+      "evidence_class_visible": "SHADOW_LIVE_FORWARD",
+      "answer_state": "COMMAND_HOME_GROUNDED",
       "handler": "launch57.edge_ui_batch2",
+      "home_grounded": true,
       "journey": "data_spine_trust_decision_command_home"
     },
     {
@@ -55,9 +57,95 @@
       ],
       "presented_as_live": false,
       "journey": "stale_blocks_presented_as_live"
+    },
+    {
+      "status": "PASS",
+      "steps": [
+        "contradiction_detection_10"
+      ],
+      "decision_impact": "NONE",
+      "contradiction_count": 0,
+      "journey": "contradiction_impact"
+    },
+    {
+      "status": "PASS",
+      "steps": [
+        "abstain_reject_48"
+      ],
+      "first_class_abstain": true,
+      "answer_state": "ABSTAIN",
+      "journey": "abstain_first_class"
+    },
+    {
+      "status": "PASS",
+      "steps": [
+        "home_readiness_guard_1"
+      ],
+      "eligible_empty": true,
+      "journey": "no_parked_home_reachability"
+    },
+    {
+      "status": "PASS",
+      "steps": [
+        "public_accuracy_ledger_4"
+      ],
+      "live_only_primary": true,
+      "synthetic_excluded_from_primary": true,
+      "journey": "live_only_public_accuracy"
+    },
+    {
+      "status": "PASS",
+      "steps": [
+        "ai_research_agent_36"
+      ],
+      "platform_data_only": true,
+      "unsupported_input_rejected": true,
+      "journey": "platform_grounding_36"
+    },
+    {
+      "status": "PASS",
+      "steps": [
+        "point_in_time_immutable_metrics_39"
+      ],
+      "immutable": true,
+      "content_hash_present": true,
+      "journey": "point_in_time_truth_39"
+    },
+    {
+      "status": "PASS",
+      "steps": [
+        "exchange_transparency_risk_57"
+      ],
+      "indicators_only": true,
+      "solvency_certificate_claim": "FORBIDDEN",
+      "journey": "exchange_risk_only_57"
+    },
+    {
+      "status": "PASS",
+      "steps": [
+        "shareable_decision_card_44"
+      ],
+      "shareable_truth_present": true,
+      "unsupported_live_claim_blocked": false,
+      "journey": "share_card_truth_state"
+    },
+    {
+      "status": "PASS",
+      "steps": [
+        "launch57_api_routes",
+        "home_eligible_scope"
+      ],
+      "api_routes_launch57_only": [
+        "/api/launch57/command-home",
+        "/api/launch57/decision-history",
+        "/api/launch57/discipline-mirror",
+        "/api/launch57/capability-library"
+      ],
+      "home_ids_outside_scope": [],
+      "journey": "launch57_only_routing"
     }
   ],
-  "passed": 5,
-  "total": 5,
+  "passed": 14,
+  "total": 14,
   "all_pass": true
 }

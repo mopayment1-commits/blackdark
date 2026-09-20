@@ -1,0 +1,235 @@
+{
+  "artifact": "B2_TEMPORAL_INDEPENDENT_VERIFICATION",
+  "verification_type": "independent_engineering",
+  "VERIFIED_IMPLEMENTATION_SHA": "27f203a7",
+  "verified_implementation_sha_full": "27f203a7800cf666300d1542ee658580e8f6c71f",
+  "verified_at": "2026-09-17T09:50:00+00:00",
+  "verifier": {
+    "role": "independent_verifier",
+    "session": "cursor-cloud-agent-independent-verification-b2",
+    "method": "adversarial_static_runtime_test_replay"
+  },
+  "scope": {
+    "batch": "B2",
+    "launch_numbers": [40, 41, 39],
+    "capability_names": {
+      "40": "Data quality & provenance",
+      "41": "Freshness assurance + delayed explicit",
+      "39": "Point-in-time immutable metrics"
+    },
+    "governing_inputs": [
+      "BLACKDARK_NEW_BUILD_57_CAPABILITIES.md (uploads)",
+      "BLACKDARK_Launch57_Global_Time_Temporal_Consistency_FROM_SCRATCH_SPEC.md (uploads)",
+      "governance/launch57/LAUNCH57_REGISTER.json @ 27f203a7",
+      "governance/launch57/BLACKDARK_LAUNCH57_TEMPORAL_CONSISTENCY_RECONCILIATION.json"
+    ],
+    "b1_reference_sha": "4a3b24cc"
+  },
+  "B2_INDEPENDENT_VERDICT": "NOT_COMPLETE",
+  "B2:#40": "NOT_COMPLETE",
+  "B2:#41": "PASS_ENGINEERING",
+  "B2:#39": "PASS_ENGINEERING",
+  "B2_AUTHORIZED_FOR_POST_VERIFICATION_RECONCILIATION": false,
+  "B2_ISOLATION_LEAKAGE": 0,
+  "B2_LEGACY_RUNTIME_DEPENDENCIES": 0,
+  "LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING": false,
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "verification_results": {
+    "isolation_static_import_scan": {
+      "files": [
+        "launch57/data_batch2.py",
+        "launch57/batch2_isolation.py",
+        "launch57/provenance_common.py",
+        "launch57/freshness_common.py",
+        "launch57/point_in_time_common.py"
+      ],
+      "prohibited_modules_leaked": [],
+      "dynamic_import_detected": false,
+      "pass": true
+    },
+    "runtime_module_load_scan": {
+      "after_import_launch57_data_batch2": [],
+      "legacy_runtime_loaded": [],
+      "pass": true
+    },
+    "canonical_owners": {
+      "#40": "launch57/provenance_common.py",
+      "#41": "launch57/freshness_common.py",
+      "#39": "launch57/point_in_time_common.py",
+      "b2_consumers_use_launch57_owners": true,
+      "parallel_conflicting_owner_detected": false,
+      "legacy_owner_reachable": false,
+      "pass": true
+    },
+    "hash40_provenance": {
+      "valid_provenance": {
+        "case": "source_authority + valid source_time",
+        "result": "DECISION_GRADE, success=true",
+        "pass": true
+      },
+      "missing_provenance": {
+        "case": "no source inputs",
+        "result": "UNKNOWN, success=false",
+        "pass": true
+      },
+      "conflicting_provenance": {
+        "case": "explicit quality_state=unknown with source_authority present",
+        "result": "UNKNOWN retained",
+        "pass": true
+      },
+      "malformed_provenance": {
+        "case": "invalid source_time",
+        "result": "provider_timestamp_invalid, success=false",
+        "pass": true
+      },
+      "untrusted_grade_without_source": {
+        "case": "quality_state=decision_grade without source_authority/lineage",
+        "observed": "DECISION_GRADE with default score 85.0, success=true",
+        "required": "must not upgrade to decision_grade without traceable source",
+        "pass": false
+      },
+      "pass": false
+    },
+    "hash41_freshness": {
+      "fresh_boundary": {
+        "age_sec": 5.0,
+        "state": "LIVE",
+        "presented_as_live": true,
+        "pass": true
+      },
+      "near_live_boundary": {
+        "age_sec": 15.0,
+        "state": "NEAR_LIVE",
+        "pass": true
+      },
+      "delayed_boundary": {
+        "age_sec": 60.0,
+        "state": "DELAYED",
+        "pass": true
+      },
+      "stale_boundary": {
+        "age_sec": 60.01,
+        "state": "STALE",
+        "presented_as_live": false,
+        "pass": true
+      },
+      "unknown_availability": {
+        "inputs": "no age_sec, no available_at",
+        "available_at": null,
+        "presented_as_live": false,
+        "pass": true
+      },
+      "future_timestamp": {
+        "result": "success=false, presented_as_live=false",
+        "pass": true
+      },
+      "malformed_timestamp": {
+        "result": "provider_timestamp_invalid",
+        "pass": true
+      },
+      "source_time_alone_no_available_at_fabrication": {
+        "available_at": null,
+        "presented_as_live": false,
+        "pass": true
+      },
+      "pass": true
+    },
+    "hash39_point_in_time": {
+      "valid_historical_observation": {
+        "result": "retrieval returns only eligible rows",
+        "pass": true
+      },
+      "future_known_observation_blocked_at_store": {
+        "result": "ValueError available_at_after_effective_time",
+        "pass": true
+      },
+      "later_revision_no_midpoint_leakage": {
+        "as_of_mid": [1.0],
+        "as_of_now": [1.0, 2.0],
+        "pass": true
+      },
+      "equal_time_observations": {
+        "count": 2,
+        "pass": true
+      },
+      "missing_availability_retrieval": {
+        "retrieve_only old as_of": "success=false, error=no_point_in_time_observations",
+        "pass": true
+      },
+      "deterministic_retrieval": {
+        "repeated_calls_equal": true,
+        "pass": true
+      },
+      "pass": true
+    },
+    "data_batch2_rewrite_audit": {
+      "verdict": "FULL_REWRITE_JUSTIFIED",
+      "legacy_modules_removed": [
+        "failure.freshness",
+        "cap646.evidence_class",
+        "cap646.dedicated_common",
+        "cap646.data_spine",
+        "data_governance.freshness",
+        "hot_storage",
+        "oracle_track_record"
+      ],
+      "smaller_delta_insufficient": true,
+      "consumer_contracts_preserved": true,
+      "unrelated_functionality_introduced": false,
+      "b3_behavior_introduced": false,
+      "parallel_canonical_owner_created": false,
+      "rollback_path_practical": true,
+      "pass": true
+    },
+    "b1_to_41_pre_activation_safety": {
+      "B1_TO_41_TARGETED_RECONCILIATION": "PREPARED_NOT_ACTIVATED",
+      "auto_activate": false,
+      "B1_TO_41_RECONCILIATION_ACTIVATED": false,
+      "import_freshness_common_activates_bridge": false,
+      "hash22_hash21_pending_41_active": true,
+      "hash22_hash21_presented_as_live": false,
+      "unaffected_b1_relative_to_4a3b24cc": true,
+      "pass": true
+    },
+    "hash6_boundary": {
+      "b2_built_substituted_emulated_hash6": false,
+      "evidence_class_output_fabricated": false,
+      "temporal_dependency_pending_6_retained": true,
+      "pass": true
+    },
+    "delta_safety_4a3b24cc_to_27f203a7": {
+      "paths_outside_launch57": [],
+      "unrelated_capability_work": false,
+      "b3_implementation": false,
+      "security_fail_closed_weakening_detected": false,
+      "pass": true
+    }
+  },
+  "adversarial_tests": {
+    "independent_suite": "tests/launch57/test_b2_independent_verification.py",
+    "command": "python3 -m pytest tests/launch57/test_b2_independent_verification.py -q",
+    "exit_code": 1,
+    "passed": 16,
+    "failed": 2,
+    "failed_tests": [
+      "test_provenance_untrusted_grade_without_source_must_not_pass",
+      "test_provenance_api_untrusted_grade_without_source_must_not_pass"
+    ]
+  },
+  "builder_tests_rerun": {
+    "command": "python3 -m pytest tests/launch57/test_b2_isolation_closure.py tests/launch57/test_temporal_batch2.py tests/launch57/test_data_batch2.py tests/launch57/test_b1_to_41_reconciliation.py -q",
+    "exit_code": 0,
+    "passed": true,
+    "note": "Builder suite insufficient alone; independent suite exposes #40 defect"
+  },
+  "defects": [
+    {
+      "failed_requirement": "§5 #40 — partial/degraded source state must not be upgraded into false confidence; missing/untrusted provenance must remain explicit",
+      "affected_capability": "#40 Data quality & provenance",
+      "path": "launch57/provenance_common.py:build_provenance_record",
+      "observed_evidence": "Caller may pass quality_state=decision_grade without source_authority; record returns DECISION_GRADE with default score 85.0 and data_quality_provenance_layer returns success=true",
+      "smallest_required_remediation": "Reject or downgrade explicit quality_state values above CAUTION unless source_authority and valid source_time (or validated lineage) are present; API must return success=false for untrusted grade assertions"
+    }
+  ],
+  "implementation_modified_during_verification": false
+}

@@ -14,6 +14,17 @@ from launch57.smart_money_common import (
     stale_gate_body,
     stamp_decision_batch,
 )
+from launch57.trust_adaptive_common import (
+    apply_internal_flow_whale_significance_filter,
+    attach_adaptive_disclosure,
+    build_accumulation_distribution_disclosure,
+    build_attribution_cohort_disclosure,
+    build_exchange_flow_disclosure,
+    build_internal_flow_filter_disclosure,
+    build_level1_decision_disclosure,
+    build_smart_money_screener_disclosure,
+    build_whale_ratio_internal_flow_disclosure,
+)
 
 LAUNCH57_SMART_MONEY_BATCH1_CAP_IDS: frozenset[int] = frozenset({92, 15, 71, 72, 75, 5, 6})
 
@@ -29,6 +40,29 @@ LAUNCH_ITEM_BY_CAP: dict[int, int] = {
 
 _BINDING = "launch57_phase4_smart_money_batch1"
 _MODULE = "launch57.smart_money_batch1"
+
+
+def _attach_live_adaptive(
+    wrapped: dict[str, Any],
+    *,
+    p: dict[str, Any],
+    launch_item_id: int,
+    surface: str,
+    answer_state: str,
+    disclosure_key: str,
+    disclosure: dict[str, Any],
+    uncertainty: str = "qualified",
+) -> dict[str, Any]:
+    wrapped[disclosure_key] = disclosure
+    level1 = build_level1_decision_disclosure(
+        p,
+        launch_item_id=launch_item_id,
+        surface=surface,
+        answer_state=answer_state,
+        evidence_display=wrapped.get("evidence_display"),
+        uncertainty=uncertainty,
+    )
+    return attach_adaptive_disclosure(wrapped, level1, extra={disclosure_key: disclosure})
 
 
 async def _gated(
@@ -57,7 +91,7 @@ async def _gated(
             batch_module=_MODULE,
             binding_source=_BINDING,
         )
-        return attach_smart_money_envelope(body, spine=spine), None
+        return attach_smart_money_envelope(body, spine=spine, params=params), None
     return None, spine
 
 
@@ -103,7 +137,19 @@ async def address_labels_cohorts(*, symbol: str, params: dict[str, Any] | None =
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_smart_money_envelope(body, spine=spine)
+    wrapped = attach_smart_money_envelope(body, spine=spine, params=p)
+    disclosure = build_attribution_cohort_disclosure(labels=labels, cohorts=cohorts, payload=p)
+    answer_state = "LABELED" if labels else "UNLABELED"
+    return _attach_live_adaptive(
+        wrapped,
+        p=p,
+        launch_item_id=20,
+        surface="address_labels_cohorts",
+        answer_state=answer_state,
+        disclosure_key="attribution_cohort_disclosure",
+        disclosure=disclosure,
+        uncertainty="qualified" if disclosure["coverage_qualified"] else "standard",
+    )
 
 
 async def exchange_flow_intelligence(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -148,7 +194,22 @@ async def exchange_flow_intelligence(*, symbol: str, params: dict[str, Any] | No
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_smart_money_envelope(body, spine=spine)
+    wrapped = attach_smart_money_envelope(body, spine=spine, params=p)
+    disclosure = build_exchange_flow_disclosure(
+        exchange_flow=body["exchange_flow"],
+        exchange=exchange,
+        payload=p,
+    )
+    answer_state = "NET_INFLOW" if net > 0 else ("NET_OUTFLOW" if net < 0 else "NEUTRAL")
+    return _attach_live_adaptive(
+        wrapped,
+        p=p,
+        launch_item_id=16,
+        surface="exchange_flow_intelligence",
+        answer_state=answer_state,
+        disclosure_key="exchange_flow_disclosure",
+        disclosure=disclosure,
+    )
 
 
 async def exchange_flow_netflow_layer(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -186,12 +247,23 @@ async def exchange_flow_netflow_layer(*, symbol: str, params: dict[str, Any] | N
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_smart_money_envelope(body, spine=spine)
+    wrapped = attach_smart_money_envelope(body, spine=spine, params=p)
+    disclosure = build_exchange_flow_disclosure(netflow=netflow, exchange=exchange, payload=p)
+    return _attach_live_adaptive(
+        wrapped,
+        p=p,
+        launch_item_id=16,
+        surface="exchange_netflow",
+        answer_state="EXCHANGE_NETFLOW",
+        disclosure_key="exchange_flow_disclosure",
+        disclosure=disclosure,
+    )
 
 
 async def exchange_whale_ratio(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
     """Launch #17 / CAP-0072 — exchange whale ratio."""
     from bd_platform.market_analysis_layer import compute_whale_ls_ratio_114
+    from exchange_internal_flow_filter import classify_flow
 
     p = dict(params or {})
     blocked, spine = await _gated(
@@ -205,14 +277,25 @@ async def exchange_whale_ratio(*, symbol: str, params: dict[str, Any] | None = N
     if blocked:
         return blocked
 
+    classified = classify_flow(
+        from_address=str(p.get("from_address") or "0xexchange_hot"),
+        to_address=str(p.get("to_address") or p.get("address") or "0x0000000000000000000000000000000000000000"),
+        exchange=str(p.get("exchange") or "binance"),
+        amount_usd=float(p.get("amount_usd") or 1_000_000),
+        is_deposit=bool(p.get("is_deposit")),
+        is_withdrawal=bool(p.get("is_withdrawal")),
+    )
     payload = compute_whale_ls_ratio_114(seed=int(p.get("seed") or 0))
+    significance = apply_internal_flow_whale_significance_filter(payload, classified)
     body = stamp_decision_batch(
         {
             "surface": "exchange_whale_ratio",
             "symbol": spine["symbol"],
-            "success": True,
-            "exchange_whale_ratio": payload.get("whale_filtered_ratio") or payload.get("exchange_whale_ratio"),
+            "success": significance.get("significance_eligible", False) or significance.get("exchange_whale_ratio") is not None,
+            "exchange_whale_ratio": significance.get("exchange_whale_ratio"),
             "whale_ls_ratio": payload,
+            "internal_flow_filter": classified,
+            "whale_significance": significance,
             "freshness_state": spine["freshness_state"],
             "presented_as_live": spine["presented_as_live"],
         },
@@ -222,7 +305,23 @@ async def exchange_whale_ratio(*, symbol: str, params: dict[str, Any] | None = N
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_smart_money_envelope(body, spine=spine)
+    wrapped = attach_smart_money_envelope(body, spine=spine, params=p)
+    disclosure = build_whale_ratio_internal_flow_disclosure(
+        whale_payload=payload,
+        internal_flow=classified,
+        filtered=significance,
+        payload=p,
+    )
+    return _attach_live_adaptive(
+        wrapped,
+        p=p,
+        launch_item_id=17,
+        surface="exchange_whale_ratio",
+        answer_state=str(significance.get("whale_bias") or "neutral"),
+        disclosure_key="whale_ratio_internal_flow_disclosure",
+        disclosure=disclosure,
+        uncertainty="qualified" if significance.get("whale_significance_suppressed") else "standard",
+    )
 
 
 async def internal_flow_filter(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -266,7 +365,17 @@ async def internal_flow_filter(*, symbol: str, params: dict[str, Any] | None = N
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_smart_money_envelope(body, spine=spine)
+    wrapped = attach_smart_money_envelope(body, spine=spine, params=p)
+    disclosure = build_internal_flow_filter_disclosure(classified, payload=p)
+    return _attach_live_adaptive(
+        wrapped,
+        p=p,
+        launch_item_id=17,
+        surface="internal_flow_filter",
+        answer_state=str(classified.get("classification") or "UNKNOWN"),
+        disclosure_key="internal_flow_filter_disclosure",
+        disclosure=disclosure,
+    )
 
 
 async def accumulation_distribution_detection(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -304,7 +413,23 @@ async def accumulation_distribution_detection(*, symbol: str, params: dict[str, 
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_smart_money_envelope(body, spine=spine)
+    wrapped = attach_smart_money_envelope(body, spine=spine, params=p)
+    disclosure = build_accumulation_distribution_disclosure(
+        narratives=narratives,
+        signal_count=body["signal_count"],
+        payload=p,
+    )
+    answer_state = "INFERRED" if body["signal_count"] else "UNCERTAIN"
+    return _attach_live_adaptive(
+        wrapped,
+        p=p,
+        launch_item_id=13,
+        surface="smart_money_accumulation_detection",
+        answer_state=answer_state,
+        disclosure_key="accumulation_distribution_disclosure",
+        disclosure=disclosure,
+        uncertainty="qualified" if disclosure["uncertainty_qualified"] else "standard",
+    )
 
 
 async def smart_money_token_screener(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -354,7 +479,18 @@ async def smart_money_token_screener(*, symbol: str, params: dict[str, Any] | No
         batch_module=_MODULE,
         binding_source=_BINDING,
     )
-    return attach_smart_money_envelope(body, spine=spine)
+    wrapped = attach_smart_money_envelope(body, spine=spine, params=p)
+    disclosure = build_smart_money_screener_disclosure(screener=screener[:25], spine=spine, payload=p)
+    return _attach_live_adaptive(
+        wrapped,
+        p=p,
+        launch_item_id=14,
+        surface="smart_money_token_screener",
+        answer_state="SCREENED",
+        disclosure_key="smart_money_screener_disclosure",
+        disclosure=disclosure,
+        uncertainty="qualified" if not screener else "standard",
+    )
 
 
 _DISPATCH: dict[int, str] = {

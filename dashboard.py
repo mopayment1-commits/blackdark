@@ -124,6 +124,86 @@ def render_page(request: Request, name: str, context: dict[str, Any] | None = No
     return response
 
 
+def _auth_required_next_path(request: Request) -> str:
+    path = request.url.path or "/"
+    query = str(request.url.query or "")
+    return path + (f"?{query}" if query else "")
+
+
+def render_surface_auth_required(
+    request: Request,
+    *,
+    lens: str,
+    lens_label: str,
+    lens_hint: str,
+    boundary: str = "surface-auth-required-html",
+) -> HTMLResponse:
+    """Human login gate for private HTML surfaces — never raw JSON in the browser."""
+    response = render_page(
+        request,
+        "auth_required.html",
+        {
+            "lens": lens,
+            "lens_label": lens_label,
+            "lens_hint": lens_hint,
+            "public_prove_href": "/#try-oracle",
+            "next_path": _auth_required_next_path(request),
+        },
+    )
+    response.status_code = 401
+    response.headers["X-Blackdark-Auth-Boundary"] = boundary
+    return response
+
+
+def render_dashboard_auth_required(request: Request) -> HTMLResponse:
+    """Human login gate for anonymous /dashboard — never raw JSON."""
+    lens = (request.query_params.get("lens") or "prove").strip().lower()
+    if lens not in {"prove", "operate", "desk", "room"}:
+        lens = "prove"
+    lens_labels = {
+        "prove": "Prove",
+        "operate": "Operate",
+        "desk": "Desk",
+        "room": "Room",
+    }
+    lens_hints = {
+        "prove": "Try the public oracle demo on the homepage while you sign up.",
+        "operate": "Operate opens after you create a free account.",
+        "desk": "Desk is available after sign-in.",
+        "room": "Room surfaces open after sign-in.",
+    }
+    return render_surface_auth_required(
+        request,
+        lens=lens,
+        lens_label=lens_labels.get(lens, "Prove"),
+        lens_hint=lens_hints.get(lens, lens_hints["prove"]),
+        boundary="dashboard-auth-required-html",
+    )
+
+
+def render_profile_auth_required(request: Request) -> HTMLResponse:
+    return render_surface_auth_required(
+        request,
+        lens="profile",
+        lens_label="Profile & Billing",
+        lens_hint="Sign in to manage identity, security, and your USD plan.",
+        boundary="profile-auth-required-html",
+    )
+
+
+_HTML_AUTH_GATE_EXACT: frozenset[str] = frozenset({"/profile", "/dashboard", "/discipline-mirror"})
+
+
+def anonymous_denial_should_be_html(request: Request) -> bool:
+    if (request.method or "GET").upper() != "GET":
+        return False
+    path = request.url.path or ""
+    if path in _HTML_AUTH_GATE_EXACT:
+        return True
+    accept = (request.headers.get("accept") or "").lower()
+    return "text/html" in accept
+
+
 def _sector_for_asset(asset: str) -> str:
     return config.SECTOR_MAP.get(asset.upper(), "Other")
 
@@ -618,13 +698,99 @@ except Exception:
     pass
 
 
+async def _resolve_html_auth_user(request: Request) -> dict | None:
+    """Valid session only — stale/invalid bd_token must not unlock private HTML surfaces."""
+    from auth_service import get_user_from_token
+
+    auth = (request.headers.get("authorization") or "").strip()
+    token: str | None = None
+    if auth.lower().startswith("bearer "):
+        token = auth[7:].strip()
+    elif request.cookies.get("bd_token"):
+        from security_middleware import cookie_to_session_bearer
+
+        token = cookie_to_session_bearer(request.cookies.get("bd_token"))
+    if not token:
+        return None
+    return await get_user_from_token(token)
+
+
+def _header_user_payload(user: dict[str, Any]) -> dict[str, Any]:
+    from auth_service import TIER_FEATURES, normalize_tier
+
+    name = str(user.get("name") or "").strip()
+    email = str(user.get("email") or "").strip()
+    if name:
+        display = name
+    elif email and "@" in email:
+        display = email.split("@", 1)[0]
+    else:
+        display = "Account"
+    initial = (display[0] if display else "U").upper()
+    tier = normalize_tier(str(user.get("tier") or "free"))
+    tier_meta = TIER_FEATURES.get(tier) or TIER_FEATURES["free"]
+    tier_label = str(tier_meta.get("label") or tier).upper()
+    show_upgrade = tier not in {"elite", "whale", "quant", "institutional"}
+    return {
+        "display": display,
+        "initial": initial,
+        "email": email,
+        "tier": tier,
+        "tier_label": tier_label,
+        "show_upgrade": show_upgrade,
+    }
+
+
+@app.middleware("http")
+async def header_session_middleware(request: Request, call_next):
+    """Expose validated session user for global header chrome (SSR)."""
+    request.state.header_user = None
+    try:
+        user = await _resolve_html_auth_user(request)
+        if user:
+            request.state.header_user = _header_user_payload(user)
+    except Exception:
+        request.state.header_user = None
+    return await call_next(request)
+
+
 @app.middleware("http")
 async def anonymous_route_enforcement_middleware(request: Request, call_next):
     """P0 — PRIVATE_BY_DEFAULT server-side boundary for cookie-less requests."""
     from anonymous_route_foundation import enforce_anonymous_route_boundary
 
+    path = request.url.path or ""
+    if path in _HTML_AUTH_GATE_EXACT and anonymous_denial_should_be_html(request):
+        if await _resolve_html_auth_user(request) is None:
+            if path == "/dashboard":
+                return render_dashboard_auth_required(request)
+            if path == "/profile":
+                return render_profile_auth_required(request)
+            if path == "/discipline-mirror":
+                return render_surface_auth_required(
+                    request,
+                    lens="discipline",
+                    lens_label="Discipline Mirror",
+                    lens_hint="Your private discipline mirror opens after sign-in.",
+                    boundary="discipline-auth-required-html",
+                )
+
     denial = enforce_anonymous_route_boundary(request)
     if denial is not None:
+        path = request.url.path or ""
+        if anonymous_denial_should_be_html(request):
+            if path == "/dashboard":
+                return render_dashboard_auth_required(request)
+            if path == "/profile":
+                return render_profile_auth_required(request)
+            if path == "/discipline-mirror":
+                return render_surface_auth_required(
+                    request,
+                    lens="discipline",
+                    lens_label="Discipline Mirror",
+                    lens_hint="Your private discipline mirror opens after sign-in.",
+                    boundary="discipline-auth-required-html",
+                )
         return denial
     return await call_next(request)
 
@@ -1348,10 +1514,107 @@ async def _build_opportunity_explanation(
         }
     )
 
+def _request_public_origin(request: Request) -> str:
+    """Canonical browser origin for OAuth redirects (APP_BASE_URL or forwarded proxy headers)."""
+    configured = (os.getenv("APP_BASE_URL") or "").strip().rstrip("/")
+    if configured:
+        return configured
+    proto = (request.headers.get("x-forwarded-proto") or request.url.scheme or "https").split(",")[0].strip()
+    host = (request.headers.get("x-forwarded-host") or request.headers.get("host") or "").split(",")[0].strip()
+    if host:
+        return f"{proto}://{host}".rstrip("/")
+    return str(request.base_url).rstrip("/")
+
+
+def _google_login_uri_base(request: Request) -> str:
+    return f"{_request_public_origin(request)}/login"
+
+
+def _google_post_auth_redirect(plan: str | None, next_path: str | None) -> str:
+    from pricing_catalog import normalize_signup_plan
+
+    selected = normalize_signup_plan(plan or "free")
+    if selected in {"pro", "elite", "quant"}:
+        return f"/create-checkout-session?tier={selected}"
+    if selected == "institutional":
+        return "/data-room?from=signup"
+    if next_path and next_path.startswith("/") and not next_path.startswith("//"):
+        return next_path
+    return "/dashboard"
+
+
 # ========== LANDING PAGE (ROOT) ==========
 @app.get("/login", response_class=HTMLResponse)
 async def login_page(request: Request):
-    return render_page(request, "login.html", _footer_ctx())
+    from oauth_service import google_signin_status
+
+    return render_page(
+        request,
+        "login.html",
+        {
+            **_footer_ctx(),
+            "google_signin": google_signin_status(),
+            "google_login_uri_base": _google_login_uri_base(request),
+        },
+    )
+
+
+@app.post("/login")
+async def login_google_gis_redirect(request: Request):
+    """Google Identity Services redirect UX — credential POST from accounts.google.com."""
+    from urllib.parse import quote
+
+    from oauth_service import google_signin_status, login_or_link_oauth_user, verify_google_credential
+    from security_middleware import attach_session_cookie
+
+    if google_signin_status()["state"] != "CONFIGURED":
+        return RedirectResponse(url="/login?google_error=not_configured", status_code=303)
+
+    form = await request.form()
+    credential = form.get("credential")
+    if not credential:
+        return RedirectResponse(url="/login?google_error=missing_credential", status_code=303)
+
+    try:
+        profile = await verify_google_credential(str(credential))
+        result = await login_or_link_oauth_user(profile)
+    except ValueError as exc:
+        return RedirectResponse(url=f"/login?google_error={quote(str(exc)[:120])}", status_code=303)
+    except Exception:
+        return RedirectResponse(url="/login?google_error=signin_failed", status_code=303)
+
+    dest = _google_post_auth_redirect(
+        request.query_params.get("plan"),
+        request.query_params.get("next"),
+    )
+    resp = RedirectResponse(url=dest, status_code=303)
+    token = result.get("token")
+    if token:
+        attach_session_cookie(resp, str(token))
+    return resp
+
+
+@app.get("/pricing")
+async def pricing_page_redirect():
+    """Visitor pricing is the homepage plan cards — not a JSON catalog."""
+    return RedirectResponse(url="/#pricing", status_code=302)
+
+
+@app.get("/identity-standards", response_class=HTMLResponse)
+async def identity_standards_page(request: Request):
+    from identity_service import identity_architecture
+
+    return render_page(
+        request,
+        "utility.html",
+        {
+            **_footer_ctx(),
+            "page": "identity_standards",
+            "title": "Identity standards",
+            "lead": "How BLACKDARK handles accounts, sessions, and privileged access — public summary for visitors.",
+            "identity": identity_architecture(),
+        },
+    )
 
 
 @app.get("/register")
@@ -1567,8 +1830,10 @@ async def landing_page(request: Request):
     from i18n_service import resolve_request_lang, template_context
 
     lang = resolve_request_lang(request)
+    auth_segment = "auth" if getattr(request.state, "header_user", None) else "anon"
+    cache_key = f"v2:{lang}:{auth_segment}"
     now = time.time()
-    hit = _landing_html_cache.get(lang)
+    hit = _landing_html_cache.get(cache_key)
     if hit and (now - hit[0]) < _LANDING_HTML_CACHE_TTL:
         response = HTMLResponse(hit[1])
         response.set_cookie(
@@ -1587,7 +1852,7 @@ async def landing_page(request: Request):
     ctx["telegram_bot_username"] = _cfg.TELEGRAM_BOT_USERNAME
     ctx["telegram_bot_url"] = f"https://t.me/{_cfg.TELEGRAM_BOT_USERNAME}" if _cfg.TELEGRAM_BOT_USERNAME else None
     html = templates.get_template("landing.html").render({"request": request, **ctx})
-    _landing_html_cache[lang] = (now, html)
+    _landing_html_cache[cache_key] = (now, html)
     # Bound memory if many locales are probed.
     if len(_landing_html_cache) > 32:
         oldest = sorted(_landing_html_cache.items(), key=lambda kv: kv[1][0])[:8]
@@ -2201,7 +2466,7 @@ async def faq_page(request: Request):
         {
             "page": "faq",
             "title": "FAQ",
-            "lead": "Straight answers on Proof Pass, Decision Pro, Decision Desk, sharing, and AI Chat.",
+            "lead": "Straight answers on DISCOVER / FREE, DECIDE / PRO, ELITE, QUANT, INSTITUTIONAL, sharing, and AI Chat.",
             "faq": FAQ_ITEMS,
             **_footer_ctx(),
         },
@@ -2248,14 +2513,26 @@ async def status_page(request: Request):
     from site_services import public_status_report
 
     status = public_status_report()
+    guest_trust: dict[str, Any] = {}
+    try:
+        from launch57.trust_batch2 import guest_trust_surface
+
+        payload = await guest_trust_surface(
+            symbol="BTC",
+            params={"symbol": "BTC", "user_key": "anonymous"},
+        )
+        guest_trust = dict(payload.get("guest_trust") or {})
+    except Exception:
+        guest_trust = {}
     return templates.TemplateResponse(
         request,
         STR_UTILITY_HTML,
         {
             "page": "status",
             "title": "System status",
-            "lead": "Public engineering posture — no secrets, no contractual SLA unless contracted.",
+            "lead": "Public guest trust and engineering posture — no secrets, no contractual SLA unless contracted.",
             "status": status,
+            "guest_trust": guest_trust,
             **_footer_ctx(),
         },
     )
@@ -4615,6 +4892,18 @@ async def portfolio_analyze(
         raise HTTPException(status_code=400, detail="No assets provided")
     return await _analyze_portfolio_holdings(assets)
 
+@app.get("/join-waitlist", response_class=HTMLResponse)
+async def join_waitlist_page(request: Request):
+    """Visitor waitlist lives on the homepage — never a bare POST endpoint."""
+    return RedirectResponse(url="/#waitlist", status_code=302)
+
+
+@app.get("/trust", response_class=HTMLResponse)
+async def trust_page_redirect(request: Request):
+    """Legacy /trust bookmark → public compliance HTML."""
+    return RedirectResponse(url="/compliance", status_code=302)
+
+
 @app.post("/join-waitlist", responses=COMMON_ERROR_RESPONSES)
 async def join_waitlist(data: dict, background_tasks: BackgroundTasks):
     from database import insert_waitlist_signup
@@ -4832,7 +5121,7 @@ async def checkout_cancel(request: Request):
         {
             "page": "cancel",
             "title": "Checkout cancelled",
-            "lead": "No charge was made. You can restart Decision Pro anytime — or stay on Proof Pass.",
+            "lead": "No charge was made. You can restart DECIDE / PRO anytime — or stay on DISCOVER / FREE.",
             **_footer_ctx(),
         },
     )

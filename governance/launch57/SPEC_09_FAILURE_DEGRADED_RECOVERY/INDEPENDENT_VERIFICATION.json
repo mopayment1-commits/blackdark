@@ -1,0 +1,73 @@
+{
+  "artifact": "SPEC_09_INDEPENDENT_VERIFICATION",
+  "domain": "SPEC_09_FAILURE_DEGRADED_RECOVERY",
+  "verification_sha": "bdc4f021d4ee4db35dfe41fd22ab739e4c849f3b",
+  "probe_count": 12,
+  "passed_count": 12,
+  "failed_count": 0,
+  "INDEPENDENT_VERIFICATION_PASS": true,
+  "probes": [
+    {
+      "probe": "iv_upstream_not_fake_success",
+      "pass": true,
+      "detail": "{'success_remains_false': True, 'canonical_error_present': True, 'false_success_blocked': True, 'degraded_not_success': True, 'upstream_honest': True}"
+    },
+    {
+      "probe": "iv_partial_labeled_degraded",
+      "pass": true,
+      "detail": "{'partial_flagged': True, 'runtime_not_full_success': True, 'labeled_honestly': True}"
+    },
+    {
+      "probe": "iv_recovery_stays_honest",
+      "pass": true,
+      "detail": "{'stale_retry_safe': True, 'recovery_restores_success': True, 'stale_cannot_appear_live': True, 'recovery_honest': True}"
+    },
+    {
+      "probe": "iv_auth_distinct_from_data",
+      "pass": true,
+      "detail": "{'data_failure_has_error_envelope': True, 'auth_failure_blocked': True, 'no_entitlement_from_uncertain': True, 'distinct_failure_classes': True}"
+    },
+    {
+      "probe": "iv_runtime_paths_wired",
+      "pass": true,
+      "detail": "{'decision_common_failure_envelope': True, 'decision_common_stale_gate': True, 'data_batch1_failure_envelope': True, 'b4_trust_failure_envelope': True, 'command_home_stale_gate': True, 'failure_recovery_module': True}"
+    },
+    {
+      "probe": "iv_no_parked_failure_scope",
+      "pass": true,
+      "detail": "out of scope"
+    },
+    {
+      "probe": "iv_file01_file07_file08_aligned",
+      "pass": true,
+      "detail": "{'file01_stale_command_path_honest': True, 'file07_quality_degradation': True, 'file08_insufficient_fail_closed': True, 'aligned': True}"
+    },
+    {
+      "probe": "iv_machine_readable_export",
+      "pass": true,
+      "detail": "LAUNCH57_FAILURE_DEGRADED_RECOVERY_EXPORT"
+    },
+    {
+      "probe": "iv_command_home_auth_gated",
+      "pass": true,
+      "detail": "status=401"
+    },
+    {
+      "probe": "iv_injected_failure_not_silent",
+      "pass": true,
+      "detail": "injected_upstream_failure"
+    },
+    {
+      "probe": "iv_stale_not_presented_as_live",
+      "pass": true,
+      "detail": "STALE"
+    },
+    {
+      "probe": "iv_pass_live_not_claimed",
+      "pass": true,
+      "detail": "honest"
+    }
+  ],
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "generated_at": "2026-09-19T00:32:54.336286+00:00"
+}

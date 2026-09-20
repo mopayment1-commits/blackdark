@@ -6,14 +6,29 @@ Build order: #42 CAP-0504 → #22 CAP-0561 → #23 CAP-0507 → #24 CAP-0506/051
 
 from __future__ import annotations
 
-import time
-from datetime import UTC, datetime
 from decimal import Decimal
 from typing import Any
 
-from cap646.evidence_class import ai_compliance_footer, reject_if_stale
-from data_governance.freshness import attach_data_freshness
-from failure.freshness import FreshnessState, classify_freshness
+from launch57.batch1_isolation import finalize_b1_response
+from launch57.b1_freshness_bridge import apply_b1_freshness_reconciliation
+from launch57.chart_common import attach_chart_envelope
+from launch57.data_governance_common import (
+    attach_material_observation,
+    build_launch57_source_registry,
+    build_price_reconciliation_from_probe,
+    connector_fetchers_from_registry,
+)
+from launch57.failure_recovery_common import attach_failure_recovery_envelope
+from launch57.financial_security_common import attach_financial_security_envelope, build_credential_boundary_metadata
+from launch57.temporal_common import (
+    TimestampUnit,
+    attach_temporal_envelope,
+    build_market_temporal_envelope,
+    sort_by_temporal_key,
+    to_rfc3339,
+    utc_now,
+    validate_provider_timestamp,
+)
 from market_context import (
     fetch_binance_klines_bars,
     fetch_binance_market_overview_pack,
@@ -34,18 +49,43 @@ LAUNCH_ITEM_BY_CAP: dict[int, int] = {
     47: 21,
 }
 
-_CONNECTOR_FETCHERS: tuple[tuple[str, str], ...] = (
-    ("binance", "primary"),
-    ("kraken", "fallback"),
-    ("okx", "fallback"),
-    ("bybit", "fallback"),
-    ("coingecko", "fallback"),
-    ("coinbase", "fallback"),
-)
+_CONNECTOR_FETCHERS: tuple[tuple[str, str], ...] = connector_fetchers_from_registry()
 
 
 def _utcnow_iso() -> str:
-    return datetime.now(UTC).isoformat()
+    return to_rfc3339(utc_now())
+
+
+def _attach_infrastructure_boundary(
+    body: dict[str, Any],
+    params: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    from launch57.infrastructure_boundary_common import attach_infrastructure_boundary
+
+    return attach_infrastructure_boundary(body, params=dict(params or {}))
+
+
+def _attach_market_temporal(
+    payload: dict[str, Any],
+    *,
+    source_raw: Any = None,
+    source_unit: TimestampUnit | None = None,
+    source_sequence: int | None = None,
+    ingestion_sequence: int | None = None,
+    immutable_event_id: str | None = None,
+) -> dict[str, Any]:
+    now = utc_now()
+    envelope = build_market_temporal_envelope(
+        source_raw=source_raw,
+        source_unit=source_unit,
+        observed_at=now,
+        ingested_at=now,
+        processed_at=now,
+        source_sequence=source_sequence,
+        ingestion_sequence=ingestion_sequence,
+        immutable_event_id=immutable_event_id,
+    )
+    return attach_temporal_envelope(payload, envelope)
 
 
 def _price_precision(price: float | None) -> int | None:
@@ -60,17 +100,22 @@ def _price_precision(price: float | None) -> int | None:
     return 0
 
 
-def _attach_provenance(payload: dict[str, Any], *, symbol: str, source: str | None) -> dict[str, Any]:
-    from data_provenance_score import compute_data_provenance_score
-
-    prov = compute_data_provenance_score(symbol=symbol)
+def _attach_b1_metadata(
+    payload: dict[str, Any],
+    *,
+    source: str | None,
+    source_raw: Any = None,
+    source_unit: TimestampUnit | None = None,
+) -> dict[str, Any]:
     out = dict(payload)
-    out["provenance"] = prov
-    out["data_provenance"] = prov
     out["source"] = source
     out["sources"] = [source] if source else []
     out["observed_at"] = _utcnow_iso()
-    return attach_data_freshness(out, slo_class="T0")
+    return _attach_market_temporal(
+        out,
+        source_raw=source_raw if source_raw is not None else out["observed_at"],
+        source_unit=source_unit,
+    )
 
 
 def validate_ohlcv_invariants(bars: list[dict[str, Any]]) -> list[str]:
@@ -87,7 +132,7 @@ def validate_ohlcv_invariants(bars: list[dict[str, Any]]) -> list[str]:
 
 
 async def unified_exchange_connector(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
-    """Launch #42 / CAP-0504 — canonical exchange routing with provenance, no synthetic data."""
+    """Launch #42 / CAP-0504 — canonical exchange routing, no synthetic data."""
     params = dict(params or {})
     asset, pair = normalize_oracle_symbol(str(params.get("symbol") or symbol or "BTC"))
     probe = await probe_price_sources(asset)
@@ -119,6 +164,20 @@ async def unified_exchange_connector(*, symbol: str, params: dict[str, Any] | No
             )
 
     selected = next((r for r in routes if r.get("available")), None)
+    registry = build_launch57_source_registry()
+    registry_by_provider = {entry["provider"]: entry for entry in registry}
+    for route in routes:
+        meta = registry_by_provider.get(str(route.get("provider")))
+        if meta:
+            route["source_id"] = meta["source_id"]
+            route["source_role"] = meta["source_role"]
+            route["rights_licensing_status"] = meta["rights_licensing_status"]
+
+    reconciliation = build_price_reconciliation_from_probe(
+        primary_price=probe.get("resolved_price"),
+        primary_source=str(probe.get("resolved_source") or (selected or {}).get("provider") or ""),
+        probe=probe,
+    )
     body: dict[str, Any] = {
         "capability_id": 504,
         "launch_item_id": 42,
@@ -130,6 +189,8 @@ async def unified_exchange_connector(*, symbol: str, params: dict[str, Any] | No
         "routes": routes,
         "selected_provider": (selected or {}).get("provider"),
         "health_probe": probe,
+        "launch57_source_registry": registry,
+        "cross_source_reconciliation": reconciliation,
         "timeout_policy": {"rest_total_s": 12, "retry": "host_failover"},
         "success": selected is not None,
         "failure_state": None if selected else "UNAVAILABLE",
@@ -140,7 +201,22 @@ async def unified_exchange_connector(*, symbol: str, params: dict[str, Any] | No
     if not selected:
         body["error"] = "no_exchange_route_available"
         body["success"] = False
-    return ai_compliance_footer(_attach_provenance(body, symbol=asset, source=body.get("selected_provider")))
+    out = finalize_b1_response(_attach_b1_metadata(body, source=body.get("selected_provider")))
+    out = attach_material_observation(
+        out,
+        source=str(body.get("selected_provider")),
+        asset_id=asset,
+        data_type="exchange_connector",
+        normalized_value=probe.get("resolved_price"),
+        unit="USDT",
+    )
+    out["credential_boundary"] = build_credential_boundary_metadata(
+        launch_item_id=42,
+        credential_scope="public_rest",
+    )
+    out = attach_financial_security_envelope(out, surface_type="internal", launch_item_id=42)
+    out = attach_failure_recovery_envelope(out, surface_type="internal", launch_item_id=42)
+    return _attach_infrastructure_boundary(out, params=params)
 
 
 async def _fetch_ticker_via_connector(asset: str, pair: str, connector: dict[str, Any]) -> dict[str, Any] | None:
@@ -155,7 +231,7 @@ async def _fetch_ticker_via_connector(asset: str, pair: str, connector: dict[str
 
 
 async def real_time_prices(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
-    """Launch #22 / CAP-0561 — near-real-time price with freshness taxonomy; rejects stale as live."""
+    """Launch #22 / CAP-0561 — temporal price path; freshness semantics blocked until #41 reconciliation."""
     params = dict(params or {})
     asset, pair = normalize_oracle_symbol(str(params.get("symbol") or symbol or "BTC"))
     connector = await unified_exchange_connector(symbol=asset, params=params)
@@ -176,20 +252,53 @@ async def real_time_prices(*, symbol: str, params: dict[str, Any] | None = None)
             "backend_entrypoint": "real_time_prices",
             "binding_source": "launch57_phase1_batch1",
         }
-        return ai_compliance_footer(_attach_provenance(body, symbol=asset, source=None))
+        return _attach_infrastructure_boundary(
+            finalize_b1_response(
+                _attach_b1_metadata(body, source=None),
+                require_freshness_owner=True,
+            ),
+            params=params,
+        )
 
-    age_sec = float(ticker.get("age_sec") or 0)
-    if ticker.get("freshness_ms") is not None:
-        age_sec = float(ticker["freshness_ms"]) / 1000.0
-    fresh = classify_freshness(age_seconds=age_sec if age_sec else None, fallback=bool(ticker.get("fallback")))
-    freshness_state = fresh.state.value
+    from launch57.freshness_common import resolve_quote_age_sec
+
+    event_raw = ticker.get("event_time") or ticker.get("timestamp") or ticker.get("source_time")
+    age_sec, canonical_source = resolve_quote_age_sec(
+        age_sec=ticker.get("age_sec") if ticker.get("age_sec") is not None else None,
+        age_ms=ticker.get("freshness_ms"),
+        event_time=event_raw,
+        fetched_at=utc_now(),
+    )
 
     price = float(ticker["price"])
-    live_eligible = freshness_state in {
-        FreshnessState.LIVE.value,
-        FreshnessState.NEAR_LIVE.value,
-        FreshnessState.DELAYED.value,
-    }
+    source_raw = canonical_source or event_raw
+    source_validation = validate_provider_timestamp(source_raw) if source_raw is not None else None
+    if source_raw is not None and source_validation and not source_validation.ok:
+        body = {
+            "capability_id": 561,
+            "launch_item_id": 22,
+            "surface": "real_time_prices",
+            "symbol": asset,
+            "pair": pair,
+            "availability": "UNAVAILABLE",
+            "success": False,
+            "error": f"provider_timestamp_invalid:{source_validation.error}",
+            "provider_timestamp_validation": {
+                "ok": False,
+                "error": source_validation.error,
+                "raw": source_raw,
+            },
+            "backend_module": "launch57.data_batch1",
+            "backend_entrypoint": "real_time_prices",
+            "binding_source": "launch57_phase1_batch1",
+        }
+        return _attach_infrastructure_boundary(
+            finalize_b1_response(
+                _attach_b1_metadata(body, source=None, source_raw=source_raw),
+                require_freshness_owner=True,
+            ),
+            params=params,
+        )
 
     body: dict[str, Any] = {
         "capability_id": 561,
@@ -204,27 +313,47 @@ async def real_time_prices(*, symbol: str, params: dict[str, Any] | None = None)
         "volume": ticker.get("volume"),
         "quote_volume": ticker.get("quote_volume"),
         "provider": ticker.get("source"),
-        "event_timestamp": ticker.get("timestamp") or _utcnow_iso(),
+        "event_timestamp": to_rfc3339(source_validation.canonical) if source_validation and source_validation.canonical else _utcnow_iso(),
         "update_timestamp": _utcnow_iso(),
         "data_age_sec": age_sec,
-        "freshness_state": freshness_state,
-        "freshness_evidence": fresh.to_dict(),
-        "presented_as_live": live_eligible,
         "connector_ref": connector.get("selected_provider"),
-        "success": live_eligible,
+        "success": True,
+        "price_data_available": True,
         "backend_module": "launch57.data_batch1",
         "backend_entrypoint": "real_time_prices",
         "binding_source": "launch57_phase1_batch1",
     }
-    if not live_eligible:
-        body["error"] = "stale_or_unknown_not_presented_as_realtime"
-        body["availability"] = "STALE" if freshness_state == FreshnessState.STALE.value else "UNAVAILABLE"
-
-    out = _attach_provenance(body, symbol=asset, source=str(ticker.get("source")))
-    out["freshness_state"] = freshness_state
-    out["freshness_evidence"] = fresh.to_dict()
-    ok, out = reject_if_stale(out) if freshness_state == FreshnessState.STALE.value else (True, out)
-    return ai_compliance_footer(out)
+    out = _attach_b1_metadata(
+        body,
+        source=str(ticker.get("source")),
+        source_raw=source_raw,
+        source_unit=source_validation.unit if source_validation else None,
+    )
+    out = finalize_b1_response(out, require_freshness_owner=False)
+    out = apply_b1_freshness_reconciliation(
+        out,
+        age_sec=age_sec,
+        source_time=source_raw,
+        temporal=out.get("temporal"),
+    )
+    out["cross_source_reconciliation"] = build_price_reconciliation_from_probe(
+        primary_price=price,
+        primary_source=str(ticker.get("source")),
+        probe=connector.get("health_probe"),
+    )
+    out = attach_material_observation(
+        out,
+        source=str(ticker.get("source")),
+        asset_id=asset,
+        data_type="real_time_price",
+        event_time=source_raw,
+        raw_value=price,
+        normalized_value=price,
+        unit="USDT",
+        precision=_price_precision(price),
+        freshness_state=out.get("freshness_state"),
+    )
+    return _attach_infrastructure_boundary(out, params=params)  # canonical #41 freshness via b1_freshness_bridge
 
 
 async def ohlcv(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -249,10 +378,23 @@ async def ohlcv(*, symbol: str, params: dict[str, Any] | None = None) -> dict[st
             "backend_entrypoint": "ohlcv",
             "binding_source": "launch57_phase1_batch1",
         }
-        return ai_compliance_footer(body)
+        return attach_chart_envelope(finalize_b1_response(body), params=params)
 
     bars, source_host = await fetch_binance_klines_bars(pair, interval=interval, limit=limit)
     violations = validate_ohlcv_invariants(bars) if bars else ["no_bars"]
+    ordered_bars = bars
+    if bars:
+        bar_rows = [
+            {
+                "open_time_ms": bar.get("open_time_ms"),
+                "source_sequence": idx,
+                "ingestion_sequence": idx,
+                "immutable_event_id": f"{pair}:{interval}:{bar.get('open_time_ms')}",
+                **bar,
+            }
+            for idx, bar in enumerate(bars)
+        ]
+        ordered_bars = sort_by_temporal_key(bar_rows, time_field="open_time_ms")
 
     body: dict[str, Any] = {
         "capability_id": 507,
@@ -263,8 +405,8 @@ async def ohlcv(*, symbol: str, params: dict[str, Any] | None = None) -> dict[st
         "interval": interval,
         "timezone": "UTC",
         "bar_order": "ascending_by_open_time",
-        "bars": bars,
-        "bar_count": len(bars),
+        "bars": ordered_bars,
+        "bar_count": len(ordered_bars),
         "partial_semantics": "incomplete_tail_candle_may_exist",
         "invariant_violations": violations,
         "provider": f"binance:{source_host}",
@@ -277,7 +419,14 @@ async def ohlcv(*, symbol: str, params: dict[str, Any] | None = None) -> dict[st
         body["error"] = "ohlcv_invariant_violation" if bars else "ohlcv_unavailable"
         body["success"] = False
 
-    return ai_compliance_footer(_attach_provenance(body, symbol=asset, source=body.get("provider")))
+    first_open = ordered_bars[0].get("open_time_ms") if ordered_bars else None
+    body = _attach_b1_metadata(
+        body,
+        source=body.get("provider"),
+        source_raw=first_open,
+        source_unit=TimestampUnit.MILLISECONDS if first_open is not None else None,
+    )
+    return attach_chart_envelope(finalize_b1_response(body), params=params)
 
 
 async def quote_data(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -302,7 +451,7 @@ async def quote_data(*, symbol: str, params: dict[str, Any] | None = None) -> di
             "backend_entrypoint": "quote_data",
             "binding_source": "launch57_phase1_batch1",
         }
-        return ai_compliance_footer(body)
+        return _attach_infrastructure_boundary(finalize_b1_response(body), params=params)
 
     price = float(ticker.get("price") or 0)
     quote = {
@@ -329,7 +478,10 @@ async def quote_data(*, symbol: str, params: dict[str, Any] | None = None) -> di
         "backend_entrypoint": "quote_data",
         "binding_source": "launch57_phase1_batch1",
     }
-    return ai_compliance_footer(_attach_provenance(body, symbol=asset, source=str(ticker.get("source"))))
+    return _attach_infrastructure_boundary(
+        finalize_b1_response(_attach_b1_metadata(body, source=str(ticker.get("source")))),
+        params=params,
+    )
 
 
 async def symbol_metadata(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -353,7 +505,7 @@ async def symbol_metadata(*, symbol: str, params: dict[str, Any] | None = None) 
             "backend_entrypoint": "symbol_metadata",
             "binding_source": "launch57_phase1_batch1",
         }
-        return ai_compliance_footer(body)
+        return _attach_infrastructure_boundary(finalize_b1_response(body), params=params)
 
     if meta.get("delisted"):
         body = {
@@ -370,7 +522,10 @@ async def symbol_metadata(*, symbol: str, params: dict[str, Any] | None = None) 
             "backend_entrypoint": "symbol_metadata",
             "binding_source": "launch57_phase1_batch1",
         }
-        return ai_compliance_footer(_attach_provenance(body, symbol=asset, source=meta.get("provider")))
+        return _attach_infrastructure_boundary(
+            finalize_b1_response(_attach_b1_metadata(body, source=meta.get("provider"))),
+            params=params,
+        )
 
     body = {
         "capability_id": 513,
@@ -385,11 +540,14 @@ async def symbol_metadata(*, symbol: str, params: dict[str, Any] | None = None) 
         "backend_entrypoint": "symbol_metadata",
         "binding_source": "launch57_phase1_batch1",
     }
-    return ai_compliance_footer(_attach_provenance(body, symbol=asset, source=meta.get("provider")))
+    return _attach_infrastructure_boundary(
+        finalize_b1_response(_attach_b1_metadata(body, source=meta.get("provider"))),
+        params=params,
+    )
 
 
 async def spot_market_metrics_suite(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
-    """Launch #21 / CAP-0047 — spot metrics with honest freshness (no false live)."""
+    """Launch #21 / CAP-0047 — spot metrics with canonical #41 freshness reconciliation."""
     params = dict(params or {})
     asset, pair = normalize_oracle_symbol(str(params.get("symbol") or symbol or "BTC"))
     limit = int(params.get("limit") or 20)
@@ -434,13 +592,6 @@ async def spot_market_metrics_suite(*, symbol: str, params: dict[str, Any] | Non
             "lineage": "unavailable",
         }
 
-    freshness_state = "UNAVAILABLE"
-    if data_source not in {"unavailable", "websocket_empty"} and metrics.get("price") is not None:
-        freshness_state = FreshnessState.NEAR_LIVE.value if "binance" in str(data_source) else FreshnessState.DELAYED.value
-    elif ticker:
-        fresh = classify_freshness(fallback=bool(ticker.get("fallback")))
-        freshness_state = fresh.state.value
-
     body = {
         "capability_id": 47,
         "launch_item_id": 21,
@@ -451,8 +602,6 @@ async def spot_market_metrics_suite(*, symbol: str, params: dict[str, Any] | Non
         "overview_source": data_source,
         "overview_count": len(assets),
         "probe_resolved": probe.get("resolved"),
-        "freshness_state": freshness_state,
-        "presented_as_live": freshness_state in {FreshnessState.LIVE.value, FreshnessState.NEAR_LIVE.value, FreshnessState.DELAYED.value},
         "unknown_is_not_zero": True,
         "success": metrics.get("price") is not None,
         "backend_module": "launch57.data_batch1",
@@ -462,7 +611,21 @@ async def spot_market_metrics_suite(*, symbol: str, params: dict[str, Any] | Non
     if metrics.get("price") is None:
         body["error"] = "metrics_unavailable"
 
-    return ai_compliance_footer(_attach_provenance(body, symbol=asset, source=data_source))
+    out = finalize_b1_response(_attach_b1_metadata(body, source=data_source), require_freshness_owner=False)
+    age_sec = None
+    if ticker and ticker.get("age_sec") is not None:
+        age_sec = float(ticker.get("age_sec"))
+    elif ticker and ticker.get("freshness_ms") is not None:
+        age_sec = float(ticker["freshness_ms"]) / 1000.0
+    return _attach_infrastructure_boundary(
+        apply_b1_freshness_reconciliation(
+            out,
+            age_sec=age_sec,
+            source_time=(ticker or {}).get("timestamp"),
+            temporal=out.get("temporal"),
+        ),
+        params=params,
+    )
 
 
 _DISPATCH_ENTRYPOINTS: dict[int, str] = {

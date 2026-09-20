@@ -1,15 +1,15 @@
 # Phase 8 Pre-Live Checklist (report only — NO PASS_LIVE granted)
 
 **Verdict:** `LAUNCH57_PRE_LIVE_CLOSED=YES`
-**Commit:** `8ce0bc7c41e89c7b23a75f476a80b2375eee1582`
-**Source baseline:** Phase 7 @ `8ce0bc7c`
+**Commit:** `f1700f7cc19dae6ebd099f29bca1a787d40776b4`
+**Source baseline:** Phase 7 @ `9846346c`
 
 ## Checklist
 
 - [x] Hero matrix complete for 57 launch items
 - [x] Zero launch hero depends on PARKED capability
 - [x] System graph: no orphan material in launch scope
-- [x] E2E launch journeys (5/5)
+- [x] E2E launch journeys (14/14)
 - [x] Launch surface isolation (LAUNCH57_IDS only)
 - [x] NO PASS_LIVE claimed in this phase
 

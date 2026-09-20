@@ -1,0 +1,56 @@
+{
+  "artifact": "BLACKDARK_LAUNCH57_COMMERCIAL_READINESS",
+  "generated_at": "2026-09-18T15:27:40.281539+00:00",
+  "implementation_sha": "49851007",
+  "LAUNCH57_INVENTORY_COMPLETE": true,
+  "ENGINEERING_EVIDENCE_SUFFICIENT": true,
+  "COMMERCIAL_READY_FOR_TIER_DESIGN": false,
+  "EXTERNAL_ASSURANCE_COMPLETE": false,
+  "LAUNCH57_COMMERCIAL_INVENTORY_AUDIT_CLOSED": true,
+  "reconciliation_counters": {
+    "LAUNCH57_EXPECTED_COUNT": 57,
+    "LAUNCH57_RECONCILED_COUNT": 57,
+    "ALIASES_COUNT": 0,
+    "DUPLICATE_CANONICAL_COUNT": 0,
+    "PASS_ENGINEERING_COUNT": 9,
+    "PENDING_VERIFICATION_COUNT": 48,
+    "NOT_COMPLETE_COUNT": 0,
+    "BLOCKED_EXTERNAL_COUNT": 0,
+    "PASS_LIVE_COUNT": 0,
+    "PUBLIC_ANONYMOUS_COUNT": 24,
+    "AUTHENTICATED_FREE_COUNT": 44,
+    "PAID_PRIVATE_COUNT": 4,
+    "INSTITUTIONAL_RELEVANT_COUNT": 12,
+    "NOT_SURFACED_COUNT": 0,
+    "MATERIAL_COST_UNKNOWNS": 57,
+    "MATERIAL_RIGHTS_UNKNOWNS": 57,
+    "COMMERCIAL_BLOCKERS": [
+      "engineering_pending_verification",
+      "CONSUMER_PATH_MISSING"
+    ],
+    "UNRESOLVED_CANONICAL_IDS": [],
+    "LAUNCH57_INVENTORY_COMPLETE": true
+  },
+  "independent_recomputation": {
+    "INDEPENDENT_RECOMPUTATION_MATCH": true,
+    "SELF_REFERENTIAL_AUDIT_EVIDENCE_COUNT": 0,
+    "direct_register_count": 57,
+    "inventory_count": 57,
+    "counter_reconciled_count": 57,
+    "status_recompute": {
+      "PENDING_VERIFICATION": 48,
+      "PASS_ENGINEERING": 9
+    },
+    "counter_status_pass": 9,
+    "sources": [
+      "governance/launch57/LAUNCH57_REGISTER.json",
+      "launch57/identity_auth_common.py",
+      "launch57/billing_entitlement_common.py",
+      "launch57/anonymous_visitor_common.py"
+    ]
+  },
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "AUDIT_ONLY": true,
+  "STOP_AFTER_AUDIT": true,
+  "tests_pass": true
+}

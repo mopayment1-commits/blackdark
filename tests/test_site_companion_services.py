@@ -82,7 +82,8 @@ def test_templates_wire_companion_surfaces():
     assert "sendChat" in dash
     assert "partials/site_footer.html" in dash
     assert "partials/site_footer.html" in land
-    assert "Follow us" in foot
+    assert "/terms" in foot
+    assert "/how-it-works" in foot
     assert "page == 'faq'" in util
     assert "page == 'legal_hub'" in util
     assert "page == 'status'" in util

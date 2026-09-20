@@ -1,0 +1,205 @@
+{
+  "artifact": "STEP02_LIVE_BLOCKERS",
+  "generated_at": "2026-09-19T09:51:29Z",
+  "source_commit": "cdf73650",
+  "gate_step": "STEP02_PRE_LAUNCH_GATE",
+  "PASS_LIVE_CLAIMED": false,
+  "regression_smoke": {
+    "all_green": true,
+    "suites": [
+      {
+        "id": "A",
+        "name": "isolation_support_plane_phase123",
+        "exit_code": 0,
+        "tests": 50
+      },
+      {
+        "id": "B",
+        "name": "spec02_anonymous_matrix",
+        "exit_code": 0,
+        "tests": 14
+      },
+      {
+        "id": "C",
+        "name": "spec03_entitlement",
+        "exit_code": 0,
+        "tests": 16
+      },
+      {
+        "id": "D",
+        "name": "spec10_financial_secret_hygiene",
+        "exit_code": 0,
+        "tests": 15
+      },
+      {
+        "id": "E",
+        "name": "spec11_temporal",
+        "exit_code": 0,
+        "tests": 26
+      },
+      {
+        "id": "F",
+        "name": "phase8_e2e_acceptance",
+        "exit_code": 0,
+        "tests": 6
+      }
+    ],
+    "total_tests": 127
+  },
+  "verdict": "NO-GO",
+  "recommended_payments_path": "free_only_until_stripe_entity_ready",
+  "p0_blockers": [
+    "HOST-DEPLOY-01",
+    "SECRETS-PROD-01"
+  ],
+  "blockers": [
+    {
+      "id": "HOST-DEPLOY-01",
+      "domain": "hosting_https_domain",
+      "blocks_paid_launch": true,
+      "blocks_free_invite_launch": true,
+      "severity": "P0",
+      "owner_action": "Deploy to public HTTPS staging/prod; set APP_BASE_URL; probe /health/live and Launch-57 anonymous matrix on live URL",
+      "deferred_ok": false,
+      "evidenced_this_run": false
+    },
+    {
+      "id": "SECRETS-PROD-01",
+      "domain": "production_env_secrets",
+      "blocks_paid_launch": true,
+      "blocks_free_invite_launch": true,
+      "severity": "P0",
+      "owner_action": "Inject production secrets via host/Vault — never commit to git",
+      "deferred_ok": false,
+      "evidenced_this_run": false
+    },
+    {
+      "id": "PAY-STRIPE-01",
+      "domain": "stripe_payments",
+      "blocks_paid_launch": true,
+      "blocks_free_invite_launch": false,
+      "severity": "P0",
+      "owner_action": "Stripe or Lemon MoR under non-Egypt-constrained merchant entity; configure STRIPE_* or LEMON_SQUEEZY_* env",
+      "deferred_ok": true,
+      "repo_reference": "billing/ops_readiness.py, BLACKDARK_LAUNCH57_BILLING_ENTITLEMENT_RECONCILIATION.json"
+    },
+    {
+      "id": "PAY-WEBHOOK-01",
+      "domain": "payment_webhook_reachability",
+      "blocks_paid_launch": true,
+      "blocks_free_invite_launch": false,
+      "severity": "P0",
+      "owner_action": "Expose TLS webhook endpoints; verify signing secrets",
+      "deferred_ok": true
+    },
+    {
+      "id": "PAY-TAX-01",
+      "domain": "tax_mor_configuration",
+      "blocks_paid_launch": true,
+      "blocks_free_invite_launch": false,
+      "severity": "P1",
+      "owner_action": "Configure production tax with PSP",
+      "deferred_ok": true
+    },
+    {
+      "id": "EMAIL-DELIVERY-01",
+      "domain": "email_verify_reset",
+      "blocks_paid_launch": true,
+      "blocks_free_invite_launch": false,
+      "severity": "P1",
+      "owner_action": "Configure SMTP or transactional email for verification/reset",
+      "deferred_ok": true,
+      "repo_reference": "BLACKDARK_LAUNCH57_IDENTITY_AUTH_PROFILE_RECONCILIATION.json"
+    },
+    {
+      "id": "DATA-PAID-API-01",
+      "domain": "paid_market_data_apis",
+      "blocks_paid_launch": false,
+      "blocks_free_invite_launch": false,
+      "severity": "P2",
+      "owner_action": "Optional: COINGLASS, DEBANK, LUNARCRUSH, ARKHAM, explorer keys — free fallbacks exist",
+      "deferred_ok": true,
+      "env_keys": [
+        "COINGLASS_API_KEY",
+        "DEBANK_API_KEY",
+        "LUNARCRUSH_API_KEY",
+        "ARKHAM_API_KEY",
+        "ETHERSCAN_API_KEY",
+        "WHALE_ALERT_API_KEY",
+        "GLASSNODE_API_KEY"
+      ]
+    },
+    {
+      "id": "DATA-TELEGRAM-01",
+      "domain": "telegram_alert_delivery",
+      "blocks_paid_launch": false,
+      "blocks_free_invite_launch": false,
+      "severity": "P2",
+      "owner_action": "TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID for Launch #33 external push",
+      "deferred_ok": true,
+      "launch_item_ids": [33],
+      "degrade_behavior": "delivery_status BLOCKED_EXTERNAL"
+    },
+    {
+      "id": "DATA-MVRV-01",
+      "domain": "licensed_mvrv_feed",
+      "blocks_paid_launch": false,
+      "blocks_free_invite_launch": false,
+      "severity": "P2",
+      "owner_action": "Licensed MVRV vendor or accept CoinGecko proxy with licensed_mvrv_feed false",
+      "deferred_ok": true,
+      "launch_item_ids": [38],
+      "degrade_behavior": "presented_as_live false when z_score missing"
+    },
+    {
+      "id": "NTP-CLOCK-01",
+      "domain": "ntp_host_clock",
+      "blocks_paid_launch": false,
+      "blocks_free_invite_launch": false,
+      "severity": "P2",
+      "owner_action": "Production NTP sync evidence for PASS_LIVE",
+      "deferred_ok": true,
+      "repo_reference": "launch57/global_time_temporal_consistency_spec_common.py"
+    },
+    {
+      "id": "MONITOR-MIN-01",
+      "domain": "monitoring_alerts",
+      "blocks_paid_launch": true,
+      "blocks_free_invite_launch": false,
+      "severity": "P1",
+      "owner_action": "MONITORING_BASE_URL, Sentry optional, external uptime on /health/live",
+      "deferred_ok": true,
+      "repo_reference": "MONITORING_SETUP_REPORT.json"
+    },
+    {
+      "id": "LEGAL-PAGES-01",
+      "domain": "legal_terms_privacy_risk",
+      "blocks_paid_launch": true,
+      "blocks_free_invite_launch": false,
+      "severity": "P1",
+      "owner_action": "Verify /terms /privacy /disclaimer /refund live on deploy URL; counsel review",
+      "deferred_ok": false,
+      "repo_present": true,
+      "routes": ["/terms", "/privacy", "/disclaimer", "/refund"]
+    },
+    {
+      "id": "OAUTH-PROD-01",
+      "domain": "oauth_google_github",
+      "blocks_paid_launch": false,
+      "blocks_free_invite_launch": false,
+      "severity": "P2",
+      "owner_action": "OAUTH_GOOGLE_* and OAUTH_GITHUB_* for production OIDC",
+      "deferred_ok": true
+    },
+    {
+      "id": "B2B-KEY-01",
+      "domain": "b2b_api_feed",
+      "blocks_paid_launch": false,
+      "blocks_free_invite_launch": false,
+      "severity": "P2",
+      "owner_action": "BLACKDARK_B2B_API_KEY for /api/b2b/feed",
+      "deferred_ok": true
+    }
+  ],
+  "NEXT_STEP_FOR_OWNER": "Deploy to HTTPS staging, run live probes (/health/live, guest-trust 200, command-home 401 anon), then re-run Step ② live slice; keep free-only until non-EG Stripe/Lemon merchant is live."
+}

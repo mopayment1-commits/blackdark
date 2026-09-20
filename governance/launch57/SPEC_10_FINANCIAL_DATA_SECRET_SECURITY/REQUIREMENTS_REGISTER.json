@@ -1,0 +1,338 @@
+{
+  "artifact": "SPEC_10_REQUIREMENTS_REGISTER",
+  "domain": "SPEC_10_FINANCIAL_DATA_SECRET_SECURITY",
+  "generated_at": "2026-09-19T00:42:28.704093+00:00",
+  "spec_version": "launch57-spec10-financial-data-secret-security-1.0.0",
+  "requirement_count": 24,
+  "requirements": [
+    {
+      "req_id": "REQ-S10-001",
+      "title": "Launch-57 security scope lock only",
+      "spec_section": "§2",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/financial_security_common.py"
+      ],
+      "tests": [
+        "test_financial_security.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S10-002",
+      "title": "No raw card auth data on backend",
+      "spec_section": "§5",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/financial_security_common.py"
+      ],
+      "tests": [
+        "test_financial_security.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S10-003",
+      "title": "Payment flow tokenized provider-hosted",
+      "spec_section": "§5–§6",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/financial_security_common.py"
+      ],
+      "tests": [
+        "test_financial_security.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S10-004",
+      "title": "Secret redaction in responses/logs",
+      "spec_section": "§14",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/financial_security_common.py"
+      ],
+      "tests": [
+        "test_financial_security.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S10-005",
+      "title": "AI/LLM secret exclusion boundary",
+      "spec_section": "§15",
+      "launch_ids": [
+        36
+      ],
+      "owner_modules": [
+        "launch57/financial_security_common.py"
+      ],
+      "tests": [
+        "test_financial_security.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S10-006",
+      "title": "Public/private projection separation",
+      "spec_section": "§18",
+      "launch_ids": [
+        44,
+        45,
+        46
+      ],
+      "owner_modules": [
+        "launch57/financial_security_common.py"
+      ],
+      "tests": [
+        "test_financial_security.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S10-007",
+      "title": "Exchange credential isolation #42/#43",
+      "spec_section": "§8",
+      "launch_ids": [
+        42,
+        43
+      ],
+      "owner_modules": [
+        "launch57/financial_security_common.py"
+      ],
+      "tests": [
+        "test_financial_security.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S10-008",
+      "title": "Cross-user access denied",
+      "spec_section": "§10",
+      "launch_ids": [
+        49,
+        50
+      ],
+      "owner_modules": [
+        "launch57/financial_security_common.py"
+      ],
+      "tests": [
+        "test_financial_security.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S10-009",
+      "title": "Privileged access MFA reference",
+      "spec_section": "§11",
+      "launch_ids": [],
+      "owner_modules": [
+        "privileged_access/"
+      ],
+      "tests": [
+        "test_financial_security.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S10-010",
+      "title": "Environment isolation enforced",
+      "spec_section": "§13",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/financial_security_common.py"
+      ],
+      "tests": [
+        "test_financial_security.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S10-011",
+      "title": "Webhook signature verification fail-closed",
+      "spec_section": "§16",
+      "launch_ids": [],
+      "owner_modules": [
+        "transport_webhook_env/webhook_lifecycle.py"
+      ],
+      "tests": [
+        "test_spec03"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S10-012",
+      "title": "No API keys in client/HTML bundles",
+      "spec_section": "§17",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/financial_security_common.py"
+      ],
+      "tests": [
+        "test_spec10"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S10-013",
+      "title": "FILE 02 anonymous denied on private financial",
+      "spec_section": "§9",
+      "launch_ids": [
+        1,
+        49
+      ],
+      "owner_modules": [
+        "launch57/anonymous_visitor_common.py"
+      ],
+      "tests": [
+        "test_spec02"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S10-014",
+      "title": "FILE 03 entitlement spoof blocked",
+      "spec_section": "§10",
+      "launch_ids": [
+        33
+      ],
+      "owner_modules": [
+        "launch57/billing_entitlement_common.py"
+      ],
+      "tests": [
+        "test_spec03"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S10-015",
+      "title": "IDOR blocked on sensitive routes",
+      "spec_section": "§10",
+      "launch_ids": [
+        49
+      ],
+      "owner_modules": [
+        "launch57/financial_security_common.py"
+      ],
+      "tests": [
+        "test_spec10"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S10-016",
+      "title": "Runtime security paths wired",
+      "spec_section": "§26",
+      "launch_ids": [
+        42,
+        36,
+        44
+      ],
+      "owner_modules": [
+        "launch57/data_batch1.py"
+      ],
+      "tests": [
+        "test_spec10"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S10-017",
+      "title": "Sensitive data inventory complete",
+      "spec_section": "§33-C",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/financial_security_common.py"
+      ],
+      "tests": [
+        "test_financial_security.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S10-018",
+      "title": "Secret inventory complete",
+      "spec_section": "§33-D",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/financial_security_common.py"
+      ],
+      "tests": [
+        "test_financial_security.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S10-019",
+      "title": "Incident playbook reference",
+      "spec_section": "§24",
+      "launch_ids": [],
+      "owner_modules": [
+        "fds_retention_incident/incident_playbook.py"
+      ],
+      "tests": [
+        "test_financial_security.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S10-020",
+      "title": "No PARKED security scope",
+      "spec_section": "§2",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/financial_security_common.py"
+      ],
+      "tests": [
+        "test_spec10"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S10-021",
+      "title": "PASS_LIVE not claimed",
+      "spec_section": "§31",
+      "launch_ids": [],
+      "owner_modules": [],
+      "tests": [],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S10-022",
+      "title": "Acceptance criteria engineering gate",
+      "spec_section": "§32",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/financial_security_common.py"
+      ],
+      "tests": [
+        "test_spec10"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S10-023",
+      "title": "Independent verification adversarial probes",
+      "spec_section": "§30",
+      "launch_ids": [],
+      "owner_modules": [],
+      "tests": [
+        "test_spec10"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S10-024",
+      "title": "Envelope cannot grant PASS_ENGINEERING",
+      "spec_section": "§35",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/financial_security_common.py"
+      ],
+      "tests": [
+        "test_financial_security.py"
+      ],
+      "mandatory": true
+    }
+  ]
+}

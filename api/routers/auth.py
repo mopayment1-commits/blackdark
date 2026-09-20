@@ -24,6 +24,7 @@ from api.openapi_responses import COMMON_ERROR_RESPONSES
 from security_models import (
     AuthChangePasswordBody,
     AuthForgotPasswordBody,
+    AuthGoogleCredentialBody,
     AuthLoginBody,
     AuthMfaChallengeBody,
     AuthMfaConfirmBody,
@@ -119,6 +120,17 @@ async def auth_register(body: AuthRegisterBody, background_tasks: BackgroundTask
         return resp
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
+    except HTTPException:
+        raise
+    except RuntimeError as exc:
+        logger.exception("auth_register_runtime_failure")
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
+    except Exception as exc:
+        logger.exception("auth_register_failure")
+        raise HTTPException(
+            status_code=503,
+            detail=f"registration_unavailable:{type(exc).__name__}",
+        ) from exc
 
 
 @router.post("/login", responses=COMMON_ERROR_RESPONSES)
@@ -409,6 +421,43 @@ async def auth_oauth_status():
     from oauth_service import oauth_status
 
     return oauth_status()
+
+
+@router.post("/oauth/google/credential", responses=COMMON_ERROR_RESPONSES)
+async def auth_google_credential(
+    body: AuthGoogleCredentialBody,
+    background_tasks: BackgroundTasks,
+):
+    from oauth_service import google_signin_status, login_or_link_oauth_user, verify_google_credential
+    from pricing_catalog import normalize_signup_plan
+
+    gis = google_signin_status()
+    if gis["state"] != "CONFIGURED":
+        raise HTTPException(
+            status_code=503,
+            detail=gis.get("message") or "Google sign-in not configured",
+        )
+    try:
+        profile = await verify_google_credential(body.credential)
+        result = await login_or_link_oauth_user(profile)
+        selected_plan = normalize_signup_plan(body.plan)
+        result["selected_plan"] = selected_plan
+        background_tasks.add_task(
+            record_behavior,
+            "auth_google_gis",
+            user=result.get("user"),
+            payload={"selected_plan": selected_plan},
+        )
+        from observability import increment_metric
+
+        increment_metric("auth_logins_total")
+        resp = JSONResponse(_session_response_body(result))
+        _attach_session_cookie(resp, result.get("token"))
+        return resp
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    except Exception as exc:
+        raise HTTPException(status_code=502, detail=f"Google sign-in failed: {exc}") from exc
 
 
 @router.get("/oauth/{provider}/start", responses=COMMON_ERROR_RESPONSES)

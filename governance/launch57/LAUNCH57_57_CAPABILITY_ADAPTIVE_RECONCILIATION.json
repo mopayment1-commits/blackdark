@@ -1,0 +1,1515 @@
+{
+  "artifact": "LAUNCH57_57_CAPABILITY_ADAPTIVE_RECONCILIATION",
+  "session_type": "read_only_57_capability_adaptive_reconciliation",
+  "generated_at": "2026-09-18T02:45:00+00:00",
+  "source_commit": "f1700f7c",
+  "supersession": {
+    "prior_generated_at": "2026-09-17T20:54:46.451358+00:00",
+    "prior_source_commit": "8750e0b9",
+    "hygiene_phase": 0,
+    "hygiene_gap_id": "G6",
+    "superseding_engineering_verdict": {
+      "artifact": "governance/launch57/PHASE8_LAUNCH_COHERENCE_INDEPENDENT_VERIFICATION.json",
+      "PHASE8_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+      "sha": "afa3bab0",
+      "implementation_sha": "f1700f7c",
+      "LAUNCH57_PRE_LIVE_CLOSED": "YES"
+    },
+    "support_plane_gap_register": "governance/launch57/SUPPORT_PLANE_GAP_REGISTER.json",
+    "note": "Historical matrix rows preserved; stale baseline fields corrected post Phase 5–8. Do not treat pre-hygiene progressive_disclosure=MISSING or #6 CONFLICT as current."
+  },
+  "scope_lock": {
+    "CURRENT_APPROVED_BUILD_SCOPE": "LAUNCH57",
+    "LAUNCH57_COUNT": 57,
+    "LAUNCH57_IDS": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57
+    ],
+    "EVERYTHING_ELSE": "PARKED_OUT_OF_LAUNCH"
+  },
+  "authority_chain": [
+    "BLACKDARK_NEW_BUILD_57_CAPABILITIES.md",
+    "BLACKDARK — خطة البناء النهائية (Launch-57)",
+    "BLACKDARK_Launch57_Adaptive_Intelligence_Decision_Experience_FINAL_AUDITED_57.md",
+    "repository implementation and verification evidence"
+  ],
+  "governing_sources": {
+    "adaptive_spec": "BLACKDARK_Launch57_Adaptive_Intelligence_Decision_Experience_FINAL_AUDITED_57.md",
+    "launch57_register": "governance/launch57/LAUNCH57_REGISTER.json",
+    "six_hero_matrix": "governance/launch57/LAUNCH57_SIX_HERO_MATRIX.json",
+    "phase8_coherence": "governance/launch57/PHASE8_LAUNCH_COHERENCE_EVIDENCE.json",
+    "system_graph": "governance/launch57/LAUNCH57_CAPABILITY_SYSTEM_GRAPH.json"
+  },
+  "authority_reconciliation": {
+    "register_hero_status_drifts": 49,
+    "register_hero_drifts_resolved_via_phase8": 49,
+    "unresolved_authority_conflicts": 0,
+    "authority_conflict_details": [
+      {
+        "launch_number": 6,
+        "type": "CANONICAL_PATH_CONFLICT",
+        "register_canonical": [],
+        "runtime_owner": "launch57/evidence_class_common.py",
+        "unresolved": false,
+        "resolved_by": "governance/launch57/LAUNCH57_CAPABILITY_6_AUTHORITY_RESOLUTION.json",
+        "resolution_verdict": "CAPABILITY_6_AUTHORITY=RESOLVED"
+      }
+    ]
+  },
+  "engineering_baseline": {
+    "phase8_pre_live_verdict": "LAUNCH57_PRE_LIVE_CLOSED=YES",
+    "e2e_passed": 14,
+    "e2e_total": 14,
+    "pass_live_granted": false,
+    "hero_pass_engineering": 55,
+    "hero_blocked_external": [
+      33,
+      38
+    ]
+  },
+  "support_structure_audit": {
+    "intent_router": {
+      "state": "EXISTING_BUT_INCOMPLETE",
+      "evidence": "intent_router.py (root, display-layer); not Launch-57 scoped; Adaptive §23 requires governed Launch-57 router",
+      "requirement": "Adaptive Spec §23"
+    },
+    "decision_contract": {
+      "state": "NON_GAP_SEMANTICS_ON_PATH",
+      "evidence": "launch57/trust_adaptive_common.py adaptive_disclosure.level_1 + domain disclosure blocks on canonical paths; decision_truth/contract.py class not required (Support Plane NG-F2)",
+      "requirement": "Adaptive Spec §24"
+    },
+    "confidence_uncertainty": {
+      "state": "EXISTING_AND_SUFFICIENT",
+      "evidence": "launch57/decision_timing_common.py, trust_batch1.py qualitative uncertainty + abstain paths",
+      "requirement": "Adaptive Spec §25"
+    },
+    "decision_boundary": {
+      "state": "NON_GAP_PER_PATH",
+      "evidence": "decision_timing_common, shareable_public_timing_common, due_diligence_risk_timing_common on applicable paths (Support Plane NG-F4)",
+      "requirement": "Adaptive Spec §26"
+    },
+    "trust_presentation": {
+      "state": "EXISTING_AND_SUFFICIENT",
+      "evidence": "launch57/evidence_class_common.py (#6), freshness_common (#41), provenance_common (#40)",
+      "requirement": "Adaptive Spec §27"
+    },
+    "progressive_disclosure": {
+      "state": "LEVEL_1_ONLY_L2_L5_OPEN",
+      "evidence": "launch57/trust_adaptive_common.py build_level1_decision_disclosure (layer level_1_decision); Phases 5–7 tests; no canonical L2–L5 layers (Support Plane G2)",
+      "requirement": "Adaptive Spec §28"
+    },
+    "typed_launch57_graph": {
+      "state": "EXISTING_AND_SUFFICIENT",
+      "evidence": "governance/launch57/LAUNCH57_CAPABILITY_SYSTEM_GRAPH.json (Phase 8)",
+      "requirement": "Adaptive Spec §27.1"
+    },
+    "six_hero_integration": {
+      "state": "EXISTING_AND_SUFFICIENT",
+      "evidence": "governance/launch57/LAUNCH57_SIX_HERO_MATRIX.json complete; zero parked hero deps",
+      "requirement": "Adaptive Spec §36"
+    }
+  },
+  "support_plane_remediation_state": {
+    "repair_basis": "diagnosis_report_2026-09-18",
+    "phase1_isolation": "PASS_ENGINEERING — ISOLATION_GAP false",
+    "phase2_section23": "PARTIAL — Command Home only (launch57/router_selection_contract.py)",
+    "phase3_section32": "PARTIAL — Command Home engineering defaults",
+    "phase28_l2_l5": "PARTIAL — Command Home progressive stack; cross-cap OPEN",
+    "section31_accessibility": "PARTIAL — engineering envelope on Command Home; audit OPEN",
+    "section31_1_human_validation": "PARTIAL — register only; study NOT_STARTED",
+    "FULL_CROSS_PATH_§23": false
+  },
+  "gap_control": [
+    {
+      "gap_id": "launch57_intent_router",
+      "governing_requirement": "Adaptive Spec §23 Launch-57 Intent Router with eligibility/coverage/stop/abstain; no PARKED selection",
+      "affected_capabilities": "all user-facing and decision-composition capabilities (47 of 57 excluding data spine 8, blocked 2, conflict 1)",
+      "current_repository_evidence": "launch57/router_selection_contract.py wired on Command Home (edge_ui_batch2); root intent_router.py display-only; cross-path composition OPEN",
+      "why_not_satisfied": "§23.5 pipeline not bound to all material composite paths (Command Home only)",
+      "remediation_class": "local_engineering",
+      "status": "PARTIAL_P2_COMMAND_HOME"
+    },
+    {
+      "gap_id": "progressive_disclosure",
+      "governing_requirement": "Adaptive Spec §28 Levels 2-5 progressive disclosure (L1 safety floor supported)",
+      "affected_capabilities": "all user-facing and decision-composition capabilities (47 of 57 excluding data spine 8, blocked 2, conflict 1)",
+      "current_repository_evidence": "build_progressive_disclosure_stack L1-L5 on Command Home; other launch57/* consumers L1-only",
+      "why_not_satisfied": "L2-L5 not integrated on all canonical consumer paths",
+      "remediation_class": "local_engineering",
+      "status": "PARTIAL_COMMAND_HOME"
+    },
+    {
+      "gap_id": "human_validation",
+      "governing_requirement": "Adaptive Spec §31.1 human validation loop for user-facing decision experience",
+      "affected_capabilities": "all user-facing and decision-composition capabilities (47 of 57 excluding data spine 8, blocked 2, conflict 1)",
+      "current_repository_evidence": "governance/launch57/SUPPORT_PLANE_HUMAN_VALIDATION_REGISTER.json — dimensions PENDING; study NOT_STARTED",
+      "why_not_satisfied": "No completed human-validation study artifacts",
+      "remediation_class": "mixed",
+      "status": "PARTIAL_REGISTER_ONLY"
+    }
+  ],
+  "matrix": [
+    {
+      "id": 1,
+      "capability": "Six Heroes Command Home — «ماذا أفعل الآن؟»",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.edge_ui_batch2",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "PRODUCT_COMPOSITE_ALL_SIX_HEROES",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/edge_ui_batch2.py",
+        "decision_truth/product/six_heroes.py",
+        "decision_truth/product/command_view.py",
+        "launch57/trust_batch1.py",
+        "api/routers/launch57_edge_ui.py"
+      ],
+      "tests_found": 0,
+      "evidence_bindings": [
+        "governance/launch57/PHASE7_BATCH2_EVIDENCE.json"
+      ]
+    },
+    {
+      "id": 2,
+      "capability": "Single-Sentence Oracle (ACT/WAIT/ABSTAIN)",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "trust_pulse.py + decision_truth pipeline (hero surface)",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "HERO_1_SINGLE_SENTENCE_ORACLE",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "BLACKDARK_CAPABILITY_SIX_HERO_MATRIX.json#canonical_product_heroes[0]",
+        "api/routers/heroes.py",
+        "decision_truth/product/six_heroes.py",
+        "docs/HERO_SIX_BINDING_REPORT.json"
+      ],
+      "tests_found": 1,
+      "evidence_bindings": []
+    },
+    {
+      "id": 3,
+      "capability": "Decision Certificate + hash",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.trust_batch1",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/trust_batch1.py",
+        "decision_certificate.py",
+        "cap646/institutional_official_production.py"
+      ],
+      "tests_found": 1,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 4,
+      "capability": "Public Accuracy Ledger (حي فقط)",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.trust_batch1",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/trust_batch1.py",
+        "oracle_track_record.py",
+        "cap646/institutional_official_production.py"
+      ],
+      "tests_found": 1,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 5,
+      "capability": "Net-Edge / Cost Autopsy على كل فرصة أو إشارة",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.trust_batch1",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/trust_batch1.py",
+        "cap646/institutional_official_production.py",
+        "net_edge_truth.py"
+      ],
+      "tests_found": 3,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 6,
+      "capability": "Evidence class ظاهر (LIVE / DELAYED / SIM)",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "CONFLICT",
+      "existing_canonical_path": "launch57/evidence_class_common.py",
+      "exact_gap": "Register canonical_implementation=[] and cap646 consumer paths conflict with Launch-57 owner launch57/evidence_class_common.py; no dedicated #6 reconciliation IV artifact",
+      "gap_type": "authority_conflict",
+      "external_live_only": false,
+      "hero_mapping": "NOT_APPLICABLE",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "cap646/evidence_class.py",
+        "decision_truth/evidence_taxonomy.py",
+        "user_exposure_log.py"
+      ],
+      "tests_found": 2,
+      "evidence_bindings": []
+    },
+    {
+      "id": 7,
+      "capability": "Market Regime / Compass",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.decision_batch1",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/decision_batch1.py",
+        "launch57/decision_common.py",
+        "weight_aggregator.py"
+      ],
+      "tests_found": 0,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 8,
+      "capability": "Beginner Decision Mode",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.decision_batch1",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/decision_batch1.py",
+        "bd_platform/retail_intelligence_layer.py"
+      ],
+      "tests_found": 0,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 9,
+      "capability": "Cross-Signal Confirmation",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.decision_batch1",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/decision_batch1.py",
+        "signal_registry.py",
+        "sentiment_gate.py"
+      ],
+      "tests_found": 0,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 10,
+      "capability": "Contradiction Detection",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.decision_batch1",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/decision_batch1.py",
+        "sentiment_gate.py"
+      ],
+      "tests_found": 0,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 11,
+      "capability": "Smart Money Actionability Score",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.decision_batch1",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/decision_batch1.py",
+        "whale_tracker.py",
+        "launch57/trust_batch1.py"
+      ],
+      "tests_found": 0,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 12,
+      "capability": "Smart Money Conviction Engine",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.decision_batch2",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/decision_batch2.py",
+        "bd_platform/retail_intelligence_layer.py"
+      ],
+      "tests_found": 0,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 13,
+      "capability": "Accumulation / Distribution Detection",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.smart_money_batch1",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/smart_money_batch1.py",
+        "whale_signal_classifier.py"
+      ],
+      "tests_found": 0,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 14,
+      "capability": "Smart Money Token Screener",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.smart_money_batch1",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/smart_money_batch1.py",
+        "bd_platform/free_tier_capabilities.py"
+      ],
+      "tests_found": 1,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 15,
+      "capability": "Entity-Aware Wallet Intelligence",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.smart_money_batch2",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/smart_money_batch2.py",
+        "bd_platform/address_intelligence.py"
+      ],
+      "tests_found": 0,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 16,
+      "capability": "Exchange Flow Intelligence (in/out/net)",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.smart_money_batch1",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/smart_money_batch1.py",
+        "cap646/dedicated_common.py"
+      ],
+      "tests_found": 1,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 17,
+      "capability": "Exchange Whale Ratio + internal-flow filter",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.smart_money_batch1",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/smart_money_batch1.py",
+        "exchange_internal_flow_filter.py"
+      ],
+      "tests_found": 1,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 18,
+      "capability": "Whale Accumulation / Movement Alerts",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.smart_money_batch2",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/smart_money_batch2.py",
+        "whale_tracker.py"
+      ],
+      "tests_found": 0,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 19,
+      "capability": "Inter-Entity Flow (محدود الإطلاق)",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.smart_money_batch2",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/smart_money_batch2.py",
+        "onchain_tracker.py"
+      ],
+      "tests_found": 0,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 20,
+      "capability": "Address Labels & Cohorts (نواة محدودة)",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.smart_money_batch1",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/smart_money_batch1.py",
+        "launch57/smart_money_common.py",
+        "bd_platform/onchain_platform_layer.py"
+      ],
+      "tests_found": 0,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 21,
+      "capability": "Spot metrics suite (صادق التحديث)",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "ALREADY_SATISFIES_ADAPTIVE_SPEC",
+      "existing_canonical_path": "launch57.data_batch1",
+      "exact_gap": "—",
+      "gap_type": "none",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PASS_ENGINEERING",
+      "consumer_paths": [
+        "launch57/data_batch1.py",
+        "cap646/handlers/market.py",
+        "cap646/institutional_official_production.py"
+      ],
+      "tests_found": 1,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 22,
+      "capability": "Real-time / near-real-time prices",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "ALREADY_SATISFIES_ADAPTIVE_SPEC",
+      "existing_canonical_path": "launch57.data_batch1",
+      "exact_gap": "—",
+      "gap_type": "none",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PASS_ENGINEERING",
+      "consumer_paths": [
+        "launch57/data_batch1.py",
+        "cap646/institutional_official_production.py",
+        "api/routers/cap646.py"
+      ],
+      "tests_found": 2,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 23,
+      "capability": "OHLCV",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "ALREADY_SATISFIES_ADAPTIVE_SPEC",
+      "existing_canonical_path": "launch57.data_batch1",
+      "exact_gap": "—",
+      "gap_type": "none",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PASS_ENGINEERING",
+      "consumer_paths": [
+        "launch57/data_batch1.py",
+        "cap646/handlers/market.py",
+        "cap646/institutional_official_production.py"
+      ],
+      "tests_found": 2,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 24,
+      "capability": "Quote + symbol metadata",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "ALREADY_SATISFIES_ADAPTIVE_SPEC",
+      "existing_canonical_path": "launch57.data_batch1",
+      "exact_gap": "—",
+      "gap_type": "none",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PASS_ENGINEERING",
+      "consumer_paths": [
+        "launch57/data_batch1.py",
+        "cap646/institutional_official_production.py"
+      ],
+      "tests_found": 1,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 25,
+      "capability": "Futures OI intelligence",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.derivatives_batch1",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/derivatives_batch1.py",
+        "bd_platform/derivatives_hub.py"
+      ],
+      "tests_found": 0,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 26,
+      "capability": "Funding rate intelligence",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.derivatives_batch1",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/derivatives_batch1.py",
+        "bd_platform/derivatives_hub.py"
+      ],
+      "tests_found": 0,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 27,
+      "capability": "Liquidation intelligence / heatmap خفيف",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.derivatives_batch1",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/derivatives_batch1.py",
+        "bd_platform/liquidation_radar.py"
+      ],
+      "tests_found": 0,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 28,
+      "capability": "Taker buy/sell + leverage ratio",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.derivatives_batch1",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/derivatives_batch1.py",
+        "bd_platform/heroes_capability_layer.py"
+      ],
+      "tests_found": 0,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 29,
+      "capability": "Derivatives sentiment composite",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.derivatives_batch1",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/derivatives_batch1.py",
+        "sentiment_engine.py"
+      ],
+      "tests_found": 0,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 30,
+      "capability": "Order book intelligence (L1 على الأقل)",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.derivatives_batch2",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/derivatives_batch2.py",
+        "cap646/fallbacks.py",
+        "live_book_hub.py"
+      ],
+      "tests_found": 0,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 31,
+      "capability": "Token screener (سوق عام)",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.derivatives_batch2",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/derivatives_batch2.py",
+        "bd_platform/market_rankings.py"
+      ],
+      "tests_found": 1,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 32,
+      "capability": "Watchlists (توكن + محفظة محدودة)",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.derivatives_batch2",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/derivatives_batch2.py",
+        "bd_platform/security_trust_data_layer.py"
+      ],
+      "tests_found": 0,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 33,
+      "capability": "Smart Alerts (سعر + تدفق + حوت + قرار)",
+      "current_engineering_state": "PASS_ENGINEERING_WITH_BLOCKED_EXTERNAL",
+      "adaptive_spec_state": "BLOCKED_EXTERNAL",
+      "existing_canonical_path": "launch57.derivatives_batch2",
+      "exact_gap": "External/live gate remains after local engineering exhausted (#33 smart alerts delivery channel)",
+      "gap_type": "external_live_verification",
+      "external_live_only": true,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/derivatives_batch2.py",
+        "instant_alert_engine.py",
+        "whale_tracker.py"
+      ],
+      "tests_found": 3,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 34,
+      "capability": "Signal → Explanation workflow",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.explanation_ai_batch1",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/explanation_ai_batch1.py",
+        "bd_platform/footprint_analytics.py",
+        "heroes_quality.py"
+      ],
+      "tests_found": 0,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 35,
+      "capability": "Price-move explanation",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.explanation_ai_batch1",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/explanation_ai_batch1.py",
+        "launch57/decision_common.py",
+        "sentiment_engine.py"
+      ],
+      "tests_found": 0,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 36,
+      "capability": "AI Research Agent + Copilot مربوط ببيانات المنصة فقط (شات على أسطح الإطلاق + footer امتثال)",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.explanation_ai_batch1",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/explanation_ai_batch1.py",
+        "research_lab.py"
+      ],
+      "tests_found": 0,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 37,
+      "capability": "Cross-market decision engine",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.decision_batch2",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/decision_batch2.py",
+        "bd_platform/pro_trader_layer.py",
+        "bd_platform/institutional_delivery_intelligence_layer.py"
+      ],
+      "tests_found": 1,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 38,
+      "capability": "MVRV / Z-Score (نواة BTC/ETH إن توفّر مصدر)",
+      "current_engineering_state": "PASS_ENGINEERING_WITH_BLOCKED_EXTERNAL",
+      "adaptive_spec_state": "BLOCKED_EXTERNAL",
+      "existing_canonical_path": "launch57.edge_ui_batch1",
+      "exact_gap": "External/live gate remains after local engineering exhausted (#38 licensed MVRV source)",
+      "gap_type": "external_live_verification",
+      "external_live_only": true,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/edge_ui_batch1.py",
+        "bd_platform/mvrv_realignment.py"
+      ],
+      "tests_found": 0,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 39,
+      "capability": "Point-in-time immutable metrics",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "ALREADY_SATISFIES_ADAPTIVE_SPEC",
+      "existing_canonical_path": "launch57.data_batch2",
+      "exact_gap": "—",
+      "gap_type": "none",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PASS_ENGINEERING",
+      "consumer_paths": [
+        "launch57/data_batch2.py",
+        "cap646/institutional_official_production.py"
+      ],
+      "tests_found": 1,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 40,
+      "capability": "Data quality & provenance (ظاهر للمستخدم)",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "ALREADY_SATISFIES_ADAPTIVE_SPEC",
+      "existing_canonical_path": "launch57.data_batch2",
+      "exact_gap": "—",
+      "gap_type": "none",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PASS_ENGINEERING",
+      "consumer_paths": [
+        "launch57/data_batch2.py",
+        "cap646/handlers/market.py",
+        "cap646/institutional_official_production.py"
+      ],
+      "tests_found": 2,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 41,
+      "capability": "Freshness assurance + تسمية delayed صريحة",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "ALREADY_SATISFIES_ADAPTIVE_SPEC",
+      "existing_canonical_path": "launch57.data_batch2",
+      "exact_gap": "—",
+      "gap_type": "none",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PASS_ENGINEERING",
+      "consumer_paths": [
+        "launch57/data_batch2.py",
+        "cap646/handlers/market.py",
+        "cap646/institutional_official_production.py"
+      ],
+      "tests_found": 2,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 42,
+      "capability": "Unified exchange connector (مسار واحد)",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "ALREADY_SATISFIES_ADAPTIVE_SPEC",
+      "existing_canonical_path": "launch57.data_batch1",
+      "exact_gap": "—",
+      "gap_type": "none",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PASS_ENGINEERING",
+      "consumer_paths": [
+        "launch57/data_batch1.py",
+        "cap646/institutional_official_production.py",
+        "api/routers/cap646.py"
+      ],
+      "tests_found": 1,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 43,
+      "capability": "Spot–perp / arbitrage (Net-Edge إلزامي)",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.edge_ui_batch1",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/edge_ui_batch1.py",
+        "arbitrage_service.py",
+        "launch57/trust_batch1.py"
+      ],
+      "tests_found": 0,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 44,
+      "capability": "Shareable decision / oracle card (OG)",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.trust_batch2",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "NOT_APPLICABLE",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/trust_batch2.py",
+        "decision_certificate.py"
+      ],
+      "tests_found": 1,
+      "evidence_bindings": []
+    },
+    {
+      "id": 45,
+      "capability": "Shareable accuracy / outcome page",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.trust_batch2",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/trust_batch2.py",
+        "oracle_track_record.py"
+      ],
+      "tests_found": 1,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 46,
+      "capability": "Guest trust surface",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.trust_batch2",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "NOT_APPLICABLE",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/trust_batch2.py",
+        "governance/anonymous_visitor_governance.py"
+      ],
+      "tests_found": 1,
+      "evidence_bindings": []
+    },
+    {
+      "id": 47,
+      "capability": "One-click risk disclosure على كل قرار",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.trust_batch2",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "NOT_APPLICABLE",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/trust_batch2.py",
+        "decision_truth/product/reject_proof.py",
+        "decision_certificate.py"
+      ],
+      "tests_found": 1,
+      "evidence_bindings": []
+    },
+    {
+      "id": 48,
+      "capability": "Abstain / reject reasons ظاهرة",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.trust_batch2",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "NOT_APPLICABLE",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/trust_batch2.py",
+        "decision_truth/product/no_decision.py",
+        "decision_truth/product/rejection_engine.py"
+      ],
+      "tests_found": 1,
+      "evidence_bindings": []
+    },
+    {
+      "id": 49,
+      "capability": "Personal decision history (محدود Free)",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.edge_ui_batch1",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "NOT_APPLICABLE",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/edge_ui_batch1.py",
+        "decision_ledger.py",
+        "api/routers/launch57_edge_ui.py"
+      ],
+      "tests_found": 0,
+      "evidence_bindings": []
+    },
+    {
+      "id": 50,
+      "capability": "Discipline / missed-opportunity mirror (خفيف)",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.edge_ui_batch1",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "NOT_APPLICABLE",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/edge_ui_batch1.py",
+        "discipline_mirror.py"
+      ],
+      "tests_found": 0,
+      "evidence_bindings": []
+    },
+    {
+      "id": 51,
+      "capability": "Research portal / short briefs",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.explanation_ai_batch1",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/explanation_ai_batch1.py",
+        "oracle_track_record.py"
+      ],
+      "tests_found": 0,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 52,
+      "capability": "Capability library (بحث) — طبقة ثانية لا الرئيسية",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.edge_ui_batch1",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "NOT_APPLICABLE",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/edge_ui_batch1.py",
+        "governance/launch57/LAUNCH57_REGISTER.json"
+      ],
+      "tests_found": 0,
+      "evidence_bindings": []
+    },
+    {
+      "id": 53,
+      "capability": "Instant Wallet Due Diligence",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.smart_money_batch2",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/smart_money_batch2.py",
+        "bd_platform/whales_institutional_layer.py"
+      ],
+      "tests_found": 0,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 54,
+      "capability": "Instant Token Due Diligence",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.smart_money_batch2",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/smart_money_batch2.py",
+        "research_lab.py"
+      ],
+      "tests_found": 0,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 55,
+      "capability": "Pump & Dump / manipulation pattern alerts",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.smart_money_batch3",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/smart_money_batch3.py",
+        "sentiment_manipulation_guard.py",
+        "whale_tracker.py"
+      ],
+      "tests_found": 0,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 56,
+      "capability": "Suspicious activity flags (على مسارات توكن/سمارت موني — ليس AML كامل)",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.smart_money_batch3",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/smart_money_batch3.py",
+        "bd_platform/derivatives_onchain_intelligence_layer.py"
+      ],
+      "tests_found": 0,
+      "evidence_bindings": [
+        "ENGINEERING_AUDIT_826_REPORT.json"
+      ]
+    },
+    {
+      "id": 57,
+      "capability": "Exchange transparency / risk indicators (احتياطي معلن إن وُجد، شذوذ تدفق، حوادث — بدون شهادة ملاءة أو ضمان)",
+      "current_engineering_state": "PASS_ENGINEERING",
+      "adaptive_spec_state": "PARTIAL_ADAPTIVE_INTEGRATION",
+      "existing_canonical_path": "launch57.smart_money_batch3",
+      "exact_gap": "§23 Router PARTIAL (Command Home only); §28 L2-L5 PARTIAL (Command Home stack); §32 PARTIAL (Command Home engineering); §31 a11y PARTIAL (engineering envelope); §31.1 human validation REGISTER_ONLY (study OPEN); cross-path composition OPEN",
+      "gap_type": "local_engineering",
+      "external_live_only": false,
+      "hero_mapping": "LINKED_VIA_CANONICAL_HERO_MATRIX",
+      "register_status": "PENDING_VERIFICATION",
+      "consumer_paths": [
+        "launch57/smart_money_batch3.py",
+        "bd_platform/institutional_b2b_layer.py"
+      ],
+      "tests_found": 0,
+      "evidence_bindings": [
+        "BLACKDARK_CAPABILITY_PHANTOM_DISPOSITION.json#P2GM-916",
+        "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
+      ]
+    }
+  ],
+  "totals": {
+    "ALREADY_SATISFIES_ADAPTIVE_SPEC": 8,
+    "PARTIAL_ADAPTIVE_INTEGRATION": 46,
+    "MISSING_ADAPTIVE_REQUIREMENT": 0,
+    "BLOCKED_EXTERNAL": 2,
+    "CONFLICT": 1
+  },
+  "execution_impact": {
+    "ADAPTIVE_BUILD_REQUIRED": true,
+    "capabilities_requiring_engineering": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      34,
+      35,
+      36,
+      37,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57
+    ],
+    "support_structures_requiring_engineering": [
+      "intent_router",
+      "progressive_disclosure_l2_l5",
+      "routing_composition_controls",
+      "accessibility_proof",
+      "human_validation_evidence"
+    ],
+    "governing_phase_order_preserved": {
+      "Phase 1": [
+        42,
+        22,
+        23,
+        24,
+        21,
+        40,
+        41,
+        39
+      ],
+      "Phase 2": [
+        6,
+        5,
+        4,
+        3,
+        2,
+        47,
+        48,
+        44,
+        45,
+        46
+      ],
+      "Phase 3": [
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        37
+      ],
+      "Phase 4": [
+        20,
+        16,
+        17,
+        13,
+        14,
+        15,
+        18,
+        19,
+        53,
+        54,
+        55,
+        56,
+        57
+      ],
+      "Phase 5": [
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33
+      ],
+      "Phase 6": [
+        34,
+        35,
+        36,
+        51
+      ],
+      "Phase 7": [
+        43,
+        38,
+        49,
+        50,
+        52,
+        1
+      ],
+      "Phase 8": [
+        "E2E",
+        "Six-Hero matrix",
+        "Launch-57 graph"
+      ]
+    },
+    "EXISTING_CAPABILITIES_REBUILT": 0,
+    "PARKED_DEPENDENCIES_FOUND": 0,
+    "UNRESOLVED_AUTHORITY_CONFLICTS": 0
+  },
+  "final_status": {
+    "LAUNCH57_57_CAPABILITY_RECONCILIATION": "COMPLETE",
+    "READY_TO_DESIGN_ADAPTIVE_EXECUTION_PLAN": true,
+    "PRODUCT_CODE_CHANGED": false,
+    "PASS_LIVE_NOT_CLAIMED": true
+  },
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "PRODUCT_CODE_CHANGED": false
+}

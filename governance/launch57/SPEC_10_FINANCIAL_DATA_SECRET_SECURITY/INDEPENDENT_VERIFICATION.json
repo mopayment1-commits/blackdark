@@ -1,0 +1,83 @@
+{
+  "artifact": "SPEC_10_INDEPENDENT_VERIFICATION",
+  "domain": "SPEC_10_FINANCIAL_DATA_SECRET_SECURITY",
+  "verification_sha": "c84aa93e2296ee4fc33f8b4cd0faac14351a1c6a",
+  "probe_count": 14,
+  "passed_count": 14,
+  "failed_count": 0,
+  "INDEPENDENT_VERIFICATION_PASS": true,
+  "probes": [
+    {
+      "probe": "iv_response_log_redaction",
+      "pass": true,
+      "detail": "secrets redacted in response/log samples"
+    },
+    {
+      "probe": "iv_leakage_scan_clean_after_redaction",
+      "pass": true,
+      "detail": "{'leakage_detected': False, 'violation_count': 0, 'violations': [], 'ok': True}"
+    },
+    {
+      "probe": "iv_no_api_keys_in_client_html",
+      "pass": true,
+      "detail": "['templates', 'static']"
+    },
+    {
+      "probe": "iv_bad_signature_fail_closed",
+      "pass": true,
+      "detail": "{'unsigned_webhook_blocked': True, 'invalid_signature_rejected': True, 'reason_sanitized': True, 'fail_closed': True}"
+    },
+    {
+      "probe": "iv_idor_entitlement_spoof_blocked",
+      "pass": true,
+      "detail": "{'cross_user_denied': True, 'unverified_tier_capped': True, 'alerts_unverified_denied': True, 'blocked': True}"
+    },
+    {
+      "probe": "iv_file02_file03_aligned",
+      "pass": true,
+      "detail": "{'client_tier_spoof_capped': True, 'redirect_grant_blocked': True, 'anonymous_history_denied': True, 'watchlist_anonymous_blocked': True, 'aligned': True}"
+    },
+    {
+      "probe": "iv_runtime_security_paths_wired",
+      "pass": true,
+      "detail": "{'data_batch1_security_envelope': True, 'shareable_public_security_envelope': True, 'explanation_ai_security_envelope': True, 'financial_security_module': True, 'credential_boundary_metadata': True}"
+    },
+    {
+      "probe": "iv_no_parked_security_scope",
+      "pass": true,
+      "detail": "out of scope"
+    },
+    {
+      "probe": "iv_anonymous_command_home_denied",
+      "pass": true,
+      "detail": "status=401"
+    },
+    {
+      "probe": "iv_anonymous_decision_history_denied",
+      "pass": true,
+      "detail": "status=401"
+    },
+    {
+      "probe": "iv_guest_trust_public_ok",
+      "pass": true,
+      "detail": "status=200"
+    },
+    {
+      "probe": "iv_injected_secret_redacted",
+      "pass": true,
+      "detail": "envelope redacts secrets"
+    },
+    {
+      "probe": "iv_machine_readable_export",
+      "pass": true,
+      "detail": "LAUNCH57_FINANCIAL_DATA_SECRET_SECURITY_EXPORT"
+    },
+    {
+      "probe": "iv_pass_live_not_claimed",
+      "pass": true,
+      "detail": "honest"
+    }
+  ],
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "generated_at": "2026-09-19T00:42:28.704093+00:00"
+}

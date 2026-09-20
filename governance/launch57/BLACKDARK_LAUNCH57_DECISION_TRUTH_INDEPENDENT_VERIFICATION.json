@@ -1,0 +1,29 @@
+{
+  "artifact": "BLACKDARK_LAUNCH57_DECISION_TRUTH_INDEPENDENT_VERIFICATION",
+  "verification_type": "engineering_closure",
+  "verified_at": "2026-09-18T14:37:09.736838+00:00",
+  "implementation_sha": "1999f962",
+  "baseline_sha": "05a9c7097be6396c62be152e657ed5ac729cde75ecceb2ccbb53109c10147782",
+  "verdict": "PASS_ENGINEERING",
+  "LAUNCH57_DECISION_TRUTH_PASS_ENGINEERING": true,
+  "LAUNCH57_DECISION_TRUTH_READY_FOR_LOCAL_USE": true,
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "checks": {
+    "EVIDENCE_CLASS_CANONICAL": true,
+    "FRESHNESS_CANONICAL": true,
+    "ABSTAIN_REACHABLE": true,
+    "ACT_REQUIRES_EVIDENCE": true,
+    "NET_EDGE_GATE": true,
+    "STALE_NOT_LIVE": true,
+    "AI_CANNOT_OVERRIDE": true,
+    "PHASE8_E2E_PASS": true,
+    "NO_FALSE_PASS_LIVE": true
+  },
+  "test_evidence": {
+    "command": "python3 -m pytest tests/launch57/test_decision_truth.py tests/launch57/test_decision_batch1.py tests/launch57/test_decision_batch2.py tests/launch57/test_phase2_adaptive_batch_a.py tests/launch57/test_phase8_e2e_acceptance.py -q",
+    "exit_code": "0",
+    "stdout_tail": "rage_maintenance at /workspace/dashboard.py\n    warnings.warn(message, stacklevel=1)\n\ntests/launch57/test_phase8_e2e_acceptance.py::test_all_e2e_journeys_pass\n  /home/ubuntu/.local/lib/python3.12/site-packages/fastapi/openapi/utils.py:303: UserWarning: Duplicate Operation ID storage_legacy_purge_api_storage_legacy_purge_get for function storage_legacy_purge at /workspace/dashboard.py\n    warnings.warn(message, stacklevel=1)\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html",
+    "stderr_tail": "",
+    "passed": true
+  }
+}

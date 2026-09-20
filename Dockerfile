@@ -31,6 +31,12 @@ COPY rvm/ rvm/
 COPY repos/ repos/
 COPY bd_platform/ bd_platform/
 COPY billing/ billing/
+COPY launch57/ launch57/
+COPY decision_truth/ decision_truth/
+COPY failure/ failure/
+COPY data_governance/ data_governance/
+COPY governance/ governance/
+COPY secrets_crypto/ secrets_crypto/
 COPY transport_webhook_env/ transport_webhook_env/
 COPY ops/ ops/
 COPY ml/ ml/

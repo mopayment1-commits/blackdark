@@ -1,0 +1,27 @@
+{
+  "artifact": "BLACKDARK_LAUNCH57_COMPOUNDING_EVIDENCE_INDEPENDENT_VERIFICATION",
+  "verification_type": "engineering_closure",
+  "verified_at": "2026-09-18T15:01:46.813979+00:00",
+  "implementation_sha": "c7114d46",
+  "baseline_sha": "be79474e7a59c25b7ce991cdb3d11c7967ad0c25188d756a217d1f5b8bb1d5b9",
+  "verdict": "PASS_ENGINEERING",
+  "LAUNCH57_COMPOUNDING_EVIDENCE_PASS_ENGINEERING": true,
+  "LAUNCH57_COMPOUNDING_EVIDENCE_READY_FOR_LOCAL_USE": true,
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "checks": {
+    "LAUNCH57_SCOPE_ONLY": true,
+    "LIVE_SIM_SEPARATED": true,
+    "PIT_INTEGRITY": true,
+    "PUBLIC_ACCURACY_LIVE_ONLY": true,
+    "NO_LEGACY_VAULT_RECREATED": true,
+    "PHASE8_E2E_PASS": true,
+    "NO_FALSE_PASS_LIVE": true
+  },
+  "test_evidence": {
+    "command": "python3 -m pytest tests/launch57/test_compounding_evidence.py tests/launch57/test_teis_support_layer.py tests/launch57/test_decision_truth.py tests/launch57/test_trust_batch1.py tests/launch57/test_trust_batch2.py tests/launch57/test_explanation_ai_batch1.py tests/launch57/test_phase8_e2e_acceptance.py -q",
+    "exit_code": "0",
+    "stdout_tail": "orage_maintenance at /workspace/dashboard.py\n    warnings.warn(message, stacklevel=1)\n\ntests/launch57/test_trust_batch2.py::test_execute_dispatch_launch_items\n  /home/ubuntu/.local/lib/python3.12/site-packages/fastapi/openapi/utils.py:303: UserWarning: Duplicate Operation ID storage_legacy_purge_api_storage_legacy_purge_get for function storage_legacy_purge at /workspace/dashboard.py\n    warnings.warn(message, stacklevel=1)\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html",
+    "stderr_tail": "",
+    "passed": true
+  }
+}

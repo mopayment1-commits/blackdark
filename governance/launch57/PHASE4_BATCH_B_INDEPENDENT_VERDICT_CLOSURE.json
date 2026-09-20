@@ -1,0 +1,43 @@
+{
+  "artifact": "PHASE4_BATCH_B_INDEPENDENT_VERDICT_CLOSURE",
+  "check_type": "read_only_batch_b_verdict_closure",
+  "audited_head_sha": "2607e1c3",
+  "closed_at": "2026-09-17T23:15:00+00:00",
+  "entry_gates": {
+    "batch_b_builder": {
+      "sha": "2607e1c3",
+      "implementation_sha": "4d19ca61"
+    },
+    "batch_a_independent_verdict": {
+      "verdict": "PASS_ENGINEERING",
+      "sha": "616314b6"
+    },
+    "batch_b_independent_verification": {
+      "verdict": "PASS_ENGINEERING",
+      "sha": "2607e1c3",
+      "implementation_sha": "4d19ca61"
+    },
+    "pass": true
+  },
+  "capability_verdicts": {
+    "15": "PASS_ENGINEERING",
+    "18": "PASS_ENGINEERING",
+    "19": "PASS_ENGINEERING",
+    "53": "PASS_ENGINEERING",
+    "54": "PASS_ENGINEERING"
+  },
+  "verdicts": {
+    "P4B:#15": "PASS_ENGINEERING",
+    "P4B:#18": "PASS_ENGINEERING",
+    "P4B:#19": "PASS_ENGINEERING",
+    "P4B:#53": "PASS_ENGINEERING",
+    "P4B:#54": "PASS_ENGINEERING",
+    "PHASE4_BATCH_B_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+    "PHASE4_BATCH_C_MAY_BEGIN": true
+  },
+  "confirmations": {
+    "PASS_LIVE_NOT_CLAIMED": true,
+    "REGISTER_STATUS_PROMOTION": false,
+    "PRODUCT_CODE_CHANGED_BY_CLOSURE": false
+  }
+}

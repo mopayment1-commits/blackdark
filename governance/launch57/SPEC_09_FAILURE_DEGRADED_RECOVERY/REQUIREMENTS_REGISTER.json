@@ -1,0 +1,336 @@
+{
+  "artifact": "SPEC_09_REQUIREMENTS_REGISTER",
+  "domain": "SPEC_09_FAILURE_DEGRADED_RECOVERY",
+  "generated_at": "2026-09-19T00:32:54.336286+00:00",
+  "spec_version": "launch57-spec09-failure-degraded-recovery-1.0.0",
+  "requirement_count": 24,
+  "requirements": [
+    {
+      "req_id": "REQ-S09-001",
+      "title": "Launch-57 failure scope lock only",
+      "spec_section": "§2",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/failure_recovery_common.py"
+      ],
+      "tests": [
+        "test_failure_recovery.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S09-002",
+      "title": "Runtime failure states explicit",
+      "spec_section": "§4",
+      "launch_ids": [],
+      "owner_modules": [
+        "failure/states.py"
+      ],
+      "tests": [
+        "test_failure_recovery.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S09-003",
+      "title": "Failure class taxonomy",
+      "spec_section": "§5",
+      "launch_ids": [],
+      "owner_modules": [
+        "failure/dimensions.py"
+      ],
+      "tests": [
+        "test_failure_recovery.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S09-004",
+      "title": "Upstream failure not fake success",
+      "spec_section": "§4",
+      "launch_ids": [
+        42
+      ],
+      "owner_modules": [
+        "launch57/failure_recovery_common.py"
+      ],
+      "tests": [
+        "test_spec09"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S09-005",
+      "title": "Partial data labeled degraded",
+      "spec_section": "§9",
+      "launch_ids": [
+        22
+      ],
+      "owner_modules": [
+        "launch57/failure_recovery_common.py"
+      ],
+      "tests": [
+        "test_spec09"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S09-006",
+      "title": "Stale cannot appear live",
+      "spec_section": "§8/#41",
+      "launch_ids": [
+        41
+      ],
+      "owner_modules": [
+        "launch57/failure_recovery_common.py"
+      ],
+      "tests": [
+        "test_failure_recovery.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S09-007",
+      "title": "Abstain reachable on conflict",
+      "spec_section": "§10",
+      "launch_ids": [
+        10,
+        48
+      ],
+      "owner_modules": [
+        "failure/decision.py"
+      ],
+      "tests": [
+        "test_failure_recovery.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S09-008",
+      "title": "Canonical RFC9457 error envelope",
+      "spec_section": "§27",
+      "launch_ids": [],
+      "owner_modules": [
+        "failure/problem.py"
+      ],
+      "tests": [
+        "test_failure_recovery.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S09-009",
+      "title": "Retry policy safe classification",
+      "spec_section": "§12",
+      "launch_ids": [],
+      "owner_modules": [
+        "failure/retry.py"
+      ],
+      "tests": [
+        "test_failure_recovery.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S09-010",
+      "title": "Reconcile before retry on uncertain",
+      "spec_section": "§46",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/failure_recovery_common.py"
+      ],
+      "tests": [
+        "test_failure_recovery.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S09-011",
+      "title": "AI failure preserves evidence",
+      "spec_section": "§20",
+      "launch_ids": [
+        36
+      ],
+      "owner_modules": [
+        "launch57/failure_recovery_common.py"
+      ],
+      "tests": [
+        "test_failure_recovery.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S09-012",
+      "title": "Alert delivery isolated from decision",
+      "spec_section": "§21",
+      "launch_ids": [
+        33
+      ],
+      "owner_modules": [
+        "launch57/failure_recovery_common.py"
+      ],
+      "tests": [
+        "test_failure_recovery.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S09-013",
+      "title": "Auth/entitlement failure distinct from data",
+      "spec_section": "§46",
+      "launch_ids": [
+        49
+      ],
+      "owner_modules": [
+        "launch57/billing_entitlement_common.py"
+      ],
+      "tests": [
+        "test_spec09"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S09-014",
+      "title": "Recovery path stays honest",
+      "spec_section": "§14",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/failure_recovery_common.py"
+      ],
+      "tests": [
+        "test_spec09"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S09-015",
+      "title": "FILE 01 degradation on command-home",
+      "spec_section": "§4",
+      "launch_ids": [
+        1
+      ],
+      "owner_modules": [
+        "launch57/edge_ui_batch2.py"
+      ],
+      "tests": [
+        "test_spec09"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S09-016",
+      "title": "FILE 07 quality degradation aligned",
+      "spec_section": "§10/#40",
+      "launch_ids": [
+        40
+      ],
+      "owner_modules": [
+        "launch57/failure_recovery_common.py"
+      ],
+      "tests": [
+        "test_spec09"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S09-017",
+      "title": "FILE 08 fail-closed aligned",
+      "spec_section": "§4",
+      "launch_ids": [
+        2
+      ],
+      "owner_modules": [
+        "launch57/decision_truth_common.py"
+      ],
+      "tests": [
+        "test_spec09"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S09-018",
+      "title": "Runtime failure paths wired",
+      "spec_section": "§5",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/decision_common.py"
+      ],
+      "tests": [
+        "test_spec09"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S09-019",
+      "title": "No PARKED failure scope",
+      "spec_section": "§2",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/failure_recovery_common.py"
+      ],
+      "tests": [
+        "test_spec09"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S09-020",
+      "title": "Legacy failure program excluded",
+      "spec_section": "§0",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/failure_recovery_common.py"
+      ],
+      "tests": [
+        "test_failure_recovery.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S09-021",
+      "title": "PASS_LIVE not claimed",
+      "spec_section": "§22",
+      "launch_ids": [],
+      "owner_modules": [],
+      "tests": [],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S09-022",
+      "title": "Acceptance criteria engineering gate",
+      "spec_section": "§53",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/failure_recovery_common.py"
+      ],
+      "tests": [
+        "test_spec09"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S09-023",
+      "title": "Independent verification adversarial probes",
+      "spec_section": "§22",
+      "launch_ids": [],
+      "owner_modules": [],
+      "tests": [
+        "test_spec09"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S09-024",
+      "title": "Envelope cannot grant PASS_ENGINEERING",
+      "spec_section": "§21",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/failure_recovery_common.py"
+      ],
+      "tests": [
+        "test_failure_recovery.py"
+      ],
+      "mandatory": true
+    }
+  ]
+}

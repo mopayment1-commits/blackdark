@@ -1,0 +1,182 @@
+{
+  "artifact": "PHASE4_ADAPTIVE_BATCH_A_INDEPENDENT_VERIFICATION",
+  "verification_type": "independent_engineering",
+  "VERIFIED_IMPLEMENTATION_SHA": "321abff8",
+  "verified_implementation_sha_full": "321abff8bc0ccc464f358b509b013fffcffd6db9",
+  "builder_evidence_sha": "5013313f",
+  "builder_evidence_sha_full": "5013313f8084bc3a27ddb6b6a54aef3b44963a08",
+  "verified_at": "2026-09-17T22:38:00+00:00",
+  "verifier": {
+    "role": "independent_verifier",
+    "session": "cursor-cloud-agent-phase4-adaptive-batch-a-iv",
+    "method": "read_only_delta_assessment_runtime_replay_static_import_scan_targeted_tests"
+  },
+  "entry_gate": {
+    "phase3_integration": "PASS",
+    "phase4_may_begin": true,
+    "verified_at_sha": "c58c58a4",
+    "builder_evidence": "governance/launch57/PHASE4_ADAPTIVE_BATCH_A_EVIDENCE.json",
+    "pass": true
+  },
+  "repository_state": {
+    "audited_head_sha": "5013313f",
+    "implementation_delta_base": "c58c58a4",
+    "implementation_delta_range": "c58c58a4..321abff8",
+    "product_files_changed": [
+      "launch57/trust_adaptive_common.py",
+      "launch57/smart_money_batch1.py"
+    ],
+    "register_changed": false,
+    "pass": true
+  },
+  "capability_verification": {
+    "20": {
+      "launch_number": 20,
+      "P4A:#20": "PASS_ENGINEERING",
+      "checks": {
+        "attribution_from_canonical_path": true,
+        "labels_from_b2b_relationships_status_137": true,
+        "attribution_uncertainty_visible": true,
+        "coverage_limits_visible": true,
+        "limited_nucleus_scope_preserved": true,
+        "dependency_chain_launch57_authorized": true,
+        "parked_legacy_runtime_dependency": false,
+        "canonical_owner_preserved": "launch57.smart_money_batch1:address_labels_cohorts"
+      },
+      "consumer_path": "launch57/smart_money_batch1.py:address_labels_cohorts → b2b_relationships_status_137 → build_attribution_cohort_disclosure",
+      "runtime_probes": {
+        "b2b_returns_labels_key": false,
+        "coverage_qualified_when_empty": true,
+        "attribution_distinct_from_raw_movement": true
+      },
+      "pass": true
+    },
+    "16": {
+      "launch_number": 16,
+      "P4A:#16": "PASS_ENGINEERING",
+      "checks": {
+        "exchange_flow_distinct_from_generic_movement": true,
+        "answer_state_from_net_flow_semantics": true,
+        "attribution_certainty_qualified": true,
+        "coverage_uncertainty_preserved": true,
+        "disclosure_not_presentation_only": true,
+        "canonical_owner_preserved": "launch57.smart_money_batch1:exchange_flow_intelligence"
+      },
+      "consumer_path": "launch57/smart_money_batch1.py:exchange_flow_intelligence → exchange_netflow_probe → build_exchange_flow_disclosure",
+      "runtime_probes": {
+        "net_inflow_answer_state": "NET_INFLOW",
+        "certainty_not_implied": true
+      },
+      "pass": true
+    },
+    "17": {
+      "launch_number": 17,
+      "P4A:#17": "NOT_COMPLETE",
+      "checks": {
+        "internal_flow_filter_entrypoint_classifies_correctly": true,
+        "internal_confirmed_not_external_on_filter_path": true,
+        "whale_ratio_invokes_internal_flow_filter": false,
+        "whale_ratio_invariant_to_internal_classification": true,
+        "internal_not_counted_disclosure_tied_to_runtime_filter": false,
+        "whale_significance_gated_by_internal_flow_on_ratio_path": false,
+        "canonical_owner_preserved": "launch57.smart_money_batch1:exchange_whale_ratio + internal_flow_filter"
+      },
+      "consumer_path": "exchange_whale_ratio → compute_whale_ls_ratio_114 (no classify_flow); internal_flow_filter → classify_flow",
+      "runtime_probes": {
+        "internal_confirmed_classification": "INTERNAL_CONFIRMED",
+        "whale_ratio_internal_confirmed": 1.667,
+        "whale_ratio_economic_flow": 1.667,
+        "ratio_unchanged_across_internal_classifications": true,
+        "disclosure_internal_not_counted_always_true": true
+      },
+      "failed_control": "exchange_whale_ratio does not apply internal-flow classification at runtime; build_whale_ratio_internal_flow_disclosure sets internal_not_counted_as_external_flow true whenever whale_filtered_ratio is present (presentation-only), so internal exchange movement is not proven excluded from whale significance on the whale-ratio path.",
+      "pass": false
+    },
+    "13": {
+      "launch_number": 13,
+      "P4A:#13": "PASS_ENGINEERING",
+      "checks": {
+        "accumulation_distribution_is_inference": true,
+        "inference_not_raw_flow_fact": true,
+        "supporting_evidence_visible": true,
+        "material_uncertainty_visible_when_sparse": true,
+        "derived_from_enrich_whale_narratives": true,
+        "canonical_owner_preserved": "launch57.smart_money_batch1:accumulation_distribution_detection"
+      },
+      "consumer_path": "launch57/smart_money_batch1.py:accumulation_distribution_detection → enrich_whale_narratives → build_accumulation_distribution_disclosure",
+      "pass": true
+    },
+    "14": {
+      "launch_number": 14,
+      "P4A:#14": "PASS_ENGINEERING",
+      "checks": {
+        "screening_from_canonical_leaderboard_path": true,
+        "ranking_by_total_usd_from_leaderboard": true,
+        "approved_evidence_components_declared": true,
+        "raw_movement_attribution_inference_separated": true,
+        "ranking_qualitative_not_certainty": true,
+        "canonical_owner_preserved": "launch57.smart_money_batch1:smart_money_token_screener"
+      },
+      "consumer_path": "launch57/smart_money_batch1.py:smart_money_token_screener → smart_money_leaderboard → build_smart_money_screener_disclosure",
+      "runtime_probes": {
+        "screener_rank_order": ["ETH", "BTC"],
+        "screening_from_approved_launch57_evidence": true
+      },
+      "pass": true
+    }
+  },
+  "support_structure_verification": {
+    "module": "launch57.trust_adaptive_common",
+    "classification": "support_only_not_capability",
+    "batch_a_consumers": ["launch57/smart_money_batch1.py"],
+    "batch_a_functions_added": [
+      "build_attribution_cohort_disclosure",
+      "build_exchange_flow_disclosure",
+      "build_whale_ratio_internal_flow_disclosure",
+      "build_internal_flow_filter_disclosure",
+      "build_accumulation_distribution_disclosure",
+      "build_smart_money_screener_disclosure"
+    ],
+    "derives_from_canonical_inputs": true,
+    "competing_truth_owner": false,
+    "phase3_batch_b_regression_passed": true,
+    "decision_batch2_regression_passed": true,
+    "pass": true
+  },
+  "targeted_tests": {
+    "command": "python3 -m pytest tests/launch57/test_phase4_adaptive_batch_a.py tests/launch57/test_smart_money_batch1.py tests/launch57/test_phase3_adaptive_batch_b.py tests/launch57/test_decision_batch2.py -q",
+    "exit_code": 0,
+    "passed": 27,
+    "failed": 0,
+    "pass": true
+  },
+  "behavioral_probes": {
+    "16_net_inflow_answer_state": true,
+    "17_internal_filter_internal_confirmed": true,
+    "17_whale_ratio_invariant_to_internal_class": true,
+    "17_whale_ratio_runtime_filter_applied": false,
+    "pass": false
+  },
+  "verdicts": {
+    "P4A:#20": "PASS_ENGINEERING",
+    "P4A:#16": "PASS_ENGINEERING",
+    "P4A:#17": "NOT_COMPLETE",
+    "P4A:#13": "PASS_ENGINEERING",
+    "P4A:#14": "PASS_ENGINEERING",
+    "PHASE4_BATCH_A_INDEPENDENT_VERDICT": "NOT_COMPLETE",
+    "PHASE4_BATCH_B_MAY_BEGIN": false
+  },
+  "confirmations": {
+    "TEMPORAL_WORKSTREAM_REOPENED": false,
+    "PASS_LIVE_NOT_CLAIMED": true,
+    "REGISTER_STATUS_PROMOTION": false,
+    "PRODUCT_CODE_CHANGED_BY_IV": false
+  },
+  "residual_gaps": [
+    {
+      "launch_item_id": 17,
+      "gap": "Whale-ratio path lacks runtime internal-flow gating; disclosure flag is presentation-only."
+    }
+  ],
+  "failed_requirement": "Launch #17 — internal exchange movement must not create false external-flow/whale significance on the whale-ratio path; runtime must apply internal-flow filter, not disclosure-only labeling."
+}

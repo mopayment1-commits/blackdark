@@ -135,14 +135,42 @@ _COINGECKO_IDS: dict[str, str] = {
 }
 
 
+def enrich_ticker_freshness(row: dict[str, Any], *, fetched_at: datetime | None = None) -> dict[str, Any]:
+    """Attach canonical quote age for Launch #22 → #41 freshness bridge."""
+    from launch57.freshness_common import resolve_quote_age_sec
+    from launch57.temporal_common import to_rfc3339
+
+    fetched = fetched_at or datetime.now(UTC)
+    event_raw = row.get("event_time") or row.get("timestamp") or row.get("source_time")
+    age_sec, source_iso = resolve_quote_age_sec(
+        age_sec=row.get("age_sec") if row.get("age_sec") is not None else None,
+        age_ms=row.get("freshness_ms"),
+        event_time=event_raw,
+        fetched_at=fetched if float(row.get("price") or 0) > 0 else None,
+    )
+    out = dict(row)
+    if age_sec is not None:
+        out["age_sec"] = age_sec
+    if source_iso:
+        out["timestamp"] = source_iso
+    if event_raw is not None:
+        out.setdefault("event_time", event_raw)
+    out["fetched_at"] = to_rfc3339(fetched)
+    return out
+
+
 def _binance_ticker_from_json(data: dict[str, Any], *, source: str) -> dict[str, Any]:
-    return {
+    row: dict[str, Any] = {
         "price": float(data["lastPrice"]),
         "change_24h": float(data["priceChangePercent"]),
         "volume": float(data["volume"]),
         "quote_volume": float(data.get("quoteVolume") or 0),
         "source": source,
     }
+    close_time = data.get("closeTime")
+    if close_time is not None:
+        row["event_time"] = close_time
+    return row
 
 
 # Kraken uses non-standard pair names for some assets.
@@ -286,13 +314,16 @@ async def _fetch_okx_ticker(
         change = ((price - open24) / open24 * 100.0) if open24 else 0.0
         volume = float(row.get("vol24h") or 0)
         quote_volume = float(row.get("volCcy24h") or 0)
-        return {
+        out = {
             "price": price,
             "change_24h": change,
             "volume": volume,
             "quote_volume": quote_volume,
             "source": "okx",
         }
+        if row.get("ts") is not None:
+            out["event_time"] = row.get("ts")
+        return out
     except (KeyError, TypeError, ValueError, IndexError):
         return None
 
@@ -323,13 +354,16 @@ async def _fetch_bybit_ticker(
         change = float(row.get("price24hPcnt") or 0) * 100.0
         volume = float(row.get("volume24h") or 0)
         quote_volume = float(row.get("turnover24h") or 0)
-        return {
+        out = {
             "price": price,
             "change_24h": change,
             "volume": volume,
             "quote_volume": quote_volume,
             "source": "bybit",
         }
+        if row.get("time") is not None:
+            out["event_time"] = row.get("time")
+        return out
     except (KeyError, TypeError, ValueError, IndexError):
         return None
 
@@ -355,13 +389,17 @@ async def _fetch_cryptocompare_ticker(
         change = float(row.get("CHANGEPCT24HOUR") or 0)
         volume = float(row.get("VOLUME24HOUR") or 0)
         quote_volume = float(row.get("VOLUME24HOURTO") or 0)
-        return {
+        out = {
             "price": price,
             "change_24h": change,
             "volume": volume,
             "quote_volume": quote_volume,
             "source": "cryptocompare",
         }
+        last_update = row.get("LASTUPDATE")
+        if last_update is not None:
+            out["event_time"] = last_update
+        return out
     except (KeyError, TypeError, ValueError):
         return None
 
@@ -437,18 +475,19 @@ async def _fallback_rest_ticker(
 async def fetch_binance_ticker(pair: str) -> dict | None:
     """Live spot ticker — WS when fresh, else multi-source REST (Railway/cloud safe)."""
     asset = pair.replace("USDT", "").upper()
+    fetched_at = datetime.now(UTC)
 
     ws_row = await _ws_ticker_if_enabled(asset)
     if ws_row is not None:
-        return ws_row
+        return enrich_ticker_freshness(ws_row, fetched_at=fetched_at)
 
     async with aiohttp.ClientSession(timeout=_HTTP_TIMEOUT, headers=_HTTP_HEADERS) as session:
         row = await _primary_rest_ticker(pair, session)
         if row is not None:
-            return row
+            return enrich_ticker_freshness(row, fetched_at=fetched_at)
         row = await _fallback_rest_ticker(asset, session)
         if row is not None:
-            return row
+            return enrich_ticker_freshness(row, fetched_at=fetched_at)
 
     logger.warning("All price sources failed | asset=%s", _safe_asset_label(asset).replace("\r", " ").replace("\n", " "))
     return None

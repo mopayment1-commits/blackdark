@@ -1,0 +1,58 @@
+{
+  "artifact": "SPEC_03_INDEPENDENT_VERIFICATION",
+  "domain": "SPEC_03_BILLING_SUBSCRIPTION_ENTITLEMENT",
+  "verification_sha": "b64011ef83d1e086e61c1934ef357f3d471dc8a8",
+  "probe_count": 9,
+  "passed_count": 9,
+  "failed_count": 0,
+  "INDEPENDENT_VERIFICATION_PASS": true,
+  "probes": [
+    {
+      "probe": "iv_redirect_grant_blocked",
+      "pass": true,
+      "detail": "checkout redirect cannot grant"
+    },
+    {
+      "probe": "iv_unsigned_webhook_blocked",
+      "pass": true,
+      "detail": "unsigned webhook blocked"
+    },
+    {
+      "probe": "iv_client_tier_capped",
+      "pass": true,
+      "detail": "tier=free"
+    },
+    {
+      "probe": "iv_smart_alerts_free_denied",
+      "pass": true,
+      "detail": "unverified_paid_tier_claim"
+    },
+    {
+      "probe": "iv_smart_alerts_verified_pro_allowed",
+      "pass": true,
+      "detail": "pro"
+    },
+    {
+      "probe": "iv_out_of_order_rejected",
+      "pass": true,
+      "detail": "out_of_order_provider_event_created"
+    },
+    {
+      "probe": "iv_bad_signature_fail_closed",
+      "pass": true,
+      "detail": "invalid_signature"
+    },
+    {
+      "probe": "iv_anonymous_no_paid_history",
+      "pass": true,
+      "detail": "unverified_paid_tier_claim"
+    },
+    {
+      "probe": "iv_touchpoint_matrix",
+      "pass": true,
+      "detail": "7 touchpoints"
+    }
+  ],
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "generated_at": "2026-09-18T23:19:49.917658+00:00"
+}

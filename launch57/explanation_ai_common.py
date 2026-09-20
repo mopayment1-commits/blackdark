@@ -26,7 +26,16 @@ _RESEARCH_PORTAL_SCOPE = (
 )
 
 
-def attach_explanation_ai_envelope(body: dict[str, Any], *, spine: dict[str, Any] | None = None) -> dict[str, Any]:
+def attach_explanation_ai_envelope(
+    body: dict[str, Any],
+    *,
+    spine: dict[str, Any] | None = None,
+    params: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    from launch57.b9_research_explanation_bridge import finalize_b9_explanation_surface
+    from launch57.financial_security_common import attach_financial_security_envelope
+    from launch57.research_explanation_timing_common import B9_LAUNCH_NUMBERS
+
     out = attach_decision_envelope(body, spine=spine)
     out["explanation_ai_layer"] = {
         "phase": "6_EXPLANATION_AI",
@@ -36,7 +45,45 @@ def attach_explanation_ai_envelope(body: dict[str, Any], *, spine: dict[str, Any
         "evidence_class_visible": out.get("evidence_class_visible"),
         "ai_system_type": out.get("ai_system_type"),
     }
-    return out
+    launch_id = int(out.get("launch_item_id") or 0)
+    if launch_id in B9_LAUNCH_NUMBERS:
+        p = dict(params or {})
+        out = finalize_b9_explanation_surface(
+            out,
+            payload=p,
+            spine=spine,
+            display_timezone=p.get("display_timezone"),
+        )
+    from launch57.failure_recovery_common import attach_failure_recovery_envelope
+
+    out = attach_financial_security_envelope(
+        out,
+        surface_type="ai",
+        launch_item_id=launch_id or None,
+    )
+    from launch57.identity_auth_common import attach_identity_auth_envelope
+
+    out = attach_failure_recovery_envelope(
+        out,
+        surface_type="ai",
+        launch_item_id=launch_id or None,
+    )
+    from launch57.billing_entitlement_common import attach_billing_entitlement_envelope
+
+    out = attach_identity_auth_envelope(
+        out,
+        launch_item_id=launch_id or None,
+        surface_type="internal",
+        params=params,
+    )
+    from launch57.compounding_evidence_common import attach_compounding_evidence_envelope
+
+    out = attach_billing_entitlement_envelope(
+        out,
+        launch_item_id=launch_id or None,
+        params=params,
+    )
+    return attach_compounding_evidence_envelope(out, launch_item_id=launch_id or None)
 
 
 def platform_data_only_footer(*, surfaces: list[str] | None = None) -> dict[str, Any]:
@@ -97,7 +144,7 @@ async def gated_explanation(
             binding_source=binding,
         )
         body["ai_system_type"] = classify_ai_type(launch_item_id=launch_item_id)
-        return attach_explanation_ai_envelope(body, spine=spine), None
+        return attach_explanation_ai_envelope(body, spine=spine, params=params), None
     return None, spine
 
 

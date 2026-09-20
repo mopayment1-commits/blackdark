@@ -8,9 +8,40 @@ from __future__ import annotations
 
 from typing import Any
 
+from launch57.evidence_class_common import assess_user_evidence_class, attach_evidence_class_metadata
+from launch57.trust_adaptive_common import (
+    attach_adaptive_disclosure,
+    build_abstention_reject_disclosure,
+    build_approved_public_trust_surfaces,
+    build_level1_decision_disclosure,
+    build_ledger_interpretation_context,
+    build_material_risk_access,
+    build_shareable_truth_context,
+    validate_material_claims_from_payload,
+)
 from launch57.trust_batch1 import attach_trust_envelope
 
 LAUNCH57_TRUST_BATCH2_ITEM_IDS: frozenset[int] = frozenset({47, 48, 44, 45, 46})
+_B10_LAUNCH_ITEMS: frozenset[int] = frozenset({44, 45, 46})
+
+
+def _finalize_trust_batch2_surface(
+    body: dict[str, Any],
+    *,
+    params: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    p = dict(params or {})
+    wrapped = attach_trust_envelope(body)
+    launch_id = int(body.get("launch_item_id") or 0)
+    if launch_id not in _B10_LAUNCH_ITEMS:
+        return wrapped
+    from launch57.b10_shareable_public_bridge import finalize_b10_shareable_surface
+
+    return finalize_b10_shareable_surface(
+        wrapped,
+        payload=p,
+        display_timezone=p.get("display_timezone"),
+    )
 
 
 def _base_payload(params: dict[str, Any] | None, *, symbol: str) -> dict[str, Any]:
@@ -41,15 +72,19 @@ async def one_click_risk_disclosure(*, symbol: str, params: dict[str, Any] | Non
     )
     product = projected.get("product_experience") or {}
 
+    material_claims = product.get("material_claims") or validate_material_claims_from_payload(payload)
+    material_risk = build_material_risk_access(material_claims, reject_proof=reject_proof)
     body = {
         "launch_item_id": 47,
         "surface": "one_click_risk_disclosure",
         "symbol": symbol,
         "success": True,
+        "material_risk": material_risk,
         "risk_disclosure": {
             "compliance_footer": compliance,
             "reject_proof": reject_proof,
-            "material_claims": product.get("material_claims"),
+            "material_claims": material_claims,
+            "material_risk": material_risk,
             "one_click": True,
             "derived_from": "canonical_govern_pipeline",
         },
@@ -57,7 +92,19 @@ async def one_click_risk_disclosure(*, symbol: str, params: dict[str, Any] | Non
         "backend_entrypoint": "one_click_risk_disclosure",
         "binding_source": "launch57_phase2_trust_batch2",
     }
-    return attach_trust_envelope(body)
+    wrapped = attach_trust_envelope(body)
+    disclosure = build_level1_decision_disclosure(
+        payload,
+        launch_item_id=47,
+        surface="one_click_risk_disclosure",
+        answer_state=str(payload.get("decision_truth_state") or "RISK_DISCLOSED"),
+        uncertainty="qualified",
+    )
+    return attach_adaptive_disclosure(
+        wrapped,
+        disclosure,
+        extra={"material_risk": material_risk},
+    )
 
 
 async def abstain_reject_reasons_visible(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -72,6 +119,11 @@ async def abstain_reject_reasons_visible(*, symbol: str, params: dict[str, Any] 
     no_decision = dp.get("no_decision") or build_no_decision_surface(payload)
     rejection = dp.get("rejection_engine") or build_rejection_engine(payload)
 
+    abstention_disclosure = build_abstention_reject_disclosure(
+        payload,
+        no_decision=no_decision,
+        rejection=rejection,
+    )
     body = {
         "launch_item_id": 48,
         "surface": "abstain_reject_reasons_visible",
@@ -79,6 +131,7 @@ async def abstain_reject_reasons_visible(*, symbol: str, params: dict[str, Any] 
         "success": True,
         "no_decision": no_decision,
         "rejection_engine": rejection,
+        "abstention_reject_disclosure": abstention_disclosure,
         "reasons_visible": True,
         "hidden_as_error": bool(no_decision.get("hidden_as_error")),
         "first_class_abstain": bool(no_decision.get("first_class_state")),
@@ -86,12 +139,25 @@ async def abstain_reject_reasons_visible(*, symbol: str, params: dict[str, Any] 
         "backend_entrypoint": "abstain_reject_reasons_visible",
         "binding_source": "launch57_phase2_trust_batch2",
     }
-    return attach_trust_envelope(body)
+    wrapped = attach_trust_envelope(body)
+    disclosure = build_level1_decision_disclosure(
+        payload,
+        launch_item_id=48,
+        surface="abstain_reject_reasons_visible",
+        answer_state=str(no_decision.get("decision_action") or payload.get("decision_action") or "NO_DECISION"),
+        uncertainty="insufficient_evidence",
+    )
+    return attach_adaptive_disclosure(
+        wrapped,
+        disclosure,
+        extra={"abstention_reject_disclosure": abstention_disclosure},
+    )
 
 
 async def shareable_decision_card(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
     """Launch #44 — shareable decision/oracle card (OG metadata)."""
     from decision_certificate import build_decision_certificate
+    from launch57.decision_timing_common import build_decision_timing_context
 
     p = dict(params or {})
     cert = build_decision_certificate(
@@ -104,6 +170,16 @@ async def shareable_decision_card(*, symbol: str, params: dict[str, Any] | None 
             "chain_hash": p.get("chain_hash"),
             "opportunity_score": p.get("opportunity_score"),
         }
+    )
+    evidence = assess_user_evidence_class(p, display_timezone=p.get("display_timezone"))
+    timing = build_decision_timing_context(p, display_timezone=p.get("display_timezone"))
+    timing_dict = timing.as_dict() if timing else {}
+    material_claims = validate_material_claims_from_payload(p)
+    shareable_truth = build_shareable_truth_context(
+        p,
+        evidence=evidence.to_payload(),
+        material_claims=material_claims,
+        timing=timing_dict,
     )
     og = {
         "title": f"BLACKDARK Decision · {symbol}",
@@ -119,20 +195,41 @@ async def shareable_decision_card(*, symbol: str, params: dict[str, Any] | None 
         "certificate": cert,
         "share_urls": cert.get("share_urls"),
         "og_metadata": og,
+        "shareable_truth_context": shareable_truth,
+        "unsupported_live_claim_blocked": shareable_truth["unsupported_live_claim_blocked"],
         "alias_of": "CAP-0641",
         "backend_module": "launch57.trust_batch2",
         "backend_entrypoint": "shareable_decision_card",
         "binding_source": "launch57_phase2_trust_batch2",
     }
-    return attach_trust_envelope(body)
+    body = attach_evidence_class_metadata(body, display_timezone=p.get("display_timezone"))
+    finalized = _finalize_trust_batch2_surface(body, params=p)
+    disclosure = build_level1_decision_disclosure(
+        p,
+        launch_item_id=44,
+        surface="shareable_decision_card",
+        answer_state=str(p.get("decision_action") or cert.get("decision_action") or "WAIT"),
+        evidence_display=finalized.get("evidence_display"),
+        decision_timing=timing_dict,
+    )
+    return attach_adaptive_disclosure(
+        finalized,
+        disclosure,
+        extra={"shareable_truth_context": shareable_truth},
+    )
 
 
 async def shareable_accuracy_page(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
     """Launch #45 — shareable accuracy/outcome page (alias of CAP-0640 live ledger)."""
+    from launch57.public_accuracy_common import enrich_public_track_record
     from oracle_track_record import public_track_record
 
+    p = dict(params or {})
+    zone = str(p.get("display_timezone") or "UTC")
     ledger = public_track_record()
-    cumulative = ledger.get("cumulative") or {}
+    enriched = enrich_public_track_record(ledger, display_timezone=zone)
+    cumulative = enriched.get("cumulative") or {}
+    interpretation = build_ledger_interpretation_context(enriched)
     page = {
         "href": "/oracle-accuracy",
         "permalink": "https://blackdark.app/oracle-accuracy",
@@ -148,26 +245,56 @@ async def shareable_accuracy_page(*, symbol: str, params: dict[str, Any] | None 
         "symbol": symbol,
         "success": True,
         "accuracy_page": page,
-        "ledger": ledger,
+        "ledger": enriched,
+        "public_accuracy_ledger": enriched,
+        "ledger_interpretation_context": interpretation,
         "alias_of": "CAP-0640",
-        "live_only_primary": True,
+        "live_only_primary": enriched.get("live_only_primary", True),
+        "metrics_scope": enriched.get("metrics_scope") or "live_only",
+        "synthetic_excluded_from_primary": bool(
+            (enriched.get("synthetic_demo_data") or {}).get("excluded_from_primary_metrics", True)
+        ),
         "backend_module": "launch57.trust_batch2",
         "backend_entrypoint": "shareable_accuracy_page",
         "binding_source": "launch57_phase2_trust_batch2",
     }
-    return attach_trust_envelope(body)
+    finalized = _finalize_trust_batch2_surface(body, params=p)
+    disclosure = build_level1_decision_disclosure(
+        p,
+        launch_item_id=45,
+        surface="shareable_accuracy_page",
+        answer_state="LIVE_PRIMARY_LEDGER",
+        evidence_display=finalized.get("evidence_display"),
+    )
+    return attach_adaptive_disclosure(
+        finalized,
+        disclosure,
+        extra={"ledger_interpretation_context": interpretation},
+    )
 
 
 async def guest_trust_surface(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
     """Launch #46 — guest/anonymous trust surface."""
-    from governance.anonymous_visitor_governance import anonymous_visitor_status
+    from launch57.anonymous_visitor_common import (
+        attach_anonymous_visitor_envelope,
+        build_anonymous_route_inventory,
+        build_public_intelligence_proof_index,
+        reference_anonymous_visitor_governance,
+        verify_private_by_default,
+    )
 
-    status = anonymous_visitor_status()
+    p = dict(params or {})
+    status = reference_anonymous_visitor_governance()
+    approved_surfaces = build_approved_public_trust_surfaces()
+    private_default = verify_private_by_default()
+    public_proofs = build_public_intelligence_proof_index()
+    route_inventory = build_anonymous_route_inventory()
     body = {
         "launch_item_id": 46,
         "surface": "guest_trust_surface",
         "symbol": symbol,
         "success": True,
+        "approved_public_trust_surfaces": approved_surfaces,
         "guest_trust": {
             "anonymous_state": status.get("anonymous_state"),
             "private_by_default": status.get("private_by_default"),
@@ -176,12 +303,48 @@ async def guest_trust_surface(*, symbol: str, params: dict[str, Any] | None = No
             "no_pii_leak": status.get("no_pii_leak"),
             "visitor_tier_gating": status.get("visitor_tier_gating"),
             "route_inventory": status.get("route_inventory"),
+            "launch57_route_inventory": route_inventory,
+            "public_intelligence_proofs": public_proofs,
+            "private_by_default_guard": private_default,
+            "approved_public_trust_surfaces": approved_surfaces,
+            "not_duplicate_private_app": True,
+            "secondary_public_layer": True,
         },
         "backend_module": "launch57.trust_batch2",
         "backend_entrypoint": "guest_trust_surface",
         "binding_source": "launch57_phase2_trust_batch2",
     }
-    return attach_trust_envelope(body)
+    finalized = _finalize_trust_batch2_surface(body, params=p)
+    disclosure = build_level1_decision_disclosure(
+        p,
+        launch_item_id=46,
+        surface="guest_trust_surface",
+        answer_state="GUEST_TRUST",
+        uncertainty="qualified",
+    )
+    from launch57.identity_auth_common import attach_identity_auth_envelope
+
+    disclosed = attach_adaptive_disclosure(
+        finalized,
+        disclosure,
+        extra={
+            "approved_public_trust_surfaces": approved_surfaces,
+            "public_intelligence_proofs": public_proofs,
+        },
+    )
+    from launch57.billing_entitlement_common import attach_billing_entitlement_envelope
+
+    disclosed = attach_identity_auth_envelope(
+        disclosed,
+        launch_item_id=46,
+        surface_type="public",
+        params=p,
+    )
+    from launch57.compounding_evidence_common import attach_compounding_evidence_envelope
+
+    disclosed = attach_billing_entitlement_envelope(disclosed, launch_item_id=46, params=p)
+    disclosed = attach_compounding_evidence_envelope(disclosed, launch_item_id=46)
+    return attach_anonymous_visitor_envelope(disclosed, launch_item_id=46, params=p)
 
 
 _DISPATCH_BY_LAUNCH_ITEM: dict[int, str] = {

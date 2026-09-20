@@ -204,6 +204,14 @@ async def _maybe_rewrite_html_with_nonce(response: Response, nonce: str) -> Resp
     return _rebuild_html_response(response, rewritten.encode("utf-8"), gzip_out=was_gzip)
 
 
+def _coop_for_path(path: str) -> str:
+    """Google Identity Services needs popup communication on auth surfaces only."""
+    p = path or ""
+    if p in {"/login", "/register"} or p.startswith("/api/auth/oauth/"):
+        return "same-origin-allow-popups"
+    return "same-origin"
+
+
 def security_headers_for(request: Request) -> dict[str, str]:
     """Baseline browser hardening headers.
 
@@ -245,7 +253,7 @@ def security_headers_for(request: Request) -> dict[str, str]:
         "X-Frame-Options": "DENY",
         "Referrer-Policy": "strict-origin-when-cross-origin",
         "Permissions-Policy": "geolocation=(), microphone=(), camera=(), payment=()",
-        "Cross-Origin-Opener-Policy": "same-origin",
+        "Cross-Origin-Opener-Policy": _coop_for_path(request.url.path or ""),
         "Cross-Origin-Resource-Policy": "same-site",
         "X-XSS-Protection": "0",
         "Content-Security-Policy": csp,

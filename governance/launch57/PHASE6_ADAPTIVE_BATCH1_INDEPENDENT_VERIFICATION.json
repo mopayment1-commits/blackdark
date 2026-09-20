@@ -1,0 +1,207 @@
+{
+  "artifact": "PHASE6_ADAPTIVE_BATCH1_INDEPENDENT_VERIFICATION",
+  "verification_type": "independent_engineering",
+  "VERIFIED_IMPLEMENTATION_SHA": "1fa9980a",
+  "verified_implementation_sha_full": "1fa9980aa0eb451a3eeb3481e05304e1c74d7901",
+  "builder_evidence_sha": "ed74c67d",
+  "builder_evidence_sha_full": "ed74c67d86ae498a1b7972a9023f5ebb79b7c6e0",
+  "verified_at": "2026-09-18T00:08:15+00:00",
+  "verifier": {
+    "role": "independent_verifier",
+    "session": "cursor-cloud-agent-phase6-adaptive-batch1-iv",
+    "method": "read_only_delta_assessment_runtime_replay_static_import_scan_targeted_tests_bypass_simulation"
+  },
+  "entry_gate": {
+    "PHASE5_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+    "verified_at_sha": "d4f676d8",
+    "builder_evidence": "governance/launch57/PHASE5_INDEPENDENT_VERDICT_CLOSURE.json",
+    "pass": true
+  },
+  "repository_state": {
+    "audited_head_sha": "ed74c67d",
+    "product_under_test_sha": "1fa9980a",
+    "later_product_changes_invalidating_verification": false,
+    "implementation_delta_base": "d4f676d8",
+    "implementation_delta_range": "d4f676d8..1fa9980a",
+    "product_files_changed": [
+      "launch57/trust_adaptive_common.py",
+      "launch57/explanation_ai_batch1.py",
+      "tests/launch57/test_phase6_adaptive_batch1.py",
+      "tests/launch57/test_explanation_ai_batch1.py"
+    ],
+    "post_implementation_changes": [
+      "governance/launch57/PHASE6_ADAPTIVE_BATCH1_EVIDENCE.json",
+      "governance/launch57/PHASE6_ADAPTIVE_BATCH1_REPORT.md"
+    ],
+    "register_changed": false,
+    "pass": true
+  },
+  "capability_verification": {
+    "34": {
+      "launch_number": 34,
+      "P6:#34": "PASS_ENGINEERING",
+      "checks": {
+        "explanation_grounded_in_signal_evidence_path": true,
+        "unsupported_causality_not_established_fact": true,
+        "inference_uncertainty_affects_consumer_semantics": true,
+        "observed_vs_inference_separated_in_output": true,
+        "runtime_semantics_not_disclosure_only": true,
+        "behavioral_test_fails_if_control_bypassed": true,
+        "canonical_owner_preserved": "launch57.explanation_ai_batch1:signal_explanation_workflow",
+        "parallel_truth_path": false,
+        "parked_legacy_runtime_dependency": false
+      },
+      "consumer_path": "cap646.institutional_official_production → execute_launch57_explanation_ai_batch1 → signal_explanation_workflow → apply_signal_explanation_semantics → footprint_snapshot + build_oqs_why_block",
+      "runtime_probes": {
+        "answer_state": "INFERENCE_QUALIFIED",
+        "causal_certainty_established": false,
+        "inference_presented_as_established_fact": false,
+        "dispatch_launch_item_id": 34
+      },
+      "bypass_simulation": {
+        "helper": "apply_signal_explanation_semantics",
+        "real_answer_state": "INFERENCE_QUALIFIED",
+        "bypass_answer_state": "SIGNAL_EXPLAINED",
+        "control_active": true
+      },
+      "pass": true
+    },
+    "35": {
+      "launch_number": 35,
+      "P6:#35": "PASS_ENGINEERING",
+      "checks": {
+        "observed_facts_distinct_from_inference": true,
+        "inference_not_in_observed_facts": true,
+        "runtime_semantics_not_disclosure_only": true,
+        "behavioral_test_fails_if_control_bypassed": true,
+        "canonical_owner_preserved": "launch57.explanation_ai_batch1:price_move_explanation",
+        "parallel_truth_path": false,
+        "parked_legacy_runtime_dependency": false
+      },
+      "consumer_path": "cap646.institutional_official_production → execute_launch57_explanation_ai_batch1 → price_move_explanation → apply_price_move_explanation_semantics → load_decision_spine + build_sentiment_context_safe",
+      "runtime_probes": {
+        "answer_state": "PRICE_MOVE_EXPLAINED",
+        "strong_24h_rally_in_observed_facts": false,
+        "strong_24h_rally_in_inferences": true,
+        "evidence_class": "direct"
+      },
+      "bypass_simulation": {
+        "helper": "apply_price_move_explanation_semantics",
+        "real_rally_in_observed": false,
+        "bypass_rally_in_observed": true,
+        "control_active": true
+      },
+      "pass": true
+    },
+    "36": {
+      "launch_number": 36,
+      "P6:#36": "PASS_ENGINEERING",
+      "checks": {
+        "supported_claims_approved_platform_data_only": true,
+        "unapproved_input_cannot_alter_claims": true,
+        "unapproved_input_cannot_alter_summary": true,
+        "unsupported_input_rejected_in_consumer": true,
+        "autonomous_scope_not_created": true,
+        "runtime_semantics_not_disclosure_only": true,
+        "behavioral_test_fails_if_control_bypassed": true,
+        "canonical_owner_preserved": "launch57.explanation_ai_batch1:ai_research_agent_grounded",
+        "parallel_truth_path": false,
+        "parked_legacy_runtime_dependency": false
+      },
+      "consumer_path": "cap646.institutional_official_production → execute_launch57_explanation_ai_batch1 → ai_research_agent_grounded → apply_research_agent_grounding_filter → build_research_lab_report",
+      "runtime_probes": {
+        "supported_claims_invariant_under_injection": true,
+        "agent_summary_invariant_under_injection": true,
+        "unsupported_answer_state": "UNSUPPORTED_INPUT_REJECTED",
+        "llm_used": false,
+        "platform_data_only": true
+      },
+      "bypass_simulation": {
+        "helper": "apply_research_agent_grounding_filter",
+        "real_summary_invariant": true,
+        "bypass_summary_changed_by_injection": true,
+        "control_active": true
+      },
+      "pass": true
+    },
+    "51": {
+      "launch_number": 51,
+      "P6:#51": "PASS_ENGINEERING",
+      "checks": {
+        "approved_launch57_evidence_only": true,
+        "unapproved_evidence_cannot_alter_brief_summary": true,
+        "limited_launch_research_surface_preserved": true,
+        "separate_research_platform_not_created": true,
+        "runtime_semantics_not_disclosure_only": true,
+        "behavioral_test_fails_if_control_bypassed": true,
+        "canonical_owner_preserved": "launch57.explanation_ai_batch1:research_intelligence_portal",
+        "parallel_truth_path": false,
+        "parked_legacy_runtime_dependency": false
+      },
+      "consumer_path": "cap646.institutional_official_production → execute_launch57_explanation_ai_batch1 → research_intelligence_portal → apply_research_portal_evidence_filter → public_track_record",
+      "runtime_probes": {
+        "brief_summary_invariant_under_custom_hit_rate": true,
+        "unsupported_answer_state": "UNSUPPORTED_EVIDENCE_REJECTED",
+        "limited_launch_scope": true,
+        "approved_hit_rate_in_summary": "67.5%"
+      },
+      "bypass_simulation": {
+        "helper": "apply_research_portal_evidence_filter",
+        "real_summary_invariant": true,
+        "bypass_summary_changed_by_custom_hit_rate": true,
+        "control_active": true
+      },
+      "pass": true
+    }
+  },
+  "shared_support_regression": {
+    "changed_functions": [
+      "apply_signal_explanation_semantics",
+      "apply_price_move_explanation_semantics",
+      "apply_research_agent_grounding_filter",
+      "apply_research_portal_evidence_filter"
+    ],
+    "consumers_of_changed_code": [
+      "launch57/explanation_ai_batch1.py"
+    ],
+    "affected_prior_consumers": [
+      "launch57/derivatives_batch1.py",
+      "launch57/derivatives_batch2.py",
+      "tests/launch57/test_temporal_batch9.py"
+    ],
+    "phase6_batch1_regression_passed": true,
+    "explanation_ai_batch1_regression_passed": true,
+    "institutional_wire_regression_passed": true,
+    "temporal_batch9_affected_regression_passed": true,
+    "phase5_independent_verdict_still_valid": true,
+    "phase5_affected_regression_passed": true,
+    "unaffected_prior_capabilities_reverified": false,
+    "competing_truth_owner": false,
+    "pass": true
+  },
+  "targeted_tests": {
+    "command": "python3 -m pytest tests/launch57/test_phase6_adaptive_batch1.py tests/launch57/test_explanation_ai_batch1.py tests/launch57/test_explanation_ai_institutional_wire.py tests/launch57/test_temporal_batch9.py tests/launch57/test_phase5_adaptive_batch_b.py tests/launch57/test_derivatives_batch2.py tests/launch57/test_phase5_adaptive_batch_a.py tests/launch57/test_derivatives_batch1.py -q",
+    "exit_code": 0,
+    "passed": 46,
+    "failed": 0,
+    "pass": true
+  },
+  "verdicts": {
+    "P6:#34": "PASS_ENGINEERING",
+    "P6:#35": "PASS_ENGINEERING",
+    "P6:#36": "PASS_ENGINEERING",
+    "P6:#51": "PASS_ENGINEERING",
+    "PHASE6_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+    "PHASE7_MAY_BEGIN": true
+  },
+  "confirmations": {
+    "PASS_LIVE_NOT_CLAIMED": true,
+    "REGISTER_STATUS_PROMOTION": false,
+    "PRODUCT_CODE_CHANGED_BY_IV": false
+  },
+  "residual_gaps": [
+    "trust_adaptive_common.py retains duplicate identical derivatives helper definitions from Phase 5 Batch A (runtime uses later copy; maintainability cleanup deferred)",
+    "legacy cap646.batch01_dedicated explanation handlers exist but Launch-57 dispatch routes LAUNCH57_EXPLANATION_AI_BATCH1_CAP_IDS first"
+  ],
+  "failed_requirement": null
+}

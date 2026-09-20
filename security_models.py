@@ -7,7 +7,7 @@ from pydantic import BaseModel, Field, field_validator
 
 class AuthRegisterBody(BaseModel):
     email: str = Field(min_length=5, max_length=254)
-    password: str = Field(min_length=10, max_length=128)
+    password: str = Field(min_length=12, max_length=128)
     name: str = Field(default="", max_length=80)
     username: str = Field(default="", max_length=24)
     accepted_terms: bool = False
@@ -30,18 +30,23 @@ class AuthMfaChallengeBody(BaseModel):
     code: str = Field(min_length=6, max_length=64)
 
 
+class AuthGoogleCredentialBody(BaseModel):
+    credential: str = Field(min_length=20, max_length=8192)
+    plan: str = Field(default="free", max_length=32)
+
+
 class AuthForgotPasswordBody(BaseModel):
     email: str = Field(min_length=5, max_length=254)
 
 
 class AuthResetPasswordBody(BaseModel):
     token: str = Field(min_length=16, max_length=200)
-    password: str = Field(min_length=10, max_length=128)
+    password: str = Field(min_length=12, max_length=128)
 
 
 class AuthChangePasswordBody(BaseModel):
     current_password: str = Field(default="", max_length=128)
-    new_password: str = Field(min_length=10, max_length=128)
+    new_password: str = Field(min_length=12, max_length=128)
 
 
 class AuthProfileUpdateBody(BaseModel):

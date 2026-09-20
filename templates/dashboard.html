@@ -70,6 +70,7 @@
         footer { text-align: center; color: #71717a; font-size: .78rem; padding: 1.5rem; }
 
         .lens-bar { display:flex; gap:.4rem; justify-content:center; flex-wrap:wrap; margin:0 auto 1rem; max-width:720px; }
+        #lensBar { display: none !important; }
         .lens-btn {
             padding:.45rem 1rem; border-radius:999px; border:1px solid #2a2a35;
             background:#111118; color:#e4e4e7; font-size:.82rem; font-weight:700; cursor:pointer;
@@ -135,27 +136,27 @@
         .tp-cont { font-size:.8rem; color:#a1a1aa; margin:.5rem 0 .25rem; min-height:1.1em; }
         .tp-foot { margin-top:.85rem; font-size:.72rem; color:#71717a; border-top:1px solid #2a2a35; padding-top:.65rem; }
         body.lens-room #trust-pulse { opacity:.92; }
+        #trust-pulse.tp-loading .tp-action,
+        #trust-pulse.tp-loading .tp-sym,
+        #trust-pulse.tp-loading .tp-sentence,
+        #trust-pulse.tp-loading #tpFactors .empty {
+            color: transparent;
+            border-radius: 8px;
+            background: linear-gradient(90deg, #1a1a24 0%, #2a2a35 45%, #1a1a24 90%);
+            background-size: 200% 100%;
+            animation: tpSkeleton 1.15s ease-in-out infinite;
+        }
+        #trust-pulse.tp-loading .tp-action { min-height: 2.4rem; min-width: 5rem; display: inline-block; }
+        #trust-pulse.tp-loading .tp-sym { min-height: 1rem; }
+        #trust-pulse.tp-loading .tp-sentence { min-height: 1.1rem; }
+        @keyframes tpSkeleton {
+            0% { background-position: 100% 0; }
+            100% { background-position: -100% 0; }
+        }
     </style>
 </head>
 <body>
-    <nav>
-        <div class="nav-inner">
-            <a href="/" class="logo">BLACKDARK</a>
-            <div style="display:flex;align-items:center;flex-wrap:wrap;gap:.5rem;margin-inline-start:auto;justify-content:flex-end">
-                <span class="tier" id="userTier">Guest · Proof Pass</span>
-                <button class="btn-upgrade" id="upgradeBtn" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">Decision Pro $29</button>
-                <div class="nav-links">
-                    <a class="lens-nav" href="/dashboard?lens=prove#trust-pulse">Prove</a>
-                    <a class="lens-nav" href="/dashboard?lens=operate">Operate</a>
-                    <a class="lens-nav" href="/dashboard?lens=desk">Desk</a>
-                    <a class="lens-nav" href="/data-room?lens=room">Room</a>
-                    <a href="/oracle-accuracy">Verify</a>
-                    <a href="/profile">Profile &amp; Billing</a>
-                </div>
-                {% include 'partials/top_utility.html' %}
-            </div>
-        </div>
-    </nav>
+    {% include 'partials/global_header.html' %}
 
     <main id="top">
         <div class="hero">
@@ -165,7 +166,7 @@
             <p id="audienceBanner" class="sub" style="display:none;margin-top:.35rem"></p>
         </div>
 
-        <section id="trust-pulse" aria-live="polite" aria-label="Trust Pulse">
+        <section id="trust-pulse" class="tp-loading" aria-live="polite" aria-label="Trust Pulse">
             <div class="tp-top">
                 <strong style="color:#22d3ee;font-size:.85rem;letter-spacing:.04em">TRUST PULSE</strong>
                 <span class="tp-live"><span class="tp-dot" id="tpDot"></span><span id="tpFresh">Connecting…</span></span>
@@ -183,7 +184,7 @@
             <div class="tp-cta">
                 <button class="btn" type="button" data-bd-call="openFullProof">Open full proof</button>
                 <a class="btn secondary" href="/oracle-accuracy" style="text-decoration:none;display:inline-flex;align-items:center">Verify Ledger</a>
-                <button class="btn secondary" type="button" id="tpShareBtn" data-bd-call="shareTrustPulse">Share Proof</button>
+                <button class="btn secondary" type="button" id="tpShareBtn" data-bd-call="shareTrustPulse" hidden>Share Proof</button>
             </div>
             <div class="tp-foot" id="tpFoot"><strong>Anti-Hype</strong> · Not financial advice · AI cannot guarantee returns</div>
         </section>
@@ -196,9 +197,9 @@
         </div>
         <div class="entry-rail hide-in-room" id="entryRail" aria-label="Primary entries"></div>
         <div class="intent-wrap hide-in-room" id="intentWrap">
-            <div class="intent-q" id="intentQuestion">What do you need?</div>
+            <div class="intent-q" id="intentQuestion">{{ t('dash.intent.question') }}</div>
             <div class="intent-grid" id="intentGrid"></div>
-            <div class="intent-hint" id="intentHint">Four doors — Decide · Verify · My book · Alerts. Analytical tool, not advice.</div>
+            <div class="intent-hint" id="intentHint">{{ t('dash.intent.hint') }}</div>
         </div>
         <div class="toolbar hide-in-room" style="justify-content:center;margin-bottom:.75rem">
             <label for="uxMode" class="sr-only">UX mode</label>
@@ -237,6 +238,12 @@
             <a class="btn secondary" href="/since-you-left" style="margin-top:.65rem;display:inline-flex;text-decoration:none">Open full page</a>
         </section>
 
+        <section id="launch57-data-spine" aria-label="Launch-57 data spine">
+            <h2>Data Spine</h2>
+            <p class="sub" id="l57DataNote">Launch-57 prices, freshness, provenance, and connector — claims hidden when unavailable.</p>
+            <div class="tp-proof" id="l57DataChips"><span class="tp-chip">Loading data spine…</span></div>
+        </section>
+
         <section>
             <h2>Live Chart</h2>
             <div class="toolbar">
@@ -245,6 +252,7 @@
                 <button class="btn secondary" data-bd-call="loadChart">Refresh</button>
             </div>
             <div id="chart"></div>
+            <p class="sub" id="l57ChartNote" style="margin-top:.5rem">Launch-57 OHLCV (#23) — chart hidden if bars unavailable.</p>
         </section>
 
         <div class="grid-2 section-operate-plus hide-in-room" id="radar">
@@ -275,7 +283,7 @@
 
         <section id="operate-digest" class="section-operate-plus hide-in-room">
             <h2>Operate digest</h2>
-            <p class="sub">Daily research brief + subscriber value — Decision Pro / Decision Desk</p>
+            <p class="sub">Daily research brief + subscriber value — DECIDE / PRO and above</p>
             <div class="toolbar" style="margin-bottom:.65rem">
                 <button class="btn secondary" type="button" data-bd-call="loadDailyReport">Refresh daily report</button>
                 <button class="btn secondary" type="button" data-bd-call="loadSubscriberValue">Refresh value</button>
@@ -300,7 +308,7 @@
 
         <section id="half-life-clock" class="section-desk-only hide-in-room">
             <h2>Half-Life Heat Clock</h2>
-            <p class="sub">Decision Desk · seconds = money · urgency bands from Opportunity Half-Life</p>
+            <p class="sub">SEE THE EDGE / ELITE · seconds = money · urgency bands from Opportunity Half-Life</p>
             <div class="toolbar">
                 <button class="btn secondary" type="button" data-bd-call="loadHalfLifeClock">Refresh clock</button>
                 <a class="btn secondary" href="/kill-rate">Kill-Rate Board</a>
@@ -352,8 +360,8 @@
             <h2>AI Chat</h2>
             <p class="sub">Operate+ · explains the current decision context — does not replace the Oracle or guarantee outcomes</p>
             <div id="chatGate" class="empty" style="display:none">
-                AI Chat is on Decision Pro and Decision Desk.
-                <button class="btn" style="margin-top:.65rem" type="button" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">Start Decision Pro</button>
+                AI Chat is on DECIDE / PRO and paid tiers above.
+                <button class="btn" style="margin-top:.65rem" type="button" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">Start DECIDE / PRO</button>
                 <div style="margin-top:.5rem;font-size:.75rem"><a href="/faq">FAQ</a> · <a href="/how-it-works">How it works</a></div>
             </div>
             <div id="chatPanel" style="display:none">
@@ -414,7 +422,24 @@
 
         function openFullProof() {
             scrollToId('decide');
+            if (lastVisibleTrust.certificate || (lastPulse && lastPulse.proof && lastPulse.proof.certificate_hash)) {
+                openDecisionCertificate();
+            }
             askOracle();
+        }
+        function openDecisionCertificate() {
+            const cert = lastVisibleTrust.certificate || window._lastCertJson;
+            if (!cert) return;
+            window._lastCertJson = cert;
+            window._lastCertShare = cert.share_text || '';
+            window._lastCertTxt = cert.export_text || '';
+            const blob = new Blob([JSON.stringify(cert, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            window.open(url, '_blank', 'noopener');
+            setTimeout(() => URL.revokeObjectURL(url), 60000);
+        }
+        function clearVisibleTrust() {
+            lastVisibleTrust = { certificate: null, ledger: null, netEdge: null };
         }
         function onUxModeChange() {
             askOracle();
@@ -508,7 +533,7 @@
             } catch (error) { console.debug(error); appendChat('assistant', 'Chat unavailable right now — try again or use Get Decision.'); }
         }
 
-        let nextUpgrade = { checkout_tier: 'pro', href: '/create-checkout-session?tier=pro', cta: 'Decision Pro $29' };
+        let nextUpgrade = { checkout_tier: 'pro', href: '/create-checkout-session?tier=pro', cta: 'Upgrade' };
 
         function applyUpgradeButton() {
             const btn = document.getElementById('upgradeBtn');
@@ -518,7 +543,7 @@
                 return;
             }
             btn.style.display = '';
-            btn.textContent = nextUpgrade.cta || nextUpgrade.label || 'Upgrade';
+            btn.textContent = 'Upgrade';
             btn.onclick = () => {
                 if (nextUpgrade.checkout_tier) upgradeTier(nextUpgrade.checkout_tier);
                 else location.href = nextUpgrade.href || '/data-room';
@@ -539,15 +564,17 @@
                 }
                 if (d.authenticated) {
                     userTierId = (d.user && d.user.tier) || (d.tier && d.tier.id) || 'free';
-                    tierEl.textContent = (d.user.email || '') + ' · ' + (d.tier?.label || d.user.tier);
-                    authLink.textContent = 'Logout';
-                    authLink.href = '#';
-                    authLink.onclick = async e => {
-                        e.preventDefault();
-                        await fetch('/api/auth/logout', { method: 'POST', headers: authHeaders(), credentials: 'same-origin' });
-                        try { localStorage.removeItem('bd_token'); localStorage.removeItem('token'); } catch (_) {}
-                        location.reload();
-                    };
+                    if (tierEl) tierEl.textContent = String(d.tier?.label || d.user?.tier || 'FREE').toUpperCase();
+                    if (authLink) {
+                        authLink.textContent = 'Logout';
+                        authLink.href = '#';
+                        authLink.onclick = async e => {
+                            e.preventDefault();
+                            await fetch('/api/auth/logout', { method: 'POST', headers: authHeaders(), credentials: 'same-origin' });
+                            try { localStorage.removeItem('bd_token'); localStorage.removeItem('token'); } catch (_) {}
+                            location.reload();
+                        };
+                    }
                     try {
                         const up = await fetch('/api/pricing/upgrade-path?tier=' + encodeURIComponent(userTierId));
                         nextUpgrade = await up.json();
@@ -579,8 +606,491 @@
         }
 
         let lastPulse = null;
-        let pulseEs = null;
+        let lastCommandHome = null;
+        let lastShareProof = null;
+        let launch57PollTimer = null;
+        let commandHomeInflight = null;
+        let commandHomeInflightKey = '';
         const TP_STORE = 'bd_trust_pulse_last';
+        const LAUNCH57_COMMAND_HOME = '/api/launch57/command-home';
+        const LAUNCH57_SHARE_PROOF = '/api/launch57/share-proof';
+        const LAUNCH57_DECISION_CERTIFICATE = '/api/launch57/decision-certificate';
+        const LAUNCH57_PUBLIC_ACCURACY = '/api/launch57/public-accuracy';
+        const LAUNCH57_COST_AUTOPSY = '/api/launch57/cost-autopsy';
+        const LAUNCH57_REAL_TIME_PRICES = '/api/launch57/real-time-prices';
+        const LAUNCH57_OHLCV = '/api/launch57/ohlcv';
+        const LAUNCH57_QUOTE = '/api/launch57/quote';
+        const LAUNCH57_PIT_METRICS = '/api/launch57/point-in-time-metrics';
+        const LAUNCH57_DATA_PROVENANCE = '/api/launch57/data-provenance';
+        const LAUNCH57_FRESHNESS = '/api/launch57/freshness';
+        const LAUNCH57_UNIFIED_EXCHANGE = '/api/launch57/unified-exchange';
+        let lastVisibleTrust = { certificate: null, ledger: null, netEdge: null };
+        let lastLaunch57DataSpine = null;
+        const LAUNCH57_PRIMARY_INTENTS = [
+            { id: 'decide', label: 'Decide', action: 'launch57_decide', hint: 'Launch-57 command home — Act/Wait + Why + Proof.' },
+            { id: 'verify', label: 'Verify', action: 'navigate', path: '/oracle-accuracy', hint: 'Public Accuracy Ledger — hits and misses.' },
+            { id: 'my_book', label: 'My book', action: 'portfolio', hint: 'Portfolio risk — Operate+ lens.' },
+            { id: 'alerts', label: 'Alerts', action: 'alerts', hint: 'Inbox after Launch-57 gates.' },
+        ];
+
+        function commandHomeUrl(sym) {
+            const symbol = (sym || document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
+            const qs = new URLSearchParams({ symbol, command_view: 'true' });
+            return LAUNCH57_COMMAND_HOME + '?' + qs.toString();
+        }
+
+        function mapCanonicalEvidenceLabel(canonical) {
+            const key = String(canonical || '').toUpperCase();
+            const map = {
+                PRODUCTION_VERIFIED: 'LIVE',
+                SHADOW_LIVE_FORWARD: 'LIVE',
+                BACKTESTED: 'DELAYED',
+                SIMULATED: 'SIM',
+            };
+            if (map[key]) return map[key];
+            if (['LIVE', 'DELAYED', 'SIM'].includes(key)) return key;
+            return 'DELAYED';
+        }
+
+        function freshnessUiLabel(state, presentedAsLive, delayedLabel) {
+            const s = String(state || 'UNKNOWN').toUpperCase();
+            if (s === 'STALE') return 'Stale — not live';
+            if (s === 'UNKNOWN') return 'Freshness unknown — not live';
+            if (!presentedAsLive) return 'Not presented as live';
+            if (s === 'LIVE') return 'LIVE';
+            if (s === 'NEAR_LIVE') return 'NEAR LIVE';
+            if (s === 'DELAYED') return delayedLabel || 'DELAYED';
+            return s.replace(/_/g, ' ');
+        }
+
+        function launch57OracleFromCommandHome(data) {
+            const home = (data && data.six_heroes_command_home) || {};
+            if (Number(data?.launch_item_id) !== 1) return null;
+            if (String(home.oracle_path || '') !== 'launch57.trust_batch1:single_sentence_oracle') return null;
+            const oracle = home.oracle;
+            if (!oracle || Number(oracle.launch_item_id) !== 2) return null;
+            const sso = oracle.single_sentence_oracle;
+            if (!sso || !sso.action || !sso.sentence) return null;
+            return { home, oracle, sso };
+        }
+
+        function buildOracleWhyFactors(data, oracle) {
+            const factors = [];
+            const oracleDisc = oracle.adaptive_disclosure || {};
+            const stack = oracleDisc.progressive_stack || oracleDisc;
+            const level1 = oracleDisc.level_1 || stack.level_1 || {};
+            const level2 = oracleDisc.level_2 || stack.level_2 || {};
+            const level3 = oracleDisc.level_3 || stack.level_3 || {};
+            if (level1.abstention_reason) {
+                factors.push({ factor: 'Abstain', detail: level1.abstention_reason });
+            }
+            if (level1.critical_limitation) {
+                const lim = level1.critical_limitation;
+                const detail = (lim && (lim.summary || lim.detail)) || String(lim || '');
+                if (detail) factors.push({ factor: 'Limitation', detail });
+            }
+            if (level1.critical_contradiction) {
+                const c = level1.critical_contradiction;
+                const detail = (c && (c.summary || c.detail)) || String(c || '');
+                if (detail) factors.push({ factor: 'Contradiction', detail });
+            }
+            const supporting = level3.supporting_factors || [];
+            supporting.slice(0, 3).forEach((row, i) => {
+                if (typeof row === 'string') {
+                    factors.push({ factor: `Driver ${i + 1}`, detail: row });
+                    return;
+                }
+                factors.push({
+                    factor: row.label || row.factor || row.title || `Driver ${i + 1}`,
+                    detail: row.detail || row.state || '',
+                });
+            });
+            const certFields = oracle.certificate_adaptive_fields || oracle.adaptive_fields || {};
+            (certFields.key_drivers || []).slice(0, 3).forEach((d, i) => {
+                if (typeof d === 'string') {
+                    factors.push({ factor: d, detail: '' });
+                    return;
+                }
+                factors.push({
+                    factor: d.factor || d.label || `Driver ${i + 1}`,
+                    detail: d.detail || '',
+                });
+            });
+            if (!factors.length && level2.concise_explanation) {
+                factors.push({ factor: 'Oracle', detail: level2.concise_explanation });
+            }
+            return {
+                grasp_line: level2.concise_explanation ? 'Why (Launch-57 oracle)' : 'Why (Launch-57 oracle #2)',
+                factors: factors.slice(0, 5),
+            };
+        }
+
+        function commandHomeToPulse(data) {
+            const bound = launch57OracleFromCommandHome(data);
+            const home = (data && data.six_heroes_command_home) || {};
+            const evidenceDisp = (data && data.evidence_display) || {};
+            const freshnessState = String(data.freshness_state || 'UNKNOWN').toUpperCase();
+            const presentedAsLive = data.presented_as_live === true && data.decision_live_blocked !== true;
+            const staleBlocked = freshnessState === 'STALE'
+                || freshnessState === 'UNKNOWN'
+                || data.decision_live_blocked === true
+                || !presentedAsLive;
+            const userEvidence = evidenceDisp.user_facing_label
+                || mapCanonicalEvidenceLabel(data.evidence_class_visible || (bound && bound.oracle.evidence_class));
+
+            if (!bound) {
+                return {
+                    symbol: data?.symbol || 'BTC',
+                    action: 'UNAVAILABLE',
+                    sentence: 'Launch-57 command home unavailable — governed oracle #2 required.',
+                    freshness: {
+                        state: freshnessState,
+                        stale: true,
+                        presented_as_live: false,
+                        label: 'Unavailable',
+                    },
+                    why: { grasp_line: 'Why (Launch-57 oracle #2)', factors: [] },
+                    proof: { evidence_class: userEvidence },
+                    ledger: { label: 'Launch-57 grounded', href: '/oracle-accuracy' },
+                    presented_as_live: false,
+                    decision_live_blocked: true,
+                    launch57_oracle_bound: false,
+                    launch57_command_home: true,
+                };
+            }
+
+            const { oracle, sso } = bound;
+            const abstain = home.abstain === true || data.answer_state === 'ABSTAIN';
+            let action = abstain ? 'ABSTAIN' : String(oracle.decision_action || sso.action).toUpperCase();
+            if (action === 'BUY') action = 'ACT';
+            if (!['ACT', 'WAIT', 'ABSTAIN', 'CAUTION'].includes(action)) action = 'WAIT';
+
+            const why = buildOracleWhyFactors(data, oracle);
+            if (staleBlocked || data.success === false || abstain) {
+                if (!why.factors.length && home.abstain_explanation) {
+                    why.factors.push({ factor: 'Abstain', detail: home.abstain_explanation });
+                }
+                if (!why.factors.length && home.abstain_reason) {
+                    why.factors.push({ factor: 'Router', detail: home.abstain_reason });
+                }
+                if (!why.factors.length) {
+                    why.factors.push({
+                        factor: 'Freshness gate',
+                        detail: freshnessUiLabel(freshnessState, false, data.delayed_label),
+                    });
+                }
+                return {
+                    symbol: data.symbol || oracle.symbol || 'BTC',
+                    action: abstain ? 'ABSTAIN' : 'WAIT',
+                    sentence: home.abstain_explanation || sso.sentence || data.error || 'Launch-57 blocked — not live-eligible.',
+                    price: data.price,
+                    change_24h: data.change_24h,
+                    freshness: {
+                        state: freshnessState,
+                        stale: true,
+                        presented_as_live: false,
+                        label: freshnessUiLabel(freshnessState, false, data.delayed_label),
+                    },
+                    why,
+                    proof: {
+                        evidence_class: userEvidence,
+                        canonical_evidence_class: data.evidence_class_visible || oracle.evidence_class,
+                    },
+                    ledger: { label: 'Launch-57 grounded', href: '/oracle-accuracy', honesty_line: 'Stale or unknown data is never presented as live.' },
+                    presented_as_live: false,
+                    decision_live_blocked: true,
+                    launch57_oracle_bound: true,
+                    launch57_command_home: true,
+                };
+            }
+
+            if (!why.factors.length) {
+                why.factors.push({ factor: 'Oracle', detail: sso.sentence });
+            }
+
+            return {
+                symbol: data.symbol || oracle.symbol || 'BTC',
+                action,
+                sentence: sso.sentence,
+                price: data.price,
+                change_24h: data.change_24h,
+                freshness: {
+                    state: freshnessState,
+                    stale: false,
+                    presented_as_live: presentedAsLive,
+                    label: freshnessUiLabel(freshnessState, presentedAsLive, data.delayed_label),
+                },
+                why,
+                proof: {
+                    evidence_class: userEvidence,
+                    canonical_evidence_class: data.evidence_class_visible || oracle.evidence_class,
+                },
+                ledger: { label: 'Launch-57 grounded', href: '/oracle-accuracy', honesty_line: 'Launch-57 scope only — oracle #2 grounded.' },
+                presented_as_live: presentedAsLive,
+                decision_live_blocked: false,
+                launch57_oracle_bound: true,
+                launch57_command_home: true,
+            };
+        }
+
+        function setShareProofButton(visible) {
+            const btn = document.getElementById('tpShareBtn');
+            if (btn) btn.hidden = !visible;
+        }
+
+        async function prefetchCostAutopsy(pulse, oracle) {
+            const opp = oracle && oracle.opportunity;
+            if (!opp || typeof opp !== 'object') return null;
+            try {
+                const res = await fetch(LAUNCH57_COST_AUTOPSY, {
+                    method: 'POST',
+                    headers: { ...authHeaders(), 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ symbol: pulse.symbol || 'BTC', opportunity: opp }),
+                });
+                if (!res.ok) return null;
+                const body = await res.json();
+                if (Number(body.launch_item_id) !== 5) return null;
+                return body;
+            } catch (error) {
+                console.debug(error);
+                return null;
+            }
+        }
+
+        async function prefetchVisibleTrust(pulse, commandHome) {
+            if (!pulse || !pulse.launch57_oracle_bound || pulse.action === 'UNAVAILABLE') {
+                clearVisibleTrust();
+                return;
+            }
+            const bound = launch57OracleFromCommandHome(commandHome || lastCommandHome || {});
+            const oracle = (bound && bound.oracle) || {};
+            const timing = oracle.decision_timing || {};
+            const certQs = new URLSearchParams({
+                symbol: pulse.symbol || 'BTC',
+                decision_action: pulse.action || 'WAIT',
+                decision_sentence: pulse.sentence || '',
+            });
+            if (timing.decision_time) certQs.set('decision_time', timing.decision_time);
+            try {
+                const [certRes, ledgerRes, netEdgeBody] = await Promise.all([
+                    fetch(LAUNCH57_DECISION_CERTIFICATE + '?' + certQs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_PUBLIC_ACCURACY + '?symbol=' + encodeURIComponent(pulse.symbol || 'BTC')),
+                    prefetchCostAutopsy(pulse, oracle),
+                ]);
+                if (certRes.ok) {
+                    const certBody = await certRes.json();
+                    if (Number(certBody.launch_item_id) === 3 && certBody.certificate_hash) {
+                        lastVisibleTrust.certificate = certBody.certificate || certBody.decision_certificate || certBody;
+                        if (lastPulse) {
+                            lastPulse.proof = {
+                                ...(lastPulse.proof || {}),
+                                certificate_hash: certBody.certificate_hash,
+                                launch_item_id_3: 3,
+                            };
+                        }
+                    } else {
+                        lastVisibleTrust.certificate = null;
+                    }
+                } else {
+                    lastVisibleTrust.certificate = null;
+                }
+                if (ledgerRes.ok) {
+                    const ledgerBody = await ledgerRes.json();
+                    if (Number(ledgerBody.launch_item_id) === 4) {
+                        const ledger = ledgerBody.public_accuracy_ledger || ledgerBody.ledger || {};
+                        const cum = ledger.cumulative || {};
+                        const hr = cum.hit_rate_percent;
+                        ledgerBody.ledger_sample_label = hr != null
+                            ? `Ledger ${hr}% hit · live sample`
+                            : 'Ledger · live sample';
+                        ledgerBody.live_only_primary = ledgerBody.live_only_primary !== false;
+                        lastVisibleTrust.ledger = ledgerBody;
+                        if (lastPulse) {
+                            lastPulse.ledger = {
+                                ...(lastPulse.ledger || {}),
+                                href: '/oracle-accuracy#launch57-ledger-sample',
+                                label: ledgerBody.ledger_sample_label,
+                                launch_item_id: 4,
+                                live_sample: true,
+                            };
+                        }
+                    } else {
+                        lastVisibleTrust.ledger = null;
+                    }
+                } else {
+                    lastVisibleTrust.ledger = null;
+                }
+                lastVisibleTrust.netEdge = (netEdgeBody && netEdgeBody.success && netEdgeBody.cost_claim_allowed !== false)
+                    ? netEdgeBody
+                    : null;
+                if (lastPulse && lastVisibleTrust.netEdge) {
+                    lastPulse.net_edge_autopsy = lastVisibleTrust.netEdge;
+                }
+            } catch (error) {
+                console.debug(error);
+                clearVisibleTrust();
+            }
+            if (lastPulse) renderTrustPulse(lastPulse);
+        }
+
+        async function prefetchShareProof(pulse) {
+            if (!pulse || !pulse.launch57_oracle_bound || pulse.action === 'UNAVAILABLE') {
+                setShareProofButton(false);
+                return null;
+            }
+            try {
+                const qs = new URLSearchParams({
+                    symbol: pulse.symbol || 'BTC',
+                    decision_action: pulse.action || 'WAIT',
+                    decision_sentence: pulse.sentence || '',
+                });
+                const res = await fetch(LAUNCH57_SHARE_PROOF + '?' + qs.toString(), { headers: authHeaders() });
+                if (!res.ok) {
+                    setShareProofButton(false);
+                    return null;
+                }
+                const body = await res.json();
+                if (Number(body.launch_item_id) !== 44 || !body.success) {
+                    setShareProofButton(false);
+                    return null;
+                }
+                const cert = body.certificate || {};
+                const shareUrls = body.share_urls || cert.share_urls || {};
+                const shareText = cert.share_text || body.og_metadata?.description || pulse.sentence;
+                const permalink = cert.permalink || body.og_metadata?.url || shareUrls.x || null;
+                lastShareProof = body;
+                if (lastPulse) {
+                    lastPulse.proof = {
+                        ...(lastPulse.proof || {}),
+                        share_text: shareText,
+                        share_urls: shareUrls,
+                        permalink,
+                        certificate_hash: cert.certificate_hash,
+                        launch_item_id: 44,
+                    };
+                }
+                setShareProofButton(Boolean(shareText || permalink || (shareUrls && Object.keys(shareUrls).length)));
+                return body;
+            } catch (error) {
+                console.debug(error);
+                setShareProofButton(false);
+                return null;
+            }
+        }
+
+        function setTrustPulseLoading(active) {
+            const tp = document.getElementById('trust-pulse');
+            if (!tp) return;
+            tp.classList.toggle('tp-loading', !!active);
+        }
+
+        async function loadCommandHome(force) {
+            const sym = (document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
+            const inflightKey = sym;
+            if (commandHomeInflight && commandHomeInflightKey === inflightKey) {
+                return commandHomeInflight;
+            }
+            setTrustPulseLoading(true);
+            commandHomeInflightKey = inflightKey;
+            commandHomeInflight = (async () => {
+                try {
+                    const url = commandHomeUrl(sym) + (force ? '&_=' + Date.now() : '');
+                    const res = await fetch(url, { headers: authHeaders() });
+                    if (!res.ok) throw new Error('launch57_command_home_fail');
+                    const data = await res.json();
+                    lastCommandHome = data;
+                    const pulse = commandHomeToPulse(data);
+                    renderTrustPulse(pulse);
+                    if (pulse.launch57_oracle_bound) {
+                        prefetchShareProof(pulse);
+                        prefetchVisibleTrust(pulse, data);
+                    } else {
+                        setShareProofButton(false);
+                        clearVisibleTrust();
+                    }
+                    renderLaunch57Intents(data);
+                    const box = document.getElementById('oracleBox');
+                    const el = document.getElementById('oracleContent');
+                    if (box && el) {
+                        box.classList.add('show');
+                        renderLaunch57Decision(el, data, { sym, mode: document.getElementById('uxMode')?.value || 'beginner', lang: currentLang() });
+                    }
+                    return data;
+                } catch (error) {
+                    console.debug(error);
+                    const freshEl = document.getElementById('tpFresh');
+                    const sentenceEl = document.getElementById('tpSentence');
+                    if (freshEl) freshEl.textContent = 'Unavailable';
+                    if (sentenceEl) sentenceEl.textContent = 'Launch-57 command home unavailable.';
+                    setShareProofButton(false);
+                    clearVisibleTrust();
+                    setTrustPulseLoading(false);
+                    return null;
+                } finally {
+                    commandHomeInflight = null;
+                    commandHomeInflightKey = '';
+                }
+            })();
+            return commandHomeInflight;
+        }
+
+        function renderLaunch57Decision(el, data, { sym, mode, lang }) {
+            const home = (data && data.six_heroes_command_home) || {};
+            const oracle = home.oracle || data || {};
+            const sso = oracle.single_sentence_oracle || {};
+            const abstain = home.abstain || data.answer_state === 'ABSTAIN';
+            const mapped = {
+                symbol: data.symbol || sym,
+                decision_action: abstain ? 'ABSTAIN' : (oracle.decision_action || sso.action || 'WAIT'),
+                decision_sentence: home.abstain_explanation || sso.sentence || 'Launch-57 command home',
+                verdict: abstain ? 'ABSTAIN' : (oracle.decision_action || 'WAIT'),
+                price: data.price,
+                change_24h: data.change_24h,
+                ux_mode: mode,
+                lang,
+                opportunity_score: (() => {
+                    const ne = lastVisibleTrust.netEdge && lastVisibleTrust.netEdge.net_edge_truth_score;
+                    if (ne && ne.truth_score != null) return ne.truth_score;
+                    const raw = oracle.net_edge_truth_score;
+                    if (raw && typeof raw === 'object' && raw.truth_score != null) return raw.truth_score;
+                    return '—';
+                })(),
+                decision_certificate: lastVisibleTrust.certificate || oracle.decision_certificate || null,
+                confidence: oracle.confidence,
+                launch57_command_home: true,
+                router_selection: home.router_selection_contract,
+            };
+            renderOracleDecision(el, mapped, { sym, mode, lang });
+        }
+
+        function renderLaunch57Intents(data) {
+            const grid = document.getElementById('intentGrid');
+            const q = document.getElementById('intentQuestion');
+            const hint = document.getElementById('intentHint');
+            if (!grid) return;
+            const home = (data && data.six_heroes_command_home) || {};
+            if (q) q.textContent = home.question || i18nT('dash.intent.question');
+            const intents = LAUNCH57_PRIMARY_INTENTS;
+            grid.innerHTML = intents.map(it =>
+                `<button type="button" class="intent-btn" data-id="${esc(it.id)}" data-action="${esc(it.action||'')}" data-path="${esc(it.path||'')}">${esc(it.label)}</button>`
+            ).join('');
+            grid.querySelectorAll('.intent-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    grid.querySelectorAll('.intent-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    const id = btn.dataset.id;
+                    const action = btn.dataset.action;
+                    const path = btn.dataset.path || '';
+                    const row = intents.find(x => x.id === id) || {};
+                    if (hint) hint.textContent = row.hint || '';
+                    if (action === 'navigate' && path) { location.assign(path); return; }
+                    if (action === 'launch57_decide') { scrollToId('trust-pulse'); loadCommandHome(true); return; }
+                    if (action === 'portfolio') { scrollToId('portfolio'); return; }
+                    if (action === 'alerts') { scrollToId('alerts'); loadInbox(); return; }
+                });
+            });
+            if (hint && !hint.textContent) hint.textContent = 'Launch-57 only — Decide · Verify · My book · Alerts.';
+        }
 
         function readLastPulseVisit() {
             try { return JSON.parse(localStorage.getItem(TP_STORE) || 'null'); } catch (error) { console.debug(error); return null; }
@@ -635,8 +1145,23 @@
             const proof = p.proof || {};
             const ledger = p.ledger || {};
             const chips = [];
-            chips.push(`<a class="tp-chip ok" href="${safeShareUrl(ledger.href)||'/oracle-accuracy'}">${esc(ledger.label||'Verified on Ledger')}</a>`);
-            if (proof.certificate_hash) chips.push(`<span class="tp-chip">cert ${esc(String(proof.certificate_hash).slice(0,12))}…</span>`);
+            const ev = proof.evidence_class;
+            if (ev) {
+                const evCls = ev === 'SIM' ? 'warn' : (ev === 'DELAYED' ? '' : 'ok');
+                chips.push(`<span class="tp-chip ${evCls}">Evidence: ${esc(ev)}</span>`);
+            }
+            const netEdge = (lastVisibleTrust.netEdge && lastVisibleTrust.netEdge.net_edge_truth_score) || null;
+            if (netEdge && netEdge.truth_score != null) {
+                chips.push(`<span class="tp-chip ok">Net-Edge: ${esc(netEdge.truth_score)}</span>`);
+            }
+            const ledgerLabel = ledger.label
+                || (lastVisibleTrust.ledger && lastVisibleTrust.ledger.ledger_sample_label)
+                || 'Verify Ledger';
+            const ledgerHref = safeShareUrl(ledger.href) || '/oracle-accuracy#launch57-ledger-sample';
+            chips.push(`<a class="tp-chip ok" href="${ledgerHref}">${esc(ledgerLabel)}</a>`);
+            if (proof.certificate_hash) {
+                chips.push(`<button type="button" class="tp-chip ok" data-bd-call="openDecisionCertificate" style="border:none;cursor:pointer;font:inherit">cert ${esc(String(proof.certificate_hash).slice(0,12))}…</button>`);
+            }
             if (proof.prediction_id) chips.push(`<span class="tp-chip">id ${esc(proof.prediction_id)}</span>`);
             if (proof.watermark) chips.push(`<span class="tp-wm">${esc(proof.watermark)}</span>`);
             if (p.veto) chips.push(`<span class="tp-chip warn">Veto</span>`);
@@ -674,11 +1199,17 @@
         }
         function renderTrustPulse(p, { fromStream } = {}) {
             if (!p) return;
+            setTrustPulseLoading(false);
             lastPulse = p;
             const actionEl = document.getElementById('tpAction');
             const act = (p.action || 'WAIT').toUpperCase();
-            actionEl.textContent = act;
-            actionEl.className = 'tp-action ' + act;
+            if (act === 'UNAVAILABLE' || p.launch57_oracle_bound === false) {
+                actionEl.textContent = '—';
+                actionEl.className = 'tp-action WAIT';
+            } else {
+                actionEl.textContent = act;
+                actionEl.className = 'tp-action ' + act;
+            }
             const price = fmtPrice(p.price);
             const ch = p.change_24h;
             const chS = changeSpan(ch);
@@ -692,12 +1223,14 @@
             const fresh = p.freshness || {};
             const dot = document.getElementById('tpDot');
             dot.className = freshnessDotClass(fresh);
-            const freshState = String(fresh.state || fresh.status || '').toLowerCase();
-            const stale = fresh.stale === true || freshState === 'stale';
-            const knownFresh = freshState === 'fresh' || freshState === 'ok' || freshState === 'live';
-            document.getElementById('tpFresh').textContent = stale
-                ? (fresh.label || 'Stale — not live')
-                : (fresh.label || (knownFresh ? 'Live' : 'Freshness unknown'));
+            const freshState = String(fresh.state || fresh.status || 'UNKNOWN').toUpperCase();
+            const presentedLive = fresh.presented_as_live === true && p.presented_as_live !== false && p.decision_live_blocked !== true;
+            const stale = fresh.stale === true
+                || freshState === 'STALE'
+                || freshState === 'UNKNOWN'
+                || !presentedLive;
+            document.getElementById('tpFresh').textContent = fresh.label
+                || freshnessUiLabel(freshState, presentedLive, null);
             document.getElementById('tpProof').innerHTML = buildPulseChips(p);
             renderPulseFlip(p, fromStream);
             renderPulseContinuity(p);
@@ -711,81 +1244,49 @@
         }
 
         async function loadTrustPulse(force) {
-            const sym = (document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
-            const prev = readLastPulseVisit();
-            const mode = document.getElementById('uxMode')?.value || 'beginner';
-            const qs = new URLSearchParams({
-                symbol: sym,
-                ux_mode: mode,
-                lang: 'en',
-            });
-            // force refreshes cache only — never spam prediction_id on every boot
-            if (force) qs.set('force', 'true');
-            if (prev && prev.action) {
-                qs.set('previous_action', prev.action);
-                if (prev.seen_at) qs.set('previous_seen_at', prev.seen_at);
-            }
-            if (prev && prev.factors && prev.factors.length) {
-                try { qs.set('previous_factors', JSON.stringify(prev.factors.slice(0, 5))); } catch (error) { console.debug(error); }
-            }
-            try {
-                const res = await fetch('/api/trust-pulse?' + qs.toString(), { headers: authHeaders() });
-                if (!res.ok) throw new Error('pulse_fail');
-                const p = await res.json();
-                renderTrustPulse(p);
-            } catch (error) { console.debug(error); document.getElementById('tpFresh').textContent = 'Unavailable';
-                document.getElementById('tpSentence').textContent = 'Trust Pulse unavailable — use Get Decision below.'; }
+            return loadCommandHome(force);
         }
 
         function startTrustPulseStream() {
-            if (pulseEs) { try { pulseEs.close(); } catch (error) { console.debug(error); } }
-            const sym = (document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
-            const url = '/api/trust-pulse/stream?symbol=' + encodeURIComponent(sym);
-            try {
-                pulseEs = new EventSource(url);
-                pulseEs.onmessage = (ev) => {
-                    try {
-                        const d = JSON.parse(ev.data);
-                        if (d.pulse) renderTrustPulse(d.pulse, { fromStream: true });
-                        else if (d.type === 'connected') {
-                            document.getElementById('tpFresh').textContent = 'Live stream on';
-                        }
-                    } catch (error) { console.debug(error); }
-                };
-                pulseEs.onerror = () => {
-                    const fresh = document.getElementById('tpFresh');
-                    if (fresh && !String(fresh.textContent||'').includes('ago')) {
-                        fresh.textContent = 'Reconnecting…';
-                    }
-                };
-            } catch (error) { console.debug(error); }
+            if (launch57PollTimer) clearInterval(launch57PollTimer);
+            launch57PollTimer = setInterval(() => loadCommandHome(false), 60000);
+            const fresh = document.getElementById('tpFresh');
+            if (fresh) fresh.textContent = 'Launch-57 command home';
         }
 
-        function shareTrustPulse() {
+        async function shareTrustPulse() {
             const btn = document.getElementById('tpShareBtn');
+            if (btn && btn.hidden) return;
+            const p = lastPulse || {};
+            if (!p.launch57_oracle_bound || p.action === 'UNAVAILABLE') return;
+            let proof = p.proof || {};
+            if (Number(proof.launch_item_id) !== 44) {
+                const prefetched = await prefetchShareProof(p);
+                if (!prefetched) return;
+                proof = (lastPulse && lastPulse.proof) || {};
+            }
             if (btn) {
                 btn.classList.remove('bd-motion-share');
                 btn.dataset.reflow = String(btn.offsetWidth);
                 btn.classList.add('bd-motion-share');
             }
-            const p = lastPulse || {};
-            const proof = p.proof || {};
-            const text = proof.share_text || (`BLACKDARK Trust Pulse · ${p.symbol||'BTC'} · ${p.action||'WAIT'} · verify /oracle-accuracy`);
-            const url = (proof.share_urls && proof.share_urls.x) || null;
+            const text = proof.share_text;
+            const url = proof.permalink || (proof.share_urls && proof.share_urls.x) || null;
+            if (!text && !url) return;
             if (navigator.share) {
-                navigator.share({ title: 'BLACKDARK Trust Pulse', text }).catch(() => {});
+                navigator.share({ title: 'BLACKDARK Trust Pulse', text: text || '', url: url || undefined }).catch(() => {});
                 return;
             }
-            if (navigator.clipboard) navigator.clipboard.writeText(text).catch(() => {});
+            if (text && navigator.clipboard) navigator.clipboard.writeText(text).catch(() => {});
             if (url) window.open(url, '_blank', 'noopener');
-            else alert('Proof text copied');
+            else if (text) alert('Proof text copied');
         }
 
         function setSymbol(s) {
             document.getElementById('symbol').value = s;
-            askOracle();
+            loadCommandHome(true);
+            loadLaunch57DataSpine(s);
             loadChart();
-            loadTrustPulse(true);
             startTrustPulseStream();
         }
 
@@ -945,10 +1446,9 @@
             }
             el.innerHTML = '<div class="loading">' + esc(i18nT('oracle.analyzing')) + '</div>';
             try {
-                const url = '/oracle/' + encodeURIComponent(sym) + '?ux_mode=' + encodeURIComponent(mode) + '&lang=' + encodeURIComponent(lang);
-                const res = await fetch(url, { headers: authHeaders() });
-                if (!res.ok) throw new Error('fail');
-                renderOracleDecision(el, await res.json(), { sym, mode, lang });
+                const data = await loadCommandHome(true);
+                if (!data) throw new Error('fail');
+                renderLaunch57Decision(el, data, { sym, mode, lang });
             } catch (error) {
                 console.debug(error);
                 const empty = document.createElement('div');
@@ -974,17 +1474,115 @@
             new ResizeObserver(() => chart.applyOptions({ width: el.clientWidth })).observe(el);
         }
 
+        function launch57FreshnessChipLabel(body) {
+            if (!body) return null;
+            const state = String(body.freshness_state || 'UNKNOWN').toUpperCase();
+            const presented = body.presented_as_live === true;
+            if (state === 'STALE' || state === 'UNKNOWN' || !presented) {
+                return freshnessUiLabel(state, false, body.delayed_label);
+            }
+            return freshnessUiLabel(state, true, body.delayed_label);
+        }
+
+        function renderLaunch57DataSpine(spine) {
+            const chipsEl = document.getElementById('l57DataChips');
+            const noteEl = document.getElementById('l57DataNote');
+            if (!chipsEl) return;
+            const chips = [];
+            const price = spine && spine.price;
+            if (price && price.success && price.price != null) {
+                const live = price.presented_as_live === true && String(price.freshness_state || '').toUpperCase() !== 'STALE';
+                const priceLabel = live ? 'Price' : 'Price (not live)';
+                chips.push(`<span class="tp-chip ${live ? 'ok' : ''}">${esc(priceLabel)}: $${esc(fmt(price.price, price.price < 1 ? 4 : 2))}</span>`);
+            }
+            const fresh = spine && spine.freshness;
+            const freshLabel = launch57FreshnessChipLabel(fresh || price);
+            if (freshLabel) chips.push(`<span class="tp-chip">${esc('Freshness')}: ${esc(freshLabel)}</span>`);
+            const quote = spine && spine.quote;
+            if (quote && quote.success && quote.quote && quote.quote.quote && quote.quote.quote.last != null) {
+                chips.push(`<span class="tp-chip ok">${esc(quote.symbol || '')} quote ${esc(quote.quote.quote.last)}</span>`);
+            }
+            const prov = spine && spine.provenance;
+            if (prov && prov.success && prov.user_disclosure && prov.user_disclosure.band) {
+                chips.push(`<span class="tp-chip ok">${esc('Provenance')}: ${esc(prov.user_disclosure.band)}</span>`);
+            }
+            const pit = spine && spine.pit;
+            if (pit && pit.success && pit.content_hash) {
+                chips.push(`<span class="tp-chip">PIT ${esc(String(pit.content_hash).slice(0, 12))}…</span>`);
+            }
+            const conn = spine && spine.connector;
+            if (conn && conn.success && conn.selected_provider) {
+                chips.push(`<span class="tp-chip ok">${esc('Route')}: ${esc(conn.selected_provider)}</span>`);
+            } else if (conn && conn.success === false) {
+                chips.push(`<span class="tp-chip">Route unavailable</span>`);
+            }
+            chipsEl.innerHTML = chips.length
+                ? chips.join('')
+                : '<span class="tp-chip">Data spine unavailable — no live claims shown.</span>';
+            if (noteEl) {
+                noteEl.textContent = chips.length
+                    ? 'Launch-57 governed data (#22–#24, #39–#42). STALE/UNKNOWN never labeled LIVE.'
+                    : 'Launch-57 data spine unavailable — claims hidden (fail-closed).';
+            }
+        }
+
+        async function loadLaunch57DataSpine(forceSym) {
+            const sym = (forceSym || document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
+            const spine = { symbol: sym };
+            try {
+                const priceRes = await fetch(LAUNCH57_REAL_TIME_PRICES + '?symbol=' + encodeURIComponent(sym));
+                if (priceRes.ok) spine.price = await priceRes.json();
+                const ageMs = spine.price && spine.price.data_age_sec != null ? Number(spine.price.data_age_sec) * 1000 : null;
+                const freshQs = new URLSearchParams({ symbol: sym });
+                if (ageMs != null) freshQs.set('quote_age_ms', String(ageMs));
+                const [quoteRes, provRes, pitRes, connRes, freshRes] = await Promise.all([
+                    fetch(LAUNCH57_QUOTE + '?' + new URLSearchParams({ symbol: sym }).toString()),
+                    fetch(LAUNCH57_DATA_PROVENANCE + '?' + new URLSearchParams({ symbol: sym }).toString()),
+                    fetch(LAUNCH57_PIT_METRICS + '?' + new URLSearchParams({ symbol: sym, price: spine.price?.price ?? '' }).toString()),
+                    fetch(LAUNCH57_UNIFIED_EXCHANGE + '?' + new URLSearchParams({ symbol: sym }).toString()),
+                    fetch(LAUNCH57_FRESHNESS + '?' + freshQs.toString()),
+                ]);
+                if (quoteRes.ok) spine.quote = await quoteRes.json();
+                if (provRes.ok) spine.provenance = await provRes.json();
+                if (pitRes.ok) spine.pit = await pitRes.json();
+                if (connRes.ok) spine.connector = await connRes.json();
+                if (freshRes.ok) spine.freshness = await freshRes.json();
+            } catch (error) {
+                console.debug(error);
+            }
+            lastLaunch57DataSpine = spine;
+            renderLaunch57DataSpine(spine);
+            return spine;
+        }
+
         async function loadChart() {
             if (!series) return;
             const sym = (document.getElementById('symbol').value || 'BTC').toUpperCase();
             const iv = document.getElementById('chartIv').value;
+            const note = document.getElementById('l57ChartNote');
             try {
-                const res = await fetch('/api/market/klines?symbol=' + encodeURIComponent(sym) + '&interval=' + encodeURIComponent(iv) + '&limit=100');
+                const qs = new URLSearchParams({ symbol: sym, interval: iv, limit: '100' });
+                const res = await fetch(LAUNCH57_OHLCV + '?' + qs.toString());
                 const payload = await res.json();
-                const rows = payload.klines || payload || [];
-                series.setData(rows.map(k => ({ time: Math.floor(k[0]/1000), open:+k[1], high:+k[2], low:+k[3], close:+k[4] })));
+                if (!res.ok || !payload.success) {
+                    series.setData([]);
+                    if (note) note.textContent = 'Launch-57 OHLCV unavailable — chart hidden (no legacy fallback).';
+                    return;
+                }
+                const bars = payload.bars || [];
+                series.setData(bars.map(b => ({
+                    time: Math.floor((b.open_time_ms || 0) / 1000),
+                    open: +b.open,
+                    high: +b.high,
+                    low: +b.low,
+                    close: +b.close,
+                })));
                 chart.timeScale().fitContent();
-            } catch (error) { console.debug(error); }
+                if (note) note.textContent = `Launch-57 OHLCV (#23) · ${bars.length} bars · ${esc(payload.interval || iv)}`;
+            } catch (error) {
+                console.debug(error);
+                if (note) note.textContent = 'Launch-57 OHLCV unavailable — chart hidden (no legacy fallback).';
+            }
         }
 
         function renderMarketAssets(assets) {
@@ -1282,13 +1880,43 @@
             } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Continuity unavailable</div>'; }
         }
 
+        function commandHomeToHalfLifeHeat(data) {
+            const home = (data && data.six_heroes_command_home) || {};
+            const oracle = home.oracle || {};
+            const action = home.abstain ? 'ABSTAIN' : (oracle.decision_action || 'WAIT');
+            const freshness = String(data.freshness_state || 'UNKNOWN').toUpperCase();
+            let remaining = 45;
+            let label = 'WARM';
+            let color = '#eab308';
+            if (freshness === 'STALE' || action === 'ABSTAIN') {
+                remaining = 5; label = 'CRITICAL'; color = '#ef4444';
+            } else if (action === 'ACT' || action === 'BUY' || action === 'SELL') {
+                remaining = 15; label = 'HOT'; color = '#f59e0b';
+            } else if (action === 'WAIT') {
+                remaining = 30; label = 'WARM'; color = '#eab308';
+            } else {
+                remaining = 60; label = 'COOL'; color = '#22d3ee';
+            }
+            const expected = 60;
+            const angle = Math.min(360, Math.max(0, (1 - (remaining / expected)) * 360));
+            return {
+                band: { label, color },
+                half_life: { remaining_seconds: remaining },
+                sweep_degrees: angle,
+                desk_line: `Launch-57 command home · ${freshness} · ${action} — desk timing grounded (no legacy oracle fetch).`,
+            };
+        }
+
         async function loadHalfLifeClock() {
             const svg = document.getElementById('halfLifeSvg');
             const line = document.getElementById('halfLifeLine');
             if (!svg || !line) return;
             try {
-                const res = await fetch('/api/oracle/half-life/heat');
-                const d = await res.json();
+                let data = lastCommandHome;
+                if (!data && commandHomeInflight) data = await commandHomeInflight;
+                if (!data) data = await loadCommandHome(false);
+                if (!data) throw new Error('launch57_command_home_required');
+                const d = commandHomeToHalfLifeHeat(data);
                 const bandColor = /^#[0-9a-fA-F]{3,8}$/.test(String(d.band?.color || '')) ? d.band.color : '#22d3ee';
                 const remaining = Number.isFinite(Number(d.half_life?.remaining_seconds))
                     ? Math.max(0, Math.floor(Number(d.half_life.remaining_seconds)))
@@ -1536,6 +2164,9 @@
             document.querySelectorAll('.lens-btn').forEach(b => {
                 b.classList.toggle('active', b.dataset.lens === currentLens);
             });
+            if (typeof window.syncGlobalNavActive === 'function') {
+                window.syncGlobalNavActive(currentLens);
+            }
             const mode = document.getElementById('uxMode');
             if (mode) mode.value = (currentLens === 'prove') ? 'beginner' : 'pro';
             try {
@@ -1607,89 +2238,27 @@
         }
 
         async function loadIntentRouter() {
-            const grid = document.getElementById('intentGrid');
-            const q = document.getElementById('intentQuestion');
-            const hint = document.getElementById('intentHint');
-            if (!grid) return;
-            try {
-                const res = await fetch('/api/intent/router');
-                const d = await res.json();
-                if (q && d.question) q.textContent = d.question;
-                if (q && d.memory_line) {
-                    /* keep question; memory lives in lens promise */
-                }
-                const intents = d.primary_entries || d.intents || [];
-                grid.innerHTML = intents.map(it =>
-                    `<button type="button" class="intent-btn" data-id="${esc(it.id)}" data-action="${esc(it.action||'')}" data-path="${esc(it.path||'')}">${esc(it.label)}</button>`
-                ).join('');
-                grid.querySelectorAll('.intent-btn').forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        grid.querySelectorAll('.intent-btn').forEach(b => b.classList.remove('active'));
-                        btn.classList.add('active');
-                        const id = btn.dataset.id;
-                        const action = btn.dataset.action;
-                        const path = btn.dataset.path || '';
-                        const row = intents.find(x => x.id === id) || {};
-                        if (hint) hint.textContent = row.hint || '';
-                        if (action === 'navigate' && (path === '/b2b' || path === '/oracle-accuracy')) {
-                            location.assign(path);
-                            return;
-                        }
-                        if (action === 'oracle') {
-                            scrollToId('trust-pulse');
-                            loadTrustPulse(true);
-                            askOracle();
-                            return;
-                        }
-                        if (action === 'whales') {
-                            scrollToId('whales');
-                            loadWhales(true);
-                            return;
-                        }
-                        if (action === 'portfolio') {
-                            scrollToId('portfolio');
-                            return;
-                        }
-                        if (action === 'arbitrage') {
-                            scrollToId('arbitrage');
-                            loadArbitrage(true);
-                            return;
-                        }
-                        if (action === 'alerts') {
-                            scrollToId('alerts');
-                            loadInbox();
-                            return;
-                        }
-                        if (path.includes('#')) {
-                            const hid = path.split('#')[1];
-                            scrollToId(hid);
-                        }
-                    });
-                });
-            } catch (error) { console.debug(error); if (hint) hint.textContent = 'Intent router unavailable — use Get Decision below.'; }
+            if (lastCommandHome) {
+                renderLaunch57Intents(lastCommandHome);
+                return;
+            }
+            await loadCommandHome(false);
         }
 
-        function boot() {
-            loadAuth();
-            applyLang();
-            bindLensBar();
-            applyAudienceFromQuery();
-            loadIntentRouter();
-            loadTrustPulse(true);
-            startTrustPulseStream();
-            startDashboardStream();
-            askOracle();
+        function runDeferredBoot() {
             initChart();
+            loadLaunch57DataSpine();
             loadChart();
             loadMarket();
             loadOI();
-            loadArbitrage(false);
-            loadWhales(false);
+            if (currentLens === 'desk') {
+                loadArbitrage(false);
+                loadWhales(false);
+                loadMevReport();
+                runStealthAdvisor();
+            }
             loadDailyReport();
             loadSubscriberValue();
-            loadMevReport();
-            runStealthAdvisor();
-            loadHalfLifeClock();
             applyAntiHypeClass();
             loadSinceYouLeft();
             loadTgStatus();
@@ -1697,6 +2266,30 @@
             loadInbox();
             setInterval(loadMarket, 60000);
             setInterval(loadInbox, 90000);
+        }
+
+        function scheduleCommandHome() {
+            const run = () => loadCommandHome(true).then(() => {
+                if (currentLens === 'desk') loadHalfLifeClock();
+            });
+            if (typeof requestAnimationFrame === 'function') {
+                requestAnimationFrame(() => requestAnimationFrame(run));
+            } else {
+                setTimeout(run, 0);
+            }
+        }
+
+        function boot() {
+            loadAuth();
+            applyLang();
+            bindLensBar();
+            applyAudienceFromQuery();
+            scheduleCommandHome();
+            startTrustPulseStream();
+            startDashboardStream();
+            const defer = () => runDeferredBoot();
+            if (typeof requestIdleCallback === 'function') requestIdleCallback(defer, { timeout: 1500 });
+            else setTimeout(defer, 0);
             if (location.hash === '#trust-pulse') {
                 setTimeout(() => scrollToId('trust-pulse'), 80);
             }

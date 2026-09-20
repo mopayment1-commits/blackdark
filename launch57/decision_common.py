@@ -18,6 +18,30 @@ _LIVE_ELIGIBLE = frozenset(
 )
 
 
+def _freshness_params_from_prices(prices: dict[str, Any], base: dict[str, Any]) -> dict[str, Any]:
+    """Pass #22 quote age into #41 freshness_update_assurance — no parallel age path."""
+    fp = dict(base)
+    evidence = prices.get("freshness_evidence") or {}
+    age = prices.get("data_age_sec")
+    if age is None and evidence.get("age_sec") is not None:
+        age = evidence.get("age_sec")
+    if age is not None:
+        fp["age_sec"] = float(age)
+    source_time = prices.get("event_timestamp") or evidence.get("source_time")
+    if source_time:
+        fp["source_time"] = source_time
+    temporal = prices.get("temporal") or {}
+    if temporal.get("observed_time"):
+        fp["observed_at"] = temporal["observed_time"]
+    if temporal.get("ingested_at"):
+        fp["ingested_at"] = temporal["ingested_at"]
+    if temporal.get("available_at"):
+        fp["available_at"] = temporal["available_at"]
+    if temporal.get("availability_state"):
+        fp["availability_state"] = temporal["availability_state"]
+    return fp
+
+
 async def load_decision_spine(symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
     """Consume Phase 1 launch57 data layers — no parallel price path for decisions."""
     from launch57.data_batch1 import real_time_prices
@@ -27,14 +51,18 @@ async def load_decision_spine(symbol: str, params: dict[str, Any] | None = None)
     asset = str(p.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")
 
     prices = await real_time_prices(symbol=asset, params=p)
-    freshness = await freshness_update_assurance(symbol=asset, params=p)
+    freshness_params = _freshness_params_from_prices(prices, p)
+    freshness = await freshness_update_assurance(symbol=asset, params=freshness_params)
 
     freshness_state = str(
         prices.get("freshness_state")
         or freshness.get("freshness_state")
         or FreshnessState.UNKNOWN.value
     )
-    live_eligible = freshness_state in _LIVE_ELIGIBLE and bool(prices.get("presented_as_live"))
+    presented_as_live = bool(prices.get("presented_as_live"))
+    if freshness_state in {FreshnessState.STALE.value, FreshnessState.UNKNOWN.value}:
+        presented_as_live = False
+    live_eligible = freshness_state in _LIVE_ELIGIBLE and presented_as_live
 
     return {
         "symbol": asset,
@@ -42,7 +70,7 @@ async def load_decision_spine(symbol: str, params: dict[str, Any] | None = None)
         "freshness": freshness,
         "freshness_state": freshness_state,
         "live_eligible": live_eligible,
-        "presented_as_live": live_eligible,
+        "presented_as_live": presented_as_live,
         "price": prices.get("price"),
         "change_24h": prices.get("change_24h"),
         "data_spine": {
@@ -61,7 +89,10 @@ def stale_gate_body(
     spine: dict[str, Any],
     entrypoint: str,
 ) -> dict[str, Any]:
-    return {
+    from launch57.decision_truth_common import attach_decision_truth_envelope
+    from launch57.failure_recovery_common import attach_failure_recovery_envelope
+
+    body = {
         "capability_id": capability_id,
         "launch_item_id": launch_item_id,
         "surface": surface,
@@ -77,6 +108,13 @@ def stale_gate_body(
         "backend_entrypoint": entrypoint,
         "binding_source": "launch57_phase3_decision_spine",
     }
+    from launch57.compounding_evidence_common import attach_compounding_evidence_envelope
+    from launch57.teis_support_common import attach_teis_support_envelope
+
+    body = attach_teis_support_envelope(body)
+    body = attach_failure_recovery_envelope(body, launch_item_id=launch_item_id)
+    body = attach_decision_truth_envelope(body, launch_item_id=launch_item_id)
+    return attach_compounding_evidence_envelope(body, launch_item_id=launch_item_id)
 
 
 async def require_net_edge_if_cost_claim(
@@ -109,6 +147,8 @@ async def require_net_edge_if_cost_claim(
 
 
 def attach_decision_envelope(body: dict[str, Any], *, spine: dict[str, Any] | None = None) -> dict[str, Any]:
+    from launch57.failure_recovery_common import attach_failure_recovery_envelope
+
     out = attach_trust_envelope(dict(body))
     out["decision_layer"] = {
         "phase": "3_DECISION",
@@ -117,7 +157,16 @@ def attach_decision_envelope(body: dict[str, Any], *, spine: dict[str, Any] | No
         "live_eligible": (spine or {}).get("live_eligible"),
         "evidence_class_visible": out.get("evidence_class_visible"),
     }
-    return out
+    launch_id = int(out.get("launch_item_id") or 0)
+    from launch57.decision_truth_common import attach_decision_truth_envelope
+
+    from launch57.compounding_evidence_common import attach_compounding_evidence_envelope
+    from launch57.teis_support_common import attach_teis_support_envelope
+
+    out = attach_teis_support_envelope(out)
+    out = attach_failure_recovery_envelope(out, launch_item_id=launch_id or None)
+    out = attach_decision_truth_envelope(out, launch_item_id=launch_id or None)
+    return attach_compounding_evidence_envelope(out, launch_item_id=launch_id or None)
 
 
 def stamp_decision_batch(

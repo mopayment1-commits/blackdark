@@ -300,6 +300,10 @@ async def execute(capability_id: int, *, params: dict[str, Any] | None = None) -
 
     batch_num = batch_number(capability_id)
 
+    from launch57.dispatch_isolation import block_legacy_delegate_for_launch57
+
+    block_legacy_delegate_for_launch57(capability_id)
+
     legacy = _legacy_dedicated_module(batch_num)
     if legacy:
         import importlib

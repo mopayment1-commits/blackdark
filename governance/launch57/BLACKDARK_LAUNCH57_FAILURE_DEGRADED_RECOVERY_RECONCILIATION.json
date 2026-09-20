@@ -1,0 +1,390 @@
+{
+  "artifact": "BLACKDARK_LAUNCH57_FAILURE_DEGRADED_RECOVERY_RECONCILIATION",
+  "generated_at": "2026-09-18T14:29:33.604884+00:00",
+  "implementation_sha": "a9d0f142",
+  "baseline_sha": "736d4ef528289dd71d5a2bcc02e8a9885c4b6e1479fde4342d1ff0f31129dd23",
+  "failure_recovery_version": "launch57-failure-recovery-1.0.0",
+  "scope": "LAUNCH57_IDS",
+  "internal_support_only": true,
+  "governing_spec": "BLACKDARK_Launch57_Failure_Degraded_Recovery_FROM_SCRATCH_SPEC(4).md",
+  "capability_failure_states": [
+    {
+      "launch_item_id": 2,
+      "security_control": "oracle_stale_abstain",
+      "wired": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 3,
+      "security_control": "certificate_no_false_success",
+      "wired": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 4,
+      "security_control": "public_accuracy_degraded_safe",
+      "wired": false,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 10,
+      "security_control": "contradiction_preserves_conflict",
+      "wired": false,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 33,
+      "security_control": "alert_delivery_isolated",
+      "wired": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 36,
+      "security_control": "ai_failure_preserves_evidence",
+      "wired": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 40,
+      "security_control": "quality_canonical_owner",
+      "wired": false,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 41,
+      "security_control": "freshness_canonical_owner",
+      "wired": false,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 42,
+      "security_control": "connector_failover_degraded",
+      "wired": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 44,
+      "security_control": "public_share_safe_failure",
+      "wired": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 48,
+      "security_control": "abstain_reject_reachable",
+      "wired": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 53,
+      "security_control": "dd_insufficient_not_zero_risk",
+      "wired": false,
+      "launch57_only": true
+    }
+  ],
+  "stale_live_violations": [],
+  "partial_conflict_handling_failures": [],
+  "unsafe_retry_paths": [],
+  "indeterminate_side_effects": [],
+  "reconciliation_failures": [],
+  "false_success_paths": [],
+  "ai_degradation_failures": [],
+  "alert_delivery_failures": [],
+  "public_private_leakage": [],
+  "error_contract_inconsistencies": [],
+  "external_blockers": [
+    {
+      "id": "production_incident_drill",
+      "category": "NEEDS_EXTERNAL_VERIFICATION",
+      "detail": "Live incident-response drill on production environment"
+    },
+    {
+      "id": "browser_offline_e2e",
+      "category": "NEEDS_EXTERNAL_VERIFICATION",
+      "detail": "Real browser offline/network-loss validation"
+    },
+    {
+      "id": "telegram_alert_delivery",
+      "category": "BLOCKED_EXTERNAL",
+      "detail": "Launch #33 external push requires TELEGRAM credentials"
+    }
+  ],
+  "internal_components": [
+    {
+      "component_id": "runtime_state_model",
+      "owner_path": "failure/states.py (reused)",
+      "consumer_capability_ids": [
+        2,
+        3,
+        4,
+        6,
+        9,
+        10,
+        21,
+        22,
+        23,
+        24,
+        27,
+        33,
+        36,
+        37,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        48,
+        53,
+        54,
+        55,
+        56,
+        57
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": false,
+      "standalone_capability": false,
+      "evidence_class": "INTERNAL_SUPPORT_ONLY",
+      "reuse_only": true,
+      "source_sha": "a9d0f142",
+      "failure_recovery_version": "launch57-failure-recovery-1.0.0"
+    },
+    {
+      "component_id": "failure_dimensions",
+      "owner_path": "failure/dimensions.py (reused)",
+      "consumer_capability_ids": [
+        2,
+        3,
+        4,
+        6,
+        9,
+        10,
+        21,
+        22,
+        23,
+        24,
+        27,
+        33,
+        36,
+        37,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        48,
+        53,
+        54,
+        55,
+        56,
+        57
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": false,
+      "standalone_capability": false,
+      "evidence_class": "INTERNAL_SUPPORT_ONLY",
+      "reuse_only": true,
+      "source_sha": "a9d0f142",
+      "failure_recovery_version": "launch57-failure-recovery-1.0.0"
+    },
+    {
+      "component_id": "decision_safety_evaluator",
+      "owner_path": "failure/decision.py (reused)",
+      "consumer_capability_ids": [
+        2,
+        3,
+        9,
+        10,
+        37,
+        48
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": false,
+      "standalone_capability": false,
+      "evidence_class": "INTERNAL_SUPPORT_ONLY",
+      "reuse_only": true,
+      "source_sha": "a9d0f142",
+      "failure_recovery_version": "launch57-failure-recovery-1.0.0"
+    },
+    {
+      "component_id": "freshness_integration",
+      "owner_path": "launch57/freshness_common.py (#41)",
+      "consumer_capability_ids": [
+        21,
+        22,
+        23,
+        24,
+        41,
+        42
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": false,
+      "standalone_capability": false,
+      "evidence_class": "INTERNAL_SUPPORT_ONLY",
+      "source_sha": "a9d0f142",
+      "failure_recovery_version": "launch57-failure-recovery-1.0.0"
+    },
+    {
+      "component_id": "quality_integration",
+      "owner_path": "launch57/provenance_common.py (#40)",
+      "consumer_capability_ids": [
+        21,
+        22,
+        23,
+        24,
+        40,
+        42
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": false,
+      "standalone_capability": false,
+      "evidence_class": "INTERNAL_SUPPORT_ONLY",
+      "source_sha": "a9d0f142",
+      "failure_recovery_version": "launch57-failure-recovery-1.0.0"
+    },
+    {
+      "component_id": "api_error_contract",
+      "owner_path": "failure/problem.py (reused)",
+      "consumer_capability_ids": [
+        2,
+        3,
+        4,
+        6,
+        9,
+        10,
+        21,
+        22,
+        23,
+        24,
+        27,
+        33,
+        36,
+        37,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        48,
+        53,
+        54,
+        55,
+        56,
+        57
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": false,
+      "standalone_capability": false,
+      "evidence_class": "INTERNAL_SUPPORT_ONLY",
+      "reuse_only": true,
+      "source_sha": "a9d0f142",
+      "failure_recovery_version": "launch57-failure-recovery-1.0.0"
+    },
+    {
+      "component_id": "retry_circuit_policy",
+      "owner_path": "failure/retry.py + failure/circuit.py (reused)",
+      "consumer_capability_ids": [
+        21,
+        22,
+        23,
+        24,
+        27,
+        42,
+        43
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": false,
+      "standalone_capability": false,
+      "evidence_class": "INTERNAL_SUPPORT_ONLY",
+      "reuse_only": true,
+      "source_sha": "a9d0f142",
+      "failure_recovery_version": "launch57-failure-recovery-1.0.0"
+    },
+    {
+      "component_id": "launch57_degradation_envelope",
+      "owner_path": "launch57/failure_recovery_common.py",
+      "consumer_capability_ids": [
+        2,
+        3,
+        4,
+        6,
+        9,
+        10,
+        21,
+        22,
+        23,
+        24,
+        27,
+        33,
+        36,
+        37,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        48,
+        53,
+        54,
+        55,
+        56,
+        57
+      ],
+      "launch_scope": "LAUNCH57",
+      "launch_surface": false,
+      "standalone_capability": false,
+      "evidence_class": "INTERNAL_SUPPORT_ONLY",
+      "source_sha": "a9d0f142",
+      "failure_recovery_version": "launch57-failure-recovery-1.0.0"
+    }
+  ],
+  "acceptance_criteria_53": {
+    "ac01_runtime_states_explicit": true,
+    "ac02_certainty_separate_from_failure_class": true,
+    "ac03_stale_cannot_appear_live": true,
+    "ac04_partial_conflict_affects_decision": true,
+    "ac05_abstain_reachable": true,
+    "ac06_retry_policy_safe": true,
+    "ac07_indeterminate_reconcile_before_retry": true,
+    "ac08_backoff_circuit_exists": true,
+    "ac09_partial_rendering_works": true,
+    "ac10_ai_failure_isolated": true,
+    "ac11_public_private_boundaries_safe": true,
+    "ac12_billing_uncertainty_no_entitlement": true,
+    "ac13_user_messaging_truthful": true,
+    "ac14_secret_redaction": true,
+    "ac15_api_errors_machine_readable": true,
+    "ac16_correlation_ids_privacy_safe": true,
+    "ac17_accessibility_localization_paths": true,
+    "ac18_representative_failure_tests_pass": true,
+    "ac19_independent_verification_separate": true,
+    "ac20_phase8_e2e_passes": true,
+    "ac21_no_false_pass_live": true
+  },
+  "acceptance_all_pass": true,
+  "phase8_coherence_pass": false,
+  "parked_out_of_launch": [
+    "legacy_err_001_050_parallel_program",
+    "failure_corpus_direct_launch_path",
+    "global_notification_program",
+    "legacy_status_page_universe"
+  ],
+  "reuse_paths": {
+    "failure_states": "failure/states.py",
+    "failure_dimensions": "failure/dimensions.py",
+    "failure_decision": "failure/decision.py",
+    "failure_problem": "failure/problem.py (RFC 9457)",
+    "failure_retry": "failure/retry.py",
+    "failure_circuit": "failure/circuit.py",
+    "freshness_owner": "launch57/freshness_common.py (#41)",
+    "quality_owner": "launch57/provenance_common.py (#40)",
+    "financial_security_redaction": "launch57/financial_security_common.py",
+    "teis_support": "launch57/teis_support_common.py"
+  }
+}

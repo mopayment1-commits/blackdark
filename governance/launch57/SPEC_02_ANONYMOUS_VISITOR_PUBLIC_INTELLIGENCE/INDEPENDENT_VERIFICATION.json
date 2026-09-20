@@ -1,0 +1,58 @@
+{
+  "artifact": "SPEC_02_INDEPENDENT_VERIFICATION",
+  "domain": "SPEC_02_ANONYMOUS_VISITOR_PUBLIC_INTELLIGENCE",
+  "verification_sha": "a370d1c3e9f0cf5215870e5735841e8b333ea5ba",
+  "probe_count": 9,
+  "passed_count": 9,
+  "failed_count": 0,
+  "INDEPENDENT_VERIFICATION_PASS": true,
+  "probes": [
+    {
+      "probe": "iv_guest_trust_allow",
+      "pass": true,
+      "detail": "anonymous GET guest-trust"
+    },
+    {
+      "probe": "iv_command_home_deny",
+      "pass": true,
+      "detail": "anonymous GET command-home denied"
+    },
+    {
+      "probe": "iv_decision_history_deny",
+      "pass": true,
+      "detail": "anonymous GET decision-history denied"
+    },
+    {
+      "probe": "iv_discipline_mirror_deny",
+      "pass": true,
+      "detail": "anonymous GET discipline-mirror denied"
+    },
+    {
+      "probe": "iv_capability_library_allow",
+      "pass": true,
+      "detail": "anonymous GET capability-library"
+    },
+    {
+      "probe": "iv_no_broad_launch57_prefix",
+      "pass": true,
+      "detail": "no /api/launch57/ blanket prefix"
+    },
+    {
+      "probe": "iv_account_gate_personal_history",
+      "pass": true,
+      "detail": "{'action': 'personal_history', 'account_gate_required': True, 'anonymous_blocked': True, 'allowed': False, 'fail_closed': True, 'reason': 'account_required_for_persistence_or_personalization'}"
+    },
+    {
+      "probe": "iv_eligibility_46",
+      "pass": true,
+      "detail": "#46 eligible"
+    },
+    {
+      "probe": "iv_eligibility_49",
+      "pass": true,
+      "detail": "#49 denied"
+    }
+  ],
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "generated_at": "2026-09-18T23:03:19.385230+00:00"
+}

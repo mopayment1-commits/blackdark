@@ -54,14 +54,14 @@
 </head>
 <body>
     <a href="#main" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden" class="skip-link" onfocus="this.style.left='1rem';this.style.top='1rem';this.style.width='auto';this.style.height='auto';this.style.padding='.5rem';this.style.background='#22d3ee';this.style.color='#0a0a0f';this.style.zIndex='99'">Skip to content</a>
-    <nav aria-label="Primary"><div class="nav-inner"><a class="logo" href="/">BLACKDARK</a><div><a href="/dashboard">Dashboard</a> · <a href="/faq">FAQ</a> · <a href="/oracle-accuracy">Accuracy</a> · <a href="/contact">Contact</a></div></div></nav>
+    <nav aria-label="Primary"><div class="nav-inner"><a class="logo" href="/">BLACKDARK</a><div><a href="/login?next=/dashboard">Dashboard</a> · <a href="/faq">FAQ</a> · <a href="/oracle-accuracy">Accuracy</a> · <a href="/contact">Contact</a></div></div></nav>
     <main id="main" role="main" tabindex="-1">
         <h1>{{ title }}</h1>
         <p>{{ lead }}</p>
         {% if page == 'capabilities' %}
         <div class="card">
             <p><strong style="color:var(--fg)">Don't trust us. Verify us.</strong> One product · four value layers · six heroes.</p>
-            <p class="deny">Canonical hierarchy supersedes FalconAI “16 platforms / 120 capabilities” valuation framing. See <a href="/api/execution/closure">execution closure JSON</a>.</p>
+            <p class="deny">Canonical hierarchy supersedes FalconAI “16 platforms / 120 capabilities” valuation framing. See <a href="/docs">developer docs</a> for machine-readable exports.</p>
             {% if trust_os and trust_os.value_layers %}
             {% for layer in trust_os.value_layers %}
             <div class="layer">
@@ -77,7 +77,14 @@
                 </p>
                 {% endif %}
                 <p style="font-size:.8rem;margin:0">
-                    {% for s in layer.surfaces %}<a href="{{ s if not '{' in s else '/dashboard' }}">{{ s }}</a>{% if not loop.last %} · {% endif %}{% endfor %}
+                    {% for s in layer.surfaces %}
+                    {% if '{' in s %}{% set surf_href = '/login?next=/dashboard' %}
+                    {% elif s.startswith('/dashboard') %}{% set surf_href = '/login?next=' + s | urlencode %}
+                    {% elif s.startswith('/api/') %}{% set surf_href = '/docs' %}
+                    {% elif s.startswith('/create-checkout') %}{% set surf_href = '/login?next=/profile' %}
+                    {% else %}{% set surf_href = s %}{% endif %}
+                    <a href="{{ surf_href }}">{{ s }}</a>{% if not loop.last %} · {% endif %}
+                    {% endfor %}
                 </p>
             </div>
             {% endfor %}
@@ -125,8 +132,7 @@
                 <a href="/oracle-accuracy">Public Accuracy Ledger</a> ·
                 <a href="/b2b#fund-terminal">Emerging Fund Terminal</a> ·
                 <a href="/compliance">Compliance</a> ·
-                <a href="/api/trust-os">JSON manifest</a> ·
-                <a href="/api/strategy/correction">Strategy correction</a>
+                <a href="/docs">Developer docs</a>
             </p>
         </div>
         {% elif page == 'compliance' %}
@@ -156,16 +162,13 @@
             </ul>
             {% if regulatory %}
             <h2>Regulatory guard snapshot</h2>
-            <p class="deny">Status fields are engineering signals only —
-                <a href="/api/regulatory/compliance">/api/regulatory/compliance</a>
-            </p>
+            <p class="deny">Status fields are engineering signals only — see <a href="/status">system status</a> for the public HTML surface.</p>
             {% endif %}
             <p>
                 <a href="/oracle-accuracy">Public Accuracy Ledger</a> ·
                 <a href="/b2b#fund-terminal">Fund Terminal</a> ·
                 <a href="/data-room">Data Room</a> ·
-                <a href="/api/security/status">Security status</a> ·
-                <a href="/api/scale/readiness">Scale readiness</a>
+                <a href="/status">System status</a>
             </p>
         </div>
         {% elif page == 'data_room' %}
@@ -181,17 +184,8 @@
                 <li><a href="/compliance">Anti-Hype Compliance</a></li>
                 <li><a href="/docs">Public developer docs</a></li>
             </ul>
-            <h2>JSON for committees</h2>
-            <ul>
-                <li><a href="/api/trust-os">Trust OS manifest</a></li>
-                <li><a href="/api/strategy/priority-chain">CSO priority chain</a></li>
-                <li><a href="/api/public/cso-priority-closure">CSO priority closure</a></li>
-                <li><a href="/api/public/zero-tolerance-closure">Zero-Tolerance closure</a></li>
-                <li><a href="/api/execution/closure">Execution closure</a></li>
-                <li><a href="/api/acceptance/60s">60s acceptance</a></li>
-                <li><a href="/api/scale/readiness">Scale readiness</a></li>
-                <li><a href="/api/due-diligence/evidence-pack/public-summary">Evidence pack public summary</a></li>
-            </ul>
+            <h2>Committee exports</h2>
+            <p class="deny">Machine-readable diligence JSON is available to institutional reviewers on request. Public visitors should use the HTML surfaces above or <a href="/contact">contact</a> for a data-room package.</p>
             <h2>Capacity honesty</h2>
             <p class="deny">
                 Code enables high concurrency (Postgres pool, Redis-shared login RL, multi-worker k8s).
@@ -310,8 +304,18 @@
         </div>
         {% elif page == 'status' %}
         <div class="card">
+            {% set gt = guest_trust or {} %}
+            <h2>Guest trust (public)</h2>
+            <p class="deny">Anonymous visitors see only approved public intelligence — private app surfaces stay behind sign-in.</p>
+            <ul class="channel-list">
+                <li><strong style="color:var(--fg)">Private by default</strong> · {{ 'yes' if gt.private_by_default else '—' }}</li>
+                <li><strong style="color:var(--fg)">Public readiness</strong> · {{ gt.public_readiness or '—' }}</li>
+                <li><strong style="color:var(--fg)">Anonymous state</strong> · {{ gt.anonymous_state or '—' }}</li>
+            </ul>
+            <p><a href="/#trust-pulse">Homepage Trust Pulse</a> · <a href="/identity-standards">Identity standards</a></p>
             {% set st = status or {} %}
             {% set overall = (st.overall or 'unknown') %}
+            <h2>System components</h2>
             <p>
                 Overall:
                 <span class="status-pill {% if overall == 'operational' %}status-ok{% elif overall == 'degraded' %}status-deg{% else %}status-bad{% endif %}">
@@ -335,13 +339,7 @@
             {% if st.honesty %}
             <p class="deny">{{ st.honesty.note }}</p>
             {% endif %}
-            <p>
-                Probes:
-                <a href="/health/live">live</a> ·
-                <a href="/health/ready">ready</a> ·
-                <a href="/health/viral">viral</a> ·
-                <a href="/api/status">JSON</a>
-            </p>
+            <p>Operational detail is summarized above for visitors. Signed-in operators use the dashboard status widgets.</p>
         </div>
         {% elif page == 'changelog' %}
         <div class="card">
@@ -352,7 +350,7 @@
                 <p style="margin:0">{{ row.body }}</p>
             </div>
             {% endfor %}
-            <p style="margin-top:1rem"><a href="/api/changelog">JSON</a></p>
+            <p style="margin-top:1rem"><a href="/changelog">Changelog</a> · <a href="/docs">Developer docs</a></p>
         </div>
         {% elif page == 'feedback' %}
         <div class="card">
@@ -408,13 +406,26 @@
             </div>
             <p style="margin-top:1.25rem" class="deny">Not financial advice. AI cannot guarantee returns. Verify on the <a href="/oracle-accuracy">Public Accuracy Ledger</a>.</p>
         </div>
+        {% elif page == 'identity_standards' %}
+        <div class="card">
+            <p class="deny">Public summary for visitors — not a credential export. Sign in for account-specific settings.</p>
+            {% if identity %}
+            <h2>Architecture</h2>
+            <ul class="channel-list">
+                {% for key, value in identity.items() %}
+                <li><strong style="color:var(--fg)">{{ key }}</strong> · {{ value }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            <p><a href="/login?next=/profile">Profile &amp; Billing</a> · <a href="/privacy">Privacy</a> · <a href="/compliance">Compliance</a></p>
+        </div>
         {% elif page == 'cancel' %}
         <div class="card">
-            <p>No charge was made. Your Proof Pass still works — Trust Pulse and the Ledger stay free.</p>
+            <p>No charge was made. Your DISCOVER / FREE tier still works — public Prove and the Ledger stay available.</p>
             <h2>What you can do next</h2>
             <ul>
                 <li><a href="/dashboard">Open Trust Pulse</a> — one live Act / Wait with Why</li>
-                <li><a href="/#pricing">Restart Decision Pro</a> — $29 USD when you are ready</li>
+                <li><a href="/#pricing">Restart DECIDE / PRO</a> — $19.99/mo or $199/yr when you are ready</li>
                 <li><a href="/oracle-accuracy">Verify the Public Accuracy Ledger</a></li>
             </ul>
             <p class="deny"><strong style="color:var(--fg)">Anti-Hype</strong> · Checkout cancel is not a penalty · No fake scarcity timers</p>

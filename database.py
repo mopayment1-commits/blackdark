@@ -3801,10 +3801,8 @@ async def create_user(email: str, password_hash: str, name: str = "") -> int:
         async with get_connection() as db:
             cursor = await db.execute(
                 """
-                INSERT INTO users (
-                    email, password_hash, name, created_at, password_is_set
-                )
-                VALUES (?, ?, ?, ?, 1)
+                INSERT INTO users (email, password_hash, name, created_at)
+                VALUES (?, ?, ?, ?)
                 """,
                 (email.strip().lower(), password_hash, name or None, _utcnow_iso()),
             )

@@ -42,13 +42,22 @@ def test_production_http_not_secure_without_trusted_proxy(monkeypatch: pytest.Mo
         enforce_secure_transport(req)
 
 
-def test_spoofed_forwarded_proto_not_trusted(monkeypatch: pytest.MonkeyPatch):
+def test_spoofed_forwarded_proto_not_trusted_outside_production(monkeypatch: pytest.MonkeyPatch):
+    from transport_webhook_env.transport import request_is_secure
+
+    monkeypatch.setenv("ENV", "development")
+    monkeypatch.delenv("TRUSTED_PROXY_CIDRS", raising=False)
+    req = _request(headers={"X-Forwarded-Proto": "https"})
+    assert request_is_secure(req) is False
+
+
+def test_production_ingress_forwarded_proto_trusted(monkeypatch: pytest.MonkeyPatch):
     from transport_webhook_env.transport import request_is_secure
 
     monkeypatch.setenv("ENV", "production")
     monkeypatch.delenv("TRUSTED_PROXY_CIDRS", raising=False)
-    req = _request(headers={"X-Forwarded-Proto": "https"})
-    assert request_is_secure(req) is False
+    req = _request(headers={"X-Forwarded-Proto": "https"}, scheme="http")
+    assert request_is_secure(req) is True
 
 
 def test_trusted_proxy_secure_request_works(monkeypatch: pytest.MonkeyPatch):

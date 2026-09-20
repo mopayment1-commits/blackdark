@@ -63,7 +63,9 @@ async def test_command_home_eligible_ids_within_launch57_scope(monkeypatch):
     assert all(i in LAUNCH57_SCOPE_IDS for i in eligible)
     assert home["excludes_parked"] is True
     assert home["launch57_scope_only"] is True
-    assert out.get("evidence_class_visible") is True
+    assert home["no_duplicate_capability_directory"] is True
+    assert out.get("evidence_class_visible") == "SHADOW_LIVE_FORWARD"
+    assert out["adaptive_disclosure"]["level_1"]["answer_state"] == "COMMAND_HOME_GROUNDED"
     assert "heroes" in home
 
 

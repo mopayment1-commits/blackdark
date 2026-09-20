@@ -1,19 +1,22 @@
 """
-Launch-57 Phase 1 — Data Batch 2 canonical runtime spine.
+Launch-57 Phase 1 — Data Batch 2 canonical runtime spine (B2 isolated).
 
 Build order: #40 CAP-0063/0500 → #41 CAP-0630 → #39 CAP-0061
 """
 
 from __future__ import annotations
 
-import hashlib
-import json
-from datetime import UTC, datetime
 from typing import Any
 
-from cap646.evidence_class import ai_compliance_footer
-from data_governance.freshness import attach_data_freshness
-from failure.freshness import FreshnessState, classify_freshness
+from launch57.batch2_isolation import finalize_b2_response
+from launch57.freshness_common import assess_freshness
+from launch57.point_in_time_common import build_immutable_snapshot, retrieve_point_in_time
+from launch57.provenance_common import (
+    attach_provenance_payload,
+    build_provenance_record,
+    normalization_report_from_provenance,
+)
+from launch57.temporal_common import to_rfc3339, utc_now
 
 LAUNCH57_BATCH2_CAP_IDS: frozenset[int] = frozenset({61, 63, 500, 630})
 
@@ -24,23 +27,6 @@ LAUNCH_ITEM_BY_CAP: dict[int, int] = {
     61: 39,
 }
 
-_LIVE_ELIGIBLE = frozenset(
-    {
-        FreshnessState.LIVE.value,
-        FreshnessState.NEAR_LIVE.value,
-        FreshnessState.DELAYED.value,
-    }
-)
-
-
-def _utcnow_iso() -> str:
-    return datetime.now(UTC).isoformat()
-
-
-def _content_hash(payload: dict[str, Any]) -> str:
-    canonical = json.dumps(payload, sort_keys=True, default=str)
-    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
-
 
 def _stamp_batch2(body: dict[str, Any], *, capability_id: int, entrypoint: str) -> dict[str, Any]:
     out = dict(body)
@@ -48,60 +34,72 @@ def _stamp_batch2(body: dict[str, Any], *, capability_id: int, entrypoint: str) 
     out.setdefault("backend_entrypoint", entrypoint)
     out.setdefault("binding_source", "launch57_phase1_batch2")
     out["launch_item_id"] = LAUNCH_ITEM_BY_CAP.get(capability_id)
+    out["builder_status"] = "PENDING_VERIFICATION"
     return out
 
 
 async def data_quality_provenance_layer(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
-    """Launch #40 / CAP-0063 — internal provenance layer (distinct from user-visible normalization)."""
-    from cap646.dedicated_common import provenance_hot_storage_payload
-
+    """Launch #40 / CAP-0063 — internal provenance layer."""
     params = dict(params or {})
     asset = str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")
-    core = provenance_hot_storage_payload(asset)
-    prov = core.get("provenance") or {}
-
-    user_disclosure = {
-        "question": "من أين الرقم؟",
-        "band": prov.get("band"),
-        "posture": prov.get("posture"),
-        "score": prov.get("score"),
-        "components": prov.get("components"),
-        "honesty": prov.get("honesty"),
-        "disclaimer": prov.get("disclaimer"),
-    }
+    try:
+        record, envelope = build_provenance_record(symbol=asset, params=params)
+    except ValueError as exc:
+        body = _stamp_batch2(
+            {
+                "capability_id": 63,
+                "surface": "data_quality_provenance_layer",
+                "symbol": asset,
+                "success": False,
+                "error": str(exc),
+                "user_visible": True,
+                "unknown_is_not_zero": True,
+            },
+            capability_id=63,
+            entrypoint="data_quality_provenance_layer",
+        )
+        return finalize_b2_response(body)
 
     body = _stamp_batch2(
         {
             "capability_id": 63,
             "surface": "data_quality_provenance_layer",
             "symbol": asset,
-            "provenance": prov,
-            "data_provenance": prov,
-            "hot_storage": core.get("hot_storage"),
-            "user_disclosure": user_disclosure,
             "user_visible": True,
             "unknown_is_not_zero": True,
-            "success": prov.get("band") not in {None, "insufficient"},
-            "observed_at": _utcnow_iso(),
+            "success": record.quality_state.value not in {"insufficient", "unknown"},
         },
         capability_id=63,
         entrypoint="data_quality_provenance_layer",
     )
     if not body["success"]:
         body["error"] = "insufficient_provenance_band"
-
-    return ai_compliance_footer(attach_data_freshness(body, slo_class="T1"))
+    return finalize_b2_response(attach_provenance_payload(body, record, envelope))
 
 
 async def data_quality_normalization(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
-    """Launch #40 / CAP-0500 — user-visible normalization with provenance (distinct from CAP-0063)."""
-    from cap646.data_spine import normalization_report
-
+    """Launch #40 / CAP-0500 — user-visible normalization (distinct from CAP-0063)."""
     params = dict(params or {})
     asset = str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")
-    base = await normalization_report(symbol=asset)
-    prov = base.get("provenance") or base.get("data_provenance") or {}
+    try:
+        record, envelope = build_provenance_record(symbol=asset, params=params)
+    except ValueError as exc:
+        body = _stamp_batch2(
+            {
+                "capability_id": 500,
+                "surface": "data_quality_normalization",
+                "symbol": asset,
+                "success": False,
+                "error": str(exc),
+                "user_visible": True,
+                "unknown_is_not_zero": True,
+            },
+            capability_id=500,
+            entrypoint="data_quality_normalization",
+        )
+        return finalize_b2_response(body)
 
+    base = normalization_report_from_provenance(record, envelope)
     body = _stamp_batch2(
         {
             **base,
@@ -109,114 +107,118 @@ async def data_quality_normalization(*, symbol: str, params: dict[str, Any] | No
             "surface": "data_quality_normalization",
             "symbol": asset,
             "user_visible": True,
-            "user_disclosure": {
-                "question": "من أين الرقم؟",
-                "schema_version": base.get("schema_version"),
-                "provenance_band": prov.get("band"),
-                "provenance_score": prov.get("score"),
-                "source_lineage": "canonical_layer → probe_price_sources → provenance_score",
-            },
             "unknown_is_not_zero": True,
             "success": bool(base.get("success")),
         },
         capability_id=500,
         entrypoint="data_quality_normalization",
     )
-    return ai_compliance_footer(attach_data_freshness(body, slo_class="T1"))
+    return finalize_b2_response(body)
 
 
 async def freshness_update_assurance(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
-    """Launch #41 / CAP-0630 — freshness assurance with explicit DELAYED/STALE labeling; no false live."""
-    from cap646.data_spine import freshness_assurance_report
-
+    """Launch #41 / CAP-0630 — canonical Launch-57 freshness assurance."""
     params = dict(params or {})
     asset = str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")
-    base = await freshness_assurance_report(symbol=asset)
 
-    age_ms = base.get("quote_age_ms")
-    age_sec = float(age_ms) / 1000.0 if age_ms is not None else None
-    fresh = classify_freshness(age_seconds=age_sec)
-    freshness_state = fresh.state.value
-    presented_as_live = freshness_state in _LIVE_ELIGIBLE
+    age_ms = params.get("quote_age_ms")
+    age_sec = params.get("age_sec")
+    if age_sec is None and age_ms is not None:
+        age_sec = float(age_ms) / 1000.0
+    if age_sec is not None:
+        age_sec = float(age_sec)
 
-    delayed_disclosure = None
-    if freshness_state == FreshnessState.DELAYED.value:
-        delayed_disclosure = "DELAYED — within SLO tolerance; not presented as LIVE"
-    elif freshness_state == FreshnessState.STALE.value:
-        delayed_disclosure = "STALE — not presented as real-time"
-    elif freshness_state == FreshnessState.UNKNOWN.value:
-        delayed_disclosure = "UNKNOWN — freshness not asserted as LIVE"
+    assessment = assess_freshness(
+        age_sec=age_sec,
+        source_time=params.get("source_time"),
+        observed_at=params.get("observed_at"),
+        ingested_at=params.get("ingested_at"),
+        available_at=params.get("available_at"),
+        availability_state=params.get("availability_state"),
+        quote_fresh=params.get("quote_fresh"),
+    )
 
     body = _stamp_batch2(
         {
-            **base,
             "capability_id": 630,
             "surface": "real_time_data_freshness_update_assurance",
             "symbol": asset,
             "data_age_sec": age_sec,
-            "freshness_state": freshness_state,
-            "freshness_evidence": fresh.to_dict(),
-            "presented_as_live": presented_as_live,
-            "delayed_label": delayed_disclosure,
-            "executable_fresh": presented_as_live and bool(base.get("quote_fresh")),
-            "success": presented_as_live and bool(base.get("quote_fresh")),
-            "policy": "stale_or_unknown_never_passes_as_live",
+            **assessment.to_payload(),
+            "executable_fresh": assessment.presented_as_live,
         },
         capability_id=630,
         entrypoint="freshness_update_assurance",
     )
-    body["freshness_state"] = freshness_state
-    if not presented_as_live:
-        body["error"] = "freshness_not_live_eligible"
-
-    return ai_compliance_footer(attach_data_freshness(body, slo_class="T0"))
+    return finalize_b2_response(body)
 
 
 async def point_in_time_immutable_metrics(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
-    """Launch #39 / CAP-0061 — immutable point-in-time metrics snapshot with content hash."""
-    from hot_storage import get_hot_storage_stats
-    from oracle_track_record import public_track_record
-
+    """Launch #39 / CAP-0061 — immutable point-in-time metrics snapshot."""
     params = dict(params or {})
     asset = str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")
-    snapshot_at = _utcnow_iso()
-    track = public_track_record()
-    hot = get_hot_storage_stats()
-    hot_payload = hot.__dict__ if hasattr(hot, "__dict__") else hot
+    as_of = params.get("as_of") or to_rfc3339(utc_now())
 
-    metrics_core = {
-        "immutable_metrics": track,
-        "hot_storage": hot_payload,
-        "symbol": asset,
-    }
-    content_hash = _content_hash(metrics_core)
-    chain = track.get("immutable_chain") or {}
+    if params.get("retrieve_only"):
+        rows = retrieve_point_in_time(asset, as_of=as_of, metric_key=params.get("metric_key"))
+        body = _stamp_batch2(
+            {
+                "capability_id": 61,
+                "surface": "point_in_time_immutable_metrics",
+                "symbol": asset,
+                "as_of": as_of,
+                "observations": rows,
+                "point_in_time": True,
+                "immutable": bool(rows),
+                "success": bool(rows),
+                "unknown_is_not_zero": True,
+            },
+            capability_id=61,
+            entrypoint="point_in_time_immutable_metrics",
+        )
+        if not rows:
+            body["error"] = "no_point_in_time_observations"
+        return finalize_b2_response(body)
 
+    provenance_params = params.get("provenance") or {}
+    freshness_params = params.get("freshness") or {}
+    metrics = dict(params.get("metrics") or {"price": params.get("price"), "symbol": asset})
+    metrics = {k: v for k, v in metrics.items() if v is not None}
+
+    prov_record = None
+    prov_dict = None
+    if provenance_params or params.get("source_authority") or params.get("source"):
+        prov_record, _env = build_provenance_record(symbol=asset, params={**provenance_params, **params})
+        prov_dict = prov_record.as_dict()
+
+    fresh_dict = None
+    if freshness_params or params.get("age_sec") is not None or params.get("quote_age_ms") is not None:
+        age_ms = params.get("quote_age_ms")
+        age_sec = params.get("age_sec")
+        if age_sec is None and age_ms is not None:
+            age_sec = float(age_ms) / 1000.0
+        fresh = assess_freshness(
+            age_sec=float(age_sec) if age_sec is not None else None,
+            source_time=params.get("source_time"),
+            observed_at=params.get("observed_at"),
+            available_at=params.get("available_at"),
+            availability_state=params.get("availability_state"),
+        )
+        fresh_dict = fresh.to_payload()
+
+    snapshot = build_immutable_snapshot(symbol=asset, metrics=metrics, provenance=prov_dict, freshness=fresh_dict)
     body = _stamp_batch2(
         {
             "capability_id": 61,
             "surface": "point_in_time_immutable_metrics",
-            "symbol": asset,
-            "snapshot_at": snapshot_at,
-            "point_in_time": True,
-            "immutable": bool(chain.get("valid")),
-            "content_hash": content_hash,
-            "immutable_metrics": track,
-            "hot_storage": hot_payload,
-            "chain_valid": chain.get("valid"),
-            "chain_records": chain.get("total_records"),
-            "metrics_scope": (track.get("cumulative") or {}).get("metrics_scope"),
-            "unknown_is_not_zero": True,
-            "success": chain.get("valid") is not False,
-            "observed_at": snapshot_at,
+            **snapshot,
         },
         capability_id=61,
         entrypoint="point_in_time_immutable_metrics",
     )
     if not body["success"]:
         body["error"] = "immutable_chain_invalid"
-
-    return ai_compliance_footer(body)
+    return finalize_b2_response(body)
 
 
 _DISPATCH_ENTRYPOINTS: dict[int, str] = {
