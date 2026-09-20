@@ -253,6 +253,12 @@
             <div class="tp-proof" id="l57SmartMoneyChips"><span class="tp-chip">Loading smart money intelligence…</span></div>
         </section>
 
+        <section id="launch57-derivatives-intelligence" aria-label="Launch-57 derivatives intelligence">
+            <h2>Derivatives Intelligence</h2>
+            <p class="sub" id="l57DerivativesNote">Launch-57 derivatives surfaces (#25–#30, #43) — arbitrage only after Net-Edge (#5).</p>
+            <div class="tp-proof" id="l57DerivativesChips"><span class="tp-chip">Loading derivatives intelligence…</span></div>
+        </section>
+
         <section id="launch57-data-spine" aria-label="Launch-57 data spine">
             <h2>Data Spine</h2>
             <p class="sub" id="l57DataNote">Launch-57 prices, freshness, provenance, and connector — claims hidden when unavailable.</p>
@@ -674,10 +680,18 @@
         const LAUNCH57_WHALE_ALERTS = '/api/launch57/whale-alerts';
         const LAUNCH57_INTER_ENTITY_FLOW = '/api/launch57/inter-entity-flow';
         const LAUNCH57_ADDRESS_LABELS = '/api/launch57/address-labels';
+        const LAUNCH57_FUTURES_OI = '/api/launch57/futures-oi';
+        const LAUNCH57_FUNDING_RATE = '/api/launch57/funding-rate';
+        const LAUNCH57_LIQUIDATION = '/api/launch57/liquidation-intelligence';
+        const LAUNCH57_TAKER_LEVERAGE = '/api/launch57/taker-leverage';
+        const LAUNCH57_DERIVATIVES_SENTIMENT = '/api/launch57/derivatives-sentiment';
+        const LAUNCH57_ORDER_BOOK = '/api/launch57/order-book';
+        const LAUNCH57_SPOT_PERP_ARBITRAGE = '/api/launch57/spot-perp-arbitrage';
         let lastVisibleTrust = { certificate: null, ledger: null, netEdge: null };
         let lastVisibleDisclosure = { risk: null, abstain: null };
         let lastLaunch57DecisionIntel = null;
         let lastLaunch57SmartMoneyIntel = null;
+        let lastLaunch57DerivativesIntel = null;
         let lastLaunch57DataSpine = null;
         const LAUNCH57_PRIMARY_INTENTS = [
             { id: 'decide', label: 'Decide', action: 'launch57_decide', hint: 'Launch-57 command home — Act/Wait + Why + Proof.' },
@@ -1269,6 +1283,107 @@
             return intel;
         }
 
+        function launch57QualifiedArbitrageOpportunities(spotBlock) {
+            if (!spotBlock || !Array.isArray(spotBlock.opportunities)) return [];
+            return spotBlock.opportunities.filter((o) => {
+                if (!o || o.gross_spread_only) return false;
+                if (o.executable === false) return false;
+                const truth = o.net_edge_truth || {};
+                if (o.truth_rejected || truth.reject) return false;
+                return true;
+            });
+        }
+
+        function renderLaunch57DerivativesIntel(intel) {
+            const chipsEl = document.getElementById('l57DerivativesChips');
+            const noteEl = document.getElementById('l57DerivativesNote');
+            if (!chipsEl) return;
+            const chips = [];
+            const oi = intel && intel.futuresOi;
+            if (oi && oi.success && Number(oi.launch_item_id) === 25) {
+                chips.push(`<span class="tp-chip ok">OI: $${esc(fmt(oi.open_interest_usd || 0, 0))}</span>`);
+            }
+            const funding = intel && intel.fundingRate;
+            if (funding && funding.success && Number(funding.launch_item_id) === 26) {
+                const pct = funding.funding_rate_pct != null ? funding.funding_rate_pct : funding.funding_rate;
+                chips.push(`<span class="tp-chip ok">Funding: ${esc(fmt(pct || 0, 4))}%</span>`);
+            }
+            const liq = intel && intel.liquidation;
+            if (liq && Number(liq.launch_item_id) === 27) {
+                const count = liq.liquidation_heatmap_light?.alert_count || 0;
+                chips.push(`<span class="tp-chip ${count ? 'warn' : 'ok'}">Liquidations: ${esc(String(count))}</span>`);
+            }
+            const taker = intel && intel.takerLeverage;
+            if (taker && Number(taker.launch_item_id) === 28 && taker.success) {
+                const tb = taker.taker_buy_sell_pressure || {};
+                const lev = taker.estimated_leverage_ratio || {};
+                const ratio = tb.taker_buy_ratio != null ? tb.taker_buy_ratio : tb.derivatives_semantics?.taker_buy_ratio;
+                const leverage = lev.leverage_ratio != null ? lev.leverage_ratio : lev.estimated_leverage_ratio;
+                chips.push(`<span class="tp-chip ok">Taker/Lev: ${esc(String(ratio ?? '—'))} / ${esc(String(leverage ?? '—'))}</span>`);
+            }
+            const sentiment = intel && intel.derivativesSentiment;
+            if (sentiment && sentiment.success && Number(sentiment.launch_item_id) === 29) {
+                const comp = sentiment.derivatives_sentiment_composite || sentiment.sentiment_composite || {};
+                chips.push(`<span class="tp-chip ok">Sentiment: ${esc(String(comp.bias || comp.score || 'composite'))}</span>`);
+            }
+            const book = intel && intel.orderBook;
+            if (book && book.success && Number(book.launch_item_id) === 30) {
+                chips.push(`<span class="tp-chip ok">Order book: ${esc(book.book_direction || book.depth_level || 'L1')}</span>`);
+            }
+            const arb = intel && intel.spotPerp;
+            if (arb && Number(arb.launch_item_id) === 43) {
+                const spot = arb.spot_perp_arbitrage || {};
+                const qualified = launch57QualifiedArbitrageOpportunities(spot);
+                chips.push(`<span class="tp-chip ${qualified.length ? 'ok' : ''}">Spot-perp: ${esc(String(qualified.length))} Net-Edge qualified</span>`);
+            }
+            chipsEl.innerHTML = chips.length
+                ? chips.join('')
+                : '<span class="tp-chip">Derivatives intelligence unavailable — no claims shown.</span>';
+            if (noteEl) {
+                noteEl.textContent = chips.length
+                    ? 'Launch-57 governed derivatives (#25–#30, #43). Arbitrage only after Net-Edge (#5) — raw spread hidden.'
+                    : 'Launch-57 derivatives intelligence unavailable — claims hidden (fail-closed).';
+            }
+        }
+
+        async function loadLaunch57DerivativesIntelligence(forceSym, pulse) {
+            const sym = (forceSym || document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
+            const qs = new URLSearchParams({ symbol: sym });
+            const intel = { symbol: sym };
+            try {
+                const results = await Promise.all([
+                    fetch(LAUNCH57_FUTURES_OI + '?' + qs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_FUNDING_RATE + '?' + qs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_LIQUIDATION + '?' + qs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_TAKER_LEVERAGE + '?' + qs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_DERIVATIVES_SENTIMENT + '?' + qs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_ORDER_BOOK + '?' + qs.toString(), { headers: authHeaders() }),
+                ]);
+                if (results[0].ok) intel.futuresOi = await results[0].json();
+                if (results[1].ok) intel.fundingRate = await results[1].json();
+                if (results[2].ok) intel.liquidation = await results[2].json();
+                if (results[3].ok) intel.takerLeverage = await results[3].json();
+                if (results[4].ok) intel.derivativesSentiment = await results[4].json();
+                if (results[5].ok) intel.orderBook = await results[5].json();
+                const bound = launch57OracleFromCommandHome(lastCommandHome || {});
+                const opportunity = bound && bound.oracle && bound.oracle.opportunity;
+                const netEdge = lastVisibleTrust.netEdge;
+                if (netEdge && netEdge.cost_claim_allowed === true && opportunity && typeof opportunity === 'object') {
+                    const arbRes = await fetch(LAUNCH57_SPOT_PERP_ARBITRAGE, {
+                        method: 'POST',
+                        headers: { ...authHeaders(), 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ symbol: sym, tier: 'quant', cost_claim: true, opportunity }),
+                    });
+                    if (arbRes.ok) intel.spotPerp = await arbRes.json();
+                }
+            } catch (error) {
+                console.debug(error);
+            }
+            lastLaunch57DerivativesIntel = intel;
+            renderLaunch57DerivativesIntel(intel);
+            return intel;
+        }
+
         async function prefetchShareProof(pulse) {
             if (!pulse || !pulse.launch57_oracle_bound || pulse.action === 'UNAVAILABLE') {
                 setShareProofButton(false);
@@ -1344,10 +1459,12 @@
                     }
                     renderTrustPulse(pulse);
                     if (pulse.launch57_oracle_bound && pulse.action !== 'UNAVAILABLE') {
-                        prefetchShareProof(pulse);
-                        prefetchVisibleTrust(pulse, data);
+                        await prefetchShareProof(pulse);
+                        await prefetchVisibleTrust(pulse, data);
                         loadLaunch57DecisionIntelligence(sym, pulse);
                         loadLaunch57SmartMoneyIntelligence(sym);
+                        await loadLaunch57DerivativesIntelligence(sym, pulse);
+                        if (currentLens === 'desk') loadArbitrage(false);
                     } else {
                         setShareProofButton(false);
                         clearVisibleTrust();
@@ -1642,6 +1759,7 @@
             loadCommandHome(true);
             loadLaunch57DecisionIntelligence(s, lastPulse);
             loadLaunch57SmartMoneyIntelligence(s);
+            loadLaunch57DerivativesIntelligence(s, lastPulse);
             loadLaunch57DataSpine(s);
             loadChart();
             startTrustPulseStream();
@@ -2076,43 +2194,70 @@
 
         async function loadOI() {
             const el = document.getElementById('oi');
+            const sym = (document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
+            const qs = new URLSearchParams({ symbol: sym });
             try {
-                const res = await fetch('/api/market/open-interest');
-                const data = await res.json();
-                const rows = data.assets || [];
-                if (!rows.length) { el.innerHTML = '<div class="empty">No OI data</div>'; return; }
-                el.innerHTML = '<table><thead><tr><th>Asset</th><th>OI</th><th>Funding</th></tr></thead><tbody>' +
-                    rows.slice(0,6).map(r => `<tr data-bd-call="setSymbol" data-bd-args="[&quot;${esc(r.asset)}&quot;]" style="cursor:pointer">
-                        <td>${esc(r.asset)}</td><td>$${fmt(r.open_interest_usd,0)}</td><td>${fmt(r.funding_rate_pct,4)}%</td></tr>`).join('') + '</tbody></table>';
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Unavailable</div>'; }
+                const [oiRes, fundRes] = await Promise.all([
+                    fetch(LAUNCH57_FUTURES_OI + '?' + qs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_FUNDING_RATE + '?' + qs.toString(), { headers: authHeaders() }),
+                ]);
+                if (!oiRes.ok && !fundRes.ok) throw new Error('launch57_derivatives_oi_fail');
+                const oi = oiRes.ok ? await oiRes.json() : null;
+                const funding = fundRes.ok ? await fundRes.json() : null;
+                if (Number(oi?.launch_item_id) !== 25 && Number(funding?.launch_item_id) !== 26) {
+                    throw new Error('launch57_derivatives_oi_not_bound');
+                }
+                const oiUsd = oi && oi.success ? oi.open_interest_usd : null;
+                const fundPct = funding && funding.success
+                    ? (funding.funding_rate_pct != null ? funding.funding_rate_pct : funding.funding_rate)
+                    : null;
+                if (oiUsd == null && fundPct == null) {
+                    el.innerHTML = '<div class="empty">Launch-57 OI/funding unavailable (#25/#26)</div>';
+                    return;
+                }
+                el.innerHTML = '<table><thead><tr><th>Asset</th><th>OI (#25)</th><th>Funding (#26)</th></tr></thead><tbody>' +
+                    `<tr data-bd-call="setSymbol" data-bd-args="[&quot;${esc(sym)}&quot;]" style="cursor:pointer">
+                        <td>${esc(sym)}</td>
+                        <td>${oiUsd != null ? '$' + fmt(oiUsd, 0) : '—'}</td>
+                        <td>${fundPct != null ? fmt(fundPct, 4) + '%' : '—'}</td>
+                    </tr></tbody></table>`;
+            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Launch-57 OI unavailable (#25/#26)</div>'; }
         }
 
         async function loadArbitrage(refresh) {
             const el = document.getElementById('arbList');
             const stats = document.getElementById('arbStats');
+            const sym = (document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
+            if (refresh) el.innerHTML = '<div class="loading">Scanning Launch-57 #43…</div>';
             try {
-                const url = refresh ? '/api/arbitrage/scan' : '/api/arbitrage/opportunities?live=true';
-                const res = await fetch(url, refresh ? { method: 'POST', headers: authHeaders() } : { headers: authHeaders() });
-                const data = await res.json();
-                if (res.status === 403) {
-                    const detail = data.detail || {};
-                    stats.textContent = detail.message || 'Pro required';
-                    el.innerHTML = `<div class="empty">${esc(detail.message || 'Upgrade required for arbitrage')}
-                        <div style="margin-top:.75rem"><button class="btn" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">Upgrade Pro</button></div></div>`;
+                const bound = launch57OracleFromCommandHome(lastCommandHome || {});
+                const opportunity = bound && bound.oracle && bound.oracle.opportunity;
+                const netEdge = lastVisibleTrust.netEdge;
+                if (!netEdge || netEdge.cost_claim_allowed !== true || !opportunity || typeof opportunity !== 'object') {
+                    stats.textContent = 'Launch-57 #43 · Net-Edge (#5) required — raw spread hidden';
+                    el.innerHTML = '<div class="empty">No arbitrage opportunities shown without Net-Edge (#5) autopsy on the displayed opportunity.</div>';
                     return;
                 }
-                const c = data.counts || {};
-                stats.textContent = `Cross ${c.cross_exchange||0} · Executable ${data.executable_count||0} · Profitable ${data.profitable_count||0}`;
-                const opps = data.opportunities || [];
-                el.innerHTML = opps.length ? opps.slice(0,6).map(o => {
+                const res = await fetch(LAUNCH57_SPOT_PERP_ARBITRAGE, {
+                    method: 'POST',
+                    headers: { ...authHeaders(), 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ symbol: sym, tier: 'quant', cost_claim: true, opportunity }),
+                });
+                const data = await res.json();
+                if (!res.ok || Number(data.launch_item_id) !== 43) {
+                    throw new Error('launch57_spot_perp_fail');
+                }
+                const spot = data.spot_perp_arbitrage || {};
+                const opps = launch57QualifiedArbitrageOpportunities(spot);
+                stats.textContent = `Launch-57 #43 · ${opps.length} Net-Edge qualified · raw spread excluded`;
+                el.innerHTML = opps.length ? opps.slice(0, 6).map((o) => {
                     const half = o.opportunity_half_life || {};
                     const truth = o.net_edge_truth || {};
-                    const rejected = o.truth_rejected || truth.reject;
-                    return `<div class="arb-card"><strong>${esc(o.kind_label||o.kind)}</strong> ${esc(o.asset||'')}
-                    <div class="${changeClass(o.net_profit_usdt)}">${changePrefix(o.net_profit_usdt)}$${fmt(Math.abs(o.net_profit_usdt||0),4)}</div>
-                    <div style="font-size:.75rem;color:#71717a">Truth ${esc(truth.truth_score??'—')} · HL ${esc(half.remaining_seconds??o.expected_half_life_seconds??'—')}s${rejected ? ' · REJECTED' : ''}</div></div>`;
-                }).join('') : '<div class="empty">No opportunities now</div>';
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Scan failed</div>'; }
+                    return `<div class="arb-card"><strong>${esc(o.kind_label || o.kind)}</strong> ${esc(o.asset || sym)}
+                    <div class="${changeClass(o.net_profit_usdt)}">${changePrefix(o.net_profit_usdt)}$${fmt(Math.abs(o.net_profit_usdt || 0), 4)}</div>
+                    <div style="font-size:.75rem;color:#71717a">Net-Edge #5 · Truth ${esc(truth.truth_score ?? '—')} · HL ${esc(half.remaining_seconds ?? o.expected_half_life_seconds ?? '—')}s</div></div>`;
+                }).join('') : '<div class="empty">No Net-Edge-qualified spot–perp opportunities (#43)</div>';
+            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Launch-57 arbitrage unavailable (#43)</div>'; if (stats) stats.textContent = 'Launch-57 #43 unavailable'; }
         }
 
         async function loadInbox() {
@@ -2632,6 +2777,7 @@
             initChart();
             loadLaunch57DataSpine();
             loadLaunch57SmartMoneyIntelligence();
+            loadLaunch57DerivativesIntelligence();
             loadChart();
             loadMarket();
             loadOI();
