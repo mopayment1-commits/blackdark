@@ -972,43 +972,93 @@
             prefetchVisibleDisclosure(pulse);
         }
 
+        function extractLaunch48VisibleReasons(abstainBody) {
+            if (!abstainBody || Number(abstainBody.launch_item_id) !== 48) return [];
+            if (Array.isArray(abstainBody.visible_reasons)) {
+                return abstainBody.visible_reasons.map((r) => String(r || '').trim()).filter(Boolean);
+            }
+            const disc = abstainBody.abstention_reject_disclosure || {};
+            const lines = [];
+            const seen = new Set();
+            const add = (value) => {
+                const text = String(value || '').trim();
+                if (text && !seen.has(text)) {
+                    seen.add(text);
+                    lines.push(text);
+                }
+            };
+            (disc.reason_codes || []).forEach(add);
+            (disc.dominant_rejection_causes || []).forEach(add);
+            (disc.what_would_be_needed_to_reconsider || []).forEach(add);
+            const categories = disc.rejection_reason_categories || {};
+            Object.keys(categories).forEach((key) => {
+                if (categories[key]) add(`${key}: ${categories[key]}`);
+            });
+            if (disc.summary) add(disc.summary);
+            return lines;
+        }
+
+        async function fetchLaunch48AbstainReasons(sym, action) {
+            const act = String(action || 'WAIT').toUpperCase();
+            const qs = new URLSearchParams({
+                symbol: sym || 'BTC',
+                decision_action: act,
+                decision_truth_state: 'ABSTAINED',
+            });
+            try {
+                const res = await fetch(LAUNCH57_ABSTAIN_REASONS + '?' + qs.toString(), { headers: authHeaders() });
+                if (!res.ok) return { ok: false, body: null, reasons: [] };
+                const body = await res.json();
+                if (Number(body.launch_item_id) !== 48) return { ok: false, body: null, reasons: [] };
+                const reasons = extractLaunch48VisibleReasons(body);
+                return { ok: true, body, reasons };
+            } catch (error) {
+                console.debug(error);
+                return { ok: false, body: null, reasons: [] };
+            }
+        }
+
+        function gatePulseWithLaunch48Reasons(pulse, abstainFetch) {
+            const act = String((pulse && pulse.action) || '').toUpperCase();
+            if (!['WAIT', 'ABSTAIN'].includes(act)) return pulse;
+            if (!abstainFetch || !abstainFetch.ok || !abstainFetch.reasons.length) {
+                return {
+                    ...pulse,
+                    action: 'UNAVAILABLE',
+                    sentence: 'Launch-57 #48: WAIT/ABSTAIN requires visible abstain reasons — unavailable.',
+                    launch48_gated: true,
+                    launch48_reasons: [],
+                    why: { grasp_line: 'Why (Launch-57 #48)', factors: [] },
+                    decision_live_blocked: true,
+                };
+            }
+            return {
+                ...pulse,
+                launch48_gated: false,
+                launch48_reasons: abstainFetch.reasons,
+                launch48_abstain: abstainFetch.body,
+            };
+        }
+
         function renderAbstainReasonsBlock(pulse) {
             const el = document.getElementById('tpAbstainReasons');
             if (!el) return;
             const act = String((pulse && pulse.action) || '').toUpperCase();
-            if (!['WAIT', 'ABSTAIN'].includes(act) || !pulse.launch57_oracle_bound) {
+            if (!['WAIT', 'ABSTAIN'].includes(act) || !pulse.launch57_oracle_bound || pulse.launch48_gated) {
                 el.hidden = true;
                 el.innerHTML = '';
                 return;
             }
-            const abstain = lastVisibleDisclosure.abstain;
-            if (!abstain || Number(abstain.launch_item_id) !== 48) {
-                el.hidden = true;
-                el.innerHTML = '';
-                return;
-            }
-            const disc = abstain.abstention_reject_disclosure || {};
-            const reasons = disc.reasons || disc.visible_reasons || abstain.no_decision?.reasons || [];
-            const lines = [];
-            if (disc.summary) lines.push(esc(disc.summary));
-            if (Array.isArray(reasons)) {
-                reasons.slice(0, 5).forEach((r, i) => {
-                    if (typeof r === 'string') lines.push(`${i + 1}. ${esc(r)}`);
-                    else lines.push(`${i + 1}. ${esc(r.reason || r.factor || r.label || 'Reason')}${r.detail ? ' — ' + esc(r.detail) : ''}`);
-                });
-            }
-            if (!lines.length && pulse.why && pulse.why.factors && pulse.why.factors.length) {
-                pulse.why.factors.slice(0, 3).forEach((f, i) => {
-                    lines.push(`${i + 1}. ${esc(f.factor || 'Reason')}${f.detail ? ' — ' + esc(f.detail) : ''}`);
-                });
-            }
-            if (!lines.length) {
+            const reasons = Array.isArray(pulse.launch48_reasons)
+                ? pulse.launch48_reasons
+                : extractLaunch48VisibleReasons(lastVisibleDisclosure.abstain);
+            if (!reasons.length) {
                 el.hidden = true;
                 el.innerHTML = '';
                 return;
             }
             el.hidden = false;
-            el.innerHTML = `<strong>Why ${esc(act)} (#48)</strong><div class="tp-factor">${lines.join('</div><div class="tp-factor">')}</div>`;
+            el.innerHTML = `<strong>Why ${esc(act)} (#48)</strong><div class="tp-factor">${reasons.slice(0, 5).map((r, i) => `${i + 1}. ${esc(r)}`).join('</div><div class="tp-factor">')}</div>`;
         }
 
         async function prefetchVisibleDisclosure(pulse) {
@@ -1024,37 +1074,19 @@
                 decision_action: action,
                 decision_truth_state: truthState,
             });
-            const qsAbstain = new URLSearchParams({
-                symbol: sym,
-                decision_action: action,
-                decision_truth_state: truthState,
-            });
             try {
-                const fetches = [
-                    fetch(LAUNCH57_RISK_DISCLOSURE + '?' + qsRisk.toString(), { headers: authHeaders() }),
-                ];
-                if (['WAIT', 'ABSTAIN'].includes(action)) {
-                    fetches.push(fetch(LAUNCH57_ABSTAIN_REASONS + '?' + qsAbstain.toString(), { headers: authHeaders() }));
-                }
-                const [riskRes, abstainRes] = await Promise.all(fetches);
+                const riskRes = await fetch(LAUNCH57_RISK_DISCLOSURE + '?' + qsRisk.toString(), { headers: authHeaders() });
                 if (riskRes.ok) {
                     const riskBody = await riskRes.json();
                     lastVisibleDisclosure.risk = Number(riskBody.launch_item_id) === 47 ? riskBody : null;
                 } else {
                     lastVisibleDisclosure.risk = null;
                 }
-                if (['WAIT', 'ABSTAIN'].includes(action) && abstainRes && abstainRes.ok) {
-                    const abstainBody = await abstainRes.json();
-                    lastVisibleDisclosure.abstain = Number(abstainBody.launch_item_id) === 48 ? abstainBody : null;
-                } else {
-                    lastVisibleDisclosure.abstain = null;
-                }
             } catch (error) {
                 console.debug(error);
-                clearVisibleDisclosure();
+                lastVisibleDisclosure.risk = null;
             }
             renderAbstainReasonsBlock(pulse);
-            if (lastPulse) renderTrustPulse(lastPulse);
         }
 
         function renderLaunch57DecisionIntel(intel) {
@@ -1198,9 +1230,15 @@
                     if (!res.ok) throw new Error('launch57_command_home_fail');
                     const data = await res.json();
                     lastCommandHome = data;
-                    const pulse = commandHomeToPulse(data);
+                    let pulse = commandHomeToPulse(data);
+                    const rawAction = String(pulse.action || '').toUpperCase();
+                    if (['WAIT', 'ABSTAIN'].includes(rawAction)) {
+                        const abstainFetch = await fetchLaunch48AbstainReasons(sym, rawAction);
+                        lastVisibleDisclosure.abstain = abstainFetch.body || null;
+                        pulse = gatePulseWithLaunch48Reasons(pulse, abstainFetch);
+                    }
                     renderTrustPulse(pulse);
-                    if (pulse.launch57_oracle_bound) {
+                    if (pulse.launch57_oracle_bound && pulse.action !== 'UNAVAILABLE') {
                         prefetchShareProof(pulse);
                         prefetchVisibleTrust(pulse, data);
                         loadLaunch57DecisionIntelligence(sym, pulse);

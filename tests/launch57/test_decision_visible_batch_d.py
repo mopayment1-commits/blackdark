@@ -59,10 +59,15 @@ def test_dashboard_wires_risk_disclosure_click_and_abstain_reasons():
     assert "function openRiskDisclosure()" in dash
     assert 'id="tpAbstainReasons"' in dash
     assert "function renderAbstainReasonsBlock" in dash
-    assert "function prefetchVisibleDisclosure" in dash
+    assert "function fetchLaunch48AbstainReasons" in dash
+    assert "function gatePulseWithLaunch48Reasons" in dash
     abstain_render = dash.split("function renderAbstainReasonsBlock", 1)[1].split("async function prefetchVisibleDisclosure", 1)[0]
-    assert "['WAIT', 'ABSTAIN']" in abstain_render
+    assert "launch48_reasons" in abstain_render
+    assert "pulse.why" not in abstain_render
     assert "#48" in abstain_render
+    load_home = dash.split("async function loadCommandHome", 1)[1].split("function renderLaunch57Decision", 1)[0]
+    assert "fetchLaunch48AbstainReasons" in load_home
+    assert "gatePulseWithLaunch48Reasons" in load_home
 
 
 def test_beginner_mode_wired_to_ux_mode_selector():
@@ -235,8 +240,59 @@ def test_abstain_reasons_route_launch_48(authed_client):
     assert res.status_code == 200
     body = res.json()
     assert body.get("launch_item_id") == 48
-    assert body.get("reasons_visible") is True
     assert body.get("hidden_as_error") is False
+    assert isinstance(body.get("visible_reasons"), list)
+    assert len(body["visible_reasons"]) > 0
+    assert body.get("reasons_visible") is True
+
+
+def test_wait_abstain_with_visible_reasons_from_api_only(authed_client):
+    """Mandatory #48: WAIT/ABSTAIN with reasons → visible_reasons populated from #48 API only."""
+    for action in ("WAIT", "ABSTAIN"):
+        res = authed_client.get(
+            "/api/launch57/abstain-reasons",
+            params={"symbol": "BTC", "decision_action": action, "decision_truth_state": "ABSTAINED"},
+        )
+        assert res.status_code == 200
+        body = res.json()
+        assert body.get("launch_item_id") == 48
+        reasons = body.get("visible_reasons") or []
+        assert len(reasons) > 0
+        assert body.get("reasons_visible") is True
+        assert "fresh_inputs_required" in reasons or "sufficient_evidence_grade" in reasons
+
+
+def test_no_orphan_wait_when_handler_killed_or_reasons_empty(monkeypatch):
+    """Mandatory #48: kill handler or empty visible_reasons → no complete WAIT/ABSTAIN badge."""
+    dash = _dash()
+    gate = dash.split("function gatePulseWithLaunch48Reasons", 1)[1].split("function renderAbstainReasonsBlock", 1)[0]
+    assert "action: 'UNAVAILABLE'" in gate
+    assert "launch48_gated" in gate
+    assert "!abstainFetch.reasons.length" in gate
+
+    from dashboard import app
+
+    async def empty_reasons(**kwargs):
+        return {
+            "launch_item_id": 48,
+            "visible_reasons": [],
+            "abstention_reject_disclosure": {"visible_reasons": []},
+            "reasons_visible": False,
+            "success": False,
+            "binding_source": "launch57_phase2_trust_batch2",
+        }
+
+    monkeypatch.setattr("launch57.trust_batch2.abstain_reject_reasons_visible", empty_reasons)
+    client = TestClient(app, base_url="http://127.0.0.1", raise_server_exceptions=False)
+    client.cookies.set("bd_token", f"decision-visible-batch-d-empty-48-{uuid.uuid4().hex[:8]}")
+    res = client.get(
+        "/api/launch57/abstain-reasons",
+        params={"symbol": "BTC", "decision_action": "WAIT"},
+    )
+    assert res.status_code == 200
+    body = res.json()
+    assert body.get("visible_reasons") == []
+    assert body.get("reasons_visible") is False
 
 
 def test_broken_abstain_reasons_handler_fails(monkeypatch):
@@ -255,8 +311,9 @@ def test_broken_abstain_reasons_handler_fails(monkeypatch):
     assert res.status_code == 500
 
 
-def test_abstain_prefetch_only_for_wait_abstain():
-    prefetch = _dash().split("async function prefetchVisibleDisclosure", 1)[1].split("function renderLaunch57DecisionIntel", 1)[0]
-    assert "['WAIT', 'ABSTAIN'].includes(action)" in prefetch
-    assert "LAUNCH57_ABSTAIN_REASONS" in prefetch
-    assert re.search(r"launch_item_id\) === 48", prefetch)
+def test_abstain_reasons_sourced_in_load_command_home_not_prefetch_disclosure():
+    dash = _dash()
+    load_home = dash.split("async function loadCommandHome", 1)[1].split("function renderLaunch57Decision", 1)[0]
+    prefetch = dash.split("async function prefetchVisibleDisclosure", 1)[1].split("function renderLaunch57DecisionIntel", 1)[0]
+    assert "fetchLaunch48AbstainReasons" in load_home
+    assert "LAUNCH57_ABSTAIN_REASONS" not in prefetch
