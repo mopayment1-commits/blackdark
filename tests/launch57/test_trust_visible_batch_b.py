@@ -196,6 +196,7 @@ def test_evidence_class_visible_on_pulse_unchanged():
     pulse_chips = _dash().split("function buildPulseChips(p)", 1)[1].split("function renderPulseFlip", 1)[0]
     assert "Evidence:" in pulse_chips
     assert "proof.evidence_class" in pulse_chips
-    to_pulse = _dash().split("function commandHomeToPulse(data)", 1)[1].split("function setShareProofButton", 1)[0]
+    to_pulse = _dash().split("function commandHomeToPulse(data, standaloneOracle, evidenceClass)", 1)[1].split("function setShareProofButton", 1)[0]
     assert "mapCanonicalEvidenceLabel" in to_pulse
-    assert "evidence_display" in to_pulse
+    assert "resolveLaunch57EvidenceLabel" in to_pulse
+    assert "data-launch-item-id=\"6\"" in pulse_chips

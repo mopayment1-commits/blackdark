@@ -149,6 +149,13 @@
         #trust-pulse.tp-loading .tp-action { min-height: 2.4rem; min-width: 5rem; display: inline-block; }
         #trust-pulse.tp-loading .tp-sym { min-height: 1rem; }
         #trust-pulse.tp-loading .tp-sentence { min-height: 1.1rem; }
+        .tp-command-q {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #e4e4e7;
+            margin: .35rem 0 .15rem;
+            line-height: 1.35;
+        }
         .tp-abstain-reasons { margin-top: .5rem; padding: .5rem .65rem; border-radius: 8px; background: rgba(245,158,11,.08); border: 1px solid rgba(245,158,11,.25); font-size: .85rem; }
         .tp-abstain-reasons strong { color: #fbbf24; display: block; margin-bottom: .35rem; }
         @keyframes tpSkeleton {
@@ -174,6 +181,7 @@
                 <span class="tp-live"><span class="tp-dot" id="tpDot"></span><span id="tpFresh">Connecting…</span></span>
             </div>
             <output id="tpFlip" class="tp-flip"></output>
+            <div class="tp-command-q" id="tpCommandQuestion" aria-live="polite"></div>
             <div class="tp-action WAIT" id="tpAction" role="button" tabindex="0" title="Click for Launch-57 risk disclosure (#47)" data-bd-call="openRiskDisclosure" style="cursor:pointer">—</div>
             <div class="tp-sym" id="tpSym">Loading decision…</div>
             <div class="tp-sentence" id="tpSentence">One clear Act / Wait with a reviewable why.</div>
@@ -693,6 +701,8 @@
         let commandHomeInflightKey = '';
         const TP_STORE = 'bd_trust_pulse_last';
         const LAUNCH57_COMMAND_HOME = '/api/launch57/command-home';
+        const LAUNCH57_SINGLE_SENTENCE_ORACLE = '/api/launch57/single-sentence-oracle';
+        const LAUNCH57_EVIDENCE_CLASS = '/api/launch57/evidence-class';
         const LAUNCH57_SHARE_PROOF = '/api/launch57/share-proof';
         const LAUNCH57_DECISION_CERTIFICATE = '/api/launch57/decision-certificate';
         const LAUNCH57_PUBLIC_ACCURACY = '/api/launch57/public-accuracy';
@@ -798,7 +808,31 @@
             if (!oracle || Number(oracle.launch_item_id) !== 2) return null;
             const sso = oracle.single_sentence_oracle;
             if (!sso || !sso.action || !sso.sentence) return null;
-            return { home, oracle, sso };
+            return { home, oracle, sso, source: 'command_home' };
+        }
+
+        function launch57OracleFromStandalone(body) {
+            if (!body || Number(body.launch_item_id) !== 2) return null;
+            const sso = body.single_sentence_oracle;
+            if (!sso || !sso.action || !sso.sentence) return null;
+            return { home: {}, oracle: body, sso, source: 'standalone_oracle_route' };
+        }
+
+        function resolveLaunch57OracleBinding(data, standaloneOracle) {
+            const embedded = data ? launch57OracleFromCommandHome(data) : null;
+            if (embedded) return embedded;
+            return launch57OracleFromStandalone(standaloneOracle);
+        }
+
+        function resolveLaunch57CommandQuestion(data) {
+            const home = (data && data.six_heroes_command_home) || {};
+            return String((data && data.command_question) || home.question || '').trim();
+        }
+
+        function resolveLaunch57EvidenceLabel(evidenceClass, fallback) {
+            if (!evidenceClass || Number(evidenceClass.launch_item_id) !== 6) return fallback || null;
+            const display = evidenceClass.evidence_display || {};
+            return evidenceClass.user_facing_label || display.user_facing_label || fallback || null;
         }
 
         function buildOracleWhyFactors(data, oracle) {
@@ -852,29 +886,38 @@
             };
         }
 
-        function commandHomeToPulse(data) {
-            const bound = launch57OracleFromCommandHome(data);
+        function commandHomeToPulse(data, standaloneOracle, evidenceClass) {
+            const bound = resolveLaunch57OracleBinding(data, standaloneOracle);
             const home = (data && data.six_heroes_command_home) || {};
+            const question = resolveLaunch57CommandQuestion(data);
             const evidenceDisp = (data && data.evidence_display) || {};
-            const freshnessState = String(data.freshness_state || 'UNKNOWN').toUpperCase();
-            const presentedAsLive = data.presented_as_live === true && data.decision_live_blocked !== true;
+            const freshnessState = String((data && data.freshness_state) || 'UNKNOWN').toUpperCase();
+            const presentedAsLive = data && data.presented_as_live === true && data.decision_live_blocked !== true;
             const staleBlocked = freshnessState === 'STALE'
                 || freshnessState === 'UNKNOWN'
-                || data.decision_live_blocked === true
+                || (data && data.decision_live_blocked === true)
                 || !presentedAsLive;
-            const userEvidence = evidenceDisp.user_facing_label
-                || mapCanonicalEvidenceLabel(data.evidence_class_visible || (bound && bound.oracle.evidence_class));
+            const userEvidence = resolveLaunch57EvidenceLabel(
+                evidenceClass,
+                evidenceDisp.user_facing_label
+                    || mapCanonicalEvidenceLabel((data && data.evidence_class_visible) || (bound && bound.oracle.evidence_class)),
+            );
 
             if (!bound) {
+                const unavailableSentence = question
+                    ? `${question} — UNAVAILABLE (governed oracle #2 required).`
+                    : 'Launch-57 command home unavailable — governed oracle #2 required.';
                 return {
-                    symbol: data?.symbol || 'BTC',
+                    symbol: (data && data.symbol) || 'BTC',
                     action: 'UNAVAILABLE',
-                    sentence: 'Launch-57 command home unavailable — governed oracle #2 required.',
+                    sentence: unavailableSentence,
+                    command_question: question,
+                    command_home_unavailable: true,
                     freshness: {
                         state: freshnessState,
                         stale: true,
                         presented_as_live: false,
-                        label: 'Unavailable',
+                        label: 'UNAVAILABLE',
                     },
                     why: { grasp_line: 'Why (Launch-57 oracle #2)', factors: [] },
                     proof: { evidence_class: userEvidence },
@@ -887,13 +930,13 @@
             }
 
             const { oracle, sso } = bound;
-            const abstain = home.abstain === true || data.answer_state === 'ABSTAIN';
+            const abstain = home.abstain === true || (data && data.answer_state === 'ABSTAIN');
             let action = abstain ? 'ABSTAIN' : String(oracle.decision_action || sso.action).toUpperCase();
             if (action === 'BUY') action = 'ACT';
             if (!['ACT', 'WAIT', 'ABSTAIN', 'CAUTION'].includes(action)) action = 'WAIT';
 
             const why = buildOracleWhyFactors(data, oracle);
-            if (staleBlocked || data.success === false || abstain) {
+            if (staleBlocked || (data && data.success === false) || abstain) {
                 if (!why.factors.length && home.abstain_explanation) {
                     why.factors.push({ factor: 'Abstain', detail: home.abstain_explanation });
                 }
@@ -903,15 +946,17 @@
                 if (!why.factors.length) {
                     why.factors.push({
                         factor: 'Freshness gate',
-                        detail: freshnessUiLabel(freshnessState, false, data.delayed_label),
+                        detail: freshnessUiLabel(freshnessState, false, data && data.delayed_label),
                     });
                 }
                 return {
-                    symbol: data.symbol || oracle.symbol || 'BTC',
+                    symbol: (data && data.symbol) || oracle.symbol || 'BTC',
                     action: abstain ? 'ABSTAIN' : 'WAIT',
-                    sentence: home.abstain_explanation || sso.sentence || data.error || 'Launch-57 blocked — not live-eligible.',
-                    price: data.price,
-                    change_24h: data.change_24h,
+                    sentence: home.abstain_explanation || sso.sentence || (data && data.error) || 'Launch-57 blocked — not live-eligible.',
+                    command_question: question,
+                    command_home_unavailable: !!(data && data.command_home_unavailable),
+                    price: data && data.price,
+                    change_24h: data && data.change_24h,
                     freshness: {
                         state: freshnessState,
                         stale: true,
@@ -936,16 +981,18 @@
             }
 
             return {
-                symbol: data.symbol || oracle.symbol || 'BTC',
+                symbol: (data && data.symbol) || oracle.symbol || 'BTC',
                 action,
                 sentence: sso.sentence,
-                price: data.price,
-                change_24h: data.change_24h,
+                command_question: question,
+                command_home_unavailable: !!(data && data.command_home_unavailable),
+                price: data && data.price,
+                change_24h: data && data.change_24h,
                 freshness: {
                     state: freshnessState,
                     stale: false,
                     presented_as_live: presentedAsLive,
-                    label: freshnessUiLabel(freshnessState, presentedAsLive, data.delayed_label),
+                    label: freshnessUiLabel(freshnessState, presentedAsLive, data && data.delayed_label),
                 },
                 why,
                 proof: {
@@ -1788,6 +1835,35 @@
             tp.classList.toggle('tp-loading', !!active);
         }
 
+        async function fetchLaunch57Oracle(sym) {
+            try {
+                const res = await fetch(
+                    LAUNCH57_SINGLE_SENTENCE_ORACLE + '?symbol=' + encodeURIComponent(sym),
+                    { headers: authHeaders() },
+                );
+                if (!res.ok) return null;
+                const body = await res.json();
+                if (Number(body.launch_item_id) !== 2) return null;
+                return body;
+            } catch (error) {
+                console.debug(error);
+                return null;
+            }
+        }
+
+        async function fetchLaunch57EvidenceClass(sym) {
+            try {
+                const res = await fetch(LAUNCH57_EVIDENCE_CLASS + '?symbol=' + encodeURIComponent(sym));
+                if (!res.ok) return null;
+                const body = await res.json();
+                if (Number(body.launch_item_id) !== 6) return null;
+                return body;
+            } catch (error) {
+                console.debug(error);
+                return null;
+            }
+        }
+
         async function loadCommandHome(force) {
             const sym = (document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
             const inflightKey = sym;
@@ -1798,12 +1874,20 @@
             commandHomeInflightKey = inflightKey;
             commandHomeInflight = (async () => {
                 try {
-                    const url = commandHomeUrl(sym) + (force ? '&_=' + Date.now() : '');
-                    const res = await fetch(url, { headers: authHeaders() });
-                    if (!res.ok) throw new Error('launch57_command_home_fail');
-                    const data = await res.json();
-                    lastCommandHome = data;
-                    let pulse = commandHomeToPulse(data);
+                    const bust = force ? '&_=' + Date.now() : '';
+                    const homeUrl = commandHomeUrl(sym) + bust;
+                    const [homeRes, oracleBody, evidenceBody] = await Promise.all([
+                        fetch(homeUrl, { headers: authHeaders() }),
+                        fetchLaunch57Oracle(sym),
+                        fetchLaunch57EvidenceClass(sym),
+                    ]);
+                    let data = null;
+                    if (homeRes.ok) {
+                        data = await homeRes.json();
+                        lastCommandHome = data;
+                    }
+                    lastVisibleTrust.evidenceClass = evidenceBody;
+                    let pulse = commandHomeToPulse(data, oracleBody, evidenceBody);
                     const rawAction = String(pulse.action || '').toUpperCase();
                     if (['WAIT', 'ABSTAIN'].includes(rawAction)) {
                         const abstainFetch = await fetchLaunch48AbstainReasons(sym, rawAction);
@@ -1813,7 +1897,7 @@
                     renderTrustPulse(pulse);
                     if (pulse.launch57_oracle_bound && pulse.action !== 'UNAVAILABLE') {
                         await prefetchShareProof(pulse);
-                        await prefetchVisibleTrust(pulse, data);
+                        await prefetchVisibleTrust(pulse, data || { symbol: sym, six_heroes_command_home: {} });
                         loadLaunch57DecisionIntelligence(sym, pulse);
                         loadLaunch57SmartMoneyIntelligence(sym);
                         await loadLaunch57DerivativesIntelligence(sym, pulse);
@@ -1823,24 +1907,26 @@
                         clearVisibleTrust();
                         clearVisibleDisclosure();
                     }
-                    renderLaunch57Intents(data);
-                    const box = document.getElementById('oracleBox');
-                    const el = document.getElementById('oracleContent');
-                    if (box && el) {
-                        box.classList.add('show');
-                        renderLaunch57Decision(el, data, { sym, mode: document.getElementById('uxMode')?.value || 'beginner', lang: currentLang() });
+                    if (data) {
+                        renderLaunch57Intents(data);
+                        const box = document.getElementById('oracleBox');
+                        const el = document.getElementById('oracleContent');
+                        if (box && el) {
+                            box.classList.add('show');
+                            renderLaunch57Decision(el, data, { sym, mode: document.getElementById('uxMode')?.value || 'beginner', lang: currentLang() });
+                        }
                     }
                     return data;
                 } catch (error) {
                     console.debug(error);
-                    const freshEl = document.getElementById('tpFresh');
-                    const sentenceEl = document.getElementById('tpSentence');
-                    if (freshEl) freshEl.textContent = 'Unavailable';
-                    if (sentenceEl) sentenceEl.textContent = 'Launch-57 command home unavailable.';
+                    const oracleBody = await fetchLaunch57Oracle(sym);
+                    const evidenceBody = await fetchLaunch57EvidenceClass(sym);
+                    lastVisibleTrust.evidenceClass = evidenceBody;
+                    const pulse = commandHomeToPulse(null, oracleBody, evidenceBody);
+                    renderTrustPulse(pulse);
                     setShareProofButton(false);
                     clearVisibleTrust();
                     clearVisibleDisclosure();
-                    setTrustPulseLoading(false);
                     return null;
                 } finally {
                     commandHomeInflight = null;
@@ -1961,10 +2047,13 @@
             const proof = p.proof || {};
             const ledger = p.ledger || {};
             const chips = [];
-            const ev = proof.evidence_class;
+            const evRow = lastVisibleTrust.evidenceClass;
+            const ev = (evRow && Number(evRow.launch_item_id) === 6)
+                ? (evRow.user_facing_label || (evRow.evidence_display && evRow.evidence_display.user_facing_label))
+                : proof.evidence_class;
             if (ev) {
                 const evCls = ev === 'SIM' ? 'warn' : (ev === 'DELAYED' ? '' : 'ok');
-                chips.push(`<span class="tp-chip ${evCls}">Evidence: ${esc(ev)}</span>`);
+                chips.push(`<span class="tp-chip ${evCls}" data-launch-item-id="6">Evidence: ${esc(ev)}</span>`);
             }
             const netEdge = (lastVisibleTrust.netEdge && lastVisibleTrust.netEdge.net_edge_truth_score) || null;
             if (netEdge && netEdge.truth_score != null) {
@@ -2023,10 +2112,21 @@
             if (!p) return;
             setTrustPulseLoading(false);
             lastPulse = p;
+            const qEl = document.getElementById('tpCommandQuestion');
+            if (qEl) {
+                const q = String(p.command_question || '').trim();
+                if (q) {
+                    qEl.textContent = q;
+                    qEl.hidden = false;
+                } else {
+                    qEl.textContent = '';
+                    qEl.hidden = true;
+                }
+            }
             const actionEl = document.getElementById('tpAction');
             const act = (p.action || 'WAIT').toUpperCase();
             if (act === 'UNAVAILABLE' || p.launch57_oracle_bound === false) {
-                actionEl.textContent = '—';
+                actionEl.textContent = 'UNAVAILABLE';
                 actionEl.className = 'tp-action WAIT';
             } else {
                 actionEl.textContent = act;
