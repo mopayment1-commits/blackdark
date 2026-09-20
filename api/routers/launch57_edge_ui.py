@@ -427,6 +427,76 @@ async def launch57_address_labels(
     )
 
 
+@router.get("/api/launch57/futures-oi")
+async def launch57_futures_oi(request: Request, symbol: str = Query("BTC")):
+    """Launch #25 — Futures OI intelligence."""
+    _require_launch57_auth(request, 25)
+    from launch57.derivatives_batch1 import futures_open_interest_intelligence
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await futures_open_interest_intelligence(symbol=asset, params={"symbol": asset})
+
+
+@router.get("/api/launch57/funding-rate")
+async def launch57_funding_rate(request: Request, symbol: str = Query("BTC")):
+    """Launch #26 — Funding rate intelligence."""
+    _require_launch57_auth(request, 26)
+    from launch57.derivatives_batch1 import funding_rate_intelligence
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await funding_rate_intelligence(symbol=asset, params={"symbol": asset})
+
+
+@router.get("/api/launch57/liquidation-intelligence")
+async def launch57_liquidation_intelligence(request: Request, symbol: str = Query("BTC")):
+    """Launch #27 — Liquidation intelligence / light heatmap."""
+    _require_launch57_auth(request, 27)
+    from launch57.derivatives_batch1 import liquidation_intelligence_light
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await liquidation_intelligence_light(symbol=asset, params={"symbol": asset})
+
+
+@router.get("/api/launch57/taker-leverage")
+async def launch57_taker_leverage(request: Request, symbol: str = Query("BTC")):
+    """Launch #28 — Taker buy/sell + leverage ratio."""
+    _require_launch57_auth(request, 28)
+    from launch57.derivatives_batch1 import estimated_leverage_ratio, taker_buy_sell_pressure
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    taker = await taker_buy_sell_pressure(symbol=asset, params={"symbol": asset})
+    leverage = await estimated_leverage_ratio(symbol=asset, params={"symbol": asset})
+    return {
+        "launch_item_id": 28,
+        "symbol": asset,
+        "success": bool(taker.get("success")) or bool(leverage.get("success")),
+        "taker_buy_sell_pressure": taker,
+        "estimated_leverage_ratio": leverage,
+        "backend_module": "launch57.derivatives_batch1",
+        "backend_entrypoint": "taker_buy_sell_pressure+estimated_leverage_ratio",
+    }
+
+
+@router.get("/api/launch57/derivatives-sentiment")
+async def launch57_derivatives_sentiment(request: Request, symbol: str = Query("BTC")):
+    """Launch #29 — Derivatives sentiment composite."""
+    _require_launch57_auth(request, 29)
+    from launch57.derivatives_batch1 import derivatives_sentiment_composite
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await derivatives_sentiment_composite(symbol=asset, params={"symbol": asset})
+
+
+@router.get("/api/launch57/order-book")
+async def launch57_order_book(request: Request, symbol: str = Query("BTC")):
+    """Launch #30 — Order book intelligence (L1 minimum)."""
+    _require_launch57_auth(request, 30)
+    from launch57.derivatives_batch2 import order_book_intelligence
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await order_book_intelligence(symbol=asset, params={"symbol": asset})
+
+
 @router.get("/api/launch57/decision-certificate")
 async def launch57_decision_certificate(
     request: Request,
@@ -610,7 +680,30 @@ async def launch57_spot_perp_arbitrage(
     _require_launch57_tier(request, 43, tier=tier)
     from launch57.edge_ui_batch1 import spot_perp_arbitrage_scanner
 
-    return await spot_perp_arbitrage_scanner(symbol=symbol, params={"symbol": symbol, "tier": tier})
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await spot_perp_arbitrage_scanner(symbol=asset, params={"symbol": asset, "tier": tier})
+
+
+@router.post("/api/launch57/spot-perp-arbitrage")
+async def launch57_spot_perp_arbitrage_post(request: Request, body: dict[str, Any] = Body(...)):
+    """Launch #43 — spot–perp arbitrage with mandatory Net-Edge (#5) for dashboard consumer."""
+    _require_launch57_auth(request, 43)
+    tier = str(body.get("tier") or "quant")
+    _require_launch57_tier(request, 43, tier=tier)
+    from launch57.edge_ui_batch1 import spot_perp_arbitrage_scanner
+
+    asset = str(body.get("symbol") or "BTC").upper().replace("/USDT", "")
+    params: dict[str, Any] = {"symbol": asset, "tier": tier}
+    if body.get("cost_claim") is not None:
+        params["cost_claim"] = bool(body.get("cost_claim"))
+    opportunity = body.get("opportunity")
+    if isinstance(opportunity, dict):
+        params["opportunity"] = opportunity
+    if body.get("quote_amount") is not None:
+        params["quote_amount"] = body.get("quote_amount")
+    if body.get("limit") is not None:
+        params["limit"] = body.get("limit")
+    return await spot_perp_arbitrage_scanner(symbol=asset, params=params)
 
 
 @router.get("/api/launch57/suspicious-flags")
