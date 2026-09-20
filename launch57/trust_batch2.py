@@ -17,6 +17,7 @@ from launch57.trust_adaptive_common import (
     build_ledger_interpretation_context,
     build_material_risk_access,
     build_shareable_truth_context,
+    extract_visible_abstain_reasons,
     validate_material_claims_from_payload,
 )
 from launch57.trust_batch1 import attach_trust_envelope
@@ -124,15 +125,18 @@ async def abstain_reject_reasons_visible(*, symbol: str, params: dict[str, Any] 
         no_decision=no_decision,
         rejection=rejection,
     )
+    visible_reasons = extract_visible_abstain_reasons(abstention_disclosure)
+    abstention_disclosure = {**abstention_disclosure, "visible_reasons": visible_reasons}
     body = {
         "launch_item_id": 48,
         "surface": "abstain_reject_reasons_visible",
         "symbol": symbol,
-        "success": True,
+        "success": bool(visible_reasons),
         "no_decision": no_decision,
         "rejection_engine": rejection,
         "abstention_reject_disclosure": abstention_disclosure,
-        "reasons_visible": True,
+        "visible_reasons": visible_reasons,
+        "reasons_visible": bool(visible_reasons),
         "hidden_as_error": bool(no_decision.get("hidden_as_error")),
         "first_class_abstain": bool(no_decision.get("first_class_state")),
         "backend_module": "launch57.trust_batch2",
