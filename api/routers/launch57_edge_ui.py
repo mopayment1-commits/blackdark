@@ -84,6 +84,66 @@ async def launch57_real_time_prices(symbol: str = Query("BTC")):
     return await real_time_prices(symbol=symbol, params={"symbol": symbol, "user_key": "anonymous"})
 
 
+@router.get("/api/launch57/decision-certificate")
+async def launch57_decision_certificate(
+    request: Request,
+    symbol: str = Query("BTC"),
+    decision_action: str = Query("WAIT"),
+    decision_sentence: str = Query(""),
+    decision_time: str = Query(""),
+):
+    """Launch #3 — decision certificate + hash for Trust Pulse / proof surfaces."""
+    _require_launch57_auth(request, 3)
+    from launch57.trust_batch1 import decision_certificate_export
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    action = str(decision_action or "WAIT").upper()
+    sentence = str(decision_sentence or "").strip() or f"{asset}: {action}"
+    dt = str(decision_time or "").strip()
+    params: dict[str, Any] = {
+        "symbol": asset,
+        "decision_action": action,
+        "decision_sentence": sentence,
+        "verdict": action,
+        "oracle": sentence,
+        "tier": "free",
+    }
+    if dt:
+        params["decision_time"] = dt
+        params["governed_payload"] = {"decision_time": dt}
+    return await decision_certificate_export(symbol=asset, params=params)
+
+
+@router.get("/api/launch57/public-accuracy")
+async def launch57_public_accuracy(symbol: str = Query("BTC")):
+    """Launch #4 — live public accuracy ledger sample (synthetic excluded from primary)."""
+    from launch57.trust_batch1 import public_accuracy_ledger
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await public_accuracy_ledger(symbol=asset, params={"symbol": asset})
+
+
+@router.post("/api/launch57/cost-autopsy")
+async def launch57_cost_autopsy(request: Request, body: dict[str, Any] = Body(...)):
+    """Launch #5 — net-edge / cost autopsy for the displayed opportunity (no elite tier gate)."""
+    _require_launch57_auth(request, 5)
+    from launch57.trust_batch1 import net_edge_truth_score
+
+    asset = str(body.get("symbol") or "BTC").upper().replace("/USDT", "")
+    opportunity = body.get("opportunity")
+    if not isinstance(opportunity, dict):
+        return {
+            "launch_item_id": 5,
+            "surface": "net_edge_truth_score",
+            "symbol": asset,
+            "success": False,
+            "cost_claim_allowed": False,
+            "error": "opportunity_required",
+            "backend_entrypoint": "net_edge_truth_score",
+        }
+    return await net_edge_truth_score(symbol=asset, params={"symbol": asset, "opportunity": opportunity})
+
+
 @router.get("/api/launch57/share-proof")
 async def launch57_share_proof(
     request: Request,

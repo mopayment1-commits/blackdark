@@ -415,7 +415,24 @@
 
         function openFullProof() {
             scrollToId('decide');
+            if (lastVisibleTrust.certificate || (lastPulse && lastPulse.proof && lastPulse.proof.certificate_hash)) {
+                openDecisionCertificate();
+            }
             askOracle();
+        }
+        function openDecisionCertificate() {
+            const cert = lastVisibleTrust.certificate || window._lastCertJson;
+            if (!cert) return;
+            window._lastCertJson = cert;
+            window._lastCertShare = cert.share_text || '';
+            window._lastCertTxt = cert.export_text || '';
+            const blob = new Blob([JSON.stringify(cert, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            window.open(url, '_blank', 'noopener');
+            setTimeout(() => URL.revokeObjectURL(url), 60000);
+        }
+        function clearVisibleTrust() {
+            lastVisibleTrust = { certificate: null, ledger: null, netEdge: null };
         }
         function onUxModeChange() {
             askOracle();
@@ -590,6 +607,10 @@
         const TP_STORE = 'bd_trust_pulse_last';
         const LAUNCH57_COMMAND_HOME = '/api/launch57/command-home';
         const LAUNCH57_SHARE_PROOF = '/api/launch57/share-proof';
+        const LAUNCH57_DECISION_CERTIFICATE = '/api/launch57/decision-certificate';
+        const LAUNCH57_PUBLIC_ACCURACY = '/api/launch57/public-accuracy';
+        const LAUNCH57_COST_AUTOPSY = '/api/launch57/cost-autopsy';
+        let lastVisibleTrust = { certificate: null, ledger: null, netEdge: null };
         const LAUNCH57_PRIMARY_INTENTS = [
             { id: 'decide', label: 'Decide', action: 'launch57_decide', hint: 'Launch-57 command home — Act/Wait + Why + Proof.' },
             { id: 'verify', label: 'Verify', action: 'navigate', path: '/oracle-accuracy', hint: 'Public Accuracy Ledger — hits and misses.' },
@@ -802,6 +823,101 @@
             if (btn) btn.hidden = !visible;
         }
 
+        async function prefetchCostAutopsy(pulse, oracle) {
+            const opp = oracle && oracle.opportunity;
+            if (!opp || typeof opp !== 'object') return null;
+            try {
+                const res = await fetch(LAUNCH57_COST_AUTOPSY, {
+                    method: 'POST',
+                    headers: { ...authHeaders(), 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ symbol: pulse.symbol || 'BTC', opportunity: opp }),
+                });
+                if (!res.ok) return null;
+                const body = await res.json();
+                if (Number(body.launch_item_id) !== 5) return null;
+                return body;
+            } catch (error) {
+                console.debug(error);
+                return null;
+            }
+        }
+
+        async function prefetchVisibleTrust(pulse, commandHome) {
+            if (!pulse || !pulse.launch57_oracle_bound || pulse.action === 'UNAVAILABLE') {
+                clearVisibleTrust();
+                return;
+            }
+            const bound = launch57OracleFromCommandHome(commandHome || lastCommandHome || {});
+            const oracle = (bound && bound.oracle) || {};
+            const timing = oracle.decision_timing || {};
+            const certQs = new URLSearchParams({
+                symbol: pulse.symbol || 'BTC',
+                decision_action: pulse.action || 'WAIT',
+                decision_sentence: pulse.sentence || '',
+            });
+            if (timing.decision_time) certQs.set('decision_time', timing.decision_time);
+            try {
+                const [certRes, ledgerRes, netEdgeBody] = await Promise.all([
+                    fetch(LAUNCH57_DECISION_CERTIFICATE + '?' + certQs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_PUBLIC_ACCURACY + '?symbol=' + encodeURIComponent(pulse.symbol || 'BTC')),
+                    prefetchCostAutopsy(pulse, oracle),
+                ]);
+                if (certRes.ok) {
+                    const certBody = await certRes.json();
+                    if (Number(certBody.launch_item_id) === 3 && certBody.certificate_hash) {
+                        lastVisibleTrust.certificate = certBody.certificate || certBody.decision_certificate || certBody;
+                        if (lastPulse) {
+                            lastPulse.proof = {
+                                ...(lastPulse.proof || {}),
+                                certificate_hash: certBody.certificate_hash,
+                                launch_item_id_3: 3,
+                            };
+                        }
+                    } else {
+                        lastVisibleTrust.certificate = null;
+                    }
+                } else {
+                    lastVisibleTrust.certificate = null;
+                }
+                if (ledgerRes.ok) {
+                    const ledgerBody = await ledgerRes.json();
+                    if (Number(ledgerBody.launch_item_id) === 4) {
+                        const ledger = ledgerBody.public_accuracy_ledger || ledgerBody.ledger || {};
+                        const cum = ledger.cumulative || {};
+                        const hr = cum.hit_rate_percent;
+                        ledgerBody.ledger_sample_label = hr != null
+                            ? `Ledger ${hr}% hit · live sample`
+                            : 'Ledger · live sample';
+                        ledgerBody.live_only_primary = ledgerBody.live_only_primary !== false;
+                        lastVisibleTrust.ledger = ledgerBody;
+                        if (lastPulse) {
+                            lastPulse.ledger = {
+                                ...(lastPulse.ledger || {}),
+                                href: '/oracle-accuracy#launch57-ledger-sample',
+                                label: ledgerBody.ledger_sample_label,
+                                launch_item_id: 4,
+                                live_sample: true,
+                            };
+                        }
+                    } else {
+                        lastVisibleTrust.ledger = null;
+                    }
+                } else {
+                    lastVisibleTrust.ledger = null;
+                }
+                lastVisibleTrust.netEdge = (netEdgeBody && netEdgeBody.success && netEdgeBody.cost_claim_allowed !== false)
+                    ? netEdgeBody
+                    : null;
+                if (lastPulse && lastVisibleTrust.netEdge) {
+                    lastPulse.net_edge_autopsy = lastVisibleTrust.netEdge;
+                }
+            } catch (error) {
+                console.debug(error);
+                clearVisibleTrust();
+            }
+            if (lastPulse) renderTrustPulse(lastPulse);
+        }
+
         async function prefetchShareProof(pulse) {
             if (!pulse || !pulse.launch57_oracle_bound || pulse.action === 'UNAVAILABLE') {
                 setShareProofButton(false);
@@ -870,8 +986,13 @@
                     lastCommandHome = data;
                     const pulse = commandHomeToPulse(data);
                     renderTrustPulse(pulse);
-                    if (pulse.launch57_oracle_bound) prefetchShareProof(pulse);
-                    else setShareProofButton(false);
+                    if (pulse.launch57_oracle_bound) {
+                        prefetchShareProof(pulse);
+                        prefetchVisibleTrust(pulse, data);
+                    } else {
+                        setShareProofButton(false);
+                        clearVisibleTrust();
+                    }
                     renderLaunch57Intents(data);
                     const box = document.getElementById('oracleBox');
                     const el = document.getElementById('oracleContent');
@@ -887,6 +1008,7 @@
                     if (freshEl) freshEl.textContent = 'Unavailable';
                     if (sentenceEl) sentenceEl.textContent = 'Launch-57 command home unavailable.';
                     setShareProofButton(false);
+                    clearVisibleTrust();
                     setTrustPulseLoading(false);
                     return null;
                 } finally {
@@ -911,7 +1033,14 @@
                 change_24h: data.change_24h,
                 ux_mode: mode,
                 lang,
-                opportunity_score: oracle.net_edge_truth_score || '—',
+                opportunity_score: (() => {
+                    const ne = lastVisibleTrust.netEdge && lastVisibleTrust.netEdge.net_edge_truth_score;
+                    if (ne && ne.truth_score != null) return ne.truth_score;
+                    const raw = oracle.net_edge_truth_score;
+                    if (raw && typeof raw === 'object' && raw.truth_score != null) return raw.truth_score;
+                    return '—';
+                })(),
+                decision_certificate: lastVisibleTrust.certificate || oracle.decision_certificate || null,
                 confidence: oracle.confidence,
                 launch57_command_home: true,
                 router_selection: home.router_selection_contract,
@@ -1006,8 +1135,18 @@
                 const evCls = ev === 'SIM' ? 'warn' : (ev === 'DELAYED' ? '' : 'ok');
                 chips.push(`<span class="tp-chip ${evCls}">Evidence: ${esc(ev)}</span>`);
             }
-            chips.push(`<a class="tp-chip ok" href="${safeShareUrl(ledger.href)||'/oracle-accuracy'}">${esc(ledger.label||'Verified on Ledger')}</a>`);
-            if (proof.certificate_hash) chips.push(`<span class="tp-chip">cert ${esc(String(proof.certificate_hash).slice(0,12))}…</span>`);
+            const netEdge = (lastVisibleTrust.netEdge && lastVisibleTrust.netEdge.net_edge_truth_score) || null;
+            if (netEdge && netEdge.truth_score != null) {
+                chips.push(`<span class="tp-chip ok">Net-Edge: ${esc(netEdge.truth_score)}</span>`);
+            }
+            const ledgerLabel = ledger.label
+                || (lastVisibleTrust.ledger && lastVisibleTrust.ledger.ledger_sample_label)
+                || 'Verify Ledger';
+            const ledgerHref = safeShareUrl(ledger.href) || '/oracle-accuracy#launch57-ledger-sample';
+            chips.push(`<a class="tp-chip ok" href="${ledgerHref}">${esc(ledgerLabel)}</a>`);
+            if (proof.certificate_hash) {
+                chips.push(`<button type="button" class="tp-chip ok" data-bd-call="openDecisionCertificate" style="border:none;cursor:pointer;font:inherit">cert ${esc(String(proof.certificate_hash).slice(0,12))}…</button>`);
+            }
             if (proof.prediction_id) chips.push(`<span class="tp-chip">id ${esc(proof.prediction_id)}</span>`);
             if (proof.watermark) chips.push(`<span class="tp-wm">${esc(proof.watermark)}</span>`);
             if (p.veto) chips.push(`<span class="tp-chip warn">Veto</span>`);

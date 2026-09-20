@@ -176,6 +176,7 @@ LAUNCH57_PUBLIC_API_EXACT: frozenset[str] = frozenset(
         "/api/launch57/real-time-prices",
         "/api/launch57/tier-distribution",
         "/api/launch57/capability-library",
+        "/api/launch57/public-accuracy",
     }
 )
 

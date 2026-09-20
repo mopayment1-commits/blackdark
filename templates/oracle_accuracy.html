@@ -120,6 +120,7 @@
             Live engine: <strong id="engine-label">rules engine</strong>
         </p>
         <p id="transparency-note" style="color:var(--warning);font-size:0.9rem;max-width:760px;margin:0.75rem auto 0;"></p>
+        <p id="launch57-ledger-sample" style="display:none;color:var(--muted);font-size:0.88rem;max-width:760px;margin:0.65rem auto 0;"></p>
         <p id="chain-status" style="color:var(--muted);font-size:0.9rem;margin-top:0.5rem"></p>
         <div class="cta-row" style="margin-top:1rem">
             <button class="btn btn-secondary" id="verifyChainBtn" type="button">Verify Audit Chain</button>
@@ -131,6 +132,14 @@
         <p style="margin-top:.75rem;color:var(--muted);font-size:.85rem;max-width:760px;margin-left:auto;margin-right:auto">
             We publish hits <strong style="color:var(--text)">and misses</strong>. Alias: <a href="/errors" style="color:var(--accent)">/errors</a> → this ledger’s losing section.
         </p>
+    </section>
+
+    <section class="panel" id="launch57-ledger-sample-panel">
+        <div class="card">
+            <h2>Launch-57 Live Ledger Sample</h2>
+            <p id="launch57-ledger-detail" style="color:var(--muted);font-size:0.9rem">Loading governed live sample…</p>
+            <p style="margin-top:0.5rem;font-size:0.72rem;color:var(--muted)"><strong>Anti-Hype</strong> · Live-only primary metrics; synthetic excluded; not a shadow pretending to be the full public ledger.</p>
+        </div>
     </section>
 
     <section class="panel">
@@ -434,6 +443,37 @@
                 `Integrity: <strong style="color:${vColor}">${esc(verifyLabelShort(verify.valid))}</strong>` +
                 ` · ${esc(records)} linked records`;
         }
+        async function loadLaunch57LedgerSample() {
+            const heroNote = document.getElementById('launch57-ledger-sample');
+            const detail = document.getElementById('launch57-ledger-detail');
+            try {
+                const res = await fetch('/api/launch57/public-accuracy?symbol=BTC');
+                if (!res.ok) throw new Error('launch57_public_accuracy_fail');
+                const data = await res.json();
+                if (Number(data.launch_item_id) !== 4) throw new Error('launch_item_mismatch');
+                const ledger = data.public_accuracy_ledger || data.ledger || {};
+                const cum = ledger.cumulative || {};
+                const hr = cum.hit_rate_percent;
+                const scope = data.metrics_scope || cum.metrics_scope || 'live_only';
+                const sampleText = hr != null
+                    ? `Launch-57 live sample: ${hr}% hit rate (${scope}; synthetic excluded from primary).`
+                    : `Launch-57 live ledger sample (${scope}; synthetic excluded from primary).`;
+                if (heroNote) {
+                    heroNote.textContent = sampleText + ' Full page below includes legacy oracle accuracy — this banner is the governed Launch #4 sample only.';
+                    heroNote.style.display = 'block';
+                }
+                if (detail) {
+                    detail.textContent = sampleText
+                        + ` Records=${esc(cum.total_predictions ?? cum.resolved ?? '—')}`
+                        + ` · shadow_ledger_not_production=${esc(String(data.shadow_ledger_not_production !== false))}`;
+                }
+            } catch (error) {
+                console.debug(error);
+                if (heroNote) heroNote.style.display = 'none';
+                if (detail) detail.textContent = 'Launch-57 live ledger sample unavailable.';
+            }
+        }
+
         async function loadAccuracy() {
             try {
                 const res = await fetch('/api/oracle/accuracy/public');
@@ -619,6 +659,7 @@
         });
 
         await Promise.all([
+            loadLaunch57LedgerSample(),
             loadAccuracy(),
             loadLedgerShareKit(),
             loadGlassBox(),
