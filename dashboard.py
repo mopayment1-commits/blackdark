@@ -796,6 +796,14 @@ async def anonymous_route_enforcement_middleware(request: Request, call_next):
 
 
 @app.middleware("http")
+async def anonymous_public_cost_guard_middleware(request: Request, call_next):
+    """Per-route anonymous public cost guards — rate limit, timeout, response size cap."""
+    from launch57.anonymous_public_cost_guards import anonymous_public_cost_guard_middleware as _guard
+
+    return await _guard(request, call_next)
+
+
+@app.middleware("http")
 async def utf8_response_headers(request: Request, call_next):
     """Ensure JSON/HTML responses declare UTF-8 (Arabic text in browser)."""
     response = await call_next(request)
