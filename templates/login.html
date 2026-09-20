@@ -11,21 +11,71 @@
     <style>
         :root { --bg:#0a0a0f; --card:#111118; --border:#2a2a35; --text:#e4e4e7; --muted:#71717a; --accent:#22d3ee; --danger:#ef4444; --ok:#22c55e; }
         * { margin:0; padding:0; box-sizing:border-box; }
-        body {
+        body.login-page {
             font-family: var(--bd-font-body);
             background: radial-gradient(1200px 600px at 10% -10%, rgba(34,211,238,.12), transparent),
                         radial-gradient(900px 500px at 100% 0%, rgba(6,182,212,.08), transparent), var(--bg);
-            color: var(--text); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:1.5rem;
+            color: var(--text);
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            padding: 0;
         }
-        .login-chrome {
-            position: fixed; top: 0; inset-inline: 0; z-index: 40;
-            display: flex; justify-content: space-between; align-items: center;
-            gap: .75rem; padding: .65rem 1rem;
-            background: rgba(10,10,15,.88); border-bottom: 1px solid #2a2a35;
-            backdrop-filter: blur(8px);
+        .bd-global-header { flex-shrink: 0; }
+        .bd-global-header .bd-header-util {
+            position: static;
+            width: auto;
+            padding: 0;
+            background: transparent;
+            border-bottom: none;
+            backdrop-filter: none;
         }
-        .login-chrome .brand { font-family: var(--bd-font-display); font-weight: 800; color: #22d3ee; text-decoration: none; letter-spacing: .04em; }
-        .card { width:min(420px,100%); background:var(--card); border:1px solid var(--border); border-radius:18px; padding:2rem; animation: bdPulseIn .45s var(--bd-ease-out) both; }
+        .login-main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 1.5rem 1rem 2rem;
+        }
+        .login-stack {
+            width: min(420px, 100%);
+        }
+        .auth-tabs {
+            display: flex;
+            margin-bottom: .75rem;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            background: rgba(17, 17, 24, .55);
+        }
+        .auth-tab {
+            flex: 1;
+            padding: .7rem 1rem;
+            text-align: center;
+            font-size: .88rem;
+            font-weight: 700;
+            color: var(--muted);
+            text-decoration: none;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+        }
+        .auth-tab.active {
+            color: var(--accent);
+            background: var(--card);
+        }
+        .auth-tabs.hidden { display: none; }
+        .card {
+            width: 100%;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 2rem;
+            animation: bdPulseIn .45s var(--bd-ease-out) both;
+        }
         h1 { font-family: var(--bd-font-display); font-size:1.65rem; font-weight:800; margin-bottom:.35rem; color:var(--text); letter-spacing:.02em; line-height:1.25; }
         .lead { color:var(--muted); font-size:.9rem; margin-bottom:1.25rem; line-height:1.45; }
         label { display:block; font-size:.78rem; color:#a1a1aa; margin-bottom:.35rem; }
@@ -66,8 +116,6 @@
         .msg { font-size:.85rem; min-height:1.2rem; margin-top:.35rem; }
         .msg.error { color:var(--danger); }
         .msg.ok { color:var(--ok); }
-        .footer-links { text-align:center; margin-top:1rem; font-size:.85rem; }
-        .switch-link { text-align:center; margin-top:1rem; font-size:.88rem; color:var(--muted); }
         a { color:var(--accent); text-decoration:none; }
         .divider { display:flex; align-items:center; gap:.75rem; color:var(--muted); font-size:.75rem; margin:1rem 0; }
         .divider::before, .divider::after { content:""; flex:1; height:1px; background:var(--border); }
@@ -77,24 +125,33 @@
             background: none; border: none; color: #22d3ee; cursor: pointer;
             font: inherit; padding: 0; text-decoration: underline;
         }
+        @media (max-width: 480px) {
+            .login-main { padding: 1rem .85rem 1.5rem; align-items: flex-start; padding-top: 1.25rem; }
+            .card { padding: 1.35rem 1.15rem; }
+        }
     </style>
 </head>
-<body>
+<body class="login-page">
     {% include 'partials/global_header.html' %}
-    <div class="card" style="margin-top:4.25rem">
+    <main class="login-main" id="loginMain">
+        <div class="login-stack">
+            <nav class="auth-tabs" id="authTabs" aria-label="Authentication mode">
+                <a href="/login" class="auth-tab{% if request.query_params.get('tab') != 'register' %} active{% endif %}" id="tabLogin" data-mode="login">Login</a>
+                <a href="/login?tab=register" class="auth-tab{% if request.query_params.get('tab') == 'register' %} active{% endif %}" id="tabRegister" data-mode="register">Sign up</a>
+            </nav>
+            <div class="card">
+                <div id="googleSigninArea">
+                    {% if google_signin.state == 'CONFIGURED' %}
+                    <div id="googleBtnHost" class="google-host" aria-label="Continue with Google"></div>
+                    {% else %}
+                    <button type="button" class="btn btn-oauth" id="googleBtnDisabled" disabled>Google sign-in not configured</button>
+                    {% endif %}
+                </div>
+                <div class="divider" id="authDivider">or continue with email</div>
+
         <div id="registerShell" class="hidden">
             <h1>Create your free account</h1>
             <p class="lead">Free — no card required. Start with proof, upgrade when ready.</p>
-
-            <div id="googleSigninArea">
-                {% if google_signin.state == 'CONFIGURED' %}
-                <div id="googleBtnHost" class="google-host" aria-label="Continue with Google"></div>
-                {% else %}
-                <button type="button" class="btn btn-oauth" id="googleBtnDisabled" disabled>Google sign-in not configured</button>
-                {% endif %}
-            </div>
-
-            <div class="divider">or continue with email</div>
 
             <form id="registerForm" data-bd-submit-call="doRegister" novalidate>
                 <input type="hidden" id="regPlan" name="regPlan" value="free">
@@ -111,8 +168,6 @@
                 </label>
                 <button type="submit" class="btn-primary" id="regSubmit">Create account</button>
             </form>
-
-            <p class="switch-link">Already have an account? <a href="/login" id="signInLink">Sign in</a></p>
         </div>
 
         <div id="loginShell">
@@ -133,8 +188,6 @@
                 </div>
                 <button type="submit" class="btn-primary" id="loginSubmitBtn">{{ t('login.submit') }}</button>
             </form>
-
-            <p class="switch-link">New here? <a href="/login?tab=register" id="signUpLink">Create your free account</a></p>
         </div>
 
         <form id="mfaForm" class="hidden" data-bd-submit-call="doMfa">
@@ -163,16 +216,26 @@
         </form>
 
         <div class="msg" id="msg" role="alert" aria-live="polite"></div>
-        <div class="footer-links">
-            <a href="/">Home</a> · <a href="/#pricing">Pricing</a>
+            </div>
         </div>
-    </div>
+    </main>
     <script type="module">
         let mfaChallenge = null;
         const googleConfigured = {{ 'true' if google_signin.state == 'CONFIGURED' else 'false' }};
         const googleClientId = {{ google_signin.client_id|tojson if google_signin.state == 'CONFIGURED' else 'null' }};
         const googleLoginUriBase = {{ google_login_uri_base|tojson }};
 
+        function setAuthTab(mode) {
+            const loginTab = document.getElementById('tabLogin');
+            const registerTab = document.getElementById('tabRegister');
+            if (loginTab) loginTab.classList.toggle('active', mode === 'login');
+            if (registerTab) registerTab.classList.toggle('active', mode === 'register');
+        }
+        function setAuthChromeVisible(visible) {
+            document.getElementById('authTabs')?.classList.toggle('hidden', !visible);
+            document.getElementById('googleSigninArea')?.classList.toggle('hidden', !visible);
+            document.getElementById('authDivider')?.classList.toggle('hidden', !visible);
+        }
         function hideAll() {
             ['registerShell','loginShell','mfaForm','forgotForm','forgotUserForm'].forEach(id => {
                 document.getElementById(id).classList.add('hidden');
@@ -183,22 +246,28 @@
             document.getElementById('registerShell').classList.remove('hidden');
             document.getElementById('msg').textContent = '';
             mfaChallenge = null;
+            setAuthTab('register');
+            setAuthChromeVisible(true);
         }
         function showLogin() {
             hideAll();
             document.getElementById('loginShell').classList.remove('hidden');
             document.getElementById('msg').textContent = '';
             mfaChallenge = null;
+            setAuthTab('login');
+            setAuthChromeVisible(true);
         }
         function showForgot() {
             hideAll();
             document.getElementById('forgotForm').classList.remove('hidden');
             document.getElementById('msg').textContent = '';
+            setAuthChromeVisible(false);
         }
         function showForgotUsername() {
             hideAll();
             document.getElementById('forgotUserForm').classList.remove('hidden');
             document.getElementById('msg').textContent = '';
+            setAuthChromeVisible(false);
         }
         function setMsg(text, ok, opts) {
             const msg = document.getElementById('msg');
@@ -346,6 +415,7 @@
                     mfaChallenge = d.mfa_challenge;
                     hideAll();
                     document.getElementById('mfaForm').classList.remove('hidden');
+                    setAuthChromeVisible(false);
                     setMsg('Enter your authenticator code to finish login.', true);
                     setLoginSubmitLoading(false);
                     return;

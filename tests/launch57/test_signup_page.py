@@ -15,6 +15,22 @@ def client():
     return TestClient(app)
 
 
+def test_login_header_is_direct_child_before_main_column(client):
+    for path in ("/login", "/login?tab=register"):
+        res = client.get(path, headers={"Accept": "text/html"})
+        assert res.status_code == 200, path
+        html = res.text
+        header_pos = html.find('class="bd-global-header"')
+        main_pos = html.find('class="login-main"')
+        card_pos = html.find('class="card"')
+        assert header_pos > 0, path
+        assert main_pos > header_pos, path
+        assert card_pos > main_pos, path
+        assert html.find('class="bd-global-header"', card_pos) < 0, path
+        assert "login-page" in html
+        assert "align-items:center; justify-content:center; padding:1.5rem" not in html
+
+
 def test_register_tab_calm_html(client):
     res = client.get("/login?tab=register", headers={"Accept": "text/html"})
     assert res.status_code == 200
@@ -25,7 +41,8 @@ def test_register_tab_calm_html(client):
     assert 'id="regEmail"' in html
     assert 'id="regPassword"' in html
     assert 'minlength="12"' in html
-    assert "Already have an account?" in html
+    assert 'class="auth-tabs"' in html
+    assert 'id="tabRegister"' in html
     assert "Anonymous access denied" not in html
     assert "Choose your plan" not in html
     assert 'name="regPlan"' in html

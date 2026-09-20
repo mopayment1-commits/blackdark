@@ -71,6 +71,10 @@ def test_login_has_register_tab_and_global_header():
     login = (ROOT / "templates/login.html").read_text(encoding="utf-8")
     assert 'id="registerShell"' in login
     assert "global_header.html" in login
+    assert 'class="login-main"' in login
+    assert 'class="auth-tabs"' in login
+    assert "bd-global-header .bd-header-util" in login
+    assert "login-chrome" not in login
     assert "doRegister" in login
     assert "accepted_terms" in login
 
