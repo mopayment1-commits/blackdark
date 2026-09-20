@@ -263,6 +263,22 @@
             <h2>First-Screen Gaps</h2>
             <p class="sub" id="l57FirstScreenNote">Launch-57 spot metrics, copilot, shareable accuracy, decision history, research brief (#21, #36, #45, #49, #51) — claims hidden when unavailable.</p>
             <div class="tp-proof" id="l57FirstScreenChips"><span class="tp-chip">Loading first-screen gaps…</span></div>
+            <p id="l57GuestTrustLink" style="margin-top:.55rem;font-size:.82rem"></p>
+        </section>
+
+        <section id="launch57-remaining-paths" aria-label="Launch-57 remaining paths">
+            <h2>Remaining Launch Paths</h2>
+            <p class="sub" id="l57RemainingNote">Launch-57 remaining surfaces (#31–#32, #34–#35, #37, #50, #52–#57) — risk flags hidden when sources fail.</p>
+            <div class="tp-proof" id="l57RemainingChips"><span class="tp-chip">Loading remaining paths…</span></div>
+            <div class="toolbar" style="margin-top:.65rem;flex-wrap:wrap">
+                <button class="btn secondary" type="button" data-bd-call="runLaunch57WalletDd">Wallet DD (#53)</button>
+                <button class="btn secondary" type="button" data-bd-call="runLaunch57TokenDd">Token DD (#54)</button>
+            </div>
+            <div id="l57WalletDdResult" class="arb-card" style="margin-top:.65rem;display:none"></div>
+            <div id="l57TokenDdResult" class="arb-card" style="margin-top:.65rem;display:none"></div>
+            <div class="tp-proof" id="l57RiskFlags" style="margin-top:.65rem" hidden></div>
+            <div id="l57DisciplineMirrorBox" class="arb-card" style="margin-top:.65rem"></div>
+            <div id="l57CapabilityLibraryBox" class="arb-card" style="margin-top:.65rem"></div>
         </section>
 
         <section id="launch57-data-spine" aria-label="Launch-57 data spine">
@@ -716,8 +732,22 @@
         const LAUNCH57_DECISION_HISTORY = '/api/launch57/decision-history';
         const LAUNCH57_AI_COPILOT = '/api/launch57/ai-copilot';
         const LAUNCH57_RESEARCH_PORTAL = '/api/launch57/research-portal';
+        const LAUNCH57_GUEST_TRUST = '/api/launch57/guest-trust';
+        const LAUNCH57_MARKET_SCREENER = '/api/launch57/market-screener';
+        const LAUNCH57_WATCHLISTS = '/api/launch57/watchlists';
+        const LAUNCH57_SIGNAL_EXPLANATION = '/api/launch57/signal-explanation';
+        const LAUNCH57_PRICE_MOVE_EXPLANATION = '/api/launch57/price-move-explanation';
+        const LAUNCH57_CROSS_MARKET = '/api/launch57/cross-market';
+        const LAUNCH57_DISCIPLINE_MIRROR = '/api/launch57/discipline-mirror';
+        const LAUNCH57_CAPABILITY_LIBRARY = '/api/launch57/capability-library';
+        const LAUNCH57_WALLET_DD = '/api/launch57/wallet-due-diligence';
+        const LAUNCH57_TOKEN_DD = '/api/launch57/token-due-diligence';
+        const LAUNCH57_PUMP_DUMP_ALERTS = '/api/launch57/pump-dump-alerts';
+        const LAUNCH57_SUSPICIOUS_FLAGS = '/api/launch57/suspicious-flags';
+        const LAUNCH57_EXCHANGE_TRANSPARENCY = '/api/launch57/exchange-transparency';
         let lastVisibleTrust = { certificate: null, ledger: null, netEdge: null, shareableAccuracy: null };
         let lastLaunch57FirstScreenGaps = null;
+        let lastLaunch57RemainingPaths = null;
         let lastVisibleDisclosure = { risk: null, abstain: null };
         let lastLaunch57DecisionIntel = null;
         let lastLaunch57SmartMoneyIntel = null;
@@ -1488,6 +1518,19 @@
             }
         }
 
+        function renderLaunch57GuestTrustLink(guest) {
+            const el = document.getElementById('l57GuestTrustLink');
+            if (!el) return;
+            if (!guest || Number(guest.launch_item_id) !== 46 || !guest.success) {
+                el.innerHTML = '';
+                return;
+            }
+            const trust = guest.guest_trust || {};
+            const label = trust.headline || trust.summary || 'Guest trust surface';
+            el.innerHTML = `<a href="/status" style="color:var(--accent,#22d3ee)">${esc(label)}</a>`
+                + ` · Launch-57 #46 guest path · <a href="/oracle-accuracy" style="color:#71717a">Verify Ledger</a>`;
+        }
+
         async function loadLaunch57FirstScreenGaps(forceSym) {
             const sym = (forceSym || document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
             const gaps = { symbol: sym };
@@ -1501,18 +1544,197 @@
                     fetch(LAUNCH57_DECISION_HISTORY + '?' + histQs.toString(), { headers: authHeaders() }),
                     fetch(LAUNCH57_AI_COPILOT + '?' + copilotQs.toString(), { headers: authHeaders() }),
                     fetch(LAUNCH57_RESEARCH_PORTAL + '?' + qs.toString()),
+                    fetch(LAUNCH57_GUEST_TRUST + '?' + qs.toString()),
                 ]);
                 if (results[0].ok) gaps.spotMetrics = await results[0].json();
                 if (results[1].ok) gaps.shareableAccuracy = await results[1].json();
                 if (results[2].ok) gaps.decisionHistory = await results[2].json();
                 if (results[3].ok) gaps.copilot = await results[3].json();
                 if (results[4].ok) gaps.researchPortal = await results[4].json();
+                if (results[5].ok) {
+                    gaps.guestTrust = await results[5].json();
+                    renderLaunch57GuestTrustLink(gaps.guestTrust);
+                } else {
+                    renderLaunch57GuestTrustLink(null);
+                }
             } catch (error) {
                 console.debug(error);
+                renderLaunch57GuestTrustLink(null);
             }
             lastLaunch57FirstScreenGaps = gaps;
             renderLaunch57FirstScreenGaps(gaps);
             return gaps;
+        }
+
+        function renderLaunch57RiskFlags(flags) {
+            const el = document.getElementById('l57RiskFlags');
+            if (!el) return;
+            const chips = [];
+            const pump = flags && flags.pumpDump;
+            if (pump && Number(pump.launch_item_id) === 55 && pump.success) {
+                const fired = (pump.pump_dump_detection || {}).pattern_alert_fired;
+                chips.push(`<span class="tp-chip ${fired ? 'warn' : 'ok'}">Pump/Dump #55: ${fired ? 'pattern' : 'clear'}</span>`);
+            }
+            const suspicious = flags && flags.suspicious;
+            if (suspicious && Number(suspicious.launch_item_id) === 56 && suspicious.success) {
+                const count = (suspicious.suspicious_activity_flags || []).length;
+                chips.push(`<span class="tp-chip ${count ? 'warn' : 'ok'}">Suspicious #56: ${esc(String(count))}</span>`);
+            }
+            const exchange = flags && flags.exchangeTransparency;
+            if (exchange && Number(exchange.launch_item_id) === 57 && exchange.success) {
+                const risk = exchange.exchange_risk_indicators || {};
+                const level = risk.counterparty_risk || risk.alert_trigger || 'indicators';
+                chips.push(`<span class="tp-chip ok">Exchange #57: ${esc(String(level))}</span>`);
+            }
+            if (chips.length) {
+                el.hidden = false;
+                el.innerHTML = chips.join('');
+            } else {
+                el.hidden = true;
+                el.innerHTML = '';
+            }
+        }
+
+        function renderLaunch57RemainingPaths(paths) {
+            const chipsEl = document.getElementById('l57RemainingChips');
+            const noteEl = document.getElementById('l57RemainingNote');
+            const mirrorEl = document.getElementById('l57DisciplineMirrorBox');
+            const libraryEl = document.getElementById('l57CapabilityLibraryBox');
+            if (!chipsEl) return;
+            const chips = [];
+            const market = paths && paths.marketScreener;
+            if (market && Number(market.launch_item_id) === 31 && market.success) {
+                const count = (market.screener || []).length;
+                chips.push(`<span class="tp-chip ok">Market screener #31: ${esc(String(count))}</span>`);
+            }
+            const watches = paths && paths.watchlists;
+            if (watches && Number(watches.launch_item_id) === 32 && watches.success) {
+                const count = (watches.wallet_watchlists || []).length;
+                chips.push(`<span class="tp-chip ok">Watchlists #32: ${esc(String(count))}</span>`);
+            }
+            const signal = paths && paths.signalExplanation;
+            if (signal && Number(signal.launch_item_id) === 34 && signal.success) {
+                chips.push(`<span class="tp-chip ok">Signal explain #34: ${esc(signal.symbol || '')}</span>`);
+            }
+            const priceMove = paths && paths.priceMoveExplanation;
+            if (priceMove && Number(priceMove.launch_item_id) === 35 && priceMove.success) {
+                const pme = priceMove.price_move_explanation || {};
+                const change = pme.observed_facts && pme.observed_facts.change_24h_pct;
+                chips.push(`<span class="tp-chip ok">Price move #35: ${change != null ? esc(String(change)) + '%' : 'scoped'}</span>`);
+            }
+            const cross = paths && paths.crossMarket;
+            if (cross && Number(cross.launch_item_id) === 37 && cross.success) {
+                const bias = (cross.cross_market_decision_engine || cross.cross_market || {}).bias || 'composite';
+                chips.push(`<span class="tp-chip ok">Cross-market #37: ${esc(String(bias))}</span>`);
+            }
+            chipsEl.innerHTML = chips.length
+                ? chips.join('')
+                : '<span class="tp-chip">Remaining paths unavailable — no claims shown.</span>';
+            if (noteEl) {
+                noteEl.textContent = chips.length
+                    ? 'Launch-57 remaining surfaces (#31–#32, #34–#35, #37, #50, #52–#57). Risk flags hidden when handlers fail.'
+                    : 'Launch-57 remaining paths unavailable — claims hidden (fail-closed).';
+            }
+            if (mirrorEl) {
+                const mirror = paths && paths.disciplineMirror;
+                if (mirror && Number(mirror.launch_item_id) === 50 && mirror.success) {
+                    const block = mirror.discipline_mirror || mirror.personal_mirror || {};
+                    const summary = block.summary || block.headline || 'Discipline mirror available';
+                    mirrorEl.innerHTML = `<strong>Discipline mirror (#50)</strong><div style="margin-top:.35rem;font-size:.9rem;color:#a1a1aa">${esc(summary)}</div>`;
+                } else {
+                    mirrorEl.innerHTML = '<div class="empty">Discipline mirror unavailable</div>';
+                }
+            }
+            if (libraryEl) {
+                const lib = paths && paths.capabilityLibrary;
+                if (lib && Number(lib.launch_item_id) === 52 && lib.success !== false) {
+                    const rows = (lib.capability_library && lib.capability_library.results) || lib.results || [];
+                    const preview = rows.slice(0, 3).map((r) => r.launch_name || r.name || r.launch_number).filter(Boolean);
+                    libraryEl.innerHTML = `<strong>Capability library (#52)</strong>`
+                        + `<div style="margin-top:.35rem;font-size:.9rem;color:#a1a1aa">${esc(preview.join(' · ') || 'Search secondary layer')}</div>`
+                        + `<div style="margin-top:.45rem"><a class="btn secondary" href="/capabilities" style="text-decoration:none;display:inline-flex">Open library</a></div>`;
+                } else {
+                    libraryEl.innerHTML = '<div class="empty">Capability library unavailable</div>';
+                }
+            }
+            renderLaunch57RiskFlags(paths);
+        }
+
+        async function loadLaunch57RemainingPaths(forceSym) {
+            const sym = (forceSym || document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
+            const paths = { symbol: sym };
+            const qs = new URLSearchParams({ symbol: sym });
+            const eliteQs = new URLSearchParams({ symbol: sym, tier: 'elite' });
+            const proQs = new URLSearchParams({ symbol: sym, tier: 'pro' });
+            const quantQs = new URLSearchParams({ symbol: sym, tier: 'quant' });
+            try {
+                const results = await Promise.all([
+                    fetch(LAUNCH57_MARKET_SCREENER + '?' + eliteQs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_WATCHLISTS + '?' + proQs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_SIGNAL_EXPLANATION + '?' + proQs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_PRICE_MOVE_EXPLANATION + '?' + proQs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_CROSS_MARKET + '?' + quantQs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_DISCIPLINE_MIRROR + '?' + new URLSearchParams({ tier: 'pro', limit: '5' }).toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_CAPABILITY_LIBRARY + '?' + new URLSearchParams({ q: sym }).toString()),
+                    fetch(LAUNCH57_PUMP_DUMP_ALERTS + '?' + eliteQs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_SUSPICIOUS_FLAGS + '?' + quantQs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_EXCHANGE_TRANSPARENCY + '?' + quantQs.toString(), { headers: authHeaders() }),
+                ]);
+                if (results[0].ok) paths.marketScreener = await results[0].json();
+                if (results[1].ok) paths.watchlists = await results[1].json();
+                if (results[2].ok) paths.signalExplanation = await results[2].json();
+                if (results[3].ok) paths.priceMoveExplanation = await results[3].json();
+                if (results[4].ok) paths.crossMarket = await results[4].json();
+                if (results[5].ok) paths.disciplineMirror = await results[5].json();
+                if (results[6].ok) paths.capabilityLibrary = await results[6].json();
+                if (results[7].ok) paths.pumpDump = await results[7].json();
+                if (results[8].ok) paths.suspicious = await results[8].json();
+                if (results[9].ok) paths.exchangeTransparency = await results[9].json();
+            } catch (error) {
+                console.debug(error);
+            }
+            lastLaunch57RemainingPaths = paths;
+            renderLaunch57RemainingPaths(paths);
+            return paths;
+        }
+
+        async function runLaunch57WalletDd() {
+            const sym = (document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
+            const el = document.getElementById('l57WalletDdResult');
+            if (!el) return;
+            el.style.display = 'block';
+            el.innerHTML = '<div class="loading">Running wallet due diligence…</div>';
+            const address = '0x0000000000000000000000000000000000000000';
+            const qs = new URLSearchParams({ symbol: sym, address, tier: 'elite' });
+            try {
+                const res = await fetch(LAUNCH57_WALLET_DD + '?' + qs.toString(), { headers: authHeaders() });
+                const d = await res.json();
+                if (!res.ok || Number(d.launch_item_id) !== 53) throw new Error('wallet_dd_fail');
+                const summary = d.wallet_due_diligence?.summary || d.summary || 'Wallet DD complete';
+                el.innerHTML = `<strong>Wallet DD (#53)</strong><div style="margin-top:.35rem;font-size:.9rem;color:#a1a1aa">${esc(summary)}</div>`;
+            } catch (error) {
+                console.debug(error);
+                el.innerHTML = '<div class="empty">Wallet due diligence unavailable</div>';
+            }
+        }
+
+        async function runLaunch57TokenDd() {
+            const sym = (document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
+            const el = document.getElementById('l57TokenDdResult');
+            if (!el) return;
+            el.style.display = 'block';
+            el.innerHTML = '<div class="loading">Running token due diligence…</div>';
+            const qs = new URLSearchParams({ symbol: sym, tier: 'elite' });
+            try {
+                const res = await fetch(LAUNCH57_TOKEN_DD + '?' + qs.toString(), { headers: authHeaders() });
+                const d = await res.json();
+                if (!res.ok || Number(d.launch_item_id) !== 54) throw new Error('token_dd_fail');
+                const summary = d.token_due_diligence?.summary || d.summary || 'Token DD complete';
+                el.innerHTML = `<strong>Token DD (#54)</strong><div style="margin-top:.35rem;font-size:.9rem;color:#a1a1aa">${esc(summary)}</div>`;
+            } catch (error) {
+                console.debug(error);
+                el.innerHTML = '<div class="empty">Token due diligence unavailable</div>';
+            }
         }
 
         async function prefetchShareProof(pulse) {
@@ -1898,6 +2120,7 @@
             loadLaunch57SmartMoneyIntelligence(s);
             loadLaunch57DerivativesIntelligence(s, lastPulse);
             loadLaunch57FirstScreenGaps(s);
+            loadLaunch57RemainingPaths(s);
             loadLaunch57DataSpine(s);
             loadChart();
             startTrustPulseStream();
@@ -2914,6 +3137,7 @@
             loadLaunch57SmartMoneyIntelligence();
             loadLaunch57DerivativesIntelligence();
             loadLaunch57FirstScreenGaps();
+            loadLaunch57RemainingPaths();
             loadChart();
             loadMarket();
             loadOI();
