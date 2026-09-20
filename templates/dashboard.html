@@ -136,6 +136,23 @@
         .tp-cont { font-size:.8rem; color:#a1a1aa; margin:.5rem 0 .25rem; min-height:1.1em; }
         .tp-foot { margin-top:.85rem; font-size:.72rem; color:#71717a; border-top:1px solid #2a2a35; padding-top:.65rem; }
         body.lens-room #trust-pulse { opacity:.92; }
+        #trust-pulse.tp-loading .tp-action,
+        #trust-pulse.tp-loading .tp-sym,
+        #trust-pulse.tp-loading .tp-sentence,
+        #trust-pulse.tp-loading #tpFactors .empty {
+            color: transparent;
+            border-radius: 8px;
+            background: linear-gradient(90deg, #1a1a24 0%, #2a2a35 45%, #1a1a24 90%);
+            background-size: 200% 100%;
+            animation: tpSkeleton 1.15s ease-in-out infinite;
+        }
+        #trust-pulse.tp-loading .tp-action { min-height: 2.4rem; min-width: 5rem; display: inline-block; }
+        #trust-pulse.tp-loading .tp-sym { min-height: 1rem; }
+        #trust-pulse.tp-loading .tp-sentence { min-height: 1.1rem; }
+        @keyframes tpSkeleton {
+            0% { background-position: 100% 0; }
+            100% { background-position: -100% 0; }
+        }
     </style>
 </head>
 <body>
@@ -567,6 +584,8 @@
         let lastPulse = null;
         let lastCommandHome = null;
         let launch57PollTimer = null;
+        let commandHomeInflight = null;
+        let commandHomeInflightKey = '';
         const TP_STORE = 'bd_trust_pulse_last';
         const LAUNCH57_COMMAND_HOME = '/api/launch57/command-home';
         const LAUNCH57_PRIMARY_INTENTS = [
@@ -684,29 +703,50 @@
             };
         }
 
+        function setTrustPulseLoading(active) {
+            const tp = document.getElementById('trust-pulse');
+            if (!tp) return;
+            tp.classList.toggle('tp-loading', !!active);
+        }
+
         async function loadCommandHome(force) {
             const sym = (document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
-            try {
-                const url = commandHomeUrl(sym) + (force ? '&_=' + Date.now() : '');
-                const res = await fetch(url, { headers: authHeaders() });
-                if (!res.ok) throw new Error('launch57_command_home_fail');
-                const data = await res.json();
-                lastCommandHome = data;
-                renderTrustPulse(commandHomeToPulse(data));
-                renderLaunch57Intents(data);
-                const box = document.getElementById('oracleBox');
-                const el = document.getElementById('oracleContent');
-                if (box && el) {
-                    box.classList.add('show');
-                    renderLaunch57Decision(el, data, { sym, mode: document.getElementById('uxMode')?.value || 'beginner', lang: currentLang() });
-                }
-                return data;
-            } catch (error) {
-                console.debug(error);
-                document.getElementById('tpFresh').textContent = 'Unavailable';
-                document.getElementById('tpSentence').textContent = 'Launch-57 command home unavailable.';
-                return null;
+            const inflightKey = sym;
+            if (commandHomeInflight && commandHomeInflightKey === inflightKey) {
+                return commandHomeInflight;
             }
+            setTrustPulseLoading(true);
+            commandHomeInflightKey = inflightKey;
+            commandHomeInflight = (async () => {
+                try {
+                    const url = commandHomeUrl(sym) + (force ? '&_=' + Date.now() : '');
+                    const res = await fetch(url, { headers: authHeaders() });
+                    if (!res.ok) throw new Error('launch57_command_home_fail');
+                    const data = await res.json();
+                    lastCommandHome = data;
+                    renderTrustPulse(commandHomeToPulse(data));
+                    renderLaunch57Intents(data);
+                    const box = document.getElementById('oracleBox');
+                    const el = document.getElementById('oracleContent');
+                    if (box && el) {
+                        box.classList.add('show');
+                        renderLaunch57Decision(el, data, { sym, mode: document.getElementById('uxMode')?.value || 'beginner', lang: currentLang() });
+                    }
+                    return data;
+                } catch (error) {
+                    console.debug(error);
+                    const freshEl = document.getElementById('tpFresh');
+                    const sentenceEl = document.getElementById('tpSentence');
+                    if (freshEl) freshEl.textContent = 'Unavailable';
+                    if (sentenceEl) sentenceEl.textContent = 'Launch-57 command home unavailable.';
+                    setTrustPulseLoading(false);
+                    return null;
+                } finally {
+                    commandHomeInflight = null;
+                    commandHomeInflightKey = '';
+                }
+            })();
+            return commandHomeInflight;
         }
 
         function renderLaunch57Decision(el, data, { sym, mode, lang }) {
@@ -857,6 +897,7 @@
         }
         function renderTrustPulse(p, { fromStream } = {}) {
             if (!p) return;
+            setTrustPulseLoading(false);
             lastPulse = p;
             const actionEl = document.getElementById('tpAction');
             const act = (p.action || 'WAIT').toUpperCase();
@@ -1458,6 +1499,7 @@
             if (!svg || !line) return;
             try {
                 let data = lastCommandHome;
+                if (!data && commandHomeInflight) data = await commandHomeInflight;
                 if (!data) data = await loadCommandHome(false);
                 if (!data) throw new Error('launch57_command_home_required');
                 const d = commandHomeToHalfLifeHeat(data);
@@ -1789,14 +1831,7 @@
             await loadCommandHome(false);
         }
 
-        function boot() {
-            loadAuth();
-            applyLang();
-            bindLensBar();
-            applyAudienceFromQuery();
-            loadCommandHome(true).then(() => { if (currentLens === 'desk') loadHalfLifeClock(); });
-            startTrustPulseStream();
-            startDashboardStream();
+        function runDeferredBoot() {
             initChart();
             loadChart();
             loadMarket();
@@ -1806,7 +1841,6 @@
                 loadWhales(false);
                 loadMevReport();
                 runStealthAdvisor();
-                loadHalfLifeClock();
             }
             loadDailyReport();
             loadSubscriberValue();
@@ -1817,6 +1851,20 @@
             loadInbox();
             setInterval(loadMarket, 60000);
             setInterval(loadInbox, 90000);
+        }
+
+        function boot() {
+            setTrustPulseLoading(true);
+            loadAuth();
+            applyLang();
+            bindLensBar();
+            applyAudienceFromQuery();
+            loadCommandHome(true).then(() => { if (currentLens === 'desk') loadHalfLifeClock(); });
+            startTrustPulseStream();
+            startDashboardStream();
+            const defer = () => runDeferredBoot();
+            if (typeof requestIdleCallback === 'function') requestIdleCallback(defer, { timeout: 1500 });
+            else setTimeout(defer, 0);
             if (location.hash === '#trust-pulse') {
                 setTimeout(() => scrollToId('trust-pulse'), 80);
             }
