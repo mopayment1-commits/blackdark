@@ -359,7 +359,7 @@
         function saveAuth(data) {
             try { localStorage.removeItem('bd_token'); localStorage.removeItem('token'); } catch (_) {}
             if (data.user) localStorage.setItem('bd_user', JSON.stringify(data.user));
-            window.location.href = resolvePostAuthUrl(data);
+            window.location.replace(resolvePostAuthUrl(data));
         }
         function validateRegisterForm() {
             const email = document.getElementById('regEmail').value.trim();

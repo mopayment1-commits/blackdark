@@ -1514,11 +1514,20 @@ async def _build_opportunity_explanation(
         }
     )
 
+def _request_public_origin(request: Request) -> str:
+    """Canonical browser origin for OAuth redirects (APP_BASE_URL or forwarded proxy headers)."""
+    configured = (os.getenv("APP_BASE_URL") or "").strip().rstrip("/")
+    if configured:
+        return configured
+    proto = (request.headers.get("x-forwarded-proto") or request.url.scheme or "https").split(",")[0].strip()
+    host = (request.headers.get("x-forwarded-host") or request.headers.get("host") or "").split(",")[0].strip()
+    if host:
+        return f"{proto}://{host}".rstrip("/")
+    return str(request.base_url).rstrip("/")
+
+
 def _google_login_uri_base(request: Request) -> str:
-    base = (os.getenv("APP_BASE_URL") or "").strip().rstrip("/")
-    if not base:
-        base = str(request.base_url).rstrip("/")
-    return f"{base}/login"
+    return f"{_request_public_origin(request)}/login"
 
 
 def _google_post_auth_redirect(plan: str | None, next_path: str | None) -> str:

@@ -14,8 +14,11 @@ def _boot_block() -> str:
 
 
 def test_boot_calls_command_home_once():
+    dash = DASHBOARD.read_text(encoding="utf-8")
+    sched = dash.split("function scheduleCommandHome()", 1)[1].split("function boot()", 1)[0]
+    assert sched.count("loadCommandHome(true)") == 1
     boot = _boot_block()
-    assert boot.count("loadCommandHome(true)") == 1
+    assert "scheduleCommandHome()" in boot
 
 
 def test_load_command_home_dedupes_inflight():
@@ -27,10 +30,16 @@ def test_load_command_home_dedupes_inflight():
 
 def test_trust_pulse_skeleton_while_loading():
     dash = DASHBOARD.read_text(encoding="utf-8")
-    assert "tp-loading" in dash
+    assert 'id="trust-pulse" class="tp-loading"' in dash
     assert "setTrustPulseLoading" in dash
+    sched = DASHBOARD.read_text(encoding="utf-8").split("function scheduleCommandHome()", 1)[1].split("function boot()", 1)[0]
+    assert "requestAnimationFrame" in sched
+
+
+def test_boot_does_not_block_on_command_home_before_paint():
     boot = _boot_block()
-    assert "setTrustPulseLoading(true)" in boot
+    assert "loadCommandHome(true)" not in boot
+    assert "scheduleCommandHome()" in boot
 
 
 def test_secondary_boot_work_deferred():

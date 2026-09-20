@@ -166,7 +166,7 @@
             <p id="audienceBanner" class="sub" style="display:none;margin-top:.35rem"></p>
         </div>
 
-        <section id="trust-pulse" aria-live="polite" aria-label="Trust Pulse">
+        <section id="trust-pulse" class="tp-loading" aria-live="polite" aria-label="Trust Pulse">
             <div class="tp-top">
                 <strong style="color:#22d3ee;font-size:.85rem;letter-spacing:.04em">TRUST PULSE</strong>
                 <span class="tp-live"><span class="tp-dot" id="tpDot"></span><span id="tpFresh">Connecting…</span></span>
@@ -1853,13 +1853,23 @@
             setInterval(loadInbox, 90000);
         }
 
+        function scheduleCommandHome() {
+            const run = () => loadCommandHome(true).then(() => {
+                if (currentLens === 'desk') loadHalfLifeClock();
+            });
+            if (typeof requestAnimationFrame === 'function') {
+                requestAnimationFrame(() => requestAnimationFrame(run));
+            } else {
+                setTimeout(run, 0);
+            }
+        }
+
         function boot() {
-            setTrustPulseLoading(true);
             loadAuth();
             applyLang();
             bindLensBar();
             applyAudienceFromQuery();
-            loadCommandHome(true).then(() => { if (currentLens === 'desk') loadHalfLifeClock(); });
+            scheduleCommandHome();
             startTrustPulseStream();
             startDashboardStream();
             const defer = () => runDeferredBoot();
