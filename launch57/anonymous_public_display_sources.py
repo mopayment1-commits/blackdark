@@ -380,7 +380,11 @@ def gate_public_numeric_payload(payload: dict[str, Any], metric_id: str) -> dict
     }
 
 
-def build_governance_artifact() -> dict[str, Any]:
+def build_governance_artifact(
+    *,
+    automated_a11y_scan: dict[str, Any] | None = None,
+    footer_link_probe: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     """Machine-readable closure artifact for governance/launch57/."""
     verification = verify_registry_completeness()
     return {
@@ -389,9 +393,23 @@ def build_governance_artifact() -> dict[str, Any]:
         "builder_status": BUILDER_STATUS,
         "pass_live_not_claimed": True,
         "legal_review_markers_open": True,
+        "legal_review_required_markers": [
+            {
+                "id": "uk_financial_promotion",
+                "category": "LEGAL_REVIEW_REQUIRED",
+                "detail": "UK financial-promotion applicability not closed",
+            },
+            {
+                "id": "mica_casp",
+                "category": "LEGAL_REVIEW_REQUIRED",
+                "detail": "MiCA/CASP applicability not closed",
+            },
+        ],
         "mica_uk_compliance_claim_forbidden": True,
         "public_visitor_pages": list(PUBLIC_VISITOR_PAGES),
         "page_table": build_public_page_table(),
         "registry": build_public_page_display_registry(),
         "verification": verification,
+        "automated_a11y_scan": automated_a11y_scan,
+        "footer_link_probe": footer_link_probe,
     }

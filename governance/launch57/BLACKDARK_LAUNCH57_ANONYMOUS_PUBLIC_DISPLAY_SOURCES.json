@@ -4,6 +4,18 @@
   "builder_status": "PENDING_VERIFICATION",
   "pass_live_not_claimed": true,
   "legal_review_markers_open": true,
+  "legal_review_required_markers": [
+    {
+      "id": "uk_financial_promotion",
+      "category": "LEGAL_REVIEW_REQUIRED",
+      "detail": "UK financial-promotion applicability not closed"
+    },
+    {
+      "id": "mica_casp",
+      "category": "LEGAL_REVIEW_REQUIRED",
+      "detail": "MiCA/CASP applicability not closed"
+    }
+  ],
   "mica_uk_compliance_claim_forbidden": true,
   "public_visitor_pages": [
     {
@@ -425,5 +437,248 @@
     "pages_without_numeric_metrics": [],
     "legal_review_markers_open": true,
     "mica_uk_compliance_claim_forbidden": true
+  },
+  "automated_a11y_scan": {
+    "builder_status": "PENDING_VERIFICATION",
+    "wcag_full_audit_claimed": false,
+    "pass_live_not_claimed": true,
+    "axe_available": true,
+    "axe_executed_successfully": false,
+    "axe_total_violations_when_ran": null,
+    "static_probe_pass": true,
+    "static_page_results": [
+      {
+        "path": "/",
+        "scanner": "static_html_probes",
+        "pass": true,
+        "failed_probes": [],
+        "probes": {
+          "skip_link_present": true,
+          "footer_present": true,
+          "a11y_stylesheet_linked": true,
+          "focus_visible_css_contract": true,
+          "no_color_only_status_chip_in_html": true,
+          "footer_links_are_anchors": true
+        },
+        "wcag_full_audit_claimed": false
+      },
+      {
+        "path": "/status",
+        "scanner": "static_html_probes",
+        "pass": true,
+        "failed_probes": [],
+        "probes": {
+          "skip_link_present": true,
+          "footer_present": true,
+          "a11y_stylesheet_linked": true,
+          "focus_visible_css_contract": true,
+          "no_color_only_status_chip_in_html": true,
+          "footer_links_are_anchors": true
+        },
+        "wcag_full_audit_claimed": false
+      },
+      {
+        "path": "/how-it-works",
+        "scanner": "static_html_probes",
+        "pass": true,
+        "failed_probes": [],
+        "probes": {
+          "skip_link_present": true,
+          "footer_present": true,
+          "a11y_stylesheet_linked": true,
+          "focus_visible_css_contract": true,
+          "no_color_only_status_chip_in_html": true,
+          "footer_links_are_anchors": true
+        },
+        "wcag_full_audit_claimed": false
+      },
+      {
+        "path": "/oracle-accuracy",
+        "scanner": "static_html_probes",
+        "pass": true,
+        "failed_probes": [],
+        "probes": {
+          "skip_link_present": true,
+          "footer_present": true,
+          "a11y_stylesheet_linked": true,
+          "focus_visible_css_contract": true,
+          "no_color_only_status_chip_in_html": true,
+          "footer_links_are_anchors": true
+        },
+        "wcag_full_audit_claimed": false
+      },
+      {
+        "path": "/terms",
+        "scanner": "static_html_probes",
+        "pass": true,
+        "failed_probes": [],
+        "probes": {
+          "skip_link_present": true,
+          "footer_present": true,
+          "a11y_stylesheet_linked": true,
+          "focus_visible_css_contract": true,
+          "no_color_only_status_chip_in_html": true,
+          "footer_links_are_anchors": true,
+          "legal_nav_present": true
+        },
+        "wcag_full_audit_claimed": false
+      },
+      {
+        "path": "/privacy",
+        "scanner": "static_html_probes",
+        "pass": true,
+        "failed_probes": [],
+        "probes": {
+          "skip_link_present": true,
+          "footer_present": true,
+          "a11y_stylesheet_linked": true,
+          "focus_visible_css_contract": true,
+          "no_color_only_status_chip_in_html": true,
+          "footer_links_are_anchors": true,
+          "legal_nav_present": true
+        },
+        "wcag_full_audit_claimed": false
+      },
+      {
+        "path": "/disclaimer",
+        "scanner": "static_html_probes",
+        "pass": true,
+        "failed_probes": [],
+        "probes": {
+          "skip_link_present": true,
+          "footer_present": true,
+          "a11y_stylesheet_linked": true,
+          "focus_visible_css_contract": true,
+          "no_color_only_status_chip_in_html": true,
+          "footer_links_are_anchors": true,
+          "legal_nav_present": true
+        },
+        "wcag_full_audit_claimed": false
+      }
+    ],
+    "axe_page_results": [
+      {
+        "path": "/",
+        "scanner": "axe-core",
+        "available": true,
+        "ran": false,
+        "exit_code": 2,
+        "violation_count": null,
+        "violations_sample": [],
+        "chrome_driver_mismatch": true,
+        "stderr_tail": "specific synced versions using \n        \n        $ npx browser-driver-manager install chrome@<version>\n\n        where <version> is a specific version, e.g. 123.45.67, or a channel, e.g. canary.\n\n        You may also pass the `--chromedriver-path` option to axe:\n\n        $ axe --chromedriver-path <path/to/chromedriver-executable>\nError: session not created: This version of ChromeDriver only supports Chrome version 153\nCurrent browser version is 148.0.7778.96 with binary path /usr/local/bin/chrome",
+        "wcag_full_audit_claimed": false,
+        "note": "axe blocked by Chrome/ChromeDriver version mismatch; static probes used"
+      },
+      {
+        "path": "/status",
+        "scanner": "axe-core",
+        "available": true,
+        "ran": false,
+        "exit_code": 2,
+        "violation_count": null,
+        "violations_sample": [],
+        "chrome_driver_mismatch": true,
+        "stderr_tail": "specific synced versions using \n        \n        $ npx browser-driver-manager install chrome@<version>\n\n        where <version> is a specific version, e.g. 123.45.67, or a channel, e.g. canary.\n\n        You may also pass the `--chromedriver-path` option to axe:\n\n        $ axe --chromedriver-path <path/to/chromedriver-executable>\nError: session not created: This version of ChromeDriver only supports Chrome version 153\nCurrent browser version is 148.0.7778.96 with binary path /usr/local/bin/chrome",
+        "wcag_full_audit_claimed": false,
+        "note": "axe blocked by Chrome/ChromeDriver version mismatch; static probes used"
+      },
+      {
+        "path": "/how-it-works",
+        "scanner": "axe-core",
+        "available": true,
+        "ran": false,
+        "exit_code": 2,
+        "violation_count": null,
+        "violations_sample": [],
+        "chrome_driver_mismatch": true,
+        "stderr_tail": "specific synced versions using \n        \n        $ npx browser-driver-manager install chrome@<version>\n\n        where <version> is a specific version, e.g. 123.45.67, or a channel, e.g. canary.\n\n        You may also pass the `--chromedriver-path` option to axe:\n\n        $ axe --chromedriver-path <path/to/chromedriver-executable>\nError: session not created: This version of ChromeDriver only supports Chrome version 153\nCurrent browser version is 148.0.7778.96 with binary path /usr/local/bin/chrome",
+        "wcag_full_audit_claimed": false,
+        "note": "axe blocked by Chrome/ChromeDriver version mismatch; static probes used"
+      },
+      {
+        "path": "/oracle-accuracy",
+        "scanner": "axe-core",
+        "available": true,
+        "ran": false,
+        "exit_code": 2,
+        "violation_count": null,
+        "violations_sample": [],
+        "chrome_driver_mismatch": true,
+        "stderr_tail": "specific synced versions using \n        \n        $ npx browser-driver-manager install chrome@<version>\n\n        where <version> is a specific version, e.g. 123.45.67, or a channel, e.g. canary.\n\n        You may also pass the `--chromedriver-path` option to axe:\n\n        $ axe --chromedriver-path <path/to/chromedriver-executable>\nError: session not created: This version of ChromeDriver only supports Chrome version 153\nCurrent browser version is 148.0.7778.96 with binary path /usr/local/bin/chrome",
+        "wcag_full_audit_claimed": false,
+        "note": "axe blocked by Chrome/ChromeDriver version mismatch; static probes used"
+      },
+      {
+        "path": "/terms",
+        "scanner": "axe-core",
+        "available": true,
+        "ran": false,
+        "exit_code": 2,
+        "violation_count": null,
+        "violations_sample": [],
+        "chrome_driver_mismatch": true,
+        "stderr_tail": "specific synced versions using \n        \n        $ npx browser-driver-manager install chrome@<version>\n\n        where <version> is a specific version, e.g. 123.45.67, or a channel, e.g. canary.\n\n        You may also pass the `--chromedriver-path` option to axe:\n\n        $ axe --chromedriver-path <path/to/chromedriver-executable>\nError: session not created: This version of ChromeDriver only supports Chrome version 153\nCurrent browser version is 148.0.7778.96 with binary path /usr/local/bin/chrome",
+        "wcag_full_audit_claimed": false,
+        "note": "axe blocked by Chrome/ChromeDriver version mismatch; static probes used"
+      },
+      {
+        "path": "/privacy",
+        "scanner": "axe-core",
+        "available": true,
+        "ran": false,
+        "exit_code": 2,
+        "violation_count": null,
+        "violations_sample": [],
+        "chrome_driver_mismatch": true,
+        "stderr_tail": "specific synced versions using \n        \n        $ npx browser-driver-manager install chrome@<version>\n\n        where <version> is a specific version, e.g. 123.45.67, or a channel, e.g. canary.\n\n        You may also pass the `--chromedriver-path` option to axe:\n\n        $ axe --chromedriver-path <path/to/chromedriver-executable>\nError: session not created: This version of ChromeDriver only supports Chrome version 153\nCurrent browser version is 148.0.7778.96 with binary path /usr/local/bin/chrome",
+        "wcag_full_audit_claimed": false,
+        "note": "axe blocked by Chrome/ChromeDriver version mismatch; static probes used"
+      },
+      {
+        "path": "/disclaimer",
+        "scanner": "axe-core",
+        "available": true,
+        "ran": false,
+        "exit_code": 2,
+        "violation_count": null,
+        "violations_sample": [],
+        "chrome_driver_mismatch": true,
+        "stderr_tail": "specific synced versions using \n        \n        $ npx browser-driver-manager install chrome@<version>\n\n        where <version> is a specific version, e.g. 123.45.67, or a channel, e.g. canary.\n\n        You may also pass the `--chromedriver-path` option to axe:\n\n        $ axe --chromedriver-path <path/to/chromedriver-executable>\nError: session not created: This version of ChromeDriver only supports Chrome version 153\nCurrent browser version is 148.0.7778.96 with binary path /usr/local/bin/chrome",
+        "wcag_full_audit_claimed": false,
+        "note": "axe blocked by Chrome/ChromeDriver version mismatch; static probes used"
+      }
+    ],
+    "automated_check_summary": "static_probes=PASS; axe=NOT_RAN; violations=n/a"
+  },
+  "footer_link_probe": {
+    "pass": true,
+    "checked": [
+      {
+        "href": "/terms",
+        "status_code": 200
+      },
+      {
+        "href": "/privacy",
+        "status_code": 200
+      },
+      {
+        "href": "/disclaimer",
+        "status_code": 200
+      },
+      {
+        "href": "/how-it-works",
+        "status_code": 200
+      },
+      {
+        "href": "/status",
+        "status_code": 200
+      },
+      {
+        "href": "/oracle-accuracy",
+        "status_code": 200
+      }
+    ],
+    "broken": []
   }
 }

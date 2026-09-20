@@ -9,6 +9,14 @@ from pathlib import Path
 import pytest
 from starlette.testclient import TestClient
 
+from launch57.anonymous_public_a11y_scan import (
+    chip_has_text_alternative,
+    legal_nav_links,
+    public_footer_links,
+    run_static_a11y_probes,
+    scan_public_visitor_pages,
+    verify_footer_links_live,
+)
 from launch57.anonymous_public_display_sources import (
     BUILDER_STATUS,
     LicensePublicDisplay,
@@ -118,13 +126,22 @@ def test_page_table_covers_scoped_public_pages():
     assert accuracy["metric_count"] >= 6
 
 
-def test_governance_artifact_written():
-    artifact = build_governance_artifact()
+def test_governance_artifact_written(client):
+    a11y_scan = scan_public_visitor_pages(lambda path: client.get(path).text)
+    footer_probe = verify_footer_links_live(lambda href: client.get(href).status_code)
+    artifact = build_governance_artifact(
+        automated_a11y_scan=a11y_scan,
+        footer_link_probe=footer_probe,
+    )
     GOV_ARTIFACT.parent.mkdir(parents=True, exist_ok=True)
     GOV_ARTIFACT.write_text(json.dumps(artifact, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     loaded = json.loads(GOV_ARTIFACT.read_text(encoding="utf-8"))
     assert loaded["builder_status"] == "PENDING_VERIFICATION"
     assert len(loaded["page_table"]) == len(PUBLIC_VISITOR_PAGES)
+    assert loaded["automated_a11y_scan"]["wcag_full_audit_claimed"] is False
+    assert loaded["automated_a11y_scan"]["static_probe_pass"] is True
+    assert loaded["footer_link_probe"]["pass"] is True
+    assert len(loaded["legal_review_required_markers"]) >= 2
 
 
 def test_a11y_css_has_focus_visible_and_narrow_viewport():
@@ -220,16 +237,6 @@ def test_break_color_only_chip_without_text_fails():
     """Break test — color-only status chip (dot, no text) must be detected."""
     bad = _color_only_chip_html()
     good = _text_backed_chip_html()
-
-    def chip_has_text_alternative(fragment: str) -> bool:
-        if re.search(r"<span[^>]*class=['\"][^'\"]*(?:live-dot|tp-mini-dot|status-dot)", fragment):
-            if re.search(r"aria-label=['\"][^'\"]{3,}", fragment):
-                return True
-            if re.search(r"<span[^>]*>(?!\\s*</span>)[^<]{2,}</span>", fragment):
-                return True
-            return False
-        return True
-
     assert chip_has_text_alternative(bad) is False
     assert chip_has_text_alternative(good) is True
 
@@ -248,3 +255,46 @@ def test_legal_pages_no_invented_license_language(client):
         html = res.text.lower()
         assert "pass_live" not in html
         assert "mica compliant" not in html
+
+
+@pytest.mark.parametrize("href", public_footer_links())
+def test_footer_links_live_on_public_pages(client, href: str):
+    res = client.get(href)
+    assert res.status_code == 200, href
+
+
+@pytest.mark.parametrize("href", legal_nav_links())
+def test_legal_nav_links_live(client, href: str):
+    res = client.get(href)
+    assert res.status_code == 200, href
+
+
+def test_break_broken_footer_link_fails(client):
+    """Break test — deliberately broken footer href must be detected."""
+    probe = verify_footer_links_live(
+        lambda href: 404 if href == "/terms" else client.get(href).status_code
+    )
+    assert probe["pass"] is False
+    assert any(row["href"] == "/terms" for row in probe["broken"])
+
+
+@pytest.mark.parametrize("path", PUBLIC_PAGE_PATHS)
+def test_static_a11y_probes_pass(client, path: str):
+    html = client.get(path).text
+    result = run_static_a11y_probes(html, path)
+    assert result["pass"] is True, result["failed_probes"]
+
+
+def test_automated_a11y_scan_records_result_without_wcag_claim(client):
+    scan = scan_public_visitor_pages(lambda path: client.get(path).text)
+    assert scan["wcag_full_audit_claimed"] is False
+    assert scan["builder_status"] == "PENDING_VERIFICATION"
+    assert scan["static_probe_pass"] is True
+    assert len(scan["static_page_results"]) == len(PUBLIC_VISITOR_PAGES)
+    assert scan["automated_check_summary"]
+    # axe may not run due to ChromeDriver mismatch — record only, no WCAG claim
+    if not scan["axe_executed_successfully"]:
+        assert any(
+            row.get("chrome_driver_mismatch") or not row.get("ran")
+            for row in scan["axe_page_results"]
+        )
