@@ -929,7 +929,7 @@
         </div>
         <p style="text-align:center;color:var(--text-muted);margin-top:2rem;font-size:0.9rem">
             {{ t('feat.note') }}
-            <a href="/data-room" style="color:var(--accent)">{{ t('lenses.room.title') }} →</a>
+            <a href="/login?next=/data-room" style="color:var(--accent)">{{ t('lenses.room.title') }} →</a>
         </p>
     </section>
     
@@ -985,7 +985,7 @@
                         <li>Smart-money desk context (conviction, flows, whales)</li>
                     </ul>
                     <a href="/login?tab=register&plan=elite" class="btn-primary btn">{{ t('pricing.cta.elite') }}</a>
-                    <a href="/b2b" class="btn-secondary btn" style="margin-top:0.5rem">{{ t('pricing.cta.b2b') }}</a>
+                    <a href="/login?next=/b2b" class="btn-secondary btn" style="margin-top:0.5rem">{{ t('pricing.cta.b2b') }}</a>
                 </div>
 
                 <div class="pricing-card bd-price-tier">
@@ -1033,14 +1033,14 @@
                 <p id="institutionalInquiryMsg" style="color:var(--text-muted);font-size:.85rem;min-height:1.2rem;margin:0"></p>
             </form>
 
-            <p id="billingReadyLine" style="text-align:center;color:var(--accent);margin-top:1.25rem;font-size:0.9rem;max-width:720px;margin-left:auto;margin-right:auto">
-                Checking payment readiness…
+            <p id="billingReadyLine" style="text-align:center;color:var(--text-muted);margin-top:1.25rem;font-size:0.9rem;max-width:720px;margin-left:auto;margin-right:auto">
+                DISCOVER/FREE ($0) and Sign up work now. Paid plans and billing are available after account sign-in — Profile &amp; Billing.
             </p>
             <p style="text-align:center;color:var(--text-muted);margin-top:1rem;font-size:0.85rem;max-width:720px;margin-left:auto;margin-right:auto">
                 {{ t('pricing.pay_note') }}
                 {{ t('pricing.manage') }} <a href="/login?next=/profile" style="color:var(--accent)">Profile</a>.
-                Not financial advice; we do not guarantee accuracy. Read the <a href="/refund" style="color:var(--accent)">Refund Policy</a>.
-                Plans: <a href="/#pricing" style="color:var(--accent)">Pricing</a> · Billing: <a href="/login?next=/profile" style="color:var(--accent)">Profile &amp; Billing</a> · <a href="/refund" style="color:var(--accent)">Refund Policy</a>
+                Not financial advice; we do not guarantee accuracy. Read the <a href="/disclaimer" style="color:var(--accent)">Risk disclosure</a>.
+                Plans: <a href="/#pricing" style="color:var(--accent)">Pricing</a> · Billing: <a href="/login?next=/profile" style="color:var(--accent)">Profile &amp; Billing</a>
             </p>
         </div>
     </section>
@@ -1052,13 +1052,6 @@
         <p style="color: var(--text-muted); font-size: 1.05rem; max-width: 520px; margin: 0 auto;">
             Join the waitlist for launch updates. No fake seat counters — just a clear path to Prove.
         </p>
-        <div class="landing-stats" id="landingStats" aria-label="Platform activity" style="margin:1.25rem auto 0;border:none">
-            <span>Visitors: <strong id="landingViews">—</strong></span>
-            <span>Users: <strong id="landingUsers">—</strong></span>
-            <span>Subscribers: <strong id="landingSubs">—</strong></span>
-            <span>Telegram: <strong id="landingTelegram">—</strong></span>
-            <span>Waitlist: <strong id="landingWaitlist">—</strong></span>
-        </div>
         <form class="waitlist-form" data-bd-submit-call="joinWaitlist">
             <input type="email" id="waitlistEmail" placeholder="Enter your email" required aria-label="Enter your email">
             <button type="submit">Join Waitlist</button>
@@ -1372,34 +1365,12 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 consultOracle();
             });
         }
-        function wireDisciplineMirror(disc, data, symbol, followAction) {
+        function wireDisciplineMirror(disc) {
             disc.style.display = 'block';
             disc.innerHTML =
-                `<div style="font-size:.85rem;color:var(--text-muted);margin-bottom:.4rem"><strong style="color:var(--text)">Discipline Mirror</strong> (private) — cure for Dashboard Tourism. Did you follow this signal? <a href="/login?next=/discipline-mirror" style="color:var(--accent)">Open my mirror</a> · <a href="/oracle-accuracy#losing" style="color:var(--accent)">See public misses</a></div>` +
-                `<button type="button" class="btn-secondary" id="followedYes">Yes, I followed</button> ` +
-                `<button type="button" class="btn-secondary" id="followedNo">No, I overrode</button>` +
-                `<div id="disciplineMsg" style="margin-top:.4rem;font-size:.78rem;color:var(--text-muted)"></div>`;
-            const sendFollow = async (followed) => {
-                const key = localStorage.getItem('bd_user_key') || ('anon_' + _secureRandomId(8));
-                localStorage.setItem('bd_user_key', key);
-                try {
-                    await fetch('/api/discipline-mirror/answer', {
-                        method: 'POST',
-                        headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify({
-                            user_key: key,
-                            asset: data.symbol || symbol,
-                            system_action: followAction,
-                            followed,
-                            prediction_id: data.prediction_id,
-                            opportunity_score: data.opportunity_score,
-                        }),
-                    });
-                    document.getElementById('disciplineMsg').textContent = 'Saved privately — only you can see your Discipline Mirror.';
-                } catch (error) { console.debug(error); document.getElementById('disciplineMsg').textContent = 'Could not save answer.'; }
-            };
-            document.getElementById('followedYes')?.addEventListener('click', () => sendFollow(true));
-            document.getElementById('followedNo')?.addEventListener('click', () => sendFollow(false));
+                `<div style="font-size:.85rem;color:var(--text-muted)"><strong style="color:var(--text)">Discipline Mirror</strong> (private) — cure for Dashboard Tourism. ` +
+                `<a href="/login?next=/discipline-mirror" style="color:var(--accent)">Sign in to track follow-through</a> · ` +
+                `<a href="/oracle-accuracy#losing" style="color:var(--accent)">See public misses</a></div>`;
         }
         function paintLandingCompliance(data) {
             const foot = data.compliance_footer || {};
@@ -1463,32 +1434,30 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 const cert = data.decision_certificate || {};
                 renderLandingCertificate(certEl, cert, display);
                 renderLandingWhy(oracleEl, display, cert, latencyMs);
-                const followAction = display.decision_action || display.verdict || action || 'WAIT';
-                wireDisciplineMirror(document.getElementById('landingDiscipline'), display, symbol, followAction);
+                wireDisciplineMirror(document.getElementById('landingDiscipline'));
                 paintLandingCompliance(display);
                 updateShareLinks(display);
             } catch (error) { console.debug(error); oracleEl.textContent = i18nT('ui.oracle_unavailable'); }
         }
 
-        async function applyAudience() {
+        function applyAudience() {
             const aud = document.getElementById('landingAudience')?.value || 'retail';
-            const lensMap = { retail:'prove', pro:'operate', whale:'desk', fund:'room' };
+            const lensMap = { retail: 'prove', pro: 'operate', whale: 'desk', fund: 'room' };
+            const ctaMap = {
+                retail: 'Prove — one clear Act / Wait decision without dashboard tourism.',
+                pro: 'Operate — faster review with account-backed workspace.',
+                whale: 'Desk — sign in for desk-grade intelligence.',
+                fund: 'Room — institutional workspace after sign-in.',
+            };
             localStorage.setItem('bd_audience', aud);
             localStorage.setItem('bd_lens', lensMap[aud] || 'prove');
-            try {
-                const res = await fetch('/api/audience/entry?audience=' + encodeURIComponent(aud));
-                const d = await res.json();
-                const cta = document.getElementById('audienceCta');
-                if (cta) {
-                    const promise = d.lens_promise || d.cta || '';
-                    cta.textContent = (d.lens_label ? (d.lens_label + ' — ') : '') + promise;
-                }
-                const mode = document.getElementById('landingUxMode');
-                if (mode && d.ux_mode_default) mode.value = d.ux_mode_default;
-                if ((aud === 'fund' || aud === 'whale' || aud === 'pro') && d.entry_path) {
-                    window.location.href = d.entry_path;
-                }
-            } catch (error) { console.debug(error); }
+            const cta = document.getElementById('audienceCta');
+            if (cta) cta.textContent = ctaMap[aud] || ctaMap.retail;
+            const mode = document.getElementById('landingUxMode');
+            if (mode && (aud === 'pro' || aud === 'whale')) mode.value = 'pro';
+            if (aud === 'fund' || aud === 'whale') {
+                window.location.href = '/login?next=/dashboard';
+            }
         }
         
         async function joinWaitlist(e) {
@@ -1517,48 +1486,6 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 msg.style.display = 'block'; }
         }
         
-        async function loadLandingAnalytics() {
-            try {
-                await fetch('/api/analytics/view', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ page: 'landing' })
-                });
-                const [analyticsRes, usersRes, telegramRes] = await Promise.all([
-                    fetch('/api/analytics/stats'),
-                    fetch('/api/platform/stats'),
-                    fetch('/api/telegram/free/status'),
-                ]);
-                const analytics = await analyticsRes.json();
-                const users = await usersRes.json();
-                const telegram = await telegramRes.json();
-                // Stats intentionally below first-viewport budget — only fill if strip exists
-                const set = (id, val) => {
-                    const el = document.getElementById(id);
-                    if (el) el.textContent = val;
-                };
-                set('landingViews', (analytics.landing_views || 0).toLocaleString());
-                set('landingUsers', (users.registered_users || 0).toLocaleString());
-                set('landingSubs', (users.paid_subscribers || analytics.subscriber_count || 0).toLocaleString());
-                set('landingTelegram', (telegram.active_subscribers || users.telegram_free_subscribers || 0).toLocaleString());
-                set('landingWaitlist', (analytics.waitlist_count || 0).toLocaleString());
-            } catch (error) { console.debug(error); }
-        }
-
-        async function loadTelegramBotLink() {
-            try {
-                const res = await fetch('/api/telegram/free/status');
-                const data = await res.json();
-                const link = document.getElementById('telegramBotLink');
-                if (!link) return;
-                const username = (data.bot_username || '').replace('@', '');
-                if (username) {
-                    link.href = `https://t.me/${username}`;
-                    link.textContent = `@${username} — Start Free`;
-                }
-            } catch (error) { console.debug(error); }
-        }
-
         let landingPulse = null;
         let landingPulseEs = null;
 
@@ -1688,51 +1615,18 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
         });
 
 
-        async function loadBillingReadyLine() {
-            const el = document.getElementById('billingReadyLine');
-            if (!el) return;
-            try {
-                const res = await fetch('/api/billing/payments');
-                const d = await res.json();
-                const ops = d.ops_readiness || {};
-                const provider = d.active_provider || 'none';
-                if (ops.launch_ready || d.billing_configured) {
-                    el.textContent = 'USD payments ready · ' + provider + ' hosted checkout · DECIDE/PRO $19.99 · SEE THE EDGE/ELITE $49.99 · EXECUTE THE EDGE/QUANT $129.99 · INSTITUTIONAL from $999/mo → Talk to us';
-                } else {
-                    el.textContent = 'USD payment rails live in product · finish Lemon/Stripe KYC + checkout URLs for live charges. DISCOVER/FREE ($0) and Sign up work now. Profile → Plan & billing.';
-                    el.style.color = 'var(--text-muted)';
-                }
-            } catch (error) { console.debug(error); el.textContent = 'Payment status: see /api/billing/payments · Profile & Billing for checkout.';
-                el.style.color = 'var(--text-muted)'; }
-        }
-
-        async function wireInstitutionalInquiry() {
+        function wireInstitutionalInquiry() {
             const form = document.getElementById('institutionalInquiryForm');
             if (!form) return;
-            form.addEventListener('submit', async (ev) => {
+            form.addEventListener('submit', (ev) => {
                 ev.preventDefault();
-                const fd = new FormData(form);
-                const payload = Object.fromEntries(fd.entries());
-                const msg = document.getElementById('institutionalInquiryMsg');
-                try {
-                    const res = await fetch('/api/billing/institutional-inquiry', {
-                        method: 'POST', headers: {'Content-Type':'application/json'},
-                        body: JSON.stringify(payload)
-                    });
-                    const d = await res.json();
-                    msg.textContent = res.ok ? (d.message || 'Received') : (d.detail || 'Failed');
-                    msg.style.color = res.ok ? 'var(--success)' : 'var(--danger)';
-                    if (res.ok) form.reset();
-                } catch (error) { console.debug(error); msg.textContent = 'Inquiry unavailable right now';
-                    msg.style.color = 'var(--danger)'; }
+                window.location.href = '/login?tab=register&plan=institutional';
             });
         }
+
         window.addEventListener('load', async () => {
             updateShareLinks(null);
-            loadLandingAnalytics();
-            loadBillingReadyLine();
             wireInstitutionalInquiry();
-            loadTelegramBotLink();
             await loadLandingTrustPulse();
             startLandingPulseStream();
             setTimeout(consultOracle, 500);

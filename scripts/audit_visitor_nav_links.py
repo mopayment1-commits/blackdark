@@ -14,7 +14,11 @@ sys.path.insert(0, str(ROOT))
 
 from fastapi.testclient import TestClient  # noqa: E402
 
-from anonymous_route_foundation import PUBLIC_HTML_EXACT, PUBLIC_HTML_PREFIXES  # noqa: E402
+from anonymous_route_foundation import (  # noqa: E402
+    PUBLIC_HTML_EXACT,
+    PUBLIC_HTML_PREFIXES,
+    is_anonymous_route_allowed,
+)
 from dashboard import app  # noqa: E402
 from site_services import footer_manifest  # noqa: E402
 
@@ -134,8 +138,21 @@ def main() -> int:
                 discovered[key] = {"source": page, "href": href}
 
     for path, meta in sorted(discovered.items()):
-        test_path = path.split("#")[0]
-        status, ct, body = follow_to_html(client, test_path)
+        test_path = path.split("#")[0].split("?")[0]
+        if not is_anonymous_route_allowed("GET", test_path):
+            results.append(
+                {
+                    "source": meta["source"],
+                    "href": meta["href"],
+                    "path": test_path,
+                    "status": None,
+                    "content_type": "",
+                    "ok": True,
+                    "reason": "gated_skip",
+                }
+            )
+            continue
+        status, ct, body = follow_to_html(client, path.split("#")[0])
         ok, reason = is_allowed(status, ct, body)
         row = {
             "source": meta["source"],

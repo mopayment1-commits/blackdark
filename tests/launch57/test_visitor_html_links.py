@@ -6,6 +6,11 @@ import pytest
 from fastapi.testclient import TestClient
 
 
+@pytest.fixture(autouse=True)
+def disable_viral_rate_limits(monkeypatch):
+    monkeypatch.setattr("viral_capacity.viral_middleware_enabled", lambda: False)
+
+
 @pytest.fixture()
 def client():
     from dashboard import app
@@ -27,19 +32,14 @@ def test_pricing_route_redirects_to_home_anchor(client):
     assert res.headers.get("location") == "/#pricing"
 
 
-def test_refund_public_html_200(client):
+def test_refund_anonymous_denied_without_cookie(client):
     res = client.get("/refund", headers={"Accept": "text/html"})
-    assert res.status_code == 200
-    assert "text/html" in (res.headers.get("content-type") or "")
-    assert "Anonymous access denied" not in res.text
+    assert res.status_code == 401
 
 
-def test_identity_standards_public_html_200(client):
+def test_identity_standards_anonymous_denied_without_cookie(client):
     res = client.get("/identity-standards", headers={"Accept": "text/html"})
-    assert res.status_code == 200
-    assert "text/html" in (res.headers.get("content-type") or "")
-    assert "Identity standards" in res.text
-    assert "Anonymous access denied" not in res.text
+    assert res.status_code == 401
 
 
 def test_profile_anonymous_html_login_gate_not_json(client):

@@ -54,7 +54,7 @@
 </head>
 <body>
     <a href="#main" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden" class="skip-link" onfocus="this.style.left='1rem';this.style.top='1rem';this.style.width='auto';this.style.height='auto';this.style.padding='.5rem';this.style.background='#22d3ee';this.style.color='#0a0a0f';this.style.zIndex='99'">Skip to content</a>
-    <nav aria-label="Primary"><div class="nav-inner"><a class="logo" href="/">BLACKDARK</a><div><a href="/login?next=/dashboard">Dashboard</a> · <a href="/faq">FAQ</a> · <a href="/oracle-accuracy">Accuracy</a> · <a href="/contact">Contact</a></div></div></nav>
+    <nav aria-label="Primary"><div class="nav-inner"><a class="logo" href="/">BLACKDARK</a><div><a href="/login?next=/dashboard">Dashboard</a> · <a href="/faq">FAQ</a> · <a href="/oracle-accuracy">Accuracy</a> · <a href="/status">Status</a></div></div></nav>
     <main id="main" role="main" tabindex="-1">
         <h1>{{ title }}</h1>
         <p>{{ lead }}</p>
@@ -312,7 +312,7 @@
                 <li><strong style="color:var(--fg)">Public readiness</strong> · {{ gt.public_readiness or '—' }}</li>
                 <li><strong style="color:var(--fg)">Anonymous state</strong> · {{ gt.anonymous_state or '—' }}</li>
             </ul>
-            <p><a href="/#trust-pulse">Homepage Trust Pulse</a> · <a href="/identity-standards">Identity standards</a></p>
+            <p><a href="/#trust-pulse">Homepage Trust Pulse</a> · <a href="/login?next=/identity-standards">Identity standards</a></p>
             {% set st = status or {} %}
             {% set overall = (st.overall or 'unknown') %}
             <h2>System components</h2>
