@@ -100,6 +100,21 @@ def test_authenticated_dashboard_shows_lang_and_account(client):
         assert 'id="bdAccountTrigger"' in header, path
 
 
+def test_anonymous_root_without_cookie_shows_visitor_chrome():
+    """GET / with no session cookie must expose Language + Login + Sign up in header."""
+    from dashboard import app
+
+    c = TestClient(app)
+    res = c.get("/", headers={"Accept": "text/html"})
+    assert res.status_code == 200
+    assert 'id="bdUtilLogin"' in res.text
+    assert 'id="bdUtilSignup"' in res.text
+    assert 'class="bd-lang-visible"' in res.text
+    header = _header_nav(res.text)
+    assert 'id="bdLangTrigger"' in header
+    assert 'id="bdAccountTrigger"' not in header
+
+
 def test_anonymous_login_shows_lang_login_signup(client):
     for path in ("/", "/login"):
         res = client.get(path, headers={"Accept": "text/html"})

@@ -61,15 +61,16 @@
             50% { transform: translate(-30px, 30px); }
         }
         
-        nav {
-            position: fixed; top: 0; width: 100%;
-            background: rgba(10, 10, 15, 0.8);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-            z-index: 1000;
-            padding: 1rem 2rem;
+        /* Site chrome is global_header.html — do not apply legacy fixed nav to nested utility bar */
+        .bd-global-header .bd-header-util {
+            position: static;
+            width: auto;
+            padding: 0;
+            background: transparent;
+            border-bottom: none;
+            backdrop-filter: none;
         }
-        
+
         .nav-container {
             max-width: 1200px; margin: 0 auto;
             display: flex; justify-content: space-between; align-items: center;

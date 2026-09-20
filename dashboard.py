@@ -1822,7 +1822,7 @@ async def landing_page(request: Request):
 
     lang = resolve_request_lang(request)
     auth_segment = "auth" if getattr(request.state, "header_user", None) else "anon"
-    cache_key = f"{lang}:{auth_segment}"
+    cache_key = f"v2:{lang}:{auth_segment}"
     now = time.time()
     hit = _landing_html_cache.get(cache_key)
     if hit and (now - hit[0]) < _LANDING_HTML_CACHE_TTL:
