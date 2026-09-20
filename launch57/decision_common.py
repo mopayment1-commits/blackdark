@@ -18,6 +18,30 @@ _LIVE_ELIGIBLE = frozenset(
 )
 
 
+def _freshness_params_from_prices(prices: dict[str, Any], base: dict[str, Any]) -> dict[str, Any]:
+    """Pass #22 quote age into #41 freshness_update_assurance — no parallel age path."""
+    fp = dict(base)
+    evidence = prices.get("freshness_evidence") or {}
+    age = prices.get("data_age_sec")
+    if age is None and evidence.get("age_sec") is not None:
+        age = evidence.get("age_sec")
+    if age is not None:
+        fp["age_sec"] = float(age)
+    source_time = prices.get("event_timestamp") or evidence.get("source_time")
+    if source_time:
+        fp["source_time"] = source_time
+    temporal = prices.get("temporal") or {}
+    if temporal.get("observed_time"):
+        fp["observed_at"] = temporal["observed_time"]
+    if temporal.get("ingested_at"):
+        fp["ingested_at"] = temporal["ingested_at"]
+    if temporal.get("available_at"):
+        fp["available_at"] = temporal["available_at"]
+    if temporal.get("availability_state"):
+        fp["availability_state"] = temporal["availability_state"]
+    return fp
+
+
 async def load_decision_spine(symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
     """Consume Phase 1 launch57 data layers — no parallel price path for decisions."""
     from launch57.data_batch1 import real_time_prices
@@ -27,14 +51,18 @@ async def load_decision_spine(symbol: str, params: dict[str, Any] | None = None)
     asset = str(p.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")
 
     prices = await real_time_prices(symbol=asset, params=p)
-    freshness = await freshness_update_assurance(symbol=asset, params=p)
+    freshness_params = _freshness_params_from_prices(prices, p)
+    freshness = await freshness_update_assurance(symbol=asset, params=freshness_params)
 
     freshness_state = str(
         prices.get("freshness_state")
         or freshness.get("freshness_state")
         or FreshnessState.UNKNOWN.value
     )
-    live_eligible = freshness_state in _LIVE_ELIGIBLE and bool(prices.get("presented_as_live"))
+    presented_as_live = bool(prices.get("presented_as_live"))
+    if freshness_state in {FreshnessState.STALE.value, FreshnessState.UNKNOWN.value}:
+        presented_as_live = False
+    live_eligible = freshness_state in _LIVE_ELIGIBLE and presented_as_live
 
     return {
         "symbol": asset,
@@ -42,7 +70,7 @@ async def load_decision_spine(symbol: str, params: dict[str, Any] | None = None)
         "freshness": freshness,
         "freshness_state": freshness_state,
         "live_eligible": live_eligible,
-        "presented_as_live": live_eligible,
+        "presented_as_live": presented_as_live,
         "price": prices.get("price"),
         "change_24h": prices.get("change_24h"),
         "data_spine": {

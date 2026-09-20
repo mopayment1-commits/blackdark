@@ -5,6 +5,7 @@ Launch-57 canonical #41 freshness assurance owner.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from datetime import datetime
 from enum import Enum
 from typing import Any
 
@@ -86,6 +87,39 @@ class FreshnessAssessment:
             "error": self.error,
             "policy": "stale_or_unknown_never_passes_as_live",
         }
+
+
+def resolve_quote_age_sec(
+    *,
+    age_sec: float | None = None,
+    age_ms: float | None = None,
+    event_time: Any = None,
+    fetched_at: datetime | None = None,
+) -> tuple[float | None, str | None]:
+    """Resolve observed quote age for #22→#41. Zero age is valid when temporal anchor exists."""
+    source_iso: str | None = None
+    if event_time is not None:
+        validation = validate_provider_timestamp(event_time)
+        if validation.ok and validation.canonical:
+            source_iso = to_rfc3339(validation.canonical)
+            computed = max(0.0, (utc_now() - validation.canonical).total_seconds())
+            if age_ms is not None:
+                return max(0.0, float(age_ms) / 1000.0), source_iso
+            if age_sec is not None:
+                resolved = float(age_sec)
+                return (resolved if resolved > 0 else computed), source_iso
+            return computed, source_iso
+
+    if age_ms is not None:
+        return max(0.0, float(age_ms) / 1000.0), source_iso
+
+    if age_sec is not None:
+        return max(0.0, float(age_sec)), source_iso
+
+    if fetched_at is not None:
+        return 0.0, to_rfc3339(fetched_at)
+
+    return None, source_iso
 
 
 def _classify_age(age_sec: float | None) -> FreshnessState:

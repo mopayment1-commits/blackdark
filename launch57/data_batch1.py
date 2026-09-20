@@ -260,12 +260,18 @@ async def real_time_prices(*, symbol: str, params: dict[str, Any] | None = None)
             params=params,
         )
 
-    age_sec = float(ticker.get("age_sec") or 0)
-    if ticker.get("freshness_ms") is not None:
-        age_sec = float(ticker["freshness_ms"]) / 1000.0
+    from launch57.freshness_common import resolve_quote_age_sec
+
+    event_raw = ticker.get("event_time") or ticker.get("timestamp") or ticker.get("source_time")
+    age_sec, canonical_source = resolve_quote_age_sec(
+        age_sec=ticker.get("age_sec") if ticker.get("age_sec") is not None else None,
+        age_ms=ticker.get("freshness_ms"),
+        event_time=event_raw,
+        fetched_at=utc_now(),
+    )
 
     price = float(ticker["price"])
-    source_raw = ticker.get("timestamp") or ticker.get("event_time") or ticker.get("source_time")
+    source_raw = canonical_source or event_raw
     source_validation = validate_provider_timestamp(source_raw) if source_raw is not None else None
     if source_raw is not None and source_validation and not source_validation.ok:
         body = {
@@ -326,7 +332,7 @@ async def real_time_prices(*, symbol: str, params: dict[str, Any] | None = None)
     out = finalize_b1_response(out, require_freshness_owner=False)
     out = apply_b1_freshness_reconciliation(
         out,
-        age_sec=age_sec if age_sec else None,
+        age_sec=age_sec,
         source_time=source_raw,
         temporal=out.get("temporal"),
     )

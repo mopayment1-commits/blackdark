@@ -99,13 +99,20 @@ async def get_ticker(asset: str) -> dict[str, Any] | None:
     if not row:
         return None
     mid = float(row.get("mid") or (row["bid"] + row["ask"]) / 2)
-    return {
+    out: dict[str, Any] = {
         "price": mid,
         "change_24h": 0.0,
         "volume": 0.0,
         "quote_volume": 0.0,
         "source": "websocket_live",
     }
+    from live_book_hub import get_quote_age_ms
+
+    age_ms = get_quote_age_ms(_PRIMARY_VENUE, sym)
+    if age_ms is not None:
+        out["freshness_ms"] = age_ms
+        out["age_sec"] = max(0.0, float(age_ms) / 1000.0)
+    return out
 
 
 def _best_live_mid(symbol: str) -> float:
