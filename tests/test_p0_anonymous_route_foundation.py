@@ -88,14 +88,16 @@ def test_no_cookie_public_allowlist_ok(client):
         "/",
         "/health/live",
         "/api/status",
-        "/api/security/status",
         "/login",
         "/register",
         "/oracle-accuracy",
-        "/api/docs/public-manifest",
+        "/api/launch57/guest-trust",
+        "/status",
+        "/how-it-works",
     )
     for path in public_paths:
-        response = client.get(path)
+        params = {"symbol": "BTC"} if path.startswith("/api/launch57/") else None
+        response = client.get(path, params=params)
         assert response.status_code in {200, 302, 307}, f"{path} -> {response.status_code}"
 
 
@@ -153,8 +155,8 @@ def test_enforce_anonymous_route_boundary_unit():
 
 def test_private_data_not_leaked_on_public_routes(client):
     exposure_paths = []
-    for path in ("/api/status", "/api/security/status", "/health/live", "/api/site-services"):
-        response = client.get(path)
+    for path in ("/api/status", "/health/live", "/api/launch57/guest-trust"):
+        response = client.get(path, params={"symbol": "BTC"} if "launch57" in path else None)
         if response.status_code == 200 and response_contains_private_data(response.text):
             exposure_paths.append(path)
     assert exposure_paths == []
@@ -176,10 +178,12 @@ def test_client_only_auth_boundaries_zero(client):
 
 
 def test_api_stream_boundary_no_cookie(client):
-    assert is_anonymous_route_allowed("GET", "/api/dashboard/stream") is True
+    assert is_anonymous_route_allowed("GET", "/api/dashboard/stream") is False
     assert is_anonymous_route_allowed("GET", "/api/trust-pulse/stream") is False
-    denied = client.get("/api/trust-pulse/stream", timeout=3.0)
-    assert denied.status_code in {401, 403, 404, 422, 429}
+    denied = client.get("/api/dashboard/stream", timeout=3.0)
+    assert denied.status_code == 401
+    denied_pulse = client.get("/api/trust-pulse/stream", timeout=3.0)
+    assert denied_pulse.status_code in {401, 403, 404, 422, 429}
 
 
 def test_request_has_authentication_signal():

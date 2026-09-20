@@ -69,11 +69,27 @@ async def launch57_tier_distribution():
     }
 
 
+@router.get("/api/launch57/product-isolation")
+async def launch57_product_isolation():
+    from launch57.product_isolation import build_product_isolation_manifest
+
+    return build_product_isolation_manifest()
+
+
 @router.get("/api/launch57/guest-trust")
 async def launch57_guest_trust(symbol: str = Query("BTC")):
     from launch57.trust_batch2 import guest_trust_surface
 
     return await guest_trust_surface(symbol=symbol, params={"symbol": symbol, "user_key": "anonymous"})
+
+
+@router.get("/api/launch57/spot-metrics")
+async def launch57_spot_metrics(symbol: str = Query("BTC")):
+    """Launch #21 — spot metrics suite (honest freshness; unknown ≠ zero)."""
+    from launch57.data_batch1 import spot_market_metrics_suite
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await spot_market_metrics_suite(symbol=asset, params={"symbol": asset, "user_key": "anonymous"})
 
 
 @router.get("/api/launch57/real-time-prices")
@@ -301,6 +317,294 @@ async def launch57_abstain_reasons(
     )
 
 
+@router.get("/api/launch57/accumulation-distribution")
+async def launch57_accumulation_distribution(
+    request: Request,
+    symbol: str = Query("BTC"),
+    limit: int = Query(10, ge=1, le=50),
+):
+    """Launch #13 — Accumulation / Distribution Detection."""
+    _require_launch57_auth(request, 13)
+    from launch57.smart_money_batch1 import accumulation_distribution_detection
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await accumulation_distribution_detection(
+        symbol=asset,
+        params={"symbol": asset, "limit": limit},
+    )
+
+
+@router.get("/api/launch57/token-screener")
+async def launch57_token_screener(
+    request: Request,
+    symbol: str = Query("BTC"),
+    limit: int = Query(25, ge=1, le=100),
+):
+    """Launch #14 — Smart Money Token Screener."""
+    _require_launch57_auth(request, 14)
+    from launch57.smart_money_batch1 import smart_money_token_screener
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await smart_money_token_screener(
+        symbol=asset,
+        params={"symbol": asset, "limit": limit},
+    )
+
+
+@router.get("/api/launch57/market-screener")
+async def launch57_market_screener(
+    request: Request,
+    symbol: str = Query("BTC"),
+    limit: int = Query(25, ge=1, le=100),
+    tier: str = Query("elite"),
+):
+    """Launch #31 — general market token screener (distinct from #14 smart-money screener)."""
+    _require_launch57_auth(request, 31)
+    _require_launch57_tier(request, 31, tier=tier)
+    from launch57.derivatives_batch2 import general_market_token_screener
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await general_market_token_screener(
+        symbol=asset,
+        params={"symbol": asset, "limit": limit, "tier": tier},
+    )
+
+
+@router.get("/api/launch57/watchlists")
+async def launch57_watchlists(
+    request: Request,
+    symbol: str = Query("BTC"),
+    address: str = Query(""),
+    limit: int = Query(25, ge=1, le=100),
+    tier: str = Query("pro"),
+):
+    """Launch #32 — limited token + wallet watchlists."""
+    _require_launch57_auth(request, 32)
+    _require_launch57_tier(request, 32, tier=tier)
+    from launch57.derivatives_batch2 import limited_watchlists
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await limited_watchlists(
+        symbol=asset,
+        params={"symbol": asset, "address": address, "limit": limit, "tier": tier},
+    )
+
+
+@router.get("/api/launch57/signal-explanation")
+async def launch57_signal_explanation(
+    request: Request,
+    symbol: str = Query("BTC"),
+    verdict: str = Query("NEUTRAL"),
+    tier: str = Query("pro"),
+):
+    """Launch #34 — signal → explanation workflow."""
+    _require_launch57_auth(request, 34)
+    _require_launch57_tier(request, 34, tier=tier)
+    from launch57.explanation_ai_batch1 import signal_explanation_workflow
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await signal_explanation_workflow(
+        symbol=asset,
+        params={"symbol": asset, "verdict": verdict, "tier": tier},
+    )
+
+
+@router.get("/api/launch57/price-move-explanation")
+async def launch57_price_move_explanation(
+    request: Request,
+    symbol: str = Query("BTC"),
+    tier: str = Query("pro"),
+):
+    """Launch #35 — price-move explanation (rule-based, spine price)."""
+    _require_launch57_auth(request, 35)
+    _require_launch57_tier(request, 35, tier=tier)
+    from launch57.explanation_ai_batch1 import price_move_explanation
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await price_move_explanation(symbol=asset, params={"symbol": asset, "tier": tier})
+
+
+@router.get("/api/launch57/pump-dump-alerts")
+async def launch57_pump_dump_alerts(
+    request: Request,
+    symbol: str = Query("BTC"),
+    tier: str = Query("elite"),
+    limit: int = Query(15, ge=1, le=50),
+):
+    """Launch #55 — pump & dump / manipulation pattern alerts."""
+    _require_launch57_auth(request, 55)
+    _require_launch57_tier(request, 55, tier=tier)
+    from launch57.smart_money_batch3 import pump_dump_manipulation_alerts
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await pump_dump_manipulation_alerts(
+        symbol=asset,
+        params={"symbol": asset, "tier": tier, "limit": limit},
+    )
+
+
+@router.get("/api/launch57/entity-wallet")
+async def launch57_entity_wallet(
+    request: Request,
+    symbol: str = Query("BTC"),
+    address: str = Query("0x0000000000000000000000000000000000000000"),
+    chain: str = Query("ethereum"),
+):
+    """Launch #15 — Entity-Aware Wallet Intelligence."""
+    _require_launch57_auth(request, 15)
+    from launch57.smart_money_batch2 import entity_aware_wallet_intelligence
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await entity_aware_wallet_intelligence(
+        symbol=asset,
+        params={"symbol": asset, "address": address, "chain": chain},
+    )
+
+
+@router.get("/api/launch57/exchange-flow")
+async def launch57_exchange_flow(request: Request, symbol: str = Query("BTC")):
+    """Launch #16 — Exchange Flow Intelligence (in/out/net)."""
+    _require_launch57_auth(request, 16)
+    from launch57.smart_money_batch1 import exchange_flow_intelligence
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await exchange_flow_intelligence(symbol=asset, params={"symbol": asset})
+
+
+@router.get("/api/launch57/whale-ratio-filter")
+async def launch57_whale_ratio_filter(request: Request, symbol: str = Query("BTC")):
+    """Launch #17 — Exchange Whale Ratio + internal-flow filter."""
+    _require_launch57_auth(request, 17)
+    from launch57.smart_money_batch1 import exchange_whale_ratio, internal_flow_filter
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    ratio = await exchange_whale_ratio(symbol=asset, params={"symbol": asset})
+    flow_filter = await internal_flow_filter(symbol=asset, params={"symbol": asset})
+    return {
+        "launch_item_id": 17,
+        "symbol": asset,
+        "success": bool(ratio.get("success")) or bool(flow_filter.get("success")),
+        "exchange_whale_ratio": ratio,
+        "internal_flow_filter": flow_filter,
+        "backend_module": "launch57.smart_money_batch1",
+        "backend_entrypoint": "exchange_whale_ratio+internal_flow_filter",
+    }
+
+
+@router.get("/api/launch57/whale-alerts")
+async def launch57_whale_alerts(
+    request: Request,
+    symbol: str = Query("BTC"),
+    limit: int = Query(20, ge=1, le=50),
+):
+    """Launch #18 — Whale Accumulation / Movement Alerts."""
+    _require_launch57_auth(request, 18)
+    from launch57.smart_money_batch2 import whale_accumulation_distribution_intelligence
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await whale_accumulation_distribution_intelligence(
+        symbol=asset,
+        params={"symbol": asset, "limit": limit},
+    )
+
+
+@router.get("/api/launch57/inter-entity-flow")
+async def launch57_inter_entity_flow(request: Request, symbol: str = Query("BTC")):
+    """Launch #19 — Inter-Entity Flow (limited launch)."""
+    _require_launch57_auth(request, 19)
+    from launch57.smart_money_batch2 import inter_entity_flow_intelligence
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await inter_entity_flow_intelligence(symbol=asset, params={"symbol": asset})
+
+
+@router.get("/api/launch57/address-labels")
+async def launch57_address_labels(
+    request: Request,
+    symbol: str = Query("BTC"),
+    address: str = Query("0x0000000000000000000000000000000000000000"),
+):
+    """Launch #20 — Address Labels & Cohorts (limited nucleus)."""
+    _require_launch57_auth(request, 20)
+    from launch57.smart_money_batch1 import address_labels_cohorts
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await address_labels_cohorts(
+        symbol=asset,
+        params={"symbol": asset, "address": address},
+    )
+
+
+@router.get("/api/launch57/futures-oi")
+async def launch57_futures_oi(request: Request, symbol: str = Query("BTC")):
+    """Launch #25 — Futures OI intelligence."""
+    _require_launch57_auth(request, 25)
+    from launch57.derivatives_batch1 import futures_open_interest_intelligence
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await futures_open_interest_intelligence(symbol=asset, params={"symbol": asset})
+
+
+@router.get("/api/launch57/funding-rate")
+async def launch57_funding_rate(request: Request, symbol: str = Query("BTC")):
+    """Launch #26 — Funding rate intelligence."""
+    _require_launch57_auth(request, 26)
+    from launch57.derivatives_batch1 import funding_rate_intelligence
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await funding_rate_intelligence(symbol=asset, params={"symbol": asset})
+
+
+@router.get("/api/launch57/liquidation-intelligence")
+async def launch57_liquidation_intelligence(request: Request, symbol: str = Query("BTC")):
+    """Launch #27 — Liquidation intelligence / light heatmap."""
+    _require_launch57_auth(request, 27)
+    from launch57.derivatives_batch1 import liquidation_intelligence_light
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await liquidation_intelligence_light(symbol=asset, params={"symbol": asset})
+
+
+@router.get("/api/launch57/taker-leverage")
+async def launch57_taker_leverage(request: Request, symbol: str = Query("BTC")):
+    """Launch #28 — Taker buy/sell + leverage ratio."""
+    _require_launch57_auth(request, 28)
+    from launch57.derivatives_batch1 import estimated_leverage_ratio, taker_buy_sell_pressure
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    taker = await taker_buy_sell_pressure(symbol=asset, params={"symbol": asset})
+    leverage = await estimated_leverage_ratio(symbol=asset, params={"symbol": asset})
+    return {
+        "launch_item_id": 28,
+        "symbol": asset,
+        "success": bool(taker.get("success")) or bool(leverage.get("success")),
+        "taker_buy_sell_pressure": taker,
+        "estimated_leverage_ratio": leverage,
+        "backend_module": "launch57.derivatives_batch1",
+        "backend_entrypoint": "taker_buy_sell_pressure+estimated_leverage_ratio",
+    }
+
+
+@router.get("/api/launch57/derivatives-sentiment")
+async def launch57_derivatives_sentiment(request: Request, symbol: str = Query("BTC")):
+    """Launch #29 — Derivatives sentiment composite."""
+    _require_launch57_auth(request, 29)
+    from launch57.derivatives_batch1 import derivatives_sentiment_composite
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await derivatives_sentiment_composite(symbol=asset, params={"symbol": asset})
+
+
+@router.get("/api/launch57/order-book")
+async def launch57_order_book(request: Request, symbol: str = Query("BTC")):
+    """Launch #30 — Order book intelligence (L1 minimum)."""
+    _require_launch57_auth(request, 30)
+    from launch57.derivatives_batch2 import order_book_intelligence
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await order_book_intelligence(symbol=asset, params={"symbol": asset})
+
+
 @router.get("/api/launch57/decision-certificate")
 async def launch57_decision_certificate(
     request: Request,
@@ -338,6 +642,21 @@ async def launch57_public_accuracy(symbol: str = Query("BTC")):
 
     asset = str(symbol or "BTC").upper().replace("/USDT", "")
     return await public_accuracy_ledger(symbol=asset, params={"symbol": asset})
+
+
+@router.get("/api/launch57/shareable-accuracy")
+async def launch57_shareable_accuracy(
+    symbol: str = Query("BTC"),
+    display_timezone: str = Query("UTC"),
+):
+    """Launch #45 — shareable accuracy/outcome page (live ledger; synthetic excluded)."""
+    from launch57.trust_batch2 import shareable_accuracy_page
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await shareable_accuracy_page(
+        symbol=asset,
+        params={"symbol": asset, "display_timezone": display_timezone},
+    )
 
 
 @router.post("/api/launch57/cost-autopsy")
@@ -417,6 +736,70 @@ async def launch57_command_home(
         raise
 
 
+@router.get("/api/launch57/single-sentence-oracle")
+async def launch57_single_sentence_oracle(
+    request: Request,
+    symbol: str = Query("BTC"),
+    decision_action: str | None = Query(None),
+    decision_sentence: str | None = Query(None),
+):
+    """Launch #2 — independent ACT/WAIT/ABSTAIN judgment surface (not composite-only)."""
+    _require_launch57_auth(request, 2)
+    from launch57.trust_batch1 import single_sentence_oracle
+
+    params: dict[str, Any] = {"symbol": symbol}
+    if decision_action:
+        params["decision_action"] = decision_action
+    if decision_sentence:
+        params["decision_sentence"] = decision_sentence
+    try:
+        return await single_sentence_oracle(symbol=symbol, params=params)
+    except RuntimeError as exc:
+        if "kill_switch" in str(exc):
+            raise HTTPException(
+                status_code=500,
+                detail={
+                    "detail": "Launch-57 single-sentence oracle disabled",
+                    "launch_item_id": 2,
+                    "reason": str(exc),
+                    "success": False,
+                },
+                headers={"X-Blackdark-Launch57-Kill-Switch": "trust-batch1"},
+            ) from exc
+        raise
+
+
+@router.get("/api/launch57/evidence-class")
+async def launch57_evidence_class(
+    symbol: str = Query("BTC"),
+    evidence_class: str | None = Query(None),
+    freshness_state: str | None = Query(None),
+):
+    """Launch #6 — visible evidence class (LIVE / DELAYED / SIM) with launch_item_id=6."""
+    from launch57.trust_batch1 import evidence_class_surface
+
+    params: dict[str, Any] = {"symbol": symbol}
+    if evidence_class:
+        params["evidence_class"] = evidence_class
+    if freshness_state:
+        params["freshness_state"] = freshness_state
+    try:
+        return await evidence_class_surface(symbol=symbol, params=params)
+    except RuntimeError as exc:
+        if "kill_switch" in str(exc):
+            raise HTTPException(
+                status_code=500,
+                detail={
+                    "detail": "Launch-57 evidence class disabled",
+                    "launch_item_id": 6,
+                    "reason": str(exc),
+                    "success": False,
+                },
+                headers={"X-Blackdark-Launch57-Kill-Switch": "trust-batch1"},
+            ) from exc
+        raise
+
+
 @router.get("/api/launch57/decision-history")
 async def launch57_decision_history(
     request: Request,
@@ -484,7 +867,30 @@ async def launch57_spot_perp_arbitrage(
     _require_launch57_tier(request, 43, tier=tier)
     from launch57.edge_ui_batch1 import spot_perp_arbitrage_scanner
 
-    return await spot_perp_arbitrage_scanner(symbol=symbol, params={"symbol": symbol, "tier": tier})
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await spot_perp_arbitrage_scanner(symbol=asset, params={"symbol": asset, "tier": tier})
+
+
+@router.post("/api/launch57/spot-perp-arbitrage")
+async def launch57_spot_perp_arbitrage_post(request: Request, body: dict[str, Any] = Body(...)):
+    """Launch #43 — spot–perp arbitrage with mandatory Net-Edge (#5) for dashboard consumer."""
+    _require_launch57_auth(request, 43)
+    tier = str(body.get("tier") or "quant")
+    _require_launch57_tier(request, 43, tier=tier)
+    from launch57.edge_ui_batch1 import spot_perp_arbitrage_scanner
+
+    asset = str(body.get("symbol") or "BTC").upper().replace("/USDT", "")
+    params: dict[str, Any] = {"symbol": asset, "tier": tier}
+    if body.get("cost_claim") is not None:
+        params["cost_claim"] = bool(body.get("cost_claim"))
+    opportunity = body.get("opportunity")
+    if isinstance(opportunity, dict):
+        params["opportunity"] = opportunity
+    if body.get("quote_amount") is not None:
+        params["quote_amount"] = body.get("quote_amount")
+    if body.get("limit") is not None:
+        params["limit"] = body.get("limit")
+    return await spot_perp_arbitrage_scanner(symbol=asset, params=params)
 
 
 @router.get("/api/launch57/suspicious-flags")
@@ -511,6 +917,18 @@ async def launch57_exchange_transparency(
     from launch57.smart_money_batch3 import exchange_transparency_risk_indicators
 
     return await exchange_transparency_risk_indicators(symbol=symbol, params={"symbol": symbol, "tier": tier})
+
+
+@router.get("/api/launch57/research-portal")
+async def launch57_research_portal(
+    symbol: str = Query("BTC"),
+    tier: str = Query("free"),
+):
+    """Launch #51 — research portal short brief (platform evidence only)."""
+    from launch57.explanation_ai_batch1 import research_intelligence_portal
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await research_intelligence_portal(symbol=asset, params={"symbol": asset, "tier": tier})
 
 
 @router.get("/api/launch57/ai-copilot")

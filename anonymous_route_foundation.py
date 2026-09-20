@@ -19,7 +19,7 @@ from fastapi import Request
 from starlette.responses import JSONResponse, Response
 
 GOVERNING_SPEC = "docs/BLACKDARK_ANONYMOUS_VISITOR_PUBLIC_INTELLIGENCE_EXPERIENCE_2026_FINAL.md"
-CONTRACT_VERSION = "anonymous_route_foundation.p0.1.0"
+CONTRACT_VERSION = "anonymous_route_foundation.p0.2.0"
 PRIVATE_BY_DEFAULT = True
 
 # Re-exported for public_api_docs compatibility (single allowlist owner).
@@ -100,74 +100,23 @@ AUTH_FLOW_PREFIXES: tuple[str, ...] = (
     "/api/auth/oauth/",
 )
 
-# --- Public HTML / marketing / evidence surfaces ---
+# --- Public HTML — Launch-57 visitor surface (status / methodology / accuracy) ---
 PUBLIC_HTML_EXACT: frozenset[str] = frozenset(
     {
         "/about",
-        "/how-it-works",
         "/faq",
+        "/how-it-works",
         "/status",
-        "/legal",
-        "/cookies",
         "/disclaimer",
-        "/compliance",
-        "/contact",
-        "/docs",
-        "/docs/public",
-        "/capabilities",
-        "/data-room",
-        "/landing",
-        "/changelog",
-        "/complaints",
-        "/feedback",
-        "/join-waitlist",
-        "/model-card",
-        "/msa",
         "/pricing",
-        "/refund",
-        "/identity-standards",
-        "/b2b",
-        "/sla",
-        "/platform",
-        "/institutional",
-        "/cap646",
+        "/join-waitlist",
         "/privacy",
         "/terms",
-        "/trust",
-        "/errors",
         PATH_ORACLE_ACCURACY,
-        "/kill-rate",
-        "/contradiction-replay",
-        "/proof-arena",
-        "/since-you-left",
-        "/anti-hype",
-        "/corpus-passport",
-        "/miss-feed",
-        "/coverage-honesty",
-        "/priority-chain",
-        "/zero-tolerance",
-        "/emotion-tax",
-        "/b2b/committee-one-pager",
-        "/allocator-receipt",
-        "/transfer-intent",
-        "/silence-index",
-        "/alert-passport",
-        "/visibility-cost",
-        "/il-simulator",
-        "/market-intelligence",
-        "/intelligence-ledger",
-        "/address-intelligence",
-        "/validity-decay",
-        "/desk-duel",
-        "/trust-debt",
-        "/unique-ten",
-        "/d5-honesty",
     }
 )
 
-PUBLIC_HTML_PREFIXES: tuple[str, ...] = (
-    "/oracle/",
-)
+PUBLIC_HTML_PREFIXES: tuple[str, ...] = ()
 
 # Launch-57 anonymous public API — explicit paths only (SPEC_02 §22; no broad prefix).
 LAUNCH57_PUBLIC_API_EXACT: frozenset[str] = frozenset(
@@ -179,10 +128,15 @@ LAUNCH57_PUBLIC_API_EXACT: frozenset[str] = frozenset(
         "/api/launch57/point-in-time-metrics",
         "/api/launch57/data-provenance",
         "/api/launch57/freshness",
+        "/api/launch57/evidence-class",
         "/api/launch57/unified-exchange",
         "/api/launch57/tier-distribution",
+        "/api/launch57/product-isolation",
         "/api/launch57/capability-library",
         "/api/launch57/public-accuracy",
+        "/api/launch57/spot-metrics",
+        "/api/launch57/shareable-accuracy",
+        "/api/launch57/research-portal",
     }
 )
 
@@ -190,89 +144,42 @@ LAUNCH57_PUBLIC_API_PREFIXES: tuple[str, ...] = (
     "/api/launch57/capability-library/",
 )
 
-# --- Evidence/read API prefixes (historical public developer surface) ---
+# --- Public API — Launch-57 guest intelligence + platform status only ---
 PUBLIC_API_PREFIXES: tuple[str, ...] = (
     "/health/",
-    PATH_API_TRUST_OS,
     *LAUNCH57_PUBLIC_API_PREFIXES,
-    "/api/strategy/",
-    "/api/intent/",
-    "/api/execution/",
-    "/api/acceptance/",
-    "/api/heroes/",
-    "/api/ledger/",
-    "/api/glass-box/",
-    "/api/audit-challenge",
-    "/api/accuracy/",
-    "/api/compliance/",
-    "/api/security/status",
-    "/api/security/external-review-readiness",
-    "/api/platform/production-readiness",
-    "/api/scale/",
-    "/api/viral/",
-    "/api/oracle/accuracy",
-    "/api/oracle/audit-chain",
-    "/api/oracle/half-life",
-    "/api/public/",
-    "/api/oracle/provenance-score",
-    "/api/emotion-tax/",
-    "/api/contradiction-replay",
-    "/api/proof-arena/",
-    "/api/since-you-left",
-    "/api/anti-hype/",
-    "/api/wow/",
-    "/api/due-diligence/evidence-pack/public-summary",
-    "/api/due-diligence/corpus-passport/public",
-    "/api/locked-predictions",
-    "/api/audience/",
-        "/api/alerts/generosity",
-        "/api/mev/sandwich-report",
-        "/api/whale/stealth-advisor",
-        "/api/fund/emerging-terminal",
-    "/api/auth/oauth/status",
-    "/oracle/",
 )
 
 PUBLIC_API_EXACT: frozenset[str] = frozenset(
     {
-        PATH_API_TRUST_OS,
         *LAUNCH57_PUBLIC_API_EXACT,
-        "/api/audit-challenge",
-        "/api/security/status",
-        "/api/security/external-review-readiness",
-        "/api/platform/production-readiness",
-        "/api/scale/readiness",
-        "/api/viral/readiness",
-        "/api/docs/public-openapi.json",
-        "/api/docs/public-manifest",
         "/api/status",
-        "/api/site-services",
-        "/api/changelog",
-        "/api/faq",
+    }
+)
+
+# Legacy public prefixes removed from anonymous allowlist (security batch).
+DENIED_LEGACY_PUBLIC_PREFIXES: tuple[str, ...] = (
+    "/api/whale/",
+    "/api/heroes/",
+    "/api/strategy/",
+    "/api/intent/",
+    "/api/execution/",
+    "/api/ledger/",
+    "/api/glass-box/",
+    "/api/accuracy/",
+    "/api/viral/",
+    "/api/wow/",
+    "/api/anti-hype/",
+    "/api/mev/",
+    "/api/since-you-left",
+    "/api/audience/",
+)
+
+DENIED_LEGACY_PUBLIC_EXACT: frozenset[str] = frozenset(
+    {
         "/api/dashboard/stream",
-        "/api/product/public-readiness",
-        "/capabilities",
-        "/compliance",
-        "/data-room",
-        PATH_ORACLE_ACCURACY,
-        "/kill-rate",
-        "/contradiction-replay",
-        "/proof-arena",
-        "/since-you-left",
-        "/anti-hype",
-        "/corpus-passport",
-        "/miss-feed",
-        "/coverage-honesty",
-        "/priority-chain",
-        "/zero-tolerance",
-        "/emotion-tax",
-        "/api/public/cso-priority-closure",
-        "/api/public/zero-tolerance-closure",
-        "/api/strategy/priority-chain",
-        "/api/strategy/zero-tolerance",
-        "/b2b/committee-one-pager",
-        "/docs",
-        "/docs/public",
+        "/api/whale/stealth-advisor",
+        "/api/mev/sandwich-report",
     }
 )
 
@@ -529,6 +436,23 @@ def _test_slug(path: str, method: str) -> str:
 
 def response_contains_private_data(payload: str) -> bool:
     return any(pattern.search(payload) for pattern in PRIVATE_DATA_PATTERNS)
+
+
+def iter_anonymous_public_surface_manifest() -> list[dict[str, str]]:
+    """Explicit anonymous allowlist manifest (exact paths; prefixes documented separately)."""
+    rows: list[dict[str, str]] = []
+    for path in sorted(ANONYMOUS_ROUTE_ALLOWLIST_EXACT):
+        bucket = "infrastructure"
+        if path in AUTH_FLOW_EXACT:
+            bucket = "auth_flow"
+        elif path in PUBLIC_HTML_EXACT:
+            bucket = "public_html"
+        elif path in PUBLIC_API_EXACT or path in LAUNCH57_PUBLIC_API_EXACT:
+            bucket = "public_api"
+        rows.append({"path": path, "bucket": bucket})
+    for prefix in ANONYMOUS_ROUTE_ALLOWLIST_PREFIXES:
+        rows.append({"path": f"{prefix}*", "bucket": "prefix"})
+    return rows
 
 
 def summarize_inventory(inventory: list[dict[str, Any]]) -> dict[str, int]:

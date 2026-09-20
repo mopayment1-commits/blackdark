@@ -127,10 +127,10 @@
             <a class="btn btn-secondary" href="#losing">Public misses / errors</a>
             <a class="btn btn-secondary" href="#glass-box-challenge">Competitor challenge</a>
             <a class="btn btn-secondary" href="/login?next=/discipline-mirror">Discipline Mirror</a>
-            <a class="btn btn-secondary" href="/docs">Developer docs</a>
+            <a class="btn btn-secondary" href="/login?next=/docs">Developer docs</a>
         </div>
         <p style="margin-top:.75rem;color:var(--muted);font-size:.85rem;max-width:760px;margin-left:auto;margin-right:auto">
-            We publish hits <strong style="color:var(--text)">and misses</strong>. Alias: <a href="/errors" style="color:var(--accent)">/errors</a> → this ledger’s losing section.
+            We publish hits <strong style="color:var(--text)">and misses</strong>. See the <a href="#losing" style="color:var(--accent)">losing section</a> below.
         </p>
     </section>
 
@@ -139,6 +139,14 @@
             <h2>Launch-57 Live Ledger Sample</h2>
             <p id="launch57-ledger-detail" style="color:var(--muted);font-size:0.9rem">Loading governed live sample…</p>
             <p style="margin-top:0.5rem;font-size:0.72rem;color:var(--muted)"><strong>Anti-Hype</strong> · Live-only primary metrics; synthetic excluded; not a shadow pretending to be the full public ledger.</p>
+        </div>
+    </section>
+
+    <section class="panel" id="launch57-shareable-accuracy">
+        <div class="card">
+            <h2>Launch-57 Shareable Accuracy (#45)</h2>
+            <p id="launch57-shareable-accuracy-detail" style="color:var(--muted);font-size:0.9rem">Loading shareable outcome page…</p>
+            <p style="margin-top:0.5rem;font-size:0.72rem;color:var(--muted)"><strong>Anti-Hype</strong> · Governed shareable accuracy from Launch-57 #45 — live ledger primary; synthetic excluded.</p>
         </div>
     </section>
 
@@ -188,8 +196,8 @@
                 <button class="btn btn-secondary" type="button" id="copyGlassBtn">Copy challenge text</button>
                 <a class="btn btn-secondary" id="glassShareX" href="#" target="_blank" rel="noopener">Share X</a>
                 <a class="btn btn-secondary" id="glassShareTg" href="#" target="_blank" rel="noopener">Share TG</a>
-                <a class="btn btn-secondary" href="/b2b#fund-terminal">Emerging Fund Terminal</a>
-                <a class="btn btn-secondary" href="/capabilities">Trust OS layers</a>
+                <a class="btn btn-secondary" href="/login?next=/b2b">Emerging Fund Terminal</a>
+                <a class="btn btn-secondary" href="/how-it-works">Methodology</a>
             </div>
             <details style="margin-top:1rem">
                 <summary style="cursor:pointer;color:var(--accent);font-weight:600">Operator runbook (launch packaging)</summary>
@@ -325,7 +333,7 @@
     <div class="cta-row">
         <a class="btn btn-primary" href="/login?next=/dashboard">Open Dashboard</a>
         <a class="btn btn-secondary" href="/docs">Developer docs</a>
-        <a class="btn btn-secondary" href="/b2b#evidence">Evidence Pack</a>
+        <a class="btn btn-secondary" href="/login?next=/b2b">Evidence Pack</a>
     </div>
 
     <footer>
@@ -446,10 +454,14 @@
         async function loadLaunch57LedgerSample() {
             const heroNote = document.getElementById('launch57-ledger-sample');
             const detail = document.getElementById('launch57-ledger-detail');
+            const shareDetail = document.getElementById('launch57-shareable-accuracy-detail');
             try {
-                const res = await fetch('/api/launch57/public-accuracy?symbol=BTC');
-                if (!res.ok) throw new Error('launch57_public_accuracy_fail');
-                const data = await res.json();
+                const [sampleRes, shareRes] = await Promise.all([
+                    fetch('/api/launch57/public-accuracy?symbol=BTC'),
+                    fetch('/api/launch57/shareable-accuracy?symbol=BTC'),
+                ]);
+                if (!sampleRes.ok) throw new Error('launch57_public_accuracy_fail');
+                const data = await sampleRes.json();
                 if (Number(data.launch_item_id) !== 4) throw new Error('launch_item_mismatch');
                 const ledger = data.public_accuracy_ledger || data.ledger || {};
                 const cum = ledger.cumulative || {};
@@ -467,10 +479,32 @@
                         + ` Records=${esc(cum.total_predictions ?? cum.resolved ?? '—')}`
                         + ` · shadow_ledger_not_production=${esc(String(data.shadow_ledger_not_production !== false))}`;
                 }
+                if (shareRes.ok) {
+                    const share = await shareRes.json();
+                    if (Number(share.launch_item_id) === 45 && share.success) {
+                        const page = share.accuracy_page || {};
+                        const shareCum = (share.ledger || share.public_accuracy_ledger || {}).cumulative || {};
+                        const shareHr = page.hit_rate_percent ?? shareCum.hit_rate_percent;
+                        const shareScope = page.metrics_scope || share.metrics_scope || 'live_only';
+                        const shareText = shareHr != null
+                            ? `Shareable accuracy #45: ${shareHr}% hit (${shareScope}; synthetic excluded).`
+                            : `Shareable accuracy #45 (${shareScope}; synthetic excluded).`;
+                        if (shareDetail) {
+                            shareDetail.textContent = shareText
+                                + ` Resolved=${esc(shareCum.resolved_predictions ?? '—')}`
+                                + ` · permalink=${esc(page.permalink || '/oracle-accuracy')}`;
+                        }
+                    } else if (shareDetail) {
+                        shareDetail.textContent = 'Launch-57 shareable accuracy (#45) unavailable.';
+                    }
+                } else if (shareDetail) {
+                    shareDetail.textContent = 'Launch-57 shareable accuracy (#45) unavailable.';
+                }
             } catch (error) {
                 console.debug(error);
                 if (heroNote) heroNote.style.display = 'none';
                 if (detail) detail.textContent = 'Launch-57 live ledger sample unavailable.';
+                if (shareDetail) shareDetail.textContent = 'Launch-57 shareable accuracy (#45) unavailable.';
             }
         }
 

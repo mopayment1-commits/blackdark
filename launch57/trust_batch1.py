@@ -42,6 +42,38 @@ def user_evidence_display(payload: dict[str, Any]) -> dict[str, Any]:
     return assessment.to_payload()
 
 
+async def evidence_class_surface(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
+    """Launch #6 — independent evidence-class judgment surface (launch_item_id=6)."""
+    from launch57.decision_common import load_decision_spine
+
+    p = dict(params or {})
+    asset = str(symbol or p.get("symbol") or "BTC").upper().replace("/USDT", "")
+    spine = await load_decision_spine(asset, p)
+    payload = {
+        **p,
+        "symbol": asset,
+        "freshness_state": spine.get("freshness_state"),
+        "source": p.get("source") or (spine.get("data_spine") or {}).get("source"),
+        "evidence_class": p.get("evidence_class") or p.get("canonical_evidence_class"),
+    }
+    display = user_evidence_display(payload)
+    body = {
+        "launch_item_id": 6,
+        "surface": "evidence_class_visible",
+        "symbol": asset,
+        "success": True,
+        "evidence_display": display,
+        "user_facing_label": display.get("user_facing_label"),
+        "canonical_evidence_class": display.get("canonical_evidence_class"),
+        "freshness_state": spine.get("freshness_state"),
+        "presented_as_live": spine.get("presented_as_live"),
+        "backend_module": "launch57.trust_batch1",
+        "backend_entrypoint": "evidence_class_surface",
+        "binding_source": "launch57_phase2_trust_batch1",
+    }
+    return attach_trust_envelope(body)
+
+
 def attach_trust_envelope(body: dict[str, Any]) -> dict[str, Any]:
     """Attach Launch #6 evidence display + compliance footer to trust outputs."""
     return apply_b4_trust_envelope(body)

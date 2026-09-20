@@ -104,15 +104,23 @@ async def six_heroes_command_home(*, symbol: str, params: dict[str, Any] | None 
     spine = await load_decision_spine(asset, p)
 
     if not spine["live_eligible"]:
+        stale_body = stale_gate_body(
+            capability_id=0,
+            launch_item_id=1,
+            surface="six_heroes_command_home",
+            symbol=spine["symbol"],
+            spine=spine,
+            entrypoint="six_heroes_command_home",
+        )
+        stale_body["command_question"] = question
+        stale_body["command_home_unavailable"] = True
+        stale_body["six_heroes_command_home"] = {
+            "question": question,
+            "unavailable": True,
+            "unavailable_reason": stale_body.get("error") or "decision_blocked_stale_or_unknown_data",
+        }
         body = stamp_decision_batch(
-            stale_gate_body(
-                capability_id=0,
-                launch_item_id=1,
-                surface="six_heroes_command_home",
-                symbol=spine["symbol"],
-                spine=spine,
-                entrypoint="six_heroes_command_home",
-            ),
+            stale_body,
             capability_id=0,
             launch_item_id=1,
             entrypoint="six_heroes_command_home",
@@ -216,6 +224,8 @@ async def six_heroes_command_home(*, symbol: str, params: dict[str, Any] | None 
             "surface": "six_heroes_command_home",
             "symbol": spine["symbol"],
             "success": guarded.get("answer_state") == "COMMAND_HOME_GROUNDED",
+            "command_question": question,
+            "command_home_unavailable": guarded.get("answer_state") != "COMMAND_HOME_GROUNDED",
             "six_heroes_command_home": {
                 "question": question,
                 "heroes": guarded.get("heroes"),
