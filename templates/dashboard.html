@@ -238,6 +238,12 @@
             <a class="btn secondary" href="/since-you-left" style="margin-top:.65rem;display:inline-flex;text-decoration:none">Open full page</a>
         </section>
 
+        <section id="launch57-data-spine" aria-label="Launch-57 data spine">
+            <h2>Data Spine</h2>
+            <p class="sub" id="l57DataNote">Launch-57 prices, freshness, provenance, and connector — claims hidden when unavailable.</p>
+            <div class="tp-proof" id="l57DataChips"><span class="tp-chip">Loading data spine…</span></div>
+        </section>
+
         <section>
             <h2>Live Chart</h2>
             <div class="toolbar">
@@ -246,6 +252,7 @@
                 <button class="btn secondary" data-bd-call="loadChart">Refresh</button>
             </div>
             <div id="chart"></div>
+            <p class="sub" id="l57ChartNote" style="margin-top:.5rem">Launch-57 OHLCV (#23) — chart hidden if bars unavailable.</p>
         </section>
 
         <div class="grid-2 section-operate-plus hide-in-room" id="radar">
@@ -610,7 +617,15 @@
         const LAUNCH57_DECISION_CERTIFICATE = '/api/launch57/decision-certificate';
         const LAUNCH57_PUBLIC_ACCURACY = '/api/launch57/public-accuracy';
         const LAUNCH57_COST_AUTOPSY = '/api/launch57/cost-autopsy';
+        const LAUNCH57_REAL_TIME_PRICES = '/api/launch57/real-time-prices';
+        const LAUNCH57_OHLCV = '/api/launch57/ohlcv';
+        const LAUNCH57_QUOTE = '/api/launch57/quote';
+        const LAUNCH57_PIT_METRICS = '/api/launch57/point-in-time-metrics';
+        const LAUNCH57_DATA_PROVENANCE = '/api/launch57/data-provenance';
+        const LAUNCH57_FRESHNESS = '/api/launch57/freshness';
+        const LAUNCH57_UNIFIED_EXCHANGE = '/api/launch57/unified-exchange';
         let lastVisibleTrust = { certificate: null, ledger: null, netEdge: null };
+        let lastLaunch57DataSpine = null;
         const LAUNCH57_PRIMARY_INTENTS = [
             { id: 'decide', label: 'Decide', action: 'launch57_decide', hint: 'Launch-57 command home — Act/Wait + Why + Proof.' },
             { id: 'verify', label: 'Verify', action: 'navigate', path: '/oracle-accuracy', hint: 'Public Accuracy Ledger — hits and misses.' },
@@ -1270,6 +1285,7 @@
         function setSymbol(s) {
             document.getElementById('symbol').value = s;
             loadCommandHome(true);
+            loadLaunch57DataSpine(s);
             loadChart();
             startTrustPulseStream();
         }
@@ -1458,17 +1474,115 @@
             new ResizeObserver(() => chart.applyOptions({ width: el.clientWidth })).observe(el);
         }
 
+        function launch57FreshnessChipLabel(body) {
+            if (!body) return null;
+            const state = String(body.freshness_state || 'UNKNOWN').toUpperCase();
+            const presented = body.presented_as_live === true;
+            if (state === 'STALE' || state === 'UNKNOWN' || !presented) {
+                return freshnessUiLabel(state, false, body.delayed_label);
+            }
+            return freshnessUiLabel(state, true, body.delayed_label);
+        }
+
+        function renderLaunch57DataSpine(spine) {
+            const chipsEl = document.getElementById('l57DataChips');
+            const noteEl = document.getElementById('l57DataNote');
+            if (!chipsEl) return;
+            const chips = [];
+            const price = spine && spine.price;
+            if (price && price.success && price.price != null) {
+                const live = price.presented_as_live === true && String(price.freshness_state || '').toUpperCase() !== 'STALE';
+                const priceLabel = live ? 'Price' : 'Price (not live)';
+                chips.push(`<span class="tp-chip ${live ? 'ok' : ''}">${esc(priceLabel)}: $${esc(fmt(price.price, price.price < 1 ? 4 : 2))}</span>`);
+            }
+            const fresh = spine && spine.freshness;
+            const freshLabel = launch57FreshnessChipLabel(fresh || price);
+            if (freshLabel) chips.push(`<span class="tp-chip">${esc('Freshness')}: ${esc(freshLabel)}</span>`);
+            const quote = spine && spine.quote;
+            if (quote && quote.success && quote.quote && quote.quote.quote && quote.quote.quote.last != null) {
+                chips.push(`<span class="tp-chip ok">${esc(quote.symbol || '')} quote ${esc(quote.quote.quote.last)}</span>`);
+            }
+            const prov = spine && spine.provenance;
+            if (prov && prov.success && prov.user_disclosure && prov.user_disclosure.band) {
+                chips.push(`<span class="tp-chip ok">${esc('Provenance')}: ${esc(prov.user_disclosure.band)}</span>`);
+            }
+            const pit = spine && spine.pit;
+            if (pit && pit.success && pit.content_hash) {
+                chips.push(`<span class="tp-chip">PIT ${esc(String(pit.content_hash).slice(0, 12))}…</span>`);
+            }
+            const conn = spine && spine.connector;
+            if (conn && conn.success && conn.selected_provider) {
+                chips.push(`<span class="tp-chip ok">${esc('Route')}: ${esc(conn.selected_provider)}</span>`);
+            } else if (conn && conn.success === false) {
+                chips.push(`<span class="tp-chip">Route unavailable</span>`);
+            }
+            chipsEl.innerHTML = chips.length
+                ? chips.join('')
+                : '<span class="tp-chip">Data spine unavailable — no live claims shown.</span>';
+            if (noteEl) {
+                noteEl.textContent = chips.length
+                    ? 'Launch-57 governed data (#22–#24, #39–#42). STALE/UNKNOWN never labeled LIVE.'
+                    : 'Launch-57 data spine unavailable — claims hidden (fail-closed).';
+            }
+        }
+
+        async function loadLaunch57DataSpine(forceSym) {
+            const sym = (forceSym || document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
+            const spine = { symbol: sym };
+            try {
+                const priceRes = await fetch(LAUNCH57_REAL_TIME_PRICES + '?symbol=' + encodeURIComponent(sym));
+                if (priceRes.ok) spine.price = await priceRes.json();
+                const ageMs = spine.price && spine.price.data_age_sec != null ? Number(spine.price.data_age_sec) * 1000 : null;
+                const freshQs = new URLSearchParams({ symbol: sym });
+                if (ageMs != null) freshQs.set('quote_age_ms', String(ageMs));
+                const [quoteRes, provRes, pitRes, connRes, freshRes] = await Promise.all([
+                    fetch(LAUNCH57_QUOTE + '?' + new URLSearchParams({ symbol: sym }).toString()),
+                    fetch(LAUNCH57_DATA_PROVENANCE + '?' + new URLSearchParams({ symbol: sym }).toString()),
+                    fetch(LAUNCH57_PIT_METRICS + '?' + new URLSearchParams({ symbol: sym, price: spine.price?.price ?? '' }).toString()),
+                    fetch(LAUNCH57_UNIFIED_EXCHANGE + '?' + new URLSearchParams({ symbol: sym }).toString()),
+                    fetch(LAUNCH57_FRESHNESS + '?' + freshQs.toString()),
+                ]);
+                if (quoteRes.ok) spine.quote = await quoteRes.json();
+                if (provRes.ok) spine.provenance = await provRes.json();
+                if (pitRes.ok) spine.pit = await pitRes.json();
+                if (connRes.ok) spine.connector = await connRes.json();
+                if (freshRes.ok) spine.freshness = await freshRes.json();
+            } catch (error) {
+                console.debug(error);
+            }
+            lastLaunch57DataSpine = spine;
+            renderLaunch57DataSpine(spine);
+            return spine;
+        }
+
         async function loadChart() {
             if (!series) return;
             const sym = (document.getElementById('symbol').value || 'BTC').toUpperCase();
             const iv = document.getElementById('chartIv').value;
+            const note = document.getElementById('l57ChartNote');
             try {
-                const res = await fetch('/api/market/klines?symbol=' + encodeURIComponent(sym) + '&interval=' + encodeURIComponent(iv) + '&limit=100');
+                const qs = new URLSearchParams({ symbol: sym, interval: iv, limit: '100' });
+                const res = await fetch(LAUNCH57_OHLCV + '?' + qs.toString());
                 const payload = await res.json();
-                const rows = payload.klines || payload || [];
-                series.setData(rows.map(k => ({ time: Math.floor(k[0]/1000), open:+k[1], high:+k[2], low:+k[3], close:+k[4] })));
+                if (!res.ok || !payload.success) {
+                    series.setData([]);
+                    if (note) note.textContent = 'Launch-57 OHLCV unavailable — chart hidden (no legacy fallback).';
+                    return;
+                }
+                const bars = payload.bars || [];
+                series.setData(bars.map(b => ({
+                    time: Math.floor((b.open_time_ms || 0) / 1000),
+                    open: +b.open,
+                    high: +b.high,
+                    low: +b.low,
+                    close: +b.close,
+                })));
                 chart.timeScale().fitContent();
-            } catch (error) { console.debug(error); }
+                if (note) note.textContent = `Launch-57 OHLCV (#23) · ${bars.length} bars · ${esc(payload.interval || iv)}`;
+            } catch (error) {
+                console.debug(error);
+                if (note) note.textContent = 'Launch-57 OHLCV unavailable — chart hidden (no legacy fallback).';
+            }
         }
 
         function renderMarketAssets(assets) {
@@ -2133,6 +2247,7 @@
 
         function runDeferredBoot() {
             initChart();
+            loadLaunch57DataSpine();
             loadChart();
             loadMarket();
             loadOI();

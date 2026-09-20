@@ -84,6 +84,102 @@ async def launch57_real_time_prices(symbol: str = Query("BTC")):
     return await real_time_prices(symbol=symbol, params={"symbol": symbol, "user_key": "anonymous"})
 
 
+@router.get("/api/launch57/ohlcv")
+async def launch57_ohlcv(
+    symbol: str = Query("BTC"),
+    interval: str = Query("1h"),
+    limit: int = Query(100, ge=1, le=500),
+):
+    """Launch #23 — OHLCV bars for dashboard chart."""
+    from launch57.data_batch1 import ohlcv
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await ohlcv(symbol=asset, params={"symbol": asset, "interval": interval, "limit": limit})
+
+
+@router.get("/api/launch57/quote")
+async def launch57_quote(symbol: str = Query("BTC")):
+    """Launch #24 — quote + symbol metadata (distinct contracts)."""
+    from launch57.data_batch1 import quote_data, symbol_metadata
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    quote = await quote_data(symbol=asset, params={"symbol": asset})
+    metadata = await symbol_metadata(symbol=asset, params={"symbol": asset})
+    return {
+        "launch_item_id": 24,
+        "surface": "quote_and_metadata",
+        "symbol": asset,
+        "success": bool(quote.get("success")) and bool(metadata.get("success")),
+        "quote": quote,
+        "metadata": metadata,
+        "backend_module": "launch57.data_batch1",
+        "backend_entrypoint": "quote_data+symbol_metadata",
+    }
+
+
+@router.get("/api/launch57/point-in-time-metrics")
+async def launch57_point_in_time_metrics(
+    symbol: str = Query("BTC"),
+    price: float | None = Query(None),
+):
+    """Launch #39 — immutable point-in-time metrics snapshot."""
+    from launch57.data_batch2 import point_in_time_immutable_metrics
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    metrics: dict[str, Any] = {"symbol": asset}
+    if price is not None:
+        metrics["price"] = price
+    return await point_in_time_immutable_metrics(
+        symbol=asset,
+        params={"symbol": asset, "metrics": metrics, "source_authority": "launch57:consumer_path"},
+    )
+
+
+@router.get("/api/launch57/data-provenance")
+async def launch57_data_provenance(symbol: str = Query("BTC")):
+    """Launch #40 — user-visible data quality & provenance."""
+    from launch57.data_batch2 import data_quality_provenance_layer
+    from launch57.temporal_common import to_rfc3339, utc_now
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await data_quality_provenance_layer(
+        symbol=asset,
+        params={
+            "symbol": asset,
+            "source_authority": "launch57:consumer_path",
+            "source_time": to_rfc3339(utc_now()),
+            "quality_state": "decision_grade",
+        },
+    )
+
+
+@router.get("/api/launch57/freshness")
+async def launch57_freshness(
+    symbol: str = Query("BTC"),
+    quote_age_ms: float | None = Query(None),
+    quote_fresh: bool | None = Query(None),
+):
+    """Launch #41 — freshness assurance (fail-closed; STALE never presented as LIVE)."""
+    from launch57.data_batch2 import freshness_update_assurance
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    params: dict[str, Any] = {"symbol": asset}
+    if quote_age_ms is not None:
+        params["quote_age_ms"] = quote_age_ms
+    if quote_fresh is not None:
+        params["quote_fresh"] = quote_fresh
+    return await freshness_update_assurance(symbol=asset, params=params)
+
+
+@router.get("/api/launch57/unified-exchange")
+async def launch57_unified_exchange(symbol: str = Query("BTC")):
+    """Launch #42 — unified exchange connector routing."""
+    from launch57.data_batch1 import unified_exchange_connector
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await unified_exchange_connector(symbol=asset, params={"symbol": asset})
+
+
 @router.get("/api/launch57/decision-certificate")
 async def launch57_decision_certificate(
     request: Request,
