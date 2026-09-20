@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BLACKDARK — {{ title }}</title>
     <link rel="stylesheet" href="/static/css/trust-os.css">
+    <link rel="stylesheet" href="/static/css/public-visitor-a11y.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -27,7 +28,9 @@
     </style>
 </head>
 <body>
-    <nav>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <a href="#site-footer" class="skip-link">Skip to footer</a>
+    <nav aria-label="Legal">
         <a class="logo" href="/">BLACKDARK</a>
         <a href="/terms" class="{{ 'active' if page == 'terms' else '' }}">Terms</a>
         <a href="/privacy" class="{{ 'active' if page == 'privacy' else '' }}">Privacy</a>
@@ -36,7 +39,7 @@
         <a href="/status">Status</a>
         <a href="/oracle-accuracy">Attribution</a>
     </nav>
-    <main>
+    <main id="main" role="main" tabindex="-1">
         <h1>{{ title }}</h1>
         <p class="meta">Updated {{ updated }}</p>
         <div class="content">{{ html | safe }}</div>

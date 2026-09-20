@@ -1,0 +1,98 @@
+/**
+ * Launch-57 anonymous public visitor — accessibility + narrow viewport baseline.
+ * WCAG-oriented: visible focus, keyboard path to CTA/footer, non-color-only status chips.
+ * builder_status=PENDING_VERIFICATION — not a production audit sign-off.
+ */
+
+/* Visible keyboard focus — CTAs, footer, skip links */
+a:focus-visible,
+button:focus-visible,
+select:focus-visible,
+input:focus-visible,
+[tabindex]:focus-visible,
+.skip-link:focus-visible {
+  outline: 2px solid var(--bd-accent, #22d3ee);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.22);
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  z-index: 200;
+  padding: 0.5rem 0.75rem;
+  background: var(--bd-accent, #22d3ee);
+  color: #0a0a0f;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 8px;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  left: 1rem;
+  top: 1rem;
+  width: auto;
+  height: auto;
+  overflow: visible;
+}
+
+/* Status / freshness chips — color supplements text, never replaces it */
+.tp-mini-live,
+.live-indicator,
+.status-pill,
+.tp-mini-fresh-badge,
+#oracleFreshnessChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.tp-mini-dot,
+.live-dot {
+  flex-shrink: 0;
+}
+
+/* Footer keyboard targets */
+.bd-site-footer a:focus-visible {
+  color: var(--bd-accent, #22d3ee);
+}
+
+/* Narrow viewport — CTA + footer must remain reachable (≤400px) */
+@media (max-width: 400px) {
+  .hero-cta,
+  .cta-row,
+  .tp-mini-cta,
+  .bd-site-footer,
+  footer.bd-site-footer,
+  .btn-primary,
+  .btn-secondary,
+  .btn-seal {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  .bd-site-footer {
+    position: relative;
+    z-index: 5;
+    padding-bottom: 2rem;
+  }
+
+  .hero-cta,
+  .cta-row,
+  .tp-mini-cta {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.65rem;
+  }
+
+  /* Do not hide primary CTA on ultra-narrow screens */
+  .bd-global-links {
+    display: none;
+  }
+}
