@@ -11,6 +11,7 @@
     {"@context":"https://schema.org","@type":"WebPage","name":"BLACKDARK Public Accuracy Ledger","description":"Public verifiable Oracle accuracy including misses, Glass Box locked forecasts, and audit challenge","url":"/oracle-accuracy"}
     </script>
     <link rel="stylesheet" href="/static/css/trust-os.css">
+    <link rel="stylesheet" href="/static/css/public-visitor-a11y.css">
     <style>
         :root {
             --bg: #0a0a0f;
@@ -110,10 +111,12 @@
     </style>
 </head>
 <body>
+    <a href="#stats-grid" class="skip-link">Skip to accuracy stats</a>
+    <a href="#site-footer" class="skip-link">Skip to footer</a>
     {% include 'partials/global_header.html' %}
 
     <section class="hero">
-        <div class="badge">LIVE · PUBLIC AUDIT</div>
+        <div class="badge" role="status" aria-label="Ledger status: live public audit">LIVE · PUBLIC AUDIT</div>
         <h1>BLACKDARK — Public Oracle Accuracy</h1>
         <p>
             Every decision is logged, resolved after 24 hours, and feeds the learning model.

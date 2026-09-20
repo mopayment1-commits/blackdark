@@ -1,0 +1,684 @@
+{
+  "artifact": "BLACKDARK_LAUNCH57_ANONYMOUS_PUBLIC_DISPLAY_SOURCES",
+  "registry_version": "launch57-anonymous-public-display-sources-1.0.0",
+  "builder_status": "PENDING_VERIFICATION",
+  "pass_live_not_claimed": true,
+  "legal_review_markers_open": true,
+  "legal_review_required_markers": [
+    {
+      "id": "uk_financial_promotion",
+      "category": "LEGAL_REVIEW_REQUIRED",
+      "detail": "UK financial-promotion applicability not closed"
+    },
+    {
+      "id": "mica_casp",
+      "category": "LEGAL_REVIEW_REQUIRED",
+      "detail": "MiCA/CASP applicability not closed"
+    }
+  ],
+  "mica_uk_compliance_claim_forbidden": true,
+  "public_visitor_pages": [
+    {
+      "path": "/",
+      "page_id": "landing",
+      "template": "templates/landing.html"
+    },
+    {
+      "path": "/status",
+      "page_id": "status",
+      "template": "templates/utility.html"
+    },
+    {
+      "path": "/how-it-works",
+      "page_id": "how_it_works",
+      "template": "templates/utility.html"
+    },
+    {
+      "path": "/oracle-accuracy",
+      "page_id": "oracle_accuracy",
+      "template": "templates/oracle_accuracy.html"
+    },
+    {
+      "path": "/terms",
+      "page_id": "terms",
+      "template": "templates/legal.html"
+    },
+    {
+      "path": "/privacy",
+      "page_id": "privacy",
+      "template": "templates/legal.html"
+    },
+    {
+      "path": "/disclaimer",
+      "page_id": "disclaimer",
+      "template": "templates/legal.html"
+    }
+  ],
+  "page_table": [
+    {
+      "path": "/",
+      "page_id": "landing",
+      "template": "templates/landing.html",
+      "metric_count": 6,
+      "display_sources": [
+        {
+          "metric_id": "landing_trust_pulse_price",
+          "display_label": "Trust Pulse reference price (USD)",
+          "source_module": "launch57.data_batch1:realtime_prices",
+          "license_public_display": "KNOWN",
+          "api_route": "/api/launch57/real-time-prices"
+        },
+        {
+          "metric_id": "landing_trust_pulse_change_24h",
+          "display_label": "Trust Pulse 24h change",
+          "source_module": "launch57.data_batch1:realtime_prices",
+          "license_public_display": "KNOWN",
+          "api_route": "/api/launch57/real-time-prices"
+        },
+        {
+          "metric_id": "landing_trust_pulse_freshness",
+          "display_label": "Trust Pulse freshness label",
+          "source_module": "launch57.data_batch2:freshness_update_assurance",
+          "license_public_display": "KNOWN",
+          "api_route": "/api/launch57/freshness"
+        },
+        {
+          "metric_id": "landing_price_freshness_badge",
+          "display_label": "Price row freshness badge",
+          "source_module": "launch57.data_batch2:freshness_update_assurance",
+          "license_public_display": "KNOWN",
+          "api_route": null
+        },
+        {
+          "metric_id": "landing_oracle_freshness",
+          "display_label": "Oracle demo freshness label",
+          "source_module": "launch57.data_batch2:freshness_update_assurance",
+          "license_public_display": "KNOWN",
+          "api_route": null
+        },
+        {
+          "metric_id": "landing_oracle_opportunity_score",
+          "display_label": "Oracle demo opportunity score",
+          "source_module": "launch57.trust_batch2:guest_trust_surface",
+          "license_public_display": "DELAYED",
+          "api_route": "/api/launch57/guest-trust"
+        }
+      ]
+    },
+    {
+      "path": "/status",
+      "page_id": "status",
+      "template": "templates/utility.html",
+      "metric_count": 1,
+      "display_sources": [
+        {
+          "metric_id": "status_component_count",
+          "display_label": "Listed system components",
+          "source_module": "site_services:public_status_report",
+          "license_public_display": "KNOWN",
+          "api_route": null
+        }
+      ]
+    },
+    {
+      "path": "/how-it-works",
+      "page_id": "how_it_works",
+      "template": "templates/utility.html",
+      "metric_count": 0,
+      "display_sources": []
+    },
+    {
+      "path": "/oracle-accuracy",
+      "page_id": "oracle_accuracy",
+      "template": "templates/oracle_accuracy.html",
+      "metric_count": 8,
+      "display_sources": [
+        {
+          "metric_id": "accuracy_average_pct",
+          "display_label": "Average accuracy %",
+          "source_module": "launch57.trust_batch1:public_accuracy",
+          "license_public_display": "KNOWN",
+          "api_route": "/api/launch57/public-accuracy"
+        },
+        {
+          "metric_id": "accuracy_total_predictions",
+          "display_label": "Total predictions",
+          "source_module": "launch57.trust_batch1:public_accuracy",
+          "license_public_display": "KNOWN",
+          "api_route": null
+        },
+        {
+          "metric_id": "accuracy_labeled_samples",
+          "display_label": "Training samples (labeled)",
+          "source_module": "launch57.trust_batch1:public_accuracy",
+          "license_public_display": "KNOWN",
+          "api_route": null
+        },
+        {
+          "metric_id": "accuracy_training_runs",
+          "display_label": "Training runs",
+          "source_module": "launch57.trust_batch1:public_accuracy",
+          "license_public_display": "KNOWN",
+          "api_route": null
+        },
+        {
+          "metric_id": "accuracy_exchange_count",
+          "display_label": "Exchanges in model",
+          "source_module": "launch57.trust_batch1:public_accuracy",
+          "license_public_display": "DELAYED",
+          "api_route": null
+        },
+        {
+          "metric_id": "accuracy_assets_tracked",
+          "display_label": "Assets tracked",
+          "source_module": "launch57.trust_batch1:public_accuracy",
+          "license_public_display": "DELAYED",
+          "api_route": null
+        },
+        {
+          "metric_id": "accuracy_shareable_outcome",
+          "display_label": "Shareable accuracy (#45)",
+          "source_module": "launch57.trust_batch2:shareable_accuracy",
+          "license_public_display": "KNOWN",
+          "api_route": "/api/launch57/shareable-accuracy"
+        },
+        {
+          "metric_id": "accuracy_live_ledger_sample",
+          "display_label": "Live ledger sample",
+          "source_module": "launch57.trust_batch1:public_accuracy",
+          "license_public_display": "KNOWN",
+          "api_route": null
+        }
+      ]
+    },
+    {
+      "path": "/terms",
+      "page_id": "terms",
+      "template": "templates/legal.html",
+      "metric_count": 0,
+      "display_sources": []
+    },
+    {
+      "path": "/privacy",
+      "page_id": "privacy",
+      "template": "templates/legal.html",
+      "metric_count": 0,
+      "display_sources": []
+    },
+    {
+      "path": "/disclaimer",
+      "page_id": "disclaimer",
+      "template": "templates/legal.html",
+      "metric_count": 0,
+      "display_sources": []
+    }
+  ],
+  "registry": [
+    {
+      "metric_id": "landing_trust_pulse_price",
+      "page_id": "landing",
+      "display_label": "Trust Pulse reference price (USD)",
+      "source_module": "launch57.data_batch1:realtime_prices",
+      "launch_item_id": 22,
+      "api_route": "/api/launch57/real-time-prices",
+      "dom_selector": "#lpPriceVal",
+      "license_public_display": "KNOWN",
+      "attribution": "Launch-57 #22 governed price spine",
+      "raw_provider_blocked_when_unlicensed": true,
+      "legal_review_open": true,
+      "mica_uk_compliance_claim_forbidden": true
+    },
+    {
+      "metric_id": "landing_trust_pulse_change_24h",
+      "page_id": "landing",
+      "display_label": "Trust Pulse 24h change",
+      "source_module": "launch57.data_batch1:realtime_prices",
+      "launch_item_id": 22,
+      "api_route": "/api/launch57/real-time-prices",
+      "dom_selector": "#lpSym",
+      "license_public_display": "KNOWN",
+      "attribution": "launch57.data_batch1:realtime_prices",
+      "raw_provider_blocked_when_unlicensed": true,
+      "legal_review_open": true,
+      "mica_uk_compliance_claim_forbidden": true
+    },
+    {
+      "metric_id": "landing_trust_pulse_freshness",
+      "page_id": "landing",
+      "display_label": "Trust Pulse freshness label",
+      "source_module": "launch57.data_batch2:freshness_update_assurance",
+      "launch_item_id": 41,
+      "api_route": "/api/launch57/freshness",
+      "dom_selector": "#lpFresh",
+      "license_public_display": "KNOWN",
+      "attribution": "launch57.data_batch2:freshness_update_assurance",
+      "raw_provider_blocked_when_unlicensed": true,
+      "legal_review_open": true,
+      "mica_uk_compliance_claim_forbidden": true
+    },
+    {
+      "metric_id": "landing_price_freshness_badge",
+      "page_id": "landing",
+      "display_label": "Price row freshness badge",
+      "source_module": "launch57.data_batch2:freshness_update_assurance",
+      "launch_item_id": 41,
+      "api_route": null,
+      "dom_selector": "#lpPriceFresh",
+      "license_public_display": "KNOWN",
+      "attribution": "launch57.data_batch2:freshness_update_assurance",
+      "raw_provider_blocked_when_unlicensed": true,
+      "legal_review_open": true,
+      "mica_uk_compliance_claim_forbidden": true
+    },
+    {
+      "metric_id": "landing_oracle_freshness",
+      "page_id": "landing",
+      "display_label": "Oracle demo freshness label",
+      "source_module": "launch57.data_batch2:freshness_update_assurance",
+      "launch_item_id": 41,
+      "api_route": null,
+      "dom_selector": "#oracleFreshnessLabel",
+      "license_public_display": "KNOWN",
+      "attribution": "launch57.data_batch2:freshness_update_assurance",
+      "raw_provider_blocked_when_unlicensed": true,
+      "legal_review_open": true,
+      "mica_uk_compliance_claim_forbidden": true
+    },
+    {
+      "metric_id": "landing_oracle_opportunity_score",
+      "page_id": "landing",
+      "display_label": "Oracle demo opportunity score",
+      "source_module": "launch57.trust_batch2:guest_trust_surface",
+      "launch_item_id": 46,
+      "api_route": "/api/launch57/guest-trust",
+      "dom_selector": "#resultScore",
+      "license_public_display": "DELAYED",
+      "attribution": "Guest-trust disclosure only — not raw provider feed",
+      "raw_provider_blocked_when_unlicensed": true,
+      "legal_review_open": true,
+      "mica_uk_compliance_claim_forbidden": true
+    },
+    {
+      "metric_id": "status_component_count",
+      "page_id": "status",
+      "display_label": "Listed system components",
+      "source_module": "site_services:public_status_report",
+      "launch_item_id": null,
+      "api_route": null,
+      "dom_selector": ".channel-list",
+      "license_public_display": "KNOWN",
+      "attribution": "Operational summary — no raw vendor telemetry",
+      "raw_provider_blocked_when_unlicensed": true,
+      "legal_review_open": true,
+      "mica_uk_compliance_claim_forbidden": true
+    },
+    {
+      "metric_id": "accuracy_average_pct",
+      "page_id": "oracle_accuracy",
+      "display_label": "Average accuracy %",
+      "source_module": "launch57.trust_batch1:public_accuracy",
+      "launch_item_id": 4,
+      "api_route": "/api/launch57/public-accuracy",
+      "dom_selector": "#stat-accuracy",
+      "license_public_display": "KNOWN",
+      "attribution": "launch57.trust_batch1:public_accuracy",
+      "raw_provider_blocked_when_unlicensed": true,
+      "legal_review_open": true,
+      "mica_uk_compliance_claim_forbidden": true
+    },
+    {
+      "metric_id": "accuracy_total_predictions",
+      "page_id": "oracle_accuracy",
+      "display_label": "Total predictions",
+      "source_module": "launch57.trust_batch1:public_accuracy",
+      "launch_item_id": 4,
+      "api_route": null,
+      "dom_selector": "#stat-total",
+      "license_public_display": "KNOWN",
+      "attribution": "launch57.trust_batch1:public_accuracy",
+      "raw_provider_blocked_when_unlicensed": true,
+      "legal_review_open": true,
+      "mica_uk_compliance_claim_forbidden": true
+    },
+    {
+      "metric_id": "accuracy_labeled_samples",
+      "page_id": "oracle_accuracy",
+      "display_label": "Training samples (labeled)",
+      "source_module": "launch57.trust_batch1:public_accuracy",
+      "launch_item_id": 4,
+      "api_route": null,
+      "dom_selector": "#stat-labeled",
+      "license_public_display": "KNOWN",
+      "attribution": "launch57.trust_batch1:public_accuracy",
+      "raw_provider_blocked_when_unlicensed": true,
+      "legal_review_open": true,
+      "mica_uk_compliance_claim_forbidden": true
+    },
+    {
+      "metric_id": "accuracy_training_runs",
+      "page_id": "oracle_accuracy",
+      "display_label": "Training runs",
+      "source_module": "launch57.trust_batch1:public_accuracy",
+      "launch_item_id": 4,
+      "api_route": null,
+      "dom_selector": "#stat-training",
+      "license_public_display": "KNOWN",
+      "attribution": "launch57.trust_batch1:public_accuracy",
+      "raw_provider_blocked_when_unlicensed": true,
+      "legal_review_open": true,
+      "mica_uk_compliance_claim_forbidden": true
+    },
+    {
+      "metric_id": "accuracy_exchange_count",
+      "page_id": "oracle_accuracy",
+      "display_label": "Exchanges in model",
+      "source_module": "launch57.trust_batch1:public_accuracy",
+      "launch_item_id": 4,
+      "api_route": null,
+      "dom_selector": "#stat-exchanges",
+      "license_public_display": "DELAYED",
+      "attribution": "Aggregated count — delayed public disclosure",
+      "raw_provider_blocked_when_unlicensed": true,
+      "legal_review_open": true,
+      "mica_uk_compliance_claim_forbidden": true
+    },
+    {
+      "metric_id": "accuracy_assets_tracked",
+      "page_id": "oracle_accuracy",
+      "display_label": "Assets tracked",
+      "source_module": "launch57.trust_batch1:public_accuracy",
+      "launch_item_id": 4,
+      "api_route": null,
+      "dom_selector": "#stat-assets",
+      "license_public_display": "DELAYED",
+      "attribution": "launch57.trust_batch1:public_accuracy",
+      "raw_provider_blocked_when_unlicensed": true,
+      "legal_review_open": true,
+      "mica_uk_compliance_claim_forbidden": true
+    },
+    {
+      "metric_id": "accuracy_shareable_outcome",
+      "page_id": "oracle_accuracy",
+      "display_label": "Shareable accuracy (#45)",
+      "source_module": "launch57.trust_batch2:shareable_accuracy",
+      "launch_item_id": 45,
+      "api_route": "/api/launch57/shareable-accuracy",
+      "dom_selector": "#launch57-shareable-accuracy-detail",
+      "license_public_display": "KNOWN",
+      "attribution": "launch57.trust_batch2:shareable_accuracy",
+      "raw_provider_blocked_when_unlicensed": true,
+      "legal_review_open": true,
+      "mica_uk_compliance_claim_forbidden": true
+    },
+    {
+      "metric_id": "accuracy_live_ledger_sample",
+      "page_id": "oracle_accuracy",
+      "display_label": "Live ledger sample",
+      "source_module": "launch57.trust_batch1:public_accuracy",
+      "launch_item_id": 4,
+      "api_route": null,
+      "dom_selector": "#launch57-ledger-detail",
+      "license_public_display": "KNOWN",
+      "attribution": "launch57.trust_batch1:public_accuracy",
+      "raw_provider_blocked_when_unlicensed": true,
+      "legal_review_open": true,
+      "mica_uk_compliance_claim_forbidden": true
+    }
+  ],
+  "verification": {
+    "registry_version": "launch57-anonymous-public-display-sources-1.0.0",
+    "builder_status": "PENDING_VERIFICATION",
+    "pass_live_not_claimed": true,
+    "metric_count": 15,
+    "page_count": 7,
+    "all_metrics_have_license_status": true,
+    "missing_license_status": [],
+    "blocked_gate_ok": true,
+    "pages_without_numeric_metrics": [],
+    "legal_review_markers_open": true,
+    "mica_uk_compliance_claim_forbidden": true
+  },
+  "automated_a11y_scan": {
+    "builder_status": "PENDING_VERIFICATION",
+    "wcag_full_audit_claimed": false,
+    "pass_live_not_claimed": true,
+    "axe_available": true,
+    "axe_executed_successfully": false,
+    "axe_total_violations_when_ran": null,
+    "static_probe_pass": true,
+    "static_page_results": [
+      {
+        "path": "/",
+        "scanner": "static_html_probes",
+        "pass": true,
+        "failed_probes": [],
+        "probes": {
+          "skip_link_present": true,
+          "footer_present": true,
+          "a11y_stylesheet_linked": true,
+          "focus_visible_css_contract": true,
+          "no_color_only_status_chip_in_html": true,
+          "footer_links_are_anchors": true
+        },
+        "wcag_full_audit_claimed": false
+      },
+      {
+        "path": "/status",
+        "scanner": "static_html_probes",
+        "pass": true,
+        "failed_probes": [],
+        "probes": {
+          "skip_link_present": true,
+          "footer_present": true,
+          "a11y_stylesheet_linked": true,
+          "focus_visible_css_contract": true,
+          "no_color_only_status_chip_in_html": true,
+          "footer_links_are_anchors": true
+        },
+        "wcag_full_audit_claimed": false
+      },
+      {
+        "path": "/how-it-works",
+        "scanner": "static_html_probes",
+        "pass": true,
+        "failed_probes": [],
+        "probes": {
+          "skip_link_present": true,
+          "footer_present": true,
+          "a11y_stylesheet_linked": true,
+          "focus_visible_css_contract": true,
+          "no_color_only_status_chip_in_html": true,
+          "footer_links_are_anchors": true
+        },
+        "wcag_full_audit_claimed": false
+      },
+      {
+        "path": "/oracle-accuracy",
+        "scanner": "static_html_probes",
+        "pass": true,
+        "failed_probes": [],
+        "probes": {
+          "skip_link_present": true,
+          "footer_present": true,
+          "a11y_stylesheet_linked": true,
+          "focus_visible_css_contract": true,
+          "no_color_only_status_chip_in_html": true,
+          "footer_links_are_anchors": true
+        },
+        "wcag_full_audit_claimed": false
+      },
+      {
+        "path": "/terms",
+        "scanner": "static_html_probes",
+        "pass": true,
+        "failed_probes": [],
+        "probes": {
+          "skip_link_present": true,
+          "footer_present": true,
+          "a11y_stylesheet_linked": true,
+          "focus_visible_css_contract": true,
+          "no_color_only_status_chip_in_html": true,
+          "footer_links_are_anchors": true,
+          "legal_nav_present": true
+        },
+        "wcag_full_audit_claimed": false
+      },
+      {
+        "path": "/privacy",
+        "scanner": "static_html_probes",
+        "pass": true,
+        "failed_probes": [],
+        "probes": {
+          "skip_link_present": true,
+          "footer_present": true,
+          "a11y_stylesheet_linked": true,
+          "focus_visible_css_contract": true,
+          "no_color_only_status_chip_in_html": true,
+          "footer_links_are_anchors": true,
+          "legal_nav_present": true
+        },
+        "wcag_full_audit_claimed": false
+      },
+      {
+        "path": "/disclaimer",
+        "scanner": "static_html_probes",
+        "pass": true,
+        "failed_probes": [],
+        "probes": {
+          "skip_link_present": true,
+          "footer_present": true,
+          "a11y_stylesheet_linked": true,
+          "focus_visible_css_contract": true,
+          "no_color_only_status_chip_in_html": true,
+          "footer_links_are_anchors": true,
+          "legal_nav_present": true
+        },
+        "wcag_full_audit_claimed": false
+      }
+    ],
+    "axe_page_results": [
+      {
+        "path": "/",
+        "scanner": "axe-core",
+        "available": true,
+        "ran": false,
+        "exit_code": 2,
+        "violation_count": null,
+        "violations_sample": [],
+        "chrome_driver_mismatch": true,
+        "stderr_tail": "specific synced versions using \n        \n        $ npx browser-driver-manager install chrome@<version>\n\n        where <version> is a specific version, e.g. 123.45.67, or a channel, e.g. canary.\n\n        You may also pass the `--chromedriver-path` option to axe:\n\n        $ axe --chromedriver-path <path/to/chromedriver-executable>\nError: session not created: This version of ChromeDriver only supports Chrome version 153\nCurrent browser version is 148.0.7778.96 with binary path /usr/local/bin/chrome",
+        "wcag_full_audit_claimed": false,
+        "note": "axe blocked by Chrome/ChromeDriver version mismatch; static probes used"
+      },
+      {
+        "path": "/status",
+        "scanner": "axe-core",
+        "available": true,
+        "ran": false,
+        "exit_code": 2,
+        "violation_count": null,
+        "violations_sample": [],
+        "chrome_driver_mismatch": true,
+        "stderr_tail": "specific synced versions using \n        \n        $ npx browser-driver-manager install chrome@<version>\n\n        where <version> is a specific version, e.g. 123.45.67, or a channel, e.g. canary.\n\n        You may also pass the `--chromedriver-path` option to axe:\n\n        $ axe --chromedriver-path <path/to/chromedriver-executable>\nError: session not created: This version of ChromeDriver only supports Chrome version 153\nCurrent browser version is 148.0.7778.96 with binary path /usr/local/bin/chrome",
+        "wcag_full_audit_claimed": false,
+        "note": "axe blocked by Chrome/ChromeDriver version mismatch; static probes used"
+      },
+      {
+        "path": "/how-it-works",
+        "scanner": "axe-core",
+        "available": true,
+        "ran": false,
+        "exit_code": 2,
+        "violation_count": null,
+        "violations_sample": [],
+        "chrome_driver_mismatch": true,
+        "stderr_tail": "specific synced versions using \n        \n        $ npx browser-driver-manager install chrome@<version>\n\n        where <version> is a specific version, e.g. 123.45.67, or a channel, e.g. canary.\n\n        You may also pass the `--chromedriver-path` option to axe:\n\n        $ axe --chromedriver-path <path/to/chromedriver-executable>\nError: session not created: This version of ChromeDriver only supports Chrome version 153\nCurrent browser version is 148.0.7778.96 with binary path /usr/local/bin/chrome",
+        "wcag_full_audit_claimed": false,
+        "note": "axe blocked by Chrome/ChromeDriver version mismatch; static probes used"
+      },
+      {
+        "path": "/oracle-accuracy",
+        "scanner": "axe-core",
+        "available": true,
+        "ran": false,
+        "exit_code": 2,
+        "violation_count": null,
+        "violations_sample": [],
+        "chrome_driver_mismatch": true,
+        "stderr_tail": "specific synced versions using \n        \n        $ npx browser-driver-manager install chrome@<version>\n\n        where <version> is a specific version, e.g. 123.45.67, or a channel, e.g. canary.\n\n        You may also pass the `--chromedriver-path` option to axe:\n\n        $ axe --chromedriver-path <path/to/chromedriver-executable>\nError: session not created: This version of ChromeDriver only supports Chrome version 153\nCurrent browser version is 148.0.7778.96 with binary path /usr/local/bin/chrome",
+        "wcag_full_audit_claimed": false,
+        "note": "axe blocked by Chrome/ChromeDriver version mismatch; static probes used"
+      },
+      {
+        "path": "/terms",
+        "scanner": "axe-core",
+        "available": true,
+        "ran": false,
+        "exit_code": 2,
+        "violation_count": null,
+        "violations_sample": [],
+        "chrome_driver_mismatch": true,
+        "stderr_tail": "specific synced versions using \n        \n        $ npx browser-driver-manager install chrome@<version>\n\n        where <version> is a specific version, e.g. 123.45.67, or a channel, e.g. canary.\n\n        You may also pass the `--chromedriver-path` option to axe:\n\n        $ axe --chromedriver-path <path/to/chromedriver-executable>\nError: session not created: This version of ChromeDriver only supports Chrome version 153\nCurrent browser version is 148.0.7778.96 with binary path /usr/local/bin/chrome",
+        "wcag_full_audit_claimed": false,
+        "note": "axe blocked by Chrome/ChromeDriver version mismatch; static probes used"
+      },
+      {
+        "path": "/privacy",
+        "scanner": "axe-core",
+        "available": true,
+        "ran": false,
+        "exit_code": 2,
+        "violation_count": null,
+        "violations_sample": [],
+        "chrome_driver_mismatch": true,
+        "stderr_tail": "specific synced versions using \n        \n        $ npx browser-driver-manager install chrome@<version>\n\n        where <version> is a specific version, e.g. 123.45.67, or a channel, e.g. canary.\n\n        You may also pass the `--chromedriver-path` option to axe:\n\n        $ axe --chromedriver-path <path/to/chromedriver-executable>\nError: session not created: This version of ChromeDriver only supports Chrome version 153\nCurrent browser version is 148.0.7778.96 with binary path /usr/local/bin/chrome",
+        "wcag_full_audit_claimed": false,
+        "note": "axe blocked by Chrome/ChromeDriver version mismatch; static probes used"
+      },
+      {
+        "path": "/disclaimer",
+        "scanner": "axe-core",
+        "available": true,
+        "ran": false,
+        "exit_code": 2,
+        "violation_count": null,
+        "violations_sample": [],
+        "chrome_driver_mismatch": true,
+        "stderr_tail": "specific synced versions using \n        \n        $ npx browser-driver-manager install chrome@<version>\n\n        where <version> is a specific version, e.g. 123.45.67, or a channel, e.g. canary.\n\n        You may also pass the `--chromedriver-path` option to axe:\n\n        $ axe --chromedriver-path <path/to/chromedriver-executable>\nError: session not created: This version of ChromeDriver only supports Chrome version 153\nCurrent browser version is 148.0.7778.96 with binary path /usr/local/bin/chrome",
+        "wcag_full_audit_claimed": false,
+        "note": "axe blocked by Chrome/ChromeDriver version mismatch; static probes used"
+      }
+    ],
+    "automated_check_summary": "static_probes=PASS; axe=NOT_RAN; violations=n/a"
+  },
+  "footer_link_probe": {
+    "pass": true,
+    "checked": [
+      {
+        "href": "/terms",
+        "status_code": 200
+      },
+      {
+        "href": "/privacy",
+        "status_code": 200
+      },
+      {
+        "href": "/disclaimer",
+        "status_code": 200
+      },
+      {
+        "href": "/how-it-works",
+        "status_code": 200
+      },
+      {
+        "href": "/status",
+        "status_code": 200
+      },
+      {
+        "href": "/oracle-accuracy",
+        "status_code": 200
+      }
+    ],
+    "broken": []
+  }
+}
