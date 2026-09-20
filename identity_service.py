@@ -100,12 +100,7 @@ def validate_password(password: str, *, email: str = "") -> None:
     validate_password_policy(password, email=email)
 
 
-def validate_username(username: str) -> str:
-    u = (username or "").strip().lower()
-    if not USERNAME_RE.match(u):
-        raise ValueError(
-            "Username must be 3–24 chars, start with a letter, and use a-z, 0-9, underscore"
-        )
+def _reserved_usernames() -> set[str]:
     reserved = {
         "admin",
         "api",
@@ -123,7 +118,19 @@ def validate_username(username: str) -> str:
         "billing",
         "security",
     }
-    if u in reserved:
+    extra = os.getenv("IDENTITY_RESERVED_USERNAMES", "")
+    if extra:
+        reserved.update(x.strip().lower() for x in extra.split(",") if x.strip())
+    return reserved
+
+
+def validate_username(username: str) -> str:
+    u = (username or "").strip().lower()
+    if not USERNAME_RE.match(u):
+        raise ValueError(
+            "Username must be 3–24 chars, start with a letter, and use a-z, 0-9, underscore"
+        )
+    if u in _reserved_usernames():
         raise ValueError("Username is reserved")
     return u
 
@@ -171,6 +178,9 @@ def identity_architecture() -> dict[str, Any]:
             "login": False,
             "public_handle": True,
             "pattern": USERNAME_RE.pattern,
+            "case_folding": "lower",
+            "homoglyph_check": "deferred",
+            "reserved_list": True,
         },
         "password_policy": {
             **__import__("password_security").password_policy_metadata(),

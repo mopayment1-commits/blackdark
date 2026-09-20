@@ -1674,6 +1674,16 @@ async def verify_email_page(request: Request, token: str = ""):
 
         user_id = await consume_auth_token(safe, "email_verify")
         await mark_email_verified(user_id)
+        from identity_audit import log_identity_auth_event
+        from identity_signup import activate_pending_signup_plan
+
+        activated = await activate_pending_signup_plan(user_id)
+        log_identity_auth_event(
+            "auth_email_verified",
+            user_id=user_id,
+            request=request,
+            detail={"pending_plan_activated": bool(activated)},
+        )
     except ValueError:
         return templates.TemplateResponse(
             request,

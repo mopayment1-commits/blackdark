@@ -239,10 +239,11 @@ async def register_user(
     *,
     username: str = "",
     accepted_terms: bool = False,
+    accepted_privacy: bool = False,
     plan: str = "free",
 ) -> dict[str, Any]:
     from database import create_user, fetch_user_by_email, fetch_user_by_username
-    from billing.subscription_engine import start_paid_trial
+    from identity_signup import defer_paid_signup_plan
     from identity_service import (
         send_verification_email,
         validate_display_name,
@@ -253,7 +254,9 @@ async def register_user(
     from pricing_catalog import normalize_signup_plan, signup_next_after_register
 
     if not accepted_terms:
-        raise ValueError("You must accept Terms, Privacy, and Risk Disclaimer")
+        raise ValueError("You must accept the Terms of Service")
+    if not accepted_privacy:
+        raise ValueError("You must accept the Privacy Policy")
     email = validate_email(email)
     validate_password(password, email=email)
     display = validate_display_name(name)
@@ -274,20 +277,19 @@ async def register_user(
 
     trial_payload: dict[str, Any] | None = None
     if next_step.get("start_paid_trial") and selected_plan != "free":
-        trial = await start_paid_trial(user_id, email, selected_plan)
+        deferred = await defer_paid_signup_plan(user_id, email, selected_plan)
         trial_payload = {
-            "active": True,
-            "ends_at": trial.get("trial_ends_at") or trial.get("current_period_end"),
+            "active": False,
+            "pending_until_verification": True,
+            "plan": deferred["plan"],
             "days": next_step.get("trial_days"),
-            "plan": selected_plan,
         }
     elif next_step.get("start_pro_trial"):
-        trial = await start_paid_trial(user_id, email, "pro")
+        deferred = await defer_paid_signup_plan(user_id, email, "pro")
         trial_payload = {
-            "active": True,
-            "ends_at": trial.get("trial_ends_at"),
-            "days": trial.get("trial_ends_at"),
-            "plan": "pro",
+            "active": False,
+            "pending_until_verification": True,
+            "plan": deferred["plan"],
         }
 
     session = await create_session(user_id)

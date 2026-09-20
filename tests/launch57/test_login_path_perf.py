@@ -55,7 +55,8 @@ def test_login_path_segment_latencies_bounded():
     email = f"perf-{uuid.uuid4().hex[:10]}@example.com"
     client.post(
         "/api/auth/register",
-        json={"email": email, "password": "SecurePass1234!", "accepted_terms": True},
+        json={"email": email, "password": "SecurePass1234!", "accepted_terms": True,
+            "accepted_privacy": True},
         headers={"Origin": "https://testserver"},
     )
 

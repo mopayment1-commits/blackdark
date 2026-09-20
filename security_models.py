@@ -11,6 +11,7 @@ class AuthRegisterBody(BaseModel):
     name: str = Field(default="", max_length=80)
     username: str = Field(default="", max_length=24)
     accepted_terms: bool = False
+    accepted_privacy: bool = False
     # Option A plan pick at signup: free | pro | whale | institutional
     plan: str = Field(default="free", max_length=32)
 

@@ -99,6 +99,7 @@ def test_dashboard_page_200_with_session_cookie(authed_client, monkeypatch):
             "email": f"post-auth-dash-{uuid.uuid4().hex[:10]}@example.com",
             "password": "SecurePass1234!",
             "accepted_terms": True,
+            "accepted_privacy": True,
         },
         headers={"Origin": "https://testserver"},
     )
@@ -211,6 +212,7 @@ def test_register_then_command_home_path_not_500(monkeypatch):
             "email": email,
             "password": "SecurePass1234!",
             "accepted_terms": True,
+            "accepted_privacy": True,
         },
     )
     assert reg.status_code == 200, reg.text

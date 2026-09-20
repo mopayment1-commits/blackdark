@@ -14,6 +14,7 @@ class ProtectedOperation(str, Enum):
     BILLING_DOWNGRADE = "billing.downgrade"
     PRIVACY_DSR_EXPORT = "privacy.dsr.export"
     PRIVACY_DSR_ERASE = "privacy.dsr.erase"
+    IDENTITY_PASSWORD_CHANGE = "identity.password.change"
     USER_EXCHANGE_KEYS_STORE = "user.exchange_keys.store"
     USER_EXCHANGE_KEYS_DELETE = "user.exchange_keys.delete"
     INSTITUTIONAL_ROLE_CHANGE = "institutional.role.change"
@@ -103,6 +104,16 @@ _OPERATION_SPECS: dict[ProtectedOperation, OperationSpec] = {
         privileged_session=True,
         resource_class="financial_erasure",
         description="Erase personal data (DSR)",
+    ),
+    ProtectedOperation.IDENTITY_PASSWORD_CHANGE: OperationSpec(
+        operation=ProtectedOperation.IDENTITY_PASSWORD_CHANGE,
+        mfa_required=False,
+        step_up_required=True,
+        org_permission=None,
+        resource_owner_required=True,
+        privileged_session=False,
+        resource_class="identity_credential",
+        description="Change account password",
     ),
     ProtectedOperation.USER_EXCHANGE_KEYS_STORE: OperationSpec(
         operation=ProtectedOperation.USER_EXCHANGE_KEYS_STORE,
