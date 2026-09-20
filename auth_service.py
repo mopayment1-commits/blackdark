@@ -184,7 +184,6 @@ TIER_FEATURES: dict[str, dict[str, Any]] = {
 }
 
 SESSION_DAYS = int(os.getenv("AUTH_SESSION_DAYS", "30"))
-PBKDF2_ITERATIONS = 260_000
 
 
 def _utcnow() -> datetime:
@@ -196,30 +195,15 @@ def _utcnow_iso() -> str:
 
 
 def hash_password(password: str) -> str:
-    salt = secrets.token_hex(16)
-    digest = hashlib.pbkdf2_hmac(
-        "sha256",
-        password.encode("utf-8"),
-        salt.encode("utf-8"),
-        PBKDF2_ITERATIONS,
-    )
-    return f"pbkdf2_sha256${PBKDF2_ITERATIONS}${salt}${digest.hex()}"
+    from password_security import hash_password as _hash_password
+
+    return _hash_password(password)
 
 
 def verify_password(password: str, stored: str) -> bool:
-    try:
-        scheme, iterations, salt, digest_hex = stored.split("$", 3)
-        if scheme != "pbkdf2_sha256":
-            return False
-        expected = hashlib.pbkdf2_hmac(
-            "sha256",
-            password.encode("utf-8"),
-            salt.encode("utf-8"),
-            int(iterations),
-        )
-        return hmac.compare_digest(expected.hex(), digest_hex)
-    except (ValueError, TypeError):
-        return False
+    from password_security import verify_password as _verify_password
+
+    return _verify_password(password, stored)
 
 
 def normalize_email(email: str) -> str:
@@ -409,9 +393,20 @@ async def login_user(
     email = normalize_email(email)
     check_login_rate_limit(email)
     user = await fetch_user_by_email(email)
-    if user is None or not verify_password(password, str(user.get("password_hash") or "")):
+    stored_hash = str(user.get("password_hash") or "") if user else ""
+    from password_security import verify_password_detailed
+
+    ok, needs_rehash = verify_password_detailed(password, stored_hash)
+    if user is None or not ok:
         _record_invalid_login(email)
         raise ValueError("Invalid email or password")
+    if needs_rehash:
+        from database import update_user_profile_fields
+
+        await update_user_profile_fields(
+            int(user["id"]),
+            {"password_hash": hash_password(password), "password_is_set": 1},
+        )
 
     mfa_enabled = bool(int(user.get("mfa_enabled") or 0))
     # Org-enforced MFA (Report-2 C-P0-02) — refuse login if org requires MFA and user not enrolled.
