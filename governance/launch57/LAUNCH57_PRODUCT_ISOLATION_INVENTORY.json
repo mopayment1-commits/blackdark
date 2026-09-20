@@ -1,0 +1,46 @@
+{
+  "artifact": "LAUNCH57_PRODUCT_ISOLATION_INVENTORY",
+  "generated_at": "2026-09-20T21:55:00+00:00",
+  "scope": "Launch-57 product isolation batch — first screen + visible launch paths",
+  "ready_launch_count": 55,
+  "blocked_external_launch_ids": [33, 38],
+  "verification_status": "PENDING_VERIFICATION",
+  "pass_live_claimed": false,
+  "isolated_elements": [
+    {"id": "toolbar-since-you-left", "surface": "toolbar", "legacy_path": "/since-you-left", "action": "hidden"},
+    {"id": "toolbar-miss-feed", "surface": "toolbar", "legacy_path": "/miss-feed", "action": "hidden"},
+    {"id": "toolbar-coverage-honesty", "surface": "toolbar", "legacy_path": "/coverage-honesty", "action": "hidden"},
+    {"id": "toolbar-corpus-passport", "surface": "toolbar", "legacy_path": "/corpus-passport", "action": "hidden"},
+    {"id": "toolbar-portfolio", "surface": "toolbar", "legacy_path": "#portfolio", "action": "hidden"},
+    {"id": "toolbar-stealth", "surface": "toolbar", "legacy_path": "#stealth", "action": "hidden"},
+    {"id": "section-since-you-left", "surface": "section", "legacy_path": "/since-you-left", "action": "hidden"},
+    {"id": "section-market-radar", "surface": "section", "legacy_path": "/api/market/overview", "action": "hidden"},
+    {"id": "section-operate-digest", "surface": "section", "legacy_path": "/api/subscriber/value", "action": "hidden"},
+    {"id": "section-portfolio", "surface": "section", "legacy_path": "/portfolio/analyze", "action": "hidden"},
+    {"id": "section-half-life-clock", "surface": "section", "legacy_path": "/kill-rate", "action": "hidden"},
+    {"id": "section-stealth", "surface": "section", "legacy_path": "/api/whale/stealth-advisor", "action": "hidden"},
+    {"id": "section-mev", "surface": "section", "legacy_path": "/api/mev/sandwich-report", "action": "hidden"},
+    {"id": "section-legacy-alerts", "surface": "section", "legacy_path": "/api/alerts/telegram", "action": "hidden"},
+    {"id": "lens-room", "surface": "lens", "legacy_path": "/data-room", "action": "hidden"},
+    {"id": "entry-my-book", "surface": "entry-rail", "legacy_path": "#portfolio", "action": "out_of_scope_alert"},
+    {"id": "entry-legacy-alerts", "surface": "entry-rail", "legacy_path": "#alerts", "action": "out_of_scope_alert"},
+    {"id": "dashboard-stream", "surface": "stream", "legacy_path": "/api/dashboard/stream", "action": "fetch_guarded"}
+  ],
+  "blocked_external_surfaces": [
+    {
+      "key": "smart_alerts",
+      "label": "Smart Alerts — Telegram محجوب خارجيًا",
+      "telegram_send_forbidden": true,
+      "live_path_forbidden": true
+    },
+    {
+      "key": "mvrv_zscore",
+      "label": "MVRV / Z-Score — مصدر مرخّص محجوب خارجيًا",
+      "telegram_send_forbidden": false,
+      "live_path_forbidden": true
+    }
+  ],
+  "tests": [
+    "tests/launch57/test_product_isolation_batch.py"
+  ]
+}

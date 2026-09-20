@@ -69,6 +69,13 @@ async def launch57_tier_distribution():
     }
 
 
+@router.get("/api/launch57/product-isolation")
+async def launch57_product_isolation():
+    from launch57.product_isolation import build_product_isolation_manifest
+
+    return build_product_isolation_manifest()
+
+
 @router.get("/api/launch57/guest-trust")
 async def launch57_guest_trust(symbol: str = Query("BTC")):
     from launch57.trust_batch2 import guest_trust_surface

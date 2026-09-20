@@ -162,6 +162,13 @@
             0% { background-position: 100% 0; }
             100% { background-position: -100% 0; }
         }
+        .launch57-out-of-scope {
+            padding: .65rem .85rem; border-radius: 10px; border: 1px dashed #3f3f46;
+            background: rgba(26,26,36,.85); color: #a1a1aa; font-size: .85rem;
+        }
+        .tp-chip.blocked { border-color: rgba(239,68,68,.45); color: #fca5a5; }
+        [data-launch57-isolated="true"] { display: none !important; }
+        #launch57-blocked-external { margin: 1rem 0; }
     </style>
 </head>
 <body>
@@ -200,11 +207,14 @@
             <div class="tp-foot" id="tpFoot"><strong>Anti-Hype</strong> · Not financial advice · AI cannot guarantee returns</div>
         </section>
 
+        <section id="launch57-blocked-external" aria-label="Launch-57 blocked external" hidden></section>
+        <div id="launch57-out-of-scope-notice" class="launch57-out-of-scope hide-in-room" hidden aria-live="polite"></div>
+
         <div class="lens-bar hide-in-room" id="lensBar" aria-label="Trust OS lenses">
             <button type="button" class="lens-btn active" data-lens="prove">Prove</button>
             <button type="button" class="lens-btn" data-lens="operate">Operate</button>
             <button type="button" class="lens-btn" data-lens="desk">Desk</button>
-            <button type="button" class="lens-btn room" data-lens="room">Room</button>
+            <button type="button" class="lens-btn room" data-lens="room" data-launch57-isolate="legacy-non-l57" data-launch57-isolate-id="lens-room">Room</button>
         </div>
         <div class="entry-rail hide-in-room" id="entryRail" aria-label="Primary entries"></div>
         <div class="intent-wrap hide-in-room" id="intentWrap">
@@ -219,13 +229,13 @@
                 <option value="pro">Pro</option>
             </select>
             <a class="btn secondary" href="/oracle-accuracy" style="text-decoration:none;display:inline-flex;align-items:center">Verify Ledger</a>
-            <a class="btn secondary" href="/since-you-left" style="text-decoration:none;display:inline-flex;align-items:center">Since You Left</a>
-            <a class="btn secondary" href="/miss-feed" style="text-decoration:none;display:inline-flex;align-items:center">Miss Feed</a>
-            <a class="btn secondary" href="/coverage-honesty" style="text-decoration:none;display:inline-flex;align-items:center">Coverage Honesty</a>
+            <a class="btn secondary" href="/since-you-left" data-launch57-isolate="legacy-non-l57" data-launch57-isolate-id="toolbar-since-you-left" style="text-decoration:none;display:inline-flex;align-items:center">Since You Left</a>
+            <a class="btn secondary" href="/miss-feed" data-launch57-isolate="legacy-non-l57" data-launch57-isolate-id="toolbar-miss-feed" style="text-decoration:none;display:inline-flex;align-items:center">Miss Feed</a>
+            <a class="btn secondary" href="/coverage-honesty" data-launch57-isolate="legacy-non-l57" data-launch57-isolate-id="toolbar-coverage-honesty" style="text-decoration:none;display:inline-flex;align-items:center">Coverage Honesty</a>
             <button class="btn secondary" type="button" id="antiHypeBtn" data-bd-call="toggleAntiHype">Anti-Hype</button>
-            <a class="btn secondary section-operate-plus" href="#portfolio" style="text-decoration:none;display:inline-flex;align-items:center">My book</a>
-            <a class="btn secondary section-desk-only" href="#stealth" style="text-decoration:none;display:inline-flex;align-items:center">Desk tools</a>
-            <a class="btn secondary section-desk-only" href="/corpus-passport" style="text-decoration:none;display:inline-flex;align-items:center">Corpus Passport</a>
+            <a class="btn secondary section-operate-plus" href="#portfolio" data-launch57-isolate="legacy-non-l57" data-launch57-isolate-id="toolbar-portfolio" style="text-decoration:none;display:inline-flex;align-items:center">My book</a>
+            <a class="btn secondary section-desk-only" href="#stealth" data-launch57-isolate="legacy-non-l57" data-launch57-isolate-id="toolbar-stealth" style="text-decoration:none;display:inline-flex;align-items:center">Desk tools</a>
+            <a class="btn secondary section-desk-only" href="/corpus-passport" data-launch57-isolate="legacy-non-l57" data-launch57-isolate-id="toolbar-corpus-passport" style="text-decoration:none;display:inline-flex;align-items:center">Corpus Passport</a>
         </div>
         <div class="picks hide-in-room">
             <button type="button" class="pick" data-bd-call="setSymbol" data-bd-args="[&quot;BTC&quot;]">BTC</button>
@@ -242,7 +252,7 @@
         <div id="oracle" class="hide-in-room" style="height:0;overflow:hidden" aria-hidden="true"></div>
         <section class="oracle-box hide-in-room" id="oracleBox"><div id="oracleContent" class="loading">{{ t('oracle.analyzing') }}</div></section>
 
-        <section id="since-you-left" class="hide-in-room" data-evidence>
+        <section id="since-you-left" class="hide-in-room" data-evidence data-launch57-isolate="legacy-non-l57" data-launch57-isolate-id="section-since-you-left">
             <h2>Since You Left — Top 3</h2>
             <p class="sub">What changed since your last visit</p>
             <div id="sinceYouLeftBox" class="empty">Loading continuity…</div>
@@ -306,7 +316,7 @@
             <p class="sub" id="l57ChartNote" style="margin-top:.5rem">Launch-57 OHLCV (#23) — chart hidden if bars unavailable.</p>
         </section>
 
-        <div class="grid-2 section-operate-plus hide-in-room" id="radar">
+        <div class="grid-2 section-operate-plus hide-in-room" id="radar" data-launch57-isolate="legacy-non-l57" data-launch57-isolate-id="section-market-radar">
             <section>
                 <h2>Market Radar</h2>
                 <div class="grid" id="market"><div class="loading">Loading…</div></div>
@@ -332,7 +342,7 @@
             <div id="whaleCompliance" style="margin-top:.65rem;font-size:.72rem;color:#71717a"></div>
         </section>
 
-        <section id="operate-digest" class="section-operate-plus hide-in-room">
+        <section id="operate-digest" class="section-operate-plus hide-in-room" data-launch57-isolate="legacy-non-l57" data-launch57-isolate-id="section-operate-digest">
             <h2>Operate digest</h2>
             <p class="sub">Daily research brief + subscriber value — DECIDE / PRO and above</p>
             <div class="toolbar" style="margin-bottom:.65rem">
@@ -344,7 +354,7 @@
             <div id="subscriberValueBox" class="arb-card" style="margin-top:.65rem"><div class="empty" style="padding:.25rem 0">Pro/Whale — subscriber value</div></div>
         </section>
 
-        <section id="portfolio" class="section-operate-plus hide-in-room">
+        <section id="portfolio" class="section-operate-plus hide-in-room" data-launch57-isolate="legacy-non-l57" data-launch57-isolate-id="section-portfolio">
             <h2>Portfolio AI</h2>
             <p class="sub">Risk in plain language — Hero #4 · private holdings stay in-browser</p>
             <div class="toolbar">
@@ -357,7 +367,7 @@
             <div id="portfolioResult" class="empty">Add holdings, then analyze</div>
         </section>
 
-        <section id="half-life-clock" class="section-desk-only hide-in-room">
+        <section id="half-life-clock" class="section-desk-only hide-in-room" data-launch57-isolate="legacy-non-l57" data-launch57-isolate-id="section-half-life-clock">
             <h2>Half-Life Heat Clock</h2>
             <p class="sub">SEE THE EDGE / ELITE · seconds = money · urgency bands from Opportunity Half-Life</p>
             <div class="toolbar">
@@ -371,7 +381,7 @@
             </div>
         </section>
 
-        <section id="stealth" class="section-desk-only hide-in-room">
+        <section id="stealth" class="section-desk-only hide-in-room" data-launch57-isolate="legacy-non-l57" data-launch57-isolate-id="section-stealth">
             <h2>Stealth Execution Advisor</h2>
             <p class="sub">Whale audience · advisory slice labels (SLICE_* / LIMIT_CLIP_ADVISORY) — not live TWAP/VWAP/SOR</p>
             <div class="toolbar">
@@ -384,7 +394,7 @@
             <div id="stealthResult" class="empty">Enter size and run advisor</div>
         </section>
 
-        <section id="mev" class="section-desk-only hide-in-room">
+        <section id="mev" class="section-desk-only hide-in-room" data-launch57-isolate="legacy-non-l57" data-launch57-isolate-id="section-mev">
             <h2>MEV / Sandwich Report</h2>
             <p class="sub">Shareable risk posture — prove the drag, don’t hype private mempool alpha</p>
             <div class="toolbar">
@@ -396,13 +406,13 @@
             <div id="mevResult" class="empty">Generate a shareable MEV report</div>
         </section>
 
-        <section id="alerts" class="section-operate-plus hide-in-room">
+        <section id="alerts" class="section-operate-plus hide-in-room" data-launch57-isolate="legacy-non-l57" data-launch57-isolate-id="section-legacy-alerts">
             <h2 id="alertsTitle">Alerts</h2>
             <p class="sub" id="tgStatus">In-app inbox: no TradingView-style 15-alerts / 3-min hard cap · only Truth + Half-Life survivors fire</p>
             <div id="alertsGenerosity" class="sub" style="margin-bottom:.75rem"></div>
             <div class="toolbar">
                 <button class="btn secondary" data-bd-call="loadInbox">Refresh Inbox</button>
-                <button class="btn secondary" data-bd-call="testTelegram">Test Telegram</button>
+                <button class="btn secondary" data-bd-call="testTelegram" data-launch57-isolate="legacy-non-l57">Test Telegram</button>
             </div>
             <div id="inbox" style="margin-top:.75rem"><div class="loading">…</div></div>
         </section>
@@ -755,6 +765,9 @@
         const LAUNCH57_PUMP_DUMP_ALERTS = '/api/launch57/pump-dump-alerts';
         const LAUNCH57_SUSPICIOUS_FLAGS = '/api/launch57/suspicious-flags';
         const LAUNCH57_EXCHANGE_TRANSPARENCY = '/api/launch57/exchange-transparency';
+        const LAUNCH57_PRODUCT_ISOLATION = true;
+        const LAUNCH57_OUT_OF_SCOPE_LABEL = 'خارج نطاق الإطلاق';
+        const LAUNCH57_PRODUCT_ISOLATION_API = '/api/launch57/product-isolation';
         let lastVisibleTrust = { certificate: null, ledger: null, netEdge: null, shareableAccuracy: null };
         let lastLaunch57FirstScreenGaps = null;
         let lastLaunch57RemainingPaths = null;
@@ -766,9 +779,43 @@
         const LAUNCH57_PRIMARY_INTENTS = [
             { id: 'decide', label: 'Decide', action: 'launch57_decide', hint: 'Launch-57 command home — Act/Wait + Why + Proof.' },
             { id: 'verify', label: 'Verify', action: 'navigate', path: '/oracle-accuracy', hint: 'Public Accuracy Ledger — hits and misses.' },
-            { id: 'my_book', label: 'My book', action: 'portfolio', hint: 'Portfolio risk — Operate+ lens.' },
-            { id: 'alerts', label: 'Alerts', action: 'alerts', hint: 'Inbox after Launch-57 gates.' },
         ];
+        const LAUNCH57_ISOLATED_ENTRY_INTENTS = [
+            { id: 'my_book', label: 'My book', action: 'portfolio', hint: LAUNCH57_OUT_OF_SCOPE_LABEL, isolated: true },
+            { id: 'alerts', label: 'Alerts', action: 'alerts', hint: LAUNCH57_OUT_OF_SCOPE_LABEL, isolated: true },
+        ];
+
+        function launch57IsolationActive() {
+            return LAUNCH57_PRODUCT_ISOLATION === true;
+        }
+
+        function renderLaunch57BlockedExternal() {
+            const el = document.getElementById('launch57-blocked-external');
+            if (!el) return;
+            el.hidden = false;
+            el.innerHTML = `
+                <h2>محجوب خارجيًا</h2>
+                <p class="sub">لا إرسال ولا مسارات حية — PENDING_VERIFICATION</p>
+                <div class="tp-proof">
+                    <span class="tp-chip blocked">Smart Alerts — Telegram محجوب خارجيًا</span>
+                    <span class="tp-chip blocked">MVRV / Z-Score — مصدر مرخّص محجوب خارجيًا</span>
+                </div>`;
+        }
+
+        function applyLaunch57ProductIsolation() {
+            if (!launch57IsolationActive()) return;
+            document.querySelectorAll('[data-launch57-isolate="legacy-non-l57"]').forEach((node) => {
+                node.setAttribute('data-launch57-isolated', 'true');
+                node.setAttribute('aria-hidden', 'true');
+            });
+            const notice = document.getElementById('launch57-out-of-scope-notice');
+            if (notice) {
+                notice.hidden = false;
+                notice.textContent = LAUNCH57_OUT_OF_SCOPE_LABEL
+                    + ' — legacy / non-Launch-57 surfaces hidden on first screen; only 55 ready Launch-57 paths remain live.';
+            }
+            renderLaunch57BlockedExternal();
+        }
 
         function commandHomeUrl(sym) {
             const symbol = (sym || document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
@@ -1987,8 +2034,14 @@
                     if (hint) hint.textContent = row.hint || '';
                     if (action === 'navigate' && path) { location.assign(path); return; }
                     if (action === 'launch57_decide') { scrollToId('trust-pulse'); loadCommandHome(true); return; }
-                    if (action === 'portfolio') { scrollToId('portfolio'); return; }
-                    if (action === 'alerts') { scrollToId('alerts'); loadInbox(); return; }
+                    if (action === 'portfolio') {
+                        if (launch57IsolationActive()) { alert(LAUNCH57_OUT_OF_SCOPE_LABEL); return; }
+                        scrollToId('portfolio'); return;
+                    }
+                    if (action === 'alerts') {
+                        if (launch57IsolationActive()) { alert(LAUNCH57_OUT_OF_SCOPE_LABEL); return; }
+                        scrollToId('alerts'); loadInbox(); return;
+                    }
                 });
             });
             if (hint && !hint.textContent) hint.textContent = 'Launch-57 only — Decide · Verify · My book · Alerts.';
@@ -2534,6 +2587,7 @@
         }
 
         async function loadMarket() {
+            if (launch57IsolationActive()) return;
             const el = document.getElementById('market');
             try {
                 const res = await fetch('/api/market/overview');
@@ -2575,6 +2629,7 @@
         }
 
         async function loadSubscriberValue() {
+            if (launch57IsolationActive()) return;
             const el = document.getElementById('subscriberValueBox');
             if (!el) return;
             el.innerHTML = '<div class="loading">Loading value…</div>';
@@ -2626,6 +2681,7 @@
             }).join('');
         }
         function applyDashboardSnapshot(d) {
+            if (launch57IsolationActive()) return;
             if (!d || d.type === 'error') return;
             if (d.market && Array.isArray(d.market.assets)) renderMarketAssets(d.market.assets);
             if (d.open_interest && Array.isArray(d.open_interest.assets)) renderSnapshotOI(d.open_interest.assets);
@@ -2637,6 +2693,7 @@
             }
         }
         function startDashboardStream() {
+            if (launch57IsolationActive()) return;
             if (dashEs) { try { dashEs.close(); } catch (error) { console.debug(error); } }
             try {
                 dashEs = new EventSource('/api/dashboard/stream');
@@ -2719,6 +2776,7 @@
         }
 
         async function loadInbox() {
+            if (launch57IsolationActive()) return;
             const el = document.getElementById('inbox');
             const status = document.getElementById('tgStatus');
             const sym = (document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
@@ -2848,6 +2906,7 @@
             applyAntiHypeClass();
         }
         async function loadSinceYouLeft() {
+            if (launch57IsolationActive()) return;
             const el = document.getElementById('sinceYouLeftBox');
             if (!el) return;
             try {
@@ -2894,6 +2953,7 @@
         }
 
         async function loadHalfLifeClock() {
+            if (launch57IsolationActive()) return;
             const svg = document.getElementById('halfLifeSvg');
             const line = document.getElementById('halfLifeLine');
             if (!svg || !line) return;
@@ -2945,6 +3005,7 @@
 
         let lastMevShare = '';
         async function loadMevReport() {
+            if (launch57IsolationActive()) return;
             const el = document.getElementById('mevResult');
             const asset = (document.getElementById('mevAsset').value || 'ETH').trim();
             const notional = document.getElementById('mevNotional').value || 10000;
@@ -2971,6 +3032,7 @@
         }
 
         async function runStealthAdvisor() {
+            if (launch57IsolationActive()) return;
             const el = document.getElementById('stealthResult');
             el.innerHTML = '<div class="loading">Advising…</div>';
             try {
@@ -3033,6 +3095,7 @@
             ).join(' · ');
         }
         async function analyzePortfolio() {
+            if (launch57IsolationActive()) return;
             const el = document.getElementById('portfolioResult');
             if (!portfolioAssets.length) { el.innerHTML = '<div class="empty">Add at least one holding</div>'; return; }
             el.innerHTML = '<div class="loading">' + esc(i18nT('oracle.analyzing')) + '</div>';
@@ -3070,6 +3133,7 @@
         }
 
         async function loadTgStatus() {
+            if (launch57IsolationActive()) return;
             const el = document.getElementById('tgStatus');
             try {
                 const res = await fetch('/api/alerts/telegram/status');
@@ -3079,6 +3143,7 @@
         }
 
         async function testTelegram() {
+            if (launch57IsolationActive()) return;
             try {
                 const res = await fetch('/api/alerts/telegram/test', { method: 'POST', headers: authHeaders() });
                 const d = await res.json();
@@ -3087,6 +3152,7 @@
         }
 
         async function loadAlertsGenerosity() {
+            if (launch57IsolationActive()) return;
             const el = document.getElementById('alertsGenerosity');
             if (!el) return;
             try {
@@ -3202,8 +3268,14 @@
                         return;
                     }
                     if (id === 'decide' || action === 'oracle') { scrollToId('decide'); askOracle(); return; }
-                    if (id === 'my_book' || action === 'portfolio') { scrollToId('portfolio'); return; }
-                    if (id === 'alerts' || action === 'alerts') { scrollToId('alerts'); loadInbox(); return; }
+                    if (id === 'my_book' || action === 'portfolio') {
+                        if (launch57IsolationActive()) { alert(LAUNCH57_OUT_OF_SCOPE_LABEL); return; }
+                        scrollToId('portfolio'); return;
+                    }
+                    if (id === 'alerts' || action === 'alerts') {
+                        if (launch57IsolationActive()) { alert(LAUNCH57_OUT_OF_SCOPE_LABEL); return; }
+                        scrollToId('alerts'); loadInbox(); return;
+                    }
                     if (path.includes('#')) scrollToId(path.split('#')[1]);
                 });
             });
@@ -3239,23 +3311,27 @@
             loadLaunch57FirstScreenGaps();
             loadLaunch57RemainingPaths();
             loadChart();
-            loadMarket();
             loadOI();
+            if (!launch57IsolationActive()) {
+                loadMarket();
+                loadDailyReport();
+                loadSubscriberValue();
+                loadSinceYouLeft();
+                loadTgStatus();
+                loadAlertsGenerosity();
+                loadInbox();
+                setInterval(loadMarket, 60000);
+                setInterval(loadInbox, 90000);
+            }
             if (currentLens === 'desk') {
                 loadArbitrage(false);
                 loadWhales(false);
-                loadMevReport();
-                runStealthAdvisor();
+                if (!launch57IsolationActive()) {
+                    loadMevReport();
+                    runStealthAdvisor();
+                }
             }
-            loadDailyReport();
-            loadSubscriberValue();
             applyAntiHypeClass();
-            loadSinceYouLeft();
-            loadTgStatus();
-            loadAlertsGenerosity();
-            loadInbox();
-            setInterval(loadMarket, 60000);
-            setInterval(loadInbox, 90000);
         }
 
         function scheduleCommandHome() {
@@ -3270,6 +3346,7 @@
         }
 
         function boot() {
+            applyLaunch57ProductIsolation();
             loadAuth();
             applyLang();
             bindLensBar();
