@@ -149,6 +149,8 @@
         #trust-pulse.tp-loading .tp-action { min-height: 2.4rem; min-width: 5rem; display: inline-block; }
         #trust-pulse.tp-loading .tp-sym { min-height: 1rem; }
         #trust-pulse.tp-loading .tp-sentence { min-height: 1.1rem; }
+        .tp-abstain-reasons { margin-top: .5rem; padding: .5rem .65rem; border-radius: 8px; background: rgba(245,158,11,.08); border: 1px solid rgba(245,158,11,.25); font-size: .85rem; }
+        .tp-abstain-reasons strong { color: #fbbf24; display: block; margin-bottom: .35rem; }
         @keyframes tpSkeleton {
             0% { background-position: 100% 0; }
             100% { background-position: -100% 0; }
@@ -172,9 +174,10 @@
                 <span class="tp-live"><span class="tp-dot" id="tpDot"></span><span id="tpFresh">Connecting…</span></span>
             </div>
             <output id="tpFlip" class="tp-flip"></output>
-            <div class="tp-action WAIT" id="tpAction">—</div>
+            <div class="tp-action WAIT" id="tpAction" role="button" tabindex="0" title="Click for Launch-57 risk disclosure (#47)" data-bd-call="openRiskDisclosure" style="cursor:pointer">—</div>
             <div class="tp-sym" id="tpSym">Loading decision…</div>
             <div class="tp-sentence" id="tpSentence">One clear Act / Wait with a reviewable why.</div>
+            <div id="tpAbstainReasons" class="tp-abstain-reasons" hidden aria-live="polite"></div>
             <div class="tp-why">
                 <h3 id="tpWhyTitle">Why (under 5 seconds)</h3>
                 <div id="tpFactors"><div class="empty" style="padding:.25rem 0">Loading factors…</div></div>
@@ -236,6 +239,30 @@
             <p class="sub">What changed since your last visit</p>
             <div id="sinceYouLeftBox" class="empty">Loading continuity…</div>
             <a class="btn secondary" href="/since-you-left" style="margin-top:.65rem;display:inline-flex;text-decoration:none">Open full page</a>
+        </section>
+
+        <section id="launch57-decision-intelligence" aria-label="Launch-57 decision intelligence">
+            <h2>Decision Intelligence</h2>
+            <p class="sub" id="l57DecisionNote">Launch-57 regime, signals, conviction (#7–#12) — claims hidden when unavailable.</p>
+            <div class="tp-proof" id="l57DecisionChips"><span class="tp-chip">Loading decision intelligence…</span></div>
+        </section>
+
+        <section id="launch57-smart-money-intelligence" aria-label="Launch-57 smart money intelligence">
+            <h2>Smart Money Intelligence</h2>
+            <p class="sub" id="l57SmartMoneyNote">Launch-57 smart money surfaces (#13–#20) — claims hidden when unavailable.</p>
+            <div class="tp-proof" id="l57SmartMoneyChips"><span class="tp-chip">Loading smart money intelligence…</span></div>
+        </section>
+
+        <section id="launch57-derivatives-intelligence" aria-label="Launch-57 derivatives intelligence">
+            <h2>Derivatives Intelligence</h2>
+            <p class="sub" id="l57DerivativesNote">Launch-57 derivatives surfaces (#25–#30, #43) — arbitrage only after Net-Edge (#5).</p>
+            <div class="tp-proof" id="l57DerivativesChips"><span class="tp-chip">Loading derivatives intelligence…</span></div>
+        </section>
+
+        <section id="launch57-first-screen-gaps" aria-label="Launch-57 first-screen gaps">
+            <h2>First-Screen Gaps</h2>
+            <p class="sub" id="l57FirstScreenNote">Launch-57 spot metrics, copilot, shareable accuracy, decision history, research brief (#21, #36, #45, #49, #51) — claims hidden when unavailable.</p>
+            <div class="tp-proof" id="l57FirstScreenChips"><span class="tp-chip">Loading first-screen gaps…</span></div>
         </section>
 
         <section id="launch57-data-spine" aria-label="Launch-57 data spine">
@@ -438,12 +465,31 @@
             window.open(url, '_blank', 'noopener');
             setTimeout(() => URL.revokeObjectURL(url), 60000);
         }
+        function openRiskDisclosure() {
+            const risk = lastVisibleDisclosure.risk;
+            if (!risk || Number(risk.launch_item_id) !== 47) return;
+            const payload = risk.risk_disclosure || risk.material_risk || risk;
+            window._lastRiskDisclosureJson = payload;
+            const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            window.open(url, '_blank', 'noopener');
+            setTimeout(() => URL.revokeObjectURL(url), 60000);
+        }
         function clearVisibleTrust() {
-            lastVisibleTrust = { certificate: null, ledger: null, netEdge: null };
+            lastVisibleTrust = { certificate: null, ledger: null, netEdge: null, shareableAccuracy: null };
+        }
+        function clearVisibleDisclosure() {
+            lastVisibleDisclosure = { risk: null, abstain: null };
+            const abstainEl = document.getElementById('tpAbstainReasons');
+            if (abstainEl) {
+                abstainEl.hidden = true;
+                abstainEl.innerHTML = '';
+            }
         }
         function onUxModeChange() {
             askOracle();
             loadTrustPulse(true);
+            loadLaunch57DecisionIntelligence(null, lastPulse);
         }
         function copyLastCertShare() {
             if (navigator.clipboard && window._lastCertShare) {
@@ -498,6 +544,24 @@
             log.scrollTop = log.scrollHeight;
         }
 
+        function launch57CopilotTier() {
+            if (userTierId === 'whale') return 'elite';
+            if (userTierId === 'pro') return 'pro';
+            return 'free';
+        }
+
+        function launch57CopilotReply(body) {
+            if (!body || Number(body.launch_item_id) !== 36) return null;
+            const agent = body.research_agent || (body.research_agent_qualification || {}).research_agent || {};
+            if (agent.agent_summary) return agent.agent_summary;
+            const qual = body.research_agent_qualification || {};
+            const keys = (agent.grounded_sources || qual.supported_claims && Object.keys(qual.supported_claims) || []);
+            if (keys.length) {
+                return `Platform-data copilot (${body.symbol || 'BTC'}): grounded sections — ${keys.slice(0, 4).join(', ')}.`;
+            }
+            return body.success ? 'Platform-data copilot ready — no unsupported external claims.' : null;
+        }
+
         async function sendChat() {
             const input = document.getElementById('chatInput');
             const foot = document.getElementById('chatFoot');
@@ -506,31 +570,31 @@
             input.value = '';
             appendChat('user', message);
             chatHistory.push({ role: 'user', content: message });
+            const sym = (document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
+            const qs = new URLSearchParams({ symbol: sym, tier: launch57CopilotTier() });
             try {
-                const res = await fetch('/api/chat', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', ...authHeaders() },
-                    body: JSON.stringify({ message, history: chatHistory.slice(-8) }),
-                });
+                const res = await fetch(LAUNCH57_AI_COPILOT + '?' + qs.toString(), { headers: authHeaders() });
                 const d = await res.json();
-                if (res.status === 403) {
+                if (res.status === 401 || res.status === 403) {
                     syncChatGate();
                     const detail = d.detail || {};
-                    appendChat('assistant', detail.message || 'Upgrade to Decision Pro for AI Chat.');
-                    if (foot) foot.textContent = 'Operate+ required';
+                    appendChat('assistant', detail.message || detail.detail || 'Launch-57 #36 copilot requires Operate+ / Elite tier.');
+                    if (foot) foot.textContent = 'Platform-data copilot (#36) — auth/tier required';
                     return;
                 }
-                if (!res.ok) throw new Error('chat_failed');
-                const reply = d.reply || 'No reply';
+                if (!res.ok) throw new Error('copilot_failed');
+                const reply = launch57CopilotReply(d);
+                if (!reply) throw new Error('copilot_empty');
                 appendChat('assistant', reply);
                 chatHistory.push({ role: 'assistant', content: reply });
-                const cf = d.compliance_footer || {};
+                const cf = d.copilot_compliance_footer || d.compliance_footer || {};
                 if (foot) {
-                    foot.innerHTML = `<strong>Anti-Hype</strong> · ${esc(cf.disclaimer || 'Not financial advice. Verify on the Public Accuracy Ledger.')}`
-                        + (d.symbol ? ` · context ${esc(d.symbol)}` : '')
-                        + (d.source ? ` · ${esc(d.source)}` : '');
+                    foot.innerHTML = `<strong>Anti-Hype</strong> · ${esc(cf.disclaimer || 'Platform data only — no external LLM facts.')}`
+                        + ` · Launch-57 #36`
+                        + (cf.llm_used === false ? ' · llm_used=false' : '')
+                        + (d.symbol ? ` · ${esc(d.symbol)}` : '');
                 }
-            } catch (error) { console.debug(error); appendChat('assistant', 'Chat unavailable right now — try again or use Get Decision.'); }
+            } catch (error) { console.debug(error); appendChat('assistant', 'Launch-57 copilot unavailable — try Get Decision or refresh.'); }
         }
 
         let nextUpgrade = { checkout_tier: 'pro', href: '/create-checkout-session?tier=pro', cta: 'Upgrade' };
@@ -624,7 +688,40 @@
         const LAUNCH57_DATA_PROVENANCE = '/api/launch57/data-provenance';
         const LAUNCH57_FRESHNESS = '/api/launch57/freshness';
         const LAUNCH57_UNIFIED_EXCHANGE = '/api/launch57/unified-exchange';
-        let lastVisibleTrust = { certificate: null, ledger: null, netEdge: null };
+        const LAUNCH57_MARKET_REGIME = '/api/launch57/market-regime';
+        const LAUNCH57_BEGINNER_MODE = '/api/launch57/beginner-mode';
+        const LAUNCH57_CROSS_SIGNAL = '/api/launch57/cross-signal-confirmation';
+        const LAUNCH57_CONTRADICTION = '/api/launch57/contradiction-detection';
+        const LAUNCH57_ACTIONABILITY = '/api/launch57/actionability-score';
+        const LAUNCH57_CONVICTION = '/api/launch57/conviction-engine';
+        const LAUNCH57_RISK_DISCLOSURE = '/api/launch57/risk-disclosure';
+        const LAUNCH57_ABSTAIN_REASONS = '/api/launch57/abstain-reasons';
+        const LAUNCH57_ACCUMULATION = '/api/launch57/accumulation-distribution';
+        const LAUNCH57_TOKEN_SCREENER = '/api/launch57/token-screener';
+        const LAUNCH57_ENTITY_WALLET = '/api/launch57/entity-wallet';
+        const LAUNCH57_EXCHANGE_FLOW = '/api/launch57/exchange-flow';
+        const LAUNCH57_WHALE_RATIO_FILTER = '/api/launch57/whale-ratio-filter';
+        const LAUNCH57_WHALE_ALERTS = '/api/launch57/whale-alerts';
+        const LAUNCH57_INTER_ENTITY_FLOW = '/api/launch57/inter-entity-flow';
+        const LAUNCH57_ADDRESS_LABELS = '/api/launch57/address-labels';
+        const LAUNCH57_FUTURES_OI = '/api/launch57/futures-oi';
+        const LAUNCH57_FUNDING_RATE = '/api/launch57/funding-rate';
+        const LAUNCH57_LIQUIDATION = '/api/launch57/liquidation-intelligence';
+        const LAUNCH57_TAKER_LEVERAGE = '/api/launch57/taker-leverage';
+        const LAUNCH57_DERIVATIVES_SENTIMENT = '/api/launch57/derivatives-sentiment';
+        const LAUNCH57_ORDER_BOOK = '/api/launch57/order-book';
+        const LAUNCH57_SPOT_PERP_ARBITRAGE = '/api/launch57/spot-perp-arbitrage';
+        const LAUNCH57_SPOT_METRICS = '/api/launch57/spot-metrics';
+        const LAUNCH57_SHAREABLE_ACCURACY = '/api/launch57/shareable-accuracy';
+        const LAUNCH57_DECISION_HISTORY = '/api/launch57/decision-history';
+        const LAUNCH57_AI_COPILOT = '/api/launch57/ai-copilot';
+        const LAUNCH57_RESEARCH_PORTAL = '/api/launch57/research-portal';
+        let lastVisibleTrust = { certificate: null, ledger: null, netEdge: null, shareableAccuracy: null };
+        let lastLaunch57FirstScreenGaps = null;
+        let lastVisibleDisclosure = { risk: null, abstain: null };
+        let lastLaunch57DecisionIntel = null;
+        let lastLaunch57SmartMoneyIntel = null;
+        let lastLaunch57DerivativesIntel = null;
         let lastLaunch57DataSpine = null;
         const LAUNCH57_PRIMARY_INTENTS = [
             { id: 'decide', label: 'Decide', action: 'launch57_decide', hint: 'Launch-57 command home — Act/Wait + Why + Proof.' },
@@ -872,9 +969,10 @@
             });
             if (timing.decision_time) certQs.set('decision_time', timing.decision_time);
             try {
-                const [certRes, ledgerRes, netEdgeBody] = await Promise.all([
+                const [certRes, ledgerRes, shareAccRes, netEdgeBody] = await Promise.all([
                     fetch(LAUNCH57_DECISION_CERTIFICATE + '?' + certQs.toString(), { headers: authHeaders() }),
                     fetch(LAUNCH57_PUBLIC_ACCURACY + '?symbol=' + encodeURIComponent(pulse.symbol || 'BTC')),
+                    fetch(LAUNCH57_SHAREABLE_ACCURACY + '?symbol=' + encodeURIComponent(pulse.symbol || 'BTC')),
                     prefetchCostAutopsy(pulse, oracle),
                 ]);
                 if (certRes.ok) {
@@ -920,6 +1018,32 @@
                 } else {
                     lastVisibleTrust.ledger = null;
                 }
+                if (shareAccRes.ok) {
+                    const shareBody = await shareAccRes.json();
+                    if (Number(shareBody.launch_item_id) === 45 && shareBody.success) {
+                        const page = shareBody.accuracy_page || {};
+                        const cum = (shareBody.ledger || shareBody.public_accuracy_ledger || {}).cumulative || {};
+                        const hr = page.hit_rate_percent ?? cum.hit_rate_percent;
+                        shareBody.share_label = hr != null
+                            ? `Shareable accuracy ${hr}%`
+                            : 'Shareable accuracy';
+                        shareBody.share_href = page.href
+                            ? page.href + '#launch57-shareable-accuracy'
+                            : '/oracle-accuracy#launch57-shareable-accuracy';
+                        lastVisibleTrust.shareableAccuracy = shareBody;
+                        if (lastPulse) {
+                            lastPulse.shareable_accuracy = {
+                                href: shareBody.share_href,
+                                label: shareBody.share_label,
+                                launch_item_id: 45,
+                            };
+                        }
+                    } else {
+                        lastVisibleTrust.shareableAccuracy = null;
+                    }
+                } else {
+                    lastVisibleTrust.shareableAccuracy = null;
+                }
                 lastVisibleTrust.netEdge = (netEdgeBody && netEdgeBody.success && netEdgeBody.cost_claim_allowed !== false)
                     ? netEdgeBody
                     : null;
@@ -931,6 +1055,464 @@
                 clearVisibleTrust();
             }
             if (lastPulse) renderTrustPulse(lastPulse);
+            prefetchVisibleDisclosure(pulse);
+        }
+
+        function extractLaunch48VisibleReasons(abstainBody) {
+            if (!abstainBody || Number(abstainBody.launch_item_id) !== 48) return [];
+            if (Array.isArray(abstainBody.visible_reasons)) {
+                return abstainBody.visible_reasons.map((r) => String(r || '').trim()).filter(Boolean);
+            }
+            const disc = abstainBody.abstention_reject_disclosure || {};
+            const lines = [];
+            const seen = new Set();
+            const add = (value) => {
+                const text = String(value || '').trim();
+                if (text && !seen.has(text)) {
+                    seen.add(text);
+                    lines.push(text);
+                }
+            };
+            (disc.reason_codes || []).forEach(add);
+            (disc.dominant_rejection_causes || []).forEach(add);
+            (disc.what_would_be_needed_to_reconsider || []).forEach(add);
+            const categories = disc.rejection_reason_categories || {};
+            Object.keys(categories).forEach((key) => {
+                if (categories[key]) add(`${key}: ${categories[key]}`);
+            });
+            if (disc.summary) add(disc.summary);
+            return lines;
+        }
+
+        async function fetchLaunch48AbstainReasons(sym, action) {
+            const act = String(action || 'WAIT').toUpperCase();
+            const qs = new URLSearchParams({
+                symbol: sym || 'BTC',
+                decision_action: act,
+                decision_truth_state: 'ABSTAINED',
+            });
+            try {
+                const res = await fetch(LAUNCH57_ABSTAIN_REASONS + '?' + qs.toString(), { headers: authHeaders() });
+                if (!res.ok) return { ok: false, body: null, reasons: [] };
+                const body = await res.json();
+                if (Number(body.launch_item_id) !== 48) return { ok: false, body: null, reasons: [] };
+                const reasons = extractLaunch48VisibleReasons(body);
+                return { ok: true, body, reasons };
+            } catch (error) {
+                console.debug(error);
+                return { ok: false, body: null, reasons: [] };
+            }
+        }
+
+        function gatePulseWithLaunch48Reasons(pulse, abstainFetch) {
+            const act = String((pulse && pulse.action) || '').toUpperCase();
+            if (!['WAIT', 'ABSTAIN'].includes(act)) return pulse;
+            if (!abstainFetch || !abstainFetch.ok || !abstainFetch.reasons.length) {
+                return {
+                    ...pulse,
+                    action: 'UNAVAILABLE',
+                    sentence: 'Launch-57 #48: WAIT/ABSTAIN requires visible abstain reasons — unavailable.',
+                    launch48_gated: true,
+                    launch48_reasons: [],
+                    why: { grasp_line: 'Why (Launch-57 #48)', factors: [] },
+                    decision_live_blocked: true,
+                };
+            }
+            return {
+                ...pulse,
+                launch48_gated: false,
+                launch48_reasons: abstainFetch.reasons,
+                launch48_abstain: abstainFetch.body,
+            };
+        }
+
+        function renderAbstainReasonsBlock(pulse) {
+            const el = document.getElementById('tpAbstainReasons');
+            if (!el) return;
+            const act = String((pulse && pulse.action) || '').toUpperCase();
+            if (!['WAIT', 'ABSTAIN'].includes(act) || !pulse.launch57_oracle_bound || pulse.launch48_gated) {
+                el.hidden = true;
+                el.innerHTML = '';
+                return;
+            }
+            const reasons = Array.isArray(pulse.launch48_reasons)
+                ? pulse.launch48_reasons
+                : extractLaunch48VisibleReasons(lastVisibleDisclosure.abstain);
+            if (!reasons.length) {
+                el.hidden = true;
+                el.innerHTML = '';
+                return;
+            }
+            el.hidden = false;
+            el.innerHTML = `<strong>Why ${esc(act)} (#48)</strong><div class="tp-factor">${reasons.slice(0, 5).map((r, i) => `${i + 1}. ${esc(r)}`).join('</div><div class="tp-factor">')}</div>`;
+        }
+
+        async function prefetchVisibleDisclosure(pulse) {
+            if (!pulse || !pulse.launch57_oracle_bound || pulse.action === 'UNAVAILABLE') {
+                clearVisibleDisclosure();
+                return;
+            }
+            const sym = pulse.symbol || 'BTC';
+            const action = String(pulse.action || 'WAIT').toUpperCase();
+            const truthState = action === 'ABSTAIN' ? 'ABSTAINED' : (action === 'WAIT' ? 'ABSTAINED' : 'AVAILABLE');
+            const qsRisk = new URLSearchParams({
+                symbol: sym,
+                decision_action: action,
+                decision_truth_state: truthState,
+            });
+            try {
+                const riskRes = await fetch(LAUNCH57_RISK_DISCLOSURE + '?' + qsRisk.toString(), { headers: authHeaders() });
+                if (riskRes.ok) {
+                    const riskBody = await riskRes.json();
+                    lastVisibleDisclosure.risk = Number(riskBody.launch_item_id) === 47 ? riskBody : null;
+                } else {
+                    lastVisibleDisclosure.risk = null;
+                }
+            } catch (error) {
+                console.debug(error);
+                lastVisibleDisclosure.risk = null;
+            }
+            renderAbstainReasonsBlock(pulse);
+        }
+
+        function renderLaunch57DecisionIntel(intel) {
+            const chipsEl = document.getElementById('l57DecisionChips');
+            const noteEl = document.getElementById('l57DecisionNote');
+            if (!chipsEl) return;
+            const chips = [];
+            const regime = intel && intel.regime;
+            if (regime && regime.success && regime.market_compass && regime.market_compass.regime) {
+                chips.push(`<span class="tp-chip ok">Regime: ${esc(regime.market_compass.regime)}</span>`);
+            }
+            const beginner = intel && intel.beginner;
+            if (beginner && beginner.success && beginner.clear_answer) {
+                const ans = beginner.clear_answer;
+                chips.push(`<span class="tp-chip ok">Beginner: ${esc(ans.verdict || ans.action || 'mode')}</span>`);
+            }
+            const cross = intel && intel.crossSignal;
+            if (cross && cross.success && cross.cross_signal_confirmation) {
+                const confirmed = cross.cross_signal_confirmation.confirmed;
+                chips.push(`<span class="tp-chip ${confirmed ? 'ok' : ''}">Cross-signal: ${confirmed ? 'confirmed' : 'unconfirmed'}</span>`);
+            }
+            const contra = intel && intel.contradiction;
+            if (contra && contra.success && contra.contradiction_detection) {
+                const count = contra.contradiction_detection.count || 0;
+                chips.push(`<span class="tp-chip ${count ? 'warn' : 'ok'}">Contradictions: ${esc(String(count))}</span>`);
+            }
+            const actionability = intel && intel.actionability;
+            if (actionability && actionability.success && actionability.actionability_score != null) {
+                chips.push(`<span class="tp-chip ok">Actionability: ${esc(String(Math.round(actionability.actionability_score)))}</span>`);
+            }
+            const conviction = intel && intel.conviction;
+            if (conviction && conviction.success && conviction.conviction_score != null && conviction.conviction_score > 0) {
+                chips.push(`<span class="tp-chip ok">Conviction: ${esc(String(Math.round(conviction.conviction_score)))}</span>`);
+            }
+            chipsEl.innerHTML = chips.length
+                ? chips.join('')
+                : '<span class="tp-chip">Decision intelligence unavailable — no claims shown.</span>';
+            if (noteEl) {
+                noteEl.textContent = chips.length
+                    ? 'Launch-57 governed decision surfaces (#7–#12). Claims hidden when handlers fail.'
+                    : 'Launch-57 decision intelligence unavailable — claims hidden (fail-closed).';
+            }
+        }
+
+        async function loadLaunch57DecisionIntelligence(forceSym, pulse) {
+            const sym = (forceSym || document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
+            const mode = document.getElementById('uxMode')?.value || 'beginner';
+            const verdict = pulse && pulse.action ? String(pulse.action) : 'WAIT';
+            const intel = { symbol: sym };
+            const qs = new URLSearchParams({ symbol: sym });
+            try {
+                const fetches = [
+                    fetch(LAUNCH57_MARKET_REGIME + '?' + qs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_CROSS_SIGNAL + '?' + qs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_CONTRADICTION + '?' + qs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_ACTIONABILITY + '?' + qs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_CONVICTION + '?' + qs.toString(), { headers: authHeaders() }),
+                ];
+                if (mode === 'beginner') {
+                    const bqs = new URLSearchParams({ symbol: sym, verdict });
+                    fetches.push(fetch(LAUNCH57_BEGINNER_MODE + '?' + bqs.toString(), { headers: authHeaders() }));
+                }
+                const results = await Promise.all(fetches);
+                if (results[0].ok) intel.regime = await results[0].json();
+                if (results[1].ok) intel.crossSignal = await results[1].json();
+                if (results[2].ok) intel.contradiction = await results[2].json();
+                if (results[3].ok) intel.actionability = await results[3].json();
+                if (results[4].ok) intel.conviction = await results[4].json();
+                if (mode === 'beginner' && results[5] && results[5].ok) intel.beginner = await results[5].json();
+            } catch (error) {
+                console.debug(error);
+            }
+            lastLaunch57DecisionIntel = intel;
+            renderLaunch57DecisionIntel(intel);
+            return intel;
+        }
+
+        function renderLaunch57SmartMoneyIntel(intel) {
+            const chipsEl = document.getElementById('l57SmartMoneyChips');
+            const noteEl = document.getElementById('l57SmartMoneyNote');
+            if (!chipsEl) return;
+            const chips = [];
+            const acc = intel && intel.accumulation;
+            if (acc && acc.success && Number(acc.launch_item_id) === 13) {
+                const count = acc.signal_count || 0;
+                chips.push(`<span class="tp-chip ${count ? 'ok' : ''}">Accum/Dist: ${esc(String(count))} signals</span>`);
+            }
+            const screener = intel && intel.screener;
+            if (screener && screener.success && Number(screener.launch_item_id) === 14) {
+                const count = screener.count || (screener.screener || []).length;
+                chips.push(`<span class="tp-chip ok">Screener: ${esc(String(count))} tokens</span>`);
+            }
+            const entity = intel && intel.entityWallet;
+            if (entity && entity.success && Number(entity.launch_item_id) === 15) {
+                const label = entity.entity_label || entity.entity_wallet_disclosure?.entity_label || entity.entity_interpretation?.entity_type || 'entity';
+                chips.push(`<span class="tp-chip ok">Entity wallet: ${esc(String(label))}</span>`);
+            }
+            const flow = intel && intel.exchangeFlow;
+            if (flow && flow.success && Number(flow.launch_item_id) === 16 && flow.exchange_flow) {
+                const net = flow.exchange_flow.netflow_usd;
+                chips.push(`<span class="tp-chip ok">Exchange flow net: $${esc(fmt(Math.abs(net || 0), 0))}</span>`);
+            }
+            const ratio = intel && intel.whaleRatio;
+            if (ratio && Number(ratio.launch_item_id) === 17 && ratio.success) {
+                const wr = ratio.exchange_whale_ratio || {};
+                const ratioVal = wr.whale_ratio || wr.exchange_whale_ratio?.whale_filtered_ratio;
+                const filter = ratio.internal_flow_filter || {};
+                const internal = filter.internal_flow_filter?.internal;
+                chips.push(`<span class="tp-chip ok">Whale ratio: ${esc(String(ratioVal ?? '—'))}${internal != null ? ` · internal ${internal ? 'yes' : 'no'}` : ''}</span>`);
+            }
+            const alerts = intel && intel.whaleAlerts;
+            if (alerts && Number(alerts.launch_item_id) === 18) {
+                const count = (alerts.alert_worthy_alerts || []).length;
+                chips.push(`<span class="tp-chip ${count ? 'warn' : 'ok'}">Whale alerts: ${esc(String(count))}</span>`);
+            }
+            const inter = intel && intel.interEntity;
+            if (inter && inter.success && Number(inter.launch_item_id) === 19) {
+                const scope = inter.limited_launch_scope ? 'limited' : 'scoped';
+                chips.push(`<span class="tp-chip ok">Inter-entity: ${esc(scope)}</span>`);
+            }
+            const labels = intel && intel.addressLabels;
+            if (labels && Number(labels.launch_item_id) === 20) {
+                const cohorts = labels.address_labels_cohorts || labels.cohorts || {};
+                const labelCount = cohorts.label_count || (cohorts.labels || []).length;
+                chips.push(`<span class="tp-chip ${labels.success ? 'ok' : ''}">Labels: ${esc(String(labelCount))}</span>`);
+            }
+            chipsEl.innerHTML = chips.length
+                ? chips.join('')
+                : '<span class="tp-chip">Smart money intelligence unavailable — no claims shown.</span>';
+            if (noteEl) {
+                noteEl.textContent = chips.length
+                    ? 'Launch-57 governed smart money surfaces (#13–#20). Claims hidden when handlers fail.'
+                    : 'Launch-57 smart money intelligence unavailable — claims hidden (fail-closed).';
+            }
+        }
+
+        async function loadLaunch57SmartMoneyIntelligence(forceSym) {
+            const sym = (forceSym || document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
+            const qs = new URLSearchParams({ symbol: sym });
+            const intel = { symbol: sym };
+            try {
+                const results = await Promise.all([
+                    fetch(LAUNCH57_ACCUMULATION + '?' + qs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_TOKEN_SCREENER + '?' + qs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_ENTITY_WALLET + '?' + qs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_EXCHANGE_FLOW + '?' + qs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_WHALE_RATIO_FILTER + '?' + qs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_WHALE_ALERTS + '?' + qs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_INTER_ENTITY_FLOW + '?' + qs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_ADDRESS_LABELS + '?' + qs.toString(), { headers: authHeaders() }),
+                ]);
+                if (results[0].ok) intel.accumulation = await results[0].json();
+                if (results[1].ok) intel.screener = await results[1].json();
+                if (results[2].ok) intel.entityWallet = await results[2].json();
+                if (results[3].ok) intel.exchangeFlow = await results[3].json();
+                if (results[4].ok) intel.whaleRatio = await results[4].json();
+                if (results[5].ok) intel.whaleAlerts = await results[5].json();
+                if (results[6].ok) intel.interEntity = await results[6].json();
+                if (results[7].ok) intel.addressLabels = await results[7].json();
+            } catch (error) {
+                console.debug(error);
+            }
+            lastLaunch57SmartMoneyIntel = intel;
+            renderLaunch57SmartMoneyIntel(intel);
+            return intel;
+        }
+
+        function launch57QualifiedArbitrageOpportunities(spotBlock) {
+            if (!spotBlock || !Array.isArray(spotBlock.opportunities)) return [];
+            return spotBlock.opportunities.filter((o) => {
+                if (!o || o.gross_spread_only) return false;
+                if (o.executable === false) return false;
+                const truth = o.net_edge_truth || {};
+                if (o.truth_rejected || truth.reject) return false;
+                return true;
+            });
+        }
+
+        function renderLaunch57DerivativesIntel(intel) {
+            const chipsEl = document.getElementById('l57DerivativesChips');
+            const noteEl = document.getElementById('l57DerivativesNote');
+            if (!chipsEl) return;
+            const chips = [];
+            const oi = intel && intel.futuresOi;
+            if (oi && oi.success && Number(oi.launch_item_id) === 25) {
+                chips.push(`<span class="tp-chip ok">OI: $${esc(fmt(oi.open_interest_usd || 0, 0))}</span>`);
+            }
+            const funding = intel && intel.fundingRate;
+            if (funding && funding.success && Number(funding.launch_item_id) === 26) {
+                const pct = funding.funding_rate_pct != null ? funding.funding_rate_pct : funding.funding_rate;
+                chips.push(`<span class="tp-chip ok">Funding: ${esc(fmt(pct || 0, 4))}%</span>`);
+            }
+            const liq = intel && intel.liquidation;
+            if (liq && Number(liq.launch_item_id) === 27) {
+                const count = liq.liquidation_heatmap_light?.alert_count || 0;
+                chips.push(`<span class="tp-chip ${count ? 'warn' : 'ok'}">Liquidations: ${esc(String(count))}</span>`);
+            }
+            const taker = intel && intel.takerLeverage;
+            if (taker && Number(taker.launch_item_id) === 28 && taker.success) {
+                const tb = taker.taker_buy_sell_pressure || {};
+                const lev = taker.estimated_leverage_ratio || {};
+                const ratio = tb.taker_buy_ratio != null ? tb.taker_buy_ratio : tb.derivatives_semantics?.taker_buy_ratio;
+                const leverage = lev.leverage_ratio != null ? lev.leverage_ratio : lev.estimated_leverage_ratio;
+                chips.push(`<span class="tp-chip ok">Taker/Lev: ${esc(String(ratio ?? '—'))} / ${esc(String(leverage ?? '—'))}</span>`);
+            }
+            const sentiment = intel && intel.derivativesSentiment;
+            if (sentiment && sentiment.success && Number(sentiment.launch_item_id) === 29) {
+                const comp = sentiment.derivatives_sentiment_composite || sentiment.sentiment_composite || {};
+                chips.push(`<span class="tp-chip ok">Sentiment: ${esc(String(comp.bias || comp.score || 'composite'))}</span>`);
+            }
+            const book = intel && intel.orderBook;
+            if (book && book.success && Number(book.launch_item_id) === 30) {
+                chips.push(`<span class="tp-chip ok">Order book: ${esc(book.book_direction || book.depth_level || 'L1')}</span>`);
+            }
+            const arb = intel && intel.spotPerp;
+            if (arb && Number(arb.launch_item_id) === 43) {
+                const spot = arb.spot_perp_arbitrage || {};
+                const qualified = launch57QualifiedArbitrageOpportunities(spot);
+                chips.push(`<span class="tp-chip ${qualified.length ? 'ok' : ''}">Spot-perp: ${esc(String(qualified.length))} Net-Edge qualified</span>`);
+            }
+            chipsEl.innerHTML = chips.length
+                ? chips.join('')
+                : '<span class="tp-chip">Derivatives intelligence unavailable — no claims shown.</span>';
+            if (noteEl) {
+                noteEl.textContent = chips.length
+                    ? 'Launch-57 governed derivatives (#25–#30, #43). Arbitrage only after Net-Edge (#5) — raw spread hidden.'
+                    : 'Launch-57 derivatives intelligence unavailable — claims hidden (fail-closed).';
+            }
+        }
+
+        async function loadLaunch57DerivativesIntelligence(forceSym, pulse) {
+            const sym = (forceSym || document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
+            const qs = new URLSearchParams({ symbol: sym });
+            const intel = { symbol: sym };
+            try {
+                const results = await Promise.all([
+                    fetch(LAUNCH57_FUTURES_OI + '?' + qs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_FUNDING_RATE + '?' + qs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_LIQUIDATION + '?' + qs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_TAKER_LEVERAGE + '?' + qs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_DERIVATIVES_SENTIMENT + '?' + qs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_ORDER_BOOK + '?' + qs.toString(), { headers: authHeaders() }),
+                ]);
+                if (results[0].ok) intel.futuresOi = await results[0].json();
+                if (results[1].ok) intel.fundingRate = await results[1].json();
+                if (results[2].ok) intel.liquidation = await results[2].json();
+                if (results[3].ok) intel.takerLeverage = await results[3].json();
+                if (results[4].ok) intel.derivativesSentiment = await results[4].json();
+                if (results[5].ok) intel.orderBook = await results[5].json();
+                const bound = launch57OracleFromCommandHome(lastCommandHome || {});
+                const opportunity = bound && bound.oracle && bound.oracle.opportunity;
+                const netEdge = lastVisibleTrust.netEdge;
+                if (netEdge && netEdge.cost_claim_allowed === true && opportunity && typeof opportunity === 'object') {
+                    const arbRes = await fetch(LAUNCH57_SPOT_PERP_ARBITRAGE, {
+                        method: 'POST',
+                        headers: { ...authHeaders(), 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ symbol: sym, tier: 'quant', cost_claim: true, opportunity }),
+                    });
+                    if (arbRes.ok) intel.spotPerp = await arbRes.json();
+                }
+            } catch (error) {
+                console.debug(error);
+            }
+            lastLaunch57DerivativesIntel = intel;
+            renderLaunch57DerivativesIntel(intel);
+            return intel;
+        }
+
+        function renderLaunch57FirstScreenGaps(gaps) {
+            const chipsEl = document.getElementById('l57FirstScreenChips');
+            const noteEl = document.getElementById('l57FirstScreenNote');
+            if (!chipsEl) return;
+            const chips = [];
+            const spot = gaps && gaps.spotMetrics;
+            if (spot && Number(spot.launch_item_id) === 21 && spot.success && spot.metrics) {
+                const m = spot.metrics;
+                const price = m.price != null ? `$${fmt(m.price, m.price < 1 ? 4 : 2)}` : '—';
+                const ch = m.change_24h != null ? `${m.change_24h >= 0 ? '+' : ''}${fmt(m.change_24h, 2)}%` : '—';
+                chips.push(`<span class="tp-chip ok">Spot #21: ${esc(price)} · ${esc(ch)}</span>`);
+            }
+            const copilot = gaps && gaps.copilot;
+            if (copilot && Number(copilot.launch_item_id) === 36 && copilot.platform_data_only) {
+                const grounded = (copilot.research_agent || {}).grounded_sources || [];
+                chips.push(`<span class="tp-chip ok">Copilot #36: ${esc(grounded.length ? grounded.slice(0, 3).join(', ') : 'platform-only')}</span>`);
+            }
+            const share = gaps && gaps.shareableAccuracy;
+            if (share && Number(share.launch_item_id) === 45 && share.success) {
+                const page = share.accuracy_page || {};
+                const hr = page.hit_rate_percent;
+                const label = hr != null ? `Accuracy #45: ${hr}%` : 'Accuracy #45';
+                const href = page.href ? page.href + '#launch57-shareable-accuracy' : '/oracle-accuracy#launch57-shareable-accuracy';
+                chips.push(`<a class="tp-chip ok" href="${esc(href)}">${esc(label)}</a>`);
+            }
+            const history = gaps && gaps.decisionHistory;
+            if (history && Number(history.launch_item_id) === 49) {
+                const block = history.personal_decision_history || {};
+                const count = block.count ?? (block.decisions || []).length;
+                chips.push(`<span class="tp-chip ${history.success ? 'ok' : ''}">History #49: ${esc(String(count))} rows</span>`);
+            }
+            const portal = gaps && gaps.researchPortal;
+            if (portal && Number(portal.launch_item_id) === 51 && portal.success) {
+                const brief = portal.shareable_brief || (portal.research_portal || {}).short_brief || {};
+                const summary = brief.summary || brief.headline || 'Research brief';
+                chips.push(`<span class="tp-chip ok">Research #51: ${esc(String(summary).slice(0, 72))}</span>`);
+            }
+            chipsEl.innerHTML = chips.length
+                ? chips.join('')
+                : '<span class="tp-chip">First-screen gaps unavailable — no claims shown.</span>';
+            if (noteEl) {
+                noteEl.textContent = chips.length
+                    ? 'Launch-57 first-screen gaps (#21, #36, #45, #49, #51). Platform-data copilot only — no external LLM.'
+                    : 'Launch-57 first-screen gaps unavailable — claims hidden (fail-closed).';
+            }
+        }
+
+        async function loadLaunch57FirstScreenGaps(forceSym) {
+            const sym = (forceSym || document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
+            const gaps = { symbol: sym };
+            const qs = new URLSearchParams({ symbol: sym });
+            const histQs = new URLSearchParams({ symbol: sym, tier: userTierId || 'free', limit: '5' });
+            const copilotQs = new URLSearchParams({ symbol: sym, tier: launch57CopilotTier() });
+            try {
+                const results = await Promise.all([
+                    fetch(LAUNCH57_SPOT_METRICS + '?' + qs.toString()),
+                    fetch(LAUNCH57_SHAREABLE_ACCURACY + '?' + qs.toString()),
+                    fetch(LAUNCH57_DECISION_HISTORY + '?' + histQs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_AI_COPILOT + '?' + copilotQs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_RESEARCH_PORTAL + '?' + qs.toString()),
+                ]);
+                if (results[0].ok) gaps.spotMetrics = await results[0].json();
+                if (results[1].ok) gaps.shareableAccuracy = await results[1].json();
+                if (results[2].ok) gaps.decisionHistory = await results[2].json();
+                if (results[3].ok) gaps.copilot = await results[3].json();
+                if (results[4].ok) gaps.researchPortal = await results[4].json();
+            } catch (error) {
+                console.debug(error);
+            }
+            lastLaunch57FirstScreenGaps = gaps;
+            renderLaunch57FirstScreenGaps(gaps);
+            return gaps;
         }
 
         async function prefetchShareProof(pulse) {
@@ -999,14 +1581,25 @@
                     if (!res.ok) throw new Error('launch57_command_home_fail');
                     const data = await res.json();
                     lastCommandHome = data;
-                    const pulse = commandHomeToPulse(data);
+                    let pulse = commandHomeToPulse(data);
+                    const rawAction = String(pulse.action || '').toUpperCase();
+                    if (['WAIT', 'ABSTAIN'].includes(rawAction)) {
+                        const abstainFetch = await fetchLaunch48AbstainReasons(sym, rawAction);
+                        lastVisibleDisclosure.abstain = abstainFetch.body || null;
+                        pulse = gatePulseWithLaunch48Reasons(pulse, abstainFetch);
+                    }
                     renderTrustPulse(pulse);
-                    if (pulse.launch57_oracle_bound) {
-                        prefetchShareProof(pulse);
-                        prefetchVisibleTrust(pulse, data);
+                    if (pulse.launch57_oracle_bound && pulse.action !== 'UNAVAILABLE') {
+                        await prefetchShareProof(pulse);
+                        await prefetchVisibleTrust(pulse, data);
+                        loadLaunch57DecisionIntelligence(sym, pulse);
+                        loadLaunch57SmartMoneyIntelligence(sym);
+                        await loadLaunch57DerivativesIntelligence(sym, pulse);
+                        if (currentLens === 'desk') loadArbitrage(false);
                     } else {
                         setShareProofButton(false);
                         clearVisibleTrust();
+                        clearVisibleDisclosure();
                     }
                     renderLaunch57Intents(data);
                     const box = document.getElementById('oracleBox');
@@ -1024,6 +1617,7 @@
                     if (sentenceEl) sentenceEl.textContent = 'Launch-57 command home unavailable.';
                     setShareProofButton(false);
                     clearVisibleTrust();
+                    clearVisibleDisclosure();
                     setTrustPulseLoading(false);
                     return null;
                 } finally {
@@ -1159,6 +1753,12 @@
                 || 'Verify Ledger';
             const ledgerHref = safeShareUrl(ledger.href) || '/oracle-accuracy#launch57-ledger-sample';
             chips.push(`<a class="tp-chip ok" href="${ledgerHref}">${esc(ledgerLabel)}</a>`);
+            const shareAcc = lastVisibleTrust.shareableAccuracy || (p.shareable_accuracy || null);
+            if (shareAcc && (shareAcc.share_href || shareAcc.href)) {
+                const shareHref = safeShareUrl(shareAcc.share_href || shareAcc.href) || '/oracle-accuracy#launch57-shareable-accuracy';
+                const shareLabel = shareAcc.share_label || shareAcc.label || 'Shareable accuracy (#45)';
+                chips.push(`<a class="tp-chip ok" href="${shareHref}">${esc(shareLabel)}</a>`);
+            }
             if (proof.certificate_hash) {
                 chips.push(`<button type="button" class="tp-chip ok" data-bd-call="openDecisionCertificate" style="border:none;cursor:pointer;font:inherit">cert ${esc(String(proof.certificate_hash).slice(0,12))}…</button>`);
             }
@@ -1232,6 +1832,15 @@
             document.getElementById('tpFresh').textContent = fresh.label
                 || freshnessUiLabel(freshState, presentedLive, null);
             document.getElementById('tpProof').innerHTML = buildPulseChips(p);
+            renderAbstainReasonsBlock(p);
+            const actionEl2 = document.getElementById('tpAction');
+            if (actionEl2) {
+                const clickable = p.launch57_oracle_bound && act !== 'UNAVAILABLE' && lastVisibleDisclosure.risk;
+                actionEl2.style.cursor = clickable ? 'pointer' : 'default';
+                actionEl2.title = clickable
+                    ? 'Click for Launch-57 risk disclosure (#47)'
+                    : 'Launch-57 decision';
+            }
             renderPulseFlip(p, fromStream);
             renderPulseContinuity(p);
             const ledger = p.ledger || {};
@@ -1285,6 +1894,10 @@
         function setSymbol(s) {
             document.getElementById('symbol').value = s;
             loadCommandHome(true);
+            loadLaunch57DecisionIntelligence(s, lastPulse);
+            loadLaunch57SmartMoneyIntelligence(s);
+            loadLaunch57DerivativesIntelligence(s, lastPulse);
+            loadLaunch57FirstScreenGaps(s);
             loadLaunch57DataSpine(s);
             loadChart();
             startTrustPulseStream();
@@ -1609,24 +2222,21 @@
         async function loadDailyReport() {
             const el = document.getElementById('dailyReportBox');
             if (!el) return;
-            el.innerHTML = '<div class="loading">Loading daily report…</div>';
+            el.innerHTML = '<div class="loading">Loading research brief…</div>';
+            const sym = (document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
+            const qs = new URLSearchParams({ symbol: sym, tier: userTierId || 'free' });
             try {
-                const res = await fetch('/api/reports/daily?persist=false', { headers: authHeaders() });
+                const res = await fetch(LAUNCH57_RESEARCH_PORTAL + '?' + qs.toString(), { headers: authHeaders() });
                 const d = await res.json();
-                if (res.status === 401 || res.status === 403) {
-                    const detail = d.detail || {};
-                    el.innerHTML = `<div class="empty">${esc(detail.message || 'Decision Pro required for daily report')}
-                        <div style="margin-top:.65rem"><button class="btn" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">Upgrade Pro</button></div></div>`;
-                    return;
-                }
-                if (!res.ok) throw new Error('fail');
-                const title = d.title || d.headline || 'Daily research brief';
-                const summary = d.narrative || d.summary || d.executive_summary || d.one_liner || '';
+                if (!res.ok || Number(d.launch_item_id) !== 51) throw new Error('research_portal_fail');
+                const brief = d.shareable_brief || (d.research_portal || {}).short_brief || {};
+                const title = brief.headline || 'Launch-57 research brief (#51)';
+                const summary = brief.summary || brief.one_liner || '';
+                const scope = d.research_portal_scope || {};
                 const bullets = [
-                    d.oracle_accuracy_percent != null ? ('Oracle accuracy ' + d.oracle_accuracy_percent + '%') : null,
-                    d.moat_score != null ? ('Moat ' + d.moat_score + '/100') : null,
-                    d.whale_alerts_24h != null ? ('Whale alerts ' + d.whale_alerts_24h) : null,
-                    d.arb_alerts_24h != null ? ('Arb alerts ' + d.arb_alerts_24h) : null,
+                    brief.hit_rate_percent != null ? ('Hit rate ' + brief.hit_rate_percent + '%') : null,
+                    brief.resolved_predictions != null ? ('Resolved ' + brief.resolved_predictions) : null,
+                    scope.limited_launch_scope ? 'Limited launch scope' : null,
                 ].filter(Boolean).slice(0, 4);
                 const bulletHtml = bullets.length
                     ? ('<ul style="margin:.5rem 0 0 1.1rem;font-size:.85rem;color:#a1a1aa">'
@@ -1635,10 +2245,10 @@
                     : '';
                 el.innerHTML = '<strong>' + esc(title) + '</strong>'
                     + '<div style="margin-top:.35rem;font-size:.9rem;color:#a1a1aa">'
-                    + esc(summary || 'Brief ready — open Markdown for full detail.') + '</div>'
+                    + esc(summary || 'Research portal brief unavailable — no claims shown.') + '</div>'
                     + bulletHtml
-                    + '<div style="margin-top:.55rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · Research brief, not advice · Verify Ledger</div>';
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Daily report unavailable</div>'; }
+                    + '<div style="margin-top:.55rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · Launch-57 #51 platform evidence only · Verify Ledger</div>';
+            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Research brief unavailable</div>'; }
         }
 
         async function loadSubscriberValue() {
@@ -1719,105 +2329,158 @@
 
         async function loadOI() {
             const el = document.getElementById('oi');
+            const sym = (document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
+            const qs = new URLSearchParams({ symbol: sym });
             try {
-                const res = await fetch('/api/market/open-interest');
-                const data = await res.json();
-                const rows = data.assets || [];
-                if (!rows.length) { el.innerHTML = '<div class="empty">No OI data</div>'; return; }
-                el.innerHTML = '<table><thead><tr><th>Asset</th><th>OI</th><th>Funding</th></tr></thead><tbody>' +
-                    rows.slice(0,6).map(r => `<tr data-bd-call="setSymbol" data-bd-args="[&quot;${esc(r.asset)}&quot;]" style="cursor:pointer">
-                        <td>${esc(r.asset)}</td><td>$${fmt(r.open_interest_usd,0)}</td><td>${fmt(r.funding_rate_pct,4)}%</td></tr>`).join('') + '</tbody></table>';
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Unavailable</div>'; }
+                const [oiRes, fundRes] = await Promise.all([
+                    fetch(LAUNCH57_FUTURES_OI + '?' + qs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_FUNDING_RATE + '?' + qs.toString(), { headers: authHeaders() }),
+                ]);
+                if (!oiRes.ok && !fundRes.ok) throw new Error('launch57_derivatives_oi_fail');
+                const oi = oiRes.ok ? await oiRes.json() : null;
+                const funding = fundRes.ok ? await fundRes.json() : null;
+                if (Number(oi?.launch_item_id) !== 25 && Number(funding?.launch_item_id) !== 26) {
+                    throw new Error('launch57_derivatives_oi_not_bound');
+                }
+                const oiUsd = oi && oi.success ? oi.open_interest_usd : null;
+                const fundPct = funding && funding.success
+                    ? (funding.funding_rate_pct != null ? funding.funding_rate_pct : funding.funding_rate)
+                    : null;
+                if (oiUsd == null && fundPct == null) {
+                    el.innerHTML = '<div class="empty">Launch-57 OI/funding unavailable (#25/#26)</div>';
+                    return;
+                }
+                el.innerHTML = '<table><thead><tr><th>Asset</th><th>OI (#25)</th><th>Funding (#26)</th></tr></thead><tbody>' +
+                    `<tr data-bd-call="setSymbol" data-bd-args="[&quot;${esc(sym)}&quot;]" style="cursor:pointer">
+                        <td>${esc(sym)}</td>
+                        <td>${oiUsd != null ? '$' + fmt(oiUsd, 0) : '—'}</td>
+                        <td>${fundPct != null ? fmt(fundPct, 4) + '%' : '—'}</td>
+                    </tr></tbody></table>`;
+            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Launch-57 OI unavailable (#25/#26)</div>'; }
         }
 
         async function loadArbitrage(refresh) {
             const el = document.getElementById('arbList');
             const stats = document.getElementById('arbStats');
+            const sym = (document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
+            if (refresh) el.innerHTML = '<div class="loading">Scanning Launch-57 #43…</div>';
             try {
-                const url = refresh ? '/api/arbitrage/scan' : '/api/arbitrage/opportunities?live=true';
-                const res = await fetch(url, refresh ? { method: 'POST', headers: authHeaders() } : { headers: authHeaders() });
-                const data = await res.json();
-                if (res.status === 403) {
-                    const detail = data.detail || {};
-                    stats.textContent = detail.message || 'Pro required';
-                    el.innerHTML = `<div class="empty">${esc(detail.message || 'Upgrade required for arbitrage')}
-                        <div style="margin-top:.75rem"><button class="btn" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">Upgrade Pro</button></div></div>`;
+                const bound = launch57OracleFromCommandHome(lastCommandHome || {});
+                const opportunity = bound && bound.oracle && bound.oracle.opportunity;
+                const netEdge = lastVisibleTrust.netEdge;
+                if (!netEdge || netEdge.cost_claim_allowed !== true || !opportunity || typeof opportunity !== 'object') {
+                    stats.textContent = 'Launch-57 #43 · Net-Edge (#5) required — raw spread hidden';
+                    el.innerHTML = '<div class="empty">No arbitrage opportunities shown without Net-Edge (#5) autopsy on the displayed opportunity.</div>';
                     return;
                 }
-                const c = data.counts || {};
-                stats.textContent = `Cross ${c.cross_exchange||0} · Executable ${data.executable_count||0} · Profitable ${data.profitable_count||0}`;
-                const opps = data.opportunities || [];
-                el.innerHTML = opps.length ? opps.slice(0,6).map(o => {
+                const res = await fetch(LAUNCH57_SPOT_PERP_ARBITRAGE, {
+                    method: 'POST',
+                    headers: { ...authHeaders(), 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ symbol: sym, tier: 'quant', cost_claim: true, opportunity }),
+                });
+                const data = await res.json();
+                if (!res.ok || Number(data.launch_item_id) !== 43) {
+                    throw new Error('launch57_spot_perp_fail');
+                }
+                const spot = data.spot_perp_arbitrage || {};
+                const opps = launch57QualifiedArbitrageOpportunities(spot);
+                stats.textContent = `Launch-57 #43 · ${opps.length} Net-Edge qualified · raw spread excluded`;
+                el.innerHTML = opps.length ? opps.slice(0, 6).map((o) => {
                     const half = o.opportunity_half_life || {};
                     const truth = o.net_edge_truth || {};
-                    const rejected = o.truth_rejected || truth.reject;
-                    return `<div class="arb-card"><strong>${esc(o.kind_label||o.kind)}</strong> ${esc(o.asset||'')}
-                    <div class="${changeClass(o.net_profit_usdt)}">${changePrefix(o.net_profit_usdt)}$${fmt(Math.abs(o.net_profit_usdt||0),4)}</div>
-                    <div style="font-size:.75rem;color:#71717a">Truth ${esc(truth.truth_score??'—')} · HL ${esc(half.remaining_seconds??o.expected_half_life_seconds??'—')}s${rejected ? ' · REJECTED' : ''}</div></div>`;
-                }).join('') : '<div class="empty">No opportunities now</div>';
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Scan failed</div>'; }
+                    return `<div class="arb-card"><strong>${esc(o.kind_label || o.kind)}</strong> ${esc(o.asset || sym)}
+                    <div class="${changeClass(o.net_profit_usdt)}">${changePrefix(o.net_profit_usdt)}$${fmt(Math.abs(o.net_profit_usdt || 0), 4)}</div>
+                    <div style="font-size:.75rem;color:#71717a">Net-Edge #5 · Truth ${esc(truth.truth_score ?? '—')} · HL ${esc(half.remaining_seconds ?? o.expected_half_life_seconds ?? '—')}s</div></div>`;
+                }).join('') : '<div class="empty">No Net-Edge-qualified spot–perp opportunities (#43)</div>';
+            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Launch-57 arbitrage unavailable (#43)</div>'; if (stats) stats.textContent = 'Launch-57 #43 unavailable'; }
         }
 
         async function loadInbox() {
             const el = document.getElementById('inbox');
             const status = document.getElementById('tgStatus');
+            const sym = (document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
+            const qs = new URLSearchParams({ symbol: sym, limit: '12' });
             try {
-                const res = await fetch('/api/alerts/inbox?limit=12', { headers: authHeaders() });
+                const res = await fetch(LAUNCH57_WHALE_ALERTS + '?' + qs.toString(), { headers: authHeaders() });
+                if (!res.ok) throw new Error('launch57_whale_alerts_fail');
                 const data = await res.json();
-                const stats = data.stats || {};
-                status.textContent = `Inbox ${stats.unread||0} unread · ${stats.generosity_note || 'no TV-style 15/3min hard cap'} · works without Telegram`;
-                const rows = data.alerts || [];
-                el.innerHTML = rows.length ? rows.map(a => `
-                    <div class="arb-card" style="cursor:pointer" data-bd-call="markInboxRead" data-bd-args="[&quot;${esc(a.id)}&quot;]">
-                        <strong>${esc(a.title||'Alert')}</strong>
-                        <div style="font-size:.85rem;color:#a1a1aa;margin-top:.25rem">${esc(a.body||'')}</div>
-                        <div style="font-size:.72rem;color:#71717a;margin-top:.35rem">${esc((a.created_at||'').slice(0,19))} · ${a.read ? 'read' : 'new · tap to mark read'}</div>
+                if (Number(data.launch_item_id) !== 18) throw new Error('launch57_whale_alerts_not_bound');
+                const rows = (data.alert_worthy_alerts || []).filter((a, i) => !launch57InboxDismissed.has(a.id || `l57-18-${i}`));
+                const accum = data.accumulation_signals || 0;
+                const dist = data.distribution_signals || 0;
+                status.textContent = `Launch-57 #18 whale alerts · ${rows.length} alert-worthy · accum ${accum} / dist ${dist}`;
+                el.innerHTML = rows.length ? rows.map((a, i) => {
+                    const title = a.title || a.alert_type || a.whale_classification?.class_id || 'Whale alert';
+                    const body = a.body || a.summary || a.sentence || JSON.stringify(a).slice(0, 160);
+                    const id = a.id || `l57-18-${i}`;
+                    return `
+                    <div class="arb-card" style="cursor:pointer" data-bd-call="markInboxRead" data-bd-args="[&quot;${esc(id)}&quot;]">
+                        <strong>${esc(title)}</strong>
+                        <div style="font-size:.85rem;color:#a1a1aa;margin-top:.25rem">${esc(body)}</div>
+                        <div style="font-size:.72rem;color:#71717a;margin-top:.35rem">${esc(sym)} · Launch-57 #18 · tap to dismiss locally</div>
                         <div style="margin-top:.4rem;font-size:.7rem;color:#71717a"><strong>Anti-Hype</strong> · Truth + Half-Life gated · Not financial advice</div>
-                    </div>`).join('') : '<div class="empty">No alerts yet — inbox has no TradingView-style 15/3min hard cap</div>';
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Inbox unavailable</div>'; }
+                    </div>`;
+                }).join('') : '<div class="empty">No Launch-57 whale alerts right now (#18)</div>';
+            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Launch-57 whale alerts unavailable (#18)</div>'; if (status) status.textContent = 'Launch-57 #18 whale alerts unavailable'; }
         }
+
+        const launch57InboxDismissed = new Set();
 
         async function markInboxRead(id) {
             if (!id) return;
-            try {
-                await fetch('/api/alerts/inbox/' + encodeURIComponent(id) + '/read', {
-                    method: 'POST',
-                    headers: authHeaders(),
-                });
-                loadInbox();
-            } catch (error) { console.debug(error); }
+            launch57InboxDismissed.add(id);
+            loadInbox();
         }
 
         async function loadWhales(refresh) {
             const el = document.getElementById('whaleList');
             const foot = document.getElementById('whaleCompliance');
             if (refresh) el.innerHTML = '<div class="loading">Scanning…</div>';
+            const sym = (document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
+            const qs = new URLSearchParams({ symbol: sym, limit: '8' });
             try {
-                const res = await fetch('/api/whale/signal-vs-noise?limit=8');
-                const data = await res.json();
-                const classified = data.classified || [];
-                const stories = data.stories || [];
-                const headline = data.one_sentence || data.headline || (stories[0] || '');
-                const headHtml = headline
-                    ? `<div class="whale-card" style="border-color:rgba(34,211,238,.35)"><strong>One sentence · Signal vs Noise</strong><div style="margin-top:.35rem;font-size:.95rem;line-height:1.45">${esc(headline)}</div></div>`
-                    : '';
-                if (classified.length) {
-                    el.innerHTML = headHtml + classified.map(a => `
-                        <div class="whale-card">
-                            <strong>${esc(a.label||'—')}</strong> · ${esc(a.asset||'—')}
-                            ${whalePriceBit(a)}
-                            <div style="font-size:.8rem;color:#a1a1aa;margin-top:.25rem">${esc(a.sentence||a.class_id||'')}</div>
-                            ${whaleFundingBit(a)}
-                        </div>`).join('');
-                } else if (stories.length) {
-                    el.innerHTML = headHtml + stories.slice(0,8).map(s => `<div class="whale-card">${esc(s)}</div>`).join('');
-                } else {
-                    el.innerHTML = '<div class="empty">No whale narratives</div>';
+                const [accRes, scrRes, ratioRes] = await Promise.all([
+                    fetch(LAUNCH57_ACCUMULATION + '?' + qs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_TOKEN_SCREENER + '?' + qs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_WHALE_RATIO_FILTER + '?' + qs.toString(), { headers: authHeaders() }),
+                ]);
+                const cards = [];
+                if (accRes.ok) {
+                    const acc = await accRes.json();
+                    if (Number(acc.launch_item_id) === 13 && acc.success) {
+                        const disc = acc.accumulation_distribution_disclosure || {};
+                        const headline = disc.summary || disc.headline || `Accumulation/Distribution · ${acc.signal_count || 0} signals`;
+                        cards.push(`<div class="whale-card" style="border-color:rgba(34,211,238,.35)"><strong>Launch-57 #13 · ${esc(sym)}</strong><div style="margin-top:.35rem;font-size:.95rem;line-height:1.45">${esc(headline)}</div></div>`);
+                        const narratives = acc.accumulation_distribution?.narratives || acc.accumulation_distribution?.signals || [];
+                        (Array.isArray(narratives) ? narratives : []).slice(0, 6).forEach((row) => {
+                            const text = typeof row === 'string' ? row : (row.sentence || row.label || JSON.stringify(row));
+                            cards.push(`<div class="whale-card">${esc(text)}</div>`);
+                        });
+                    }
                 }
+                if (scrRes.ok) {
+                    const scr = await scrRes.json();
+                    if (Number(scr.launch_item_id) === 14 && scr.success) {
+                        (scr.screener || []).slice(0, 4).forEach((row) => {
+                            cards.push(`<div class="whale-card"><strong>${esc(row.symbol || '—')}</strong> · $${esc(fmt(row.total_usd || 0, 0))}<div style="font-size:.8rem;color:#a1a1aa;margin-top:.25rem">Launch-57 #14 screener · ${esc(String(row.whale_events || 0))} events</div></div>`);
+                        });
+                    }
+                }
+                if (ratioRes.ok) {
+                    const ratio = await ratioRes.json();
+                    if (Number(ratio.launch_item_id) === 17 && ratio.success) {
+                        const wr = ratio.exchange_whale_ratio || {};
+                        const ratioVal = wr.whale_ratio || wr.exchange_whale_ratio?.whale_filtered_ratio;
+                        const filter = ratio.internal_flow_filter || {};
+                        const internal = filter.internal_flow_filter?.internal;
+                        cards.push(`<div class="whale-card"><strong>Launch-57 #17 · Whale ratio</strong><div style="margin-top:.35rem">${esc(String(ratioVal ?? '—'))}${internal != null ? ` · internal flow ${internal ? 'yes' : 'filtered'}` : ''}</div></div>`);
+                    }
+                }
+                el.innerHTML = cards.length ? cards.join('') : '<div class="empty">Launch-57 smart money unavailable — no whale claims shown</div>';
                 if (foot) {
-                    foot.innerHTML = '<strong>Anti-Hype</strong> · Whale labels are classified, not guaranteed alpha · Not financial advice · Verify on Public Accuracy Ledger';
+                    foot.innerHTML = '<strong>Launch-57 #13/#14/#17</strong> · Governed smart money only · Not financial advice · Verify on Public Accuracy Ledger';
                 }
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Unavailable</div>'; }
+            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Launch-57 whale intelligence unavailable</div>'; }
         }
 
         function coversPlanBit(v) {
@@ -2248,6 +2911,9 @@
         function runDeferredBoot() {
             initChart();
             loadLaunch57DataSpine();
+            loadLaunch57SmartMoneyIntelligence();
+            loadLaunch57DerivativesIntelligence();
+            loadLaunch57FirstScreenGaps();
             loadChart();
             loadMarket();
             loadOI();
