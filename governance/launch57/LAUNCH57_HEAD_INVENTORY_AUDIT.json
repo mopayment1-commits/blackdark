@@ -19,7 +19,7 @@
     "1 Command Home latency (~3s) still blocks first-screen paint SLA",
     "49 Personal decision history API بلا fetch في dashboard",
     "43 Spot–perp arbitrage launch57 API بلا wire؛ dashboard يستخدم /api/arbitrage legacy",
-    "14/18 Whale surfaces تستخدم /api/whale و/alerts/inbox وليس launch57 smart_money",
+    "13–20 Smart money Batch E wired؛ PENDING_VERIFICATION على dashboard launch57-smart-money-intelligence",
     "36 AI copilot launch57 API بلا wire؛ dashboard chat = /api/chat",
     "51 Research portal launch57 بلا route؛ digest = /api/reports/daily",
     "33 Smart Alerts Telegram BLOCKED_EXTERNAL؛ inbox محلي فقط"
