@@ -77,8 +77,38 @@ def test_authenticated_header_hides_login_shows_account(client):
     assert 'id="bdAccountAvatar"' in header
     assert "/profile" in header
     assert 'id="bdHeaderLogout"' in header
-    assert 'class="bd-lang-visible"' not in header
+    assert 'id="bdLangTrigger"' in header
+    visible_lang = len(re.findall(r'class="bd-lang-visible"', header))
+    assert visible_lang == 1
     assert "FREE" in header
+
+
+def test_authenticated_dashboard_shows_lang_and_account(client):
+    email = f"hdr-dash-{uuid.uuid4().hex[:10]}@example.com"
+    reg = client.post(
+        "/api/auth/register",
+        json={"email": email, "password": "SecurePass1234!", "accepted_terms": True},
+        headers={"Origin": "https://testserver"},
+    )
+    assert reg.status_code == 200, reg.text
+    for path in ("/", "/login", "/dashboard"):
+        res = client.get(path, headers={"Accept": "text/html"})
+        assert res.status_code == 200, path
+        header = _header_nav(res.text)
+        assert 'id="bdLangTrigger"' in header, path
+        assert 'id="bdUtilLogin"' not in header, path
+        assert 'id="bdAccountTrigger"' in header, path
+
+
+def test_anonymous_login_shows_lang_login_signup(client):
+    for path in ("/", "/login"):
+        res = client.get(path, headers={"Accept": "text/html"})
+        assert res.status_code == 200, path
+        header = _header_nav(res.text)
+        assert 'id="bdLangTrigger"' in header, path
+        assert 'id="bdUtilLogin"' in header, path
+        assert 'id="bdUtilSignup"' in header, path
+        assert 'id="bdAccountTrigger"' not in header, path
 
 
 def test_dashboard_auth_gate_has_login_link(client):

@@ -91,6 +91,7 @@
   }
 </style>
 <nav class="bd-header-util" data-chrome="auth-lang-pay" aria-label="Account and language">
+  {% include 'partials/lang_switcher.html' %}
   {% if header_authenticated and header_user %}
   <span class="bd-tier-badge" id="userTier">{{ header_user.tier_label }}</span>
   <div class="bd-account-menu">
@@ -103,7 +104,6 @@
     </div>
   </div>
   {% else %}
-  {% include 'partials/lang_switcher.html' %}
   <a class="bd-header-text" href="/login" id="bdUtilLogin">{{ t('nav.login') if t is defined else 'Login' }}</a>
   <a class="bd-header-text bd-header-signup" href="/login?tab=register" id="bdUtilSignup">{{ t('nav.signup') if t is defined else 'Sign up' }}</a>
   <a class="bd-header-text" href="/#pricing" id="bdUtilPricing">{{ t('nav.pricing') if t is defined else 'Pricing' }}</a>
