@@ -84,6 +84,31 @@ async def launch57_real_time_prices(symbol: str = Query("BTC")):
     return await real_time_prices(symbol=symbol, params={"symbol": symbol, "user_key": "anonymous"})
 
 
+@router.get("/api/launch57/share-proof")
+async def launch57_share_proof(
+    request: Request,
+    symbol: str = Query("BTC"),
+    decision_action: str = Query("WAIT"),
+    decision_sentence: str = Query(""),
+):
+    """Launch #44 — shareable decision card for Trust Pulse Share Proof (first-screen only)."""
+    _require_launch57_auth(request, 44)
+    from launch57.trust_batch2 import shareable_decision_card
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    action = str(decision_action or "WAIT").upper()
+    sentence = str(decision_sentence or "").strip() or f"{asset}: {action} — governed Launch-57 oracle"
+    return await shareable_decision_card(
+        symbol=asset,
+        params={
+            "symbol": asset,
+            "decision_action": action,
+            "decision_sentence": sentence,
+            "tier": "free",
+        },
+    )
+
+
 @router.get("/api/launch57/command-home")
 async def launch57_command_home(
     request: Request,

@@ -26,8 +26,9 @@ def test_post_auth_default_destination_is_dashboard():
 
 def test_dashboard_boot_calls_launch57_command_home():
     dash = _read(DASHBOARD)
-    boot = dash.split("function boot()", 1)[1].split("function ", 1)[0]
-    assert "loadCommandHome(true)" in boot
+    boot = dash.split("function boot()", 1)[1].split("if (document.readyState", 1)[0]
+    assert "scheduleCommandHome()" in boot
+    assert "startTrustPulseStream()" in boot
     assert "LAUNCH57_COMMAND_HOME = '/api/launch57/command-home'" in dash
 
 

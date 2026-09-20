@@ -184,7 +184,7 @@
             <div class="tp-cta">
                 <button class="btn" type="button" data-bd-call="openFullProof">Open full proof</button>
                 <a class="btn secondary" href="/oracle-accuracy" style="text-decoration:none;display:inline-flex;align-items:center">Verify Ledger</a>
-                <button class="btn secondary" type="button" id="tpShareBtn" data-bd-call="shareTrustPulse">Share Proof</button>
+                <button class="btn secondary" type="button" id="tpShareBtn" data-bd-call="shareTrustPulse" hidden>Share Proof</button>
             </div>
             <div class="tp-foot" id="tpFoot"><strong>Anti-Hype</strong> · Not financial advice · AI cannot guarantee returns</div>
         </section>
@@ -583,11 +583,13 @@
 
         let lastPulse = null;
         let lastCommandHome = null;
+        let lastShareProof = null;
         let launch57PollTimer = null;
         let commandHomeInflight = null;
         let commandHomeInflightKey = '';
         const TP_STORE = 'bd_trust_pulse_last';
         const LAUNCH57_COMMAND_HOME = '/api/launch57/command-home';
+        const LAUNCH57_SHARE_PROOF = '/api/launch57/share-proof';
         const LAUNCH57_PRIMARY_INTENTS = [
             { id: 'decide', label: 'Decide', action: 'launch57_decide', hint: 'Launch-57 command home — Act/Wait + Why + Proof.' },
             { id: 'verify', label: 'Verify', action: 'navigate', path: '/oracle-accuracy', hint: 'Public Accuracy Ledger — hits and misses.' },
@@ -625,28 +627,126 @@
             return s.replace(/_/g, ' ');
         }
 
-        function commandHomeToPulse(data) {
+        function launch57OracleFromCommandHome(data) {
             const home = (data && data.six_heroes_command_home) || {};
-            const oracle = home.oracle || data || {};
-            const sso = oracle.single_sentence_oracle || data.single_sentence_oracle || {};
-            const level1 = ((data && data.adaptive_disclosure) || {}).level_1 || {};
+            if (Number(data?.launch_item_id) !== 1) return null;
+            if (String(home.oracle_path || '') !== 'launch57.trust_batch1:single_sentence_oracle') return null;
+            const oracle = home.oracle;
+            if (!oracle || Number(oracle.launch_item_id) !== 2) return null;
+            const sso = oracle.single_sentence_oracle;
+            if (!sso || !sso.action || !sso.sentence) return null;
+            return { home, oracle, sso };
+        }
+
+        function buildOracleWhyFactors(data, oracle) {
+            const factors = [];
+            const oracleDisc = oracle.adaptive_disclosure || {};
+            const stack = oracleDisc.progressive_stack || oracleDisc;
+            const level1 = oracleDisc.level_1 || stack.level_1 || {};
+            const level2 = oracleDisc.level_2 || stack.level_2 || {};
+            const level3 = oracleDisc.level_3 || stack.level_3 || {};
+            if (level1.abstention_reason) {
+                factors.push({ factor: 'Abstain', detail: level1.abstention_reason });
+            }
+            if (level1.critical_limitation) {
+                const lim = level1.critical_limitation;
+                const detail = (lim && (lim.summary || lim.detail)) || String(lim || '');
+                if (detail) factors.push({ factor: 'Limitation', detail });
+            }
+            if (level1.critical_contradiction) {
+                const c = level1.critical_contradiction;
+                const detail = (c && (c.summary || c.detail)) || String(c || '');
+                if (detail) factors.push({ factor: 'Contradiction', detail });
+            }
+            const supporting = level3.supporting_factors || [];
+            supporting.slice(0, 3).forEach((row, i) => {
+                if (typeof row === 'string') {
+                    factors.push({ factor: `Driver ${i + 1}`, detail: row });
+                    return;
+                }
+                factors.push({
+                    factor: row.label || row.factor || row.title || `Driver ${i + 1}`,
+                    detail: row.detail || row.state || '',
+                });
+            });
+            const certFields = oracle.certificate_adaptive_fields || oracle.adaptive_fields || {};
+            (certFields.key_drivers || []).slice(0, 3).forEach((d, i) => {
+                if (typeof d === 'string') {
+                    factors.push({ factor: d, detail: '' });
+                    return;
+                }
+                factors.push({
+                    factor: d.factor || d.label || `Driver ${i + 1}`,
+                    detail: d.detail || '',
+                });
+            });
+            if (!factors.length && level2.concise_explanation) {
+                factors.push({ factor: 'Oracle', detail: level2.concise_explanation });
+            }
+            return {
+                grasp_line: level2.concise_explanation ? 'Why (Launch-57 oracle)' : 'Why (Launch-57 oracle #2)',
+                factors: factors.slice(0, 5),
+            };
+        }
+
+        function commandHomeToPulse(data) {
+            const bound = launch57OracleFromCommandHome(data);
+            const home = (data && data.six_heroes_command_home) || {};
             const evidenceDisp = (data && data.evidence_display) || {};
             const freshnessState = String(data.freshness_state || 'UNKNOWN').toUpperCase();
             const presentedAsLive = data.presented_as_live === true && data.decision_live_blocked !== true;
             const staleBlocked = freshnessState === 'STALE'
                 || freshnessState === 'UNKNOWN'
                 || data.decision_live_blocked === true
-                || data.success === false
                 || !presentedAsLive;
             const userEvidence = evidenceDisp.user_facing_label
-                || mapCanonicalEvidenceLabel(data.evidence_class_visible || oracle.evidence_class);
-            if (staleBlocked || data.success === false) {
+                || mapCanonicalEvidenceLabel(data.evidence_class_visible || (bound && bound.oracle.evidence_class));
+
+            if (!bound) {
+                return {
+                    symbol: data?.symbol || 'BTC',
+                    action: 'UNAVAILABLE',
+                    sentence: 'Launch-57 command home unavailable — governed oracle #2 required.',
+                    freshness: {
+                        state: freshnessState,
+                        stale: true,
+                        presented_as_live: false,
+                        label: 'Unavailable',
+                    },
+                    why: { grasp_line: 'Why (Launch-57 oracle #2)', factors: [] },
+                    proof: { evidence_class: userEvidence },
+                    ledger: { label: 'Launch-57 grounded', href: '/oracle-accuracy' },
+                    presented_as_live: false,
+                    decision_live_blocked: true,
+                    launch57_oracle_bound: false,
+                    launch57_command_home: true,
+                };
+            }
+
+            const { oracle, sso } = bound;
+            const abstain = home.abstain === true || data.answer_state === 'ABSTAIN';
+            let action = abstain ? 'ABSTAIN' : String(oracle.decision_action || sso.action).toUpperCase();
+            if (action === 'BUY') action = 'ACT';
+            if (!['ACT', 'WAIT', 'ABSTAIN', 'CAUTION'].includes(action)) action = 'WAIT';
+
+            const why = buildOracleWhyFactors(data, oracle);
+            if (staleBlocked || data.success === false || abstain) {
+                if (!why.factors.length && home.abstain_explanation) {
+                    why.factors.push({ factor: 'Abstain', detail: home.abstain_explanation });
+                }
+                if (!why.factors.length && home.abstain_reason) {
+                    why.factors.push({ factor: 'Router', detail: home.abstain_reason });
+                }
+                if (!why.factors.length) {
+                    why.factors.push({
+                        factor: 'Freshness gate',
+                        detail: freshnessUiLabel(freshnessState, false, data.delayed_label),
+                    });
+                }
                 return {
                     symbol: data.symbol || oracle.symbol || 'BTC',
-                    action: 'WAIT',
-                    sentence: level1.abstention_reason
-                        || data.error
-                        || 'Launch-57 blocked — data not live-eligible.',
+                    action: abstain ? 'ABSTAIN' : 'WAIT',
+                    sentence: home.abstain_explanation || sso.sentence || data.error || 'Launch-57 blocked — not live-eligible.',
                     price: data.price,
                     change_24h: data.change_24h,
                     freshness: {
@@ -655,52 +755,96 @@
                         presented_as_live: false,
                         label: freshnessUiLabel(freshnessState, false, data.delayed_label),
                     },
-                    why: {
-                        grasp_line: 'Why (Launch-57 command home)',
-                        factors: [{ factor: 'Freshness gate', detail: freshnessUiLabel(freshnessState, false, data.delayed_label) }],
+                    why,
+                    proof: {
+                        evidence_class: userEvidence,
+                        canonical_evidence_class: data.evidence_class_visible || oracle.evidence_class,
                     },
-                    proof: { evidence_class: userEvidence, canonical_evidence_class: data.evidence_class_visible || oracle.evidence_class },
                     ledger: { label: 'Launch-57 grounded', href: '/oracle-accuracy', honesty_line: 'Stale or unknown data is never presented as live.' },
                     presented_as_live: false,
                     decision_live_blocked: true,
+                    launch57_oracle_bound: true,
                     launch57_command_home: true,
                 };
             }
-            const action = String(oracle.decision_action || sso.action || data.decision_truth_state || 'WAIT').toUpperCase();
-            const factors = [];
-            const heroBlock = home.heroes || {};
-            const heroes = heroBlock.heroes || heroBlock;
-            Object.keys(heroes || {}).forEach((key) => {
-                const row = heroes[key];
-                if (row && row.state === 'AVAILABLE' && row.data) {
-                    factors.push({ factor: key.replace(/_/g, ' '), detail: JSON.stringify(row.data).slice(0, 120) });
-                }
-            });
-            if (!factors.length && level1.critical_limitation) {
-                factors.push({ factor: 'Limitation', detail: (level1.critical_limitation.summary || level1.critical_limitation) });
+
+            if (!why.factors.length) {
+                why.factors.push({ factor: 'Oracle', detail: sso.sentence });
             }
+
             return {
                 symbol: data.symbol || oracle.symbol || 'BTC',
-                action: action === 'BUY' ? 'ACT' : action,
-                sentence: sso.sentence || level1.abstention_reason || 'Launch-57 command home — governed decision surface.',
+                action,
+                sentence: sso.sentence,
                 price: data.price,
                 change_24h: data.change_24h,
                 freshness: {
                     state: freshnessState,
-                    stale: staleBlocked,
+                    stale: false,
                     presented_as_live: presentedAsLive,
                     label: freshnessUiLabel(freshnessState, presentedAsLive, data.delayed_label),
                 },
-                why: { grasp_line: 'Why (Launch-57 command home)', factors },
+                why,
                 proof: {
                     evidence_class: userEvidence,
                     canonical_evidence_class: data.evidence_class_visible || oracle.evidence_class,
                 },
-                ledger: { label: 'Launch-57 grounded', href: '/oracle-accuracy', honesty_line: 'Launch-57 scope only — PARKED paths excluded from default journey.' },
+                ledger: { label: 'Launch-57 grounded', href: '/oracle-accuracy', honesty_line: 'Launch-57 scope only — oracle #2 grounded.' },
                 presented_as_live: presentedAsLive,
                 decision_live_blocked: false,
+                launch57_oracle_bound: true,
                 launch57_command_home: true,
             };
+        }
+
+        function setShareProofButton(visible) {
+            const btn = document.getElementById('tpShareBtn');
+            if (btn) btn.hidden = !visible;
+        }
+
+        async function prefetchShareProof(pulse) {
+            if (!pulse || !pulse.launch57_oracle_bound || pulse.action === 'UNAVAILABLE') {
+                setShareProofButton(false);
+                return null;
+            }
+            try {
+                const qs = new URLSearchParams({
+                    symbol: pulse.symbol || 'BTC',
+                    decision_action: pulse.action || 'WAIT',
+                    decision_sentence: pulse.sentence || '',
+                });
+                const res = await fetch(LAUNCH57_SHARE_PROOF + '?' + qs.toString(), { headers: authHeaders() });
+                if (!res.ok) {
+                    setShareProofButton(false);
+                    return null;
+                }
+                const body = await res.json();
+                if (Number(body.launch_item_id) !== 44 || !body.success) {
+                    setShareProofButton(false);
+                    return null;
+                }
+                const cert = body.certificate || {};
+                const shareUrls = body.share_urls || cert.share_urls || {};
+                const shareText = cert.share_text || body.og_metadata?.description || pulse.sentence;
+                const permalink = cert.permalink || body.og_metadata?.url || shareUrls.x || null;
+                lastShareProof = body;
+                if (lastPulse) {
+                    lastPulse.proof = {
+                        ...(lastPulse.proof || {}),
+                        share_text: shareText,
+                        share_urls: shareUrls,
+                        permalink,
+                        certificate_hash: cert.certificate_hash,
+                        launch_item_id: 44,
+                    };
+                }
+                setShareProofButton(Boolean(shareText || permalink || (shareUrls && Object.keys(shareUrls).length)));
+                return body;
+            } catch (error) {
+                console.debug(error);
+                setShareProofButton(false);
+                return null;
+            }
         }
 
         function setTrustPulseLoading(active) {
@@ -724,7 +868,10 @@
                     if (!res.ok) throw new Error('launch57_command_home_fail');
                     const data = await res.json();
                     lastCommandHome = data;
-                    renderTrustPulse(commandHomeToPulse(data));
+                    const pulse = commandHomeToPulse(data);
+                    renderTrustPulse(pulse);
+                    if (pulse.launch57_oracle_bound) prefetchShareProof(pulse);
+                    else setShareProofButton(false);
                     renderLaunch57Intents(data);
                     const box = document.getElementById('oracleBox');
                     const el = document.getElementById('oracleContent');
@@ -739,6 +886,7 @@
                     const sentenceEl = document.getElementById('tpSentence');
                     if (freshEl) freshEl.textContent = 'Unavailable';
                     if (sentenceEl) sentenceEl.textContent = 'Launch-57 command home unavailable.';
+                    setShareProofButton(false);
                     setTrustPulseLoading(false);
                     return null;
                 } finally {
@@ -901,8 +1049,13 @@
             lastPulse = p;
             const actionEl = document.getElementById('tpAction');
             const act = (p.action || 'WAIT').toUpperCase();
-            actionEl.textContent = act;
-            actionEl.className = 'tp-action ' + act;
+            if (act === 'UNAVAILABLE' || p.launch57_oracle_bound === false) {
+                actionEl.textContent = '—';
+                actionEl.className = 'tp-action WAIT';
+            } else {
+                actionEl.textContent = act;
+                actionEl.className = 'tp-action ' + act;
+            }
             const price = fmtPrice(p.price);
             const ch = p.change_24h;
             const chS = changeSpan(ch);
@@ -947,24 +1100,32 @@
             if (fresh) fresh.textContent = 'Launch-57 command home';
         }
 
-        function shareTrustPulse() {
+        async function shareTrustPulse() {
             const btn = document.getElementById('tpShareBtn');
+            if (btn && btn.hidden) return;
+            const p = lastPulse || {};
+            if (!p.launch57_oracle_bound || p.action === 'UNAVAILABLE') return;
+            let proof = p.proof || {};
+            if (Number(proof.launch_item_id) !== 44) {
+                const prefetched = await prefetchShareProof(p);
+                if (!prefetched) return;
+                proof = (lastPulse && lastPulse.proof) || {};
+            }
             if (btn) {
                 btn.classList.remove('bd-motion-share');
                 btn.dataset.reflow = String(btn.offsetWidth);
                 btn.classList.add('bd-motion-share');
             }
-            const p = lastPulse || {};
-            const proof = p.proof || {};
-            const text = proof.share_text || (`BLACKDARK Trust Pulse · ${p.symbol||'BTC'} · ${p.action||'WAIT'} · verify /oracle-accuracy`);
-            const url = (proof.share_urls && proof.share_urls.x) || null;
+            const text = proof.share_text;
+            const url = proof.permalink || (proof.share_urls && proof.share_urls.x) || null;
+            if (!text && !url) return;
             if (navigator.share) {
-                navigator.share({ title: 'BLACKDARK Trust Pulse', text }).catch(() => {});
+                navigator.share({ title: 'BLACKDARK Trust Pulse', text: text || '', url: url || undefined }).catch(() => {});
                 return;
             }
-            if (navigator.clipboard) navigator.clipboard.writeText(text).catch(() => {});
+            if (text && navigator.clipboard) navigator.clipboard.writeText(text).catch(() => {});
             if (url) window.open(url, '_blank', 'noopener');
-            else alert('Proof text copied');
+            else if (text) alert('Proof text copied');
         }
 
         function setSymbol(s) {

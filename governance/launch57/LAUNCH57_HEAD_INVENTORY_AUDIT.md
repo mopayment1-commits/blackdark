@@ -9,8 +9,8 @@
 | Status | Count |
 |--------|------:|
 | WORKS | 4 |
-| PARTIAL | 24 |
-| MISSING_PATH | 27 |
+| PARTIAL | 25 |
+| MISSING_PATH | 26 |
 | BLOCKED_EXTERNAL | 2 |
 | **TOTAL** | **57** |
 
@@ -18,7 +18,7 @@
 
 1. 1 Command Home بطيء (~3s command-home) ومركّب وليس شاشة أولى مستقلة
 2. 2 Single-Sentence Oracle غير معزول عن command-home composite
-3. 44 Shareable OG card handler بلا مسار shareTrustPulse/API
+3. 1 Command Home latency (~3s) still blocks first-screen paint SLA
 4. 49 Personal decision history API بلا fetch في dashboard
 5. 43 Spot–perp arbitrage launch57 API بلا wire؛ dashboard يستخدم /api/arbitrage legacy
 6. 14/18 Whale surfaces تستخدم /api/whale و/alerts/inbox وليس launch57 smart_money
@@ -31,8 +31,8 @@
 
 | # | Name | cap_id | consumer_path | works_now | goal_met | test | hero | notes |
 |---:|---|---|---|---|---|---|---|---|
-| 1 | Six Heroes Command Home — «ماذا أفعل الآن؟» | UNMAPPED | /dashboard → GET /api/launch57/command-home | PARTIAL | نعم | نعم `tests/launch57/test_edge_ui_batch2.py::test_command_home_eligible_ids_within_launch57_scope` | Single-Sentence Oracle | Dashboard boots command-home; لا يثبت منع فوضى 932 كاملاً |
-| 2 | Single-Sentence Oracle (ACT/WAIT/ABSTAIN) | UNMAPPED | /dashboard#decide → loadCommandHome → single_sentence_oracle | PARTIAL | نعم | نعم `tests/launch57/test_trust_batch1.py::test_single_sentence_oracle_act_wait_abstain` | Single-Sentence Oracle | Oracle عبر command-home فقط؛ لا مسار Get Decision معزول |
+| 1 | Six Heroes Command Home — «ماذا أفعل الآن؟» | UNMAPPED | /dashboard#trust-pulse → GET /api/launch57/command-home (launch_item_id=1 only) | PARTIAL | جزئي | نعم `tests/launch57/test_trust_pulse_launch57_consumer_path.py::test_trust_pulse_only_loads_launch57_command_home` | Single-Sentence Oracle | Trust Pulse يستهلك command-home فقط؛ PENDING_VERIFICATION |
+| 2 | Single-Sentence Oracle (ACT/WAIT/ABSTAIN) | UNMAPPED | /dashboard#trust-pulse → command-home.oracle (launch_item_id=2) | PARTIAL | جزئي | نعم `tests/launch57/test_trust_pulse_launch57_consumer_path.py::test_command_home_with_oracle_exposes_act_wait_sentence` | Single-Sentence Oracle | ACT/WAIT/ABSTAIN + Why من oracle #2؛ PENDING_VERIFICATION |
 | 3 | Decision Certificate + hash | CAP-0641 | command-home composite → launch57/trust_batch1:decision_certificate | PARTIAL | جزئي | نعم `tests/launch57/test_trust_batch1.py::test_decision_certificate_includes_hash` | NONE | شهادة في handler؛ لا زر مشاركة OG مستقل |
 | 4 | Public Accuracy Ledger (حي فقط) | CAP-0640 | GET /oracle-accuracy (legacy oracle_track_record backend) | PARTIAL | جزئي | نعم `tests/launch57/test_trust_batch1.py::test_public_accuracy_ledger_live_only_primary` | Public Accuracy Ledger | صفحة /oracle-accuracy حية؛ backend legacy وليس launch57/trust_batch1 مباشرة |
 | 5 | Net-Edge / Cost Autopsy على كل فرصة أو إشارة | CAP-0639,CAP-0635 | GET /api/launch57/net-edge (elite tier, auth) | PARTIAL | جزئي | نعم `tests/launch57/test_trust_batch1.py::test_net_edge_scores_real_opportunity` | NONE | Net-edge API موجود؛ elite tier وليس على كل إشارة افتراضياً |
@@ -74,7 +74,7 @@
 | 41 | Freshness assurance + تسمية delayed صريحة | CAP-0630 | load_decision_spine → freshness_update_assurance + trust-pulse labels | WORKS | نعم | نعم `tests/launch57/test_data_batch2.py::test_freshness_rejects_stale_as_live` | B2B Feed | freshness gate في spine + trust-pulse stale labels |
 | 42 | Unified exchange connector (مسار واحد) | CAP-0504 | launch57/data_batch1:unified_exchange_connector (no /status wire) | PARTIAL | جزئي | نعم `tests/launch57/test_data_batch1.py::test_unified_exchange_connector_routes_without_synthetic` | Arbitrage Scanner | connector handler؛ /status لا يعرض unified connector |
 | 43 | Spot–perp / arbitrage (Net-Edge إلزامي) | CAP-0230 | GET /api/launch57/spot-perp-arbitrage | PARTIAL | جزئي | نعم `tests/launch57/test_edge_ui_batch1.py::test_spot_perp_scan_without_cost_claim` | Arbitrage Scanner | API spot-perp موجود؛ dashboard arb يستخدم /api/arbitrage/* |
-| 44 | Shareable decision / oracle card (OG) | UNMAPPED | UNMAPPED | MISSING_PATH | لا | نعم `tests/launch57/test_trust_batch2.py::test_shareable_decision_card_og_metadata` | Single-Sentence Oracle | shareable_decision_card handler؛ shareTrustPulse لا يستدعيه |
+| 44 | Shareable decision / oracle card (OG) | UNMAPPED | GET /api/launch57/share-proof → dashboard Share Proof (hidden unless success) | PARTIAL | جزئي | نعم `tests/launch57/test_trust_pulse_launch57_consumer_path.py::test_share_proof_route_launch_44` | Single-Sentence Oracle | Share Proof → #44 أو مخفي؛ PENDING_VERIFICATION |
 | 45 | Shareable accuracy / outcome page | CAP-0640 | /oracle-accuracy share samples (trust_batch2 handler) | PARTIAL | جزئي | نعم `tests/launch57/test_trust_batch2.py::test_shareable_accuracy_page_live_only` | Public Accuracy Ledger | shareable accuracy handler؛ /oracle-accuracy legacy |
 | 46 | Guest trust surface | UNMAPPED | GET /api/launch57/guest-trust (+ / landing, /status) | WORKS | نعم | نعم `tests/launch57/test_trust_batch2.py::test_guest_trust_surface` | Public Accuracy Ledger | guest-trust API على / و/status |
 | 47 | One-click risk disclosure على كل قرار | UNMAPPED | command-home/trust-pulse → one_click_risk_disclosure fields | PARTIAL | جزئي | نعم `tests/launch57/test_trust_batch2.py::test_one_click_risk_disclosure` | NONE | حقول risk disclosure داخل command-home payload |
