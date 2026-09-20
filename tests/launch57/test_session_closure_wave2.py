@@ -70,7 +70,8 @@ def test_register_then_dashboard_with_valid_session(client, monkeypatch):
     email = f"wave2-session-{uuid.uuid4().hex[:10]}@example.com"
     reg = client.post(
         "/api/auth/register",
-        json={"email": email, "password": "SecurePass1234!", "accepted_terms": True},
+        json={"email": email, "password": "SecurePass1234!", "accepted_terms": True,
+            "accepted_privacy": True},
         headers={"Origin": "https://testserver"},
     )
     assert reg.status_code == 200, reg.text

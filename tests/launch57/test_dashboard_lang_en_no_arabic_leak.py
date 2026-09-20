@@ -50,6 +50,7 @@ def test_dashboard_html_en_cookie_has_no_arabic_intent_question(authed_client, m
             "email": f"dash-lang-en-{uuid.uuid4().hex[:10]}@example.com",
             "password": "SecurePass1234!",
             "accepted_terms": True,
+            "accepted_privacy": True,
         },
         headers={"Origin": "https://testserver"},
     )

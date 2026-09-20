@@ -69,13 +69,28 @@ def test_register_requires_terms_and_sets_username(tmp_path, monkeypatch):
     async def _run():
         await database.init_db()
         with pytest.raises(ValueError, match="Terms"):
-            await register_user("a@b.co", "strong-pass-123456789", "A", accepted_terms=False)
+            await register_user(
+                "a@b.co",
+                "strong-pass-123456789",
+                "A",
+                accepted_terms=False,
+                accepted_privacy=True,
+            )
+        with pytest.raises(ValueError, match="Privacy"):
+            await register_user(
+                "b@b.co",
+                "strong-pass-123456789",
+                "B",
+                accepted_terms=True,
+                accepted_privacy=False,
+            )
         result = await register_user(
             "trader@example.com",
             "strong-pass-123456789",
             "Trader One",
             username="trader_one",
             accepted_terms=True,
+            accepted_privacy=True,
             plan="free",
         )
         assert result["user"]["username"] == "trader_one"
@@ -92,12 +107,14 @@ def test_register_requires_terms_and_sets_username(tmp_path, monkeypatch):
             "strong-pass-123456789",
             "Pro User",
             accepted_terms=True,
+            accepted_privacy=True,
             plan="pro",
         )
         assert pro["selected_plan"] == "pro"
         assert pro["trial"]
-        assert pro["trial"]["active"] is True
-        assert pro["user"]["tier"] == "pro"
+        assert pro["trial"]["pending_until_verification"] is True
+        assert pro["trial"]["active"] is False
+        assert pro["user"]["tier"] == "free"
 
     asyncio.run(_run())
 
@@ -109,6 +126,7 @@ def test_login_template_has_mfa_and_oauth_and_forgot():
     assert "googleBtnHost" in html or "Google sign-in not configured" in html
     assert ("Forgot password" in html) or ("auth.forgot_pass" in html)
     assert "regTerms" in html
+    assert "regPrivacy" in html
     assert 'id="regPlan"' in html
     assert "plan-grid" not in html
     assert 'minlength="15"' in html

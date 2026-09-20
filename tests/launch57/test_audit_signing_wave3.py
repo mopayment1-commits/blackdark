@@ -20,7 +20,8 @@ def test_register_succeeds_without_audit_signing_key_in_production(monkeypatch, 
     email = f"wave3-audit-{uuid.uuid4().hex[:10]}@example.com"
     res = c.post(
         "/api/auth/register",
-        json={"email": email, "password": "SecurePass1234!", "accepted_terms": True},
+        json={"email": email, "password": "SecurePass1234!", "accepted_terms": True,
+            "accepted_privacy": True},
     )
     assert res.status_code == 200, res.text
 

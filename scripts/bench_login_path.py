@@ -30,7 +30,8 @@ def main() -> None:
     t0 = time.perf_counter()
     reg = client.post(
         "/api/auth/register",
-        json={"email": email, "password": password, "accepted_terms": True},
+        json={"email": email, "password": password, "accepted_terms": True,
+            "accepted_privacy": True},
         headers={"Origin": "https://testserver"},
     )
     rows.append(("POST /api/auth/register (setup)", _ms(t0), str(reg.status_code)))

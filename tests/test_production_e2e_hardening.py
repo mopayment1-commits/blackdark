@@ -59,6 +59,7 @@ def test_duplicate_register_is_400_not_500(tmp_path, monkeypatch):
         "password": "E2eHarden!Aa123456",
         "name": "Dup",
         "accepted_terms": True,
+            "accepted_privacy": True,
     }
     first = client.post("/api/auth/register", json=body, headers=origin)
     assert first.status_code == 200, first.text
@@ -77,7 +78,8 @@ def test_register_login_me_logout_cookie_journey(tmp_path, monkeypatch):
     password = "E2eHarden!Aa123456"
     reg = client.post(
         "/api/auth/register",
-        json={"email": email, "password": password, "name": "Sess", "accepted_terms": True},
+        json={"email": email, "password": password, "name": "Sess", "accepted_terms": True,
+            "accepted_privacy": True},
         headers=origin,
     )
     assert reg.status_code == 200, reg.text
@@ -116,6 +118,7 @@ def test_production_http_cookie_when_secure_explicitly_disabled(tmp_path, monkey
             "password": "E2eHarden!Aa123456",
             "name": "HttpProd",
             "accepted_terms": True,
+            "accepted_privacy": True,
         },
         headers=origin,
     )
@@ -209,6 +212,7 @@ def test_mfa_enroll_without_master_key_is_503_not_500(tmp_path, monkeypatch):
             "password": "E2eHarden!Aa123456",
             "name": "Mfa",
             "accepted_terms": True,
+            "accepted_privacy": True,
         },
         headers=origin,
     )
@@ -245,6 +249,7 @@ def test_mfa_enroll_with_session_pepper_fallback(tmp_path, monkeypatch):
             "password": "E2eHarden!Aa123456",
             "name": "MfaPepper",
             "accepted_terms": True,
+            "accepted_privacy": True,
         },
         headers=origin,
     )
@@ -282,6 +287,7 @@ def test_portfolio_analyze_accepts_holdings_object(tmp_path, monkeypatch):
             "password": "E2eHarden!Aa123456",
             "name": "Port",
             "accepted_terms": True,
+            "accepted_privacy": True,
             "plan": "pro",
         },
         headers=origin,
@@ -313,6 +319,7 @@ def test_portfolio_analyze_accepts_asset_quantity_aliases(tmp_path, monkeypatch)
             "password": "E2eHarden!Aa123456",
             "name": "Port",
             "accepted_terms": True,
+            "accepted_privacy": True,
             "plan": "pro",
         },
         headers=origin,

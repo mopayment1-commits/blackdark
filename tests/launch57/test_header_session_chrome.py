@@ -63,7 +63,8 @@ def test_authenticated_header_hides_login_shows_account(client):
     email = f"header-{uuid.uuid4().hex[:10]}@example.com"
     reg = client.post(
         "/api/auth/register",
-        json={"email": email, "password": "SecurePass1234!", "accepted_terms": True},
+        json={"email": email, "password": "SecurePass1234!", "accepted_terms": True,
+            "accepted_privacy": True},
         headers={"Origin": "https://testserver"},
     )
     assert reg.status_code == 200, reg.text
@@ -87,7 +88,8 @@ def test_authenticated_dashboard_shows_lang_and_account(client):
     email = f"hdr-dash-{uuid.uuid4().hex[:10]}@example.com"
     reg = client.post(
         "/api/auth/register",
-        json={"email": email, "password": "SecurePass1234!", "accepted_terms": True},
+        json={"email": email, "password": "SecurePass1234!", "accepted_terms": True,
+            "accepted_privacy": True},
         headers={"Origin": "https://testserver"},
     )
     assert reg.status_code == 200, reg.text
@@ -137,7 +139,8 @@ def test_nav_active_on_dashboard_lens(client):
     c = TestClient(__import__("dashboard").app)
     reg = c.post(
         "/api/auth/register",
-        json={"email": email, "password": "SecurePass1234!", "accepted_terms": True},
+        json={"email": email, "password": "SecurePass1234!", "accepted_terms": True,
+            "accepted_privacy": True},
         headers={"Origin": "https://testserver"},
     )
     assert reg.status_code == 200

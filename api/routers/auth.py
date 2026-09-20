@@ -11,6 +11,7 @@ from fastapi import (
     BackgroundTasks,
     Depends,
     File,
+    Header,
     HTTPException,
     Query,
     Request,
@@ -89,8 +90,13 @@ async def auth_identity_architecture():
 
 
 @router.post("/register", responses=COMMON_ERROR_RESPONSES)
-async def auth_register(body: AuthRegisterBody, background_tasks: BackgroundTasks):
+async def auth_register(
+    body: AuthRegisterBody,
+    request: Request,
+    background_tasks: BackgroundTasks,
+):
     from auth_service import register_user
+    from identity_audit import log_identity_auth_event
     from security_auth import check_login_rate_limit
 
     try:
@@ -101,7 +107,19 @@ async def auth_register(body: AuthRegisterBody, background_tasks: BackgroundTask
             body.name,
             username=body.username,
             accepted_terms=body.accepted_terms,
+            accepted_privacy=body.accepted_privacy,
             plan=body.plan,
+        )
+        log_identity_auth_event(
+            "auth_register",
+            actor=body.email.lower(),
+            user_id=int(result["user"]["id"]),
+            request=request,
+            detail={
+                "selected_plan": result.get("selected_plan"),
+                "terms_accepted": body.accepted_terms,
+                "privacy_accepted": body.accepted_privacy,
+            },
         )
         background_tasks.add_task(
             record_behavior,
@@ -151,6 +169,14 @@ async def auth_login(
         result = await login_user(body.email, body.password, mfa_code=body.mfa_code)
         if result.get("mfa_required"):
             return result
+        from identity_audit import log_identity_auth_event
+
+        log_identity_auth_event(
+            "auth_login_success",
+            actor=body.email.strip().lower(),
+            user_id=int(result["user"]["id"]) if result.get("user") else None,
+            request=request,
+        )
         background_tasks.add_task(record_behavior, "auth_login", user=result.get("user"))
         from observability import increment_metric
 
@@ -159,9 +185,17 @@ async def auth_login(
         _attach_session_cookie(resp, result.get("token"))
         return resp
     except ValueError as exc:
+        from identity_audit import log_identity_auth_event
         from security_auth import record_login_failure
 
         record_login_failure(f"ip:{ip}")
+        log_identity_auth_event(
+            "auth_login_failure",
+            actor=body.email.strip().lower(),
+            request=request,
+            severity="warning",
+            detail={"reason": str(exc)},
+        )
         raise HTTPException(status_code=401, detail=str(exc)) from exc
 
 
@@ -264,6 +298,14 @@ async def auth_forgot_password(body: AuthForgotPasswordBody, request: Request):
         if user and int(user.get("password_is_set") if user.get("password_is_set") is not None else 1):
             try:
                 debug = await send_password_reset_email(int(user["id"]), email)
+                from identity_audit import log_identity_auth_event
+
+                log_identity_auth_event(
+                    "auth_password_reset_request",
+                    actor=email,
+                    user_id=int(user["id"]),
+                    request=request,
+                )
             except Exception:
                 pass
     except ValueError:
@@ -279,9 +321,10 @@ async def auth_forgot_password(body: AuthForgotPasswordBody, request: Request):
 
 
 @router.post("/reset-password", responses=COMMON_ERROR_RESPONSES)
-async def auth_reset_password(body: AuthResetPasswordBody):
+async def auth_reset_password(body: AuthResetPasswordBody, request: Request):
     from auth_service import hash_password
     from database import delete_user_sessions_for_user, fetch_user_by_id, update_user_profile_fields
+    from identity_audit import log_identity_auth_event
     from identity_service import consume_auth_token, validate_password
 
     try:
@@ -299,6 +342,12 @@ async def auth_reset_password(body: AuthResetPasswordBody):
             },
         )
         await delete_user_sessions_for_user(user_id)
+        log_identity_auth_event(
+            "auth_password_reset_complete",
+            actor=email,
+            user_id=user_id,
+            request=request,
+        )
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     return JSONResponse(
@@ -313,26 +362,35 @@ async def auth_reset_password(body: AuthResetPasswordBody):
 @router.post("/change-password", responses=COMMON_ERROR_RESPONSES)
 async def auth_change_password(
     body: AuthChangePasswordBody,
+    request: Request,
     user: dict | None = Depends(optional_user),
+    x_step_up_token: str | None = Header(default=None, alias="X-Step-Up-Token"),
 ):
     if not user:
         raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
-    from auth_service import hash_password, verify_password
+    from auth_service import hash_password
     from database import (
         delete_user_sessions_for_user,
         fetch_user_by_id,
         update_user_profile_fields,
     )
+    from identity_audit import log_identity_auth_event
     from identity_service import validate_password
+    from identity_step_up import IDENTITY_PASSWORD_CHANGE, identity_step_up_satisfied
 
     row = await fetch_user_by_id(int(user["id"]))
     if not row:
         raise HTTPException(status_code=404, detail="User not found")
     password_is_set = bool(int(row.get("password_is_set") if row.get("password_is_set") is not None else 1))
-    if password_is_set and not verify_password(
-        body.current_password, str(row.get("password_hash") or "")
+    stored_hash = str(row.get("password_hash") or "")
+    if password_is_set and not identity_step_up_satisfied(
+        subject_id=str(user["id"]),
+        operation=IDENTITY_PASSWORD_CHANGE,
+        step_up_token=x_step_up_token,
+        current_password=body.current_password,
+        stored_hash=stored_hash,
     ):
-        raise HTTPException(status_code=400, detail="Current password is incorrect")
+        raise HTTPException(status_code=403, detail="Step-up required — re-enter current password or provide step-up token")
     try:
         validate_password(body.new_password, email=str(row["email"]))
     except ValueError as exc:
@@ -345,6 +403,12 @@ async def auth_change_password(
     from auth_service import create_session
 
     session = await create_session(int(user["id"]))
+    log_identity_auth_event(
+        "auth_password_change",
+        actor=str(row["email"]),
+        user_id=int(user["id"]),
+        request=request,
+    )
     resp = JSONResponse(
         _session_response_body(
             {"ok": True, "token": session["token"], "expires_at": session["expires_at"]}
@@ -355,9 +419,11 @@ async def auth_change_password(
 
 
 @router.get("/verify-email", responses=COMMON_ERROR_RESPONSES)
-async def auth_verify_email(token: str = Query(...)):
+async def auth_verify_email(request: Request, token: str = Query(...)):
     from database import mark_email_verified
+    from identity_audit import log_identity_auth_event
     from identity_service import consume_auth_token
+    from identity_signup import activate_pending_signup_plan
 
     safe = "".join(ch for ch in str(token) if ch.isalnum() or ch in "-_.")
     if len(safe) < 16:
@@ -365,6 +431,13 @@ async def auth_verify_email(token: str = Query(...)):
     try:
         user_id = await consume_auth_token(safe, "email_verify")
         await mark_email_verified(user_id)
+        activated = await activate_pending_signup_plan(user_id)
+        log_identity_auth_event(
+            "auth_email_verified",
+            user_id=user_id,
+            request=request,
+            detail={"pending_plan_activated": bool(activated)},
+        )
     except ValueError:
         raise HTTPException(status_code=400, detail="Invalid or expired verification token") from None
     return RedirectResponse(url="/profile?verified=1", status_code=302)

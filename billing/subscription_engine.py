@@ -724,6 +724,8 @@ def entitlement_allowed(sub: dict[str, Any] | None, *, now: datetime | None = No
 
 
 async def resolve_entitlements_for_user(user_id: int) -> dict[str, Any]:
+    from database import fetch_user_by_id
+
     sub = await get_by_user_id(user_id)
     if not sub:
         return {
@@ -733,12 +735,22 @@ async def resolve_entitlements_for_user(user_id: int) -> dict[str, Any]:
             "subscription_status": "active",
             "payment_status": "none",
             "entitlements_version": 1,
+            "email_verified": False,
         }
+    user = await fetch_user_by_id(user_id)
+    email_verified = bool(user and user.get("email_verified_at"))
     plan = effective_plan(sub)
+    stored_plan = normalize_plan(str(sub.get("plan")))
+    pending = normalize_plan(str(sub.get("pending_plan") or "free"))
+    allowed = entitlement_allowed(sub)
+    paid_intent = plan != "free" or pending != "free" or stored_plan != "free"
+    if not email_verified and paid_intent:
+        plan = "free"
+        allowed = False
     return {
-        "plan": normalize_plan(str(sub.get("plan"))),
+        "plan": stored_plan,
         "effective_plan": plan,
-        "entitlement_allowed": entitlement_allowed(sub),
+        "entitlement_allowed": allowed,
         "subscription_status": sub.get("subscription_status"),
         "payment_status": sub.get("payment_status"),
         "current_period_end": sub.get("current_period_end"),
@@ -748,6 +760,8 @@ async def resolve_entitlements_for_user(user_id: int) -> dict[str, Any]:
         "entitlements_version": sub.get("entitlements_version"),
         "grace_period_end": sub.get("grace_period_end"),
         "trial_ends_at": sub.get("trial_ends_at"),
+        "email_verified": email_verified,
+        "account_exists_not_paid": bool(user) and not email_verified and paid_intent,
     }
 
 
