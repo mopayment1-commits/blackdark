@@ -301,6 +301,132 @@ async def launch57_abstain_reasons(
     )
 
 
+@router.get("/api/launch57/accumulation-distribution")
+async def launch57_accumulation_distribution(
+    request: Request,
+    symbol: str = Query("BTC"),
+    limit: int = Query(10, ge=1, le=50),
+):
+    """Launch #13 — Accumulation / Distribution Detection."""
+    _require_launch57_auth(request, 13)
+    from launch57.smart_money_batch1 import accumulation_distribution_detection
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await accumulation_distribution_detection(
+        symbol=asset,
+        params={"symbol": asset, "limit": limit},
+    )
+
+
+@router.get("/api/launch57/token-screener")
+async def launch57_token_screener(
+    request: Request,
+    symbol: str = Query("BTC"),
+    limit: int = Query(25, ge=1, le=100),
+):
+    """Launch #14 — Smart Money Token Screener."""
+    _require_launch57_auth(request, 14)
+    from launch57.smart_money_batch1 import smart_money_token_screener
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await smart_money_token_screener(
+        symbol=asset,
+        params={"symbol": asset, "limit": limit},
+    )
+
+
+@router.get("/api/launch57/entity-wallet")
+async def launch57_entity_wallet(
+    request: Request,
+    symbol: str = Query("BTC"),
+    address: str = Query("0x0000000000000000000000000000000000000000"),
+    chain: str = Query("ethereum"),
+):
+    """Launch #15 — Entity-Aware Wallet Intelligence."""
+    _require_launch57_auth(request, 15)
+    from launch57.smart_money_batch2 import entity_aware_wallet_intelligence
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await entity_aware_wallet_intelligence(
+        symbol=asset,
+        params={"symbol": asset, "address": address, "chain": chain},
+    )
+
+
+@router.get("/api/launch57/exchange-flow")
+async def launch57_exchange_flow(request: Request, symbol: str = Query("BTC")):
+    """Launch #16 — Exchange Flow Intelligence (in/out/net)."""
+    _require_launch57_auth(request, 16)
+    from launch57.smart_money_batch1 import exchange_flow_intelligence
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await exchange_flow_intelligence(symbol=asset, params={"symbol": asset})
+
+
+@router.get("/api/launch57/whale-ratio-filter")
+async def launch57_whale_ratio_filter(request: Request, symbol: str = Query("BTC")):
+    """Launch #17 — Exchange Whale Ratio + internal-flow filter."""
+    _require_launch57_auth(request, 17)
+    from launch57.smart_money_batch1 import exchange_whale_ratio, internal_flow_filter
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    ratio = await exchange_whale_ratio(symbol=asset, params={"symbol": asset})
+    flow_filter = await internal_flow_filter(symbol=asset, params={"symbol": asset})
+    return {
+        "launch_item_id": 17,
+        "symbol": asset,
+        "success": bool(ratio.get("success")) or bool(flow_filter.get("success")),
+        "exchange_whale_ratio": ratio,
+        "internal_flow_filter": flow_filter,
+        "backend_module": "launch57.smart_money_batch1",
+        "backend_entrypoint": "exchange_whale_ratio+internal_flow_filter",
+    }
+
+
+@router.get("/api/launch57/whale-alerts")
+async def launch57_whale_alerts(
+    request: Request,
+    symbol: str = Query("BTC"),
+    limit: int = Query(20, ge=1, le=50),
+):
+    """Launch #18 — Whale Accumulation / Movement Alerts."""
+    _require_launch57_auth(request, 18)
+    from launch57.smart_money_batch2 import whale_accumulation_distribution_intelligence
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await whale_accumulation_distribution_intelligence(
+        symbol=asset,
+        params={"symbol": asset, "limit": limit},
+    )
+
+
+@router.get("/api/launch57/inter-entity-flow")
+async def launch57_inter_entity_flow(request: Request, symbol: str = Query("BTC")):
+    """Launch #19 — Inter-Entity Flow (limited launch)."""
+    _require_launch57_auth(request, 19)
+    from launch57.smart_money_batch2 import inter_entity_flow_intelligence
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await inter_entity_flow_intelligence(symbol=asset, params={"symbol": asset})
+
+
+@router.get("/api/launch57/address-labels")
+async def launch57_address_labels(
+    request: Request,
+    symbol: str = Query("BTC"),
+    address: str = Query("0x0000000000000000000000000000000000000000"),
+):
+    """Launch #20 — Address Labels & Cohorts (limited nucleus)."""
+    _require_launch57_auth(request, 20)
+    from launch57.smart_money_batch1 import address_labels_cohorts
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await address_labels_cohorts(
+        symbol=asset,
+        params={"symbol": asset, "address": address},
+    )
+
+
 @router.get("/api/launch57/decision-certificate")
 async def launch57_decision_certificate(
     request: Request,

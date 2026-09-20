@@ -247,6 +247,12 @@
             <div class="tp-proof" id="l57DecisionChips"><span class="tp-chip">Loading decision intelligence…</span></div>
         </section>
 
+        <section id="launch57-smart-money-intelligence" aria-label="Launch-57 smart money intelligence">
+            <h2>Smart Money Intelligence</h2>
+            <p class="sub" id="l57SmartMoneyNote">Launch-57 smart money surfaces (#13–#20) — claims hidden when unavailable.</p>
+            <div class="tp-proof" id="l57SmartMoneyChips"><span class="tp-chip">Loading smart money intelligence…</span></div>
+        </section>
+
         <section id="launch57-data-spine" aria-label="Launch-57 data spine">
             <h2>Data Spine</h2>
             <p class="sub" id="l57DataNote">Launch-57 prices, freshness, provenance, and connector — claims hidden when unavailable.</p>
@@ -660,9 +666,18 @@
         const LAUNCH57_CONVICTION = '/api/launch57/conviction-engine';
         const LAUNCH57_RISK_DISCLOSURE = '/api/launch57/risk-disclosure';
         const LAUNCH57_ABSTAIN_REASONS = '/api/launch57/abstain-reasons';
+        const LAUNCH57_ACCUMULATION = '/api/launch57/accumulation-distribution';
+        const LAUNCH57_TOKEN_SCREENER = '/api/launch57/token-screener';
+        const LAUNCH57_ENTITY_WALLET = '/api/launch57/entity-wallet';
+        const LAUNCH57_EXCHANGE_FLOW = '/api/launch57/exchange-flow';
+        const LAUNCH57_WHALE_RATIO_FILTER = '/api/launch57/whale-ratio-filter';
+        const LAUNCH57_WHALE_ALERTS = '/api/launch57/whale-alerts';
+        const LAUNCH57_INTER_ENTITY_FLOW = '/api/launch57/inter-entity-flow';
+        const LAUNCH57_ADDRESS_LABELS = '/api/launch57/address-labels';
         let lastVisibleTrust = { certificate: null, ledger: null, netEdge: null };
         let lastVisibleDisclosure = { risk: null, abstain: null };
         let lastLaunch57DecisionIntel = null;
+        let lastLaunch57SmartMoneyIntel = null;
         let lastLaunch57DataSpine = null;
         const LAUNCH57_PRIMARY_INTENTS = [
             { id: 'decide', label: 'Decide', action: 'launch57_decide', hint: 'Launch-57 command home — Act/Wait + Why + Proof.' },
@@ -1164,6 +1179,96 @@
             return intel;
         }
 
+        function renderLaunch57SmartMoneyIntel(intel) {
+            const chipsEl = document.getElementById('l57SmartMoneyChips');
+            const noteEl = document.getElementById('l57SmartMoneyNote');
+            if (!chipsEl) return;
+            const chips = [];
+            const acc = intel && intel.accumulation;
+            if (acc && acc.success && Number(acc.launch_item_id) === 13) {
+                const count = acc.signal_count || 0;
+                chips.push(`<span class="tp-chip ${count ? 'ok' : ''}">Accum/Dist: ${esc(String(count))} signals</span>`);
+            }
+            const screener = intel && intel.screener;
+            if (screener && screener.success && Number(screener.launch_item_id) === 14) {
+                const count = screener.count || (screener.screener || []).length;
+                chips.push(`<span class="tp-chip ok">Screener: ${esc(String(count))} tokens</span>`);
+            }
+            const entity = intel && intel.entityWallet;
+            if (entity && entity.success && Number(entity.launch_item_id) === 15) {
+                const label = entity.entity_label || entity.entity_wallet_disclosure?.entity_label || entity.entity_interpretation?.entity_type || 'entity';
+                chips.push(`<span class="tp-chip ok">Entity wallet: ${esc(String(label))}</span>`);
+            }
+            const flow = intel && intel.exchangeFlow;
+            if (flow && flow.success && Number(flow.launch_item_id) === 16 && flow.exchange_flow) {
+                const net = flow.exchange_flow.netflow_usd;
+                chips.push(`<span class="tp-chip ok">Exchange flow net: $${esc(fmt(Math.abs(net || 0), 0))}</span>`);
+            }
+            const ratio = intel && intel.whaleRatio;
+            if (ratio && Number(ratio.launch_item_id) === 17 && ratio.success) {
+                const wr = ratio.exchange_whale_ratio || {};
+                const ratioVal = wr.whale_ratio || wr.exchange_whale_ratio?.whale_filtered_ratio;
+                const filter = ratio.internal_flow_filter || {};
+                const internal = filter.internal_flow_filter?.internal;
+                chips.push(`<span class="tp-chip ok">Whale ratio: ${esc(String(ratioVal ?? '—'))}${internal != null ? ` · internal ${internal ? 'yes' : 'no'}` : ''}</span>`);
+            }
+            const alerts = intel && intel.whaleAlerts;
+            if (alerts && Number(alerts.launch_item_id) === 18) {
+                const count = (alerts.alert_worthy_alerts || []).length;
+                chips.push(`<span class="tp-chip ${count ? 'warn' : 'ok'}">Whale alerts: ${esc(String(count))}</span>`);
+            }
+            const inter = intel && intel.interEntity;
+            if (inter && inter.success && Number(inter.launch_item_id) === 19) {
+                const scope = inter.limited_launch_scope ? 'limited' : 'scoped';
+                chips.push(`<span class="tp-chip ok">Inter-entity: ${esc(scope)}</span>`);
+            }
+            const labels = intel && intel.addressLabels;
+            if (labels && Number(labels.launch_item_id) === 20) {
+                const cohorts = labels.address_labels_cohorts || labels.cohorts || {};
+                const labelCount = cohorts.label_count || (cohorts.labels || []).length;
+                chips.push(`<span class="tp-chip ${labels.success ? 'ok' : ''}">Labels: ${esc(String(labelCount))}</span>`);
+            }
+            chipsEl.innerHTML = chips.length
+                ? chips.join('')
+                : '<span class="tp-chip">Smart money intelligence unavailable — no claims shown.</span>';
+            if (noteEl) {
+                noteEl.textContent = chips.length
+                    ? 'Launch-57 governed smart money surfaces (#13–#20). Claims hidden when handlers fail.'
+                    : 'Launch-57 smart money intelligence unavailable — claims hidden (fail-closed).';
+            }
+        }
+
+        async function loadLaunch57SmartMoneyIntelligence(forceSym) {
+            const sym = (forceSym || document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
+            const qs = new URLSearchParams({ symbol: sym });
+            const intel = { symbol: sym };
+            try {
+                const results = await Promise.all([
+                    fetch(LAUNCH57_ACCUMULATION + '?' + qs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_TOKEN_SCREENER + '?' + qs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_ENTITY_WALLET + '?' + qs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_EXCHANGE_FLOW + '?' + qs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_WHALE_RATIO_FILTER + '?' + qs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_WHALE_ALERTS + '?' + qs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_INTER_ENTITY_FLOW + '?' + qs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_ADDRESS_LABELS + '?' + qs.toString(), { headers: authHeaders() }),
+                ]);
+                if (results[0].ok) intel.accumulation = await results[0].json();
+                if (results[1].ok) intel.screener = await results[1].json();
+                if (results[2].ok) intel.entityWallet = await results[2].json();
+                if (results[3].ok) intel.exchangeFlow = await results[3].json();
+                if (results[4].ok) intel.whaleRatio = await results[4].json();
+                if (results[5].ok) intel.whaleAlerts = await results[5].json();
+                if (results[6].ok) intel.interEntity = await results[6].json();
+                if (results[7].ok) intel.addressLabels = await results[7].json();
+            } catch (error) {
+                console.debug(error);
+            }
+            lastLaunch57SmartMoneyIntel = intel;
+            renderLaunch57SmartMoneyIntel(intel);
+            return intel;
+        }
+
         async function prefetchShareProof(pulse) {
             if (!pulse || !pulse.launch57_oracle_bound || pulse.action === 'UNAVAILABLE') {
                 setShareProofButton(false);
@@ -1242,6 +1347,7 @@
                         prefetchShareProof(pulse);
                         prefetchVisibleTrust(pulse, data);
                         loadLaunch57DecisionIntelligence(sym, pulse);
+                        loadLaunch57SmartMoneyIntelligence(sym);
                     } else {
                         setShareProofButton(false);
                         clearVisibleTrust();
@@ -1535,6 +1641,7 @@
             document.getElementById('symbol').value = s;
             loadCommandHome(true);
             loadLaunch57DecisionIntelligence(s, lastPulse);
+            loadLaunch57SmartMoneyIntelligence(s);
             loadLaunch57DataSpine(s);
             loadChart();
             startTrustPulseStream();
@@ -2011,63 +2118,89 @@
         async function loadInbox() {
             const el = document.getElementById('inbox');
             const status = document.getElementById('tgStatus');
+            const sym = (document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
+            const qs = new URLSearchParams({ symbol: sym, limit: '12' });
             try {
-                const res = await fetch('/api/alerts/inbox?limit=12', { headers: authHeaders() });
+                const res = await fetch(LAUNCH57_WHALE_ALERTS + '?' + qs.toString(), { headers: authHeaders() });
+                if (!res.ok) throw new Error('launch57_whale_alerts_fail');
                 const data = await res.json();
-                const stats = data.stats || {};
-                status.textContent = `Inbox ${stats.unread||0} unread · ${stats.generosity_note || 'no TV-style 15/3min hard cap'} · works without Telegram`;
-                const rows = data.alerts || [];
-                el.innerHTML = rows.length ? rows.map(a => `
-                    <div class="arb-card" style="cursor:pointer" data-bd-call="markInboxRead" data-bd-args="[&quot;${esc(a.id)}&quot;]">
-                        <strong>${esc(a.title||'Alert')}</strong>
-                        <div style="font-size:.85rem;color:#a1a1aa;margin-top:.25rem">${esc(a.body||'')}</div>
-                        <div style="font-size:.72rem;color:#71717a;margin-top:.35rem">${esc((a.created_at||'').slice(0,19))} · ${a.read ? 'read' : 'new · tap to mark read'}</div>
+                if (Number(data.launch_item_id) !== 18) throw new Error('launch57_whale_alerts_not_bound');
+                const rows = (data.alert_worthy_alerts || []).filter((a, i) => !launch57InboxDismissed.has(a.id || `l57-18-${i}`));
+                const accum = data.accumulation_signals || 0;
+                const dist = data.distribution_signals || 0;
+                status.textContent = `Launch-57 #18 whale alerts · ${rows.length} alert-worthy · accum ${accum} / dist ${dist}`;
+                el.innerHTML = rows.length ? rows.map((a, i) => {
+                    const title = a.title || a.alert_type || a.whale_classification?.class_id || 'Whale alert';
+                    const body = a.body || a.summary || a.sentence || JSON.stringify(a).slice(0, 160);
+                    const id = a.id || `l57-18-${i}`;
+                    return `
+                    <div class="arb-card" style="cursor:pointer" data-bd-call="markInboxRead" data-bd-args="[&quot;${esc(id)}&quot;]">
+                        <strong>${esc(title)}</strong>
+                        <div style="font-size:.85rem;color:#a1a1aa;margin-top:.25rem">${esc(body)}</div>
+                        <div style="font-size:.72rem;color:#71717a;margin-top:.35rem">${esc(sym)} · Launch-57 #18 · tap to dismiss locally</div>
                         <div style="margin-top:.4rem;font-size:.7rem;color:#71717a"><strong>Anti-Hype</strong> · Truth + Half-Life gated · Not financial advice</div>
-                    </div>`).join('') : '<div class="empty">No alerts yet — inbox has no TradingView-style 15/3min hard cap</div>';
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Inbox unavailable</div>'; }
+                    </div>`;
+                }).join('') : '<div class="empty">No Launch-57 whale alerts right now (#18)</div>';
+            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Launch-57 whale alerts unavailable (#18)</div>'; if (status) status.textContent = 'Launch-57 #18 whale alerts unavailable'; }
         }
+
+        const launch57InboxDismissed = new Set();
 
         async function markInboxRead(id) {
             if (!id) return;
-            try {
-                await fetch('/api/alerts/inbox/' + encodeURIComponent(id) + '/read', {
-                    method: 'POST',
-                    headers: authHeaders(),
-                });
-                loadInbox();
-            } catch (error) { console.debug(error); }
+            launch57InboxDismissed.add(id);
+            loadInbox();
         }
 
         async function loadWhales(refresh) {
             const el = document.getElementById('whaleList');
             const foot = document.getElementById('whaleCompliance');
             if (refresh) el.innerHTML = '<div class="loading">Scanning…</div>';
+            const sym = (document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
+            const qs = new URLSearchParams({ symbol: sym, limit: '8' });
             try {
-                const res = await fetch('/api/whale/signal-vs-noise?limit=8');
-                const data = await res.json();
-                const classified = data.classified || [];
-                const stories = data.stories || [];
-                const headline = data.one_sentence || data.headline || (stories[0] || '');
-                const headHtml = headline
-                    ? `<div class="whale-card" style="border-color:rgba(34,211,238,.35)"><strong>One sentence · Signal vs Noise</strong><div style="margin-top:.35rem;font-size:.95rem;line-height:1.45">${esc(headline)}</div></div>`
-                    : '';
-                if (classified.length) {
-                    el.innerHTML = headHtml + classified.map(a => `
-                        <div class="whale-card">
-                            <strong>${esc(a.label||'—')}</strong> · ${esc(a.asset||'—')}
-                            ${whalePriceBit(a)}
-                            <div style="font-size:.8rem;color:#a1a1aa;margin-top:.25rem">${esc(a.sentence||a.class_id||'')}</div>
-                            ${whaleFundingBit(a)}
-                        </div>`).join('');
-                } else if (stories.length) {
-                    el.innerHTML = headHtml + stories.slice(0,8).map(s => `<div class="whale-card">${esc(s)}</div>`).join('');
-                } else {
-                    el.innerHTML = '<div class="empty">No whale narratives</div>';
+                const [accRes, scrRes, ratioRes] = await Promise.all([
+                    fetch(LAUNCH57_ACCUMULATION + '?' + qs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_TOKEN_SCREENER + '?' + qs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_WHALE_RATIO_FILTER + '?' + qs.toString(), { headers: authHeaders() }),
+                ]);
+                const cards = [];
+                if (accRes.ok) {
+                    const acc = await accRes.json();
+                    if (Number(acc.launch_item_id) === 13 && acc.success) {
+                        const disc = acc.accumulation_distribution_disclosure || {};
+                        const headline = disc.summary || disc.headline || `Accumulation/Distribution · ${acc.signal_count || 0} signals`;
+                        cards.push(`<div class="whale-card" style="border-color:rgba(34,211,238,.35)"><strong>Launch-57 #13 · ${esc(sym)}</strong><div style="margin-top:.35rem;font-size:.95rem;line-height:1.45">${esc(headline)}</div></div>`);
+                        const narratives = acc.accumulation_distribution?.narratives || acc.accumulation_distribution?.signals || [];
+                        (Array.isArray(narratives) ? narratives : []).slice(0, 6).forEach((row) => {
+                            const text = typeof row === 'string' ? row : (row.sentence || row.label || JSON.stringify(row));
+                            cards.push(`<div class="whale-card">${esc(text)}</div>`);
+                        });
+                    }
                 }
+                if (scrRes.ok) {
+                    const scr = await scrRes.json();
+                    if (Number(scr.launch_item_id) === 14 && scr.success) {
+                        (scr.screener || []).slice(0, 4).forEach((row) => {
+                            cards.push(`<div class="whale-card"><strong>${esc(row.symbol || '—')}</strong> · $${esc(fmt(row.total_usd || 0, 0))}<div style="font-size:.8rem;color:#a1a1aa;margin-top:.25rem">Launch-57 #14 screener · ${esc(String(row.whale_events || 0))} events</div></div>`);
+                        });
+                    }
+                }
+                if (ratioRes.ok) {
+                    const ratio = await ratioRes.json();
+                    if (Number(ratio.launch_item_id) === 17 && ratio.success) {
+                        const wr = ratio.exchange_whale_ratio || {};
+                        const ratioVal = wr.whale_ratio || wr.exchange_whale_ratio?.whale_filtered_ratio;
+                        const filter = ratio.internal_flow_filter || {};
+                        const internal = filter.internal_flow_filter?.internal;
+                        cards.push(`<div class="whale-card"><strong>Launch-57 #17 · Whale ratio</strong><div style="margin-top:.35rem">${esc(String(ratioVal ?? '—'))}${internal != null ? ` · internal flow ${internal ? 'yes' : 'filtered'}` : ''}</div></div>`);
+                    }
+                }
+                el.innerHTML = cards.length ? cards.join('') : '<div class="empty">Launch-57 smart money unavailable — no whale claims shown</div>';
                 if (foot) {
-                    foot.innerHTML = '<strong>Anti-Hype</strong> · Whale labels are classified, not guaranteed alpha · Not financial advice · Verify on Public Accuracy Ledger';
+                    foot.innerHTML = '<strong>Launch-57 #13/#14/#17</strong> · Governed smart money only · Not financial advice · Verify on Public Accuracy Ledger';
                 }
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Unavailable</div>'; }
+            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Launch-57 whale intelligence unavailable</div>'; }
         }
 
         function coversPlanBit(v) {
@@ -2498,6 +2631,7 @@
         function runDeferredBoot() {
             initChart();
             loadLaunch57DataSpine();
+            loadLaunch57SmartMoneyIntelligence();
             loadChart();
             loadMarket();
             loadOI();
