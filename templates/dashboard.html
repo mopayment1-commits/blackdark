@@ -259,6 +259,12 @@
             <div class="tp-proof" id="l57DerivativesChips"><span class="tp-chip">Loading derivatives intelligence…</span></div>
         </section>
 
+        <section id="launch57-first-screen-gaps" aria-label="Launch-57 first-screen gaps">
+            <h2>First-Screen Gaps</h2>
+            <p class="sub" id="l57FirstScreenNote">Launch-57 spot metrics, copilot, shareable accuracy, decision history, research brief (#21, #36, #45, #49, #51) — claims hidden when unavailable.</p>
+            <div class="tp-proof" id="l57FirstScreenChips"><span class="tp-chip">Loading first-screen gaps…</span></div>
+        </section>
+
         <section id="launch57-data-spine" aria-label="Launch-57 data spine">
             <h2>Data Spine</h2>
             <p class="sub" id="l57DataNote">Launch-57 prices, freshness, provenance, and connector — claims hidden when unavailable.</p>
@@ -470,7 +476,7 @@
             setTimeout(() => URL.revokeObjectURL(url), 60000);
         }
         function clearVisibleTrust() {
-            lastVisibleTrust = { certificate: null, ledger: null, netEdge: null };
+            lastVisibleTrust = { certificate: null, ledger: null, netEdge: null, shareableAccuracy: null };
         }
         function clearVisibleDisclosure() {
             lastVisibleDisclosure = { risk: null, abstain: null };
@@ -538,6 +544,24 @@
             log.scrollTop = log.scrollHeight;
         }
 
+        function launch57CopilotTier() {
+            if (userTierId === 'whale') return 'elite';
+            if (userTierId === 'pro') return 'pro';
+            return 'free';
+        }
+
+        function launch57CopilotReply(body) {
+            if (!body || Number(body.launch_item_id) !== 36) return null;
+            const agent = body.research_agent || (body.research_agent_qualification || {}).research_agent || {};
+            if (agent.agent_summary) return agent.agent_summary;
+            const qual = body.research_agent_qualification || {};
+            const keys = (agent.grounded_sources || qual.supported_claims && Object.keys(qual.supported_claims) || []);
+            if (keys.length) {
+                return `Platform-data copilot (${body.symbol || 'BTC'}): grounded sections — ${keys.slice(0, 4).join(', ')}.`;
+            }
+            return body.success ? 'Platform-data copilot ready — no unsupported external claims.' : null;
+        }
+
         async function sendChat() {
             const input = document.getElementById('chatInput');
             const foot = document.getElementById('chatFoot');
@@ -546,31 +570,31 @@
             input.value = '';
             appendChat('user', message);
             chatHistory.push({ role: 'user', content: message });
+            const sym = (document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
+            const qs = new URLSearchParams({ symbol: sym, tier: launch57CopilotTier() });
             try {
-                const res = await fetch('/api/chat', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', ...authHeaders() },
-                    body: JSON.stringify({ message, history: chatHistory.slice(-8) }),
-                });
+                const res = await fetch(LAUNCH57_AI_COPILOT + '?' + qs.toString(), { headers: authHeaders() });
                 const d = await res.json();
-                if (res.status === 403) {
+                if (res.status === 401 || res.status === 403) {
                     syncChatGate();
                     const detail = d.detail || {};
-                    appendChat('assistant', detail.message || 'Upgrade to Decision Pro for AI Chat.');
-                    if (foot) foot.textContent = 'Operate+ required';
+                    appendChat('assistant', detail.message || detail.detail || 'Launch-57 #36 copilot requires Operate+ / Elite tier.');
+                    if (foot) foot.textContent = 'Platform-data copilot (#36) — auth/tier required';
                     return;
                 }
-                if (!res.ok) throw new Error('chat_failed');
-                const reply = d.reply || 'No reply';
+                if (!res.ok) throw new Error('copilot_failed');
+                const reply = launch57CopilotReply(d);
+                if (!reply) throw new Error('copilot_empty');
                 appendChat('assistant', reply);
                 chatHistory.push({ role: 'assistant', content: reply });
-                const cf = d.compliance_footer || {};
+                const cf = d.copilot_compliance_footer || d.compliance_footer || {};
                 if (foot) {
-                    foot.innerHTML = `<strong>Anti-Hype</strong> · ${esc(cf.disclaimer || 'Not financial advice. Verify on the Public Accuracy Ledger.')}`
-                        + (d.symbol ? ` · context ${esc(d.symbol)}` : '')
-                        + (d.source ? ` · ${esc(d.source)}` : '');
+                    foot.innerHTML = `<strong>Anti-Hype</strong> · ${esc(cf.disclaimer || 'Platform data only — no external LLM facts.')}`
+                        + ` · Launch-57 #36`
+                        + (cf.llm_used === false ? ' · llm_used=false' : '')
+                        + (d.symbol ? ` · ${esc(d.symbol)}` : '');
                 }
-            } catch (error) { console.debug(error); appendChat('assistant', 'Chat unavailable right now — try again or use Get Decision.'); }
+            } catch (error) { console.debug(error); appendChat('assistant', 'Launch-57 copilot unavailable — try Get Decision or refresh.'); }
         }
 
         let nextUpgrade = { checkout_tier: 'pro', href: '/create-checkout-session?tier=pro', cta: 'Upgrade' };
@@ -687,7 +711,13 @@
         const LAUNCH57_DERIVATIVES_SENTIMENT = '/api/launch57/derivatives-sentiment';
         const LAUNCH57_ORDER_BOOK = '/api/launch57/order-book';
         const LAUNCH57_SPOT_PERP_ARBITRAGE = '/api/launch57/spot-perp-arbitrage';
-        let lastVisibleTrust = { certificate: null, ledger: null, netEdge: null };
+        const LAUNCH57_SPOT_METRICS = '/api/launch57/spot-metrics';
+        const LAUNCH57_SHAREABLE_ACCURACY = '/api/launch57/shareable-accuracy';
+        const LAUNCH57_DECISION_HISTORY = '/api/launch57/decision-history';
+        const LAUNCH57_AI_COPILOT = '/api/launch57/ai-copilot';
+        const LAUNCH57_RESEARCH_PORTAL = '/api/launch57/research-portal';
+        let lastVisibleTrust = { certificate: null, ledger: null, netEdge: null, shareableAccuracy: null };
+        let lastLaunch57FirstScreenGaps = null;
         let lastVisibleDisclosure = { risk: null, abstain: null };
         let lastLaunch57DecisionIntel = null;
         let lastLaunch57SmartMoneyIntel = null;
@@ -939,9 +969,10 @@
             });
             if (timing.decision_time) certQs.set('decision_time', timing.decision_time);
             try {
-                const [certRes, ledgerRes, netEdgeBody] = await Promise.all([
+                const [certRes, ledgerRes, shareAccRes, netEdgeBody] = await Promise.all([
                     fetch(LAUNCH57_DECISION_CERTIFICATE + '?' + certQs.toString(), { headers: authHeaders() }),
                     fetch(LAUNCH57_PUBLIC_ACCURACY + '?symbol=' + encodeURIComponent(pulse.symbol || 'BTC')),
+                    fetch(LAUNCH57_SHAREABLE_ACCURACY + '?symbol=' + encodeURIComponent(pulse.symbol || 'BTC')),
                     prefetchCostAutopsy(pulse, oracle),
                 ]);
                 if (certRes.ok) {
@@ -986,6 +1017,32 @@
                     }
                 } else {
                     lastVisibleTrust.ledger = null;
+                }
+                if (shareAccRes.ok) {
+                    const shareBody = await shareAccRes.json();
+                    if (Number(shareBody.launch_item_id) === 45 && shareBody.success) {
+                        const page = shareBody.accuracy_page || {};
+                        const cum = (shareBody.ledger || shareBody.public_accuracy_ledger || {}).cumulative || {};
+                        const hr = page.hit_rate_percent ?? cum.hit_rate_percent;
+                        shareBody.share_label = hr != null
+                            ? `Shareable accuracy ${hr}%`
+                            : 'Shareable accuracy';
+                        shareBody.share_href = page.href
+                            ? page.href + '#launch57-shareable-accuracy'
+                            : '/oracle-accuracy#launch57-shareable-accuracy';
+                        lastVisibleTrust.shareableAccuracy = shareBody;
+                        if (lastPulse) {
+                            lastPulse.shareable_accuracy = {
+                                href: shareBody.share_href,
+                                label: shareBody.share_label,
+                                launch_item_id: 45,
+                            };
+                        }
+                    } else {
+                        lastVisibleTrust.shareableAccuracy = null;
+                    }
+                } else {
+                    lastVisibleTrust.shareableAccuracy = null;
                 }
                 lastVisibleTrust.netEdge = (netEdgeBody && netEdgeBody.success && netEdgeBody.cost_claim_allowed !== false)
                     ? netEdgeBody
@@ -1384,6 +1441,80 @@
             return intel;
         }
 
+        function renderLaunch57FirstScreenGaps(gaps) {
+            const chipsEl = document.getElementById('l57FirstScreenChips');
+            const noteEl = document.getElementById('l57FirstScreenNote');
+            if (!chipsEl) return;
+            const chips = [];
+            const spot = gaps && gaps.spotMetrics;
+            if (spot && Number(spot.launch_item_id) === 21 && spot.success && spot.metrics) {
+                const m = spot.metrics;
+                const price = m.price != null ? `$${fmt(m.price, m.price < 1 ? 4 : 2)}` : '—';
+                const ch = m.change_24h != null ? `${m.change_24h >= 0 ? '+' : ''}${fmt(m.change_24h, 2)}%` : '—';
+                chips.push(`<span class="tp-chip ok">Spot #21: ${esc(price)} · ${esc(ch)}</span>`);
+            }
+            const copilot = gaps && gaps.copilot;
+            if (copilot && Number(copilot.launch_item_id) === 36 && copilot.platform_data_only) {
+                const grounded = (copilot.research_agent || {}).grounded_sources || [];
+                chips.push(`<span class="tp-chip ok">Copilot #36: ${esc(grounded.length ? grounded.slice(0, 3).join(', ') : 'platform-only')}</span>`);
+            }
+            const share = gaps && gaps.shareableAccuracy;
+            if (share && Number(share.launch_item_id) === 45 && share.success) {
+                const page = share.accuracy_page || {};
+                const hr = page.hit_rate_percent;
+                const label = hr != null ? `Accuracy #45: ${hr}%` : 'Accuracy #45';
+                const href = page.href ? page.href + '#launch57-shareable-accuracy' : '/oracle-accuracy#launch57-shareable-accuracy';
+                chips.push(`<a class="tp-chip ok" href="${esc(href)}">${esc(label)}</a>`);
+            }
+            const history = gaps && gaps.decisionHistory;
+            if (history && Number(history.launch_item_id) === 49) {
+                const block = history.personal_decision_history || {};
+                const count = block.count ?? (block.decisions || []).length;
+                chips.push(`<span class="tp-chip ${history.success ? 'ok' : ''}">History #49: ${esc(String(count))} rows</span>`);
+            }
+            const portal = gaps && gaps.researchPortal;
+            if (portal && Number(portal.launch_item_id) === 51 && portal.success) {
+                const brief = portal.shareable_brief || (portal.research_portal || {}).short_brief || {};
+                const summary = brief.summary || brief.headline || 'Research brief';
+                chips.push(`<span class="tp-chip ok">Research #51: ${esc(String(summary).slice(0, 72))}</span>`);
+            }
+            chipsEl.innerHTML = chips.length
+                ? chips.join('')
+                : '<span class="tp-chip">First-screen gaps unavailable — no claims shown.</span>';
+            if (noteEl) {
+                noteEl.textContent = chips.length
+                    ? 'Launch-57 first-screen gaps (#21, #36, #45, #49, #51). Platform-data copilot only — no external LLM.'
+                    : 'Launch-57 first-screen gaps unavailable — claims hidden (fail-closed).';
+            }
+        }
+
+        async function loadLaunch57FirstScreenGaps(forceSym) {
+            const sym = (forceSym || document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
+            const gaps = { symbol: sym };
+            const qs = new URLSearchParams({ symbol: sym });
+            const histQs = new URLSearchParams({ symbol: sym, tier: userTierId || 'free', limit: '5' });
+            const copilotQs = new URLSearchParams({ symbol: sym, tier: launch57CopilotTier() });
+            try {
+                const results = await Promise.all([
+                    fetch(LAUNCH57_SPOT_METRICS + '?' + qs.toString()),
+                    fetch(LAUNCH57_SHAREABLE_ACCURACY + '?' + qs.toString()),
+                    fetch(LAUNCH57_DECISION_HISTORY + '?' + histQs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_AI_COPILOT + '?' + copilotQs.toString(), { headers: authHeaders() }),
+                    fetch(LAUNCH57_RESEARCH_PORTAL + '?' + qs.toString()),
+                ]);
+                if (results[0].ok) gaps.spotMetrics = await results[0].json();
+                if (results[1].ok) gaps.shareableAccuracy = await results[1].json();
+                if (results[2].ok) gaps.decisionHistory = await results[2].json();
+                if (results[3].ok) gaps.copilot = await results[3].json();
+                if (results[4].ok) gaps.researchPortal = await results[4].json();
+            } catch (error) {
+                console.debug(error);
+            }
+            lastLaunch57FirstScreenGaps = gaps;
+            renderLaunch57FirstScreenGaps(gaps);
+            return gaps;
+        }
+
         async function prefetchShareProof(pulse) {
             if (!pulse || !pulse.launch57_oracle_bound || pulse.action === 'UNAVAILABLE') {
                 setShareProofButton(false);
@@ -1622,6 +1753,12 @@
                 || 'Verify Ledger';
             const ledgerHref = safeShareUrl(ledger.href) || '/oracle-accuracy#launch57-ledger-sample';
             chips.push(`<a class="tp-chip ok" href="${ledgerHref}">${esc(ledgerLabel)}</a>`);
+            const shareAcc = lastVisibleTrust.shareableAccuracy || (p.shareable_accuracy || null);
+            if (shareAcc && (shareAcc.share_href || shareAcc.href)) {
+                const shareHref = safeShareUrl(shareAcc.share_href || shareAcc.href) || '/oracle-accuracy#launch57-shareable-accuracy';
+                const shareLabel = shareAcc.share_label || shareAcc.label || 'Shareable accuracy (#45)';
+                chips.push(`<a class="tp-chip ok" href="${shareHref}">${esc(shareLabel)}</a>`);
+            }
             if (proof.certificate_hash) {
                 chips.push(`<button type="button" class="tp-chip ok" data-bd-call="openDecisionCertificate" style="border:none;cursor:pointer;font:inherit">cert ${esc(String(proof.certificate_hash).slice(0,12))}…</button>`);
             }
@@ -1760,6 +1897,7 @@
             loadLaunch57DecisionIntelligence(s, lastPulse);
             loadLaunch57SmartMoneyIntelligence(s);
             loadLaunch57DerivativesIntelligence(s, lastPulse);
+            loadLaunch57FirstScreenGaps(s);
             loadLaunch57DataSpine(s);
             loadChart();
             startTrustPulseStream();
@@ -2084,24 +2222,21 @@
         async function loadDailyReport() {
             const el = document.getElementById('dailyReportBox');
             if (!el) return;
-            el.innerHTML = '<div class="loading">Loading daily report…</div>';
+            el.innerHTML = '<div class="loading">Loading research brief…</div>';
+            const sym = (document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
+            const qs = new URLSearchParams({ symbol: sym, tier: userTierId || 'free' });
             try {
-                const res = await fetch('/api/reports/daily?persist=false', { headers: authHeaders() });
+                const res = await fetch(LAUNCH57_RESEARCH_PORTAL + '?' + qs.toString(), { headers: authHeaders() });
                 const d = await res.json();
-                if (res.status === 401 || res.status === 403) {
-                    const detail = d.detail || {};
-                    el.innerHTML = `<div class="empty">${esc(detail.message || 'Decision Pro required for daily report')}
-                        <div style="margin-top:.65rem"><button class="btn" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">Upgrade Pro</button></div></div>`;
-                    return;
-                }
-                if (!res.ok) throw new Error('fail');
-                const title = d.title || d.headline || 'Daily research brief';
-                const summary = d.narrative || d.summary || d.executive_summary || d.one_liner || '';
+                if (!res.ok || Number(d.launch_item_id) !== 51) throw new Error('research_portal_fail');
+                const brief = d.shareable_brief || (d.research_portal || {}).short_brief || {};
+                const title = brief.headline || 'Launch-57 research brief (#51)';
+                const summary = brief.summary || brief.one_liner || '';
+                const scope = d.research_portal_scope || {};
                 const bullets = [
-                    d.oracle_accuracy_percent != null ? ('Oracle accuracy ' + d.oracle_accuracy_percent + '%') : null,
-                    d.moat_score != null ? ('Moat ' + d.moat_score + '/100') : null,
-                    d.whale_alerts_24h != null ? ('Whale alerts ' + d.whale_alerts_24h) : null,
-                    d.arb_alerts_24h != null ? ('Arb alerts ' + d.arb_alerts_24h) : null,
+                    brief.hit_rate_percent != null ? ('Hit rate ' + brief.hit_rate_percent + '%') : null,
+                    brief.resolved_predictions != null ? ('Resolved ' + brief.resolved_predictions) : null,
+                    scope.limited_launch_scope ? 'Limited launch scope' : null,
                 ].filter(Boolean).slice(0, 4);
                 const bulletHtml = bullets.length
                     ? ('<ul style="margin:.5rem 0 0 1.1rem;font-size:.85rem;color:#a1a1aa">'
@@ -2110,10 +2245,10 @@
                     : '';
                 el.innerHTML = '<strong>' + esc(title) + '</strong>'
                     + '<div style="margin-top:.35rem;font-size:.9rem;color:#a1a1aa">'
-                    + esc(summary || 'Brief ready — open Markdown for full detail.') + '</div>'
+                    + esc(summary || 'Research portal brief unavailable — no claims shown.') + '</div>'
                     + bulletHtml
-                    + '<div style="margin-top:.55rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · Research brief, not advice · Verify Ledger</div>';
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Daily report unavailable</div>'; }
+                    + '<div style="margin-top:.55rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · Launch-57 #51 platform evidence only · Verify Ledger</div>';
+            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Research brief unavailable</div>'; }
         }
 
         async function loadSubscriberValue() {
@@ -2778,6 +2913,7 @@
             loadLaunch57DataSpine();
             loadLaunch57SmartMoneyIntelligence();
             loadLaunch57DerivativesIntelligence();
+            loadLaunch57FirstScreenGaps();
             loadChart();
             loadMarket();
             loadOI();

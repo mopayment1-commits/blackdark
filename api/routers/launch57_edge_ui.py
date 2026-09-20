@@ -76,6 +76,15 @@ async def launch57_guest_trust(symbol: str = Query("BTC")):
     return await guest_trust_surface(symbol=symbol, params={"symbol": symbol, "user_key": "anonymous"})
 
 
+@router.get("/api/launch57/spot-metrics")
+async def launch57_spot_metrics(symbol: str = Query("BTC")):
+    """Launch #21 — spot metrics suite (honest freshness; unknown ≠ zero)."""
+    from launch57.data_batch1 import spot_market_metrics_suite
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await spot_market_metrics_suite(symbol=asset, params={"symbol": asset, "user_key": "anonymous"})
+
+
 @router.get("/api/launch57/real-time-prices")
 async def launch57_real_time_prices(symbol: str = Query("BTC")):
     """Launch #22 — floor-tier live/near-live price with freshness (not subscription pricing)."""
@@ -536,6 +545,21 @@ async def launch57_public_accuracy(symbol: str = Query("BTC")):
     return await public_accuracy_ledger(symbol=asset, params={"symbol": asset})
 
 
+@router.get("/api/launch57/shareable-accuracy")
+async def launch57_shareable_accuracy(
+    symbol: str = Query("BTC"),
+    display_timezone: str = Query("UTC"),
+):
+    """Launch #45 — shareable accuracy/outcome page (live ledger; synthetic excluded)."""
+    from launch57.trust_batch2 import shareable_accuracy_page
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await shareable_accuracy_page(
+        symbol=asset,
+        params={"symbol": asset, "display_timezone": display_timezone},
+    )
+
+
 @router.post("/api/launch57/cost-autopsy")
 async def launch57_cost_autopsy(request: Request, body: dict[str, Any] = Body(...)):
     """Launch #5 — net-edge / cost autopsy for the displayed opportunity (no elite tier gate)."""
@@ -730,6 +754,18 @@ async def launch57_exchange_transparency(
     from launch57.smart_money_batch3 import exchange_transparency_risk_indicators
 
     return await exchange_transparency_risk_indicators(symbol=symbol, params={"symbol": symbol, "tier": tier})
+
+
+@router.get("/api/launch57/research-portal")
+async def launch57_research_portal(
+    symbol: str = Query("BTC"),
+    tier: str = Query("free"),
+):
+    """Launch #51 — research portal short brief (platform evidence only)."""
+    from launch57.explanation_ai_batch1 import research_intelligence_portal
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await research_intelligence_portal(symbol=asset, params={"symbol": asset, "tier": tier})
 
 
 @router.get("/api/launch57/ai-copilot")
