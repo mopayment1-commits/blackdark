@@ -56,9 +56,26 @@ async def export_user_data(email: str) -> dict[str, Any]:
 
 async def erase_user_data(email: str, *, confirmed: bool = False) -> dict[str, Any]:
     """Article 17 — erasure via FDS retention-aware account closure."""
+    from database import fetch_user_by_email, fetch_account_state
     from fds_retention_incident.account_closure import close_account
+    from identity_closure import request_account_deletion
 
     normalized = email.strip().lower()
+    user = await fetch_user_by_email(normalized)
+    if user and not confirmed:
+        pending = await request_account_deletion(
+            normalized,
+            int(user["id"]),
+        )
+        return {
+            "status": "DELETION_PENDING",
+            "message": "Account scheduled for deletion. Set confirm=true to erase immediately.",
+            **pending,
+        }
+    if user and confirmed:
+        state = await fetch_account_state(int(user["id"]))
+        if str(state.get("account_state") or "") != "DELETION_PENDING":
+            await request_account_deletion(normalized, int(user["id"]))
     result = await close_account(normalized, confirmed=confirmed, actor="dsr_erase")
     if result.get("status") == "confirmation_required":
         return {
@@ -82,10 +99,23 @@ async def erase_user_data(email: str, *, confirmed: bool = False) -> dict[str, A
     }
 
 
+async def dsr_status_for_user(user_id: int) -> dict[str, Any]:
+    from database import fetch_account_state
+
+    state = await fetch_account_state(user_id)
+    return {
+        "account_state": state.get("account_state") or "ACTIVE",
+        "deletion_requested_at": state.get("deletion_requested_at"),
+        "deletion_scheduled_at": state.get("deletion_scheduled_at"),
+        "pending_email": state.get("pending_email"),
+    }
+
+
 def gdpr_compliance_status() -> dict[str, Any]:
     return {
         "dsr_export_api": "/api/privacy/dsr/export",
         "dsr_erase_api": "/api/privacy/dsr/erase",
+        "dsr_status_api": "/api/privacy/dsr/status",
         "consent_documented_in": "legal_content.py /privacy",
         "data_room": "docs/DATA_ROOM.md",
         "implementation": "gdpr_service.py",

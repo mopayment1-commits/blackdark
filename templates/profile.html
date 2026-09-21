@@ -29,6 +29,14 @@
         a { color:var(--accent); text-decoration:none; }
         h2 { font-size:1.05rem; margin-bottom:.5rem; }
         .hint { color:var(--muted); font-size:.8rem; margin-top:.35rem; }
+        .row-list { display:grid; gap:.55rem; margin:.75rem 0; }
+        .row-item { padding:.65rem .75rem; border:1px solid var(--border); border-radius:10px; background:#14141c; font-size:.82rem; }
+        .row-item strong { color:var(--text); }
+        .row-actions { margin-top:.45rem; display:flex; gap:.4rem; flex-wrap:wrap; }
+        .row-actions button { margin-top:0; padding:.45rem .7rem; font-size:.75rem; }
+        table.history { width:100%; border-collapse:collapse; font-size:.8rem; margin-top:.5rem; }
+        table.history th, table.history td { text-align:left; padding:.45rem .35rem; border-bottom:1px solid var(--border); }
+        table.history th { color:var(--muted); font-weight:600; }
     </style>
 </head>
 <body>
@@ -83,9 +91,32 @@
                 <label for="mfaDisable">Disable MFA code</label>
                 <input id="mfaDisable" placeholder="Code to disable MFA" style="margin-top:.5rem">
                 <button class="btn-danger" data-bd-call="disableMfa">Disable MFA</button>
-                <button class="btn-danger" data-bd-call="logoutAll">Log out all sessions</button>
                 <div class="msg" id="secMsg"></div>
                 <pre id="mfaEnrollBox" class="hint" style="white-space:pre-wrap;margin-top:.75rem"></pre>
+            </section>
+            <section class="card" id="sessionsCard">
+                <h2>Active sessions</h2>
+                <p class="hint">Signed-in devices and browsers. Revoke any session you do not recognize (ID-030).</p>
+                <div id="sessionsList" class="hint">Loading sessions…</div>
+                <label for="sessionConfirmPassword">Current password (required to revoke other sessions)</label>
+                <input type="password" id="sessionConfirmPassword" autocomplete="current-password">
+                <button class="btn-danger" data-bd-call="revokeOtherSessions">Revoke all other sessions</button>
+                <button class="btn-danger" data-bd-call="logoutAll">Sign out everywhere</button>
+                <div class="msg" id="sessionsMsg"></div>
+            </section>
+            <section class="card" id="loginHistoryCard">
+                <h2>Login history</h2>
+                <p class="hint">Recent sign-in attempts — time and result only (ID-067).</p>
+                <div id="loginHistoryList" class="hint">Loading login history…</div>
+            </section>
+            <section class="card" id="privacyCard">
+                <h2>Data export &amp; deletion</h2>
+                <p class="hint" id="dsrStatusLine">Checking account status…</p>
+                <label for="dsrMfaCode">MFA code (if MFA enabled — required for step-up)</label>
+                <input id="dsrMfaCode" placeholder="TOTP code for export/deletion" maxlength="64" autocomplete="one-time-code">
+                <button class="btn-secondary" data-bd-call="exportMyData">Export my data (JSON)</button>
+                <button class="btn-danger" data-bd-call="requestAccountDeletion">Request account deletion</button>
+                <div class="msg" id="privacyMsg"></div>
             </section>
             <section class="card">
                 <h2>Plan & billing (USD)</h2>
@@ -107,6 +138,7 @@
     </div>
 </div>
 <script src="/static/js/dom_escape.js"></script>
+<script src="/static/js/csp_events.js"></script>
 <script type="module">
     const { esc } = window.BDDomSafe;
     function authHeaders() {
@@ -287,6 +319,159 @@
         setMsg('secMsg', res.ok ? 'MFA disabled' : (d.detail || 'Failed'), res.ok);
         if (res.ok) load();
     }
+    function formatWhen(iso) {
+        if (!iso) return '—';
+        try { return new Date(iso).toLocaleString(); } catch (_) { return String(iso); }
+    }
+    async function loadSessions() {
+        const el = document.getElementById('sessionsList');
+        if (!el) return;
+        try {
+            const res = await fetch('/api/auth/sessions', { headers: authHeaders(), credentials: 'same-origin' });
+            const d = await res.json();
+            if (!res.ok) {
+                el.textContent = (d.detail && (d.detail.message || d.detail)) || 'Could not load sessions';
+                return;
+            }
+            const rows = d.sessions || [];
+            if (!rows.length) {
+                el.textContent = 'No active sessions found.';
+                return;
+            }
+            el.innerHTML = rows.map(function (s) {
+                const current = s.current ? ' <span class="pill">This device</span>' : '';
+                const revokeBtn = s.current
+                    ? ''
+                    : '<button type="button" class="btn-danger" data-bd-call="revokeSession" data-bd-args=\'[' + Number(s.id) + ']\' data-bd-prevent="1">Revoke</button>';
+                return '<div class="row-item"><strong>' + esc(s.device || 'Browser') + '</strong>' + current +
+                    '<br><span class="hint">' + esc(s.auth_method || 'password') + ' · ' + esc(formatWhen(s.last_seen_at || s.created_at)) +
+                    (s.ip ? ' · ' + esc(s.ip) : '') + '</span>' +
+                    '<div class="row-actions">' + revokeBtn + '</div></div>';
+            }).join('');
+        } catch (error) {
+            console.debug(error);
+            el.textContent = 'Could not load sessions';
+        }
+    }
+    async function revokeSession(sessionId) {
+        if (sessionId == null || sessionId === '') return;
+        const res = await fetch('/api/auth/sessions/' + encodeURIComponent(sessionId), {
+            method: 'DELETE', headers: authHeaders(), credentials: 'same-origin'
+        });
+        const d = await res.json().catch(function () { return {}; });
+        setMsg('sessionsMsg', res.ok ? 'Session revoked.' : (d.detail || 'Revoke failed'), res.ok);
+        if (res.ok) await loadSessions();
+    }
+    async function revokeOtherSessions() {
+        const password = document.getElementById('sessionConfirmPassword').value;
+        const res = await fetch('/api/auth/secure-my-account', {
+            method: 'POST', headers: authHeaders(), credentials: 'same-origin',
+            body: JSON.stringify({ current_password: password })
+        });
+        const d = await res.json();
+        setMsg('sessionsMsg', res.ok ? (d.message || 'Other sessions revoked.') : (d.detail || 'Failed — check password'), res.ok);
+        if (res.ok) await loadSessions();
+    }
+    async function loadLoginHistory() {
+        const el = document.getElementById('loginHistoryList');
+        if (!el) return;
+        try {
+            const res = await fetch('/api/auth/login-history', { headers: authHeaders(), credentials: 'same-origin' });
+            const d = await res.json();
+            if (!res.ok) {
+                el.textContent = (d.detail && (d.detail.message || d.detail)) || 'Could not load login history';
+                return;
+            }
+            const rows = d.history || [];
+            if (!rows.length) {
+                el.textContent = 'No login history yet.';
+                return;
+            }
+            const head = '<table class="history"><thead><tr><th>When</th><th>Result</th><th>Device</th></tr></thead><tbody>';
+            const body = rows.map(function (r) {
+                return '<tr><td>' + esc(formatWhen(r.occurred_at)) + '</td><td>' + esc(r.status || '—') +
+                    '</td><td>' + esc(r.device || 'Browser') + '</td></tr>';
+            }).join('');
+            el.innerHTML = head + body + '</tbody></table>';
+        } catch (error) {
+            console.debug(error);
+            el.textContent = 'Could not load login history';
+        }
+    }
+    async function obtainStepUpToken(operation) {
+        const headers = authHeaders();
+        const mfa = document.getElementById('dsrMfaCode').value.trim();
+        if (mfa) headers['X-MFA-Code'] = mfa;
+        const res = await fetch('/api/privileged/step-up', {
+            method: 'POST', headers, credentials: 'same-origin',
+            body: JSON.stringify({ operation: operation })
+        });
+        const d = await res.json();
+        if (!res.ok) {
+            const err = (d.detail && (d.detail.error || d.detail.message || d.detail)) || 'Step-up required';
+            throw new Error(typeof err === 'string' ? err : JSON.stringify(err));
+        }
+        return d.step_up_token;
+    }
+    async function loadDsrStatus() {
+        const el = document.getElementById('dsrStatusLine');
+        if (!el) return;
+        try {
+            const res = await fetch('/api/privacy/dsr/status', { headers: authHeaders(), credentials: 'same-origin' });
+            const d = await res.json();
+            if (!res.ok) {
+                el.textContent = 'Could not load deletion status.';
+                return;
+            }
+            const state = d.account_state || 'ACTIVE';
+            el.textContent = 'Account state: ' + state + (d.deletion_requested_at ? (' · deletion requested ' + formatWhen(d.deletion_requested_at)) : '');
+        } catch (error) {
+            console.debug(error);
+            el.textContent = 'Could not load deletion status.';
+        }
+    }
+    async function exportMyData() {
+        try {
+            const token = await obtainStepUpToken('privacy.dsr.export');
+            const headers = authHeaders();
+            headers['X-Step-Up-Token'] = token;
+            const res = await fetch('/api/privacy/dsr/export', {
+                method: 'POST', headers, credentials: 'same-origin'
+            });
+            const d = await res.json();
+            if (!res.ok) {
+                setMsg('privacyMsg', (d.detail && (d.detail.error || d.detail)) || 'Export failed', false);
+                return;
+            }
+            const blob = new Blob([JSON.stringify(d, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'blackdark-data-export.json';
+            a.click();
+            URL.revokeObjectURL(url);
+            setMsg('privacyMsg', 'Export downloaded.', true);
+        } catch (error) {
+            setMsg('privacyMsg', error.message || 'Export failed', false);
+        }
+    }
+    async function requestAccountDeletion() {
+        if (!confirm('Request account deletion? Your account will enter DELETION_PENDING until confirmed or cancelled.')) return;
+        try {
+            const token = await obtainStepUpToken('privacy.dsr.erase');
+            const headers = authHeaders();
+            headers['X-Step-Up-Token'] = token;
+            const res = await fetch('/api/privacy/dsr/erase', {
+                method: 'POST', headers, credentials: 'same-origin',
+                body: JSON.stringify({ confirm: false })
+            });
+            const d = await res.json();
+            setMsg('privacyMsg', res.ok ? ('Status: ' + (d.status || 'DELETION_PENDING')) : ((d.detail && (d.detail.error || d.detail)) || 'Deletion request failed'), res.ok);
+            if (res.ok) await loadDsrStatus();
+        } catch (error) {
+            setMsg('privacyMsg', error.message || 'Deletion request failed', false);
+        }
+    }
     async function logoutAll() {
         await fetch('/api/auth/logout-all', { method: 'POST', headers: authHeaders(), credentials: 'same-origin' });
         localStorage.removeItem('bd_token'); localStorage.removeItem('bd_user');
@@ -314,9 +499,16 @@
             }
         } catch (error) { console.debug(error); el.textContent = 'Could not load payment readiness — try /api/billing/payments'; }
     }
-    Object.assign(window, { uploadAvatar, resetAvatar, saveProfile, resendVerify, changePassword, enrollMfa, confirmMfa, disableMfa, logoutAll, openPortal, load, loadBillingReady });
+    Object.assign(window, {
+        uploadAvatar, resetAvatar, saveProfile, resendVerify, changePassword, enrollMfa, confirmMfa, disableMfa,
+        logoutAll, revokeSession, revokeOtherSessions, exportMyData, requestAccountDeletion,
+        openPortal, load, loadBillingReady, loadSessions, loadLoginHistory, loadDsrStatus
+    });
     await load();
     await loadBillingReady();
+    await loadSessions();
+    await loadLoginHistory();
+    await loadDsrStatus();
 </script>
 {% include "partials/site_footer.html" %}
 </body>

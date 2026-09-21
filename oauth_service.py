@@ -219,13 +219,22 @@ async def login_or_link_oauth_user(profile: dict[str, Any]) -> dict[str, Any]:
 
     user = await fetch_user_by_oauth(provider, subject) if subject else None
     if user is None:
-        user = await fetch_user_by_email(email)
-        if user is None:
+        if provider == "google":
+            existing = await fetch_user_by_email(email)
+            if existing is not None:
+                raise ValueError(
+                    "Google sign-in cannot link to an existing account by email alone"
+                )
             user_id = await create_oauth_user(email, name, provider, subject)
             user = await fetch_user_by_email(email)
         else:
-            user_id = int(user["id"])
-            await link_user_oauth(user_id, provider, subject)
+            user = await fetch_user_by_email(email)
+            if user is None:
+                user_id = await create_oauth_user(email, name, provider, subject)
+                user = await fetch_user_by_email(email)
+            else:
+                user_id = int(user["id"])
+                await link_user_oauth(user_id, provider, subject)
     else:
         user_id = int(user["id"])
 

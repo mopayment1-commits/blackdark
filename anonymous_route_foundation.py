@@ -87,6 +87,7 @@ AUTH_FLOW_EXACT: frozenset[str] = frozenset(
         "/api/auth/forgot-password",
         "/api/auth/reset-password",
         "/api/auth/verify-email",
+        "/api/auth/verify-email-change",
         "/api/auth/resend-verification",
         "/api/auth/forgot-username",
         "/api/auth/mfa/complete",
@@ -98,6 +99,7 @@ AUTH_FLOW_EXACT: frozenset[str] = frozenset(
 
 AUTH_FLOW_PREFIXES: tuple[str, ...] = (
     "/api/auth/oauth/",
+    "/api/auth/public/profile/",
 )
 
 # --- Public HTML — Launch-57 visitor surface (status / methodology / accuracy) ---

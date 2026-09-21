@@ -50,6 +50,15 @@ class AuthChangePasswordBody(BaseModel):
     new_password: str = Field(min_length=12, max_length=128)
 
 
+class AuthChangeEmailBody(BaseModel):
+    new_email: str = Field(min_length=5, max_length=254)
+    current_password: str = Field(default="", max_length=128)
+
+
+class AuthSecureMyAccountBody(BaseModel):
+    current_password: str = Field(default="", max_length=128)
+
+
 class AuthProfileUpdateBody(BaseModel):
     name: str | None = Field(default=None, max_length=80)
     username: str | None = Field(default=None, max_length=24)
