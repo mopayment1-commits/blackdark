@@ -104,55 +104,24 @@ def test_login_error_uses_bd_auth_envelope(client, tmp_path, monkeypatch):
     assert body.get("request_id")
 
 
-def test_rate_limit_uses_bd_rate_envelope(client, monkeypatch):
-    import asyncio
+def test_rate_limit_uses_bd_rate_envelope(client):
+    from security_auth import _LOGIN_MAX_ATTEMPTS, check_login_rate_limit
 
-    from failure.correlation import set_correlation_id
-    from failure.handlers import http_exception_handler
-    from launch57.anonymous_public_cost_guards import PublicRouteCostPolicy, enforce_public_rate_limit
+    ip = "203.0.113.77"
+    for _ in range(_LOGIN_MAX_ATTEMPTS):
+        check_login_rate_limit(f"ip:{ip}")
 
-    class _Req:
-        url = type("U", (), {"path": "/api/launch57/guest-trust"})()
-        headers = {}
-        client = type("C", (), {"host": "127.0.0.1"})()
-
-    policy = PublicRouteCostPolicy(
-        path_pattern="/api/launch57/guest-trust",
-        bucket="public_api",
-        rate_limit=1,
-        rate_window_sec=60,
-        max_response_bytes=1_000_000,
-        timeout_sec=5.0,
+    res = client.post(
+        "/api/auth/login",
+        json={"email": "ratelimit@example.com", "password": "wrong-password-15xx"},
+        headers={"Origin": "https://testserver", "X-Forwarded-For": ip},
     )
-    enforce_public_rate_limit(_Req(), policy)
-    with pytest.raises(HTTPException) as exc:
-        enforce_public_rate_limit(_Req(), policy)
-    assert exc.value.status_code == 429
-
-    set_correlation_id("bd-testcorrelation01")
-
-    class _State:
-        correlation_id = "bd-testcorrelation01"
-
-    request = type(
-        "R",
-        (),
-        {
-            "method": "GET",
-            "url": type("U", (), {"path": "/api/launch57/guest-trust"})(),
-            "state": _State(),
-            "headers": {},
-        },
-    )()
-
-    async def _run():
-        return await http_exception_handler(request, exc.value)
-
-    response = asyncio.run(_run())
-    body = json.loads(response.body)
+    assert res.status_code == 429
+    body = res.json()
     assert body["error_code"] == "BD-RATE-001"
     assert body.get("user_retry_max") == 1
     assert body.get("failure_origin") == "platform"
+    assert body.get("request_id")
 
 
 def test_user_retry_max_one_for_safe_user_retry():
