@@ -27,6 +27,8 @@ logger = logging.getLogger("BLACKDARK.Billing.Engine")
 
 ACTIVE_SUB_STATUSES = frozenset({"active", "trialing", "past_due"})
 REVOKED_PAYMENT_STATUSES = frozenset({"refunded", "disputed", "chargeback"})
+# Signup / intent-only trial — no provider checkout proof; must not grant paid entitlements.
+SIGNUP_TRIAL_PAYMENT_STATUSES = frozenset({"signup_intent", "none"})
 
 
 def _utcnow() -> datetime:
@@ -204,6 +206,7 @@ async def activate_checkout(
     p_end = period_end or (_utcnow() + timedelta(days=30)).isoformat()
     sub_status = "trialing" if trial_ends_at else "active"
     pay_status = "current" if sub_status == "active" else "trialing"
+    grant_entitlements = sub_status == "active"
 
     pay_id, is_new = await _record_payment_event(
         user_id=uid,
@@ -236,7 +239,7 @@ async def activate_checkout(
         pending_plan=None,
         grace_period_end=None,
         trial_ends_at=trial_ends_at,
-        bump_entitlements=True,
+        bump_entitlements=grant_entitlements,
     )
     if provider_customer_id:
         from database import get_connection
@@ -665,6 +668,29 @@ async def sync_from_stripe_subscription(
     return {"handled": True, "subscription": updated}
 
 
+def paid_entitlement_granted(sub: dict[str, Any] | None, *, now: datetime | None = None) -> bool:
+    """Paid capabilities only after verified checkout (active) or invoice.paid renewal."""
+    if not sub:
+        return False
+    provider_sub = str(sub.get("provider_subscription_id") or "").strip()
+    if not provider_sub:
+        return False
+    status = str(sub.get("subscription_status") or "")
+    pay_status = str(sub.get("payment_status") or "")
+    if pay_status in REVOKED_PAYMENT_STATUSES or pay_status in SIGNUP_TRIAL_PAYMENT_STATUSES:
+        return False
+    if status == "expired":
+        return False
+    # Stripe checkout trial: subscription exists but first paid invoice not confirmed yet.
+    if status == "trialing" or pay_status == "trialing":
+        return False
+    if status == "active" and pay_status == "current":
+        return True
+    if status in {"past_due", "canceled"}:
+        return True
+    return False
+
+
 def effective_plan(sub: dict[str, Any] | None, *, now: datetime | None = None) -> str:
     if not sub:
         return "free"
@@ -691,6 +717,8 @@ def effective_plan(sub: dict[str, Any] | None, *, now: datetime | None = None) -
         except ValueError:
             pass
     if status in {"trialing", "active", "past_due", "canceled"}:
+        if not paid_entitlement_granted(sub, now=now):
+            return "free"
         return plan
     return "free"
 
@@ -752,34 +780,36 @@ async def resolve_entitlements_for_user(user_id: int) -> dict[str, Any]:
 
 
 async def start_paid_trial(user_id: int, email: str, plan: str) -> dict[str, Any]:
+    """Signup trial intent only — stores pending plan; does not grant live paid entitlements."""
     canonical = normalize_plan(plan)
     if canonical == "free":
         raise ValueError("Free plan has no trial")
-    sub = await ensure_subscription_account(user_id, email, plan=canonical)
+    await ensure_subscription_account(user_id, email, plan="free")
     now = _utcnow()
     trial_end = (now + timedelta(days=PAID_TRIAL_DAYS)).isoformat()
     updated = await update_subscription_account(
         user_id,
-        plan=canonical,
+        plan="free",
+        pending_plan=canonical,
         subscription_status="trialing",
-        payment_status="trialing",
+        payment_status="signup_intent",
         current_period_start=now.isoformat(),
         current_period_end=trial_end,
         renewal_date=trial_end,
         trial_ends_at=trial_end,
-        auto_renew_enabled=True,
-        auto_renew_consent_at=now.isoformat(),
-        bump_entitlements=True,
+        auto_renew_enabled=False,
+        auto_renew_consent_at=None,
+        bump_entitlements=False,
     )
-    await _sync_legacy_subscription(email, canonical, None, status="trial", trial_ends_at=trial_end)
     await record_audit(
-        action="TRIAL_STARTED",
+        action="TRIAL_INTENT_RECORDED",
         actor="system:signup",
         user_id=user_id,
         email=email,
-        new_plan=canonical,
+        old_plan="free",
+        new_plan="free",
         new_status="trialing",
-        reason=f"{PAID_TRIAL_DAYS}d_trial",
+        reason=f"signup_trial_intent_{canonical}_no_entitlement_bump",
         entitlements_version=updated.get("entitlements_version"),
     )
     return updated

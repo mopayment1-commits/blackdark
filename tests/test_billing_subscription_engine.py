@@ -125,7 +125,9 @@ async def test_upgrade_downgrade_and_refund_revoke(billing_user):
 
     trial = await start_paid_trial(uid, email, "elite")
     assert trial["subscription_status"] == "trialing"
-    assert trial["plan"] == "elite"
+    assert trial["plan"] == "free"
+    assert trial["pending_plan"] == "elite"
+    assert trial["payment_status"] == "signup_intent"
 
     upgraded = await apply_upgrade(
         uid,
