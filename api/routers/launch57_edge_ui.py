@@ -391,16 +391,34 @@ async def launch57_command_home(
     request: Request,
     symbol: str = Query("BTC"),
     command_view: bool = Query(True),
+    decision_action: str = Query("WAIT"),
+    decision_sentence: str = Query(""),
+    decision_time: str = Query(""),
 ):
     _require_launch57_auth(request, 1)
     from i18n_service import resolve_request_lang
     from launch57.edge_ui_batch2 import six_heroes_command_home
 
     lang = resolve_request_lang(request)
+    action = str(decision_action or "WAIT").upper()
+    sentence = (decision_sentence or "").strip() or f"{symbol.upper()}: {action}"
+    params: dict[str, Any] = {
+        "symbol": symbol,
+        "command_view": command_view,
+        "lang": lang,
+        "decision_action": action,
+        "decision_sentence": sentence,
+    }
+    if decision_time.strip():
+        params["governed_payload"] = {
+            "decision_time": decision_time.strip(),
+            "decision_action": action,
+            "decision_sentence": sentence,
+        }
     try:
         return await six_heroes_command_home(
             symbol=symbol,
-            params={"symbol": symbol, "command_view": command_view, "lang": lang},
+            params=params,
         )
     except RuntimeError as exc:
         if "kill_switch" in str(exc):

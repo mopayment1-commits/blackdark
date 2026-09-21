@@ -11,9 +11,14 @@ from failure.correlation import require_correlation_id
 from failure.logging import log_failure
 from failure.observability import record_failure_sli
 from failure.problem import ProblemDetail, problem_response
+from failure.dimensions import FailureClass, RetryPolicy
 from failure.registry import build_problem_from_spec, get_error_spec, spec_for_http_status
 from failure.validation import validation_problem
 from safe_errors import public_error
+
+
+def handlers_registered(app) -> bool:
+    return HTTPException in getattr(app, "exception_handlers", {})
 
 
 def _status_to_code(status: int) -> str:
@@ -31,6 +36,32 @@ def _status_to_code(status: int) -> str:
     return mapping.get(status, "BD-GEN-001")
 
 
+def _infer_failure_origin(code: str, spec) -> str:
+    if str(code).startswith("BD-UP-") or spec.failure_class in {
+        FailureClass.UPSTREAM,
+        FailureClass.MARKET_DATA,
+        FailureClass.NETWORK,
+        FailureClass.TIMEOUT,
+    }:
+        return "source"
+    return "platform"
+
+
+def _safe_detail_from_exc(exc: HTTPException) -> str:
+    if isinstance(exc.detail, dict):
+        raw = exc.detail.get("detail") or exc.detail.get("message") or exc.detail.get("error") or "Request failed"
+        return public_error(None, fallback=str(raw))
+    if isinstance(exc.detail, str):
+        return public_error(None, fallback=exc.detail)
+    return public_error(None, fallback="Request failed")
+
+
+def _finalize_problem(problem, spec) -> None:
+    problem.failure_origin = _infer_failure_origin(problem.error_code, spec)
+    if spec.retry_policy in {RetryPolicy.SAFE_USER_RETRY, RetryPolicy.SAFE_AUTO_RETRY}:
+        problem.user_retry_max = 1
+
+
 async def http_exception_handler(request: Request, exc: HTTPException):
     cid = require_correlation_id()
     lang = _request_lang(request)
@@ -38,15 +69,16 @@ async def http_exception_handler(request: Request, exc: HTTPException):
     if isinstance(exc.detail, dict) and exc.detail.get("error_code"):
         code = str(exc.detail["error_code"])
     spec = get_error_spec(code) or spec_for_http_status(exc.status_code)
-    detail = public_error(None, fallback=str(exc.detail))
-    if isinstance(exc.detail, dict):
-        detail = str(exc.detail.get("detail") or exc.detail.get("message") or detail)
-    elif isinstance(exc.detail, str):
-        detail = public_error(None, fallback=exc.detail)
+    detail = _safe_detail_from_exc(exc)
     retry_after = None
     if exc.status_code == 429 and exc.headers:
         try:
             retry_after = int(exc.headers.get("Retry-After", 0))
+        except Exception:
+            retry_after = None
+    elif isinstance(exc.detail, dict) and exc.detail.get("retry_after_sec"):
+        try:
+            retry_after = int(exc.detail["retry_after_sec"])
         except Exception:
             retry_after = None
     problem = build_problem_from_spec(
@@ -55,6 +87,7 @@ async def http_exception_handler(request: Request, exc: HTTPException):
         detail=detail,
         retry_after=retry_after,
     )
+    _finalize_problem(problem, spec)
     _emit_failure_log(request, problem, exc)
     return problem_response(problem, lang=lang)
 
@@ -64,6 +97,9 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
     lang = _request_lang(request)
     errors = exc.errors()
     problem = validation_problem(errors, correlation_id=cid)
+    spec = get_error_spec(problem.error_code)
+    if spec:
+        _finalize_problem(problem, spec)
     _emit_failure_log(request, problem, exc)
     return problem_response(problem, lang=lang)
 
@@ -78,6 +114,7 @@ async def unhandled_exception_handler(request: Request, exc: Exception):
         correlation_id=cid,
         detail=public_error(exc, fallback="Request failed"),
     )
+    _finalize_problem(problem, spec)
     _emit_failure_log(request, problem, exc)
     return problem_response(problem, lang=lang)
 

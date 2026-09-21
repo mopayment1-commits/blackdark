@@ -659,6 +659,16 @@ app = FastAPI(
     responses=COMMON_ERROR_RESPONSES,
 )
 
+try:
+    from failure.handlers import register_exception_handlers
+    from failure.middleware import correlation_middleware, maintenance_middleware
+
+    register_exception_handlers(app)
+    app.middleware("http")(maintenance_middleware)
+    app.middleware("http")(correlation_middleware)
+except Exception:
+    logger.exception("Failure recovery HTTP wiring failed")
+
 # Compress HTML/CSS/JS/JSON for Lighthouse text-compression + faster FCP/LCP.
 app.add_middleware(GZipMiddleware, minimum_size=500, compresslevel=6)
 
