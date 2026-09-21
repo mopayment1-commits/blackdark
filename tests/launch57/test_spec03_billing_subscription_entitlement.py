@@ -142,6 +142,122 @@ def test_out_of_order_provider_event_rejected():
     assert "out_of_order" in reason
 
 
+@pytest.mark.asyncio
+async def test_signup_trial_does_not_grant_paid_capabilities(billing_user):
+    """Break: register-time trial intent must not unlock paid Launch-57 surfaces."""
+    from billing.subscription_engine import (
+        effective_plan,
+        resolve_entitlements_for_user,
+        start_paid_trial,
+    )
+    from billing.subscription_store import get_by_user_id
+    from launch57.billing_entitlement_common import (
+        apply_entitlement_gated_params,
+        enforce_launch57_entitlement,
+    )
+
+    uid = int(billing_user["id"])
+    email = billing_user["email"]
+    version_before = (await get_by_user_id(uid) or {}).get("entitlements_version") or 1
+
+    trial = await start_paid_trial(uid, email, "pro")
+    assert trial["plan"] == "free"
+    assert trial.get("pending_plan") == "pro"
+    assert trial["payment_status"] == "signup_intent"
+    assert not trial.get("provider_subscription_id")
+
+    sub = await get_by_user_id(uid)
+    assert sub is not None
+    assert sub.get("entitlements_version") == version_before
+    assert effective_plan(sub) == "free"
+
+    ent = await resolve_entitlements_for_user(uid)
+    assert ent["effective_plan"] == "free"
+
+    params = apply_entitlement_gated_params(
+        {"tier": "pro", "user_id": uid, "subject_id": str(uid)},
+        subscription=sub,
+    )
+    assert params["tier"] == "free"
+    gate = enforce_launch57_entitlement(launch_item_id=33, params=params, subscription=sub)
+    assert gate["allowed"] is False
+    assert gate.get("fail_closed") is True
+
+
+@pytest.mark.asyncio
+async def test_failed_webhook_does_not_silently_upgrade_signup_trial(billing_user):
+    from billing.subscription_engine import effective_plan, start_paid_trial
+    from billing.subscription_store import get_by_user_id
+    from billing.webhook_processor import process_stripe_event
+
+    uid = int(billing_user["id"])
+    email = billing_user["email"]
+    await start_paid_trial(uid, email, "elite")
+    before = await get_by_user_id(uid)
+    assert before is not None
+    version_before = before.get("entitlements_version")
+
+    broken = await process_stripe_event(
+        {
+            "id": "evt_spec03_broken_checkout",
+            "type": "checkout.session.completed",
+            "data": {"object": {"metadata": {"tier": "elite"}}},
+        }
+    )
+    assert broken.get("handled") is False
+
+    after = await get_by_user_id(uid)
+    assert after is not None
+    assert after.get("entitlements_version") == version_before
+    assert effective_plan(after) == "free"
+    assert after.get("plan") == "free"
+    assert after.get("pending_plan") == "elite"
+
+
+@pytest.mark.asyncio
+async def test_stripe_checkout_trial_holds_free_until_invoice_paid(billing_user):
+    from billing.subscription_engine import (
+        activate_checkout,
+        effective_plan,
+        renew_subscription,
+    )
+    from billing.subscription_store import get_by_user_id
+
+    uid = int(billing_user["id"])
+    email = billing_user["email"]
+    suffix = str(datetime.now(UTC).timestamp()).replace(".", "")
+    trial_end = (datetime.now(UTC) + timedelta(days=7)).isoformat()
+    sub_id = f"sub_trial_hold_{suffix}"
+
+    await activate_checkout(
+        email=email,
+        plan="pro",
+        provider="stripe",
+        provider_subscription_id=sub_id,
+        user_id=uid,
+        trial_ends_at=trial_end,
+        provider_event_id=f"evt_trial_checkout_{suffix}",
+    )
+    sub = await get_by_user_id(uid)
+    assert sub["subscription_status"] == "trialing"
+    assert sub["plan"] == "pro"
+    assert effective_plan(sub) == "free"
+
+    period_end = (datetime.now(UTC) + timedelta(days=30)).isoformat()
+    await renew_subscription(
+        provider_subscription_id=sub_id,
+        provider="stripe",
+        provider_event_id=f"evt_trial_invoice_{suffix}",
+        provider_invoice_id=f"in_{suffix}",
+        period_end=period_end,
+        amount_cents=1999,
+    )
+    sub = await get_by_user_id(uid)
+    assert sub["subscription_status"] == "active"
+    assert sub["payment_status"] == "current"
+    assert effective_plan(sub) == "pro"
+
+
 def test_bad_signature_reject_security_event():
     from transport_webhook_env.webhook_lifecycle import reject_security_event
 
