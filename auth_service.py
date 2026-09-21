@@ -388,6 +388,8 @@ async def login_user(
     password: str,
     *,
     mfa_code: str | None = None,
+    ip: str | None = None,
+    user_agent: str | None = None,
 ) -> dict[str, Any]:
     from database import fetch_user_by_email, touch_user_login
     from security_auth import check_login_rate_limit
@@ -401,6 +403,19 @@ async def login_user(
     ok, needs_rehash = verify_password_detailed(password, stored_hash)
     if user is None or not ok:
         _record_invalid_login(email)
+        try:
+            from identity_closure import record_login_history
+
+            await record_login_history(
+                user_id=int(user["id"]) if user else None,
+                email=email,
+                method="password",
+                status="failure",
+                ip=ip,
+                user_agent=user_agent,
+            )
+        except Exception:
+            pass
         raise ValueError("Invalid email or password")
     if needs_rehash:
         from database import update_user_profile_fields
@@ -420,7 +435,25 @@ async def login_user(
         await _verify_login_mfa(user, email, mfa_code)
 
     await touch_user_login(int(user["id"]))
-    session = await create_session(int(user["id"]))
+    session = await create_session(
+        int(user["id"]),
+        ip=ip,
+        user_agent=user_agent,
+        auth_method="password",
+    )
+    try:
+        from identity_closure import record_login_history
+
+        await record_login_history(
+            user_id=int(user["id"]),
+            email=email,
+            method="password",
+            status="success",
+            ip=ip,
+            user_agent=user_agent,
+        )
+    except Exception:
+        pass
     tier = await resolve_user_tier(email)
     return {
         "token": session["token"],
@@ -466,7 +499,14 @@ async def complete_mfa_login(challenge: str, code: str) -> dict[str, Any]:
     }
 
 
-async def create_session(user_id: int, *, revoke_others: bool = True) -> dict[str, Any]:
+async def create_session(
+    user_id: int,
+    *,
+    revoke_others: bool = True,
+    user_agent: str | None = None,
+    ip: str | None = None,
+    auth_method: str | None = None,
+) -> dict[str, Any]:
     from database import delete_user_sessions_for_user, insert_user_session
     from security_auth import hash_session_token
 
@@ -479,8 +519,15 @@ async def create_session(user_id: int, *, revoke_others: bool = True) -> dict[st
     token = secrets.token_urlsafe(48)
     token_hash = hash_session_token(token)
     expires_at = (_utcnow() + timedelta(days=SESSION_DAYS)).isoformat()
-    await insert_user_session(user_id, token_hash, expires_at)
-    return {"token": token, "expires_at": expires_at}
+    await insert_user_session(
+        user_id,
+        token_hash,
+        expires_at,
+        user_agent=user_agent,
+        ip=ip,
+        auth_method=auth_method,
+    )
+    return {"token": token, "expires_at": expires_at, "token_hash": token_hash}
 
 
 async def logout_user(token: str) -> None:

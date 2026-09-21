@@ -5,7 +5,8 @@ from __future__ import annotations
 from privileged_access.operations import ProtectedOperation
 
 IDENTITY_PASSWORD_CHANGE = ProtectedOperation.IDENTITY_PASSWORD_CHANGE.value
-IDENTITY_ACCOUNT_DELETE = "privacy.dsr.erase"
+IDENTITY_EMAIL_CHANGE = ProtectedOperation.IDENTITY_EMAIL_CHANGE.value
+IDENTITY_ACCOUNT_DELETE = ProtectedOperation.PRIVACY_DSR_ERASE.value
 
 
 def identity_step_up_satisfied(

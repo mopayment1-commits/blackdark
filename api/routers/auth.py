@@ -23,8 +23,10 @@ from fastapi.responses import JSONResponse, RedirectResponse, Response as RawRes
 from api.deps import optional_user, raw_bearer_or_cookie, record_behavior
 from api.openapi_responses import COMMON_ERROR_RESPONSES
 from security_models import (
+    AuthChangeEmailBody,
     AuthChangePasswordBody,
     AuthForgotPasswordBody,
+    AuthSecureMyAccountBody,
     AuthGoogleCredentialBody,
     AuthLoginBody,
     AuthMfaChallengeBody,
@@ -36,6 +38,22 @@ from security_models import (
 
 # Sonar S1192: duplicated string literals
 STR_LOGIN_REQUIRED = 'Login required'
+
+
+def _client_ip(request: Request) -> str:
+    ip = (request.headers.get("x-forwarded-for") or "").split(",")[0].strip()
+    if not ip and request.client:
+        ip = request.client.host or ""
+    return ip or "unknown"
+
+
+def _current_token_hash(token: str | None) -> str | None:
+    if not token:
+        return None
+    from security_auth import hash_session_token
+
+    return hash_session_token(str(token))
+
 
 import logging
 
@@ -160,22 +178,36 @@ async def auth_login(
     from auth_service import login_user
     from security_auth import check_login_rate_limit
 
-    ip = (request.headers.get("x-forwarded-for") or "").split(",")[0].strip()
-    if not ip and request.client:
-        ip = request.client.host or "unknown"
+    ip = _client_ip(request)
+    ua = request.headers.get("user-agent")
     check_login_rate_limit(f"ip:{ip}")
     try:
         check_login_rate_limit(f"account:{body.email.strip().lower()}")
-        result = await login_user(body.email, body.password, mfa_code=body.mfa_code)
+        result = await login_user(
+            body.email,
+            body.password,
+            mfa_code=body.mfa_code,
+            ip=ip,
+            user_agent=ua,
+        )
         if result.get("mfa_required"):
             return result
         from identity_audit import log_identity_auth_event
+        from identity_closure import record_login_history
 
         log_identity_auth_event(
             "auth_login_success",
             actor=body.email.strip().lower(),
             user_id=int(result["user"]["id"]) if result.get("user") else None,
             request=request,
+        )
+        await record_login_history(
+            user_id=int(result["user"]["id"]),
+            email=body.email.strip().lower(),
+            method="password",
+            status="success",
+            ip=ip,
+            user_agent=ua,
         )
         background_tasks.add_task(record_behavior, "auth_login", user=result.get("user"))
         from observability import increment_metric
@@ -189,12 +221,22 @@ async def auth_login(
         from security_auth import record_login_failure
 
         record_login_failure(f"ip:{ip}")
+        from identity_closure import record_login_history
+
         log_identity_auth_event(
             "auth_login_failure",
             actor=body.email.strip().lower(),
             request=request,
             severity="warning",
             detail={"reason": str(exc)},
+        )
+        await record_login_history(
+            user_id=None,
+            email=body.email.strip().lower(),
+            method="password",
+            status="failure",
+            ip=ip,
+            user_agent=ua,
         )
         raise HTTPException(status_code=401, detail=str(exc)) from exc
 
@@ -505,10 +547,7 @@ async def auth_google_credential(
 
     gis = google_signin_status()
     if gis["state"] != "CONFIGURED":
-        raise HTTPException(
-            status_code=503,
-            detail=gis.get("message") or "Google sign-in not configured",
-        )
+        raise HTTPException(status_code=503, detail=gis)
     try:
         profile = await verify_google_credential(body.credential)
         result = await login_or_link_oauth_user(profile)
@@ -535,12 +574,18 @@ async def auth_google_credential(
 @router.get("/oauth/{provider}/start", responses=COMMON_ERROR_RESPONSES)
 async def auth_oauth_start(provider: str):
     from identity_service import store_oauth_state_async
-    from oauth_service import build_authorize_url
+    from oauth_service import build_authorize_url, google_signin_status
 
+    if provider.lower() == "google":
+        gis = google_signin_status()
+        if gis["state"] == "BLOCKED_EXTERNAL":
+            raise HTTPException(status_code=503, detail=gis)
     try:
         payload = build_authorize_url(provider)
         await store_oauth_state_async(provider, payload["state"])
     except ValueError as exc:
+        if provider.lower() == "google":
+            raise HTTPException(status_code=503, detail=google_signin_status()) from exc
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     return payload
 
@@ -602,6 +647,159 @@ async def auth_logout_all(user: dict | None = Depends(optional_user)):
     resp = JSONResponse({"ok": True, "message": "All sessions revoked. Please log in again."})
     _clear_session_cookie(resp)
     return resp
+
+
+@router.get("/sessions", responses=COMMON_ERROR_RESPONSES)
+async def auth_list_sessions(
+    user: dict | None = Depends(optional_user),
+    token: str | None = Depends(raw_bearer_or_cookie),
+):
+    if not user:
+        raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
+    from identity_closure import list_user_sessions
+
+    sessions = await list_user_sessions(
+        int(user["id"]),
+        current_token_hash=_current_token_hash(token),
+    )
+    return {"sessions": sessions}
+
+
+@router.delete("/sessions/{session_id}", responses=COMMON_ERROR_RESPONSES)
+async def auth_revoke_session(
+    session_id: int,
+    user: dict | None = Depends(optional_user),
+    token: str | None = Depends(raw_bearer_or_cookie),
+):
+    if not user:
+        raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
+    from identity_closure import list_user_sessions, revoke_user_session
+
+    sessions = await list_user_sessions(
+        int(user["id"]),
+        current_token_hash=_current_token_hash(token),
+    )
+    current_ids = {s["id"] for s in sessions if s.get("current")}
+    if session_id in current_ids:
+        raise HTTPException(status_code=400, detail="Cannot revoke the current session from this device")
+    if not await revoke_user_session(int(user["id"]), session_id):
+        raise HTTPException(status_code=404, detail="Session not found")
+    return {"ok": True}
+
+
+@router.post("/secure-my-account", responses=COMMON_ERROR_RESPONSES)
+async def auth_secure_my_account(
+    body: AuthSecureMyAccountBody,
+    request: Request,
+    user: dict | None = Depends(optional_user),
+    token: str | None = Depends(raw_bearer_or_cookie),
+    x_step_up_token: str | None = Header(default=None, alias="X-Step-Up-Token"),
+):
+    if not user:
+        raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
+    from database import fetch_user_by_id
+    from identity_closure import secure_my_account
+    from identity_step_up import IDENTITY_PASSWORD_CHANGE, identity_step_up_satisfied
+
+    row = await fetch_user_by_id(int(user["id"]))
+    if not row:
+        raise HTTPException(status_code=404, detail="User not found")
+    stored_hash = str(row.get("password_hash") or "")
+    if not identity_step_up_satisfied(
+        subject_id=str(user["id"]),
+        operation=IDENTITY_PASSWORD_CHANGE,
+        step_up_token=x_step_up_token,
+        current_password=body.current_password,
+        stored_hash=stored_hash,
+    ):
+        raise HTTPException(status_code=403, detail="Step-up required")
+    result = await secure_my_account(
+        int(user["id"]),
+        email=str(row["email"]),
+        keep_current_token_hash=_current_token_hash(token),
+        request=request,
+    )
+    return result
+
+
+@router.get("/login-history", responses=COMMON_ERROR_RESPONSES)
+async def auth_login_history(user: dict | None = Depends(optional_user)):
+    if not user:
+        raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
+    from identity_closure import list_login_history
+
+    return {"history": await list_login_history(int(user["id"]))}
+
+
+@router.post("/change-email", responses=COMMON_ERROR_RESPONSES)
+async def auth_change_email(
+    body: AuthChangeEmailBody,
+    request: Request,
+    user: dict | None = Depends(optional_user),
+    x_step_up_token: str | None = Header(default=None, alias="X-Step-Up-Token"),
+):
+    if not user:
+        raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
+    from database import fetch_user_by_id
+    from identity_closure import request_email_change
+    from identity_step_up import IDENTITY_EMAIL_CHANGE, identity_step_up_satisfied
+
+    row = await fetch_user_by_id(int(user["id"]))
+    if not row:
+        raise HTTPException(status_code=404, detail="User not found")
+    if str(row.get("account_state") or "ACTIVE") == "DELETION_PENDING":
+        raise HTTPException(status_code=403, detail="Account deletion pending")
+    if not identity_step_up_satisfied(
+        subject_id=str(user["id"]),
+        operation=IDENTITY_EMAIL_CHANGE,
+        step_up_token=x_step_up_token,
+        current_password=body.current_password,
+        stored_hash=str(row.get("password_hash") or ""),
+    ):
+        raise HTTPException(status_code=403, detail="Step-up required")
+    try:
+        return await request_email_change(int(user["id"]), body.new_email, request=request)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@router.get("/verify-email-change", responses=COMMON_ERROR_RESPONSES)
+async def auth_verify_email_change(token: str = Query(...)):
+    from database import delete_user_sessions_for_user
+    from identity_closure import finalize_email_change
+    from identity_service import consume_auth_token
+
+    safe = "".join(ch for ch in str(token) if ch.isalnum() or ch in "-_.")
+    if len(safe) < 16:
+        raise HTTPException(status_code=400, detail="Invalid email change token")
+    try:
+        user_id = await consume_auth_token(safe, "email_change")
+        result = await finalize_email_change(user_id)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    await delete_user_sessions_for_user(user_id)
+    return {"ok": True, **result}
+
+
+@router.get("/public/profile/{username}", responses=COMMON_ERROR_RESPONSES)
+async def auth_public_profile(username: str):
+    from database import fetch_user_by_username
+    from identity_closure import public_profile_payload
+    from identity_service import avatar_initials, validate_username
+
+    handle = validate_username(username)
+    row = await fetch_user_by_username(handle)
+    if not row:
+        raise HTTPException(status_code=404, detail="Profile not found")
+    payload = public_profile_payload(
+        {
+            "username": row.get("username"),
+            "name": row.get("name"),
+            "avatar_url": row.get("avatar_url"),
+            "initials": avatar_initials(str(row.get("name") or ""), str(row.get("email") or "")),
+        }
+    )
+    return payload
 
 
 @router.get("/me")

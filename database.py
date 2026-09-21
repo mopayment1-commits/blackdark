@@ -814,6 +814,23 @@ async def _ensure_user_profile_columns(db: Any) -> None:
             ("ux_mode_pref", "ALTER TABLE users ADD COLUMN ux_mode_pref TEXT NOT NULL DEFAULT 'beginner'"),
             ("timezone", "ALTER TABLE users ADD COLUMN timezone TEXT NOT NULL DEFAULT 'UTC'"),
             ("password_is_set", "ALTER TABLE users ADD COLUMN password_is_set INTEGER NOT NULL DEFAULT 1"),
+            ("account_state", "ALTER TABLE users ADD COLUMN account_state TEXT NOT NULL DEFAULT 'ACTIVE'"),
+            ("deletion_requested_at", "ALTER TABLE users ADD COLUMN deletion_requested_at TEXT"),
+            ("deletion_scheduled_at", "ALTER TABLE users ADD COLUMN deletion_scheduled_at TEXT"),
+            ("pending_email", "ALTER TABLE users ADD COLUMN pending_email TEXT"),
+        ),
+    )
+
+
+async def _ensure_user_session_columns(db: Any) -> None:
+    await _ensure_missing_columns(
+        db,
+        "user_sessions",
+        (
+            ("user_agent", "ALTER TABLE user_sessions ADD COLUMN user_agent TEXT"),
+            ("ip", "ALTER TABLE user_sessions ADD COLUMN ip TEXT"),
+            ("auth_method", "ALTER TABLE user_sessions ADD COLUMN auth_method TEXT"),
+            ("last_seen_at", "ALTER TABLE user_sessions ADD COLUMN last_seen_at TEXT"),
         ),
     )
 
@@ -1008,6 +1025,24 @@ async def _apply_migrations(db: Any) -> None:
     )
 
     await _ensure_user_profile_columns(db)
+    await _ensure_user_session_columns(db)
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS login_history (
+            id          INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id     INTEGER,
+            email       TEXT    NOT NULL,
+            occurred_at TEXT    NOT NULL,
+            method      TEXT,
+            status      TEXT    NOT NULL,
+            ip          TEXT,
+            user_agent  TEXT
+        )
+        """
+    )
+    await db.execute(
+        "CREATE INDEX IF NOT EXISTS idx_login_history_user ON login_history (user_id, occurred_at DESC)"
+    )
     await db.execute(
         "CREATE UNIQUE INDEX IF NOT EXISTS idx_users_username ON users (username) WHERE username IS NOT NULL AND username != ''"
     )
@@ -3884,14 +3919,25 @@ async def fetch_user_by_session(token: str) -> dict[str, Any] | None:
         return None
 
 
-async def insert_user_session(user_id: int, token: str, expires_at: str) -> int:
+async def insert_user_session(
+    user_id: int,
+    token: str,
+    expires_at: str,
+    *,
+    user_agent: str | None = None,
+    ip: str | None = None,
+    auth_method: str | None = None,
+) -> int:
+    now = _utcnow_iso()
     async with get_connection() as db:
         cursor = await db.execute(
             """
-            INSERT INTO user_sessions (user_id, token, expires_at, created_at)
-            VALUES (?, ?, ?, ?)
+            INSERT INTO user_sessions (
+                user_id, token, expires_at, created_at, user_agent, ip, auth_method, last_seen_at
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             """,
-            (user_id, token, expires_at, _utcnow_iso()),
+            (user_id, token, expires_at, now, user_agent, ip, auth_method, now),
         )
         return int(cursor.lastrowid or 0)
 
@@ -3909,6 +3955,148 @@ async def delete_user_sessions_for_user(user_id: int) -> int:
             (int(user_id),),
         )
         return int(cursor.rowcount or 0)
+
+
+async def delete_user_session_by_id(user_id: int, session_id: int) -> bool:
+    async with get_connection() as db:
+        cursor = await db.execute(
+            "DELETE FROM user_sessions WHERE user_id = ? AND id = ?",
+            (int(user_id), int(session_id)),
+        )
+        return int(cursor.rowcount or 0) > 0
+
+
+async def delete_user_session_except(user_id: int, keep_token_hash: str) -> int:
+    async with get_connection() as db:
+        cursor = await db.execute(
+            "DELETE FROM user_sessions WHERE user_id = ? AND token != ?",
+            (int(user_id), keep_token_hash),
+        )
+        return int(cursor.rowcount or 0)
+
+
+async def fetch_user_sessions(user_id: int) -> list[dict[str, Any]]:
+    async with get_connection() as db:
+        rows = await (
+            await db.execute(
+                """
+                SELECT id, user_id, token, expires_at, created_at, user_agent, ip, auth_method, last_seen_at
+                FROM user_sessions
+                WHERE user_id = ? AND expires_at > ?
+                ORDER BY created_at DESC
+                """,
+                (int(user_id), _utcnow_iso()),
+            )
+        ).fetchall()
+    return [dict(r) for r in rows]
+
+
+async def insert_login_history(
+    *,
+    user_id: int | None,
+    email: str,
+    method: str,
+    status: str,
+    ip: str | None = None,
+    user_agent: str | None = None,
+) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            """
+            INSERT INTO login_history (user_id, email, occurred_at, method, status, ip, user_agent)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+            """,
+            (user_id, email, _utcnow_iso(), method, status, ip, user_agent),
+        )
+
+
+async def fetch_login_history(user_id: int, *, limit: int = 50) -> list[dict[str, Any]]:
+    async with get_connection() as db:
+        rows = await (
+            await db.execute(
+                """
+                SELECT occurred_at, method, status, ip, user_agent
+                FROM login_history
+                WHERE user_id = ?
+                ORDER BY occurred_at DESC
+                LIMIT ?
+                """,
+                (int(user_id), int(limit)),
+            )
+        ).fetchall()
+    return [dict(r) for r in rows]
+
+
+async def revoke_auth_tokens_for_user(user_id: int) -> int:
+    async with get_connection() as db:
+        cursor = await db.execute(
+            "UPDATE auth_tokens SET used_at = ? WHERE user_id = ? AND used_at IS NULL",
+            (_utcnow_iso(), int(user_id)),
+        )
+        return int(cursor.rowcount or 0)
+
+
+async def set_account_deletion_pending(user_id: int, *, grace_days: int = 7) -> dict[str, Any]:
+    from datetime import UTC, datetime, timedelta
+
+    now = datetime.now(UTC)
+    scheduled = (now + timedelta(days=grace_days)).isoformat()
+    async with get_connection() as db:
+        await db.execute(
+            """
+            UPDATE users
+            SET account_state = 'DELETION_PENDING',
+                deletion_requested_at = ?,
+                deletion_scheduled_at = ?
+            WHERE id = ?
+            """,
+            (now.isoformat(), scheduled, int(user_id)),
+        )
+    return {
+        "account_state": "DELETION_PENDING",
+        "deletion_requested_at": now.isoformat(),
+        "deletion_scheduled_at": scheduled,
+    }
+
+
+async def fetch_account_state(user_id: int) -> dict[str, Any]:
+    async with get_connection() as db:
+        row = await (
+            await db.execute(
+                """
+                SELECT account_state, deletion_requested_at, deletion_scheduled_at, pending_email
+                FROM users WHERE id = ?
+                """,
+                (int(user_id),),
+            )
+        ).fetchone()
+    if not row:
+        return {"account_state": "ACTIVE"}
+    return dict(row)
+
+
+async def set_pending_email(user_id: int, email: str) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            "UPDATE users SET pending_email = ? WHERE id = ?",
+            (email.strip().lower(), int(user_id)),
+        )
+
+
+async def apply_pending_email(user_id: int) -> dict[str, Any] | None:
+    async with get_connection() as db:
+        row = await (
+            await db.execute("SELECT email, pending_email FROM users WHERE id = ?", (int(user_id),))
+        ).fetchone()
+        if not row or not row["pending_email"]:
+            return None
+        previous = str(row["email"])
+        new_email = str(row["pending_email"])
+        await db.execute(
+            "UPDATE users SET email = ?, pending_email = NULL, email_verified_at = ? WHERE id = ?",
+            (new_email, _utcnow_iso(), int(user_id)),
+        )
+    return {"email": new_email, "previous_email": previous}
 
 
 async def touch_user_login(user_id: int) -> None:

@@ -16,6 +16,7 @@ import hashlib
 import os
 import re
 import secrets
+import unicodedata
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Any
@@ -48,6 +49,7 @@ _COMMON_PASSWORDS = {
 TOKEN_TTL_MINUTES = {
     "email_verify": int(os.getenv("IDENTITY_VERIFY_TTL_MIN", "60")),
     "password_reset": int(os.getenv("IDENTITY_RESET_TTL_MIN", "45")),
+    "email_change": int(os.getenv("IDENTITY_EMAIL_CHANGE_TTL_MIN", "60")),
 }
 
 AVATAR_DIR = Path(os.getenv("IDENTITY_AVATAR_DIR", "data/avatars"))
@@ -125,7 +127,12 @@ def _reserved_usernames() -> set[str]:
 
 
 def validate_username(username: str) -> str:
-    u = (username or "").strip().lower()
+    from identity_closure import reject_obvious_mixed_script_username
+
+    u = unicodedata.normalize("NFKC", (username or "").strip()).lower()
+    if any(ord(c) > 127 for c in u):
+        raise ValueError("Username must use ASCII letters, numbers, and underscore only")
+    reject_obvious_mixed_script_username(u)
     if not USERNAME_RE.match(u):
         raise ValueError(
             "Username must be 3–24 chars, start with a letter, and use a-z, 0-9, underscore"
@@ -179,7 +186,8 @@ def identity_architecture() -> dict[str, Any]:
             "public_handle": True,
             "pattern": USERNAME_RE.pattern,
             "case_folding": "lower",
-            "homoglyph_check": "deferred",
+            "homoglyph_check": "minimum_ascii_nfkc_mixed_script_reject",
+            "homoglyph_full_deferred": True,
             "reserved_list": True,
         },
         "password_policy": {
@@ -273,6 +281,24 @@ async def send_verification_email(user_id: int, email: str) -> dict[str, Any]:
         "If you did not create an account, ignore this message.\n"
     )
     sent = await enqueue_identity_email(email, "Verify your BLACKDARK email", body)
+    out: dict[str, Any] = {"sent": True, "channel": "email_outbox_or_smtp"}
+    if debug_tokens_enabled():
+        out["debug_token"] = raw
+        out["debug_link"] = link
+    out["delivery"] = sent.get("flush", {})
+    return out
+
+
+async def send_email_change_verification(user_id: int, email: str) -> dict[str, Any]:
+    raw = await issue_auth_token(user_id, "email_change")
+    base = (os.getenv("APP_BASE_URL") or "[REDACTED]").rstrip("/")
+    link = f"{base}/api/auth/verify-email-change?token={raw}"
+    body = (
+        "Confirm your new BLACKDARK email address.\n\n"
+        f"Open this link within {TOKEN_TTL_MINUTES['email_change']} minutes:\n{link}\n\n"
+        "If you did not request this change, ignore this message.\n"
+    )
+    sent = await enqueue_identity_email(email, "Confirm your new BLACKDARK email", body)
     out: dict[str, Any] = {"sent": True, "channel": "email_outbox_or_smtp"}
     if debug_tokens_enabled():
         out["debug_token"] = raw
