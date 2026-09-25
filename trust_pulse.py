@@ -40,8 +40,17 @@ def _utcnow() -> str:
     return datetime.now(UTC).isoformat()
 
 
-def _norm_action(raw: str | None) -> str:
+def _norm_action(raw: str | None, *, public_layer: bool = False) -> str:
     a = (raw or "WAIT").strip().upper()
+    if public_layer:
+        from supplemental_public_compliance import map_public_decision_action
+
+        mapped = map_public_decision_action(a)
+        if mapped == "ABSTAIN":
+            return "ABSTAIN"
+        if mapped == "CONDITIONS MET":
+            return "CONDITIONS MET"
+        return "WAIT"
     if a in {"BUY", "ACT", "LONG"}:
         return "ACT"
     if a in {"SELL", "SHORT", "EXIT"}:
@@ -371,8 +380,15 @@ def _pulse_base_result(
         "surface": "trust_pulse",
         "event": event,
         "symbol": str(payload.get("symbol") or meta.get("asset") or DEFAULT_SYMBOL).upper(),
-        "action": _norm_action(payload.get("decision_action") or payload.get("verdict") or payload.get("action")),
-        "verdict": payload.get("verdict") or _norm_action(payload.get("decision_action") or payload.get("verdict") or payload.get("action")),
+        "action": _norm_action(
+            payload.get("decision_action") or payload.get("verdict") or payload.get("action"),
+            public_layer=str(tier or "free").lower() in {"free", ""},
+        ),
+        "verdict": payload.get("verdict")
+        or _norm_action(
+            payload.get("decision_action") or payload.get("verdict") or payload.get("action"),
+            public_layer=str(tier or "free").lower() in {"free", ""},
+        ),
         "sentence": _pulse_sentence(payload),
         "why": {
             "grasp_line": why.get("grasp_line") or "Top reasons — under five seconds",
@@ -483,10 +499,14 @@ def _shape_pulse(
     fetched_at = float(meta.get("fetched_at") or time.time())
     age = max(0.0, time.time() - fetched_at)
     freshness = _freshness(age, stale=age > STALE_AFTER_SEC)
-    action = _norm_action(payload.get("decision_action") or payload.get("verdict") or payload.get("action"))
+    tier = str(payload.get("tier") or "free").lower()
+    public_layer = tier in {"free", ""}
+    action = _norm_action(
+        payload.get("decision_action") or payload.get("verdict") or payload.get("action"),
+        public_layer=public_layer,
+    )
     why = payload.get("oqs_why") or {}
     factors = _pulse_factors(payload, why)
-    tier = str(payload.get("tier") or "free").lower()
     continuity = _continuity(
         current_action=action,
         previous_action=previous_action,
@@ -510,6 +530,38 @@ def _shape_pulse(
         continuity_out=_visible_continuity(tier, continuity),
     )
     _apply_pulse_zero_tolerance(result, payload, why, factors, freshness)
+    if public_layer:
+        from supplemental_public_compliance import (
+            CONDITIONS_MET_REVIEW_LINE,
+            apply_supplemental_public_layer,
+            public_decision_sentence,
+        )
+
+        merged = apply_supplemental_public_layer(
+            {**payload, **result},
+            user={"tier": tier},
+            request=None,
+        )
+        for key in (
+            "decision_action",
+            "model_state",
+            "action",
+            "verdict",
+            "sentence",
+            "conditions_met_review",
+            "decision_sentence",
+            "oracle",
+        ):
+            if key in merged:
+                result[key] = merged[key]
+        if result.get("action") == "CONDITIONS MET":
+            result["conditions_met_review"] = CONDITIONS_MET_REVIEW_LINE
+            result["sentence"] = public_decision_sentence(str(result.get("symbol") or "ASSET"), "CONDITIONS MET")
+        result.pop("cta", None)
+        result["cta"] = {
+            "primary": {"label": "View analytical proof", "href": "/dashboard?lens=prove#decide"},
+            "verify": {"label": "Verify Ledger", "href": PATH_ORACLE_ACCURACY},
+        }
     return result
 
 
