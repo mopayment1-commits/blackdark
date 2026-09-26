@@ -8,7 +8,6 @@ import subprocess
 import sys
 import time
 import urllib.error
-import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -43,7 +42,9 @@ def _wait_health(timeout: int = 180) -> bool:
     deadline = time.time() + timeout
     while time.time() < deadline:
         try:
-            with urllib.request.urlopen(HEALTH_URL, timeout=5) as resp:
+            from path_safety import open_http_url
+
+            with open_http_url(HEALTH_URL, timeout=5, allowed_hosts={"127.0.0.1", "localhost"}) as resp:
                 if resp.status == 200:
                     return True
         except (urllib.error.URLError, TimeoutError, ConnectionResetError):
