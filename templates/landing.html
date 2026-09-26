@@ -1442,6 +1442,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 wireDisciplineMirror(document.getElementById('landingDiscipline'), data, symbol, followAction);
                 paintLandingCompliance(data);
                 updateShareLinks(data);
+                syncLandingTrustPulseFromOracle(data, symbol);
             } catch (error) { console.debug(error); oracleEl.textContent = i18nT('ui.oracle_unavailable'); }
         }
 
@@ -1539,6 +1540,41 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
 
         let landingPulse = null;
         let landingPulseEs = null;
+        let landingPulseSymbol = 'BTC';
+
+        function _landingPulseFactors(data) {
+            const whyBlock = data.oqs_why || {};
+            return whyBlock.top_3_factors
+                || (data.explanation && data.explanation.top_3_factors)
+                || data.top_3_factors
+                || [];
+        }
+
+        function syncLandingTrustPulseFromOracle(data, symbol) {
+            if (!data) return;
+            const sym = String(data.symbol || symbol || 'BTC').trim().toUpperCase() || 'BTC';
+            landingPulseSymbol = sym;
+            const action = decideLandingAction(data);
+            const cert = data.decision_certificate || {};
+            const fresh = data.data_freshness || {};
+            const pulseView = {
+                symbol: sym,
+                action: action,
+                price: data.price,
+                change_24h: data.change_24h != null ? data.change_24h : data.change_24h_pct,
+                sentence: fallbackDecisionSentence(data, sym, action),
+                why: { factors: _landingPulseFactors(data) },
+                freshness: fresh,
+                proof: {
+                    ...(landingPulse && landingPulse.proof ? landingPulse.proof : {}),
+                    certificate_hash: cert.certificate_hash,
+                    prediction_id: data.prediction_id,
+                },
+                ledger: landingPulse && landingPulse.ledger ? landingPulse.ledger : {},
+            };
+            renderLandingPulse(pulseView);
+            startLandingPulseStream(sym);
+        }
 
         function _lpPriceBit(p) {
             const price = p.price != null
@@ -1603,22 +1639,41 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             _lpRenderProof(p);
         }
 
-        async function loadLandingTrustPulse() {
+        async function fetchLandingTrustPulse(symbol, mode, lang) {
+            const sym = String(symbol || 'BTC').trim().toUpperCase() || 'BTC';
+            landingPulseSymbol = sym;
             try {
-                const res = await fetch('/api/trust-pulse?symbol=BTC&ux_mode=beginner&lang=en');
+                const q = new URLSearchParams({
+                    symbol: sym,
+                    ux_mode: mode || 'beginner',
+                    lang: lang || 'en',
+                });
+                const res = await fetch('/api/trust-pulse?' + q.toString());
                 if (!res.ok) return;
                 renderLandingPulse(await res.json());
+                startLandingPulseStream(sym);
             } catch (error) { console.debug(error); }
         }
 
-        function startLandingPulseStream() {
+        async function loadLandingTrustPulse() {
+            const symbol = (document.getElementById('symbolInput')?.value || 'BTC').toUpperCase();
+            const mode = document.getElementById('landingUxMode')?.value || 'beginner';
+            const lang = currentLang();
+            await fetchLandingTrustPulse(symbol, mode, lang);
+        }
+
+        function startLandingPulseStream(symbol) {
+            const sym = String(symbol || landingPulseSymbol || 'BTC').trim().toUpperCase() || 'BTC';
+            landingPulseSymbol = sym;
             try {
                 if (landingPulseEs) landingPulseEs.close();
-                landingPulseEs = new EventSource('/api/trust-pulse/stream?symbol=BTC');
+                landingPulseEs = new EventSource('/api/trust-pulse/stream?symbol=' + encodeURIComponent(sym));
                 landingPulseEs.onmessage = (ev) => {
                     try {
                         const d = JSON.parse(ev.data);
-                        if (d.pulse) renderLandingPulse(d.pulse);
+                        if (d.pulse && String(d.pulse.symbol || '').toUpperCase() === landingPulseSymbol) {
+                            renderLandingPulse(d.pulse);
+                        }
                     } catch (error) { console.debug(error); }
                 };
             } catch (error) { console.debug(error); }
@@ -1682,7 +1737,6 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             wireInstitutionalInquiry();
             loadTelegramBotLink();
             await loadLandingTrustPulse();
-            startLandingPulseStream();
             setTimeout(consultOracle, 500);
             if ('serviceWorker' in navigator) {
                 navigator.serviceWorker.register('/sw.js').catch((error) => { console.debug(error); });
