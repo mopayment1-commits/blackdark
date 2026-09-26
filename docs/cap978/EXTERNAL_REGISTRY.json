@@ -319,5 +319,5 @@
     }
   ],
   "policy": "EXTERNAL_BLOCKED and EXTERNAL_EVIDENCE_REQUIRED are excluded from internal closure numerator",
-  "repository_head_sha": "14f3ab891752f876f01119e82ab244a3eebf2672"
+  "repository_head_sha": "477d6c0a11d54c7628fe2f49a574dd2cebb90eb2"
 }

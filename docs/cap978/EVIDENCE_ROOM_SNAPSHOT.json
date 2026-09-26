@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T22:24:13.122115+00:00",
+  "generated_at": "2026-09-26T23:25:06.670897+00:00",
   "product_thesis": "978-capability Decision Intelligence platform — evidence-first closure",
   "verdict": "INSTITUTIONAL_GATE_PASS",
   "internal_closure": {
@@ -28,14 +28,14 @@
     "internal_closure": true,
     "e2e": {
       "verdict": "VERIFIED_COMPLETE",
-      "chain_id": "chain_c21dc59fb8e1",
+      "chain_id": "chain_f5c641ae3bb0",
       "acceptance_evidence": {
-        "prediction_id": "pred_chain_c21dc59fb8e1",
-        "decision_id": "dec_e6b06753580c4ea4",
-        "exposure_id": "exp_5d707663108f47da",
-        "certificate_hash": "3440552eef5059ca8c3697ddc36a5eef165060ffb90d5f160438be5845bcd9ba",
-        "signal_id": "pred_chain_c21dc59fb8e1",
-        "outcome_id": "out_chain_c21dc59fb8e1"
+        "prediction_id": "pred_chain_f5c641ae3bb0",
+        "decision_id": "dec_154ad8d519f8417b",
+        "exposure_id": "exp_a7c16ac9b34e4432",
+        "certificate_hash": "765e3e5c6e0867a52c154b2f882f06c9d3e68579810e5904fb7c13a9561be2ca",
+        "signal_id": "pred_chain_f5c641ae3bb0",
+        "outcome_id": "out_chain_f5c641ae3bb0"
       },
       "stage_count": 12,
       "failed_stages": []
@@ -170,7 +170,7 @@
     "curl /api/cap646/evidence-room",
     "curl /api/cap646/platform-chain/e2e?symbol=BTC"
   ],
-  "snapshot_hash": "bc6202e6382d7de19c39db26b8b5b74ef54f8f424502829c23ff65f1fe0f5cb0",
+  "snapshot_hash": "1a618f51534d14f2fcb28bc16c1b556c934aa6d8bcef210a2301456d0b70ee03",
   "external_registry_rows": [
     {
       "id": 1,
@@ -780,7 +780,7 @@
           "evidence": [
             "fee_matrix"
           ],
-          "note": "{'exchanges': 100, 'last_refresh': 0.0, 'refresh_interval_sec': 3600, 'sample': {'binance': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'okx': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'bybit': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'coinbase': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'kraken': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'kucoin': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'gateio': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'digifinex': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}}}"
+          "note": "{'exchanges': 100, 'last_refresh': 0.0, 'refresh_interval_sec': 3600, 'sample': {'binance': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'okx': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'bybit': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'coinbase': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'kraken': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'kucoin': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'gateio': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'bithumb': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}}}"
         },
         {
           "id": "FIN-002",
@@ -1117,14 +1117,14 @@
       "failed": [],
       "e2e": {
         "verdict": "VERIFIED_COMPLETE",
-        "chain_id": "chain_9929cc9d0014",
+        "chain_id": "chain_f70f0d430f71",
         "acceptance_evidence": {
-          "prediction_id": "pred_chain_9929cc9d0014",
-          "decision_id": "dec_0c8d5dcc0aa748f8",
-          "exposure_id": "exp_c32a86bfc74c4f1d",
-          "certificate_hash": "b6d04342eae84dcba50cdd354b5c8b0d012ba8f1b3ca008979e8fe21e4e8bf15",
-          "signal_id": "pred_chain_9929cc9d0014",
-          "outcome_id": "out_chain_9929cc9d0014"
+          "prediction_id": "pred_chain_f70f0d430f71",
+          "decision_id": "dec_59109db1aefa4e85",
+          "exposure_id": "exp_dda908d490e241ce",
+          "certificate_hash": "3da7d888f79dc688d2f4998f403c38b669c47a6532c95f44cd8c354c9c712ac6",
+          "signal_id": "pred_chain_f70f0d430f71",
+          "outcome_id": "out_chain_f70f0d430f71"
         },
         "stage_count": 12,
         "failed_stages": []
@@ -1140,6 +1140,6 @@
       "source_pdf": "Project_978_Capabilities_Grouped_d117.pdf"
     }
   },
-  "repository_head_sha": "14f3ab891752f876f01119e82ab244a3eebf2672",
+  "repository_head_sha": "477d6c0a11d54c7628fe2f49a574dd2cebb90eb2",
   "evidence_generation_mode": "ci_structural_no_network"
 }
