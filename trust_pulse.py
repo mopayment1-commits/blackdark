@@ -432,6 +432,7 @@ def _pulse_base_result(
                 "Verify on the Public Accuracy Ledger."
             )
         },
+        "decision_certificate": cert or None,
         "from_cache": from_cache,
         "updated_at": _utcnow(),
         "cache_ttl_sec": CACHE_TTL_SEC,

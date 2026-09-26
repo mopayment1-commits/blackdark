@@ -671,8 +671,38 @@
         .tp-mini-why { font-size:.85rem; color:var(--text-muted); margin-bottom:.75rem; }
         .tp-mini-why div { padding:.25rem 0; border-bottom:1px solid var(--border); color:var(--text); }
         .tp-mini-why div:last-child { border-bottom:none; }
-        .tp-mini-proof { display:flex; flex-wrap:wrap; gap:.4rem; margin-bottom:.85rem; font-size:.75rem; }
+        .tp-mini-proof { display:flex; flex-wrap:wrap; gap:.4rem; margin-bottom:.85rem; font-size:.75rem; align-items:center; }
         .tp-mini-proof span, .tp-mini-proof a { /* use .bd-chip via JS when possible */ }
+        .bd-chip-btn {
+            cursor: pointer;
+            font: inherit;
+            font-size: 0.75rem;
+            color: var(--accent);
+            border-color: rgba(34, 211, 238, 0.35);
+        }
+        .bd-chip-btn:hover, .bd-chip-btn:focus-visible {
+            border-color: var(--accent);
+            color: #e0f2fe;
+            outline: none;
+        }
+        .bd-chip-muted {
+            cursor: default;
+            opacity: 0.92;
+            color: var(--text-muted);
+        }
+        .tp-mini-proof-drawer {
+            margin: 0 0 0.75rem;
+            padding: 0.75rem 0.85rem;
+            border: 1px solid rgba(34, 211, 238, 0.22);
+            border-radius: 10px;
+            background: rgba(10, 10, 15, 0.55);
+            font-size: 0.82rem;
+        }
+        .tp-mini-proof-toast {
+            margin: -0.35rem 0 0.65rem;
+            font-size: 0.72rem;
+            color: var(--success);
+        }
         .tp-mini-cta { display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:.5rem; }
         .tp-mini-foot { margin:0; }
         
@@ -760,6 +790,8 @@
                     <p class="tp-mini-sentence" id="lpSentence">{{ t('pulse.sentence') }}</p>
                     <div class="tp-mini-why" id="lpWhy"></div>
                     <div class="tp-mini-proof" id="lpProof"></div>
+                    <p class="tp-mini-proof-toast" id="lpProofCopyMsg" role="status" aria-live="polite" hidden></p>
+                    <div class="tp-mini-proof-drawer" id="lpProofDrawer" hidden></div>
                     <div class="tp-mini-cta">
                         <a href="/dashboard?lens=prove#trust-pulse" class="btn-primary" style="padding:.55rem 1.1rem;font-size:.9rem">{{ t('pulse.open_full') }}</a>
                         <button type="button" class="btn-secondary" style="padding:.55rem 1.1rem;font-size:.9rem;cursor:pointer" id="lpShareBtn">{{ t('pulse.share') }}</button>
@@ -1602,19 +1634,164 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             }).join('') || '';
         }
 
+        function _lpProofLedgerHref(proof) {
+            const raw = proof.permalink || proof.verify_url || '';
+            if (typeof raw === 'string' && raw.startsWith('http')) {
+                try {
+                    const u = new URL(raw);
+                    return u.pathname + u.search + u.hash;
+                } catch (error) {
+                    console.debug(error);
+                }
+            }
+            const rel = safeUrl(raw) || '/oracle-accuracy';
+            if (proof.certificate_hash && rel.indexOf('cert=') < 0) {
+                const sep = rel.indexOf('?') >= 0 ? '&' : '?';
+                return rel + sep + 'cert=' + encodeURIComponent(String(proof.certificate_hash).slice(0, 16));
+            }
+            return rel;
+        }
+
+        function _lpPulseHasCertificate(p) {
+            const proof = (p && p.proof) || {};
+            return Boolean(proof.certificate_hash || (p && p.decision_certificate && p.decision_certificate.certificate_hash));
+        }
+
+        function openLandingPulseProof() {
+            const p = landingPulse || {};
+            const proof = p.proof || {};
+            const drawer = document.getElementById('lpProofDrawer');
+            const toast = document.getElementById('lpProofCopyMsg');
+            if (toast) toast.hidden = true;
+            if (!drawer) return;
+            const cert = p.decision_certificate || {
+                certificate_hash: proof.certificate_hash,
+                share_text: proof.share_text,
+                share_urls: proof.share_urls || {},
+                export_text: proof.export_text,
+                verify_url: proof.verify_url,
+                permalink: proof.permalink,
+            };
+            if (!cert.certificate_hash) {
+                drawer.hidden = false;
+                drawer.innerHTML =
+                    '<p style="margin:0;color:var(--text-muted)">No Decision Certificate for this pulse yet. ' +
+                    'Use <strong>Get Decision</strong> below to generate signed proof.</p>';
+                return;
+            }
+            drawer.hidden = false;
+            const data = { symbol: p.symbol || 'BTC', prediction_id: proof.prediction_id || cert.prediction_id };
+            renderLandingPulseProofDrawer(drawer, cert, data, p);
+        }
+
+        function renderLandingPulseProofDrawer(drawerEl, cert, data, pulse) {
+            const proof = (pulse && pulse.proof) || {};
+            const ledgerHref = esc(_lpProofLedgerHref(proof));
+            const hashLabel = cert.certificate_hash ? String(cert.certificate_hash).slice(0, 16) + '…' : 'pending';
+            const copyBtn = cert.share_text
+                ? '<button type="button" class="btn-secondary" id="lpDrawerCopyCert">Copy certificate text</button>'
+                : '';
+            drawerEl.innerHTML =
+                '<p style="margin:0 0 .5rem"><strong>Decision Certificate</strong> · Trust Pulse</p>' +
+                '<p style="margin:0 0 .5rem;color:var(--text-muted)"><code>' + esc(hashLabel) + '</code></p>' +
+                '<div style="display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:.5rem">' +
+                copyBtn +
+                '<a class="btn-secondary" href="' + ledgerHref + '">Open proof on ledger</a>' +
+                '<button type="button" class="btn-secondary" id="lpDrawerClose">Close</button>' +
+                '</div>';
+            document.getElementById('lpDrawerCopyCert')?.addEventListener('click', () => {
+                navigator.clipboard.writeText(cert.share_text || '').then(() => {
+                    const msg = document.getElementById('lpProofCopyMsg');
+                    if (msg) {
+                        msg.textContent = 'Certificate text copied.';
+                        msg.hidden = false;
+                    }
+                }).catch(() => {});
+            });
+            document.getElementById('lpDrawerClose')?.addEventListener('click', () => {
+                drawerEl.hidden = true;
+            });
+        }
+
+        function copyLandingPulseCertHash() {
+            const proof = (landingPulse && landingPulse.proof) || {};
+            const hash = proof.certificate_hash;
+            const msg = document.getElementById('lpProofCopyMsg');
+            if (!hash) {
+                if (msg) {
+                    msg.textContent = 'No certificate hash yet — use Get Decision below.';
+                    msg.hidden = false;
+                }
+                return;
+            }
+            const done = () => {
+                if (msg) {
+                    msg.textContent = 'Certificate hash copied.';
+                    msg.hidden = false;
+                }
+            };
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(String(hash)).then(done).catch(() => {
+                    openLandingPulseProof();
+                });
+            } else {
+                openLandingPulseProof();
+            }
+        }
+
+        let lpProofClickWired = false;
+        function wireLandingPulseProofClicks() {
+            if (lpProofClickWired) return;
+            const box = document.getElementById('lpProof');
+            if (!box) return;
+            lpProofClickWired = true;
+            box.addEventListener('click', (e) => {
+                if (e.target.closest('[data-lp-proof-open]')) {
+                    e.preventDefault();
+                    openLandingPulseProof();
+                    return;
+                }
+                if (e.target.closest('[data-lp-copy-hash]')) {
+                    e.preventDefault();
+                    copyLandingPulseCertHash();
+                }
+            });
+        }
+
         function _lpRenderProof(p) {
             const proof = p.proof || {};
             const ledger = p.ledger || {};
             const box = document.getElementById('lpProof');
             if (!box) return;
+            wireLandingPulseProofClicks();
+            const hasCert = _lpPulseHasCertificate(p);
             const bits = [
                 `<a class="bd-chip ok" href="${esc(safeUrl(ledger.href) || '/oracle-accuracy')}">${esc(ledger.label || 'Verified on Ledger')}</a>`,
             ];
-            if (proof.watermark) bits.push(`<span class="bd-chip">${esc(proof.watermark)}</span>`);
-            if (proof.certificate_hash) {
-                bits.push(`<span class="bd-chip">cert ${esc(String(proof.certificate_hash).slice(0, 10))}…</span>`);
+            if (proof.watermark) {
+                if (hasCert) {
+                    bits.push(
+                        `<button type="button" class="bd-chip bd-chip-btn ok" data-lp-proof-open="1">${esc(proof.watermark)}</button>`
+                    );
+                } else {
+                    bits.push(
+                        `<span class="bd-chip bd-chip-muted">${esc(proof.watermark)} — certificate pending</span>`
+                    );
+                }
+            }
+            if (hasCert) {
+                const short = esc(String(proof.certificate_hash).slice(0, 10));
+                bits.push(
+                    `<button type="button" class="bd-chip bd-chip-btn" data-lp-copy-hash="1" title="Copy certificate hash">cert ${short}…</button>`
+                );
+            } else if (!proof.watermark) {
+                bits.push(
+                    '<span class="bd-chip bd-chip-muted">Certificate not ready — use Get Decision below.</span>'
+                );
             }
             box.innerHTML = bits.join('');
+            const drawer = document.getElementById('lpProofDrawer');
+            if (drawer && !hasCert) drawer.hidden = true;
         }
 
         function renderLandingPulse(p) {
