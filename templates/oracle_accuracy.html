@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="BLACKDARK Public Accuracy Ledger — sealed Glass Box forecasts, monthly losing trades, and a verifiable audit hash chain. Prove it.">
+    <meta name="description" content="BLACKDARK Public Accuracy Ledger — sealed Glass Box forecasts, monthly misses and incorrect model states, and a verifiable audit hash chain. Verify on-page.">
     <meta property="og:title" content="BLACKDARK — Public Oracle Accuracy Ledger">
     <meta property="og:description" content="Full public ledger including misses. Glass Box Challenge ready. Labels are not proof.">
     <title>BLACKDARK — Oracle Accuracy Live</title>
@@ -146,7 +146,7 @@
         <div class="cta-row" style="margin-top:1rem">
             <button class="btn btn-secondary" id="verifyChainBtn" type="button">Verify Audit Chain</button>
             <a class="btn btn-secondary" href="#losing">Public misses / errors</a>
-            <a class="btn btn-secondary" href="#glass-box-challenge">Competitor challenge</a>
+            <a class="btn btn-secondary" href="#glass-box-challenge">Transparency challenge</a>
             <a class="btn btn-secondary" href="/discipline-mirror">Discipline Mirror</a>
             <a class="btn btn-secondary" href="/docs">Developer docs</a>
         </div>
@@ -188,9 +188,8 @@
         <div class="card">
             <h2>The Glass Box Challenge</h2>
             <noscript><p>We challenge every competitor to publish their full accuracy ledger — including misses. Labels are not proof.</p></noscript>
-            <p id="glass-hook" style="color:var(--muted);font-size:0.9rem">Before the next major macro event we seal a timed Decision Certificate in public.</p>
-            <p id="glass-challenge" style="margin-top:0.75rem;font-size:0.95rem">BLACKDARK Glass Box Challenge: publish the full ledger — including misses — permanently and verifiably. Prove it.</p>
-            <p id="glass-story" style="margin-top:0.65rem;color:var(--muted);font-size:0.88rem"></p>
+            <p id="glass-challenge" style="margin-top:0.75rem;font-size:0.95rem">BLACKDARK Glass Box Challenge: publish the full ledger — including misses and incorrect model states — with verifiable audit hashes. Verify here.</p>
+            <p id="glass-context" style="margin-top:0.65rem;color:var(--muted);font-size:0.88rem"></p>
             <ol id="glass-event-steps" style="margin:1rem 0 0 1.2rem;color:var(--muted);font-size:0.88rem;line-height:1.7">
                 <li>Pick one macro/crypto event window</li>
                 <li>Seal timed Decision Certificates before the event</li>
@@ -255,7 +254,7 @@
             <ul class="events" id="losing-list"><li>Loading...</li></ul>
             <div class="cta-row" style="margin-top:1rem;justify-content:flex-start">
                 <button class="btn btn-secondary" type="button" id="copyLosingBtn">Copy share text</button>
-                <a class="btn btn-secondary" href="#glass-box-challenge">Issue the competitor challenge</a>
+                <a class="btn btn-secondary" href="#glass-box-challenge">Read transparency challenge</a>
             </div>
             <p style="margin-top:0.65rem;font-size:0.72rem;color:var(--muted)"><strong>Anti-Hype</strong> · Not financial advice. Past misses do not predict future results.</p>
         </div>
@@ -345,7 +344,7 @@
     </div>
 
     <footer>
-        BLACKDARK — Proprietary Crypto Intelligence AI · Every prediction tracked
+        BLACKDARK — market-data and analytical technology · public outcome ledger (not exhaustive coverage)
     </footer>
 
     <script src="/static/js/dom_escape.js"></script>
@@ -487,7 +486,7 @@
         function renderRegistryTable(reg) {
             document.getElementById('registry-status').textContent =
                 `Labeled lexicon · total=${reg.total ?? 0} · labeled=${reg.labeled ?? 0} · unlabeled=${reg.unlabeled ?? 0}` +
-                (reg.moat_claim ? ` · ${reg.moat_claim}` : '');
+                (reg.public_lexicon_note ? ` · ${reg.public_lexicon_note}` : '');
             const byType = reg.by_type || {};
             const regBody = document.getElementById('registry-body');
             const typeKeys = Object.keys(byType);
@@ -709,10 +708,12 @@
             try {
                 const d = await fetchJsonWithTimeout('/api/glass-box/challenge');
                 lastGlassShare = d.share_text || d.challenge_text_en || '';
-                document.getElementById('glass-hook').textContent = d.hook || '';
                 document.getElementById('glass-challenge').textContent = d.challenge_text_en || '';
-                document.getElementById('glass-story').textContent =
-                    (d.story || '') + ' ' + (d.loop || '');
+                const ctx = document.getElementById('glass-context');
+                if (ctx) {
+                    const parts = [d.hook, d.story].filter(Boolean);
+                    ctx.textContent = parts.join(' ');
+                }
                 const steps = (d.event_template && d.event_template.steps) || [];
                 const ol = document.getElementById('glass-event-steps');
                 if (ol && steps.length) {
@@ -749,7 +750,8 @@
                 }
             } catch (error) {
                 console.debug(error);
-                document.getElementById('glass-hook').textContent = 'Glass Box pack unavailable';
+                const ctx = document.getElementById('glass-context');
+                if (ctx) ctx.textContent = 'Glass Box pack unavailable';
                 const st = document.getElementById('glass-operator-status');
                 if (st) st.textContent = 'Operator gates could not load — /api/glass-box/challenge failed.';
                 const gates = document.getElementById('glass-operator-gates');

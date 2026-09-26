@@ -17,22 +17,19 @@ def build_glass_box_challenge_pack() -> dict[str, Any]:
     locked = glass_box_status()
     recent = list_locked_predictions(limit=5)
     challenge_en = (
-        "BLACKDARK Glass Box Challenge: We are the first crypto intelligence platform "
-        "to publish our full accuracy ledger — including misses — permanently and verifiably. "
-        "We challenge every competitor to publish theirs. Labels are not proof. Prove it."
+        "BLACKDARK Glass Box Challenge: We publish our full Public Accuracy Ledger — "
+        "including misses and incorrect model states — with verifiable audit hashes. "
+        "Invite others to publish comparable outcome ledgers. Labels are not proof. Verify here."
     )
     hook = (
-        "Before the next major macro event we seal a timed Decision Certificate in public. "
-        "After the event we unlock it live — wins and losses."
+        "Before a chosen macro/crypto event window we seal timed Decision Certificates in public. "
+        "After resolution we unlock outcomes on the same ledger — hits and misses."
     )
     story = (
-        "Competitors sell Smart Money labels. Independent reviews show those labels fail. "
-        "Nobody publishes a full public audited hit-rate. We do — including the losing trades."
+        "Wallet and flow labels are not the same as a public resolved-outcome record. "
+        "This ledger lists misses and incorrect model states next to hits under one rule set."
     )
-    loop = (
-        "Every Decision Certificate is shareable and timestamp-sealed. "
-        "Every share is proof-first distribution (Hook–Story–Loop)."
-    )
+    loop = ""
     event_template = {
         "title": "Glass Box Public Event (operator-scheduled)",
         "steps": [
@@ -102,7 +99,7 @@ def build_glass_box_challenge_pack() -> dict[str, Any]:
         "t_minus_checklist": [
             "T-48h: pick event window + timezone; draft challenge post",
             "T-24h: seal ≥3 Decision Certificates; confirm ledger share kit",
-            "T-1h: post Hook + Ledger link; pin Glass Box Challenge section",
+            "T-1h: post ledger link + challenge summary; pin Glass Box Challenge section",
             "T+0: do not edit sealed rows; only unlock after resolution",
             "T+resolve: unlock live; publish misses; invite competitor ledgers",
         ],

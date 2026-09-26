@@ -325,7 +325,10 @@ def _signal_registry_block() -> dict[str, Any]:
             "unlabeled": stats.get("unlabeled", 0),
             "by_type": stats.get("by_type") or {},
             "by_label": stats.get("by_label") or {},
-            "moat_claim": stats.get("moat_claim"),
+            "public_lexicon_note": (
+                "Public analytical feature lexicon — entry counts by type; "
+                "labels grow as Oracle decisions resolve."
+            ),
             "generated_at": stats.get("generated_at"),
             "api": "/api/oracle/signals",
         }

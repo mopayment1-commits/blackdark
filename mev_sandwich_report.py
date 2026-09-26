@@ -23,9 +23,9 @@ def build_mev_sandwich_report(
     estimated_cost = round(notional * estimated_sandwich_bps / 10_000.0, 4)
     mitigation = [
         "Prefer private/RPC relays when available (no guaranteed fill)",
-        "Split size (Stealth Execution Advisor) to reduce attack surface",
+        "Split notional into smaller clips to reduce visible footprint in thin books",
         "Avoid predictable market orders in thin books",
-        "Track Half-Life — do not chase a dying edge into sandwichable flow",
+        "Track signal half-life — avoid acting when modeled edge has decayed into crowded, sandwich-prone flow",
     ]
     share_text = (
         f"BLACKDARK MEV/Sandwich Report · {asset_u} · notional ${notional:,.0f} · "
