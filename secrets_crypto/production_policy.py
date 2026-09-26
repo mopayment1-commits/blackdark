@@ -18,14 +18,18 @@ _DEV_DEFAULT_SECRETS = frozenset(
 )
 
 
+_STRICT_CRYPTO_ENV_TOKENS = frozenset({"production", "prod", "institutional"})
+
+
 def is_production_crypto_env() -> bool:
     tokens = [
         (os.getenv("ENV") or "").strip().lower(),
         (os.getenv("APP_ENV") or "").strip().lower(),
         (os.getenv("ENVIRONMENT") or "").strip().lower(),
         (os.getenv("RAILWAY_ENVIRONMENT") or "").strip().lower(),
+        (os.getenv("DEPLOY_ENV") or "").strip().lower(),
     ]
-    return any(t in {"production", "prod"} for t in tokens)
+    return any(t in _STRICT_CRYPTO_ENV_TOKENS for t in tokens)
 
 
 def _env(name: str) -> str:
@@ -34,6 +38,22 @@ def _env(name: str) -> str:
 
 def _is_dev_default(value: str) -> bool:
     return value.lower() in _DEV_DEFAULT_SECRETS
+
+
+def assert_master_secret_allowed(master: str, *, vault_key: str = "") -> None:
+    """Fail closed in production/institutional — no missing or dev-default vault material."""
+    if not is_production_crypto_env():
+        return
+    if vault_key.strip():
+        return
+    if not master.strip():
+        raise RuntimeError(
+            "SECRETS_MASTER_KEY or SECRETS_VAULT_KEY is required in production/institutional"
+        )
+    if _is_dev_default(master):
+        raise RuntimeError(
+            "SECRETS_MASTER_KEY dev-only value is forbidden in production/institutional"
+        )
 
 
 def production_policy_violations() -> list[dict[str, str]]:

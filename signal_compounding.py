@@ -198,35 +198,36 @@ async def signal_correlate(symbols: list[str]) -> dict[str, Any]:
     return {"symbols": syms, "correlations": correlations}
 
 
+async def _persist_registry_signal_async(row: dict[str, Any]) -> None:
+    sym = str(row.get("symbol") or row.get("asset") or "UNKNOWN").upper()
+    await store_signal(
+        symbol=sym,
+        signal_type=str(row.get("signal_type") or "oracle_direction"),
+        value=row.get("features") or row.get("value") or row,
+        confidence=float(row.get("confidence") or row.get("weight") or 0.5),
+        source=str(row.get("source") or row.get("provenance", {}).get("source") or "signal_registry"),
+        signal_id=str(row.get("signal_id") or ""),
+    )
+
+
 def persist_registry_signal(row: dict[str, Any]) -> None:
     """Sync hook from signal_registry.register_signal (best-effort)."""
     import asyncio
 
-    sym = str(row.get("symbol") or row.get("asset") or "UNKNOWN").upper()
+    async def _run() -> None:
+        try:
+            await _persist_registry_signal_async(row)
+        except Exception:
+            logger.exception("signal registry SQL sync failed")
+
     try:
-        asyncio.get_running_loop().create_task(
-            store_signal(
-                symbol=sym,
-                signal_type=str(row.get("signal_type") or "oracle_direction"),
-                value=row.get("features") or row.get("value") or row,
-                confidence=float(row.get("confidence") or row.get("weight") or 0.5),
-                source=str(row.get("source") or row.get("provenance", {}).get("source") or "signal_registry"),
-                signal_id=str(row.get("signal_id") or ""),
-            )
-        )
+        loop = asyncio.get_running_loop()
+        loop.create_task(_run())
     except RuntimeError:
-        asyncio.run(
-            store_signal(
-                symbol=sym,
-                signal_type=str(row.get("signal_type") or "oracle_direction"),
-                value=row.get("features") or row.get("value") or row,
-                confidence=float(row.get("confidence") or 0.5),
-                source=str(row.get("source") or "signal_registry"),
-                signal_id=str(row.get("signal_id") or ""),
-            )
-        )
-    except Exception:
-        logger.exception("signal registry SQL sync failed")
+        try:
+            asyncio.run(_run())
+        except Exception:
+            logger.exception("signal registry SQL sync failed")
 
 
 def _signal_api(row: dict[str, Any]) -> dict[str, Any]:
