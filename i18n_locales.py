@@ -1516,7 +1516,7 @@ LOCALE_OVERLAYS: dict[str, dict[str, str]] = {
         'lenses.room.body': 'مؤسسي من 3000$ → مفتوح: غرفة بيانات، SSO/MFA، SLA — تحدّث إلينا.',
         'lenses.cta': 'افتح العدسات',
         'prove.title': 'أثبت · قرّر',
-        'prove.sub': 'قرار Act/Wait واضح + السبب + بطاقة إثبات. أربع عدسات: أثبت → شغّل → المكتب → الغرفة.',
+        'prove.sub': 'قرار CONDITIONS MET / Wait واضح + السبب + بطاقة إثبات. أربع عدسات: أثبت → شغّل → المكتب → الغرفة.',
         'feat.pulse.title': 'نبض الثقة',
         'feat.pulse.body': 'قرار Act / Wait حي مع السبب في أقل من خمس ثوانٍ — أول ما تراه في كل مرة.',
         'feat.cert.title': 'شهادة القرار',

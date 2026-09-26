@@ -336,4 +336,8 @@ def enrich_oracle_decision(
 
     out = _apply_ux_mode(out, ux_mode, lang)
     out["constitution"] = _constitution_block()
+    if (tier or "free").lower() in {"free", ""}:
+        from supplemental_public_compliance import apply_supplemental_public_layer
+
+        out = apply_supplemental_public_layer(out, user={"tier": tier or "free"}, request=None)
     return out

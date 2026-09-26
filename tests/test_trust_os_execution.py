@@ -50,7 +50,7 @@ def test_glass_box_event_template():
     pack = build_glass_box_challenge_pack()
     assert "event_template" in pack
     assert len(pack["event_template"]["steps"]) >= 4
-    assert "Prove it" in pack["challenge_text_en"]
+    assert "Verify here" in pack["challenge_text_en"]
 
 
 def test_risk_status_honest_scope():
