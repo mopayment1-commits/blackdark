@@ -206,15 +206,23 @@ def append_prediction_record(record: dict[str, Any]) -> dict[str, Any]:
             return entry
 
 
+def read_recent_chain_records(limit: int = 20) -> list[dict[str, Any]]:
+    """Tail of chain without integrity scan (for public lookups)."""
+    path = chain_path()
+    if not path.exists():
+        return []
+    lines: list[str] = []
+    with path.open("r", encoding="utf-8") as fh:
+        for line in fh:
+            if line.strip():
+                lines.append(line)
+    return [json.loads(line) for line in lines[-limit:]]
+
+
 def chain_summary(*, limit: int = 20) -> dict[str, Any]:
     path = chain_path()
     verify = verify_chain(path)
-    recent: list[dict[str, Any]] = []
-    if path.exists():
-        with path.open("r", encoding="utf-8") as fh:
-            lines = [line for line in fh if line.strip()]
-        for line in lines[-limit:]:
-            recent.append(json.loads(line))
+    recent = read_recent_chain_records(limit)
 
     resolved = [r for r in recent if r.get("resolved")]
     correct = sum(1 for r in resolved if r.get("label") == "correct")

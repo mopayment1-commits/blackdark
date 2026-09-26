@@ -350,8 +350,36 @@
 
     <script src="/static/js/dom_escape.js"></script>
     <script src="/static/js/public_decision_map.js"></script>
-    <script type="module">
-        const { esc, safeUrl } = window.BDDomSafe;
+    <script>
+        const ORACLE_LEDGER_FETCH_MS = 12000;
+        const domSafe = window.BDDomSafe || {};
+        const esc = domSafe.esc || domSafe.escapeHtml || ((v) => String(v ?? ''));
+        const safeUrl = domSafe.safeUrl || ((v) => String(v ?? ''));
+
+        async function fetchJsonWithTimeout(url, options = {}, timeoutMs = ORACLE_LEDGER_FETCH_MS) {
+            const ctrl = new AbortController();
+            const timer = setTimeout(() => ctrl.abort(), timeoutMs);
+            try {
+                const res = await fetch(url, { ...options, signal: ctrl.signal });
+                clearTimeout(timer);
+                if (!res.ok) {
+                    const err = new Error('http_' + res.status);
+                    err.status = res.status;
+                    throw err;
+                }
+                return await res.json();
+            } catch (error) {
+                clearTimeout(timer);
+                if (error && error.name === 'AbortError') {
+                    const err = new Error('timeout');
+                    err.code = 'timeout';
+                    throw err;
+                }
+                throw error;
+            }
+        }
+
+        function bootOracleAccuracyLedger() {
         function pillClass(label) {
             if (!label) return 'partial';
             if (label === 'correct') return 'correct';
@@ -527,8 +555,7 @@
         }
         async function loadAccuracy() {
             try {
-                const res = await fetch('/api/oracle/accuracy/public');
-                const data = await res.json();
+                const data = await fetchJsonWithTimeout('/api/oracle/accuracy/public');
                 const oracle = data.oracle || {};
                 const model = data.model || {};
                 const moat = data.data_moat || {};
@@ -549,7 +576,11 @@
                 renderLearningEvents((data.learning_experience || {}).recent_events || []);
             } catch (error) {
                 console.debug(error);
-                document.getElementById('proof-panel').textContent = 'Accuracy data unavailable — retry or use JSON API.';
+                const why = (error && error.code === 'timeout')
+                    ? 'timed out after ' + (ORACLE_LEDGER_FETCH_MS / 1000) + 's'
+                    : ((error && error.status) ? 'HTTP ' + error.status : 'network error');
+                document.getElementById('proof-panel').textContent =
+                    'Accuracy data unavailable (' + why + ') — retry or open /api/oracle/accuracy/public';
                 document.getElementById('regime-status').textContent = 'Regime registry unavailable.';
                 document.getElementById('registry-status').textContent = 'Feature registry unavailable.';
                 document.getElementById('predictions-body').innerHTML =
@@ -568,8 +599,7 @@
             const panel = document.getElementById('proof-panel');
             panel.textContent = 'Verifying…';
             try {
-                const res = await fetch('/api/oracle/audit-chain/verify');
-                const data = await res.json();
+                const data = await fetchJsonWithTimeout('/api/oracle/audit-chain/verify');
                 const ok = data.valid === true;
                 const vColor = ok ? 'var(--success)' : 'var(--danger)';
                 const vLabel = ok ? 'VALID' : 'INVALID — not verified';
@@ -586,8 +616,7 @@
 
         async function loadLocked() {
             try {
-                const res = await fetch('/api/locked-predictions?limit=12');
-                const data = await res.json();
+                const data = await fetchJsonWithTimeout('/api/locked-predictions?limit=12');
                 const st = data.status || {};
                 document.getElementById('locked-status').textContent =
                     `Sealed forecasts · locked=${st.locked ?? 0} · revealed=${st.unlocked ?? 0} · Glass Box cadence`;
@@ -614,8 +643,7 @@
         let lastLosingShare = '';
         async function loadLosing() {
             try {
-                const res = await fetch('/api/accuracy/monthly-losing-report?limit=12');
-                const data = await res.json();
+                const data = await fetchJsonWithTimeout('/api/accuracy/monthly-losing-report?limit=12');
                 lastLosingShare = data.share_text || '';
                 document.getElementById('losing-status').textContent =
                     (data.thesis || '') + ` · misses in window: ${data.total_labeled_misses_in_window ?? 0}`;
@@ -632,8 +660,7 @@
 
         async function loadAuditChallenge() {
             try {
-                const res = await fetch('/api/audit-challenge');
-                const data = await res.json();
+                const data = await fetchJsonWithTimeout('/api/audit-challenge');
                 const v = data.live_verify || {};
                 const el = document.getElementById('audit-status');
                 const ok = v.valid === true;
@@ -647,8 +674,7 @@
         let lastLedgerShare = location.origin + '/oracle-accuracy';
         async function loadLedgerShareKit() {
             try {
-                const res = await fetch('/api/ledger/share-kit');
-                const d = await res.json();
+                const d = await fetchJsonWithTimeout('/api/ledger/share-kit');
                 lastLedgerShare = d.share_text || lastLedgerShare;
                 const preview = document.getElementById('ledger-share-preview');
                 if (preview) preview.textContent = lastLedgerShare;
@@ -681,8 +707,7 @@
         let lastMevShare = '';
         async function loadGlassBox() {
             try {
-                const res = await fetch('/api/glass-box/challenge');
-                const d = await res.json();
+                const d = await fetchJsonWithTimeout('/api/glass-box/challenge');
                 lastGlassShare = d.share_text || d.challenge_text_en || '';
                 document.getElementById('glass-hook').textContent = d.hook || '';
                 document.getElementById('glass-challenge').textContent = d.challenge_text_en || '';
@@ -739,8 +764,7 @@
 
         async function loadMevReport() {
             try {
-                const res = await fetch('/api/mev/sandwich-report?asset=ETH&notional_usd=10000');
-                const d = await res.json();
+                const d = await fetchJsonWithTimeout('/api/mev/sandwich-report?asset=ETH&notional_usd=10000');
                 lastMevShare = d.share_text || '';
                 document.getElementById('mev-status').textContent =
                     `${d.asset} · notional $${Number(d.notional_usd||0).toLocaleString()} · est. sandwich ~${d.estimated_sandwich_bps} bps (~$${d.estimated_cost_usd}) · ${d.confidence||''}`;
@@ -763,17 +787,36 @@
             if (lastMevShare) navigator.clipboard.writeText(lastMevShare);
         });
 
-        await Promise.all([
-            loadAccuracy(),
-            loadLedgerShareKit(),
-            loadGlassBox(),
-            loadMevReport(),
-            loadLocked(),
-            loadLosing(),
-            loadAuditChallenge(),
-        ]);
-        setInterval(loadAccuracy, 60000);
-        setInterval(loadLocked, 120000);
+        function failAllLedgerLoads(reason) {
+            const msg = reason || 'Request timed out or API unreachable from this origin.';
+            const proof = document.getElementById('proof-panel');
+            if (proof && proof.textContent.includes('Loading')) {
+                proof.textContent = 'Proof chain unavailable — ' + msg;
+            }
+            const badge = document.getElementById('engine-badge');
+            if (badge && badge.textContent.includes('Checking')) {
+                badge.className = 'badge badge-warn';
+                badge.textContent = 'Engine · unknown';
+            }
+        }
+
+        loadAccuracy().catch(() => failAllLedgerLoads());
+        loadLedgerShareKit().catch(() => {});
+        loadGlassBox().catch(() => {});
+        loadMevReport().catch(() => {});
+        loadLocked().catch(() => {});
+        loadLosing().catch(() => {});
+        loadAuditChallenge().catch(() => {});
+
+        setInterval(() => { loadAccuracy().catch(() => {}); }, 60000);
+        setInterval(() => { loadLocked().catch(() => {}); }, 120000);
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', bootOracleAccuracyLedger);
+        } else {
+            bootOracleAccuracyLedger();
+        }
     </script>
     {% include "partials/site_footer.html" %}
 </body>

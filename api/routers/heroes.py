@@ -161,7 +161,16 @@ async def discipline_me(
 async def monthly_losing_report(limit: int = Query(25, ge=1, le=100)):
     from monthly_losing_report import build_monthly_losing_report
 
-    return await build_monthly_losing_report(limit=limit)
+    try:
+        return await build_monthly_losing_report(limit=limit)
+    except Exception as exc:
+        return {
+            "error": "monthly_losing_report_unavailable",
+            "message": str(exc),
+            "sample": [],
+            "total_labeled_misses_in_window": 0,
+            "thesis": "Monthly losing report temporarily unavailable.",
+        }
 
 
 @router.get("/api/audit-challenge")
@@ -257,29 +266,22 @@ async def ledger_share_kit(request: Request):
     accuracy_pct = None
     total = None
     try:
-        from ml.public_accuracy import build_public_accuracy_payload
+        from database import fetch_oracle_audit_stats
 
-        summary = await build_public_accuracy_payload(recent_limit=5)
-        if isinstance(summary, dict):
-            oracle = summary.get("oracle") or {}
-            accuracy_pct = (
-                oracle.get("average_accuracy_percent")
-                or oracle.get("recent_hit_rate_percent")
-                or summary.get("average_accuracy_percent")
-            )
-            total = (
-                oracle.get("resolved_predictions")
-                or oracle.get("total_predictions")
-                or summary.get("total_predictions")
-            )
-            try:
-                accuracy_pct = float(accuracy_pct) if accuracy_pct is not None else None
-            except (TypeError, ValueError):
-                accuracy_pct = None
-            try:
-                total = int(total) if total is not None else None
-            except (TypeError, ValueError):
-                total = None
+        stats = await fetch_oracle_audit_stats(limit=5, include_synthetic=False)
+        live = stats.get("live") or {}
+        accuracy_pct = live.get("average_accuracy_percent", stats.get("average_accuracy_percent"))
+        total = live.get("resolved_predictions", stats.get("resolved_predictions")) or live.get(
+            "total_predictions", stats.get("total_predictions")
+        )
+        try:
+            accuracy_pct = float(accuracy_pct) if accuracy_pct is not None else None
+        except (TypeError, ValueError):
+            accuracy_pct = None
+        try:
+            total = int(total) if total is not None else None
+        except (TypeError, ValueError):
+            total = None
     except Exception:
         pass
     return build_ledger_share_kit(

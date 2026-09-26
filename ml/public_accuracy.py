@@ -12,6 +12,7 @@ Live-only hit rate is the primary metric; synthetic seeded data is labeled separ
 
 from __future__ import annotations
 
+import asyncio
 from typing import Any
 
 import config
@@ -64,8 +65,11 @@ def _public_recent_row(row: dict[str, Any], chain_meta: dict[str, Any] | None, l
     }
 
 
-def _public_recent_predictions(recent: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], int, int]:
-    chain_lookup = _chain_lookup()
+def _public_recent_predictions(
+    recent: list[dict[str, Any]],
+    chain_lookup: dict[str, dict[str, Any]] | None = None,
+) -> tuple[list[dict[str, Any]], int, int]:
+    chain_lookup = chain_lookup if chain_lookup is not None else _chain_lookup()
     public_recent = []
     correct = 0
     resolved_rows = 0
@@ -93,6 +97,13 @@ async def build_public_accuracy_payload(*, recent_limit: int = 20) -> dict[str, 
 
     stats = await fetch_oracle_audit_stats(limit=recent_limit, include_synthetic=False)
 
+    from oracle_audit_chain import chain_summary, read_recent_chain_records
+
+    chain_ctx = await asyncio.to_thread(lambda: chain_summary(limit=8))
+    chain_verify = chain_ctx.get("integrity") or {}
+    chain_recent_tail = await asyncio.to_thread(lambda: read_recent_chain_records(200))
+    chain_lookup = _chain_lookup_from_recent(chain_recent_tail)
+
     ml_status = await model_status()
 
     labeled = await fetch_labeled_oracle_predictions(limit=1000, include_synthetic=False)
@@ -102,7 +113,7 @@ async def build_public_accuracy_payload(*, recent_limit: int = 20) -> dict[str, 
 
 
     recent_raw = stats.get("recent") or []
-    public_recent, correct, resolved_rows = _public_recent_predictions(recent_raw)
+    public_recent, correct, resolved_rows = _public_recent_predictions(recent_raw, chain_lookup)
 
     hit_rate = round(correct / resolved_rows * 100, 2) if resolved_rows else 0.0
 
@@ -277,7 +288,7 @@ async def build_public_accuracy_payload(*, recent_limit: int = 20) -> dict[str, 
 
         },
 
-        "proof_chain": _proof_chain_block(),
+        "proof_chain": _proof_chain_block_from_summary(chain_ctx, chain_verify),
 
         "regime_models": _regime_models_block(),
 
@@ -349,40 +360,39 @@ def _drift_status_block() -> dict[str, Any]:
     }
 
 
-def _chain_lookup() -> dict[str, dict[str, Any]]:
-    """Map prediction_id -> latest audit-chain entry (best-effort)."""
+def _chain_lookup_from_recent(recent: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     index: dict[str, dict[str, Any]] = {}
-    try:
-        from oracle_audit_chain import chain_summary
-
-        recent = (chain_summary(limit=200) or {}).get("recent_records") or []
-        for entry in recent:
-            pid = entry.get("prediction_id")
-            if pid is None:
-                continue
-            index[str(pid)] = {
-                "chain_hash": entry.get("chain_hash"),
-                "prev_hash": entry.get("prev_hash"),
-                "seq": entry.get("seq"),
-            }
-    except Exception:
-        return {}
+    for entry in recent:
+        pid = entry.get("prediction_id")
+        if pid is None:
+            continue
+        index[str(pid)] = {
+            "chain_hash": entry.get("chain_hash"),
+            "prev_hash": entry.get("prev_hash"),
+            "seq": entry.get("seq"),
+        }
     return index
 
 
-def _proof_chain_block() -> dict[str, Any]:
+def _chain_lookup() -> dict[str, dict[str, Any]]:
+    """Map prediction_id -> latest audit-chain entry (best-effort)."""
     try:
-        from oracle_audit_chain import chain_summary, verify_chain
+        from oracle_audit_chain import read_recent_chain_records
 
+        return _chain_lookup_from_recent(read_recent_chain_records(200))
+    except Exception:
+        return {}
+
+
+def _proof_chain_block_from_summary(summary: dict[str, Any], verify: dict[str, Any]) -> dict[str, Any]:
+    try:
         from supplemental_public_compliance import sanitize_public_decision_records
 
-        summary = chain_summary(limit=8)
         if summary.get("recent_records"):
             summary = {
                 **summary,
                 "recent_records": sanitize_public_decision_records(list(summary["recent_records"])),
             }
-        verify = verify_chain()
         recent = summary.get("recent_records") or []
         tip = recent[-1] if recent else {}
         block: dict[str, Any] = {
@@ -400,6 +410,17 @@ def _proof_chain_block() -> dict[str, Any]:
         else:
             block["integrity_status"] = "verified"
         return block
+    except Exception as exc:
+        return {"error": str(exc)}
+
+
+def _proof_chain_block() -> dict[str, Any]:
+    try:
+        from oracle_audit_chain import chain_summary
+
+        summary = chain_summary(limit=8)
+        verify = summary.get("integrity") or {}
+        return _proof_chain_block_from_summary(summary, verify)
     except Exception as exc:
         return {"error": str(exc)}
 
