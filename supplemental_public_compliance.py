@@ -179,7 +179,16 @@ def map_public_decision_action(raw: str | None) -> str:
     token = (raw or "").strip().upper()
     if token in {"ACT", "BUY", "LONG", "BULLISH", "BULLISH_ANALYTICS"}:
         return PUBLIC_MODEL_STATE_CONDITIONS_MET
-    if token in {"SELL", "SHORT", "EXIT", "CAUTION", "AVOID", "DO_NOT_TOUCH"}:
+    if token in {
+        "SELL",
+        "SHORT",
+        "EXIT",
+        "CAUTION",
+        "AVOID",
+        "DO_NOT_TOUCH",
+        "BEARISH",
+        "BEARISH_ANALYTICS",
+    }:
         return PUBLIC_MODEL_STATE_ABSTAIN
     if token in {"WAIT", "HOLD", "NEUTRAL", "NEUTRAL_OBSERVE", "ABSTAIN"}:
         return PUBLIC_MODEL_STATE_WAIT

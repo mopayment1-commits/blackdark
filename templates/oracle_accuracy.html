@@ -343,7 +343,7 @@
 
         function verifyLabel(valid) {
             if (valid === true) return 'VALID ✓';
-            if (valid === false) return 'INVALID';
+            if (valid === false) return 'INVALID — integrity failed';
             return 'n/a';
         }
         function verifyLabelShort(valid) {
@@ -431,16 +431,24 @@
         }
         function renderProofChain(chain) {
             const verify = chain.verify || {};
-            const records = chain.total_records ?? (chain.verify && chain.verify.records) ?? '—';
-            document.getElementById('chain-status').textContent =
-                'Audit chain: ' + verifyLabel(verify.valid) +
-                ' · records=' + records;
-            const tip = chain.tip_hash || '—';
-            const vColor = verify.valid ? 'var(--success)' : 'var(--danger)';
+            const records = chain.total_records ?? verify.records ?? '—';
+            const ok = verify.valid === true;
+            const statusEl = document.getElementById('chain-status');
+            statusEl.textContent =
+                'Audit chain: ' + verifyLabel(verify.valid) + ' · records=' + records;
+            statusEl.style.color = ok ? 'var(--muted)' : 'var(--danger)';
+            const vColor = ok ? 'var(--success)' : 'var(--danger)';
+            const broken = verify.broken_at_seq != null ? ` · broken_at=${verify.broken_at_seq}` : '';
+            const failMsg = chain.integrity_message || verify.integrity_failure_reason || '';
+            const tipLine = ok
+                ? `Tip hash: <code style="color:var(--accent)">${esc(chain.tip_hash || '—')}</code><br>`
+                : `<span style="color:var(--danger)">Tip hash withheld — chain not intact.</span><br>`;
             document.getElementById('proof-panel').innerHTML =
-                `Tip hash: <code style="color:var(--accent)">${esc(tip)}</code><br>` +
+                tipLine +
                 `Integrity: <strong style="color:${vColor}">${esc(verifyLabelShort(verify.valid))}</strong>` +
-                ` · ${esc(records)} linked records`;
+                ` · ${esc(records)} linked records` +
+                esc(broken) +
+                (ok ? '' : `<br><span style="color:var(--danger);font-size:0.88rem">${esc(failMsg)}</span>`);
         }
         async function loadAccuracy() {
             try {
@@ -471,13 +479,16 @@
             try {
                 const res = await fetch('/api/oracle/audit-chain/verify');
                 const data = await res.json();
-                const vColor = data.valid ? 'var(--success)' : 'var(--danger)';
-                const vLabel = data.valid ? 'VALID' : 'INVALID';
+                const ok = data.valid === true;
+                const vColor = ok ? 'var(--success)' : 'var(--danger)';
+                const vLabel = ok ? 'VALID' : 'INVALID — not verified';
                 const broken = data.broken_at_seq != null ? ` · broken_at=${data.broken_at_seq}` : '';
+                const reason = data.integrity_failure_reason || '';
                 panel.innerHTML =
                     `Live verify: <strong style="color:${vColor}">${esc(vLabel)}</strong>` +
                     ` · records=${esc(data.records ?? '—')}` +
-                    esc(broken);
+                    esc(broken) +
+                    (ok ? '' : `<br><span style="color:var(--danger);font-size:0.88rem">${esc(reason)}</span>`);
             } catch (error) { console.debug(error); panel.textContent = 'Verify failed'; }
         }
         document.getElementById('verifyChainBtn').addEventListener('click', verifyChain);
@@ -528,8 +539,12 @@
                 const res = await fetch('/api/audit-challenge');
                 const data = await res.json();
                 const v = data.live_verify || {};
-                document.getElementById('audit-status').textContent =
-                    `${data.invitation || ''} Live verify: ${verifyLabelShort(v.valid)} · records=${v.records ?? '—'}`;
+                const el = document.getElementById('audit-status');
+                const ok = v.valid === true;
+                el.textContent =
+                    `${data.invitation || ''} Live verify: ${verifyLabelShort(v.valid)} · records=${v.records ?? '—'}` +
+                    (ok ? '' : ` · broken_at=${v.broken_at_seq ?? '—'}`);
+                el.style.color = ok ? 'var(--muted)' : 'var(--danger)';
             } catch (error) { console.debug(error); document.getElementById('audit-status').textContent = 'Audit challenge unavailable'; }
         }
 

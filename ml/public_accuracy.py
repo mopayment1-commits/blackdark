@@ -35,13 +35,20 @@ def _chain_ref(pred_id: Any, chain_meta: dict[str, Any] | None) -> str | None:
     return None
 
 
+def _public_verdict_display(raw_verdict: Any) -> str:
+    from supplemental_public_compliance import map_public_decision_action
+
+    return map_public_decision_action(str(raw_verdict or ""))
+
+
 def _public_recent_row(row: dict[str, Any], chain_meta: dict[str, Any] | None, label: str) -> dict[str, Any]:
     pred_id = row.get("id")
+    raw_verdict = row.get("verdict")
     return {
         "prediction_id": pred_id,
         "timestamp": row.get("timestamp"),
         "asset": row.get("asset"),
-        "verdict": row.get("verdict"),
+        "verdict": _public_verdict_display(raw_verdict),
         "price_at_prediction": row.get("price_at_prediction"),
         "price_after_24h": row.get("price_after_24h"),
         "label": label,
@@ -338,15 +345,24 @@ def _proof_chain_block() -> dict[str, Any]:
         from oracle_audit_chain import chain_summary, verify_chain
 
         summary = chain_summary(limit=8)
+        verify = verify_chain()
         recent = summary.get("recent_records") or []
         tip = recent[-1] if recent else {}
-        return {
+        block: dict[str, Any] = {
             "summary": summary,
-            "verify": verify_chain(),
+            "verify": verify,
             "public_page": "/oracle-accuracy",
-            "tip_hash": tip.get("chain_hash"),
+            "tip_hash": tip.get("chain_hash") if verify.get("valid") else None,
             "total_records": summary.get("total_records"),
         }
+        if not verify.get("valid"):
+            block["integrity_status"] = "failed"
+            block["integrity_message"] = verify.get("integrity_failure_reason") or (
+                "Audit chain integrity check failed — tip linkage cannot be used as proof."
+            )
+        else:
+            block["integrity_status"] = "verified"
+        return block
     except Exception as exc:
         return {"error": str(exc)}
 

@@ -46,3 +46,24 @@ def test_chain_summary(tmp_path, monkeypatch):
     summary = chain.chain_summary()
     assert summary["integrity"]["valid"] is True
     assert summary["total_records"] == 1
+
+
+def test_repair_tip_prev_hash_race(tmp_path, monkeypatch):
+    path = tmp_path / "chain.jsonl"
+    monkeypatch.setattr(chain, "CHAIN_PATH", path)
+    first = chain.append_prediction_record({"asset": "BTC", "verdict": "bullish"})
+    second = chain.append_prediction_record({"asset": "ETH", "verdict": "bearish"})
+    chain.append_prediction_record({"asset": "SOL", "verdict": "neutral"})
+    lines = path.read_text(encoding="utf-8").splitlines()
+    broken = json.loads(lines[-1])
+    stale_prev = first["chain_hash"]
+    broken["prev_hash"] = stale_prev
+    broken.pop("chain_hash", None)
+    broken["chain_hash"] = chain._hash_record(broken, stale_prev)
+    path.write_text("\n".join(lines[:-1] + [json.dumps(broken)]) + "\n", encoding="utf-8")
+    assert chain.verify_chain()["valid"] is False
+
+    result = chain.repair_tip_prev_hash_race(path)
+    assert result["repaired"] is True
+    assert chain.verify_chain()["valid"] is True
+    assert result["verify"]["records"] == 3

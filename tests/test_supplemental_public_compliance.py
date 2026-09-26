@@ -61,6 +61,8 @@ def test_visitor_sees_conditions_met_not_act():
 def test_map_public_decision_action_replaces_act():
     assert map_public_decision_action("ACT") == "CONDITIONS MET"
     assert map_public_decision_action("WAIT") == "WAIT"
+    assert map_public_decision_action("BULLISH_ANALYTICS") == "CONDITIONS MET"
+    assert map_public_decision_action("BEARISH_ANALYTICS") == "ABSTAIN"
 
 
 def test_scrub_trade_ctas_and_guaranteed_pricing():

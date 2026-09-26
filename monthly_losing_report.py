@@ -12,10 +12,13 @@ from typing import Any
 
 
 def _miss_row(row: dict[str, Any]) -> dict[str, Any]:
+    from supplemental_public_compliance import map_public_decision_action
+
+    raw = row.get("verdict")
     return {
         "prediction_id": row.get("id") or row.get("prediction_id"),
         "asset": row.get("asset"),
-        "verdict": row.get("verdict"),
+        "verdict": map_public_decision_action(str(raw or "")),
         "label": row.get("label"),
         "score": row.get("opportunity_score"),
         "timestamp": row.get("timestamp") or row.get("created_at"),
