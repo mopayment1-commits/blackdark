@@ -2,11 +2,10 @@
   "baseline_tag": "cap978-closure-v1",
   "internal_closure_complete": true,
   "commercial_launch_ready": false,
-  "total_external_items": 33,
-  "p0_blockers": 3,
+  "total_external_items": 30,
+  "p0_blockers": 2,
   "p0_ids": [
     645,
-    644,
     "SEC-008"
   ],
   "policy": "Commercial launch requires closing P0 external items; P1/P2 are tiered post-pilot.",
@@ -222,20 +221,6 @@
       "blocks_commercial_launch": false
     },
     {
-      "id": 649,
-      "scope": "extension_647_978",
-      "capability": "dbt Connector",
-      "track": "T19",
-      "classification": "EXTERNAL_BLOCKED",
-      "blocker_type": "vendor_license_or_infra",
-      "reason": "dbt Cloud/project integration — external dbt deployment",
-      "internal_action": "none — requires external provisioning",
-      "priority": "P2",
-      "owner": "external",
-      "status": "open",
-      "blocks_commercial_launch": false
-    },
-    {
       "id": 652,
       "scope": "extension_647_978",
       "capability": "Prompt-to-SQL Agent",
@@ -243,20 +228,6 @@
       "classification": "EXTERNAL_BLOCKED",
       "blocker_type": "vendor_license_or_infra",
       "reason": "BI connector licenses (Tableau/Looker/Power BI)",
-      "internal_action": "none — requires external provisioning",
-      "priority": "P2",
-      "owner": "external",
-      "status": "open",
-      "blocks_commercial_launch": false
-    },
-    {
-      "id": 658,
-      "scope": "extension_647_978",
-      "capability": "White-Label Embedded Analytics",
-      "track": "T19",
-      "classification": "EXTERNAL_BLOCKED",
-      "blocker_type": "vendor_license_or_infra",
-      "reason": "Snowflake/BigQuery export — external cloud infra credentials",
       "internal_action": "none — requires external provisioning",
       "priority": "P2",
       "owner": "external",
@@ -432,20 +403,6 @@
       "blocks_commercial_launch": true
     },
     {
-      "id": 644,
-      "scope": "base_646",
-      "capability": "Capacity / Load Evidence",
-      "track": "T01",
-      "classification": "EXTERNAL_EVIDENCE_REQUIRED",
-      "blocker_type": "signed_load_evidence",
-      "reason": "Signed multi-worker capacity/load attestation — ID644",
-      "internal_action": "none — requires signed load test under production topology",
-      "priority": "P0",
-      "owner": "external",
-      "status": "open",
-      "blocks_commercial_launch": true
-    },
-    {
       "id": "SEC-008",
       "scope": "governing_control",
       "capability": "SEC-008",
@@ -473,5 +430,6 @@
       "status": "open",
       "blocks_commercial_launch": false
     }
-  ]
+  ],
+  "repository_head_sha": "56244bc12aad6a7602f604468bf87a6cbbb776ee"
 }

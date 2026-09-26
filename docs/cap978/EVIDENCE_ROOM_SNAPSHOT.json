@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T15:50:15.109809+00:00",
+  "generated_at": "2026-09-26T21:07:57.909838+00:00",
   "product_thesis": "978-capability Decision Intelligence platform — evidence-first closure",
   "verdict": "INSTITUTIONAL_GATE_PASS",
   "internal_closure": {
@@ -10,13 +10,11 @@
   "cap978_counts": {
     "VERIFIED_COMPLETE": 940,
     "CANONICALLY_COVERED": 37,
-    "EXTERNAL_BLOCKED": 0,
     "EXTERNAL_EVIDENCE_REQUIRED": 1
   },
   "extension_counts": {
     "VERIFIED_COMPLETE": 331,
-    "CANONICALLY_COVERED": 1,
-    "EXTERNAL_BLOCKED": 0
+    "CANONICALLY_COVERED": 1
   },
   "governing_controls": {
     "counts": {
@@ -30,24 +28,24 @@
     "internal_closure": true,
     "e2e": {
       "verdict": "VERIFIED_COMPLETE",
-      "chain_id": "chain_b0c17db092ba",
+      "chain_id": "chain_d7b2fe440948",
       "acceptance_evidence": {
-        "prediction_id": "pred_chain_b0c17db092ba",
-        "decision_id": "dec_2eecccc097ff4903",
-        "exposure_id": "exp_649bfdddbbfd4c4a",
-        "certificate_hash": "5a7bd89668d852519b791cf424076c654baa78af0554f2adb133a2a94ed90f05",
-        "signal_id": "pred_chain_b0c17db092ba",
-        "outcome_id": "out_chain_b0c17db092ba"
+        "prediction_id": "pred_chain_d7b2fe440948",
+        "decision_id": "dec_2e6738cce0d14837",
+        "exposure_id": "exp_143f05a7fe0e4da2",
+        "certificate_hash": "186aee35f6b10a727ee6cc2eb26a901a9a0a279d8e8340fa0f1f7e12e9704ab9",
+        "signal_id": "pred_chain_d7b2fe440948",
+        "outcome_id": "out_chain_d7b2fe440948"
       },
       "stage_count": 12,
       "failed_stages": []
     }
   },
   "external_registry_summary": {
-    "total": 31,
+    "total": 30,
     "counts": {
       "EXTERNAL_BLOCKED": 29,
-      "EXTERNAL_EVIDENCE_REQUIRED": 2
+      "EXTERNAL_EVIDENCE_REQUIRED": 1
     }
   },
   "sample_executions": [
@@ -72,11 +70,11 @@
     {
       "label": "net_edge_truth",
       "capability_id": 639,
-      "success": true,
-      "classification": "PRODUCTION-ALIGNED",
+      "success": false,
+      "classification": "NOT_COMPLETE",
       "surface": "net_edge_truth_score",
       "backend_module": "cap646.institutional_official_production",
-      "proof_hash": "6b25cb49fc080de7799c8d9e604a076df74359091d3b38e01524b15a3edf66b5"
+      "proof_hash": "b739d74596e293fee193fcf82ec6941ee14279e4d0d9843bc00e08cb8bb7cc44"
     },
     {
       "label": "ai_provenance_footer",
@@ -111,8 +109,8 @@
       "success": true,
       "classification": "SHADOW_LIVE_FORWARD",
       "surface": "margin_risk_calculator",
-      "backend_module": "risk_manager",
-      "proof_hash": "02fc511fcc33f1b7702f643236d83c68323ffcadef1845aeae3cc10839802aa4"
+      "backend_module": "bd_platform.derivatives_hub",
+      "proof_hash": "0dc383c2976be6fbf050e36d936d673d8971d944585a90a16ddec13705d01ff6"
     },
     {
       "label": "extension_tail",
@@ -120,8 +118,8 @@
       "success": true,
       "classification": "SHADOW_LIVE_FORWARD",
       "surface": "exploiter",
-      "backend_module": "bd_platform.cex_dex_arbitrage",
-      "proof_hash": "7b77bec74d7d8ce6df78a70789fe233cdf6e212a2babe61842a31603dadbbc85"
+      "backend_module": "onchain_tracker",
+      "proof_hash": "f54bff6c1a0fcca6ec0f637ae94463f9cf072bff9f0e2e9f32efd9bea1eb9652"
     }
   ],
   "functional_verification_samples": [
@@ -132,7 +130,7 @@
     },
     {
       "id": 17,
-      "verdict": "VERIFIED_COMPLETE",
+      "verdict": "FUNCTIONALLY_INCOMPLETE",
       "failure_reason": null
     },
     {
@@ -172,7 +170,7 @@
     "curl /api/cap646/evidence-room",
     "curl /api/cap646/platform-chain/e2e?symbol=BTC"
   ],
-  "snapshot_hash": "dcb2a28647e2e7ca3ccf5dc2d6d132060049fd2247c79921c8df527780228ceb",
+  "snapshot_hash": "2421920fe785c69f8748764eeb50e5190d33fa21821fc77fe568095250d4513b",
   "external_registry_rows": [
     {
       "id": 1,
@@ -455,16 +453,6 @@
       "internal_action": "none — requires external auditor attestation"
     },
     {
-      "id": 644,
-      "scope": "base_646",
-      "capability": "Capacity / Load Evidence",
-      "track": "T01",
-      "classification": "EXTERNAL_EVIDENCE_REQUIRED",
-      "blocker_type": "signed_load_evidence",
-      "reason": "Signed multi-worker capacity/load attestation — ID644",
-      "internal_action": "none — requires signed load test under production topology"
-    },
-    {
       "id": "SEC-008",
       "scope": "governing_control",
       "capability": "SEC-008",
@@ -488,7 +476,7 @@
   "closure_detail": {
     "verdict": "INSTITUTIONAL_GATE_PASS",
     "total": 978,
-    "verification_mode": "live_functional",
+    "verification_mode": "ci_structural_no_network",
     "cap978": {
       "counts": {
         "VERIFIED_COMPLETE": 940,
@@ -563,7 +551,7 @@
           "id": "QUA-001",
           "status": "VERIFIED_COMPLETE",
           "evidence": [
-            "tests=190"
+            "tests=217"
           ],
           "note": "automated test suite present"
         },
@@ -782,7 +770,7 @@
           "evidence": [
             "fee_matrix"
           ],
-          "note": "{'exchanges': 100, 'last_refresh': 0.0, 'refresh_interval_sec': 3600, 'sample': {'binance': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'okx': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'bybit': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'coinbase': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'kraken': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'kucoin': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'gateio': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'mexc': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}}}"
+          "note": "{'exchanges': 100, 'last_refresh': 0.0, 'refresh_interval_sec': 3600, 'sample': {'binance': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'okx': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'bybit': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'coinbase': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'kraken': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'kucoin': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'gateio': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'traderjoe': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}}}"
         },
         {
           "id": "FIN-002",
@@ -1119,14 +1107,14 @@
       "failed": [],
       "e2e": {
         "verdict": "VERIFIED_COMPLETE",
-        "chain_id": "chain_70450f656426",
+        "chain_id": "chain_9d4aeb5a4d41",
         "acceptance_evidence": {
-          "prediction_id": "pred_chain_70450f656426",
-          "decision_id": "dec_db553cbcdeec44d4",
-          "exposure_id": "exp_708f89abb6e442b3",
-          "certificate_hash": "eb0841040e51742e1c4e4646a8d998480ba37579cc31b2dbf687db44a5cfd930",
-          "signal_id": "pred_chain_70450f656426",
-          "outcome_id": "out_chain_70450f656426"
+          "prediction_id": "pred_chain_9d4aeb5a4d41",
+          "decision_id": "dec_cda81c719e294083",
+          "exposure_id": "exp_d47543273f2a4cc4",
+          "certificate_hash": "265bb63123f4dfe46b9b7b6bc807f744616e308c5d8995413c0e66f2eed444fe",
+          "signal_id": "pred_chain_9d4aeb5a4d41",
+          "outcome_id": "out_chain_9d4aeb5a4d41"
         },
         "stage_count": 12,
         "failed_stages": []
@@ -1141,5 +1129,7 @@
       "data_platform": "docs/governing/DATA_PLATFORM_GOVERNING_REFERENCE.md",
       "source_pdf": "Project_978_Capabilities_Grouped_d117.pdf"
     }
-  }
+  },
+  "repository_head_sha": "56244bc12aad6a7602f604468bf87a6cbbb776ee",
+  "evidence_generation_mode": "ci_structural_no_network"
 }

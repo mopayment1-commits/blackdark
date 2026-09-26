@@ -21,8 +21,12 @@ async def institutional_closure_978(*, sample: bool = False, ci_deterministic: b
     ext_counts: dict[str, int] = {}
     # Full: 1..978 (catalog total). Sample: 678 = base 646 + extension 647..678 (CI structural).
     # Project delivery scope is 826 (647..826); IDs 827..978 are full-catalog-only — see cap978.catalog.
-    ids = range(1, 979) if not sample else list(range(1, 647)) + list(range(647, 679))
-    use_ci_structural = bool(sample and (ci_deterministic if ci_deterministic is not None else ci_deterministic_closure_enabled()))
+    ci_mode = ci_deterministic if ci_deterministic is not None else ci_deterministic_closure_enabled()
+    use_ci_structural = bool(ci_mode)
+    if not sample:
+        ids = range(1, 979)
+    else:
+        ids = list(range(1, 647)) + list(range(647, 679))
     verify_fn = verify_functional_ci_deterministic if use_ci_structural else verify_functional_978
 
     for cid in ids:

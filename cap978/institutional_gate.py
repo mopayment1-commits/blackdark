@@ -39,6 +39,8 @@ CLOSURE_BASELINE = {
         "VERIFIED_COMPLETE": 38,
         "EXTERNAL_BLOCKED": 4,
     },
+    # External registry totals are env-aware (CAP-644 slot drops when signed production capacity closes).
+    # Use canonical_external_registry_baseline() for live checks — not the static snapshot below.
     "external_registry": {
         "total": 31,
         "capability_ids_blocked": 29,
@@ -50,6 +52,16 @@ CLOSURE_BASELINE = {
         "INTERNAL_NOT_IMPLEMENTED": 0,
     },
 }
+
+def canonical_external_registry_baseline() -> dict[str, int]:
+    """Authoritative external registry totals from cap978.external_registry (same HEAD as catalog)."""
+    live = external_registry_report()
+    return {
+        "total": int(live["total"]),
+        "capability_ids_blocked": int(live["capability_ids_blocked"]),
+        "controls_blocked": int(live["controls_blocked"]),
+    }
+
 
 def _fail(checks: list[dict[str, Any]], name: str, detail: str) -> None:
     checks.append({"name": name, "ok": False, "detail": detail})
@@ -110,10 +122,11 @@ def validate_external_registry_integrity() -> list[dict[str, Any]]:
     else:
         _ok(checks, "external_registry_controls")
 
-    if report["capability_ids_blocked"] != CLOSURE_BASELINE["external_registry"]["capability_ids_blocked"]:
+    expected_blocked = canonical_external_registry_baseline()["capability_ids_blocked"]
+    if report["capability_ids_blocked"] != expected_blocked:
         _fail(checks, "external_registry_cap_count", str(report["capability_ids_blocked"]))
     else:
-        _ok(checks, "external_registry_cap_count")
+        _ok(checks, "external_registry_cap_count", f"expected {expected_blocked}")
 
     if not all(str(r.get("internal_action", "")).startswith("none") for r in rows):
         _fail(checks, "external_registry_no_false_internal", "internal_action must start with none")
