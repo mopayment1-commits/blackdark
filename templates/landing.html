@@ -1669,14 +1669,6 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             const toast = document.getElementById('lpProofCopyMsg');
             if (toast) toast.hidden = true;
             if (!drawer) return;
-            const cert = p.decision_certificate || {
-                certificate_hash: proof.certificate_hash,
-                share_text: proof.share_text,
-                share_urls: proof.share_urls || {},
-                export_text: proof.export_text,
-                verify_url: proof.verify_url,
-                permalink: proof.permalink,
-            };
             const hash = _lpCertHash(p);
             if (!hash) {
                 drawer.hidden = false;
