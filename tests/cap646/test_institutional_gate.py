@@ -68,21 +68,9 @@ async def test_institutional_gate_full(tmp_path, monkeypatch):
     monkeypatch.setenv("BLACKDARK_CI_DETERMINISTIC_CLOSURE", "true")
     await database.init_db()
 
-    from institutional_assurance import publish_signed_capacity
+    from cap978.institutional_gate import normalize_ci_gate_signed_capacity
 
-    publish_signed_capacity(
-        environment="production",
-        workers=2,
-        postgres=True,
-        redis=True,
-        requests=80,
-        p50_ms=131.3,
-        p95_ms=143.4,
-        p99_ms=167.5,
-        error_rate=0.0,
-        operator="ci-institutional-gate-full",
-        notes="SIGNED: full gate test structural closure (matches CAP-644 closed registry)",
-    )
+    normalize_ci_gate_signed_capacity()
 
     from cap978.closure import institutional_closure_978
     from cap978.institutional_gate import run_institutional_gate, validate_closure_invariants

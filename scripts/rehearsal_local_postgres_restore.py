@@ -43,7 +43,7 @@ def main() -> int:
     EVIDENCE_DIR.mkdir(parents=True, exist_ok=True)
     out_dir = Path("/tmp/blackdark_pr_rehearsal_backups")
     out_dir.mkdir(parents=True, exist_ok=True)
-    os.chmod(out_dir, 0o777)
+    os.chmod(out_dir, 0o770)
     gaps: list[str] = []
     evidence: dict[str, object] = {
         "LOCAL_POSTGRES_RESTORE_REHEARSAL_PERFORMED": True,

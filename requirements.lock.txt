@@ -13,7 +13,6 @@ google-cloud-bigquery==3.43.0
 dbt-bigquery==1.9.0
 ccxt==4.5.64
 vaderSentiment==3.3.2
-textblob==0.19.0
 stripe==11.6.0
 redis==5.3.1
 scikit-learn==1.9.0

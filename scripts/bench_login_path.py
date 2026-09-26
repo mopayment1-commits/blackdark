@@ -23,7 +23,7 @@ def main() -> None:
 
     client = TestClient(app)
     email = f"bench-{uuid.uuid4().hex[:10]}@example.com"
-    password = "SecurePass1234!"
+    password = "example-bench-login-only"
 
     rows: list[tuple[str, float, str]] = []
 

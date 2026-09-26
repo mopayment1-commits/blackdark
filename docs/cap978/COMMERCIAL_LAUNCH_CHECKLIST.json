@@ -2,10 +2,11 @@
   "baseline_tag": "cap978-closure-v1",
   "internal_closure_complete": true,
   "commercial_launch_ready": false,
-  "total_external_items": 30,
-  "p0_blockers": 2,
+  "total_external_items": 31,
+  "p0_blockers": 3,
   "p0_ids": [
     645,
+    644,
     "SEC-008"
   ],
   "policy": "Commercial launch requires closing P0 external items; P1/P2 are tiered post-pilot.",
@@ -403,6 +404,20 @@
       "blocks_commercial_launch": true
     },
     {
+      "id": 644,
+      "scope": "base_646",
+      "capability": "Capacity / Load Evidence",
+      "track": "T01",
+      "classification": "EXTERNAL_EVIDENCE_REQUIRED",
+      "blocker_type": "signed_load_evidence",
+      "reason": "Signed multi-worker capacity/load attestation — ID644",
+      "internal_action": "none — requires signed load test under production topology",
+      "priority": "P0",
+      "owner": "external",
+      "status": "open",
+      "blocks_commercial_launch": true
+    },
+    {
       "id": "SEC-008",
       "scope": "governing_control",
       "capability": "SEC-008",
@@ -431,5 +446,5 @@
       "blocks_commercial_launch": false
     }
   ],
-  "repository_head_sha": "56244bc12aad6a7602f604468bf87a6cbbb776ee"
+  "repository_head_sha": "14f3ab891752f876f01119e82ab244a3eebf2672"
 }

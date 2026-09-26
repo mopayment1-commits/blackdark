@@ -1,10 +1,10 @@
 {
-  "total": 30,
+  "total": 31,
   "counts": {
     "EXTERNAL_BLOCKED": 29,
-    "EXTERNAL_EVIDENCE_REQUIRED": 1
+    "EXTERNAL_EVIDENCE_REQUIRED": 2
   },
-  "capability_ids_blocked": 28,
+  "capability_ids_blocked": 29,
   "controls_blocked": 2,
   "rows": [
     {
@@ -288,6 +288,16 @@
       "internal_action": "none — requires external auditor attestation"
     },
     {
+      "id": 644,
+      "scope": "base_646",
+      "capability": "Capacity / Load Evidence",
+      "track": "T01",
+      "classification": "EXTERNAL_EVIDENCE_REQUIRED",
+      "blocker_type": "signed_load_evidence",
+      "reason": "Signed multi-worker capacity/load attestation — ID644",
+      "internal_action": "none — requires signed load test under production topology"
+    },
+    {
       "id": "SEC-008",
       "scope": "governing_control",
       "capability": "SEC-008",
@@ -309,5 +319,5 @@
     }
   ],
   "policy": "EXTERNAL_BLOCKED and EXTERNAL_EVIDENCE_REQUIRED are excluded from internal closure numerator",
-  "repository_head_sha": "56244bc12aad6a7602f604468bf87a6cbbb776ee"
+  "repository_head_sha": "14f3ab891752f876f01119e82ab244a3eebf2672"
 }

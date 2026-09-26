@@ -36,7 +36,12 @@ def _bootstrap_signed_capacity(_bootstrap_test_secrets):
     prod_evidence = root / "docs" / "evidence" / "signed_load_production_cap644.json"
     capacity_path = root / "data" / "institutional_assurance" / "signed_capacity.json"
 
-    if prod_evidence.is_file():
+    ci_deterministic = os.getenv("BLACKDARK_CI_DETERMINISTIC_CLOSURE", "").strip().lower() in {
+        "1",
+        "true",
+        "yes",
+    }
+    if prod_evidence.is_file() and not ci_deterministic:
         body = json.loads(prod_evidence.read_text(encoding="utf-8"))
         body.pop("signature", None)
         body["signature"] = _sign_payload({k: v for k, v in body.items() if k != "signature"})

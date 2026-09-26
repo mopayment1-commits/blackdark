@@ -42,6 +42,11 @@ async def main() -> int:
 
     await database.init_db()
 
+    if args.ci:
+        from cap978.institutional_gate import normalize_ci_gate_signed_capacity
+
+        normalize_ci_gate_signed_capacity()
+
     from cap978.evidence_room import build_evidence_room_snapshot
     from cap978.external_registry import external_registry_report
 
