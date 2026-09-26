@@ -87,6 +87,48 @@ def _csp_nonce_mode_enabled() -> bool:
     return True
 
 
+def _request_url_path(request: Request) -> str:
+    """Path for header policy; works with Starlette Request and test stubs."""
+    url = getattr(request, "url", None)
+    if url is not None:
+        path = getattr(url, "path", None)
+        if path is not None:
+            return str(path)
+    scope = getattr(request, "scope", None)
+    if isinstance(scope, dict):
+        return str(scope.get("path") or "")
+    return ""
+
+
+def _request_url_scheme(request: Request) -> str:
+    url = getattr(request, "url", None)
+    if url is not None:
+        scheme = getattr(url, "scheme", None)
+        if scheme:
+            return str(scheme).lower()
+    scope = getattr(request, "scope", None)
+    if isinstance(scope, dict):
+        return str(scope.get("scheme") or "http").lower()
+    return "http"
+
+
+def _effective_scheme(request: Request) -> str:
+    try:
+        from transport_webhook_env.transport import request_effective_scheme
+
+        return str(request_effective_scheme(request) or "").lower() or _request_url_scheme(request)
+    except Exception:
+        return _request_url_scheme(request)
+
+
+def _coop_for_path(path: str) -> str:
+    """Google Identity Services needs popup communication on auth surfaces only."""
+    p = path or ""
+    if p in {"/login", "/register"} or p.startswith("/api/auth/oauth/"):
+        return "same-origin-allow-popups"
+    return "same-origin"
+
+
 def _ensure_request_csp_nonce(request: Request) -> str | None:
     if not _csp_nonce_mode_enabled():
         return None
@@ -204,14 +246,6 @@ async def _maybe_rewrite_html_with_nonce(response: Response, nonce: str) -> Resp
     return _rebuild_html_response(response, rewritten.encode("utf-8"), gzip_out=was_gzip)
 
 
-def _coop_for_path(path: str) -> str:
-    """Google Identity Services needs popup communication on auth surfaces only."""
-    p = path or ""
-    if p in {"/login", "/register"} or p.startswith("/api/auth/oauth/"):
-        return "same-origin-allow-popups"
-    return "same-origin"
-
-
 def security_headers_for(request: Request) -> dict[str, str]:
     """Baseline browser hardening headers.
 
@@ -253,7 +287,7 @@ def security_headers_for(request: Request) -> dict[str, str]:
         "X-Frame-Options": "DENY",
         "Referrer-Policy": "strict-origin-when-cross-origin",
         "Permissions-Policy": "geolocation=(), microphone=(), camera=(), payment=()",
-        "Cross-Origin-Opener-Policy": _coop_for_path(request.url.path or ""),
+        "Cross-Origin-Opener-Policy": _coop_for_path(_request_url_path(request)),
         "Cross-Origin-Resource-Policy": "same-site",
         "X-XSS-Protection": "0",
         "Content-Security-Policy": csp,
@@ -302,19 +336,13 @@ def _request_origin_ok(request: Request) -> bool:
     return False
 
 
-def _effective_scheme(request: Request) -> str:
-    from transport_webhook_env.transport import request_effective_scheme
-
-    return request_effective_scheme(request)
-
-
 class SecureTransportMiddleware(BaseHTTPMiddleware):
     """Fail closed on sensitive production paths when transport is not HTTPS."""
 
     _SENSITIVE_PREFIXES = ("/api/", "/webhook", "/admin")
 
     async def dispatch(self, request: Request, call_next) -> Response:
-        path = request.url.path or ""
+        path = _request_url_path(request)
         if _is_production() and any(path.startswith(p) for p in self._SENSITIVE_PREFIXES):
             from transport_webhook_env.transport import enforce_secure_transport
 
@@ -334,7 +362,7 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
         nonce = _ensure_request_csp_nonce(request)
 
         # TrustedHost in production — never apply to liveness/readiness probes.
-        path = request.url.path
+        path = _request_url_path(request)
         if (
             path not in HEALTH_PROBE_PATHS
             and _is_production()
