@@ -34,10 +34,10 @@ REGULATORY_DISCLAIMER_EGY = (
 
 # PRV-C — Supplemental Memorandum §8.4 (optional analytics; verbatim structure)
 EU_OPTIONAL_ANALYTICS_BANNER_BODY = (
-    "BLACKDARK uses optional analytics on public pages to understand aggregate usage. "
-    "Optional analytics are off by default for visitors in the EU/EEA until you choose. "
-    "Accepting optional analytics is not required to view public market analytics. "
-    "Rejecting optional analytics does not limit access to public analytical content."
+    "BLACKDARK uses strictly necessary technologies to operate and secure the service. "
+    "With your permission, we may also use optional analytics technologies to understand how the service is used. "
+    "Optional technologies remain disabled unless you choose to accept them. "
+    "You can accept, reject, or manage your preferences."
 )
 
 CONSENT_COOKIE = "bd_optional_analytics"
