@@ -746,7 +746,7 @@
             <p class="hero-headline">{{ t('hero.headline') }}</p>
             <p class="hero-support">{{ t('hero.support') }}</p>
             <div class="hero-cta">
-                <a href="#oracle" class="btn-primary">{{ t('hero.cta.try') }}</a>
+                <a href="#oracle" class="btn-primary" data-bd-call="tryOracleFree" data-bd-prevent="1">{{ t('hero.cta.try') }}</a>
                 <a href="#seal" class="btn-seal"><span class="btn-seal-play" aria-hidden="true">▶</span> {{ t('hero.cta.seal') }}</a>
             </div>
             <section id="trust-pulse" class="trust-pulse-mini" aria-live="polite" aria-label="Trust Pulse">
@@ -1371,6 +1371,20 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             comp.style.display = 'block';
             comp.innerHTML = `<strong>Anti-Hype</strong> · Source: ${esc(foot.data_source || '—')} · Trust: ${esc(foot.trust_basis || '—')}<br>${esc(foot.disclaimer)}`;
         }
+
+        function tryOracleFree() {
+            const oracleBlock = document.getElementById('oracle');
+            if (oracleBlock) {
+                oracleBlock.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                if (window.history && window.history.replaceState) {
+                    window.history.replaceState(null, '', '#oracle');
+                } else {
+                    window.location.hash = 'oracle';
+                }
+            }
+            consultOracle();
+        }
+        window.tryOracleFree = tryOracleFree;
 
         async function consultOracle() {
             const symbol = document.getElementById('symbolInput').value.toUpperCase();
