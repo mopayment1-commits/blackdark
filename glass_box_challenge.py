@@ -36,7 +36,7 @@ def build_glass_box_challenge_pack() -> dict[str, Any]:
             "Pick one macro/crypto event window (date + timezone).",
             "Seal ≥3 timed Decision Certificates on /oracle-accuracy#locked before the event.",
             "Publish challenge text + ledger link on X/Telegram (human channel choice).",
-            "After resolution, unlock results live — wins and losses — on the Public Accuracy Ledger.",
+            "After resolution, unlock hits and misses / incorrect model states live on the Public Accuracy Ledger.",
             "Invite competitors to publish their full ledgers (including misses).",
         ],
         "share_kit": {
@@ -91,7 +91,7 @@ def build_glass_box_challenge_pack() -> dict[str, Any]:
             },
             {
                 "id": "unlock_live",
-                "label": "Unlock wins and losses live after resolution",
+                "label": "Unlock hits and misses / incorrect model states live after resolution",
                 "status": "operator",
                 "human": True,
             },

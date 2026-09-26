@@ -25,7 +25,7 @@ def build_mev_sandwich_report(
         "Prefer private/RPC relays when available (no guaranteed fill)",
         "Split notional into smaller clips to reduce visible footprint in thin books",
         "Avoid predictable market orders in thin books",
-        "Track signal half-life — avoid acting when modeled edge has decayed into crowded, sandwich-prone flow",
+        "Track modeled half-life — the estimated edge may decay into crowded, sandwich-prone flow (analytical only; no action recommended).",
     ]
     share_text = (
         f"BLACKDARK MEV/Sandwich Report · {asset_u} · notional ${notional:,.0f} · "
