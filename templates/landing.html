@@ -1652,9 +1652,14 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             return rel;
         }
 
-        function _lpPulseHasCertificate(p) {
+        function _lpCertHash(p) {
             const proof = (p && p.proof) || {};
-            return Boolean(proof.certificate_hash || (p && p.decision_certificate && p.decision_certificate.certificate_hash));
+            const cert = (p && p.decision_certificate) || {};
+            return proof.certificate_hash || cert.certificate_hash || '';
+        }
+
+        function _lpPulseHasCertificate(p) {
+            return Boolean(_lpCertHash(p));
         }
 
         function openLandingPulseProof() {
@@ -1672,7 +1677,8 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 verify_url: proof.verify_url,
                 permalink: proof.permalink,
             };
-            if (!cert.certificate_hash) {
+            const hash = _lpCertHash(p);
+            if (!hash) {
                 drawer.hidden = false;
                 drawer.innerHTML =
                     '<p style="margin:0;color:var(--text-muted)">No Decision Certificate for this pulse yet. ' +
@@ -1714,8 +1720,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
         }
 
         function copyLandingPulseCertHash() {
-            const proof = (landingPulse && landingPulse.proof) || {};
-            const hash = proof.certificate_hash;
+            const hash = _lpCertHash(landingPulse);
             const msg = document.getElementById('lpProofCopyMsg');
             if (!hash) {
                 if (msg) {
@@ -1746,50 +1751,46 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             if (!box) return;
             lpProofClickWired = true;
             box.addEventListener('click', (e) => {
+                if (!e.target.closest('#lpProof')) return;
                 if (e.target.closest('[data-lp-proof-open]')) {
                     e.preventDefault();
+                    e.stopPropagation();
                     openLandingPulseProof();
                     return;
                 }
                 if (e.target.closest('[data-lp-copy-hash]')) {
                     e.preventDefault();
+                    e.stopPropagation();
                     copyLandingPulseCertHash();
                 }
             });
         }
 
+        /** Sole writer for #lpProof — ledger + Free Proof drawer + cert hash only (no share/X chips). */
         function _lpRenderProof(p) {
-            const proof = p.proof || {};
-            const ledger = p.ledger || {};
             const box = document.getElementById('lpProof');
             if (!box) return;
             wireLandingPulseProofClicks();
-            const hasCert = _lpPulseHasCertificate(p);
+            const hash = _lpCertHash(p);
+            const hasCert = Boolean(hash);
             const bits = [
-                `<a class="bd-chip ok" href="${esc(safeUrl(ledger.href) || '/oracle-accuracy')}">${esc(ledger.label || 'Verified on Ledger')}</a>`,
+                '<a class="bd-chip ok" href="/oracle-accuracy">Verified on Ledger</a>',
             ];
-            if (proof.watermark) {
-                if (hasCert) {
-                    bits.push(
-                        `<button type="button" class="bd-chip bd-chip-btn ok" data-lp-proof-open="1">${esc(proof.watermark)}</button>`
-                    );
-                } else {
-                    bits.push(
-                        `<span class="bd-chip bd-chip-muted">${esc(proof.watermark)} — certificate pending</span>`
-                    );
-                }
-            }
             if (hasCert) {
-                const short = esc(String(proof.certificate_hash).slice(0, 10));
+                bits.push(
+                    '<button type="button" class="bd-chip bd-chip-btn ok" data-lp-proof-open="1">Free Proof</button>'
+                );
+                const short = esc(String(hash).slice(0, 10));
                 bits.push(
                     `<button type="button" class="bd-chip bd-chip-btn" data-lp-copy-hash="1" title="Copy certificate hash">cert ${short}…</button>`
                 );
-            } else if (!proof.watermark) {
+            } else {
                 bits.push(
-                    '<span class="bd-chip bd-chip-muted">Certificate not ready — use Get Decision below.</span>'
+                    '<span class="bd-chip bd-chip-muted">Free Proof — certificate pending</span>'
                 );
             }
             box.innerHTML = bits.join('');
+            box.querySelectorAll('a[href*="twitter.com"], a[href*="x.com"]').forEach((node) => node.remove());
             const drawer = document.getElementById('lpProofDrawer');
             if (drawer && !hasCert) drawer.hidden = true;
         }
@@ -1864,16 +1865,20 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             } catch (error) { console.debug(error); }
         }
 
-        document.getElementById('lpShareBtn')?.addEventListener('click', (e) => {
-            const btn = e.currentTarget;
+        function shareLandingPulseProof() {
+            const btn = document.getElementById('lpShareBtn');
+            if (!btn) return;
             btn.classList.remove('bd-motion-share');
             btn.dataset.reflow = String(btn.offsetWidth);
             btn.classList.add('bd-motion-share');
             const proof = (landingPulse && landingPulse.proof) || {};
             const text = proof.share_text || 'BLACKDARK Trust Pulse — verify /oracle-accuracy';
             if (navigator.clipboard) navigator.clipboard.writeText(text).catch(() => {});
-            if (proof.share_urls && proof.share_urls.x) window.open(proof.share_urls.x, '_blank', 'noopener');
-        });
+            if (proof.share_urls && proof.share_urls.x) {
+                window.open(proof.share_urls.x, '_blank', 'noopener');
+            }
+        }
+        document.getElementById('lpShareBtn')?.addEventListener('click', shareLandingPulseProof);
 
 
         async function loadBillingReadyLine() {
