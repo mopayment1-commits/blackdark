@@ -344,7 +344,14 @@ def _proof_chain_block() -> dict[str, Any]:
     try:
         from oracle_audit_chain import chain_summary, verify_chain
 
+        from supplemental_public_compliance import sanitize_public_decision_records
+
         summary = chain_summary(limit=8)
+        if summary.get("recent_records"):
+            summary = {
+                **summary,
+                "recent_records": sanitize_public_decision_records(list(summary["recent_records"])),
+            }
         verify = verify_chain()
         recent = summary.get("recent_records") or []
         tip = recent[-1] if recent else {}

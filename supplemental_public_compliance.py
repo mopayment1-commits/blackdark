@@ -194,7 +194,41 @@ def map_public_decision_action(raw: str | None) -> str:
         return PUBLIC_MODEL_STATE_WAIT
     if "CONDITION" in token:
         return PUBLIC_MODEL_STATE_CONDITIONS_MET
+    if token in {"ELEVATED_RISK", "NEUTRAL_OBSERVE"}:
+        return (
+            PUBLIC_MODEL_STATE_ABSTAIN
+            if token == "ELEVATED_RISK"
+            else PUBLIC_MODEL_STATE_WAIT
+        )
     return PUBLIC_MODEL_STATE_WAIT
+
+
+def _public_decision_source_token(payload: Mapping[str, Any]) -> str:
+    for key in ("decision_action", "verdict", "model_state"):
+        val = payload.get(key)
+        if val is not None and str(val).strip():
+            return str(val)
+    act = payload.get("action")
+    if isinstance(act, str) and len(act.strip()) <= 32:
+        return act
+    return ""
+
+
+def map_public_decision_row(row: dict[str, Any]) -> dict[str, Any]:
+    """Map verdict/action fields on a public API row (does not touch DB/chain storage)."""
+    out = dict(row)
+    raw = out.get("verdict") or out.get("action") or out.get("prior_verdict")
+    public = map_public_decision_action(str(raw or ""))
+    if raw is not None or "verdict" in out:
+        out["verdict"] = public
+    out["public_decision"] = public
+    if out.get("prior_verdict") is not None:
+        out["prior_verdict"] = map_public_decision_action(str(out["prior_verdict"]))
+    return out
+
+
+def sanitize_public_decision_records(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    return [map_public_decision_row(r) for r in records]
 
 
 def public_decision_sentence(asset: str, model_state: str) -> str:
@@ -249,15 +283,16 @@ def apply_supplemental_public_layer(
         return payload
 
     out = dict(payload)
-    raw_action = str(
-        out.get("decision_action") or out.get("action") or out.get("verdict") or ""
-    )
-    model_state = map_public_decision_action(raw_action)
+    model_state = map_public_decision_action(_public_decision_source_token(out))
     asset = str(out.get("symbol") or out.get("asset") or "ASSET")
 
     out["decision_action"] = model_state
     out["model_state"] = model_state
+    out["verdict"] = model_state
     out["public_layer"] = True
+    act = out.get("action")
+    if isinstance(act, str) and len(act.strip()) <= 32:
+        out["action"] = map_public_decision_action(act)
     if model_state == PUBLIC_MODEL_STATE_CONDITIONS_MET:
         out["conditions_met_review"] = CONDITIONS_MET_REVIEW_LINE
         out["decision_sentence"] = public_decision_sentence(asset, model_state)

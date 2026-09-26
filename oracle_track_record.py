@@ -153,6 +153,7 @@ async def backfill_from_database(*, limit: int = 5000) -> dict[str, Any]:
 def public_track_record() -> dict[str, Any]:
     """Buyer-facing cumulative stats from immutable chain (live-only primary metrics)."""
     from oracle_integrity import is_synthetic_prediction
+    from supplemental_public_compliance import sanitize_public_decision_records
 
     summary = chain_summary(limit=50)
     verify = verify_chain()
@@ -209,10 +210,12 @@ def public_track_record() -> dict[str, Any]:
             "excluded_from_primary_metrics": True,
             "note": "Due-diligence backfill — not live trading performance.",
         },
-        "recent": [
-            r for r in (summary.get("recent_records") or [])[-10:]
-            if not is_synthetic_prediction(r)
-        ],
+        "recent": sanitize_public_decision_records(
+            [
+                r for r in (summary.get("recent_records") or [])[-10:]
+                if not is_synthetic_prediction(r)
+            ]
+        ),
         "auto_accumulation": True,
         "note": "Every live oracle prediction auto-appends to hash chain on create + resolve.",
     }

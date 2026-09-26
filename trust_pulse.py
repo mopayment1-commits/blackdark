@@ -127,10 +127,11 @@ def _continuity(
     previous_seen_at: str | None,
     factors_now: list[dict[str, Any]],
     factors_prev: list[dict[str, Any]] | None,
+    public_layer: bool = False,
 ) -> dict[str, Any] | None:
     if not previous_action:
         return None
-    prev = _norm_action(previous_action)
+    prev = _norm_action(previous_action, public_layer=public_layer)
     flipped = prev != current_action
     changed_factors: list[str] = []
     if factors_prev:
@@ -328,10 +329,15 @@ def _pulse_watermark(cert: dict[str, Any], tier: str) -> str | None:
     return cert.get("watermark") or ("Free Proof" if tier in ("", "free") else None)
 
 
-def _pulse_flip(previous_action: str | None, action: str) -> dict[str, str] | None:
-    if not previous_action or _norm_action(previous_action) == action:
+def _pulse_flip(
+    previous_action: str | None,
+    action: str,
+    *,
+    public_layer: bool = False,
+) -> dict[str, str] | None:
+    if not previous_action or _norm_action(previous_action, public_layer=public_layer) == action:
         return None
-    previous = _norm_action(previous_action)
+    previous = _norm_action(previous_action, public_layer=public_layer)
     return {
         "from": previous,
         "to": action,
@@ -384,8 +390,7 @@ def _pulse_base_result(
             payload.get("decision_action") or payload.get("verdict") or payload.get("action"),
             public_layer=str(tier or "free").lower() in {"free", ""},
         ),
-        "verdict": payload.get("verdict")
-        or _norm_action(
+        "verdict": _norm_action(
             payload.get("decision_action") or payload.get("verdict") or payload.get("action"),
             public_layer=str(tier or "free").lower() in {"free", ""},
         ),
@@ -513,6 +518,7 @@ def _shape_pulse(
         previous_seen_at=previous_seen_at,
         factors_now=factors,
         factors_prev=previous_factors,
+        public_layer=public_layer,
     )
     result = _pulse_base_result(
         payload,
@@ -526,7 +532,7 @@ def _shape_pulse(
         freshness=freshness,
         event=event,
         from_cache=from_cache,
-        flip_now=_pulse_flip(previous_action, action),
+        flip_now=_pulse_flip(previous_action, action, public_layer=public_layer),
         continuity_out=_visible_continuity(tier, continuity),
     )
     _apply_pulse_zero_tolerance(result, payload, why, factors, freshness)
@@ -588,12 +594,14 @@ def _cached_pulse_if_fresh(
         event="pulse",
         from_cache=True,
     )
-    if previous_action and _norm_action(previous_action) != pulse["action"]:
+    public_layer = str(pulse.get("tier") or "free").lower() in {"free", ""}
+    if previous_action and _norm_action(previous_action, public_layer=public_layer) != pulse["action"]:
+        prev = _norm_action(previous_action, public_layer=public_layer)
         pulse["event"] = "decision_changed"
         pulse["flip"] = {
-            "from": _norm_action(previous_action),
+            "from": prev,
             "to": pulse["action"],
-            "message": f"Decision flipped {_norm_action(previous_action)} → {pulse['action']}",
+            "message": f"Decision flipped {prev} → {pulse['action']}",
         }
     return pulse
 

@@ -1063,6 +1063,7 @@
     {% include "partials/site_footer.html" %}
     
     <script src="/static/js/dom_escape.js"></script>
+    <script src="/static/js/public_decision_map.js"></script>
     <script>
         const { escapeHtml, esc, safeUrl } = window.BDDomSafe;
 
@@ -1088,8 +1089,11 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 };
             }
             const price = result.price != null ? `$${Number(result.price).toLocaleString(undefined, { maximumFractionDigits: 2 })}` : '';
+            const publicVerdict = window.BDPublicDecision?.mapPublicDecisionAction(
+                result.decision_action || result.model_state || result.verdict || result.action
+            ) || result.verdict;
             const text = [
-                `BLACKDARK Oracle: ${result.verdict} ${result.symbol}${price ? ' @ ' + price : ''}`,
+                `BLACKDARK Oracle: ${publicVerdict} ${result.symbol}${price ? ' @ ' + price : ''}`,
                 `Score: ${result.opportunity_score}/100 · Confidence: ${result.confidence || '—'}%`,
                 (result.narrative || result.oracle || '').slice(0, 160),
             ].filter(Boolean).join('\n');
@@ -1164,7 +1168,10 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             return { response, data };
         }
         function decideLandingAction(data) {
-            const rawAction = String(data.decision_action || data.model_state || data.verdict || data.action || 'WAIT').toUpperCase();
+            const raw = data.decision_action || data.model_state || data.verdict || data.action || 'WAIT';
+            const mapFn = window.BDPublicDecision?.mapPublicDecisionAction;
+            if (typeof mapFn === 'function') return mapFn(raw);
+            const rawAction = String(raw).toUpperCase();
             if (rawAction.includes('CONDITION') || rawAction === 'ACT' || rawAction.includes('BUY') || rawAction.includes('BULL')) {
                 return 'CONDITIONS MET';
             }
@@ -1613,11 +1620,12 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
         function renderLandingPulse(p) {
             if (!p) return;
             landingPulse = p;
-            const act = (p.action || 'WAIT').toUpperCase();
+            const act = window.BDPublicDecision?.mapPublicDecisionAction(p.action || p.verdict) || p.action || 'WAIT';
             const actionEl = document.getElementById('lpAction');
             if (actionEl) {
                 actionEl.textContent = act;
-                actionEl.className = 'tp-mini-action bd-tp-action ' + act;
+                const cssToken = act === 'CONDITIONS MET' ? 'WAIT' : String(act).replace(/\s+/g, '_');
+                actionEl.className = 'tp-mini-action bd-tp-action ' + cssToken;
             }
             const sym = document.getElementById('lpSym');
             if (sym) sym.textContent = `${p.symbol || 'BTC'} ${_lpPriceBit(p)}`;

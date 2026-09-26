@@ -12,16 +12,26 @@ from typing import Any
 
 
 def _miss_row(row: dict[str, Any]) -> dict[str, Any]:
-    from supplemental_public_compliance import map_public_decision_action
+    from supplemental_public_compliance import map_public_decision_row
 
-    raw = row.get("verdict")
+    mapped = map_public_decision_row(
+        {
+            "prediction_id": row.get("id") or row.get("prediction_id"),
+            "asset": row.get("asset"),
+            "verdict": row.get("verdict") or row.get("action"),
+            "label": row.get("label"),
+            "score": row.get("opportunity_score"),
+            "timestamp": row.get("timestamp") or row.get("created_at"),
+        }
+    )
     return {
-        "prediction_id": row.get("id") or row.get("prediction_id"),
-        "asset": row.get("asset"),
-        "verdict": map_public_decision_action(str(raw or "")),
-        "label": row.get("label"),
-        "score": row.get("opportunity_score"),
-        "timestamp": row.get("timestamp") or row.get("created_at"),
+        "prediction_id": mapped.get("prediction_id"),
+        "asset": mapped.get("asset"),
+        "verdict": mapped.get("verdict"),
+        "public_decision": mapped.get("public_decision"),
+        "label": mapped.get("label"),
+        "score": mapped.get("score"),
+        "timestamp": mapped.get("timestamp"),
     }
 
 

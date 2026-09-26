@@ -109,4 +109,12 @@ def test_sanitize_oracle_payload_public_layer():
         user=None,
     )
     assert out["decision_action"] == "CONDITIONS MET"
+    assert out["verdict"] == "CONDITIONS MET"
     assert CONDITIONS_MET_REVIEW_LINE in str(out.get("conditions_met_review", ""))
+
+    analytics = sanitize_oracle_payload(
+        {"verdict": "BULLISH_ANALYTICS", "symbol": "BTC"},
+        user=None,
+    )
+    assert analytics["verdict"] == "CONDITIONS MET"
+    assert analytics["decision_action"] == "CONDITIONS MET"

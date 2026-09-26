@@ -332,6 +332,7 @@
     </footer>
 
     <script src="/static/js/dom_escape.js"></script>
+    <script src="/static/js/public_decision_map.js"></script>
     <script type="module">
         const { esc, safeUrl } = window.BDDomSafe;
         function pillClass(label) {
@@ -339,6 +340,16 @@
             if (label === 'correct') return 'correct';
             if (label === 'incorrect') return 'incorrect';
             return 'partial';
+        }
+
+        function publicMissDecisionLabel(row) {
+            const mapped = row?.public_decision;
+            if (mapped) return mapped;
+            const mapFn = window.BDPublicDecision?.mapPublicDecisionAction;
+            if (typeof mapFn === 'function') {
+                return mapFn(row?.verdict ?? row?.action);
+            }
+            return row?.verdict ?? '—';
         }
 
         function verifyLabel(valid) {
@@ -410,7 +421,7 @@
                     <td>${esc(r.prediction_id ?? '—')}</td>
                     <td>${esc((r.timestamp || '').slice(0, 19))}</td>
                     <td>${esc(r.asset || '—')}</td>
-                    <td>${esc(r.verdict || '—')}</td>
+                    <td>${esc(publicMissDecisionLabel(r))}</td>
                     <td>${esc(Number(r.price_at_prediction || 0).toLocaleString())}</td>
                     <td>${esc(Number(r.price_after_24h || 0).toLocaleString())}</td>
                     <td><span class="pill ${pillClass(r.label)}">${esc(r.label || '—')}</span></td>
@@ -526,7 +537,7 @@
                 const rows = data.sample || [];
                 const list = document.getElementById('losing-list');
                 list.innerHTML = rows.length
-                    ? rows.map(r => `<li><strong>${esc(r.asset||'—')}</strong> · ${esc(r.verdict||'')} · ${esc(r.label||'')} · id ${esc(r.prediction_id??'—')}</li>`).join('')
+                    ? rows.map(r => `<li><strong>${esc(r.asset||'—')}</strong> · ${esc(publicMissDecisionLabel(r))} · ${esc(r.label||'')} · id ${esc(r.prediction_id??'—')}</li>`).join('')
                     : '<li>No labeled misses yet — the ledger will list them here honestly.</li>';
             } catch (error) { console.debug(error); document.getElementById('losing-status').textContent = 'Losing report unavailable'; }
         }

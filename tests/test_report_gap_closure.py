@@ -74,6 +74,17 @@ async def test_monthly_losing_groups_by_month(monkeypatch):
     assert report["total_labeled_misses_in_window"] == 2
 
 
+def test_miss_row_maps_analytics_verdict_for_public_layer():
+    import monthly_losing_report as mlr
+
+    bullish = mlr._miss_row({"id": 2629, "asset": "AAVE", "verdict": "BULLISH_ANALYTICS", "label": "incorrect"})
+    bearish = mlr._miss_row({"id": 204, "asset": "SOL", "verdict": "BEARISH_ANALYTICS", "label": "incorrect"})
+    assert bullish["verdict"] == "CONDITIONS MET"
+    assert bullish["public_decision"] == "CONDITIONS MET"
+    assert bearish["verdict"] == "ABSTAIN"
+    assert bearish["public_decision"] == "ABSTAIN"
+
+
 def test_chat_and_oracle_attach_compliance():
     import ai_oracle
     import chat_service
