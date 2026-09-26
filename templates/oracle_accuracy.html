@@ -56,6 +56,19 @@
             background: rgba(34,211,238,0.12); color: var(--accent);
             font-size: 0.85rem; font-weight: 700; margin-bottom: 1rem;
         }
+        .badge.badge-info {
+            background: rgba(34,211,238,0.12); color: var(--accent);
+        }
+        .badge.badge-warn {
+            background: rgba(245,158,11,0.18); color: var(--warning);
+        }
+        .stat .subnote {
+            color: var(--muted); font-size: 0.72rem; margin-top: 0.45rem; line-height: 1.45;
+        }
+        .metrics-explainer {
+            max-width: 1100px; margin: -0.5rem auto 1.25rem; padding: 0 1.5rem;
+            color: var(--muted); font-size: 0.82rem; line-height: 1.5;
+        }
         .grid {
             max-width: 1100px; margin: 0 auto; padding: 1rem 1.5rem 3rem;
             display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem;
@@ -126,8 +139,9 @@
         <p>
             Every decision is logged, resolved after 24 hours, and feeds the learning model.
             Live engine: <strong id="engine-label">rules engine</strong>
+            <span id="engine-badge" class="badge badge-info" style="margin:0 0 0 .5rem;vertical-align:middle;font-size:.75rem">Checking…</span>
         </p>
-        <p id="transparency-note" style="color:var(--warning);font-size:0.9rem;max-width:760px;margin:0.75rem auto 0;"></p>
+        <p id="transparency-note" style="color:var(--muted);font-size:0.9rem;max-width:760px;margin:0.75rem auto 0;"></p>
         <p id="chain-status" style="color:var(--muted);font-size:0.9rem;margin-top:0.5rem"></p>
         <div class="cta-row" style="margin-top:1rem">
             <button class="btn btn-secondary" id="verifyChainBtn" type="button">Verify Audit Chain</button>
@@ -260,13 +274,13 @@
 
     <section class="panel">
         <div class="card">
-            <h2>D8 · Signal Registry</h2>
-            <p id="registry-status" style="color:var(--muted);font-size:0.9rem">Loading signal lexicon…</p>
+            <h2>D8 · Feature lexicon (public registry)</h2>
+            <p id="registry-status" style="color:var(--muted);font-size:0.9rem">Loading feature lexicon…</p>
             <div style="overflow-x:auto;margin-top:1rem">
                 <table>
                     <thead>
                         <tr>
-                            <th>Signal type</th>
+                            <th>Entry type</th>
                             <th>Count</th>
                         </tr>
                     </thead>
@@ -279,17 +293,20 @@
     </section>
 
     <section class="grid" id="stats-grid">
-        <div class="stat"><div class="num" id="stat-accuracy">—</div><div class="lbl">Average accuracy %</div></div>
-        <div class="stat"><div class="num" id="stat-total">—</div><div class="lbl">Total predictions</div></div>
+        <div class="stat"><div class="num" id="stat-accuracy">—</div><div class="lbl">Average accuracy %</div><div class="subnote" id="stat-accuracy-note"></div></div>
+        <div class="stat"><div class="num" id="stat-total">—</div><div class="lbl">Total predictions (logged)</div><div class="subnote" id="stat-resolved-note"></div></div>
         <div class="stat"><div class="num" id="stat-labeled">—</div><div class="lbl">Training samples (labeled)</div></div>
         <div class="stat"><div class="num" id="stat-training">—</div><div class="lbl">Training runs</div></div>
         <div class="stat"><div class="num" id="stat-exchanges">—</div><div class="lbl">Exchanges in model</div></div>
         <div class="stat"><div class="num" id="stat-assets">—</div><div class="lbl">Assets tracked</div></div>
     </section>
 
+    <p id="metrics-explainer" class="metrics-explainer" aria-live="polite"></p>
+
     <section class="panel">
         <div class="card">
             <h2>Latest scored predictions</h2>
+            <p id="recent-table-note" style="color:var(--muted);font-size:0.82rem;margin-bottom:0.75rem"></p>
             <div style="overflow-x:auto">
                 <table>
                     <thead>
@@ -364,7 +381,35 @@
         }
 
 
+        function renderEngineHealth(data) {
+            const transparency = data.transparency || {};
+            const drift = data.drift || {};
+            const verify = (data.proof_chain || {}).verify || {};
+            const badge = document.getElementById('engine-badge');
+            const note = document.getElementById('transparency-note');
+            if (!badge || !note) return;
+
+            const warnings = [];
+            if (verify.valid === false) warnings.push('audit chain INVALID');
+            if (drift.drift_freeze_active || drift.trading_frozen) {
+                warnings.push('drift / trading freeze active');
+            }
+            if (transparency.production_engine === 'ml_model' && drift.drift_envelope_ready === false) {
+                warnings.push('OOD envelope not ready');
+            }
+
+            const degraded = warnings.length > 0;
+            badge.className = 'badge ' + (degraded ? 'badge-warn' : 'badge-info');
+            badge.textContent = degraded ? 'Engine · attention' : 'Engine · operational';
+            note.style.color = degraded ? 'var(--warning)' : 'var(--muted)';
+            const base = transparency.engine_note || '';
+            note.textContent = degraded
+                ? [base, warnings.join(' · ')].filter(Boolean).join(' · ')
+                : base;
+        }
+
         function renderAccuracyStats({ oracle, model, moat, exp }) {
+            const resolved = oracle.resolved_predictions ?? 0;
             document.getElementById('stat-accuracy').textContent =
                 (oracle.average_accuracy_percent || 0).toFixed(1) + '%';
             document.getElementById('stat-total').textContent = oracle.total_predictions || 0;
@@ -372,6 +417,22 @@
             document.getElementById('stat-training').textContent = exp.total_training_runs || 0;
             document.getElementById('stat-exchanges').textContent = moat.exchanges || 0;
             document.getElementById('stat-assets').textContent = moat.assets || 0;
+
+            const accNote = document.getElementById('stat-accuracy-note');
+            if (accNote) {
+                accNote.textContent = resolved
+                    ? `Over ${resolved} resolved live row(s)`
+                    : 'No resolved live rows yet';
+            }
+            const resNote = document.getElementById('stat-resolved-note');
+            if (resNote) {
+                resNote.textContent =
+                    `Resolved: ${resolved} · Pending: ${oracle.pending_predictions ?? 0}`;
+            }
+            const expl = document.getElementById('metrics-explainer');
+            if (expl) expl.textContent = oracle.metrics_footnote || '';
+            const tblNote = document.getElementById('recent-table-note');
+            if (tblNote) tblNote.textContent = oracle.recent_table_footnote || '';
         }
         function renderRegimeTable(regime) {
             document.getElementById('regime-status').textContent =
@@ -403,17 +464,20 @@
             const regBody = document.getElementById('registry-body');
             const typeKeys = Object.keys(byType);
             if (!typeKeys.length) {
-                regBody.innerHTML = '<tr><td colspan="2">No registered signals yet — lexicon grows with every Oracle decision.</td></tr>';
+                regBody.innerHTML = '<tr><td colspan="2">No registry entries yet — lexicon grows with every Oracle decision.</td></tr>';
                 return;
             }
             regBody.innerHTML = typeKeys.map(k =>
                 `<tr><td>${esc(k)}</td><td>${esc(byType[k])}</td></tr>`
             ).join('');
         }
-        function renderPredictionsTable(rows) {
+        function renderPredictionsTable(rows, footnote) {
             const tbody = document.getElementById('predictions-body');
             if (!rows.length) {
-                tbody.innerHTML = '<tr><td colspan="8">No scored predictions yet — collecting data.</td></tr>';
+                const hint = footnote
+                    ? esc(footnote)
+                    : 'No resolved rows in the recent public window yet — see note above.';
+                tbody.innerHTML = `<tr><td colspan="8">${hint}</td></tr>`;
                 return;
             }
             tbody.innerHTML = rows.map(r => `
@@ -473,15 +537,31 @@
 
                 document.getElementById('engine-label').textContent =
                     transparency.production_engine === 'ml_model' ? 'ML model (OOD-gated)' : 'rules engine';
-                document.getElementById('transparency-note').textContent =
-                    transparency.engine_note || '';
+                renderEngineHealth(data);
                 renderProofChain(data.proof_chain || {});
                 renderAccuracyStats({ oracle, model, moat, exp });
                 renderRegimeTable(data.regime_models || {});
                 renderRegistryTable(data.signal_registry || {});
-                renderPredictionsTable(oracle.recent_predictions || []);
+                renderPredictionsTable(
+                    oracle.recent_predictions || [],
+                    oracle.recent_table_footnote || ''
+                );
                 renderLearningEvents((data.learning_experience || {}).recent_events || []);
-            } catch (error) { console.debug(error); }
+            } catch (error) {
+                console.debug(error);
+                document.getElementById('proof-panel').textContent = 'Accuracy data unavailable — retry or use JSON API.';
+                document.getElementById('regime-status').textContent = 'Regime registry unavailable.';
+                document.getElementById('registry-status').textContent = 'Feature registry unavailable.';
+                document.getElementById('predictions-body').innerHTML =
+                    '<tr><td colspan="8">Could not load predictions — check /api/oracle/accuracy/public</td></tr>';
+                document.getElementById('events-list').innerHTML =
+                    '<li>Learning log unavailable.</li>';
+                const badge = document.getElementById('engine-badge');
+                if (badge) {
+                    badge.className = 'badge badge-warn';
+                    badge.textContent = 'Engine · unknown';
+                }
+            }
         }
 
         async function verifyChain() {
@@ -523,7 +603,12 @@
                         `</li>`
                     ).join('');
                 }
-            } catch (error) { console.debug(error); document.getElementById('locked-status').textContent = 'Locked predictions unavailable'; }
+            } catch (error) {
+                console.debug(error);
+                document.getElementById('locked-status').textContent = 'Locked predictions unavailable';
+                document.getElementById('locked-list').innerHTML =
+                    '<li>Could not load sealed forecasts — /api/locked-predictions unreachable.</li>';
+            }
         }
 
         let lastLosingShare = '';
@@ -571,7 +656,13 @@
                 const tg = document.getElementById('ledgerShareTg');
                 if (x && d.share_urls && d.share_urls.x) x.href = safeUrl(d.share_urls.x) || '#';
                 if (tg && d.share_urls && d.share_urls.telegram) tg.href = safeUrl(d.share_urls.telegram) || '#';
-            } catch (error) { console.debug(error); }
+            } catch (error) {
+                console.debug(error);
+                const preview = document.getElementById('ledger-share-preview');
+                if (preview) {
+                    preview.textContent = 'Share kit unavailable — using this page URL: ' + location.origin + '/oracle-accuracy';
+                }
+            }
         }
         document.getElementById('shareLedgerBtn')?.addEventListener('click', () => {
             navigator.clipboard.writeText(lastLedgerShare);
@@ -615,17 +706,32 @@
                         ' · human fields remain for timing/channel';
                 }
                 const gates = document.getElementById('glass-operator-gates');
-                if (gates && Array.isArray(rb.gates)) {
-                    gates.innerHTML = rb.gates.map(g =>
-                        `<li><strong>${esc(g.label || g.id)}</strong> · ${esc(g.status || '—')}` +
-                        (g.check ? ` · <code>${esc(g.check)}</code>` : '') + '</li>'
-                    ).join('');
+                if (gates) {
+                    const gateRows = Array.isArray(rb.gates) ? rb.gates : [];
+                    gates.innerHTML = gateRows.length
+                        ? gateRows.map(g =>
+                            `<li><strong>${esc(g.label || g.id)}</strong> · ${esc(g.status || '—')}` +
+                            (g.check ? ` · <code>${esc(g.check)}</code>` : '') + '</li>'
+                        ).join('')
+                        : '<li>No operator gates returned.</li>';
                 }
                 const tm = document.getElementById('glass-tminus');
-                if (tm && Array.isArray(rb.t_minus_checklist)) {
-                    tm.innerHTML = rb.t_minus_checklist.map(s => '<li>' + esc(s) + '</li>').join('');
+                if (tm) {
+                    const steps = Array.isArray(rb.t_minus_checklist) ? rb.t_minus_checklist : [];
+                    tm.innerHTML = steps.length
+                        ? steps.map(s => '<li>' + esc(s) + '</li>').join('')
+                        : '<li>T-minus checklist not published.</li>';
                 }
-            } catch (error) { console.debug(error); document.getElementById('glass-hook').textContent = 'Glass Box pack unavailable'; }
+            } catch (error) {
+                console.debug(error);
+                document.getElementById('glass-hook').textContent = 'Glass Box pack unavailable';
+                const st = document.getElementById('glass-operator-status');
+                if (st) st.textContent = 'Operator gates could not load — /api/glass-box/challenge failed.';
+                const gates = document.getElementById('glass-operator-gates');
+                if (gates) gates.innerHTML = '<li>Operator gate list unavailable.</li>';
+                const tm = document.getElementById('glass-tminus');
+                if (tm) tm.innerHTML = '<li>Operator checklist unavailable.</li>';
+            }
         }
         document.getElementById('copyGlassBtn')?.addEventListener('click', () => {
             if (lastGlassShare) navigator.clipboard.writeText(lastGlassShare);
@@ -646,7 +752,12 @@
                 if (foot) {
                     foot.innerHTML = `<strong>Anti-Hype</strong> · ${esc(c.data_source || '')} · ${esc(c.disclaimer || 'Not financial advice.')}`;
                 }
-            } catch (error) { console.debug(error); document.getElementById('mev-status').textContent = 'MEV report unavailable'; }
+            } catch (error) {
+                console.debug(error);
+                document.getElementById('mev-status').textContent = 'MEV report unavailable';
+                document.getElementById('mev-mitigations').innerHTML =
+                    '<li>Could not load mitigations — /api/mev/sandwich-report failed.</li>';
+            }
         }
         document.getElementById('copyMevBtn')?.addEventListener('click', () => {
             if (lastMevShare) navigator.clipboard.writeText(lastMevShare);

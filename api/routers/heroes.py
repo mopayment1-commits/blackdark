@@ -5,7 +5,7 @@ from __future__ import annotations
 import asyncio
 import logging
 
-from fastapi import APIRouter, Body, Depends, HTTPException, Query
+from fastapi import APIRouter, Body, Depends, HTTPException, Query, Request
 
 from api.openapi_responses import COMMON_ERROR_RESPONSES
 from security_auth import optional_user_from_request
@@ -248,9 +248,11 @@ async def glass_box_operator():
 
 
 @router.get("/api/ledger/share-kit")
-async def ledger_share_kit():
+async def ledger_share_kit(request: Request):
     """Hero #3 — shareable Public Accuracy Ledger kit (no login)."""
     from heroes_quality import build_ledger_share_kit
+
+    origin = str(request.base_url).rstrip("/")
 
     accuracy_pct = None
     total = None
@@ -280,7 +282,11 @@ async def ledger_share_kit():
                 total = None
     except Exception:
         pass
-    return build_ledger_share_kit(accuracy_pct=accuracy_pct, total_predictions=total)
+    return build_ledger_share_kit(
+        accuracy_pct=accuracy_pct,
+        total_predictions=total,
+        origin=origin,
+    )
 
 
 @router.get("/api/heroes/quality")

@@ -101,11 +101,33 @@ async def build_public_accuracy_payload(*, recent_limit: int = 20) -> dict[str, 
 
 
 
-    public_recent, correct, resolved_rows = _public_recent_predictions(stats.get("recent") or [])
-
-
+    recent_raw = stats.get("recent") or []
+    public_recent, correct, resolved_rows = _public_recent_predictions(recent_raw)
 
     hit_rate = round(correct / resolved_rows * 100, 2) if resolved_rows else 0.0
+
+    live_block = stats.get("live") or {}
+    live_resolved = int(
+        live_block.get("resolved_predictions", stats.get("resolved_predictions", 0)) or 0
+    )
+    live_total = int(live_block.get("total_predictions", stats.get("total_predictions", 0)) or 0)
+    live_pending = int(
+        live_block.get("pending_predictions", stats.get("pending_predictions", 0)) or 0
+    )
+    metrics_footnote = (
+        f"Average accuracy is the cumulative mean over {live_resolved} resolved live prediction(s). "
+        f"Logged total ({live_total}) includes {live_pending} still pending 24h resolution."
+    )
+    if public_recent:
+        recent_table_footnote = (
+            f"Showing {min(len(public_recent), recent_limit)} most recent resolved rows "
+            f"from the last {len(recent_raw)} logged prediction(s) in this window."
+        )
+    else:
+        recent_table_footnote = (
+            f"No resolved rows in the last {len(recent_raw)} logged prediction(s) "
+            f"(window limit {recent_limit}). Cumulative stats above still use all {live_resolved} resolved live rows."
+        )
 
 
 
@@ -188,6 +210,14 @@ async def build_public_accuracy_payload(*, recent_limit: int = 20) -> dict[str, 
             "recent_predictions": public_recent[:recent_limit],
 
             "metrics_scope": "live_only",
+
+            "recent_resolved_shown": len(public_recent[:recent_limit]),
+
+            "recent_window_scanned": len(recent_raw),
+
+            "metrics_footnote": metrics_footnote,
+
+            "recent_table_footnote": recent_table_footnote,
 
         },
 
