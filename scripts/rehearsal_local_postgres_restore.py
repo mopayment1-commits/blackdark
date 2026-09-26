@@ -7,6 +7,7 @@ import json
 import os
 import subprocess
 import sys
+import tempfile
 import time
 from pathlib import Path
 
@@ -17,6 +18,21 @@ EVIDENCE_PATH = EVIDENCE_DIR / "local_postgres_restore_rehearsal.json"
 DB_NAME = "blackdark_pr_restore_rehearsal"
 MARKER_TABLE = "pr_restore_marker"
 MARKER_VALUE = "pr-restore-marker-v1"
+
+# Fixed rehearsal SQL (constants only — no dynamic SQL composition for Bandit B608).
+_SQL_DROP_DB = "DROP DATABASE IF EXISTS blackdark_pr_restore_rehearsal;"
+_SQL_CREATE_DB = "CREATE DATABASE blackdark_pr_restore_rehearsal;"
+_SQL_CREATE_MARKER = (
+    "CREATE TABLE pr_restore_marker (id serial PRIMARY KEY, marker text NOT NULL, "
+    "created_at timestamptz DEFAULT now());"
+)
+_SQL_INSERT_MARKER = "INSERT INTO pr_restore_marker (marker) VALUES ('pr-restore-marker-v1');"
+_SQL_DELETE_MARKERS = "DELETE FROM pr_restore_marker;"
+_SQL_COUNT_MARKERS = "SELECT count(*) FROM pr_restore_marker;"
+_SQL_SELECT_MARKER = "SELECT marker FROM pr_restore_marker LIMIT 1;"
+_SQL_SCHEMA_CHECK = (
+    "SELECT count(*) FROM information_schema.tables WHERE table_name = 'pr_restore_marker';"
+)
 
 
 def _run(cmd: list[str], *, env: dict[str, str] | None = None, check: bool = True) -> subprocess.CompletedProcess[str]:
@@ -41,9 +57,8 @@ def _database_url() -> str:
 
 def main() -> int:
     EVIDENCE_DIR.mkdir(parents=True, exist_ok=True)
-    out_dir = Path("/tmp/blackdark_pr_rehearsal_backups")
-    out_dir.mkdir(parents=True, exist_ok=True)
-    os.chmod(out_dir, 0o770)
+    out_dir = Path(tempfile.mkdtemp(prefix="blackdark_pr_rehearsal_backups_"))
+    os.chmod(out_dir, 0o700)
     gaps: list[str] = []
     evidence: dict[str, object] = {
         "LOCAL_POSTGRES_RESTORE_REHEARSAL_PERFORMED": True,
@@ -52,12 +67,10 @@ def main() -> int:
     }
 
     try:
-        _psql(f"DROP DATABASE IF EXISTS {DB_NAME};")
-        _psql(f"CREATE DATABASE {DB_NAME};")
-        _psql_db(
-            f"CREATE TABLE {MARKER_TABLE} (id serial PRIMARY KEY, marker text NOT NULL, created_at timestamptz DEFAULT now());"
-        )
-        _psql_db(f"INSERT INTO {MARKER_TABLE} (marker) VALUES ('{MARKER_VALUE}');")
+        _psql(_SQL_DROP_DB)
+        _psql(_SQL_CREATE_DB)
+        _psql_db(_SQL_CREATE_MARKER)
+        _psql_db(_SQL_INSERT_MARKER)
 
         env = os.environ.copy()
         env["DATABASE_URL"] = _database_url()
@@ -73,17 +86,17 @@ def main() -> int:
             evidence["BACKUP_CREATION_VERIFIED"] = True
             dump_path = backups[-1]
 
-            _psql_db(f"DELETE FROM {MARKER_TABLE};")
+            _psql_db(_SQL_DELETE_MARKERS)
             count = _run(
-                ["sudo", "-u", "postgres", "psql", "-tAc", f"SELECT count(*) FROM {MARKER_TABLE};", "-d", DB_NAME],
+                ["sudo", "-u", "postgres", "psql", "-tAc", _SQL_COUNT_MARKERS, "-d", DB_NAME],
                 check=True,
             ).stdout.strip()
             if count != "0":
                 gaps.append("controlled_delete_failed")
 
             # Destructive restore requires clean database (plain SQL dump includes CREATE).
-            _psql(f"DROP DATABASE IF EXISTS {DB_NAME};")
-            _psql(f"CREATE DATABASE {DB_NAME};")
+            _psql(_SQL_DROP_DB)
+            _psql(_SQL_CREATE_DB)
 
             restore = _run(
                 [
@@ -106,7 +119,7 @@ def main() -> int:
                 evidence["RESTORE_EXECUTION_VERIFIED"] = True
 
             restored = _run(
-                ["sudo", "-u", "postgres", "psql", "-tAc", f"SELECT marker FROM {MARKER_TABLE} LIMIT 1;", "-d", DB_NAME],
+                ["sudo", "-u", "postgres", "psql", "-tAc", _SQL_SELECT_MARKER, "-d", DB_NAME],
                 check=True,
             ).stdout.strip()
             if restored != MARKER_VALUE:
@@ -121,7 +134,7 @@ def main() -> int:
                     "postgres",
                     "psql",
                     "-tAc",
-                    "SELECT count(*) FROM information_schema.tables WHERE table_name = %s;" % f"'{MARKER_TABLE}'",
+                    _SQL_SCHEMA_CHECK,
                     "-d",
                     DB_NAME,
                 ],

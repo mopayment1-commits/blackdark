@@ -6,6 +6,7 @@ import asyncio
 
 
 def test_payments_architecture_usd_no_pan():
+    from billing.plan_registry import PLAN_DEFINITIONS
     from payments_usd import BILLING_CURRENCY, payments_architecture, refund_policy_public
 
     assert BILLING_CURRENCY == "usd"
@@ -14,9 +15,9 @@ def test_payments_architecture_usd_no_pan():
     assert arch["security"]["stores_pan"] is False
     assert arch["security"]["stores_cvv"] is False
     assert arch["security"]["pci_target"] == "SAQ_A"
-    assert arch["self_serve_skus"]["pro"]["amount_usd"] == 19
-    assert arch["self_serve_skus"]["elite"]["amount_usd"] == 49
-    assert arch["self_serve_skus"]["quant"]["amount_usd"] == 199
+    assert arch["self_serve_skus"]["pro"]["amount_usd"] == PLAN_DEFINITIONS["pro"]["price_usd_month"]
+    assert arch["self_serve_skus"]["elite"]["amount_usd"] == PLAN_DEFINITIONS["elite"]["price_usd_month"]
+    assert arch["self_serve_skus"]["quant"]["amount_usd"] == PLAN_DEFINITIONS["quant"]["price_usd_month"]
     assert arch["institutional"]["self_serve"] is False
     assert "card" in {m["id"] for m in arch["payment_methods_launch"]}
     refund = refund_policy_public()
@@ -25,14 +26,15 @@ def test_payments_architecture_usd_no_pan():
 
 
 def test_billing_tiers_currency_usd():
+    from billing.plan_registry import PLAN_DEFINITIONS
     from billing_service import BILLING_CURRENCY, STRIPE_TIERS
 
     assert BILLING_CURRENCY == "usd"
     assert STRIPE_TIERS["pro"]["currency"] == "usd"
-    assert STRIPE_TIERS["pro"]["amount"] == 1900
-    assert STRIPE_TIERS["elite"]["amount"] == 4900
-    assert STRIPE_TIERS["quant"]["amount"] == 19900
-    assert STRIPE_TIERS["whale"]["amount"] == 4900
+    assert STRIPE_TIERS["pro"]["amount"] == PLAN_DEFINITIONS["pro"]["price_cents"]
+    assert STRIPE_TIERS["elite"]["amount"] == PLAN_DEFINITIONS["elite"]["price_cents"]
+    assert STRIPE_TIERS["quant"]["amount"] == PLAN_DEFINITIONS["quant"]["price_cents"]
+    assert STRIPE_TIERS["whale"]["amount"] == PLAN_DEFINITIONS["elite"]["price_cents"]
 
 
 def test_pricing_catalog_currency():

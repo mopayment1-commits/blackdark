@@ -39,6 +39,10 @@ jobs:
           pip install --require-hashes --only-binary=:all: -r requirements.hashes.txt
 
       - name: Generate Cobertura coverage.xml
+        env:
+          SERVICE_BUS_LOCAL: "true"
+          BLACKDARK_CI_DETERMINISTIC_CLOSURE: "true"
+          PYTHONPATH: ${{ github.workspace }}
         run: |
           # Broad green suite for Sonar import. Exclude load/network + CI-flake DB suites.
           python -m pytest \
