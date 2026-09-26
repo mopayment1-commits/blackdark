@@ -746,7 +746,7 @@
             <p class="hero-headline">{{ t('hero.headline') }}</p>
             <p class="hero-support">{{ t('hero.support') }}</p>
             <div class="hero-cta">
-                <a href="#try-oracle" class="btn-primary">{{ t('hero.cta.try') }}</a>
+                <a href="#oracle" class="btn-primary">{{ t('hero.cta.try') }}</a>
                 <a href="#seal" class="btn-seal"><span class="btn-seal-play" aria-hidden="true">▶</span> {{ t('hero.cta.seal') }}</a>
             </div>
             <section id="trust-pulse" class="trust-pulse-mini" aria-live="polite" aria-label="Trust Pulse">
@@ -828,25 +828,6 @@
             <h2>{{ t('prove.title') }}</h2>
             <p>{{ t('prove.sub') }}</p>
         </div>
-<div class="oracle-demo" id="telegram-free" style="margin-top:2rem">
-                <div class="oracle-demo-header">
-                    <h3>Telegram Free Alerts</h3>
-                    <div class="live-indicator"><span class="live-dot"></span>3/day free</div>
-                </div>
-                <p style="color:var(--text-muted);margin-bottom:1rem;font-size:0.95rem">
-                    Subscribe in Telegram — get top arbitrage + Oracle signals. No credit card.
-                </p>
-                <div class="hero-cta" style="margin-bottom:0">
-                    <a id="telegramBotLink" href="{{ telegram_bot_url or 'https://t.me/BLACKDARKAI_oncall_bot' }}" class="btn-primary" target="_blank" rel="noopener">
-                        {% if telegram_bot_username %}@{{ telegram_bot_username }} — Start Free{% else %}Open Telegram Bot{% endif %}
-                    </a>
-                    <a href="/oracle-accuracy" class="btn-secondary">See AI Accuracy</a>
-                </div>
-                <p style="color:var(--text-muted);margin-top:1rem;font-size:0.82rem">
-                    Commands: /start · /status · /accuracy · /stop
-                </p>
-            </div>
-            
             <div class="oracle-demo" id="oracle">
                 <div class="oracle-demo-header">
                     <h3>BLACKDARK Oracle</h3>
@@ -906,6 +887,25 @@
                         <a href="#" class="share-btn share-copy" id="shareCopyBtn" href="#">Copy Link</a>
                     </div>
                 </div>
+            </div>
+
+            <div class="oracle-demo" id="telegram-free" style="margin-top:2rem">
+                <div class="oracle-demo-header">
+                    <h3>Telegram Free Alerts</h3>
+                    <div class="live-indicator"><span class="live-dot"></span>3/day free</div>
+                </div>
+                <p style="color:var(--text-muted);margin-bottom:1rem;font-size:0.95rem">
+                    Subscribe in Telegram — get top arbitrage + Oracle signals. No credit card.
+                </p>
+                <div class="hero-cta" style="margin-bottom:0">
+                    <a id="telegramBotLink" href="{{ telegram_bot_url or 'https://t.me/BLACKDARKAI_oncall_bot' }}" class="btn-primary" target="_blank" rel="noopener">
+                        {% if telegram_bot_username %}@{{ telegram_bot_username }} — Start Free{% else %}Open Telegram Bot{% endif %}
+                    </a>
+                    <a href="/oracle-accuracy" class="btn-secondary">See AI Accuracy</a>
+                </div>
+                <p style="color:var(--text-muted);margin-top:1rem;font-size:0.82rem">
+                    Commands: /start · /status · /accuracy · /stop
+                </p>
             </div>
     </section>
 

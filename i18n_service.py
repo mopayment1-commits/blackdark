@@ -308,7 +308,7 @@ EN: dict[str, str] = {
     "lenses.room.body": "Institutional from $3,000 → open: Data Room, SSO/MFA, SLA — Talk to us.",
     "lenses.cta": "Open the lenses",
     "prove.title": "Prove · Decide",
-    "prove.sub": "One clear Act/Wait + Why + shareable Proof Card. Four lenses: Prove → Operate → Desk → Room.",
+    "prove.sub": "One clear CONDITIONS MET / Wait + Why + shareable Proof Card. Four lenses: Prove → Operate → Desk → Room.",
     "feat.pulse.title": "Trust Pulse",
     "feat.pulse.body": "One live Act / Wait with Why under five seconds — the first thing you see, every time.",
     "feat.cert.title": "Decision Certificate",
