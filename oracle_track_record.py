@@ -156,7 +156,7 @@ def public_track_record() -> dict[str, Any]:
     from supplemental_public_compliance import sanitize_public_decision_records
 
     summary = chain_summary(limit=50)
-    verify = verify_chain()
+    verify = summary.get("integrity") or {}
 
     all_resolved = [
         r for r in _read_all_records()

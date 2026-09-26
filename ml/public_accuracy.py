@@ -13,10 +13,31 @@ Live-only hit rate is the primary metric; synthetic seeded data is labeled separ
 from __future__ import annotations
 
 import asyncio
+import copy
+import os
+import time
 from typing import Any
 
 import config
 from oracle_integrity import is_synthetic_prediction
+
+_PAYLOAD_CACHE: dict[str, Any] | None = None
+_PAYLOAD_CACHE_KEY: tuple[Any, ...] | None = None
+_PAYLOAD_CACHE_AT: float = 0.0
+_PAYLOAD_LOCK = asyncio.Lock()
+
+
+def _public_accuracy_cache_key(recent_limit: int) -> tuple[Any, ...]:
+    from oracle_audit_chain import _chain_file_fingerprint, chain_path
+
+    return (recent_limit, _chain_file_fingerprint(chain_path()))
+
+
+def invalidate_public_accuracy_cache() -> None:
+    global _PAYLOAD_CACHE, _PAYLOAD_CACHE_KEY, _PAYLOAD_CACHE_AT
+    _PAYLOAD_CACHE = None
+    _PAYLOAD_CACHE_KEY = None
+    _PAYLOAD_CACHE_AT = 0.0
 
 
 def _track_record_block() -> dict[str, Any]:
@@ -87,28 +108,70 @@ def _public_recent_predictions(
 
 
 async def build_public_accuracy_payload(*, recent_limit: int = 20) -> dict[str, Any]:
+    ttl = float(os.getenv("PUBLIC_ACCURACY_CACHE_SEC", "25"))
+    key = _public_accuracy_cache_key(recent_limit)
+    now = time.monotonic()
+    global _PAYLOAD_CACHE, _PAYLOAD_CACHE_KEY, _PAYLOAD_CACHE_AT
+    if (
+        _PAYLOAD_CACHE is not None
+        and _PAYLOAD_CACHE_KEY == key
+        and (now - _PAYLOAD_CACHE_AT) < ttl
+    ):
+        return copy.deepcopy(_PAYLOAD_CACHE)
+    async with _PAYLOAD_LOCK:
+        now = time.monotonic()
+        if (
+            _PAYLOAD_CACHE is not None
+            and _PAYLOAD_CACHE_KEY == key
+            and (now - _PAYLOAD_CACHE_AT) < ttl
+        ):
+            return copy.deepcopy(_PAYLOAD_CACHE)
+        payload = await _build_public_accuracy_payload_uncached(recent_limit=recent_limit)
+        _PAYLOAD_CACHE = payload
+        _PAYLOAD_CACHE_KEY = key
+        _PAYLOAD_CACHE_AT = now
+        return copy.deepcopy(payload)
 
-    from database import fetch_labeled_oracle_predictions, fetch_oracle_audit_stats
+
+async def _build_public_accuracy_payload_uncached(*, recent_limit: int = 20) -> dict[str, Any]:
+    from database import count_labeled_oracle_predictions, fetch_oracle_audit_stats
+    from ml.drift_monitor import load_feature_envelope
     from ml.experience_log import public_experience_block
     from ml.train_baseline import model_status
     from ml.training_utils import LEAKAGE_GUARD_NOTE
-
-
-
-    stats = await fetch_oracle_audit_stats(limit=recent_limit, include_synthetic=False)
-
     from oracle_audit_chain import chain_summary, read_recent_chain_records
 
-    chain_ctx = await asyncio.to_thread(lambda: chain_summary(limit=8))
+    stats, ml_status, labeled_count, experience = await asyncio.gather(
+        fetch_oracle_audit_stats(limit=recent_limit, include_synthetic=False),
+        model_status(),
+        count_labeled_oracle_predictions(include_synthetic=False),
+        asyncio.to_thread(public_experience_block),
+    )
+
+    def _chain_and_blocks() -> tuple[Any, ...]:
+        chain_ctx = chain_summary(limit=8)
+        chain_recent_tail = read_recent_chain_records(200)
+        return (
+            chain_ctx,
+            chain_recent_tail,
+            _track_record_block(),
+            _regime_models_block(),
+            _signal_registry_block(),
+            _drift_status_block(),
+            load_feature_envelope(),
+        )
+
+    (
+        chain_ctx,
+        chain_recent_tail,
+        track_record_block,
+        regime_block,
+        signal_block,
+        drift_block,
+        envelope,
+    ) = await asyncio.to_thread(_chain_and_blocks)
     chain_verify = chain_ctx.get("integrity") or {}
-    chain_recent_tail = await asyncio.to_thread(lambda: read_recent_chain_records(200))
     chain_lookup = _chain_lookup_from_recent(chain_recent_tail)
-
-    ml_status = await model_status()
-
-    labeled = await fetch_labeled_oracle_predictions(limit=1000, include_synthetic=False)
-
-    experience = public_experience_block()
 
 
 
@@ -141,16 +204,6 @@ async def build_public_accuracy_payload(*, recent_limit: int = 20) -> dict[str, 
         )
 
 
-
-    track_record_block = _track_record_block()
-
-
-
-    from ml.drift_monitor import load_feature_envelope
-
-
-
-    envelope = load_feature_envelope()
 
     production_engine = "ml_model" if ml_status.get("latest_model_loaded") else "rules_engine"
 
@@ -256,7 +309,7 @@ async def build_public_accuracy_payload(*, recent_limit: int = 20) -> dict[str, 
 
             "production_engine": production_engine,
 
-            "labeled_samples": len(labeled),
+            "labeled_samples": int(labeled_count),
 
             "min_samples_required": ml_status.get("min_samples_required"),
 
@@ -290,11 +343,11 @@ async def build_public_accuracy_payload(*, recent_limit: int = 20) -> dict[str, 
 
         "proof_chain": _proof_chain_block_from_summary(chain_ctx, chain_verify),
 
-        "regime_models": _regime_models_block(),
+        "regime_models": regime_block,
 
-        "signal_registry": _signal_registry_block(),
+        "signal_registry": signal_block,
 
-        "drift": _drift_status_block(),
+        "drift": drift_block,
 
         "constitution": "docs/PRODUCT_CONSTITUTION_AR.md",
 

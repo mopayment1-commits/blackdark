@@ -5,6 +5,21 @@ import json
 import oracle_audit_chain as chain
 
 
+def test_verify_chain_uses_short_cache(tmp_path, monkeypatch):
+    chain = tmp_path / "chain.jsonl"
+    monkeypatch.setattr("oracle_audit_chain.CHAIN_PATH", chain)
+    monkeypatch.setattr("oracle_audit_chain.chain_path", lambda: chain)
+    monkeypatch.setenv("ORACLE_CHAIN_VERIFY_CACHE_SEC", "60")
+    from oracle_audit_chain import invalidate_verify_chain_cache, verify_chain
+
+    invalidate_verify_chain_cache()
+    chain.write_text("")
+    first = verify_chain(chain)
+    second = verify_chain(chain)
+    assert first == second
+    assert first["valid"] is True
+
+
 def test_append_and_verify_chain(tmp_path, monkeypatch):
     path = tmp_path / "chain.jsonl"
     monkeypatch.setattr(chain, "CHAIN_PATH", path)

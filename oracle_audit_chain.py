@@ -11,6 +11,7 @@ import json
 import logging
 import os
 import threading
+import time
 from contextlib import contextmanager
 from datetime import UTC, datetime
 from pathlib import Path
@@ -27,6 +28,62 @@ logger = logging.getLogger("BLACKDARK.OracleAuditChain")
 # Production readers should prefer chain_path() which also honors live env overrides.
 CHAIN_PATH = Path(os.getenv("ORACLE_AUDIT_CHAIN_PATH", "data/oracle_audit_chain.jsonl"))
 _APPEND_LOCK = threading.Lock()
+_VERIFY_CACHE_LOCK = threading.Lock()
+_VERIFY_CACHE: dict[str, Any] | None = None
+_VERIFY_CACHE_KEY: tuple[int, int] | None = None
+_VERIFY_CACHE_AT: float = 0.0
+
+
+def _chain_file_fingerprint(path: Path) -> tuple[int, int]:
+    try:
+        st = path.stat()
+        return (st.st_mtime_ns, st.st_size)
+    except OSError:
+        return (0, 0)
+
+
+def invalidate_verify_chain_cache() -> None:
+    global _VERIFY_CACHE, _VERIFY_CACHE_KEY, _VERIFY_CACHE_AT
+    with _VERIFY_CACHE_LOCK:
+        _VERIFY_CACHE = None
+        _VERIFY_CACHE_KEY = None
+        _VERIFY_CACHE_AT = 0.0
+
+
+def _verify_chain_uncached(chain: Path) -> dict[str, Any]:
+    if not chain.exists():
+        return {"valid": True, "records": 0, "message": "empty chain", "chain_path": str(chain)}
+
+    prev_hash = "0" * 64
+    records = 0
+    broken_at: int | None = None
+
+    with chain.open("r", encoding="utf-8") as fh:
+        for line in fh:
+            if not line.strip():
+                continue
+            records += 1
+            entry = json.loads(line)
+            stored = entry.pop("chain_hash", "")
+            expected = _hash_record(entry, prev_hash)
+            entry["chain_hash"] = stored
+            if stored != expected or entry.get("prev_hash") != prev_hash:
+                broken_at = records
+                break
+            prev_hash = stored
+
+    out: dict[str, Any] = {
+        "valid": broken_at is None,
+        "records": records,
+        "broken_at_seq": broken_at,
+        "chain_path": str(chain),
+    }
+    if broken_at is not None:
+        out["integrity_failure_reason"] = (
+            f"Record seq={broken_at} has prev_hash or chain_hash mismatch "
+            "(tamper, corruption, or concurrent append race)."
+        )
+    return out
 
 
 @contextmanager
@@ -86,40 +143,24 @@ def _count_records(path: Path) -> int:
 
 
 def verify_chain(path: Path | None = None) -> dict[str, Any]:
-    """Verify integrity of entire chain."""
+    """Verify integrity of entire chain (short TTL + file fingerprint cache)."""
     chain = path or chain_path()
-    if not chain.exists():
-        return {"valid": True, "records": 0, "message": "empty chain", "chain_path": str(chain)}
-
-    prev_hash = "0" * 64
-    records = 0
-    broken_at: int | None = None
-
-    with chain.open("r", encoding="utf-8") as fh:
-        for line in fh:
-            if not line.strip():
-                continue
-            records += 1
-            entry = json.loads(line)
-            stored = entry.pop("chain_hash", "")
-            expected = _hash_record(entry, prev_hash)
-            entry["chain_hash"] = stored
-            if stored != expected or entry.get("prev_hash") != prev_hash:
-                broken_at = records
-                break
-            prev_hash = stored
-
-    out: dict[str, Any] = {
-        "valid": broken_at is None,
-        "records": records,
-        "broken_at_seq": broken_at,
-        "chain_path": str(chain),
-    }
-    if broken_at is not None:
-        out["integrity_failure_reason"] = (
-            f"Record seq={broken_at} has prev_hash or chain_hash mismatch "
-            "(tamper, corruption, or concurrent append race)."
-        )
+    ttl = float(os.getenv("ORACLE_CHAIN_VERIFY_CACHE_SEC", "45"))
+    fp = _chain_file_fingerprint(chain)
+    now = time.monotonic()
+    global _VERIFY_CACHE, _VERIFY_CACHE_KEY, _VERIFY_CACHE_AT
+    with _VERIFY_CACHE_LOCK:
+        if (
+            _VERIFY_CACHE is not None
+            and _VERIFY_CACHE_KEY == fp
+            and (now - _VERIFY_CACHE_AT) < ttl
+        ):
+            return dict(_VERIFY_CACHE)
+    out = _verify_chain_uncached(chain)
+    with _VERIFY_CACHE_LOCK:
+        _VERIFY_CACHE = dict(out)
+        _VERIFY_CACHE_KEY = fp
+        _VERIFY_CACHE_AT = now
     return out
 
 
@@ -158,6 +199,7 @@ def repair_tip_prev_hash_race(path: Path | None = None) -> dict[str, Any]:
         tip["chain_hash"] = _hash_record(tip, expected_prev)
         lines[-1] = json.dumps(tip, default=str)
         chain.write_text("\n".join(lines) + "\n", encoding="utf-8")
+        invalidate_verify_chain_cache()
         after = verify_chain(chain)
         return {
             "repaired": after.get("valid") is True,
@@ -203,6 +245,7 @@ def append_prediction_record(record: dict[str, Any]) -> dict[str, Any]:
                     os.fsync(fh.fileno())
                 except OSError:
                     pass
+            invalidate_verify_chain_cache()
             return entry
 
 

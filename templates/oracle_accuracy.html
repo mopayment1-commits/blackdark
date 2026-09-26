@@ -347,15 +347,16 @@
         BLACKDARK — market-data and analytical technology · public outcome ledger (not exhaustive coverage)
     </footer>
 
-    <script src="/static/js/dom_escape.js"></script>
-    <script src="/static/js/public_decision_map.js"></script>
+    <script defer src="/static/js/dom_escape.js"></script>
+    <script defer src="/static/js/public_decision_map.js"></script>
     <script>
-        const ORACLE_LEDGER_FETCH_MS = 12000;
+        const ORACLE_LEDGER_FETCH_MS = 3000;
+        const ORACLE_LEDGER_SECONDARY_MS = 12000;
         const domSafe = window.BDDomSafe || {};
         const esc = domSafe.esc || domSafe.escapeHtml || ((v) => String(v ?? ''));
         const safeUrl = domSafe.safeUrl || ((v) => String(v ?? ''));
 
-        async function fetchJsonWithTimeout(url, options = {}, timeoutMs = ORACLE_LEDGER_FETCH_MS) {
+        async function fetchJsonWithTimeout(url, options = {}, timeoutMs = ORACLE_LEDGER_SECONDARY_MS) {
             const ctrl = new AbortController();
             const timer = setTimeout(() => ctrl.abort(), timeoutMs);
             try {
@@ -554,7 +555,11 @@
         }
         async function loadAccuracy() {
             try {
-                const data = await fetchJsonWithTimeout('/api/oracle/accuracy/public');
+                const data = await fetchJsonWithTimeout(
+                    '/api/oracle/accuracy/public',
+                    {},
+                    ORACLE_LEDGER_FETCH_MS
+                );
                 const oracle = data.oracle || {};
                 const model = data.model || {};
                 const moat = data.data_moat || {};
@@ -802,22 +807,34 @@
             }
         }
 
+        function scheduleSecondaryLoad(fn) {
+            const run = () => fn().catch(() => {});
+            if (typeof requestIdleCallback === 'function') {
+                requestIdleCallback(run, { timeout: 1500 });
+            } else {
+                setTimeout(run, 0);
+            }
+        }
+
         loadAccuracy().catch(() => failAllLedgerLoads());
-        loadLedgerShareKit().catch(() => {});
-        loadGlassBox().catch(() => {});
-        loadMevReport().catch(() => {});
-        loadLocked().catch(() => {});
-        loadLosing().catch(() => {});
-        loadAuditChallenge().catch(() => {});
+        scheduleSecondaryLoad(loadLedgerShareKit);
+        scheduleSecondaryLoad(loadGlassBox);
+        scheduleSecondaryLoad(loadMevReport);
+        scheduleSecondaryLoad(loadLocked);
+        scheduleSecondaryLoad(loadLosing);
+        scheduleSecondaryLoad(loadAuditChallenge);
 
         setInterval(() => { loadAccuracy().catch(() => {}); }, 60000);
         setInterval(() => { loadLocked().catch(() => {}); }, 120000);
         }
 
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', bootOracleAccuracyLedger);
-        } else {
+        function startLedgerBoot() {
             bootOracleAccuracyLedger();
+        }
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', startLedgerBoot);
+        } else {
+            startLedgerBoot();
         }
     </script>
     {% include "partials/site_footer.html" %}
