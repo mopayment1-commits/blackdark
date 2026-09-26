@@ -6,12 +6,21 @@ from starlette.requests import Request
 
 from supplemental_public_compliance import (
     CONDITIONS_MET_REVIEW_LINE,
+    EU_OPTIONAL_ANALYTICS_BANNER_BODY,
     apply_supplemental_public_layer,
     is_eea_request,
     map_public_decision_action,
     optional_analytics_allowed,
+    optional_analytics_banner_payload,
     scrub_prohibited_phrases,
     scrub_regulatory_claims,
+)
+
+EU_BANNER_BODY_SECTION_8_4 = (
+    "BLACKDARK uses strictly necessary technologies to operate and secure the service. "
+    "With your permission, we may also use optional analytics technologies to understand how the service is used. "
+    "Optional technologies remain disabled unless you choose to accept them. "
+    "You can accept, reject, or manage your preferences."
 )
 
 
@@ -31,6 +40,12 @@ def _request(headers: dict[str, str] | None = None, cookies: dict[str, str] | No
         "http_version": "1.1",
     }
     return Request(scope)
+
+
+def test_eu_optional_analytics_banner_body_section_8_4_literal():
+    assert EU_OPTIONAL_ANALYTICS_BANNER_BODY == EU_BANNER_BODY_SECTION_8_4
+    payload = optional_analytics_banner_payload(_request(headers={"CF-IPCountry": "DE"}))
+    assert payload["body"] == EU_BANNER_BODY_SECTION_8_4
 
 
 def test_visitor_sees_conditions_met_not_act():
