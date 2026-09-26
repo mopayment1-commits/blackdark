@@ -2461,8 +2461,15 @@ async def _compute_oracle_quick_payload(
     resistance = round(price * 1.03, -2)
     action = _oracle_action(score, price, support, resistance)
     sentiment = _oracle_sentiment(change)
-    decision_action = "ACT" if str(verdict).upper() in {"BUY", "ACT", "BULLISH"} else "WAIT"
-    decision_sentence = _quick_decision_sentence(lang, decision_action, asset, score, action)
+    from supplemental_public_compliance import map_public_decision_action, public_decision_sentence
+
+    raw_action = "ACT" if str(verdict).upper() in {"BUY", "ACT", "BULLISH"} else "WAIT"
+    decision_action = map_public_decision_action(raw_action)
+    decision_sentence = (
+        public_decision_sentence(asset, decision_action)
+        if decision_action == "CONDITIONS MET"
+        else _quick_decision_sentence(lang, decision_action, asset, score, action)
+    )
     return _quick_payload(
         asset,
         price,
@@ -2981,13 +2988,17 @@ def _apply_zero_tolerance_safe(payload: dict[str, Any]) -> dict[str, Any]:
         return payload
 
 
-def _sanitize_oracle_response(payload: dict[str, Any], user: dict | None) -> dict[str, Any]:
+def _sanitize_oracle_response(
+    payload: dict[str, Any],
+    user: dict | None,
+    request: Request | None = None,
+) -> dict[str, Any]:
     from regulatory_compliance_guard import apply_regulatory_compliance
     from security_sanitize import sanitize_oracle_payload
 
     if user and is_admin_user(user):
         return apply_regulatory_compliance(payload)
-    return sanitize_oracle_payload(payload)
+    return sanitize_oracle_payload(payload, user=user, request=request)
 
 
 @app.get("/oracle/{symbol}", responses=COMMON_ERROR_RESPONSES)
@@ -3025,7 +3036,7 @@ async def oracle(
         payload = _attach_oracle_freshness_safe(payload, asset)
         payload = _apply_zero_tolerance_safe(payload)
         try:
-            cleaned = _sanitize_oracle_response(payload, user)
+            cleaned = _sanitize_oracle_response(payload, user, request)
         except Exception:
             logger.exception("oracle sanitize failed")
             cleaned = payload
@@ -4182,7 +4193,14 @@ async def analytics_stats():
 
 
 @app.post("/api/analytics/view")
-async def analytics_view(data: dict = Body(default={})):
+async def analytics_view(request: Request, data: dict = Body(default={})):
+    from supplemental_public_compliance import optional_analytics_allowed
+
+    if not optional_analytics_allowed(request):
+        return JSONResponse(
+            {"ok": False, "skipped": True, "reason": "eea_optional_analytics_not_accepted"},
+            status_code=403,
+        )
     from database import increment_platform_metric
 
     page = str(data.get("page") or "page_views")
@@ -4551,9 +4569,20 @@ async def build_info():
 
 @app.post("/portfolio/analyze", responses=COMMON_ERROR_RESPONSES)
 async def portfolio_analyze(
+    request: Request,
     payload: list | dict = Body(...),
     _user: dict | None = Depends(require_feature("portfolio_ai")),
 ):
+    from supplemental_public_compliance import eu_personalization_blocked
+
+    if eu_personalization_blocked(request, _user):
+        raise HTTPException(
+            status_code=403,
+            detail={
+                "error": "eea_personalization_blocked",
+                "message": "Portfolio personalization is not available for EU/EEA public layer.",
+            },
+        )
     if isinstance(payload, dict):
         assets = payload.get("holdings") or payload.get("assets") or payload.get("positions") or []
     else:

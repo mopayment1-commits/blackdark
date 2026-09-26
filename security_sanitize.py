@@ -18,15 +18,22 @@ _SENSITIVE_ORACLE_KEYS = frozenset({
 })
 
 
-def sanitize_oracle_payload(payload: dict[str, Any]) -> dict[str, Any]:
+def sanitize_oracle_payload(
+    payload: dict[str, Any],
+    *,
+    user: dict[str, Any] | None = None,
+    request: Any | None = None,
+) -> dict[str, Any]:
     """Strip proprietary scoring internals and apply regulatory compliance."""
     from regulatory_compliance_guard import apply_regulatory_compliance
+    from supplemental_public_compliance import apply_supplemental_public_layer
 
     cleaned = dict(payload)
     for key in _SENSITIVE_ORACLE_KEYS:
         cleaned.pop(key, None)
     cleaned.pop("oracle_internal_verdict", None)
     out = apply_regulatory_compliance(cleaned)
+    out = apply_supplemental_public_layer(out, user=user, request=request)
     out.pop("oracle_internal_verdict", None)
     if out.get("market_regime"):
         out["weights_protected"] = True

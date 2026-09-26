@@ -2627,6 +2627,30 @@ async def fetch_oracle_audit_stats(
         return empty
 
 
+async def count_labeled_oracle_predictions(*, include_synthetic: bool = False) -> int:
+    from oracle_integrity import live_source_sql
+
+    try:
+        source_clause = "" if include_synthetic else f"AND {live_source_sql()}"
+        async with get_connection() as db:
+            row = await (
+                await db.execute(
+                    f"""
+                    SELECT COUNT(*) AS n
+                    FROM oracle_predictions
+                    WHERE resolved = 1
+                      AND price_after_24h IS NOT NULL
+                      AND label IS NOT NULL
+                      {source_clause}
+                    """,
+                )
+            ).fetchone()
+        return int(row[0] or 0) if row else 0
+    except Exception:
+        logger.exception("Unable to count labeled oracle predictions")
+        return 0
+
+
 async def fetch_labeled_oracle_predictions(
     limit: int = 5000,
     *,

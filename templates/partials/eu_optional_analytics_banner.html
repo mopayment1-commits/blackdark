@@ -1,0 +1,50 @@
+<div id="bd-eu-optional-analytics-banner" class="bd-eu-consent-banner" hidden role="dialog" aria-labelledby="bd-eu-consent-title" aria-live="polite">
+  <div class="bd-eu-consent-inner">
+    <p id="bd-eu-consent-title" class="bd-eu-consent-title">Optional analytics (EU/EEA)</p>
+    <p id="bd-eu-consent-body" class="bd-eu-consent-body"></p>
+    <div class="bd-eu-consent-actions">
+      <button type="button" id="bd-eu-consent-accept" class="bd-eu-btn">ACCEPT OPTIONAL</button>
+      <button type="button" id="bd-eu-consent-reject" class="bd-eu-btn bd-eu-btn-muted">REJECT OPTIONAL</button>
+      <button type="button" id="bd-eu-consent-manage" class="bd-eu-btn bd-eu-btn-muted">MANAGE PREFERENCES</button>
+      <button type="button" id="bd-eu-consent-close" class="bd-eu-btn bd-eu-btn-ghost" aria-label="Close banner">×</button>
+    </div>
+    <p class="bd-eu-consent-links">
+      <a href="/cookies" class="bd-eu-cookie-privacy-link">COOKIE &amp; PRIVACY INFORMATION</a>
+    </p>
+    <p class="bd-eu-consent-note">Closing this banner does not enable optional analytics.</p>
+  </div>
+</div>
+<style>
+  .bd-eu-consent-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10000;
+    background: rgba(10, 10, 15, 0.96);
+    border-top: 1px solid rgba(34, 211, 238, 0.35);
+    padding: 1rem 1.25rem;
+    color: #e4e4e7;
+    box-shadow: 0 -8px 32px rgba(0,0,0,.45);
+  }
+  .bd-eu-consent-inner { max-width: 960px; margin: 0 auto; }
+  .bd-eu-consent-title { font-weight: 700; margin: 0 0 .35rem; font-size: .95rem; }
+  .bd-eu-consent-body { margin: 0 0 .75rem; font-size: .82rem; line-height: 1.45; color: #d4d4d8; }
+  .bd-eu-consent-actions { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+  .bd-eu-btn {
+    border: 1px solid #22d3ee;
+    background: #0e7490;
+    color: #ecfeff;
+    border-radius: 8px;
+    padding: .45rem .7rem;
+    font-size: .75rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .bd-eu-btn-muted { background: #14141c; border-color: #3f3f46; color: #e4e4e7; }
+  .bd-eu-btn-ghost { background: transparent; border-color: transparent; color: #a1a1aa; font-size: 1.1rem; }
+  .bd-eu-consent-links { margin: .45rem 0 0; font-size: .72rem; }
+  .bd-eu-cookie-privacy-link { color: #22d3ee; text-decoration: underline; font-weight: 600; }
+  .bd-eu-consent-note { margin: .5rem 0 0; font-size: .7rem; color: #71717a; }
+</style>
+<script src="/static/js/optional_analytics_consent.js" defer></script>

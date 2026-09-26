@@ -110,6 +110,46 @@ LEGAL_PAGES: dict[str, dict[str, str]] = {
 <p>Clear site data in your browser to remove localStorage tokens (you will need to log in again). For account deletion requests, email support. Full privacy details: <a href="/privacy">Privacy Policy</a>.</p>
 <h2>6. Contact</h2>
 <p>Questions about cookies or storage: <a href="/contact">Contact</a> · Legal hub: <a href="/legal">/legal</a>.</p>
+<h2>Controller identity</h2>
+<p>The <a href="/privacy">Privacy Policy</a> does not publish a separate data-controller legal name or postal address block. For privacy and GDPR-related requests (access, correction, deletion), contact <a href="mailto:support@blackdark.io">support@blackdark.io</a> as described in that policy.</p>
+<h2>Purposes</h2>
+<ul>
+<li><strong>Operate and secure the service</strong> — authentication, session continuity, fraud/abuse protection, and CSRF/OAuth login state.</li>
+<li><strong>Remember your choices</strong> — language, UX mode, and (where applicable) optional analytics consent for visitors in the EU/EEA and UK.</li>
+<li><strong>Product features</strong> — on-device portfolio drafts and client-side preferences until you submit them for analysis.</li>
+<li><strong>Optional analytics (consent only)</strong> — understand how public and free-tier surfaces are used when you explicitly allow it; optional analytics remain disabled until you accept.</li>
+<li><strong>Billing</strong> — checkout and subscription flows via payment processors on their own domains.</li>
+</ul>
+<h2>Categories of technology</h2>
+<p><strong>Strictly necessary</strong> — required to deliver and secure BLACKDARK (for example session/auth storage, security-related HTTP cookies where deployed, and OAuth/CSRF state). These run without a separate marketing or analytics consent layer because the service cannot function safely without them.</p>
+<p><strong>Optional analytics</strong> — client-side optional analytics technologies (for example landing/dashboard usage counters loaded only when allowed) used only for EU/EEA/UK visitors who choose <strong>ACCEPT OPTIONAL</strong> on the first-layer banner. If you choose <strong>REJECT OPTIONAL</strong> or have not accepted, optional analytics technologies stay off; closing the banner without accepting does not enable them.</p>
+<h2>Duration</h2>
+<ul>
+<li><strong>Optional analytics consent cookie</strong> (<code>bd_optional_analytics</code>) — when you accept or reject, the choice is stored for up to <strong>12 months</strong>, then you may be asked again.</li>
+<li><strong>Banner dismiss cookie</strong> (<code>bd_optional_analytics_banner_seen</code>) — when you close the banner without choosing accept/reject, a dismiss flag may be stored for up to <strong>12 months</strong> so the banner is not shown repeatedly; this does not grant optional analytics consent.</li>
+<li><strong>Session / auth storage</strong> — lasts until you log out or clear site data in your browser.</li>
+<li><strong>Payment-processor cookies</strong> — governed by Lemon Squeezy or Stripe retention on their domains during checkout.</li>
+</ul>
+<h2>Third parties</h2>
+<p>We do not deploy invasive third-party advertising or profiling cookies on core Trust OS surfaces. Optional analytics, when enabled, are first-party consent-gated behaviors on BLACKDARK — not sold as advertising profiles.</p>
+<p>During checkout, <strong>Lemon Squeezy</strong> and/or <strong>Stripe</strong> may set cookies on <em>their</em> domains; see their respective policies. BLACKDARK does not store card PAN/CVV.</p>
+<h2>Legal basis</h2>
+<ul>
+<li><strong>Strictly necessary technologies</strong> — legitimate interests in operating, securing, and providing the service, and (where applicable) performance of a contract when you use authenticated features.</li>
+<li><strong>Optional analytics technologies</strong> — your <strong>consent</strong> (EU/EEA/UK visitors). No optional analytics cookies or equivalent technologies are used for this purpose before you accept.</li>
+<li><strong>Payment processors</strong> — contract and legal obligations for billing; processor cookies are set under their terms when you use checkout.</li>
+</ul>
+<h2>Withdrawal and changing your choice</h2>
+<p>For EU/EEA/UK visitors, optional analytics are controlled by the first-layer banner and the consent cookie <code>bd_optional_analytics</code> (values <code>accept</code> or <code>reject</code>).</p>
+<ul>
+<li>Click <strong>REJECT OPTIONAL</strong> to refuse optional analytics; we set <code>bd_optional_analytics=reject</code> and optional analytics stay disabled.</li>
+<li>Click <strong>ACCEPT OPTIONAL</strong> to allow optional analytics; we set <code>bd_optional_analytics=accept</code>.</li>
+<li>Click <strong>×</strong> or dismiss without accepting — optional analytics remain off; we may set <code>bd_optional_analytics_banner_seen=1</code> only to remember that you closed the banner.</li>
+<li>To see the banner again or switch your choice, delete <code>bd_optional_analytics</code> and <code>bd_optional_analytics_banner_seen</code> for this site in your browser (or clear site cookies/data), then reload a page that shows the banner. You can also use <strong>MANAGE PREFERENCES</strong> on the banner to open this page.</li>
+</ul>
+<p>Outside the EU/EEA/UK, optional analytics consent rules in the banner may not apply; core session and security storage still operate as described above.</p>
+<h2>Privacy Policy</h2>
+<p>Personal data processing beyond cookies and local storage is described in our <a href="/privacy">Privacy Policy</a> (including retention, rights, and security).</p>
 """,
     },
     "sla": {

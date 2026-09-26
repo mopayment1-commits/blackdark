@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="BLACKDARK Public Accuracy Ledger — sealed Glass Box forecasts, monthly losing trades, and a verifiable audit hash chain. Prove it.">
+    <meta name="description" content="BLACKDARK Public Accuracy Ledger — sealed Glass Box forecasts, monthly misses and incorrect model states, and a verifiable audit hash chain. Verify on-page.">
     <meta property="og:title" content="BLACKDARK — Public Oracle Accuracy Ledger">
     <meta property="og:description" content="Full public ledger including misses. Glass Box Challenge ready. Labels are not proof.">
     <title>BLACKDARK — Oracle Accuracy Live</title>
@@ -55,6 +55,19 @@
             display: inline-block; padding: 0.35rem 0.9rem; border-radius: 999px;
             background: rgba(34,211,238,0.12); color: var(--accent);
             font-size: 0.85rem; font-weight: 700; margin-bottom: 1rem;
+        }
+        .badge.badge-info {
+            background: rgba(34,211,238,0.12); color: var(--accent);
+        }
+        .badge.badge-warn {
+            background: rgba(245,158,11,0.18); color: var(--warning);
+        }
+        .stat .subnote {
+            color: var(--muted); font-size: 0.72rem; margin-top: 0.45rem; line-height: 1.45;
+        }
+        .metrics-explainer {
+            max-width: 1100px; margin: -0.5rem auto 1.25rem; padding: 0 1.5rem;
+            color: var(--muted); font-size: 0.82rem; line-height: 1.5;
         }
         .grid {
             max-width: 1100px; margin: 0 auto; padding: 1rem 1.5rem 3rem;
@@ -126,13 +139,14 @@
         <p>
             Every decision is logged, resolved after 24 hours, and feeds the learning model.
             Live engine: <strong id="engine-label">rules engine</strong>
+            <span id="engine-badge" class="badge badge-info" style="margin:0 0 0 .5rem;vertical-align:middle;font-size:.75rem">Checking…</span>
         </p>
-        <p id="transparency-note" style="color:var(--warning);font-size:0.9rem;max-width:760px;margin:0.75rem auto 0;"></p>
+        <p id="transparency-note" style="color:var(--muted);font-size:0.9rem;max-width:760px;margin:0.75rem auto 0;"></p>
         <p id="chain-status" style="color:var(--muted);font-size:0.9rem;margin-top:0.5rem"></p>
         <div class="cta-row" style="margin-top:1rem">
             <button class="btn btn-secondary" id="verifyChainBtn" type="button">Verify Audit Chain</button>
             <a class="btn btn-secondary" href="#losing">Public misses / errors</a>
-            <a class="btn btn-secondary" href="#glass-box-challenge">Competitor challenge</a>
+            <a class="btn btn-secondary" href="#glass-box-challenge">Transparency challenge</a>
             <a class="btn btn-secondary" href="/discipline-mirror">Discipline Mirror</a>
             <a class="btn btn-secondary" href="/docs">Developer docs</a>
         </div>
@@ -174,14 +188,13 @@
         <div class="card">
             <h2>The Glass Box Challenge</h2>
             <noscript><p>We challenge every competitor to publish their full accuracy ledger — including misses. Labels are not proof.</p></noscript>
-            <p id="glass-hook" style="color:var(--muted);font-size:0.9rem">Before the next major macro event we seal a timed Decision Certificate in public.</p>
-            <p id="glass-challenge" style="margin-top:0.75rem;font-size:0.95rem">BLACKDARK Glass Box Challenge: publish the full ledger — including misses — permanently and verifiably. Prove it.</p>
-            <p id="glass-story" style="margin-top:0.65rem;color:var(--muted);font-size:0.88rem"></p>
+            <p id="glass-challenge" style="margin-top:0.75rem;font-size:0.95rem">BLACKDARK Glass Box Challenge: publish the full ledger — including misses and incorrect model states — with verifiable audit hashes. Verify here.</p>
+            <p id="glass-context" style="margin-top:0.65rem;color:var(--muted);font-size:0.88rem"></p>
             <ol id="glass-event-steps" style="margin:1rem 0 0 1.2rem;color:var(--muted);font-size:0.88rem;line-height:1.7">
                 <li>Pick one macro/crypto event window</li>
                 <li>Seal timed Decision Certificates before the event</li>
                 <li>Publish challenge text + this ledger link</li>
-                <li>Unlock wins and losses live after resolution</li>
+                <li>Unlock hits and misses / incorrect model states live after resolution</li>
             </ol>
             <div class="cta-row" style="margin-top:1rem;justify-content:flex-start">
                 <button class="btn btn-secondary" type="button" id="copyGlassBtn">Copy challenge text</button>
@@ -241,7 +254,7 @@
             <ul class="events" id="losing-list"><li>Loading...</li></ul>
             <div class="cta-row" style="margin-top:1rem;justify-content:flex-start">
                 <button class="btn btn-secondary" type="button" id="copyLosingBtn">Copy share text</button>
-                <a class="btn btn-secondary" href="#glass-box-challenge">Issue the competitor challenge</a>
+                <a class="btn btn-secondary" href="#glass-box-challenge">Read transparency challenge</a>
             </div>
             <p style="margin-top:0.65rem;font-size:0.72rem;color:var(--muted)"><strong>Anti-Hype</strong> · Not financial advice. Past misses do not predict future results.</p>
         </div>
@@ -260,13 +273,13 @@
 
     <section class="panel">
         <div class="card">
-            <h2>D8 · Signal Registry</h2>
-            <p id="registry-status" style="color:var(--muted);font-size:0.9rem">Loading signal lexicon…</p>
+            <h2>D8 · Feature lexicon (public registry)</h2>
+            <p id="registry-status" style="color:var(--muted);font-size:0.9rem">Loading feature lexicon…</p>
             <div style="overflow-x:auto;margin-top:1rem">
                 <table>
                     <thead>
                         <tr>
-                            <th>Signal type</th>
+                            <th>Entry type</th>
                             <th>Count</th>
                         </tr>
                     </thead>
@@ -279,17 +292,20 @@
     </section>
 
     <section class="grid" id="stats-grid">
-        <div class="stat"><div class="num" id="stat-accuracy">—</div><div class="lbl">Average accuracy %</div></div>
-        <div class="stat"><div class="num" id="stat-total">—</div><div class="lbl">Total predictions</div></div>
+        <div class="stat"><div class="num" id="stat-accuracy">—</div><div class="lbl">Average accuracy %</div><div class="subnote" id="stat-accuracy-note"></div></div>
+        <div class="stat"><div class="num" id="stat-total">—</div><div class="lbl">Total predictions (logged)</div><div class="subnote" id="stat-resolved-note"></div></div>
         <div class="stat"><div class="num" id="stat-labeled">—</div><div class="lbl">Training samples (labeled)</div></div>
         <div class="stat"><div class="num" id="stat-training">—</div><div class="lbl">Training runs</div></div>
         <div class="stat"><div class="num" id="stat-exchanges">—</div><div class="lbl">Exchanges in model</div></div>
         <div class="stat"><div class="num" id="stat-assets">—</div><div class="lbl">Assets tracked</div></div>
     </section>
 
+    <p id="metrics-explainer" class="metrics-explainer" aria-live="polite"></p>
+
     <section class="panel">
         <div class="card">
             <h2>Latest scored predictions</h2>
+            <p id="recent-table-note" style="color:var(--muted);font-size:0.82rem;margin-bottom:0.75rem"></p>
             <div style="overflow-x:auto">
                 <table>
                     <thead>
@@ -328,12 +344,42 @@
     </div>
 
     <footer>
-        BLACKDARK — Proprietary Crypto Intelligence AI · Every prediction tracked
+        BLACKDARK — market-data and analytical technology · public outcome ledger (not exhaustive coverage)
     </footer>
 
-    <script src="/static/js/dom_escape.js"></script>
-    <script type="module">
-        const { esc, safeUrl } = window.BDDomSafe;
+    <script defer src="/static/js/dom_escape.js"></script>
+    <script defer src="/static/js/public_decision_map.js"></script>
+    <script>
+        const ORACLE_LEDGER_FETCH_MS = 3000;
+        const ORACLE_LEDGER_SECONDARY_MS = 12000;
+        const domSafe = window.BDDomSafe || {};
+        const esc = domSafe.esc || domSafe.escapeHtml || ((v) => String(v ?? ''));
+        const safeUrl = domSafe.safeUrl || ((v) => String(v ?? ''));
+
+        async function fetchJsonWithTimeout(url, options = {}, timeoutMs = ORACLE_LEDGER_SECONDARY_MS) {
+            const ctrl = new AbortController();
+            const timer = setTimeout(() => ctrl.abort(), timeoutMs);
+            try {
+                const res = await fetch(url, { ...options, signal: ctrl.signal });
+                clearTimeout(timer);
+                if (!res.ok) {
+                    const err = new Error('http_' + res.status);
+                    err.status = res.status;
+                    throw err;
+                }
+                return await res.json();
+            } catch (error) {
+                clearTimeout(timer);
+                if (error && error.name === 'AbortError') {
+                    const err = new Error('timeout');
+                    err.code = 'timeout';
+                    throw err;
+                }
+                throw error;
+            }
+        }
+
+        function bootOracleAccuracyLedger() {
         function pillClass(label) {
             if (!label) return 'partial';
             if (label === 'correct') return 'correct';
@@ -341,9 +387,19 @@
             return 'partial';
         }
 
+        function publicMissDecisionLabel(row) {
+            const mapped = row?.public_decision;
+            if (mapped) return mapped;
+            const mapFn = window.BDPublicDecision?.mapPublicDecisionAction;
+            if (typeof mapFn === 'function') {
+                return mapFn(row?.verdict ?? row?.action);
+            }
+            return row?.verdict ?? '—';
+        }
+
         function verifyLabel(valid) {
             if (valid === true) return 'VALID ✓';
-            if (valid === false) return 'INVALID';
+            if (valid === false) return 'INVALID — integrity failed';
             return 'n/a';
         }
         function verifyLabelShort(valid) {
@@ -353,7 +409,35 @@
         }
 
 
+        function renderEngineHealth(data) {
+            const transparency = data.transparency || {};
+            const drift = data.drift || {};
+            const verify = (data.proof_chain || {}).verify || {};
+            const badge = document.getElementById('engine-badge');
+            const note = document.getElementById('transparency-note');
+            if (!badge || !note) return;
+
+            const warnings = [];
+            if (verify.valid === false) warnings.push('audit chain INVALID');
+            if (drift.drift_freeze_active || drift.trading_frozen) {
+                warnings.push('drift / trading freeze active');
+            }
+            if (transparency.production_engine === 'ml_model' && drift.drift_envelope_ready === false) {
+                warnings.push('OOD envelope not ready');
+            }
+
+            const degraded = warnings.length > 0;
+            badge.className = 'badge ' + (degraded ? 'badge-warn' : 'badge-info');
+            badge.textContent = degraded ? 'Engine · attention' : 'Engine · operational';
+            note.style.color = degraded ? 'var(--warning)' : 'var(--muted)';
+            const base = transparency.engine_note || '';
+            note.textContent = degraded
+                ? [base, warnings.join(' · ')].filter(Boolean).join(' · ')
+                : base;
+        }
+
         function renderAccuracyStats({ oracle, model, moat, exp }) {
+            const resolved = oracle.resolved_predictions ?? 0;
             document.getElementById('stat-accuracy').textContent =
                 (oracle.average_accuracy_percent || 0).toFixed(1) + '%';
             document.getElementById('stat-total').textContent = oracle.total_predictions || 0;
@@ -361,6 +445,22 @@
             document.getElementById('stat-training').textContent = exp.total_training_runs || 0;
             document.getElementById('stat-exchanges').textContent = moat.exchanges || 0;
             document.getElementById('stat-assets').textContent = moat.assets || 0;
+
+            const accNote = document.getElementById('stat-accuracy-note');
+            if (accNote) {
+                accNote.textContent = resolved
+                    ? `Over ${resolved} resolved live row(s)`
+                    : 'No resolved live rows yet';
+            }
+            const resNote = document.getElementById('stat-resolved-note');
+            if (resNote) {
+                resNote.textContent =
+                    `Resolved: ${resolved} · Pending: ${oracle.pending_predictions ?? 0}`;
+            }
+            const expl = document.getElementById('metrics-explainer');
+            if (expl) expl.textContent = oracle.metrics_footnote || '';
+            const tblNote = document.getElementById('recent-table-note');
+            if (tblNote) tblNote.textContent = oracle.recent_table_footnote || '';
         }
         function renderRegimeTable(regime) {
             document.getElementById('regime-status').textContent =
@@ -387,22 +487,25 @@
         function renderRegistryTable(reg) {
             document.getElementById('registry-status').textContent =
                 `Labeled lexicon · total=${reg.total ?? 0} · labeled=${reg.labeled ?? 0} · unlabeled=${reg.unlabeled ?? 0}` +
-                (reg.moat_claim ? ` · ${reg.moat_claim}` : '');
+                (reg.public_lexicon_note ? ` · ${reg.public_lexicon_note}` : '');
             const byType = reg.by_type || {};
             const regBody = document.getElementById('registry-body');
             const typeKeys = Object.keys(byType);
             if (!typeKeys.length) {
-                regBody.innerHTML = '<tr><td colspan="2">No registered signals yet — lexicon grows with every Oracle decision.</td></tr>';
+                regBody.innerHTML = '<tr><td colspan="2">No registry entries yet — lexicon grows with every Oracle decision.</td></tr>';
                 return;
             }
             regBody.innerHTML = typeKeys.map(k =>
                 `<tr><td>${esc(k)}</td><td>${esc(byType[k])}</td></tr>`
             ).join('');
         }
-        function renderPredictionsTable(rows) {
+        function renderPredictionsTable(rows, footnote) {
             const tbody = document.getElementById('predictions-body');
             if (!rows.length) {
-                tbody.innerHTML = '<tr><td colspan="8">No scored predictions yet — collecting data.</td></tr>';
+                const hint = footnote
+                    ? esc(footnote)
+                    : 'No resolved rows in the recent public window yet — see note above.';
+                tbody.innerHTML = `<tr><td colspan="8">${hint}</td></tr>`;
                 return;
             }
             tbody.innerHTML = rows.map(r => `
@@ -410,7 +513,7 @@
                     <td>${esc(r.prediction_id ?? '—')}</td>
                     <td>${esc((r.timestamp || '').slice(0, 19))}</td>
                     <td>${esc(r.asset || '—')}</td>
-                    <td>${esc(r.verdict || '—')}</td>
+                    <td>${esc(publicMissDecisionLabel(r))}</td>
                     <td>${esc(Number(r.price_at_prediction || 0).toLocaleString())}</td>
                     <td>${esc(Number(r.price_after_24h || 0).toLocaleString())}</td>
                     <td><span class="pill ${pillClass(r.label)}">${esc(r.label || '—')}</span></td>
@@ -431,21 +534,32 @@
         }
         function renderProofChain(chain) {
             const verify = chain.verify || {};
-            const records = chain.total_records ?? (chain.verify && chain.verify.records) ?? '—';
-            document.getElementById('chain-status').textContent =
-                'Audit chain: ' + verifyLabel(verify.valid) +
-                ' · records=' + records;
-            const tip = chain.tip_hash || '—';
-            const vColor = verify.valid ? 'var(--success)' : 'var(--danger)';
+            const records = chain.total_records ?? verify.records ?? '—';
+            const ok = verify.valid === true;
+            const statusEl = document.getElementById('chain-status');
+            statusEl.textContent =
+                'Audit chain: ' + verifyLabel(verify.valid) + ' · records=' + records;
+            statusEl.style.color = ok ? 'var(--muted)' : 'var(--danger)';
+            const vColor = ok ? 'var(--success)' : 'var(--danger)';
+            const broken = verify.broken_at_seq != null ? ` · broken_at=${verify.broken_at_seq}` : '';
+            const failMsg = chain.integrity_message || verify.integrity_failure_reason || '';
+            const tipLine = ok
+                ? `Tip hash: <code style="color:var(--accent)">${esc(chain.tip_hash || '—')}</code><br>`
+                : `<span style="color:var(--danger)">Tip hash withheld — chain not intact.</span><br>`;
             document.getElementById('proof-panel').innerHTML =
-                `Tip hash: <code style="color:var(--accent)">${esc(tip)}</code><br>` +
+                tipLine +
                 `Integrity: <strong style="color:${vColor}">${esc(verifyLabelShort(verify.valid))}</strong>` +
-                ` · ${esc(records)} linked records`;
+                ` · ${esc(records)} linked records` +
+                esc(broken) +
+                (ok ? '' : `<br><span style="color:var(--danger);font-size:0.88rem">${esc(failMsg)}</span>`);
         }
         async function loadAccuracy() {
             try {
-                const res = await fetch('/api/oracle/accuracy/public');
-                const data = await res.json();
+                const data = await fetchJsonWithTimeout(
+                    '/api/oracle/accuracy/public',
+                    {},
+                    ORACLE_LEDGER_FETCH_MS
+                );
                 const oracle = data.oracle || {};
                 const model = data.model || {};
                 const moat = data.data_moat || {};
@@ -454,38 +568,59 @@
 
                 document.getElementById('engine-label').textContent =
                     transparency.production_engine === 'ml_model' ? 'ML model (OOD-gated)' : 'rules engine';
-                document.getElementById('transparency-note').textContent =
-                    transparency.engine_note || '';
+                renderEngineHealth(data);
                 renderProofChain(data.proof_chain || {});
                 renderAccuracyStats({ oracle, model, moat, exp });
                 renderRegimeTable(data.regime_models || {});
                 renderRegistryTable(data.signal_registry || {});
-                renderPredictionsTable(oracle.recent_predictions || []);
+                renderPredictionsTable(
+                    oracle.recent_predictions || [],
+                    oracle.recent_table_footnote || ''
+                );
                 renderLearningEvents((data.learning_experience || {}).recent_events || []);
-            } catch (error) { console.debug(error); }
+            } catch (error) {
+                console.debug(error);
+                const why = (error && error.code === 'timeout')
+                    ? 'timed out after ' + (ORACLE_LEDGER_FETCH_MS / 1000) + 's'
+                    : ((error && error.status) ? 'HTTP ' + error.status : 'network error');
+                document.getElementById('proof-panel').textContent =
+                    'Accuracy data unavailable (' + why + ') — retry or open /api/oracle/accuracy/public';
+                document.getElementById('regime-status').textContent = 'Regime registry unavailable.';
+                document.getElementById('registry-status').textContent = 'Feature registry unavailable.';
+                document.getElementById('predictions-body').innerHTML =
+                    '<tr><td colspan="8">Could not load predictions — check /api/oracle/accuracy/public</td></tr>';
+                document.getElementById('events-list').innerHTML =
+                    '<li>Learning log unavailable.</li>';
+                const badge = document.getElementById('engine-badge');
+                if (badge) {
+                    badge.className = 'badge badge-warn';
+                    badge.textContent = 'Engine · unknown';
+                }
+            }
         }
 
         async function verifyChain() {
             const panel = document.getElementById('proof-panel');
             panel.textContent = 'Verifying…';
             try {
-                const res = await fetch('/api/oracle/audit-chain/verify');
-                const data = await res.json();
-                const vColor = data.valid ? 'var(--success)' : 'var(--danger)';
-                const vLabel = data.valid ? 'VALID' : 'INVALID';
+                const data = await fetchJsonWithTimeout('/api/oracle/audit-chain/verify');
+                const ok = data.valid === true;
+                const vColor = ok ? 'var(--success)' : 'var(--danger)';
+                const vLabel = ok ? 'VALID' : 'INVALID — not verified';
                 const broken = data.broken_at_seq != null ? ` · broken_at=${data.broken_at_seq}` : '';
+                const reason = data.integrity_failure_reason || '';
                 panel.innerHTML =
                     `Live verify: <strong style="color:${vColor}">${esc(vLabel)}</strong>` +
                     ` · records=${esc(data.records ?? '—')}` +
-                    esc(broken);
+                    esc(broken) +
+                    (ok ? '' : `<br><span style="color:var(--danger);font-size:0.88rem">${esc(reason)}</span>`);
             } catch (error) { console.debug(error); panel.textContent = 'Verify failed'; }
         }
         document.getElementById('verifyChainBtn').addEventListener('click', verifyChain);
 
         async function loadLocked() {
             try {
-                const res = await fetch('/api/locked-predictions?limit=12');
-                const data = await res.json();
+                const data = await fetchJsonWithTimeout('/api/locked-predictions?limit=12');
                 const st = data.status || {};
                 document.getElementById('locked-status').textContent =
                     `Sealed forecasts · locked=${st.locked ?? 0} · revealed=${st.unlocked ?? 0} · Glass Box cadence`;
@@ -501,21 +636,25 @@
                         `</li>`
                     ).join('');
                 }
-            } catch (error) { console.debug(error); document.getElementById('locked-status').textContent = 'Locked predictions unavailable'; }
+            } catch (error) {
+                console.debug(error);
+                document.getElementById('locked-status').textContent = 'Locked predictions unavailable';
+                document.getElementById('locked-list').innerHTML =
+                    '<li>Could not load sealed forecasts — /api/locked-predictions unreachable.</li>';
+            }
         }
 
         let lastLosingShare = '';
         async function loadLosing() {
             try {
-                const res = await fetch('/api/accuracy/monthly-losing-report?limit=12');
-                const data = await res.json();
+                const data = await fetchJsonWithTimeout('/api/accuracy/monthly-losing-report?limit=12');
                 lastLosingShare = data.share_text || '';
                 document.getElementById('losing-status').textContent =
                     (data.thesis || '') + ` · misses in window: ${data.total_labeled_misses_in_window ?? 0}`;
                 const rows = data.sample || [];
                 const list = document.getElementById('losing-list');
                 list.innerHTML = rows.length
-                    ? rows.map(r => `<li><strong>${esc(r.asset||'—')}</strong> · ${esc(r.verdict||'')} · ${esc(r.label||'')} · id ${esc(r.prediction_id??'—')}</li>`).join('')
+                    ? rows.map(r => `<li><strong>${esc(r.asset||'—')}</strong> · ${esc(publicMissDecisionLabel(r))} · ${esc(r.label||'')} · id ${esc(r.prediction_id??'—')}</li>`).join('')
                     : '<li>No labeled misses yet — the ledger will list them here honestly.</li>';
             } catch (error) { console.debug(error); document.getElementById('losing-status').textContent = 'Losing report unavailable'; }
         }
@@ -525,19 +664,21 @@
 
         async function loadAuditChallenge() {
             try {
-                const res = await fetch('/api/audit-challenge');
-                const data = await res.json();
+                const data = await fetchJsonWithTimeout('/api/audit-challenge');
                 const v = data.live_verify || {};
-                document.getElementById('audit-status').textContent =
-                    `${data.invitation || ''} Live verify: ${verifyLabelShort(v.valid)} · records=${v.records ?? '—'}`;
+                const el = document.getElementById('audit-status');
+                const ok = v.valid === true;
+                el.textContent =
+                    `${data.invitation || ''} Live verify: ${verifyLabelShort(v.valid)} · records=${v.records ?? '—'}` +
+                    (ok ? '' : ` · broken_at=${v.broken_at_seq ?? '—'}`);
+                el.style.color = ok ? 'var(--muted)' : 'var(--danger)';
             } catch (error) { console.debug(error); document.getElementById('audit-status').textContent = 'Audit challenge unavailable'; }
         }
 
         let lastLedgerShare = location.origin + '/oracle-accuracy';
         async function loadLedgerShareKit() {
             try {
-                const res = await fetch('/api/ledger/share-kit');
-                const d = await res.json();
+                const d = await fetchJsonWithTimeout('/api/ledger/share-kit');
                 lastLedgerShare = d.share_text || lastLedgerShare;
                 const preview = document.getElementById('ledger-share-preview');
                 if (preview) preview.textContent = lastLedgerShare;
@@ -545,7 +686,13 @@
                 const tg = document.getElementById('ledgerShareTg');
                 if (x && d.share_urls && d.share_urls.x) x.href = safeUrl(d.share_urls.x) || '#';
                 if (tg && d.share_urls && d.share_urls.telegram) tg.href = safeUrl(d.share_urls.telegram) || '#';
-            } catch (error) { console.debug(error); }
+            } catch (error) {
+                console.debug(error);
+                const preview = document.getElementById('ledger-share-preview');
+                if (preview) {
+                    preview.textContent = 'Share kit unavailable — using this page URL: ' + location.origin + '/oracle-accuracy';
+                }
+            }
         }
         document.getElementById('shareLedgerBtn')?.addEventListener('click', () => {
             navigator.clipboard.writeText(lastLedgerShare);
@@ -564,13 +711,14 @@
         let lastMevShare = '';
         async function loadGlassBox() {
             try {
-                const res = await fetch('/api/glass-box/challenge');
-                const d = await res.json();
+                const d = await fetchJsonWithTimeout('/api/glass-box/challenge');
                 lastGlassShare = d.share_text || d.challenge_text_en || '';
-                document.getElementById('glass-hook').textContent = d.hook || '';
                 document.getElementById('glass-challenge').textContent = d.challenge_text_en || '';
-                document.getElementById('glass-story').textContent =
-                    (d.story || '') + ' ' + (d.loop || '');
+                const ctx = document.getElementById('glass-context');
+                if (ctx) {
+                    const parts = [d.hook, d.story].filter(Boolean);
+                    ctx.textContent = parts.join(' ');
+                }
                 const steps = (d.event_template && d.event_template.steps) || [];
                 const ol = document.getElementById('glass-event-steps');
                 if (ol && steps.length) {
@@ -589,17 +737,33 @@
                         ' · human fields remain for timing/channel';
                 }
                 const gates = document.getElementById('glass-operator-gates');
-                if (gates && Array.isArray(rb.gates)) {
-                    gates.innerHTML = rb.gates.map(g =>
-                        `<li><strong>${esc(g.label || g.id)}</strong> · ${esc(g.status || '—')}` +
-                        (g.check ? ` · <code>${esc(g.check)}</code>` : '') + '</li>'
-                    ).join('');
+                if (gates) {
+                    const gateRows = Array.isArray(rb.gates) ? rb.gates : [];
+                    gates.innerHTML = gateRows.length
+                        ? gateRows.map(g =>
+                            `<li><strong>${esc(g.label || g.id)}</strong> · ${esc(g.status || '—')}` +
+                            (g.check ? ` · <code>${esc(g.check)}</code>` : '') + '</li>'
+                        ).join('')
+                        : '<li>No operator gates returned.</li>';
                 }
                 const tm = document.getElementById('glass-tminus');
-                if (tm && Array.isArray(rb.t_minus_checklist)) {
-                    tm.innerHTML = rb.t_minus_checklist.map(s => '<li>' + esc(s) + '</li>').join('');
+                if (tm) {
+                    const steps = Array.isArray(rb.t_minus_checklist) ? rb.t_minus_checklist : [];
+                    tm.innerHTML = steps.length
+                        ? steps.map(s => '<li>' + esc(s) + '</li>').join('')
+                        : '<li>T-minus checklist not published.</li>';
                 }
-            } catch (error) { console.debug(error); document.getElementById('glass-hook').textContent = 'Glass Box pack unavailable'; }
+            } catch (error) {
+                console.debug(error);
+                const ctx = document.getElementById('glass-context');
+                if (ctx) ctx.textContent = 'Glass Box pack unavailable';
+                const st = document.getElementById('glass-operator-status');
+                if (st) st.textContent = 'Operator gates could not load — /api/glass-box/challenge failed.';
+                const gates = document.getElementById('glass-operator-gates');
+                if (gates) gates.innerHTML = '<li>Operator gate list unavailable.</li>';
+                const tm = document.getElementById('glass-tminus');
+                if (tm) tm.innerHTML = '<li>Operator checklist unavailable.</li>';
+            }
         }
         document.getElementById('copyGlassBtn')?.addEventListener('click', () => {
             if (lastGlassShare) navigator.clipboard.writeText(lastGlassShare);
@@ -607,8 +771,7 @@
 
         async function loadMevReport() {
             try {
-                const res = await fetch('/api/mev/sandwich-report?asset=ETH&notional_usd=10000');
-                const d = await res.json();
+                const d = await fetchJsonWithTimeout('/api/mev/sandwich-report?asset=ETH&notional_usd=10000');
                 lastMevShare = d.share_text || '';
                 document.getElementById('mev-status').textContent =
                     `${d.asset} · notional $${Number(d.notional_usd||0).toLocaleString()} · est. sandwich ~${d.estimated_sandwich_bps} bps (~$${d.estimated_cost_usd}) · ${d.confidence||''}`;
@@ -620,23 +783,59 @@
                 if (foot) {
                     foot.innerHTML = `<strong>Anti-Hype</strong> · ${esc(c.data_source || '')} · ${esc(c.disclaimer || 'Not financial advice.')}`;
                 }
-            } catch (error) { console.debug(error); document.getElementById('mev-status').textContent = 'MEV report unavailable'; }
+            } catch (error) {
+                console.debug(error);
+                document.getElementById('mev-status').textContent = 'MEV report unavailable';
+                document.getElementById('mev-mitigations').innerHTML =
+                    '<li>Could not load mitigations — /api/mev/sandwich-report failed.</li>';
+            }
         }
         document.getElementById('copyMevBtn')?.addEventListener('click', () => {
             if (lastMevShare) navigator.clipboard.writeText(lastMevShare);
         });
 
-        await Promise.all([
-            loadAccuracy(),
-            loadLedgerShareKit(),
-            loadGlassBox(),
-            loadMevReport(),
-            loadLocked(),
-            loadLosing(),
-            loadAuditChallenge(),
-        ]);
-        setInterval(loadAccuracy, 60000);
-        setInterval(loadLocked, 120000);
+        function failAllLedgerLoads(reason) {
+            const msg = reason || 'Request timed out or API unreachable from this origin.';
+            const proof = document.getElementById('proof-panel');
+            if (proof && proof.textContent.includes('Loading')) {
+                proof.textContent = 'Proof chain unavailable — ' + msg;
+            }
+            const badge = document.getElementById('engine-badge');
+            if (badge && badge.textContent.includes('Checking')) {
+                badge.className = 'badge badge-warn';
+                badge.textContent = 'Engine · unknown';
+            }
+        }
+
+        function scheduleSecondaryLoad(fn) {
+            const run = () => fn().catch(() => {});
+            if (typeof requestIdleCallback === 'function') {
+                requestIdleCallback(run, { timeout: 1500 });
+            } else {
+                setTimeout(run, 0);
+            }
+        }
+
+        loadAccuracy().catch(() => failAllLedgerLoads());
+        scheduleSecondaryLoad(loadLedgerShareKit);
+        scheduleSecondaryLoad(loadGlassBox);
+        scheduleSecondaryLoad(loadMevReport);
+        scheduleSecondaryLoad(loadLocked);
+        scheduleSecondaryLoad(loadLosing);
+        scheduleSecondaryLoad(loadAuditChallenge);
+
+        setInterval(() => { loadAccuracy().catch(() => {}); }, 60000);
+        setInterval(() => { loadLocked().catch(() => {}); }, 120000);
+        }
+
+        function startLedgerBoot() {
+            bootOracleAccuracyLedger();
+        }
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', startLedgerBoot);
+        } else {
+            startLedgerBoot();
+        }
     </script>
     {% include "partials/site_footer.html" %}
 </body>

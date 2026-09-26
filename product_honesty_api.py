@@ -240,13 +240,19 @@ async def build_decision_graph(*, asset: str = "BTC", limit: int = 12) -> dict[s
         if str(r.get("asset") or r.get("symbol") or "").upper() in {asset_u, f"{asset_u}USDT", ""}
         or True
     ]
+    from supplemental_public_compliance import map_public_decision_action
+
     for idx, r in enumerate(filtered[:limit]):
         nid = str(r.get("id") or r.get("prediction_id") or f"n{idx}")
+        public_verdict = map_public_decision_action(
+            str(r.get("verdict") or r.get("action") or "")
+        )
         nodes.append(
             {
                 "id": nid,
                 "asset": str(r.get("asset") or r.get("symbol") or asset_u).upper(),
-                "verdict": r.get("verdict") or r.get("action"),
+                "verdict": public_verdict,
+                "public_decision": public_verdict,
                 "label": r.get("label"),
                 "score": r.get("opportunity_score") or r.get("score"),
                 "timestamp": r.get("timestamp") or r.get("created_at"),

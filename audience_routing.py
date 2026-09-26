@@ -15,7 +15,7 @@ _AUDIENCES = {
         "audience": "retail",
         "first_screen": "single_sentence_oracle",
         "heroes": ["single_sentence_oracle", "decision_certificate"],
-        "cta": "Get one clear Act / Wait decision — no dashboard tourism.",
+        "cta": "Get one clear CONDITIONS MET / Wait decision — no dashboard tourism.",
         "entry_path": "/?audience=retail",
         "ux_mode_default": "beginner",
         "progressive_disclosure": {
