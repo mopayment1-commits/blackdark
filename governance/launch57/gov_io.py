@@ -5,7 +5,7 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
-from path_safety import ensure_under
+from path_safety import ensure_under, write_utf8_bound
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 GOV_DIR = ensure_under(PROJECT_ROOT / "governance" / "launch57", PROJECT_ROOT)
@@ -24,6 +24,4 @@ def artifact_path(directory: Path, filename: str) -> Path:
 
 def write_artifact(path: Path, content: str) -> None:
     """Write UTF-8 text only under the repository root."""
-    safe = ensure_under(path.resolve(), PROJECT_ROOT)
-    safe.parent.mkdir(parents=True, exist_ok=True)
-    safe.write_text(content, encoding="utf-8")
+    write_utf8_bound(path, content, base=PROJECT_ROOT)

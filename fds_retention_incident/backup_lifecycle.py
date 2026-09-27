@@ -9,7 +9,7 @@ from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Any, Literal
 
-from path_safety import safe_data_file
+from path_safety import ensure_under, project_root_dir, resolve_backup_file, resolve_backup_store_dir, safe_data_file
 
 BackupState = Literal["CREATED", "RETENTION_WINDOW", "EXPIRED", "DELETED", "VERIFIED", "FAILED", "LEGAL_HOLD"]
 
@@ -78,9 +78,18 @@ def _load_records() -> list[dict[str, Any]]:
     return records
 
 
+def _backup_base(backup_dir: str | Path | None) -> Path:
+    if backup_dir is None:
+        return resolve_backup_store_dir()
+    candidate = Path(backup_dir)
+    if not candidate.is_absolute():
+        candidate = project_root_dir() / candidate
+    return ensure_under(candidate.resolve(), project_root_dir())
+
+
 def process_expired_backups(backup_dir: str | Path | None = None) -> list[dict[str, Any]]:
     """Transition RETENTION_WINDOW → EXPIRED → DELETE/CRYPTO-ERASE → VERIFY."""
-    base = Path(backup_dir or os.getenv("BACKUP_DIR", "data/backups"))
+    _backup_base(backup_dir)
     now = time.time()
     results: list[dict[str, Any]] = []
     for rec in _load_records():
@@ -92,7 +101,11 @@ def process_expired_backups(backup_dir: str | Path | None = None) -> list[dict[s
             continue
         expiry_ts = float(rec.get("expiry_ts") or 0)
         backup_name = Path(str(rec.get("backup_path", ""))).name
-        gz = base / backup_name if backup_name else None
+        gz: Path | None
+        try:
+            gz = resolve_backup_file(backup_name) if backup_name else None
+        except ValueError:
+            gz = None
         if now < expiry_ts:
             results.append({**rec, "processed_state": rec.get("state")})
             continue
@@ -107,8 +120,12 @@ def process_expired_backups(backup_dir: str | Path | None = None) -> list[dict[s
         if gz and gz.is_file():
             try:
                 gz.unlink()
-                meta = base / backup_name.replace(".sql.gz", ".sha256")
-                if meta.is_file():
+                meta_name = backup_name.replace(".sql.gz", ".sha256")
+                try:
+                    meta = resolve_backup_file(meta_name)
+                except ValueError:
+                    meta = None
+                if meta is not None and meta.is_file():
                     meta.unlink()
                 outcome["deletion_result"] = "deleted"
                 outcome["state"] = "DELETED"
@@ -129,13 +146,14 @@ def process_expired_backups(backup_dir: str | Path | None = None) -> list[dict[s
 
 def verify_backup_deletion(backup_path: str) -> dict[str, Any]:
     """Verify backup file absent after expiry deletion."""
-    path = Path(backup_path)
-    if not path.is_absolute():
-        path = Path(os.getenv("BACKUP_DIR", "data/backups")) / path.name
-    verified = not path.is_file()
+    try:
+        path = resolve_backup_file(Path(backup_path).name)
+    except ValueError:
+        path = None
+    verified = path is None or not path.is_file()
     record = {
         "event": "backup_deletion_verified",
-        "backup_path": str(path),
+        "backup_path": str(path) if path is not None else str(backup_path),
         "verified": verified,
         "verified_at": datetime.now(UTC).isoformat(),
         "failure_state": None if verified else "file_still_present",

@@ -17,7 +17,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
-from path_safety import ensure_under, safe_data_file
+from path_safety import ensure_under, safe_data_file, write_utf8_bound
 
 try:
     import fcntl
@@ -29,37 +29,22 @@ logger = logging.getLogger("BLACKDARK.OracleAuditChain")
 _PROJECT_ROOT = Path(__file__).resolve().parent
 
 
-def _allow_outside_project(path: Path) -> bool:
-    resolved = path.resolve()
-    tmp_root = Path(os.environ.get("TMPDIR", "/tmp")).resolve()
-    try:
-        resolved.relative_to(tmp_root)
-        return True
-    except ValueError:
-        return False
-
-
 def _resolve_chain_file(path: Path | None) -> Path:
-    """Bind chain file paths to project data/ (or pytest temp dirs)."""
+    """Bind chain file paths to the repository root (no world-writable /tmp fallbacks)."""
     if path is not None:
-        candidate = Path(path).resolve()
-        try:
-            return ensure_under(candidate, _PROJECT_ROOT)
-        except ValueError:
-            if _allow_outside_project(candidate):
-                return candidate
-            raise
+        return ensure_under(Path(path).resolve(), _PROJECT_ROOT)
     raw = Path(CHAIN_PATH)
-    if not raw.is_absolute():
-        candidate = (_PROJECT_ROOT / raw).resolve()
-    else:
-        candidate = raw.resolve()
+    candidate = (_PROJECT_ROOT / raw).resolve() if not raw.is_absolute() else raw.resolve()
     try:
         return ensure_under(candidate, _PROJECT_ROOT)
     except ValueError:
-        if _allow_outside_project(candidate):
-            return candidate
         return safe_data_file("oracle_audit_chain.jsonl", project_root=_PROJECT_ROOT)
+
+
+def isolated_chain_path_for_tests(tag: str) -> Path:
+    """Test-only chain file under ``data/`` (must remain inside the project tree)."""
+    safe_tag = "".join(ch if ch.isalnum() or ch in "-_" else "_" for ch in str(tag))[:64] or "default"
+    return safe_data_file(f".test_oracle_chain_{safe_tag}.jsonl", project_root=_PROJECT_ROOT)
 
 
 # Mutable module attribute so tests may monkeypatch.setattr(chain, "CHAIN_PATH", path).
@@ -236,7 +221,7 @@ def repair_tip_prev_hash_race(path: Path | None = None) -> dict[str, Any]:
         tip.pop("chain_hash", None)
         tip["chain_hash"] = _hash_record(tip, expected_prev)
         lines[-1] = json.dumps(tip, default=str)
-        chain.write_text("\n".join(lines) + "\n", encoding="utf-8")
+        write_utf8_bound(chain, "\n".join(lines) + "\n", base=_PROJECT_ROOT)
         invalidate_verify_chain_cache()
         after = verify_chain(chain)
         return {

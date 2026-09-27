@@ -22,6 +22,9 @@ class RetryBudget:
 
 DEFAULT_BUDGET = RetryBudget()
 
+# Backoff jitter only (retry scheduling spread — not cryptographic).
+_BACKOFF_JITTER = random.Random()
+
 
 def classify_retry_policy(
     *,
@@ -54,7 +57,7 @@ def compute_backoff(attempt: int, budget: RetryBudget = DEFAULT_BUDGET, *, retry
     if retry_after is not None and retry_after > 0:
         return float(retry_after)
     exp = min(budget.max_delay_seconds, budget.base_delay_seconds * (2 ** max(0, attempt - 1)))
-    jitter = exp * budget.jitter_ratio * random.random()
+    jitter = exp * budget.jitter_ratio * _BACKOFF_JITTER.random()
     return min(budget.max_delay_seconds, exp + jitter)
 
 

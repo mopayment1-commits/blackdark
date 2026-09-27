@@ -216,4 +216,68 @@ def read_json_mapping(path: Path) -> dict[str, object]:
 def write_json_mapping(path: Path, document: dict[str, object]) -> None:
     """Write a sanitized JSON mapping to a resolved path."""
     safe = coerce_json_mapping(document)
-    path.write_text(json.dumps(safe, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    write_utf8_bound(path, json.dumps(safe, ensure_ascii=False, indent=2) + "\n", base=project_root_dir())
+
+
+def project_root_dir(*, project_root: Path | str | None = None) -> Path:
+    """Resolved repository root (directory containing path_safety.py)."""
+    if project_root is not None:
+        return Path(project_root).resolve()
+    return Path(__file__).resolve().parent
+
+
+def resolve_project_file(*parts: str, project_root: Path | str | None = None) -> Path:
+    """Resolve a path under the repository root; reject traversal in parts."""
+    root = project_root_dir(project_root=project_root)
+    for part in parts:
+        cleaned = str(part).strip().replace("\\", "/")
+        if not cleaned or cleaned in {".", ".."} or "/" in cleaned:
+            raise ValueError(f"Unsafe project path part: {part!r}")
+    return resolve_under(root, *parts)
+
+
+def write_utf8_bound(path: Path, content: str, *, base: Path | str) -> None:
+    """Write UTF-8 text only when ``path`` resolves under ``base`` (S2083 sink)."""
+    safe_path = ensure_under(path.resolve(), Path(base).resolve())
+    safe_path.parent.mkdir(parents=True, exist_ok=True)
+    safe_path.write_text(content, encoding="utf-8")
+
+
+def write_json_at_data(*parts: str, value: object, project_root: Path | str | None = None) -> Path:
+    """Serialize JSON under ``<project>/data/...`` using literal path parts only."""
+    payload = coerce_json_value(value)
+    target = safe_data_file(*parts, project_root=project_root)
+    write_utf8_bound(
+        target,
+        json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
+        base=project_data_dir(project_root=project_root),
+    )
+    return target
+
+
+_BACKUP_BASENAME_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*$")
+
+
+def backup_data_dir(*, project_root: Path | str | None = None) -> Path:
+    """Resolved ``<project>/data/backups`` directory."""
+    return resolve_under(project_data_dir(project_root=project_root), "backups")
+
+
+def resolve_backup_store_dir(*, project_root: Path | str | None = None) -> Path:
+    """Backup directory bound to project ``data/backups`` (ignores hostile BACKUP_DIR)."""
+    root = project_root_dir(project_root=project_root)
+    raw = os.getenv("BACKUP_DIR", "data/backups").strip()
+    if raw in {"", "data/backups", "backups"}:
+        return backup_data_dir(project_root=root)
+    candidate = Path(raw)
+    if not candidate.is_absolute():
+        candidate = (root / raw).resolve()
+    return ensure_under(candidate, root)
+
+
+def resolve_backup_file(basename: str, *, project_root: Path | str | None = None) -> Path:
+    """Map an evidence basename to a file under the bounded backup store."""
+    name = Path(str(basename)).name
+    if not name or not _BACKUP_BASENAME_RE.fullmatch(name):
+        raise ValueError(f"Unsafe backup basename: {basename!r}")
+    return resolve_under(resolve_backup_store_dir(project_root=project_root), name)

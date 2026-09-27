@@ -11,7 +11,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any, Literal
 
-from path_safety import resolve_under, safe_data_file
+from path_safety import resolve_under, safe_data_file, write_json_at_data
 
 SUPPLY_CHAIN_VERSION = "fds-supply-chain-v1"
 ROOT = Path(__file__).resolve().parents[1]
@@ -31,9 +31,7 @@ def _load_waivers() -> list[dict[str, Any]]:
 
 
 def _save_waivers(waivers: list[dict[str, Any]]) -> None:
-    path = _waiver_path()
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(waivers, indent=2), encoding="utf-8")
+    write_json_at_data("dependency_waivers.json", value=waivers)
 
 
 def register_waiver(
