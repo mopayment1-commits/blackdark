@@ -194,8 +194,7 @@ def main() -> None:
         "tests": test_result,
     }
     write_artifact(EVIDENCE_PATH, json.dumps(evidence, indent=2, ensure_ascii=False) + "\n")
-    write_artifact(REPORT_PATH, f"# Phase 5 Batch 2\n\nBUILD_ORDER: {BUILD_ORDER}\nCOMMIT: {commit_sha}\nSTATUS: PENDING_VERIFICATION\n",
-        encoding="utf-8",)
+    write_artifact(REPORT_PATH, f"# Phase 5 Batch 2\n\nBUILD_ORDER: {BUILD_ORDER}\nCOMMIT: {commit_sha}\nSTATUS: PENDING_VERIFICATION\n")
     write_artifact(LAYER_REPORT, f"""# Phase 5 Derivatives + Habits Layer
 
 BUILD_ORDER: 25→26→27→28→29→30→31→32→33
@@ -208,9 +207,7 @@ STATUS: PENDING_VERIFICATION (builder max)
 
 ## Legacy bypass debt
 When LAUNCH57_DERIVATIVES_BATCH*_CAP_IDS emptied → batch01/batch02/batch21_dedicated generic delegate.
-""",
-        encoding="utf-8",
-    )
+""")
     print(f"Updated SSOT/register phase5 batch2 @ {commit_sha}")
 
 

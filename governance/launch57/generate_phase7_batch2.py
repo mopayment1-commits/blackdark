@@ -110,12 +110,10 @@ def main() -> None:
         "tests": test_result,
     }
     write_artifact(EVIDENCE_PATH, json.dumps(evidence, indent=2, ensure_ascii=False) + "\n")
-    write_artifact(REPORT_PATH, f"# Phase 7 Batch 2 — Command Home\n\nBUILD_ORDER: {BUILD_ORDER}\nCOMMIT: {commit_sha}\nSTATUS: PENDING_VERIFICATION\n",
-        encoding="utf-8",)
+    write_artifact(REPORT_PATH, f"# Phase 7 Batch 2 — Command Home\n\nBUILD_ORDER: {BUILD_ORDER}\nCOMMIT: {commit_sha}\nSTATUS: PENDING_VERIFICATION\n")
     write_artifact(LAYER_REPORT_PATH, "# Phase 7 Edge + UI Layer\n\n"
         "Items 43→38→49→50→52→1 wired via launch57.edge_ui_batch1/batch2.\n"
-        "Builder status: PENDING_VERIFICATION only.\n",
-        encoding="utf-8",)
+        "Builder status: PENDING_VERIFICATION only.\n")
     print(f"Updated register phase7 batch2 @ {commit_sha}")
 
 

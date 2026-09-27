@@ -206,9 +206,7 @@ def main() -> None:
             ]
             + [f"## #{lid} {ITEM_ROWS[lid]['name']} — PENDING_VERIFICATION" for lid in BATCH2_ORDER]
         )
-        + "\n",
-        encoding="utf-8",
-    )
+        + "\n")
 
     table_rows = [
         "| Launch # | Name | Status | Module | Blocker |",

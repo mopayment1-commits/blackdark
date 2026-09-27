@@ -163,9 +163,7 @@ def main() -> None:
                 "tests": test_result,
             },
             indent=2,)
-        + "\n",
-        encoding="utf-8",
-    )
+        + "\n")
 
     table = [
         "| Launch # | Name | Status | Module |",
@@ -199,9 +197,7 @@ def main() -> None:
                 "**STOP** — Phase 4 not started.",
             ]
         )
-        + "\n",
-        encoding="utf-8",
-    )
+        + "\n")
     print(f"Updated SSOT/register phase3 complete @ {commit_sha}")
 
 

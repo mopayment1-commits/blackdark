@@ -238,9 +238,15 @@ def resolve_project_file(*parts: str, project_root: Path | str | None = None) ->
 
 def write_utf8_bound(path: Path, content: str, *, base: Path | str) -> None:
     """Write UTF-8 text only when ``path`` resolves under ``base`` (S2083 sink)."""
-    safe_path = ensure_under(path.resolve(), Path(base).resolve())
-    safe_path.parent.mkdir(parents=True, exist_ok=True)
-    safe_path.write_text(content, encoding="utf-8")
+    base_resolved = Path(base).resolve()
+    bounded = ensure_under(Path(path).resolve(), base_resolved)
+    rel_parts = bounded.relative_to(base_resolved).parts
+    if not rel_parts:
+        raise ValueError("Refusing to write repository root path")
+    dest = resolve_under(base_resolved, *rel_parts)
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    with dest.open("w", encoding="utf-8") as handle:
+        handle.write(content)
 
 
 def write_json_at_data(*parts: str, value: object, project_root: Path | str | None = None) -> Path:

@@ -239,12 +239,10 @@ def main() -> None:
         f"BUILD_ORDER: {BUILD_ORDER}\n"
         f"COMMIT: {commit_sha}\n"
         f"STATUS: PENDING_VERIFICATION\n"
-        f"HANDLER: launch57.explanation_ai_batch1\n",
-        encoding="utf-8",)
+        f"HANDLER: launch57.explanation_ai_batch1\n")
     write_artifact(LAYER_REPORT_PATH, "# Phase 6 Explanation + AI Layer\n\n"
         "Items 34→35→36→51 wired via launch57.explanation_ai_batch1.\n"
-        "Builder status: PENDING_VERIFICATION only.\n",
-        encoding="utf-8",)
+        "Builder status: PENDING_VERIFICATION only.\n")
     print(f"Updated SSOT/register phase6 batch1 @ {commit_sha}")
 
 

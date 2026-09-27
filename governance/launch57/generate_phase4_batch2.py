@@ -194,8 +194,7 @@ def main() -> None:
         "tests": test_result,
     }
     write_artifact(EVIDENCE_PATH, json.dumps(evidence, indent=2, ensure_ascii=False) + "\n")
-    write_artifact(REPORT_PATH, f"# Phase 4 Batch 2\n\nBUILD_ORDER: {BUILD_ORDER}\nCOMMIT: {commit_sha}\nSTATUS: PENDING_VERIFICATION\n",
-        encoding="utf-8",)
+    write_artifact(REPORT_PATH, f"# Phase 4 Batch 2\n\nBUILD_ORDER: {BUILD_ORDER}\nCOMMIT: {commit_sha}\nSTATUS: PENDING_VERIFICATION\n")
     print(f"Updated SSOT/register phase4 batch2 @ {commit_sha}")
 
 

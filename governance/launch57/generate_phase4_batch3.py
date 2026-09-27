@@ -185,8 +185,7 @@ def main() -> None:
         "tests": test_result,
     }
     write_artifact(EVIDENCE_PATH, json.dumps(evidence, indent=2, ensure_ascii=False) + "\n")
-    write_artifact(REPORT_PATH, f"# Phase 4 Batch 3\n\nBUILD_ORDER: {BUILD_ORDER}\nCOMMIT: {commit_sha}\nSTATUS: PENDING_VERIFICATION\n",
-        encoding="utf-8",)
+    write_artifact(REPORT_PATH, f"# Phase 4 Batch 3\n\nBUILD_ORDER: {BUILD_ORDER}\nCOMMIT: {commit_sha}\nSTATUS: PENDING_VERIFICATION\n")
     write_artifact(LAYER_REPORT, f"""# Phase 4 Smart Money + Instant Layer
 
 BUILD_ORDER: 20→16→17→13→14→15→18→19→53→54→55→56→57
@@ -203,9 +202,7 @@ When LAUNCH57_SMART_MONEY_BATCH*_CAP_IDS emptied → batch01/batch02/batch10/bat
 
 ## CAP-0916 extension path
 cap646/runtime.py → cap978/verify.py → launch57.smart_money_batch3
-""",
-        encoding="utf-8",
-    )
+""")
     print(f"Updated SSOT/register phase4 batch3 @ {commit_sha}")
 
 
