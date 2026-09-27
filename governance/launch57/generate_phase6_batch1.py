@@ -8,7 +8,13 @@ import subprocess
 from datetime import UTC, datetime
 from pathlib import Path
 
+import sys
+
 ROOT = Path(__file__).resolve().parents[2]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from governance.launch57.gov_io import write_artifact
 SSOT_PATH = ROOT / "BLACKDARK_CAPABILITY_CURRENT_STATE.json"
 REGISTER_PATH = ROOT / "governance/launch57/LAUNCH57_REGISTER.json"
 EVIDENCE_PATH = ROOT / "governance/launch57/PHASE6_BATCH1_EVIDENCE.json"
@@ -169,7 +175,7 @@ def main() -> None:
             "fix_mandatory": "NO unless explanation_ai path blocked",
         },
     }
-    SSOT_PATH.write_text(json.dumps(ssot, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    write_artifact(SSOT_PATH, json.dumps(ssot, indent=2, ensure_ascii=False) + "\n")
 
     register = json.loads(REGISTER_PATH.read_text(encoding="utf-8"))
     register["phase"] = "6_EXPLANATION_AI_BATCH1_BUILD"
@@ -203,7 +209,7 @@ def main() -> None:
         "BUILD_ORDER_EXECUTED": BUILD_ORDER,
         "MAX_BUILDER_STATUS": "PENDING_VERIFICATION",
     }
-    REGISTER_PATH.write_text(json.dumps(register, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    write_artifact(REGISTER_PATH, json.dumps(register, indent=2, ensure_ascii=False) + "\n")
 
     evidence = {
         "artifact": "PHASE6_BATCH1_EVIDENCE",
@@ -228,21 +234,17 @@ def main() -> None:
         ),
         "tests": test_result,
     }
-    EVIDENCE_PATH.write_text(json.dumps(evidence, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    REPORT_PATH.write_text(
-        f"# Phase 6 Batch 1 — Explanation + AI\n\n"
+    write_artifact(EVIDENCE_PATH, json.dumps(evidence, indent=2, ensure_ascii=False) + "\n")
+    write_artifact(REPORT_PATH, f"# Phase 6 Batch 1 — Explanation + AI\n\n"
         f"BUILD_ORDER: {BUILD_ORDER}\n"
         f"COMMIT: {commit_sha}\n"
         f"STATUS: PENDING_VERIFICATION\n"
         f"HANDLER: launch57.explanation_ai_batch1\n",
-        encoding="utf-8",
-    )
-    LAYER_REPORT_PATH.write_text(
-        "# Phase 6 Explanation + AI Layer\n\n"
+        encoding="utf-8",)
+    write_artifact(LAYER_REPORT_PATH, "# Phase 6 Explanation + AI Layer\n\n"
         "Items 34→35→36→51 wired via launch57.explanation_ai_batch1.\n"
         "Builder status: PENDING_VERIFICATION only.\n",
-        encoding="utf-8",
-    )
+        encoding="utf-8",)
     print(f"Updated SSOT/register phase6 batch1 @ {commit_sha}")
 
 

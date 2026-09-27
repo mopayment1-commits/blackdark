@@ -8,7 +8,13 @@ import subprocess
 from datetime import UTC, datetime
 from pathlib import Path
 
+import sys
+
 ROOT = Path(__file__).resolve().parents[2]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from governance.launch57.gov_io import write_artifact
 SSOT_PATH = ROOT / "BLACKDARK_CAPABILITY_CURRENT_STATE.json"
 REGISTER_PATH = ROOT / "governance/launch57" / "LAUNCH57_REGISTER.json"
 EVIDENCE_PATH = ROOT / "governance/launch57" / "PHASE1_BATCH2_EVIDENCE.json"
@@ -167,7 +173,7 @@ def main() -> None:
         }
     )
     ssot["phase1_data_layer"] = phase1
-    SSOT_PATH.write_text(json.dumps(ssot, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    write_artifact(SSOT_PATH, json.dumps(ssot, indent=2, ensure_ascii=False) + "\n")
 
     register = json.loads(REGISTER_PATH.read_text(encoding="utf-8"))
     register["final_commit"] = commit_sha
@@ -221,7 +227,7 @@ def main() -> None:
         "NOT_COMPLETE": [],
         "MAX_BUILDER_STATUS": "PENDING_VERIFICATION",
     }
-    REGISTER_PATH.write_text(json.dumps(register, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    write_artifact(REGISTER_PATH, json.dumps(register, indent=2, ensure_ascii=False) + "\n")
 
     evidence = {
         "artifact": "PHASE1_BATCH2_EVIDENCE",
@@ -235,7 +241,7 @@ def main() -> None:
         "tests": test_result,
         "capabilities": {str(lid): {**CAP_ROWS[lid], "builder_status": "PENDING_VERIFICATION", "commit_sha": commit_sha} for lid in BATCH2_ORDER},
     }
-    EVIDENCE_PATH.write_text(json.dumps(evidence, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    write_artifact(EVIDENCE_PATH, json.dumps(evidence, indent=2, ensure_ascii=False) + "\n")
 
     lines = [
         "# Launch-57 Phase 1 — Data Batch 2 Report",
@@ -250,7 +256,7 @@ def main() -> None:
         lines.append(f"- caps: {', '.join(m['cap_ids'])}")
         lines.append(f"- tests: PASS ({test_result['stdout']})")
         lines.append("")
-    REPORT_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    write_artifact(REPORT_PATH, "\n".join(lines) + "\n")
 
     complete = [
         "# Launch-57 Phase 1 — Data Layer Complete",
@@ -274,7 +280,7 @@ def main() -> None:
         "",
         "**STOP** — Phase 2 (trust) not started.",
     ]
-    COMPLETE_REPORT_PATH.write_text("\n".join(complete) + "\n", encoding="utf-8")
+    write_artifact(COMPLETE_REPORT_PATH, "\n".join(complete) + "\n")
     print(f"Updated SSOT/register batch2 @ {commit_sha}")
 
 

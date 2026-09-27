@@ -8,7 +8,13 @@ import subprocess
 from datetime import UTC, datetime
 from pathlib import Path
 
+import sys
+
 ROOT = Path(__file__).resolve().parents[2]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from governance.launch57.gov_io import write_artifact
 SSOT_PATH = ROOT / "BLACKDARK_CAPABILITY_CURRENT_STATE.json"
 REGISTER_PATH = ROOT / "governance/launch57/LAUNCH57_REGISTER.json"
 EVIDENCE_PATH = ROOT / "governance/launch57/PHASE5_BATCH2_EVIDENCE.json"
@@ -140,7 +146,7 @@ def main() -> None:
             "fix_mandatory": "NO unless derivatives/habits path blocked",
         },
     }
-    SSOT_PATH.write_text(json.dumps(ssot, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    write_artifact(SSOT_PATH, json.dumps(ssot, indent=2, ensure_ascii=False) + "\n")
 
     register = json.loads(REGISTER_PATH.read_text(encoding="utf-8"))
     register["phase"] = "5_DERIVATIVES_BATCH2_BUILD"
@@ -174,7 +180,7 @@ def main() -> None:
         "MAX_BUILDER_STATUS": "PENDING_VERIFICATION",
         "PHASE5_COMPLETE": True,
     }
-    REGISTER_PATH.write_text(json.dumps(register, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    write_artifact(REGISTER_PATH, json.dumps(register, indent=2, ensure_ascii=False) + "\n")
 
     evidence = {
         "artifact": "PHASE5_BATCH2_EVIDENCE",
@@ -187,13 +193,10 @@ def main() -> None:
         "handler_module": "launch57.derivatives_batch2",
         "tests": test_result,
     }
-    EVIDENCE_PATH.write_text(json.dumps(evidence, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    REPORT_PATH.write_text(
-        f"# Phase 5 Batch 2\n\nBUILD_ORDER: {BUILD_ORDER}\nCOMMIT: {commit_sha}\nSTATUS: PENDING_VERIFICATION\n",
-        encoding="utf-8",
-    )
-    LAYER_REPORT.write_text(
-        f"""# Phase 5 Derivatives + Habits Layer
+    write_artifact(EVIDENCE_PATH, json.dumps(evidence, indent=2, ensure_ascii=False) + "\n")
+    write_artifact(REPORT_PATH, f"# Phase 5 Batch 2\n\nBUILD_ORDER: {BUILD_ORDER}\nCOMMIT: {commit_sha}\nSTATUS: PENDING_VERIFICATION\n",
+        encoding="utf-8",)
+    write_artifact(LAYER_REPORT, f"""# Phase 5 Derivatives + Habits Layer
 
 BUILD_ORDER: 25→26→27→28→29→30→31→32→33
 COMMIT: {commit_sha}

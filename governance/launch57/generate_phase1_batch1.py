@@ -8,7 +8,13 @@ import subprocess
 from datetime import UTC, datetime
 from pathlib import Path
 
+import sys
+
 ROOT = Path(__file__).resolve().parents[2]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from governance.launch57.gov_io import write_artifact
 SSOT_PATH = ROOT / "BLACKDARK_CAPABILITY_CURRENT_STATE.json"
 REGISTER_PATH = ROOT / "governance" / "launch57" / "LAUNCH57_REGISTER.json"
 EVIDENCE_PATH = ROOT / "governance" / "launch57" / "PHASE1_BATCH1_EVIDENCE.json"
@@ -230,7 +236,7 @@ def main() -> None:
         "tests": test_result,
     }
 
-    SSOT_PATH.write_text(json.dumps(ssot, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    write_artifact(SSOT_PATH, json.dumps(ssot, indent=2, ensure_ascii=False) + "\n")
 
     register = json.loads(REGISTER_PATH.read_text(encoding="utf-8"))
     register["phase"] = "1_DATA_BATCH1_BUILD"
@@ -292,7 +298,7 @@ def main() -> None:
         register["phase0_5_verification"]["PHASE_1_STARTED"] = "YES"
         register["phase0_5_verification"]["BUILD_STARTED"] = "YES"
 
-    REGISTER_PATH.write_text(json.dumps(register, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    write_artifact(REGISTER_PATH, json.dumps(register, indent=2, ensure_ascii=False) + "\n")
 
     evidence = {
         "artifact": "PHASE1_BATCH1_EVIDENCE",
@@ -325,7 +331,7 @@ def main() -> None:
             "REGRESSION_FAILURES": 0 if test_result["passed"] else 1,
         },
     }
-    EVIDENCE_PATH.write_text(json.dumps(evidence, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    write_artifact(EVIDENCE_PATH, json.dumps(evidence, indent=2, ensure_ascii=False) + "\n")
 
     report_lines = [
         "# Launch-57 Phase 1 — Data Batch 1 Report",
@@ -405,7 +411,7 @@ def main() -> None:
             "**STOP** — Batch 2 not started; independent verification not performed in builder session.",
         ]
     )
-    REPORT_PATH.write_text("\n".join(report_lines) + "\n", encoding="utf-8")
+    write_artifact(REPORT_PATH, "\n".join(report_lines) + "\n")
     print(f"Updated SSOT, register, evidence, report @ {commit_sha}")
 
 

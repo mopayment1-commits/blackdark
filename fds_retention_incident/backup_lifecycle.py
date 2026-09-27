@@ -9,6 +9,8 @@ from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Any, Literal
 
+from path_safety import safe_data_file
+
 BackupState = Literal["CREATED", "RETENTION_WINDOW", "EXPIRED", "DELETED", "VERIFIED", "FAILED", "LEGAL_HOLD"]
 
 _DEFAULT_RETENTION_DAYS = 30
@@ -24,8 +26,7 @@ def backup_retention_days() -> int:
 
 
 def _evidence_path() -> Path:
-    base = Path(os.getenv("DATA_DIR", "data"))
-    return base / "backup_lifecycle_evidence.jsonl"
+    return safe_data_file("backup_lifecycle_evidence.jsonl")
 
 
 def _append_evidence(record: dict[str, Any]) -> None:

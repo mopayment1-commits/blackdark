@@ -203,11 +203,18 @@ async def authorize_financial_operation(
         },
     )
     try:
-        from audit_registry import record_audit_log
+        from audit_registry import hash_payload, record_audit_log
 
+        meta = {
+            "resource_class": spec.resource_class,
+            "org_id": ctx.org_id,
+            "tenant_id": ctx.tenant_id,
+            "correlation_id": correlation_id,
+        }
         await record_audit_log(
             actor=ctx.subject_email,
             action=f"privileged:{spec.operation.value}",
+            payload_hash=hash_payload(meta),
             outcome="allowed",
             metadata={
                 "resource_class": spec.resource_class,

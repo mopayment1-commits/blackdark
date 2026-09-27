@@ -8,7 +8,13 @@ import subprocess
 from datetime import UTC, datetime
 from pathlib import Path
 
+import sys
+
 ROOT = Path(__file__).resolve().parents[2]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from governance.launch57.gov_io import write_artifact
 REGISTER_PATH = ROOT / "governance/launch57/LAUNCH57_REGISTER.json"
 EVIDENCE_PATH = ROOT / "governance/launch57/PHASE7_BATCH2_EVIDENCE.json"
 REPORT_PATH = ROOT / "governance/launch57/PHASE7_BATCH2_REPORT.md"
@@ -89,7 +95,7 @@ def main() -> None:
         "MAX_BUILDER_STATUS": "PENDING_VERIFICATION",
         "PHASE7_COMPLETE": True,
     }
-    REGISTER_PATH.write_text(json.dumps(register, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    write_artifact(REGISTER_PATH, json.dumps(register, indent=2, ensure_ascii=False) + "\n")
 
     evidence = {
         "artifact": "PHASE7_BATCH2_EVIDENCE",
@@ -103,17 +109,13 @@ def main() -> None:
         "launch57_scope_proof": "eligible_launch57_ids ⊆ LAUNCH57_SCOPE_IDS (1..57); excludes PARKED",
         "tests": test_result,
     }
-    EVIDENCE_PATH.write_text(json.dumps(evidence, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    REPORT_PATH.write_text(
-        f"# Phase 7 Batch 2 — Command Home\n\nBUILD_ORDER: {BUILD_ORDER}\nCOMMIT: {commit_sha}\nSTATUS: PENDING_VERIFICATION\n",
-        encoding="utf-8",
-    )
-    LAYER_REPORT_PATH.write_text(
-        "# Phase 7 Edge + UI Layer\n\n"
+    write_artifact(EVIDENCE_PATH, json.dumps(evidence, indent=2, ensure_ascii=False) + "\n")
+    write_artifact(REPORT_PATH, f"# Phase 7 Batch 2 — Command Home\n\nBUILD_ORDER: {BUILD_ORDER}\nCOMMIT: {commit_sha}\nSTATUS: PENDING_VERIFICATION\n",
+        encoding="utf-8",)
+    write_artifact(LAYER_REPORT_PATH, "# Phase 7 Edge + UI Layer\n\n"
         "Items 43→38→49→50→52→1 wired via launch57.edge_ui_batch1/batch2.\n"
         "Builder status: PENDING_VERIFICATION only.\n",
-        encoding="utf-8",
-    )
+        encoding="utf-8",)
     print(f"Updated register phase7 batch2 @ {commit_sha}")
 
 

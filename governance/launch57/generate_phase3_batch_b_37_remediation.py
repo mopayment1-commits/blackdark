@@ -8,7 +8,13 @@ import subprocess
 from datetime import UTC, datetime
 from pathlib import Path
 
+import sys
+
 ROOT = Path(__file__).resolve().parents[2]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from governance.launch57.gov_io import write_artifact
 GOV = ROOT / "governance" / "launch57"
 EVIDENCE_PATH = GOV / "PHASE3_BATCH_B_37_REMEDIATION_EVIDENCE.json"
 REPORT_PATH = GOV / "PHASE3_BATCH_B_37_REMEDIATION_REPORT.md"
@@ -55,7 +61,7 @@ def main() -> None:
     evidence["implementation_sha"] = commit_sha
     evidence["generated_at"] = now
     evidence["tests"] = tests
-    EVIDENCE_PATH.write_text(json.dumps(evidence, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    write_artifact(EVIDENCE_PATH, json.dumps(evidence, indent=2, ensure_ascii=False) + "\n")
 
     lines = [
         "# Launch-57 Phase 3 Batch B — #37 Targeted Remediation Report",
@@ -101,7 +107,7 @@ def main() -> None:
         "PASS_LIVE_NOT_CLAIMED = true",
         "```",
     ]
-    REPORT_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    write_artifact(REPORT_PATH, "\n".join(lines) + "\n")
     print(f"Wrote #37 remediation evidence @ {commit_sha[:8]}")
 
 

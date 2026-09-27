@@ -17,12 +17,50 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
+from path_safety import ensure_under, safe_data_file
+
 try:
     import fcntl
 except ImportError:  # pragma: no cover — non-Unix
     fcntl = None  # type: ignore[assignment]
 
 logger = logging.getLogger("BLACKDARK.OracleAuditChain")
+
+_PROJECT_ROOT = Path(__file__).resolve().parent
+
+
+def _allow_outside_project(path: Path) -> bool:
+    resolved = path.resolve()
+    tmp_root = Path(os.environ.get("TMPDIR", "/tmp")).resolve()
+    try:
+        resolved.relative_to(tmp_root)
+        return True
+    except ValueError:
+        return False
+
+
+def _resolve_chain_file(path: Path | None) -> Path:
+    """Bind chain file paths to project data/ (or pytest temp dirs)."""
+    if path is not None:
+        candidate = Path(path).resolve()
+        try:
+            return ensure_under(candidate, _PROJECT_ROOT)
+        except ValueError:
+            if _allow_outside_project(candidate):
+                return candidate
+            raise
+    raw = Path(CHAIN_PATH)
+    if not raw.is_absolute():
+        candidate = (_PROJECT_ROOT / raw).resolve()
+    else:
+        candidate = raw.resolve()
+    try:
+        return ensure_under(candidate, _PROJECT_ROOT)
+    except ValueError:
+        if _allow_outside_project(candidate):
+            return candidate
+        return safe_data_file("oracle_audit_chain.jsonl", project_root=_PROJECT_ROOT)
+
 
 # Mutable module attribute so tests may monkeypatch.setattr(chain, "CHAIN_PATH", path).
 # Production readers should prefer chain_path() which also honors live env overrides.
@@ -103,7 +141,7 @@ def _chain_file_lock(path: Path):
 
 def chain_path() -> Path:
     """Active chain path (module CHAIN_PATH — monkeypatchable for tests)."""
-    return CHAIN_PATH
+    return _resolve_chain_file(None)
 
 
 def _utcnow_iso() -> str:
@@ -144,7 +182,7 @@ def _count_records(path: Path) -> int:
 
 def verify_chain(path: Path | None = None) -> dict[str, Any]:
     """Verify integrity of entire chain (short TTL + file fingerprint cache)."""
-    chain = path or chain_path()
+    chain = _resolve_chain_file(path)
     ttl = float(os.getenv("ORACLE_CHAIN_VERIFY_CACHE_SEC", "45"))
     fp = _chain_file_fingerprint(chain)
     now = time.monotonic()
@@ -170,7 +208,7 @@ def repair_tip_prev_hash_race(path: Path | None = None) -> dict[str, Any]:
 
     Does not rewrite historical payloads; recomputes tip chain_hash after fixing prev_hash.
     """
-    chain = path or chain_path()
+    chain = _resolve_chain_file(path)
     before = verify_chain(chain)
     if before.get("valid"):
         return {"repaired": False, "action": "none", "verify": before}

@@ -9,7 +9,13 @@ from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 
+import sys
+
 ROOT = Path(__file__).resolve().parents[2]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from governance.launch57.gov_io import write_artifact
 SSOT_PATH = ROOT / "BLACKDARK_CAPABILITY_CURRENT_STATE.json"
 REGISTER_PATH = ROOT / "governance" / "launch57" / "LAUNCH57_REGISTER.json"
 REPORT_PATH = ROOT / "governance" / "launch57" / "PHASE0_5_RECONCILIATION_REPORT.md"
@@ -628,9 +634,9 @@ def main() -> None:
     ]
     register["phase0_5_verification"] = closure_verification(register["phase0_5_summary"], updated_ssot)
 
-    REGISTER_PATH.write_text(json.dumps(register, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    SSOT_PATH.write_text(json.dumps(updated_ssot, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    REPORT_PATH.write_text(render_report(register, rows, updated_ssot, amended), encoding="utf-8")
+    write_artifact(REGISTER_PATH, json.dumps(register, indent=2, ensure_ascii=False) + "\n")
+    write_artifact(SSOT_PATH, json.dumps(updated_ssot, indent=2, ensure_ascii=False) + "\n")
+    write_artifact(REPORT_PATH, render_report(register, rows, updated_ssot, amended))
 
     print(json.dumps(register["phase0_5_summary"], indent=2))
     print("Scope integrity:", register["scope_integrity"])

@@ -15,7 +15,12 @@ def normalize_payload(payload: dict[str, Any], *, vendor: str = "unknown") -> di
         from blackdark.canonical.layer import get_canonical_layer
 
         layer = get_canonical_layer()
-        normalized = layer.normalize_payload(out, vendor=vendor)
+        normalized = layer.normalize_payload(
+            source=vendor,
+            dataset="inbound",
+            raw=out,
+            asset_hint=str(out.get("symbol") or out.get("asset") or ""),
+        )
         out.update(normalized)
     except Exception:
         out["canonical_id"] = out.get("canonical_id") or f"bd:UNMAPPED:{vendor}"
@@ -26,10 +31,12 @@ def normalize_payload(payload: dict[str, Any], *, vendor: str = "unknown") -> di
 
 def normalization_report(symbol: str = "BTC") -> dict[str, Any]:
     try:
+        import asyncio
+
         from blackdark.canonical.layer import get_canonical_layer
 
         layer = get_canonical_layer()
-        result = layer.query(symbol)
+        result = asyncio.run(layer.query(input=symbol))
         return {"symbol": symbol, "resolved": bool(result), "normalization_version": NORMALIZATION_VERSION}
     except Exception:
         return {"symbol": symbol, "resolved": False, "error": "normalization_unavailable"}

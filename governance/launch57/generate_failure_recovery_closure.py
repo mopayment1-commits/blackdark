@@ -13,6 +13,8 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
+
+from governance.launch57.gov_io import write_artifact
 GOV = ROOT / "governance" / "launch57"
 
 RECON_PATH = GOV / "BLACKDARK_LAUNCH57_FAILURE_DEGRADED_RECOVERY_RECONCILIATION.json"
@@ -147,7 +149,7 @@ def main() -> None:
             "teis_support": "launch57/teis_support_common.py",
         },
     }
-    RECON_PATH.write_text(json.dumps(recon, indent=2) + "\n", encoding="utf-8")
+    write_artifact(RECON_PATH, json.dumps(recon, indent=2) + "\n")
 
     engineering_pass = tests["passed"] and all(acceptance.values())
     iv = {
@@ -172,7 +174,7 @@ def main() -> None:
         },
         "test_evidence": tests,
     }
-    IV_PATH.write_text(json.dumps(iv, indent=2) + "\n", encoding="utf-8")
+    write_artifact(IV_PATH, json.dumps(iv, indent=2) + "\n")
 
     report = f"""# BLACKDARK Launch-57 Failure Degraded Recovery Report
 
@@ -257,7 +259,7 @@ exit_code={tests["exit_code"]}
 - `LAUNCH57_FAILURE_RECOVERY_READY_FOR_LOCAL_USE={str(engineering_pass).lower()}`
 - `PASS_LIVE_NOT_CLAIMED=true`
 """
-    REPORT_PATH.write_text(report, encoding="utf-8")
+    write_artifact(REPORT_PATH, report)
     print(f"Wrote failure recovery artifacts under {GOV}")
     print(f"IV verdict: {iv['verdict']}")
 

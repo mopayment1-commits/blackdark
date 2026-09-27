@@ -11,6 +11,8 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any, Literal
 
+from path_safety import resolve_under, safe_data_file
+
 SUPPLY_CHAIN_VERSION = "fds-supply-chain-v1"
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -18,8 +20,7 @@ Severity = Literal["critical", "high", "medium", "low"]
 
 
 def _waiver_path() -> Path:
-    base = Path(os.getenv("DATA_DIR", "data"))
-    return base / "dependency_waivers.json"
+    return safe_data_file("dependency_waivers.json")
 
 
 def _load_waivers() -> list[dict[str, Any]]:
@@ -88,7 +89,7 @@ def evaluate_waivers() -> dict[str, Any]:
 
 def sca_status() -> dict[str, Any]:
     """Verify pip-audit is runnable against hash-locked requirements."""
-    req = ROOT / "requirements.hashes.txt"
+    req = resolve_under(ROOT, "requirements.hashes.txt")
     if not req.is_file():
         return {"available": False, "error": "requirements.hashes.txt missing"}
     proc = subprocess.run(
@@ -134,8 +135,8 @@ def _map_severity(vuln: dict[str, Any]) -> str:
 
 def sbom_status() -> dict[str, Any]:
     """Generate or verify CycloneDX SBOM."""
-    script = ROOT / "scripts" / "generate_sbom.py"
-    out = ROOT / "docs" / "data-room" / "sbom" / "cyclonedx-python.json"
+    script = resolve_under(ROOT, "scripts", "generate_sbom.py")
+    out = resolve_under(ROOT, "docs", "data-room", "sbom", "cyclonedx-python.json")
     if not script.is_file():
         return {"available": False, "error": "generate_sbom.py missing"}
     proc = subprocess.run([sys.executable, str(script), "--out", str(out)], capture_output=True, text=True, cwd=ROOT)

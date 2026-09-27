@@ -8,7 +8,13 @@ import subprocess
 from datetime import UTC, datetime
 from pathlib import Path
 
+import sys
+
 ROOT = Path(__file__).resolve().parents[2]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from governance.launch57.gov_io import write_artifact
 GOV = ROOT / "governance" / "launch57"
 EVIDENCE_PATH = GOV / "PHASE2_ADAPTIVE_BATCH_A_EVIDENCE.json"
 REPORT_PATH = GOV / "PHASE2_ADAPTIVE_BATCH_A_REPORT.md"
@@ -120,7 +126,7 @@ def main() -> None:
             "REGISTER_STATUS_PROMOTION": False,
         },
     }
-    EVIDENCE_PATH.write_text(json.dumps(evidence, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    write_artifact(EVIDENCE_PATH, json.dumps(evidence, indent=2, ensure_ascii=False) + "\n")
 
     lines = [
         "# Launch-57 Phase 2 Adaptive Batch A — Builder Report",
@@ -153,7 +159,7 @@ def main() -> None:
             "```",
         ]
     )
-    REPORT_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    write_artifact(REPORT_PATH, "\n".join(lines) + "\n")
     print(f"Wrote Phase 2 Adaptive Batch A evidence @ {commit_sha[:8]}")
 
 

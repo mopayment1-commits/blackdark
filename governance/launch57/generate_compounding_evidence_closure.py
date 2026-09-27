@@ -13,6 +13,8 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
+
+from governance.launch57.gov_io import write_artifact
 GOV = ROOT / "governance" / "launch57"
 
 LINEAGE_PATH = GOV / "BLACKDARK_LAUNCH57_EVIDENCE_LINEAGE_INDEX.json"
@@ -110,7 +112,7 @@ def main() -> None:
         "asset_classes": build_asset_class_index(),
         "internal_components": build_compounding_component_registry(),
     }
-    LINEAGE_PATH.write_text(json.dumps(lineage, indent=2) + "\n", encoding="utf-8")
+    write_artifact(LINEAGE_PATH, json.dumps(lineage, indent=2) + "\n")
 
     decision_outcome = {
         "artifact": "BLACKDARK_LAUNCH57_DECISION_OUTCOME_RECONCILIATION",
@@ -138,7 +140,7 @@ def main() -> None:
             },
         ],
     }
-    DECISION_OUTCOME_PATH.write_text(json.dumps(decision_outcome, indent=2) + "\n", encoding="utf-8")
+    write_artifact(DECISION_OUTCOME_PATH, json.dumps(decision_outcome, indent=2) + "\n")
 
     cap_verify = {
         "artifact": "BLACKDARK_LAUNCH57_CAPABILITY_VERIFICATION_EVIDENCE_INDEX",
@@ -149,7 +151,7 @@ def main() -> None:
         "all_57_attributable": acceptance.get("ac16_all_57_verification_attributable", False),
         "compounding_touchpoints": list(build_compounding_touchpoint_matrix()),
     }
-    CAP_VERIFY_PATH.write_text(json.dumps(cap_verify, indent=2) + "\n", encoding="utf-8")
+    write_artifact(CAP_VERIFY_PATH, json.dumps(cap_verify, indent=2) + "\n")
 
     live_sim = {
         "artifact": "BLACKDARK_LAUNCH57_LIVE_SIM_EVIDENCE_SEPARATION",
@@ -162,7 +164,7 @@ def main() -> None:
         "contamination_violations": [] if acceptance.get("sim_cannot_contaminate_live") is False else [],
         "acceptance_live_sim_separated": acceptance.get("ac06_live_delayed_sim_separated", False),
     }
-    LIVE_SIM_PATH.write_text(json.dumps(live_sim, indent=2) + "\n", encoding="utf-8")
+    write_artifact(LIVE_SIM_PATH, json.dumps(live_sim, indent=2) + "\n")
 
     engineering_pass = tests["passed"] and all(acceptance.values())
     iv = {
@@ -186,7 +188,7 @@ def main() -> None:
         },
         "test_evidence": tests,
     }
-    IV_PATH.write_text(json.dumps(iv, indent=2) + "\n", encoding="utf-8")
+    write_artifact(IV_PATH, json.dumps(iv, indent=2) + "\n")
 
     report = f"""# BLACKDARK Launch-57 Compounding Evidence Report
 
@@ -263,7 +265,7 @@ Phase 8 E2E tests included in generator verification subset.
 - `LAUNCH57_COMPOUNDING_EVIDENCE_READY_FOR_LOCAL_USE={str(engineering_pass).lower()}`
 - `PASS_LIVE_NOT_CLAIMED=true`
 """
-    REPORT_PATH.write_text(report, encoding="utf-8")
+    write_artifact(REPORT_PATH, report)
     print(f"Wrote compounding evidence artifacts under {GOV}")
     print(f"IV verdict: {iv['verdict']}")
 

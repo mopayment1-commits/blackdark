@@ -12,6 +12,8 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from governance.launch57.gov_io import write_artifact
+
 OUT = ROOT / "governance" / "launch57" / "SPEC_05_COMMERCIAL_CAPABILITY_INVENTORY"
 
 
@@ -123,22 +125,16 @@ def main() -> None:
     truth = build_runtime_truth_table()
     iv = independent_verification()
 
-    (OUT / "REQUIREMENTS_REGISTER.json").write_text(
-        json.dumps(requirements, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
-    )
-    (OUT / "RUNTIME_TRUTH_TABLE.md").write_text(_md_truth_table(truth), encoding="utf-8")
-    (OUT / "INDEPENDENT_VERIFICATION.json").write_text(
-        json.dumps({**iv, "generated_at": now}, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
-    )
+    write_artifact((OUT / "REQUIREMENTS_REGISTER.json"), json.dumps(requirements, indent=2, ensure_ascii=False) + "\n")
+    write_artifact((OUT / "RUNTIME_TRUTH_TABLE.md"), _md_truth_table(truth))
+    write_artifact((OUT / "INDEPENDENT_VERIFICATION.json"), json.dumps({**iv, "generated_at": now}, indent=2, ensure_ascii=False) + "\n")
 
     tests = run_targeted_tests()
     status = build_final_status(tests=tests)
-    (OUT / "LOCAL_CLOSURE_REPORT.md").write_text(_md_local_closure(status, iv, tests), encoding="utf-8")
+    write_artifact((OUT / "LOCAL_CLOSURE_REPORT.md"), _md_local_closure(status, iv, tests))
     status["tests"] = tests
     status["generated_at"] = now
-    (OUT / "FINAL_STATUS.json").write_text(
-        json.dumps(status, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
-    )
+    write_artifact((OUT / "FINAL_STATUS.json"), json.dumps(status, indent=2, ensure_ascii=False) + "\n")
 
     print(
         "Wrote",

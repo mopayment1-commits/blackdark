@@ -13,6 +13,8 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
+
+from governance.launch57.gov_io import write_artifact
 GOV = ROOT / "governance" / "launch57"
 
 INDEX_PATH = GOV / "BLACKDARK_LAUNCH57_CAPABILITY_LIBRARY_INDEX.json"
@@ -118,7 +120,7 @@ def main() -> None:
             "Personal Decision Tools",
         ],
     }
-    INDEX_PATH.write_text(json.dumps(index, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    write_artifact(INDEX_PATH, json.dumps(index, indent=2, ensure_ascii=False) + "\n")
 
     recon = {
         "artifact": "BLACKDARK_LAUNCH57_CAPABILITY_LIBRARY_RECONCILIATION",
@@ -154,7 +156,7 @@ def main() -> None:
             }
         ],
     }
-    RECON_PATH.write_text(json.dumps(recon, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    write_artifact(RECON_PATH, json.dumps(recon, indent=2, ensure_ascii=False) + "\n")
 
     all_ac_pass = all(acceptance.values())
     iv = {
@@ -184,7 +186,7 @@ def main() -> None:
         "tests": tests,
         "acceptance_criteria": acceptance,
     }
-    IV_PATH.write_text(json.dumps(iv, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    write_artifact(IV_PATH, json.dumps(iv, indent=2, ensure_ascii=False) + "\n")
 
     lines = [
         "# Launch-57 Capability Library (#52) — Engineering Report",
@@ -231,7 +233,7 @@ def main() -> None:
             "- Production live validation (`PASS_LIVE`) — not granted in repository",
         ]
     )
-    REPORT_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    write_artifact(REPORT_PATH, "\n".join(lines) + "\n")
     print(f"Wrote {INDEX_PATH.name}, {RECON_PATH.name}, {IV_PATH.name}, {REPORT_PATH.name}")
 
 

@@ -12,6 +12,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
+
+from governance.launch57.gov_io import write_artifact
 GOV = ROOT / "governance" / "launch57"
 
 ARTIFACT_SOURCE_REGISTRY = GOV / "BLACKDARK_LAUNCH57_SOURCE_REGISTRY.json"
@@ -76,7 +78,7 @@ def main() -> None:
         "parked_out_of_launch": True,
         "sources": build_launch57_source_registry(),
     }
-    ARTIFACT_SOURCE_REGISTRY.write_text(json.dumps(source_registry, indent=2) + "\n", encoding="utf-8")
+    write_artifact(ARTIFACT_SOURCE_REGISTRY, json.dumps(source_registry, indent=2) + "\n")
 
     capability_matrix = {
         "artifact": "BLACKDARK_LAUNCH57_DATA_CAPABILITY_SOURCE_MATRIX",
@@ -85,7 +87,7 @@ def main() -> None:
         "data_critical_capability_count": len(LAUNCH57_DATA_CRITICAL_IDS),
         "rows": build_capability_source_matrix(),
     }
-    ARTIFACT_CAPABILITY_MATRIX.write_text(json.dumps(capability_matrix, indent=2) + "\n", encoding="utf-8")
+    write_artifact(ARTIFACT_CAPABILITY_MATRIX, json.dumps(capability_matrix, indent=2) + "\n")
 
     qfr = {
         "artifact": "BLACKDARK_LAUNCH57_DATA_QUALITY_FRESHNESS_RECONCILIATION",
@@ -99,7 +101,7 @@ def main() -> None:
             [{"source_id": "a", "value": 100.0}, {"source_id": "b", "value": 100.5}]
         ),
     }
-    ARTIFACT_QFR.write_text(json.dumps(qfr, indent=2) + "\n", encoding="utf-8")
+    write_artifact(ARTIFACT_QFR, json.dumps(qfr, indent=2) + "\n")
 
     rights_cost = {
         "artifact": "BLACKDARK_LAUNCH57_DATA_RIGHTS_COST_MATRIX",
@@ -109,7 +111,7 @@ def main() -> None:
         "free_first_policy": True,
         "provider_sla_default": "NONE",
     }
-    ARTIFACT_RIGHTS_COST.write_text(json.dumps(rights_cost, indent=2) + "\n", encoding="utf-8")
+    write_artifact(ARTIFACT_RIGHTS_COST, json.dumps(rights_cost, indent=2) + "\n")
 
     contract_ok = validate_observation_contract(
         {
@@ -144,7 +146,7 @@ def main() -> None:
         },
         "test_evidence": tests,
     }
-    ARTIFACT_IV.write_text(json.dumps(iv, indent=2) + "\n", encoding="utf-8")
+    write_artifact(ARTIFACT_IV, json.dumps(iv, indent=2) + "\n")
 
     report = f"""# BLACKDARK Launch-57 Data Intelligence & Governance Report
 
@@ -242,7 +244,7 @@ exit_code={tests["exit_code"]}
 - `LAUNCH57_DATA_READY_FOR_LOCAL_USE={str(iv["LAUNCH57_DATA_READY_FOR_LOCAL_USE"]).lower()}`
 - `PASS_LIVE_NOT_CLAIMED=true`
 """
-    REPORT_PATH.write_text(report, encoding="utf-8")
+    write_artifact(REPORT_PATH, report)
     print(f"Wrote artifacts under {GOV}")
     print(f"IV verdict: {iv['verdict']}")
 

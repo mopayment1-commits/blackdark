@@ -51,8 +51,16 @@ def freshness_from_live_book(symbol: str) -> dict[str, Any]:
         from live_book_hub import get_quote_age_ms, get_top_of_book
 
         asset = symbol.upper().replace("USDT", "")
-        book = get_top_of_book(f"{asset}USDT") or get_top_of_book(asset)
-        age_ms = get_quote_age_ms(f"{asset}USDT") if book else None
+        sym = f"{asset}USDT"
+        book = None
+        age_ms = None
+        for exchange in ("binance", "bybit", "okx", "kraken"):
+            book = get_top_of_book(exchange, sym) or get_top_of_book(exchange, asset)
+            if book:
+                age_ms = get_quote_age_ms(exchange, sym) or get_quote_age_ms(exchange, asset)
+                break
+        if not book:
+            book = get_top_of_book(sym) or get_top_of_book(asset)
         return classify_with_slo(age_seconds=float(age_ms) / 1000.0 if age_ms else None, slo_class="T0")
     except Exception:
         return classify_with_slo(age_seconds=None, slo_class="T0")

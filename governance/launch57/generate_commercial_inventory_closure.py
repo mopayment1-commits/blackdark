@@ -13,6 +13,8 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
+
+from governance.launch57.gov_io import write_artifact
 GOV = ROOT / "governance" / "launch57"
 
 INVENTORY_PATH = GOV / "BLACKDARK_LAUNCH57_COMMERCIAL_CAPABILITY_INVENTORY.json"
@@ -103,7 +105,7 @@ def main() -> None:
         "capabilities": inventory,
         "reconciliation_counters": counters,
     }
-    INVENTORY_PATH.write_text(json.dumps(inv_artifact, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    write_artifact(INVENTORY_PATH, json.dumps(inv_artifact, indent=2, ensure_ascii=False) + "\n")
 
     tier_artifact = {
         "artifact": "BLACKDARK_LAUNCH57_TIER_VARIABLE_INVENTORY",
@@ -112,7 +114,7 @@ def main() -> None:
         "tier_variables": build_tier_variable_inventory(),
         "not_counted_in_launch57_capability_count": True,
     }
-    TIER_PATH.write_text(json.dumps(tier_artifact, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    write_artifact(TIER_PATH, json.dumps(tier_artifact, indent=2, ensure_ascii=False) + "\n")
 
     value_artifact = {
         "artifact": "BLACKDARK_LAUNCH57_COMMERCIAL_VALUE_MATRIX",
@@ -120,7 +122,7 @@ def main() -> None:
         "implementation_sha": sha,
         "matrix": build_commercial_value_matrix(),
     }
-    VALUE_PATH.write_text(json.dumps(value_artifact, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    write_artifact(VALUE_PATH, json.dumps(value_artifact, indent=2, ensure_ascii=False) + "\n")
 
     cost_rights = {
         "artifact": "BLACKDARK_LAUNCH57_COST_RIGHTS_MATRIX",
@@ -129,7 +131,7 @@ def main() -> None:
         "matrix": build_cost_rights_matrix(),
         "external_evidence_required": True,
     }
-    COST_RIGHTS_PATH.write_text(json.dumps(cost_rights, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    write_artifact(COST_RIGHTS_PATH, json.dumps(cost_rights, indent=2, ensure_ascii=False) + "\n")
 
     readiness_artifact = {
         "artifact": "BLACKDARK_LAUNCH57_COMMERCIAL_READINESS",
@@ -138,7 +140,7 @@ def main() -> None:
         **readiness,
         "tests_pass": tests["passed"],
     }
-    READINESS_PATH.write_text(json.dumps(readiness_artifact, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    write_artifact(READINESS_PATH, json.dumps(readiness_artifact, indent=2, ensure_ascii=False) + "\n")
 
     recompute_artifact = {
         "artifact": "BLACKDARK_LAUNCH57_INDEPENDENT_RECOMPUTATION",
@@ -147,7 +149,7 @@ def main() -> None:
         **recompute,
         "tests_pass": tests["passed"],
     }
-    RECOMPUTE_PATH.write_text(json.dumps(recompute_artifact, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    write_artifact(RECOMPUTE_PATH, json.dumps(recompute_artifact, indent=2, ensure_ascii=False) + "\n")
 
     lines = [
         "# Launch-57 Commercial Capability Inventory Audit Report",
@@ -211,7 +213,7 @@ def main() -> None:
             f"- Tests pass: **{tests['passed']}**",
         ]
     )
-    REPORT_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    write_artifact(REPORT_PATH, "\n".join(lines) + "\n")
     print(
         "Wrote",
         INVENTORY_PATH.name,

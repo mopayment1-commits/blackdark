@@ -9,7 +9,13 @@ import subprocess
 from datetime import UTC, datetime
 from pathlib import Path
 
+import sys
+
 ROOT = Path(__file__).resolve().parents[2]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from governance.launch57.gov_io import write_artifact
 SPEC_UPLOAD = Path("/home/ubuntu/.cursor/projects/workspace/uploads/BLACKDARK_Launch57_Global_Time_Temporal_Consistency_FROM_SCRATCH_SPEC_66d6.md")
 REPORT_PATH = ROOT / "governance" / "launch57" / "BLACKDARK_LAUNCH57_TEMPORAL_CONSISTENCY_REPORT.md"
 RECON_PATH = ROOT / "governance/launch57/BLACKDARK_LAUNCH57_TEMPORAL_CONSISTENCY_RECONCILIATION.json"
@@ -189,8 +195,8 @@ def main() -> int:
     spec_sha = _spec_sha256()
     tests = _run_tests()
     recon = build_reconciliation(sha, spec_sha, tests)
-    RECON_PATH.write_text(json.dumps(recon, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    REPORT_PATH.write_text(build_report(sha, spec_sha, tests), encoding="utf-8")
+    write_artifact(RECON_PATH, json.dumps(recon, indent=2, ensure_ascii=False) + "\n")
+    write_artifact(REPORT_PATH, build_report(sha, spec_sha, tests))
     print(f"Wrote {RECON_PATH}")
     print(f"Wrote {REPORT_PATH}")
     return 0 if tests["passed"] else 1

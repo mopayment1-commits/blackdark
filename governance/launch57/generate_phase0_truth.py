@@ -11,7 +11,13 @@ from datetime import datetime, timezone
 from difflib import SequenceMatcher
 from pathlib import Path
 
+import sys
+
 ROOT = Path(__file__).resolve().parents[2]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from governance.launch57.gov_io import write_artifact
 SSOT_PATH = ROOT / "BLACKDARK_CAPABILITY_CURRENT_STATE.json"
 HERO_MATRIX_PATH = ROOT / "BLACKDARK_CAPABILITY_SIX_HERO_MATRIX.json"
 PHANTOM_PATH = ROOT / "BLACKDARK_CAPABILITY_PHANTOM_DISPOSITION.json"
@@ -701,10 +707,10 @@ def main() -> None:
     hero_matrix = load_json(HERO_MATRIX_PATH)
     phantom_doc = load_json(PHANTOM_PATH)
     register = build_register(ssot, hero_matrix, phantom_doc)
-    REGISTER_PATH.write_text(json.dumps(register, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    REPORT_PATH.write_text(render_report(register), encoding="utf-8")
+    write_artifact(REGISTER_PATH, json.dumps(register, indent=2, ensure_ascii=False) + "\n")
+    write_artifact(REPORT_PATH, render_report(register))
     updated = update_ssot(ssot, register)
-    SSOT_PATH.write_text(json.dumps(updated, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    write_artifact(SSOT_PATH, json.dumps(updated, indent=2, ensure_ascii=False) + "\n")
     print(json.dumps(register["summary"], indent=2))
     print("Wrote", REGISTER_PATH)
     print("Wrote", REPORT_PATH)

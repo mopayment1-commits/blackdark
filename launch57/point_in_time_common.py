@@ -11,8 +11,10 @@ from pathlib import Path
 from typing import Any
 
 from launch57.temporal_common import parse_rfc3339, point_in_time_eligible, to_rfc3339, utc_now
+from path_safety import resolve_under
 
-_STORE_PATH = Path(__file__).resolve().parent / "pit_observation_store.json"
+_PROJECT_ROOT = Path(__file__).resolve().parents[1]
+_STORE_PATH = resolve_under(_PROJECT_ROOT, "launch57", "pit_observation_store.json")
 
 
 @dataclass(frozen=True)
