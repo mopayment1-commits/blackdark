@@ -44,8 +44,29 @@ jobs:
           python -m pip install --upgrade "pip==25.2"
           pip install --require-hashes --only-binary=:all: -r requirements.hashes.txt
 
+      - name: Require institutional crypto secrets
+        env:
+          AUDIT_SIGNING_KEY: ${{ secrets.AUDIT_SIGNING_KEY }}
+          SECRETS_MASTER_KEY: ${{ secrets.SECRETS_MASTER_KEY }}
+          SECRETS_VAULT_KEY: ${{ secrets.SECRETS_VAULT_KEY }}
+        run: |
+          set -euo pipefail
+          if [ -z "${AUDIT_SIGNING_KEY:-}" ]; then
+            echo "::error::AUDIT_SIGNING_KEY is not set (configure repository or environment secret)"
+            exit 1
+          fi
+          if [ -z "${SECRETS_MASTER_KEY:-}" ] && [ -z "${SECRETS_VAULT_KEY:-}" ]; then
+            echo "::error::SECRETS_MASTER_KEY or SECRETS_VAULT_KEY must be set (configure repository or environment secret)"
+            exit 1
+          fi
+
       - name: Institutional gate (sample + artifacts)
         env:
+          ENV: institutional
+          APP_ENV: institutional
+          AUDIT_SIGNING_KEY: ${{ secrets.AUDIT_SIGNING_KEY }}
+          SECRETS_MASTER_KEY: ${{ secrets.SECRETS_MASTER_KEY }}
+          SECRETS_VAULT_KEY: ${{ secrets.SECRETS_VAULT_KEY }}
           SERVICE_BUS_LOCAL: "true"
           BLACKDARK_CI_DETERMINISTIC_CLOSURE: "true"
           PYTHONPATH: ${{ github.workspace }}
@@ -75,8 +96,29 @@ jobs:
           python -m pip install --upgrade "pip==25.2"
           pip install --require-hashes --only-binary=:all: -r requirements.hashes.txt
 
+      - name: Require institutional crypto secrets
+        env:
+          AUDIT_SIGNING_KEY: ${{ secrets.AUDIT_SIGNING_KEY }}
+          SECRETS_MASTER_KEY: ${{ secrets.SECRETS_MASTER_KEY }}
+          SECRETS_VAULT_KEY: ${{ secrets.SECRETS_VAULT_KEY }}
+        run: |
+          set -euo pipefail
+          if [ -z "${AUDIT_SIGNING_KEY:-}" ]; then
+            echo "::error::AUDIT_SIGNING_KEY is not set (configure repository or environment secret)"
+            exit 1
+          fi
+          if [ -z "${SECRETS_MASTER_KEY:-}" ] && [ -z "${SECRETS_VAULT_KEY:-}" ]; then
+            echo "::error::SECRETS_MASTER_KEY or SECRETS_VAULT_KEY must be set (configure repository or environment secret)"
+            exit 1
+          fi
+
       - name: Full CAP978 institutional gate
         env:
+          ENV: institutional
+          APP_ENV: institutional
+          AUDIT_SIGNING_KEY: ${{ secrets.AUDIT_SIGNING_KEY }}
+          SECRETS_MASTER_KEY: ${{ secrets.SECRETS_MASTER_KEY }}
+          SECRETS_VAULT_KEY: ${{ secrets.SECRETS_VAULT_KEY }}
           SERVICE_BUS_LOCAL: "true"
           BLACKDARK_CI_DETERMINISTIC_CLOSURE: "true"
           PYTHONPATH: ${{ github.workspace }}
