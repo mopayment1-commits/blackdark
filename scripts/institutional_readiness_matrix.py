@@ -213,15 +213,17 @@ def build_matrix() -> dict:
 
 def main() -> int:
     from governance.public_report import (
-        institutional_matrix_console_summary,
-        institutional_matrix_public_document,
+        coerce_bool,
+        institutional_matrix_stdout_lines,
+        institutional_matrix_summary_sink,
     )
 
     matrix = build_matrix()
-    public_doc = institutional_matrix_public_document(matrix)
-    OUT.write_text(json.dumps(public_doc, indent=2, ensure_ascii=False), encoding="utf-8")
-    print(json.dumps(institutional_matrix_console_summary(matrix), indent=2, ensure_ascii=False))
-    return 0 if matrix["summary"]["final_goal_achieved"] else 1
+    summary_payload = institutional_matrix_summary_sink(matrix)
+    OUT.write_text(json.dumps(summary_payload, indent=2, ensure_ascii=False), encoding="utf-8")
+    for line in institutional_matrix_stdout_lines(summary_payload):
+        print(line)
+    return 0 if coerce_bool((matrix.get("summary") or {}).get("final_goal_achieved")) else 1
 
 
 if __name__ == "__main__":

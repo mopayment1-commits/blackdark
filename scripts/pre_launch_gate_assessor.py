@@ -17,13 +17,14 @@ OUT = ROOT / "PRE_LAUNCH_GATE_ASSESSMENT.json"
 def main() -> int:
     from governance.assessor import assess_pre_launch_gates
 
-    from governance.public_report import pre_launch_console_summary, pre_launch_public_document
+    from governance.public_report import coerce_bool, pre_launch_stdout_lines, pre_launch_summary_sink
 
     report = assess_pre_launch_gates()
-    public_doc = pre_launch_public_document(report)
-    OUT.write_text(json.dumps(public_doc, indent=2, ensure_ascii=False), encoding="utf-8")
-    print(json.dumps(pre_launch_console_summary(report), indent=2, ensure_ascii=False))
-    return 0 if report.get("pre_launch_ready") else 1
+    summary_payload = pre_launch_summary_sink(report)
+    OUT.write_text(json.dumps(summary_payload, indent=2, ensure_ascii=False), encoding="utf-8")
+    for line in pre_launch_stdout_lines(summary_payload):
+        print(line)
+    return 0 if coerce_bool(report.get("pre_launch_ready")) else 1
 
 
 if __name__ == "__main__":

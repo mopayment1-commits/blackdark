@@ -2,8 +2,11 @@
 
 from __future__ import annotations
 
-import hmac
+from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.primitives.hmac import HMAC
 
 
 def dek_authentication_tag(kek: bytes, dek: bytes) -> bytes:
-    return hmac.digest(kek, dek, "sha256")
+    mac = HMAC(kek, hashes.SHA256())
+    mac.update(dek)
+    return mac.finalize()
