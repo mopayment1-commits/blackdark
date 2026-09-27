@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from governance.launch57.gov_io import write_artifact
+from governance.launch57.gov_io import write_artifact_json, write_artifact_lines
 
 OUT = ROOT / "governance" / "launch57" / "SPEC_01_ADAPTIVE_DECISION_EXPERIENCE"
 
@@ -114,13 +114,13 @@ def main() -> None:
     iv = independent_verification()
     status = build_final_status(tests=tests)
 
-    write_artifact((OUT / "REQUIREMENTS_REGISTER.json"), json.dumps(requirements, indent=2, ensure_ascii=False) + "\n")
-    write_artifact((OUT / "RUNTIME_TRUTH_TABLE.md"), _md_truth_table(truth))
-    write_artifact((OUT / "LOCAL_CLOSURE_REPORT.md"), _md_local_closure(status, iv, tests))
-    write_artifact((OUT / "INDEPENDENT_VERIFICATION.json"), json.dumps({**iv, "generated_at": now}, indent=2, ensure_ascii=False) + "\n")
+    write_artifact_json((OUT / "REQUIREMENTS_REGISTER.json"), requirements)
+    write_artifact_lines((OUT / "RUNTIME_TRUTH_TABLE.md"), _md_truth_table(truth).splitlines())
+    write_artifact_lines((OUT / "LOCAL_CLOSURE_REPORT.md"), _md_local_closure(status, iv, tests).splitlines())
+    write_artifact_json((OUT / "INDEPENDENT_VERIFICATION.json"), {**iv, "generated_at": now})
     status["tests"] = tests
     status["generated_at"] = now
-    write_artifact((OUT / "FINAL_STATUS.json"), json.dumps(status, indent=2, ensure_ascii=False) + "\n")
+    write_artifact_json((OUT / "FINAL_STATUS.json"), status)
 
     print(
         "Wrote",

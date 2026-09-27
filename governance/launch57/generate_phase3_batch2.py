@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from governance.launch57.gov_io import write_artifact
+from governance.launch57.gov_io import write_artifact_json, write_artifact_lines
 SSOT_PATH = ROOT / "BLACKDARK_CAPABILITY_CURRENT_STATE.json"
 REGISTER_PATH = ROOT / "governance/launch57/LAUNCH57_REGISTER.json"
 EVIDENCE_PATH = ROOT / "governance/launch57/PHASE3_BATCH2_EVIDENCE.json"
@@ -119,7 +119,7 @@ def main() -> None:
                     "commit_sha": commit_sha,
                 }
 
-    write_artifact(SSOT_PATH, json.dumps(ssot, indent=2, ensure_ascii=False) + "\n")
+    write_artifact_json(SSOT_PATH, ssot)
 
     register = json.loads(REGISTER_PATH.read_text(encoding="utf-8"))
     register["phase"] = "3_DECISION_COMPLETE"
@@ -150,20 +150,20 @@ def main() -> None:
         "MAX_BUILDER_STATUS": "PENDING_VERIFICATION",
         "STOP": "Phase 4 not started",
     }
-    write_artifact(REGISTER_PATH, json.dumps(register, indent=2, ensure_ascii=False) + "\n")
+    write_artifact_json(REGISTER_PATH, register)
 
-    write_artifact(EVIDENCE_PATH, json.dumps(
-            {
-                "artifact": "PHASE3_BATCH2_EVIDENCE",
-                "phase": "3_DECISION",
-                "batch": 2,
-                "final_commit": commit_sha,
-                "build_order": BATCH2_ORDER,
-                "full_order": PHASE3_ORDER,
-                "tests": test_result,
-            },
-            indent=2,)
-        + "\n")
+    write_artifact_json(
+        EVIDENCE_PATH,
+        {
+            "artifact": "PHASE3_BATCH2_EVIDENCE",
+            "phase": "3_DECISION",
+            "batch": 2,
+            "final_commit": commit_sha,
+            "build_order": BATCH2_ORDER,
+            "full_order": PHASE3_ORDER,
+            "tests": test_result,
+        },
+    )
 
     table = [
         "| Launch # | Name | Status | Module |",
@@ -176,28 +176,28 @@ def main() -> None:
         "| 12 | Smart Money Conviction | PENDING_VERIFICATION | launch57.decision_batch2 |",
         "| 37 | Cross-market decision engine | PENDING_VERIFICATION | launch57.decision_batch2 |",
     ]
-    write_artifact(COMPLETE_PATH, "\n".join(
-            [
-                "# Launch-57 Phase 3 — Decision Layer Complete",
-                "",
-                "## Status: PENDING_VERIFICATION (all 7 items)",
-                "",
-                f"Phase 1 baseline: 92b1d00e (PASS_ENGINEERING — not rebuilt)",
-                f"Phase 2 baseline: 4d4dd6c7 (PASS_ENGINEERING — not rebuilt)",
-                f"Phase 3 commit: {commit_sha}",
-                f"BUILD_ORDER: {PHASE3_ORDER}",
-                "",
-                "## Open debt",
-                "- legacy bypass when LAUNCH57_DECISION_BATCH*_CAP_IDS emptied → batch01_dedicated",
-                "",
-                *table,
-                "",
-                f"Tests: {test_result['stdout']}",
-                "",
-                "**STOP** — Phase 4 not started.",
-            ]
-        )
-        + "\n")
+    write_artifact_lines(
+        COMPLETE_PATH,
+        [
+            "# Launch-57 Phase 3 — Decision Layer Complete",
+            "",
+            "## Status: PENDING_VERIFICATION (all 7 items)",
+            "",
+            "Phase 1 baseline: 92b1d00e (PASS_ENGINEERING — not rebuilt)",
+            f"Phase 2 baseline: 4d4dd6c7 (PASS_ENGINEERING — not rebuilt)",
+            f"Phase 3 commit: {commit_sha}",
+            f"BUILD_ORDER: {PHASE3_ORDER}",
+            "",
+            "## Open debt",
+            "- legacy bypass when LAUNCH57_DECISION_BATCH*_CAP_IDS emptied → batch01_dedicated",
+            "",
+            *table,
+            "",
+            f"Tests: {test_result['stdout']}",
+            "",
+            "**STOP** — Phase 4 not started.",
+        ],
+    )
     print(f"Updated SSOT/register phase3 complete @ {commit_sha}")
 
 

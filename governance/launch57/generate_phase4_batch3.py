@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from governance.launch57.gov_io import write_artifact
+from governance.launch57.gov_io import write_artifact_json, write_artifact_lines
 SSOT_PATH = ROOT / "BLACKDARK_CAPABILITY_CURRENT_STATE.json"
 REGISTER_PATH = ROOT / "governance/launch57/LAUNCH57_REGISTER.json"
 EVIDENCE_PATH = ROOT / "governance/launch57/PHASE4_BATCH3_EVIDENCE.json"
@@ -137,7 +137,7 @@ def main() -> None:
             "fix_mandatory": "NO unless smart-money path blocked",
         },
     }
-    write_artifact(SSOT_PATH, json.dumps(ssot, indent=2, ensure_ascii=False) + "\n")
+    write_artifact_json(SSOT_PATH, ssot)
 
     register = json.loads(REGISTER_PATH.read_text(encoding="utf-8"))
     register["phase"] = "4_SMART_MONEY_BATCH3_BUILD"
@@ -171,7 +171,7 @@ def main() -> None:
         "MAX_BUILDER_STATUS": "PENDING_VERIFICATION",
         "PHASE4_COMPLETE": True,
     }
-    write_artifact(REGISTER_PATH, json.dumps(register, indent=2, ensure_ascii=False) + "\n")
+    write_artifact_json(REGISTER_PATH, register)
 
     evidence = {
         "artifact": "PHASE4_BATCH3_EVIDENCE",
@@ -184,9 +184,9 @@ def main() -> None:
         "handler_module": "launch57.smart_money_batch3",
         "tests": test_result,
     }
-    write_artifact(EVIDENCE_PATH, json.dumps(evidence, indent=2, ensure_ascii=False) + "\n")
-    write_artifact(REPORT_PATH, f"# Phase 4 Batch 3\n\nBUILD_ORDER: {BUILD_ORDER}\nCOMMIT: {commit_sha}\nSTATUS: PENDING_VERIFICATION\n")
-    write_artifact(LAYER_REPORT, f"""# Phase 4 Smart Money + Instant Layer
+    write_artifact_json(EVIDENCE_PATH, evidence)
+    write_artifact_lines(REPORT_PATH, (f"# Phase 4 Batch 3\n\nBUILD_ORDER: {BUILD_ORDER}\nCOMMIT: {commit_sha}\nSTATUS: PENDING_VERIFICATION\n").splitlines())
+    write_artifact_lines(LAYER_REPORT, (f"""# Phase 4 Smart Money + Instant Layer
 
 BUILD_ORDER: 20→16→17→13→14→15→18→19→53→54→55→56→57
 COMMIT: {commit_sha}
@@ -202,7 +202,7 @@ When LAUNCH57_SMART_MONEY_BATCH*_CAP_IDS emptied → batch01/batch02/batch10/bat
 
 ## CAP-0916 extension path
 cap646/runtime.py → cap978/verify.py → launch57.smart_money_batch3
-""")
+""").splitlines())
     print(f"Updated SSOT/register phase4 batch3 @ {commit_sha}")
 
 

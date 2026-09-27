@@ -17,7 +17,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
-from path_safety import ensure_under, safe_data_file, write_public_text_lines
+from path_safety import ensure_under, safe_data_file, write_jsonl_artifact
 
 try:
     import fcntl
@@ -221,7 +221,8 @@ def repair_tip_prev_hash_race(path: Path | None = None) -> dict[str, Any]:
         tip.pop("chain_hash", None)
         tip["chain_hash"] = _hash_record(tip, expected_prev)
         lines[-1] = json.dumps(tip, default=str)
-        write_public_text_lines(chain, lines, base=_PROJECT_ROOT)
+        rows = [json.loads(line) for line in lines]
+        write_jsonl_artifact(chain, rows, base=_PROJECT_ROOT)
         invalidate_verify_chain_cache()
         after = verify_chain(chain)
         return {

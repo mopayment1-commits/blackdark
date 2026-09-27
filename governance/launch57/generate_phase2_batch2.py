@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from governance.launch57.gov_io import write_artifact
+from governance.launch57.gov_io import write_artifact_json, write_artifact_lines
 SSOT_PATH = ROOT / "BLACKDARK_CAPABILITY_CURRENT_STATE.json"
 REGISTER_PATH = ROOT / "governance/launch57/LAUNCH57_REGISTER.json"
 EVIDENCE_PATH = ROOT / "governance/launch57/PHASE2_BATCH2_EVIDENCE.json"
@@ -137,7 +137,7 @@ def main() -> None:
         }
     )
     ssot["phase2_trust_layer"] = phase2
-    write_artifact(SSOT_PATH, json.dumps(ssot, indent=2, ensure_ascii=False) + "\n")
+    write_artifact_json(SSOT_PATH, ssot)
 
     register = json.loads(REGISTER_PATH.read_text(encoding="utf-8"))
     register["phase"] = "2_TRUST_COMPLETE"
@@ -177,7 +177,7 @@ def main() -> None:
         "PASS_LIVE": "NOT_APPLICABLE",
         "STOP": "Phase 3 not started",
     }
-    write_artifact(REGISTER_PATH, json.dumps(register, indent=2, ensure_ascii=False) + "\n")
+    write_artifact_json(REGISTER_PATH, register)
 
     evidence = {
         "artifact": "PHASE2_BATCH2_EVIDENCE",
@@ -194,19 +194,19 @@ def main() -> None:
             for lid in BATCH2_ORDER
         },
     }
-    write_artifact(EVIDENCE_PATH, json.dumps(evidence, indent=2, ensure_ascii=False) + "\n")
+    write_artifact_json(EVIDENCE_PATH, evidence)
 
-    write_artifact(REPORT_PATH, "\n".join(
-            [
-                "# Launch-57 Phase 2 — Trust Batch 2 Report",
-                "",
-                f"BUILD_ORDER: {BATCH2_ORDER}",
-                f"COMMIT: {commit_sha}",
-                "",
-            ]
-            + [f"## #{lid} {ITEM_ROWS[lid]['name']} — PENDING_VERIFICATION" for lid in BATCH2_ORDER]
-        )
-        + "\n")
+    write_artifact_lines(
+        REPORT_PATH,
+        [
+            "# Launch-57 Phase 2 — Trust Batch 2 Report",
+            "",
+            f"BUILD_ORDER: {BATCH2_ORDER}",
+            f"COMMIT: {commit_sha}",
+            "",
+        ]
+        + [f"## #{lid} {ITEM_ROWS[lid]['name']} — PENDING_VERIFICATION" for lid in BATCH2_ORDER],
+    )
 
     table_rows = [
         "| Launch # | Name | Status | Module | Blocker |",
@@ -242,7 +242,7 @@ def main() -> None:
         "",
         "**STOP** — Phase 3 not started.",
     ]
-    write_artifact(COMPLETE_REPORT_PATH, "\n".join(complete) + "\n")
+    write_artifact_lines(COMPLETE_REPORT_PATH, complete)
     print(f"Updated SSOT/register phase2 complete @ {commit_sha}")
 
 

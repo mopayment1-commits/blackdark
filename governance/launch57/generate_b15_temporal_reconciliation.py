@@ -17,7 +17,7 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from governance.launch57.gov_io import write_artifact
+from governance.launch57.gov_io import write_artifact_json, write_artifact_lines
 GOV = ROOT / "governance" / "launch57"
 SPEC_UPLOAD = Path(
     "/home/ubuntu/.cursor/projects/workspace/uploads/"
@@ -466,8 +466,8 @@ def main() -> int:
     tests = _run_integrated_tests()
     recon = build_reconciliation(sha, spec_sha, tests, verdicts)
     report = build_report(sha, spec_sha, tests, verdicts, recon)
-    write_artifact(RECON_PATH, json.dumps(recon, indent=2, ensure_ascii=False) + "\n")
-    write_artifact(REPORT_PATH, report)
+    write_artifact_json(RECON_PATH, recon)
+    write_artifact_lines(REPORT_PATH, report.splitlines())
     print(f"Wrote {RECON_PATH}")
     print(f"Wrote {REPORT_PATH}")
     return 0 if tests["success"] else 1

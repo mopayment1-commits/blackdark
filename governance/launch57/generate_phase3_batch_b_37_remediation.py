@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from governance.launch57.gov_io import write_artifact
+from governance.launch57.gov_io import write_artifact_json, write_artifact_lines
 GOV = ROOT / "governance" / "launch57"
 EVIDENCE_PATH = GOV / "PHASE3_BATCH_B_37_REMEDIATION_EVIDENCE.json"
 REPORT_PATH = GOV / "PHASE3_BATCH_B_37_REMEDIATION_REPORT.md"
@@ -61,7 +61,7 @@ def main() -> None:
     evidence["implementation_sha"] = commit_sha
     evidence["generated_at"] = now
     evidence["tests"] = tests
-    write_artifact(EVIDENCE_PATH, json.dumps(evidence, indent=2, ensure_ascii=False) + "\n")
+    write_artifact_json(EVIDENCE_PATH, evidence)
 
     lines = [
         "# Launch-57 Phase 3 Batch B — #37 Targeted Remediation Report",
@@ -107,7 +107,7 @@ def main() -> None:
         "PASS_LIVE_NOT_CLAIMED = true",
         "```",
     ]
-    write_artifact(REPORT_PATH, "\n".join(lines) + "\n")
+    write_artifact_lines(REPORT_PATH, lines)
     print(f"Wrote #37 remediation evidence @ {commit_sha[:8]}")
 
 

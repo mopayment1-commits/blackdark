@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from governance.launch57.gov_io import write_artifact
+from governance.launch57.gov_io import write_artifact_json, write_artifact_lines
 GOV = ROOT / "governance" / "launch57"
 
 RECON_PATH = GOV / "BLACKDARK_LAUNCH57_IDENTITY_AUTH_PROFILE_RECONCILIATION.json"
@@ -160,7 +160,7 @@ def main() -> None:
             "auth_router": "api/routers/auth.py (runtime auth endpoints)",
         },
     }
-    write_artifact(RECON_PATH, json.dumps(recon, indent=2) + "\n")
+    write_artifact_json(RECON_PATH, recon)
 
     engineering_pass = tests["passed"] and all(acceptance.values())
     iv = {
@@ -185,7 +185,7 @@ def main() -> None:
         },
         "test_evidence": tests,
     }
-    write_artifact(IV_PATH, json.dumps(iv, indent=2) + "\n")
+    write_artifact_json(IV_PATH, iv)
 
     report = f"""# BLACKDARK Launch-57 Identity Auth Profile Report
 
@@ -272,7 +272,7 @@ exit_code={tests["exit_code"]}
 - `LAUNCH57_IDENTITY_AUTH_READY_FOR_LOCAL_USE={str(engineering_pass).lower()}`
 - `PASS_LIVE_NOT_CLAIMED=true`
 """
-    write_artifact(REPORT_PATH, report)
+    write_artifact_lines(REPORT_PATH, report.splitlines())
     print(f"Wrote identity auth artifacts under {GOV}")
     print(f"IV verdict: {iv['verdict']}")
 

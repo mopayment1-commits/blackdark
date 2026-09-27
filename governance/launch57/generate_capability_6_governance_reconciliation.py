@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from governance.launch57.gov_io import write_artifact
+from governance.launch57.gov_io import write_artifact_json, write_artifact_lines
 GOV = ROOT / "governance" / "launch57"
 REGISTER_PATH = GOV / "LAUNCH57_REGISTER.json"
 AUTHORITY_PATH = GOV / "LAUNCH57_CAPABILITY_6_AUTHORITY_RESOLUTION.json"
@@ -146,7 +146,7 @@ def main() -> None:
         "iv_reference": "governance/launch57/B3_6_TRUST_BOUNDARY_INDEPENDENT_VERIFICATION.json",
         "authority_resolution_reference": "governance/launch57/LAUNCH57_CAPABILITY_6_AUTHORITY_RESOLUTION.json",
     }
-    write_artifact(REGISTER_PATH, json.dumps(register, indent=2, ensure_ascii=False) + "\n")
+    write_artifact_json(REGISTER_PATH, register)
 
     evidence = {
         "artifact": "LAUNCH57_CAPABILITY_6_GOVERNANCE_RECONCILIATION",
@@ -201,7 +201,7 @@ def main() -> None:
             "PASS_LIVE_NOT_CLAIMED": True,
         },
     }
-    write_artifact(EVIDENCE_PATH, json.dumps(evidence, indent=2, ensure_ascii=False) + "\n")
+    write_artifact_json(EVIDENCE_PATH, evidence)
 
     report = f"""# Launch-57 Capability #6 — Governance Metadata Reconciliation
 
@@ -248,7 +248,7 @@ CAPABILITY_6_GOVERNANCE_METADATA_RECONCILED = true
 PASS_LIVE_NOT_CLAIMED = true
 ```
 """
-    write_artifact(REPORT_PATH, report)
+    write_artifact_lines(REPORT_PATH, report.splitlines())
     print(f"Reconciled #6 register metadata @ {starting_head[:8]}")
 
 

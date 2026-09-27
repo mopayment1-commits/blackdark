@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from governance.launch57.gov_io import write_artifact
+from governance.launch57.gov_io import write_artifact_json, write_artifact_lines
 SSOT_PATH = ROOT / "BLACKDARK_CAPABILITY_CURRENT_STATE.json"
 REGISTER_PATH = ROOT / "governance/launch57/LAUNCH57_REGISTER.json"
 EVIDENCE_PATH = ROOT / "governance/launch57/PHASE5_BATCH2_EVIDENCE.json"
@@ -146,7 +146,7 @@ def main() -> None:
             "fix_mandatory": "NO unless derivatives/habits path blocked",
         },
     }
-    write_artifact(SSOT_PATH, json.dumps(ssot, indent=2, ensure_ascii=False) + "\n")
+    write_artifact_json(SSOT_PATH, ssot)
 
     register = json.loads(REGISTER_PATH.read_text(encoding="utf-8"))
     register["phase"] = "5_DERIVATIVES_BATCH2_BUILD"
@@ -180,7 +180,7 @@ def main() -> None:
         "MAX_BUILDER_STATUS": "PENDING_VERIFICATION",
         "PHASE5_COMPLETE": True,
     }
-    write_artifact(REGISTER_PATH, json.dumps(register, indent=2, ensure_ascii=False) + "\n")
+    write_artifact_json(REGISTER_PATH, register)
 
     evidence = {
         "artifact": "PHASE5_BATCH2_EVIDENCE",
@@ -193,9 +193,9 @@ def main() -> None:
         "handler_module": "launch57.derivatives_batch2",
         "tests": test_result,
     }
-    write_artifact(EVIDENCE_PATH, json.dumps(evidence, indent=2, ensure_ascii=False) + "\n")
-    write_artifact(REPORT_PATH, f"# Phase 5 Batch 2\n\nBUILD_ORDER: {BUILD_ORDER}\nCOMMIT: {commit_sha}\nSTATUS: PENDING_VERIFICATION\n")
-    write_artifact(LAYER_REPORT, f"""# Phase 5 Derivatives + Habits Layer
+    write_artifact_json(EVIDENCE_PATH, evidence)
+    write_artifact_lines(REPORT_PATH, (f"# Phase 5 Batch 2\n\nBUILD_ORDER: {BUILD_ORDER}\nCOMMIT: {commit_sha}\nSTATUS: PENDING_VERIFICATION\n").splitlines())
+    write_artifact_lines(LAYER_REPORT, (f"""# Phase 5 Derivatives + Habits Layer
 
 BUILD_ORDER: 25→26→27→28→29→30→31→32→33
 COMMIT: {commit_sha}
@@ -207,7 +207,7 @@ STATUS: PENDING_VERIFICATION (builder max)
 
 ## Legacy bypass debt
 When LAUNCH57_DERIVATIVES_BATCH*_CAP_IDS emptied → batch01/batch02/batch21_dedicated generic delegate.
-""")
+""").splitlines())
     print(f"Updated SSOT/register phase5 batch2 @ {commit_sha}")
 
 

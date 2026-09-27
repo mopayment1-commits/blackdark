@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from governance.launch57.gov_io import write_artifact
+from governance.launch57.gov_io import write_artifact_json, write_artifact_lines
 GOV = ROOT / "governance" / "launch57"
 
 RECON_PATH = GOV / "BLACKDARK_LAUNCH57_ANONYMOUS_VISITOR_RECONCILIATION.json"
@@ -116,7 +116,7 @@ def main() -> None:
         "UNLICENSED_PUBLIC_DATA_SOURCES": [],
         "CLIENT_ONLY_AUTHORIZATION_BOUNDARIES": [],
     }
-    write_artifact(ROUTE_PATH, json.dumps(route_artifact, indent=2, ensure_ascii=False) + "\n")
+    write_artifact_json(ROUTE_PATH, route_artifact)
 
     recon = {
         "artifact": "BLACKDARK_LAUNCH57_ANONYMOUS_VISITOR_RECONCILIATION",
@@ -160,7 +160,7 @@ def main() -> None:
             },
         ],
     }
-    write_artifact(RECON_PATH, json.dumps(recon, indent=2, ensure_ascii=False) + "\n")
+    write_artifact_json(RECON_PATH, recon)
 
     all_ac_pass = all(v for k, v in acceptance.items() if k.startswith("av"))
     iv = {
@@ -190,7 +190,7 @@ def main() -> None:
         "tests": tests,
         "acceptance_criteria": acceptance,
     }
-    write_artifact(IV_PATH, json.dumps(iv, indent=2, ensure_ascii=False) + "\n")
+    write_artifact_json(IV_PATH, iv)
 
     lines = [
         "# Launch-57 Anonymous Visitor & Public Intelligence — Engineering Report",
@@ -234,7 +234,7 @@ def main() -> None:
             "- Production CDN/WAF and provider license verification — not granted in repository",
         ]
     )
-    write_artifact(REPORT_PATH, "\n".join(lines) + "\n")
+    write_artifact_lines(REPORT_PATH, lines)
     print(f"Wrote {ROUTE_PATH.name}, {RECON_PATH.name}, {IV_PATH.name}, {REPORT_PATH.name}")
 
 

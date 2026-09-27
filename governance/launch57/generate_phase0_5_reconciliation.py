@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from governance.launch57.gov_io import write_artifact
+from governance.launch57.gov_io import write_artifact_json, write_artifact_lines
 SSOT_PATH = ROOT / "BLACKDARK_CAPABILITY_CURRENT_STATE.json"
 REGISTER_PATH = ROOT / "governance" / "launch57" / "LAUNCH57_REGISTER.json"
 REPORT_PATH = ROOT / "governance" / "launch57" / "PHASE0_5_RECONCILIATION_REPORT.md"
@@ -634,9 +634,9 @@ def main() -> None:
     ]
     register["phase0_5_verification"] = closure_verification(register["phase0_5_summary"], updated_ssot)
 
-    write_artifact(REGISTER_PATH, json.dumps(register, indent=2, ensure_ascii=False) + "\n")
-    write_artifact(SSOT_PATH, json.dumps(updated_ssot, indent=2, ensure_ascii=False) + "\n")
-    write_artifact(REPORT_PATH, render_report(register, rows, updated_ssot, amended))
+    write_artifact_json(REGISTER_PATH, register)
+    write_artifact_json(SSOT_PATH, updated_ssot)
+    write_artifact_lines(REPORT_PATH, render_report(register, rows, updated_ssot, amended).splitlines())
 
     print(json.dumps(register["phase0_5_summary"], indent=2))
     print("Scope integrity:", register["scope_integrity"])

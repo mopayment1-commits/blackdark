@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from governance.launch57.gov_io import write_artifact
+from governance.launch57.gov_io import write_artifact_json, write_artifact_lines
 GOV = ROOT / "governance" / "launch57"
 
 INDEX_PATH = GOV / "BLACKDARK_LAUNCH57_CAPABILITY_LIBRARY_INDEX.json"
@@ -120,7 +120,7 @@ def main() -> None:
             "Personal Decision Tools",
         ],
     }
-    write_artifact(INDEX_PATH, json.dumps(index, indent=2, ensure_ascii=False) + "\n")
+    write_artifact_json(INDEX_PATH, index)
 
     recon = {
         "artifact": "BLACKDARK_LAUNCH57_CAPABILITY_LIBRARY_RECONCILIATION",
@@ -156,7 +156,7 @@ def main() -> None:
             }
         ],
     }
-    write_artifact(RECON_PATH, json.dumps(recon, indent=2, ensure_ascii=False) + "\n")
+    write_artifact_json(RECON_PATH, recon)
 
     all_ac_pass = all(acceptance.values())
     iv = {
@@ -186,7 +186,7 @@ def main() -> None:
         "tests": tests,
         "acceptance_criteria": acceptance,
     }
-    write_artifact(IV_PATH, json.dumps(iv, indent=2, ensure_ascii=False) + "\n")
+    write_artifact_json(IV_PATH, iv)
 
     lines = [
         "# Launch-57 Capability Library (#52) — Engineering Report",
@@ -233,7 +233,7 @@ def main() -> None:
             "- Production live validation (`PASS_LIVE`) — not granted in repository",
         ]
     )
-    write_artifact(REPORT_PATH, "\n".join(lines) + "\n")
+    write_artifact_lines(REPORT_PATH, lines)
     print(f"Wrote {INDEX_PATH.name}, {RECON_PATH.name}, {IV_PATH.name}, {REPORT_PATH.name}")
 
 

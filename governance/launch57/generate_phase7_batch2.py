@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from governance.launch57.gov_io import write_artifact
+from governance.launch57.gov_io import write_artifact_json, write_artifact_lines
 REGISTER_PATH = ROOT / "governance/launch57/LAUNCH57_REGISTER.json"
 EVIDENCE_PATH = ROOT / "governance/launch57/PHASE7_BATCH2_EVIDENCE.json"
 REPORT_PATH = ROOT / "governance/launch57/PHASE7_BATCH2_REPORT.md"
@@ -95,7 +95,7 @@ def main() -> None:
         "MAX_BUILDER_STATUS": "PENDING_VERIFICATION",
         "PHASE7_COMPLETE": True,
     }
-    write_artifact(REGISTER_PATH, json.dumps(register, indent=2, ensure_ascii=False) + "\n")
+    write_artifact_json(REGISTER_PATH, register)
 
     evidence = {
         "artifact": "PHASE7_BATCH2_EVIDENCE",
@@ -109,11 +109,17 @@ def main() -> None:
         "launch57_scope_proof": "eligible_launch57_ids ⊆ LAUNCH57_SCOPE_IDS (1..57); excludes PARKED",
         "tests": test_result,
     }
-    write_artifact(EVIDENCE_PATH, json.dumps(evidence, indent=2, ensure_ascii=False) + "\n")
-    write_artifact(REPORT_PATH, f"# Phase 7 Batch 2 — Command Home\n\nBUILD_ORDER: {BUILD_ORDER}\nCOMMIT: {commit_sha}\nSTATUS: PENDING_VERIFICATION\n")
-    write_artifact(LAYER_REPORT_PATH, "# Phase 7 Edge + UI Layer\n\n"
-        "Items 43→38→49→50→52→1 wired via launch57.edge_ui_batch1/batch2.\n"
-        "Builder status: PENDING_VERIFICATION only.\n")
+    write_artifact_json(EVIDENCE_PATH, evidence)
+    write_artifact_lines(REPORT_PATH, (f"# Phase 7 Batch 2 — Command Home\n\nBUILD_ORDER: {BUILD_ORDER}\nCOMMIT: {commit_sha}\nSTATUS: PENDING_VERIFICATION\n").splitlines())
+    write_artifact_lines(
+        LAYER_REPORT_PATH,
+        [
+            "# Phase 7 Edge + UI Layer",
+            "",
+            "Items 43→38→49→50→52→1 wired via launch57.edge_ui_batch1/batch2.",
+            "Builder status: PENDING_VERIFICATION only.",
+        ],
+    )
     print(f"Updated register phase7 batch2 @ {commit_sha}")
 
 

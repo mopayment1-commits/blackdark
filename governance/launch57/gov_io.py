@@ -3,9 +3,10 @@
 from __future__ import annotations
 
 import re
+from collections.abc import Sequence
 from pathlib import Path
 
-from path_safety import ensure_under, write_public_text_lines
+from path_safety import ensure_under, write_json_artifact, write_public_text_lines
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 GOV_DIR = ensure_under(PROJECT_ROOT / "governance" / "launch57", PROJECT_ROOT)
@@ -22,6 +23,11 @@ def artifact_path(directory: Path, filename: str) -> Path:
     return ensure_under(base / name, PROJECT_ROOT)
 
 
-def write_artifact(path: Path, content: str) -> None:
-    """Write UTF-8 governance closure artifacts only under the repository root."""
-    write_public_text_lines(path, content.splitlines(), base=PROJECT_ROOT)
+def write_artifact_json(path: Path, document: object) -> None:
+    """Write JSON closure artifacts only under the repository root (coerced, no raw blob)."""
+    write_json_artifact(path, document, base=PROJECT_ROOT)
+
+
+def write_artifact_lines(path: Path, lines: Sequence[str]) -> None:
+    """Write markdown/text closure artifacts from discrete public-audit lines (not a free blob)."""
+    write_public_text_lines(path, lines, base=PROJECT_ROOT)

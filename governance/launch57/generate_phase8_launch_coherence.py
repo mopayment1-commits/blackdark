@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from governance.launch57.gov_io import write_artifact
+from governance.launch57.gov_io import write_artifact_json, write_artifact_lines
 GOV = ROOT / "governance/launch57"
 REGISTER_PATH = GOV / "LAUNCH57_REGISTER.json"
 CAP_MATRIX_PATH = ROOT / "BLACKDARK_CAPABILITY_SIX_HERO_MATRIX.json"
@@ -863,10 +863,10 @@ async def main(return_payload: bool = False, skip_tests: bool = False) -> dict[s
     verdict, gaps = _prelive_checklist(hero_matrix, graph, e2e, isolation)
     tests = {"skipped": True, "passed": True} if skip_tests else _run_tests()
 
-    write_artifact(HERO_MATRIX_OUT, json.dumps(hero_matrix, indent=2, ensure_ascii=False) + "\n")
-    write_artifact(SYSTEM_GRAPH_OUT, json.dumps(graph, indent=2, ensure_ascii=False) + "\n")
-    write_artifact(E2E_OUT, json.dumps(e2e, indent=2, ensure_ascii=False) + "\n")
-    write_artifact(ISOLATION_OUT, json.dumps(isolation, indent=2, ensure_ascii=False) + "\n")
+    write_artifact_json(HERO_MATRIX_OUT, hero_matrix)
+    write_artifact_json(SYSTEM_GRAPH_OUT, graph)
+    write_artifact_json(E2E_OUT, e2e)
+    write_artifact_json(ISOLATION_OUT, isolation)
 
     prelive_lines = [
         "# Phase 8 Pre-Live Checklist (report only — NO PASS_LIVE granted)",
@@ -910,7 +910,7 @@ async def main(return_payload: bool = False, skip_tests: bool = False) -> dict[s
             "- tests/launch57/test_phase8_launch_coherence.py",
         ]
     )
-    write_artifact(PRELIVE_OUT, "\n".join(prelive_lines) + "\n")
+    write_artifact_lines(PRELIVE_OUT, prelive_lines)
 
     report = [
         "# Phase 8 Launch Coherence Report",
@@ -935,7 +935,7 @@ async def main(return_payload: bool = False, skip_tests: bool = False) -> dict[s
             "Builder status: PENDING_VERIFICATION (coherence artifacts only)",
         ]
     )
-    write_artifact(REPORT_OUT, "\n".join(report) + "\n")
+    write_artifact_lines(REPORT_OUT, report)
 
     ssot = json.loads(SSOT_PATH.read_text(encoding="utf-8"))
     ssot["phase8_launch_coherence"] = {
@@ -951,7 +951,7 @@ async def main(return_payload: bool = False, skip_tests: bool = False) -> dict[s
         "preserved_phases": PRESERVED_PHASE_CLOSURE,
         "blocked_external": BLOCKED_EXTERNAL_ITEMS,
     }
-    write_artifact(SSOT_PATH, json.dumps(ssot, indent=2, ensure_ascii=False) + "\n")
+    write_artifact_json(SSOT_PATH, ssot)
 
     evidence = {
         "artifact": "PHASE8_LAUNCH_COHERENCE_EVIDENCE",
@@ -982,7 +982,7 @@ async def main(return_payload: bool = False, skip_tests: bool = False) -> dict[s
             "REGISTER_STATUS_PROMOTION": False,
         },
     }
-    write_artifact(EVIDENCE_OUT, json.dumps(evidence, indent=2, ensure_ascii=False) + "\n")
+    write_artifact_json(EVIDENCE_OUT, evidence)
 
     register["phase"] = "8_LAUNCH_COHERENCE"
     register["generated_at"] = datetime.now(UTC).isoformat()
@@ -999,7 +999,7 @@ async def main(return_payload: bool = False, skip_tests: bool = False) -> dict[s
             "governance/launch57/PHASE8_PRE_LIVE_CHECKLIST.md",
         ],
     }
-    write_artifact(REGISTER_PATH, json.dumps(register, indent=2, ensure_ascii=False) + "\n")
+    write_artifact_json(REGISTER_PATH, register)
     print(f"Phase 8 coherence @ {commit_sha} — {verdict}")
     payload = {
         "verdict": verdict,

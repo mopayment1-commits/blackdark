@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from governance.launch57.gov_io import write_artifact
+from governance.launch57.gov_io import write_artifact_json, write_artifact_lines
 GOV = ROOT / "governance" / "launch57"
 EVIDENCE_PATH = GOV / "PHASE6_ADAPTIVE_BATCH1_EVIDENCE.json"
 REPORT_PATH = GOV / "PHASE6_ADAPTIVE_BATCH1_REPORT.md"
@@ -124,7 +124,7 @@ def main() -> None:
             "REGISTER_STATUS_PROMOTION": False,
         },
     }
-    write_artifact(EVIDENCE_PATH, json.dumps(evidence, indent=2, ensure_ascii=False) + "\n")
+    write_artifact_json(EVIDENCE_PATH, evidence)
 
     lines = [
         "# Launch-57 Phase 6 Adaptive Batch 1 — Builder Report",
@@ -158,7 +158,7 @@ def main() -> None:
             "```",
         ]
     )
-    write_artifact(REPORT_PATH, "\n".join(lines) + "\n")
+    write_artifact_lines(REPORT_PATH, lines)
     print(f"Wrote Phase 6 Adaptive Batch 1 evidence @ {commit_sha[:8]}")
 
 

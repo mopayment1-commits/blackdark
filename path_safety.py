@@ -275,11 +275,12 @@ def write_json_artifact(path: Path, document: object, *, base: Path | str) -> No
 
 
 def write_public_text_lines(path: Path, lines: Sequence[str], *, base: Path | str) -> None:
-    """Write markdown/text closure artifacts from discrete lines (no secret-store paths)."""
+    """Write markdown/text closure artifacts from discrete public-audit lines (no free blob param)."""
     dest = _resolve_public_artifact_path(path, base)
     if dest.suffix.lower() not in {".md", ".txt", ".jsonl", ".log", ".csv", ""}:
         raise ValueError(f"Prose artifacts must use .md/.txt/.jsonl/.log/.csv: {dest}")
-    body = "\n".join(lines)
+    safe_lines = [str(coerce_json_value(line)) for line in lines]
+    body = "\n".join(safe_lines)
     if body and not body.endswith("\n"):
         body += "\n"
     _write_public_artifact_bytes(dest, body.encode("utf-8"))
@@ -295,11 +296,6 @@ def write_jsonl_artifact(path: Path, rows: Iterable[object], *, base: Path | str
         safe = coerce_json_value(row)
         chunks.append((json.dumps(safe, default=str) + "\n").encode("utf-8"))
     _write_public_artifact_bytes(dest, b"".join(chunks))
-
-
-def write_utf8_bound(path: Path, content: str, *, base: Path | str) -> None:
-    """Backward-compatible prose artifact write (delegates to line-based public writer)."""
-    write_public_text_lines(path, content.splitlines(), base=base)
 
 
 def write_json_at_data(*parts: str, value: object, project_root: Path | str | None = None) -> Path:

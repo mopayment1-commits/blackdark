@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from governance.launch57.gov_io import write_artifact
+from governance.launch57.gov_io import write_artifact_json, write_artifact_lines
 SSOT_PATH = ROOT / "BLACKDARK_CAPABILITY_CURRENT_STATE.json"
 REGISTER_PATH = ROOT / "governance/launch57/LAUNCH57_REGISTER.json"
 EVIDENCE_PATH = ROOT / "governance/launch57/PHASE2_BATCH1_EVIDENCE.json"
@@ -200,7 +200,7 @@ def main() -> None:
             "fix_mandatory_in_phase2": "NO unless trust path blocked",
         },
     }
-    write_artifact(SSOT_PATH, json.dumps(ssot, indent=2, ensure_ascii=False) + "\n")
+    write_artifact_json(SSOT_PATH, ssot)
 
     register = json.loads(REGISTER_PATH.read_text(encoding="utf-8"))
     register["phase"] = "2_TRUST_BATCH1_BUILD"
@@ -238,7 +238,7 @@ def main() -> None:
         "MAX_BUILDER_STATUS": "PENDING_VERIFICATION",
         "PASS_LIVE": "NOT_APPLICABLE",
     }
-    write_artifact(REGISTER_PATH, json.dumps(register, indent=2, ensure_ascii=False) + "\n")
+    write_artifact_json(REGISTER_PATH, register)
 
     evidence = {
         "artifact": "PHASE2_BATCH1_EVIDENCE",
@@ -254,7 +254,7 @@ def main() -> None:
             for lid in BUILD_ORDER
         },
     }
-    write_artifact(EVIDENCE_PATH, json.dumps(evidence, indent=2, ensure_ascii=False) + "\n")
+    write_artifact_json(EVIDENCE_PATH, evidence)
 
     lines = [
         "# Launch-57 Phase 2 — Trust Batch 1 Report",
@@ -273,7 +273,7 @@ def main() -> None:
         lines.append(f"- runtime: {m['runtime_path']}")
         lines.append(f"- tests: {test_result['stdout']}")
         lines.append("")
-    write_artifact(REPORT_PATH, "\n".join(lines) + "\n")
+    write_artifact_lines(REPORT_PATH, lines)
     print(f"Updated SSOT/register phase2 batch1 @ {commit_sha}")
 
 
