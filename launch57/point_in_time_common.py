@@ -11,7 +11,7 @@ from pathlib import Path
 from typing import Any
 
 from launch57.temporal_common import parse_rfc3339, point_in_time_eligible, to_rfc3339, utc_now
-from path_safety import resolve_project_file, write_utf8_bound
+from path_safety import resolve_project_file, write_json_artifact
 
 _PROJECT_ROOT = Path(__file__).resolve().parents[1]
 _STORE_PATH = resolve_project_file("launch57", "pit_observation_store.json", project_root=_PROJECT_ROOT)
@@ -57,11 +57,7 @@ def _load_store() -> list[dict[str, Any]]:
 
 
 def _save_store(rows: list[dict[str, Any]]) -> None:
-    write_utf8_bound(
-        _STORE_PATH,
-        json.dumps(rows, indent=2, sort_keys=True) + "\n",
-        base=_PROJECT_ROOT,
-    )
+    write_json_artifact(_STORE_PATH, rows, base=_PROJECT_ROOT)
 
 
 def append_observation(

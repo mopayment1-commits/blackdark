@@ -6,6 +6,7 @@ import json
 import os
 import re
 from pathlib import Path
+from collections.abc import Iterable, Sequence
 from typing import Any
 from urllib.parse import urlparse
 from urllib.request import Request, urlopen
@@ -215,8 +216,7 @@ def read_json_mapping(path: Path) -> dict[str, object]:
 
 def write_json_mapping(path: Path, document: dict[str, object]) -> None:
     """Write a sanitized JSON mapping to a resolved path."""
-    safe = coerce_json_mapping(document)
-    write_utf8_bound(path, json.dumps(safe, ensure_ascii=False, indent=2) + "\n", base=project_root_dir())
+    write_json_artifact(path, coerce_json_mapping(document), base=project_root_dir())
 
 
 def project_root_dir(*, project_root: Path | str | None = None) -> Path:
@@ -236,28 +236,76 @@ def resolve_project_file(*parts: str, project_root: Path | str | None = None) ->
     return resolve_under(root, *parts)
 
 
-def write_utf8_bound(path: Path, content: str, *, base: Path | str) -> None:
-    """Write UTF-8 text only when ``path`` resolves under ``base`` (S2083 sink)."""
+_PUBLIC_ARTIFACT_SUFFIXES = frozenset({".json", ".jsonl", ".md", ".txt", ".csv", ".log"})
+_SECRET_PATH_SEGMENT_RE = re.compile(
+    r"(^|/)(secrets?|vault|credentials?|passwords?|private[-_]?keys?|\.env)(/|$)",
+    re.IGNORECASE,
+)
+
+
+def _resolve_public_artifact_path(path: Path, base: Path | str) -> Path:
+    """Artifact destinations only — never under secret/vault/credential paths (S2083 + CWE-312)."""
     base_resolved = Path(base).resolve()
     bounded = ensure_under(Path(path).resolve(), base_resolved)
     rel_parts = bounded.relative_to(base_resolved).parts
     if not rel_parts:
         raise ValueError("Refusing to write repository root path")
     dest = resolve_under(base_resolved, *rel_parts)
+    rel_posix = dest.relative_to(base_resolved).as_posix()
+    if _SECRET_PATH_SEGMENT_RE.search(rel_posix):
+        raise ValueError(f"Refusing artifact write under secret-class path: {dest}")
+    suffix = dest.suffix.lower()
+    if suffix and suffix not in _PUBLIC_ARTIFACT_SUFFIXES:
+        raise ValueError(f"Unsupported public artifact extension: {suffix!r}")
+    return dest
+
+
+def _write_public_artifact_bytes(dest: Path, payload: bytes) -> None:
     dest.parent.mkdir(parents=True, exist_ok=True)
-    with dest.open("w", encoding="utf-8") as handle:
-        handle.write(content)
+    with dest.open("wb") as handle:
+        handle.write(payload)
+
+
+def write_json_artifact(path: Path, document: object, *, base: Path | str) -> None:
+    """Write JSON-safe artifact data (coerced — not raw secrets)."""
+    dest = _resolve_public_artifact_path(path, base)
+    safe = coerce_json_value(document)
+    data = (json.dumps(safe, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+    _write_public_artifact_bytes(dest, data)
+
+
+def write_public_text_lines(path: Path, lines: Sequence[str], *, base: Path | str) -> None:
+    """Write markdown/text closure artifacts from discrete lines (no secret-store paths)."""
+    dest = _resolve_public_artifact_path(path, base)
+    if dest.suffix.lower() not in {".md", ".txt", ".jsonl", ".log", ".csv", ""}:
+        raise ValueError(f"Prose artifacts must use .md/.txt/.jsonl/.log/.csv: {dest}")
+    body = "\n".join(lines)
+    if body and not body.endswith("\n"):
+        body += "\n"
+    _write_public_artifact_bytes(dest, body.encode("utf-8"))
+
+
+def write_jsonl_artifact(path: Path, rows: Iterable[object], *, base: Path | str) -> None:
+    """Append-safe JSONL artifact write from JSON-safe rows."""
+    dest = _resolve_public_artifact_path(path, base)
+    chunks: list[bytes] = []
+    for row in rows:
+        if not row:
+            continue
+        safe = coerce_json_value(row)
+        chunks.append((json.dumps(safe, default=str) + "\n").encode("utf-8"))
+    _write_public_artifact_bytes(dest, b"".join(chunks))
+
+
+def write_utf8_bound(path: Path, content: str, *, base: Path | str) -> None:
+    """Backward-compatible prose artifact write (delegates to line-based public writer)."""
+    write_public_text_lines(path, content.splitlines(), base=base)
 
 
 def write_json_at_data(*parts: str, value: object, project_root: Path | str | None = None) -> Path:
     """Serialize JSON under ``<project>/data/...`` using literal path parts only."""
-    payload = coerce_json_value(value)
     target = safe_data_file(*parts, project_root=project_root)
-    write_utf8_bound(
-        target,
-        json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
-        base=project_data_dir(project_root=project_root),
-    )
+    write_json_artifact(target, value, base=project_data_dir(project_root=project_root))
     return target
 
 

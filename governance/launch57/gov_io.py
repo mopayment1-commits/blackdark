@@ -5,7 +5,7 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
-from path_safety import ensure_under, write_utf8_bound
+from path_safety import ensure_under, write_public_text_lines
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 GOV_DIR = ensure_under(PROJECT_ROOT / "governance" / "launch57", PROJECT_ROOT)
@@ -23,5 +23,5 @@ def artifact_path(directory: Path, filename: str) -> Path:
 
 
 def write_artifact(path: Path, content: str) -> None:
-    """Write UTF-8 text only under the repository root."""
-    write_utf8_bound(path, content, base=PROJECT_ROOT)
+    """Write UTF-8 governance closure artifacts only under the repository root."""
+    write_public_text_lines(path, content.splitlines(), base=PROJECT_ROOT)

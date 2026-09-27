@@ -316,10 +316,11 @@ def test_previous_fds_closure_verifiers_remain_green():
     assert verify_fds_transport_webhook_environment_scope()["scope_verified"] is True
 
 
-def test_scope_verifier_green(tmp_path, monkeypatch):
+def test_scope_verifier_green(monkeypatch):
     from governance.fds_retention_incident_supply_chain import verify_fds_retention_incident_supply_chain_scope
 
-    monkeypatch.setenv("DATA_DIR", str(tmp_path))
+    data_dir, _ = _project_fds_dirs("scope_verifier")
+    monkeypatch.setenv("DATA_DIR", str(data_dir))
     result = verify_fds_retention_incident_supply_chain_scope()
     assert result["scope_verified"] is True
     assert sum(result["gaps"].values()) == 0
