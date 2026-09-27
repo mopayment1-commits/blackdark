@@ -26,6 +26,16 @@ def backup_retention_days() -> int:
 
 
 def _evidence_path() -> Path:
+    raw = os.getenv("DATA_DIR", "").strip()
+    if raw:
+        root = project_root_dir()
+        candidate = Path(raw)
+        if not candidate.is_absolute():
+            candidate = (root / candidate).resolve()
+        else:
+            candidate = candidate.resolve()
+        base = ensure_under(candidate, root)
+        return base / "backup_lifecycle_evidence.jsonl"
     return safe_data_file("backup_lifecycle_evidence.jsonl")
 
 
@@ -89,7 +99,7 @@ def _backup_base(backup_dir: str | Path | None) -> Path:
 
 def process_expired_backups(backup_dir: str | Path | None = None) -> list[dict[str, Any]]:
     """Transition RETENTION_WINDOW → EXPIRED → DELETE/CRYPTO-ERASE → VERIFY."""
-    _backup_base(backup_dir)
+    store = _backup_base(backup_dir)
     now = time.time()
     results: list[dict[str, Any]] = []
     for rec in _load_records():
@@ -103,7 +113,7 @@ def process_expired_backups(backup_dir: str | Path | None = None) -> list[dict[s
         backup_name = Path(str(rec.get("backup_path", ""))).name
         gz: Path | None
         try:
-            gz = resolve_backup_file(backup_name) if backup_name else None
+            gz = resolve_backup_file(backup_name, store=store) if backup_name else None
         except ValueError:
             gz = None
         if now < expiry_ts:
@@ -122,7 +132,7 @@ def process_expired_backups(backup_dir: str | Path | None = None) -> list[dict[s
                 gz.unlink()
                 meta_name = backup_name.replace(".sql.gz", ".sha256")
                 try:
-                    meta = resolve_backup_file(meta_name)
+                    meta = resolve_backup_file(meta_name, store=store)
                 except ValueError:
                     meta = None
                 if meta is not None and meta.is_file():

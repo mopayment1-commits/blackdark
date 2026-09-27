@@ -275,9 +275,16 @@ def resolve_backup_store_dir(*, project_root: Path | str | None = None) -> Path:
     return ensure_under(candidate, root)
 
 
-def resolve_backup_file(basename: str, *, project_root: Path | str | None = None) -> Path:
+def resolve_backup_file(
+    basename: str,
+    *,
+    store: Path | None = None,
+    project_root: Path | str | None = None,
+) -> Path:
     """Map an evidence basename to a file under the bounded backup store."""
     name = Path(str(basename)).name
     if not name or not _BACKUP_BASENAME_RE.fullmatch(name):
         raise ValueError(f"Unsafe backup basename: {basename!r}")
-    return resolve_under(resolve_backup_store_dir(project_root=project_root), name)
+    base = store if store is not None else resolve_backup_store_dir(project_root=project_root)
+    root = project_root_dir(project_root=project_root)
+    return ensure_under((base / name).resolve(), root)

@@ -90,10 +90,19 @@ async def test_financial_credential_revoked_on_closure(spine_db, tmp_path, monke
     assert any(r["type"] == "exchange_credentials" for r in revoked["revoked"])
 
 
-def test_backup_receives_expiry_state(tmp_path, monkeypatch):
+def _project_fds_dirs(tag: str) -> tuple[Path, Path]:
+    data_dir = ROOT / "data" / f".test_fds_{tag}"
+    backup_dir = data_dir / "backups"
+    data_dir.mkdir(parents=True, exist_ok=True)
+    backup_dir.mkdir(parents=True, exist_ok=True)
+    return data_dir, backup_dir
+
+
+def test_backup_receives_expiry_state(monkeypatch):
     from fds_retention_incident.backup_lifecycle import record_backup_creation
 
-    monkeypatch.setenv("DATA_DIR", str(tmp_path))
+    data_dir, _ = _project_fds_dirs("expiry_state")
+    monkeypatch.setenv("DATA_DIR", str(data_dir))
     monkeypatch.setenv("BACKUP_RETENTION_DAYS", "14")
     rec = record_backup_creation(backup_path="test_backup.sql.gz", sha256="abc")
     assert rec["state"] == "RETENTION_WINDOW"
@@ -101,39 +110,37 @@ def test_backup_receives_expiry_state(tmp_path, monkeypatch):
     assert rec["retention_days"] == 14
 
 
-def test_backup_expiry_deletion_verification_recorded(tmp_path, monkeypatch):
+def test_backup_expiry_deletion_verification_recorded(monkeypatch):
     from fds_retention_incident.backup_lifecycle import process_expired_backups, record_backup_creation, verify_backup_deletion
 
-    monkeypatch.setenv("DATA_DIR", str(tmp_path))
-    backup_dir = tmp_path / "backups"
-    backup_dir.mkdir()
+    data_dir, backup_dir = _project_fds_dirs("expiry_delete")
+    monkeypatch.setenv("DATA_DIR", str(data_dir))
     monkeypatch.setenv("BACKUP_DIR", str(backup_dir))
     monkeypatch.setenv("BACKUP_RETENTION_DAYS", "1")
     gz = backup_dir / "expired.sql.gz"
     gz.write_bytes(b"test")
-    rec = record_backup_creation(backup_path=str(gz), sha256="deadbeef")
+    rec = record_backup_creation(backup_path="expired.sql.gz", sha256="deadbeef")
     rec["expiry_ts"] = time.time() - 10
-    evidence = tmp_path / "backup_lifecycle_evidence.jsonl"
+    evidence = data_dir / "backup_lifecycle_evidence.jsonl"
     evidence.write_text(json.dumps({"event": "backup_created", **rec}) + "\n")
     results = process_expired_backups(backup_dir)
     assert results
     assert results[0]["state"] in {"VERIFIED", "DELETED"}
-    verify = verify_backup_deletion(str(gz))
+    verify = verify_backup_deletion("expired.sql.gz")
     assert verify["verified"] is True
 
 
-def test_failed_deletion_remains_observable(tmp_path, monkeypatch):
+def test_failed_deletion_remains_observable(monkeypatch):
     from fds_retention_incident.backup_lifecycle import process_expired_backups, record_backup_creation
 
-    monkeypatch.setenv("DATA_DIR", str(tmp_path))
-    backup_dir = tmp_path / "backups"
-    backup_dir.mkdir()
+    data_dir, backup_dir = _project_fds_dirs("failed_delete")
+    monkeypatch.setenv("DATA_DIR", str(data_dir))
     monkeypatch.setenv("BACKUP_DIR", str(backup_dir))
     stuck = backup_dir / "stuck.sql.gz"
-    rec = record_backup_creation(backup_path=str(stuck), sha256="x")
+    rec = record_backup_creation(backup_path="stuck.sql.gz", sha256="x")
     rec["expiry_ts"] = time.time() - 10
     stuck.write_bytes(b"stuck")
-    evidence = tmp_path / "backup_lifecycle_evidence.jsonl"
+    evidence = data_dir / "backup_lifecycle_evidence.jsonl"
     evidence.write_text(json.dumps({"event": "backup_created", **rec}) + "\n")
 
     original_unlink = Path.unlink
