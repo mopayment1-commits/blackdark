@@ -107,10 +107,11 @@ async def store_signal(
                     target_node_id=asset_node,
                     edge_type="influenced_by",
                 )
-    except Exception:
-        logger.exception(
-            "KG signal ingest failed signal_id=%s",
-            sanitize_log_value(sid, field_name="signal_id"),
+    except Exception as exc:
+        logger.warning(
+            "KG signal ingest failed signal_id=%s detail=%s",
+            sanitize_log_value(sid, field_name="signal_id").replace("\r", " ").replace("\n", " "),
+            sanitize_log_value(exc).replace("\r", " ").replace("\n", " "),
         )
 
     return _signal_api(row)

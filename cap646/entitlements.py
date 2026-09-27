@@ -55,7 +55,7 @@ def _auth_eval_deny(capability_id: int, gate: str) -> dict[str, Any]:
     """Fail-closed deny when an authorization helper raises during evaluation."""
     logger.warning(
         "Entitlement authorization evaluation failed gate=%s capability_id=%s",
-        sanitize_log_value(gate, field_name="gate"),
+        sanitize_log_value(gate, field_name="gate").replace("\r", " ").replace("\n", " "),
         capability_id,
     )
     return {

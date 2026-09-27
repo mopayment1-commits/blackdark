@@ -47,8 +47,8 @@ async def data_governance_evaluate(
     except Exception as exc:
         logger.warning(
             "data_governance_evaluate failed symbol=%s detail=%s",
-            sanitize_log_value(symbol, field_name="symbol"),
-            sanitize_log_value(exc),
+            sanitize_log_value(symbol, field_name="symbol").replace("\r", " ").replace("\n", " "),
+            sanitize_log_value(exc).replace("\r", " ").replace("\n", " "),
         )
         return {
             "ok": False,

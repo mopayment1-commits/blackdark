@@ -117,8 +117,8 @@ async def record_audit_log(
         ):
             logger.warning(
                 "audit_signing_degraded path=%s reason=%s",
-                sanitize_log_value(request_path, field_name="request_path"),
-                sanitize_log_value(msg),
+                sanitize_log_value(request_path, field_name="request_path").replace("\r", " ").replace("\n", " "),
+                sanitize_log_value(msg).replace("\r", " ").replace("\n", " "),
             )
             row["signature"] = ""
             row["audit_signing_degraded"] = True
