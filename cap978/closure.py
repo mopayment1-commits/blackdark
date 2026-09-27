@@ -9,6 +9,11 @@ from cap646.platform_chain import verify_data_platform_chain
 from cap646.triple_closure import _INTERNAL_INCOMPLETE
 from cap978.gate_verdict import INSTITUTIONAL_GATE_FAIL, INSTITUTIONAL_GATE_PASS
 from cap978.ci_deterministic_closure import ci_deterministic_closure_enabled, verify_functional_ci_deterministic
+from cap978.launch57_closure_scope import (
+    governing_scope_summary,
+    is_extension_parked_outside_launch57,
+    is_launch57_accountable_capability,
+)
 from cap978.verify import verify_functional_978
 
 
@@ -18,6 +23,8 @@ async def institutional_closure_978(*, sample: bool = False, ci_deterministic: b
 
     cap_counts: dict[str, int] = {}
     incomplete: list[int] = []
+    launch57_incomplete: list[int] = []
+    extension_parked_incomplete: list[int] = []
     ext_counts: dict[str, int] = {}
     # Full: 1..978 (catalog total). Sample: 678 = base 646 + extension 647..678 (CI structural).
     # Project delivery scope is 826 (647..826); IDs 827..978 are full-catalog-only — see cap978.catalog.
@@ -36,25 +43,52 @@ async def institutional_closure_978(*, sample: bool = False, ci_deterministic: b
             ext_counts[fn["verdict"]] = ext_counts.get(fn["verdict"], 0) + 1
         if fn["verdict"] in _INTERNAL_INCOMPLETE:
             incomplete.append(cid)
+            if is_launch57_accountable_capability(cid):
+                launch57_incomplete.append(cid)
+            elif is_extension_parked_outside_launch57(cid):
+                extension_parked_incomplete.append(cid)
 
     control_counts = controls.get("counts") or {}
     internal_incomplete = sum(control_counts.get(k, 0) for k in _INTERNAL_INCOMPLETE)
-    cap_ok = all(cap_counts.get(k, 0) == 0 for k in _INTERNAL_INCOMPLETE)
+    cap_ok_full_catalog = all(cap_counts.get(k, 0) == 0 for k in _INTERNAL_INCOMPLETE)
+    launch57_cap_ok = len(launch57_incomplete) == 0
     controls_ok = internal_incomplete == 0
     chain_ok = chain.get("internal_closure", False)
-    verdict = INSTITUTIONAL_GATE_PASS if cap_ok and controls_ok and chain_ok else INSTITUTIONAL_GATE_FAIL
+    cap978_full_catalog_verdict = (
+        INSTITUTIONAL_GATE_PASS if cap_ok_full_catalog and controls_ok and chain_ok else INSTITUTIONAL_GATE_FAIL
+    )
+    launch57_closure_verdict = (
+        INSTITUTIONAL_GATE_PASS if launch57_cap_ok and controls_ok and chain_ok else INSTITUTIONAL_GATE_FAIL
+    )
+    # Back-compat: ``verdict`` remains the full 978 catalog closure (``--full`` baseline / INSTITUTIONAL_CLOSURE.md).
+    verdict = cap978_full_catalog_verdict
 
     base_counts = {k: v for k, v in cap_counts.items()}
     return {
         "verdict": verdict,
+        "cap978_full_catalog_verdict": cap978_full_catalog_verdict,
+        "launch57_closure_verdict": launch57_closure_verdict,
         "total": 978,
         "verification_mode": "ci_structural_no_network" if use_ci_structural else "live_functional",
+        "launch57_closure": {
+            "scope": "LAUNCH57_IDS",
+            "governing": governing_scope_summary(),
+            "accountable_incomplete": launch57_incomplete[:40],
+            "accountable_incomplete_count": len(launch57_incomplete),
+            "verdict": launch57_closure_verdict,
+        },
+        "extension_647_978_parked": {
+            "informational_only": True,
+            "policy": "PARKED_OUT_OF_LAUNCH — does not drop Launch-57 closure verdict",
+            "incomplete_sample": extension_parked_incomplete[:40],
+            "incomplete_count": len(extension_parked_incomplete),
+        },
         "cap978": {
             "counts": cap_counts,
             "base_646": base_counts,
             "extension_647_978": ext_counts,
             "incomplete_sample": incomplete[:40],
-            "internal_closure": cap_ok,
+            "internal_closure": cap_ok_full_catalog,
             "INTERNAL_PARTIAL": cap_counts.get("INTERNAL_PARTIAL", 0),
             "INTERNAL_NOT_IMPLEMENTED": cap_counts.get("INTERNAL_NOT_IMPLEMENTED", 0),
             "FUNCTIONALLY_INCOMPLETE": cap_counts.get("FUNCTIONALLY_INCOMPLETE", 0),

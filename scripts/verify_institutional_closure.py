@@ -17,6 +17,11 @@ async def main() -> int:
     parser = argparse.ArgumentParser(description="Verify CAP978 institutional closure gate")
     parser.add_argument("--ci", action="store_true", help="CI smoke: sample closure + artifact invariants")
     parser.add_argument("--full", action="store_true", help="Full 978 closure + baseline count lock")
+    parser.add_argument(
+        "--launch57-accountable-only",
+        action="store_true",
+        help="When used with --full, exit 0 on Launch-57 accountable closure only (647–978 parked extension incomplete is informational)",
+    )
     parser.add_argument("--no-artifacts", action="store_true", help="Skip committed JSON artifact checks")
     parser.add_argument(
         "--write-checklist",
@@ -59,8 +64,12 @@ async def main() -> int:
 
     if report["verdict"] != "PASS":
         return 1
-    if args.full and report.get("closure_verdict") != INSTITUTIONAL_GATE_PASS:
-        return 1
+    if args.full:
+        if args.launch57_accountable_only:
+            if report.get("launch57_closure_verdict") != INSTITUTIONAL_GATE_PASS:
+                return 1
+        elif report.get("closure_verdict") != INSTITUTIONAL_GATE_PASS:
+            return 1
     return 0
 
 

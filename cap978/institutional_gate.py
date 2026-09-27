@@ -379,6 +379,10 @@ async def run_institutional_gate(
         "checks_failed": len(failed),
         "failures": failed,
         "closure_verdict": closure.get("verdict"),
+        "cap978_full_catalog_verdict": closure.get("cap978_full_catalog_verdict", closure.get("verdict")),
+        "launch57_closure_verdict": closure.get("launch57_closure_verdict"),
+        "launch57_closure": closure.get("launch57_closure"),
+        "extension_647_978_parked": closure.get("extension_647_978_parked"),
         "baseline_tag": "cap978-closure-v1",
         "timing_ms": {"parallel_invariant_phase": parallel_phase_ms, "total": total_ms},
     }

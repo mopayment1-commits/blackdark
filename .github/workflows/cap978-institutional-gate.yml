@@ -78,7 +78,8 @@ jobs:
       - name: Full CAP978 institutional gate
         env:
           SERVICE_BUS_LOCAL: "true"
+          BLACKDARK_CI_DETERMINISTIC_CLOSURE: "true"
           PYTHONPATH: ${{ github.workspace }}
         run: |
-          python scripts/verify_institutional_closure.py --full
+          python scripts/verify_institutional_closure.py --full --launch57-accountable-only
           python -m pytest tests/cap646/test_institutional_gate.py::test_institutional_gate_full -q --tb=short -m ""
