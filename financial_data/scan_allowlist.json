@@ -46,6 +46,11 @@
       "path": "data/address_balance_snapshots.jsonl",
       "kind": "luhn_pan",
       "reason": "Verified false-positive: on-chain snapshot keys and Ethereum addresses, not payment PAN"
+    },
+    {
+      "path": "data/oracle_audit_chain.jsonl",
+      "kind": "luhn_pan",
+      "reason": "Verified false-positive: audit chain hash and numeric fields, not payment PAN"
     }
   ]
 }
