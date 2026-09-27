@@ -1150,6 +1150,21 @@ _ALLOWED_KLINE_INTERVALS = {
     "1m", "3m", "5m", "15m", "30m", "1h", "2h", "4h", "6h", "8h", "12h", "1d", "3d", "1w", "1M",
 }
 
+_BINANCE_KLINES_API_PATH = "/api/v3/klines"
+_BINANCE_REST_HOST_SET = frozenset(h.lower() for h in _BINANCE_REST_HOSTS)
+
+
+def binance_allowed_rest_hosts() -> tuple[str, ...]:
+    """HTTPS-only Binance REST hosts used by market_context fetchers."""
+    return _BINANCE_REST_HOSTS
+
+
+def _binance_https_origin(host: str) -> str:
+    normalized = str(host).strip().lower()
+    if normalized not in _BINANCE_REST_HOST_SET:
+        raise ValueError(f"Binance host not allowlisted: {host!r}")
+    return f"https://{normalized}"
+
 
 async def fetch_binance_klines(pair: str, interval: str = "1h", limit: int = 200) -> list[float]:
     if config.PRICE_FEED_WS_ONLY:
@@ -1194,12 +1209,19 @@ async def fetch_binance_klines_bars(
         interval = "1h"
     limit = max(1, min(int(limit), 1000))
     hosts = ("data-api.binance.vision", "api.binance.us", "api.binance.com")
+    kline_params = {"symbol": pair, "interval": interval, "limit": limit}
     try:
         async with aiohttp.ClientSession(timeout=_HTTP_TIMEOUT, headers=_HTTP_HEADERS) as session:
             for host in hosts:
-                url = f"https://{host}/api/v3/klines?symbol={pair}&interval={interval}&limit={limit}"
                 try:
-                    async with session.get(url) as resp:
+                    origin = _binance_https_origin(host)
+                except ValueError:
+                    continue
+                try:
+                    async with session.get(
+                        f"{origin}{_BINANCE_KLINES_API_PATH}",
+                        params=kline_params,
+                    ) as resp:
                         if resp.status != 200:
                             continue
                         rows = await resp.json()
