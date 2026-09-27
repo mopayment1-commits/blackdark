@@ -305,7 +305,7 @@ def _infer_param_default(name: str, annotation: Any) -> Any:
 
     if "list" in ann or nl in {"holdings", "wallets", "price_history", "trades", "entries"}:
         if "wallet" in nl:
-            return [{"address": "0x0000000000000000000000000000000000000001", "usd": 5000}]
+            return [{"address": "0xabcdef010101010101010101010101010101000001", "usd": 5000}]
         if "history" in nl or "trade" in nl or "entr" in nl:
             return [{"price": 50_000.0, "ts": "2026-01-01T00:00:00Z"}]
         if "hold" in nl:
@@ -346,7 +346,7 @@ def _infer_param_default(name: str, annotation: Any) -> Any:
     if nl in {"email", "user_id"}:
         return "audit@blackdark.local"
     if nl in {"address"}:
-        return "0x0000000000000000000000000000000000000001"
+        return "0xabcdef010101010101010101010101010101000001"
     if nl in {"coin_id"}:
         return "bitcoin"
     if nl in {"wall"}:

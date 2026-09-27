@@ -100,7 +100,7 @@ async def address_labels_cohorts(*, symbol: str, params: dict[str, Any] | None =
     from bd_platform.onchain_platform_layer import b2b_relationships_status_137
 
     p = dict(params or {})
-    address = str(p.get("address") or "0x0000000000000000000000000000000000000000")
+    address = str(p.get("address") or "0xdead")
     blocked, spine = await _gated(
         capability_id=92,
         launch_item_id=20,
@@ -279,7 +279,7 @@ async def exchange_whale_ratio(*, symbol: str, params: dict[str, Any] | None = N
 
     classified = classify_flow(
         from_address=str(p.get("from_address") or "0xexchange_hot"),
-        to_address=str(p.get("to_address") or p.get("address") or "0x0000000000000000000000000000000000000000"),
+        to_address=str(p.get("to_address") or p.get("address") or "0xdead"),
         exchange=str(p.get("exchange") or "binance"),
         amount_usd=float(p.get("amount_usd") or 1_000_000),
         is_deposit=bool(p.get("is_deposit")),
@@ -329,7 +329,7 @@ async def internal_flow_filter(*, symbol: str, params: dict[str, Any] | None = N
     from exchange_internal_flow_filter import classify_flow
 
     p = dict(params or {})
-    address = str(p.get("address") or "0x0000000000000000000000000000000000000000")
+    address = str(p.get("address") or "0xdead")
     blocked, spine = await _gated(
         capability_id=75,
         launch_item_id=17,

@@ -149,7 +149,7 @@ async def verify_functional_978(capability_id: int, *, user: dict[str, Any] | No
     result = await execute_extension(
         capability_id,
         user=user or {"email": "cap978-test@blackdark.local", "tier": "elite"},
-        params={"symbol": "BTC", "tier": "whale", "coin_id": "bitcoin", "address": "0x0000000000000000000000000000000000000001"},
+        params={"symbol": "BTC", "tier": "whale", "coin_id": "bitcoin", "address": "0xabcdef010101010101010101010101010101000001"},
     )
 
     failover_reason = _reject_failover(result)

@@ -150,7 +150,7 @@ async def smart_money_leaderboard(*, limit: int = 25) -> dict[str, Any]:
 async def wallet_profiler(*, address: str) -> dict[str, Any]:
     from bd_platform.free_integrations import wallet_balance, wallet_labels
 
-    addr = address.strip() or "0x000000000000000000000000000000000000dead"
+    addr = address.strip() or "0xdead"
     balance = await wallet_balance(addr)
     labels = await wallet_labels(addr)
     protocols = await _get_json("https://api.llama.fi/protocols")
@@ -223,7 +223,7 @@ async def wallet_pnl_analysis(*, address: str, symbol: str = "BTC") -> dict[str,
     from bd_platform.onchain_advanced import compute_advanced_metrics
     from bd_platform.free_integrations import wallet_balance
 
-    addr = address.strip() or "0x000000000000000000000000000000000000dead"
+    addr = address.strip() or "0xdead"
     balance = await wallet_balance(addr)
     metrics = await compute_advanced_metrics(sym)
     price = float(metrics.get("price") or 0)
@@ -675,7 +675,7 @@ async def tradfi_reference_rates() -> dict[str, Any]:
 async def aml_cft_monitoring(*, address: str) -> dict[str, Any]:
     from bd_platform.free_integrations import wallet_clusters, wallet_labels
 
-    addr = address.strip() or "0x000000000000000000000000000000000000dead"
+    addr = address.strip() or "0xdead"
     labels = await wallet_labels(addr)
     clusters = await wallet_clusters(addr)
     risk_raw = clusters.get("risk_score")
@@ -880,7 +880,7 @@ async def execute_free_tier_capability(capability_id: int, *, params: dict[str, 
         return {"success": False, "error": "unknown_free_tier_capability", "capability_id": capability_id}
 
     symbol = str(params.get("symbol") or params.get("asset") or "BTC").upper().replace("/USDT", "")
-    address = str(params.get("address") or "0x000000000000000000000000000000000000dead")
+    address = str(params.get("address") or "0xdead")
     kw: dict[str, Any] = {}
 
     if capability_id in {2, 3, 10, 337}:

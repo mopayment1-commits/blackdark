@@ -33,7 +33,7 @@ async def test_post_baseline_semantic_oracle(capability_id, tmp_path, monkeypatc
             "symbol": "BTC",
             "tier": "whale",
             "coin_id": "bitcoin",
-            "address": "0x0000000000000000000000000000000000000001",
+            "address": "0xabcdef010101010101010101010101010101000001",
         },
     )
     assert result.get("success") is True, result.get("error") or result

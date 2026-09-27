@@ -41,6 +41,11 @@
       "path": "docs/HERO_BATCH_01_SAMPLE_DOSSIER.json",
       "kind": "luhn_pan",
       "reason": "Verified false-positive: sample dossier numeric demo fields, not cardholder data"
+    },
+    {
+      "path": "data/address_balance_snapshots.jsonl",
+      "kind": "luhn_pan",
+      "reason": "Verified false-positive: on-chain snapshot keys and Ethereum addresses, not payment PAN"
     }
   ]
 }

@@ -103,7 +103,7 @@ async def entity_aware_wallet_intelligence(*, symbol: str, params: dict[str, Any
     from bd_platform.address_intelligence import search_address
 
     p = dict(params or {})
-    address = str(p.get("address") or "0x0000000000000000000000000000000000000000")
+    address = str(p.get("address") or "0xdead")
     blocked, spine = await _gated(
         capability_id=14,
         launch_item_id=15,
@@ -339,7 +339,7 @@ async def instant_wallet_due_diligence(*, symbol: str, params: dict[str, Any] | 
     from bd_platform.whales_institutional_layer import analyze_wallet_surveillance_79
 
     p = dict(params or {})
-    address = str(p.get("address") or "0x0000000000000000000000000000000000000000")
+    address = str(p.get("address") or "0xdead")
     blocked, spine = await _gated(
         capability_id=22,
         launch_item_id=53,

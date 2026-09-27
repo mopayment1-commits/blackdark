@@ -1085,13 +1085,13 @@ def apply_inter_entity_internal_flow_filter(
                 flow_dict.get("from_address")
                 or flow_dict.get("from")
                 or p.get("from_address")
-                or "0x0000000000000000000000000000000000000000"
+                or "0xdead"
             ),
             to_address=str(
                 flow_dict.get("to_address")
                 or flow_dict.get("to")
                 or p.get("to_address")
-                or "0x0000000000000000000000000000000000000000"
+                or "0xdead"
             ),
             exchange=str(flow_dict.get("exchange") or p.get("exchange") or "binance"),
             amount_usd=float(flow_dict.get("amount_usd") or p.get("amount_usd") or 0),

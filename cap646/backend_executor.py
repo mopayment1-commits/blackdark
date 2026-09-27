@@ -60,7 +60,7 @@ async def _call_entrypoint(fn: Any, *, params: dict[str, Any], binding: BackendB
     if style == "chain":
         return await fn(str(params.get("chain") or "ethereum")) if inspect.iscoroutinefunction(fn) else fn("ethereum")
     if style == "address":
-        addr = str(params.get("address") or "0x000000000000000000000000000000000000dead")
+        addr = str(params.get("address") or "0xdead")
         return await fn(addr) if inspect.iscoroutinefunction(fn) else fn(addr)
     if style == "email":
         email = str(params.get("email") or "anonymous")

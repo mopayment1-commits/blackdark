@@ -114,7 +114,7 @@ def order_flow_intelligence_1(*, symbol: str = "BTC") -> dict[str, Any]:
     return _wrap(1, snap, module="bd_platform.footprint_analytics.footprint_snapshot")
 
 
-def wallet_profiler_for_token_3(*, address: str = "0x0000000000000000000000000000000000000001", symbol: str = "ETH") -> dict[str, Any]:
+def wallet_profiler_for_token_3(*, address: str = "0xabcdef010101010101010101010101010101000001", symbol: str = "ETH") -> dict[str, Any]:
     return _delegate_async(3, "bd_platform.free_tier_capabilities", "wallet_profiler_for_token", address=address, symbol=symbol)
 
 
