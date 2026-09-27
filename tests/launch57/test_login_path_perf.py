@@ -14,7 +14,9 @@ LOGIN = ROOT / "templates/login.html"
 
 def test_login_save_auth_uses_immediate_replace():
     html = LOGIN.read_text(encoding="utf-8")
-    assert "window.location.replace(resolvePostAuthUrl(data))" in html
+    assert "resolvePostAuthUrl(data)" in html
+    assert "window.location.replace(postAuthTarget)" in html
+    assert "allowlistedPostAuthNext" in html
 
 
 def test_dashboard_defers_command_home_after_paint():
