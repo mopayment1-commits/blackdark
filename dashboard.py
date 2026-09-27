@@ -47,6 +47,7 @@ load_dotenv(_ROOT / ".env")
 load_dotenv(_ROOT / ".env.launch.local", override=False)
 
 import config
+from log_safety import sanitize_log_value
 from safe_errors import public_error
 from security_auth import (
     is_admin_user,
@@ -2418,7 +2419,14 @@ async def api_scale_readiness():
     """Honest concurrent-scale posture for ops and diligence."""
     from scale_readiness import scale_readiness_report
 
-    return scale_readiness_report()
+    try:
+        return scale_readiness_report()
+    except Exception as exc:
+        logger.warning("scale_readiness_report failed detail=%s", sanitize_log_value(exc))
+        return {
+            "error": "scale_readiness_unavailable",
+            "message": "Scale readiness temporarily unavailable.",
+        }
 
 
 @app.get("/api/viral/readiness")
@@ -2426,7 +2434,14 @@ async def api_viral_readiness():
     """Viral launch capacity posture — protections + HA prerequisites."""
     from viral_capacity import viral_readiness_report
 
-    return viral_readiness_report()
+    try:
+        return viral_readiness_report()
+    except Exception as exc:
+        logger.warning("viral_readiness_report failed detail=%s", sanitize_log_value(exc))
+        return {
+            "error": "viral_readiness_unavailable",
+            "message": "Viral readiness temporarily unavailable.",
+        }
 
 
 @app.get("/contact", response_class=HTMLResponse)
@@ -4887,7 +4902,8 @@ async def build_info():
         cap646_import_ok = True
         cap646_routes = len(_cap646_router.routes)
     except Exception as exc:
-        cap646_import_error = str(exc)
+        logger.warning("cap646 router import failed detail=%s", sanitize_log_value(exc))
+        cap646_import_error = "cap646_import_unavailable"
         cap646_routes = 0
     return {
         "ui_language": "en",

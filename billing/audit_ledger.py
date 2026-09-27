@@ -7,6 +7,8 @@ import logging
 from datetime import UTC, datetime
 from typing import Any
 
+from log_safety import sanitize_log_value
+
 logger = logging.getLogger("BLACKDARK.Billing.Audit")
 
 
@@ -66,10 +68,10 @@ async def record_audit(
         row_id = int(cursor.lastrowid or 0)
     logger.info(
         "billing_audit | action=%s user_id=%s %s→%s",
-        action,
+        sanitize_log_value(action, field_name="action"),
         user_id,
-        old_plan,
-        new_plan,
+        sanitize_log_value(old_plan, field_name="plan"),
+        sanitize_log_value(new_plan, field_name="plan"),
     )
     return row_id
 

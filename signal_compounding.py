@@ -9,6 +9,7 @@ from typing import Any
 from uuid import uuid4
 
 from audit_registry import hash_payload
+from log_safety import sanitize_log_value
 from compounding_common import dumps_json, loads_json, row_signature, utcnow, verify_row_signature
 
 logger = logging.getLogger("BLACKDARK.SignalCompounding")
@@ -107,7 +108,10 @@ async def store_signal(
                     edge_type="influenced_by",
                 )
     except Exception:
-        logger.exception("KG signal ingest failed for %s", sid)
+        logger.exception(
+            "KG signal ingest failed signal_id=%s",
+            sanitize_log_value(sid, field_name="signal_id"),
+        )
 
     return _signal_api(row)
 

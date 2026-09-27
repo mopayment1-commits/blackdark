@@ -2,9 +2,14 @@
 
 from __future__ import annotations
 
+import logging
+
 from fastapi import APIRouter
 
 from api.openapi_responses import COMMON_ERROR_RESPONSES
+from log_safety import sanitize_log_value
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/api/monitoring", tags=["monitoring"], responses=COMMON_ERROR_RESPONSES)
 
@@ -29,4 +34,13 @@ async def monitoring_rate_limits():
     """Free-tier API rate-limit status — CoinGecko, Binance, exchanges."""
     from ops.vendor_rate_limit_watchdog import vendor_rate_limit_status
 
-    return vendor_rate_limit_status()
+    try:
+        return vendor_rate_limit_status()
+    except Exception as exc:
+        logger.warning("vendor_rate_limit_status failed detail=%s", sanitize_log_value(exc))
+        return {
+            "overall_ok": False,
+            "error": "rate_limit_status_unavailable",
+            "message": "Rate-limit status is temporarily unavailable.",
+            "signals": [],
+        }

@@ -17,9 +17,9 @@ def normalize_payload(payload: dict[str, Any], *, vendor: str = "unknown") -> di
         layer = get_canonical_layer()
         normalized = layer.normalize_payload(out, vendor=vendor)
         out.update(normalized)
-    except Exception as exc:
+    except Exception:
         out["canonical_id"] = out.get("canonical_id") or f"bd:UNMAPPED:{vendor}"
-        out["normalization_error"] = str(exc)
+        out["normalization_error"] = "normalization_failed"
     out["normalization_version"] = NORMALIZATION_VERSION
     return out
 
@@ -31,5 +31,5 @@ def normalization_report(symbol: str = "BTC") -> dict[str, Any]:
         layer = get_canonical_layer()
         result = layer.query(symbol)
         return {"symbol": symbol, "resolved": bool(result), "normalization_version": NORMALIZATION_VERSION}
-    except Exception as exc:
-        return {"symbol": symbol, "resolved": False, "error": str(exc)}
+    except Exception:
+        return {"symbol": symbol, "resolved": False, "error": "normalization_unavailable"}

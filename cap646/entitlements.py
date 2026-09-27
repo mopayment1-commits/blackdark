@@ -11,6 +11,7 @@ import logging
 from typing import Any
 
 from auth_service import TIER_FEATURES, normalize_tier
+from log_safety import sanitize_log_value
 
 logger = logging.getLogger(__name__)
 from billing.plan_registry import plan_rank
@@ -53,8 +54,9 @@ async def _subscription_for_user(user: dict[str, Any] | None) -> dict[str, Any] 
 def _auth_eval_deny(capability_id: int, gate: str) -> dict[str, Any]:
     """Fail-closed deny when an authorization helper raises during evaluation."""
     logger.warning(
-        "Entitlement authorization evaluation failed",
-        extra={"gate": gate, "capability_id": capability_id},
+        "Entitlement authorization evaluation failed gate=%s capability_id=%s",
+        sanitize_log_value(gate, field_name="gate"),
+        capability_id,
     )
     return {
         "allowed": False,

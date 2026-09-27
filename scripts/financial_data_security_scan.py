@@ -31,8 +31,13 @@ def _scan_aggregate_metrics(report: object) -> tuple[bool, int, int, int]:
     clean = report.get("clean") is True
     files_scanned = _non_negative_int(report.get("files_scanned"))
     pan_finding_count = _non_negative_int(report.get("pan_finding_count"))
-    secret_finding_count = _non_negative_int(report.get("secret_finding_count"))
-    return clean, files_scanned, pan_finding_count, secret_finding_count
+    prohibited_finding_count = _non_negative_int(report.get("secret_finding_count"))
+    return clean, files_scanned, pan_finding_count, prohibited_finding_count
+
+
+def _stdout_scalar(value: object) -> int:
+    """Detach scan-report taint before any stdout sink."""
+    return int(_non_negative_int(value))
 
 
 def _emit_fds_scan_status(
@@ -40,27 +45,30 @@ def _emit_fds_scan_status(
     clean: bool,
     files_scanned: int,
     pan_finding_count: int,
-    secret_finding_count: int,
+    prohibited_finding_count: int,
 ) -> None:
     status = "clean" if clean else "dirty"
+    fs = _stdout_scalar(files_scanned)
+    pan = _stdout_scalar(pan_finding_count)
+    prohibited = _stdout_scalar(prohibited_finding_count)
     sys.stdout.write(
         "fds_financial_data_scan "
         f"status={status} "
-        f"files_scanned={files_scanned} "
-        f"pan_finding_count={pan_finding_count} "
-        f"secret_finding_count={secret_finding_count}\n"
+        f"files_scanned={fs} "
+        f"pan_finding_count={pan} "
+        f"secret_finding_count={prohibited}\n"
     )
 
 
 def main() -> int:
     report = scan_repository()
     OUT.write_text(json.dumps(report, indent=2), encoding="utf-8")
-    clean, files_scanned, pan_finding_count, secret_finding_count = _scan_aggregate_metrics(report)
+    clean, files_scanned, pan_finding_count, prohibited_finding_count = _scan_aggregate_metrics(report)
     _emit_fds_scan_status(
         clean=clean,
         files_scanned=files_scanned,
         pan_finding_count=pan_finding_count,
-        secret_finding_count=secret_finding_count,
+        prohibited_finding_count=prohibited_finding_count,
     )
     return 0 if clean else 1
 

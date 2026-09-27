@@ -274,11 +274,20 @@
             document.getElementById('msg').textContent = '';
             setAuthChromeVisible(false);
         }
-        function setMsg(text, ok, opts) {
+        function setMsg(text, ok) {
             const msg = document.getElementById('msg');
             msg.className = 'msg ' + (ok ? 'ok' : 'error');
-            if (opts && opts.html) msg.innerHTML = text;
-            else msg.textContent = text;
+            msg.textContent = text;
+        }
+        function setMsgAlreadyRegistered() {
+            const msg = document.getElementById('msg');
+            msg.className = 'msg error';
+            msg.replaceChildren();
+            msg.append(
+                document.createTextNode('This email is already registered. '),
+                Object.assign(document.createElement('a'), { href: '/login', textContent: 'Sign in' }),
+                document.createTextNode(' to your account instead.')
+            );
         }
         function togglePassword(inputId, btnId) {
             const input = document.getElementById(inputId);
@@ -466,7 +475,7 @@
                 saveAuth(d);
             } catch (error) {
                 console.debug(error);
-                setMsg(error.message || 'Sign in failed. Please try again.', false);
+                setMsg('Sign in failed. Please try again.', false);
                 setLoginSubmitLoading(false);
             }
         }
@@ -494,7 +503,7 @@
                 saveAuth(d);
             } catch (error) {
                 console.debug(error);
-                setMsg(error.message || 'Verification failed. Please try again.', false);
+                setMsg('Verification failed. Please try again.', false);
                 setSubmitLoading('mfaSubmitBtn', false);
             }
         }
@@ -519,11 +528,7 @@
                 if (!res.ok) {
                     const errText = await readApiError(res);
                     if (/already registered/i.test(errText)) {
-                        setMsg(
-                            'This email is already registered. <a href="/login">Sign in</a> to your account instead.',
-                            false,
-                            { html: true }
-                        );
+                        setMsgAlreadyRegistered();
                         return;
                     }
                     setMsg(errText, false);
@@ -537,7 +542,7 @@
                 saveAuth(d);
             } catch (error) {
                 console.debug(error);
-                setMsg(error.message || 'Registration failed. Please try again.', false);
+                setMsg('Registration failed. Please try again.', false);
                 setSubmitLoading('regSubmit', false);
             }
         }
@@ -565,7 +570,7 @@
                 setSubmitLoading('forgotSubmitBtn', false);
             } catch (error) {
                 console.debug(error);
-                setMsg(error.message, false);
+                setMsg('Could not send reset email. Please try again.', false);
                 setSubmitLoading('forgotSubmitBtn', false);
             }
         }
@@ -590,7 +595,7 @@
                 setSubmitLoading('forgotUserSubmitBtn', false);
             } catch (error) {
                 console.debug(error);
-                setMsg(error.message || 'Could not send reminder. Please try again.', false);
+                setMsg('Could not send reminder. Please try again.', false);
                 setSubmitLoading('forgotUserSubmitBtn', false);
             }
         }

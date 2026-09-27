@@ -19,6 +19,8 @@ from datetime import UTC, datetime
 from typing import Any
 from uuid import uuid4
 
+from log_safety import sanitize_log_value
+
 logger = logging.getLogger("BLACKDARK.AuditRegistry")
 
 _VALID_OUTCOMES = frozenset({"pending", "verified", "rejected", "expired"})
@@ -113,7 +115,11 @@ async def record_audit_log(
             or "audit_signing" in msg.lower()
             or "audit_dev_signing_key_forbidden" in msg
         ):
-            logger.warning("audit_signing_degraded path=%s reason=%s", request_path, exc)
+            logger.warning(
+                "audit_signing_degraded path=%s reason=%s",
+                sanitize_log_value(request_path, field_name="request_path"),
+                sanitize_log_value(msg),
+            )
             row["signature"] = ""
             row["audit_signing_degraded"] = True
         else:

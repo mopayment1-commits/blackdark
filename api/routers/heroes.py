@@ -8,6 +8,7 @@ import logging
 from fastapi import APIRouter, Body, Depends, HTTPException, Query, Request
 
 from api.openapi_responses import COMMON_ERROR_RESPONSES
+from log_safety import sanitize_log_value
 from security_auth import optional_user_from_request
 
 router = APIRouter(tags=["heroes"], responses=COMMON_ERROR_RESPONSES)
@@ -164,9 +165,13 @@ async def monthly_losing_report(limit: int = Query(25, ge=1, le=100)):
     try:
         return await build_monthly_losing_report(limit=limit)
     except Exception as exc:
+        logger.warning(
+            "monthly_losing_report failed detail=%s",
+            sanitize_log_value(exc),
+        )
         return {
             "error": "monthly_losing_report_unavailable",
-            "message": str(exc),
+            "message": "Monthly losing report temporarily unavailable.",
             "sample": [],
             "total_labeled_misses_in_window": 0,
             "thesis": "Monthly losing report temporarily unavailable.",

@@ -71,8 +71,8 @@ def _signed_load_evidence_payload() -> dict[str, Any]:
             import json
 
             payload["artifact"] = json.loads(open(path, encoding="utf-8").read())
-        except Exception as exc:
-            payload["artifact_error"] = str(exc)
+        except Exception:
+            payload["artifact_error"] = "artifact_load_failed"
     return payload
 
 

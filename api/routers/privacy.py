@@ -54,7 +54,8 @@ async def optional_analytics_consent(request: Request, body: dict = Body(default
     result = record_optional_analytics_consent(choice=choice, request=request, user_email=user_email)
     resp = JSONResponse(result)
     kwargs = _consent_cookie_kwargs()
-    resp.set_cookie(CONSENT_COOKIE, choice, **kwargs)
+    cookie_value = "accept" if choice == CONSENT_CHOICE_ACCEPT else "reject"
+    resp.set_cookie(CONSENT_COOKIE, cookie_value, **kwargs)
     resp.set_cookie(CONSENT_DISMISS_COOKIE, "1", **kwargs)
     return resp
 

@@ -2,10 +2,15 @@
 
 from __future__ import annotations
 
+import logging
 import os
 import time
 from datetime import UTC, datetime
 from typing import Any
+
+from log_safety import sanitize_log_value
+
+logger = logging.getLogger(__name__)
 
 
 def vendor_rate_limit_status() -> dict[str, Any]:
@@ -33,7 +38,11 @@ def vendor_rate_limit_status() -> dict[str, Any]:
         else:
             signals.append({"vendor": "coingecko", "throttled": False, "api_key_configured": cg.get("api_key_configured")})
     except Exception as exc:
-        signals.append({"vendor": "coingecko", "error": str(exc)})
+        logger.warning(
+            "coingecko_connector_status failed detail=%s",
+            sanitize_log_value(exc),
+        )
+        signals.append({"vendor": "coingecko", "error": "coingecko_status_unavailable"})
 
     try:
         from exchange_ingress_guard import ingress_guard_status
@@ -50,7 +59,11 @@ def vendor_rate_limit_status() -> dict[str, Any]:
             else:
                 signals.append({"vendor": "exchange_ingress", "throttled": False})
     except Exception as exc:
-        signals.append({"vendor": "exchange_ingress", "error": str(exc)})
+        logger.warning(
+            "ingress_guard_status failed detail=%s",
+            sanitize_log_value(exc),
+        )
+        signals.append({"vendor": "exchange_ingress", "error": "exchange_ingress_status_unavailable"})
 
     projected = int(os.getenv("LAUNCH_PROJECTED_USERS", "100"))
     return {
