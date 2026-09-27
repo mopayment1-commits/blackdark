@@ -346,6 +346,44 @@
             const el = document.getElementById('regPlan');
             if (el) el.value = plan;
         }
+        const POST_AUTH_NEXT_EXACT = new Set([
+            '/dashboard',
+            '/pricing',
+            '/data-room',
+            '/account',
+            '/settings',
+            '/alerts',
+        ]);
+        const POST_AUTH_NEXT_PREFIXES = ['/dashboard', '/data-room', '/account', '/settings', '/alerts'];
+
+        function sameOriginRelativePath(raw) {
+            if (!raw || typeof raw !== 'string') return null;
+            const trimmed = raw.trim();
+            if (!trimmed.startsWith('/') || trimmed.startsWith('//') || trimmed.includes('://')) return null;
+            if (trimmed.includes('\\')) return null;
+            try {
+                const resolved = new URL(trimmed, window.location.origin);
+                if (resolved.origin !== window.location.origin) return null;
+                let out = resolved.pathname || '/';
+                if (resolved.search) out += resolved.search;
+                if (resolved.hash) out += resolved.hash;
+                return out.startsWith('/') ? out : null;
+            } catch (_) {
+                return null;
+            }
+        }
+
+        function allowlistedPostAuthNext(raw) {
+            const rel = sameOriginRelativePath(raw);
+            if (!rel) return null;
+            const pathname = rel.split('?')[0].split('#')[0] || '/';
+            if (POST_AUTH_NEXT_EXACT.has(pathname)) return rel;
+            for (const prefix of POST_AUTH_NEXT_PREFIXES) {
+                if (pathname === prefix || pathname.startsWith(prefix + '/')) return rel;
+            }
+            return null;
+        }
+
         function resolvePostAuthUrl(data) {
             const params = new URLSearchParams(window.location.search);
             const plan = (data?.selected_plan || signupPlan() || 'free').toLowerCase();
@@ -356,15 +394,15 @@
             if (plan === 'institutional') {
                 return '/data-room?from=signup';
             }
-            if (urlNext && urlNext.startsWith('/') && !urlNext.startsWith('//')) {
-                return urlNext;
-            }
+            const safeNext = allowlistedPostAuthNext(urlNext);
+            if (safeNext) return safeNext;
             return '/dashboard';
         }
         function saveAuth(data) {
             try { localStorage.removeItem('bd_token'); localStorage.removeItem('token'); } catch (_) {}
             if (data.user) localStorage.setItem('bd_user', JSON.stringify(data.user));
-            window.location.replace(resolvePostAuthUrl(data));
+            const postAuthTarget = resolvePostAuthUrl(data);
+            window.location.replace(postAuthTarget);
         }
         function validateRegisterForm() {
             const email = document.getElementById('regEmail').value.trim();
