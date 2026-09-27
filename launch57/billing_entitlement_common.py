@@ -21,9 +21,35 @@ from launch57.failure_recovery_common import build_reconciliation_context
 from launch57.temporal_common import to_rfc3339, utc_now
 
 BILLING_ENTITLEMENT_VERSION = "launch57-billing-entitlement-1.0.0"
+SKIP_ENTITLEMENT_TEST_USER_KEY = "cap646-skip-entitlement-test"
 _SIGNAL_STORE = (
     Path(__file__).resolve().parents[1] / "data" / "launch57_billing_entitlement_signals.jsonl"
 )
+
+
+def bind_verified_test_session_for_skip_entitlement(params: dict[str, Any] | None) -> dict[str, Any]:
+    """When cap646 runtime skips the entitlement gateway, bind Launch-57 gates to a verified test session.
+
+    Aligns with ``launch57.identity_auth_common.verify_file02_file03_identity_alignment`` —
+    anonymous ``tier=pro`` alone must not pass, but verified subscription + subject identity may.
+    Production anonymous traffic is unchanged (runtime never sets ``_skip_entitlement_bound``).
+    """
+    p = dict(params or {})
+    if p.get("_skip_entitlement_bound"):
+        return p
+    try:
+        from billing.plan_registry import normalize_plan, plan_rank
+    except Exception:
+        return p
+    requested = normalize_plan(str(p.get("tier") or "free"))
+    if plan_rank(requested) <= plan_rank("free"):
+        p["_skip_entitlement_bound"] = True
+        return p
+    p.setdefault("verified_subscription_tier", requested)
+    p.setdefault("user_key", SKIP_ENTITLEMENT_TEST_USER_KEY)
+    p.setdefault("subject_id", p["user_key"])
+    p["_skip_entitlement_bound"] = True
+    return p
 
 LAUNCH57_BILLING_TOUCHPOINT_IDS: frozenset[int] = frozenset(
     {32, 33, 46, 49, 50, 51, 52}

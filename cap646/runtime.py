@@ -96,6 +96,10 @@ async def execute_capability(
     skip_entitlement: bool = False,
 ) -> dict[str, Any]:
     params = dict(params or {})
+    if skip_entitlement:
+        from launch57.billing_entitlement_common import bind_verified_test_session_for_skip_entitlement
+
+        params = bind_verified_test_session_for_skip_entitlement(params)
     row = catalog_by_id().get(capability_id)
     if not row and 647 <= capability_id <= 978:
         try:

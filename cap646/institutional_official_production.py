@@ -96,7 +96,13 @@ def _surface_registry() -> dict[int, str]:
 
 
 def _resolve_production_spine(capability_id: int, handler_module: str) -> str:
-    if capability_id in _BATCH01_OVERLAP_IDS or "batch01" in handler_module:
+    from cap646.batch01_dedicated import BATCH01_DEDICATED_IDS
+
+    if (
+        capability_id in _BATCH01_OVERLAP_IDS
+        or capability_id in BATCH01_DEDICATED_IDS
+        or "batch01" in handler_module
+    ):
         return "batch01"
     legacy = legacy_production_batch_for(capability_id)
     if legacy:
@@ -124,7 +130,7 @@ def _stamp(result: dict[str, Any], capability_id: int, *, handler_module: str) -
     result["backend_entrypoint"] = institutional_entrypoint(capability_id)
     result["binding_source"] = "explicit_option_a"
     result["production_spine"] = batch
-    result["official_batch"] = batch
+    result["official_batch"] = official_batch_name(capability_id)
     result["capabilities_per_batch"] = CAPABILITIES_PER_BATCH
     result["handler_module"] = handler_module
     result["build_method"] = "v6_institutional_official"
@@ -296,6 +302,15 @@ async def execute(capability_id: int, *, params: dict[str, Any] | None = None) -
             await batch02_execute(capability_id, params=params),
             capability_id,
             handler_module="cap646.batch02_production",
+        )
+
+    from cap646.batch01_dedicated import BATCH01_DEDICATED_IDS, execute as batch01_dedicated_execute
+
+    if capability_id in BATCH01_DEDICATED_IDS and capability_id not in BATCH01_IDS:
+        return _stamp(
+            await batch01_dedicated_execute(capability_id, params=params),
+            capability_id,
+            handler_module="cap646.batch01_dedicated",
         )
 
     batch_num = batch_number(capability_id)
