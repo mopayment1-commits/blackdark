@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 import threading
 import time
 from datetime import UTC, datetime
@@ -14,6 +15,14 @@ from uuid import uuid4
 _DATA = Path("data/institutional/raw_landing")
 _LOCK = threading.Lock()
 RETENTION_CLASS = "raw_hot"
+_SAFE_PARTITION_KEY = re.compile(r"^[A-Za-z0-9_-]+$")
+
+
+def _sanitize_partition_key(key: str) -> str:
+    """Reject path metacharacters; only allow safe filename stem characters."""
+    if not key or not _SAFE_PARTITION_KEY.fullmatch(key):
+        raise ValueError("partition/source_id must match [A-Za-z0-9_-]+")
+    return key
 
 
 def _utcnow() -> str:
@@ -48,7 +57,7 @@ def land_raw_record(
         "observed_at": observed_at,
         "ingested_at": ingested_at,
         "schema_version": schema_version,
-        "partition": partition or source_id,
+        "partition": _sanitize_partition_key(partition or source_id),
         "retention_class": RETENTION_CLASS,
     }
     part = _DATA / f"{row['partition']}.jsonl"

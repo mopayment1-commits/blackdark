@@ -1530,6 +1530,12 @@ def _google_login_uri_base(request: Request) -> str:
     return f"{_request_public_origin(request)}/login"
 
 
+def _login_auth_tab(request: Request) -> str:
+    """Whitelisted login page tab for display only (login | register)."""
+    tab = (request.query_params.get("tab") or "").strip().lower()
+    return "register" if tab == "register" else "login"
+
+
 def _google_post_auth_redirect(plan: str | None, next_path: str | None) -> str:
     from pricing_catalog import normalize_signup_plan
 
@@ -1553,6 +1559,7 @@ async def login_page(request: Request):
         "login.html",
         {
             **_footer_ctx(),
+            "auth_tab": _login_auth_tab(request),
             "google_signin": google_signin_status(),
             "google_login_uri_base": _google_login_uri_base(request),
         },

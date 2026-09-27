@@ -136,8 +136,8 @@
     <main class="login-main" id="loginMain">
         <div class="login-stack">
             <nav class="auth-tabs" id="authTabs" aria-label="Authentication mode">
-                <a href="/login" class="auth-tab{% if request.query_params.get('tab') != 'register' %} active{% endif %}" id="tabLogin" data-mode="login">Login</a>
-                <a href="/login?tab=register" class="auth-tab{% if request.query_params.get('tab') == 'register' %} active{% endif %}" id="tabRegister" data-mode="register">Sign up</a>
+                <a href="/login" class="auth-tab{% if auth_tab != 'register' %} active{% endif %}" id="tabLogin" data-mode="login">Login</a>
+                <a href="/login?tab=register" class="auth-tab{% if auth_tab == 'register' %} active{% endif %}" id="tabRegister" data-mode="register">Sign up</a>
             </nav>
             <div class="card">
                 <div id="googleSigninArea">
@@ -224,6 +224,11 @@
         const googleConfigured = {{ 'true' if google_signin.state == 'CONFIGURED' else 'false' }};
         const googleClientId = {{ google_signin.client_id|tojson if google_signin.state == 'CONFIGURED' else 'null' }};
         const googleLoginUriBase = {{ google_login_uri_base|tojson }};
+
+        function authTabFromQuery(search) {
+            const tab = new URLSearchParams(search || location.search).get('tab');
+            return tab === 'register' ? 'register' : 'login';
+        }
 
         function setAuthTab(mode) {
             const loginTab = document.getElementById('tabLogin');
@@ -554,7 +559,10 @@
         function googleLoginUri() {
             const params = new URLSearchParams(window.location.search);
             const keep = new URLSearchParams();
-            for (const key of ['tab', 'plan', 'next']) {
+            if (authTabFromQuery(window.location.search) === 'register') {
+                keep.set('tab', 'register');
+            }
+            for (const key of ['plan', 'next']) {
                 if (params.has(key)) keep.set(key, params.get(key));
             }
             const qs = keep.toString();
@@ -610,7 +618,7 @@
         syncPlanFromUrl();
         initGoogleSignIn();
         const params = new URLSearchParams(location.search);
-        if (params.get('tab') === 'register') showRegister();
+        if (authTabFromQuery(location.search) === 'register') showRegister();
         else showLogin();
         if (params.get('reset') === '1') setMsg('Password updated — you can sign in.', true);
         if (params.get('google_error')) setMsg('Google sign-in failed. Try again or use email.', false);
