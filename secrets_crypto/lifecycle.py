@@ -13,6 +13,23 @@ SecretState = Literal["created", "active", "rotated", "revoked", "expired"]
 
 _LEDGER: dict[str, dict[str, Any]] = {}
 
+_BLOCKED_LEDGER_KEYS = frozenset(
+    {
+        "value",
+        "secret",
+        "password",
+        "token",
+        "api_key",
+        "credential",
+        "master_key",
+        "private_key",
+    }
+)
+
+
+def _ledger_event_payload(event: dict[str, Any]) -> dict[str, Any]:
+    return {k: v for k, v in event.items() if k not in _BLOCKED_LEDGER_KEYS}
+
 
 def _ledger_path() -> Path:
     root = Path(os.getenv("DATA_DIR") or "data")
@@ -21,8 +38,9 @@ def _ledger_path() -> Path:
 
 
 def _append_event(event: dict[str, Any]) -> None:
+    safe_event = _ledger_event_payload(event)
     with _ledger_path().open("a", encoding="utf-8") as fh:
-        fh.write(json.dumps(event) + "\n")
+        fh.write(json.dumps(safe_event) + "\n")
 
 
 def create_secret_version(

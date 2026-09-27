@@ -12,7 +12,9 @@ from pathlib import Path
 from typing import Any
 from uuid import uuid4
 
-_DATA = Path("data/institutional/raw_landing")
+from path_safety import resolve_under
+
+_DATA = Path("data/institutional/raw_landing").resolve()
 _LOCK = threading.Lock()
 RETENTION_CLASS = "raw_hot"
 _SAFE_PARTITION_KEY = re.compile(r"^[A-Za-z0-9_-]+$")
@@ -49,6 +51,7 @@ def land_raw_record(
     observed_at = _utcnow()
     ingested_at = observed_at
     raw_hash = hash_raw(payload)
+    safe_partition = _sanitize_partition_key(partition or source_id)
     row = {
         "raw_id": f"raw_{uuid4().hex[:16]}",
         "source_id": source_id,
@@ -57,13 +60,13 @@ def land_raw_record(
         "observed_at": observed_at,
         "ingested_at": ingested_at,
         "schema_version": schema_version,
-        "partition": _sanitize_partition_key(partition or source_id),
+        "partition": safe_partition,
         "retention_class": RETENTION_CLASS,
     }
-    part = _DATA / f"{row['partition']}.jsonl"
+    part_file = resolve_under(_DATA, f"{safe_partition}.jsonl")
     with _LOCK:
-        part.parent.mkdir(parents=True, exist_ok=True)
-        with part.open("a", encoding="utf-8") as fh:
+        part_file.parent.mkdir(parents=True, exist_ok=True)
+        with part_file.open("a", encoding="utf-8") as fh:
             fh.write(json.dumps({"meta": row, "payload": payload if isinstance(payload, (dict, list)) else str(payload)}, default=str) + "\n")
     return row
 

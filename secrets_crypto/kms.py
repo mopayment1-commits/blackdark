@@ -8,6 +8,7 @@ import hmac
 import os
 from typing import Any
 
+from secrets_crypto.dek_authentication import dek_authentication_tag
 from secrets_crypto.production_policy import is_production_crypto_env
 
 _ALGORITHM = "AES-256-GCM"
@@ -64,7 +65,7 @@ def _managed_env_kek() -> bytes:
 
 def _wrap_local(dek: bytes) -> bytes:
     kek = _local_dev_kek()
-    return hmac.new(kek, dek, hashlib.sha256).digest()
+    return dek_authentication_tag(kek, dek)
 
 
 def _unwrap_local(wrapped: bytes, dek_len: int = 32) -> bytes:
@@ -74,7 +75,7 @@ def _unwrap_local(wrapped: bytes, dek_len: int = 32) -> bytes:
         raise ValueError("invalid_wrapped_dek")
     tag, dek = wrapped[:32], wrapped[32:]
     kek = _local_dev_kek()
-    expected = hmac.new(kek, dek, hashlib.sha256).digest()
+    expected = dek_authentication_tag(kek, dek)
     if not hmac.compare_digest(tag, expected):
         raise ValueError("wrapped_dek_verification_failed")
     return dek
@@ -95,7 +96,7 @@ def wrap_dek(dek: bytes) -> dict[str, Any]:
         }
     if provider in {"managed_env", "hashicorp", "vault_transit"}:
         kek = _managed_env_kek()
-        tag = hmac.new(kek, dek, hashlib.sha256).digest()
+        tag = dek_authentication_tag(kek, dek)
         wrapped = tag + dek
         return {
             "provider": provider,
@@ -118,7 +119,7 @@ def unwrap_dek(wrapped_dek_b64: str, *, key_id: str, key_version: int, provider:
             raise ValueError("invalid_wrapped_dek")
         tag, dek = wrapped[:32], wrapped[32:]
         kek = _managed_env_kek()
-        expected = hmac.new(kek, dek, hashlib.sha256).digest()
+        expected = dek_authentication_tag(kek, dek)
         if not hmac.compare_digest(tag, expected):
             raise ValueError("wrapped_dek_verification_failed")
         return dek

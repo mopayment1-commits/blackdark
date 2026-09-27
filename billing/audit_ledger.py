@@ -65,10 +65,9 @@ async def record_audit(
         )
         row_id = int(cursor.lastrowid or 0)
     logger.info(
-        "billing_audit | action=%s user_id=%s email=%s %s→%s",
+        "billing_audit | action=%s user_id=%s %s→%s",
         action,
         user_id,
-        email,
         old_plan,
         new_plan,
     )

@@ -19,13 +19,14 @@ OUT = ROOT / "FDS_FINANCIAL_DATA_SCAN_REPORT.json"
 def main() -> int:
     report = scan_repository()
     OUT.write_text(json.dumps(report, indent=2), encoding="utf-8")
-    summary = {
-        "clean": report.get("clean"),
-        "files_scanned": report.get("files_scanned"),
-        "pan_finding_count": report.get("pan_finding_count"),
-        "secret_finding_count": report.get("secret_finding_count"),
-    }
-    print(json.dumps(summary, indent=2))
+    clean = report.get("clean") is True
+    files_scanned = int(report.get("files_scanned") or 0)
+    pan_finding_count = int(report.get("pan_finding_count") or 0)
+    secret_finding_count = int(report.get("secret_finding_count") or 0)
+    print(
+        f'{{"clean": {json.dumps(clean)}, "files_scanned": {files_scanned}, '
+        f'"pan_finding_count": {pan_finding_count}, "secret_finding_count": {secret_finding_count}}}'
+    )
     return 0 if report.get("clean") else 1
 
 
