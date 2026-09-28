@@ -1,0 +1,58 @@
+[
+  {
+    "id": 704,
+    "track": "T18",
+    "track_name": "Platform Extensions",
+    "capability": "Extension Capability 704",
+    "name_source": "extension_pending_cap978",
+    "status": "EXTENSION-PENDING-CAP646"
+  },
+  {
+    "id": 708,
+    "track": "T18",
+    "track_name": "Platform Extensions",
+    "capability": "Extension Capability 708",
+    "name_source": "extension_pending_cap978",
+    "status": "EXTENSION-PENDING-CAP646"
+  },
+  {
+    "id": 725,
+    "track": "T18",
+    "track_name": "Platform Extensions",
+    "capability": "Extension Capability 725",
+    "name_source": "extension_pending_cap978",
+    "status": "EXTENSION-PENDING-CAP646"
+  },
+  {
+    "id": 812,
+    "track": "T18",
+    "track_name": "Platform Extensions",
+    "capability": "Extension Capability 812",
+    "name_source": "extension_pending_cap978",
+    "status": "EXTENSION-PENDING-CAP646"
+  },
+  {
+    "id": 813,
+    "track": "T18",
+    "track_name": "Platform Extensions",
+    "capability": "Extension Capability 813",
+    "name_source": "extension_pending_cap978",
+    "status": "EXTENSION-PENDING-CAP646"
+  },
+  {
+    "id": 814,
+    "track": "T18",
+    "track_name": "Platform Extensions",
+    "capability": "Extension Capability 814",
+    "name_source": "extension_pending_cap978",
+    "status": "EXTENSION-PENDING-CAP646"
+  },
+  {
+    "id": 815,
+    "track": "T18",
+    "track_name": "Platform Extensions",
+    "capability": "Extension Capability 815",
+    "name_source": "extension_pending_cap978",
+    "status": "EXTENSION-PENDING-CAP646"
+  }
+]

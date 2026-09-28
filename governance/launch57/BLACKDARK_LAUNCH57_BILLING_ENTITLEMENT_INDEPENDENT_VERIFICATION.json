@@ -1,0 +1,28 @@
+{
+  "artifact": "BLACKDARK_LAUNCH57_BILLING_ENTITLEMENT_INDEPENDENT_VERIFICATION",
+  "verification_type": "engineering_closure",
+  "verified_at": "2026-09-28T07:14:02.253111+00:00",
+  "implementation_sha": "7dd25b1c",
+  "baseline_sha": "unknown",
+  "verdict": "NOT_COMPLETE",
+  "LAUNCH57_BILLING_ENTITLEMENT_PASS_ENGINEERING": false,
+  "LAUNCH57_BILLING_ENTITLEMENT_READY_FOR_LOCAL_USE": false,
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "checks": {
+    "BILLING_ENTITLEMENT_SEPARATION": true,
+    "REDIRECT_GRANT_BLOCKED": true,
+    "WEBHOOK_IDEMPOTENT": true,
+    "CANONICAL_PRICE_REGISTRY": true,
+    "SERVER_SIDE_GATING": true,
+    "LAUNCH57_SCOPE_ONLY": true,
+    "RECONCILIATION_GUARD": true,
+    "NO_FALSE_PASS_LIVE": true
+  },
+  "test_evidence": {
+    "command": "python3 -m pytest tests/launch57/test_billing_entitlement.py tests/launch57/test_identity_auth.py tests/launch57/test_edge_ui_batch1.py tests/launch57/test_derivatives_batch2.py tests/launch57/test_trust_batch2.py tests/launch57/test_financial_security.py tests/launch57/test_failure_recovery.py tests/launch57/test_phase8_e2e_acceptance.py -q",
+    "exit_code": "1",
+    "stdout_tail": "cy_purge at /workspace/dashboard.py\n    warnings.warn(message, stacklevel=1)\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n=========================== short test summary info ============================\nFAILED tests/launch57/test_edge_ui_batch1.py::test_personal_decision_history_free_limit\nFAILED tests/launch57/test_derivatives_batch2.py::test_smart_alerts_blocked_external_when_no_telegram\nFAILED tests/launch57/test_derivatives_batch2.py::test_dispatch_all_batch2_caps",
+    "stderr_tail": "",
+    "passed": false
+  }
+}

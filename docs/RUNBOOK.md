@@ -36,6 +36,13 @@ Minimum:
 - Optional Telegram via `TELEGRAM_SECRETS_FILE` (0600), not cleartext `.env` token
 
 ## Deploy
+
+**Trigger / symptoms:** scheduled release, failed guard on current version, or SEV-2 defect requiring forward fix.
+
+**Diagnosis:** confirm blast radius (`GET /api/production/guard`, `/health/ready`, recent deploy SHA).
+
+**Actions (choose one path):**
+
 | Mode | Command / path |
 |------|----------------|
 | Local Soft Launch | `bootstrap_free_human_ops.py` + uvicorn |
@@ -43,6 +50,16 @@ Minimum:
 | Optional Vault -dev | `docker compose --profile vault-dev up` (**not** prod secrets) |
 | HA rehearsal | Postgres+Redis; `WEB_CONCURRENCY`/`WEB_REPLICAS` ≥2; Soft Launch unset |
 | k8s | `deploy/k8s/` |
+
+**Decision:** if migration required, run DB migration runbook first; if only app bug, redeploy image only.
+
+**Verification:** `/health/live`, `/health/ready`, `/api/production/guard`, sample `/oracle/BTC`.
+
+**Recovery / rollback:** see Rollback section if deploy regresses.
+
+**Escalation:** SEV-1 → incident commander + on-call pager (`docs/ops/PAGER_ONCALL.md`); SEV-2 → ops owner.
+
+**Evidence preservation:** retain deploy logs, Railway build id, `request_id` from failing requests, and postmortem timeline.
 
 ## Critical routes
 | Route | Access | Purpose |
@@ -69,6 +86,9 @@ Minimum:
 ## Incident response
 Follow `docs/ops/INCIDENT_RESPONSE.md`.
 
+## Service degradation / recovery
+When partial outage occurs (stale feeds, Redis slow, worker crash), **recover** by scaling workers, clearing poison queues, or enabling fail-closed mode. Document timeline and preserve request ids for postmortem.
+
 ## Backup / restore
 Follow `docs/ops/BACKUP_RESTORE.md`. Live buyer drill evidence remains EXTERNAL (`F-EXT-03`).
 
@@ -76,10 +96,30 @@ Follow `docs/ops/BACKUP_RESTORE.md`. Live buyer drill evidence remains EXTERNAL 
 Follow `docs/ops/SECRET_ROTATION.md`.
 
 ## Rollback
+
+**Trigger / symptoms:** elevated 5xx after deploy, failed `/health/ready`, guard `required_pass: false`, or SEV-1 regression.
+
+**Diagnosis:** identify last known-good image SHA; confirm whether schema migration ran (forward-only).
+
+**Actions:**
 1. Redeploy previous Railway/Docker/k8s image (known-good SHA)
-2. Keep DB intact (labeled corpus is the moat)
+   ```bash
+   # Docker local rehearsal
+   docker tag blackdark:previous blackdark:current && docker compose up -d web
+   ```
+2. Keep DB intact (labeled corpus is the moat) — do not destructive-restore unless DR runbook
 3. Freeze trading via panic if needed (`execution_engine.trigger_panic`)
 4. Verify `/api/production/guard` and sample `/oracle/BTC`
+
+**Decision:** rollback application only vs full DB restore — choose restore only when data corruption proven.
+
+**Verification:** health probes green, guard pass, no orphan workers (`docker ps`, process list).
+
+**Recovery:** re-enable traffic gradually; monitor error rate 15 minutes.
+
+**Escalation:** SEV-1 → pager + war-room; involve DBA if migration suspected.
+
+**Evidence preservation:** capture deploy SHA before/after, probe logs, audit chain tail.
 
 ## Post-launch 24h
 - Watch `/health/ready`, billing webhooks, Telegram alerts

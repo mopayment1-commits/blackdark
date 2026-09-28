@@ -1,0 +1,169 @@
+{
+  "artifact": "BLACKDARK_LAUNCH57_BILLING_ENTITLEMENT_RECONCILIATION",
+  "generated_at": "2026-09-28T07:14:02.253111+00:00",
+  "implementation_sha": "7dd25b1c",
+  "baseline_sha": "unknown",
+  "scope": "LAUNCH57_IDS",
+  "internal_support_only": true,
+  "governing_spec": "BLACKDARK_Launch57_Billing_Subscription_Entitlement_FROM_SCRATCH_SPEC(4).md",
+  "tier_registry": {
+    "canonical_tiers": [
+      "free",
+      "pro",
+      "elite",
+      "quant",
+      "institutional"
+    ],
+    "self_serve_plans": [
+      "pro",
+      "elite",
+      "quant"
+    ],
+    "plan_rank": {
+      "free": 0,
+      "pro": 1,
+      "elite": 2,
+      "quant": 3,
+      "institutional": 4
+    },
+    "plan_count": 5,
+    "price_minor_units": {
+      "free": 0,
+      "pro": 2900,
+      "elite": 4900,
+      "quant": 19900,
+      "institutional": 0
+    },
+    "normalize_plan": "normalize_plan",
+    "launch57_reference_only": true,
+    "owner_path": "billing/plan_registry.py",
+    "legacy_bill_program_excluded": true
+  },
+  "billing_states": [
+    "FREE",
+    "CHECKOUT_PENDING",
+    "ACTIVE",
+    "PAST_DUE",
+    "RECOVERY",
+    "CANCEL_AT_PERIOD_END",
+    "CANCELED",
+    "REFUND_PENDING",
+    "PARTIALLY_REFUNDED",
+    "REFUNDED",
+    "DISPUTE_OPEN",
+    "DISPUTE_WON",
+    "DISPUTE_LOST",
+    "UNKNOWN"
+  ],
+  "entitlement_states": [
+    "FREE",
+    "PAID_PENDING",
+    "PAID_ACTIVE",
+    "PAID_RECOVERY",
+    "PAID_CANCELING",
+    "SUSPENDED",
+    "REVOKED",
+    "MANUAL_TEMPORARY_OVERRIDE"
+  ],
+  "invalid_grant_paths": [
+    "checkout_redirect",
+    "success_page",
+    "unsigned_webhook",
+    "self_asserted_tier"
+  ],
+  "unverified_paid_entitlements": [],
+  "duplicate_event_failures": [],
+  "out_of_order_failures": [],
+  "reconciliation_mismatches": [],
+  "capability_gating_failures": [],
+  "parked_capability_exposure": [],
+  "manual_override_findings": [],
+  "external_blockers": [
+    {
+      "id": "production_stripe_eligibility",
+      "category": "BLOCKED_EXTERNAL",
+      "detail": "PRODUCTION_PAYMENT_PROVIDER_ELIGIBILITY=BLOCKED_UNTIL_VERIFIED"
+    },
+    {
+      "id": "live_webhook_config",
+      "category": "NEEDS_EXTERNAL_VERIFICATION",
+      "detail": "Live Stripe webhook endpoint and signing secret"
+    },
+    {
+      "id": "live_checkout_smoke",
+      "category": "NEEDS_EXTERNAL_VERIFICATION",
+      "detail": "Live checkout and renewal evidence"
+    },
+    {
+      "id": "tax_configuration",
+      "category": "NEEDS_EXTERNAL_VERIFICATION",
+      "detail": "Production tax configuration"
+    }
+  ],
+  "acceptance_criteria_49": {
+    "ac01_free_no_paid_subscription": true,
+    "ac02_paid_requires_verified_evidence": true,
+    "ac03_billing_separate_from_entitlement": true,
+    "ac04_redirect_cannot_grant": true,
+    "ac05_webhook_signed_idempotent": true,
+    "ac06_out_of_order_handled": true,
+    "ac07_financial_arithmetic_no_float": true,
+    "ac08_canonical_price_registry": true,
+    "ac09_server_side_gating": true,
+    "ac10_launch57_capabilities_only": true,
+    "ac11_tier_variables_separate": true,
+    "ac12_paid_through_semantics": true,
+    "ac13_recovery_cancel_refund_explicit": true,
+    "ac14_reconciliation_exists": true,
+    "ac15_manual_override_audited": true,
+    "ac16_payment_security_respected": true,
+    "ac17_institutional_contract_aware": true,
+    "ac18_tests_pass": false,
+    "ac19_independent_verification_separate": true,
+    "ac20_no_false_pass_live": true,
+    "unsigned_webhook_blocked": true,
+    "billing_governance_wired": true
+  },
+  "acceptance_all_pass": false,
+  "subscription_engine": {
+    "billing_state_separate_from_entitlement": true,
+    "effective_plan": "billing.subscription_engine.effective_plan",
+    "entitlement_allowed": "billing.subscription_engine.entitlement_allowed",
+    "resolve_entitlements": "billing.subscription_engine.resolve_entitlements_for_user",
+    "payment_proof_required_for_paid": true,
+    "provider_outage_preserves_paid_through": true,
+    "launch57_reference_only": true,
+    "owner_path": "billing/subscription_engine.py"
+  },
+  "billing_governance": {
+    "billing_configured": true,
+    "provider": "stripe",
+    "stripe_configured": true,
+    "plans_ok": true,
+    "self_serve_plans": [
+      "pro",
+      "elite",
+      "quant"
+    ],
+    "webhook_dedup_durable": true,
+    "entitlement_engine": true,
+    "launch57_reference_only": true,
+    "owner_path": "governance/billing_governance.py"
+  },
+  "parked_out_of_launch": [
+    "legacy_bill_001_062_program",
+    "parallel_billing_authority",
+    "parked_capability_monetization"
+  ],
+  "reuse_paths": {
+    "billing_service": "billing_service.py (checkout, webhooks)",
+    "subscription_engine": "billing/subscription_engine.py",
+    "plan_registry": "billing/plan_registry.py",
+    "webhook_processor": "billing/webhook_processor.py",
+    "event_ordering": "billing/event_ordering.py",
+    "webhook_lifecycle": "transport_webhook_env/webhook_lifecycle.py",
+    "billing_governance": "governance/billing_governance.py",
+    "failure_recovery_reconciliation": "launch57/failure_recovery_common.build_reconciliation_context",
+    "financial_security": "launch57/financial_security_common.py"
+  }
+}

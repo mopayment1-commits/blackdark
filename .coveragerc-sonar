@@ -7,6 +7,7 @@
 branch = false
 source =
     .
+    governance/launch57
 omit =
     tests/*
     .venv/*

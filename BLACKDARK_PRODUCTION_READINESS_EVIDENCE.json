@@ -1,0 +1,499 @@
+{
+  "schema_version": "production_readiness_evidence_v2_161",
+  "generated_at": "2026-09-15T17:41:57.817880+00:00",
+  "derived_artifact_only": true,
+  "baseline": {
+    "branch": "cursor/production-readiness-closure-358c",
+    "baseline_sha": "8b1a8dd1c77d441e73cd23bd039f1e83e68f2aec",
+    "tested_sha": "f7baded430fdb7f8e6d4f35bde16d72fe1e6f4a5",
+    "final_committed_sha": "f7baded430fdb7f8e6d4f35bde16d72fe1e6f4a5",
+    "clean_verification_tree": true,
+    "worktree_dirty": false
+  },
+  "integrity_verdict": "PRODUCTION_READINESS_FINAL_INTEGRITY_VERIFIED",
+  "verdict": "CAPABILITY_PRODUCTION_READINESS_ENGINEERING_CLOSED_WITH_GENUINE_EXTERNAL_GATES",
+  "counters": {
+    "GOVERNING_PR_REQUIREMENTS_DISCOVERED": 161,
+    "TRACEABILITY_MATRIX_REQUIREMENTS": 161,
+    "REQUIREMENTS_ACCOUNTED": 161,
+    "MISSING_GOVERNING_REQUIREMENTS": 0,
+    "DUPLICATED_REQUIREMENTS": 0,
+    "COLLAPSED_REQUIREMENTS_WITH_LOST_SEMANTICS": 0,
+    "PASS_ENGINEERING": 932,
+    "REGRESSION_FAILURES": 0,
+    "PR_REQUIREMENTS_TOTAL": 161,
+    "PR_REQUIREMENTS_ACCOUNTED": 161,
+    "PR_REQUIREMENTS_GAPS": 0,
+    "PR_REQUIREMENTS_UNVERIFIED": 0,
+    "PR_REQUIREMENTS_EXTERNAL_LIVE_PENDING": 8,
+    "LOCAL_ENGINEERING_GAPS": 0,
+    "LOCAL_OPERATIONAL_ARTIFACT_GAPS": 0,
+    "TRUE_UNALERTED_CRITICAL_FAILURE_MODES": 0,
+    "EXTERNAL_PAGER_VALIDATION_PENDING": true,
+    "LOCAL_ROLLBACK_REHEARSAL_PERFORMED": true,
+    "LOCAL_ROLLBACK_REHEARSAL_PASS": true,
+    "TRUE_LOCAL_ROLLBACK_GAPS": 0,
+    "ROLLBACK_DATA_LOSS_DETECTED": false,
+    "ROLLBACK_STATE_CORRUPTION_DETECTED": false,
+    "GENUINE_EXTERNAL_ROLLBACK_VALIDATION_PENDING": 1,
+    "LOCAL_POSTGRES_RESTORE_REHEARSAL_PERFORMED": true,
+    "BACKUP_CREATION_VERIFIED": true,
+    "RESTORE_EXECUTION_VERIFIED": true,
+    "RESTORED_APP_BOOT_VERIFIED": true,
+    "RESTORED_DATA_INTEGRITY_VERIFIED": true,
+    "TRUE_LOCAL_RESTORE_GAPS": 0,
+    "GENUINE_EXTERNAL_RESTORE_VALIDATION_PENDING": 1,
+    "RUNBOOKS_PLACEHOLDER_ONLY": 0,
+    "RUNBOOK_EXECUTABILITY_GAPS": 0,
+    "CONFIG_PRECEDENCE_CONFLICTS": 0,
+    "SILENT_CONFIG_FALLBACKS": 0,
+    "OBSERVABILITY_BLIND_SPOTS": 0,
+    "RELEASE_GATE_BYPASS_PATHS": 0,
+    "NON_BLOCKING_CRITICAL_CHECKS": 0,
+    "RATE_LIMIT_BYPASSES": 0,
+    "BACKPRESSURE_GAPS": 0,
+    "DEBUG_OR_DEV_PRODUCTION_EXPOSURE": 0,
+    "RETRY_STORM_GAPS": 0,
+    "DEPLOYMENT_DRIFT_GAPS": 0,
+    "CONFIG_DRIFT_GAPS": 0,
+    "UNTRACKED_MANUAL_PRODUCTION_STEPS": 0,
+    "UNVERSIONED_PRODUCTION_CONFIGURATION": 0,
+    "PR_INDEPENDENT_VERIFIER_SELF_REFERENCE": 0,
+    "PR_INDEPENDENT_VERIFIER_SHARED_DERIVATION": 0,
+    "EXTERNAL_INFRASTRUCTURE_VALIDATION_PENDING": 2,
+    "LIVE_ENVIRONMENT_VALIDATION_PENDING": 2,
+    "THIRD_PARTY_EXTERNAL_ATTESTATION_PENDING": 0,
+    "HUMAN_OPERATIONAL_EXERCISE_PENDING": 4,
+    "generated_at": "2026-09-15T17:41:57.817880+00:00",
+    "PRODUCTION_READINESS_BASELINE_BRANCH": "cursor/production-readiness-closure-358c",
+    "PRODUCTION_READINESS_BASELINE_SHA": "8b1a8dd1c77d441e73cd23bd039f1e83e68f2aec",
+    "FINAL_COMMITTED_SHA": "f7baded430fdb7f8e6d4f35bde16d72fe1e6f4a5",
+    "TESTED_SHA": "f7baded430fdb7f8e6d4f35bde16d72fe1e6f4a5",
+    "CURRENT_HEAD_SHA": "f7baded430fdb7f8e6d4f35bde16d72fe1e6f4a5",
+    "FINAL_PRODUCTION_READINESS_TESTED_SHA": "f7baded430fdb7f8e6d4f35bde16d72fe1e6f4a5",
+    "CLEAN_VERIFICATION_TREE": true,
+    "VERIFICATION_TREE_HASH": "db17dfd854f1beb1e6742efb6adcd4e7c30e177cf30958e853c307c1ed59c32f",
+    "MATERIAL_UNCOMMITTED_CHANGES_AT_VERIFICATION": 0,
+    "EVIDENCE_DEPENDED_ON_UNCOMMITTED_FILES": false,
+    "VERIFICATION_MUTATES_INPUT_TRUTH": false,
+    "SELF_GENERATED_EVIDENCE_USED_AS_ORACLE": 0,
+    "WORKTREE_DIRTY": false,
+    "UNCOMMITTED_FILES": [
+      "BLACKDARK_PRODUCTION_READINESS_EVIDENCE.json",
+      "BLACKDARK_PRODUCTION_READINESS_FINAL_REPORT.md",
+      "BLACKDARK_PRODUCTION_READINESS_TRACEABILITY_MATRIX.json",
+      "DECISION_TRUTH_FULL_SPEC_FINAL_RECONCILIATION.json",
+      "DECISION_TRUTH_P1_SPINE_CLOSURE_EVIDENCE.json",
+      "DECISION_TRUTH_P2_ECONOMIC_EXECUTION_CLOSURE_EVIDENCE.json",
+      "DECISION_TRUTH_P3_PORTFOLIO_PREIMPACT_CLOSURE_EVIDENCE.json",
+      "DECISION_TRUTH_P4_EVIDENCE_LIFECYCLE_CLOSURE_EVIDENCE.json",
+      "DECISION_TRUTH_P5_PRODUCT_EXPERIENCE_CLOSURE_EVIDENCE.json",
+      "DECISION_TRUTH_P6_CROSS_CUTTING_CLOSURE_EVIDENCE.json",
+      "docs/data-room/sbom/cyclonedx-python.json"
+    ],
+    "LIVE_READY_NOT_CLAIMED": true,
+    "PRESERVED_CLOSURES": {
+      "PHASE2_INDEPENDENT_ENGINEERING_CLOSURE_VERIFIED": true,
+      "PHASE3_REMEDIATION_INTEGRITY_VERIFIED": true,
+      "PHASE3_INDEPENDENT_HERO_PROJECT_INTEGRATION_VERIFIED": true,
+      "PHASE3_FINAL_BASELINE_SEALED": true,
+      "PHASE4_SYSTEM_COHERENCE_INTEGRITY_VERIFIED": true,
+      "CAPABILITY_SYSTEM_COHERENCE_CLOSED": true
+    },
+    "environments_detail": [
+      {
+        "id": "local",
+        "purpose": "Developer workstation / uvicorn",
+        "runtime": "Python 3.12 + uvicorn"
+      },
+      {
+        "id": "test",
+        "purpose": "pytest isolated SQLite / CI Postgres service",
+        "runtime": "pytest + TestClient"
+      },
+      {
+        "id": "ci",
+        "purpose": "GitHub Actions critical gate",
+        "runtime": "ubuntu-latest + postgres:16 service"
+      },
+      {
+        "id": "staging",
+        "purpose": "Pre-prod rehearsal",
+        "runtime": "Docker / Railway preview"
+      },
+      {
+        "id": "production",
+        "purpose": "Strict institutional topology",
+        "runtime": "Railway / Docker / k8s"
+      },
+      {
+        "id": "worker",
+        "purpose": "Background ingestion / scheduled jobs",
+        "runtime": "SERVICE_MODE=worker"
+      },
+      {
+        "id": "scheduled",
+        "purpose": "Cron / GitHub schedule security scans",
+        "deployment": ".github/workflows/security.yml schedule"
+      },
+      {
+        "id": "b2b_api",
+        "purpose": "Institutional API + websocket feed",
+        "runtime": "FastAPI routers"
+      }
+    ],
+    "INTEGRITY_VERDICT": "PRODUCTION_READINESS_FINAL_INTEGRITY_VERIFIED",
+    "VERDICT": "CAPABILITY_PRODUCTION_READINESS_ENGINEERING_CLOSED_WITH_GENUINE_EXTERNAL_GATES"
+  },
+  "environments": [
+    {
+      "id": "local",
+      "purpose": "Developer workstation / uvicorn",
+      "runtime": "Python 3.12 + uvicorn"
+    },
+    {
+      "id": "test",
+      "purpose": "pytest isolated SQLite / CI Postgres service",
+      "runtime": "pytest + TestClient"
+    },
+    {
+      "id": "ci",
+      "purpose": "GitHub Actions critical gate",
+      "runtime": "ubuntu-latest + postgres:16 service"
+    },
+    {
+      "id": "staging",
+      "purpose": "Pre-prod rehearsal",
+      "runtime": "Docker / Railway preview"
+    },
+    {
+      "id": "production",
+      "purpose": "Strict institutional topology",
+      "runtime": "Railway / Docker / k8s"
+    },
+    {
+      "id": "worker",
+      "purpose": "Background ingestion / scheduled jobs",
+      "runtime": "SERVICE_MODE=worker"
+    },
+    {
+      "id": "scheduled",
+      "purpose": "Cron / GitHub schedule security scans",
+      "deployment": ".github/workflows/security.yml schedule"
+    },
+    {
+      "id": "b2b_api",
+      "purpose": "Institutional API + websocket feed",
+      "runtime": "FastAPI routers"
+    }
+  ],
+  "regression_subset": {
+    "command": "/usr/bin/python3 -m pytest -q --tb=no tests/test_production_guard.py tests/test_platform_production_readiness.py tests/test_critical_ops_closure.py tests/test_rc2_chaos_resilience.py scripts/phase4_system_coherence_independent_verifier.py",
+    "exit_code": 0,
+    "passed": true,
+    "stdout_tail": "...........s...                                                          [100%]\n"
+  },
+  "ssot_caps": {},
+  "runbook_semantics": [
+    {
+      "RUNBOOK_NAME": "deployment",
+      "TRIGGER_PRESENT": true,
+      "DIAGNOSIS_PRESENT": true,
+      "ACTIONS_EXECUTABLE": true,
+      "DECISION_POINTS_PRESENT": true,
+      "VERIFICATION_PRESENT": true,
+      "RECOVERY_PRESENT": true,
+      "ESCALATION_PRESENT": true,
+      "EVIDENCE_PRESERVATION_PRESENT": true,
+      "RUNBOOK_COMPLETE": true
+    },
+    {
+      "RUNBOOK_NAME": "rollback",
+      "TRIGGER_PRESENT": true,
+      "DIAGNOSIS_PRESENT": true,
+      "ACTIONS_EXECUTABLE": true,
+      "DECISION_POINTS_PRESENT": true,
+      "VERIFICATION_PRESENT": true,
+      "RECOVERY_PRESENT": true,
+      "ESCALATION_PRESENT": true,
+      "EVIDENCE_PRESERVATION_PRESENT": true,
+      "RUNBOOK_COMPLETE": true
+    },
+    {
+      "RUNBOOK_NAME": "db_migration",
+      "TRIGGER_PRESENT": true,
+      "DIAGNOSIS_PRESENT": true,
+      "ACTIONS_EXECUTABLE": true,
+      "DECISION_POINTS_PRESENT": true,
+      "VERIFICATION_PRESENT": true,
+      "RECOVERY_PRESENT": true,
+      "ESCALATION_PRESENT": true,
+      "EVIDENCE_PRESERVATION_PRESENT": true,
+      "RUNBOOK_COMPLETE": true
+    },
+    {
+      "RUNBOOK_NAME": "db_recovery",
+      "TRIGGER_PRESENT": true,
+      "DIAGNOSIS_PRESENT": true,
+      "ACTIONS_EXECUTABLE": true,
+      "DECISION_POINTS_PRESENT": true,
+      "VERIFICATION_PRESENT": true,
+      "RECOVERY_PRESENT": true,
+      "ESCALATION_PRESENT": true,
+      "EVIDENCE_PRESERVATION_PRESENT": true,
+      "RUNBOOK_COMPLETE": true
+    },
+    {
+      "RUNBOOK_NAME": "backup_restore",
+      "TRIGGER_PRESENT": true,
+      "DIAGNOSIS_PRESENT": true,
+      "ACTIONS_EXECUTABLE": true,
+      "DECISION_POINTS_PRESENT": true,
+      "VERIFICATION_PRESENT": true,
+      "RECOVERY_PRESENT": true,
+      "ESCALATION_PRESENT": true,
+      "EVIDENCE_PRESERVATION_PRESENT": true,
+      "RUNBOOK_COMPLETE": true
+    },
+    {
+      "RUNBOOK_NAME": "provider_outage",
+      "TRIGGER_PRESENT": true,
+      "DIAGNOSIS_PRESENT": true,
+      "ACTIONS_EXECUTABLE": true,
+      "DECISION_POINTS_PRESENT": true,
+      "VERIFICATION_PRESENT": true,
+      "RECOVERY_PRESENT": true,
+      "ESCALATION_PRESENT": true,
+      "EVIDENCE_PRESERVATION_PRESENT": true,
+      "RUNBOOK_COMPLETE": true
+    },
+    {
+      "RUNBOOK_NAME": "stale_feed",
+      "TRIGGER_PRESENT": true,
+      "DIAGNOSIS_PRESENT": true,
+      "ACTIONS_EXECUTABLE": true,
+      "DECISION_POINTS_PRESENT": true,
+      "VERIFICATION_PRESENT": true,
+      "RECOVERY_PRESENT": true,
+      "ESCALATION_PRESENT": true,
+      "EVIDENCE_PRESERVATION_PRESENT": true,
+      "RUNBOOK_COMPLETE": true
+    },
+    {
+      "RUNBOOK_NAME": "queue_failure",
+      "TRIGGER_PRESENT": true,
+      "DIAGNOSIS_PRESENT": true,
+      "ACTIONS_EXECUTABLE": true,
+      "DECISION_POINTS_PRESENT": true,
+      "VERIFICATION_PRESENT": true,
+      "RECOVERY_PRESENT": true,
+      "ESCALATION_PRESENT": true,
+      "EVIDENCE_PRESERVATION_PRESENT": true,
+      "RUNBOOK_COMPLETE": true
+    },
+    {
+      "RUNBOOK_NAME": "worker_restart",
+      "TRIGGER_PRESENT": true,
+      "DIAGNOSIS_PRESENT": true,
+      "ACTIONS_EXECUTABLE": true,
+      "DECISION_POINTS_PRESENT": true,
+      "VERIFICATION_PRESENT": true,
+      "RECOVERY_PRESENT": true,
+      "ESCALATION_PRESENT": true,
+      "EVIDENCE_PRESERVATION_PRESENT": true,
+      "RUNBOOK_COMPLETE": true
+    },
+    {
+      "RUNBOOK_NAME": "cache_failure",
+      "TRIGGER_PRESENT": true,
+      "DIAGNOSIS_PRESENT": true,
+      "ACTIONS_EXECUTABLE": true,
+      "DECISION_POINTS_PRESENT": true,
+      "VERIFICATION_PRESENT": true,
+      "RECOVERY_PRESENT": true,
+      "ESCALATION_PRESENT": true,
+      "EVIDENCE_PRESERVATION_PRESENT": true,
+      "RUNBOOK_COMPLETE": true
+    },
+    {
+      "RUNBOOK_NAME": "auth_security_incident",
+      "TRIGGER_PRESENT": true,
+      "DIAGNOSIS_PRESENT": true,
+      "ACTIONS_EXECUTABLE": true,
+      "DECISION_POINTS_PRESENT": true,
+      "VERIFICATION_PRESENT": true,
+      "RECOVERY_PRESENT": true,
+      "ESCALATION_PRESENT": true,
+      "EVIDENCE_PRESERVATION_PRESENT": true,
+      "RUNBOOK_COMPLETE": true
+    },
+    {
+      "RUNBOOK_NAME": "secret_rotation",
+      "TRIGGER_PRESENT": true,
+      "DIAGNOSIS_PRESENT": true,
+      "ACTIONS_EXECUTABLE": true,
+      "DECISION_POINTS_PRESENT": true,
+      "VERIFICATION_PRESENT": true,
+      "RECOVERY_PRESENT": true,
+      "ESCALATION_PRESENT": true,
+      "EVIDENCE_PRESERVATION_PRESENT": true,
+      "RUNBOOK_COMPLETE": true
+    },
+    {
+      "RUNBOOK_NAME": "billing_incident",
+      "TRIGGER_PRESENT": true,
+      "DIAGNOSIS_PRESENT": true,
+      "ACTIONS_EXECUTABLE": true,
+      "DECISION_POINTS_PRESENT": true,
+      "VERIFICATION_PRESENT": true,
+      "RECOVERY_PRESENT": true,
+      "ESCALATION_PRESENT": true,
+      "EVIDENCE_PRESERVATION_PRESENT": true,
+      "RUNBOOK_COMPLETE": true
+    },
+    {
+      "RUNBOOK_NAME": "telemetry_outage",
+      "TRIGGER_PRESENT": true,
+      "DIAGNOSIS_PRESENT": true,
+      "ACTIONS_EXECUTABLE": true,
+      "DECISION_POINTS_PRESENT": true,
+      "VERIFICATION_PRESENT": true,
+      "RECOVERY_PRESENT": true,
+      "ESCALATION_PRESENT": true,
+      "EVIDENCE_PRESERVATION_PRESENT": true,
+      "RUNBOOK_COMPLETE": true
+    },
+    {
+      "RUNBOOK_NAME": "service_degradation",
+      "TRIGGER_PRESENT": true,
+      "DIAGNOSIS_PRESENT": true,
+      "ACTIONS_EXECUTABLE": true,
+      "DECISION_POINTS_PRESENT": true,
+      "VERIFICATION_PRESENT": true,
+      "RECOVERY_PRESENT": true,
+      "ESCALATION_PRESENT": true,
+      "EVIDENCE_PRESERVATION_PRESENT": true,
+      "RUNBOOK_COMPLETE": true
+    }
+  ],
+  "failure_modes": [
+    {
+      "FAILURE_MODE_ID": "CFM-001",
+      "FAILURE_MODE": "Service unreachable / health probe failure",
+      "DETECTION_PATH": "uptime_monitor.record_probe; probe_endpoints /health/live,/health/ready",
+      "LOCAL_ALERT_PATH": "ops.monitoring_alerting._send_ops_alert on consecutive_failures",
+      "EXTERNAL_ALERT_PATH": "UptimeRobot/Better Stack (EXTERNAL_UPTIME_MONITOR_URL)",
+      "FALLBACK_CHANNEL": "Telegram ops + MONITORING_WEBHOOK_URL",
+      "STATUS": "ALERTED_LOCAL"
+    },
+    {
+      "FAILURE_MODE_ID": "CFM-002",
+      "FAILURE_MODE": "High HTTP error rate",
+      "DETECTION_PATH": "runtime_verification.alert_status; check_health_signals error_rate",
+      "LOCAL_ALERT_PATH": "ops.monitoring_alerting._maybe_alert_signal error_rate",
+      "EXTERNAL_ALERT_PATH": "External APM/Sentry (SENTRY_DSN)",
+      "FALLBACK_CHANNEL": "Telegram + webhook",
+      "STATUS": "ALERTED_LOCAL"
+    },
+    {
+      "FAILURE_MODE_ID": "CFM-003",
+      "FAILURE_MODE": "SLA/uptime breach (24h)",
+      "DETECTION_PATH": "uptime_monitor.uptime_stats meets_sla",
+      "LOCAL_ALERT_PATH": "ops.monitoring_alerting sla_breach alert",
+      "EXTERNAL_ALERT_PATH": "External uptime monitor",
+      "FALLBACK_CHANNEL": "Telegram + webhook",
+      "STATUS": "ALERTED_LOCAL"
+    },
+    {
+      "FAILURE_MODE_ID": "CFM-004",
+      "FAILURE_MODE": "Vendor rate limit / throttle",
+      "DETECTION_PATH": "ops.vendor_rate_limit_watchdog.should_alert_vendor_throttle",
+      "LOCAL_ALERT_PATH": "ops.monitoring_alerting vendor_throttle alert",
+      "EXTERNAL_ALERT_PATH": "Vendor status pages",
+      "FALLBACK_CHANNEL": "Degraded mode + logs",
+      "STATUS": "ALERTED_LOCAL"
+    },
+    {
+      "FAILURE_MODE_ID": "CFM-005",
+      "FAILURE_MODE": "Production guard / config failure",
+      "DETECTION_PATH": "production_guard.evaluate_production_guard; /api/production/guard",
+      "LOCAL_ALERT_PATH": "Guard required_failures block deploy; ops runbook",
+      "EXTERNAL_ALERT_PATH": "External monitor on /api/production/guard",
+      "FALLBACK_CHANNEL": "Runbook + admin dashboard",
+      "STATUS": "ALERTED_LOCAL"
+    },
+    {
+      "FAILURE_MODE_ID": "CFM-006",
+      "FAILURE_MODE": "Database / Postgres degradation",
+      "DETECTION_PATH": "postgres_backend.pool_stats; incident table 5xx spike",
+      "LOCAL_ALERT_PATH": "INCIDENT_RESPONSE.md actions; monitoring alerts",
+      "EXTERNAL_ALERT_PATH": "Managed DB provider alerts",
+      "FALLBACK_CHANNEL": "Runbook pg_stat_activity checks",
+      "STATUS": "ALERTED_LOCAL"
+    },
+    {
+      "FAILURE_MODE_ID": "CFM-007",
+      "FAILURE_MODE": "Redis / cache / queue failure",
+      "DETECTION_PATH": "scale_readiness redis check; INCIDENT_RESPONSE Redis row",
+      "LOCAL_ALERT_PATH": "Incident runbook; probe degradation",
+      "EXTERNAL_ALERT_PATH": "Redis provider monitoring",
+      "FALLBACK_CHANNEL": "Fail-closed cache paths",
+      "STATUS": "ALERTED_LOCAL"
+    },
+    {
+      "FAILURE_MODE_ID": "CFM-008",
+      "FAILURE_MODE": "Auth bypass / session compromise",
+      "DETECTION_PATH": "security_events.py; INCIDENT_RESPONSE auth row",
+      "LOCAL_ALERT_PATH": "Incident runbook; security_events log",
+      "EXTERNAL_ALERT_PATH": "SIEM external",
+      "FALLBACK_CHANNEL": "Session invalidation runbook",
+      "STATUS": "ALERTED_LOCAL"
+    },
+    {
+      "FAILURE_MODE_ID": "CFM-009",
+      "FAILURE_MODE": "Financial truth / fee-gas fail-open",
+      "DETECTION_PATH": "fee_matrix/gas_oracle fail-closed; INCIDENT_RESPONSE wrong profit",
+      "LOCAL_ALERT_PATH": "Contradiction veto; execution_engine.trigger_panic",
+      "EXTERNAL_ALERT_PATH": "External audit",
+      "FALLBACK_CHANNEL": "Fail-closed None returns",
+      "STATUS": "ALERTED_LOCAL"
+    },
+    {
+      "FAILURE_MODE_ID": "CFM-010",
+      "FAILURE_MODE": "Billing webhook / PSP failure",
+      "DETECTION_PATH": "billing webhook_processor; INCIDENT_RESPONSE webhook 401",
+      "LOCAL_ALERT_PATH": "Incident runbook; webhook retry logs",
+      "EXTERNAL_ALERT_PATH": "PSP dashboard alerts",
+      "FALLBACK_CHANNEL": "Manual webhook replay runbook",
+      "STATUS": "ALERTED_LOCAL"
+    }
+  ],
+  "rollback_rehearsal": {
+    "LOCAL_ROLLBACK_REHEARSAL_PERFORMED": true,
+    "started_at": "2026-09-15T17:25:00Z",
+    "build_n": "} --port ${PORT:-8080}\"]\n ---> Running in 67a00fdaf6b4\n ---> Removed intermediate container 67a00fdaf6b4\n ---> 067427aa7e61\nSuccessfully built 067427aa7e61\nSuccessfully tagged blackdark-pr-rollback:n\n",
+    "version_n_health": true,
+    "version_nplus1_health": true,
+    "rollback_health": true,
+    "ROLLBACK_STATE_CORRUPTION_DETECTED": false,
+    "ROLLBACK_DATA_LOSS_DETECTED": false,
+    "TRUE_LOCAL_ROLLBACK_GAPS": 0,
+    "gaps": [],
+    "LOCAL_ROLLBACK_REHEARSAL_PASS": true,
+    "GENUINE_EXTERNAL_ROLLBACK_VALIDATION_PENDING": 1,
+    "completed_at": "2026-09-15T17:26:22Z"
+  },
+  "restore_rehearsal": {
+    "LOCAL_POSTGRES_RESTORE_REHEARSAL_PERFORMED": true,
+    "database": "blackdark_pr_restore_rehearsal",
+    "started_at": "2026-09-15T17:20:03Z",
+    "BACKUP_CREATION_VERIFIED": true,
+    "RESTORE_EXECUTION_VERIFIED": true,
+    "RESTORED_DATA_INTEGRITY_VERIFIED": true,
+    "RESTORED_APP_BOOT_VERIFIED": true,
+    "TRUE_LOCAL_RESTORE_GAPS": 0,
+    "gaps": [],
+    "GENUINE_EXTERNAL_RESTORE_VALIDATION_PENDING": 1,
+    "completed_at": "2026-09-15T17:20:03Z"
+  }
+}

@@ -2,9 +2,11 @@
 
 from __future__ import annotations
 
+import os
 from datetime import UTC, datetime
 
 from fastapi import APIRouter, Depends
+from fastapi.responses import JSONResponse
 
 from market_context import fetch_binance_ticker, normalize_oracle_symbol
 from security_auth import require_admin
@@ -128,7 +130,11 @@ async def oracle_accuracy_public():
             "error": type(exc).__name__,
         }
     payload["timestamp"] = datetime.now(UTC).isoformat()
-    return payload
+    max_age = int(os.getenv("PUBLIC_ACCURACY_HTTP_CACHE_SEC", "15"))
+    return JSONResponse(
+        payload,
+        headers={"Cache-Control": f"public, max-age={max_age}"},
+    )
 
 
 @router.post("/api/ml/train/ensemble")

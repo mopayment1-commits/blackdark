@@ -9,6 +9,7 @@ from typing import Any
 from uuid import uuid4
 
 from audit_registry import hash_payload
+from log_safety import sanitize_log_value
 from compounding_common import dumps_json, loads_json, row_signature, utcnow, verify_row_signature
 
 logger = logging.getLogger("BLACKDARK.SignalCompounding")
@@ -106,8 +107,12 @@ async def store_signal(
                     target_node_id=asset_node,
                     edge_type="influenced_by",
                 )
-    except Exception:
-        logger.exception("KG signal ingest failed for %s", sid)
+    except Exception as exc:
+        logger.warning(
+            "KG signal ingest failed signal_id=%s detail=%s",
+            sanitize_log_value(sid, field_name="signal_id").replace("\r", " ").replace("\n", " "),
+            sanitize_log_value(exc).replace("\r", " ").replace("\n", " "),
+        )
 
     return _signal_api(row)
 
@@ -198,35 +203,36 @@ async def signal_correlate(symbols: list[str]) -> dict[str, Any]:
     return {"symbols": syms, "correlations": correlations}
 
 
+async def _persist_registry_signal_async(row: dict[str, Any]) -> None:
+    sym = str(row.get("symbol") or row.get("asset") or "UNKNOWN").upper()
+    await store_signal(
+        symbol=sym,
+        signal_type=str(row.get("signal_type") or "oracle_direction"),
+        value=row.get("features") or row.get("value") or row,
+        confidence=float(row.get("confidence") or row.get("weight") or 0.5),
+        source=str(row.get("source") or row.get("provenance", {}).get("source") or "signal_registry"),
+        signal_id=str(row.get("signal_id") or ""),
+    )
+
+
 def persist_registry_signal(row: dict[str, Any]) -> None:
     """Sync hook from signal_registry.register_signal (best-effort)."""
     import asyncio
 
-    sym = str(row.get("symbol") or row.get("asset") or "UNKNOWN").upper()
+    async def _run() -> None:
+        try:
+            await _persist_registry_signal_async(row)
+        except Exception:
+            logger.exception("signal registry SQL sync failed")
+
     try:
-        asyncio.get_running_loop().create_task(
-            store_signal(
-                symbol=sym,
-                signal_type=str(row.get("signal_type") or "oracle_direction"),
-                value=row.get("features") or row.get("value") or row,
-                confidence=float(row.get("confidence") or row.get("weight") or 0.5),
-                source=str(row.get("source") or row.get("provenance", {}).get("source") or "signal_registry"),
-                signal_id=str(row.get("signal_id") or ""),
-            )
-        )
+        loop = asyncio.get_running_loop()
+        loop.create_task(_run())
     except RuntimeError:
-        asyncio.run(
-            store_signal(
-                symbol=sym,
-                signal_type=str(row.get("signal_type") or "oracle_direction"),
-                value=row.get("features") or row.get("value") or row,
-                confidence=float(row.get("confidence") or 0.5),
-                source=str(row.get("source") or "signal_registry"),
-                signal_id=str(row.get("signal_id") or ""),
-            )
-        )
-    except Exception:
-        logger.exception("signal registry SQL sync failed")
+        try:
+            asyncio.run(_run())
+        except Exception:
+            logger.exception("signal registry SQL sync failed")
 
 
 def _signal_api(row: dict[str, Any]) -> dict[str, Any]:

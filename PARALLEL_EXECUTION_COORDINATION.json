@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0",
+  "updated_at_utc": "2026-09-11T11:40:00+00:00",
+  "program": "BLACKDARK_FULL_COMPLETION",
+  "policy": "PARALLEL_ALLOWED_WITH_PARTITION",
+  "answer_for_owner": "نعم — اشتغلوا بالتوازي بشرط الالتزام بتقسيم المسارات أدناه وعدم تعديل نفس الملفات/القدرات في نفس الوقت.",
+  "streams": {
+    "STREAM_A_CAPABILITY_BUILD": {
+      "owner": "other_cursor_conversation",
+      "scope": "P4 batch closure — implement/mock-to-real capability handlers",
+      "capability_id_ranges": [
+        [151, 300],
+        [301, 500],
+        [501, 826]
+      ],
+      "touch_paths": [
+        "cap646/batch*_*.py",
+        "bd_platform/**",
+        "tests/test_hero_batch_*",
+        "tests/cap646/**"
+      ],
+      "branch_preference": "cursor/*-closure-* OR cursor/*-batch-*",
+      "must_not_touch": [
+        "PARALLEL_EXECUTION_COORDINATION.json",
+        "BUILD_GOVERNANCE_SOURCE_REGISTER.json",
+        "governing-sources-population/**",
+        "pdf_capability_registry.py"
+      ]
+    },
+    "STREAM_B_GOVERNANCE_ORCHESTRATION": {
+      "owner": "cursor_full_completion_execution_358c",
+      "scope": "P0-P3 truth, sources, split-brain, DTS/DATA packages, orchestration",
+      "capability_id_ranges": [
+        [1, 50],
+        [51, 100],
+        [101, 150]
+      ],
+      "touch_paths": [
+        "decision_truth/**",
+        "data_governance/**",
+        "scripts/full_completion_*",
+        "scripts/war_room_*",
+        "PARALLEL_EXECUTION_COORDINATION.json",
+        "OWNER_FULL_COMPLETION_MANDATE.json",
+        "RESUME_STATE.json"
+      ],
+      "branch": "cursor/full-completion-execution-358c",
+      "must_not_touch": [
+        "bd_platform/** (except via PR merge)",
+        "cap646/batch04*"
+      ]
+    }
+  },
+  "merge_rules": [
+    "Rebase or merge daily; never force-push main",
+    "Before claiming a capability ID range, update claimed_ranges below",
+    "Run scripts/war_room_24h_orchestrator.py before each push",
+    "Run scripts/full_completion_bootstrap.py after batch closure"
+  ],
+  "claimed_ranges": [
+    {
+      "stream": "STREAM_B_GOVERNANCE_ORCHESTRATION",
+      "capability_ids": "1-150",
+      "claimed_at_utc": "2026-09-11T11:40:00+00:00",
+      "agent": "cursor/full-completion-execution-358c"
+    }
+  ],
+  "external_human_gates": [
+    "PASS_LIVE",
+    "ASSURANCE_READY",
+    "pentest",
+    "SOC2",
+    "Stripe production",
+    "data vendor contracts",
+    "owner launch approval"
+  ]
+}

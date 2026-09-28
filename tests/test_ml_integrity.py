@@ -12,8 +12,9 @@ from oracle_integrity import filter_live_predictions, is_synthetic_prediction, l
 
 
 @pytest.fixture
-def clean_chain(tmp_path, monkeypatch):
-    path = tmp_path / "chain.jsonl"
+def clean_chain(monkeypatch):
+    path = chain.isolated_chain_path_for_tests("ml_integrity")
+    path.unlink(missing_ok=True)
     monkeypatch.setattr(chain, "CHAIN_PATH", path)
     return path
 

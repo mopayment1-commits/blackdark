@@ -1,0 +1,346 @@
+{
+  "EXTERNAL_ROUTES_AUDITED": 7,
+  "EXTERNAL_ROUTES_WITHOUT_PRODUCTION_CLIENT": 0,
+  "EXTERNAL_ROUTES_WITHOUT_NETWORK_ACQUISITION_PATH": 0,
+  "EXTERNAL_ROUTES_WITHOUT_FAILURE_HANDLING": 0,
+  "EXTERNAL_ROUTES_WITHOUT_LOCAL_TRANSPORT_TEST": 0,
+  "EXTERNAL_ROUTES_REQUIRING_FUTURE_CODE_CHANGE": 0,
+  "FALSE_EXTERNAL_DEPENDENCY_CLASSIFICATIONS": 0,
+  "LOCAL_GAPS_DISCOVERED_IN_EXTERNAL_GATE_AUDIT": 7,
+  "LOCAL_GAPS_REMEDIATED": 7,
+  "LOCAL_GAPS_REMAINING": 0,
+  "LOCALLY_REMEDIABLE_REMAINING": 0,
+  "EXTERNAL_GATES_CONTAIN_NO_LOCAL_ENGINEERING": true,
+  "rows": [
+    {
+      "source_id": "aave_v3",
+      "official_provider_endpoint_or_protocol": "https://gateway.thegraph.com/api/{api_key}/subgraphs/id/{subgraph_id}",
+      "network_client_owner": "data_governance.phase_i_external_clients",
+      "network_transport": "https_graphql_post",
+      "authentication_requirement": "GRAPH_API_KEY (Bearer) for The Graph Network gateway",
+      "credential_config_variable": {
+        "credential_env": "GRAPH_API_KEY",
+        "config_env": {
+          "subgraph_id": "AAVE_V3_SUBGRAPH_ID",
+          "gateway_url": "THE_GRAPH_GATEWAY_URL"
+        }
+      },
+      "request_or_subscription_builder": "data_governance.phase_i_external_clients._build_subgraph_request",
+      "timeout_handling": "aiohttp.ClientTimeout(total=10.0)",
+      "retry_backoff_handling": "MAX_RETRIES=3, BACKOFF_BASE_S=0.25, exponential on 429/transport",
+      "rate_limit_handling": "429 retry with exponential backoff; ProviderRateLimitError if exhausted",
+      "response_to_parser_binding": "data_governance.phase_i_external_adapters.parse_subgraph_defi",
+      "normalization_binding": "data_governance.pipeline.evaluate_data_governance",
+      "quality_freshness_binding": "data_governance.pipeline (freshness + quality scoring)",
+      "reconciliation_binding": "data_governance.pipeline (reconciliation block)",
+      "provenance_binding": "data_governance.pipeline (provenance trace)",
+      "fallback_binding": "data_governance.pipeline degrade/abstain on quality failure",
+      "decision_truth_binding": "data_governance.pipeline todays_decision_surface",
+      "activation_configuration": {
+        "credential_env": "GRAPH_API_KEY",
+        "config_env": {
+          "subgraph_id": "AAVE_V3_SUBGRAPH_ID",
+          "gateway_url": "THE_GRAPH_GATEWAY_URL"
+        },
+        "activation_flags": [],
+        "documentation_ref": "https://thegraph.com/docs/en/subgraphs/querying/managing-api-keys/",
+        "external_gate_class": "API_CREDENTIAL_GATED"
+      },
+      "local_end_to_end_test": "tests/test_phase_i_external_route_activation.py::test_transport_activation_happy_path",
+      "external_dependency": "The Graph Subgraph Studio API key and subgraph deployment ID",
+      "external_gate_class": "API_CREDENTIAL_GATED",
+      "documentation_ref": "https://thegraph.com/docs/en/subgraphs/querying/managing-api-keys/",
+      "code_change_required_after_external_dependency_available": false,
+      "NO_LOCAL_ENGINEERING_REMAINS": true,
+      "PRODUCTION_CLIENT_IMPLEMENTED": true,
+      "NETWORK_ACQUISITION_PATH_IMPLEMENTED": true,
+      "CONFIGURATION_PATH_IMPLEMENTED": true,
+      "PARSER_BOUND": true,
+      "GOVERNANCE_PIPELINE_BOUND": true,
+      "FAILURE_HANDLING_IMPLEMENTED": true,
+      "LOCAL_TRANSPORT_TEST_COMPLETE": true
+    },
+    {
+      "source_id": "chainlink_oracle",
+      "official_provider_endpoint_or_protocol": "https://docs.chain.link/data-feeds/price-feeds/addresses",
+      "network_client_owner": "data_governance.phase_i_external_clients",
+      "network_transport": "https_jsonrpc_eth_call",
+      "authentication_requirement": "none (public on-chain feed via JSON-RPC eth_call)",
+      "credential_config_variable": {
+        "credential_env": null,
+        "config_env": {
+          "rpc_url": "ETHEREUM_RPC_URL",
+          "feed_address": "CHAINLINK_ETH_USD_FEED_ADDRESS"
+        }
+      },
+      "request_or_subscription_builder": "data_governance.phase_i_external_clients._build_chainlink_eth_call",
+      "timeout_handling": "aiohttp.ClientTimeout(total=10.0)",
+      "retry_backoff_handling": "MAX_RETRIES=3, BACKOFF_BASE_S=0.25, exponential on 429/transport",
+      "rate_limit_handling": "429 retry with exponential backoff; ProviderRateLimitError if exhausted",
+      "response_to_parser_binding": "data_governance.phase_i_external_adapters.parse_oracle_price",
+      "normalization_binding": "data_governance.pipeline.evaluate_data_governance",
+      "quality_freshness_binding": "data_governance.pipeline (freshness + quality scoring)",
+      "reconciliation_binding": "data_governance.pipeline (reconciliation block)",
+      "provenance_binding": "data_governance.pipeline (provenance trace)",
+      "fallback_binding": "data_governance.pipeline degrade/abstain on quality failure",
+      "decision_truth_binding": "data_governance.pipeline todays_decision_surface",
+      "activation_configuration": {
+        "credential_env": null,
+        "config_env": {
+          "rpc_url": "ETHEREUM_RPC_URL",
+          "feed_address": "CHAINLINK_ETH_USD_FEED_ADDRESS"
+        },
+        "activation_flags": [],
+        "documentation_ref": "https://docs.chain.link/data-feeds/api-reference",
+        "external_gate_class": "RPC_FEED_CONFIGURATION_GATED"
+      },
+      "local_end_to_end_test": "tests/test_phase_i_external_route_activation.py::test_transport_activation_happy_path",
+      "external_dependency": "Ethereum JSON-RPC endpoint URL and Chainlink ETH/USD proxy feed contract address",
+      "external_gate_class": "RPC_FEED_CONFIGURATION_GATED",
+      "documentation_ref": "https://docs.chain.link/data-feeds/api-reference",
+      "code_change_required_after_external_dependency_available": false,
+      "NO_LOCAL_ENGINEERING_REMAINS": true,
+      "PRODUCTION_CLIENT_IMPLEMENTED": true,
+      "NETWORK_ACQUISITION_PATH_IMPLEMENTED": true,
+      "CONFIGURATION_PATH_IMPLEMENTED": true,
+      "PARSER_BOUND": true,
+      "GOVERNANCE_PIPELINE_BOUND": true,
+      "FAILURE_HANDLING_IMPLEMENTED": true,
+      "LOCAL_TRANSPORT_TEST_COMPLETE": true
+    },
+    {
+      "source_id": "dune_analytics",
+      "official_provider_endpoint_or_protocol": "https://api.dune.com/api/v1/query/{query_id}/results",
+      "network_client_owner": "data_governance.phase_i_external_clients",
+      "network_transport": "https_rest_get",
+      "authentication_requirement": "X-Dune-Api-Key header required",
+      "credential_config_variable": {
+        "credential_env": "DUNE_API_KEY",
+        "config_env": {
+          "query_id": "DUNE_QUERY_ID"
+        }
+      },
+      "request_or_subscription_builder": "data_governance.phase_i_external_clients._build_dune_request",
+      "timeout_handling": "aiohttp.ClientTimeout(total=10.0)",
+      "retry_backoff_handling": "MAX_RETRIES=3, BACKOFF_BASE_S=0.25, exponential on 429/transport",
+      "rate_limit_handling": "429 retry with exponential backoff; ProviderRateLimitError if exhausted",
+      "response_to_parser_binding": "data_governance.phase_i_external_adapters.parse_dune_query_result",
+      "normalization_binding": "data_governance.pipeline.evaluate_data_governance",
+      "quality_freshness_binding": "data_governance.pipeline (freshness + quality scoring)",
+      "reconciliation_binding": "data_governance.pipeline (reconciliation block)",
+      "provenance_binding": "data_governance.pipeline (provenance trace)",
+      "fallback_binding": "data_governance.pipeline degrade/abstain on quality failure",
+      "decision_truth_binding": "data_governance.pipeline todays_decision_surface",
+      "activation_configuration": {
+        "credential_env": "DUNE_API_KEY",
+        "config_env": {
+          "query_id": "DUNE_QUERY_ID"
+        },
+        "activation_flags": [],
+        "documentation_ref": "https://docs.dune.com/api-reference/overview/authentication",
+        "external_gate_class": "API_CREDENTIAL_GATED"
+      },
+      "local_end_to_end_test": "tests/test_phase_i_external_route_activation.py::test_transport_activation_happy_path",
+      "external_dependency": "DUNE_API_KEY and configured query ID with Analyst plan access",
+      "external_gate_class": "API_CREDENTIAL_GATED",
+      "documentation_ref": "https://docs.dune.com/api-reference/overview/authentication",
+      "code_change_required_after_external_dependency_available": false,
+      "NO_LOCAL_ENGINEERING_REMAINS": true,
+      "PRODUCTION_CLIENT_IMPLEMENTED": true,
+      "NETWORK_ACQUISITION_PATH_IMPLEMENTED": true,
+      "CONFIGURATION_PATH_IMPLEMENTED": true,
+      "PARSER_BOUND": true,
+      "GOVERNANCE_PIPELINE_BOUND": true,
+      "FAILURE_HANDLING_IMPLEMENTED": true,
+      "LOCAL_TRANSPORT_TEST_COMPLETE": true
+    },
+    {
+      "source_id": "dydx",
+      "official_provider_endpoint_or_protocol": "https://indexer.dydx.trade/v4/perpetualMarkets",
+      "network_client_owner": "data_governance.phase_i_external_clients",
+      "network_transport": "https_rest_get",
+      "authentication_requirement": "none (public read-only indexer)",
+      "credential_config_variable": {
+        "credential_env": null,
+        "config_env": {
+          "base_url": "DYDX_INDEXER_BASE_URL"
+        }
+      },
+      "request_or_subscription_builder": "data_governance.phase_i_external_clients._build_dydx_request",
+      "timeout_handling": "aiohttp.ClientTimeout(total=10.0)",
+      "retry_backoff_handling": "MAX_RETRIES=3, BACKOFF_BASE_S=0.25, exponential on 429/transport",
+      "rate_limit_handling": "429 retry with exponential backoff; ProviderRateLimitError if exhausted",
+      "response_to_parser_binding": "data_governance.phase_i_external_adapters.parse_perp_dex_market",
+      "normalization_binding": "data_governance.pipeline.evaluate_data_governance",
+      "quality_freshness_binding": "data_governance.pipeline (freshness + quality scoring)",
+      "reconciliation_binding": "data_governance.pipeline (reconciliation block)",
+      "provenance_binding": "data_governance.pipeline (provenance trace)",
+      "fallback_binding": "data_governance.pipeline degrade/abstain on quality failure",
+      "decision_truth_binding": "data_governance.pipeline todays_decision_surface",
+      "activation_configuration": {
+        "credential_env": null,
+        "config_env": {
+          "base_url": "DYDX_INDEXER_BASE_URL"
+        },
+        "activation_flags": [],
+        "documentation_ref": "https://github.com/dydxprotocol/v4-chain/blob/main/indexer/services/comlink/public/api-documentation.md",
+        "external_gate_class": "LIVE_NETWORK_VALIDATION_GATED"
+      },
+      "local_end_to_end_test": "tests/test_phase_i_external_route_activation.py::test_transport_activation_happy_path",
+      "external_dependency": "Production indexer availability and documented per-IP rate limits",
+      "external_gate_class": "LIVE_NETWORK_VALIDATION_GATED",
+      "documentation_ref": "https://github.com/dydxprotocol/v4-chain/blob/main/indexer/services/comlink/public/api-documentation.md",
+      "code_change_required_after_external_dependency_available": false,
+      "NO_LOCAL_ENGINEERING_REMAINS": true,
+      "PRODUCTION_CLIENT_IMPLEMENTED": true,
+      "NETWORK_ACQUISITION_PATH_IMPLEMENTED": true,
+      "CONFIGURATION_PATH_IMPLEMENTED": true,
+      "PARSER_BOUND": true,
+      "GOVERNANCE_PIPELINE_BOUND": true,
+      "FAILURE_HANDLING_IMPLEMENTED": true,
+      "LOCAL_TRANSPORT_TEST_COMPLETE": true
+    },
+    {
+      "source_id": "hyperliquid",
+      "official_provider_endpoint_or_protocol": "https://api.hyperliquid.xyz/info",
+      "network_client_owner": "data_governance.phase_i_external_clients",
+      "network_transport": "https_rest_post",
+      "authentication_requirement": "none for /info read path",
+      "credential_config_variable": {
+        "credential_env": null,
+        "config_env": {
+          "base_url": "HYPERLIQUID_INFO_URL"
+        }
+      },
+      "request_or_subscription_builder": "data_governance.phase_i_external_clients._build_hyperliquid_request",
+      "timeout_handling": "aiohttp.ClientTimeout(total=10.0)",
+      "retry_backoff_handling": "MAX_RETRIES=3, BACKOFF_BASE_S=0.25, exponential on 429/transport",
+      "rate_limit_handling": "429 retry with exponential backoff; ProviderRateLimitError if exhausted",
+      "response_to_parser_binding": "data_governance.phase_i_external_adapters.parse_perp_dex_market",
+      "normalization_binding": "data_governance.pipeline.evaluate_data_governance",
+      "quality_freshness_binding": "data_governance.pipeline (freshness + quality scoring)",
+      "reconciliation_binding": "data_governance.pipeline (reconciliation block)",
+      "provenance_binding": "data_governance.pipeline (provenance trace)",
+      "fallback_binding": "data_governance.pipeline degrade/abstain on quality failure",
+      "decision_truth_binding": "data_governance.pipeline todays_decision_surface",
+      "activation_configuration": {
+        "credential_env": null,
+        "config_env": {
+          "base_url": "HYPERLIQUID_INFO_URL"
+        },
+        "activation_flags": [],
+        "documentation_ref": "https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api",
+        "external_gate_class": "LIVE_NETWORK_VALIDATION_GATED"
+      },
+      "local_end_to_end_test": "tests/test_phase_i_external_route_activation.py::test_transport_activation_happy_path",
+      "external_dependency": "Production Hyperliquid info endpoint availability and rate-limit headroom",
+      "external_gate_class": "LIVE_NETWORK_VALIDATION_GATED",
+      "documentation_ref": "https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api",
+      "code_change_required_after_external_dependency_available": false,
+      "NO_LOCAL_ENGINEERING_REMAINS": true,
+      "PRODUCTION_CLIENT_IMPLEMENTED": true,
+      "NETWORK_ACQUISITION_PATH_IMPLEMENTED": true,
+      "CONFIGURATION_PATH_IMPLEMENTED": true,
+      "PARSER_BOUND": true,
+      "GOVERNANCE_PIPELINE_BOUND": true,
+      "FAILURE_HANDLING_IMPLEMENTED": true,
+      "LOCAL_TRANSPORT_TEST_COMPLETE": true
+    },
+    {
+      "source_id": "pyth_network",
+      "official_provider_endpoint_or_protocol": "https://pyth.dourolabs.app/hermes/v2/updates/price/latest",
+      "network_client_owner": "data_governance.phase_i_external_clients",
+      "network_transport": "https_rest_get",
+      "authentication_requirement": "Authorization: Bearer PYTH_API_KEY",
+      "credential_config_variable": {
+        "credential_env": "PYTH_API_KEY",
+        "config_env": {
+          "feed_id": "PYTH_BTC_USD_FEED_ID",
+          "base_url": "PYTH_HERMES_BASE_URL"
+        }
+      },
+      "request_or_subscription_builder": "data_governance.phase_i_external_clients._build_pyth_request",
+      "timeout_handling": "aiohttp.ClientTimeout(total=10.0)",
+      "retry_backoff_handling": "MAX_RETRIES=3, BACKOFF_BASE_S=0.25, exponential on 429/transport",
+      "rate_limit_handling": "429 retry with exponential backoff; ProviderRateLimitError if exhausted",
+      "response_to_parser_binding": "data_governance.phase_i_external_adapters.parse_oracle_price",
+      "normalization_binding": "data_governance.pipeline.evaluate_data_governance",
+      "quality_freshness_binding": "data_governance.pipeline (freshness + quality scoring)",
+      "reconciliation_binding": "data_governance.pipeline (reconciliation block)",
+      "provenance_binding": "data_governance.pipeline (provenance trace)",
+      "fallback_binding": "data_governance.pipeline degrade/abstain on quality failure",
+      "decision_truth_binding": "data_governance.pipeline todays_decision_surface",
+      "activation_configuration": {
+        "credential_env": "PYTH_API_KEY",
+        "config_env": {
+          "feed_id": "PYTH_BTC_USD_FEED_ID",
+          "base_url": "PYTH_HERMES_BASE_URL"
+        },
+        "activation_flags": [],
+        "documentation_ref": "https://docs.pyth.network/price-feeds/core/fetch-price-updates",
+        "external_gate_class": "API_CREDENTIAL_GATED"
+      },
+      "local_end_to_end_test": "tests/test_phase_i_external_route_activation.py::test_transport_activation_happy_path",
+      "external_dependency": "Pyth API key from Pyth Terminal (Hermes authentication required)",
+      "external_gate_class": "API_CREDENTIAL_GATED",
+      "documentation_ref": "https://docs.pyth.network/price-feeds/core/fetch-price-updates",
+      "code_change_required_after_external_dependency_available": false,
+      "NO_LOCAL_ENGINEERING_REMAINS": true,
+      "PRODUCTION_CLIENT_IMPLEMENTED": true,
+      "NETWORK_ACQUISITION_PATH_IMPLEMENTED": true,
+      "CONFIGURATION_PATH_IMPLEMENTED": true,
+      "PARSER_BOUND": true,
+      "GOVERNANCE_PIPELINE_BOUND": true,
+      "FAILURE_HANDLING_IMPLEMENTED": true,
+      "LOCAL_TRANSPORT_TEST_COMPLETE": true
+    },
+    {
+      "source_id": "uniswap_v3",
+      "official_provider_endpoint_or_protocol": "https://gateway.thegraph.com/api/{api_key}/subgraphs/id/{subgraph_id}",
+      "network_client_owner": "data_governance.phase_i_external_clients",
+      "network_transport": "https_graphql_post",
+      "authentication_requirement": "GRAPH_API_KEY (Bearer) for The Graph Network gateway",
+      "credential_config_variable": {
+        "credential_env": "GRAPH_API_KEY",
+        "config_env": {
+          "subgraph_id": "UNISWAP_V3_SUBGRAPH_ID",
+          "gateway_url": "THE_GRAPH_GATEWAY_URL"
+        }
+      },
+      "request_or_subscription_builder": "data_governance.phase_i_external_clients._build_subgraph_request",
+      "timeout_handling": "aiohttp.ClientTimeout(total=10.0)",
+      "retry_backoff_handling": "MAX_RETRIES=3, BACKOFF_BASE_S=0.25, exponential on 429/transport",
+      "rate_limit_handling": "429 retry with exponential backoff; ProviderRateLimitError if exhausted",
+      "response_to_parser_binding": "data_governance.phase_i_external_adapters.parse_subgraph_defi",
+      "normalization_binding": "data_governance.pipeline.evaluate_data_governance",
+      "quality_freshness_binding": "data_governance.pipeline (freshness + quality scoring)",
+      "reconciliation_binding": "data_governance.pipeline (reconciliation block)",
+      "provenance_binding": "data_governance.pipeline (provenance trace)",
+      "fallback_binding": "data_governance.pipeline degrade/abstain on quality failure",
+      "decision_truth_binding": "data_governance.pipeline todays_decision_surface",
+      "activation_configuration": {
+        "credential_env": "GRAPH_API_KEY",
+        "config_env": {
+          "subgraph_id": "UNISWAP_V3_SUBGRAPH_ID",
+          "gateway_url": "THE_GRAPH_GATEWAY_URL"
+        },
+        "activation_flags": [],
+        "documentation_ref": "https://thegraph.com/docs/en/subgraphs/querying/managing-api-keys/",
+        "external_gate_class": "API_CREDENTIAL_GATED"
+      },
+      "local_end_to_end_test": "tests/test_phase_i_external_route_activation.py::test_transport_activation_happy_path",
+      "external_dependency": "The Graph Subgraph Studio API key and subgraph deployment ID",
+      "external_gate_class": "API_CREDENTIAL_GATED",
+      "documentation_ref": "https://thegraph.com/docs/en/subgraphs/querying/managing-api-keys/",
+      "code_change_required_after_external_dependency_available": false,
+      "NO_LOCAL_ENGINEERING_REMAINS": true,
+      "PRODUCTION_CLIENT_IMPLEMENTED": true,
+      "NETWORK_ACQUISITION_PATH_IMPLEMENTED": true,
+      "CONFIGURATION_PATH_IMPLEMENTED": true,
+      "PARSER_BOUND": true,
+      "GOVERNANCE_PIPELINE_BOUND": true,
+      "FAILURE_HANDLING_IMPLEMENTED": true,
+      "LOCAL_TRANSPORT_TEST_COMPLETE": true
+    }
+  ]
+}

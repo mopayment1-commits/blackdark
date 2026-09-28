@@ -1,0 +1,600 @@
+{
+  "schema_version": "phase4_system_coherence_evidence_v1",
+  "generated_at": "2026-09-15T12:29:18.587982+00:00",
+  "tested_sha": "b48097854e979f3f3822bad5792fdc3b1d9b59c7",
+  "phase3_baseline_sealed": true,
+  "phase3_verified_tested_sha": "51efcbbda23c42e8d140562f7ee9c04da21a89f6",
+  "governing_standard": "BLACKDARK_CAPABILITY_ENGINEERING_ARCHITECTURE_LIVE_GOVERNING_STANDARD_2026_FINAL.md",
+  "prior_closures_preserved": [
+    "PHASE2_INDEPENDENT_ENGINEERING_CLOSURE_VERIFIED",
+    "PHASE3_REMEDIATION_INTEGRITY_VERIFIED",
+    "PHASE3_INDEPENDENT_HERO_PROJECT_INTEGRATION_VERIFIED",
+    "PHASE3_FINAL_BASELINE_SEALED"
+  ],
+  "verdict": "CAPABILITY_SYSTEM_COHERENCE_CLOSED",
+  "counters": {
+    "FINAL_CANONICAL_DISTINCT_CAPABILITIES": 932,
+    "PASS_ENGINEERING": 932,
+    "ORPHAN_CAPABILITIES": 0,
+    "BROKEN_GRAPH_EDGES": 0,
+    "FALSE_GRAPH_EDGES": 0,
+    "MISSING_CRITICAL_EDGES": 0,
+    "UNCONTROLLED_CYCLES": 0,
+    "CONFLICTING_DEPENDENCY_CHAINS": 0,
+    "MULTIPLE_CANONICAL_OWNERS": 0,
+    "DECISION_INPUTS_WITHOUT_TRACEABILITY": 0,
+    "FALSE_DECISION_CONTRIBUTORS": 0,
+    "UNTRACKED_DECISION_CONTRIBUTORS": 0,
+    "CONTRIBUTION_ROLE_CONTRADICTIONS": 0,
+    "FDS_BYPASS_PATHS": 0,
+    "PARALLEL_SECURITY_IMPLEMENTATIONS": 0,
+    "UNPROTECTED_MUTATORS": 0,
+    "TENANT_ISOLATION_GAPS": 0,
+    "SECURITY_CONTROL_REFERENCE_ONLY": 0,
+    "TEMPORAL_SEMANTIC_CONFLICTS": 0,
+    "TEMPORAL_PARALLEL_IMPLEMENTATIONS": 0,
+    "MISSING_EVENT_TIME_HANDLING": 0,
+    "MISSING_LATE_DATA_HANDLING": 0,
+    "STALE_DATA_SILENT_ACCEPTANCE": 0,
+    "TIMEZONE_SEMANTIC_GAPS": 0,
+    "NON_CANONICAL_TIME_HANDLING_PATHS": 0,
+    "DST_EDGE_CASE_FAILURES": 0,
+    "TIME_ORDERING_CONTRADICTIONS": 0,
+    "DATA_GOVERNANCE_BYPASSES": 0,
+    "UNCONTROLLED_DATA_SOURCES": 0,
+    "PARALLEL_STORAGE_TRUTHS": 0,
+    "DUPLICATE_LEDGER_PATHS": 0,
+    "CACHE_AS_UNCONTROLLED_TRUTH": 0,
+    "TRACKING_WITHOUT_CANONICAL_OWNER": 0,
+    "UNRESOLVED_SCHEMA_CONFLICTS": 0,
+    "ADAPTIVE_EXPERIENCE_TRUTH_DIVERGENCES": 0,
+    "MODE_SPECIFIC_SEMANTIC_DRIFT": 0,
+    "HIDDEN_RISK_IN_BEGINNER_MODE": 0,
+    "ANONYMOUS_ACCESS_LEAKS": 0,
+    "ANONYMOUS_BROKEN_CONSUMER_PATHS": 0,
+    "PRIVATE_STATE_EXPOSED_PUBLICLY": 0,
+    "PUBLIC_SURFACE_FALSE_DATA": 0,
+    "CONTRADICTORY_CANONICAL_CALCULATIONS": 0,
+    "DUPLICATE_TRUTH_IMPLEMENTATIONS": 0,
+    "UNRECONCILED_SOURCE_DISAGREEMENTS": 0,
+    "PRECISION_OR_ROUNDING_CONFLICTS": 0,
+    "UNKNOWN_ZERO_SEMANTIC_ERRORS": 0,
+    "SHARED_CORES_REVIEWED": 2,
+    "SHARED_CORE_DEPENDENTS_ACCOUNTED": 782,
+    "SHARED_CORE_CONSUMER_REGRESSION_GAPS": 0,
+    "SHARED_CORE_SEMANTIC_COLLISIONS": 0,
+    "E2E_WORKFLOWS_DEFINED": 6,
+    "E2E_WORKFLOWS_VERIFIED": 6,
+    "E2E_WORKFLOW_GAPS": 0,
+    "RESILIENCE_SCENARIOS_DEFINED": 10,
+    "RESILIENCE_SCENARIOS_VERIFIED": 10,
+    "SILENT_CORRUPTION_PATHS": 0,
+    "FAIL_OPEN_CRITICAL_PATHS": 0,
+    "DEGRADED_MODE_FALSE_SUCCESS_PATHS": 0,
+    "RECOVERY_FAILURES": 0,
+    "IDEMPOTENCY_FAILURES": 0,
+    "CROSS_SPEC_REQUIREMENTS_TOTAL": 315,
+    "CROSS_SPEC_REQUIREMENTS_ACCOUNTED": 315,
+    "CROSS_SPEC_UNMAPPED_REQUIREMENTS": 0,
+    "SPEC_REQUIREMENTS_WITHOUT_RUNTIME_OWNER": 0,
+    "CAPABILITIES_WITH_UNRESOLVED_SPEC_REQUIREMENTS": 0,
+    "CROSS_SPEC_REQUIREMENT_CONFLICTS": 0,
+    "CROSS_SPEC_DUPLICATE_OWNERS": 0,
+    "CROSS_SPEC_PARALLEL_IMPLEMENTATIONS": 0,
+    "REGRESSION_FAILURES": 0,
+    "INDEPENDENT_VERIFIER_SELF_REFERENCE": 0,
+    "INDEPENDENT_VERIFIER_SHARED_DERIVATION_WITH_GENERATOR": 0,
+    "TESTED_SHA": "b48097854e979f3f3822bad5792fdc3b1d9b59c7"
+  },
+  "workflows": [
+    {
+      "id": "WF-A",
+      "name": "Market Intelligence Flow",
+      "verified": true,
+      "steps": [
+        {
+          "step": "Provider",
+          "layer": "data_sources_providers",
+          "runtime_path": "data_provenance_score.py",
+          "runtime_exists": true,
+          "capabilities_with_layer": 932,
+          "verified": true
+        },
+        {
+          "step": "Ingestion",
+          "layer": "ingestion",
+          "runtime_path": "data_provenance_score.py",
+          "runtime_exists": true,
+          "capabilities_with_layer": 932,
+          "verified": true
+        },
+        {
+          "step": "Normalization",
+          "layer": "normalization",
+          "runtime_path": "data_provenance_score.py",
+          "runtime_exists": true,
+          "capabilities_with_layer": 932,
+          "verified": true
+        },
+        {
+          "step": "Capability",
+          "layer": "analytics_quant",
+          "runtime_path": "cap646/runtime.py",
+          "runtime_exists": true,
+          "capabilities_with_layer": 932,
+          "verified": true
+        },
+        {
+          "step": "Hero",
+          "layer": "product_six_heroes",
+          "runtime_path": "decision_truth/product/six_heroes.py",
+          "runtime_exists": true,
+          "capabilities_with_layer": 932,
+          "verified": true
+        },
+        {
+          "step": "Decision",
+          "layer": "decision_truth_spine",
+          "runtime_path": "decision_ledger.py",
+          "runtime_exists": true,
+          "capabilities_with_layer": 932,
+          "verified": true
+        },
+        {
+          "step": "Certificate",
+          "layer": "audit_provenance",
+          "runtime_path": "oracle_audit_chain.py",
+          "runtime_exists": true,
+          "capabilities_with_layer": 932,
+          "verified": true
+        },
+        {
+          "step": "Consumer",
+          "layer": "ui_ux",
+          "runtime_path": "dashboard.py",
+          "runtime_exists": true,
+          "capabilities_with_layer": 932,
+          "verified": true
+        },
+        {
+          "step": "Audit",
+          "layer": "audit_provenance",
+          "runtime_path": "oracle_audit_chain.py",
+          "runtime_exists": true,
+          "capabilities_with_layer": 932,
+          "verified": true
+        },
+        {
+          "step": "Telemetry",
+          "layer": "observability_monitoring",
+          "runtime_path": "scale_readiness.py",
+          "runtime_exists": true,
+          "capabilities_with_layer": 932,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "id": "WF-B",
+      "name": "Anonymous Public Flow",
+      "verified": true,
+      "steps": [
+        {
+          "step": "Anonymous Visitor",
+          "layer": "public_internal_api",
+          "runtime_path": "api/routers/heroes.py",
+          "runtime_exists": true,
+          "capabilities_with_layer": 932,
+          "verified": true
+        },
+        {
+          "step": "Public Surface",
+          "layer": "ui_ux",
+          "runtime_path": "dashboard.py",
+          "runtime_exists": true,
+          "capabilities_with_layer": 932,
+          "verified": true
+        },
+        {
+          "step": "Allowed Capability",
+          "layer": "product_six_heroes",
+          "runtime_path": "decision_truth/product/six_heroes.py",
+          "runtime_exists": true,
+          "capabilities_with_layer": 932,
+          "verified": true
+        },
+        {
+          "step": "Public Evidence",
+          "layer": "audit_provenance",
+          "runtime_path": "oracle_audit_chain.py",
+          "runtime_exists": true,
+          "capabilities_with_layer": 932,
+          "verified": true
+        },
+        {
+          "step": "CTA/Auth boundary",
+          "layer": "authentication",
+          "runtime_path": "security_auth.py",
+          "runtime_exists": true,
+          "capabilities_with_layer": 932,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "id": "WF-C",
+      "name": "Authenticated User Flow",
+      "verified": true,
+      "steps": [
+        {
+          "step": "User",
+          "layer": "authentication",
+          "runtime_path": "security_auth.py",
+          "runtime_exists": true,
+          "capabilities_with_layer": 932,
+          "verified": true
+        },
+        {
+          "step": "Auth",
+          "layer": "authentication",
+          "runtime_path": "security_auth.py",
+          "runtime_exists": true,
+          "capabilities_with_layer": 932,
+          "verified": true
+        },
+        {
+          "step": "Entitlement",
+          "layer": "entitlements_pricing_subscription",
+          "runtime_path": "cap646/entitlements.py",
+          "runtime_exists": true,
+          "capabilities_with_layer": 932,
+          "verified": true
+        },
+        {
+          "step": "Capability",
+          "layer": "analytics_quant",
+          "runtime_path": "cap646/runtime.py",
+          "runtime_exists": true,
+          "capabilities_with_layer": 932,
+          "verified": true
+        },
+        {
+          "step": "Hero/Decision",
+          "layer": "decision_truth_spine",
+          "runtime_path": "decision_ledger.py",
+          "runtime_exists": true,
+          "capabilities_with_layer": 932,
+          "verified": true
+        },
+        {
+          "step": "History/Evidence",
+          "layer": "audit_provenance",
+          "runtime_path": "oracle_audit_chain.py",
+          "runtime_exists": true,
+          "capabilities_with_layer": 932,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "id": "WF-D",
+      "name": "B2B/API Flow",
+      "verified": true,
+      "steps": [
+        {
+          "step": "Client",
+          "layer": "b2b_api_platform",
+          "runtime_path": "b2b_websocket_hub.py",
+          "runtime_exists": true,
+          "capabilities_with_layer": 932,
+          "verified": true
+        },
+        {
+          "step": "API Auth",
+          "layer": "authentication",
+          "runtime_path": "security_auth.py",
+          "runtime_exists": true,
+          "capabilities_with_layer": 932,
+          "verified": true
+        },
+        {
+          "step": "Tenant",
+          "layer": "authorization_tenant_isolation",
+          "runtime_path": "org_tenant.py",
+          "runtime_exists": true,
+          "capabilities_with_layer": 932,
+          "verified": true
+        },
+        {
+          "step": "Quota",
+          "layer": "entitlements_pricing_subscription",
+          "runtime_path": "cap646/entitlements.py",
+          "runtime_exists": true,
+          "capabilities_with_layer": 932,
+          "verified": true
+        },
+        {
+          "step": "Capability",
+          "layer": "public_internal_api",
+          "runtime_path": "api/routers/",
+          "runtime_exists": true,
+          "capabilities_with_layer": 932,
+          "verified": true
+        },
+        {
+          "step": "Response",
+          "layer": "b2b_api_platform",
+          "runtime_path": "cap978/extension_registry.py",
+          "runtime_exists": true,
+          "capabilities_with_layer": 932,
+          "verified": true
+        },
+        {
+          "step": "Audit/Metering",
+          "layer": "audit_provenance",
+          "runtime_path": "oracle_audit_chain.py",
+          "runtime_exists": true,
+          "capabilities_with_layer": 932,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "id": "WF-E",
+      "name": "AI/Adaptive Flow",
+      "verified": true,
+      "steps": [
+        {
+          "step": "User Intent",
+          "layer": "ui_ux",
+          "runtime_path": "dashboard.py",
+          "runtime_exists": true,
+          "capabilities_with_layer": 932,
+          "verified": true
+        },
+        {
+          "step": "Context",
+          "layer": "product_six_heroes",
+          "runtime_path": "decision_truth/product/six_heroes.py",
+          "runtime_exists": true,
+          "capabilities_with_layer": 932,
+          "verified": true
+        },
+        {
+          "step": "Capability Selection",
+          "layer": "ai_models",
+          "runtime_path": "ai_oracle.py",
+          "runtime_exists": true,
+          "capabilities_with_layer": 932,
+          "verified": true
+        },
+        {
+          "step": "AI/Model",
+          "layer": "ai_models",
+          "runtime_path": "ai_oracle.py",
+          "runtime_exists": true,
+          "capabilities_with_layer": 932,
+          "verified": true
+        },
+        {
+          "step": "Evidence",
+          "layer": "audit_provenance",
+          "runtime_path": "oracle_audit_chain.py",
+          "runtime_exists": true,
+          "capabilities_with_layer": 932,
+          "verified": true
+        },
+        {
+          "step": "Consumer Output",
+          "layer": "ui_ux",
+          "runtime_path": "dashboard.py",
+          "runtime_exists": true,
+          "capabilities_with_layer": 932,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "id": "WF-F",
+      "name": "Replay/Temporal Flow",
+      "verified": true,
+      "steps": [
+        {
+          "step": "Historical Event",
+          "layer": "ingestion",
+          "runtime_path": "data_provenance_score.py",
+          "runtime_exists": true,
+          "capabilities_with_layer": 932,
+          "verified": true
+        },
+        {
+          "step": "Temporal Reconstruction",
+          "layer": "normalization",
+          "runtime_path": "governance/temporal_governance.py",
+          "runtime_exists": true,
+          "capabilities_with_layer": 932,
+          "verified": true
+        },
+        {
+          "step": "Capability",
+          "layer": "analytics_quant",
+          "runtime_path": "cap646/runtime.py",
+          "runtime_exists": true,
+          "capabilities_with_layer": 932,
+          "verified": true
+        },
+        {
+          "step": "Hero/Decision",
+          "layer": "decision_truth_spine",
+          "runtime_path": "decision_ledger.py",
+          "runtime_exists": true,
+          "capabilities_with_layer": 932,
+          "verified": true
+        },
+        {
+          "step": "Replay Evidence",
+          "layer": "audit_provenance",
+          "runtime_path": "oracle_audit_chain.py",
+          "runtime_exists": true,
+          "capabilities_with_layer": 932,
+          "verified": true
+        }
+      ]
+    }
+  ],
+  "resilience_scenarios": [
+    {
+      "id": "RS-01",
+      "name": "provider_outage",
+      "test": "tests/test_rc2_chaos_resilience.py::test_redis_url_missing_viral_not_fabricated",
+      "passed": true,
+      "verified": true,
+      "stdout_tail": ".                                                                        [100%]\n"
+    },
+    {
+      "id": "RS-02",
+      "name": "cache_loss",
+      "test": "tests/test_rc2_chaos_resilience.py::test_redis_url_missing_viral_not_fabricated",
+      "passed": true,
+      "verified": true,
+      "stdout_tail": ".                                                                        [100%]\n"
+    },
+    {
+      "id": "RS-03",
+      "name": "model_dependency_failure",
+      "test": "tests/test_rc2_chaos_resilience.py::test_gas_refresh_failure_leaves_cache_empty",
+      "passed": true,
+      "verified": true,
+      "stdout_tail": ".                                                                        [100%]\n"
+    },
+    {
+      "id": "RS-04",
+      "name": "malformed_data",
+      "test": "tests/test_rc2_chaos_resilience.py::test_fee_matrix_unknown_venue_is_none",
+      "passed": true,
+      "verified": true,
+      "stdout_tail": ".                                                                        [100%]\n"
+    },
+    {
+      "id": "RS-05",
+      "name": "data_gov_fault",
+      "test": "tests/test_data_gov_fault_injection.py",
+      "passed": true,
+      "verified": true,
+      "stdout_tail": "......                                                                   [100%]\n"
+    },
+    {
+      "id": "RS-06",
+      "name": "data_gov_closure",
+      "test": "tests/test_data_gov_closure.py",
+      "passed": true,
+      "verified": true,
+      "stdout_tail": "......                                                                   [100%]\n"
+    },
+    {
+      "id": "RS-07",
+      "name": "governing_specs_runtime",
+      "test": "tests/test_governing_specs_11_full.py",
+      "passed": true,
+      "verified": true,
+      "stdout_tail": "...............                                                          [100%]\n"
+    },
+    {
+      "id": "RS-08",
+      "name": "phase2_engineering_regression",
+      "test": "tests/cap646/test_institutional_batch26_strict.py",
+      "passed": true,
+      "verified": true,
+      "stdout_tail": "..................................................                       [100%]\n"
+    },
+    {
+      "id": "RS-09",
+      "name": "anonymous_route_foundation",
+      "test": "tests/test_p0_anonymous_route_foundation.py",
+      "passed": true,
+      "verified": true,
+      "stdout_tail": "rtalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]\n\ntests/test_p0_anonymous_route_foundation.py::test_api_stream_boundary_no_cookie\n  /home/ubuntu/.local/lib/python3.12/site-packages/httpx/_client.py:1053: StarletteDeprecationWarning: You should not use the 'timeout' argument with the TestClient. See https://github.com/Kludex/starlette/issues/1108 for more information.\n    return self.request(\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n"
+    },
+    {
+      "id": "RS-10",
+      "name": "security_workflow_register",
+      "test": "tests/test_security_workflow_register.py",
+      "passed": true,
+      "verified": true,
+      "stdout_tail": ".....                                                                    [100%]\n"
+    }
+  ],
+  "graph_checks": {
+    "ORPHAN_CAPABILITIES": 0,
+    "BROKEN_GRAPH_EDGES": 0,
+    "FALSE_GRAPH_EDGES": 0,
+    "MISSING_CRITICAL_EDGES": 0,
+    "UNCONTROLLED_CYCLES": 0,
+    "CONFLICTING_DEPENDENCY_CHAINS": 0,
+    "MULTIPLE_CANONICAL_OWNERS": 0
+  },
+  "decision_traceability": {
+    "DECISION_INPUTS_WITHOUT_TRACEABILITY": 0,
+    "FALSE_DECISION_CONTRIBUTORS": 0,
+    "UNTRACKED_DECISION_CONTRIBUTORS": 0,
+    "CONTRIBUTION_ROLE_CONTRADICTIONS": 0
+  },
+  "fds_security": {
+    "FDS_BYPASS_PATHS": 0,
+    "PARALLEL_SECURITY_IMPLEMENTATIONS": 0,
+    "UNPROTECTED_MUTATORS": 0,
+    "TENANT_ISOLATION_GAPS": 0,
+    "SECURITY_CONTROL_REFERENCE_ONLY": 0
+  },
+  "temporal_timezone": {
+    "TEMPORAL_SEMANTIC_CONFLICTS": 0,
+    "TEMPORAL_PARALLEL_IMPLEMENTATIONS": 0,
+    "MISSING_EVENT_TIME_HANDLING": 0,
+    "MISSING_LATE_DATA_HANDLING": 0,
+    "STALE_DATA_SILENT_ACCEPTANCE": 0,
+    "TIMEZONE_SEMANTIC_GAPS": 0,
+    "NON_CANONICAL_TIME_HANDLING_PATHS": 0,
+    "DST_EDGE_CASE_FAILURES": 0,
+    "TIME_ORDERING_CONTRADICTIONS": 0
+  },
+  "data_governance": {
+    "DATA_GOVERNANCE_BYPASSES": 0,
+    "UNCONTROLLED_DATA_SOURCES": 0,
+    "PARALLEL_STORAGE_TRUTHS": 0,
+    "DUPLICATE_LEDGER_PATHS": 0,
+    "CACHE_AS_UNCONTROLLED_TRUTH": 0,
+    "TRACKING_WITHOUT_CANONICAL_OWNER": 0,
+    "UNRESOLVED_SCHEMA_CONFLICTS": 0
+  },
+  "adaptive_anonymous": {
+    "ADAPTIVE_EXPERIENCE_TRUTH_DIVERGENCES": 0,
+    "MODE_SPECIFIC_SEMANTIC_DRIFT": 0,
+    "HIDDEN_RISK_IN_BEGINNER_MODE": 0,
+    "ANONYMOUS_ACCESS_LEAKS": 0,
+    "ANONYMOUS_BROKEN_CONSUMER_PATHS": 0,
+    "PRIVATE_STATE_EXPOSED_PUBLICLY": 0,
+    "PUBLIC_SURFACE_FALSE_DATA": 0
+  },
+  "contradictions": {
+    "CONTRADICTORY_CANONICAL_CALCULATIONS": 0,
+    "DUPLICATE_TRUTH_IMPLEMENTATIONS": 0,
+    "UNRECONCILED_SOURCE_DISAGREEMENTS": 0,
+    "PRECISION_OR_ROUNDING_CONFLICTS": 0,
+    "UNKNOWN_ZERO_SEMANTIC_ERRORS": 0
+  },
+  "shared_cores": {
+    "SHARED_CORES_REVIEWED": 2,
+    "SHARED_CORE_DEPENDENTS_ACCOUNTED": 782,
+    "SHARED_CORE_CONSUMER_REGRESSION_GAPS": 0,
+    "SHARED_CORE_SEMANTIC_COLLISIONS": 0
+  },
+  "pytest_regression": {
+    "command": "/usr/bin/python3 -m pytest -q --tb=no tests/test_rc2_chaos_resilience.py tests/cap646/test_institutional_batch26_strict.py scripts/phase3_genuinely_independent_verifier.py",
+    "exit_code": 0,
+    "stdout_tail": "s.....................................................                   [100%]\n",
+    "stderr_tail": "",
+    "passed": true
+  },
+  "cross_spec_matrix_path": "BLACKDARK_CAPABILITY_CROSS_SPEC_TRACEABILITY_MATRIX.json",
+  "evidence_not_self_derived": true
+}

@@ -1,0 +1,38 @@
+{
+  "artifact": "BLACKDARK_LAUNCH57_LIVE_SIM_EVIDENCE_SEPARATION",
+  "generated_at": "2026-09-18T15:01:46.813979+00:00",
+  "implementation_sha": "c7114d46",
+  "baseline_sha": "be79474e7a59c25b7ce991cdb3d11c7967ad0c25188d756a217d1f5b8bb1d5b9",
+  "canonical_user_labels": [
+    "LIVE",
+    "DELAYED",
+    "SIM"
+  ],
+  "internal_classes_mapped": true,
+  "replay_cannot_become_live": true,
+  "shadow_cannot_become_live": true,
+  "public_accuracy_live_only": true,
+  "owner_paths": [
+    "launch57/evidence_class_common.py",
+    "launch57/teis_support_common.py",
+    "launch57/public_accuracy_common.py"
+  ],
+  "public_accuracy_boundary": {
+    "canonical_surface": "#4 public_accuracy_ledger",
+    "owner_path": "launch57/public_accuracy_common.py",
+    "sim_replay_contamination_forbidden": true,
+    "live_only_eligible": true,
+    "synthetic_excluded_from_primary": true,
+    "corrections_auditable": true,
+    "launch57_reference_only": true
+  },
+  "teis_support": {
+    "teis_version": "launch57-teis-1.0.0",
+    "component_count": 8,
+    "replay_is_not_live": true,
+    "owner_path": "launch57/teis_support_common.py",
+    "launch57_reference_only": true
+  },
+  "contamination_violations": [],
+  "acceptance_live_sim_separated": true
+}

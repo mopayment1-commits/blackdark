@@ -1,0 +1,92 @@
+{
+  "artifact": "PHASE3_INTEGRATION_CHECK",
+  "check_type": "read_only_phase3_cross_batch_integration",
+  "audited_head_sha": "afad253f",
+  "audited_head_sha_full": "afad253fdfc4afa3cc454606b79bf343d447bf62",
+  "checked_at": "2026-09-17T22:20:00+00:00",
+  "entry_gates": {
+    "batch_a_iv": {
+      "verdict": "PASS_ENGINEERING",
+      "sha": "0a4bc5aa"
+    },
+    "batch_b_iv": {
+      "verdict": "NOT_COMPLETE",
+      "sha": "afad253f",
+      "implementation_sha": "5e8b4587",
+      "blocking_launch_item": 37
+    },
+    "pass": false
+  },
+  "repository_state": {
+    "head_equals_batch_b_iv_sha": true,
+    "product_changes_after_batch_b_iv": false,
+    "register_changed": false,
+    "ssot_changed": false,
+    "pass": true
+  },
+  "phase3_launch_sequence": [7, 8, 9, 10, 11, 12, 37],
+  "cross_batch_relationships": {
+    "9_and_37_dependence_vs_composition": {
+      "batch_a_owner_9": "launch57.decision_batch1:cross_signal_confirmation",
+      "batch_b_owner_37": "launch57.decision_batch2:cross_market_decision_engine",
+      "dependence_aware_semantics_preserved": true,
+      "composition_audit_separate_surface": true,
+      "semantic_conflict": false,
+      "pass": true
+    },
+    "10_and_12_contradiction_vs_disagreement": {
+      "batch_a_owner_10": "launch57.decision_batch1:contradiction_detection",
+      "batch_b_owner_12": "launch57.decision_batch2:smart_money_conviction_engine",
+      "shared_extractor": "launch57.trust_adaptive_common:extract_material_contradiction",
+      "contradiction_visible_in_12_disagreements": true,
+      "level1_critical_contradiction_wired": true,
+      "semantic_conflict": false,
+      "pass": true
+    },
+    "canonical_owners_consistent": {
+      "batch_a": {
+        "7": "launch57.decision_batch1:market_regime_compass",
+        "8": "launch57.decision_batch1:beginner_decision_mode",
+        "9": "launch57.decision_batch1:cross_signal_confirmation",
+        "10": "launch57.decision_batch1:contradiction_detection",
+        "11": "launch57.decision_batch1:smart_money_actionability_score"
+      },
+      "batch_b": {
+        "12": "launch57.decision_batch2:smart_money_conviction_engine",
+        "37": "launch57.decision_batch2:cross_market_decision_engine"
+      },
+      "drift_detected": false,
+      "pass": true
+    },
+    "trust_adaptive_common_support_only": {
+      "module": "launch57.trust_adaptive_common",
+      "batch_a_consumers": ["launch57/decision_batch1.py"],
+      "batch_b_consumers": ["launch57/decision_batch2.py"],
+      "competing_truth_owner": false,
+      "second_registry_or_ssot": false,
+      "pass": true
+    },
+    "parallel_truth_path": {
+      "detected": false,
+      "pass": true
+    },
+    "parked_legacy_implicit_dependency": {
+      "detected": false,
+      "pass": true
+    }
+  },
+  "blocking_issue": {
+    "launch_item_id": 37,
+    "reason": "Batch B IV NOT_COMPLETE — unapproved external_macro still influences decision_engine.composite_score; Phase 3 integration cannot close while #37 adaptive control fails."
+  },
+  "verdicts": {
+    "PHASE3_INTEGRATION": "NOT_COMPLETE",
+    "PHASE4_MAY_BEGIN": false
+  },
+  "confirmations": {
+    "TEMPORAL_WORKSTREAM_REOPENED": false,
+    "PASS_LIVE_NOT_CLAIMED": true,
+    "REGISTER_STATUS_PROMOTION": false,
+    "PRODUCT_CODE_CHANGED_BY_INTEGRATION_CHECK": false
+  }
+}

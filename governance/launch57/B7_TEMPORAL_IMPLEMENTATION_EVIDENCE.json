@@ -1,0 +1,97 @@
+{
+  "artifact": "B7_TEMPORAL_IMPLEMENTATION_EVIDENCE",
+  "builder_session": "cursor-cloud-agent-b7-temporal-implementation",
+  "generated_at": "2026-09-17T15:05:00+00:00",
+  "base_sha": "07549a84",
+  "implementation_commit": "6ab76a8c",
+  "B7_CANONICAL_SCOPE": {
+    "batch": "B7",
+    "launch_numbers": [7, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 25, 26, 27, 28, 29, 30, 37],
+    "governing_sources": [
+      "governance/launch57/LAUNCH57_TEMPORAL_EXECUTION_PLAN_B1_B15.md §9.3, §10",
+      "BLACKDARK_Launch57_Global_Time_Temporal_Consistency_FROM_SCRATCH_SPEC_66d6.md §16"
+    ]
+  },
+  "entry_gate": {
+    "B6_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+    "B6_VERIFIED_IV_SHA": "07549a84",
+    "B6_IMPLEMENTATION_SHA": "3162af1e",
+    "B5_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+    "B4_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+    "LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING": false,
+    "PASS_LIVE_NOT_CLAIMED": true,
+    "pass": true
+  },
+  "implementation_summary": {
+    "objective": "SPEC §16 cross-signal temporal alignment for regime/smart-money/derivatives launches",
+    "owners": {
+      "temporal": "launch57/market_regime_timing_common.py",
+      "bridge": "launch57/b7_market_regime_bridge.py",
+      "isolation": "launch57/batch7_isolation.py",
+      "integration": [
+        "launch57/smart_money_common.py",
+        "launch57/derivatives_common.py",
+        "launch57/decision_batch1.py (#7, #11)",
+        "launch57/decision_batch2.py (#37)",
+        "launch57/smart_money_batch1.py",
+        "launch57/smart_money_batch2.py",
+        "launch57/derivatives_batch1.py",
+        "launch57/derivatives_batch2.py (#30)"
+      ]
+    },
+    "spec_rules_implemented": [
+      "compatible_horizons",
+      "timestamp_alignment_before_comparison",
+      "delayed_vs_live_distinguishable",
+      "temporal_mismatch_triggers_WAIT_or_ABSTAIN"
+    ]
+  },
+  "changed_paths": [
+    "launch57/market_regime_timing_common.py",
+    "launch57/b7_market_regime_bridge.py",
+    "launch57/batch7_isolation.py",
+    "launch57/smart_money_common.py",
+    "launch57/derivatives_common.py",
+    "launch57/decision_batch1.py",
+    "launch57/decision_batch2.py",
+    "launch57/smart_money_batch1.py",
+    "launch57/smart_money_batch2.py",
+    "launch57/smart_money_batch3.py",
+    "launch57/derivatives_batch1.py",
+    "launch57/derivatives_batch2.py",
+    "tests/launch57/test_temporal_batch7.py",
+    "governance/launch57/B7_TEMPORAL_IMPLEMENTATION_EVIDENCE.json",
+    "governance/launch57/B7_TEMPORAL_IMPLEMENTATION_REPORT.md"
+  ],
+  "protected_state": {
+    "B1_INDEPENDENT_VERDICT": "PRESERVE_VERIFIED_STATE",
+    "B6_INDEPENDENT_VERDICT": "PRESERVE_VERIFIED_STATE",
+    "frozen_owner_modules_unmodified": [
+      "launch57/temporal_common.py",
+      "launch57/evidence_class_common.py",
+      "launch57/freshness_common.py",
+      "launch57/provenance_common.py",
+      "launch57/point_in_time_common.py",
+      "launch57/decision_timing_common.py",
+      "launch57/public_accuracy_common.py",
+      "launch57/net_edge_timing_common.py"
+    ]
+  },
+  "B7:#7": "PENDING_VERIFICATION",
+  "B7:#11-20": "PENDING_VERIFICATION",
+  "B7:#25-30": "PENDING_VERIFICATION",
+  "B7:#37": "PENDING_VERIFICATION",
+  "B7_INDEPENDENT_VERDICT": "PENDING_VERIFICATION",
+  "B7_IMPLEMENTATION_STATUS": "PENDING_VERIFICATION",
+  "PASS_ENGINEERING_NOT_CLAIMED": true,
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "B8_NOT_STARTED": true,
+  "tests": {
+    "command": "python3 -m pytest tests/launch57/test_temporal_batch7.py tests/launch57/test_decision_batch1.py tests/launch57/test_decision_batch2.py tests/launch57/test_smart_money_batch1.py tests/launch57/test_derivatives_batch1.py tests/launch57/test_trust_batch1.py tests/launch57/test_edge_ui_batch1.py tests/launch57/test_temporal_batch6.py tests/launch57/test_temporal_batch5.py tests/launch57/test_temporal_batch4.py -q",
+    "exit_code": 0,
+    "passed": 73,
+    "failed": 0,
+    "pass": true
+  },
+  "next_permitted_action": "independent verification of B7 temporal implementation only"
+}

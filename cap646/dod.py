@@ -81,9 +81,11 @@ async def verify_dod(
         }
 
     if capability_id in SIGNED_INFRA_SLOTS:
+        from scale_readiness import signed_load_evidence_from_capability_result
+
         result = await execute_capability(capability_id, skip_entitlement=True, params={"symbol": "BTC"})
         internal_ok = bool(result.get("success")) and bool(result.get("compliance_footer"))
-        signed = bool((result.get("report") or {}).get("signed_load_evidence", {}).get("present"))
+        signed = signed_load_evidence_from_capability_result(result)
         if internal_ok and signed:
             verdict = "VERIFIED_COMPLETE"
         elif internal_ok:

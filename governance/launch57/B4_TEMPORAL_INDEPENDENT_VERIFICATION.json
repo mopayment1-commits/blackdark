@@ -1,0 +1,172 @@
+{
+  "artifact": "B4_TEMPORAL_INDEPENDENT_VERIFICATION",
+  "verification_type": "independent_engineering_re_iv",
+  "section_a_remediation": {
+    "artifact": "governance/launch57/B4_TEMPORAL_REMEDIATION_EVIDENCE.json",
+    "remediation_commit": "7a930bf1",
+    "builder_status": "PENDING_VERIFICATION",
+    "PASS_ENGINEERING_NOT_CLAIMED_BY_BUILDER": true
+  },
+  "section_b_independent_recheck": {
+    "VERIFIED_IMPLEMENTATION_SHA": "7a930bf1",
+    "verified_implementation_sha_full": "7a930bf131b3db3b6953c406dd90f7c79eb23f8d",
+    "prior_iv_sha": "4a691f4d",
+    "prior_iv_verdict": "NOT_COMPLETE",
+    "defect_remediated": "UNTRUSTED_DECISION_TIME_ASSERTION",
+    "verified_at": "2026-09-17T14:26:00+00:00",
+    "verifier": {
+      "role": "independent_verifier",
+      "session": "cursor-cloud-agent-b4-remediation-re-iv",
+      "method": "adversarial_runtime_replay_targeted_pytest_static_import_scan"
+    }
+  },
+  "scope": {
+    "batch": "B4",
+    "launch_numbers": [2, 3],
+    "governing_spec": "BLACKDARK_Launch57_Global_Time_Temporal_Consistency_FROM_SCRATCH_SPEC_66d6.md §13",
+    "plan": "governance/launch57/LAUNCH57_TEMPORAL_EXECUTION_PLAN_B1_B15.md"
+  },
+  "entry_gate": {
+    "B1_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+    "B1_TO_41_TARGETED_RECONCILIATION": "PASS_ENGINEERING",
+    "B2_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+    "B3:#6": "PASS_ENGINEERING",
+    "B3_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+    "B3_TRUST_BOUNDARY_REMEDIATION_VERIFIED": true,
+    "pass": true
+  },
+  "protected_state_verification": {
+    "frozen_owners_unmodified_by_remediation": [
+      "launch57/temporal_common.py",
+      "launch57/evidence_class_common.py",
+      "launch57/freshness_common.py",
+      "launch57/provenance_common.py",
+      "launch57/point_in_time_common.py"
+    ],
+    "B1_B2_B3_IV_artifacts_unmodified": true,
+    "pass": true
+  },
+  "files_touched_by_remediation": [
+    "launch57/decision_timing_common.py",
+    "tests/launch57/test_temporal_batch4.py"
+  ],
+  "targeted_tests": {
+    "command": "python3 -m pytest tests/launch57/test_temporal_batch4.py tests/launch57/test_trust_batch1.py -v",
+    "exit_code": 0,
+    "passed": 20,
+    "failed": 0,
+    "pass": true
+  },
+  "isolation_verification": {
+    "static_import_scan": {
+      "files": [
+        "launch57/trust_batch1.py",
+        "launch57/decision_timing_common.py",
+        "launch57/b4_decision_bridge.py",
+        "launch57/batch4_isolation.py"
+      ],
+      "cap646_imports": [],
+      "decision_certificate_import_on_b4_path": false,
+      "pass": true
+    },
+    "out_of_scope_observation": {
+      "launch57/trust_batch2.py": "still imports decision_certificate.build_decision_certificate for Launch #44 — not in B4 scope; not remediated"
+    }
+  },
+  "spec_section_verification": {
+    "S13_1_issued_time": {
+      "verdict": "PASS_ENGINEERING",
+      "code_path": "launch57/decision_timing_common.py:build_decision_timing_context + attach_decision_temporal_envelope",
+      "test": "test_oracle_includes_canonical_decision_and_issued_times; test_certificate_includes_timestamp_and_hash_with_governed_time"
+    },
+    "S13_2_decision_time_evidence_state": {
+      "verdict": "PASS_ENGINEERING",
+      "code_path": "launch57/decision_timing_common.py:snapshot_decision_time_evidence_state",
+      "test": "test_oracle_caller_evidence_escalation_blocked"
+    },
+    "S13_3_review_recheck_time": {
+      "verdict": "PASS_ENGINEERING",
+      "test": "test_decision_timing_context_rejects_review_before_decision"
+    },
+    "S13_4_invalidation_time_event": {
+      "verdict": "PASS_ENGINEERING",
+      "test": "test_certificate_invalidation_append_only_fields"
+    },
+    "S13_5_certificate_timestamp_hash": {
+      "verdict": "PASS_ENGINEERING",
+      "code_path": "launch57/decision_timing_common.py:build_launch57_decision_certificate + compute_certificate_hash",
+      "test": "test_certificate_hash_deterministic_for_canonical_input; test_certificate_rejects_caller_only_decision_time",
+      "note": "Prior PARTIAL resolved — caller-only decision_time no longer accepted on authoritative certificate path"
+    },
+    "S13_6_tz_immutability": {
+      "verdict": "PASS_ENGINEERING",
+      "test": "test_tz_display_does_not_mutate_canonical_decision_time"
+    }
+  },
+  "adversarial_verification": {
+    "caller_evidence_escalation_oracle": {
+      "observed": "canonical_evidence_class=SIMULATED for synthetic caller",
+      "pass": true
+    },
+    "caller_evidence_escalation_certificate": {
+      "observed": "canonical_evidence_class=SIMULATED in certificate body",
+      "pass": true
+    },
+    "missing_decision_time_fail_closed": {
+      "observed": "success=false, error=decision_time_required",
+      "pass": true
+    },
+    "caller_decision_time_escalation_certificate": {
+      "input": {"decision_time": "2020-01-01T00:00:00.000Z", "decision_action": "WAIT"},
+      "observed": "success=false, error=decision_time_required, certificate_hash=null",
+      "pass": true,
+      "remediation_verified": true
+    },
+    "governed_decision_time_certificate": {
+      "input": {"governed_payload": {"decision_time": "2026-09-17T12:00:00.000Z"}},
+      "observed": "success=true, certificate_hash=e04d2cb16c679ba449eb3c986f1ba6ffb14010ecc7e5350ce81629b3c1065b24",
+      "pass": true
+    },
+    "deterministic_hash": {
+      "observed": "identical certificate_hash for identical canonical inputs",
+      "pass": true
+    },
+    "kill_switch_evidence_gate": {
+      "observed": "test_oracle_caller_evidence_escalation_blocked passes",
+      "pass": true
+    }
+  },
+  "defects": [],
+  "prior_defects_remediated": [
+    {
+      "defect_id": "UNTRUSTED_DECISION_TIME_ASSERTION",
+      "remediation_commit": "7a930bf1",
+      "verified_closed": true
+    }
+  ],
+  "verdict_table": {
+    "#2": "PASS_ENGINEERING",
+    "#3": "PASS_ENGINEERING",
+    "SPEC_S13_5": "PASS_ENGINEERING",
+    "B4_INDEPENDENT_VERDICT": "PASS_ENGINEERING"
+  },
+  "B4:#2": "PASS_ENGINEERING",
+  "B4:#3": "PASS_ENGINEERING",
+  "B4_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+  "B4_TRUST_BOUNDARY_REMEDIATION_REQUIRED": false,
+  "B5_NOT_STARTED": true,
+  "LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING": false,
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "protected_state": {
+    "B1_INDEPENDENT_VERDICT": "PRESERVE_VERIFIED_STATE",
+    "B2_INDEPENDENT_VERDICT": "PRESERVE_VERIFIED_STATE",
+    "B3:#6": "PRESERVE_VERIFIED_STATE",
+    "reopen_trigger": "NONE"
+  },
+  "historical_artifacts_preserved": [
+    "governance/launch57/B4_TEMPORAL_IMPLEMENTATION_EVIDENCE.json",
+    "governance/launch57/B4_TEMPORAL_IMPLEMENTATION_REPORT.md",
+    "governance/launch57/B4_TEMPORAL_REMEDIATION_EVIDENCE.json"
+  ],
+  "next_permitted_action": "B5 entry per LAUNCH57_TEMPORAL_EXECUTION_PLAN_B1_B15.md prerequisites"
+}

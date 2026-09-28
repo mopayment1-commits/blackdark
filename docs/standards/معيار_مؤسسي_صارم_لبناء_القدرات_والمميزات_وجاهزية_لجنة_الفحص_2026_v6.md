@@ -407,6 +407,8 @@
 - `actual_consumer_path`؛
 - `tested_source_sha`؛
 - `evidence_reference`؛
+
+**[POLICY — B1-R Provenance]** `tested_source_sha` يعني فقط **actual verification provenance**: commit SHA الذي نُفِّذت عليه عملية تحقق/اختبار موثقة للقدرة. لا يُكتب من تجميع artifact أو تقدّم HEAD وحده. العقد الحاكم: `docs/capability/CAPABILITY_PROVENANCE_CONTRACT.json`. الكتابة المستقبلية عبر `capability_provenance.writers.record_verification_event` فقط. تجميع artifact عبر `git.current_head_sha` / `generated_at`. تغيير الحالة المرتبط بالتحقق عبر `status_change.tested_sha` + `status_change.verification`. القيم التاريخية قبل B1-R تُصنَّف دون إعادة كتابة جماعية.
 - `live_status`؛
 - `assurance_status`؛
 - `notes/exceptions` عند الحاجة.

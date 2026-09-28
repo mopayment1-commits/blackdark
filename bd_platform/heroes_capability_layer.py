@@ -114,7 +114,7 @@ def order_flow_intelligence_1(*, symbol: str = "BTC") -> dict[str, Any]:
     return _wrap(1, snap, module="bd_platform.footprint_analytics.footprint_snapshot")
 
 
-def wallet_profiler_for_token_3(*, address: str = "0x0000000000000000000000000000000000000001", symbol: str = "ETH") -> dict[str, Any]:
+def wallet_profiler_for_token_3(*, address: str = "0xabcdef010101010101010101010101010101000001", symbol: str = "ETH") -> dict[str, Any]:
     return _delegate_async(3, "bd_platform.free_tier_capabilities", "wallet_profiler_for_token", address=address, symbol=symbol)
 
 
@@ -526,6 +526,17 @@ def single_sentence_financial_button_382() -> dict[str, Any]:
         382,
         {"ux": "single_button", "heroes": manifest.get("heroes", []), "front_door": "single_sentence_oracle"},
         module="heroes_quality.heroes_quality_manifest",
+    )
+
+
+def alert_constitution_explanation_813(*, symbol: str = "BTC") -> dict[str, Any]:
+    from dimension_conflict_guard import dimension_conflict_status
+
+    status = dimension_conflict_status()
+    return _wrap(
+        813,
+        {"symbol": symbol, "constitution_gates": status, "hero": "alert_constitution_explanation"},
+        module="dimension_conflict_guard.dimension_conflict_status",
     )
 
 

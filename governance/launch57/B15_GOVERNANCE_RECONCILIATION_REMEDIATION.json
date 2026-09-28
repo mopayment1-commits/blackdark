@@ -1,0 +1,72 @@
+{
+  "artifact": "B15_GOVERNANCE_RECONCILIATION_REMEDIATION",
+  "remediation_type": "governance_only",
+  "starting_head_sha": "54ae14ccb21369c6b8a110061e501ca74e12975e",
+  "starting_head_sha_short": "54ae14cc",
+  "closure_audit_reference": "B1_B15_TEMPORAL_FINAL_CLOSURE_AUDIT.json @ 54ae14cc",
+  "authoritative_b15_iv": {
+    "commit": "78191fffa5b2cce0d211ededa1c49f8b4b4d44ce",
+    "commit_short": "78191fff",
+    "B15_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+    "LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING": true
+  },
+  "root_cause": {
+    "summary": "generate_b15_temporal_reconciliation.py hardcoded builder-era §42 fields (PENDING_VERIFICATION / false) and overwrote §40/§41 on every regeneration.",
+    "details": [
+      "B15 IV @ 78191fff granted PASS_ENGINEERING but commit added only IV artifacts.",
+      "§40 report and §41 reconciliation were never updated to IV closure state.",
+      "B15 tests invoked the generator, which reproducibly recreated the stale PENDING/false state."
+    ],
+    "generator_would_recreate_stale_state": true
+  },
+  "remediation": {
+    "generator_changed": true,
+    "generator_change_summary": "Derive §42 final fields from B15_TEMPORAL_INDEPENDENT_VERIFICATION.json when B15_INDEPENDENT_VERDICT=PASS_ENGINEERING and LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING=true; otherwise emit builder pending fields.",
+    "files_changed": [
+      "governance/launch57/generate_b15_temporal_reconciliation.py",
+      "governance/launch57/BLACKDARK_LAUNCH57_TEMPORAL_CONSISTENCY_RECONCILIATION.json",
+      "governance/launch57/BLACKDARK_LAUNCH57_TEMPORAL_CONSISTENCY_REPORT.md",
+      "tests/launch57/test_temporal_batch15.py"
+    ],
+    "files_not_changed": [
+      "launch57/* (product code)",
+      "B1–B14 IV artifacts",
+      "B15_TEMPORAL_INDEPENDENT_VERIFICATION.json",
+      "B15_TEMPORAL_IMPLEMENTATION_EVIDENCE.json"
+    ],
+    "product_code_changed": false
+  },
+  "reconciled_fields": {
+    "B15_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+    "LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING": true,
+    "LAUNCH57_TEMPORAL_CONSISTENCY_READY_FOR_LOCAL_USE": true,
+    "PASS_LIVE_NOT_CLAIMED": true,
+    "PASS_ENGINEERING_NOT_CLAIMED": false,
+    "B15_IMPLEMENTATION_STATUS": "PASS_ENGINEERING",
+    "final_status": "B15_INTEGRATED_RECONCILIATION_PASS_ENGINEERING",
+    "iv_artifact": "B15_TEMPORAL_INDEPENDENT_VERIFICATION.json",
+    "iv_commit_sha": "78191fffa5b2cce0d211ededa1c49f8b4b4d44ce"
+  },
+  "preserved": {
+    "external_blockers": 6,
+    "external_blocker_status": "NEEDS_EXTERNAL_VERIFICATION",
+    "documented_residual_gaps": [
+      "B13-CHART-COVERAGE",
+      "B14-ENVELOPE-COVERAGE"
+    ],
+    "PASS_LIVE_NOT_CLAIMED": true
+  },
+  "reproducibility": {
+    "generator_command": "python3 governance/launch57/generate_b15_temporal_reconciliation.py",
+    "b15_tests_command": "python3 -m pytest tests/launch57/test_temporal_batch15.py -q",
+    "four_way_consistent": true,
+    "sources_aligned": [
+      "B15 IV §39 (30/30 PASS in IV artifact)",
+      "§40 report section U (IV final fields)",
+      "§41 reconciliation JSON (IV-derived §42 fields)",
+      "§42 verdict fields (match B15 IV)"
+    ]
+  },
+  "TEMPORAL_WORKSTREAM_FINAL_CLOSURE": "NOT_DECLARED",
+  "note": "Await new read-only final closure audit per governing process."
+}

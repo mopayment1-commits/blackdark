@@ -13,14 +13,16 @@ def test_pricing_catalog_five_official_tiers():
     assert ids == ["free", "pro", "elite", "quant", "institutional"]
     by_id = {t["id"]: t for t in cat["tiers"]}
     assert by_id["free"]["price_usd_month"] == 0
-    assert by_id["pro"]["price_usd_month"] == 19
+    assert by_id["pro"]["price_usd_month"] == 19.99
+    assert by_id["elite"]["popular"] is True
+    assert "popular" not in by_id["pro"]
     assert by_id["pro"]["trial_days"] == 7
-    assert by_id["elite"]["price_usd_month"] == 49
+    assert by_id["elite"]["price_usd_month"] == 49.99
     assert by_id["elite"]["trial_days"] == 7
-    assert by_id["quant"]["price_usd_month"] == 199
+    assert by_id["quant"]["price_usd_month"] == 129.99
     assert by_id["quant"]["trial_days"] == 7
     assert by_id["institutional"]["self_serve"] is False
-    assert "custom" in by_id["institutional"]["price_display"].lower()
+    assert "999" in by_id["institutional"]["price_display"]
     assert len(cat["signup_plans"]) == 5
 
 
@@ -61,10 +63,11 @@ def test_tier_features_official_labels():
     assert TIER_FEATURES["quant"]["quant_backtest"] is True
 
 
-def test_billing_self_serve_amounts():
+def test_billing_self_serve_amounts_legacy_cents_until_price_ids_rotated():
+    """Display SSOT is 19.99/49.99/129.99 — billing cents may lag (BLOCKED_EXTERNAL)."""
     from billing_service import STRIPE_TIERS
 
-    assert STRIPE_TIERS["pro"]["amount"] == 1900
+    assert STRIPE_TIERS["pro"]["amount"] == 2900
     assert STRIPE_TIERS["elite"]["amount"] == 4900
     assert STRIPE_TIERS["quant"]["amount"] == 19900
     assert STRIPE_TIERS["whale"]["amount"] == 4900

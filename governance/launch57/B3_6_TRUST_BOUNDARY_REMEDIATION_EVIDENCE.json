@@ -1,0 +1,79 @@
+{
+  "artifact": "B3_6_TRUST_BOUNDARY_REMEDIATION_EVIDENCE",
+  "builder_session": "cursor-cloud-agent-b3-trust-boundary-remediation",
+  "generated_at": "2026-09-17T12:20:00+00:00",
+  "failed_source_sha": "e279c3e9",
+  "independent_failure_evidence_commit": "cacb50eb",
+  "reopen_trigger": "REOPEN_REASON=VERIFIED_REGRESSION",
+  "reopen_scope": "B3:#6 trust boundary only",
+  "root_cause": {
+    "defect": "UNTRUSTED_EVIDENCE_CLASS_ESCALATION",
+    "statement": "infer_canonical_evidence_class() returned caller-supplied explicit/canonical evidence_class before evaluating source-derived trust context, allowing PRODUCTION_VERIFIED/LIVE promotion without authoritative source support",
+    "affected_path": "launch57/evidence_class_common.py:infer_canonical_evidence_class",
+    "isolated_to_hash6": true
+  },
+  "remediation": {
+    "trust_precedence": "TRUSTED_SOURCE_CONTEXT > CALLER_ASSERTED_EVIDENCE_CLASS",
+    "mechanism": "Derive source_derived via _infer_from_source_context(); reject explicit when rank(explicit) > rank(source_derived) or when explicit conflicts with source_derived",
+    "methodology_version": "launch57-evidence-class-common-1.1",
+    "minimum_safe_change": true,
+    "full_rewrite_required": false
+  },
+  "authorized_write_scope": [
+    "launch57/evidence_class_common.py",
+    "tests/launch57/test_b3_trust_boundary.py"
+  ],
+  "changed_paths": [
+    "launch57/evidence_class_common.py",
+    "tests/launch57/test_b3_trust_boundary.py",
+    "governance/launch57/B3_6_TRUST_BOUNDARY_REMEDIATION_EVIDENCE.json"
+  ],
+  "protected_state": {
+    "B1": "PRESERVE_VERIFIED_STATE",
+    "B1_TO_41_TARGETED_RECONCILIATION": "PASS_ENGINEERING",
+    "B2:#40": "PASS_ENGINEERING",
+    "B2:#41": "PASS_ENGINEERING",
+    "B2:#39": "PASS_ENGINEERING",
+    "B2_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+    "b3_isolation_binding": "PRESERVED",
+    "timezone_invariance": "PRESERVED",
+    "rollback_semantics": "PRESERVED"
+  },
+  "adversarial_tests": {
+    "command": "python3 -m pytest tests/launch57/test_b3_trust_boundary.py tests/launch57/test_temporal_batch3.py tests/launch57/test_b3_isolation_closure.py -q",
+    "exit_code": 0,
+    "passed": 23,
+    "failed": 0,
+    "cases_closed": [
+      "synthetic+evidence_class=PRODUCTION_VERIFIED → SIMULATED/SIM",
+      "synthetic+canonical_evidence_class=PRODUCTION_VERIFIED → SIMULATED/SIM",
+      "synthetic+stale+explicit → canonical SIMULATED, user SIM (no contradiction)",
+      "replay+explicit → BACKTESTED/DELAYED",
+      "unknown source+explicit → no PRODUCTION_VERIFIED canonical",
+      "attach_evidence_class_metadata bypass blocked"
+    ],
+    "valid_behavior_preserved": [
+      "production source + agreeing explicit → PRODUCTION_VERIFIED/LIVE",
+      "production + STALE → canonical PRODUCTION_VERIFIED, user DELAYED",
+      "synthetic without override → SIM",
+      "timezone invariance",
+      "determinism"
+    ]
+  },
+  "isolation_result": {
+    "B3_ISOLATION_LEAKAGE": 0,
+    "B3_LEGACY_RUNTIME_DEPENDENCIES": 0,
+    "legacy_imports_introduced": false
+  },
+  "rollback_path": "Revert launch57/evidence_class_common.py trust-gate delta to e279c3e9; remove tests/launch57/test_b3_trust_boundary.py; re-run targeted B3 tests",
+  "B3_TRUST_BOUNDARY_REMEDIATION": "COMPLETE",
+  "B3:#6": "PENDING_VERIFICATION",
+  "B1_TO_41_TARGETED_RECONCILIATION": "PASS_ENGINEERING",
+  "B2_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+  "B4_AUTHORIZED": false,
+  "LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING": false,
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "PROTECTED_VERIFIED_STATE": "PRESERVED",
+  "next_permitted_action": "independent verification of B3 #6 remediation only",
+  "final_implementation_sha": "1b6e544f"
+}

@@ -5,6 +5,7 @@ from __future__ import annotations
 import pytest
 
 from cap646.batch01_dedicated import BATCH01_DEDICATED_IDS, EXPECTED_SURFACE, GENERIC_SURFACES
+from cap646.institutional_official_production import PRODUCTION_MODULE
 
 
 @pytest.mark.parametrize("capability_id", sorted(BATCH01_DEDICATED_IDS))
@@ -24,7 +25,7 @@ async def test_batch01_dedicated_surface_and_success(capability_id: int):
     generic_misroute = result["surface"] in GENERIC_SURFACES and result["surface"] != EXPECTED_SURFACE[capability_id]
     assert not generic_misroute
     assert result["production_spine"] == "batch01"
-    assert result["backend_module"] == "cap646.batch01_production"
+    assert result["backend_module"] == PRODUCTION_MODULE
 
 
 @pytest.mark.parametrize("capability_id", sorted(BATCH01_DEDICATED_IDS))

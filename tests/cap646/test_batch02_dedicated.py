@@ -5,6 +5,7 @@ from __future__ import annotations
 import pytest
 
 from cap646.batch02_dedicated import BATCH02_DEDICATED_IDS, BATCH02_OVERLAP_BATCH01_IDS, EXPECTED_SURFACE, GENERIC_SURFACES
+from cap646.institutional_official_production import PRODUCTION_MODULE
 from cap646.batch02_production import OFFICIAL_BATCH02_IDS
 
 BATCH02_OVERLAP_BATCH01 = BATCH02_OVERLAP_BATCH01_IDS
@@ -29,7 +30,7 @@ async def test_official_batch02_dedicated_surface_and_success(capability_id: int
     assert result["surface"] == EXPECTED_SURFACE[capability_id], result
     assert result["surface"] not in GENERIC_SURFACES
     assert result["production_spine"] == "batch02"
-    assert result["backend_module"] == "cap646.batch02_production"
+    assert result["backend_module"] == PRODUCTION_MODULE
 
 
 @pytest.mark.parametrize("capability_id", sorted(BATCH02_OVERLAP_BATCH01))

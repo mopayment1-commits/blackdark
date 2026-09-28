@@ -1,0 +1,117 @@
+{
+  "artifact": "PHASE4_BATCH_A_17_REVERIFICATION",
+  "verification_type": "independent_engineering_reverification",
+  "remediation_implementation_sha": "847c3837",
+  "remediation_implementation_sha_full": "847c38373b650f34c1ff0398ef7d57cbbc668d03",
+  "remediation_evidence_sha": "3ed3a6a3",
+  "remediation_evidence_sha_full": "3ed3a6a343d22be7f5fd30c0e30ae77d71a86a17",
+  "verified_at": "2026-09-17T23:00:00+00:00",
+  "verifier": {
+    "role": "independent_verifier",
+    "session": "cursor-cloud-agent-phase4-batch-a-17-reverification",
+    "method": "read_only_delta_assessment_runtime_replay_static_import_scan_targeted_tests"
+  },
+  "entry_gate": {
+    "prior_batch_a_iv": {
+      "verdict": "NOT_COMPLETE",
+      "sha": "fe9d6b87",
+      "blocking_launch_item": 17
+    },
+    "prior_passing_items": {
+      "20": "PASS_ENGINEERING",
+      "16": "PASS_ENGINEERING",
+      "13": "PASS_ENGINEERING",
+      "14": "PASS_ENGINEERING"
+    },
+    "pass": true
+  },
+  "repository_state": {
+    "audited_head_sha": "3ed3a6a3",
+    "product_under_test_sha": "847c3837",
+    "later_product_changes_invalidating_verification": false,
+    "remediation_delta_base": "fe9d6b87",
+    "remediation_delta_range": "847c3837",
+    "product_files_changed": [
+      "launch57/trust_adaptive_common.py",
+      "launch57/smart_money_batch1.py"
+    ],
+    "register_changed": false,
+    "pass": true
+  },
+  "capability_reverification": {
+    "17": {
+      "launch_number": 17,
+      "P4A:#17_REVERIFICATION": "PASS_ENGINEERING",
+      "failed_control_retested": "Whale-ratio path must apply canonical internal-flow classification at runtime, not disclosure-only",
+      "checks": {
+        "classify_flow_invoked_on_whale_ratio_path": true,
+        "apply_internal_flow_whale_significance_filter_runtime": true,
+        "internal_confirmed_suppresses_decision_driving_ratio": true,
+        "economic_flow_retains_eligible_ratio": true,
+        "disclosure_reflects_runtime_filter_result": true,
+        "behavioral_test_fails_if_filter_bypassed": true,
+        "single_canonical_classifier_no_duplicate": true,
+        "no_parallel_whale_ratio_path": true,
+        "parked_legacy_runtime_dependency": false,
+        "canonical_owner_preserved": "launch57.smart_money_batch1:exchange_whale_ratio"
+      },
+      "consumer_path": "classify_flow → exchange_whale_ratio → apply_internal_flow_whale_significance_filter → exchange_whale_ratio output",
+      "runtime_probes": {
+        "internal_confirmed": {
+          "classification": "INTERNAL_CONFIRMED",
+          "exchange_whale_ratio": null,
+          "whale_significance_suppressed": true,
+          "significance_eligible": false,
+          "answer_state": "suppressed_internal_flow",
+          "runtime_filter_applied": true,
+          "internal_not_counted_as_external_flow": true
+        },
+        "economic_flow": {
+          "classification": "ECONOMIC_FLOW",
+          "exchange_whale_ratio": 1.667,
+          "whale_significance_suppressed": false,
+          "significance_eligible": true,
+          "answer_state": "long",
+          "runtime_filter_applied": true,
+          "internal_not_counted_as_external_flow": false
+        },
+        "decision_driving_behavior_differs": true
+      },
+      "pass": true
+    }
+  },
+  "shared_support_regression": {
+    "changed_functions": [
+      "apply_internal_flow_whale_significance_filter",
+      "build_whale_ratio_internal_flow_disclosure"
+    ],
+    "consumers_of_changed_code": ["launch57/smart_money_batch1.py"],
+    "smart_money_batch1_regression_passed": true,
+    "phase4_batch_a_regression_passed": true,
+    "competing_truth_owner": false,
+    "pass": true
+  },
+  "targeted_tests": {
+    "command": "python3 -m pytest tests/launch57/test_phase4_adaptive_batch_a.py::test_capability_17_whale_ratio_runtime_internal_flow_filter tests/launch57/test_phase4_adaptive_batch_a.py::test_capability_17_internal_flow_not_external tests/launch57/test_smart_money_batch1.py tests/launch57/test_phase4_adaptive_batch_a.py -q",
+    "exit_code": 0,
+    "passed": 11,
+    "failed": 0,
+    "pass": true
+  },
+  "verdicts": {
+    "P4A:#17_REVERIFICATION": "PASS_ENGINEERING",
+    "PHASE4_BATCH_A_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+    "PHASE4_BATCH_B_MAY_BEGIN": true
+  },
+  "historical_evidence_preserved": {
+    "prior_not_complete_iv": "governance/launch57/PHASE4_ADAPTIVE_BATCH_A_INDEPENDENT_VERIFICATION.json",
+    "prior_not_complete_iv_sha": "fe9d6b87"
+  },
+  "confirmations": {
+    "PASS_LIVE_NOT_CLAIMED": true,
+    "REGISTER_STATUS_PROMOTION": false,
+    "PRODUCT_CODE_CHANGED_BY_IV": false
+  },
+  "residual_gaps": [],
+  "failed_requirement": null
+}

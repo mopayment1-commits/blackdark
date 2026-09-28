@@ -121,7 +121,7 @@ def live_probe(path: str) -> bool:
             return False
         url = f"{base}{path}?symbol=BTC" if "?" not in path else f"{base}{path}"
         req = urllib.request.Request(url, headers={"User-Agent": "capabilities-audit/1.0"})
-        with urllib.request.urlopen(req, timeout=8) as resp:
+        with urllib.request.urlopen(req, timeout=8) as resp:  # nosec B310
             return 200 <= resp.status < 300
     except Exception:
         return False

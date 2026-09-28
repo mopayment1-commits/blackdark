@@ -10,7 +10,8 @@ import oracle_audit_chain as chain
 @pytest.mark.asyncio
 async def test_backfill_from_database_mock(tmp_path, monkeypatch):
     """Backfill must succeed on an isolated intact chain (not ambient disk state)."""
-    path = tmp_path / "track_record_chain.jsonl"
+    path = chain.isolated_chain_path_for_tests("track_record_backfill")
+    path.unlink(missing_ok=True)
     monkeypatch.setattr(chain, "CHAIN_PATH", path)
 
     from oracle_track_record import backfill_from_database
@@ -64,9 +65,10 @@ async def test_backfill_from_database_mock(tmp_path, monkeypatch):
 
 
 @pytest.mark.asyncio
-async def test_backfill_refuses_broken_ambient_chain(tmp_path, monkeypatch):
+async def test_backfill_refuses_broken_ambient_chain(monkeypatch):
     """Production fail-closed: must not extend a tampered chain."""
-    path = tmp_path / "broken.jsonl"
+    path = chain.isolated_chain_path_for_tests("broken_backfill")
+    path.unlink(missing_ok=True)
     monkeypatch.setattr(chain, "CHAIN_PATH", path)
     chain.append_prediction_record({"asset": "BTC", "verdict": "bullish"})
     # Tamper first record

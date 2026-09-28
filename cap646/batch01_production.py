@@ -23,25 +23,19 @@ LEGACY_BATCH01_EXTENSION_IDS: frozenset[int] = frozenset(
         214,
         245,
         584,
-        629,
-        630,
-        631,
-        642,
-        644,
-        646,
     }
 )
 
 BATCH01_IDS: frozenset[int] = OFFICIAL_BATCH01_IDS | LEGACY_BATCH01_EXTENSION_IDS
 
 _BATCH01_FREE_TIER = frozenset({1, 2, 3, 4, 10, 21, 38, 39, 45})
-_BATCH01_ALERTS = frozenset({60, 629, 245})
+_BATCH01_ALERTS = frozenset({60, 245})
 _BATCH01_MARKET = frozenset({47, 129, 214})
 _BATCH01_DERIVATIVES = frozenset({48, 49})
-_BATCH01_DATA = frozenset({630, 631})
-_BATCH01_AI = frozenset({175, 34, 59, 642})
+_BATCH01_DATA: frozenset[int] = frozenset()
+_BATCH01_AI = frozenset({175, 34, 59})
 _BATCH01_ONCHAIN = frozenset({5})
-_BATCH01_INSTITUTIONAL = frozenset({103, 644, 646})
+_BATCH01_INSTITUTIONAL = frozenset({103})
 _BATCH01_VERIFIED = frozenset({49})
 
 
@@ -54,10 +48,14 @@ def batch01_entrypoint(capability_id: int) -> str:
 
 
 def _stamp_batch01(result: dict[str, Any], capability_id: int) -> dict[str, Any]:
+    from cap646.batch_constants import CAPABILITIES_PER_BATCH, official_batch_name
+
     result["backend_module"] = "cap646.batch01_production"
     result["backend_entrypoint"] = batch01_entrypoint(capability_id)
     result["binding_source"] = "explicit_option_a"
     result["production_spine"] = "batch01"
+    result["official_batch"] = "batch01"
+    result["capabilities_per_batch"] = CAPABILITIES_PER_BATCH
     return result
 
 
@@ -121,8 +119,15 @@ async def execute(capability_id: int, *, params: dict[str, Any] | None = None) -
 
 
 def _make_cap_entrypoint(capability_id: int) -> Callable[..., Awaitable[dict[str, Any]]]:
-    async def _entry(*, params: dict[str, Any] | None = None, capability_id: int = capability_id) -> dict[str, Any]:
-        return await execute(capability_id, params=params)
+    async def _entry(
+        symbol: str = "BTC",
+        *,
+        params: dict[str, Any] | None = None,
+        capability_id: int = capability_id,
+    ) -> dict[str, Any]:
+        merged = dict(params or {})
+        merged.setdefault("symbol", symbol)
+        return await execute(capability_id, params=merged)
 
     _entry.__name__ = batch01_entrypoint(capability_id)
     _entry.__doc__ = f"Batch01 production entrypoint for capability #{capability_id}."

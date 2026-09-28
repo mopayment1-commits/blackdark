@@ -30,6 +30,16 @@ _BEGINNER_KEYS = {
     "explanation",
     "oracle",
     "narrative",
+    # Institutional data/decision evidence — always preserved for governance surfaces.
+    "data_governance",
+    "data_governance_state",
+    "data_governance_failed_gates",
+    "decision_truth",
+    "decision_truth_state",
+    "admission_state",
+    "todays_decision_surface",
+    "user_facing_provenance",
+    "raw_evidence_id",
 }
 
 
