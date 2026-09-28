@@ -115,6 +115,8 @@ jobs:
             tests/test_governing_specs_11_full.py \
             tests/cap646/test_batch_range_dedicated.py \
             tests/launch57/test_generate_phase8_launch_coherence.py \
+            tests/launch57/test_commercial_inventory_common.py \
+            tests/launch57/test_adaptive_decision_experience_common.py \
             -q --tb=line \
             --cov-config=.coveragerc-sonar \
             --cov \
