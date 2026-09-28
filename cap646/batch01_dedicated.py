@@ -340,7 +340,7 @@ async def execute(capability_id: int, *, params: dict[str, Any] | None = None) -
 # ─── On-chain / wallet intelligence ───────────────────────────────────────────
 
 
-async def _v6_domain_footer(
+def _v6_domain_footer(
     capability_id: int,
     surface: str,
     symbol: str,
@@ -376,7 +376,7 @@ async def _cap001_smart_money_leaderboard(*, symbol: str, address: str, params: 
 
     limit = int(params.get("limit") or 25)
     board = await smart_money_leaderboard(limit=limit)
-    return await _v6_domain_footer(
+    return _v6_domain_footer(
         1,
         EXPECTED_SURFACE[1],
         symbol,
@@ -390,7 +390,7 @@ async def _cap002_wallet_profiler(*, symbol: str, address: str, params: dict[str
     from bd_platform.free_tier_capabilities import wallet_profiler
 
     profile = await wallet_profiler(address=address)
-    return await _v6_domain_footer(
+    return _v6_domain_footer(
         2,
         EXPECTED_SURFACE[2],
         symbol,
@@ -404,7 +404,7 @@ async def _cap003_wallet_profiler_for_token(*, symbol: str, address: str, params
     from bd_platform.free_tier_capabilities import wallet_profiler_for_token
 
     profile = await wallet_profiler_for_token(address=address, symbol=symbol)
-    return await _v6_domain_footer(
+    return _v6_domain_footer(
         3,
         EXPECTED_SURFACE[3],
         symbol,
@@ -418,7 +418,7 @@ async def _cap004_smart_money_tracking(*, symbol: str, address: str, params: dic
     from bd_platform.free_tier_capabilities import smart_money_tracking
 
     tracking = await smart_money_tracking(symbol=symbol)
-    return await _v6_domain_footer(
+    return _v6_domain_footer(
         4,
         EXPECTED_SURFACE[4],
         symbol,
@@ -442,7 +442,7 @@ async def _cap005_smart_money_accumulation(*, symbol: str, address: str, params:
         "symbol_focus": symbol,
         "signal_count": len(filtered) if isinstance(filtered, list) else 1,
     }
-    return await _v6_domain_footer(
+    return _v6_domain_footer(
         5,
         EXPECTED_SURFACE[5],
         symbol,
@@ -456,7 +456,7 @@ async def _cap010_wallet_pnl_analysis(*, symbol: str, address: str, params: dict
     from bd_platform.free_tier_capabilities import wallet_pnl_analysis
 
     pnl = await wallet_pnl_analysis(address=address, symbol=symbol)
-    return await _v6_domain_footer(
+    return _v6_domain_footer(
         10,
         EXPECTED_SURFACE[10],
         symbol,
@@ -474,7 +474,7 @@ async def _cap021_transaction_decoder(*, symbol: str, address: str, params: dict
         chain=str(params.get("chain") or "bitcoin"),
     )
     ok = bool(decoded.get("decoded") or decoded.get("latest_block_hash") or decoded.get("success", True))
-    return await _v6_domain_footer(
+    return _v6_domain_footer(
         21,
         EXPECTED_SURFACE[21],
         symbol,

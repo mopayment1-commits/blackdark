@@ -115,7 +115,7 @@ async def test_personal_decision_history_includes_b11_timing(monkeypatch):
         "launch57.edge_ui_common.read_decision_history_rows",
         lambda limit, tier: [{"decision_id": "d1", "record_age_ms": 1000, "record_time": _ts(0)}],
     )
-    out = await personal_decision_history(
+    out = personal_decision_history(
         symbol="BTC",
         params={"tier": "free", "user_key": "u-test", "subject_id": "u-test"},
     )
@@ -136,7 +136,7 @@ async def test_discipline_mirror_includes_b11_timing(monkeypatch):
             "lightweight": True,
         },
     )
-    out = await discipline_mirror_light(symbol="BTC", params={"user_key": "u1"})
+    out = discipline_mirror_light(symbol="BTC", params={"user_key": "u1"})
     assert out["launch_item_id"] == 50
     assert out["personal_history_timing"]["record_time"]
     assert out["discipline_mirror"]["presented_as_current_only"] is True

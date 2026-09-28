@@ -233,5 +233,10 @@ async def execute_dedicated_caps(
     params = dict(params or {})
     symbol = sym(params)
     address = addr(params)
+    import inspect
+
     fn = dispatch[capability_id]
-    return await fn(symbol=symbol, address=address, params=params)
+    result = fn(symbol=symbol, address=address, params=params)
+    if inspect.isawaitable(result):
+        return await result
+    return result

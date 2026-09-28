@@ -116,7 +116,7 @@ async def test_guest_trust_surface_wired(monkeypatch):
             "route_inventory": {},
         },
     )
-    out = await guest_trust_surface(symbol="BTC", params={"user_key": "anonymous"})
+    out = guest_trust_surface(symbol="BTC", params={"user_key": "anonymous"})
     assert out["launch_item_id"] == 46
     assert out["guest_trust"]["no_pii_leak"] is True
     assert out["guest_trust"]["not_duplicate_private_app"] is True

@@ -99,7 +99,7 @@ def test_tz_display_does_not_mutate_canonical_decision_time():
 
 @pytest.mark.asyncio
 async def test_oracle_includes_canonical_decision_and_issued_times():
-    out = await single_sentence_oracle(
+    out = single_sentence_oracle(
         symbol="BTC",
         params={"decision_action": "WAIT", "decision_sentence": "BTC: WAIT"},
     )
@@ -114,7 +114,7 @@ async def test_oracle_includes_canonical_decision_and_issued_times():
 
 @pytest.mark.asyncio
 async def test_oracle_caller_evidence_escalation_blocked():
-    out = await single_sentence_oracle(
+    out = single_sentence_oracle(
         symbol="BTC",
         params={
             "source": "synthetic",
@@ -129,7 +129,7 @@ async def test_oracle_caller_evidence_escalation_blocked():
 
 @pytest.mark.asyncio
 async def test_certificate_fail_closed_without_decision_time():
-    out = await decision_certificate_export(symbol="ETH", params={"decision_action": "WAIT"})
+    out = decision_certificate_export(symbol="ETH", params={"decision_action": "WAIT"})
     assert out["success"] is False
     assert out["error"] == "decision_time_required"
     assert out.get("certificate_hash") is None
@@ -138,7 +138,7 @@ async def test_certificate_fail_closed_without_decision_time():
 @pytest.mark.asyncio
 async def test_certificate_rejects_caller_only_decision_time():
     """UNTRUSTED_DECISION_TIME_ASSERTION remediation — no governed_payload."""
-    out = await decision_certificate_export(
+    out = decision_certificate_export(
         symbol="ETH",
         params={
             "decision_time": "2020-01-01T00:00:00.000Z",
@@ -154,7 +154,7 @@ async def test_certificate_rejects_caller_only_decision_time():
 
 @pytest.mark.asyncio
 async def test_certificate_includes_timestamp_and_hash_with_governed_time():
-    out = await decision_certificate_export(
+    out = decision_certificate_export(
         symbol="ETH",
         params={
             "governed_payload": _governed(),
@@ -173,7 +173,7 @@ async def test_certificate_includes_timestamp_and_hash_with_governed_time():
 
 @pytest.mark.asyncio
 async def test_certificate_invalidation_append_only_fields():
-    out = await decision_certificate_export(
+    out = decision_certificate_export(
         symbol="ETH",
         params={
             "governed_payload": _governed(

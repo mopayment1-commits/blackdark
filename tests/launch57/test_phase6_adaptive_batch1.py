@@ -150,8 +150,8 @@ async def test_capability_51_unapproved_evidence_cannot_alter_brief(monkeypatch)
 
     monkeypatch.setattr("oracle_track_record.public_track_record", fake_track)
 
-    baseline = await research_intelligence_portal(symbol="ETH", params={})
-    injected = await research_intelligence_portal(
+    baseline = research_intelligence_portal(symbol="ETH", params={})
+    injected = research_intelligence_portal(
         symbol="ETH",
         params={"custom_hit_rate": 99.0, "custom_summary": "External alpha feed says 99%"},
     )

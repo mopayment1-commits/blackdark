@@ -57,7 +57,7 @@ def _base_payload(params: dict[str, Any] | None, *, symbol: str) -> dict[str, An
     }
 
 
-async def one_click_risk_disclosure(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
+def one_click_risk_disclosure(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
     """Launch #47 — one-click risk disclosure on every decision."""
     from decision_certificate import compliance_footer_block
     from decision_truth.product import project_decision_product
@@ -107,7 +107,7 @@ async def one_click_risk_disclosure(*, symbol: str, params: dict[str, Any] | Non
     )
 
 
-async def abstain_reject_reasons_visible(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
+def abstain_reject_reasons_visible(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
     """Launch #48 — abstain/reject reasons visible (not hidden as errors)."""
     from decision_truth.product import project_decision_product
     from decision_truth.product.no_decision import build_no_decision_surface
@@ -154,7 +154,7 @@ async def abstain_reject_reasons_visible(*, symbol: str, params: dict[str, Any] 
     )
 
 
-async def shareable_decision_card(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
+def shareable_decision_card(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
     """Launch #44 — shareable decision/oracle card (OG metadata)."""
     from decision_certificate import build_decision_certificate
     from launch57.decision_timing_common import build_decision_timing_context
@@ -219,7 +219,7 @@ async def shareable_decision_card(*, symbol: str, params: dict[str, Any] | None 
     )
 
 
-async def shareable_accuracy_page(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
+def shareable_accuracy_page(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
     """Launch #45 — shareable accuracy/outcome page (alias of CAP-0640 live ledger)."""
     from launch57.public_accuracy_common import enrich_public_track_record
     from oracle_track_record import public_track_record
@@ -273,7 +273,7 @@ async def shareable_accuracy_page(*, symbol: str, params: dict[str, Any] | None 
     )
 
 
-async def guest_trust_surface(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
+def guest_trust_surface(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
     """Launch #46 — guest/anonymous trust surface."""
     from launch57.anonymous_visitor_common import (
         attach_anonymous_visitor_envelope,
@@ -357,9 +357,14 @@ _DISPATCH_BY_LAUNCH_ITEM: dict[int, str] = {
 
 
 async def execute_launch57_trust_batch2(launch_item_id: int, *, params: dict[str, Any] | None = None) -> dict[str, Any]:
+    import inspect
+
     if launch_item_id not in LAUNCH57_TRUST_BATCH2_ITEM_IDS:
         raise ValueError(f"launch item {launch_item_id} not in Launch-57 trust batch 2")
     entrypoint = _DISPATCH_BY_LAUNCH_ITEM[launch_item_id]
     fn = globals()[entrypoint]
     sym = str((params or {}).get("symbol") or "BTC")
-    return await fn(symbol=sym, params=dict(params or {}))
+    result = fn(symbol=sym, params=dict(params or {}))
+    if inspect.isawaitable(result):
+        return await result
+    return result

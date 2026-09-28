@@ -17,7 +17,7 @@ from launch57.temporal_common import to_rfc3339, utc_now
 
 @pytest.mark.asyncio
 async def test_provenance_layer_user_disclosure():
-    out = await data_quality_provenance_layer(
+    out = data_quality_provenance_layer(
         symbol="BTC",
         params={
             "source_authority": "launch57:test",
@@ -35,7 +35,7 @@ async def test_provenance_layer_user_disclosure():
 
 @pytest.mark.asyncio
 async def test_normalization_distinct_from_provenance_layer():
-    out = await data_quality_normalization(
+    out = data_quality_normalization(
         symbol="BTC",
         params={"source_authority": "launch57:test", "quality_state": "caution", "quality_score": 60.0},
     )
@@ -47,7 +47,7 @@ async def test_normalization_distinct_from_provenance_layer():
 
 @pytest.mark.asyncio
 async def test_freshness_rejects_stale_as_live():
-    out = await freshness_update_assurance(symbol="BTC", params={"quote_age_ms": 120_000.0, "quote_fresh": True})
+    out = freshness_update_assurance(symbol="BTC", params={"quote_age_ms": 120_000.0, "quote_fresh": True})
     assert out["capability_id"] == 630
     assert out["launch_item_id"] == 41
     assert out["freshness_state"] == "STALE"
@@ -58,7 +58,7 @@ async def test_freshness_rejects_stale_as_live():
 
 @pytest.mark.asyncio
 async def test_freshness_delayed_label_explicit():
-    out = await freshness_update_assurance(symbol="BTC", params={"quote_age_ms": 30_000.0, "quote_fresh": True})
+    out = freshness_update_assurance(symbol="BTC", params={"quote_age_ms": 30_000.0, "quote_fresh": True})
     assert out["freshness_state"] == "DELAYED"
     assert out["presented_as_live"] is True
     assert "DELAYED" in (out.get("delayed_label") or "")
@@ -67,7 +67,7 @@ async def test_freshness_delayed_label_explicit():
 @pytest.mark.asyncio
 async def test_pit_immutable_metrics_hash_and_timestamp():
     reset_store_for_tests()
-    out = await point_in_time_immutable_metrics(
+    out = point_in_time_immutable_metrics(
         symbol="BTC",
         params={"metrics": {"price": 42000.0}, "source_authority": "launch57:test"},
     )

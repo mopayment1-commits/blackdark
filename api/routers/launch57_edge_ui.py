@@ -73,7 +73,7 @@ async def launch57_tier_distribution():
 async def launch57_guest_trust(symbol: str = Query("BTC")):
     from launch57.trust_batch2 import guest_trust_surface
 
-    return await guest_trust_surface(symbol=symbol, params={"symbol": symbol, "user_key": "anonymous"})
+    return guest_trust_surface(symbol=symbol, params={"symbol": symbol, "user_key": "anonymous"})
 
 
 @router.get("/api/launch57/real-time-prices")
@@ -129,7 +129,7 @@ async def launch57_point_in_time_metrics(
     metrics: dict[str, Any] = {"symbol": asset}
     if price is not None:
         metrics["price"] = price
-    return await point_in_time_immutable_metrics(
+    return point_in_time_immutable_metrics(
         symbol=asset,
         params={"symbol": asset, "metrics": metrics, "source_authority": "launch57:consumer_path"},
     )
@@ -142,7 +142,7 @@ async def launch57_data_provenance(symbol: str = Query("BTC")):
     from launch57.temporal_common import to_rfc3339, utc_now
 
     asset = str(symbol or "BTC").upper().replace("/USDT", "")
-    return await data_quality_provenance_layer(
+    return data_quality_provenance_layer(
         symbol=asset,
         params={
             "symbol": asset,
@@ -168,7 +168,7 @@ async def launch57_freshness(
         params["quote_age_ms"] = quote_age_ms
     if quote_fresh is not None:
         params["quote_fresh"] = quote_fresh
-    return await freshness_update_assurance(symbol=asset, params=params)
+    return freshness_update_assurance(symbol=asset, params=params)
 
 
 @router.get("/api/launch57/unified-exchange")
@@ -207,7 +207,7 @@ async def launch57_decision_certificate(
     if dt:
         params["decision_time"] = dt
         params["governed_payload"] = {"decision_time": dt}
-    return await decision_certificate_export(symbol=asset, params=params)
+    return decision_certificate_export(symbol=asset, params=params)
 
 
 @router.get("/api/launch57/public-accuracy")
@@ -216,7 +216,7 @@ async def launch57_public_accuracy(symbol: str = Query("BTC")):
     from launch57.trust_batch1 import public_accuracy_ledger
 
     asset = str(symbol or "BTC").upper().replace("/USDT", "")
-    return await public_accuracy_ledger(symbol=asset, params={"symbol": asset})
+    return public_accuracy_ledger(symbol=asset, params={"symbol": asset})
 
 
 @router.post("/api/launch57/cost-autopsy")
@@ -237,7 +237,7 @@ async def launch57_cost_autopsy(request: Request, body: dict[str, Any] = Body(..
             "error": "opportunity_required",
             "backend_entrypoint": "net_edge_truth_score",
         }
-    return await net_edge_truth_score(symbol=asset, params={"symbol": asset, "opportunity": opportunity})
+    return net_edge_truth_score(symbol=asset, params={"symbol": asset, "opportunity": opportunity})
 
 
 @router.get("/api/launch57/share-proof")
@@ -254,7 +254,7 @@ async def launch57_share_proof(
     asset = str(symbol or "BTC").upper().replace("/USDT", "")
     action = str(decision_action or "WAIT").upper()
     sentence = str(decision_sentence or "").strip() or f"{asset}: {action} — governed Launch-57 oracle"
-    return await shareable_decision_card(
+    return shareable_decision_card(
         symbol=asset,
         params={
             "symbol": asset,
@@ -307,7 +307,7 @@ async def launch57_decision_history(
     from launch57.edge_ui_batch1 import personal_decision_history
 
     _require_launch57_tier(request, 49, tier=tier)
-    return await personal_decision_history(symbol=symbol, params={"symbol": symbol, "tier": tier, "limit": limit})
+    return personal_decision_history(symbol=symbol, params={"symbol": symbol, "tier": tier, "limit": limit})
 
 
 @router.get("/api/launch57/net-edge")
@@ -320,7 +320,7 @@ async def launch57_net_edge(
     _require_launch57_tier(request, 5, tier=tier)
     from launch57.trust_batch1 import net_edge_truth_score
 
-    return await net_edge_truth_score(symbol=symbol, params={"symbol": symbol, "tier": tier})
+    return net_edge_truth_score(symbol=symbol, params={"symbol": symbol, "tier": tier})
 
 
 @router.get("/api/launch57/wallet-due-diligence")
@@ -429,7 +429,7 @@ async def launch57_discipline_mirror(
     _require_launch57_tier(request, 50, tier=tier)
     from launch57.edge_ui_batch1 import discipline_mirror_light
 
-    return await discipline_mirror_light(
+    return discipline_mirror_light(
         symbol="BTC",
         params={"user_key": user_key, "limit": limit, "tier": tier},
     )

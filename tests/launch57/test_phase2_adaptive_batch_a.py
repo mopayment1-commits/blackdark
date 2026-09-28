@@ -22,7 +22,7 @@ def test_capability_6_evidence_display_unchanged_owner():
 
 @pytest.mark.asyncio
 async def test_capability_5_net_edge_adaptive_safety_floor():
-    out = await net_edge_truth_score(
+    out = net_edge_truth_score(
         symbol="BTC",
         params={
             "opportunity": {
@@ -51,7 +51,7 @@ async def test_capability_4_ledger_interpretation_context(monkeypatch):
         "recent": [],
     }
     monkeypatch.setattr("oracle_track_record.public_track_record", lambda: fake_ledger)
-    out = await public_accuracy_ledger(symbol="BTC", params={})
+    out = public_accuracy_ledger(symbol="BTC", params={})
     assert out["ledger_interpretation_context"]["public_scope"] == "live_primary_outcomes_only"
     assert out["adaptive_disclosure"]["level_1"]["launch_item_id"] == 4
     assert out["safety_floor_visible"] is True
@@ -59,7 +59,7 @@ async def test_capability_4_ledger_interpretation_context(monkeypatch):
 
 @pytest.mark.asyncio
 async def test_capability_3_certificate_adaptive_fields_and_disclosure():
-    out = await decision_certificate_export(
+    out = decision_certificate_export(
         symbol="ETH",
         params={
             "governed_payload": {
@@ -83,7 +83,7 @@ async def test_capability_3_certificate_adaptive_fields_and_disclosure():
 
 @pytest.mark.asyncio
 async def test_capability_2_oracle_level1_backing_fields():
-    out = await single_sentence_oracle(
+    out = single_sentence_oracle(
         symbol="BTC",
         params={
             "decision_action": "ABSTAIN",

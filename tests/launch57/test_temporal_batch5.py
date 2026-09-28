@@ -136,7 +136,7 @@ async def test_public_accuracy_ledger_surface_includes_b5_temporal_fields(monkey
         "recent": _chain_records(),
     }
     monkeypatch.setattr("oracle_track_record.public_track_record", lambda: fake_ledger)
-    out = await public_accuracy_ledger(symbol="BTC", params={"display_timezone": "UTC"})
+    out = public_accuracy_ledger(symbol="BTC", params={"display_timezone": "UTC"})
     assert out["capability_id"] == 640
     assert out["b5_public_accuracy"]["activated"] is True
     assert out["b5_isolation_leakage"] == 0

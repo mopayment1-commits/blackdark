@@ -128,7 +128,7 @@ def test_provenance_untrusted_grade_without_source_must_not_pass():
 async def test_provenance_api_untrusted_grade_without_source_must_not_pass():
     from launch57.data_batch2 import data_quality_provenance_layer
 
-    out = await data_quality_provenance_layer(symbol="BTC", params={"quality_state": "decision_grade"})
+    out = data_quality_provenance_layer(symbol="BTC", params={"quality_state": "decision_grade"})
     assert out.get("provenance", {}).get("source_authority") is None
     assert out["success"] is False
     assert out.get("quality_state") == "unknown"
@@ -281,7 +281,7 @@ async def test_b1_paths_bound_to_canonical_41_when_activated(monkeypatch):
 async def test_b2_attaches_hash6_evidence_class_when_b3_activated():
     from launch57.data_batch2 import freshness_update_assurance
 
-    out = await freshness_update_assurance(symbol="BTC", params={"quote_age_ms": 1000.0})
+    out = freshness_update_assurance(symbol="BTC", params={"quote_age_ms": 1000.0})
     assert out["evidence_class_owner"] == "launch57.evidence_class_common"
     assert "evidence_display" in out
     assert not any(p.get("launch_number") == 6 for p in out["temporal_dependency_pending"])

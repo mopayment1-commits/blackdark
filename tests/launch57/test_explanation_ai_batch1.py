@@ -103,7 +103,7 @@ async def test_research_portal_short_brief(monkeypatch):
         }
 
     monkeypatch.setattr("oracle_track_record.public_track_record", fake_track)
-    out = await research_intelligence_portal(symbol="ETH", params={})
+    out = research_intelligence_portal(symbol="ETH", params={})
     assert out["launch_item_id"] == 51
     assert out["shareable_brief"]["shareable"] is True
     assert out["research_portal_scope"]["limited_launch_scope"] is True

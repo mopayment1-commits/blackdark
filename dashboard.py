@@ -2539,7 +2539,7 @@ async def status_page(request: Request):
     try:
         from launch57.trust_batch2 import guest_trust_surface
 
-        payload = await guest_trust_surface(
+        payload = guest_trust_surface(
             symbol="BTC",
             params={"symbol": "BTC", "user_key": "anonymous"},
         )

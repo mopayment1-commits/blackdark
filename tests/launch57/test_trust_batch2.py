@@ -17,7 +17,7 @@ from launch57.trust_batch2 import (
 
 @pytest.mark.asyncio
 async def test_one_click_risk_disclosure():
-    out = await one_click_risk_disclosure(
+    out = one_click_risk_disclosure(
         symbol="BTC",
         params={
             "decision_truth_state": "REJECTED",
@@ -31,7 +31,7 @@ async def test_one_click_risk_disclosure():
 
 @pytest.mark.asyncio
 async def test_abstain_reject_reasons_first_class():
-    out = await abstain_reject_reasons_visible(
+    out = abstain_reject_reasons_visible(
         symbol="BTC",
         params={"decision_truth_state": "ABSTAINED", "decision_action": "NO_DECISION"},
     )
@@ -43,7 +43,7 @@ async def test_abstain_reject_reasons_first_class():
 
 @pytest.mark.asyncio
 async def test_shareable_decision_card_og_metadata():
-    out = await shareable_decision_card(
+    out = shareable_decision_card(
         symbol="BTC",
         params={"decision_action": "WAIT", "decision_sentence": "BTC: wait"},
     )
@@ -60,7 +60,7 @@ async def test_shareable_accuracy_page_live_only(monkeypatch):
         "synthetic_demo_data": {"excluded_from_primary_metrics": True},
     }
     monkeypatch.setattr("oracle_track_record.public_track_record", lambda: fake)
-    out = await shareable_accuracy_page(symbol="BTC", params={})
+    out = shareable_accuracy_page(symbol="BTC", params={})
     assert out["launch_item_id"] == 45
     assert out["live_only_primary"] is True
     assert out["alias_of"] == "CAP-0640"
@@ -81,7 +81,7 @@ async def test_guest_trust_surface(monkeypatch):
             "route_inventory": {},
         },
     )
-    out = await guest_trust_surface(symbol="BTC", params={})
+    out = guest_trust_surface(symbol="BTC", params={})
     assert out["launch_item_id"] == 46
     assert out["guest_trust"]["no_pii_leak"] is True
     assert out["guest_trust"]["visitor_tier_gating"] is True

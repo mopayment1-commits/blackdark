@@ -60,7 +60,7 @@ def _is_demo_opportunity(opportunity: dict[str, Any] | None) -> bool:
     return False
 
 
-async def net_edge_truth_score(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
+def net_edge_truth_score(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
     """Launch #5 / CAP-0639 — Net-Edge before any cost claim; no demo-as-live."""
     from net_edge_truth import compute_net_edge_truth
 
@@ -142,7 +142,7 @@ async def net_edge_truth_score(*, symbol: str, params: dict[str, Any] | None = N
     return finalized
 
 
-async def public_accuracy_ledger(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
+def public_accuracy_ledger(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
     """Launch #4 / CAP-0640 — live ledger only; synthetic excluded from primary metrics."""
     from oracle_track_record import public_track_record
 
@@ -172,7 +172,7 @@ async def public_accuracy_ledger(*, symbol: str, params: dict[str, Any] | None =
     return finalize_b5_ledger_surface(body, display_timezone=p.get("display_timezone"))
 
 
-async def decision_certificate_export(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
+def decision_certificate_export(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
     """Launch #3 / CAP-0641 — decision certificate + hash (Launch-57-local builder)."""
     p = dict(params or {})
     p["symbol"] = symbol
@@ -251,7 +251,7 @@ async def decision_certificate_export(*, symbol: str, params: dict[str, Any] | N
     return attach_adaptive_disclosure(finalized, disclosure)
 
 
-async def single_sentence_oracle(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
+def single_sentence_oracle(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
     """Launch #2 — Single-Sentence Oracle (ACT/WAIT/ABSTAIN) product surface."""
     p = dict(params or {})
     p["symbol"] = symbol
@@ -306,9 +306,14 @@ _DISPATCH_ENTRYPOINTS: dict[int, str] = {
 
 
 async def execute_launch57_trust_batch1(capability_id: int, *, params: dict[str, Any] | None = None) -> dict[str, Any]:
+    import inspect
+
     if capability_id not in LAUNCH57_TRUST_BATCH1_CAP_IDS:
         raise ValueError(f"capability {capability_id} not in Launch-57 trust batch 1")
     entrypoint = _DISPATCH_ENTRYPOINTS[capability_id]
     fn = globals()[entrypoint]
     sym = str((params or {}).get("symbol") or "BTC")
-    return await fn(symbol=sym, params=dict(params or {}))
+    result = fn(symbol=sym, params=dict(params or {}))
+    if inspect.isawaitable(result):
+        return await result
+    return result

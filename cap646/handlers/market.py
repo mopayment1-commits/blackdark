@@ -86,8 +86,8 @@ async def handle_market_capability(
         from launch57.data_batch2 import data_quality_normalization, freshness_update_assurance
 
         if capability_id == 630:
-            return await freshness_update_assurance(symbol=symbol, params=params)
-        return await data_quality_normalization(symbol=symbol, params=params)
+            return freshness_update_assurance(symbol=symbol, params=params)
+        return data_quality_normalization(symbol=symbol, params=params)
 
     from cap646.catalog import catalog_by_id
 

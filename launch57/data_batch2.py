@@ -38,7 +38,7 @@ def _stamp_batch2(body: dict[str, Any], *, capability_id: int, entrypoint: str) 
     return out
 
 
-async def data_quality_provenance_layer(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
+def data_quality_provenance_layer(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
     """Launch #40 / CAP-0063 — internal provenance layer."""
     params = dict(params or {})
     asset = str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")
@@ -77,7 +77,7 @@ async def data_quality_provenance_layer(*, symbol: str, params: dict[str, Any] |
     return finalize_b2_response(attach_provenance_payload(body, record, envelope))
 
 
-async def data_quality_normalization(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
+def data_quality_normalization(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
     """Launch #40 / CAP-0500 — user-visible normalization (distinct from CAP-0063)."""
     params = dict(params or {})
     asset = str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")
@@ -116,7 +116,7 @@ async def data_quality_normalization(*, symbol: str, params: dict[str, Any] | No
     return finalize_b2_response(body)
 
 
-async def freshness_update_assurance(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
+def freshness_update_assurance(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
     """Launch #41 / CAP-0630 — canonical Launch-57 freshness assurance."""
     params = dict(params or {})
     asset = str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")
@@ -153,7 +153,7 @@ async def freshness_update_assurance(*, symbol: str, params: dict[str, Any] | No
     return finalize_b2_response(body)
 
 
-async def point_in_time_immutable_metrics(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
+def point_in_time_immutable_metrics(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
     """Launch #39 / CAP-0061 — immutable point-in-time metrics snapshot."""
     params = dict(params or {})
     asset = str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")
@@ -230,9 +230,14 @@ _DISPATCH_ENTRYPOINTS: dict[int, str] = {
 
 
 async def execute_launch57_batch2(capability_id: int, *, params: dict[str, Any] | None = None) -> dict[str, Any]:
+    import inspect
+
     if capability_id not in LAUNCH57_BATCH2_CAP_IDS:
         raise ValueError(f"capability {capability_id} not in Launch-57 data batch 2")
     entrypoint = _DISPATCH_ENTRYPOINTS[capability_id]
     fn = globals()[entrypoint]
     sym = str((params or {}).get("symbol") or "BTC")
-    return await fn(symbol=sym, params=dict(params or {}))
+    result = fn(symbol=sym, params=dict(params or {}))
+    if inspect.isawaitable(result):
+        return await result
+    return result

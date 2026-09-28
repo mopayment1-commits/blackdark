@@ -121,7 +121,7 @@ async def six_heroes_command_home(*, symbol: str, params: dict[str, Any] | None 
         )
         return attach_edge_ui_envelope(ai_compliance_footer(body), spine=spine)
 
-    oracle = await single_sentence_oracle(symbol=spine["symbol"], params=p)
+    oracle = single_sentence_oracle(symbol=spine["symbol"], params=p)
     router = run_router_selection_contract(
         goal="six_heroes_command_home",
         symbol=spine["symbol"],

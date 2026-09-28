@@ -79,7 +79,7 @@ async def test_b1_path_attaches_evidence_class_when_b3_activated(monkeypatch):
 async def test_b2_path_attaches_evidence_class_when_b3_activated():
     from launch57.data_batch2 import freshness_update_assurance
 
-    out = await freshness_update_assurance(symbol="BTC", params={"quote_age_ms": 1000.0})
+    out = freshness_update_assurance(symbol="BTC", params={"quote_age_ms": 1000.0})
     assert out["evidence_class_owner"] == "launch57.evidence_class_common"
     assert "evidence_display" in out
     assert not any(p.get("launch_number") == 6 for p in out.get("temporal_dependency_pending", []))

@@ -29,7 +29,7 @@ def _live_spine(symbol: str = "BTC"):
 
 @pytest.mark.asyncio
 async def test_entry_gate_capability_5_net_edge_pass_engineering():
-    out = await net_edge_truth_score(
+    out = net_edge_truth_score(
         symbol="BTC",
         params={
             "opportunity": {
@@ -108,7 +108,7 @@ async def test_capability_49_history_only_rejects_behavioral_learning(monkeypatc
         lambda **kwargs: [{"decision_id": "d1"}],
     )
 
-    out = await personal_decision_history(
+    out = personal_decision_history(
         symbol="BTC",
         params={
             "behavioral_learning": True,
@@ -134,7 +134,7 @@ async def test_capability_50_mirror_reflective_not_market_evidence(monkeypatch):
         },
     )
 
-    out = await discipline_mirror_light(symbol="BTC", params={"user_key": "u1"})
+    out = discipline_mirror_light(symbol="BTC", params={"user_key": "u1"})
     mirror = out["discipline_mirror"]
     assert out["launch_item_id"] == 50
     assert mirror["reflective_only"] is True

@@ -52,7 +52,7 @@ def test_b2_zero_prohibited_imports():
 async def test_freshness_owner_is_launch57_local():
     from launch57.data_batch2 import freshness_update_assurance
 
-    out = await freshness_update_assurance(symbol="BTC", params={"quote_age_ms": 30_000.0})
+    out = freshness_update_assurance(symbol="BTC", params={"quote_age_ms": 30_000.0})
     assert out["freshness_owner"] == "launch57.freshness_common"
     assert out["legacy_runtime_dependencies"] == 0
     assert out["b2_isolation_leakage"] == 0

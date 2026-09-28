@@ -307,7 +307,7 @@ async def mvrv_mvrv_z_score_suite(*, symbol: str, params: dict[str, Any] | None 
     )
 
 
-async def personal_decision_history(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
+def personal_decision_history(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
     """Launch #49 — personal decision history (limited Free tier)."""
     from launch57.billing_entitlement_common import (
         apply_entitlement_gated_params,
@@ -384,7 +384,7 @@ async def personal_decision_history(*, symbol: str, params: dict[str, Any] | Non
     return attach_compounding_evidence_envelope(adapted, launch_item_id=49)
 
 
-async def discipline_mirror_light(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
+def discipline_mirror_light(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
     """Launch #50 — light discipline / missed-movement mirror."""
     from discipline_mirror import personal_mirror
 
@@ -639,8 +639,13 @@ async def execute_launch57_edge_ui_product(
     *,
     params: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
+    import inspect
+
     if launch_item_id not in _PRODUCT_DISPATCH:
         raise ValueError(f"launch item {launch_item_id} not in Launch-57 edge+UI batch 1 product surfaces")
     fn = globals()[_PRODUCT_DISPATCH[launch_item_id]]
     sym = str((params or {}).get("symbol") or "BTC")
-    return await fn(symbol=sym, params=dict(params or {}))
+    result = fn(symbol=sym, params=dict(params or {}))
+    if inspect.isawaitable(result):
+        return await result
+    return result

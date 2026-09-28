@@ -129,7 +129,7 @@ async def test_research_portal_includes_b9_timing(monkeypatch):
         "oracle_track_record.public_track_record",
         lambda: {"cumulative": {"resolved_predictions": 5, "hit_rate_percent": 60}},
     )
-    out = await research_intelligence_portal(symbol="BTC", params={})
+    out = research_intelligence_portal(symbol="BTC", params={})
     assert out["launch_item_id"] == 51
     assert out["explanation_timing"]["generation_time"]
     assert out["explanation_timing"]["presented_as_current"] is True

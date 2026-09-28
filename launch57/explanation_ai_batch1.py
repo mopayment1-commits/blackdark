@@ -312,7 +312,7 @@ async def ai_research_agent_grounded(*, symbol: str, params: dict[str, Any] | No
     )
 
 
-async def research_intelligence_portal(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
+def research_intelligence_portal(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
     """Launch #51 / CAP-0065 — research portal with short shareable briefs."""
     from oracle_track_record import public_track_record
 
@@ -357,7 +357,7 @@ async def research_intelligence_portal(*, symbol: str, params: dict[str, Any] | 
     )
 
 
-async def research_reports(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
+def research_reports(*, symbol: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
     """Launch #51 / CAP-0100 — short research report feed companion."""
     from oracle_track_record import public_track_record
 
@@ -416,8 +416,13 @@ async def execute_launch57_explanation_ai_batch1(
     *,
     params: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
+    import inspect
+
     if capability_id not in LAUNCH57_EXPLANATION_AI_BATCH1_CAP_IDS:
         raise ValueError(f"capability {capability_id} not in Launch-57 explanation+AI batch 1")
     fn = globals()[_DISPATCH[capability_id]]
     sym = str((params or {}).get("symbol") or "BTC")
-    return await fn(symbol=sym, params=dict(params or {}))
+    result = fn(symbol=sym, params=dict(params or {}))
+    if inspect.isawaitable(result):
+        return await result
+    return result

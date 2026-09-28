@@ -115,7 +115,7 @@ async def test_personal_decision_history_free_limit(monkeypatch):
         "launch57.edge_ui_common.read_decision_history_rows",
         lambda **kwargs: [{"decision_id": "d1"}],
     )
-    out = await personal_decision_history(
+    out = personal_decision_history(
         symbol="BTC",
         params={"tier": "free", "limit": 50, "user_key": "user-1", "subject_id": "user-1"},
     )
@@ -144,7 +144,7 @@ async def test_discipline_mirror_light(monkeypatch):
         "discipline_mirror.personal_mirror",
         lambda user_key, limit=20: {"private": True, "total_answers": 0},
     )
-    out = await discipline_mirror_light(symbol="BTC", params={"user_key": "u1"})
+    out = discipline_mirror_light(symbol="BTC", params={"user_key": "u1"})
     assert out["launch_item_id"] == 50
     assert out["discipline_mirror"]["lightweight"] is True
 

@@ -52,7 +52,7 @@ async def load_decision_spine(symbol: str, params: dict[str, Any] | None = None)
 
     prices = await real_time_prices(symbol=asset, params=p)
     freshness_params = _freshness_params_from_prices(prices, p)
-    freshness = await freshness_update_assurance(symbol=asset, params=freshness_params)
+    freshness = freshness_update_assurance(symbol=asset, params=freshness_params)
 
     freshness_state = str(
         prices.get("freshness_state")
@@ -135,7 +135,7 @@ async def require_net_edge_if_cost_claim(
             "reason": "cost_claim_requires_opportunity_and_net_edge",
             "net_edge_path": "launch57.trust_batch1:net_edge_truth_score",
         }
-    edge = await net_edge_truth_score(symbol=symbol, params={"opportunity": opportunity})
+    edge = net_edge_truth_score(symbol=symbol, params={"opportunity": opportunity})
     if not edge.get("success") or not edge.get("cost_claim_allowed"):
         return {
             "blocked": True,

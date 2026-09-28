@@ -431,8 +431,10 @@ async def _run_e2e_journeys() -> dict[str, Any]:
     journeys: list[dict[str, Any]] = []
 
     async def run_journey(name: str, fn):
+        import inspect
+
         try:
-            result = await fn()
+            result = await fn() if inspect.iscoroutinefunction(fn) else fn()
             journeys.append(result | {"journey": name})
         except Exception as exc:
             journeys.append({"journey": name, "status": "ERROR", "error": str(exc)})
@@ -515,7 +517,7 @@ async def _run_e2e_journeys() -> dict[str, Any]:
         }
         from launch57.trust_batch1 import net_edge_truth_score
 
-        edge = await net_edge_truth_score(symbol="BTC", params={"opportunity": dict(FIN_004_DEMO_OPPORTUNITY)})
+        edge = net_edge_truth_score(symbol="BTC", params={"opportunity": dict(FIN_004_DEMO_OPPORTUNITY)})
         allowed = await spot_perp_arbitrage_scanner(
             symbol="BTC",
             params={"opportunity": dict(FIN_004_DEMO_OPPORTUNITY)},
@@ -532,7 +534,7 @@ async def _run_e2e_journeys() -> dict[str, Any]:
     async def j_guest_trust():
         from launch57.trust_batch2 import guest_trust_surface
 
-        out = await guest_trust_surface(symbol="BTC", params={})
+        out = guest_trust_surface(symbol="BTC", params={})
         gt = out.get("guest_trust") or {}
         return {
             "status": "PASS" if out.get("success") and gt.get("no_pii_leak") else "PARTIAL",
@@ -576,7 +578,7 @@ async def _run_e2e_journeys() -> dict[str, Any]:
     async def j_abstain_first_class():
         from launch57.trust_batch2 import abstain_reject_reasons_visible
 
-        out = await abstain_reject_reasons_visible(
+        out = abstain_reject_reasons_visible(
             symbol="BTC",
             params={"decision_action": "ABSTAIN", "abstention_reason": "insufficient_evidence"},
         )
@@ -621,7 +623,7 @@ async def _run_e2e_journeys() -> dict[str, Any]:
             "cumulative": {"metrics_scope": "live_only", "hit_rate_percent": 68.0},
             "synthetic_demo_data": {"excluded_from_primary_metrics": True},
         }
-        out = await public_accuracy_ledger(symbol="BTC", params={})
+        out = public_accuracy_ledger(symbol="BTC", params={})
         return {
             "status": "PASS" if out.get("live_only_primary") and out.get("synthetic_excluded_from_primary") else "FAIL",
             "steps": ["public_accuracy_ledger_4"],
@@ -665,7 +667,7 @@ async def _run_e2e_journeys() -> dict[str, Any]:
         from launch57.point_in_time_common import reset_store_for_tests
 
         reset_store_for_tests()
-        out = await point_in_time_immutable_metrics(
+        out = point_in_time_immutable_metrics(
             symbol="BTC",
             params={"metrics": {"price": 42000.0}, "source_authority": "launch57:phase8_e2e"},
         )
@@ -707,7 +709,7 @@ async def _run_e2e_journeys() -> dict[str, Any]:
     async def j_share_card_truth_state():
         from launch57.trust_batch2 import shareable_decision_card
 
-        out = await shareable_decision_card(symbol="BTC", params={"decision_action": "WAIT"})
+        out = shareable_decision_card(symbol="BTC", params={"decision_action": "WAIT"})
         truth = out.get("shareable_truth_context") or {}
         return {
             "status": "PASS" if truth and out.get("unsupported_live_claim_blocked") is not None else "FAIL",
@@ -716,7 +718,7 @@ async def _run_e2e_journeys() -> dict[str, Any]:
             "unsupported_live_claim_blocked": out.get("unsupported_live_claim_blocked"),
         }
 
-    async def j_launch57_only_routing():
+    def j_launch57_only_routing():
         from launch57.edge_ui_common import LAUNCH57_SCOPE_IDS, launch57_home_eligible_ids
 
         eligible = launch57_home_eligible_ids()

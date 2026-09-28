@@ -31,7 +31,7 @@ def _status_to_code(status: int) -> str:
     return mapping.get(status, "BD-GEN-001")
 
 
-async def http_exception_handler(request: Request, exc: HTTPException):
+def http_exception_handler(request: Request, exc: HTTPException):
     cid = require_correlation_id()
     lang = _request_lang(request)
     code = _status_to_code(exc.status_code)
@@ -59,7 +59,7 @@ async def http_exception_handler(request: Request, exc: HTTPException):
     return problem_response(problem, lang=lang)
 
 
-async def validation_exception_handler(request: Request, exc: RequestValidationError):
+def validation_exception_handler(request: Request, exc: RequestValidationError):
     cid = require_correlation_id()
     lang = _request_lang(request)
     errors = exc.errors()
@@ -68,7 +68,7 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
     return problem_response(problem, lang=lang)
 
 
-async def unhandled_exception_handler(request: Request, exc: Exception):
+def unhandled_exception_handler(request: Request, exc: Exception):
     cid = require_correlation_id()
     lang = _request_lang(request)
     spec = get_error_spec("BD-GEN-001")

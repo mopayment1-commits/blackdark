@@ -100,7 +100,7 @@ def test_enrich_opportunity_rows_filters_expired_from_current():
 
 @pytest.mark.asyncio
 async def test_net_edge_surface_rejects_stale_opportunity():
-    out = await net_edge_truth_score(
+    out = net_edge_truth_score(
         symbol="BTC",
         params={"opportunity": _valid_opportunity(quote_age_ms=9000)},
     )
@@ -115,7 +115,7 @@ async def test_net_edge_surface_rejects_stale_opportunity():
 @pytest.mark.asyncio
 async def test_net_edge_surface_includes_timing_on_success():
     opp = _valid_opportunity()
-    out = await net_edge_truth_score(
+    out = net_edge_truth_score(
         symbol="BTC",
         params={"opportunity": opp},
     )

@@ -186,7 +186,7 @@ async def _cap640(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
         params=params,
     )
 
-async def _cap641(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+def _cap641(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     from decision_certificate import build_decision_certificate
 
     cert = build_decision_certificate(
@@ -230,7 +230,7 @@ async def _cap643(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
         params=params,
     )
 
-async def _cap644(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+def _cap644(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     from institutional_assurance import get_signed_capacity, verify_signed_capacity
     from scale_readiness import scale_readiness_report
 
@@ -266,7 +266,7 @@ async def _cap644(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
         },
     )
 
-async def _cap645(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+def _cap645(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     from pentest_attestation import external_review_readiness, pentest_attestation_status
 
     attestation = pentest_attestation_status()

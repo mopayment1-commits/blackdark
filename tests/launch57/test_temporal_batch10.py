@@ -95,7 +95,7 @@ def test_out_of_scope_launch_noop():
 async def test_shareable_decision_card_includes_b10_timing():
     from launch57.trust_batch2 import shareable_decision_card
 
-    out = await shareable_decision_card(
+    out = shareable_decision_card(
         symbol="BTC",
         params={"decision_action": "WAIT", "decision_sentence": "BTC: wait"},
     )
@@ -113,7 +113,7 @@ async def test_shareable_accuracy_page_includes_b10_timing(monkeypatch):
         "oracle_track_record.public_track_record",
         lambda: {"cumulative": {"metrics_scope": "live_only", "hit_rate_percent": 68.0}},
     )
-    out = await shareable_accuracy_page(symbol="BTC", params={})
+    out = shareable_accuracy_page(symbol="BTC", params={})
     assert out["launch_item_id"] == 45
     assert out["shareable_public_timing"]["publication_time"]
     assert out["b10_isolation_leakage"] == 0
@@ -127,7 +127,7 @@ async def test_guest_trust_surface_includes_b10_timing(monkeypatch):
         "governance.anonymous_visitor_governance.anonymous_visitor_status",
         lambda: {"anonymous_state": "anonymous", "no_pii_leak": True},
     )
-    out = await guest_trust_surface(symbol="BTC", params={})
+    out = guest_trust_surface(symbol="BTC", params={})
     assert out["launch_item_id"] == 46
     assert out["shareable_public_timing"]["presented_as_current"] is True
 

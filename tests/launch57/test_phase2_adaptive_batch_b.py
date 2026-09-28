@@ -15,7 +15,7 @@ from launch57.trust_batch2 import (
 
 @pytest.mark.asyncio
 async def test_capability_47_material_risk_direct_access():
-    out = await one_click_risk_disclosure(
+    out = one_click_risk_disclosure(
         symbol="BTC",
         params={
             "decision_truth_state": "REJECTED",
@@ -38,7 +38,7 @@ async def test_capability_47_material_risk_direct_access():
 
 @pytest.mark.asyncio
 async def test_capability_48_abstention_first_class_not_hidden():
-    out = await abstain_reject_reasons_visible(
+    out = abstain_reject_reasons_visible(
         symbol="BTC",
         params={
             "decision_truth_state": "ABSTAINED",
@@ -58,7 +58,7 @@ async def test_capability_48_abstention_first_class_not_hidden():
 
 @pytest.mark.asyncio
 async def test_capability_44_shareable_truth_preserves_evidence_and_blocks_unsupported_live():
-    out = await shareable_decision_card(
+    out = shareable_decision_card(
         symbol="BTC",
         params={
             "decision_action": "WAIT",
@@ -85,7 +85,7 @@ async def test_capability_45_ledger_interpretation_live_only(monkeypatch):
         "recent": [],
     }
     monkeypatch.setattr("oracle_track_record.public_track_record", lambda: fake)
-    out = await shareable_accuracy_page(symbol="BTC", params={})
+    out = shareable_accuracy_page(symbol="BTC", params={})
     assert out["launch_item_id"] == 45
     assert out["ledger_interpretation_context"]["public_scope"] == "live_primary_outcomes_only"
     assert out["live_only_primary"] is True
@@ -107,7 +107,7 @@ async def test_capability_46_approved_public_trust_surfaces_only(monkeypatch):
             "route_inventory": {},
         },
     )
-    out = await guest_trust_surface(symbol="BTC", params={})
+    out = guest_trust_surface(symbol="BTC", params={})
     approved = out["approved_public_trust_surfaces"]
     launch_ids = {row["launch_item_id"] for row in approved}
     assert out["launch_item_id"] == 46

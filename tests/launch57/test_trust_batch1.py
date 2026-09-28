@@ -42,7 +42,7 @@ def test_attach_trust_envelope_includes_evidence_display():
 
 @pytest.mark.asyncio
 async def test_net_edge_rejects_missing_opportunity_no_demo():
-    out = await net_edge_truth_score(symbol="BTC", params={})
+    out = net_edge_truth_score(symbol="BTC", params={})
     assert out["success"] is False
     assert out["error"] == "opportunity_required"
     assert out["demo_path_blocked"] is True
@@ -51,7 +51,7 @@ async def test_net_edge_rejects_missing_opportunity_no_demo():
 
 @pytest.mark.asyncio
 async def test_net_edge_rejects_demo_opportunity():
-    out = await net_edge_truth_score(
+    out = net_edge_truth_score(
         symbol="BTC",
         params={"opportunity": dict(FIN_004_DEMO_OPPORTUNITY)},
     )
@@ -62,7 +62,7 @@ async def test_net_edge_rejects_demo_opportunity():
 
 @pytest.mark.asyncio
 async def test_net_edge_scores_real_opportunity():
-    out = await net_edge_truth_score(
+    out = net_edge_truth_score(
         symbol="BTC",
         params={
             "opportunity": {
@@ -89,7 +89,7 @@ async def test_public_accuracy_ledger_live_only_primary(monkeypatch):
         "immutable_chain": {"valid": True},
     }
     monkeypatch.setattr("oracle_track_record.public_track_record", lambda: fake_ledger)
-    out = await public_accuracy_ledger(symbol="BTC", params={})
+    out = public_accuracy_ledger(symbol="BTC", params={})
     assert out["capability_id"] == 640
     assert out["live_only_primary"] is True
     assert out["metrics_scope"] == "live_only"
@@ -98,7 +98,7 @@ async def test_public_accuracy_ledger_live_only_primary(monkeypatch):
 
 @pytest.mark.asyncio
 async def test_decision_certificate_includes_hash():
-    out = await decision_certificate_export(
+    out = decision_certificate_export(
         symbol="ETH",
         params={
             "governed_payload": {
@@ -117,7 +117,7 @@ async def test_decision_certificate_includes_hash():
 
 @pytest.mark.asyncio
 async def test_single_sentence_oracle_act_wait_abstain():
-    out = await single_sentence_oracle(
+    out = single_sentence_oracle(
         symbol="BTC",
         params={"decision_action": "ACT", "decision_sentence": "BTC: momentum supports ACT"},
     )

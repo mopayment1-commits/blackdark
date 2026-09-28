@@ -66,7 +66,7 @@ async def test_free_history_limit_not_bypassed_by_tier_param(monkeypatch):
         lambda **kwargs: [{"id": i} for i in range(kwargs.get("limit", 0))],
     )
 
-    out = await personal_decision_history(
+    out = personal_decision_history(
         symbol="BTC",
         params={"tier": "pro", "limit": 50, "user_key": "user-1", "subject_id": "user-1"},
     )
