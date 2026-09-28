@@ -229,7 +229,7 @@ def _build_hero_matrix(register: dict[str, Any], cap_index: dict[str, dict[str, 
     parked_deps = 0
     for item in sorted(register["launch57_register"], key=lambda x: x["launch_number"]):
         ln = item["launch_number"]
-        base = {h: "NOT_APPLICABLE" for h in heroes}
+        base = dict.fromkeys(heroes, "NOT_APPLICABLE")
         cap_ids = item.get("matched_capability_ids") or []
         for cap in cap_ids:
             hm = cap_index.get(cap, {})

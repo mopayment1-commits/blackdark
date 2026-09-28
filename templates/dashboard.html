@@ -660,7 +660,7 @@
             if (s === 'LIVE') return 'LIVE';
             if (s === 'NEAR_LIVE') return 'NEAR LIVE';
             if (s === 'DELAYED') return delayedLabel || 'DELAYED';
-            return s.replace(/_/g, ' ');
+            return s.replaceAll('_', ' ');
         }
 
         function launch57OracleFromCommandHome(data) {
