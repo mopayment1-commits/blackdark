@@ -140,13 +140,20 @@ def _test_referenced_ids() -> frozenset[int]:
         if not path.is_file():
             continue
         text = path.read_text(encoding="utf-8", errors="ignore")
-        for m in re.finditer(r"DEDICATED_IDS\s*=\s*\[([^\]]+)\]|parametrize\([^)]*(\d+)", text):
-            chunk = m.group(1) or m.group(2) or ""
+        for m in re.finditer(r"DEDICATED_IDS\s*=\s*\[([^\]]+)\]", text):
+            chunk = m.group(1)
             for token in re.findall(r"\d+", chunk):
                 val = int(token)
                 if 1 <= val <= 826:
                     ids.add(val)
-        for m in re.finditer(r"@pytest\.mark\.parametrize\([^\]]*\[([^\]]+)\]", text):
+        for m in re.finditer(r"parametrize\([^,]+,[^,]+,\s*(\d+)", text):
+            val = int(m.group(1))
+            if 1 <= val <= 826:
+                ids.add(val)
+        for m in re.finditer(
+            r"@pytest\.mark\.parametrize\(\s*(?:\"[^\"]*\"|'[^']*')\s*,\s*\[([^\]]+)\]",
+            text,
+        ):
             for token in re.findall(r"\d+", m.group(1)):
                 val = int(token)
                 if 1 <= val <= 826:

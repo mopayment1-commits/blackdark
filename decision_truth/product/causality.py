@@ -9,7 +9,7 @@ _UNSUPPORTED_CAUSAL_PATTERNS: tuple[re.Pattern[str], ...] = (
     re.compile(r"\bwhale\s+caused\b", re.IGNORECASE),
     re.compile(r"\bcaused\s+(?:the\s+)?price\b", re.IGNORECASE),
     re.compile(r"\bthis\s+wallet\s+moved\s+(?:the\s+)?market\b", re.IGNORECASE),
-    re.compile(r"\bimpact\s*[+]?\s*\d+(?:\.\d+)?%\b", re.IGNORECASE),
+    re.compile(r"\bimpact\s*(?:\+\s*)?\d+(?:\.\d+)?%\b", re.IGNORECASE),
     re.compile(r"\bdrove\s+(?:the\s+)?price\b", re.IGNORECASE),
     re.compile(r"\bmarket\s+moved\s+by\s+\d", re.IGNORECASE),
 )

@@ -153,7 +153,7 @@ def _batch_verdicts() -> dict[str, str]:
 def _count_collected_tests(files: list[str]) -> int:
     cmd = ["python3", "-m", "pytest", *files, "--collect-only", "-q"]
     proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)
-    match = re.search(r"(\d+) tests? collected", proc.stdout + proc.stderr)
+    match = re.search(r"(\d+)\s+(?:test|tests)\s+collected", proc.stdout + proc.stderr)
     return int(match.group(1)) if match else 0
 
 

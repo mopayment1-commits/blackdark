@@ -315,8 +315,9 @@ AUTHENTICATED_PATH_PREFIXES: tuple[str, ...] = (
     "/my/",
 )
 
+_EMAIL_JSON_FIELD = re.compile(r'"email"\s*:\s*"', re.I)
+
 PRIVATE_DATA_PATTERNS: tuple[re.Pattern[str], ...] = (
-    re.compile(r'"email"\s*:\s*"[^"]+@[^"]+"', re.I),
     re.compile(r'"api_key"\s*:\s*"[A-Za-z0-9_\-]{8,}"', re.I),
     re.compile(r'"bd_token"\s*:\s*"', re.I),
     re.compile(r'"password"\s*:\s*"', re.I),
@@ -527,7 +528,23 @@ def _test_slug(path: str, method: str) -> str:
     return f"test_no_cookie_boundary_{method.lower()}_{slug}"
 
 
+def _payload_contains_json_email_leak(payload: str) -> bool:
+    """Linear scan: same acceptance as legacy [^\"]+@[^\"]+ inside quoted email values."""
+    for match in _EMAIL_JSON_FIELD.finditer(payload):
+        start = match.end()
+        end = payload.find('"', start)
+        if end == -1:
+            continue
+        value = payload[start:end]
+        for idx, char in enumerate(value):
+            if char == "@" and 0 < idx < len(value) - 1:
+                return True
+    return False
+
+
 def response_contains_private_data(payload: str) -> bool:
+    if _payload_contains_json_email_leak(payload):
+        return True
     return any(pattern.search(payload) for pattern in PRIVATE_DATA_PATTERNS)
 
 
