@@ -60,7 +60,8 @@ def test_requirements_register_mandatory_count():
     reqs = build_requirements_register()
     assert len(reqs) >= 25
     assert all(r["mandatory"] for r in reqs)
-    assert {r["req_id"] for r in reqs} == {r["req_id"] for r in reqs}
+    req_ids = [r["req_id"] for r in reqs]
+    assert len(req_ids) == len(set(req_ids))
 
 
 def test_runtime_truth_all_yes_before_closure():

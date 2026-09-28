@@ -286,16 +286,6 @@ def build_reconciliation_rows(ssot: dict, register: dict) -> list[dict]:
         )
 
         prior_pass = "NO"
-        if rec.get("canonical_decision") == "UNRESOLVED":
-            prior_pass = "NO"
-        elif any(is_generic_delegate(c) for c in caps) or (
-            phase0 and phase0.get("pass_engineering_reconciliation") == "PASS_REQUIRES_RECONCILIATION"
-        ):
-            prior_pass = "NO"
-        elif not cap_ids and rec.get("build_class") in {"PRODUCT_SURFACE", "COMPOSITE_PRODUCT_SURFACE", "SHARED_CORE"}:
-            prior_pass = "NO"
-        else:
-            prior_pass = "NO"
 
         phase_eligible = "NO" if rec.get("canonical_decision") == "UNRESOLVED" else "YES"
         reconciliation_status = "COMPLETE" if rec.get("canonical_decision") != "UNRESOLVED" else "UNRESOLVED"

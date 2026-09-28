@@ -205,10 +205,13 @@ def _probe_step_up() -> tuple[TruthStatus, str]:
 def _probe_auth_entitlement() -> tuple[TruthStatus, str]:
     from launch57.identity_auth_common import verify_auth_vs_entitlement_separation
 
-    sep = verify_auth_vs_entitlement_separation(authenticated=True, entitled=False)
-    if sep["separation_enforced"] and sep["auth_alone_insufficient"]:
-        return TruthStatus.YES, "separated"
-    return TruthStatus.NO, str(sep)
+    denied = verify_auth_vs_entitlement_separation(authenticated=True, entitled=False)
+    allowed = verify_auth_vs_entitlement_separation(authenticated=True, entitled=True)
+    if not denied.get("auth_without_entitlement_denied"):
+        return TruthStatus.NO, str(denied)
+    if allowed.get("auth_without_entitlement_denied"):
+        return TruthStatus.NO, str(allowed)
+    return TruthStatus.YES, "separated"
 
 
 def _probe_public_boundary() -> tuple[TruthStatus, str]:
@@ -309,10 +312,13 @@ def _probe_mfa_oauth() -> tuple[TruthStatus, str]:
 def _probe_parked() -> tuple[TruthStatus, str]:
     from launch57.identity_auth_common import verify_launch57_identity_scope
 
-    parked = verify_launch57_identity_scope(999)
-    if parked["parked_contamination"] and not parked["in_launch57_scope"]:
-        return TruthStatus.YES, "out of scope"
-    return TruthStatus.NO, str(parked)
+    for probe_id, want_in_scope in ((25, True), (999, False)):
+        parked = verify_launch57_identity_scope(probe_id)
+        if parked["launch_item_id"] != probe_id or parked["in_launch57_scope"] != want_in_scope:
+            return TruthStatus.NO, str(parked)
+        if not want_in_scope and not parked["parked_contamination"]:
+            return TruthStatus.NO, str(parked)
+    return TruthStatus.YES, "out of scope"
 
 
 def _probe_pass_live() -> tuple[TruthStatus, str]:

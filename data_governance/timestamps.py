@@ -24,7 +24,8 @@ def _parse_ts(value: Any) -> float | None:
     if value is None:
         return None
     if isinstance(value, (int, float)):
-        return float(value) if value > 1e12 else float(value)
+        numeric = float(value)
+        return numeric / 1000.0 if numeric > 1e12 else numeric
     if isinstance(value, str):
         try:
             return datetime.fromisoformat(value.replace("Z", "+00:00")).timestamp()

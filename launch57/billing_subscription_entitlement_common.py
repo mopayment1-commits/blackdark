@@ -235,9 +235,11 @@ def _probe_financial_arithmetic() -> tuple[TruthStatus, str]:
     from launch57.billing_entitlement_common import verify_financial_arithmetic
 
     row = verify_financial_arithmetic(1999)
-    if row["integer_minor_units"] and not row["float_used_for_money"]:
-        return TruthStatus.YES, "minor units only"
-    return TruthStatus.NO, str(row)
+    if row["amount_cents"] != 1999 or row["amount_decimal"] != "19.99":
+        return TruthStatus.NO, str(row)
+    if row.get("float_used_for_money"):
+        return TruthStatus.NO, str(row)
+    return TruthStatus.YES, "minor units only"
 
 
 def _probe_reconciliation() -> tuple[TruthStatus, str]:

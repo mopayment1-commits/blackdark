@@ -161,7 +161,7 @@ def main() -> None:
         **build_live_sim_separation_index(),
         "public_accuracy_boundary": reference_public_accuracy_boundary(),
         "teis_support": reference_teis_support(),
-        "contamination_violations": [] if acceptance.get("sim_cannot_contaminate_live") is False else [],
+        "contamination_violations": [],
         "acceptance_live_sim_separated": acceptance.get("ac06_live_delayed_sim_separated", False),
     }
     write_artifact_json(LIVE_SIM_PATH, live_sim)

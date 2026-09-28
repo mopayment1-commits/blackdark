@@ -94,7 +94,7 @@ def _auth_model(spec: DataSourceSpec) -> str:
 def _tier_for(spec: DataSourceSpec) -> SourceTier:
     if spec.source_id in _WS_SOURCES or spec.fetch_kind == "websocket":
         return SourceTier.PRIMARY
-    if spec.env_key and "COINMARKETCAP" in (spec.env_key or "").upper():
+    if spec.env_key is not None and "COINMARKETCAP" in spec.env_key.upper():
         return SourceTier.SECONDARY
     if spec.category in {"sentiment", "research"}:
         return SourceTier.VALIDATION_ONLY

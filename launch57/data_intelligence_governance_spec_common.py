@@ -307,10 +307,13 @@ def _probe_rights() -> tuple[TruthStatus, str]:
 def _probe_no_parked() -> tuple[TruthStatus, str]:
     from launch57.data_governance_common import verify_launch57_data_scope
 
-    parked = verify_launch57_data_scope(999)
-    if parked["parked_contamination"] and not parked["in_launch57_scope"]:
-        return TruthStatus.YES, "parked rejected"
-    return TruthStatus.NO, str(parked)
+    for probe_id, want_in_scope in ((25, True), (999, False)):
+        parked = verify_launch57_data_scope(probe_id)
+        if parked["launch_item_id"] != probe_id or parked["in_launch57_scope"] != want_in_scope:
+            return TruthStatus.NO, str(parked)
+        if not want_in_scope and not parked["parked_contamination"]:
+            return TruthStatus.NO, str(parked)
+    return TruthStatus.YES, "parked rejected"
 
 
 def _probe_legacy_excluded() -> tuple[TruthStatus, str]:

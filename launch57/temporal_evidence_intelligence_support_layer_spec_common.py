@@ -208,9 +208,15 @@ def _probe_dependence() -> tuple[TruthStatus, str]:
         dependence_cluster="cluster",
         raw_evaluation_count=100,
     )
-    if meta["overlap_warning"]:
-        return TruthStatus.YES, "overlap warned"
-    return TruthStatus.NO, str(meta)
+    quiet = build_evaluation_dependence_metadata(case_id="c0", raw_evaluation_count=1, dependence_cluster=None)
+    warned = build_evaluation_dependence_metadata(
+        case_id="c1",
+        dependence_cluster="cluster",
+        raw_evaluation_count=100,
+    )
+    if quiet.get("overlap_warning") or not warned.get("overlap_warning"):
+        return TruthStatus.NO, f"quiet={quiet} warned={warned}"
+    return TruthStatus.YES, "overlap warned"
 
 
 def _probe_reproducibility() -> tuple[TruthStatus, str]:
@@ -306,10 +312,13 @@ def _probe_available_at() -> tuple[TruthStatus, str]:
 def _probe_parked() -> tuple[TruthStatus, str]:
     from launch57.teis_support_common import verify_launch57_teis_scope
 
-    parked = verify_launch57_teis_scope(999)
-    if parked["parked_contamination"] and not parked["in_launch57_scope"]:
-        return TruthStatus.YES, "out of scope"
-    return TruthStatus.NO, str(parked)
+    for probe_id, want_in_scope in ((25, True), (999, False)):
+        parked = verify_launch57_teis_scope(probe_id)
+        if parked["launch_item_id"] != probe_id or parked["in_launch57_scope"] != want_in_scope:
+            return TruthStatus.NO, str(parked)
+        if not want_in_scope and not parked["parked_contamination"]:
+            return TruthStatus.NO, str(parked)
+    return TruthStatus.YES, "out of scope"
 
 
 def _probe_pass_live() -> tuple[TruthStatus, str]:

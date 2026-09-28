@@ -569,7 +569,9 @@ def verify_financial_arithmetic(amount_cents: int) -> dict[str, Any]:
     """Spec §26 — no float for financial calculations."""
     minor = int(amount_cents)
     as_decimal = Decimal(minor) / Decimal(100)
-    float_mismatch = float(as_decimal) != minor / 100.0 if minor % 100 != 0 else False
+    float_mismatch = False
+    if minor % 100 != 0:
+        float_mismatch = Decimal(repr(minor / 100.0)) != as_decimal
     return {
         "amount_cents": minor,
         "amount_decimal": str(as_decimal),

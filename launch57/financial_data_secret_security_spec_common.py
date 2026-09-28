@@ -152,9 +152,9 @@ def _probe_tokenized_payment() -> tuple[TruthStatus, str]:
     from launch57.financial_security_common import build_payment_flow_metadata
 
     flow = build_payment_flow_metadata()
-    if flow["provider_hosted_tokenized"] is True:
-        return TruthStatus.YES, "provider-hosted"
-    return TruthStatus.NO, str(flow)
+    if flow.get("raw_pan_cvv_path") != "FORBIDDEN" or not flow.get("provider_hosted_tokenized"):
+        return TruthStatus.NO, str(flow)
+    return TruthStatus.YES, "provider-hosted"
 
 
 def _probe_redaction() -> tuple[TruthStatus, str]:
@@ -208,18 +208,24 @@ def _probe_privileged() -> tuple[TruthStatus, str]:
     from launch57.financial_security_common import reference_privileged_access_controls
 
     ref = reference_privileged_access_controls()
-    if ref["mfa_required_for_privileged"] and ref["least_privilege"]:
-        return TruthStatus.YES, "MFA+least privilege"
-    return TruthStatus.NO, str(ref)
+    if ref.get("policy_engine") != "privileged_access.policy":
+        return TruthStatus.NO, str(ref)
+    if not ref.get("mfa_required_for_privileged") or not ref.get("least_privilege"):
+        return TruthStatus.NO, str(ref)
+    return TruthStatus.YES, "MFA+least privilege"
 
 
 def _probe_environment() -> tuple[TruthStatus, str]:
     from launch57.financial_security_common import build_environment_isolation_status
 
     env = build_environment_isolation_status()
-    if env["prod_secrets_in_dev_forbidden"]:
-        return TruthStatus.YES, env["current_environment"]
-    return TruthStatus.NO, str(env)
+    if not env.get("prod_secrets_in_dev_forbidden"):
+        return TruthStatus.NO, str(env)
+    if env.get("production_detected") and env.get("external_kms_verification") != "NEEDS_EXTERNAL_VERIFICATION":
+        return TruthStatus.NO, str(env)
+    if not env.get("production_detected") and env.get("synthetic_data_preferred") is not True:
+        return TruthStatus.NO, str(env)
+    return TruthStatus.YES, env["current_environment"]
 
 
 def _probe_webhook() -> tuple[TruthStatus, str]:
@@ -281,36 +287,52 @@ def _probe_sensitive_inventory() -> tuple[TruthStatus, str]:
     from launch57.financial_security_common import build_sensitive_data_inventory
 
     inv = build_sensitive_data_inventory()
-    if len(inv) >= 7:
-        return TruthStatus.YES, f"{len(inv)} classes"
-    return TruthStatus.NO, str(len(inv))
+    required_classes = {
+        "FDS-C1_RESTRICTED_PAYMENT_AUTH",
+        "FDS-C2_RESTRICTED_CARD",
+        "FDS-C4_FINANCIAL_CREDENTIALS",
+        "FDS-C5_SENSITIVE_FINANCIAL",
+        "FDS-C6_PAYMENT_REFERENCES",
+        "PUBLIC_MARKET",
+        "INTERNAL_AUDIT",
+    }
+    found = {row.get("class_id") for row in inv}
+    if not required_classes <= found:
+        return TruthStatus.NO, str(found)
+    return TruthStatus.YES, f"{len(inv)} classes"
 
 
 def _probe_secret_inventory() -> tuple[TruthStatus, str]:
     from launch57.financial_security_common import build_secret_inventory
 
     inv = build_secret_inventory()
-    if len(inv) >= 3:
-        return TruthStatus.YES, f"{len(inv)} secret classes"
-    return TruthStatus.NO, str(len(inv))
+    required_classes = {"exchange_api", "webhook_signing", "telegram_delivery", "payment_provider"}
+    found = {row.get("secret_class") for row in inv}
+    if not required_classes <= found:
+        return TruthStatus.NO, str(found)
+    return TruthStatus.YES, f"{len(inv)} secret classes"
 
 
 def _probe_incident() -> tuple[TruthStatus, str]:
     from launch57.financial_security_common import reference_incident_playbook
 
     ref = reference_incident_playbook()
-    if ref.get("lifecycle_steps"):
-        return TruthStatus.YES, f"{len(ref['lifecycle_steps'])} steps"
-    return TruthStatus.NO, str(ref)
+    steps = list(ref.get("lifecycle_steps") or [])
+    if "DETECT" not in steps or len(steps) < 8:
+        return TruthStatus.NO, str(ref)
+    return TruthStatus.YES, f"{len(steps)} steps"
 
 
 def _probe_no_parked() -> tuple[TruthStatus, str]:
     from launch57.financial_security_common import verify_launch57_security_scope
 
-    parked = verify_launch57_security_scope(999)
-    if parked["parked_contamination"] and not parked["in_launch57_scope"]:
-        return TruthStatus.YES, "parked rejected"
-    return TruthStatus.NO, str(parked)
+    for probe_id, want_in_scope in ((25, True), (999, False)):
+        parked = verify_launch57_security_scope(probe_id)
+        if parked["launch_item_id"] != probe_id or parked["in_launch57_scope"] != want_in_scope:
+            return TruthStatus.NO, str(parked)
+        if not want_in_scope and not parked["parked_contamination"]:
+            return TruthStatus.NO, str(parked)
+    return TruthStatus.YES, "parked rejected"
 
 
 def _probe_pass_live() -> tuple[TruthStatus, str]:

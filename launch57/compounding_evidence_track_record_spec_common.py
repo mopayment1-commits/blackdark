@@ -260,9 +260,16 @@ def _probe_lineage() -> tuple[TruthStatus, str]:
     from launch57.compounding_evidence_common import build_evidence_lineage_index
 
     idx = build_evidence_lineage_index()
-    if len(idx) >= 4:
+    required = {
+        "decision_to_certificate",
+        "certificate_to_outcome",
+        "decision_to_public_accuracy",
+        "provenance_freshness_to_decision",
+    }
+    found = {row.get("lineage_id") for row in idx}
+    if required <= found and all(row.get("launch57_only") for row in idx):
         return TruthStatus.YES, f"{len(idx)} links"
-    return TruthStatus.NO, str(len(idx))
+    return TruthStatus.NO, str(found)
 
 
 def _probe_touchpoints() -> tuple[TruthStatus, str]:

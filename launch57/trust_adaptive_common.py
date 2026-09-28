@@ -2395,22 +2395,13 @@ def apply_price_move_explanation_semantics(
     }
     inferences: list[dict[str, Any]] = []
     for reason in list(reasons_raw or []):
-        if reason in _PRICE_MOVE_INFERENCE_REASONS:
-            inferences.append(
-                {
-                    "reason": reason,
-                    "proposition_class": "inference",
-                    "presented_as_established_fact": False,
-                }
-            )
-        else:
-            inferences.append(
-                {
-                    "reason": reason,
-                    "proposition_class": "inference",
-                    "presented_as_established_fact": False,
-                }
-            )
+        inferences.append(
+            {
+                "reason": reason,
+                "proposition_class": "inference",
+                "presented_as_established_fact": False,
+            }
+        )
 
     if sentiment:
         inferences.append(

@@ -223,9 +223,11 @@ def _probe_ai() -> tuple[TruthStatus, str]:
     from launch57.failure_recovery_common import build_ai_failure_context
 
     ctx = build_ai_failure_context(evidence_intact=True, presentation_failed=True)
-    if ctx["preserve_non_ai_data"]:
-        return TruthStatus.YES, ctx["runtime_state"]
-    return TruthStatus.NO, str(ctx)
+    if not ctx.get("evidence_intact") or not ctx.get("presentation_failed"):
+        return TruthStatus.NO, str(ctx)
+    if ctx.get("runtime_state") != "DEGRADED":
+        return TruthStatus.NO, str(ctx)
+    return TruthStatus.YES, ctx["runtime_state"]
 
 
 def _probe_alert() -> tuple[TruthStatus, str]:
@@ -236,9 +238,16 @@ def _probe_alert() -> tuple[TruthStatus, str]:
         generation_time="2026-01-01T00:00:01Z",
         delivery_state="BLOCKED",
     )
-    if not ctx["decision_state_mutated"]:
-        return TruthStatus.YES, "isolated"
-    return TruthStatus.NO, str(ctx)
+    if ctx.get("decision_state_mutated"):
+        return TruthStatus.NO, str(ctx)
+    delivered = build_alert_delivery_failure_context(
+        trigger_time="2026-01-01T00:00:00Z",
+        generation_time="2026-01-01T00:00:01Z",
+        delivery_state="DELIVERED",
+    )
+    if delivered.get("decision_state_mutated"):
+        return TruthStatus.NO, str(delivered)
+    return TruthStatus.YES, "isolated"
 
 
 def _probe_entitlement() -> tuple[TruthStatus, str]:
@@ -298,10 +307,13 @@ def _probe_runtime() -> tuple[TruthStatus, str]:
 def _probe_no_parked() -> tuple[TruthStatus, str]:
     from launch57.failure_recovery_common import verify_launch57_failure_scope
 
-    parked = verify_launch57_failure_scope(999)
-    if parked["parked_contamination"] and not parked["in_launch57_scope"]:
-        return TruthStatus.YES, "parked rejected"
-    return TruthStatus.NO, str(parked)
+    for probe_id, want_in_scope in ((25, True), (999, False)):
+        parked = verify_launch57_failure_scope(probe_id)
+        if parked["launch_item_id"] != probe_id or parked["in_launch57_scope"] != want_in_scope:
+            return TruthStatus.NO, str(parked)
+        if not want_in_scope and not parked["parked_contamination"]:
+            return TruthStatus.NO, str(parked)
+    return TruthStatus.YES, "parked rejected"
 
 
 def _probe_legacy() -> tuple[TruthStatus, str]:
