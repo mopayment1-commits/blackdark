@@ -13,6 +13,10 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from governance.launch57.gov_io import write_artifact_json, write_artifact_lines
+from governance.launch57.public_artifact_sanitize import (
+    independent_verification_for_public_artifact,
+    spec12_final_status_for_public_artifact,
+)
 
 OUT = ROOT / "governance" / "launch57" / "SPEC_12_IDENTITY_AUTH_PROFILE"
 
@@ -126,17 +130,19 @@ def main() -> None:
 
     truth = build_runtime_truth_table()
     iv = independent_verification()
+    iv_public = independent_verification_for_public_artifact(iv)
 
     write_artifact_json((OUT / "REQUIREMENTS_REGISTER.json"), requirements)
     write_artifact_lines((OUT / "RUNTIME_TRUTH_TABLE.md"), _md_truth_table(truth).splitlines())
-    write_artifact_json((OUT / "INDEPENDENT_VERIFICATION.json"), {**iv, "generated_at": now})
+    write_artifact_json((OUT / "INDEPENDENT_VERIFICATION.json"), {**iv_public, "generated_at": now})
 
     tests = run_targeted_tests()
     status = build_final_status(tests=tests)
-    write_artifact_lines((OUT / "LOCAL_CLOSURE_REPORT.md"), _md_local_closure(status, iv, tests).splitlines())
-    status["tests"] = tests
-    status["generated_at"] = now
-    write_artifact_json((OUT / "FINAL_STATUS.json"), status)
+    write_artifact_lines((OUT / "LOCAL_CLOSURE_REPORT.md"), _md_local_closure(status, iv_public, tests).splitlines())
+    status_public = spec12_final_status_for_public_artifact(status)
+    status_public["tests"] = tests
+    status_public["generated_at"] = now
+    write_artifact_json((OUT / "FINAL_STATUS.json"), status_public)
 
     print(
         "Wrote",

@@ -15,6 +15,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from governance.launch57.gov_io import write_artifact_json, write_artifact_lines
+from governance.launch57.public_artifact_sanitize import financial_recon_for_public_artifact
 GOV = ROOT / "governance" / "launch57"
 
 RECON_PATH = GOV / "BLACKDARK_LAUNCH57_FINANCIAL_DATA_SECURITY_RECONCILIATION.json"
@@ -158,7 +159,7 @@ def main() -> None:
             "derivatives_alerts_boundary": "launch57/derivatives_common.py (#33)",
         },
     }
-    write_artifact_json(RECON_PATH, recon)
+    write_artifact_json(RECON_PATH, financial_recon_for_public_artifact(recon))
 
     engineering_pass = tests["passed"] and all(acceptance.values())
     iv = {
@@ -206,7 +207,7 @@ See `BLACKDARK_LAUNCH57_FINANCIAL_DATA_SECURITY_RECONCILIATION.json` → `sensit
 
 ## D. Secret inventory
 
-See reconciliation artifact → `secret_locations` (no secret values included).
+Secret-store paths are verified in-process only; path inventory is not published in reconciliation artifacts.
 
 ## E. Payment flow
 

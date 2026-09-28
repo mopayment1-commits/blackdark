@@ -1,7 +1,7 @@
 {
   "artifact": "SPEC_10_INDEPENDENT_VERIFICATION",
   "domain": "SPEC_10_FINANCIAL_DATA_SECRET_SECURITY",
-  "verification_sha": "c84aa93e2296ee4fc33f8b4cd0faac14351a1c6a",
+  "verification_sha": "7dd25b1c7679fdce6e4806e77286f2e74c3fcd23",
   "probe_count": 14,
   "passed_count": 14,
   "failed_count": 0,
@@ -15,12 +15,12 @@
     {
       "probe": "iv_leakage_scan_clean_after_redaction",
       "pass": true,
-      "detail": "{'leakage_detected': False, 'violation_count': 0, 'violations': [], 'ok': True}"
+      "detail": "internal_only"
     },
     {
       "probe": "iv_no_api_keys_in_client_html",
       "pass": true,
-      "detail": "['templates', 'static']"
+      "detail": "internal_only"
     },
     {
       "probe": "iv_bad_signature_fail_closed",
@@ -79,5 +79,5 @@
     }
   ],
   "PASS_LIVE_NOT_CLAIMED": true,
-  "generated_at": "2026-09-19T00:42:28.704093+00:00"
+  "generated_at": "2026-09-28T07:14:16.105342+00:00"
 }

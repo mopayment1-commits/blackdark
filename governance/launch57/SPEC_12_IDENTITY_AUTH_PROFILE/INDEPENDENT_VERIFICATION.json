@@ -1,7 +1,7 @@
 {
   "artifact": "SPEC_12_INDEPENDENT_VERIFICATION",
   "domain": "SPEC_12_IDENTITY_AUTH_PROFILE",
-  "verification_sha": "5078a804b98993522ef455722c98727b1bb37736",
+  "verification_sha": "7dd25b1c7679fdce6e4806e77286f2e74c3fcd23",
   "probe_count": 15,
   "passed_count": 15,
   "failed_count": 0,
@@ -45,7 +45,7 @@
     {
       "probe": "iv_password_not_logged",
       "pass": true,
-      "detail": "{'leakage_detected': True, 'password_redacted_in_log': True, 'ok': True}"
+      "detail": "internal_only"
     },
     {
       "probe": "iv_idor_profile_history_blocked",
@@ -84,5 +84,5 @@
     }
   ],
   "PASS_LIVE_NOT_CLAIMED": true,
-  "generated_at": "2026-09-19T01:07:44.860563+00:00"
+  "generated_at": "2026-09-28T07:14:35.101082+00:00"
 }

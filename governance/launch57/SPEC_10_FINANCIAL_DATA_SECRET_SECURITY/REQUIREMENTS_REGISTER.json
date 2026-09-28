@@ -1,7 +1,7 @@
 {
   "artifact": "SPEC_10_REQUIREMENTS_REGISTER",
   "domain": "SPEC_10_FINANCIAL_DATA_SECRET_SECURITY",
-  "generated_at": "2026-09-19T00:42:28.704093+00:00",
+  "generated_at": "2026-09-28T07:14:16.105342+00:00",
   "spec_version": "launch57-spec10-financial-data-secret-security-1.0.0",
   "requirement_count": 24,
   "requirements": [

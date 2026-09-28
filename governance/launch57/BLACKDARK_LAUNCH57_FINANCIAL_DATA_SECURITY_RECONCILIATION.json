@@ -1,8 +1,8 @@
 {
   "artifact": "BLACKDARK_LAUNCH57_FINANCIAL_DATA_SECURITY_RECONCILIATION",
-  "generated_at": "2026-09-18T14:21:39.468800+00:00",
-  "implementation_sha": "0e9c4547",
-  "baseline_sha": "34fb4b75fb31abff6e370d0309fca0c8e9e8d036389011a5ce3b78625c5ff199",
+  "generated_at": "2026-09-28T07:14:12.021557+00:00",
+  "implementation_sha": "7dd25b1c",
+  "baseline_sha": "unknown",
   "financial_security_version": "launch57-financial-security-1.0.0",
   "scope": "LAUNCH57_IDS",
   "internal_support_only": true,
@@ -48,41 +48,6 @@
       "class_id": "INTERNAL_AUDIT",
       "policy": "ROLE_PURPOSE_LIMITED",
       "launch57_applicable": true
-    }
-  ],
-  "secret_locations": [
-    {
-      "secret_class": "exchange_api",
-      "storage": "environment_secret_manager",
-      "in_source_code": false,
-      "in_frontend": false,
-      "launch57_capabilities": [
-        42,
-        43
-      ]
-    },
-    {
-      "secret_class": "webhook_signing",
-      "storage": "environment_secret_manager",
-      "in_source_code": false,
-      "verification": "transport_webhook_env",
-      "launch57_capabilities": [],
-      "note": "Billing path; not Launch-57 product surface"
-    },
-    {
-      "secret_class": "telegram_delivery",
-      "storage": "environment_variables",
-      "in_source_code": false,
-      "launch57_capabilities": [
-        33
-      ],
-      "blocked_without_config": true
-    },
-    {
-      "secret_class": "payment_provider",
-      "storage": "environment_secret_manager",
-      "in_source_code": false,
-      "production_verification": "NEEDS_EXTERNAL_VERIFICATION"
     }
   ],
   "violations": [],
@@ -144,7 +109,7 @@
       "launch_surface": false,
       "standalone_capability": false,
       "evidence_class": "INTERNAL_SUPPORT_ONLY",
-      "source_sha": "0e9c4547",
+      "source_sha": "7dd25b1c",
       "financial_security_version": "launch57-financial-security-1.0.0"
     },
     {
@@ -160,7 +125,7 @@
       "launch_surface": false,
       "standalone_capability": false,
       "evidence_class": "INTERNAL_SUPPORT_ONLY",
-      "source_sha": "0e9c4547",
+      "source_sha": "7dd25b1c",
       "financial_security_version": "launch57-financial-security-1.0.0"
     },
     {
@@ -178,7 +143,7 @@
       "launch_surface": false,
       "standalone_capability": false,
       "evidence_class": "INTERNAL_SUPPORT_ONLY",
-      "source_sha": "0e9c4547",
+      "source_sha": "7dd25b1c",
       "financial_security_version": "launch57-financial-security-1.0.0"
     },
     {
@@ -193,7 +158,7 @@
       "launch_surface": false,
       "standalone_capability": false,
       "evidence_class": "INTERNAL_SUPPORT_ONLY",
-      "source_sha": "0e9c4547",
+      "source_sha": "7dd25b1c",
       "financial_security_version": "launch57-financial-security-1.0.0"
     },
     {
@@ -210,7 +175,7 @@
       "standalone_capability": false,
       "evidence_class": "INTERNAL_SUPPORT_ONLY",
       "reuse_only": true,
-      "source_sha": "0e9c4547",
+      "source_sha": "7dd25b1c",
       "financial_security_version": "launch57-financial-security-1.0.0"
     },
     {
@@ -242,7 +207,7 @@
       "standalone_capability": false,
       "evidence_class": "INTERNAL_SUPPORT_ONLY",
       "reuse_only": true,
-      "source_sha": "0e9c4547",
+      "source_sha": "7dd25b1c",
       "financial_security_version": "launch57-financial-security-1.0.0"
     }
   ],
@@ -266,7 +231,13 @@
     "ac17_incident_path_exists": true,
     "ac18_security_tests_pass": true,
     "ac19_independent_verification_separate": true,
-    "ac20_no_false_pass_live": true
+    "ac20_no_false_pass_live": true,
+    "runtime_paths_wired": true,
+    "file02_file03_aligned": true,
+    "webhook_bad_signature_fail_closed": true,
+    "no_api_keys_in_client": true,
+    "idor_entitlement_spoof_blocked": true,
+    "secret_hygiene_ok": true
   },
   "acceptance_all_pass": true,
   "capability_findings": [

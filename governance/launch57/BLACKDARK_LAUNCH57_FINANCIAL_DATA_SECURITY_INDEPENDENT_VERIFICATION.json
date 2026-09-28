@@ -1,9 +1,9 @@
 {
   "artifact": "BLACKDARK_LAUNCH57_FINANCIAL_DATA_SECURITY_INDEPENDENT_VERIFICATION",
   "verification_type": "engineering_closure",
-  "verified_at": "2026-09-18T14:21:39.468800+00:00",
-  "implementation_sha": "0e9c4547",
-  "baseline_sha": "34fb4b75fb31abff6e370d0309fca0c8e9e8d036389011a5ce3b78625c5ff199",
+  "verified_at": "2026-09-28T07:14:12.021557+00:00",
+  "implementation_sha": "7dd25b1c",
+  "baseline_sha": "unknown",
   "verdict": "PASS_ENGINEERING",
   "LAUNCH57_FINANCIAL_DATA_SECURITY_PASS_ENGINEERING": true,
   "LAUNCH57_FINANCIAL_DATA_SECURITY_READY_FOR_LOCAL_USE": true,

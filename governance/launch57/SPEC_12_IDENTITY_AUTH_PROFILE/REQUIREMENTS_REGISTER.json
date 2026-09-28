@@ -1,7 +1,7 @@
 {
   "artifact": "SPEC_12_REQUIREMENTS_REGISTER",
   "domain": "SPEC_12_IDENTITY_AUTH_PROFILE",
-  "generated_at": "2026-09-19T01:07:44.860563+00:00",
+  "generated_at": "2026-09-28T07:14:35.101082+00:00",
   "spec_version": "launch57-spec12-identity-auth-profile-1.0.0",
   "requirement_count": 24,
   "requirements": [

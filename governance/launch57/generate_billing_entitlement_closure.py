@@ -15,6 +15,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from governance.launch57.gov_io import write_artifact_json, write_artifact_lines
+from governance.launch57.public_artifact_sanitize import billing_recon_for_public_artifact
 GOV = ROOT / "governance" / "launch57"
 
 RECON_PATH = GOV / "BLACKDARK_LAUNCH57_BILLING_ENTITLEMENT_RECONCILIATION.json"
@@ -154,7 +155,7 @@ def main() -> None:
             "financial_security": "launch57/financial_security_common.py",
         },
     }
-    write_artifact_json(RECON_PATH, recon)
+    write_artifact_json(RECON_PATH, billing_recon_for_public_artifact(recon))
 
     engineering_pass = tests["passed"] and all(acceptance.values())
     iv = {

@@ -2,10 +2,10 @@
 
 ## Verdict
 
-- **closure_status**: `CLOSED_LOCAL`
-- **PASS_ENGINEERING**: True
-- **LOCAL_INSTITUTIONAL_CLOSURE**: True
-- **LOCAL_WORK_REMAINING**: 0
+- **closure_status**: `NOT_CLOSED`
+- **PASS_ENGINEERING**: False
+- **LOCAL_INSTITUTIONAL_CLOSURE**: False
+- **LOCAL_WORK_REMAINING**: 1
 - **PASS_LIVE**: False (must remain false)
 - **LIVE_VALIDATION_PENDING**: True
 
@@ -15,10 +15,9 @@ Financial Data Secret Security — Launch-57 FILE 10 only.
 
 ## Builder
 
-- SHA: `c84aa93e2296ee4fc33f8b4cd0faac14351a1c6a`
-- Builder status: `PASS_ENGINEERING`
+- SHA: `7dd25b1c7679fdce6e4806e77286f2e74c3fcd23`
+- Builder status: `PENDING_VERIFICATION`
 - Runtime truth YES: 24/24
-- `secret_hygiene_ok`: True
 - `launch57_only_ok`: True
 
 ## Independent Verification
@@ -31,18 +30,21 @@ Financial Data Secret Security — Launch-57 FILE 10 only.
 
 ```
 python3 -m pytest tests/launch57/test_spec10_financial_data_secret_security.py tests/launch57/test_financial_security.py tests/launch57/test_spec02_anonymous_visitor_public_intelligence.py tests/launch57/test_spec03_billing_subscription_entitlement.py -k not test_spec10_artifact_paths_exist -q --tb=no
-exit_code=0
-ncial_data_secret_security.py::test_runtime_truth_all_yes
-  /home/ubuntu/.local/lib/python3.12/site-packages/fastapi/openapi/utils.py:303: UserWarning: Duplicate Operation ID storage_legacy_purge_api_storage_legacy_purge_get for function storage_legacy_purge at /workspace/dashboard.py
-    warnings.warn(message, stacklevel=1)
-
--- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+exit_code=1
+_spec02_anonymous_visitor_public_intelligence.py::test_landing_uses_guest_trust_not_command_home
+FAILED tests/launch57/test_spec02_anonymous_visitor_public_intelligence.py::test_runtime_truth_all_yes
+FAILED tests/launch57/test_spec03_billing_subscription_entitlement.py::test_runtime_truth_all_yes
+FAILED tests/launch57/test_spec03_billing_subscription_entitlement.py::test_final_status_closed_local
 
 ```
 
 ## Local engineering gaps
 
-- None
+- **P0** `TESTS` — targeted test suite: _spec02_anonymous_visitor_public_intelligence.py::test_landing_uses_guest_trust_not_command_home
+FAILED tests/launch57/test_spec02_anonymous_visitor_public_intelligence.py::test_runtime_truth_all_yes
+FAILED tests/launch57/test_spec03_billing_subscription_entitlement.py::test_runtime_truth_all_yes
+FAILED tests/launch57/test_spec03_billing_subscription_entitlement.py::test_final_status_closed_local
+
 
 ## Live blockers only (external)
 

@@ -1,9 +1,8 @@
 {
   "artifact": "BLACKDARK_LAUNCH57_BILLING_ENTITLEMENT_RECONCILIATION",
-  "generated_at": "2026-09-18T14:54:00.437910+00:00",
-  "implementation_sha": "eb123361",
-  "baseline_sha": "cb30a0ad073f9cf52dde0a5b18cd4353ecc21eb045e73fb84c5e7c65969f67ef",
-  "billing_entitlement_version": "launch57-billing-entitlement-1.0.0",
+  "generated_at": "2026-09-28T07:14:02.253111+00:00",
+  "implementation_sha": "7dd25b1c",
+  "baseline_sha": "unknown",
   "scope": "LAUNCH57_IDS",
   "internal_support_only": true,
   "governing_spec": "BLACKDARK_Launch57_Billing_Subscription_Entitlement_FROM_SCRATCH_SPEC(4).md",
@@ -30,7 +29,7 @@
     "plan_count": 5,
     "price_minor_units": {
       "free": 0,
-      "pro": 1900,
+      "pro": 2900,
       "elite": 4900,
       "quant": 19900,
       "institutional": 0
@@ -101,219 +100,6 @@
       "detail": "Production tax configuration"
     }
   ],
-  "internal_components": [
-    {
-      "component_id": "canonical_plan_registry",
-      "owner_path": "billing/plan_registry.py (reused)",
-      "consumer_capability_ids": [
-        32,
-        33,
-        49,
-        50,
-        51,
-        52,
-        46
-      ],
-      "launch_scope": "LAUNCH57",
-      "launch_surface": false,
-      "standalone_capability": false,
-      "evidence_class": "INTERNAL_SUPPORT_ONLY",
-      "reuse_only": true,
-      "source_sha": "eb123361",
-      "billing_entitlement_version": "launch57-billing-entitlement-1.0.0"
-    },
-    {
-      "component_id": "subscription_engine",
-      "owner_path": "billing/subscription_engine.py (reused)",
-      "consumer_capability_ids": [
-        32,
-        33,
-        49,
-        50,
-        51,
-        52,
-        46
-      ],
-      "launch_scope": "LAUNCH57",
-      "launch_surface": false,
-      "standalone_capability": false,
-      "evidence_class": "INTERNAL_SUPPORT_ONLY",
-      "reuse_only": true,
-      "source_sha": "eb123361",
-      "billing_entitlement_version": "launch57-billing-entitlement-1.0.0"
-    },
-    {
-      "component_id": "webhook_pipeline",
-      "owner_path": "transport_webhook_env/webhook_lifecycle.py + billing/webhook_processor.py (reused)",
-      "consumer_capability_ids": [
-        32,
-        33,
-        49,
-        50,
-        51,
-        52,
-        46
-      ],
-      "launch_scope": "LAUNCH57",
-      "launch_surface": false,
-      "standalone_capability": false,
-      "evidence_class": "INTERNAL_SUPPORT_ONLY",
-      "reuse_only": true,
-      "source_sha": "eb123361",
-      "billing_entitlement_version": "launch57-billing-entitlement-1.0.0"
-    },
-    {
-      "component_id": "event_ordering_guard",
-      "owner_path": "billing/event_ordering.py (reused)",
-      "consumer_capability_ids": [
-        32,
-        33,
-        49,
-        50,
-        51,
-        52,
-        46
-      ],
-      "launch_scope": "LAUNCH57",
-      "launch_surface": false,
-      "standalone_capability": false,
-      "evidence_class": "INTERNAL_SUPPORT_ONLY",
-      "reuse_only": true,
-      "source_sha": "eb123361",
-      "billing_entitlement_version": "launch57-billing-entitlement-1.0.0"
-    },
-    {
-      "component_id": "billing_governance",
-      "owner_path": "governance/billing_governance.py (reused)",
-      "consumer_capability_ids": [
-        32,
-        33,
-        49,
-        50,
-        51,
-        52,
-        46
-      ],
-      "launch_scope": "LAUNCH57",
-      "launch_surface": false,
-      "standalone_capability": false,
-      "evidence_class": "INTERNAL_SUPPORT_ONLY",
-      "reuse_only": true,
-      "source_sha": "eb123361",
-      "billing_entitlement_version": "launch57-billing-entitlement-1.0.0"
-    },
-    {
-      "component_id": "payment_security_reference",
-      "owner_path": "launch57/financial_security_common.py (reused)",
-      "consumer_capability_ids": [
-        32,
-        33,
-        49,
-        50,
-        51,
-        52,
-        46
-      ],
-      "launch_scope": "LAUNCH57",
-      "launch_surface": false,
-      "standalone_capability": false,
-      "evidence_class": "INTERNAL_SUPPORT_ONLY",
-      "reuse_only": true,
-      "source_sha": "eb123361",
-      "billing_entitlement_version": "launch57-billing-entitlement-1.0.0"
-    },
-    {
-      "component_id": "launch57_billing_envelope",
-      "owner_path": "launch57/billing_entitlement_common.py",
-      "consumer_capability_ids": [
-        32,
-        33,
-        49,
-        50,
-        51,
-        52,
-        46
-      ],
-      "launch_scope": "LAUNCH57",
-      "launch_surface": false,
-      "standalone_capability": false,
-      "evidence_class": "INTERNAL_SUPPORT_ONLY",
-      "source_sha": "eb123361",
-      "billing_entitlement_version": "launch57-billing-entitlement-1.0.0"
-    }
-  ],
-  "billing_touchpoint_matrix": [
-    {
-      "launch_item_id": 32,
-      "billing_control": "watchlists_tier_variables",
-      "wired": true,
-      "tier_variables": {
-        "watchlist_limit": 25,
-        "variable": "watchlist_count"
-      },
-      "launch57_only": true
-    },
-    {
-      "launch_item_id": 33,
-      "billing_control": "smart_alerts_tier_gated",
-      "wired": true,
-      "tier_variables": {
-        "alert_channels": "tier_gated",
-        "variable": "alert_delivery"
-      },
-      "launch57_only": true
-    },
-    {
-      "launch_item_id": 46,
-      "billing_control": "guest_visitor_tier_gating",
-      "wired": true,
-      "tier_variables": {
-        "visitor_tier_gating": true,
-        "variable": "public_trust_surface"
-      },
-      "launch57_only": true
-    },
-    {
-      "launch_item_id": 49,
-      "billing_control": "personal_history_free_limit",
-      "wired": true,
-      "tier_variables": {
-        "history_depth": "free_limited",
-        "variable": "history_rows"
-      },
-      "launch57_only": true
-    },
-    {
-      "launch_item_id": 50,
-      "billing_control": "discipline_mirror_tier",
-      "wired": true,
-      "tier_variables": {
-        "mirror_depth": 20,
-        "variable": "discipline_mirror_rows"
-      },
-      "launch57_only": true
-    },
-    {
-      "launch_item_id": 51,
-      "billing_control": "research_portal_tier",
-      "wired": true,
-      "tier_variables": {
-        "research_depth": "tier_gated",
-        "variable": "research_queries"
-      },
-      "launch57_only": true
-    },
-    {
-      "launch_item_id": 52,
-      "billing_control": "capability_library_search",
-      "wired": true,
-      "tier_variables": {
-        "search_depth": "public",
-        "variable": "library_search"
-      },
-      "launch57_only": true
-    }
-  ],
   "acceptance_criteria_49": {
     "ac01_free_no_paid_subscription": true,
     "ac02_paid_requires_verified_evidence": true,
@@ -332,13 +118,13 @@
     "ac15_manual_override_audited": true,
     "ac16_payment_security_respected": true,
     "ac17_institutional_contract_aware": true,
-    "ac18_tests_pass": true,
+    "ac18_tests_pass": false,
     "ac19_independent_verification_separate": true,
     "ac20_no_false_pass_live": true,
     "unsigned_webhook_blocked": true,
     "billing_governance_wired": true
   },
-  "acceptance_all_pass": true,
+  "acceptance_all_pass": false,
   "subscription_engine": {
     "billing_state_separate_from_entitlement": true,
     "effective_plan": "billing.subscription_engine.effective_plan",
@@ -349,20 +135,10 @@
     "launch57_reference_only": true,
     "owner_path": "billing/subscription_engine.py"
   },
-  "webhook_pipeline": {
-    "durable_inbox": "transport_webhook_env.webhook_lifecycle.process_verified_webhook",
-    "signature_verification": true,
-    "idempotent_processing": true,
-    "event_processor": "billing/webhook_processor.py",
-    "ordering_guard": "billing/event_ordering.py",
-    "webhook_to_tier_shortcut": "FORBIDDEN",
-    "redirect_to_tier_shortcut": "FORBIDDEN",
-    "launch57_reference_only": true
-  },
   "billing_governance": {
-    "billing_configured": false,
-    "provider": "none",
-    "stripe_configured": false,
+    "billing_configured": true,
+    "provider": "stripe",
+    "stripe_configured": true,
     "plans_ok": true,
     "self_serve_plans": [
       "pro",

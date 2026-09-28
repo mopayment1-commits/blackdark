@@ -5,7 +5,7 @@
 | REQ-S12-001 | §2 | **YES** | LAUNCH57_IDS_ONLY |
 | REQ-S12-002 | §3 | **YES** | user_id immutable |
 | REQ-S12-003 | §6 | **YES** | pbkdf2_sha256 |
-| REQ-S12-004 | §4 | **YES** | 4 methods |
+| REQ-S12-004 | §4 | **YES** | 5 methods |
 | REQ-S12-005 | §13 | **YES** | email verification enabled |
 | REQ-S12-006 | §16 | **YES** | password reset enabled |
 | REQ-S12-007 | §19 | **YES** | httponly samesite=lax |

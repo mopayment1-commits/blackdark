@@ -1,8 +1,8 @@
 # BLACKDARK Launch-57 Financial Data & Secret Security Report
 
-**Generated:** 2026-09-18T14:21:39.468800+00:00  
-**Implementation SHA:** `0e9c4547`  
-**Baseline SHA:** `34fb4b75fb31abff6e370d0309fca0c8e9e8d036389011a5ce3b78625c5ff199`  
+**Generated:** 2026-09-28T07:14:12.021557+00:00  
+**Implementation SHA:** `7dd25b1c`  
+**Baseline SHA:** `unknown`  
 **Scope:** Launch-57 cross-cutting security baseline (INTERNAL_SUPPORT_ONLY)
 
 ## A. Executive status
@@ -11,7 +11,7 @@ Financial data & secret security engineering closure is **COMPLETE**. `PASS_LIVE
 
 ## B. Baseline SHA
 
-`34fb4b75fb31abff6e370d0309fca0c8e9e8d036389011a5ce3b78625c5ff199`
+`unknown`
 
 ## C. Sensitive-data inventory
 
@@ -19,7 +19,7 @@ See `BLACKDARK_LAUNCH57_FINANCIAL_DATA_SECURITY_RECONCILIATION.json` → `sensit
 
 ## D. Secret inventory
 
-See reconciliation artifact → `secret_locations` (no secret values included).
+Secret-store paths are verified in-process only; path inventory is not published in reconciliation artifacts.
 
 ## E. Payment flow
 
