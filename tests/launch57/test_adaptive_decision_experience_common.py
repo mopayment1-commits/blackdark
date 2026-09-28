@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import launch57.adaptive_decision_experience_common as adaptive_decision_experience_common
 from launch57.adaptive_decision_experience_common import (
     DOMAIN,
     TruthStatus,
@@ -10,7 +11,13 @@ from launch57.adaptive_decision_experience_common import (
     build_runtime_truth_table,
     compute_local_gaps,
     independent_verification,
+    run_targeted_tests,
 )
+
+
+def test_module_import_path_is_production_package():
+    assert adaptive_decision_experience_common.__name__ == "launch57.adaptive_decision_experience_common"
+    assert adaptive_decision_experience_common.DOMAIN == "SPEC_01_ADAPTIVE_DECISION_EXPERIENCE"
 
 
 def test_build_requirements_register_spec01():
@@ -52,3 +59,54 @@ def test_build_final_status_skip_tests():
     assert status["LIVE_VALIDATION_PENDING"] is True
     assert "PASS_ENGINEERING" in status
     assert status["LOCAL_ENGINEERING_GAP_COUNT"] == status["LOCAL_WORK_REMAINING"]
+
+
+def test_resolve_spec_path_and_register_rows():
+    path = adaptive_decision_experience_common._resolve_spec_path()
+    assert path is None or path.exists()
+    rows = adaptive_decision_experience_common._register_rows()
+    assert isinstance(rows, list)
+
+
+def test_compute_local_gaps_truth_iv_and_test_branches(monkeypatch):
+    monkeypatch.setattr(
+        adaptive_decision_experience_common,
+        "build_runtime_truth_table",
+        lambda: [
+            {
+                "req_id": "REQ-S01-011",
+                "title": "gap",
+                "status": TruthStatus.NO.value,
+                "evidence": "forced",
+            }
+        ],
+    )
+    gaps = compute_local_gaps(
+        tests={"passed": False, "summary": "failed"},
+        iv={
+            "INDEPENDENT_VERIFICATION_PASS": False,
+            "probes": [{"probe": "x", "pass": False, "detail": "iv fail"}],
+        },
+        include_tests=True,
+    )
+    assert any(g["req_id"] == "REQ-S01-011" for g in gaps)
+    assert any(g["req_id"] == "IV" for g in gaps)
+    assert any(g["req_id"] == "TESTS" for g in gaps)
+
+
+def test_run_targeted_tests_invokes_real_pytest_suite(monkeypatch):
+    captured: dict[str, str] = {}
+
+    def fake_run(cmd, cwd=None, capture_output=True, text=True):
+        captured["cmd"] = " ".join(cmd)
+        class R:
+            returncode = 0
+            stdout = "1 passed"
+            stderr = ""
+
+        return R()
+
+    monkeypatch.setattr(adaptive_decision_experience_common.subprocess, "run", fake_run)
+    out = run_targeted_tests()
+    assert out["passed"] is True
+    assert "pytest" in captured["cmd"]
