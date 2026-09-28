@@ -13,11 +13,6 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from governance.launch57.gov_io import write_artifact_json
-from governance.launch57.literal_closure_documents import (
-    billing_iv_not_complete_public_document,
-    billing_iv_public_document,
-    billing_recon_public_document,
-)
 
 GOV = ROOT / "governance" / "launch57"
 RECON_PATH = GOV / "BLACKDARK_LAUNCH57_BILLING_ENTITLEMENT_RECONCILIATION.json"
@@ -53,27 +48,52 @@ def main(argv: list[str] | None = None) -> None:
     now = datetime.now(UTC).isoformat()
     implementation_sha = _git_sha()
     baseline_sha = _spec_sha()
+
     write_artifact_json(
         RECON_PATH,
-        billing_recon_public_document(
-            generated_at=now,
-            implementation_sha=implementation_sha,
-            baseline_sha=baseline_sha,
-        ),
+        {
+            "artifact": "BLACKDARK_LAUNCH57_BILLING_SUBSCRIPTION_RECONCILIATION",
+            "generated_at": now,
+            "implementation_sha": implementation_sha,
+            "baseline_sha": baseline_sha,
+            "scope": "LAUNCH57_IDS",
+            "launch57_support_only": True,
+            "outcome": outcome,
+        },
     )
+
     if outcome == "pass":
-        iv_doc = billing_iv_public_document(
-            verified_at=now,
-            implementation_sha=implementation_sha,
-            baseline_sha=baseline_sha,
+        write_artifact_json(
+            IV_PATH,
+            {
+                "artifact": "BLACKDARK_LAUNCH57_BILLING_INDEPENDENT_VERIFICATION",
+                "verification_type": "engineering_closure",
+                "verified_at": now,
+                "implementation_sha": implementation_sha,
+                "baseline_sha": baseline_sha,
+                "verdict": "PASS_ENGINEERING",
+                "launch57_billing_engineering_pass": True,
+                "launch57_billing_ready_for_local_use": True,
+                "pass_live_not_claimed": True,
+                "outcome": "pass",
+            },
         )
     else:
-        iv_doc = billing_iv_not_complete_public_document(
-            verified_at=now,
-            implementation_sha=implementation_sha,
-            baseline_sha=baseline_sha,
+        write_artifact_json(
+            IV_PATH,
+            {
+                "artifact": "BLACKDARK_LAUNCH57_BILLING_INDEPENDENT_VERIFICATION",
+                "verification_type": "engineering_closure",
+                "verified_at": now,
+                "implementation_sha": implementation_sha,
+                "baseline_sha": baseline_sha,
+                "verdict": "NOT_COMPLETE",
+                "launch57_billing_engineering_pass": False,
+                "launch57_billing_ready_for_local_use": False,
+                "pass_live_not_claimed": True,
+                "outcome": "fail",
+            },
         )
-    write_artifact_json(IV_PATH, iv_doc)
 
 
 if __name__ == "__main__":
