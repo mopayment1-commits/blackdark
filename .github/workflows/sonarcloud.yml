@@ -114,9 +114,11 @@ jobs:
             tests/test_pre_launch_governance_spine.py \
             tests/test_governing_specs_11_full.py \
             tests/cap646/test_batch_range_dedicated.py \
+            tests/launch57/test_generate_phase8_launch_coherence.py \
             -q --tb=line \
             --cov-config=.coveragerc-sonar \
             --cov \
+            --cov=governance/launch57 \
             --cov-report=xml:coverage.xml \
             --cov-report=term-missing:skip-covered \
             --cov-fail-under=0
