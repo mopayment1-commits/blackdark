@@ -132,6 +132,29 @@ jobs:
             tests/test_fds_production_external_assurance_boundary.py \
             tests/test_fds_full_spec_final_reconciliation.py \
             tests/test_fds_secrets_crypto_audit_identity.py \
+            tests/launch57/test_temporal_batch15.py \
+            tests/test_capability_provenance_contract.py \
+            tests/launch57/test_spec13_temporal_evidence_intelligence_support_layer.py \
+            tests/test_data_governance_p0_test_matrix.py \
+            tests/launch57/test_spec01_adaptive_decision_experience.py \
+            tests/test_d01_data_state.py \
+            tests/test_war_room_extension_registry.py \
+            tests/launch57/test_temporal_batch13.py \
+            tests/test_decision_truth_p6_cross_cutting.py \
+            tests/test_pdf_capability_registry.py \
+            tests/test_billing_subscription_engine.py \
+            tests/test_technical_due_diligence.py \
+            tests/cap646/test_soft_launch_closure.py \
+            tests/launch57/test_trust_adaptive_common.py \
+            tests/launch57/test_signup_page.py \
+            tests/cap646/test_batch03_prep_dedicated.py \
+            tests/test_institutional_compounding.py \
+            tests/test_codeql_ssrf_log_safety.py \
+            tests/cap646/test_cap978_closure.py \
+            tests/test_auth_identity_profile.py \
+            tests/test_brand_coverage_radical_closure.py \
+            tests/launch57/test_derivatives_batch1.py \
+            tests/test_heroes_quality_polish.py \
             -q --tb=line \
             --cov-config=.coveragerc-sonar \
             --cov \
