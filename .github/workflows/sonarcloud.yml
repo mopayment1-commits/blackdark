@@ -130,6 +130,8 @@ jobs:
             tests/launch57/test_spec02_anonymous_visitor_public_intelligence.py \
             tests/launch57/test_spec03_billing_subscription_entitlement.py \
             tests/test_fds_production_external_assurance_boundary.py \
+            tests/test_fds_full_spec_final_reconciliation.py \
+            tests/test_fds_secrets_crypto_audit_identity.py \
             -q --tb=line \
             --cov-config=.coveragerc-sonar \
             --cov \
