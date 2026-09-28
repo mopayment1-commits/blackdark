@@ -16,6 +16,7 @@ from enum import Enum
 from pathlib import Path
 from typing import Any
 
+from launch57 import spec_closure_helpers as _spec_helpers
 SPEC04_VERSION = "launch57-spec04-capability-library-1.0.0"
 DOMAIN = "SPEC_04_CAPABILITY_LIBRARY"
 
@@ -50,40 +51,6 @@ class Requirement:
     launch_ids: tuple[int, ...]
     owner_modules: tuple[str, ...]
     tests: tuple[str, ...]
-
-
-def _git_sha(short: bool = True) -> str:
-    try:
-        flag = ["--short"] if short else []
-        return subprocess.check_output(
-            ["git", "rev-parse", *flag, "HEAD"], cwd=_ROOT, text=True
-        ).strip()
-    except Exception:
-        return "unknown"
-
-
-def _git_branch() -> str:
-    try:
-        return subprocess.check_output(
-            ["git", "rev-parse", "--abbrev-ref", "HEAD"], cwd=_ROOT, text=True
-        ).strip()
-    except Exception:
-        return "unknown"
-
-
-def _resolve_spec_path() -> Path | None:
-    for path in _SPEC_CANDIDATES:
-        if path.exists():
-            return path
-    return None
-
-
-def _http_client():
-    from starlette.testclient import TestClient
-
-    from dashboard import app
-
-    return TestClient(app, raise_server_exceptions=False)
 
 
 def build_requirements_register() -> list[dict[str, Any]]:
@@ -323,7 +290,7 @@ def _probe_evidence_honesty() -> tuple[TruthStatus, str]:
 
 
 def _probe_api_routes() -> tuple[TruthStatus, str]:
-    client = _http_client()
+    client = _spec_helpers.http_client()
     search = client.get("/api/launch57/capability-library", params={"q": "oracle"})
     detail = client.get("/api/launch57/capability-library/4")
     compare = client.get("/api/launch57/capability-library/compare", params={"compare": "4,5"})
@@ -391,39 +358,13 @@ _PROBE_BY_REQ: dict[str, Any] = {
 
 
 def build_runtime_truth_table() -> list[dict[str, Any]]:
-    rows = []
-    for req in build_requirements_register():
-        rid = req["req_id"]
-        probe = _PROBE_BY_REQ.get(rid)
-        if probe:
-            status, evidence = probe()
-        else:
-            status, evidence = TruthStatus.PARTIAL, "no automated probe"
-        rows.append(
-            {
-                "req_id": rid,
-                "title": req["title"],
-                "spec_section": req["spec_section"],
-                "status": status.value,
-                "evidence": evidence,
-                "owner_modules": req["owner_modules"],
-                "tests": req["tests"],
-            }
-        )
-    return rows
+    return _spec_helpers.build_runtime_truth_table(
+        build_requirements_register, _PROBE_BY_REQ, TruthStatus
+    )
 
 
 def run_targeted_tests() -> dict[str, Any]:
-    cmd = ["python3", "-m", "pytest", *_TARGETED_TESTS, "-q", "--tb=no"]
-    proc = subprocess.run(cmd, cwd=_ROOT, capture_output=True, text=True)
-    tail = (proc.stdout or "") + (proc.stderr or "")
-    passed_line = [ln for ln in tail.splitlines() if "passed" in ln]
-    return {
-        "command": " ".join(cmd),
-        "exit_code": proc.returncode,
-        "passed": proc.returncode == 0,
-        "summary": passed_line[-1] if passed_line else tail[-400:],
-    }
+    return _spec_helpers.run_targeted_pytest(_ROOT, _TARGETED_TESTS)
 
 
 def independent_verification() -> dict[str, Any]:
@@ -432,7 +373,7 @@ def independent_verification() -> dict[str, Any]:
     def record(name: str, ok: bool, detail: str) -> None:
         probes.append({"probe": name, "pass": ok, "detail": detail})
 
-    client = _http_client()
+    client = _spec_helpers.http_client()
 
     search_res = client.get("/api/launch57/capability-library")
     search_body = search_res.json() if search_res.status_code == 200 else {}
@@ -509,7 +450,7 @@ def independent_verification() -> dict[str, Any]:
     return {
         "artifact": "SPEC_04_INDEPENDENT_VERIFICATION",
         "domain": DOMAIN,
-        "verification_sha": _git_sha(short=False),
+        "verification_sha": _spec_helpers.git_sha(_ROOT, short=False),
         "probe_count": len(probes),
         "passed_count": passed,
         "failed_count": len(probes) - passed,
@@ -602,9 +543,9 @@ def build_final_status(*, skip_tests: bool = False, tests: dict[str, Any] | None
         "artifact": "SPEC_04_FINAL_STATUS",
         "domain": DOMAIN,
         "spec_version": SPEC04_VERSION,
-        "governing_spec": str(_resolve_spec_path() or "uploads/BLACKDARK_Launch57_Capability_Library_FROM_SCRATCH_SPEC"),
-        "final_sha": _git_sha(short=False),
-        "branch": _git_branch(),
+        "governing_spec": str(_spec_helpers.resolve_spec_path(_SPEC_CANDIDATES) or "uploads/BLACKDARK_Launch57_Capability_Library_FROM_SCRATCH_SPEC"),
+        "final_sha": _spec_helpers.git_sha(_ROOT, short=False),
+        "branch": _spec_helpers.git_branch(_ROOT),
         "PASS_ENGINEERING": pass_engineering,
         "LOCAL_INSTITUTIONAL_CLOSURE": pass_engineering,
         "LOCAL_WORK_REMAINING": local_gap_count,

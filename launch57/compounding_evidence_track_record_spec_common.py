@@ -15,6 +15,7 @@ from enum import Enum
 from pathlib import Path
 from typing import Any
 
+from launch57 import spec_closure_helpers as _spec_helpers
 SPEC06_VERSION = "launch57-spec06-compounding-evidence-track-record-1.0.0"
 DOMAIN = "SPEC_06_COMPOUNDING_EVIDENCE_TRACK_RECORD"
 
@@ -55,40 +56,6 @@ class Requirement:
     launch_ids: tuple[int, ...]
     owner_modules: tuple[str, ...]
     tests: tuple[str, ...]
-
-
-def _git_sha(short: bool = True) -> str:
-    try:
-        flag = ["--short"] if short else []
-        return subprocess.check_output(
-            ["git", "rev-parse", *flag, "HEAD"], cwd=_ROOT, text=True
-        ).strip()
-    except Exception:
-        return "unknown"
-
-
-def _git_branch() -> str:
-    try:
-        return subprocess.check_output(
-            ["git", "rev-parse", "--abbrev-ref", "HEAD"], cwd=_ROOT, text=True
-        ).strip()
-    except Exception:
-        return "unknown"
-
-
-def _resolve_spec_path() -> Path | None:
-    for path in _SPEC_CANDIDATES:
-        if path.exists():
-            return path
-    return None
-
-
-def _http_client():
-    from starlette.testclient import TestClient
-
-    from dashboard import app
-
-    return TestClient(app, raise_server_exceptions=False)
 
 
 def build_requirements_register() -> list[dict[str, Any]]:
@@ -391,39 +358,13 @@ _PROBE_BY_REQ: dict[str, Any] = {
 
 
 def build_runtime_truth_table() -> list[dict[str, Any]]:
-    rows = []
-    for req in build_requirements_register():
-        rid = req["req_id"]
-        probe = _PROBE_BY_REQ.get(rid)
-        if probe:
-            status, evidence = probe()
-        else:
-            status, evidence = TruthStatus.PARTIAL, "no automated probe"
-        rows.append(
-            {
-                "req_id": rid,
-                "title": req["title"],
-                "spec_section": req["spec_section"],
-                "status": status.value,
-                "evidence": evidence,
-                "owner_modules": req["owner_modules"],
-                "tests": req["tests"],
-            }
-        )
-    return rows
+    return _spec_helpers.build_runtime_truth_table(
+        build_requirements_register, _PROBE_BY_REQ, TruthStatus
+    )
 
 
 def run_targeted_tests() -> dict[str, Any]:
-    cmd = ["python3", "-m", "pytest", *_GENERATOR_TEST_ARGS, "-q", "--tb=no"]
-    proc = subprocess.run(cmd, cwd=_ROOT, capture_output=True, text=True)
-    tail = (proc.stdout or "") + (proc.stderr or "")
-    passed_line = [ln for ln in tail.splitlines() if "passed" in ln]
-    return {
-        "command": " ".join(cmd),
-        "exit_code": proc.returncode,
-        "passed": proc.returncode == 0,
-        "summary": passed_line[-1] if passed_line else tail[-400:],
-    }
+    return _spec_helpers.run_targeted_pytest(_ROOT, _GENERATOR_TEST_ARGS)
 
 
 def independent_verification() -> dict[str, Any]:
@@ -464,7 +405,7 @@ def independent_verification() -> dict[str, Any]:
     export = build_machine_readable_track_record_export()
     record("iv_machine_readable_export", bool(export.get("track_record_integrity")), export.get("artifact", ""))
 
-    client = _http_client()
+    client = _spec_helpers.http_client()
     guest = client.get("/api/launch57/guest-trust", params={"symbol": "BTC"})
     record("iv_guest_trust_public_read", guest.status_code == 200, f"status={guest.status_code}")
     history = client.get("/api/launch57/decision-history")
@@ -483,7 +424,7 @@ def independent_verification() -> dict[str, Any]:
     return {
         "artifact": "SPEC_06_INDEPENDENT_VERIFICATION",
         "domain": DOMAIN,
-        "verification_sha": _git_sha(short=False),
+        "verification_sha": _spec_helpers.git_sha(_ROOT, short=False),
         "probe_count": len(probes),
         "passed_count": passed,
         "failed_count": len(probes) - passed,
@@ -573,9 +514,9 @@ def build_final_status(*, skip_tests: bool = False, tests: dict[str, Any] | None
         "artifact": "SPEC_06_FINAL_STATUS",
         "domain": DOMAIN,
         "spec_version": SPEC06_VERSION,
-        "governing_spec": str(_resolve_spec_path() or "uploads/BLACKDARK_Launch57_Compounding_Evidence_Track_Record_FROM_SCRATCH_SPEC"),
-        "final_sha": _git_sha(short=False),
-        "branch": _git_branch(),
+        "governing_spec": str(_spec_helpers.resolve_spec_path(_SPEC_CANDIDATES) or "uploads/BLACKDARK_Launch57_Compounding_Evidence_Track_Record_FROM_SCRATCH_SPEC"),
+        "final_sha": _spec_helpers.git_sha(_ROOT, short=False),
+        "branch": _spec_helpers.git_branch(_ROOT),
         "PASS_ENGINEERING": pass_engineering,
         "LOCAL_INSTITUTIONAL_CLOSURE": pass_engineering,
         "LOCAL_WORK_REMAINING": local_gap_count,
