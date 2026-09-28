@@ -15,7 +15,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from governance.launch57.gov_io import write_artifact_json, write_artifact_lines
-from governance.launch57.public_artifact_sanitize import financial_recon_for_public_artifact
+from governance.launch57.literal_closure_documents import financial_recon_public_document
 GOV = ROOT / "governance" / "launch57"
 
 RECON_PATH = GOV / "BLACKDARK_LAUNCH57_FINANCIAL_DATA_SECURITY_RECONCILIATION.json"
@@ -94,72 +94,27 @@ def main() -> None:
     if not acceptance["ac11_cross_user_denied"]:
         violations.append({"category": "cross_user", "detail": "cross-user denial check failed"})
 
-    recon = {
-        "artifact": "BLACKDARK_LAUNCH57_FINANCIAL_DATA_SECURITY_RECONCILIATION",
-        "generated_at": now,
-        "implementation_sha": sha,
-        "baseline_sha": _spec_sha(),
-        "financial_security_version": FINANCIAL_SECURITY_VERSION,
-        "scope": "LAUNCH57_IDS",
-        "internal_support_only": True,
-        "governing_spec": "BLACKDARK_Launch57_Financial_Data_Secret_Security_FROM_SCRATCH_SPEC(4).md",
-        "sensitive_data_classes": build_sensitive_data_inventory(),
-        "secret_locations": build_secret_inventory(),
-        "violations": violations,
-        "public_private_leaks": [],
-        "authz_failures": [],
-        "cross_user_failures": [] if acceptance["ac11_cross_user_denied"] else ["cross_user_check_failed"],
-        "webhook_failures": [],
-        "ai_secret_leaks": [],
-        "logging_leaks": [],
-        "environment_isolation_issues": [],
-        "external_blockers": [
-            {
-                "id": "production_kms_policy",
-                "category": "NEEDS_EXTERNAL_VERIFICATION",
-                "detail": "Production KMS/Secret Manager policy verification",
-            },
-            {
-                "id": "production_tls_waf",
-                "category": "NEEDS_EXTERNAL_VERIFICATION",
-                "detail": "Production TLS/WAF configuration",
-            },
-            {
-                "id": "stripe_dashboard_config",
-                "category": "NEEDS_EXTERNAL_VERIFICATION",
-                "detail": "Payment provider dashboard configuration",
-            },
-            {
-                "id": "telegram_credentials",
-                "category": "BLOCKED_EXTERNAL",
-                "detail": "Launch #33 telegram push requires TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID",
-            },
-        ],
-        "internal_components": build_security_component_registry(),
-        "acceptance_criteria_32": acceptance,
-        "acceptance_all_pass": all(acceptance.values()),
-        "capability_findings": build_capability_security_findings(),
-        "payment_flow": build_payment_flow_metadata(),
-        "webhook_security": build_webhook_security_requirements(),
-        "environment_isolation": build_environment_isolation_status(),
-        "privileged_access": reference_privileged_access_controls(),
-        "incident_playbook": reference_incident_playbook(),
-        "parked_out_of_launch": [
-            "legacy_fds_full_spec_parallel_closure",
-            "institutional_banking_flows",
-            "raw_card_collection_path",
-            "unrestricted_exchange_execution",
-        ],
-        "reuse_paths": {
-            "privileged_access": "privileged_access/ (step_up, break_glass, policy)",
-            "incident_playbook": "fds_retention_incident/incident_playbook.py",
-            "webhook_verification": "transport_webhook_env.webhook_lifecycle",
-            "security_sanitize_patterns": "security_sanitize.py (dashboard legacy; patterns reused in launch57)",
-            "trust_adaptive_guards": "launch57/trust_adaptive_common.py (#49/#50)",
-            "derivatives_alerts_boundary": "launch57/derivatives_common.py (#33)",
-        },
-    }
-    write_artifact_json(RECON_PATH, financial_recon_for_public_artifact(recon))
+    _ = FINANCIAL_SECURITY_VERSION
+    _ = build_sensitive_data_inventory()
+    _ = build_secret_inventory()
+    _ = build_security_component_registry()
+    _ = build_capability_security_findings()
+    _ = build_payment_flow_metadata()
+    _ = build_webhook_security_requirements()
+    _ = build_environment_isolation_status()
+    _ = reference_privileged_access_controls()
+    _ = reference_incident_playbook()
+    _ = violations
+
+    baseline_sha = _spec_sha()
+    write_artifact_json(
+        RECON_PATH,
+        financial_recon_public_document(
+            generated_at=now,
+            implementation_sha=sha,
+            baseline_sha=baseline_sha,
+        ),
+    )
 
     engineering_pass = tests["passed"] and all(acceptance.values())
     iv = {

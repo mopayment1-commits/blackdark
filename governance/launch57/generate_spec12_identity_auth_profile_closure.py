@@ -3,7 +3,7 @@
 
 from __future__ import annotations
 
-import json
+import subprocess
 import sys
 from datetime import UTC, datetime
 from pathlib import Path
@@ -13,10 +13,6 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from governance.launch57.gov_io import write_artifact_json, write_artifact_lines
-from governance.launch57.public_artifact_sanitize import (
-    independent_verification_for_public_artifact,
-    spec12_final_status_for_public_artifact,
-)
 
 OUT = ROOT / "governance" / "launch57" / "SPEC_12_IDENTITY_AUTH_PROFILE"
 
@@ -35,80 +31,10 @@ def _md_truth_table(rows: list[dict]) -> str:
     return "\n".join(lines) + "\n"
 
 
-def _md_local_closure(status: dict, iv: dict, tests: dict) -> str:
-    gaps = status.get("LOCAL_ENGINEERING_GAPS") or []
-    gap_lines = "\n".join(
-        f"- **{g.get('priority')}** `{g.get('req_id')}` — {g.get('title')}: {g.get('evidence')}"
-        for g in gaps
-    )
-    if not gap_lines:
-        gap_lines = "- None"
-    return f"""# SPEC_12 Local Closure Report
-
-## Verdict
-
-- **closure_status**: `{status.get('closure_status')}`
-- **PASS_ENGINEERING**: {status.get('PASS_ENGINEERING')}
-- **LOCAL_INSTITUTIONAL_CLOSURE**: {status.get('LOCAL_INSTITUTIONAL_CLOSURE')}
-- **LOCAL_WORK_REMAINING**: {status.get('LOCAL_WORK_REMAINING')}
-- **PASS_LIVE**: {status.get('PASS_LIVE')} (must remain false)
-- **LIVE_VALIDATION_PENDING**: {status.get('LIVE_VALIDATION_PENDING')}
-
-## Domain
-
-Identity Auth Profile — Launch-57 FILE 12 only.
-
-## Builder
-
-- SHA: `{status.get('final_sha')}`
-- Builder status: `{status.get('BUILDER_STATUS')}`
-- Runtime truth YES: {status.get('runtime_truth_yes_count')}/{status.get('runtime_truth_total')}
-- `auth_gate_ok`: {status.get('auth_gate_ok')}
-- `launch57_only_ok`: {status.get('launch57_only_ok')}
-
-## Independent Verification
-
-- IV status: `{status.get('IV_STATUS')}`
-- Probes passed: {iv.get('passed_count')}/{iv.get('probe_count')}
-- `INDEPENDENT_VERIFICATION_PASS`: {iv.get('INDEPENDENT_VERIFICATION_PASS')}
-
-## Tests
-
-```
-{tests.get('command')}
-exit_code={tests.get('exit_code')}
-{tests.get('summary')}
-```
-
-## Local engineering gaps
-
-{gap_lines}
-
-## Live blockers only (external)
-
-{chr(10).join('- ' + b for b in status.get('live_blockers_only', []))}
-
-## Spec quotes (governing themes)
-
-> Immutable canonical user_id; email/username are attributes (§3)
-
-> Authentication ≠ authorization; entitlement layer required (§25)
-
-> Private Launch-57 state (#32/#33/#49/#50) requires authenticated owner (§27)
-
-> Session cookies Secure/HttpOnly/SameSite; login abuse protection (§19/§23)
-
-> No passwords in logs; align FILE 10 secret hygiene (§39)
-
-## Mandatory stop
-
-SPEC_12 FILE 12 only — do not proceed to FILE 13 without owner review.
-"""
-
-
 def main() -> None:
     from launch57.identity_auth_profile_spec_common import (
         SPEC12_VERSION,
+        TruthStatus,
         build_final_status,
         build_requirements_register,
         build_runtime_truth_table,
@@ -129,20 +55,27 @@ def main() -> None:
     }
 
     truth = build_runtime_truth_table()
-    iv = independent_verification()
-    iv_public = independent_verification_for_public_artifact(iv)
+    runtime_yes_count = sum(1 for row in truth if row["status"] == TruthStatus.YES.value)
+    runtime_truth_total = len(truth)
 
     write_artifact_json((OUT / "REQUIREMENTS_REGISTER.json"), requirements)
     write_artifact_lines((OUT / "RUNTIME_TRUTH_TABLE.md"), _md_truth_table(truth).splitlines())
-    write_artifact_json((OUT / "INDEPENDENT_VERIFICATION.json"), {**iv_public, "generated_at": now})
 
     tests = run_targeted_tests()
-    status = build_final_status(tests=tests)
-    write_artifact_lines((OUT / "LOCAL_CLOSURE_REPORT.md"), _md_local_closure(status, iv_public, tests).splitlines())
-    status_public = spec12_final_status_for_public_artifact(status)
-    status_public["tests"] = tests
-    status_public["generated_at"] = now
-    write_artifact_json((OUT / "FINAL_STATUS.json"), status_public)
+    iv_internal = independent_verification()
+    status_internal = build_final_status(tests=tests)
+    if not iv_internal["INDEPENDENT_VERIFICATION_PASS"]:
+        print("SPEC_12 independent verification failed (in-process)")
+        sys.exit(1)
+    if status_internal["closure_status"] != "CLOSED_LOCAL":
+        print("SPEC_12 closure_status not CLOSED_LOCAL (in-process)")
+        sys.exit(1)
+
+    subprocess.run(
+        [sys.executable, "-m", "governance.launch57.emit_spec12_public_artifacts"],
+        cwd=ROOT,
+        check=True,
+    )
 
     print(
         "Wrote",
@@ -152,9 +85,7 @@ def main() -> None:
         OUT / "INDEPENDENT_VERIFICATION.json",
         OUT / "FINAL_STATUS.json",
     )
-    print("closure_status=", status.get("closure_status"))
-    if status.get("closure_status") != "CLOSED_LOCAL":
-        sys.exit(1)
+    print("closure_status= CLOSED_LOCAL")
 
 
 if __name__ == "__main__":
