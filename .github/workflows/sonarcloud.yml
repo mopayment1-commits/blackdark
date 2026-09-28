@@ -117,6 +117,19 @@ jobs:
             tests/launch57/test_generate_phase8_launch_coherence.py \
             tests/launch57/test_commercial_inventory_common.py \
             tests/launch57/test_adaptive_decision_experience_common.py \
+            tests/launch57/test_temporal_evidence_intelligence_support_layer_spec_common.py \
+            tests/launch57/test_spec05_commercial_capability_inventory.py \
+            tests/launch57/test_spec07_data_intelligence_governance.py \
+            tests/launch57/test_spec11_global_time_temporal_consistency.py \
+            tests/launch57/test_spec04_capability_library.py \
+            tests/launch57/test_spec10_financial_data_secret_security.py \
+            tests/launch57/test_spec12_identity_auth_profile.py \
+            tests/launch57/test_spec06_compounding_evidence_track_record.py \
+            tests/launch57/test_spec08_decision_truth.py \
+            tests/launch57/test_spec09_failure_degraded_recovery.py \
+            tests/launch57/test_spec02_anonymous_visitor_public_intelligence.py \
+            tests/launch57/test_spec03_billing_subscription_entitlement.py \
+            tests/test_fds_production_external_assurance_boundary.py \
             -q --tb=line \
             --cov-config=.coveragerc-sonar \
             --cov \
