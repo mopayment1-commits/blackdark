@@ -41,8 +41,17 @@
       } catch (error) {
         console.debug(error);
       }
+      var secureFlag =
+        typeof window !== "undefined" &&
+        window.location &&
+        window.location.protocol === "https:"
+          ? ";Secure"
+          : "";
       document.cookie =
-        "bd_lang=" + encodeURIComponent(code) + ";path=/;max-age=31536000;SameSite=Lax";
+        "bd_lang=" +
+        encodeURIComponent(code) +
+        ";path=/;max-age=31536000;SameSite=Lax" +
+        secureFlag;
       var url = new URL(window.location.href);
       url.searchParams.set("lang", code);
       window.location.href = url.toString();
