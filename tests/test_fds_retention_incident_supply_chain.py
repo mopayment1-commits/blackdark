@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-import failure.incident
-
 import json
 import subprocess
 import sys
