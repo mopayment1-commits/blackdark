@@ -35,8 +35,9 @@ def http_exception_handler(request: Request, exc: HTTPException):
     cid = require_correlation_id()
     lang = _request_lang(request)
     code = _status_to_code(exc.status_code)
-    if isinstance(exc.detail, dict) and exc.detail.get("error_code"):
-        code = str(exc.detail["error_code"])
+    error_code = exc.detail.get("error_code") if isinstance(exc.detail, dict) else None
+    if error_code:
+        code = str(error_code)
     spec = get_error_spec(code) or spec_for_http_status(exc.status_code)
     detail = public_error(None, fallback=str(exc.detail))
     if isinstance(exc.detail, dict):
