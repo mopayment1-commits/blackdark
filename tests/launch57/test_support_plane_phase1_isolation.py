@@ -79,8 +79,10 @@ def test_command_home_api_reachable(monkeypatch):
     monkeypatch.setattr("launch57.edge_ui_batch2.load_decision_spine", fake_spine)
     monkeypatch.setattr("launch57.edge_ui_batch2.single_sentence_oracle", fake_oracle)
 
+    from tests.launch57.session_test_support import ensure_registered_session
+
     client = TestClient(app)
-    client.cookies.set("bd_token", "support-plane-phase1-test")
+    ensure_registered_session(client, prefix="support-plane-phase1")
     res = client.get("/api/launch57/command-home", params={"symbol": "BTC"})
     assert res.status_code == 200
     body = res.json()
@@ -93,8 +95,10 @@ def test_command_home_api_reachable(monkeypatch):
 def test_command_home_eligible_ids_within_launch57():
     from dashboard import app
 
+    from tests.launch57.session_test_support import ensure_registered_session
+
     client = TestClient(app)
-    client.cookies.set("bd_token", "support-plane-phase1-test")
+    ensure_registered_session(client, prefix="support-plane-phase1-eligible")
     body = client.get("/api/launch57/command-home", params={"symbol": "BTC"}).json()
     home = body.get("six_heroes_command_home") or {}
     eligible = home.get("eligible_launch57_ids") or []

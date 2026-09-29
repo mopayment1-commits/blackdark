@@ -28,8 +28,10 @@ def _visible_trust_block() -> str:
 def authed_client():
     from dashboard import app
 
+    from tests.launch57.session_test_support import ensure_registered_session
+
     client = TestClient(app, base_url="http://127.0.0.1")
-    client.cookies.set("bd_token", f"trust-visible-batch-b-{uuid.uuid4().hex[:8]}")
+    ensure_registered_session(client, prefix="trust-visible-batch-b")
     return client
 
 
@@ -84,7 +86,9 @@ def test_broken_decision_certificate_handler_fails(monkeypatch):
 
     monkeypatch.setattr("launch57.trust_batch1.decision_certificate_export", broken)
     client = TestClient(app, base_url="http://127.0.0.1", raise_server_exceptions=False)
-    client.cookies.set("bd_token", f"trust-visible-batch-b-cert-broken-{uuid.uuid4().hex[:8]}")
+    from tests.launch57.session_test_support import ensure_registered_session
+
+    ensure_registered_session(client, prefix="trust-visible-batch-b-cert-broken")
     res = client.get(
         "/api/launch57/decision-certificate",
         params={
@@ -171,7 +175,9 @@ def test_broken_cost_autopsy_handler_fails(monkeypatch):
 
     monkeypatch.setattr("launch57.trust_batch1.net_edge_truth_score", broken)
     client = TestClient(app, base_url="http://127.0.0.1", raise_server_exceptions=False)
-    client.cookies.set("bd_token", "trust-visible-batch-b-broken-net-edge")
+    from tests.launch57.session_test_support import ensure_registered_session
+
+    ensure_registered_session(client, prefix="trust-visible-batch-b-broken-net-edge")
     res = client.post(
         "/api/launch57/cost-autopsy",
         headers=_csrf_headers(),

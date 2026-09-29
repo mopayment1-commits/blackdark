@@ -36,8 +36,10 @@ def test_cross_path_router_on_trust_surface(monkeypatch):
     monkeypatch.setattr("launch57.edge_ui_batch2.load_decision_spine", fake_spine)
     monkeypatch.setattr("launch57.edge_ui_batch2.single_sentence_oracle", fake_oracle)
 
+    from tests.launch57.session_test_support import ensure_registered_session
+
     client = TestClient(app)
-    client.cookies.set("bd_token", "support-plane-full-closure-test")
+    ensure_registered_session(client, prefix="support-plane-full-closure")
     body = client.get("/api/launch57/command-home", params={"symbol": "BTC"}).json()
     router = body.get("router_selection_contract") or (body.get("six_heroes_command_home") or {}).get(
         "router_selection_contract"

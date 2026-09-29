@@ -49,8 +49,10 @@ def test_command_home_api_includes_launch57_accessibility(monkeypatch):
     monkeypatch.setattr("launch57.edge_ui_batch2.load_decision_spine", fake_spine)
     monkeypatch.setattr("launch57.edge_ui_batch2.single_sentence_oracle", fake_oracle)
 
+    from tests.launch57.session_test_support import ensure_registered_session
+
     client = TestClient(app)
-    client.cookies.set("bd_token", "support-plane-a11y-test")
+    ensure_registered_session(client, prefix="support-plane-a11y")
     body = client.get("/api/launch57/command-home", params={"symbol": "BTC"}).json()
     a11y = body.get("launch57_accessibility") or {}
     assert a11y.get("standard") == WCAG_TARGET

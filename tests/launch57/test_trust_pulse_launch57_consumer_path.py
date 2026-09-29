@@ -27,8 +27,10 @@ def _pulse_block() -> str:
 def authed_client():
     from dashboard import app
 
+    from tests.launch57.session_test_support import ensure_registered_session
+
     client = TestClient(app)
-    client.cookies.set("bd_token", "trust-pulse-l57-consumer-path")
+    ensure_registered_session(client, prefix="trust-pulse-l57-consumer-path")
     return client
 
 
@@ -84,8 +86,10 @@ def test_broken_command_home_handler_yields_no_verdict(authed_client, monkeypatc
 def test_broken_oracle_handler_yields_no_governed_oracle(monkeypatch):
     from dashboard import app
 
+    from tests.launch57.session_test_support import ensure_registered_session
+
     client = TestClient(app, raise_server_exceptions=False)
-    client.cookies.set("bd_token", "trust-pulse-l57-oracle-broken")
+    ensure_registered_session(client, prefix="trust-pulse-l57-oracle-broken")
     from failure.freshness import FreshnessState
 
     async def fake_spine(symbol, params=None):
