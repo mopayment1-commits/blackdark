@@ -11,17 +11,54 @@ from api.openapi_responses import COMMON_ERROR_RESPONSES
 router = APIRouter(tags=["launch57-edge-ui"], responses=COMMON_ERROR_RESPONSES)
 
 
-def _require_launch57_tier(
+async def _optional_validated_user(request: Request) -> dict[str, Any] | None:
+    """Resolved server-side identity — cookie presence alone is not authentication."""
+    from security_auth import optional_user_from_request
+
+    return await optional_user_from_request(
+        authorization=request.headers.get("authorization"),
+        bd_token=request.cookies.get("bd_token"),
+    )
+
+
+async def _launch57_entitlement_params(
+    request: Request,
+    *,
+    tier: str,
+    user: dict[str, Any] | None = None,
+) -> tuple[dict[str, Any], dict[str, Any] | None]:
+    from launch57.billing_entitlement_common import try_load_subscription_from_params
+
+    params: dict[str, Any] = {"tier": tier}
+    if user is None:
+        user = await _optional_validated_user(request)
+    subscription = None
+    if user is not None:
+        uid = user.get("id")
+        if uid is not None:
+            params["user_id"] = uid
+            params["user_key"] = str(uid)
+            params["subject_id"] = str(uid)
+        subscription = await try_load_subscription_from_params(params)
+    else:
+        params["user_key"] = "anonymous"
+    return params, subscription
+
+
+async def _require_launch57_tier(
     request: Request,
     launch_item_id: int,
     *,
     tier: str = "free",
+    user: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     from launch57.tier_distribution import enforce_launch57_tier_access
 
+    params, subscription = await _launch57_entitlement_params(request, tier=tier, user=user)
     gate = enforce_launch57_tier_access(
         launch_item_id=launch_item_id,
-        params={"tier": tier, "user_key": "anonymous"},
+        params=params,
+        subscription=subscription,
     )
     if not gate.get("allowed"):
         raise HTTPException(
@@ -38,13 +75,27 @@ def _require_launch57_tier(
     return gate
 
 
-def _require_launch57_auth(request: Request, launch_item_id: int) -> None:
-    from anonymous_route_foundation import request_has_authentication_signal
+async def _require_launch57_auth_and_tier(
+    request: Request,
+    launch_item_id: int,
+    *,
+    tier: str = "free",
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    user = await _require_launch57_auth(request, launch_item_id)
+    gate = await _require_launch57_tier(request, launch_item_id, tier=tier, user=user)
+    return user, gate
+
+
+async def _require_launch57_auth(request: Request, launch_item_id: int) -> dict[str, Any]:
     from launch57.anonymous_visitor_common import enforce_launch57_anonymous_boundary
+
+    user = await _optional_validated_user(request)
+    if user is not None:
+        return user
 
     boundary = enforce_launch57_anonymous_boundary(
         launch_item_id,
-        has_auth_signal=request_has_authentication_signal(request),
+        has_auth_signal=False,
     )
     if not boundary.get("allowed"):
         raise HTTPException(
@@ -57,6 +108,7 @@ def _require_launch57_auth(request: Request, launch_item_id: int) -> None:
             },
             headers={"X-Blackdark-Auth-Boundary": "launch57-anonymous-denied"},
         )
+    return {}
 
 
 @router.get("/api/launch57/tier-distribution")
@@ -189,7 +241,7 @@ async def launch57_decision_certificate(
     decision_time: str = Query(""),
 ):
     """Launch #3 — decision certificate + hash for Trust Pulse / proof surfaces."""
-    _require_launch57_auth(request, 3)
+    await _require_launch57_auth(request, 3)
     from launch57.trust_batch1 import decision_certificate_export
 
     asset = str(symbol or "BTC").upper().replace("/USDT", "")
@@ -222,7 +274,7 @@ async def launch57_public_accuracy(symbol: str = Query("BTC")):
 @router.post("/api/launch57/cost-autopsy")
 async def launch57_cost_autopsy(request: Request, body: dict[str, Any] = Body(...)):
     """Launch #5 — net-edge / cost autopsy for the displayed opportunity (no elite tier gate)."""
-    _require_launch57_auth(request, 5)
+    await _require_launch57_auth(request, 5)
     from launch57.trust_batch1 import net_edge_truth_score
 
     asset = str(body.get("symbol") or "BTC").upper().replace("/USDT", "")
@@ -248,7 +300,7 @@ async def launch57_share_proof(
     decision_sentence: str = Query(""),
 ):
     """Launch #44 — shareable decision card for Trust Pulse Share Proof (first-screen only)."""
-    _require_launch57_auth(request, 44)
+    await _require_launch57_auth(request, 44)
     from launch57.trust_batch2 import shareable_decision_card
 
     asset = str(symbol or "BTC").upper().replace("/USDT", "")
@@ -271,7 +323,7 @@ async def launch57_command_home(
     symbol: str = Query("BTC"),
     command_view: bool = Query(True),
 ):
-    _require_launch57_auth(request, 1)
+    await _require_launch57_auth(request, 1)
     from i18n_service import resolve_request_lang
     from launch57.edge_ui_batch2 import six_heroes_command_home
 
@@ -303,11 +355,17 @@ async def launch57_decision_history(
     tier: str = Query("free"),
     limit: int = Query(10, ge=1, le=100),
 ):
-    _require_launch57_auth(request, 49)
+    user = await _require_launch57_auth(request, 49)
     from launch57.edge_ui_batch1 import personal_decision_history
 
-    _require_launch57_tier(request, 49, tier=tier)
-    return personal_decision_history(symbol=symbol, params={"symbol": symbol, "tier": tier, "limit": limit})
+    tier_gate = await _require_launch57_tier(request, 49, tier=tier, user=user)
+    effective_tier = str(tier_gate.get("effective_tier") or tier)
+    uid = user.get("id")
+    params: dict[str, Any] = {"symbol": symbol, "tier": effective_tier, "limit": limit}
+    if uid is not None:
+        params["user_key"] = str(uid)
+        params["subject_id"] = str(uid)
+    return personal_decision_history(symbol=symbol, params=params)
 
 
 @router.get("/api/launch57/net-edge")
@@ -316,11 +374,12 @@ async def launch57_net_edge(
     symbol: str = Query("BTC"),
     tier: str = Query("elite"),
 ):
-    _require_launch57_auth(request, 5)
-    _require_launch57_tier(request, 5, tier=tier)
+    user = await _require_launch57_auth(request, 5)
+    tier_gate = await _require_launch57_tier(request, 5, tier=tier, user=user)
     from launch57.trust_batch1 import net_edge_truth_score
 
-    return net_edge_truth_score(symbol=symbol, params={"symbol": symbol, "tier": tier})
+    effective_tier = str(tier_gate.get("effective_tier") or tier)
+    return net_edge_truth_score(symbol=symbol, params={"symbol": symbol, "tier": effective_tier})
 
 
 @router.get("/api/launch57/wallet-due-diligence")
@@ -330,13 +389,13 @@ async def launch57_wallet_dd(
     address: str = Query(...),
     tier: str = Query("elite"),
 ):
-    _require_launch57_auth(request, 53)
-    _require_launch57_tier(request, 53, tier=tier)
+    _user, tier_gate = await _require_launch57_auth_and_tier(request, 53, tier=tier)
     from launch57.smart_money_batch2 import instant_wallet_due_diligence
 
+    effective_tier = str(tier_gate.get("effective_tier") or tier)
     return await instant_wallet_due_diligence(
         symbol=symbol,
-        params={"symbol": symbol, "address": address, "tier": tier},
+        params={"symbol": symbol, "address": address, "tier": effective_tier},
     )
 
 
@@ -346,11 +405,11 @@ async def launch57_token_dd(
     symbol: str = Query("BTC"),
     tier: str = Query("elite"),
 ):
-    _require_launch57_auth(request, 54)
-    _require_launch57_tier(request, 54, tier=tier)
+    _user, tier_gate = await _require_launch57_auth_and_tier(request, 54, tier=tier)
     from launch57.smart_money_batch2 import instant_token_due_diligence
 
-    return await instant_token_due_diligence(symbol=symbol, params={"symbol": symbol, "tier": tier})
+    effective_tier = str(tier_gate.get("effective_tier") or tier)
+    return await instant_token_due_diligence(symbol=symbol, params={"symbol": symbol, "tier": effective_tier})
 
 
 @router.get("/api/launch57/spot-perp-arbitrage")
@@ -359,11 +418,11 @@ async def launch57_spot_perp_arbitrage(
     symbol: str = Query("BTC"),
     tier: str = Query("quant"),
 ):
-    _require_launch57_auth(request, 43)
-    _require_launch57_tier(request, 43, tier=tier)
+    _user, tier_gate = await _require_launch57_auth_and_tier(request, 43, tier=tier)
     from launch57.edge_ui_batch1 import spot_perp_arbitrage_scanner
 
-    return await spot_perp_arbitrage_scanner(symbol=symbol, params={"symbol": symbol, "tier": tier})
+    effective_tier = str(tier_gate.get("effective_tier") or tier)
+    return await spot_perp_arbitrage_scanner(symbol=symbol, params={"symbol": symbol, "tier": effective_tier})
 
 
 @router.get("/api/launch57/suspicious-flags")
@@ -372,11 +431,11 @@ async def launch57_suspicious_flags(
     symbol: str = Query("BTC"),
     tier: str = Query("quant"),
 ):
-    _require_launch57_auth(request, 56)
-    _require_launch57_tier(request, 56, tier=tier)
+    _user, tier_gate = await _require_launch57_auth_and_tier(request, 56, tier=tier)
     from launch57.smart_money_batch3 import suspicious_activity_flags
 
-    return await suspicious_activity_flags(symbol=symbol, params={"symbol": symbol, "tier": tier})
+    effective_tier = str(tier_gate.get("effective_tier") or tier)
+    return await suspicious_activity_flags(symbol=symbol, params={"symbol": symbol, "tier": effective_tier})
 
 
 @router.get("/api/launch57/exchange-transparency")
@@ -385,11 +444,11 @@ async def launch57_exchange_transparency(
     symbol: str = Query("BTC"),
     tier: str = Query("quant"),
 ):
-    _require_launch57_auth(request, 57)
-    _require_launch57_tier(request, 57, tier=tier)
+    _user, tier_gate = await _require_launch57_auth_and_tier(request, 57, tier=tier)
     from launch57.smart_money_batch3 import exchange_transparency_risk_indicators
 
-    return await exchange_transparency_risk_indicators(symbol=symbol, params={"symbol": symbol, "tier": tier})
+    effective_tier = str(tier_gate.get("effective_tier") or tier)
+    return await exchange_transparency_risk_indicators(symbol=symbol, params={"symbol": symbol, "tier": effective_tier})
 
 
 @router.get("/api/launch57/ai-copilot")
@@ -398,11 +457,11 @@ async def launch57_ai_copilot(
     symbol: str = Query("BTC"),
     tier: str = Query("elite"),
 ):
-    _require_launch57_auth(request, 36)
-    _require_launch57_tier(request, 36, tier=tier)
+    _user, tier_gate = await _require_launch57_auth_and_tier(request, 36, tier=tier)
     from launch57.explanation_ai_batch1 import ai_research_agent_grounded
 
-    return await ai_research_agent_grounded(symbol=symbol, params={"symbol": symbol, "tier": tier})
+    effective_tier = str(tier_gate.get("effective_tier") or tier)
+    return await ai_research_agent_grounded(symbol=symbol, params={"symbol": symbol, "tier": effective_tier})
 
 
 @router.get("/api/launch57/cross-market")
@@ -411,11 +470,11 @@ async def launch57_cross_market(
     symbol: str = Query("BTC"),
     tier: str = Query("quant"),
 ):
-    _require_launch57_auth(request, 37)
-    _require_launch57_tier(request, 37, tier=tier)
+    _user, tier_gate = await _require_launch57_auth_and_tier(request, 37, tier=tier)
     from launch57.decision_batch2 import cross_market_decision_engine
 
-    return await cross_market_decision_engine(symbol=symbol, params={"symbol": symbol, "tier": tier})
+    effective_tier = str(tier_gate.get("effective_tier") or tier)
+    return await cross_market_decision_engine(symbol=symbol, params={"symbol": symbol, "tier": effective_tier})
 
 
 @router.get("/api/launch57/discipline-mirror")
@@ -425,13 +484,15 @@ async def launch57_discipline_mirror(
     limit: int = Query(20, ge=1, le=100),
     tier: str = Query("pro"),
 ):
-    _require_launch57_auth(request, 50)
-    _require_launch57_tier(request, 50, tier=tier)
+    user, tier_gate = await _require_launch57_auth_and_tier(request, 50, tier=tier)
     from launch57.edge_ui_batch1 import discipline_mirror_light
 
+    effective_tier = str(tier_gate.get("effective_tier") or tier)
+    uid = user.get("id")
+    bound_user_key = str(uid) if uid is not None else user_key
     return discipline_mirror_light(
         symbol="BTC",
-        params={"user_key": user_key, "limit": limit, "tier": tier},
+        params={"user_key": bound_user_key, "subject_id": bound_user_key, "limit": limit, "tier": effective_tier},
     )
 
 
