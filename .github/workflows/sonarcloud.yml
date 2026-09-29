@@ -155,6 +155,44 @@ jobs:
             tests/test_brand_coverage_radical_closure.py \
             tests/launch57/test_derivatives_batch1.py \
             tests/test_heroes_quality_polish.py \
+            tests/test_decision_truth_p4_evidence_lifecycle.py \
+            tests/launch57/test_temporal_batch9.py \
+            tests/test_fds_security_governance_data_boundary.py \
+            tests/test_alpha_engine.py \
+            tests/test_decision_truth_p3_portfolio_preimpact.py \
+            tests/launch57/test_data_batch1.py \
+            tests/launch57/test_data_batch2.py \
+            tests/launch57/test_trust_batch2.py \
+            tests/launch57/test_tier_distribution.py \
+            tests/launch57/test_temporal_batch12.py \
+            tests/test_oracle_audit_chain.py \
+            tests/launch57/test_edge_ui_batch1.py \
+            tests/launch57/test_temporal_batch6.py \
+            tests/launch57/test_temporal_batch14.py \
+            tests/test_supplemental_public_compliance.py \
+            tests/test_phase01_audit_registry.py \
+            tests/launch57/test_b3_isolation_closure.py \
+            tests/launch57/test_b1_to_41_reconciliation.py \
+            tests/test_fds_transport_webhook_environment.py \
+            tests/launch57/test_b1_isolation_closure.py \
+            tests/test_fds_privileged_identity_authorization.py \
+            tests/launch57/test_trust_batch1.py \
+            tests/launch57/test_decision_truth.py \
+            tests/launch57/test_data_governance.py \
+            tests/test_decision_truth_p5_product_experience.py \
+            tests/launch57/test_failure_recovery.py \
+            tests/launch57/test_smart_money_batch3.py \
+            tests/launch57/test_temporal_batch5.py \
+            tests/test_bigquery_export.py \
+            tests/cap978/test_phase2_semantic_remediation.py \
+            tests/cap646/test_cap646_closure.py \
+            tests/test_phase_i_external_route_activation.py \
+            tests/test_fds_retention_incident_supply_chain.py \
+            tests/test_trust_pulse.py \
+            tests/cap646/test_batch02_from_scratch.py \
+            tests/test_free_tier_capabilities.py \
+            tests/launch57/test_temporal_batch11.py \
+            tests/launch57/test_identity_auth.py \
             -q --tb=line \
             --cov-config=.coveragerc-sonar \
             --cov \
