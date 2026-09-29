@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import governance.launch57.generate_spec05_commercial_capability_inventory_closure
+
 import json
 from pathlib import Path
 

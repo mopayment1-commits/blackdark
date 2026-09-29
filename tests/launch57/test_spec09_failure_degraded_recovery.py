@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import governance.launch57.generate_spec09_failure_degraded_recovery_closure
+
 import json
 from pathlib import Path
 

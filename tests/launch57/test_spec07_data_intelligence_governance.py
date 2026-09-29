@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import governance.launch57.generate_spec07_data_intelligence_governance_closure
+
 import json
 from pathlib import Path
 

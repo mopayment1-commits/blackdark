@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import governance.launch57.generate_spec02_anonymous_visitor_closure
+
 import json
 from pathlib import Path
 

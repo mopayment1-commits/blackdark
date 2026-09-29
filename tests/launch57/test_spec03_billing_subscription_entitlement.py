@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import governance.launch57.generate_spec03_billing_subscription_entitlement_closure
+
 import json
 from datetime import UTC, datetime, timedelta
 from pathlib import Path

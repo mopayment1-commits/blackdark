@@ -2,6 +2,9 @@
 
 from __future__ import annotations
 
+import failure.injection
+import governance.launch57.generate_spec04_capability_library_closure
+
 import json
 from datetime import UTC, datetime
 from pathlib import Path

@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import governance.launch57.generate_spec12_identity_auth_profile_closure
+
 import json
 from pathlib import Path
 

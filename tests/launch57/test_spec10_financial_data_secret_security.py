@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import governance.launch57.generate_spec10_financial_data_secret_security_closure
+
 import json
 from pathlib import Path
 

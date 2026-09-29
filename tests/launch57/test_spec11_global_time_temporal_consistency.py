@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import governance.launch57.generate_spec11_global_time_temporal_consistency_closure
+
 import json
 from pathlib import Path
 
