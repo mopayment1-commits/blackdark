@@ -44,8 +44,10 @@ def test_command_home_kill_switch_returns_503_not_success(monkeypatch):
     import launch57.edge_ui_batch2 as mod
 
     monkeypatch.setattr(mod, "six_heroes_command_home", broken)
+    from tests.launch57.session_test_support import ensure_registered_session
+
     client = TestClient(app)
-    client.cookies.set("bd_token", "wave4-kill-switch")
+    ensure_registered_session(client, prefix="wave4-kill-switch")
     res = client.get("/api/launch57/command-home", params={"symbol": "BTC"})
     assert res.status_code == 503
     body = res.json()

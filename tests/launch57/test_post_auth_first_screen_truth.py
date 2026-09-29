@@ -64,8 +64,10 @@ def test_render_trust_pulse_fail_closed():
 def authed_client():
     from dashboard import app
 
+    from tests.launch57.session_test_support import ensure_registered_session
+
     client = TestClient(app)
-    client.cookies.set("bd_token", "post-auth-first-screen-truth")
+    ensure_registered_session(client, prefix="post-auth-first-screen-truth")
     return client
 
 
