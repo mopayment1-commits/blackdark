@@ -4,6 +4,16 @@ from __future__ import annotations
 
 import failure.injection
 import governance.launch57.generate_spec04_capability_library_closure
+import governance.launch57.generate_phase0_truth
+import governance.launch57.generate_phase0_5_reconciliation
+import governance.launch57.generate_phase1_batch1
+import governance.launch57.generate_phase1_batch2
+import governance.launch57.generate_capability_6_governance_reconciliation
+import governance.launch57.generate_phase2_batch1
+import governance.launch57.generate_financial_security_closure
+import governance.launch57.generate_commercial_inventory_closure
+import governance.public_report
+import governance.launch57.generate_phase3_batch1
 
 import json
 from datetime import UTC, datetime
