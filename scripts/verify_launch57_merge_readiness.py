@@ -18,6 +18,7 @@ GATES = (
     "verify_launch57_normative_traceability.py",
     "verify_launch57_repo_evidence.py",
     "verify_launch57_generated_artifacts_fresh.py",
+    "verify_launch57_independent_verification.py",
 )
 
 

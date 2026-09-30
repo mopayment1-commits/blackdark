@@ -14,6 +14,12 @@
 | Supply chain | CycloneDX SBOM + git SHA binding |
 | Customer logging | 180-day policy + export API |
 
+## Engineering round 14 (program §8.3 independent verification register)
+
+- `LAUNCH57_INDEPENDENT_VERIFICATION_REGISTER.json` + `verify_launch57_independent_verification.py` (V-1..V-4; human sign-off honest)
+- `LAUNCH57_INDEPENDENT_VERIFICATION_AR.md` — Arabic institutional summary tied to program §8.3 only
+- Merge readiness + `launch57-cisa-assurance` CI include §8.3 repo gates
+
 ## Engineering round 13 (normative traceability + AR executive summary)
 
 - `LAUNCH57_NORMATIVE_TRACEABILITY.json` + `verify_launch57_normative_traceability.py` (program §2/§7 only)

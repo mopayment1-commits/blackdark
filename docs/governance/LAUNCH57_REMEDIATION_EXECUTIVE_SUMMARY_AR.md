@@ -30,8 +30,13 @@
 
 ```bash
 python scripts/verify_launch57_normative_traceability.py
+python scripts/verify_launch57_independent_verification.py
 python scripts/verify_launch57_merge_readiness.py
 ```
+
+## التحقق المستقل (البرنامج §8.3)
+
+السجل: `governance/launch57/LAUNCH57_INDEPENDENT_VERIFICATION_REGISTER.json` — الخطوات V-1..V-4 تتطلب توقيع Security Lead / QA / Ops / Legal؛ البوابة الآلية لا تُعلن إغلاق البرنامج.
 
 ## المراجع المعيارية (لا تُستبدل)
 

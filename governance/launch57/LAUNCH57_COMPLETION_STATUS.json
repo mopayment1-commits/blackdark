@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-09-30T13:46:24.699641+00:00",
-  "git_commit": "7f1375862d28fbe05ff402a59e3e86a46735d426",
+  "generated_at": "2026-09-30T13:48:41.834402+00:00",
+  "git_commit": "d16ef22eae11c013d0486137cda940db48026cce",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
   "remediation_sha": "7f137586",
-  "phase": "PHASE_ROUND_13_NORMATIVE_TRACEABILITY_AR_EXEC_SUMMARY",
+  "phase": "PHASE_ROUND_14_INDEPENDENT_VERIFICATION_83",
   "cisa_certification_claimed": false,
   "rollup": {
     "counts_by_status": {

@@ -164,6 +164,31 @@ def test_launch57_closure_report_marks_runtime_open():
     assert "cisa_certification_claimed" in proc.stdout
 
 
+def test_independent_verification_gate():
+    import subprocess
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    proc = subprocess.run(
+        [sys.executable, str(root / "scripts/verify_launch57_independent_verification.py")],
+        cwd=root,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 0, proc.stderr or proc.stdout
+    report = json.loads(proc.stdout)
+    assert report["program_closure_verification_complete"] is False
+    assert report["cisa_certification_claimed"] is False
+    assert report["repo_automation_pass"] is True
+
+
+def test_independent_verification_ar_cites_program_83():
+    path = Path(__file__).resolve().parents[1] / "docs/governance/LAUNCH57_INDEPENDENT_VERIFICATION_AR.md"
+    text = path.read_text(encoding="utf-8")
+    assert "§8.3" in text
+    assert "LAUNCH57_INDEPENDENT_VERIFICATION_REGISTER.json" in text
+
+
 def test_normative_traceability_gate():
     import subprocess
     import sys
