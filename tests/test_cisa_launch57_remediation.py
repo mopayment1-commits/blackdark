@@ -59,6 +59,7 @@ def test_security_log_retention_minimum():
 
 
 def test_webauthn_status_reports_library(monkeypatch):
+    pytest.importorskip("webauthn")
     monkeypatch.setenv("WEBAUTHN_RP_ID", "example.test")
     monkeypatch.setenv("APP_BASE_URL", "https://example.test")
     from webauthn_service import webauthn_status
