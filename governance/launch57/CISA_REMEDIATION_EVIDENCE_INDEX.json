@@ -1,7 +1,7 @@
 {
   "program": "LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
-  "remediation_sha": "pending",
+  "remediation_sha": "4934880b",
   "phase": "PHASE_ROUND_3_OPS_CI_GATES_ENGINEERING_COMPLETE",
   "findings": {
     "FINDING-01": {
