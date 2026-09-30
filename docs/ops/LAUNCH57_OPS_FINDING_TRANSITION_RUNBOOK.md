@@ -10,7 +10,7 @@ Use when **real** ops/executive evidence exists. This tool **refuses** fake clos
 | FINDING-14 | `LAUNCH57_PROD_URL` + `verify_well_known_security_txt.py --url` pass |
 | FINDING-18 | `verify_pentest_attestation()` true (deposit via institutional API) |
 | FINDING-19 | `CDN_WAF_ACTIVE=1` + `verify_edge_waf_cdn.py` exit 0 |
-| FINDING-11 | Syft SBOM artifact present (CI or `LAUNCH57_CONTAINER_SBOM_PATH`) |
+| FINDING-11 | `verify_launch57_sbom_ntia_scope.py` + Syft/container SBOM **or** `LAUNCH57_SBOM_SEC_LEAD_APPROVAL_ID` |
 
 ## Commands
 

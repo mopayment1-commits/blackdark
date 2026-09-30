@@ -83,6 +83,11 @@ def main() -> int:
         "security_lead_inventory_rerun_gate",
         "finding14_prod_run_recorder",
         "round_16_ops_evidence_ar",
+        "p7_wp5_production_smoke",
+        "p7_wp5_prod_smoke_recorder",
+        "qa_ci_bundle_gate",
+        "ops_v3_bundle_gate",
+        "round_17_p7_wp5_ar",
         "program_authority",
     )
     for rel in [data.get(k, "") for k in meta_keys]:

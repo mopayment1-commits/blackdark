@@ -2,7 +2,7 @@
   "program": "LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
   "remediation_sha": "7ea6c299",
-  "phase": "PHASE_ROUND_16_NTIA_SBOM_OPS_EVIDENCE_TOOLS",
+  "phase": "PHASE_ROUND_17_P7_WP5_PRODUCTION_SMOKE",
   "independent_verification_register": "governance/launch57/LAUNCH57_INDEPENDENT_VERIFICATION_REGISTER.json",
   "findings": {
     "FINDING-01": {
@@ -195,5 +195,10 @@
   "security_lead_inventory_rerun_gate": "scripts/verify_launch57_security_lead_inventory_rerun.py",
   "finding14_prod_run_recorder": "scripts/record_launch57_security_txt_prod_verification.py",
   "round_16_ops_evidence_ar": "docs/governance/LAUNCH57_ROUND_16_OPS_EVIDENCE_AR.md",
+  "p7_wp5_production_smoke": "scripts/verify_launch57_p7_wp5_production_smoke.py",
+  "p7_wp5_prod_smoke_recorder": "scripts/record_launch57_p7_wp5_prod_smoke.py",
+  "qa_ci_bundle_gate": "scripts/verify_launch57_qa_ci_bundle.py",
+  "ops_v3_bundle_gate": "scripts/verify_launch57_ops_v3_bundle.py",
+  "round_17_p7_wp5_ar": "docs/governance/LAUNCH57_ROUND_17_P7_WP5_AR.md",
   "program_authority": "docs/governance/LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION_PROGRAM.md"
 }

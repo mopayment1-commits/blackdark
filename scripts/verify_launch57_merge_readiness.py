@@ -23,6 +23,8 @@ GATES = (
     "verify_launch57_evidence_class_register.py",
     "verify_launch57_sbom_ntia_scope.py",
     "verify_launch57_security_lead_inventory_rerun.py",
+    "verify_launch57_qa_ci_bundle.py",
+    "verify_launch57_ops_v3_bundle.py",
 )
 
 

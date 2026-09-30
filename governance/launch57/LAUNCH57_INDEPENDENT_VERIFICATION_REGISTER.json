@@ -47,6 +47,9 @@
       "evidence_classes": ["E-RUN", "E-OPS"],
       "operator_scripts": [
         "scripts/verify_launch57_prod_surface.py",
+        "scripts/verify_launch57_p7_wp5_production_smoke.py",
+        "scripts/record_launch57_p7_wp5_prod_smoke.py",
+        "scripts/verify_launch57_ops_v3_bundle.py",
         "scripts/launch57_ops_closure_gate.py",
         "scripts/verify_well_known_security_txt.py"
       ],

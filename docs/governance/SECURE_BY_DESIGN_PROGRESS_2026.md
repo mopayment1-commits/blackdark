@@ -14,6 +14,12 @@
 | Supply chain | CycloneDX SBOM + git SHA binding |
 | Customer logging | 180-day policy + export API |
 
+## Engineering round 17 (L57-P7-WP5 production smoke + §8.3 V-2/V-3 bundles)
+
+- `verify_launch57_p7_wp5_production_smoke.py` + `record_launch57_p7_wp5_prod_smoke.py` (Phase 7 WP5)
+- `verify_launch57_qa_ci_bundle.py` (§8.3 V-2 repo), `verify_launch57_ops_v3_bundle.py` (§8.3 V-3)
+- `LAUNCH57_ROUND_17_P7_WP5_AR.md`
+
 ## Engineering round 16 (FINDING-11 NTIA gap + FINDING-14 E-RUN + §8.3 V-1 bundle)
 
 - `LAUNCH57_NTIA_SBOM_GAP_ANALYSIS.json` + `verify_launch57_sbom_ntia_scope.py` (program §6 FINDING-11 / NTIA-MIN)

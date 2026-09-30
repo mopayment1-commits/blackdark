@@ -17,6 +17,8 @@ export LAUNCH57_PROD_URL=https://blackdark-production.up.railway.app
 python scripts/verify_launch57_prod_surface.py
 python scripts/verify_well_known_security_txt.py --url "$LAUNCH57_PROD_URL"
 python scripts/record_launch57_security_txt_prod_verification.py
+python scripts/verify_launch57_p7_wp5_production_smoke.py
+python scripts/record_launch57_p7_wp5_prod_smoke.py
 ```
 
 ## 3. Close findings (verified)

@@ -164,6 +164,52 @@ def test_launch57_closure_report_marks_runtime_open():
     assert "cisa_certification_claimed" in proc.stdout
 
 
+def test_p7_wp5_smoke_skips_without_prod_url():
+    import subprocess
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    env = {k: v for k, v in os.environ.items() if k != "LAUNCH57_PROD_URL"}
+    proc = subprocess.run(
+        [sys.executable, str(root / "scripts/verify_launch57_p7_wp5_production_smoke.py")],
+        cwd=root,
+        capture_output=True,
+        text=True,
+        env=env,
+    )
+    assert proc.returncode == 3
+
+
+def test_qa_ci_bundle_gate():
+    import subprocess
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    proc = subprocess.run(
+        [sys.executable, str(root / "scripts/verify_launch57_qa_ci_bundle.py")],
+        cwd=root,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 0, proc.stderr or proc.stdout
+
+
+def test_ops_v3_bundle_without_prod():
+    import subprocess
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    env = {k: v for k, v in os.environ.items() if k != "LAUNCH57_PROD_URL"}
+    proc = subprocess.run(
+        [sys.executable, str(root / "scripts/verify_launch57_ops_v3_bundle.py")],
+        cwd=root,
+        capture_output=True,
+        text=True,
+        env=env,
+    )
+    assert proc.returncode == 0, proc.stderr or proc.stdout
+
+
 def test_sbom_ntia_scope_gate():
     import subprocess
     import sys
