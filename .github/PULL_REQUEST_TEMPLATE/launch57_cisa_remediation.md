@@ -15,6 +15,7 @@
 See [LAUNCH57_PR_MERGE_CHECKLIST.md](../docs/governance/LAUNCH57_PR_MERGE_CHECKLIST.md).
 
 - [ ] `verify_launch57_repo_evidence.py` passes
+- [ ] `verify_launch57_cross_workflow_assurance.py` + `verify_launch57_ci_reviewer_evidence_bundle.py` pass
 - [ ] `generate_launch57_completion_status.py` run if inventory changed
 - [ ] No claim of CISA certification / signed pledge / completed pentest unless evidenced
 

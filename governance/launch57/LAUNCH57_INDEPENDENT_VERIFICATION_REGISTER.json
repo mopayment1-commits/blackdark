@@ -35,6 +35,12 @@
           "test_anonymous_denial_includes_security_headers"
         ]
       },
+      "repo_automation": [
+        "scripts/verify_launch57_cross_workflow_assurance.py",
+        "scripts/verify_launch57_ci_reviewer_evidence_bundle.py"
+      ],
+      "signoff_recorder": "scripts/record_launch57_qa_v2_ci_urls.py",
+      "recording_spec": "governance/launch57/LAUNCH57_QA_V2_CI_RECORDING.json",
       "human_signoff": {
         "required": true,
         "field": "qa_ci_green_run_url",

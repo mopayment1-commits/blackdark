@@ -34,6 +34,7 @@ GATES = (
     "verify_launch57_evidence_index_schema.py",
     "verify_launch57_engineering_handoff.py",
     "verify_launch57_cross_workflow_assurance.py",
+    "verify_launch57_ci_reviewer_evidence_bundle.py",
 )
 
 

@@ -119,6 +119,10 @@ def main() -> int:
         "ci_reviewer_evidence_bundle",
         "ci_reviewer_evidence_bundle_generator",
         "round_23_cross_workflow_ar",
+        "qa_v2_ci_recording",
+        "ci_reviewer_evidence_bundle_gate",
+        "qa_v2_ci_urls_recorder",
+        "round_24_qa_v2_recording_ar",
         "program_authority",
     )
     for rel in [data.get(k, "") for k in meta_keys]:

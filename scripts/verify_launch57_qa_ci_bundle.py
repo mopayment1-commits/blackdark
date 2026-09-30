@@ -27,6 +27,12 @@ def main() -> int:
         for name in (v2.get("test_markers") or {}).get("required_test_names") or []:
             if f"def {name}" not in text:
                 errors.append(f"missing test {name}")
+    for gate in v2.get("repo_automation") or []:
+        if not (ROOT / gate).is_file():
+            errors.append(f"missing repo_automation {gate}")
+    recorder = v2.get("signoff_recorder", "")
+    if recorder and not (ROOT / recorder).is_file():
+        errors.append(f"missing signoff_recorder {recorder}")
     report = {
         "program_section": "§8.3 V-2",
         "repo_bundle_pass": not errors,

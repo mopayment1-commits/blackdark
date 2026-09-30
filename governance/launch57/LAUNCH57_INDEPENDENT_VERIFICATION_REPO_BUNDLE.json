@@ -24,6 +24,18 @@
       "maps_to": "§8.3 V-2"
     },
     {
+      "id": "v2_cross_workflow",
+      "script": "scripts/verify_launch57_cross_workflow_assurance.py",
+      "expect_exit": 0,
+      "maps_to": "§8.3 V-2 cross-workflow"
+    },
+    {
+      "id": "v2_reviewer_bundle",
+      "script": "scripts/verify_launch57_ci_reviewer_evidence_bundle.py",
+      "expect_exit": 0,
+      "maps_to": "§8.3 V-2 reviewer bundle"
+    },
+    {
       "id": "v3_ops_bundle_no_prod_required",
       "script": "scripts/verify_launch57_ops_v3_bundle.py",
       "expect_exit": 0,

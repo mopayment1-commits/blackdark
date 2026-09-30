@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-09-30T15:20:57.267209+00:00",
-  "git_commit": "400dcc6adeb8e775d5fc5e31b03e9852902fe4e6",
+  "generated_at": "2026-09-30T15:26:59.696542+00:00",
+  "git_commit": "7df3d22c240795f409d4d1efba25117fc77f1efd",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
   "remediation_sha": "400dcc6a",
-  "phase": "PHASE_ROUND_23_CROSS_WORKFLOW_CI_REVIEWER",
+  "phase": "PHASE_ROUND_24_QA_V2_CI_RECORDING",
   "cisa_certification_claimed": false,
   "rollup": {
     "counts_by_status": {

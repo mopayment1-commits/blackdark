@@ -227,6 +227,48 @@ def test_cross_workflow_assurance_gate():
     assert proc.returncode == 0, proc.stderr or proc.stdout
 
 
+def test_ci_reviewer_evidence_bundle_gate():
+    import subprocess
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    subprocess.run(
+        [sys.executable, str(root / "scripts/generate_launch57_ci_reviewer_evidence_bundle.py")],
+        cwd=root,
+        check=True,
+    )
+    proc = subprocess.run(
+        [sys.executable, str(root / "scripts/verify_launch57_ci_reviewer_evidence_bundle.py")],
+        cwd=root,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 0, proc.stderr or proc.stdout
+
+
+def test_record_qa_v2_ci_urls_rejects_invalid_url():
+    import subprocess
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    proc = subprocess.run(
+        [
+            sys.executable,
+            str(root / "scripts/record_launch57_qa_v2_ci_urls.py"),
+            "--security-run-url",
+            "https://example.com/actions/runs/1",
+            "--launch57-run-url",
+            "https://github.com/org/repo/actions/runs/2",
+            "--recorded-by",
+            "pytest",
+        ],
+        cwd=root,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode != 0
+
+
 def test_ci_assurance_manifest_gate():
     import subprocess
     import sys
