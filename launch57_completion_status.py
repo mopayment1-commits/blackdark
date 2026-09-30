@@ -24,6 +24,8 @@ def completion_status_attachment() -> dict[str, Any]:
         "open_ops_closure_package": "governance/launch57/LAUNCH57_OPEN_OPS_CLOSURE_PACKAGE.json",
         "program_integrity_gate": "scripts/verify_launch57_program_integrity_report.py",
         "preflight_transitions": "scripts/preflight_launch57_open_finding_transitions.py",
+        "ci_assurance_manifest": "governance/launch57/LAUNCH57_CI_ASSURANCE_MANIFEST.json",
+        "engineering_verification_suite": "scripts/run_launch57_engineering_verification_suite.py",
     }
     if _STATUS_JSON.is_file():
         data = json.loads(_STATUS_JSON.read_text(encoding="utf-8"))

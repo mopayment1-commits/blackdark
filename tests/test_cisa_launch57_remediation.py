@@ -166,6 +166,36 @@ def test_launch57_closure_report_marks_runtime_open():
     assert "cisa_certification_claimed" in proc.stdout
 
 
+def test_ci_assurance_manifest_gate():
+    import subprocess
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    proc = subprocess.run(
+        [sys.executable, str(root / "scripts/verify_launch57_ci_assurance_manifest.py")],
+        cwd=root,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 0, proc.stderr or proc.stdout
+
+
+def test_engineering_verification_suite():
+    import subprocess
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    env = {**dict(__import__("os").environ), "LAUNCH57_SKIP_PYTEST": "1"}
+    proc = subprocess.run(
+        [sys.executable, str(root / "scripts/run_launch57_engineering_verification_suite.py")],
+        cwd=root,
+        capture_output=True,
+        text=True,
+        env=env,
+    )
+    assert proc.returncode == 0, proc.stderr or proc.stdout
+
+
 def test_gate_index_verify():
     import subprocess
     import sys

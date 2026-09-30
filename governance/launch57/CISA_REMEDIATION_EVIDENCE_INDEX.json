@@ -2,7 +2,7 @@
   "program": "LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
   "remediation_sha": "8432052e",
-  "phase": "PHASE_ROUND_20_REMEDIATION_GATE_INDEX",
+  "phase": "PHASE_ROUND_21_CI_ASSURANCE_MANIFEST",
   "independent_verification_register": "governance/launch57/LAUNCH57_INDEPENDENT_VERIFICATION_REGISTER.json",
   "findings": {
     "FINDING-01": {
@@ -218,5 +218,9 @@
   "remediation_gate_index_gate": "scripts/verify_launch57_gate_index.py",
   "preflight_open_finding_transitions": "scripts/preflight_launch57_open_finding_transitions.py",
   "round_20_gate_index_ar": "docs/governance/LAUNCH57_ROUND_20_GATE_INDEX_AR.md",
+  "ci_assurance_manifest": "governance/launch57/LAUNCH57_CI_ASSURANCE_MANIFEST.json",
+  "ci_assurance_manifest_gate": "scripts/verify_launch57_ci_assurance_manifest.py",
+  "engineering_verification_suite": "scripts/run_launch57_engineering_verification_suite.py",
+  "round_21_ci_manifest_ar": "docs/governance/LAUNCH57_ROUND_21_CI_MANIFEST_AR.md",
   "program_authority": "docs/governance/LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION_PROGRAM.md"
 }

@@ -38,6 +38,7 @@ jobs:
       - run: python scripts/generate_launch57_gate_index.py
       - run: python scripts/verify_launch57_gate_index.py
       - run: python scripts/preflight_launch57_open_finding_transitions.py
+      - run: python scripts/verify_launch57_ci_assurance_manifest.py
       - run: test "$(python scripts/verify_launch57_program_closure_81.py >/dev/null; echo $?)" = "2"
       - run: python scripts/verify_launch57_repo_evidence.py
       - run: python scripts/collect_engineering_security_baseline.py

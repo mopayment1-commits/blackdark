@@ -14,6 +14,13 @@
 | Supply chain | CycloneDX SBOM + git SHA binding |
 | Customer logging | 180-day policy + export API |
 
+## Engineering round 21 (CI E-TEST manifest + engineering verification suite)
+
+- `LAUNCH57_CI_ASSURANCE_MANIFEST.json` + `verify_launch57_ci_assurance_manifest.py` (§3.2 / workflow parity)
+- `run_launch57_engineering_verification_suite.py` — local reviewer entry
+- Gate index / completion `phase` sync in `verify_launch57_generated_artifacts_fresh.py`
+- `LAUNCH57_ROUND_21_CI_MANIFEST_AR.md`
+
 ## Engineering round 20 (remediation gate index + transition preflight)
 
 - `LAUNCH57_REMEDIATION_GATE_INDEX.json` + `generate_launch57_gate_index.py` / `verify_launch57_gate_index.py`

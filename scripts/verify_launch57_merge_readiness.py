@@ -30,6 +30,7 @@ GATES = (
     "verify_launch57_iv_repo_bundle.py",
     "verify_launch57_program_integrity_report.py",
     "verify_launch57_gate_index.py",
+    "verify_launch57_ci_assurance_manifest.py",
 )
 
 

@@ -7,6 +7,7 @@ Safe to merge when:
 ```bash
 python scripts/verify_launch57_merge_readiness.py
 python scripts/verify_launch57_program_integrity_report.py
+python scripts/run_launch57_engineering_verification_suite.py
 ```
 
 Expect:

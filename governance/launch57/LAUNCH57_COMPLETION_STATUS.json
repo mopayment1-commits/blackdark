@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-09-30T14:49:54.951146+00:00",
-  "git_commit": "8432052ec782be19a07e0a88213abc69ab0ab38f",
+  "generated_at": "2026-09-30T15:04:01.048059+00:00",
+  "git_commit": "7dcb77bf3ab427468d3cae2eaf84388680fead95",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
   "remediation_sha": "8432052e",
-  "phase": "PHASE_ROUND_20_REMEDIATION_GATE_INDEX",
+  "phase": "PHASE_ROUND_21_CI_ASSURANCE_MANIFEST",
   "cisa_certification_claimed": false,
   "rollup": {
     "counts_by_status": {
