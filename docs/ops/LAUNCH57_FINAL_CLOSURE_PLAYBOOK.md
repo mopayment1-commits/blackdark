@@ -2,6 +2,15 @@
 
 **Honest rule:** Repository engineering can close FINDING-02…17 (repo). FINDING-01, 14 (prod), 18, 19 require operator/executive steps.
 
+Machine-check manifest:
+
+```bash
+python scripts/verify_launch57_final_closure_playbook_manifest.py
+```
+
+Institutional manifest: `governance/launch57/LAUNCH57_FINAL_CLOSURE_PLAYBOOK_MANIFEST.json`  
+Post-merge chain: `governance/launch57/LAUNCH57_POST_MERGE_OPS_MANIFEST.json`
+
 ## 1. Railway production env
 
 Apply `deploy/railway/LAUNCH57_CISA_ENV.md` on the web service.

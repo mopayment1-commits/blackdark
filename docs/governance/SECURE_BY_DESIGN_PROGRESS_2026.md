@@ -14,6 +14,12 @@
 | Supply chain | CycloneDX SBOM + git SHA binding |
 | Customer logging | 180-day policy + export API |
 
+## Engineering round 27 (final closure playbook manifest)
+
+- `LAUNCH57_FINAL_CLOSURE_PLAYBOOK_MANIFEST.json` + `verify_launch57_final_closure_playbook_manifest.py`
+- Playbook + evidence index `ops_playbook` linkage; post-merge manifest cross-link
+- `LAUNCH57_ROUND_27_FINAL_CLOSURE_AR.md`
+
 ## Engineering round 26 (merge-to-main readiness manifest)
 
 - `LAUNCH57_MERGE_TO_MAIN_READINESS_MANIFEST.json` + `verify_launch57_merge_to_main_readiness_manifest.py`

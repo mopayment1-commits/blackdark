@@ -7,6 +7,7 @@
   "engineering_handoff": "governance/launch57/LAUNCH57_ENGINEERING_HANDOFF.json",
   "open_ops_closure_package": "governance/launch57/LAUNCH57_OPEN_OPS_CLOSURE_PACKAGE.json",
   "finding_transition_runbook": "docs/ops/LAUNCH57_OPS_FINDING_TRANSITION_RUNBOOK.md",
+  "final_closure_playbook_manifest": "governance/launch57/LAUNCH57_FINAL_CLOSURE_PLAYBOOK_MANIFEST.json",
   "steps": [
     {
       "id": "railway_env",

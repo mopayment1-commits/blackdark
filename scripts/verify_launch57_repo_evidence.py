@@ -130,6 +130,9 @@ def main() -> int:
         "merge_to_main_readiness_manifest",
         "merge_to_main_readiness_manifest_gate",
         "round_26_merge_readiness_ar",
+        "final_closure_playbook_manifest",
+        "final_closure_playbook_manifest_gate",
+        "round_27_final_closure_ar",
         "program_authority",
     )
     for rel in [data.get(k, "") for k in meta_keys]:

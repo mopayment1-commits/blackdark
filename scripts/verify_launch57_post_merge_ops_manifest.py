@@ -48,6 +48,9 @@ def main() -> int:
     pkg_rel = spec.get("open_ops_closure_package")
     if pkg_rel and not (ROOT / pkg_rel).is_file():
         errors.append(f"missing open_ops_closure_package {pkg_rel}")
+    final_manifest = spec.get("final_closure_playbook_manifest")
+    if final_manifest and not (ROOT / final_manifest).is_file():
+        errors.append(f"missing final_closure_playbook_manifest {final_manifest}")
 
     report = {
         "authority": spec.get("authority"),

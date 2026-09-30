@@ -246,6 +246,20 @@ def test_ci_reviewer_evidence_bundle_gate():
     assert proc.returncode == 0, proc.stderr or proc.stdout
 
 
+def test_final_closure_playbook_manifest_gate():
+    import subprocess
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    proc = subprocess.run(
+        [sys.executable, str(root / "scripts/verify_launch57_final_closure_playbook_manifest.py")],
+        cwd=root,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 0, proc.stderr or proc.stdout
+
+
 def test_merge_to_main_readiness_manifest_gate():
     import subprocess
     import sys
