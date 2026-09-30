@@ -5,10 +5,10 @@
   "evidence_class": "E-TEST",
   "cisa_certification_claimed": false,
   "program_complete": false,
-  "generated_at": "2026-09-30T15:34:35.263289+00:00",
+  "generated_at": "2026-09-30T15:40:36.903989+00:00",
   "remediation_sha": "08a66a27",
-  "phase": "PHASE_ROUND_25_POST_MERGE_OPS_MANIFEST",
-  "git_head_short": "08a66a27",
+  "phase": "PHASE_ROUND_26_MERGE_TO_MAIN_MANIFEST",
+  "git_head_short": "7fbf3a78",
   "workflow_runs": {
     "security_pytest_security": {
       "workflow": ".github/workflows/security.yml",

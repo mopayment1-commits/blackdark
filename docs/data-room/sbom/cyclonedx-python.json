@@ -1,10 +1,10 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "serialNumber": "urn:uuid:135b8712-8c24-4bfb-92ce-23a7e2c29e15",
+  "serialNumber": "urn:uuid:4800f924-c4b3-4ff9-8896-feda505bac68",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-09-30T15:34:25Z",
+    "timestamp": "2026-09-30T15:40:41Z",
     "tools": {
       "components": [
         {
@@ -18,7 +18,7 @@
       "type": "application",
       "name": "blackdark",
       "version": "launch-57",
-      "description": "Generated from requirements.lock.txt sha256=258ef4f966fc8743012b9d66cd79c4627d236ad1d11cad3ae13a0722259a69f3 git=9aa94835fea64995e270cd58f197f90e39b13f21"
+      "description": "Generated from requirements.lock.txt sha256=258ef4f966fc8743012b9d66cd79c4627d236ad1d11cad3ae13a0722259a69f3 git=7fbf3a786218abdb50f0e7aeef30c55a5521aee8"
     },
     "properties": [
       {
@@ -35,7 +35,7 @@
       },
       {
         "name": "blackdark:git_commit",
-        "value": "9aa94835fea64995e270cd58f197f90e39b13f21"
+        "value": "7fbf3a786218abdb50f0e7aeef30c55a5521aee8"
       }
     ]
   },

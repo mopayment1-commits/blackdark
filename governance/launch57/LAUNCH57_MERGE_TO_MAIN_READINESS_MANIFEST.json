@@ -1,0 +1,45 @@
+{
+  "schema": "launch57_merge_to_main_readiness_manifest_v1",
+  "authority": "docs/governance/LAUNCH57_MERGE_TO_MAIN_READINESS.md",
+  "program_sections": ["§8.1 Program complete (honest incomplete)", "§8.3 Independent verification", "§3.2 E-TEST"],
+  "cisa_certification_claimed": false,
+  "program_complete": false,
+  "engineering_handoff": "governance/launch57/LAUNCH57_ENGINEERING_HANDOFF.json",
+  "pr_merge_checklist": "docs/governance/LAUNCH57_PR_MERGE_CHECKLIST.md",
+  "pr_template": ".github/PULL_REQUEST_TEMPLATE/launch57_cisa_remediation.md",
+  "post_merge_ops_manifest": "governance/launch57/LAUNCH57_POST_MERGE_OPS_MANIFEST.json",
+  "pre_merge_gates": [
+    {
+      "id": "merge_readiness",
+      "script": "scripts/verify_launch57_merge_readiness.py",
+      "expected_exit": 0,
+      "expect_json_field": "safe_to_merge_engineering",
+      "expect_value": true
+    },
+    {
+      "id": "program_integrity",
+      "script": "scripts/verify_launch57_program_integrity_report.py",
+      "expected_exit": 0
+    },
+    {
+      "id": "engineering_verification_suite",
+      "script": "scripts/run_launch57_engineering_verification_suite.py",
+      "expected_exit": 0,
+      "env_optional": ["LAUNCH57_SKIP_PYTEST=1"]
+    },
+    {
+      "id": "pr_merge_checklist_gates",
+      "script": "scripts/verify_launch57_pr_merge_checklist_gates.py",
+      "expected_exit": 0
+    }
+  ],
+  "reviewer_expectations": {
+    "program_complete": false,
+    "open_ops_findings_documented": ["FINDING-01", "FINDING-18", "FINDING-19"],
+    "ci_workflows": [
+      ".github/workflows/launch57-cisa-assurance.yml",
+      ".github/workflows/security.yml"
+    ]
+  },
+  "repo_gate": "scripts/verify_launch57_merge_to_main_readiness_manifest.py"
+}

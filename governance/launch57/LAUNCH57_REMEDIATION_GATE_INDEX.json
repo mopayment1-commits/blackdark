@@ -1,13 +1,13 @@
 {
   "schema": "launch57_remediation_gate_index_v1",
-  "generated_at": "2026-09-30T15:34:35.340131+00:00",
-  "git_commit": "08a66a2754e6cdcea7a3059ca4082b01786c5bc0",
+  "generated_at": "2026-09-30T15:40:38.493294+00:00",
+  "git_commit": "7fbf3a786218abdb50f0e7aeef30c55a5521aee8",
   "authority": "docs/governance/LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION_PROGRAM.md",
-  "phase": "PHASE_ROUND_25_POST_MERGE_OPS_MANIFEST",
+  "phase": "PHASE_ROUND_26_MERGE_TO_MAIN_MANIFEST",
   "remediation_sha": "08a66a27",
   "cisa_certification_claimed": false,
   "program_complete": false,
-  "gate_count": 37,
+  "gate_count": 38,
   "gates": [
     {
       "id": "ci_assurance_manifest_gate",
@@ -67,6 +67,11 @@
     {
       "id": "merge_readiness_gate",
       "path": "scripts/verify_launch57_merge_readiness.py",
+      "kind": "script"
+    },
+    {
+      "id": "merge_to_main_readiness_manifest_gate",
+      "path": "scripts/verify_launch57_merge_to_main_readiness_manifest.py",
       "kind": "script"
     },
     {

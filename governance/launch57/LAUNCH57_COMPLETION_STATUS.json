@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-09-30T15:34:35.289797+00:00",
-  "git_commit": "08a66a2754e6cdcea7a3059ca4082b01786c5bc0",
+  "generated_at": "2026-09-30T15:40:41.832047+00:00",
+  "git_commit": "7fbf3a786218abdb50f0e7aeef30c55a5521aee8",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
   "remediation_sha": "08a66a27",
-  "phase": "PHASE_ROUND_25_POST_MERGE_OPS_MANIFEST",
+  "phase": "PHASE_ROUND_26_MERGE_TO_MAIN_MANIFEST",
   "cisa_certification_claimed": false,
   "rollup": {
     "counts_by_status": {

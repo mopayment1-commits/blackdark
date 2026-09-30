@@ -19,5 +19,7 @@
     "Set cisa_certification_claimed true",
     "Mark FINDING-01/18/19 CLOSED without E-OPS/E-LEGAL evidence"
   ],
-  "merge_readiness_doc": "docs/governance/LAUNCH57_MERGE_TO_MAIN_READINESS.md"
+  "merge_readiness_doc": "docs/governance/LAUNCH57_MERGE_TO_MAIN_READINESS.md",
+  "merge_to_main_readiness_manifest": "governance/launch57/LAUNCH57_MERGE_TO_MAIN_READINESS_MANIFEST.json",
+  "merge_to_main_readiness_manifest_gate": "scripts/verify_launch57_merge_to_main_readiness_manifest.py"
 }

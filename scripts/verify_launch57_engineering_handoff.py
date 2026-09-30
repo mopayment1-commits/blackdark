@@ -29,6 +29,8 @@ def main() -> int:
         "open_ops_closure_package",
         "allowed_release_attestation",
         "merge_readiness_doc",
+        "merge_to_main_readiness_manifest",
+        "merge_to_main_readiness_manifest_gate",
     ):
         rel = data.get(key)
         if not rel or not (ROOT / rel).is_file():

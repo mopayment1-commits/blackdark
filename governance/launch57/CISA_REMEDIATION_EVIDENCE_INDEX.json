@@ -2,7 +2,7 @@
   "program": "LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
   "remediation_sha": "08a66a27",
-  "phase": "PHASE_ROUND_25_POST_MERGE_OPS_MANIFEST",
+  "phase": "PHASE_ROUND_26_MERGE_TO_MAIN_MANIFEST",
   "independent_verification_register": "governance/launch57/LAUNCH57_INDEPENDENT_VERIFICATION_REGISTER.json",
   "findings": {
     "FINDING-01": {
@@ -242,5 +242,8 @@
   "post_merge_ops_manifest_gate": "scripts/verify_launch57_post_merge_ops_manifest.py",
   "iv_human_signoff_preflight": "scripts/preflight_launch57_iv_human_signoffs.py",
   "round_25_post_merge_ops_ar": "docs/governance/LAUNCH57_ROUND_25_POST_MERGE_OPS_AR.md",
+  "merge_to_main_readiness_manifest": "governance/launch57/LAUNCH57_MERGE_TO_MAIN_READINESS_MANIFEST.json",
+  "merge_to_main_readiness_manifest_gate": "scripts/verify_launch57_merge_to_main_readiness_manifest.py",
+  "round_26_merge_readiness_ar": "docs/governance/LAUNCH57_ROUND_26_MERGE_READINESS_AR.md",
   "program_authority": "docs/governance/LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION_PROGRAM.md"
 }

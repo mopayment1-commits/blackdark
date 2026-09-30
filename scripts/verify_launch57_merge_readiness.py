@@ -36,6 +36,7 @@ GATES = (
     "verify_launch57_cross_workflow_assurance.py",
     "verify_launch57_ci_reviewer_evidence_bundle.py",
     "verify_launch57_post_merge_ops_manifest.py",
+    "verify_launch57_merge_to_main_readiness_manifest.py",
 )
 
 

@@ -14,6 +14,12 @@
 | Supply chain | CycloneDX SBOM + git SHA binding |
 | Customer logging | 180-day policy + export API |
 
+## Engineering round 26 (merge-to-main readiness manifest)
+
+- `LAUNCH57_MERGE_TO_MAIN_READINESS_MANIFEST.json` + `verify_launch57_merge_to_main_readiness_manifest.py`
+- `LAUNCH57_MERGE_TO_MAIN_READINESS.md` synced with PR checklist gates + post-merge manifest pointer
+- `LAUNCH57_ROUND_26_MERGE_READINESS_AR.md`
+
 ## Engineering round 25 (post-merge ops manifest + §8.3 human preflight)
 
 - `LAUNCH57_POST_MERGE_OPS_MANIFEST.json` + `verify_launch57_post_merge_ops_manifest.py`

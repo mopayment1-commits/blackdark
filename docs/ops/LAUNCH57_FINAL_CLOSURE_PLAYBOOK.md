@@ -16,6 +16,7 @@ python scripts/verify_launch57_prod_surface.py   # needs LAUNCH57_PROD_URL
 ## 2. Automated repo gate (CI / pre-merge)
 
 ```bash
+python scripts/verify_launch57_merge_to_main_readiness_manifest.py
 python scripts/verify_launch57_repo_evidence.py
 python -m pytest tests/test_cisa_launch57_remediation.py -q
 ```
