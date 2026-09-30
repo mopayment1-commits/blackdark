@@ -24,6 +24,9 @@ import governance.launch57.generate_phase4_batch1
 import governance.launch57.generate_capability_library_closure
 import governance.launch57.generate_phase4_batch2
 import governance.launch57.generate_phase5_batch1
+import governance.launch57.generate_phase2_batch2
+import governance.launch57.generate_phase7_batch1
+import governance.launch57.generate_billing_entitlement_closure
 
 import json
 from datetime import UTC, datetime
