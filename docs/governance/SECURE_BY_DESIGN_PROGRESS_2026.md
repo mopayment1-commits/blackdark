@@ -14,6 +14,13 @@
 | Supply chain | CycloneDX SBOM + git SHA binding |
 | Customer logging | 180-day policy + export API |
 
+## Engineering round 20 (remediation gate index + transition preflight)
+
+- `LAUNCH57_REMEDIATION_GATE_INDEX.json` + `generate_launch57_gate_index.py` / `verify_launch57_gate_index.py`
+- `preflight_launch57_open_finding_transitions.py` — dry-run only
+- API/docs navigation: `gate_index` in `launch57-closure-status` inventory attachment
+- `LAUNCH57_ROUND_20_GATE_INDEX_AR.md`
+
 ## Engineering round 19 (§8.3 IV repo bundle + program integrity report)
 
 - `LAUNCH57_INDEPENDENT_VERIFICATION_REPO_BUNDLE.json` + `verify_launch57_iv_repo_bundle.py`

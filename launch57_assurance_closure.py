@@ -62,4 +62,8 @@ def launch57_closure_status() -> dict[str, Any]:
             "scripts/verify_edge_waf_cdn.py",
         ],
         "open_findings_register": "governance/launch57/LAUNCH57_OPEN_FINDINGS_REGISTER.md",
+        "open_ops_closure_package": "governance/launch57/LAUNCH57_OPEN_OPS_CLOSURE_PACKAGE.json",
+        "remediation_gate_index": "governance/launch57/LAUNCH57_REMEDIATION_GATE_INDEX.json",
+        "merge_readiness_gate": "scripts/verify_launch57_merge_readiness.py",
+        "program_integrity_gate": "scripts/verify_launch57_program_integrity_report.py",
     }

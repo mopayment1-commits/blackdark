@@ -98,6 +98,11 @@ def main() -> int:
         "program_integrity_report_gate",
         "ops_playbook_dry_run",
         "round_19_iv_bundle_ar",
+        "remediation_gate_index",
+        "remediation_gate_index_generator",
+        "remediation_gate_index_gate",
+        "preflight_open_finding_transitions",
+        "round_20_gate_index_ar",
         "program_authority",
     )
     for rel in [data.get(k, "") for k in meta_keys]:

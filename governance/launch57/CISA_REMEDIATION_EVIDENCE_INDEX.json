@@ -2,7 +2,7 @@
   "program": "LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
   "remediation_sha": "b061337c",
-  "phase": "PHASE_ROUND_19_IV_REPO_BUNDLE_INTEGRITY",
+  "phase": "PHASE_ROUND_20_REMEDIATION_GATE_INDEX",
   "independent_verification_register": "governance/launch57/LAUNCH57_INDEPENDENT_VERIFICATION_REGISTER.json",
   "findings": {
     "FINDING-01": {
@@ -213,5 +213,10 @@
   "program_integrity_report_gate": "scripts/verify_launch57_program_integrity_report.py",
   "ops_playbook_dry_run": "scripts/run_launch57_ops_playbook_dry_run.py",
   "round_19_iv_bundle_ar": "docs/governance/LAUNCH57_ROUND_19_IV_BUNDLE_AR.md",
+  "remediation_gate_index": "governance/launch57/LAUNCH57_REMEDIATION_GATE_INDEX.json",
+  "remediation_gate_index_generator": "scripts/generate_launch57_gate_index.py",
+  "remediation_gate_index_gate": "scripts/verify_launch57_gate_index.py",
+  "preflight_open_finding_transitions": "scripts/preflight_launch57_open_finding_transitions.py",
+  "round_20_gate_index_ar": "docs/governance/LAUNCH57_ROUND_20_GATE_INDEX_AR.md",
   "program_authority": "docs/governance/LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION_PROGRAM.md"
 }

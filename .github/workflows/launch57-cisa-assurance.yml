@@ -35,6 +35,9 @@ jobs:
       - run: python scripts/verify_launch57_iv_repo_bundle.py
       - run: python scripts/verify_launch57_program_integrity_report.py
       - run: python scripts/run_launch57_ops_playbook_dry_run.py
+      - run: python scripts/generate_launch57_gate_index.py
+      - run: python scripts/verify_launch57_gate_index.py
+      - run: python scripts/preflight_launch57_open_finding_transitions.py
       - run: test "$(python scripts/verify_launch57_program_closure_81.py >/dev/null; echo $?)" = "2"
       - run: python scripts/verify_launch57_repo_evidence.py
       - run: python scripts/collect_engineering_security_baseline.py

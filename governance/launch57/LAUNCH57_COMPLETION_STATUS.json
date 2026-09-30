@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-09-30T14:43:42.969042+00:00",
-  "git_commit": "b061337c2ba712a829423cc67bce3f06deddf0e2",
+  "generated_at": "2026-09-30T14:49:48.025495+00:00",
+  "git_commit": "47702b700277e8aa77119d765ceb3fc9745f76ed",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
   "remediation_sha": "b061337c",
-  "phase": "PHASE_ROUND_19_IV_REPO_BUNDLE_INTEGRITY",
+  "phase": "PHASE_ROUND_20_REMEDIATION_GATE_INDEX",
   "cisa_certification_claimed": false,
   "rollup": {
     "counts_by_status": {

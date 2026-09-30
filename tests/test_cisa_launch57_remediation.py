@@ -90,6 +90,8 @@ def test_launch57_closure_status_honest():
     assert inv.get("finding_count") == 19
     assert inv.get("program_complete") is False
     assert "FINDING-01" in (inv.get("open_finding_ids") or [])
+    docs = inv.get("documents") or {}
+    assert docs.get("gate_index") == "governance/launch57/LAUNCH57_REMEDIATION_GATE_INDEX.json"
 
 
 def test_launch57_closure_status_api_authenticated(strict_client: TestClient, monkeypatch):
@@ -162,6 +164,42 @@ def test_launch57_closure_report_marks_runtime_open():
     assert proc.returncode == 2
     assert "RUNTIME_OPEN" in proc.stderr
     assert "cisa_certification_claimed" in proc.stdout
+
+
+def test_gate_index_verify():
+    import subprocess
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    subprocess.run(
+        [sys.executable, str(root / "scripts/generate_launch57_gate_index.py")],
+        cwd=root,
+        check=True,
+    )
+    proc = subprocess.run(
+        [sys.executable, str(root / "scripts/verify_launch57_gate_index.py")],
+        cwd=root,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 0, proc.stderr or proc.stdout
+
+
+def test_preflight_open_finding_transitions():
+    import subprocess
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    proc = subprocess.run(
+        [sys.executable, str(root / "scripts/preflight_launch57_open_finding_transitions.py")],
+        cwd=root,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 0, proc.stderr or proc.stdout
+    report = json.loads(proc.stdout)
+    assert report["apply_used"] is False
+    assert "FINDING-18" in report["blocked"]
 
 
 def test_iv_repo_bundle_gate():

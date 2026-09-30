@@ -20,6 +20,10 @@ def completion_status_attachment() -> dict[str, Any]:
         "pr_merge_checklist": "docs/governance/LAUNCH57_PR_MERGE_CHECKLIST.md",
         "engineering_closure_declaration": "docs/governance/LAUNCH57_ENGINEERING_CLOSURE_DECLARATION.md",
         "finding_inventory_lock": "governance/launch57/FINDING_INVENTORY_LOCK.json",
+        "gate_index": "governance/launch57/LAUNCH57_REMEDIATION_GATE_INDEX.json",
+        "open_ops_closure_package": "governance/launch57/LAUNCH57_OPEN_OPS_CLOSURE_PACKAGE.json",
+        "program_integrity_gate": "scripts/verify_launch57_program_integrity_report.py",
+        "preflight_transitions": "scripts/preflight_launch57_open_finding_transitions.py",
     }
     if _STATUS_JSON.is_file():
         data = json.loads(_STATUS_JSON.read_text(encoding="utf-8"))
