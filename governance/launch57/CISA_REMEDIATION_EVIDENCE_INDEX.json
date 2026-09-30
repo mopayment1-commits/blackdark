@@ -1,7 +1,7 @@
 {
   "program": "LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
-  "remediation_sha": "5e0ed17e",
+  "remediation_sha": "7ea6c299",
   "phase": "PHASE_ROUND_16_NTIA_SBOM_OPS_EVIDENCE_TOOLS",
   "independent_verification_register": "governance/launch57/LAUNCH57_INDEPENDENT_VERIFICATION_REGISTER.json",
   "findings": {
