@@ -22,6 +22,8 @@ GOVERNANCE_JSON = (
     "governance/launch57/LAUNCH57_REMEDIATION_LIFECYCLE_INDEX.json",
     "governance/launch57/LAUNCH57_FINDING_11_SBOM_CLOSURE_LANE.json",
     "governance/launch57/LAUNCH57_FINDING_14_SECURITY_TXT_CLOSURE_LANE.json",
+    "governance/launch57/LAUNCH57_FINDING_18_PENTEST_CLOSURE_LANE.json",
+    "governance/launch57/LAUNCH57_FINDING_19_WAF_CLOSURE_LANE.json",
 )
 
 

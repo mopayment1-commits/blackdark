@@ -14,6 +14,11 @@
 | Supply chain | CycloneDX SBOM + git SHA binding |
 | Customer logging | 180-day policy + export API |
 
+## Engineering round 31 (FINDING-18 pentest + FINDING-19 WAF closure lanes)
+
+- `LAUNCH57_FINDING_18_PENTEST_CLOSURE_LANE.json` + `LAUNCH57_FINDING_19_WAF_CLOSURE_LANE.json`
+- Verifiers + transition prefights; `LAUNCH57_ROUND_31_FINDING18_19_AR.md`
+
 ## Engineering round 30 (FINDING-14 security.txt / RFC-9116 closure lane)
 
 - `LAUNCH57_FINDING_14_SECURITY_TXT_CLOSURE_LANE.json` + verifier + transition preflight

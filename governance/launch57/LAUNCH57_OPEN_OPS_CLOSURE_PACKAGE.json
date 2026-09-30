@@ -52,6 +52,8 @@
       "closure_requires": "Signed pentest deposit + verify_pentest_attestation()",
       "operator_scripts": [
         "scripts/prepare_pentest_deposit_launch57.py",
+        "scripts/verify_launch57_finding18_pentest_closure_lane.py",
+        "scripts/preflight_launch57_finding18_transition.py",
         "scripts/record_launch57_finding18_assurance_run.py",
         "scripts/transition_launch57_finding_status.py"
       ],
@@ -64,6 +66,8 @@
       "closure_requires": "CDN_WAF_ACTIVE=1 + verify_edge_waf_cdn exit 0",
       "operator_scripts": [
         "scripts/verify_edge_waf_cdn.py",
+        "scripts/verify_launch57_finding19_waf_closure_lane.py",
+        "scripts/preflight_launch57_finding19_transition.py",
         "scripts/record_launch57_finding19_waf_run.py",
         "scripts/transition_launch57_finding_status.py"
       ],

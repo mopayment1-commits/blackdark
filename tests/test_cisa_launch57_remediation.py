@@ -246,6 +246,54 @@ def test_ci_reviewer_evidence_bundle_gate():
     assert proc.returncode == 0, proc.stderr or proc.stdout
 
 
+def test_finding18_pentest_closure_lane_gate():
+    import subprocess
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    proc = subprocess.run(
+        [sys.executable, str(root / "scripts/verify_launch57_finding18_pentest_closure_lane.py")],
+        cwd=root,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 0, proc.stderr or proc.stdout
+
+
+def test_finding19_waf_closure_lane_gate():
+    import subprocess
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    proc = subprocess.run(
+        [sys.executable, str(root / "scripts/verify_launch57_finding19_waf_closure_lane.py")],
+        cwd=root,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 0, proc.stderr or proc.stdout
+
+
+def test_finding18_19_transition_preflight_honest():
+    import json
+    import subprocess
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    for script in (
+        "preflight_launch57_finding18_transition.py",
+        "preflight_launch57_finding19_transition.py",
+    ):
+        proc = subprocess.run(
+            [sys.executable, str(root / "scripts" / script)],
+            cwd=root,
+            capture_output=True,
+            text=True,
+        )
+        assert proc.returncode == 0
+        assert json.loads(proc.stdout).get("apply_used") is False
+
+
 def test_finding14_security_txt_closure_lane_gate():
     import subprocess
     import sys

@@ -41,6 +41,8 @@ GATES = (
     "verify_launch57_remediation_lifecycle_index.py",
     "verify_launch57_finding11_sbom_closure_lane.py",
     "verify_launch57_finding14_security_txt_closure_lane.py",
+    "verify_launch57_finding18_pentest_closure_lane.py",
+    "verify_launch57_finding19_waf_closure_lane.py",
 )
 
 
