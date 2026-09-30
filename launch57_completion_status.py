@@ -18,6 +18,8 @@ def completion_status_attachment() -> dict[str, Any]:
         "completion_json": "governance/launch57/LAUNCH57_COMPLETION_STATUS.json",
         "evidence_index": "governance/launch57/CISA_REMEDIATION_EVIDENCE_INDEX.json",
         "pr_merge_checklist": "docs/governance/LAUNCH57_PR_MERGE_CHECKLIST.md",
+        "engineering_closure_declaration": "docs/governance/LAUNCH57_ENGINEERING_CLOSURE_DECLARATION.md",
+        "finding_inventory_lock": "governance/launch57/FINDING_INVENTORY_LOCK.json",
     }
     if _STATUS_JSON.is_file():
         data = json.loads(_STATUS_JSON.read_text(encoding="utf-8"))

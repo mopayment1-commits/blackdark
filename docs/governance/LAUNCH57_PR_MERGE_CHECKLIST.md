@@ -6,6 +6,7 @@ Use before merging Launch-57 / CISA remediation work to `main`.
 
 - [ ] `launch57-cisa-assurance` workflow green (or documented waiver)
 - [ ] `security.yml` includes `tests/test_cisa_launch57_remediation.py`
+- [ ] `python scripts/verify_launch57_finding_inventory_lock.py` passes (19 findings)
 - [ ] `python scripts/verify_launch57_repo_evidence.py` passes locally
 
 ## Evidence hygiene

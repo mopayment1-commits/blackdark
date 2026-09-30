@@ -164,6 +164,39 @@ def test_launch57_closure_report_marks_runtime_open():
     assert "cisa_certification_claimed" in proc.stdout
 
 
+def test_finding_inventory_lock_matches_index():
+    import subprocess
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    proc = subprocess.run(
+        [sys.executable, str(root / "scripts" / "verify_launch57_finding_inventory_lock.py")],
+        cwd=root,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 0, proc.stderr or proc.stdout
+
+
+def test_engineering_closure_declaration_honest():
+    import subprocess
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    proc = subprocess.run(
+        [sys.executable, str(root / "scripts" / "generate_launch57_engineering_closure.py")],
+        cwd=root,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 0, proc.stderr or proc.stdout
+    data = json.loads((root / "governance/launch57/LAUNCH57_ENGINEERING_CLOSURE.json").read_text(encoding="utf-8"))
+    assert data["program_complete"] is False
+    assert data["cisa_certification_claimed"] is False
+    assert data["engineering_closure_declared"] is True
+    assert "FINDING-18" in data["ops_and_executive_open"]
+
+
 def test_completion_status_covers_19_findings():
     import subprocess
     import sys

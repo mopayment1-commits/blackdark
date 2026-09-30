@@ -21,12 +21,14 @@ jobs:
           python-version: "3.12"
       - run: pip install --require-hashes --only-binary=:all: -r requirements.hashes.txt
       - run: pip install --only-binary=:all: pip-audit==2.9.0
+      - run: python scripts/verify_launch57_finding_inventory_lock.py
       - run: python scripts/verify_launch57_repo_evidence.py
       - run: python scripts/collect_engineering_security_baseline.py
       - run: python scripts/validate_pentest_deposit_template.py
       - run: test "$(python scripts/launch57_closure_report.py >/dev/null; echo $?)" = "2"
       - run: python scripts/publish_launch57_release_evidence.py
       - run: python scripts/generate_launch57_completion_status.py
+      - run: python scripts/generate_launch57_engineering_closure.py
       - run: python -m pytest tests/test_cisa_launch57_remediation.py -q
       - uses: actions/upload-artifact@v4
         with:
@@ -40,6 +42,8 @@ jobs:
             docs/data-room/sbom/cyclonedx-python.json
             governance/launch57/LAUNCH57_REMEDIATION_COMPLETION_STATUS.md
             governance/launch57/LAUNCH57_COMPLETION_STATUS.json
+            governance/launch57/LAUNCH57_ENGINEERING_CLOSURE.json
+            docs/governance/LAUNCH57_ENGINEERING_CLOSURE_DECLARATION.md
 
   syft-prod-lock-sbom:
     runs-on: ubuntu-latest

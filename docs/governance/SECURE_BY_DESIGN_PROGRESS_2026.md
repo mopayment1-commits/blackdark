@@ -14,6 +14,11 @@
 | Supply chain | CycloneDX SBOM + git SHA binding |
 | Customer logging | 180-day policy + export API |
 
+## Engineering round 10 (engineering closure declaration + inventory lock)
+
+- `FINDING_INVENTORY_LOCK.json` + `verify_launch57_finding_inventory_lock.py` (CI gate)
+- `LAUNCH57_ENGINEERING_CLOSURE_DECLARATION.md` — formal repo closure; ops/executive still open
+
 ## Engineering round 9 (API inventory + PR checklist)
 
 - `launch57_completion_status.py` embedded in `GET /api/security/launch57-closure-status`

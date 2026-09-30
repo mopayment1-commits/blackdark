@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-09-30T12:29:21.941767+00:00",
-  "git_commit": "cf261ede758987c1d61303bed8dae2045007f4a6",
+  "generated_at": "2026-09-30T12:34:37.206356+00:00",
+  "git_commit": "9675f49c2c1069aafed0e1478dfb109b1ef540c6",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
   "remediation_sha": "cf261ede",
-  "phase": "PHASE_ROUND_9_API_PR_CHECKLIST",
+  "phase": "PHASE_ROUND_10_ENGINEERING_CLOSURE_INVENTORY_LOCK",
   "cisa_certification_claimed": false,
   "rollup": {
     "counts_by_status": {

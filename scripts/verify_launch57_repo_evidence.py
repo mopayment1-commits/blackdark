@@ -54,6 +54,11 @@ def main() -> int:
         "completion_status_generator",
         "pr_merge_checklist",
         "pr_template",
+        "finding_inventory_lock",
+        "finding_inventory_gate",
+        "engineering_closure_declaration_md",
+        "engineering_closure_json",
+        "engineering_closure_generator",
     )
     for rel in [data.get(k, "") for k in meta_keys]:
         if not rel or rel.startswith("GET "):
