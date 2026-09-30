@@ -14,6 +14,11 @@
 | Supply chain | CycloneDX SBOM + git SHA binding |
 | Customer logging | 180-day policy + export API |
 
+## Engineering round 32 (FINDING-01 CISA pledge closure lane)
+
+- `LAUNCH57_FINDING_01_PLEDGE_CLOSURE_LANE.json` + verifier + transition preflight (E-LEGAL)
+- `LAUNCH57_ROUND_32_FINDING01_PLEDGE_AR.md`
+
 ## Engineering round 31 (FINDING-18 pentest + FINDING-19 WAF closure lanes)
 
 - `LAUNCH57_FINDING_18_PENTEST_CLOSURE_LANE.json` + `LAUNCH57_FINDING_19_WAF_CLOSURE_LANE.json`

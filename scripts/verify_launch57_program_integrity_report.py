@@ -24,6 +24,7 @@ GOVERNANCE_JSON = (
     "governance/launch57/LAUNCH57_FINDING_14_SECURITY_TXT_CLOSURE_LANE.json",
     "governance/launch57/LAUNCH57_FINDING_18_PENTEST_CLOSURE_LANE.json",
     "governance/launch57/LAUNCH57_FINDING_19_WAF_CLOSURE_LANE.json",
+    "governance/launch57/LAUNCH57_FINDING_01_PLEDGE_CLOSURE_LANE.json",
 )
 
 

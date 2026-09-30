@@ -2,7 +2,7 @@
   "program": "LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
   "remediation_sha": "95e08efa",
-  "phase": "PHASE_ROUND_31_FINDING18_19_ASSURANCE_LANES",
+  "phase": "PHASE_ROUND_32_FINDING01_PLEDGE_CLOSURE_LANE",
   "independent_verification_register": "governance/launch57/LAUNCH57_INDEPENDENT_VERIFICATION_REGISTER.json",
   "findings": {
     "FINDING-01": {
@@ -268,5 +268,9 @@
   "finding_19_waf_closure_lane_gate": "scripts/verify_launch57_finding19_waf_closure_lane.py",
   "finding_19_transition_preflight": "scripts/preflight_launch57_finding19_transition.py",
   "round_31_finding18_19_ar": "docs/governance/LAUNCH57_ROUND_31_FINDING18_19_AR.md",
+  "finding_01_pledge_closure_lane": "governance/launch57/LAUNCH57_FINDING_01_PLEDGE_CLOSURE_LANE.json",
+  "finding_01_pledge_closure_lane_gate": "scripts/verify_launch57_finding01_pledge_closure_lane.py",
+  "finding_01_transition_preflight": "scripts/preflight_launch57_finding01_transition.py",
+  "round_32_finding01_pledge_ar": "docs/governance/LAUNCH57_ROUND_32_FINDING01_PLEDGE_AR.md",
   "program_authority": "docs/governance/LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION_PROGRAM.md"
 }

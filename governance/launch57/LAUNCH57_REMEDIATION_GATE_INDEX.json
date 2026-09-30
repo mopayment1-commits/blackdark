@@ -1,13 +1,13 @@
 {
   "schema": "launch57_remediation_gate_index_v1",
-  "generated_at": "2026-09-30T20:51:28.109707+00:00",
-  "git_commit": "95e08efaf630ff4af04ab52b975fd5e6ab41ed38",
+  "generated_at": "2026-09-30T20:54:55.318783+00:00",
+  "git_commit": "b7acc7e18c8be354a6a5b903195dc5efb5006a39",
   "authority": "docs/governance/LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION_PROGRAM.md",
-  "phase": "PHASE_ROUND_31_FINDING18_19_ASSURANCE_LANES",
+  "phase": "PHASE_ROUND_32_FINDING01_PLEDGE_CLOSURE_LANE",
   "remediation_sha": "95e08efa",
   "cisa_certification_claimed": false,
   "program_complete": false,
-  "gate_count": 44,
+  "gate_count": 45,
   "gates": [
     {
       "id": "ci_assurance_manifest_gate",
@@ -42,6 +42,11 @@
     {
       "id": "final_closure_playbook_manifest_gate",
       "path": "scripts/verify_launch57_final_closure_playbook_manifest.py",
+      "kind": "script"
+    },
+    {
+      "id": "finding_01_pledge_closure_lane_gate",
+      "path": "scripts/verify_launch57_finding01_pledge_closure_lane.py",
       "kind": "script"
     },
     {

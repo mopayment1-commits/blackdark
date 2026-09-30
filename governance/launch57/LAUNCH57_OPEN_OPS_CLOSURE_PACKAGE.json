@@ -13,6 +13,8 @@
       "operator_scripts": [
         "scripts/record_pledge_submission.py",
         "scripts/record_launch57_finding01_pledge_readiness.py",
+        "scripts/verify_launch57_finding01_pledge_closure_lane.py",
+        "scripts/preflight_launch57_finding01_transition.py",
         "scripts/transition_launch57_finding_status.py"
       ],
       "program_ref": "§6 FINDING-01; Phase 6 L57-P6-WP1"

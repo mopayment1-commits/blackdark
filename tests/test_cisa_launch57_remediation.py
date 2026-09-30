@@ -246,6 +246,37 @@ def test_ci_reviewer_evidence_bundle_gate():
     assert proc.returncode == 0, proc.stderr or proc.stdout
 
 
+def test_finding01_pledge_closure_lane_gate():
+    import subprocess
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    proc = subprocess.run(
+        [sys.executable, str(root / "scripts/verify_launch57_finding01_pledge_closure_lane.py")],
+        cwd=root,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 0, proc.stderr or proc.stdout
+
+
+def test_finding01_transition_preflight_honest():
+    import json
+    import subprocess
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    proc = subprocess.run(
+        [sys.executable, str(root / "scripts/preflight_launch57_finding01_transition.py")],
+        cwd=root,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 0
+    report = json.loads(proc.stdout)
+    assert report.get("apply_used") is False
+
+
 def test_finding18_pentest_closure_lane_gate():
     import subprocess
     import sys

@@ -43,6 +43,7 @@ GATES = (
     "verify_launch57_finding14_security_txt_closure_lane.py",
     "verify_launch57_finding18_pentest_closure_lane.py",
     "verify_launch57_finding19_waf_closure_lane.py",
+    "verify_launch57_finding01_pledge_closure_lane.py",
 )
 
 
