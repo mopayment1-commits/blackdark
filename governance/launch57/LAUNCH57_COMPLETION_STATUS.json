@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-09-30T15:05:40.444410+00:00",
-  "git_commit": "cedb095e2c488204ca544bad686a733b470d39a8",
+  "generated_at": "2026-09-30T15:05:47.896101+00:00",
+  "git_commit": "25a3169c32169acec65469b2020682f0174b6223",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
-  "remediation_sha": "a8c906ef",
+  "remediation_sha": "25a3169c",
   "phase": "PHASE_ROUND_22_EVIDENCE_INDEX_SCHEMA_HANDOFF",
   "cisa_certification_claimed": false,
   "rollup": {
