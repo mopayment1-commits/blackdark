@@ -66,6 +66,10 @@ def main() -> int:
         "merge_readiness_doc",
         "post_merge_ops_doc",
         "pledge_submission_recorder",
+        "normative_traceability",
+        "normative_traceability_gate",
+        "executive_summary_ar",
+        "program_authority",
     )
     for rel in [data.get(k, "") for k in meta_keys]:
         if not rel or rel.startswith("GET "):

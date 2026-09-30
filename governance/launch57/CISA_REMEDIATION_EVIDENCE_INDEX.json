@@ -2,7 +2,7 @@
   "program": "LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
   "remediation_sha": "5517651c",
-  "phase": "PHASE_ROUND_12_MERGE_READINESS_POST_MERGE_OPS",
+  "phase": "PHASE_ROUND_13_NORMATIVE_TRACEABILITY_AR_EXEC_SUMMARY",
   "findings": {
     "FINDING-01": {
       "status": "OPEN_EXECUTIVE",
@@ -173,5 +173,9 @@
   "merge_readiness_gate": "scripts/verify_launch57_merge_readiness.py",
   "merge_readiness_doc": "docs/governance/LAUNCH57_MERGE_TO_MAIN_READINESS.md",
   "post_merge_ops_doc": "docs/ops/LAUNCH57_POST_MERGE_OPS.md",
-  "pledge_submission_recorder": "scripts/record_pledge_submission.py"
+  "pledge_submission_recorder": "scripts/record_pledge_submission.py",
+  "normative_traceability": "governance/launch57/LAUNCH57_NORMATIVE_TRACEABILITY.json",
+  "normative_traceability_gate": "scripts/verify_launch57_normative_traceability.py",
+  "executive_summary_ar": "docs/governance/LAUNCH57_REMEDIATION_EXECUTIVE_SUMMARY_AR.md",
+  "program_authority": "docs/governance/LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION_PROGRAM.md"
 }

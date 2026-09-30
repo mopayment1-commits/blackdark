@@ -15,6 +15,7 @@ ENGINEERING = ROOT / "governance" / "launch57" / "LAUNCH57_ENGINEERING_CLOSURE.j
 
 GATES = (
     "verify_launch57_finding_inventory_lock.py",
+    "verify_launch57_normative_traceability.py",
     "verify_launch57_repo_evidence.py",
     "verify_launch57_generated_artifacts_fresh.py",
 )

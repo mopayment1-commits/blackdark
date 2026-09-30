@@ -164,6 +164,27 @@ def test_launch57_closure_report_marks_runtime_open():
     assert "cisa_certification_claimed" in proc.stdout
 
 
+def test_normative_traceability_gate():
+    import subprocess
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    proc = subprocess.run(
+        [sys.executable, str(root / "scripts" / "verify_launch57_normative_traceability.py")],
+        cwd=root,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 0, proc.stderr or proc.stdout
+
+
+def test_executive_summary_ar_cites_program_authority():
+    path = Path(__file__).resolve().parents[1] / "docs/governance/LAUNCH57_REMEDIATION_EXECUTIVE_SUMMARY_AR.md"
+    text = path.read_text(encoding="utf-8")
+    assert "LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION_PROGRAM.md" in text
+    assert "not CISA certification" in text
+
+
 def test_merge_readiness_engineering_safe():
     import subprocess
     import sys

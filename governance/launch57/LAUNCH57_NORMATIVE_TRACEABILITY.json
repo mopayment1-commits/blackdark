@@ -1,0 +1,119 @@
+{
+  "schema": "launch57_normative_traceability_v1",
+  "authority": "docs/governance/LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION_PROGRAM.md",
+  "normative_register_section": "§2 Normative references",
+  "allowed_normative_ids": [
+    "CISA-SBD",
+    "CISA-SBDf",
+    "NIST-SSDF",
+    "NIST-CSF",
+    "OWASP-ASVS",
+    "OWASP-XSS",
+    "RFC-9116",
+    "ISO-29147",
+    "MITRE-CWE",
+    "CVE",
+    "CPE",
+    "CDX",
+    "NTIA-MIN",
+    "ISO/IEC 5230"
+  ],
+  "findings": {
+    "FINDING-01": {
+      "work_packages": ["L57-P6-WP1", "L57-P6-WP2"],
+      "normative": ["CISA-SBDf"],
+      "program_section": "§6 FINDING-01; §Phase 6"
+    },
+    "FINDING-02": {
+      "work_packages": ["L57-P4-WP1", "L57-P4-WP5"],
+      "normative": ["NIST-SSDF", "CISA-SBD"],
+      "program_section": "§6 FINDING-02; §Phase 4"
+    },
+    "FINDING-03": {
+      "work_packages": ["L57-P3-WP1", "L57-P3-WP2", "L57-P3-WP3"],
+      "normative": ["CISA-SBD", "OWASP-ASVS"],
+      "program_section": "§6 FINDING-03; §Phase 3"
+    },
+    "FINDING-04": {
+      "work_packages": ["L57-P3-WP4", "L57-P3-WP6"],
+      "normative": ["CISA-SBD"],
+      "program_section": "§6 FINDING-04; §Phase 3"
+    },
+    "FINDING-05": {
+      "work_packages": ["L57-P3-WP5"],
+      "normative": ["CISA-SBD", "OWASP-ASVS"],
+      "program_section": "§6 FINDING-05; §Phase 3"
+    },
+    "FINDING-06": {
+      "work_packages": ["L57-P5-WP2", "L57-P5-WP3"],
+      "normative": ["OWASP-XSS", "OWASP-ASVS"],
+      "program_section": "§6 FINDING-06; §Phase 5"
+    },
+    "FINDING-07": {
+      "work_packages": ["L57-P5-WP1", "L57-P5-WP4"],
+      "normative": ["CISA-SBD", "NIST-SSDF"],
+      "program_section": "§6 FINDING-07; §Phase 5"
+    },
+    "FINDING-08": {
+      "work_packages": ["L57-P2-WP1", "L57-P2-WP2", "L57-P2-WP5"],
+      "normative": ["CISA-SBD", "NIST-CSF"],
+      "program_section": "§6 FINDING-08; §Phase 2"
+    },
+    "FINDING-09": {
+      "work_packages": ["L57-P2-WP3", "L57-P2-WP4"],
+      "normative": ["CISA-SBD"],
+      "program_section": "§6 FINDING-09; §Phase 2"
+    },
+    "FINDING-10": {
+      "work_packages": ["L57-P4-WP2"],
+      "normative": ["CDX", "NTIA-MIN"],
+      "program_section": "§6 FINDING-10; §Phase 4"
+    },
+    "FINDING-11": {
+      "work_packages": ["L57-P4-WP3"],
+      "normative": ["NTIA-MIN"],
+      "program_section": "§6 FINDING-11; §Phase 4"
+    },
+    "FINDING-12": {
+      "work_packages": ["L57-P4-WP4"],
+      "normative": ["ISO/IEC 5230"],
+      "program_section": "§6 FINDING-12; §Phase 4"
+    },
+    "FINDING-13": {
+      "work_packages": ["L57-P1-WP1", "L57-P1-WP2"],
+      "normative": ["ISO-29147", "CISA-SBD"],
+      "program_section": "§6 FINDING-13; §Phase 1"
+    },
+    "FINDING-14": {
+      "work_packages": ["L57-P1-WP3"],
+      "normative": ["RFC-9116"],
+      "program_section": "§6 FINDING-14; §Phase 1"
+    },
+    "FINDING-15": {
+      "work_packages": ["L57-P1-WP4", "L57-P1-WP5"],
+      "normative": ["CVE", "MITRE-CWE", "CPE", "NIST-SSDF"],
+      "program_section": "§6 FINDING-15; §Phase 1"
+    },
+    "FINDING-16": {
+      "work_packages": ["L57-P7-WP1", "L57-P3-WP6"],
+      "normative": ["OWASP-ASVS", "CISA-SBDf"],
+      "program_section": "§6 FINDING-16; §Phase 7"
+    },
+    "FINDING-17": {
+      "work_packages": ["L57-P7-WP2"],
+      "normative": ["OWASP-ASVS"],
+      "program_section": "§6 FINDING-17; §Phase 7 (L57-P7-WP2)"
+    },
+    "FINDING-18": {
+      "work_packages": ["L57-P7-WP3"],
+      "normative": [],
+      "program_section": "§6 FINDING-18; §Phase 7 (institutional assurance per program — not CISA certification)",
+      "verification_class": "E-OPS"
+    },
+    "FINDING-19": {
+      "work_packages": ["L57-P7-WP4", "L57-P7-WP5"],
+      "normative": ["CISA-SBDf"],
+      "program_section": "§6 FINDING-19; §Phase 7"
+    }
+  }
+}

@@ -14,6 +14,11 @@
 | Supply chain | CycloneDX SBOM + git SHA binding |
 | Customer logging | 180-day policy + export API |
 
+## Engineering round 13 (normative traceability + AR executive summary)
+
+- `LAUNCH57_NORMATIVE_TRACEABILITY.json` + `verify_launch57_normative_traceability.py` (program §2/§7 only)
+- `LAUNCH57_REMEDIATION_EXECUTIVE_SUMMARY_AR.md` — facts from evidence index + program §8.2 wording
+
 ## Engineering round 12 (merge readiness + post-merge ops)
 
 - `verify_launch57_merge_readiness.py` — single pre-merge engineering gate
