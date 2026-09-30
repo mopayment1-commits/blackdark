@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-09-30T15:04:01.048059+00:00",
-  "git_commit": "7dcb77bf3ab427468d3cae2eaf84388680fead95",
+  "generated_at": "2026-09-30T15:04:06.222133+00:00",
+  "git_commit": "a8c906efe6899ca94876a8da3f40b7ac07b73df0",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
-  "remediation_sha": "8432052e",
+  "remediation_sha": "a8c906ef",
   "phase": "PHASE_ROUND_21_CI_ASSURANCE_MANIFEST",
   "cisa_certification_claimed": false,
   "rollup": {
