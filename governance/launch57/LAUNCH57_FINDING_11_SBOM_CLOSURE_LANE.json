@@ -1,0 +1,47 @@
+{
+  "schema": "launch57_finding_11_sbom_closure_lane_v1",
+  "authority": "docs/governance/LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION_PROGRAM.md",
+  "program_sections": ["§2 NTIA-MIN", "§2 CDX", "§6 FINDING-11"],
+  "normative": ["NTIA-MIN", "CDX", "NIST-SSDF"],
+  "finding_id": "FINDING-11",
+  "current_index_status": "CLOSED_PARTIAL",
+  "cisa_certification_claimed": false,
+  "program_complete": false,
+  "repo_artifacts": {
+    "ntia_gap_analysis": "governance/launch57/LAUNCH57_NTIA_SBOM_GAP_ANALYSIS.json",
+    "scope_statement": "docs/security/SBOM_SCOPE_STATEMENT.md",
+    "ntia_scope_gate": "scripts/verify_launch57_sbom_ntia_scope.py"
+  },
+  "generators": [
+    "scripts/generate_sbom.py",
+    "scripts/generate_syft_lockfile_sbom.sh",
+    "scripts/generate_container_sbom.sh"
+  ],
+  "syft_lock_artifact": {
+    "default_path": "governance/launch57/evidence/syft-prod-lock.cyclonedx.json",
+    "validator": "scripts/validate_syft_sbom_artifact.py",
+    "ci_artifact_name": "launch57-syft-prod-lock-sbom"
+  },
+  "closure_paths": [
+    {
+      "id": "sec_lead_approval",
+      "evidence_class": "E-ART",
+      "env_var": "LAUNCH57_SBOM_SEC_LEAD_APPROVAL_ID",
+      "recorder": "scripts/record_launch57_finding11_sec_lead_approval.py",
+      "program_ref": "§6 FINDING-11 — documented gaps with Sec Lead sign-off"
+    },
+    {
+      "id": "syft_or_container_sbom",
+      "evidence_class": "E-ART",
+      "env_var": "LAUNCH57_CONTAINER_SBOM_PATH",
+      "artifact_path": "governance/launch57/evidence/syft-prod-lock.cyclonedx.json",
+      "program_ref": "§6 FINDING-11 — Syft lockfile or container image SBOM"
+    }
+  ],
+  "transition": {
+    "script": "scripts/transition_launch57_finding_status.py",
+    "apply_flag": "--apply",
+    "preflight": "scripts/preflight_launch57_finding11_transition.py"
+  },
+  "repo_gate": "scripts/verify_launch57_finding11_sbom_closure_lane.py"
+}

@@ -24,6 +24,9 @@
       "closure_requires": "LAUNCH57_SBOM_SEC_LEAD_APPROVAL_ID or container/Syft SBOM + transition_launch57_finding_status.py --finding FINDING-11 --apply",
       "operator_scripts": [
         "scripts/verify_launch57_sbom_ntia_scope.py",
+        "scripts/verify_launch57_finding11_sbom_closure_lane.py",
+        "scripts/preflight_launch57_finding11_transition.py",
+        "scripts/record_launch57_finding11_sec_lead_approval.py",
         "scripts/transition_launch57_finding_status.py"
       ],
       "program_ref": "§6 FINDING-11; L57-P4-WP3"

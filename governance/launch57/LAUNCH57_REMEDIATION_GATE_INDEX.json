@@ -1,13 +1,13 @@
 {
   "schema": "launch57_remediation_gate_index_v1",
-  "generated_at": "2026-09-30T15:49:56.660152+00:00",
-  "git_commit": "ce0c750ef5b731eccca6eeacfdd69ce4fcf3440c",
+  "generated_at": "2026-09-30T15:52:15.662244+00:00",
+  "git_commit": "74bc3525f66d96bd34d7808ce9f8a5c28f5a847c",
   "authority": "docs/governance/LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION_PROGRAM.md",
-  "phase": "PHASE_ROUND_28_REMEDIATION_LIFECYCLE_INDEX",
+  "phase": "PHASE_ROUND_29_FINDING11_SBOM_CLOSURE_LANE",
   "remediation_sha": "ce0c750e",
   "cisa_certification_claimed": false,
   "program_complete": false,
-  "gate_count": 40,
+  "gate_count": 41,
   "gates": [
     {
       "id": "ci_assurance_manifest_gate",
@@ -42,6 +42,11 @@
     {
       "id": "final_closure_playbook_manifest_gate",
       "path": "scripts/verify_launch57_final_closure_playbook_manifest.py",
+      "kind": "script"
+    },
+    {
+      "id": "finding_11_sbom_closure_lane_gate",
+      "path": "scripts/verify_launch57_finding11_sbom_closure_lane.py",
       "kind": "script"
     },
     {

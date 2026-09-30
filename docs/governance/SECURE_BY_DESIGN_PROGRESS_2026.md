@@ -14,6 +14,12 @@
 | Supply chain | CycloneDX SBOM + git SHA binding |
 | Customer logging | 180-day policy + export API |
 
+## Engineering round 29 (FINDING-11 SBOM closure lane)
+
+- `LAUNCH57_FINDING_11_SBOM_CLOSURE_LANE.json` + `verify_launch57_finding11_sbom_closure_lane.py`
+- `record_launch57_finding11_sec_lead_approval.py` (gitignored) + `preflight_launch57_finding11_transition.py`
+- `LAUNCH57_ROUND_29_FINDING11_SBOM_AR.md`
+
 ## Engineering round 28 (remediation lifecycle index + open findings readiness)
 
 - `LAUNCH57_REMEDIATION_LIFECYCLE_INDEX.json` + `verify_launch57_remediation_lifecycle_index.py`

@@ -137,6 +137,11 @@ def main() -> int:
         "remediation_lifecycle_index_gate",
         "open_findings_closure_readiness",
         "round_28_lifecycle_index_ar",
+        "finding_11_sbom_closure_lane",
+        "finding_11_sbom_closure_lane_gate",
+        "finding_11_sec_lead_approval_recorder",
+        "finding_11_transition_preflight",
+        "round_29_finding11_sbom_ar",
         "program_authority",
     )
     for rel in [data.get(k, "") for k in meta_keys]:

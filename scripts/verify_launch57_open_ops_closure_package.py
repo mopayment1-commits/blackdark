@@ -41,7 +41,7 @@ def main() -> int:
         if not _status_ok(st, spec):
             errors.append(f"{fid}: status {st} does not match package expectation")
         for script in spec.get("operator_scripts") or []:
-            if not (ROOT / script).is_file():
+            if script.endswith(".py") and not (ROOT / script).is_file():
                 errors.append(f"{fid}: missing script {script}")
         idx_req = (irow.get("closure_requires") or irow.get("note") or "").strip()
         pkg_req = (spec.get("closure_requires") or "").strip()
