@@ -1,7 +1,7 @@
 {
   "program": "LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
-  "remediation_sha": "4d8222ac",
+  "remediation_sha": "ed595182",
   "phase": "PHASE_ROUND_5_RAILWAY_PROD_SBOM_CI",
   "findings": {
     "FINDING-01": {
