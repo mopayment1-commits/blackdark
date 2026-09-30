@@ -5,7 +5,7 @@
     "repository": "mopayment1-commits/blackdark",
     "pr": 493,
     "branch": "cursor/launch57-trivy-remediation-031c",
-    "implementation_sha": "PENDING_COMMIT",
+    "implementation_sha": "68362fdde31102dfad022d92b35cce38bd367a2f",
     "report_snapshot_sha": "e4a9136d66e4056b6c11e3e3b45071ae92ab8f29",
     "report_title": "BLACKDARK FINAL TRIVY VULNERABILITY AUDIT & REMEDIATION REPORT",
     "trivy_version_report": "0.74.0",
