@@ -14,6 +14,12 @@
 | Supply chain | CycloneDX SBOM + git SHA binding |
 | Customer logging | 180-day policy + export API |
 
+## Engineering round 12 (merge readiness + post-merge ops)
+
+- `verify_launch57_merge_readiness.py` — single pre-merge engineering gate
+- `LAUNCH57_MERGE_TO_MAIN_READINESS.md`, `LAUNCH57_POST_MERGE_OPS.md`
+- `record_pledge_submission.py` for FINDING-01 URL (executive)
+
 ## Engineering round 11 (ops transition tool + artifact freshness)
 
 - `transition_launch57_finding_status.py` — verified CLOSED transitions only (no fake pentest)

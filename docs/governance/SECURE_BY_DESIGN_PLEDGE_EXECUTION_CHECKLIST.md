@@ -15,7 +15,7 @@
 
 - [ ] Legal/comms review of public pledge language
 - [ ] Submit on CISA Secure by Design pledge portal
-- [ ] Record **submission URL** and **date** in `SECURE_BY_DESIGN_PLEDGE_STATUS.md`
+- [ ] Record **submission URL** and **date** via `python scripts/record_pledge_submission.py --pledge-url https://... --apply`
 - [ ] Update `governance/launch57/CISA_REMEDIATION_EVIDENCE_INDEX.json` FINDING-01 → `CLOSED`
 
 ## Prohibited until checklist complete

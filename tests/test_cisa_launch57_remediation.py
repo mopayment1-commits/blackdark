@@ -164,6 +164,52 @@ def test_launch57_closure_report_marks_runtime_open():
     assert "cisa_certification_claimed" in proc.stdout
 
 
+def test_merge_readiness_engineering_safe():
+    import subprocess
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    subprocess.run(
+        [sys.executable, str(root / "scripts" / "generate_launch57_completion_status.py")],
+        cwd=root,
+        check=True,
+    )
+    subprocess.run(
+        [sys.executable, str(root / "scripts" / "generate_launch57_engineering_closure.py")],
+        cwd=root,
+        check=True,
+    )
+    proc = subprocess.run(
+        [sys.executable, str(root / "scripts" / "verify_launch57_merge_readiness.py")],
+        cwd=root,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 0, proc.stderr or proc.stdout
+    report = json.loads(proc.stdout)
+    assert report["safe_to_merge_engineering"] is True
+    assert report["program_complete"] is False
+
+
+def test_record_pledge_submission_dry_run():
+    import subprocess
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    proc = subprocess.run(
+        [
+            sys.executable,
+            str(root / "scripts" / "record_pledge_submission.py"),
+            "--pledge-url",
+            "https://example.test/pledge",
+        ],
+        cwd=root,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 0
+
+
 def test_transition_rejects_fake_pentest_close():
     import subprocess
     import sys

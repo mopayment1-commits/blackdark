@@ -1,8 +1,8 @@
 {
   "release_line": "launch-57",
-  "generated_at": "2026-09-30T12:38:00.115423+00:00",
-  "git_commit": "3d8bcff25544d6c2ce3e74bd5771d1c495d04849",
-  "remediation_sha": "246e1924",
+  "generated_at": "2026-09-30T12:43:39.753305+00:00",
+  "git_commit": "3d4aef63dc237f9b517f0142aa69b1c5a5d2430d",
+  "remediation_sha": "13e42b51",
   "cisa_certification_claimed": false,
   "artifacts": {
     "python_cyclonedx": "docs/data-room/sbom/cyclonedx-python.json",
