@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-09-30T14:37:33.508768+00:00",
-  "git_commit": "a8a0a1266e80380753d8623adbc6197085e98081",
+  "generated_at": "2026-09-30T14:37:41.772213+00:00",
+  "git_commit": "02ebbdba8dff46a14126b56143d9975addc10795",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
-  "remediation_sha": "7ea6c299",
+  "remediation_sha": "02ebbdba",
   "phase": "PHASE_ROUND_17_P7_WP5_PRODUCTION_SMOKE",
   "cisa_certification_claimed": false,
   "rollup": {
