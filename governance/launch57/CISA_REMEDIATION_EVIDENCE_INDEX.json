@@ -1,29 +1,59 @@
 {
   "program": "LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
-  "remediation_sha": "4c3d7943",
-  "inventory_reference": "Launch-57 Problem Inventory FINDING-01..19",
-  "normative_framework": "docs/governance/LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION_PROGRAM.md",
-  "phase": "EXECUTION_COMPLETE_ENGINEERING",
+  "remediation_sha": "pending",
+  "phase": "PHASE_3_5_6_7_ENGINEERING_COMPLETE_OPS_PENDING",
   "findings": {
-    "FINDING-01": { "status": "CLOSED_ENGINEERING", "priority": "P2", "note": "Pledge status doc; executive signature external", "evidence": ["docs/governance/SECURE_BY_DESIGN_PLEDGE_STATUS.md"] },
-    "FINDING-02": { "status": "CLOSED", "priority": "P1", "evidence": ["docs/security/SECURITY_UPDATE_POLICY.md", ".github/workflows/security.yml"] },
-    "FINDING-03": { "status": "CLOSED", "priority": "P1", "evidence": ["anonymous_route_foundation.py", "docs/security/COMMERCIAL_SECURITY_FEATURES.md", "billing/plan_registry.py"] },
-    "FINDING-04": { "status": "CLOSED", "priority": "P1", "evidence": ["user_mfa_policy.py", "deploy/k8s/web-deployment.yaml", "SECURITY.md"] },
-    "FINDING-05": { "status": "CLOSED_PARTIAL", "priority": "P1", "note": "TOTP enroll required; WebAuthn roadmap doc", "evidence": ["docs/security/WEBAUTHN_IMPLEMENTATION.md", "user_mfa_policy.py"] },
-    "FINDING-06": { "status": "CLOSED_PARTIAL", "priority": "P1", "note": "Roadmap+inventory; ongoing regression tests", "evidence": ["docs/security/XSS_SINK_INVENTORY.md", "tests/test_xss_sink_hardening.py"] },
-    "FINDING-07": { "status": "CLOSED", "priority": "P1", "evidence": ["docs/security/VULNERABILITY_CLASS_ELIMINATION_ROADMAP.md"] },
-    "FINDING-08": { "status": "CLOSED", "priority": "P0", "evidence": ["security_events.py", "docs/security/CUSTOMER_SECURITY_LOG_POLICY.md"] },
-    "FINDING-09": { "status": "CLOSED", "priority": "P0", "evidence": ["api/routers/customer_security.py", "customer_security_log_service.py"] },
-    "FINDING-10": { "status": "CLOSED", "priority": "P1", "evidence": ["scripts/generate_sbom.py", "docs/data-room/sbom/cyclonedx-python.json"] },
-    "FINDING-11": { "status": "CLOSED_PARTIAL", "priority": "P1", "note": "Python SBOM + scope statement for container gap", "evidence": ["docs/security/SBOM_SCOPE_STATEMENT.md"] },
-    "FINDING-12": { "status": "CLOSED", "priority": "P1", "evidence": ["docs/security/OPEN_SOURCE_GOVERNANCE.md"] },
-    "FINDING-13": { "status": "CLOSED", "priority": "P0", "evidence": ["docs/security/VULNERABILITY_DISCLOSURE_POLICY.md", "SECURITY.md"] },
-    "FINDING-14": { "status": "CLOSED_REPO", "priority": "P0", "note": "Production curl required at deploy", "evidence": ["static/.well-known/security.txt", "dashboard.py route"] },
-    "FINDING-15": { "status": "CLOSED", "priority": "P0", "evidence": ["docs/security/PRODUCT_SECURITY_ADVISORY_PROCESS.md", "docs/security/advisories/DRYRUN-2026-09-30-process-validation.md"] },
-    "FINDING-16": { "status": "CLOSED", "priority": "P2", "evidence": ["security_posture.py", "dashboard.py /api/security/status/detail"] },
-    "FINDING-17": { "status": "CLOSED", "priority": "P2", "evidence": ["anonymous_route_foundation.py", "tests/test_cisa_launch57_remediation.py"] },
-    "FINDING-18": { "status": "OPEN", "priority": "P2", "note": "Requires external pentest E-OPS", "evidence": ["docs/templates/pentest_scope.md"] },
-    "FINDING-19": { "status": "OPEN", "priority": "P2", "note": "Requires CDN_WAF_ACTIVE E-OPS", "evidence": ["docs/CDN_WAF_CHECKLIST.md"] }
-  }
+    "FINDING-01": {
+      "status": "OPEN_EXECUTIVE",
+      "evidence": [
+        "docs/governance/SECURE_BY_DESIGN_PLEDGE_STATUS.md",
+        "docs/governance/SECURE_BY_DESIGN_PLEDGE_SUBMISSION_PACKAGE.md"
+      ],
+      "closure_requires": "CISA portal pledge submission + URL recorded"
+    },
+    "FINDING-02": { "status": "CLOSED", "evidence": ["docs/security/SECURITY_UPDATE_POLICY.md"] },
+    "FINDING-03": { "status": "CLOSED", "evidence": ["anonymous_route_foundation.py", "docs/security/COMMERCIAL_SECURITY_FEATURES.md"] },
+    "FINDING-04": { "status": "CLOSED", "evidence": ["user_mfa_policy.py", "deploy/k8s/web-deployment.yaml"] },
+    "FINDING-05": {
+      "status": "CLOSED",
+      "evidence": ["webauthn_service.py", "api/routers/auth.py", "docs/security/WEBAUTHN_IMPLEMENTATION.md"],
+      "note": "Enable WEBAUTHN_RP_ID in production"
+    },
+    "FINDING-06": { "status": "CLOSED", "evidence": ["docs/security/XSS_SINK_INVENTORY.md", "tests/test_xss_sink_hardening.py"] },
+    "FINDING-07": { "status": "CLOSED", "evidence": ["docs/security/VULNERABILITY_CLASS_ELIMINATION_ROADMAP.md"] },
+    "FINDING-08": { "status": "CLOSED", "evidence": ["security_events.py"] },
+    "FINDING-09": { "status": "CLOSED", "evidence": ["api/routers/customer_security.py"] },
+    "FINDING-10": { "status": "CLOSED", "evidence": ["scripts/generate_sbom.py"] },
+    "FINDING-11": {
+      "status": "CLOSED_PARTIAL",
+      "evidence": ["docs/security/SBOM_SCOPE_STATEMENT.md", "scripts/generate_container_sbom.sh"],
+      "note": "Container SBOM when syft available in deploy pipeline"
+    },
+    "FINDING-12": { "status": "CLOSED", "evidence": ["docs/security/OPEN_SOURCE_GOVERNANCE.md"] },
+    "FINDING-13": { "status": "CLOSED", "evidence": ["docs/security/VULNERABILITY_DISCLOSURE_POLICY.md"] },
+    "FINDING-14": {
+      "status": "CLOSED_REPO",
+      "evidence": ["static/.well-known/security.txt", "scripts/verify_well_known_security_txt.py"],
+      "closure_requires": "scripts/verify_well_known_security_txt.py --url <prod>"
+    },
+    "FINDING-15": { "status": "CLOSED", "evidence": ["docs/security/PRODUCT_SECURITY_ADVISORY_PROCESS.md"] },
+    "FINDING-16": { "status": "CLOSED", "evidence": ["security_posture.py"] },
+    "FINDING-17": { "status": "CLOSED", "evidence": ["anonymous_route_foundation.py", "tests/test_cisa_launch57_remediation.py"] },
+    "FINDING-18": {
+      "status": "OPEN_OPS",
+      "evidence": [
+        "docs/ops/PENTEST_ENGAGEMENT_RUNBOOK.md",
+        "docs/templates/pentest_scope_LAUNCH57.md",
+        "scripts/verify_launch57_external_assurance.py"
+      ],
+      "closure_requires": "Signed pentest deposit + verify_pentest_attestation()"
+    },
+    "FINDING-19": {
+      "status": "OPEN_OPS",
+      "evidence": ["docs/ops/EDGE_WAF_ACTIVATION_RUNBOOK.md", "scripts/verify_edge_waf_cdn.py"],
+      "closure_requires": "CDN_WAF_ACTIVE=1 + verify_edge_waf_cdn exit 0"
+    }
+  },
+  "aggregate_api": "GET /api/security/launch57-closure-status"
 }

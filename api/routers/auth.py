@@ -677,6 +677,67 @@ async def auth_avatar_delete(user: dict | None = Depends(optional_user)):
     return {"ok": True, "avatar_url": url}
 
 
+@router.get("/webauthn/status", responses=COMMON_ERROR_RESPONSES)
+async def auth_webauthn_status():
+    from webauthn_service import webauthn_status
+
+    return webauthn_status()
+
+
+@router.post("/webauthn/register/options", responses=COMMON_ERROR_RESPONSES)
+async def auth_webauthn_register_options(user: dict | None = Depends(optional_user)):
+    if not user:
+        raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
+    from webauthn_service import registration_options
+
+    try:
+        return await registration_options(int(user["id"]), str(user["email"]))
+    except RuntimeError as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
+
+
+@router.post("/webauthn/register/verify", responses=COMMON_ERROR_RESPONSES)
+async def auth_webauthn_register_verify(
+    body: dict[str, Any],
+    user: dict | None = Depends(optional_user),
+):
+    if not user:
+        raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
+    from webauthn_service import registration_verify
+
+    try:
+        return await registration_verify(int(user["id"]), body)
+    except (ValueError, RuntimeError) as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@router.post("/webauthn/login/options", responses=COMMON_ERROR_RESPONSES)
+async def auth_webauthn_login_options(body: dict[str, Any]):
+    email = str(body.get("email") or "").strip()
+    if not email:
+        raise HTTPException(status_code=400, detail="email required")
+    from webauthn_service import login_options
+
+    try:
+        return await login_options(email)
+    except (ValueError, RuntimeError) as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@router.post("/webauthn/login/verify", responses=COMMON_ERROR_RESPONSES)
+async def auth_webauthn_login_verify(body: dict[str, Any], background_tasks: BackgroundTasks):
+    from webauthn_service import login_verify
+
+    try:
+        result = await login_verify(body)
+        background_tasks.add_task(record_behavior, "auth_login_webauthn", user=result.get("user"))
+        resp = JSONResponse(_session_response_body(result))
+        _attach_session_cookie(resp, result.get("token"))
+        return resp
+    except (ValueError, RuntimeError) as exc:
+        raise HTTPException(status_code=401, detail=str(exc)) from exc
+
+
 @router.get("/avatar/{filename}", responses=COMMON_ERROR_RESPONSES)
 async def auth_avatar_get(filename: str):
     from identity_service import default_avatar_svg, resolve_avatar_file

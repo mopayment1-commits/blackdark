@@ -1,6 +1,6 @@
 # WebAuthn / Passkeys (Phishing-Resistant Authentication)
 
-**Status:** Launch-57 Phase 3 — TOTP default enrollment enforced via `USER_MFA_ENROLL_REQUIRED`; WebAuthn **planned**.
+**Status:** Launch-57 — WebAuthn API implemented (`webauthn_service.py`); enable with `WEBAUTHN_RP_ID` + `APP_BASE_URL` HTTPS origin.
 
 ## Current phishing-resistant controls
 

@@ -13,6 +13,13 @@ def security_posture_public_summary() -> dict[str, Any]:
     from security_auth import is_production_env
     from user_mfa_policy import user_mfa_enrollment_required
 
+    try:
+        from webauthn_service import webauthn_status as _wa
+
+        wa = _wa()
+    except Exception:
+        wa = {"enabled": False}
+
     soft = os.getenv("SOFT_LAUNCH", "").lower() in {"1", "true", "yes"}
     return {
         "product": "BLACKDARK",
@@ -26,6 +33,7 @@ def security_posture_public_summary() -> dict[str, Any]:
             "user_api_keys": "fernet_encrypted_when_configured",
             "admin_mfa_policy": "enforced_when_configured",
             "user_mfa": "totp_enroll_required" if user_mfa_enrollment_required() else "totp_optional",
+            "phishing_resistant_webauthn": "available" if wa.get("enabled") else "configure_WEBAUTHN_RP_ID",
             "enterprise_sso": "oidc_when_configured",
             "dependency_scanning": "pip_audit_ci",
             "customer_security_logs": "export_api_180d_policy",

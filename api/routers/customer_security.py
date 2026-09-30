@@ -37,6 +37,15 @@ async def export_customer_security_logs(
     )
 
 
+@router.get("/launch57-closure-status")
+async def launch57_closure_status_api(
+    _user: Annotated[dict, Depends(require_authenticated)],
+) -> dict[str, Any]:
+    from launch57_assurance_closure import launch57_closure_status
+
+    return launch57_closure_status()
+
+
 @router.get("/customer-logs/policy")
 async def customer_security_log_policy(
     _user: Annotated[dict, Depends(require_authenticated)],

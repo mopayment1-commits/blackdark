@@ -24,7 +24,7 @@ def user_mfa_enrollment_required() -> bool:
 
 def mfa_setup_exempt_path(path: str) -> bool:
     """Paths reachable while MFA enrollment is pending."""
-    if path.startswith("/api/auth/mfa/"):
+    if path.startswith("/api/auth/mfa/") or path.startswith("/api/auth/webauthn/"):
         return True
     if path in {"/api/auth/logout", "/api/auth/identity", "/api/security/status"}:
         return True

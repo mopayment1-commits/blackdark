@@ -58,6 +58,24 @@ def test_security_log_retention_minimum():
     assert security_log_retention_days() >= 180
 
 
+def test_webauthn_status_reports_library(monkeypatch):
+    monkeypatch.setenv("WEBAUTHN_RP_ID", "example.test")
+    monkeypatch.setenv("APP_BASE_URL", "https://example.test")
+    from webauthn_service import webauthn_status
+
+    st = webauthn_status()
+    assert st["library_available"] is True
+    assert st["enabled"] is True
+
+
+def test_launch57_closure_status_honest():
+    from launch57_assurance_closure import launch57_closure_status
+
+    report = launch57_closure_status()
+    assert report["cisa_certification_claimed"] is False
+    assert report["findings"]["pentest_attestation"]["status"] in {"OPEN", "CLOSED"}
+
+
 def test_sbom_includes_git_commit_metadata():
     from pathlib import Path
 
