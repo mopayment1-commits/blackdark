@@ -1,10 +1,10 @@
 {
   "schema": "launch57_remediation_gate_index_v1",
-  "generated_at": "2026-09-30T15:26:56.523191+00:00",
-  "git_commit": "7df3d22c240795f409d4d1efba25117fc77f1efd",
+  "generated_at": "2026-09-30T15:27:10.582853+00:00",
+  "git_commit": "3337f822b0c5ee1ed962d2adcbb0c2f90c93c78f",
   "authority": "docs/governance/LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION_PROGRAM.md",
   "phase": "PHASE_ROUND_24_QA_V2_CI_RECORDING",
-  "remediation_sha": "400dcc6a",
+  "remediation_sha": "3337f822",
   "cisa_certification_claimed": false,
   "program_complete": false,
   "gate_count": 36,

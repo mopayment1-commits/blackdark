@@ -5,10 +5,10 @@
   "evidence_class": "E-TEST",
   "cisa_certification_claimed": false,
   "program_complete": false,
-  "generated_at": "2026-09-30T15:26:55.087221+00:00",
-  "remediation_sha": "400dcc6a",
+  "generated_at": "2026-09-30T15:27:10.507008+00:00",
+  "remediation_sha": "3337f822",
   "phase": "PHASE_ROUND_24_QA_V2_CI_RECORDING",
-  "git_head_short": "7df3d22c",
+  "git_head_short": "3337f822",
   "workflow_runs": {
     "security_pytest_security": {
       "workflow": ".github/workflows/security.yml",
