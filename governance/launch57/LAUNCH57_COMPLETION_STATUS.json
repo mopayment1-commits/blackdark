@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-09-30T13:48:41.834402+00:00",
-  "git_commit": "d16ef22eae11c013d0486137cda940db48026cce",
+  "generated_at": "2026-09-30T13:48:52.582422+00:00",
+  "git_commit": "8682e9dc2bfb4a713bf03598a8c2ae9bd68034ac",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
-  "remediation_sha": "7f137586",
+  "remediation_sha": "8682e9dc",
   "phase": "PHASE_ROUND_14_INDEPENDENT_VERIFICATION_83",
   "cisa_certification_claimed": false,
   "rollup": {
