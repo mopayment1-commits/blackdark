@@ -1,7 +1,7 @@
 {
   "program": "LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
-  "remediation_sha": "62c921661f7f15df37402b8c4cf9f2464be9c7a7",
+  "remediation_sha": "0dd50738f520bdc797e3c74fbce5dce805f4ccec",
   "inventory_reference": "Launch-57 Problem Inventory FINDING-01..19",
   "normative_framework": "docs/governance/LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION_PROGRAM.md",
   "phase": "EXECUTION_COMPLETE_ENGINEERING",

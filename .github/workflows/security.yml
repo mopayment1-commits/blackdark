@@ -54,6 +54,7 @@ jobs:
           tests/test_d09_flow_filter.py
           tests/test_d13_auth_abuse.py
           tests/test_d15_evidence_closure.py
+          tests/test_cisa_launch57_remediation.py
           -q
 
   bandit:
