@@ -24,7 +24,8 @@
       "verify_launch57_gate_index.py",
       "verify_launch57_repo_evidence.py",
       "verify_launch57_generated_artifacts_fresh.py",
-      "verify_launch57_merge_readiness.py"
+      "verify_launch57_merge_readiness.py",
+      "verify_launch57_cross_workflow_assurance.py"
     ],
     "required_test_invocation": "tests/test_cisa_launch57_remediation.py",
     "honest_nonzero_exits": [
@@ -45,6 +46,13 @@
         "expected_exit": 2
       }
     ]
+  },
+  "cross_workflow_assurance": {
+    "spec": "governance/launch57/LAUNCH57_CROSS_WORKFLOW_ASSURANCE.json",
+    "verify_script": "verify_launch57_cross_workflow_assurance.py",
+    "security_workflow": ".github/workflows/security.yml",
+    "launch57_workflow": ".github/workflows/launch57-cisa-assurance.yml",
+    "program_ref": "§8.3 V-2"
   },
   "syft_job": {
     "workflow_job": "syft-prod-lock-sbom",

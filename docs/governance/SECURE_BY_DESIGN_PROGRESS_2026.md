@@ -14,6 +14,12 @@
 | Supply chain | CycloneDX SBOM + git SHA binding |
 | Customer logging | 180-day policy + export API |
 
+## Engineering round 23 (§8.3 V-2 cross-workflow CI + reviewer evidence bundle)
+
+- `LAUNCH57_CROSS_WORKFLOW_ASSURANCE.json` + `verify_launch57_cross_workflow_assurance.py` (`security.yml` + `launch57-cisa-assurance.yml`)
+- `generate_launch57_ci_reviewer_evidence_bundle.py` → `LAUNCH57_CI_REVIEWER_EVIDENCE_BUNDLE.json` (URLs for QA only)
+- `LAUNCH57_ROUND_23_CROSS_WORKFLOW_AR.md`
+
 ## Engineering round 22 (§9 index schema + PR checklist gates + engineering handoff)
 
 - `LAUNCH57_EVIDENCE_INDEX_SCHEMA.json` + `verify_launch57_evidence_index_schema.py`

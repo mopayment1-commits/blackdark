@@ -208,6 +208,25 @@ def test_engineering_handoff_gate():
     assert proc.returncode == 0, proc.stderr or proc.stdout
 
 
+def test_cross_workflow_assurance_gate():
+    import subprocess
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    subprocess.run(
+        [sys.executable, str(root / "scripts/generate_launch57_ci_reviewer_evidence_bundle.py")],
+        cwd=root,
+        check=True,
+    )
+    proc = subprocess.run(
+        [sys.executable, str(root / "scripts/verify_launch57_cross_workflow_assurance.py")],
+        cwd=root,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 0, proc.stderr or proc.stdout
+
+
 def test_ci_assurance_manifest_gate():
     import subprocess
     import sys

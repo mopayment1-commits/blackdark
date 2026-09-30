@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-09-30T15:05:47.896101+00:00",
-  "git_commit": "25a3169c32169acec65469b2020682f0174b6223",
+  "generated_at": "2026-09-30T15:20:23.980623+00:00",
+  "git_commit": "2d877bd31f1aceb9ca790ae402e73ad6d0651be8",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
   "remediation_sha": "25a3169c",
-  "phase": "PHASE_ROUND_22_EVIDENCE_INDEX_SCHEMA_HANDOFF",
+  "phase": "PHASE_ROUND_23_CROSS_WORKFLOW_CI_REVIEWER",
   "cisa_certification_claimed": false,
   "rollup": {
     "counts_by_status": {

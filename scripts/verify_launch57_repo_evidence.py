@@ -114,6 +114,11 @@ def main() -> int:
         "engineering_handoff",
         "engineering_handoff_gate",
         "round_22_handoff_ar",
+        "cross_workflow_assurance",
+        "cross_workflow_assurance_gate",
+        "ci_reviewer_evidence_bundle",
+        "ci_reviewer_evidence_bundle_generator",
+        "round_23_cross_workflow_ar",
         "program_authority",
     )
     for rel in [data.get(k, "") for k in meta_keys]:

@@ -36,6 +36,16 @@ def main() -> int:
     if proc_ci.returncode != 0:
         failures.append("ci_assurance_manifest")
 
+    proc_xwf = subprocess.run(
+        [sys.executable, str(ROOT / "scripts/verify_launch57_cross_workflow_assurance.py")],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+    )
+    steps.append({"name": "cross_workflow_assurance", "exit_code": proc_xwf.returncode})
+    if proc_xwf.returncode != 0:
+        failures.append("cross_workflow_assurance")
+
     if not os.getenv("LAUNCH57_SKIP_PYTEST", "").strip():
         pytest_code = subprocess.run(
             [sys.executable, "-m", "pytest", "tests/test_cisa_launch57_remediation.py", "-q", "--tb=no"],

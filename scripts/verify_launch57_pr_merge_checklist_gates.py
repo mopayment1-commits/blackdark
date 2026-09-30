@@ -18,6 +18,7 @@ GATES = (
     "verify_launch57_program_integrity_report.py",
     "verify_launch57_merge_readiness.py",
     "verify_launch57_evidence_index_schema.py",
+    "verify_launch57_cross_workflow_assurance.py",
 )
 
 

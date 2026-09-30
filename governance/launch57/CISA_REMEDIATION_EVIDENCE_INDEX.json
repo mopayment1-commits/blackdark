@@ -2,7 +2,7 @@
   "program": "LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
   "remediation_sha": "25a3169c",
-  "phase": "PHASE_ROUND_22_EVIDENCE_INDEX_SCHEMA_HANDOFF",
+  "phase": "PHASE_ROUND_23_CROSS_WORKFLOW_CI_REVIEWER",
   "independent_verification_register": "governance/launch57/LAUNCH57_INDEPENDENT_VERIFICATION_REGISTER.json",
   "findings": {
     "FINDING-01": {
@@ -229,5 +229,10 @@
   "engineering_handoff": "governance/launch57/LAUNCH57_ENGINEERING_HANDOFF.json",
   "engineering_handoff_gate": "scripts/verify_launch57_engineering_handoff.py",
   "round_22_handoff_ar": "docs/governance/LAUNCH57_ROUND_22_HANDOFF_AR.md",
+  "cross_workflow_assurance": "governance/launch57/LAUNCH57_CROSS_WORKFLOW_ASSURANCE.json",
+  "cross_workflow_assurance_gate": "scripts/verify_launch57_cross_workflow_assurance.py",
+  "ci_reviewer_evidence_bundle": "governance/launch57/LAUNCH57_CI_REVIEWER_EVIDENCE_BUNDLE.json",
+  "ci_reviewer_evidence_bundle_generator": "scripts/generate_launch57_ci_reviewer_evidence_bundle.py",
+  "round_23_cross_workflow_ar": "docs/governance/LAUNCH57_ROUND_23_CROSS_WORKFLOW_AR.md",
   "program_authority": "docs/governance/LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION_PROGRAM.md"
 }
