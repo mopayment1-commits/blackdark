@@ -146,6 +146,26 @@ def test_launch57_closure_report_marks_runtime_open():
     assert "cisa_certification_claimed" in proc.stdout
 
 
+def test_completion_status_covers_19_findings():
+    import subprocess
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    proc = subprocess.run(
+        [sys.executable, str(root / "scripts" / "generate_launch57_completion_status.py")],
+        cwd=root,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 0, proc.stderr or proc.stdout
+    data = json.loads((root / "governance/launch57/LAUNCH57_COMPLETION_STATUS.json").read_text(encoding="utf-8"))
+    assert len(data["findings"]) == 19
+    assert data["cisa_certification_claimed"] is False
+    assert data["rollup"]["program_complete"] is False
+    md = (root / "governance/launch57/LAUNCH57_REMEDIATION_COMPLETION_STATUS.md").read_text(encoding="utf-8")
+    assert "FINDING-18" in md and "FINDING-01" in md
+
+
 def test_publish_launch57_release_manifest():
     import subprocess
     import sys

@@ -1,8 +1,32 @@
 {
-  "program": "LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION",
+  "generated_at": "2026-09-30T12:26:48.048775+00:00",
+  "git_commit": "3d9a72e8145a5e195818a20f7ab0ad6820d8033a",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
   "remediation_sha": "5f0b3ed3",
   "phase": "PHASE_ROUND_8_COMPLETION_STATUS_ROLLUP",
+  "cisa_certification_claimed": false,
+  "rollup": {
+    "counts_by_status": {
+      "OPEN_EXECUTIVE": 1,
+      "CLOSED": 14,
+      "CLOSED_PARTIAL": 1,
+      "CLOSED_REPO": 1,
+      "OPEN_OPS": 2
+    },
+    "open_finding_ids": [
+      "FINDING-01",
+      "FINDING-18",
+      "FINDING-19"
+    ],
+    "partial_finding_ids": [
+      "FINDING-11"
+    ],
+    "repo_only_finding_ids": [
+      "FINDING-14"
+    ],
+    "engineering_track_complete": true,
+    "program_complete": false
+  },
   "findings": {
     "FINDING-01": {
       "status": "OPEN_EXECUTIVE",
@@ -145,19 +169,10 @@
       "closure_requires": "CDN_WAF_ACTIVE=1 + verify_edge_waf_cdn exit 0"
     }
   },
-  "aggregate_api": "GET /api/security/launch57-closure-status",
-  "ops_closure_gate": "scripts/launch57_ops_closure_gate.py",
-  "ci_workflow": ".github/workflows/launch57-cisa-assurance.yml",
-  "repo_evidence_gate": "scripts/verify_launch57_repo_evidence.py",
-  "ops_playbook": "docs/ops/LAUNCH57_FINAL_CLOSURE_PLAYBOOK.md",
-  "railway_env_gate": "scripts/verify_railway_launch57_env.py",
-  "prod_surface_gate": "scripts/verify_launch57_prod_surface.py",
-  "railway_env_spec": "governance/launch57/RAILWAY_CISA_ENV_EXPECTATIONS.json",
-  "open_findings_register": "governance/launch57/LAUNCH57_OPEN_FINDINGS_REGISTER.md",
-  "closure_report_script": "scripts/launch57_closure_report.py",
-  "ops_attestation_recorder": "scripts/record_launch57_ops_attestation.py",
-  "release_evidence_publisher": "scripts/publish_launch57_release_evidence.py",
-  "completion_status_md": "governance/launch57/LAUNCH57_REMEDIATION_COMPLETION_STATUS.md",
-  "completion_status_json": "governance/launch57/LAUNCH57_COMPLETION_STATUS.json",
-  "completion_status_generator": "scripts/generate_launch57_completion_status.py"
+  "navigation": {
+    "evidence_index": "governance/launch57/CISA_REMEDIATION_EVIDENCE_INDEX.json",
+    "open_register": "governance/launch57/LAUNCH57_OPEN_FINDINGS_REGISTER.md",
+    "ops_playbook": "docs/ops/LAUNCH57_FINAL_CLOSURE_PLAYBOOK.md",
+    "program": "docs/governance/LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION_PROGRAM.md"
+  }
 }

@@ -26,11 +26,20 @@ jobs:
       - run: python scripts/validate_pentest_deposit_template.py
       - run: test "$(python scripts/launch57_closure_report.py >/dev/null; echo $?)" = "2"
       - run: python scripts/publish_launch57_release_evidence.py
+      - run: python scripts/generate_launch57_completion_status.py
       - run: python -m pytest tests/test_cisa_launch57_remediation.py -q
       - uses: actions/upload-artifact@v4
         with:
           name: launch57-engineering-baseline
           path: governance/launch57/evidence/ENGINEERING_SECURITY_BASELINE.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: launch57-release-evidence-bundle
+          path: |
+            docs/data-room/sbom/LAUNCH57_RELEASE_MANIFEST.json
+            docs/data-room/sbom/cyclonedx-python.json
+            governance/launch57/LAUNCH57_REMEDIATION_COMPLETION_STATUS.md
+            governance/launch57/LAUNCH57_COMPLETION_STATUS.json
 
   syft-prod-lock-sbom:
     runs-on: ubuntu-latest

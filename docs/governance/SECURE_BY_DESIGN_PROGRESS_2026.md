@@ -14,6 +14,11 @@
 | Supply chain | CycloneDX SBOM + git SHA binding |
 | Customer logging | 180-day policy + export API |
 
+## Engineering round 8 (completion status rollup + CI evidence bundle)
+
+- `generate_launch57_completion_status.py` → MD + JSON for all FINDING-01…19
+- CI artifact `launch57-release-evidence-bundle` (manifest, SBOM, completion status)
+
 ## Engineering round 7 (ops attestation log + release SBOM manifest)
 
 - `record_launch57_ops_attestation.py` / `.sh` — honest ops gate records (gitignored JSON)
