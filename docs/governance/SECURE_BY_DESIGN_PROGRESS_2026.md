@@ -14,6 +14,12 @@
 | Supply chain | CycloneDX SBOM + git SHA binding |
 | Customer logging | 180-day policy + export API |
 
+## Engineering round 6 (pentest deposit path + closure report + prod CI)
+
+- `docs/evidence/PENTEST_DEPOSIT_LAUNCH57.md` + `prepare_pentest_deposit_launch57.py`
+- `launch57_closure_report.py` + `LAUNCH57_OPEN_FINDINGS_REGISTER.md`
+- CI: `validate_syft_sbom_artifact.py`; optional prod surface via `LAUNCH57_PROD_URL` secret
+
 ## Engineering round 5 (Railway + prod surface + Syft CI)
 
 - `governance/launch57/RAILWAY_CISA_ENV_EXPECTATIONS.json` + `verify_railway_launch57_env.py`

@@ -29,6 +29,7 @@ def launch57_closure_status() -> dict[str, Any]:
                 "status": "CLOSED" if verify_pentest_attestation() else "OPEN",
                 "detail": pentest,
                 "ops_runbook": "docs/ops/PENTEST_ENGAGEMENT_RUNBOOK.md",
+                "deposit_guide": "docs/evidence/PENTEST_DEPOSIT_LAUNCH57.md",
                 "deposit_api": "POST /api/institutional/pentest/deposit",
             },
             "waf_cdn_edge": {
@@ -50,8 +51,11 @@ def launch57_closure_status() -> dict[str, Any]:
             "phishing_resistant_auth": webauthn_status(),
         },
         "verification_scripts": [
+            "scripts/launch57_closure_report.py",
             "scripts/verify_launch57_external_assurance.py",
+            "scripts/verify_launch57_prod_surface.py",
             "scripts/verify_well_known_security_txt.py",
             "scripts/verify_edge_waf_cdn.py",
         ],
+        "open_findings_register": "governance/launch57/LAUNCH57_OPEN_FINDINGS_REGISTER.md",
     }

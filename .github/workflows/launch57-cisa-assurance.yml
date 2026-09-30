@@ -24,6 +24,7 @@ jobs:
       - run: python scripts/verify_launch57_repo_evidence.py
       - run: python scripts/collect_engineering_security_baseline.py
       - run: python scripts/validate_pentest_deposit_template.py
+      - run: test "$(python scripts/launch57_closure_report.py >/dev/null; echo $?)" = "2"
       - run: python scripts/generate_sbom.py
       - run: python -m pytest tests/test_cisa_launch57_remediation.py -q
       - uses: actions/upload-artifact@v4
@@ -38,6 +39,7 @@ jobs:
       - name: Install syft
         run: curl -sSfL https://raw.githubusercontent.com/anchore/syft/v1.18.1/install.sh | sh -s -- -b /usr/local/bin v1.18.1
       - run: chmod +x scripts/generate_syft_lockfile_sbom.sh && scripts/generate_syft_lockfile_sbom.sh
+      - run: python scripts/validate_syft_sbom_artifact.py
       - uses: actions/upload-artifact@v4
         with:
           name: launch57-syft-prod-lock-sbom
@@ -58,4 +60,10 @@ jobs:
         env:
           LAUNCH57_PROD_URL: ${{ secrets.LAUNCH57_PROD_URL }}
         run: python scripts/verify_well_known_security_txt.py --url "$LAUNCH57_PROD_URL"
+        continue-on-error: true
+      - name: Production security surface (optional LAUNCH57_PROD_URL)
+        if: ${{ secrets.LAUNCH57_PROD_URL != '' }}
+        env:
+          LAUNCH57_PROD_URL: ${{ secrets.LAUNCH57_PROD_URL }}
+        run: python scripts/verify_launch57_prod_surface.py
         continue-on-error: true

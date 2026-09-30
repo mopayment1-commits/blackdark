@@ -2,7 +2,7 @@
   "program": "LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
   "remediation_sha": "ed595182",
-  "phase": "PHASE_ROUND_5_RAILWAY_PROD_SBOM_CI",
+  "phase": "PHASE_ROUND_6_PENTEST_REPORT_PROD_CI",
   "findings": {
     "FINDING-01": {
       "status": "OPEN_EXECUTIVE",
@@ -57,6 +57,8 @@
       "evidence": [
         "docs/ops/PENTEST_ENGAGEMENT_RUNBOOK.md",
         "docs/templates/pentest_scope_LAUNCH57.md",
+        "docs/evidence/PENTEST_DEPOSIT_LAUNCH57.md",
+        "scripts/prepare_pentest_deposit_launch57.py",
         "scripts/verify_launch57_external_assurance.py"
       ],
       "closure_requires": "Signed pentest deposit + verify_pentest_attestation()"
@@ -74,5 +76,7 @@
   "ops_playbook": "docs/ops/LAUNCH57_FINAL_CLOSURE_PLAYBOOK.md",
   "railway_env_gate": "scripts/verify_railway_launch57_env.py",
   "prod_surface_gate": "scripts/verify_launch57_prod_surface.py",
-  "railway_env_spec": "governance/launch57/RAILWAY_CISA_ENV_EXPECTATIONS.json"
+  "railway_env_spec": "governance/launch57/RAILWAY_CISA_ENV_EXPECTATIONS.json",
+  "open_findings_register": "governance/launch57/LAUNCH57_OPEN_FINDINGS_REGISTER.md",
+  "closure_report_script": "scripts/launch57_closure_report.py"
 }

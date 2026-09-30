@@ -51,3 +51,12 @@ Follow `docs/governance/SECURE_BY_DESIGN_PLEDGE_EXECUTION_CHECKLIST.md`
 ## 6. Evidence update
 
 After each ops closure, bump `remediation_sha` in `governance/launch57/CISA_REMEDIATION_EVIDENCE_INDEX.json` and attach CI run URL under `governance/launch57/evidence/`.
+
+## 7. Aggregate status report
+
+```bash
+python scripts/launch57_closure_report.py
+python scripts/launch57_closure_report.py --write   # optional local artifact (gitignored)
+```
+
+See `governance/launch57/LAUNCH57_OPEN_FINDINGS_REGISTER.md` for remaining IDs.

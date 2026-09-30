@@ -129,6 +129,28 @@ def test_railway_env_evaluator_production_ok(monkeypatch):
     assert report["ok"] is True
 
 
+def test_launch57_closure_report_marks_runtime_open():
+    import subprocess
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    proc = subprocess.run(
+        [sys.executable, str(root / "scripts" / "launch57_closure_report.py")],
+        cwd=root,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 2
+    assert "RUNTIME_OPEN" in proc.stderr
+    assert "cisa_certification_claimed" in proc.stdout
+
+
+def test_pentest_deposit_launch57_guide_exists():
+    path = Path(__file__).resolve().parents[1] / "docs/evidence/PENTEST_DEPOSIT_LAUNCH57.md"
+    assert path.is_file()
+    assert "FINDING-18" in path.read_text(encoding="utf-8")
+
+
 def test_prod_surface_skips_without_url(monkeypatch):
     import subprocess
     import sys

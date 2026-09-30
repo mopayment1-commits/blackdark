@@ -5,6 +5,7 @@
 | Artifact | Generator | Path |
 |----------|-----------|------|
 | Python application dependencies | `scripts/generate_sbom.py` | `docs/data-room/sbom/cyclonedx-python.json` |
+| Prod lockfile (Syft, CI) | `scripts/generate_syft_lockfile_sbom.sh` | CI artifact `launch57-syft-prod-lock-sbom` |
 
 Metadata includes: `blackdark:git_commit`, `blackdark:lockfile_sha256`, `blackdark:release`, optional `blackdark:image_digest`.
 
