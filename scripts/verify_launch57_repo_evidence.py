@@ -78,6 +78,11 @@ def main() -> int:
         "evidence_class_register",
         "evidence_class_register_gate",
         "program_closure_81_gate",
+        "ntia_sbom_gap_analysis",
+        "sbom_ntia_scope_gate",
+        "security_lead_inventory_rerun_gate",
+        "finding14_prod_run_recorder",
+        "round_16_ops_evidence_ar",
         "program_authority",
     )
     for rel in [data.get(k, "") for k in meta_keys]:

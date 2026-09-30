@@ -21,6 +21,8 @@ GATES = (
     "verify_launch57_independent_verification.py",
     "verify_launch57_release_attestation_82.py",
     "verify_launch57_evidence_class_register.py",
+    "verify_launch57_sbom_ntia_scope.py",
+    "verify_launch57_security_lead_inventory_rerun.py",
 )
 
 

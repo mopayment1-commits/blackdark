@@ -1,9 +1,9 @@
 # Launch-57 — CISA remediation completion status
 
-**Generated:** 2026-09-30T14:24:06.765528+00:00  
+**Generated:** 2026-09-30T14:34:22.245004+00:00  
 **Baseline SHA:** `e73f398d4048723bd10670beab14a0d18ceb19ef`  
 **Remediation SHA:** `5e0ed17e`  
-**Phase:** `PHASE_ROUND_15_RELEASE_ATTESTATION_82_EVIDENCE_CLASSES`
+**Phase:** `PHASE_ROUND_16_NTIA_SBOM_OPS_EVIDENCE_TOOLS`
 
 > **Honesty:** This is an engineering/ops status rollup. It does **not** claim CISA certification, pledge completion, or independent pentest unless each finding row shows full closure with verified ops evidence.
 
@@ -32,10 +32,10 @@
 | FINDING-08 | CLOSED | `security_events.py` | — |
 | FINDING-09 | CLOSED | `api/routers/customer_security.py` | — |
 | FINDING-10 | CLOSED | `scripts/generate_sbom.py`, `scripts/publish_launch57_release_evidence.py` (+1) | — |
-| FINDING-11 | CLOSED_PARTIAL | `docs/security/SBOM_SCOPE_STATEMENT.md`, `scripts/generate_container_sbom.sh` (+1) | Container SBOM when syft available in deploy pipeline |
+| FINDING-11 | CLOSED_PARTIAL | `docs/security/SBOM_SCOPE_STATEMENT.md`, `governance/launch57/LAUNCH57_NTIA_SBOM_GAP_ANALYSIS.json` (+3) | LAUNCH57_SBOM_SEC_LEAD_APPROVAL_ID or container/Syft SBOM + transition_launch57_finding_status.py --finding FINDING-11 --apply |
 | FINDING-12 | CLOSED | `docs/security/OPEN_SOURCE_GOVERNANCE.md` | — |
 | FINDING-13 | CLOSED | `docs/security/VULNERABILITY_DISCLOSURE_POLICY.md`, `api/routers/customer_security.py` | — |
-| FINDING-14 | CLOSED_REPO | `static/.well-known/security.txt`, `scripts/verify_well_known_security_txt.py` | scripts/verify_well_known_security_txt.py --url <prod> |
+| FINDING-14 | CLOSED_REPO | `static/.well-known/security.txt`, `scripts/verify_well_known_security_txt.py` (+1) | record_launch57_security_txt_prod_verification.py + transition_launch57_finding_status.py --finding FINDING-14 --apply |
 | FINDING-15 | CLOSED | `docs/security/PRODUCT_SECURITY_ADVISORY_PROCESS.md` | — |
 | FINDING-16 | CLOSED | `security_posture.py` | — |
 | FINDING-17 | CLOSED | `anonymous_route_foundation.py`, `tests/test_cisa_launch57_remediation.py` | — |

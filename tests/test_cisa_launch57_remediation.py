@@ -164,6 +164,75 @@ def test_launch57_closure_report_marks_runtime_open():
     assert "cisa_certification_claimed" in proc.stdout
 
 
+def test_sbom_ntia_scope_gate():
+    import subprocess
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    proc = subprocess.run(
+        [sys.executable, str(root / "scripts/verify_launch57_sbom_ntia_scope.py")],
+        cwd=root,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 0, proc.stderr or proc.stdout
+    report = json.loads(proc.stdout)
+    assert report["finding_11_full_closed"] is False
+
+
+def test_security_lead_inventory_rerun_gate():
+    import subprocess
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    proc = subprocess.run(
+        [sys.executable, str(root / "scripts/verify_launch57_security_lead_inventory_rerun.py")],
+        cwd=root,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 0, proc.stderr or proc.stdout
+
+
+def test_finding14_prod_recorder_skips_without_url():
+    import subprocess
+    import sys
+
+    monkeypatch = None
+    root = Path(__file__).resolve().parents[1]
+    proc = subprocess.run(
+        [sys.executable, str(root / "scripts/record_launch57_security_txt_prod_verification.py")],
+        cwd=root,
+        capture_output=True,
+        text=True,
+        env={k: v for k, v in __import__("os").environ.items() if k != "LAUNCH57_PROD_URL"},
+    )
+    assert proc.returncode == 3
+
+
+def test_transition_finding11_verifies_ntia_gate():
+    import subprocess
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    proc = subprocess.run(
+        [
+            sys.executable,
+            str(root / "scripts/transition_launch57_finding_status.py"),
+            "--finding",
+            "FINDING-11",
+        ],
+        cwd=root,
+        capture_output=True,
+        text=True,
+    )
+    syft = root / "governance/launch57/evidence/syft-prod-lock.cyclonedx.json"
+    if syft.is_file():
+        assert proc.returncode == 0
+    else:
+        assert proc.returncode == 2
+
+
 def test_release_attestation_82_gate():
     import subprocess
     import sys

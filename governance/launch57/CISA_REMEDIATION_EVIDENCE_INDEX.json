@@ -2,7 +2,7 @@
   "program": "LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
   "remediation_sha": "5e0ed17e",
-  "phase": "PHASE_ROUND_15_RELEASE_ATTESTATION_82_EVIDENCE_CLASSES",
+  "phase": "PHASE_ROUND_16_NTIA_SBOM_OPS_EVIDENCE_TOOLS",
   "independent_verification_register": "governance/launch57/LAUNCH57_INDEPENDENT_VERIFICATION_REGISTER.json",
   "findings": {
     "FINDING-01": {
@@ -80,10 +80,12 @@
       "status": "CLOSED_PARTIAL",
       "evidence": [
         "docs/security/SBOM_SCOPE_STATEMENT.md",
+        "governance/launch57/LAUNCH57_NTIA_SBOM_GAP_ANALYSIS.json",
+        "scripts/verify_launch57_sbom_ntia_scope.py",
         "scripts/generate_container_sbom.sh",
         "scripts/generate_syft_lockfile_sbom.sh"
       ],
-      "note": "Container SBOM when syft available in deploy pipeline"
+      "closure_requires": "LAUNCH57_SBOM_SEC_LEAD_APPROVAL_ID or container/Syft SBOM + transition_launch57_finding_status.py --finding FINDING-11 --apply"
     },
     "FINDING-12": {
       "status": "CLOSED",
@@ -103,9 +105,10 @@
       "status": "CLOSED_REPO",
       "evidence": [
         "static/.well-known/security.txt",
-        "scripts/verify_well_known_security_txt.py"
+        "scripts/verify_well_known_security_txt.py",
+        "scripts/record_launch57_security_txt_prod_verification.py"
       ],
-      "closure_requires": "scripts/verify_well_known_security_txt.py --url <prod>"
+      "closure_requires": "record_launch57_security_txt_prod_verification.py + transition_launch57_finding_status.py --finding FINDING-14 --apply"
     },
     "FINDING-15": {
       "status": "CLOSED",
@@ -187,5 +190,10 @@
   "evidence_class_register_gate": "scripts/verify_launch57_evidence_class_register.py",
   "program_closure_81_gate": "scripts/verify_launch57_program_closure_81.py",
   "iv_signoff_recorder": "scripts/record_launch57_independent_verification_signoff.py",
+  "ntia_sbom_gap_analysis": "governance/launch57/LAUNCH57_NTIA_SBOM_GAP_ANALYSIS.json",
+  "sbom_ntia_scope_gate": "scripts/verify_launch57_sbom_ntia_scope.py",
+  "security_lead_inventory_rerun_gate": "scripts/verify_launch57_security_lead_inventory_rerun.py",
+  "finding14_prod_run_recorder": "scripts/record_launch57_security_txt_prod_verification.py",
+  "round_16_ops_evidence_ar": "docs/governance/LAUNCH57_ROUND_16_OPS_EVIDENCE_AR.md",
   "program_authority": "docs/governance/LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION_PROGRAM.md"
 }

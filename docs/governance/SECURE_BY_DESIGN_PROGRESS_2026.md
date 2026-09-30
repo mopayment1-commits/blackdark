@@ -14,6 +14,13 @@
 | Supply chain | CycloneDX SBOM + git SHA binding |
 | Customer logging | 180-day policy + export API |
 
+## Engineering round 16 (FINDING-11 NTIA gap + FINDING-14 E-RUN + §8.3 V-1 bundle)
+
+- `LAUNCH57_NTIA_SBOM_GAP_ANALYSIS.json` + `verify_launch57_sbom_ntia_scope.py` (program §6 FINDING-11 / NTIA-MIN)
+- `record_launch57_security_txt_prod_verification.py` (RFC-9116 E-RUN; no auto-close)
+- `verify_launch57_security_lead_inventory_rerun.py` (§8.3 V-1 repo gate bundle)
+- `LAUNCH57_ROUND_16_OPS_EVIDENCE_AR.md`; transition rules updated for FINDING-11
+
 ## Engineering round 15 (§8.2 attestation lock + §3.2 evidence classes + §8.1 gate)
 
 - `LAUNCH57_RELEASE_ATTESTATION_82.json` + `verify_launch57_release_attestation_82.py` (wording locked to program §8.2; forbidden claim scan)

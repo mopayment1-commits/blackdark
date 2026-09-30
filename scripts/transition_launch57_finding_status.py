@@ -42,9 +42,15 @@ def _verify_finding(finding_id: str, pledge_url: str, prod_url: str) -> list[str
         if _run_verify("verify_edge_waf_cdn.py") != 0:
             errors.append("FINDING-19: verify_edge_waf_cdn.py failed (set CDN_WAF_ACTIVE=1)")
     elif finding_id == "FINDING-11":
-        path = ROOT / "governance" / "launch57" / "evidence" / "syft-prod-lock.cyclonedx.json"
-        if not path.is_file() and not os.getenv("LAUNCH57_CONTAINER_SBOM_PATH"):
-            errors.append("FINDING-11: missing Syft SBOM artifact (CI or LAUNCH57_CONTAINER_SBOM_PATH)")
+        if _run_verify("verify_launch57_sbom_ntia_scope.py") != 0:
+            errors.append("FINDING-11: verify_launch57_sbom_ntia_scope.py failed")
+        path = ROOT / "governance/launch57" / "evidence" / "syft-prod-lock.cyclonedx.json"
+        has_container = path.is_file() or bool(os.getenv("LAUNCH57_CONTAINER_SBOM_PATH"))
+        has_sec_lead = bool((os.getenv("LAUNCH57_SBOM_SEC_LEAD_APPROVAL_ID") or "").strip())
+        if not has_container and not has_sec_lead:
+            errors.append(
+                "FINDING-11: require Syft/container SBOM artifact OR LAUNCH57_SBOM_SEC_LEAD_APPROVAL_ID (program §6)"
+            )
     else:
         errors.append(f"transition not supported for {finding_id} via ops gate (update index manually with change control)")
     return errors

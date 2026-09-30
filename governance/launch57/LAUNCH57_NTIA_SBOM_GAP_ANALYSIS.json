@@ -1,0 +1,51 @@
+{
+  "schema": "launch57_ntia_sbom_gap_analysis_v1",
+  "authority": "docs/governance/LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION_PROGRAM.md",
+  "program_sections": ["§2 NTIA-MIN", "§6 FINDING-11"],
+  "normative": ["NTIA-MIN", "CDX"],
+  "security_lead_approval_id": null,
+  "security_lead_approval_note": "Set via LAUNCH57_SBOM_SEC_LEAD_APPROVAL_ID when Sec Lead approves this gap analysis (program §6 FINDING-11).",
+  "ntia_minimum_elements": {
+    "supplier_name": {
+      "status": "PRESENT",
+      "evidence": "docs/data-room/sbom/cyclonedx-python.json metadata.supplier"
+    },
+    "component_name": {
+      "status": "PRESENT",
+      "evidence": "CycloneDX components[] from requirements.lock.txt"
+    },
+    "version_of_component": {
+      "status": "PRESENT",
+      "evidence": "CyclonedX component version fields"
+    },
+    "other_unique_identifiers": {
+      "status": "PRESENT",
+      "evidence": "purl in CycloneDX; blackdark:git_commit metadata property"
+    },
+    "dependency_relationship": {
+      "status": "PRESENT",
+      "evidence": "CycloneDX dependencies section from generate_sbom.py"
+    },
+    "author_of_sbom_data": {
+      "status": "PRESENT",
+      "evidence": "CI workflow launch57-cisa-assurance / publish_launch57_release_evidence.py"
+    },
+    "timestamp": {
+      "status": "PRESENT",
+      "evidence": "metadata.timestamp in cyclonedx-python.json"
+    }
+  },
+  "documented_gaps": {
+    "container_os_packages": {
+      "status": "GAP_DOCUMENTED",
+      "mitigation": "scripts/generate_container_sbom.sh at image build; CI artifact launch57-syft-prod-lock-sbom for lockfile",
+      "program_ref": "§6 FINDING-11 Acceptance — container SBOM OR scope statement"
+    },
+    "cdn_third_party_js": {
+      "status": "GAP_DOCUMENTED",
+      "mitigation": "docs/security/SBOM_SCOPE_STATEMENT.md out-of-scope table"
+    }
+  },
+  "scope_statement": "docs/security/SBOM_SCOPE_STATEMENT.md",
+  "cisa_certification_claimed": false
+}
