@@ -52,6 +52,15 @@ def test_public_security_status_is_minimal(strict_client: TestClient):
     assert body.get("honesty", {}).get("cisa_certification_claimed") is False
 
 
+def test_public_vdp_endpoint(strict_client: TestClient):
+    r = strict_client.get("/api/security/vdp")
+    assert r.status_code == 200
+    body = r.json()
+    assert body.get("surface") == "vulnerability_disclosure_policy"
+    assert body.get("security_txt") == "/.well-known/security.txt"
+    assert body.get("honesty", {}).get("cisa_certification_claimed") is False
+
+
 def test_security_log_retention_minimum():
     from security_events import security_log_retention_days
 

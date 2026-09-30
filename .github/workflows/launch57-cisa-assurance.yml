@@ -1,0 +1,48 @@
+name: Launch-57 CISA Assurance
+
+on:
+  push:
+    branches: [main, cursor/cisa-launch57-remediation-exec-292d]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "0 7 * * 1"
+
+permissions:
+  contents: read
+
+jobs:
+  engineering-baseline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: "3.12"
+      - run: pip install --require-hashes --only-binary=:all: -r requirements.hashes.txt
+      - run: pip install --only-binary=:all: pip-audit==2.9.0
+      - run: python scripts/collect_engineering_security_baseline.py
+      - run: python scripts/validate_pentest_deposit_template.py
+      - run: python scripts/generate_sbom.py
+      - run: python -m pytest tests/test_cisa_launch57_remediation.py -q
+      - uses: actions/upload-artifact@v4
+        with:
+          name: launch57-engineering-baseline
+          path: governance/launch57/evidence/ENGINEERING_SECURITY_BASELINE.json
+
+  ops-gate-hint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: "3.12"
+      - run: |
+          python scripts/verify_edge_waf_cdn.py || true
+          echo "Ops: set CDN_WAF_ACTIVE and run launch57_ops_closure_gate.py with LAUNCH57_PROD_URL"
+      - name: Production security.txt (optional secret LAUNCH57_PROD_URL)
+        if: ${{ secrets.LAUNCH57_PROD_URL != '' }}
+        env:
+          LAUNCH57_PROD_URL: ${{ secrets.LAUNCH57_PROD_URL }}
+        run: python scripts/verify_well_known_security_txt.py --url "$LAUNCH57_PROD_URL"
+        continue-on-error: true

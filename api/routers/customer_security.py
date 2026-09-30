@@ -13,6 +13,23 @@ from security_auth import require_authenticated
 router = APIRouter(prefix="/api/security", tags=["customer-security"], responses=COMMON_ERROR_RESPONSES)
 
 
+@router.get("/vdp")
+async def public_vulnerability_disclosure_policy() -> dict[str, Any]:
+    """Public VDP summary (FINDING-13 / ISO 29147); full text in repo policy."""
+    return {
+        "surface": "vulnerability_disclosure_policy",
+        "policy_document": "docs/security/VULNERABILITY_DISCLOSURE_POLICY.md",
+        "normative_alignment": ["ISO/IEC 29147", "CISA Secure by Demand (2024)"],
+        "security_txt": "/.well-known/security.txt",
+        "reporting": {
+            "channel": "security.txt Contact field",
+            "include": ["description", "impact", "reproduction", "affected_urls", "contact"],
+        },
+        "safe_harbor": "Good-faith research under published VDP scope; prohibited activities listed in policy",
+        "honesty": {"cisa_certification_claimed": False},
+    }
+
+
 @router.get("/customer-logs/export")
 async def export_customer_security_logs(
     request: Request,

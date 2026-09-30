@@ -2,7 +2,7 @@
   "program": "LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
   "remediation_sha": "pending",
-  "phase": "PHASE_3_5_6_7_ENGINEERING_COMPLETE_OPS_PENDING",
+  "phase": "PHASE_ROUND_3_OPS_CI_GATES_ENGINEERING_COMPLETE",
   "findings": {
     "FINDING-01": {
       "status": "OPEN_EXECUTIVE",
@@ -31,7 +31,14 @@
       "note": "Container SBOM when syft available in deploy pipeline"
     },
     "FINDING-12": { "status": "CLOSED", "evidence": ["docs/security/OPEN_SOURCE_GOVERNANCE.md"] },
-    "FINDING-13": { "status": "CLOSED", "evidence": ["docs/security/VULNERABILITY_DISCLOSURE_POLICY.md"] },
+    "FINDING-13": {
+      "status": "CLOSED",
+      "evidence": [
+        "docs/security/VULNERABILITY_DISCLOSURE_POLICY.md",
+        "api/routers/customer_security.py",
+        "GET /api/security/vdp"
+      ]
+    },
     "FINDING-14": {
       "status": "CLOSED_REPO",
       "evidence": ["static/.well-known/security.txt", "scripts/verify_well_known_security_txt.py"],
@@ -55,5 +62,7 @@
       "closure_requires": "CDN_WAF_ACTIVE=1 + verify_edge_waf_cdn exit 0"
     }
   },
-  "aggregate_api": "GET /api/security/launch57-closure-status"
+  "aggregate_api": "GET /api/security/launch57-closure-status",
+  "ops_closure_gate": "scripts/launch57_ops_closure_gate.py",
+  "ci_workflow": ".github/workflows/launch57-cisa-assurance.yml"
 }

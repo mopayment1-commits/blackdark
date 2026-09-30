@@ -36,6 +36,7 @@ PUBLIC_PATH_EXACT: frozenset[str] = frozenset(
         PATH_API_TRUST_OS,
         "/api/audit-challenge",
         "/api/security/status",
+        "/api/security/vdp",
         "/api/security/external-review-readiness",
         "/api/platform/production-readiness",
         "/api/scale/readiness",
