@@ -1,0 +1,38 @@
+{
+  "artifact": "BATCH07_SSOT_RECONCILIATION",
+  "generated_at": "2026-09-06T11:18:25.256319+00:00",
+  "git_commit": "f93ee2c256d225602bb58e326a13c4f21a086cc0",
+  "trackers": {
+    "PROGRESS_826_CANONICAL": {
+      "path": "docs/PROGRESS_826_CANONICAL.json",
+      "active_canonical_role": "ACTIVE_NUMERATOR_SSOT for PRODUCTION-ALIGNED count toward 826",
+      "schema": "numerator/denominator + formula breakdown",
+      "consumers": [
+        "scripts/compute_progress_826.py",
+        "institutional closure reports"
+      ],
+      "computed_at": "2026-09-01T20:03:40.237635+00:00",
+      "batch07_in_numerator": false,
+      "batch07_note": "Batch07 301-350 are PASS_ENGINEERING / LOCAL_COMPLETE — not PRODUCTION-ALIGNED. Numerator unchanged until G6/Railway. Inventory lists batch07 IDs as PENDING/DEFERRED."
+    },
+    "CAPABILITIES_826_INVENTORY": {
+      "path": "docs/CAPABILITIES_826_INVENTORY.json",
+      "active_canonical_role": "ACTIVE per-ID status SSOT feeding PROGRESS_826",
+      "batch07_ids_present": 50,
+      "batch07_status_snapshot": {
+        "PENDING": 46,
+        "NOT_COMPLETE": 3,
+        "PRODUCTION-ALIGNED": 1
+      }
+    },
+    "batch07_independent": {
+      "exists": false,
+      "active_canonical_role": "NOT_PRESENT",
+      "replacement_ssot": "docs/BATCH07_FINAL_LOCAL_FREEZE.json + docs/BATCH07_V3_STATE_CLASSIFICATION.json",
+      "note": "No batch07_independent counter required — v3 freeze is batch07 SSOT"
+    }
+  },
+  "stale_active_ssot": [],
+  "unreconciled_project_trackers": [],
+  "legacy_tracker_ambiguity": []
+}

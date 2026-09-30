@@ -1,0 +1,193 @@
+{
+  "generated_at": "2026-09-11T01:00:59Z",
+  "head_sha": "14bbf492c69b51e2008d6dc9baefe3d578ae0696",
+  "results": {
+    "decimal": {
+      "procedure_id": "PROC-008",
+      "evidence_id": "EVD-024",
+      "evidence_level": "E1",
+      "vectors": [
+        {
+          "vector": "DEC-001",
+          "independent": "0.3000",
+          "expected": "0.3",
+          "match": false
+        },
+        {
+          "vector": "DEC-002",
+          "independent": "999999.9999",
+          "expected": "999999.9999",
+          "match": true
+        },
+        {
+          "vector": "DEC-003",
+          "independent": "1.00",
+          "expected": "1.00",
+          "match": true
+        },
+        {
+          "vector": "DEC-004",
+          "independent": "1.02",
+          "expected": "1.02",
+          "match": true
+        }
+      ],
+      "sqlite_real_vs_decimal": {
+        "real_stored": 0.30000000000000004,
+        "decimal_text_stored": "0.3",
+        "real_equals_decimal_text": true,
+        "material_drift_observed": false
+      },
+      "status": "VERIFIED FAIL",
+      "wf013_note": "REAL storage shows float representation drift; TEXT/Decimal path exact"
+    },
+    "inline_auth": {
+      "procedure_id": "PROC-012",
+      "evidence_id": "EVD-026",
+      "evidence_level": "L0+L1",
+      "inline_auth_count": 3,
+      "sample": [
+        {
+          "file": "api/routers/admin_billing.py",
+          "method": "GET",
+          "path": "/metrics",
+          "auth_class": "INLINE_AUTH"
+        },
+        {
+          "file": "api/routers/admin_billing.py",
+          "method": "GET",
+          "path": "/anomalies",
+          "auth_class": "INLINE_AUTH"
+        },
+        {
+          "file": "api/routers/admin_billing.py",
+          "method": "POST",
+          "path": "/sweep",
+          "auth_class": "INLINE_AUTH"
+        }
+      ],
+      "wf021_note": "192 NO_DECORATOR overstates vulnerability; admin_billing uses inline require_admin_ops",
+      "status": "PARTIAL"
+    },
+    "auth_negative": {
+      "procedure_id": "PROC-016",
+      "evidence_id": "EVD-025",
+      "evidence_level": "E1",
+      "tests": [
+        {
+          "case": "anonymous_admin_billing_metrics",
+          "method": "GET",
+          "path": "/api/admin/billing/metrics",
+          "status_code": 403,
+          "blocked": true
+        },
+        {
+          "case": "wrong_token_admin_billing",
+          "status_code": 403,
+          "blocked": true
+        },
+        {
+          "case": "anonymous_auth_me",
+          "path": "/api/auth/me",
+          "status_code": 200,
+          "blocked": false
+        },
+        {
+          "case": "anonymous_analytics_spoof",
+          "status_code": 200,
+          "accepted_spoof": true
+        }
+      ],
+      "protected_blocked": 2,
+      "total": 4,
+      "status": "PARTIAL",
+      "note": "Admin inline auth blocks anonymous; analytics accepts spoof (WF-015 confirmed)"
+    },
+    "journeys": {
+      "procedure_id": "PROC-017",
+      "evidence_id": "EVD-027",
+      "evidence_level": "E1",
+      "exit_code": 0,
+      "output_tail": "...                                                                      [100%]\n",
+      "status": "VERIFIED PASS"
+    },
+    "red_team": {
+      "procedure_id": "PROC-021",
+      "evidence_id": "EVD-028",
+      "evidence_level": "E1",
+      "claims_challenged": 5,
+      "claims": [
+        {
+          "claim": "money_decimal fee/net helpers match independent Decimal formulas",
+          "hypothesis": "Rounding or quantization differs at boundary values",
+          "evidence": "EVD-017",
+          "result": "NOT FALSIFIED",
+          "status": true
+        },
+        {
+          "claim": "WF-017 P0 dual-schema runtime collision",
+          "hypothesis": "Same table names exist in both spine and wave01 causing conflict",
+          "evidence": "EVD-018",
+          "overlap_tables": [],
+          "result": "FALSIFIED \u2014 zero table name overlap; parallel namespaces",
+          "status": false
+        },
+        {
+          "claim": "196 endpoints without auth decorator are unprotected",
+          "hypothesis": "Inline auth patterns protect admin and other critical routes",
+          "evidence": "EVD-026",
+          "inline_auth_found": 3,
+          "result": "PARTIALLY FALSIFIED"
+        },
+        {
+          "claim": "Full test suite passes \u2014 production ready",
+          "hypothesis": "3 failures and 2 skips indicate gaps",
+          "evidence": "EVD-016",
+          "tests": 2977,
+          "failures": 3,
+          "result": "FALSIFIED"
+        },
+        {
+          "claim": "Analytics endpoint is safe / intentionally public without spoof risk",
+          "hypothesis": "Unauthenticated user_id spoof accepted",
+          "evidence": "EVD-020",
+          "result": "FALSIFIED",
+          "status_code": 200
+        }
+      ],
+      "falsified_count": 4,
+      "status": "VERIFIED PASS"
+    },
+    "test_counts": {
+      "procedure_id": "PROC-005",
+      "generated_at": "2026-09-11T00:29:27Z",
+      "head_sha": "14bbf492c69b51e2008d6dc9baefe3d578ae0696",
+      "command": "/workspace/.venv/bin/python -m pytest tests/ -q --tb=no --no-header -ra --strict-markers --junitxml /workspace/institutional_due_diligence_2026/EVD_TEST_SUITE_JUNIT.xml",
+      "environment": "local L1, SQLite bootstrap via conftest",
+      "exit_code": 1,
+      "duration_sec": 1319.35,
+      "tests_collected": 2977,
+      "passed": 2972,
+      "failed": 3,
+      "skipped": 2,
+      "xfailed": 0,
+      "xpassed": 0,
+      "errors": 0,
+      "executed": 2977,
+      "evidence_level": "E1",
+      "evidence_id": "EVD-016",
+      "tail_output": "........................................................................ [  2%]\n........................................................................ [  4%]\n........................................................................ [  7%]\n........................................................................ [  9%]\n........................................................................ [ 12%]\n........................................................................ [ 14%]\n........................................................................ [ 16%]\n........................................................................ [ 19%]\n........................................................................ [ 21%]\n........................................................................ [ 24%]\n........................................................................ [ 26%]\n........................................................................ [ 29%]\n........................................................................ [ 31%]\n........................................................................ [ 33%]\n........................................................................ [ 36%]\n........................................................................ [ 38%]\n........................................................................ [ 41%]\n........................................................................ [ 43%]\n..............................s......................................... [ 45%]\n........................................................................ [ 48%]\n........................................................................ [ 50%]\n........................................................................ [ 53%]\n........................................................................ [ 55%]\n........................................................................ [ 58%]\n........................................................................ [ 60%]\n........................................................................ [ 62%]\n........................................................................ [ 65%]\n........................................................................ [ 67%]\n........................................................................ [ 70%]\n........................................................................ [ 72%]\n........................................................................ [ 74%]\n........................................................................ [ 77%]\n........................................................................ [ 79%]\n........................................................................ [ 82%]\n........................................................................ [ 84%]\n....F.............................F...................................s. [ 87%]\n...........................................................F............ [ 89%]\n........................................................................ [ 91%]\n........................................................................ [ 94%]\n........................................................................ [ 96%]\n........................................................................ [ 99%]\n.........................                                                [100%]\n=============================== warnings summary ===============================\ntests/cap646/test_ci_deterministic_closure.py: 70 warnings\ntests/cap646/test_institutional_gate.py: 620 warnings\ntests/cap646/test_triple_closure.py: 35 warnings\ntests/cap646/test_wave_dod_e2e.py: 10 warnings\ntests/test_hero_batch_01_capabilities.py: 5 warnings\ntests/test_launch_readiness.py: 10 warnings\ntests/test_pentagonal_hero_binding.py: 5 warnings\ntests/test_production_e2e_hardening.py: 5 warnings\ntests/test_rvm_system.py: 5 warnings\ntests/test_unique_differentiators.py: 10 warnings\n  /workspace/.venv/lib/python3.12/site-packages/joblib/numpy_pickle.py:207: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.\n  As an alternative, you can create a new view using np.reshape (with copy=False if needed).\n    array.shape = self.shape\n\ntests/cap646/test_institutional_gate.py: 118 warnings\ntests/cap646/test_triple_closure.py: 2 warnings\ntests/cap646/test_wave_dod_e2e.py: 2 warnings\ntests/test_launch_readiness.py: 1 warning\ntests/test_unique_differentiators.py: 1 warning\n  /workspace/.venv/lib/python3.12/site-packages/joblib/numpy_pickle.py:204: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.\n  As an alternative, you can create a new view using np.reshape (with copy=False if needed).\n    array.shape = self.shape[::-1]\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n=========================== short test summary info ============================\nSKIPPED [1] tests/test_free_tier_capabilities.py:21: BigQuery export not configured in this environment\nSKIPPED [1] tests/test_rc2_chaos_resilience.py:20: postgres_backend.get_pool not present\nFAILED tests/test_postgres_migration_integrity.py::test_clean_postgres_migrate_crud_rollback_restart\nFAILED tests/test_production_e2e_hardening.py::test_market_overview_failsover_when_primary_binance_empty\nFAILED tests/test_rvm_system.py::test_governing_sources_present_and_hashed - ...\n",
+      "status": "VERIFIED FAIL",
+      "failure_tests": [
+        "test_postgres_migration_integrity::test_clean_postgres_migrate_crud_rollback_restart",
+        "test_production_e2e_hardening::test_market_overview_failsover_when_primary_binance_empty",
+        "test_rvm_system::test_governing_sources_present_and_hashed"
+      ],
+      "skipped_tests": [
+        "test_free_tier_capabilities (BigQuery not configured)",
+        "test_rc2_chaos_resilience (postgres_backend.get_pool not present)"
+      ],
+      "corrected_at": "2026-09-11T01:00:59Z"
+    }
+  }
+}

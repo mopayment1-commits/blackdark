@@ -1,0 +1,1861 @@
+{
+  "evidence_id": "EVD-046",
+  "total": 308,
+  "counts": {
+    "INLINE_AUTH": 3,
+    "NO_DECORATOR": 189,
+    "STRICT_DEPENDS": 70,
+    "OPTIONAL_DEPENDS": 27,
+    "ROUTER_LEVEL": 19
+  },
+  "endpoints": [
+    {
+      "file": "admin_billing.py",
+      "method": "GET",
+      "path": "/metrics",
+      "auth": "INLINE_AUTH"
+    },
+    {
+      "file": "admin_billing.py",
+      "method": "GET",
+      "path": "/anomalies",
+      "auth": "INLINE_AUTH"
+    },
+    {
+      "file": "admin_billing.py",
+      "method": "POST",
+      "path": "/sweep",
+      "auth": "INLINE_AUTH"
+    },
+    {
+      "file": "arbitrage.py",
+      "method": "GET",
+      "path": "/scanner/status",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "arbitrage.py",
+      "method": "GET",
+      "path": "/defi/scan",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "arbitrage.py",
+      "method": "GET",
+      "path": "/engine/status",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "arbitrage.py",
+      "method": "GET",
+      "path": "/opportunities",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "arbitrage.py",
+      "method": "POST",
+      "path": "/scan",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "arbitrage.py",
+      "method": "GET",
+      "path": "/compare/{symbol}",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "arbitrage.py",
+      "method": "GET",
+      "path": "/feed-lag/{symbol}",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "arbitrage.py",
+      "method": "GET",
+      "path": "/durations",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "arbitrage.py",
+      "method": "GET",
+      "path": "/alerts",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "arbitrage.py",
+      "method": "GET",
+      "path": "/catalog",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "arbitrage.py",
+      "method": "GET",
+      "path": "/catalog/scan",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "arbitrage.py",
+      "method": "GET",
+      "path": "/pricing-errors/{symbol}",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "arbitrage.py",
+      "method": "GET",
+      "path": "/saturation-guard",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "audit.py",
+      "method": "POST",
+      "path": "/api/audit/log",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "audit.py",
+      "method": "GET",
+      "path": "/api/audit/export",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "audit.py",
+      "method": "POST",
+      "path": "/api/decisions",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "audit.py",
+      "method": "GET",
+      "path": "/api/decisions/search",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "audit.py",
+      "method": "GET",
+      "path": "/api/decisions/{decision_id}",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "audit.py",
+      "method": "PATCH",
+      "path": "/api/decisions/{decision_id}",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "auth.py",
+      "method": "GET",
+      "path": "/identity",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "auth.py",
+      "method": "POST",
+      "path": "/register",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "auth.py",
+      "method": "POST",
+      "path": "/login",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "auth.py",
+      "method": "POST",
+      "path": "/mfa/complete",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "auth.py",
+      "method": "GET",
+      "path": "/mfa/status",
+      "auth": "OPTIONAL_DEPENDS"
+    },
+    {
+      "file": "auth.py",
+      "method": "POST",
+      "path": "/mfa/enroll",
+      "auth": "OPTIONAL_DEPENDS"
+    },
+    {
+      "file": "auth.py",
+      "method": "POST",
+      "path": "/mfa/confirm",
+      "auth": "OPTIONAL_DEPENDS"
+    },
+    {
+      "file": "auth.py",
+      "method": "POST",
+      "path": "/mfa/disable",
+      "auth": "OPTIONAL_DEPENDS"
+    },
+    {
+      "file": "auth.py",
+      "method": "POST",
+      "path": "/forgot-password",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "auth.py",
+      "method": "POST",
+      "path": "/reset-password",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "auth.py",
+      "method": "POST",
+      "path": "/change-password",
+      "auth": "OPTIONAL_DEPENDS"
+    },
+    {
+      "file": "auth.py",
+      "method": "GET",
+      "path": "/verify-email",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "auth.py",
+      "method": "POST",
+      "path": "/resend-verification",
+      "auth": "OPTIONAL_DEPENDS"
+    },
+    {
+      "file": "auth.py",
+      "method": "POST",
+      "path": "/forgot-username",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "auth.py",
+      "method": "GET",
+      "path": "/oauth/status",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "auth.py",
+      "method": "GET",
+      "path": "/oauth/{provider}/start",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "auth.py",
+      "method": "GET",
+      "path": "/oauth/{provider}/callback",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "auth.py",
+      "method": "POST",
+      "path": "/logout",
+      "auth": "OPTIONAL_DEPENDS"
+    },
+    {
+      "file": "auth.py",
+      "method": "POST",
+      "path": "/logout-all",
+      "auth": "OPTIONAL_DEPENDS"
+    },
+    {
+      "file": "auth.py",
+      "method": "GET",
+      "path": "/me",
+      "auth": "OPTIONAL_DEPENDS"
+    },
+    {
+      "file": "auth.py",
+      "method": "PATCH",
+      "path": "/profile",
+      "auth": "OPTIONAL_DEPENDS"
+    },
+    {
+      "file": "auth.py",
+      "method": "POST",
+      "path": "/avatar",
+      "auth": "OPTIONAL_DEPENDS"
+    },
+    {
+      "file": "auth.py",
+      "method": "DELETE",
+      "path": "/avatar",
+      "auth": "OPTIONAL_DEPENDS"
+    },
+    {
+      "file": "auth.py",
+      "method": "GET",
+      "path": "/avatar/{filename}",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "billing.py",
+      "method": "GET",
+      "path": "/status",
+      "auth": "OPTIONAL_DEPENDS"
+    },
+    {
+      "file": "billing.py",
+      "method": "GET",
+      "path": "/readiness",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "billing.py",
+      "method": "GET",
+      "path": "/payments",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "billing.py",
+      "method": "GET",
+      "path": "/refund-policy",
+      "auth": "OPTIONAL_DEPENDS"
+    },
+    {
+      "file": "billing.py",
+      "method": "POST",
+      "path": "/checkout",
+      "auth": "OPTIONAL_DEPENDS"
+    },
+    {
+      "file": "billing.py",
+      "method": "POST",
+      "path": "/portal",
+      "auth": "OPTIONAL_DEPENDS"
+    },
+    {
+      "file": "billing.py",
+      "method": "POST",
+      "path": "/institutional-inquiry",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "billing.py",
+      "method": "POST",
+      "path": "/webhook/lemon",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "billing.py",
+      "method": "GET",
+      "path": "/subscription",
+      "auth": "OPTIONAL_DEPENDS"
+    },
+    {
+      "file": "billing.py",
+      "method": "POST",
+      "path": "/cancel",
+      "auth": "OPTIONAL_DEPENDS"
+    },
+    {
+      "file": "billing.py",
+      "method": "POST",
+      "path": "/downgrade",
+      "auth": "OPTIONAL_DEPENDS"
+    },
+    {
+      "file": "cap646.py",
+      "method": "GET",
+      "path": "/wave/{wave_id}/ids",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "cap646.py",
+      "method": "GET",
+      "path": "/wave/{wave_id}/dod",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "cap646.py",
+      "method": "GET",
+      "path": "/catalog",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "cap646.py",
+      "method": "GET",
+      "path": "/closure/triple",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "cap646.py",
+      "method": "GET",
+      "path": "/controls",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "cap646.py",
+      "method": "GET",
+      "path": "/platform-chain",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "cap646.py",
+      "method": "GET",
+      "path": "/platform-chain/e2e",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "cap646.py",
+      "method": "GET",
+      "path": "/functional/{capability_id}",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "cap646.py",
+      "method": "GET",
+      "path": "/catalog/978",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "cap646.py",
+      "method": "GET",
+      "path": "/user-surface/{capability_id}",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "cap646.py",
+      "method": "GET",
+      "path": "/hub/context",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "cap646.py",
+      "method": "GET",
+      "path": "/closure/978",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "cap646.py",
+      "method": "GET",
+      "path": "/soft-launch/closure",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "cap646.py",
+      "method": "GET",
+      "path": "/institutional-gate",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "cap646.py",
+      "method": "GET",
+      "path": "/commercial-launch",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "cap646.py",
+      "method": "GET",
+      "path": "/evidence-room",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "cap646.py",
+      "method": "GET",
+      "path": "/external-registry",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "cap646.py",
+      "method": "GET",
+      "path": "/verify/{capability_id}",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "cap646.py",
+      "method": "GET",
+      "path": "/978/{capability_id}",
+      "auth": "OPTIONAL_DEPENDS"
+    },
+    {
+      "file": "cap646.py",
+      "method": "GET",
+      "path": "/978/catalog",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "cap646.py",
+      "method": "GET",
+      "path": "/closure/status",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "cap646.py",
+      "method": "GET",
+      "path": "/closure/verify/{capability_id}",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "cap646.py",
+      "method": "GET",
+      "path": "/gateway/audit",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "cap646.py",
+      "method": "GET",
+      "path": "/matrix/{capability_id}",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "cap646.py",
+      "method": "GET",
+      "path": "/{capability_id}",
+      "auth": "OPTIONAL_DEPENDS"
+    },
+    {
+      "file": "cap646.py",
+      "method": "POST",
+      "path": "/{capability_id}/execute",
+      "auth": "OPTIONAL_DEPENDS"
+    },
+    {
+      "file": "compounding.py",
+      "method": "POST",
+      "path": "/api/kg/node",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "compounding.py",
+      "method": "POST",
+      "path": "/api/kg/edge",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "compounding.py",
+      "method": "GET",
+      "path": "/api/kg/query",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "compounding.py",
+      "method": "GET",
+      "path": "/api/signals/correlate",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "compounding.py",
+      "method": "POST",
+      "path": "/api/signals",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "compounding.py",
+      "method": "GET",
+      "path": "/api/signals/{symbol}/history",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "compounding.py",
+      "method": "GET",
+      "path": "/api/signals/{symbol}/diff",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "compounding.py",
+      "method": "POST",
+      "path": "/api/learning/predictions",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "compounding.py",
+      "method": "POST",
+      "path": "/api/learning/outcomes",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "compounding.py",
+      "method": "GET",
+      "path": "/api/oracle/accuracy",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "compounding.py",
+      "method": "GET",
+      "path": "/api/opportunities/missed",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "compounding.py",
+      "method": "POST",
+      "path": "/api/learning/counterfactuals",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "compounding.py",
+      "method": "GET",
+      "path": "/api/trust/evidence-pack",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "compounding.py",
+      "method": "GET",
+      "path": "/api/trust/report",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "compounding.py",
+      "method": "GET",
+      "path": "/api/proof-arena/certificate",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "compounding.py",
+      "method": "GET",
+      "path": "/api/proof-arena/certificate/{certificate_id}",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "compounding.py",
+      "method": "POST",
+      "path": "/api/analytics/event",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "compounding.py",
+      "method": "POST",
+      "path": "/api/analytics/share",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "compounding.py",
+      "method": "GET",
+      "path": "/api/analytics/seo",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "compounding.py",
+      "method": "GET",
+      "path": "/api/analytics/institutional-dashboard",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "compounding.py",
+      "method": "GET",
+      "path": "/api/compliance/status",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "compounding.py",
+      "method": "GET",
+      "path": "/api/corporate/data-room",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "compounding.py",
+      "method": "GET",
+      "path": "/api/corporate/ip-registry",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "compounding.py",
+      "method": "GET",
+      "path": "/api/corporate/revenue-quality",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "compounding.py",
+      "method": "GET",
+      "path": "/api/compounding/_verify/phase/{phase}",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "compounding.py",
+      "method": "GET",
+      "path": "/api/compounding/_verify",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "compounding.py",
+      "method": "GET",
+      "path": "/api/observability/alerts",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "compounding.py",
+      "method": "GET",
+      "path": "/api/security/wave-00",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "critical_defects.py",
+      "method": "GET",
+      "path": "/critical-defects",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "didit_webhook.py",
+      "method": "POST",
+      "path": "/didit",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "didit_webhook.py",
+      "method": "GET",
+      "path": "/didit",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "gtm.py",
+      "method": "GET",
+      "path": "/api/platform/stats",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "gtm.py",
+      "method": "GET",
+      "path": "/api/gtm/status",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "gtm.py",
+      "method": "GET",
+      "path": "/api/launch/readiness",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "gtm.py",
+      "method": "GET",
+      "path": "/api/production/guard",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "gtm.py",
+      "method": "GET",
+      "path": "/api/pricing",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "gtm.py",
+      "method": "GET",
+      "path": "/api/pricing/upgrade-path",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "gtm.py",
+      "method": "GET",
+      "path": "/api/pricing/signup-plans",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/heroes/strategy",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/audience/entry",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/lenses",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/lenses/{lens_id}",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/lenses/{lens_id}/entries",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "POST",
+      "path": "/api/oracle/decision-certificate",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/locked-predictions",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "POST",
+      "path": "/api/locked-predictions",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "POST",
+      "path": "/api/discipline-mirror/answer",
+      "auth": "OPTIONAL_DEPENDS"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/discipline-mirror/me",
+      "auth": "OPTIONAL_DEPENDS"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/accuracy/monthly-losing-report",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/audit-challenge",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "POST",
+      "path": "/api/whale/stealth-advisor",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/whale/signal-vs-noise",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/fund/emerging-terminal",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/compliance/footer",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/mev/sandwich-report",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/glass-box/challenge",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/glass-box/operator",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/ledger/share-kit",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/heroes/quality",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/strategy/correction",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/strategy/priority-chain",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/strategy/priority-chain/evaluate",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/public/cso-priority-closure",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/strategy/zero-tolerance",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/public/zero-tolerance-closure",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/intent/router",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/intent/resolve",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/execution/closure",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/acceptance/60s",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/glass-box/announce-drafts",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/public/kill-rate",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/public/miss-feed",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/public/coverage-honesty",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/public/changed-mind",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/public/decision-graph",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/product/l2-remainder",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/product/capability-inventory",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/product/public-readiness",
+      "auth": "OPTIONAL_DEPENDS"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/institutional/scim/status",
+      "auth": "OPTIONAL_DEPENDS"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/scim/v2/Users",
+      "auth": "OPTIONAL_DEPENDS"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/oracle/provenance-score",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/emotion-tax/receipt",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/public/brand-coverage-closure",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/public/f1-f10-closure",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/allocator-receipt",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/allocator-receipt/pdf",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/transfer-intent",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "POST",
+      "path": "/api/transfer-intent",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/silence-index",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "POST",
+      "path": "/api/silence-index/event",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/alert-passport",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "POST",
+      "path": "/api/alert-passport/evaluate",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/visibility-cost",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/validity-decay",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/desk-duel",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "POST",
+      "path": "/api/desk-duel",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "POST",
+      "path": "/api/desk-duel/accept",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "POST",
+      "path": "/api/desk-duel/reveal",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/trust-debt",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "POST",
+      "path": "/api/trust-debt/event",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/contradiction-replay",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "POST",
+      "path": "/api/contradiction-replay",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/oracle/half-life/heat",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/proof-arena/week",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "POST",
+      "path": "/api/proof-arena/pick",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/glass-box/announce-schedule",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "POST",
+      "path": "/api/glass-box/announce-schedule",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/since-you-left",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/anti-hype/mode",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "POST",
+      "path": "/api/anti-hype/mode",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/wow/surfaces",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "heroes.py",
+      "method": "GET",
+      "path": "/api/alerts/generosity",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "institutional.py",
+      "method": "GET",
+      "path": "/dd-closure",
+      "auth": "ROUTER_LEVEL"
+    },
+    {
+      "file": "institutional.py",
+      "method": "GET",
+      "path": "/dd-closure/report1",
+      "auth": "ROUTER_LEVEL"
+    },
+    {
+      "file": "institutional.py",
+      "method": "GET",
+      "path": "/dd-closure/report2",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "institutional.py",
+      "method": "POST",
+      "path": "/orgs",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "institutional.py",
+      "method": "GET",
+      "path": "/orgs",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "institutional.py",
+      "method": "GET",
+      "path": "/orgs/{org_id}/members",
+      "auth": "ROUTER_LEVEL"
+    },
+    {
+      "file": "institutional.py",
+      "method": "POST",
+      "path": "/orgs/{org_id}/members",
+      "auth": "ROUTER_LEVEL"
+    },
+    {
+      "file": "institutional.py",
+      "method": "POST",
+      "path": "/orgs/{org_id}/roles",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "institutional.py",
+      "method": "POST",
+      "path": "/orgs/{org_id}/mfa-policy",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "institutional.py",
+      "method": "GET",
+      "path": "/mfa-policy/check",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "institutional.py",
+      "method": "GET",
+      "path": "/rbac/matrix",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "institutional.py",
+      "method": "POST",
+      "path": "/sso/configure",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "institutional.py",
+      "method": "GET",
+      "path": "/sso/authorize",
+      "auth": "ROUTER_LEVEL"
+    },
+    {
+      "file": "institutional.py",
+      "method": "GET",
+      "path": "/sso/callback",
+      "auth": "ROUTER_LEVEL"
+    },
+    {
+      "file": "institutional.py",
+      "method": "POST",
+      "path": "/sso/callback",
+      "auth": "ROUTER_LEVEL"
+    },
+    {
+      "file": "institutional.py",
+      "method": "GET",
+      "path": "/sso/status",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "institutional.py",
+      "method": "POST",
+      "path": "/commerce/invoice",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "institutional.py",
+      "method": "POST",
+      "path": "/commerce/mark-paid",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "institutional.py",
+      "method": "POST",
+      "path": "/commerce/kyc",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "institutional.py",
+      "method": "POST",
+      "path": "/commerce/kyc/didit/session",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "institutional.py",
+      "method": "POST",
+      "path": "/commerce/kyc/decide",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "institutional.py",
+      "method": "GET",
+      "path": "/commerce/status",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "institutional.py",
+      "method": "POST",
+      "path": "/capacity",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "institutional.py",
+      "method": "GET",
+      "path": "/capacity",
+      "auth": "ROUTER_LEVEL"
+    },
+    {
+      "file": "institutional.py",
+      "method": "GET",
+      "path": "/compliance",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "institutional.py",
+      "method": "POST",
+      "path": "/compliance/evidence",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "institutional.py",
+      "method": "POST",
+      "path": "/contracts",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "institutional.py",
+      "method": "POST",
+      "path": "/contracts/sign",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "institutional.py",
+      "method": "GET",
+      "path": "/contracts",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "institutional.py",
+      "method": "GET",
+      "path": "/ir",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "institutional.py",
+      "method": "POST",
+      "path": "/ir/tabletop",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "institutional.py",
+      "method": "GET",
+      "path": "/edge/waf",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "institutional.py",
+      "method": "GET",
+      "path": "/ha",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "institutional.py",
+      "method": "POST",
+      "path": "/ha/failover-drill",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "institutional.py",
+      "method": "GET",
+      "path": "/status-page",
+      "auth": "ROUTER_LEVEL"
+    },
+    {
+      "file": "institutional.py",
+      "method": "GET",
+      "path": "/secrets/status",
+      "auth": "ROUTER_LEVEL"
+    },
+    {
+      "file": "institutional.py",
+      "method": "GET",
+      "path": "/staging",
+      "auth": "ROUTER_LEVEL"
+    },
+    {
+      "file": "institutional.py",
+      "method": "GET",
+      "path": "/backup",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "institutional.py",
+      "method": "POST",
+      "path": "/backup/drill",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "institutional.py",
+      "method": "POST",
+      "path": "/support/tickets",
+      "auth": "ROUTER_LEVEL"
+    },
+    {
+      "file": "institutional.py",
+      "method": "GET",
+      "path": "/support",
+      "auth": "ROUTER_LEVEL"
+    },
+    {
+      "file": "institutional.py",
+      "method": "GET",
+      "path": "/coverage-catalog",
+      "auth": "ROUTER_LEVEL"
+    },
+    {
+      "file": "institutional.py",
+      "method": "GET",
+      "path": "/data-qa",
+      "auth": "ROUTER_LEVEL"
+    },
+    {
+      "file": "institutional.py",
+      "method": "GET",
+      "path": "/model-card",
+      "auth": "ROUTER_LEVEL"
+    },
+    {
+      "file": "institutional.py",
+      "method": "GET",
+      "path": "/dex/status",
+      "auth": "ROUTER_LEVEL"
+    },
+    {
+      "file": "institutional.py",
+      "method": "GET",
+      "path": "/pentest/status",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "institutional.py",
+      "method": "POST",
+      "path": "/pentest/deposit",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "institutional.py",
+      "method": "GET",
+      "path": "/external-review/readiness",
+      "auth": "ROUTER_LEVEL"
+    },
+    {
+      "file": "institutional.py",
+      "method": "GET",
+      "path": "/assurance",
+      "auth": "ROUTER_LEVEL"
+    },
+    {
+      "file": "market.py",
+      "method": "GET",
+      "path": "/overview",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "market.py",
+      "method": "GET",
+      "path": "/open-interest",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "market.py",
+      "method": "GET",
+      "path": "/sectors",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "market.py",
+      "method": "GET",
+      "path": "/radar-narrative",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "market.py",
+      "method": "GET",
+      "path": "/klines",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "observability.py",
+      "method": "GET",
+      "path": "/metrics",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "observability.py",
+      "method": "GET",
+      "path": "/api/observability/status",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "observability.py",
+      "method": "GET",
+      "path": "/api/due-diligence/bundle",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "observability.py",
+      "method": "GET",
+      "path": "/api/due-diligence/technical",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "observability.py",
+      "method": "GET",
+      "path": "/api/due-diligence/architecture",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "observability.py",
+      "method": "GET",
+      "path": "/api/due-diligence/evidence-pack",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "observability.py",
+      "method": "GET",
+      "path": "/api/due-diligence/evidence-pack/public-summary",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "observability.py",
+      "method": "GET",
+      "path": "/api/due-diligence/committee-one-pager",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "observability.py",
+      "method": "GET",
+      "path": "/api/due-diligence/committee-one-pager.pdf",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "observability.py",
+      "method": "GET",
+      "path": "/api/due-diligence/corpus-passport",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "observability.py",
+      "method": "GET",
+      "path": "/api/due-diligence/corpus-passport/public",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "observability.py",
+      "method": "GET",
+      "path": "/api/due-diligence/corpus-passport.pdf",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "observability.py",
+      "method": "GET",
+      "path": "/api/diagnostics/price/{symbol}",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "onchain_flow.py",
+      "method": "GET",
+      "path": "/flow-classification",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "oracle.py",
+      "method": "GET",
+      "path": "/api/oracle/data-hub",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "oracle.py",
+      "method": "GET",
+      "path": "/api/oracle/data-hub/{symbol}",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "oracle.py",
+      "method": "GET",
+      "path": "/api/forecast/audit",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "oracle.py",
+      "method": "GET",
+      "path": "/api/forecast/{symbol}",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "oracle.py",
+      "method": "GET",
+      "path": "/api/oracle/audit",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "oracle.py",
+      "method": "GET",
+      "path": "/api/ml/status",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "oracle.py",
+      "method": "POST",
+      "path": "/api/ml/flywheel/run",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "oracle.py",
+      "method": "POST",
+      "path": "/api/ml/collect-live",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "oracle.py",
+      "method": "POST",
+      "path": "/api/ml/bootstrap-replay",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "oracle.py",
+      "method": "POST",
+      "path": "/api/ml/train",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "oracle.py",
+      "method": "GET",
+      "path": "/api/ml/predict/{asset}",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "oracle.py",
+      "method": "GET",
+      "path": "/api/oracle/accuracy/public",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "oracle.py",
+      "method": "POST",
+      "path": "/api/ml/train/ensemble",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "oracle.py",
+      "method": "GET",
+      "path": "/api/ml/experience",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "oracle.py",
+      "method": "GET",
+      "path": "/api/oracle/weights",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "oracle.py",
+      "method": "GET",
+      "path": "/api/oracle/weights/public",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "oracle.py",
+      "method": "POST",
+      "path": "/api/oracle/retrain",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "oracle.py",
+      "method": "GET",
+      "path": "/api/oracle/dimension-conflict",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "oracle.py",
+      "method": "GET",
+      "path": "/api/oracle/track-record",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "oracle.py",
+      "method": "POST",
+      "path": "/api/oracle/track-record/backfill",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "oracle.py",
+      "method": "GET",
+      "path": "/api/oracle/audit-chain",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "oracle.py",
+      "method": "GET",
+      "path": "/api/oracle/audit-chain/verify",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "oracle.py",
+      "method": "GET",
+      "path": "/api/oracle/net-edge-truth",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "oracle.py",
+      "method": "GET",
+      "path": "/api/oracle/half-life",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "oracle.py",
+      "method": "GET",
+      "path": "/api/oracle/signals",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "oracle.py",
+      "method": "GET",
+      "path": "/api/oracle/signals/summary",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "oracle.py",
+      "method": "POST",
+      "path": "/api/oracle/signals/backfill",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "oracle.py",
+      "method": "GET",
+      "path": "/api/oracle/persona-clarity/demo",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "privacy.py",
+      "method": "GET",
+      "path": "/status",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "privacy.py",
+      "method": "POST",
+      "path": "/dsr/export",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "privacy.py",
+      "method": "POST",
+      "path": "/dsr/erase",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "rvm.py",
+      "method": "GET",
+      "path": "/summary",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "rvm.py",
+      "method": "GET",
+      "path": "/baseline",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "rvm.py",
+      "method": "GET",
+      "path": "/matrix",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "rvm.py",
+      "method": "GET",
+      "path": "/requirement/{req_id}",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "rvm.py",
+      "method": "GET",
+      "path": "/verify/control/{control_id}",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "rvm.py",
+      "method": "GET",
+      "path": "/verify/gate/{gate_id}",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "telegram.py",
+      "method": "POST",
+      "path": "/webhook",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "telegram.py",
+      "method": "GET",
+      "path": "/free/status",
+      "auth": "NO_DECORATOR"
+    },
+    {
+      "file": "telegram.py",
+      "method": "POST",
+      "path": "/free/broadcast",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "user.py",
+      "method": "POST",
+      "path": "/exchange-keys",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "user.py",
+      "method": "GET",
+      "path": "/exchange-keys",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "user.py",
+      "method": "DELETE",
+      "path": "/exchange-keys/{exchange}",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "user.py",
+      "method": "GET",
+      "path": "/risk-settings",
+      "auth": "STRICT_DEPENDS"
+    },
+    {
+      "file": "user.py",
+      "method": "POST",
+      "path": "/risk-settings",
+      "auth": "STRICT_DEPENDS"
+    }
+  ]
+}

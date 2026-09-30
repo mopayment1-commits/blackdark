@@ -1,0 +1,34 @@
+{
+  "procedure_id": "PROC-016",
+  "evidence_id": "EVD-025",
+  "evidence_level": "E1",
+  "tests": [
+    {
+      "case": "anonymous_admin_billing_metrics",
+      "method": "GET",
+      "path": "/api/admin/billing/metrics",
+      "status_code": 403,
+      "blocked": true
+    },
+    {
+      "case": "wrong_token_admin_billing",
+      "status_code": 403,
+      "blocked": true
+    },
+    {
+      "case": "anonymous_auth_me",
+      "path": "/api/auth/me",
+      "status_code": 200,
+      "blocked": false
+    },
+    {
+      "case": "anonymous_analytics_spoof",
+      "status_code": 200,
+      "accepted_spoof": true
+    }
+  ],
+  "protected_blocked": 2,
+  "total": 4,
+  "status": "PARTIAL",
+  "note": "Admin inline auth blocks anonymous; analytics accepts spoof (WF-015 confirmed)"
+}

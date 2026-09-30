@@ -1,0 +1,42 @@
+{
+  "evidence_id": "EVD-049",
+  "journeys": {
+    "test_production_e2e_hardening.py": {
+      "command": "/workspace/.venv/bin/python -m pytest tests/test_production_e2e_hardening.py::test_register_login_me_logout_cookie_journey -q --tb=line -ra",
+      "exit_code": 0,
+      "duration_sec": 4.19,
+      "output_tail": ".                                                                        [100%]\n",
+      "status": "VERIFIED PASS"
+    },
+    "test_billing_subscription_engine.py": {
+      "command": "/workspace/.venv/bin/python -m pytest tests/test_billing_subscription_engine.py -q --tb=line -ra",
+      "exit_code": 0,
+      "duration_sec": 1.35,
+      "output_tail": ".........                                                                [100%]\n",
+      "status": "VERIFIED PASS"
+    },
+    "test_platform_production_readiness.py": {
+      "command": "/workspace/.venv/bin/python -m pytest tests/test_platform_production_readiness.py -q --tb=line -ra",
+      "exit_code": 0,
+      "duration_sec": 1.71,
+      "output_tail": "..                                                                       [100%]\n",
+      "status": "VERIFIED PASS"
+    },
+    "test_auth_identity_profile.py": {
+      "command": "/workspace/.venv/bin/python -m pytest tests/test_auth_identity_profile.py -q --tb=line -ra",
+      "exit_code": 0,
+      "duration_sec": 1.84,
+      "output_tail": "......                                                                   [100%]\n",
+      "status": "VERIFIED PASS"
+    },
+    "test_p0_authz_hardening.py": {
+      "command": "/workspace/.venv/bin/python -m pytest tests/test_p0_authz_hardening.py -q --tb=line -ra",
+      "exit_code": 0,
+      "duration_sec": 1.32,
+      "output_tail": ".......                                                                  [100%]\n",
+      "status": "VERIFIED PASS"
+    }
+  },
+  "passed": 5,
+  "total": 5
+}

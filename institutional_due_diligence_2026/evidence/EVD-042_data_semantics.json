@@ -1,0 +1,8 @@
+{
+  "command": "/workspace/.venv/bin/python -m pytest tests/test_d01_data_state.py tests/test_wave_01_data_engine.py -q --tb=line -ra",
+  "exit_code": 0,
+  "duration_sec": 2.9,
+  "output_tail": "..............                                                           [100%]\n",
+  "status": "VERIFIED PASS",
+  "evidence_id": "EVD-042"
+}

@@ -1,0 +1,31 @@
+{
+  "generated_at": "2026-09-11T01:07:25Z",
+  "head_sha": "944c4f4d5dfb36d5c11d9eb6984232892a7b5234",
+  "procedures": 43,
+  "blockers": [
+    {
+      "id": "BLK-001",
+      "reason": "CI workflow re-execution requires external GitHub trigger",
+      "procedures": [
+        "W13-CI-002"
+      ],
+      "required_access": "L2 GitHub Actions"
+    },
+    {
+      "id": "BLK-002",
+      "reason": "Postgres backup/restore drill requires dedicated DB env",
+      "procedures": [
+        "W15-RES-002"
+      ],
+      "required_access": "L2 Postgres + backup tooling"
+    },
+    {
+      "id": "BLK-003",
+      "reason": "Legal license review requires external counsel",
+      "procedures": [
+        "W18-LEGAL-001"
+      ],
+      "required_access": "L5 legal"
+    }
+  ]
+}

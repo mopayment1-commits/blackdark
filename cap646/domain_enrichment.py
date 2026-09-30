@@ -164,11 +164,16 @@ async def enrich_capability_result(
 
     # Venue / execution quality
     if any(k in name for k in ("venue quality", "execution quality", "venue ranking")):
-        from market_context import probe_price_sources
+        has_backend_metric = any(
+            result.get(k) is not None or data.get(k) is not None
+            for k in ("venues", "venue_quality", "execution_quality", "probe")
+        )
+        if not has_backend_metric:
+            from market_context import probe_price_sources
 
-        probe = await probe_price_sources(symbol)
-        result.setdefault("venues", probe.get("venues") or probe)
-        result.setdefault("execution_quality", {"probe": probe, "symbol": symbol})
+            probe = await probe_price_sources(symbol)
+            result.setdefault("venues", probe.get("venues") or probe)
+            result.setdefault("execution_quality", {"probe": probe, "symbol": symbol})
 
     # Yield history
     if "yield" in name and "history" in name:

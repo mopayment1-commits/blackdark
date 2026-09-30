@@ -1,0 +1,11 @@
+{
+  "command": "/workspace/.venv/bin/python -m pytest tests/test_alpha_engine.py -q --tb=line -ra",
+  "exit_code": 0,
+  "duration_sec": 2.66,
+  "output_tail": ".....                                                                    [100%]\n",
+  "status": "VERIFIED PASS",
+  "evidence_id": "EVD-040",
+  "model_id": "MDL-005",
+  "source": "bd_platform/alpha_engine.py",
+  "tier": "HIGH"
+}

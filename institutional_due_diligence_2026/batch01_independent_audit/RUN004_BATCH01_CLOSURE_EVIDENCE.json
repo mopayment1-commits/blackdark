@@ -1,0 +1,520 @@
+{
+  "generated_at": "2026-09-11T07:37:37.576071+00:00",
+  "run": "004",
+  "item1_cap34_live_test": [
+    {
+      "input": {
+        "label": "user_forces_Opportunity",
+        "verdict": "Opportunity",
+        "risk_score": 1.0
+      },
+      "output_verdict": "Neutral",
+      "output_risk_score": 5.0,
+      "analysis_inputs": {
+        "change_24h_pct": -0.865,
+        "exchange_netflow_24h": 0.0,
+        "user_verdict_ignored": true
+      },
+      "user_verdict_ignored": true,
+      "one_line_en": "Verdict: Neutral — 24h price change -0.9% within neutral band (-5%..+5%)"
+    },
+    {
+      "input": {
+        "label": "user_forces_Risk",
+        "verdict": "Risk",
+        "risk_score": 9.5
+      },
+      "output_verdict": "Neutral",
+      "output_risk_score": 5.0,
+      "analysis_inputs": {
+        "change_24h_pct": -0.865,
+        "exchange_netflow_24h": 0.0,
+        "user_verdict_ignored": true
+      },
+      "user_verdict_ignored": true,
+      "one_line_en": "Verdict: Neutral — 24h price change -0.9% within neutral band (-5%..+5%)"
+    },
+    {
+      "input": {
+        "label": "user_forces_Neutral",
+        "verdict": "Neutral",
+        "risk_score": 5.0
+      },
+      "output_verdict": "Neutral",
+      "output_risk_score": 5.0,
+      "analysis_inputs": {
+        "change_24h_pct": -0.865,
+        "exchange_netflow_24h": 0.0,
+        "user_verdict_ignored": true
+      },
+      "user_verdict_ignored": true,
+      "one_line_en": "Verdict: Neutral — 24h price change -0.9% within neutral band (-5%..+5%)"
+    }
+  ],
+  "item2_split_brain": [
+    {
+      "id": 1,
+      "result_type": "NO_DEDICATED_IMPLEMENTATION",
+      "dedicated_available": false,
+      "dedicated_error": "ValueError: capability 1 is not in batch01 dedicated spine",
+      "free_tier_backend": "bd_platform.free_tier_capabilities",
+      "free_surface": "smart_money_leaderboard",
+      "outputs_match": null,
+      "verdict": "NOT_COMPLETE (governance): RTM implies dedicated batch01 backend but batch01_dedicated has no handler — only free_tier path exists. Error: ValueError: capability 1 is not in batch01 dedicated spine",
+      "free_excerpt": "{\"source\": \"defillama_plus_whale_tracker\", \"timestamp\": \"2026-09-11T07:37:29.985041+00:00\", \"leaderboard\": [], \"protocol_flow_signals\": [{\"name\": \"openOracle\", \"symbol\": \"-\", \"category\": \"Oracle\", \"tv…",
+      "dedicated_excerpt": null
+    },
+    {
+      "id": 2,
+      "result_type": "NO_DEDICATED_IMPLEMENTATION",
+      "dedicated_available": false,
+      "dedicated_error": "ValueError: capability 2 is not in batch01 dedicated spine",
+      "free_tier_backend": "bd_platform.free_tier_capabilities",
+      "free_surface": "wallet_profiler",
+      "outputs_match": null,
+      "verdict": "NOT_COMPLETE (governance): RTM implies dedicated batch01 backend but batch01_dedicated has no handler — only free_tier path exists. Error: ValueError: capability 2 is not in batch01 dedicated spine",
+      "free_excerpt": "{\"source\": \"defillama_plus_tracely\", \"timestamp\": \"2026-09-11T07:37:30.462549+00:00\", \"address\": \"0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb\", \"balance\": {\"available\": true, \"source\": \"tracely\", \"addre…",
+      "dedicated_excerpt": null
+    },
+    {
+      "id": 3,
+      "result_type": "NO_DEDICATED_IMPLEMENTATION",
+      "dedicated_available": false,
+      "dedicated_error": "ValueError: capability 3 is not in batch01 dedicated spine",
+      "free_tier_backend": "bd_platform.free_tier_capabilities",
+      "free_surface": "wallet_profiler_for_token",
+      "outputs_match": null,
+      "verdict": "NOT_COMPLETE (governance): RTM implies dedicated batch01 backend but batch01_dedicated has no handler — only free_tier path exists. Error: ValueError: capability 3 is not in batch01 dedicated spine",
+      "free_excerpt": "{\"source\": \"defillama_plus_tracely\", \"timestamp\": \"2026-09-11T07:37:30.889610+00:00\", \"address\": \"0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb\", \"balance\": {\"available\": true, \"source\": \"tracely\", \"addre…",
+      "dedicated_excerpt": null
+    },
+    {
+      "id": 4,
+      "result_type": "NO_DEDICATED_IMPLEMENTATION",
+      "dedicated_available": false,
+      "dedicated_error": "ValueError: capability 4 is not in batch01 dedicated spine",
+      "free_tier_backend": "bd_platform.free_tier_capabilities",
+      "free_surface": "smart_money_tracking",
+      "outputs_match": null,
+      "verdict": "NOT_COMPLETE (governance): RTM implies dedicated batch01 backend but batch01_dedicated has no handler — only free_tier path exists. Error: ValueError: capability 4 is not in batch01 dedicated spine",
+      "free_excerpt": "{\"source\": \"defillama_plus_whale_tracker\", \"timestamp\": \"2026-09-11T07:37:30.929495+00:00\", \"symbol\": \"BTC\", \"tracked_entities\": [], \"count\": 0, \"price_context\": {}, \"free_tier\": true}",
+      "dedicated_excerpt": null
+    },
+    {
+      "id": 10,
+      "result_type": "NO_DEDICATED_IMPLEMENTATION",
+      "dedicated_available": false,
+      "dedicated_error": "ValueError: capability 10 is not in batch01 dedicated spine",
+      "free_tier_backend": "bd_platform.free_tier_capabilities",
+      "free_surface": "wallet_pnl_analysis",
+      "outputs_match": null,
+      "verdict": "NOT_COMPLETE (governance): RTM implies dedicated batch01 backend but batch01_dedicated has no handler — only free_tier path exists. Error: ValueError: capability 10 is not in batch01 dedicated spine",
+      "free_excerpt": "{\"source\": \"defillama_market_proxy_plus_wallet\", \"timestamp\": \"2026-09-11T07:37:31.066380+00:00\", \"address\": \"0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb\", \"symbol\": \"BTC\", \"balance\": {\"available\": true…",
+      "dedicated_excerpt": null
+    },
+    {
+      "id": 21,
+      "result_type": "NO_DEDICATED_IMPLEMENTATION",
+      "dedicated_available": false,
+      "dedicated_error": "ValueError: capability 21 is not in batch01 dedicated spine",
+      "free_tier_backend": "bd_platform.free_tier_capabilities",
+      "free_surface": "transaction_decoder",
+      "outputs_match": null,
+      "verdict": "NOT_COMPLETE (governance): RTM implies dedicated batch01 backend but batch01_dedicated has no handler — only free_tier path exists. Error: ValueError: capability 21 is not in batch01 dedicated spine",
+      "free_excerpt": "{\"source\": \"blockchair\", \"timestamp\": \"2026-09-11T07:37:31.544598+00:00\", \"chain\": \"bitcoin\", \"tx_hash\": \"0xabc123def4567890abcdef1234567890abcdef1234567890abcdef1234567890\", \"decoded\": {}, \"free_tier…",
+      "dedicated_excerpt": null
+    },
+    {
+      "id": 38,
+      "result_type": "NO_DEDICATED_IMPLEMENTATION",
+      "dedicated_available": false,
+      "dedicated_error": "ValueError: capability 38 is not in batch01 dedicated spine",
+      "free_tier_backend": "bd_platform.free_tier_capabilities",
+      "free_surface": "cost_basis_distribution",
+      "outputs_match": null,
+      "verdict": "NOT_COMPLETE (governance): RTM implies dedicated batch01 backend but batch01_dedicated has no handler — only free_tier path exists. Error: ValueError: capability 38 is not in batch01 dedicated spine",
+      "free_excerpt": "{\"source\": \"defillama_market_proxy\", \"timestamp\": \"2026-09-11T07:37:31.556295+00:00\", \"symbol\": \"BTC\", \"spot_price\": 0.0, \"realized_price_proxy\": null, \"cost_basis_bands\": [{\"band\": \"deep_loss\", \"rang…",
+      "dedicated_excerpt": null
+    },
+    {
+      "id": 39,
+      "result_type": "NO_DEDICATED_IMPLEMENTATION",
+      "dedicated_available": false,
+      "dedicated_error": "ValueError: capability 39 is not in batch01 dedicated spine",
+      "free_tier_backend": "bd_platform.free_tier_capabilities",
+      "free_surface": "realized_cap_realized_price",
+      "outputs_match": null,
+      "verdict": "NOT_COMPLETE (governance): RTM implies dedicated batch01 backend but batch01_dedicated has no handler — only free_tier path exists. Error: ValueError: capability 39 is not in batch01 dedicated spine",
+      "free_excerpt": "{\"source\": \"defillama_market_proxy\", \"timestamp\": \"2026-09-11T07:37:31.567946+00:00\", \"symbol\": \"BTC\", \"spot_price\": 0.0, \"realized_price\": 0.0, \"realized_cap_usd\": 0.0, \"mvrv\": null, \"nupl_proxy\": nu…",
+      "dedicated_excerpt": null
+    },
+    {
+      "id": 45,
+      "result_type": "NO_DEDICATED_IMPLEMENTATION",
+      "dedicated_available": false,
+      "dedicated_error": "ValueError: capability 45 is not in batch01 dedicated spine",
+      "free_tier_backend": "bd_platform.free_tier_capabilities",
+      "free_surface": "etf_flow_intelligence",
+      "outputs_match": null,
+      "verdict": "NOT_COMPLETE (governance): RTM implies dedicated batch01 backend but batch01_dedicated has no handler — only free_tier path exists. Error: ValueError: capability 45 is not in batch01 dedicated spine",
+      "free_excerpt": "{\"source\": \"coingecko_defillama_free\", \"timestamp\": \"2026-09-11T07:37:31.764374+00:00\", \"symbol\": \"BTC\", \"global_crypto_mcap_usd\": 2647372107147.988, \"etf_related_protocols\": [{\"name\": \"Deribit\", \"tvl…",
+      "dedicated_excerpt": null
+    }
+  ],
+  "item3_bcbs239": [
+    {
+      "id": 5,
+      "missing_fields": [
+        "data_source",
+        "timestamp"
+      ],
+      "present": {
+        "data_source": false,
+        "timestamp": false,
+        "evidence_class": true
+      },
+      "payload_excerpt": "{\"capability_id\": 5, \"surface\": \"smart_money_accumulation_detection\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}"
+    },
+    {
+      "id": 6,
+      "missing_fields": [
+        "data_source",
+        "timestamp"
+      ],
+      "present": {
+        "data_source": false,
+        "timestamp": false,
+        "evidence_class": true
+      },
+      "payload_excerpt": "{\"capability_id\": 6, \"surface\": \"smart_money_token_screener\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}"
+    },
+    {
+      "id": 7,
+      "missing_fields": [
+        "timestamp"
+      ],
+      "present": {
+        "data_source": true,
+        "timestamp": false,
+        "evidence_class": true
+      },
+      "payload_excerpt": "{\"capability_id\": 7, \"surface\": \"holder_distribution_intelligence\", \"source\": \"coingecko_binance_free\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}"
+    },
+    {
+      "id": 11,
+      "missing_fields": [
+        "data_source",
+        "timestamp"
+      ],
+      "present": {
+        "data_source": false,
+        "timestamp": false,
+        "evidence_class": true
+      },
+      "payload_excerpt": "{\"capability_id\": 11, \"surface\": \"wallet_historical_performance_win_rate\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}"
+    },
+    {
+      "id": 12,
+      "missing_fields": [
+        "data_source",
+        "timestamp"
+      ],
+      "present": {
+        "data_source": false,
+        "timestamp": false,
+        "evidence_class": true
+      },
+      "payload_excerpt": "{\"capability_id\": 12, \"surface\": \"wallet_entry_exit_analysis\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}"
+    },
+    {
+      "id": 13,
+      "missing_fields": [
+        "data_source",
+        "timestamp"
+      ],
+      "present": {
+        "data_source": false,
+        "timestamp": false,
+        "evidence_class": true
+      },
+      "payload_excerpt": "{\"capability_id\": 13, \"surface\": \"wallet_counterparty_relationship_analysis\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}"
+    },
+    {
+      "id": 14,
+      "missing_fields": [
+        "data_source",
+        "timestamp"
+      ],
+      "present": {
+        "data_source": false,
+        "timestamp": false,
+        "evidence_class": true
+      },
+      "payload_excerpt": "{\"capability_id\": 14, \"surface\": \"entity_aware_wallet_intelligence\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}"
+    },
+    {
+      "id": 15,
+      "missing_fields": [
+        "data_source",
+        "timestamp"
+      ],
+      "present": {
+        "data_source": false,
+        "timestamp": false,
+        "evidence_class": true
+      },
+      "payload_excerpt": "{\"capability_id\": 15, \"surface\": \"exchange_flow_intelligence\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}"
+    },
+    {
+      "id": 16,
+      "missing_fields": [
+        "data_source",
+        "timestamp"
+      ],
+      "present": {
+        "data_source": false,
+        "timestamp": false,
+        "evidence_class": true
+      },
+      "payload_excerpt": "{\"capability_id\": 16, \"surface\": \"candle_price_move_investigator\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}"
+    },
+    {
+      "id": 18,
+      "missing_fields": [
+        "data_source",
+        "timestamp"
+      ],
+      "present": {
+        "data_source": false,
+        "timestamp": false,
+        "evidence_class": true
+      },
+      "payload_excerpt": "{\"capability_id\": 18, \"surface\": \"custom_wallet_labels\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}"
+    },
+    {
+      "id": 19,
+      "missing_fields": [
+        "data_source",
+        "timestamp"
+      ],
+      "present": {
+        "data_source": false,
+        "timestamp": false,
+        "evidence_class": true
+      },
+      "payload_excerpt": "{\"capability_id\": 19, \"surface\": \"wallet_token_watchlists\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}"
+    },
+    {
+      "id": 20,
+      "missing_fields": [
+        "data_source",
+        "timestamp"
+      ],
+      "present": {
+        "data_source": false,
+        "timestamp": false,
+        "evidence_class": true
+      },
+      "payload_excerpt": "{\"capability_id\": 20, \"surface\": \"multi_chain_portfolio_intelligence\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}"
+    },
+    {
+      "id": 22,
+      "missing_fields": [
+        "data_source",
+        "timestamp"
+      ],
+      "present": {
+        "data_source": false,
+        "timestamp": false,
+        "evidence_class": true
+      },
+      "payload_excerpt": "{\"capability_id\": 22, \"surface\": \"instant_wallet_due_diligence\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}"
+    },
+    {
+      "id": 23,
+      "missing_fields": [
+        "data_source",
+        "timestamp"
+      ],
+      "present": {
+        "data_source": false,
+        "timestamp": false,
+        "evidence_class": true
+      },
+      "payload_excerpt": "{\"capability_id\": 23, \"surface\": \"instant_token_due_diligence\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}"
+    },
+    {
+      "id": 36,
+      "missing_fields": [
+        "data_source",
+        "timestamp"
+      ],
+      "present": {
+        "data_source": false,
+        "timestamp": false,
+        "evidence_class": true
+      },
+      "payload_excerpt": "{\"capability_id\": 36, \"surface\": \"on_chain_metrics_library\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}"
+    },
+    {
+      "id": 37,
+      "missing_fields": [
+        "data_source",
+        "timestamp"
+      ],
+      "present": {
+        "data_source": false,
+        "timestamp": false,
+        "evidence_class": true
+      },
+      "payload_excerpt": "{\"capability_id\": 37, \"surface\": \"entity_adjusted_metrics\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}"
+    },
+    {
+      "id": 40,
+      "missing_fields": [
+        "data_source",
+        "timestamp"
+      ],
+      "present": {
+        "data_source": false,
+        "timestamp": false,
+        "evidence_class": true
+      },
+      "payload_excerpt": "{\"capability_id\": 40, \"surface\": \"mvrv_mvrv_z_score_suite\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}"
+    },
+    {
+      "id": 42,
+      "missing_fields": [
+        "timestamp"
+      ],
+      "present": {
+        "data_source": true,
+        "timestamp": false,
+        "evidence_class": true
+      },
+      "payload_excerpt": "{\"capability_id\": 42, \"surface\": \"holder_cohort_intelligence\", \"source\": \"coingecko_binance_free\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}"
+    },
+    {
+      "id": 43,
+      "missing_fields": [
+        "data_source",
+        "timestamp"
+      ],
+      "present": {
+        "data_source": false,
+        "timestamp": false,
+        "evidence_class": true
+      },
+      "payload_excerpt": "{\"capability_id\": 43, \"surface\": \"supply_dynamics_intelligence\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}"
+    },
+    {
+      "id": 44,
+      "missing_fields": [
+        "data_source",
+        "timestamp"
+      ],
+      "present": {
+        "data_source": false,
+        "timestamp": false,
+        "evidence_class": true
+      },
+      "payload_excerpt": "{\"capability_id\": 44, \"surface\": \"exchange_balance_netflow_intelligence\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}"
+    },
+    {
+      "id": 46,
+      "missing_fields": [
+        "data_source",
+        "timestamp"
+      ],
+      "present": {
+        "data_source": false,
+        "timestamp": false,
+        "evidence_class": true
+      },
+      "payload_excerpt": "{\"capability_id\": 46, \"surface\": \"digital_asset_treasury_company_intelligence\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}"
+    },
+    {
+      "id": 47,
+      "missing_fields": [
+        "data_source",
+        "timestamp"
+      ],
+      "present": {
+        "data_source": false,
+        "timestamp": false,
+        "evidence_class": true
+      },
+      "payload_excerpt": "{\"capability_id\": 47, \"surface\": \"spot_market_metrics_suite\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}"
+    },
+    {
+      "id": 48,
+      "missing_fields": [
+        "data_source",
+        "timestamp"
+      ],
+      "present": {
+        "data_source": false,
+        "timestamp": false,
+        "evidence_class": true
+      },
+      "payload_excerpt": "{\"capability_id\": 48, \"surface\": \"futures_intelligence_suite\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}"
+    },
+    {
+      "id": 49,
+      "missing_fields": [
+        "data_source",
+        "timestamp"
+      ],
+      "present": {
+        "data_source": false,
+        "timestamp": false,
+        "evidence_class": true
+      },
+      "payload_excerpt": "{\"capability_id\": 49, \"surface\": \"derivatives_intelligence\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}"
+    },
+    {
+      "id": 50,
+      "missing_fields": [
+        "data_source",
+        "timestamp"
+      ],
+      "present": {
+        "data_source": false,
+        "timestamp": false,
+        "evidence_class": true
+      },
+      "payload_excerpt": "{\"capability_id\": 50, \"surface\": \"order_book_intelligence\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}"
+    }
+  ],
+  "item4_gips": {
+    "ledger_path": "/workspace/data/decision_ledger.jsonl",
+    "exists": true,
+    "total_lines": 132,
+    "unique_decisions": 60,
+    "with_outcome": 24,
+    "by_evidence_class": {
+      "SIMULATED": 12,
+      "SHADOW_LIVE_FORWARD": 120
+    },
+    "first_shadow_live_at": "2026-09-11T00:30:53.593172+00:00",
+    "first_simulated_at": "2026-09-11T00:30:49.493941+00:00",
+    "last_at": "2026-09-11T01:07:33.374911+00:00",
+    "date_span_hours": 0.61,
+    "decisions_per_day": {
+      "2026-09-11": 132
+    },
+    "first_at": "2026-09-11T00:30:49.493941+00:00",
+    "gips_minimum_guidance": {
+      "min_decisions_for_stable_accuracy_estimate": 30,
+      "min_calendar_days_recommended": 90,
+      "min_production_decisions_required": 30,
+      "note": "GIPS requires full population over defined period; SHADOW/SIMULATED excluded per promotion_policy"
+    },
+    "accumulation_rate_per_day": 60.0,
+    "projected_days_to_30_decisions": 0,
+    "projected_days_to_90_day_window": 89,
+    "has_production_decisions": false,
+    "reclassification": "KEEP PERFORMANCE-UNVERIFIABLE",
+    "reclassification_reason": "Project newness + shadow-only ledger (span 0.61h, 60 decisions) — NOT a collection fault; promotion_policy correctly segregates SIMULATED/SHADOW. Insufficient calendar time for GIPS full-population accuracy."
+  }
+}

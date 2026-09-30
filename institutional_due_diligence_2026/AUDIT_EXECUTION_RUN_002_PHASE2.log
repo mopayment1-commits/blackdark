@@ -1,0 +1,8 @@
+{
+  "decimal": "VERIFIED FAIL",
+  "inline_auth": "PARTIAL",
+  "auth_negative": "PARTIAL",
+  "journeys": "VERIFIED PASS",
+  "red_team": "VERIFIED PASS",
+  "test_counts": "VERIFIED FAIL"
+}

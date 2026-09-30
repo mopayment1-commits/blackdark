@@ -1,0 +1,11 @@
+{
+  "command": "/workspace/.venv/bin/python -m pytest tests/test_arbitrage_engine.py -q --tb=line -ra",
+  "exit_code": 0,
+  "duration_sec": 1.0,
+  "output_tail": "..                                                                       [100%]\n",
+  "status": "VERIFIED PASS",
+  "evidence_id": "EVD-037",
+  "model_id": "MDL-002",
+  "source": "arbitrage_engine.py",
+  "tier": "HIGH"
+}

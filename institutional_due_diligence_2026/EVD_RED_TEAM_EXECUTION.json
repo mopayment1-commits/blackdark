@@ -1,0 +1,47 @@
+{
+  "procedure_id": "PROC-021",
+  "evidence_id": "EVD-028",
+  "evidence_level": "E1",
+  "claims_challenged": 5,
+  "claims": [
+    {
+      "claim": "money_decimal fee/net helpers match independent Decimal formulas",
+      "hypothesis": "Rounding or quantization differs at boundary values",
+      "evidence": "EVD-017",
+      "result": "NOT FALSIFIED",
+      "status": true
+    },
+    {
+      "claim": "WF-017 P0 dual-schema runtime collision",
+      "hypothesis": "Same table names exist in both spine and wave01 causing conflict",
+      "evidence": "EVD-018",
+      "overlap_tables": [],
+      "result": "FALSIFIED \u2014 zero table name overlap; parallel namespaces",
+      "status": false
+    },
+    {
+      "claim": "196 endpoints without auth decorator are unprotected",
+      "hypothesis": "Inline auth patterns protect admin and other critical routes",
+      "evidence": "EVD-026",
+      "inline_auth_found": 3,
+      "result": "PARTIALLY FALSIFIED"
+    },
+    {
+      "claim": "Full test suite passes \u2014 production ready",
+      "hypothesis": "3 failures and 2 skips indicate gaps",
+      "evidence": "EVD-016",
+      "tests": 2977,
+      "failures": 3,
+      "result": "FALSIFIED"
+    },
+    {
+      "claim": "Analytics endpoint is safe / intentionally public without spoof risk",
+      "hypothesis": "Unauthenticated user_id spoof accepted",
+      "evidence": "EVD-020",
+      "result": "FALSIFIED",
+      "status_code": 200
+    }
+  ],
+  "falsified_count": 4,
+  "status": "VERIFIED PASS"
+}

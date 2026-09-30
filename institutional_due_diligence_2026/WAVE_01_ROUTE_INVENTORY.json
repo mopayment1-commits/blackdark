@@ -1,0 +1,33 @@
+{
+  "total_route_decorators": 657,
+  "by_file": {
+    "dashboard.py": 225,
+    "platform_api.py": 86,
+    "api/routers/heroes.py": 74,
+    "api/routers/institutional.py": 49,
+    "api/routers/oracle.py": 28,
+    "api/routers/compounding.py": 28,
+    "api/routers/cap646.py": 26,
+    "api/routers/auth.py": 24,
+    "blackdark/data/systems_api.py": 16,
+    "api/routers/arbitrage.py": 13,
+    "api/routers/observability.py": 13,
+    "blackdark/data/api.py": 11,
+    "api/routers/billing.py": 11,
+    "api/routers/gtm.py": 7,
+    "api/routers/audit.py": 6,
+    "api/routers/rvm.py": 6,
+    "api/routers/market.py": 5,
+    "api/routers/user.py": 5,
+    "microservices/worker_app.py": 4,
+    "tests/test_critical_ops_closure.py": 3,
+    "tests/test_dd_radical_institutional_closure.py": 3,
+    "api/routers/admin_billing.py": 3,
+    "api/routers/telegram.py": 3,
+    "api/routers/privacy.py": 3,
+    "api/routers/didit_webhook.py": 2,
+    "tests/test_in_app_alerts.py": 1,
+    "api/routers/onchain_flow.py": 1,
+    "api/routers/critical_defects.py": 1
+  }
+}

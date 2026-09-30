@@ -1,0 +1,11 @@
+{
+  "command": "/workspace/.venv/bin/python -m pytest tests/test_profit_fee_algorithms.py -q --tb=line -ra",
+  "exit_code": 0,
+  "duration_sec": 0.9,
+  "output_tail": ".......                                                                  [100%]\n",
+  "status": "VERIFIED PASS",
+  "evidence_id": "EVD-034",
+  "model_id": "MDL-007",
+  "source": "profit_fee_algorithms.py",
+  "tier": "CRITICAL"
+}

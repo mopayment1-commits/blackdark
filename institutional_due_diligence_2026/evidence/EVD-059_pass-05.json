@@ -1,0 +1,8 @@
+{
+  "pass_id": "PASS-05",
+  "title": "Security Red Team",
+  "scope": "Challenge auth conclusions",
+  "evidence_id": "EVD-059",
+  "discrepancies": [],
+  "status": "COMPLETED"
+}

@@ -1,0 +1,37 @@
+{
+  "procedure_id": "PROC-018",
+  "evidence_id": "EVD-023",
+  "evidence_level": "E1",
+  "domains": {
+    "auth": {
+      "files": "tests/test_p0_authz_hardening.py tests/test_auth_identity_profile.py",
+      "exit_code": 0,
+      "status": "VERIFIED PASS",
+      "tail": ".............                                                            [100%]\n"
+    },
+    "billing": {
+      "files": "tests/test_billing_subscription_engine.py",
+      "exit_code": 0,
+      "status": "VERIFIED PASS",
+      "tail": ".........                                                                [100%]\n"
+    },
+    "financial": {
+      "files": "tests/test_money_decimal.py tests/test_profit_fee_algorithms.py tests/test_p0_financial_executability.py",
+      "exit_code": 0,
+      "status": "VERIFIED PASS",
+      "tail": "....................                                                     [100%]\n"
+    },
+    "security": {
+      "files": "tests/test_security_hardening.py tests/test_p0_authz_hardening.py",
+      "exit_code": 0,
+      "status": "VERIFIED PASS",
+      "tail": "..................                                                       [100%]\n"
+    },
+    "database": {
+      "files": "tests/test_spine_database.py",
+      "exit_code": 0,
+      "status": "VERIFIED PASS",
+      "tail": "............................                                             [100%]\n"
+    }
+  }
+}

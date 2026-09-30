@@ -1,0 +1,10 @@
+{
+  "audit_id": "IDA-2026-BLACKDARK-001",
+  "wave": 1,
+  "wave_name": "COMPLETE_SYSTEM_DISCOVERY",
+  "generated_at": "2026-09-10T23:47:21Z",
+  "closure_status": "CLOSED",
+  "denominators": "WAVE_01_DISCOVERY_DENOMINATORS.json",
+  "primary_output": "03_COMPLETE_SYSTEM_UNIVERSE.md",
+  "next_wave": 2
+}
