@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-09-30T15:20:23.980623+00:00",
-  "git_commit": "2d877bd31f1aceb9ca790ae402e73ad6d0651be8",
+  "generated_at": "2026-09-30T15:20:57.267209+00:00",
+  "git_commit": "400dcc6adeb8e775d5fc5e31b03e9852902fe4e6",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
-  "remediation_sha": "25a3169c",
+  "remediation_sha": "400dcc6a",
   "phase": "PHASE_ROUND_23_CROSS_WORKFLOW_CI_REVIEWER",
   "cisa_certification_claimed": false,
   "rollup": {
