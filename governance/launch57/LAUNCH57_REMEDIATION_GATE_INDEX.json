@@ -1,10 +1,10 @@
 {
   "schema": "launch57_remediation_gate_index_v1",
-  "generated_at": "2026-09-30T20:54:55.318783+00:00",
-  "git_commit": "b7acc7e18c8be354a6a5b903195dc5efb5006a39",
+  "generated_at": "2026-09-30T20:55:11.901235+00:00",
+  "git_commit": "f3384ace9895f48cbb965ec2a5c9d3eded4a5005",
   "authority": "docs/governance/LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION_PROGRAM.md",
   "phase": "PHASE_ROUND_32_FINDING01_PLEDGE_CLOSURE_LANE",
-  "remediation_sha": "95e08efa",
+  "remediation_sha": "f3384ace",
   "cisa_certification_claimed": false,
   "program_complete": false,
   "gate_count": 45,
