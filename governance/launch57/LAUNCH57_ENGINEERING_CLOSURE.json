@@ -1,8 +1,8 @@
 {
   "kind": "launch57_engineering_closure_declaration",
-  "declared_at": "2026-09-30T15:49:47.262101+00:00",
-  "git_commit": "f5ac29b3b0b3db3e98d551989823b7b01114ab34",
-  "remediation_sha": "601bcea9",
+  "declared_at": "2026-09-30T15:49:56.633724+00:00",
+  "git_commit": "ce0c750ef5b731eccca6eeacfdd69ce4fcf3440c",
+  "remediation_sha": "ce0c750e",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
   "cisa_certification_claimed": false,
   "engineering_closure_declared": true,
