@@ -10,6 +10,12 @@
     "LAUNCH57_COUNT": 57,
     "EVERYTHING_ELSE": "PARKED_OUT_OF_LAUNCH"
   },
+  "launch57_security_assurance": {
+    "OWASP_ASVS_VERSION": "5.0.0",
+    "OWASP_ASVS_TARGET_LEVEL": "L2",
+    "decision_basis": "owner-approved Launch-57 governance decision using OWASP Level 2 assurance target for the current release",
+    "recorded_at": "2026-09-30T10:20:00+00:00"
+  },
   "six_heroes": {
     "HERO_1": "Single-Sentence Oracle",
     "HERO_2": "Public Accuracy Ledger",
