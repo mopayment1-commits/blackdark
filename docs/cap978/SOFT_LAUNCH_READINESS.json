@@ -126,5 +126,12 @@
     "29 vendor API integrations",
     "SOC2 SEC-009"
   ],
+  "evidence_trace_status": "STALE_SECONDARY",
+  "authoritative_closure_artifact": "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json",
+  "quarantined_claims": [
+    "tracks.LIVE_PRODUCTION_READY",
+    "verdict:VERIFIED COMPLETE"
+  ],
+  "quarantine_reason": "Historical soft-launch snapshot; do not treat as closure source of truth when institutional_gate closure_verdict is not PASS.",
   "snapshot_hash": "a72e5b2980b542b06a4f3ab4869c0bef5876eb8f14718ed88a5973bb9b236c0c"
 }

@@ -32,6 +32,8 @@ def test_security_headers_helper():
     csp = headers["Content-Security-Policy"]
     assert "nonce-" in csp
     assert "strict-dynamic" in csp
+    assert "object-src 'none'" in csp
+    assert "base-uri 'none'" in csp
     script_src = csp.split("script-src")[1].split(";")[0]
     assert "'unsafe-inline'" not in script_src
     assert "Strict-Transport-Security" in headers
@@ -145,6 +147,25 @@ async def test_logout_clears_without_user_token_field():
     assert 'user.get("token")' not in src
 
 
+def test_anonymous_dashboard_html_auth_gate_includes_csp():
+    from fastapi.testclient import TestClient
+
+    from dashboard import app
+
+    client = TestClient(app)
+    response = client.get("/dashboard", headers={"Accept": "text/html"})
+    assert response.status_code == 401
+    assert response.headers.get("X-Blackdark-Auth-Boundary") == "dashboard-auth-required-html"
+    assert "text/html" in (response.headers.get("content-type") or "").lower()
+    csp = response.headers.get("Content-Security-Policy") or ""
+    assert csp
+    assert "object-src 'none'" in csp
+    assert "base-uri 'none'" in csp
+    assert "nonce-" in csp
+    assert "strict-dynamic" in csp
+    assert response.headers.get("X-Security-Hardening") == "1"
+
+
 def test_csp_nonce_mode_emits_nonce_without_unsafe_inline(monkeypatch):
     from types import SimpleNamespace
     from security_middleware import security_headers_for
@@ -156,8 +177,38 @@ def test_csp_nonce_mode_emits_nonce_without_unsafe_inline(monkeypatch):
     csp = headers["Content-Security-Policy"]
     assert "strict-dynamic" in csp
     assert "nonce-" in csp
+    assert "object-src 'none'" in csp
+    assert "base-uri 'none'" in csp
     assert "'unsafe-inline'" not in csp.split("script-src")[1].split(";")[0]
     assert getattr(req.state, "csp_nonce", None)
+
+
+def test_lang_preference_cookie_host_prefix_on_https():
+    from starlette.requests import Request
+    from starlette.responses import Response
+
+    from i18n_service import LANG_COOKIE_HOST, LANG_COOKIE_LEGACY, apply_lang_preference_cookie
+
+    scope = {
+        "type": "http",
+        "asgi": {"version": "3.0"},
+        "http_version": "1.1",
+        "method": "GET",
+        "scheme": "https",
+        "path": "/",
+        "raw_path": b"/",
+        "query_string": b"",
+        "headers": [],
+        "client": ("127.0.0.1", 123),
+        "server": ("test", 443),
+    }
+    req = Request(scope)
+    resp = Response()
+    apply_lang_preference_cookie(resp, req, "en")
+    raw = resp.headers.get("set-cookie", "").lower()
+    assert f"{LANG_COOKIE_HOST.lower()}=" in raw
+    assert "secure" in raw
+    assert f"{LANG_COOKIE_LEGACY.lower()}=" in raw
 
 
 def test_csp_nonce_mode_can_rollback_to_unsafe_inline(monkeypatch):
@@ -168,5 +219,8 @@ def test_csp_nonce_mode_can_rollback_to_unsafe_inline(monkeypatch):
     monkeypatch.delenv("CONTENT_SECURITY_POLICY", raising=False)
     req = SimpleNamespace(state=SimpleNamespace(), url=SimpleNamespace(scheme="http"))
     headers = security_headers_for(req)
-    script_src = headers["Content-Security-Policy"].split("script-src")[1].split(";")[0]
+    csp = headers["Content-Security-Policy"]
+    assert "object-src 'none'" in csp
+    assert "base-uri 'none'" in csp
+    script_src = csp.split("script-src")[1].split(";")[0]
     assert "'unsafe-inline'" in script_src

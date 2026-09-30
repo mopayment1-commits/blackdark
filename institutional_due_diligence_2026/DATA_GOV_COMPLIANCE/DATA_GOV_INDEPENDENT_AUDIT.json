@@ -1,0 +1,17 @@
+{
+  "audit_pass": true,
+  "spec_parent_ids_found": 111,
+  "extracted_parent_ids": 111,
+  "missing_from_extract": [],
+  "extra_in_extract": [],
+  "atomic_obligations": 585,
+  "mapped_atomic": 585,
+  "unmapped_atomic": [],
+  "orphan_mapped": [],
+  "spec_must_clauses": 10,
+  "spec_must_not_clauses": 2,
+  "UNMAPPED_ATOMIC_REQUIREMENTS": 0,
+  "SILENTLY_MERGED_REQUIREMENTS": 0,
+  "OMITTED_NORMATIVE_REQUIREMENTS": 0,
+  "UNEXPLAINED_REQUIREMENT_DELTA": 0
+}

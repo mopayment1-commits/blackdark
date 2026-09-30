@@ -1,0 +1,74 @@
+{
+  "non_canonical_remediation_exclusions": {
+    "CAP-0030": "ALIAS_TO_CANONICAL — not in PASS canonical_capabilities pool",
+    "CAP-0064": "ALIAS_TO_CANONICAL — duplicate alias; canonical owner CAP-0107",
+    "CAP-0069": "ALIAS_TO_CANONICAL — duplicate alias; canonical owner CAP-0110"
+  },
+  "remediated_canonical_cohort_note": "CAP-0026..CAP-0100 minus non-canonical exclusions; only PASS pool capabilities are verified",
+  "primary_hero_overrides": {
+    "CAP-0500": {
+      "primary": "Public Accuracy Ledger",
+      "justification": "USER_VISIBLE data-quality product surface; runtime consumer end_user; feeds PAL accuracy chain via DATA_QUALITY_GATE and primary product role"
+    },
+    "CAP-0507": {
+      "primary": "B2B Feed",
+      "justification": "USER_VISIBLE OHLCV market data feed exported via institutional runtime and B2B streaming surfaces"
+    },
+    "CAP-0534": {
+      "primary": "B2B Feed",
+      "justification": "USER_VISIBLE bucketed CVD metric consumed as market-data export, not cross-hero foundation"
+    },
+    "CAP-0630": {
+      "primary": "B2B Feed",
+      "justification": "USER_VISIBLE data-freshness assurance for streaming/API consumers across institutional export paths"
+    },
+    "CAP-0631": {
+      "primary": "B2B Feed",
+      "justification": "USER_VISIBLE ingestion/normalization architecture consumed by B2B data platform clients, not anonymous foundation"
+    },
+    "CAP-0644": {
+      "primary": "Public Accuracy Ledger",
+      "justification": "USER_VISIBLE capacity/load evidence artifact bound to signed assurance and accuracy ledger audit chain"
+    },
+    "CAP-0646": {
+      "primary": "Public Accuracy Ledger",
+      "justification": "USER_VISIBLE resilience evidence consumed through assurance/audit surfaces, not passive cross-hero foundation"
+    },
+    "CAP-0034": {
+      "primary": "Single-Sentence Oracle",
+      "justification": "Beginner Decision Mode is a user-facing decision product routed through oracle runtime and explicit HERO_SIX_BINDING_REPORT feed"
+    },
+    "CAP-0040": {
+      "primary": "Arbitrage Scanner",
+      "justification": "MVRV suite is DeFi/derivatives economics consumed by arbitrage scanner surfaces per category and runtime owner"
+    },
+    "CAP-0071": {
+      "primary": "Whale Signal vs Noise",
+      "justification": "Exchange inflow/outflow is on-chain whale intelligence with runtime consumer paths tied to whale signal classifier"
+    },
+    "CAP-0077": {
+      "primary": "Whale Signal vs Noise",
+      "justification": "Stablecoin exchange flow intelligence feeds whale/on-chain hero decision surfaces"
+    },
+    "CAP-0081": {
+      "primary": "Whale Signal vs Noise",
+      "justification": "Whale accumulation/distribution is primary whale-signal product feed, not B2B export"
+    },
+    "CAP-0086": {
+      "primary": "Arbitrage Scanner",
+      "justification": "Funding rate intelligence is derivatives arbitrage input with explicit arbitrage runtime binding"
+    },
+    "CAP-0092": {
+      "primary": "Whale Signal vs Noise",
+      "justification": "Address labels and cohorts are wallet/entity intelligence for whale signal hero"
+    },
+    "CAP-0098": {
+      "primary": "Whale Signal vs Noise",
+      "justification": "Whale movement alerts are alert workflow feeding whale signal hero, not generic B2B stream"
+    },
+    "CAP-0100": {
+      "primary": "Public Accuracy Ledger",
+      "justification": "Research reports are accuracy/audit governance product tied to Public Accuracy Ledger primary feed"
+    }
+  }
+}

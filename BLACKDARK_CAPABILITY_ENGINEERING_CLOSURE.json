@@ -1,0 +1,3544 @@
+{
+  "artifact": "BLACKDARK_CAPABILITY_ENGINEERING_CLOSURE",
+  "derived_from": "BLACKDARK_CAPABILITY_CURRENT_STATE.json",
+  "generated_at": "2026-09-15T10:11:23.953279+00:00",
+  "git": {
+    "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+  },
+  "phase": "PHASE_2_REMEDIATION_PROVEN_GAPS_ONLY",
+  "local_engineering_workset": [
+    {
+      "capability_id": "CAP-0644"
+    },
+    {
+      "capability_id": "CAP-0827"
+    },
+    {
+      "capability_id": "CAP-0828"
+    },
+    {
+      "capability_id": "CAP-0829"
+    },
+    {
+      "capability_id": "CAP-0830"
+    },
+    {
+      "capability_id": "CAP-0831"
+    },
+    {
+      "capability_id": "CAP-0832"
+    },
+    {
+      "capability_id": "CAP-0833"
+    },
+    {
+      "capability_id": "CAP-0834"
+    },
+    {
+      "capability_id": "CAP-0835"
+    },
+    {
+      "capability_id": "CAP-0836"
+    },
+    {
+      "capability_id": "CAP-0837"
+    },
+    {
+      "capability_id": "CAP-0838"
+    },
+    {
+      "capability_id": "CAP-0839"
+    },
+    {
+      "capability_id": "CAP-0840"
+    },
+    {
+      "capability_id": "CAP-0841"
+    },
+    {
+      "capability_id": "CAP-0842"
+    },
+    {
+      "capability_id": "CAP-0843"
+    },
+    {
+      "capability_id": "CAP-0844"
+    },
+    {
+      "capability_id": "CAP-0845"
+    },
+    {
+      "capability_id": "CAP-0846"
+    },
+    {
+      "capability_id": "CAP-0847"
+    },
+    {
+      "capability_id": "CAP-0848"
+    },
+    {
+      "capability_id": "CAP-0849"
+    },
+    {
+      "capability_id": "CAP-0850"
+    },
+    {
+      "capability_id": "CAP-0851"
+    },
+    {
+      "capability_id": "CAP-0852"
+    },
+    {
+      "capability_id": "CAP-0853"
+    },
+    {
+      "capability_id": "CAP-0854"
+    },
+    {
+      "capability_id": "CAP-0855"
+    },
+    {
+      "capability_id": "CAP-0856"
+    },
+    {
+      "capability_id": "CAP-0857"
+    },
+    {
+      "capability_id": "CAP-0858"
+    },
+    {
+      "capability_id": "CAP-0859"
+    },
+    {
+      "capability_id": "CAP-0860"
+    },
+    {
+      "capability_id": "CAP-0861"
+    },
+    {
+      "capability_id": "CAP-0862"
+    },
+    {
+      "capability_id": "CAP-0863"
+    },
+    {
+      "capability_id": "CAP-0864"
+    },
+    {
+      "capability_id": "CAP-0865"
+    },
+    {
+      "capability_id": "CAP-0866"
+    },
+    {
+      "capability_id": "CAP-0867"
+    },
+    {
+      "capability_id": "CAP-0868"
+    },
+    {
+      "capability_id": "CAP-0869"
+    },
+    {
+      "capability_id": "CAP-0870"
+    },
+    {
+      "capability_id": "CAP-0871"
+    },
+    {
+      "capability_id": "CAP-0872"
+    },
+    {
+      "capability_id": "CAP-0873"
+    },
+    {
+      "capability_id": "CAP-0874"
+    },
+    {
+      "capability_id": "CAP-0875"
+    },
+    {
+      "capability_id": "CAP-0876"
+    },
+    {
+      "capability_id": "CAP-0877"
+    },
+    {
+      "capability_id": "CAP-0878"
+    },
+    {
+      "capability_id": "CAP-0879"
+    },
+    {
+      "capability_id": "CAP-0880"
+    },
+    {
+      "capability_id": "CAP-0881"
+    },
+    {
+      "capability_id": "CAP-0882"
+    },
+    {
+      "capability_id": "CAP-0883"
+    },
+    {
+      "capability_id": "CAP-0884"
+    },
+    {
+      "capability_id": "CAP-0885"
+    },
+    {
+      "capability_id": "CAP-0886"
+    },
+    {
+      "capability_id": "CAP-0887"
+    },
+    {
+      "capability_id": "CAP-0888"
+    },
+    {
+      "capability_id": "CAP-0889"
+    },
+    {
+      "capability_id": "CAP-0890"
+    },
+    {
+      "capability_id": "CAP-0891"
+    },
+    {
+      "capability_id": "CAP-0892"
+    },
+    {
+      "capability_id": "CAP-0893"
+    },
+    {
+      "capability_id": "CAP-0894"
+    },
+    {
+      "capability_id": "CAP-0895"
+    },
+    {
+      "capability_id": "CAP-0896"
+    },
+    {
+      "capability_id": "CAP-0897"
+    },
+    {
+      "capability_id": "CAP-0898"
+    },
+    {
+      "capability_id": "CAP-0899"
+    },
+    {
+      "capability_id": "CAP-0900"
+    },
+    {
+      "capability_id": "CAP-0901"
+    },
+    {
+      "capability_id": "CAP-0902"
+    },
+    {
+      "capability_id": "CAP-0903"
+    },
+    {
+      "capability_id": "CAP-0904"
+    },
+    {
+      "capability_id": "CAP-0905"
+    },
+    {
+      "capability_id": "CAP-0906"
+    },
+    {
+      "capability_id": "CAP-0907"
+    },
+    {
+      "capability_id": "CAP-0908"
+    },
+    {
+      "capability_id": "CAP-0909"
+    },
+    {
+      "capability_id": "CAP-0910"
+    },
+    {
+      "capability_id": "CAP-0911"
+    },
+    {
+      "capability_id": "CAP-0912"
+    },
+    {
+      "capability_id": "CAP-0913"
+    },
+    {
+      "capability_id": "CAP-0914"
+    },
+    {
+      "capability_id": "CAP-0915"
+    },
+    {
+      "capability_id": "CAP-0916"
+    },
+    {
+      "capability_id": "CAP-0917"
+    },
+    {
+      "capability_id": "CAP-0918"
+    },
+    {
+      "capability_id": "CAP-0919"
+    },
+    {
+      "capability_id": "CAP-0920"
+    },
+    {
+      "capability_id": "CAP-0921"
+    },
+    {
+      "capability_id": "CAP-0922"
+    },
+    {
+      "capability_id": "CAP-0923"
+    },
+    {
+      "capability_id": "CAP-0924"
+    },
+    {
+      "capability_id": "CAP-0925"
+    },
+    {
+      "capability_id": "CAP-0926"
+    },
+    {
+      "capability_id": "CAP-0927"
+    },
+    {
+      "capability_id": "CAP-0928"
+    },
+    {
+      "capability_id": "CAP-0929"
+    },
+    {
+      "capability_id": "CAP-0930"
+    },
+    {
+      "capability_id": "CAP-0931"
+    },
+    {
+      "capability_id": "CAP-0932"
+    },
+    {
+      "capability_id": "CAP-0933"
+    },
+    {
+      "capability_id": "CAP-0934"
+    },
+    {
+      "capability_id": "CAP-0935"
+    },
+    {
+      "capability_id": "CAP-0936"
+    },
+    {
+      "capability_id": "CAP-0937"
+    },
+    {
+      "capability_id": "CAP-0938"
+    },
+    {
+      "capability_id": "CAP-0939"
+    },
+    {
+      "capability_id": "CAP-0940"
+    },
+    {
+      "capability_id": "CAP-0941"
+    },
+    {
+      "capability_id": "CAP-0942"
+    },
+    {
+      "capability_id": "CAP-0943"
+    },
+    {
+      "capability_id": "CAP-0944"
+    },
+    {
+      "capability_id": "CAP-0945"
+    },
+    {
+      "capability_id": "CAP-0946"
+    },
+    {
+      "capability_id": "CAP-0947"
+    },
+    {
+      "capability_id": "CAP-0948"
+    },
+    {
+      "capability_id": "CAP-0949"
+    },
+    {
+      "capability_id": "CAP-0950"
+    },
+    {
+      "capability_id": "CAP-0951"
+    },
+    {
+      "capability_id": "CAP-0952"
+    },
+    {
+      "capability_id": "CAP-0953"
+    },
+    {
+      "capability_id": "CAP-0954"
+    },
+    {
+      "capability_id": "CAP-0955"
+    },
+    {
+      "capability_id": "CAP-0956"
+    },
+    {
+      "capability_id": "CAP-0957"
+    },
+    {
+      "capability_id": "CAP-0958"
+    },
+    {
+      "capability_id": "CAP-0959"
+    },
+    {
+      "capability_id": "CAP-0960"
+    },
+    {
+      "capability_id": "CAP-0961"
+    },
+    {
+      "capability_id": "CAP-0962"
+    },
+    {
+      "capability_id": "CAP-0963"
+    },
+    {
+      "capability_id": "CAP-0964"
+    },
+    {
+      "capability_id": "CAP-0965"
+    },
+    {
+      "capability_id": "CAP-0966"
+    },
+    {
+      "capability_id": "CAP-0967"
+    },
+    {
+      "capability_id": "CAP-0968"
+    },
+    {
+      "capability_id": "CAP-0969"
+    },
+    {
+      "capability_id": "CAP-0970"
+    },
+    {
+      "capability_id": "CAP-0971"
+    },
+    {
+      "capability_id": "CAP-0972"
+    },
+    {
+      "capability_id": "CAP-0973"
+    },
+    {
+      "capability_id": "CAP-0974"
+    },
+    {
+      "capability_id": "CAP-0975"
+    },
+    {
+      "capability_id": "CAP-0976"
+    },
+    {
+      "capability_id": "CAP-0977"
+    },
+    {
+      "capability_id": "CAP-0978"
+    }
+  ],
+  "remediation_capabilities": [
+    {
+      "capability_id": "CAP-0644",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "capacity_load_evidence",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "CAPACITY_EVIDENCE_VERIFIED",
+        "semantic_oracle": "capacity_load_evidence",
+        "runtime_path_verified": true,
+        "evidence_artifact": "data/institutional_assurance/signed_capacity.json",
+        "load_test_script": "scripts/load_test_concurrent.py"
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0827",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "charting",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "charting",
+        "semantic_detail": "charting_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.charting_market_intelligence_layer",
+          "backend_entrypoint": "technical_indicator_library_302"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0828",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "price",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "price",
+        "semantic_detail": "price_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "blackdark.ingestion.coingecko_connector",
+          "backend_entrypoint": "fetch_coingecko_price"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0829",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "ohlcv",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "ohlcv",
+        "semantic_detail": "ohlcv_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "cap646.fallbacks",
+          "backend_entrypoint": "resolve_ohlcv_closes"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0830",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "api_contract",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "api_contract",
+        "semantic_detail": "api_contract_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "graphql_schema",
+          "backend_entrypoint": "graphql_health"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0831",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "sentiment",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "sentiment",
+        "semantic_detail": "sentiment_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "sentiment_engine",
+          "backend_entrypoint": "build_sentiment_context_safe"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0832",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "macro",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "macro",
+        "semantic_detail": "macro_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.onchain_hub",
+          "backend_entrypoint": "lookintobitcoin_macro"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0833",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "derivatives",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "derivatives",
+        "semantic_detail": "derivatives_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.derivatives_hub",
+          "backend_entrypoint": "derivatives_overview"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0834",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "decision",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "decision",
+        "semantic_detail": "decision_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "decision_ledger",
+          "backend_entrypoint": "ledger_stats"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0835",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "security",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "security",
+        "semantic_detail": "security_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "security_posture",
+          "backend_entrypoint": "security_posture_report"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0836",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "security",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "security",
+        "semantic_detail": "security_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "security_posture",
+          "backend_entrypoint": "security_posture_report"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0837",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "infra",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "infra",
+        "semantic_detail": "infra_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.infra_status",
+          "backend_entrypoint": "infra_matrix"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0838",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "security",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "security",
+        "semantic_detail": "security_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "security_posture",
+          "backend_entrypoint": "security_posture_report"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0839",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "institutional",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "institutional",
+        "semantic_detail": "institutional_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.institutional_delivery_intelligence_layer",
+          "backend_entrypoint": "institutional_delivery_501"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0840",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "infra",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "infra",
+        "semantic_detail": "infra_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.institutional_delivery_intelligence_layer",
+          "backend_entrypoint": "unified_exchange_connector_layer_504"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0841",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "api_contract",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "api_contract",
+        "semantic_detail": "api_contract_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.institutional_delivery_intelligence_layer",
+          "backend_entrypoint": "unified_exchange_connector_layer_504"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0842",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "api_contract",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "api_contract",
+        "semantic_detail": "api_contract_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "graphql_schema",
+          "backend_entrypoint": "graphql_health"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0843",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "api_contract",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "api_contract",
+        "semantic_detail": "api_contract_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "graphql_schema",
+          "backend_entrypoint": "graphql_health"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0844",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "api_contract",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "api_contract",
+        "semantic_detail": "api_contract_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "graphql_schema",
+          "backend_entrypoint": "graphql_health"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0845",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "portfolio",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "portfolio",
+        "semantic_detail": "portfolio_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.portfolio_rebalancer",
+          "backend_entrypoint": "portfolio_snapshot"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0846",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "portfolio",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "portfolio",
+        "semantic_detail": "portfolio_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.portfolio_rebalancer",
+          "backend_entrypoint": "portfolio_snapshot"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0847",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "portfolio",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "portfolio",
+        "semantic_detail": "portfolio_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.portfolio_rebalancer",
+          "backend_entrypoint": "portfolio_snapshot"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0848",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "portfolio",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "portfolio",
+        "semantic_detail": "portfolio_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.portfolio_rebalancer",
+          "backend_entrypoint": "portfolio_snapshot"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0849",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "portfolio",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "portfolio",
+        "semantic_detail": "portfolio_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.portfolio_rebalancer",
+          "backend_entrypoint": "portfolio_snapshot"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0850",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "derivatives",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "derivatives",
+        "semantic_detail": "derivatives_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.derivatives_hub",
+          "backend_entrypoint": "derivatives_overview"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0851",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "security",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "security",
+        "semantic_detail": "security_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "security_posture",
+          "backend_entrypoint": "security_posture_report"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0852",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "volatility",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "volatility",
+        "semantic_detail": "volatility_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.drawdown_guard",
+          "backend_entrypoint": "drawdown_status"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0853",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "volatility",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "volatility",
+        "semantic_detail": "volatility_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.drawdown_guard",
+          "backend_entrypoint": "drawdown_status"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0854",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "alpha",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "alpha",
+        "semantic_detail": "alpha_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.alpha_engine",
+          "backend_entrypoint": "compute_alpha_signal"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0855",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "alpha",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "alpha",
+        "semantic_detail": "alpha_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.alpha_engine",
+          "backend_entrypoint": "compute_alpha_signal"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0856",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "alpha",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "alpha",
+        "semantic_detail": "alpha_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.alpha_engine",
+          "backend_entrypoint": "compute_alpha_signal"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0857",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "alpha",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "alpha",
+        "semantic_detail": "alpha_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.alpha_engine",
+          "backend_entrypoint": "compute_alpha_signal"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0858",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "sentiment",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "sentiment",
+        "semantic_detail": "sentiment_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "sentiment_engine",
+          "backend_entrypoint": "build_sentiment_context_safe"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0859",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "sentiment",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "sentiment",
+        "semantic_detail": "sentiment_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "sentiment_engine",
+          "backend_entrypoint": "build_sentiment_context_safe"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0860",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "sentiment",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "sentiment",
+        "semantic_detail": "sentiment_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "sentiment_engine",
+          "backend_entrypoint": "build_sentiment_context_safe"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0861",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "sentiment",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "sentiment",
+        "semantic_detail": "sentiment_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "sentiment_engine",
+          "backend_entrypoint": "build_sentiment_context_safe"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0862",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "sentiment",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "sentiment",
+        "semantic_detail": "sentiment_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "sentiment_engine",
+          "backend_entrypoint": "build_sentiment_context_safe"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0863",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "trust",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "trust",
+        "semantic_detail": "trust_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "trust_pulse",
+          "backend_entrypoint": "build_trust_pulse"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0864",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "trust",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "trust",
+        "semantic_detail": "trust_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "trust_pulse",
+          "backend_entrypoint": "build_trust_pulse"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0865",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "onchain",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "onchain",
+        "semantic_detail": "onchain_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "onchain_tracker",
+          "backend_entrypoint": "build_onchain_context_safe"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0866",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "onchain",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "onchain",
+        "semantic_detail": "onchain_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "onchain_tracker",
+          "backend_entrypoint": "build_onchain_context_safe"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0867",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "onchain",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "onchain",
+        "semantic_detail": "onchain_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "onchain_tracker",
+          "backend_entrypoint": "build_onchain_context_safe"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0868",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "onchain",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "onchain",
+        "semantic_detail": "onchain_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "onchain_tracker",
+          "backend_entrypoint": "build_onchain_context_safe"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0869",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "onchain",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "onchain",
+        "semantic_detail": "onchain_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "onchain_tracker",
+          "backend_entrypoint": "build_onchain_context_safe"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0870",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "onchain",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "onchain",
+        "semantic_detail": "onchain_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "onchain_tracker",
+          "backend_entrypoint": "build_onchain_context_safe"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0871",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "trust",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "trust",
+        "semantic_detail": "trust_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "trust_pulse",
+          "backend_entrypoint": "build_trust_pulse"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0872",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "sentiment",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "sentiment",
+        "semantic_detail": "sentiment_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "sentiment_engine",
+          "backend_entrypoint": "build_sentiment_context_safe"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0873",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "trust",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "trust",
+        "semantic_detail": "trust_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "trust_pulse",
+          "backend_entrypoint": "build_trust_pulse"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0874",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "alpha",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "alpha",
+        "semantic_detail": "alpha_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.alpha_engine",
+          "backend_entrypoint": "compute_alpha_signal"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0875",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "trust",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "trust",
+        "semantic_detail": "trust_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "trust_pulse",
+          "backend_entrypoint": "build_trust_pulse"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0876",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "derivatives",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "derivatives",
+        "semantic_detail": "derivatives_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.derivatives_hub",
+          "backend_entrypoint": "derivatives_overview"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0877",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "derivatives",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "derivatives",
+        "semantic_detail": "derivatives_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.derivatives_hub",
+          "backend_entrypoint": "derivatives_overview"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0878",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "derivatives",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "derivatives",
+        "semantic_detail": "derivatives_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.derivatives_hub",
+          "backend_entrypoint": "derivatives_overview"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0879",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "arbitrage",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "arbitrage",
+        "semantic_detail": "arbitrage_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.cex_dex_arbitrage",
+          "backend_entrypoint": "scan_cex_dex_opportunities"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0880",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "derivatives",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "derivatives",
+        "semantic_detail": "derivatives_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.derivatives_hub",
+          "backend_entrypoint": "derivatives_overview"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0881",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "defi",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "defi",
+        "semantic_detail": "defi_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.onchain_hub",
+          "backend_entrypoint": "defillama_raises"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0882",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "defi",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "defi",
+        "semantic_detail": "defi_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.onchain_hub",
+          "backend_entrypoint": "defillama_raises"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0883",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "defi",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "defi",
+        "semantic_detail": "defi_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.onchain_hub",
+          "backend_entrypoint": "defillama_raises"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0884",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "arbitrage",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "arbitrage",
+        "semantic_detail": "arbitrage_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.cex_dex_arbitrage",
+          "backend_entrypoint": "scan_cex_dex_opportunities"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0885",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "defi",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "defi",
+        "semantic_detail": "defi_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.onchain_hub",
+          "backend_entrypoint": "defillama_raises"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0886",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "alpha",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "alpha",
+        "semantic_detail": "alpha_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.alpha_engine",
+          "backend_entrypoint": "compute_alpha_signal"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0887",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "alpha",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "alpha",
+        "semantic_detail": "alpha_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.alpha_engine",
+          "backend_entrypoint": "compute_alpha_signal"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0888",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "alpha",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "alpha",
+        "semantic_detail": "alpha_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.alpha_engine",
+          "backend_entrypoint": "compute_alpha_signal"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0889",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "alpha",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "alpha",
+        "semantic_detail": "alpha_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.alpha_engine",
+          "backend_entrypoint": "compute_alpha_signal"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0890",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "arbitrage",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "arbitrage",
+        "semantic_detail": "arbitrage_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.cex_dex_arbitrage",
+          "backend_entrypoint": "scan_cex_dex_opportunities"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0891",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "arbitrage",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "arbitrage",
+        "semantic_detail": "arbitrage_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.cex_dex_arbitrage",
+          "backend_entrypoint": "scan_cex_dex_opportunities"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0892",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "arbitrage",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "arbitrage",
+        "semantic_detail": "arbitrage_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.cex_dex_arbitrage",
+          "backend_entrypoint": "scan_cex_dex_opportunities"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0893",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "institutional_mirror",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "institutional_mirror",
+        "semantic_detail": "institutional_mirror_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "cap978.post_baseline_semantic",
+          "backend_entrypoint": "execute_institutional_mirror"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0894",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "institutional_mirror",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "institutional_mirror",
+        "semantic_detail": "institutional_mirror_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "cap978.post_baseline_semantic",
+          "backend_entrypoint": "execute_institutional_mirror"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0895",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "institutional_mirror",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "institutional_mirror",
+        "semantic_detail": "institutional_mirror_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "cap978.post_baseline_semantic",
+          "backend_entrypoint": "execute_institutional_mirror"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0896",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "institutional_mirror",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "institutional_mirror",
+        "semantic_detail": "institutional_mirror_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "cap978.post_baseline_semantic",
+          "backend_entrypoint": "execute_institutional_mirror"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0897",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "institutional_mirror",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "institutional_mirror",
+        "semantic_detail": "institutional_mirror_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "cap978.post_baseline_semantic",
+          "backend_entrypoint": "execute_institutional_mirror"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0898",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "institutional_mirror",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "institutional_mirror",
+        "semantic_detail": "institutional_mirror_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "cap978.post_baseline_semantic",
+          "backend_entrypoint": "execute_institutional_mirror"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0899",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "institutional_mirror",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "institutional_mirror",
+        "semantic_detail": "institutional_mirror_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "cap978.post_baseline_semantic",
+          "backend_entrypoint": "execute_institutional_mirror"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0900",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "institutional_mirror",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "institutional_mirror",
+        "semantic_detail": "institutional_mirror_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "cap978.post_baseline_semantic",
+          "backend_entrypoint": "execute_institutional_mirror"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0901",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "institutional_mirror",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "institutional_mirror",
+        "semantic_detail": "institutional_mirror_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "cap978.post_baseline_semantic",
+          "backend_entrypoint": "execute_institutional_mirror"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0902",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "institutional_mirror",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "institutional_mirror",
+        "semantic_detail": "institutional_mirror_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "cap978.post_baseline_semantic",
+          "backend_entrypoint": "execute_institutional_mirror"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0903",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "institutional_mirror",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "institutional_mirror",
+        "semantic_detail": "institutional_mirror_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "cap978.post_baseline_semantic",
+          "backend_entrypoint": "execute_institutional_mirror"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0904",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "institutional_mirror",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "institutional_mirror",
+        "semantic_detail": "institutional_mirror_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "cap978.post_baseline_semantic",
+          "backend_entrypoint": "execute_institutional_mirror"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0905",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "institutional_mirror",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "institutional_mirror",
+        "semantic_detail": "institutional_mirror_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "cap978.post_baseline_semantic",
+          "backend_entrypoint": "execute_institutional_mirror"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0906",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "institutional_mirror",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "institutional_mirror",
+        "semantic_detail": "institutional_mirror_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "cap978.post_baseline_semantic",
+          "backend_entrypoint": "execute_institutional_mirror"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0907",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "institutional_mirror",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "institutional_mirror",
+        "semantic_detail": "institutional_mirror_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "cap978.post_baseline_semantic",
+          "backend_entrypoint": "execute_institutional_mirror"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0908",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "institutional_mirror",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "institutional_mirror",
+        "semantic_detail": "institutional_mirror_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "cap978.post_baseline_semantic",
+          "backend_entrypoint": "execute_institutional_mirror"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0909",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "institutional_mirror",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "institutional_mirror",
+        "semantic_detail": "institutional_mirror_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "cap978.post_baseline_semantic",
+          "backend_entrypoint": "execute_institutional_mirror"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0910",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "institutional_mirror",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "institutional_mirror",
+        "semantic_detail": "institutional_mirror_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "cap978.post_baseline_semantic",
+          "backend_entrypoint": "execute_institutional_mirror"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0911",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "institutional_mirror",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "institutional_mirror",
+        "semantic_detail": "institutional_mirror_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "cap978.post_baseline_semantic",
+          "backend_entrypoint": "execute_institutional_mirror"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0912",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "institutional_mirror",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "institutional_mirror",
+        "semantic_detail": "institutional_mirror_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "cap978.post_baseline_semantic",
+          "backend_entrypoint": "execute_institutional_mirror"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0913",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "institutional_mirror",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "institutional_mirror",
+        "semantic_detail": "institutional_mirror_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "cap978.post_baseline_semantic",
+          "backend_entrypoint": "execute_institutional_mirror"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0914",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "defi",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "defi",
+        "semantic_detail": "defi_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.onchain_hub",
+          "backend_entrypoint": "defillama_raises"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0915",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "order_book",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "order_book",
+        "semantic_detail": "order_book_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "cap646.fallbacks",
+          "backend_entrypoint": "resolve_order_book"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0916",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "exchange_health",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "exchange_health",
+        "semantic_detail": "exchange_health_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.institutional_b2b_layer",
+          "backend_entrypoint": "build_exchange_health_with_counterparty_92"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0917",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "risk",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "risk",
+        "semantic_detail": "risk_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "risk_manager",
+          "backend_entrypoint": "risk_status"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0918",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "trust",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "trust",
+        "semantic_detail": "trust_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "trust_pulse",
+          "backend_entrypoint": "build_trust_pulse"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0919",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "trust",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "trust",
+        "semantic_detail": "trust_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "trust_pulse",
+          "backend_entrypoint": "build_trust_pulse"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0920",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "security",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "security",
+        "semantic_detail": "security_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "security_posture",
+          "backend_entrypoint": "security_posture_report"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0921",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "trust",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "trust",
+        "semantic_detail": "trust_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "trust_pulse",
+          "backend_entrypoint": "build_trust_pulse"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0922",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "institutional",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "institutional",
+        "semantic_detail": "institutional_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.institutional_delivery_intelligence_layer",
+          "backend_entrypoint": "institutional_delivery_501"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0923",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "usage_analytics",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "usage_analytics",
+        "semantic_detail": "usage_analytics_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.infra_intelligence_layer",
+          "backend_entrypoint": "build_admin_analytics_dashboard_95"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0924",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "provenance",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "provenance",
+        "semantic_detail": "provenance_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "data_provenance_score",
+          "backend_entrypoint": "compute_data_provenance_score"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0925",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "infra",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "infra",
+        "semantic_detail": "infra_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.infra_status",
+          "backend_entrypoint": "infra_matrix"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0926",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "provenance",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "provenance",
+        "semantic_detail": "provenance_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "data_provenance_score",
+          "backend_entrypoint": "compute_data_provenance_score"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0927",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "signal_registry",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "signal_registry",
+        "semantic_detail": "signal_registry_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.infra_intelligence_layer",
+          "backend_entrypoint": "sovereign_registry_status_98"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0928",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "alpha",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "alpha",
+        "semantic_detail": "alpha_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.alpha_engine",
+          "backend_entrypoint": "compute_alpha_signal"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0929",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "arbitrage",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "arbitrage",
+        "semantic_detail": "arbitrage_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.cex_dex_arbitrage",
+          "backend_entrypoint": "scan_cex_dex_opportunities"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0930",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "market_structure",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "market_structure",
+        "semantic_detail": "market_structure_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.squeeze_trigger_engine",
+          "backend_entrypoint": "squeeze_trigger_coordinates"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0931",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "onchain",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "onchain",
+        "semantic_detail": "onchain_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "onchain_tracker",
+          "backend_entrypoint": "build_onchain_context_safe"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0932",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "derivatives",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "derivatives",
+        "semantic_detail": "derivatives_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.derivatives_hub",
+          "backend_entrypoint": "derivatives_overview"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0933",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "arbitrage",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "arbitrage",
+        "semantic_detail": "arbitrage_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.cex_dex_arbitrage",
+          "backend_entrypoint": "scan_cex_dex_opportunities"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0934",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "defi",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "defi",
+        "semantic_detail": "defi_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.onchain_hub",
+          "backend_entrypoint": "defillama_raises"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0935",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "volatility",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "volatility",
+        "semantic_detail": "volatility_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.drawdown_guard",
+          "backend_entrypoint": "drawdown_status"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0936",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "derivatives",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "derivatives",
+        "semantic_detail": "derivatives_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.derivatives_hub",
+          "backend_entrypoint": "derivatives_overview"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0937",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "defi",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "defi",
+        "semantic_detail": "defi_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.onchain_hub",
+          "backend_entrypoint": "defillama_raises"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0938",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "volatility",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "volatility",
+        "semantic_detail": "volatility_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.drawdown_guard",
+          "backend_entrypoint": "drawdown_status"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0939",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "derivatives",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "derivatives",
+        "semantic_detail": "derivatives_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.derivatives_hub",
+          "backend_entrypoint": "derivatives_overview"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0940",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "onchain",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "onchain",
+        "semantic_detail": "onchain_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "onchain_tracker",
+          "backend_entrypoint": "build_onchain_context_safe"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0941",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "order_book",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "order_book",
+        "semantic_detail": "order_book_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "cap646.fallbacks",
+          "backend_entrypoint": "resolve_order_book"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0942",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "derivatives",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "derivatives",
+        "semantic_detail": "derivatives_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.derivatives_hub",
+          "backend_entrypoint": "derivatives_overview"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0943",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "onchain",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "onchain",
+        "semantic_detail": "onchain_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "onchain_tracker",
+          "backend_entrypoint": "build_onchain_context_safe"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0944",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "sentiment",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "sentiment",
+        "semantic_detail": "sentiment_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "sentiment_engine",
+          "backend_entrypoint": "build_sentiment_context_safe"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0945",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "stablecoin",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "stablecoin",
+        "semantic_detail": "macro_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.onchain_hub",
+          "backend_entrypoint": "lookintobitcoin_macro"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0946",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "defi",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "defi",
+        "semantic_detail": "defi_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.onchain_hub",
+          "backend_entrypoint": "defillama_raises"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0947",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "macro",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "macro",
+        "semantic_detail": "macro_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.onchain_hub",
+          "backend_entrypoint": "lookintobitcoin_macro"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0948",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "defi",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "defi",
+        "semantic_detail": "defi_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.onchain_hub",
+          "backend_entrypoint": "defillama_raises"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0949",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "defi",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "defi",
+        "semantic_detail": "defi_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.onchain_hub",
+          "backend_entrypoint": "defillama_raises"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0950",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "order_book",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "order_book",
+        "semantic_detail": "order_book_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "cap646.fallbacks",
+          "backend_entrypoint": "resolve_order_book"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0951",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "derivatives",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "derivatives",
+        "semantic_detail": "derivatives_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.derivatives_hub",
+          "backend_entrypoint": "derivatives_overview"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0952",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "market_structure",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "market_structure",
+        "semantic_detail": "market_structure_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.squeeze_trigger_engine",
+          "backend_entrypoint": "squeeze_trigger_coordinates"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0953",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "alpha",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "alpha",
+        "semantic_detail": "alpha_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.alpha_engine",
+          "backend_entrypoint": "compute_alpha_signal"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0954",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "defi",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "defi",
+        "semantic_detail": "defi_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.onchain_hub",
+          "backend_entrypoint": "defillama_raises"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0955",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "arbitrage",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "arbitrage",
+        "semantic_detail": "arbitrage_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.cex_dex_arbitrage",
+          "backend_entrypoint": "scan_cex_dex_opportunities"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0956",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "order_book",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "order_book",
+        "semantic_detail": "order_book_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "cap646.fallbacks",
+          "backend_entrypoint": "resolve_order_book"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0957",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "defi",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "defi",
+        "semantic_detail": "defi_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.onchain_hub",
+          "backend_entrypoint": "defillama_raises"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0958",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "risk",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "risk",
+        "semantic_detail": "risk_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "risk_manager",
+          "backend_entrypoint": "risk_status"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0959",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "risk",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "risk",
+        "semantic_detail": "risk_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "risk_manager",
+          "backend_entrypoint": "risk_status"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0960",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "defi",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "defi",
+        "semantic_detail": "defi_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.onchain_hub",
+          "backend_entrypoint": "defillama_raises"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0961",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "derivatives",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "derivatives",
+        "semantic_detail": "derivatives_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.derivatives_hub",
+          "backend_entrypoint": "derivatives_overview"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0962",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "portfolio",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "portfolio",
+        "semantic_detail": "portfolio_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.portfolio_rebalancer",
+          "backend_entrypoint": "portfolio_snapshot"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0963",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "institutional",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "institutional",
+        "semantic_detail": "institutional_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.institutional_delivery_intelligence_layer",
+          "backend_entrypoint": "institutional_delivery_501"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0964",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "api_contract",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "api_contract",
+        "semantic_detail": "api_contract_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "graphql_schema",
+          "backend_entrypoint": "graphql_health"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0965",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "portfolio",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "portfolio",
+        "semantic_detail": "portfolio_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.portfolio_rebalancer",
+          "backend_entrypoint": "portfolio_snapshot"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0966",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "institutional",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "institutional",
+        "semantic_detail": "institutional_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.institutional_delivery_intelligence_layer",
+          "backend_entrypoint": "institutional_delivery_501"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0967",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "infra",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "infra",
+        "semantic_detail": "infra_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.infra_status",
+          "backend_entrypoint": "infra_matrix"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0968",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "alpha",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "alpha",
+        "semantic_detail": "alpha_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.alpha_engine",
+          "backend_entrypoint": "compute_alpha_signal"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0969",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "charting",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "charting",
+        "semantic_detail": "charting_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.charting_market_intelligence_layer",
+          "backend_entrypoint": "technical_indicator_library_302"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0970",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "alpha",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "alpha",
+        "semantic_detail": "alpha_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.alpha_engine",
+          "backend_entrypoint": "compute_alpha_signal"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0971",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "charting",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "charting",
+        "semantic_detail": "charting_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.charting_market_intelligence_layer",
+          "backend_entrypoint": "technical_indicator_library_302"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0972",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "defi",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "defi",
+        "semantic_detail": "defi_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.onchain_hub",
+          "backend_entrypoint": "defillama_raises"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0973",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "institutional",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "institutional",
+        "semantic_detail": "institutional_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.institutional_delivery_intelligence_layer",
+          "backend_entrypoint": "institutional_delivery_501"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0974",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "derivatives",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "derivatives",
+        "semantic_detail": "derivatives_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.derivatives_hub",
+          "backend_entrypoint": "derivatives_overview"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0975",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "defi",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "defi",
+        "semantic_detail": "defi_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "bd_platform.onchain_hub",
+          "backend_entrypoint": "defillama_raises"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0976",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "security",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "security",
+        "semantic_detail": "security_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "security_posture",
+          "backend_entrypoint": "security_posture_report"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0977",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "order_book",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "order_book",
+        "semantic_detail": "order_book_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "cap646.fallbacks",
+          "backend_entrypoint": "resolve_order_book"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    },
+    {
+      "capability_id": "CAP-0978",
+      "previous_status": "PASS_ENGINEERING",
+      "new_engineering_status": "PASS_ENGINEERING",
+      "semantic_oracle": "onchain",
+      "tests_executed": [
+        "tests/cap978/test_phase2_semantic_remediation.py"
+      ],
+      "evidence": {
+        "verdict": "SEMANTIC_VERIFIED",
+        "semantic_oracle": "onchain",
+        "semantic_detail": "onchain_semantics",
+        "runtime_path_verified": true,
+        "binding": {
+          "backend_module": "onchain_tracker",
+          "backend_entrypoint": "build_onchain_context_safe"
+        }
+      },
+      "tested_sha": "6b4d74a816dc58fba375d0edc4083de870fdca96"
+    }
+  ],
+  "phantom_disposition_ledger": "BLACKDARK_CAPABILITY_PHANTOM_DISPOSITION.json",
+  "live_applicability_corrections": [
+    "CAP-0340",
+    "CAP-0380",
+    "CAP-0432",
+    "CAP-0516",
+    "CAP-0647",
+    "CAP-0699",
+    "CAP-0783"
+  ],
+  "PASS_ENGINEERING_DOWNGRADED_DUE_TO_VERIFICATION": 0,
+  "final_counters": {
+    "WORKSET_CAPABILITIES_VERIFIED": 153,
+    "LIVE_APPLICABILITY_MISCLASSIFICATIONS_CORRECTED": 0
+  }
+}

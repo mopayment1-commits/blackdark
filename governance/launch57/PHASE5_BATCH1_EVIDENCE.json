@@ -1,0 +1,22 @@
+{
+  "artifact": "PHASE5_BATCH1_EVIDENCE",
+  "phase": "5_DERIVATIVES_HABITS",
+  "batch": 1,
+  "source_commit": "00704dd1",
+  "final_commit": "2387cc105035ffb8edef0937529298129e2840ab",
+  "generated_at": "2026-09-16T22:13:50.055897+00:00",
+  "build_order": [
+    25,
+    26,
+    27,
+    28,
+    29
+  ],
+  "handler_module": "launch57.derivatives_batch1",
+  "tests": {
+    "command": "python3 -m pytest tests/launch57/test_derivatives_batch1.py -q",
+    "exit_code": 0,
+    "stdout": "....                                                                     [100%]",
+    "passed": true
+  }
+}

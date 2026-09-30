@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from datetime import UTC, datetime, timedelta
 
+import failure.circuit
+
 from blackdark.data import circuit_breaker as cb
 from blackdark.data.response_metadata import (
     DATA_STATE_LIVE,

@@ -1,0 +1,354 @@
+{
+  "artifact": "SPEC_06_REQUIREMENTS_REGISTER",
+  "domain": "SPEC_06_COMPOUNDING_EVIDENCE_TRACK_RECORD",
+  "generated_at": "2026-09-19T00:02:55.391608+00:00",
+  "spec_version": "launch57-spec06-compounding-evidence-track-record-1.0.0",
+  "requirement_count": 24,
+  "requirements": [
+    {
+      "req_id": "REQ-S06-001",
+      "title": "Launch-57 compounding scope lock only",
+      "spec_section": "§2, §3K",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/compounding_evidence_common.py"
+      ],
+      "tests": [
+        "test_compounding_evidence.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S06-002",
+      "title": "Strategic asset not user capability",
+      "spec_section": "§3A",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/compounding_evidence_common.py"
+      ],
+      "tests": [
+        "test_compounding_evidence.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S06-003",
+      "title": "Canonical asset classes defined",
+      "spec_section": "§4",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/compounding_evidence_common.py"
+      ],
+      "tests": [
+        "test_compounding_evidence.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S06-004",
+      "title": "Decision → Certificate → Outcome linkage",
+      "spec_section": "§5–§6",
+      "launch_ids": [
+        2,
+        3
+      ],
+      "owner_modules": [
+        "launch57/compounding_evidence_common.py"
+      ],
+      "tests": [
+        "test_compounding_evidence.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S06-005",
+      "title": "Outcome resolution before accuracy claims",
+      "spec_section": "§7",
+      "launch_ids": [
+        4,
+        45
+      ],
+      "owner_modules": [
+        "launch57/compounding_evidence_common.py"
+      ],
+      "tests": [
+        "test_spec06"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S06-006",
+      "title": "Public accuracy #4 live-origin only",
+      "spec_section": "§8",
+      "launch_ids": [
+        4
+      ],
+      "owner_modules": [
+        "launch57/public_accuracy_common.py"
+      ],
+      "tests": [
+        "test_trust_batch1.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S06-007",
+      "title": "LIVE/DELAYED/SIM separation enforced",
+      "spec_section": "§9",
+      "launch_ids": [
+        6
+      ],
+      "owner_modules": [
+        "launch57/compounding_evidence_common.py"
+      ],
+      "tests": [
+        "test_compounding_evidence.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S06-008",
+      "title": "Point-in-time integrity no lookahead",
+      "spec_section": "§10",
+      "launch_ids": [
+        39
+      ],
+      "owner_modules": [
+        "launch57/compounding_evidence_common.py"
+      ],
+      "tests": [
+        "test_compounding_evidence.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S06-009",
+      "title": "Append-only tamper-evident track record",
+      "spec_section": "§8",
+      "launch_ids": [
+        4
+      ],
+      "owner_modules": [
+        "oracle_audit_chain.py"
+      ],
+      "tests": [
+        "test_spec06"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S06-010",
+      "title": "SIM cannot contaminate live accuracy",
+      "spec_section": "§8–§9",
+      "launch_ids": [
+        4
+      ],
+      "owner_modules": [
+        "launch57/compounding_evidence_common.py"
+      ],
+      "tests": [
+        "test_spec06"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S06-011",
+      "title": "Unresolved outcomes excluded from primary metrics",
+      "spec_section": "§7–§8",
+      "launch_ids": [
+        4
+      ],
+      "owner_modules": [
+        "launch57/compounding_evidence_common.py"
+      ],
+      "tests": [
+        "test_spec06"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S06-012",
+      "title": "Non-selective reporting gate",
+      "spec_section": "§8",
+      "launch_ids": [
+        4
+      ],
+      "owner_modules": [
+        "launch57/compounding_evidence_common.py"
+      ],
+      "tests": [
+        "test_spec06"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S06-013",
+      "title": "Evidence lineage index",
+      "spec_section": "§47",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/compounding_evidence_common.py"
+      ],
+      "tests": [
+        "test_compounding_evidence.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S06-014",
+      "title": "Compounding touchpoint matrix wired",
+      "spec_section": "§2",
+      "launch_ids": [
+        2,
+        3,
+        4,
+        44,
+        45,
+        46,
+        48,
+        49,
+        50,
+        51
+      ],
+      "owner_modules": [
+        "launch57/compounding_evidence_common.py"
+      ],
+      "tests": [
+        "test_compounding_evidence.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S06-015",
+      "title": "No second certificate authority",
+      "spec_section": "§6",
+      "launch_ids": [
+        3
+      ],
+      "owner_modules": [
+        "launch57/compounding_evidence_common.py"
+      ],
+      "tests": [
+        "test_compounding_evidence.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S06-016",
+      "title": "FILE 02 public vs private read boundaries",
+      "spec_section": "§8",
+      "launch_ids": [
+        4,
+        46,
+        49
+      ],
+      "owner_modules": [
+        "launch57/anonymous_visitor_common.py"
+      ],
+      "tests": [
+        "test_spec06"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S06-017",
+      "title": "FILE 03 entitlement on private history",
+      "spec_section": "§15",
+      "launch_ids": [
+        49
+      ],
+      "owner_modules": [
+        "launch57/billing_entitlement_common.py"
+      ],
+      "tests": [
+        "test_spec06"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S06-018",
+      "title": "Machine-readable track record export",
+      "spec_section": "§47",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/compounding_evidence_common.py"
+      ],
+      "tests": [
+        "test_spec06"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S06-019",
+      "title": "No PARKED track record as launch primary",
+      "spec_section": "§2",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/compounding_evidence_common.py"
+      ],
+      "tests": [
+        "test_spec06"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S06-020",
+      "title": "Legacy vault program excluded",
+      "spec_section": "§0",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/compounding_evidence_common.py"
+      ],
+      "tests": [
+        "test_compounding_evidence.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S06-021",
+      "title": "PASS_LIVE not claimed",
+      "spec_section": "§22",
+      "launch_ids": [],
+      "owner_modules": [],
+      "tests": [],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S06-022",
+      "title": "Acceptance criteria AC01–AC22 engineering gate",
+      "spec_section": "§45",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/compounding_evidence_common.py"
+      ],
+      "tests": [
+        "test_compounding_evidence.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S06-023",
+      "title": "Independent verification adversarial probes",
+      "spec_section": "§22",
+      "launch_ids": [],
+      "owner_modules": [],
+      "tests": [
+        "test_spec06"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S06-024",
+      "title": "Envelope cannot grant PASS_ENGINEERING",
+      "spec_section": "§21",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/compounding_evidence_common.py"
+      ],
+      "tests": [
+        "test_compounding_evidence.py"
+      ],
+      "mandatory": true
+    }
+  ]
+}

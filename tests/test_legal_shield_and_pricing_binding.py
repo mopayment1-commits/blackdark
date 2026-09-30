@@ -11,14 +11,16 @@ def _by_id():
 def test_founder_confirmed_price_ladder():
     by = _by_id()
     assert by["free"]["price_usd_month"] == 0
-    assert by["free"]["name"] == "Proof Pass"
-    assert by["pro"]["price_usd_month"] == 19
-    assert by["elite"]["price_usd_month"] == 49
-    assert by["elite"]["name"] == "Decision Elite"
-    assert by["quant"]["price_usd_month"] == 199
-    assert by["quant"]["name"] == "Decision Quant"
+    assert by["free"]["name"] == "DISCOVER / FREE"
+    assert by["pro"]["price_usd_month"] == 19.99
+    assert by["pro"].get("popular") is not True
+    assert by["elite"]["popular"] is True
+    assert by["elite"]["price_usd_month"] == 49.99
+    assert by["elite"]["name"] == "SEE THE EDGE / ELITE"
+    assert by["quant"]["price_usd_month"] == 129.99
+    assert by["quant"]["name"] == "EXECUTE THE EDGE / QUANT"
     assert by["institutional"]["self_serve"] is False
-    assert "custom" in by["institutional"]["price_display"].lower()
+    assert "999" in by["institutional"]["price_display"]
 
 
 def test_pricing_tiers_order():
@@ -29,12 +31,13 @@ def test_pricing_tiers_order():
     assert "billing/plan_registry.py" in cat["binding"]
 
 
-def test_quant_199_no_legacy_whale_desk_label():
+def test_quant_ssot_no_legacy_whale_desk_label():
     by = _by_id()
-    assert by["quant"]["price_usd_month"] == 199
+    assert by["quant"]["price_usd_month"] == 129.99
     blob = str(TIERS)
     assert "Whale Desk" not in blob
     assert "Decision Desk" not in blob
+    assert "Decision Pro" not in blob
 
 
 def test_legal_shield_prefix_in_certificate_module():

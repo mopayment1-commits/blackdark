@@ -1,0 +1,119 @@
+{
+  "artifact": "PHASE1_BATCH2_EVIDENCE",
+  "phase": "1_DATA",
+  "batch": 2,
+  "source_commit": "df19b921",
+  "final_commit": "453108b897cd36b5e1badd63d5eb966960f6ecca",
+  "generated_at": "2026-09-16T19:48:26.638800+00:00",
+  "build_order": [
+    40,
+    41,
+    39
+  ],
+  "full_phase1_order": [
+    42,
+    22,
+    23,
+    24,
+    21,
+    40,
+    41,
+    39
+  ],
+  "tests": {
+    "command": "python3 -m pytest tests/launch57/test_data_batch1.py tests/launch57/test_data_batch2.py -q",
+    "exit_code": 0,
+    "stdout": "....................                                                     [100%]",
+    "stderr": "",
+    "passed": true
+  },
+  "capabilities": {
+    "40": {
+      "cap_ids": [
+        "CAP-0063",
+        "CAP-0500"
+      ],
+      "numeric_ids": [
+        63,
+        500
+      ],
+      "name": "Data quality & provenance (ظاهر للمستخدم)",
+      "build_decision": "EXTEND",
+      "entrypoints": [
+        "data_quality_provenance_layer",
+        "data_quality_normalization"
+      ],
+      "runtime_path": "cap646/runtime.py → launch57/data_batch2.py:data_quality_provenance_layer|data_quality_normalization",
+      "consumer_paths": [
+        "launch57/data_batch2.py",
+        "cap646/handlers/market.py",
+        "cap646/institutional_official_production.py"
+      ],
+      "data_sources": [
+        "data_provenance_score.compute_data_provenance_score",
+        "cap646.data_spine.normalization_report"
+      ],
+      "semantic_oracle": "distinct CAP-0063 vs CAP-0500; user_disclosure من أين الرقم؟",
+      "tests": [
+        "tests/launch57/test_data_batch2.py::test_provenance_layer_user_disclosure",
+        "tests/launch57/test_data_batch2.py::test_normalization_distinct_from_provenance_layer"
+      ],
+      "builder_status": "PENDING_VERIFICATION",
+      "commit_sha": "453108b897cd36b5e1badd63d5eb966960f6ecca"
+    },
+    "41": {
+      "cap_ids": [
+        "CAP-0630"
+      ],
+      "numeric_ids": [
+        630
+      ],
+      "name": "Freshness assurance + تسمية delayed صريحة",
+      "build_decision": "EXTEND",
+      "entrypoint": "freshness_update_assurance",
+      "runtime_path": "cap646/runtime.py → launch57/data_batch2.py:freshness_update_assurance",
+      "consumer_paths": [
+        "launch57/data_batch2.py",
+        "cap646/handlers/market.py",
+        "cap646/institutional_official_production.py"
+      ],
+      "data_sources": [
+        "cap646.data_spine.freshness_assurance_report",
+        "failure.freshness.classify_freshness"
+      ],
+      "semantic_oracle": "DELAYED/STALE/UNKNOWN explicit labels; stale never presented as live",
+      "tests": [
+        "tests/launch57/test_data_batch2.py::test_freshness_rejects_stale_as_live",
+        "tests/launch57/test_data_batch2.py::test_freshness_delayed_label_explicit"
+      ],
+      "builder_status": "PENDING_VERIFICATION",
+      "commit_sha": "453108b897cd36b5e1badd63d5eb966960f6ecca"
+    },
+    "39": {
+      "cap_ids": [
+        "CAP-0061"
+      ],
+      "numeric_ids": [
+        61
+      ],
+      "name": "Point-in-time immutable metrics",
+      "build_decision": "EXTEND",
+      "entrypoint": "point_in_time_immutable_metrics",
+      "runtime_path": "cap646/runtime.py → launch57/data_batch2.py:point_in_time_immutable_metrics",
+      "consumer_paths": [
+        "launch57/data_batch2.py",
+        "cap646/institutional_official_production.py"
+      ],
+      "data_sources": [
+        "oracle_track_record.public_track_record",
+        "hot_storage.get_hot_storage_stats"
+      ],
+      "semantic_oracle": "snapshot_at + content_hash + immutable_chain.valid",
+      "tests": [
+        "tests/launch57/test_data_batch2.py::test_pit_immutable_metrics_hash_and_timestamp"
+      ],
+      "builder_status": "PENDING_VERIFICATION",
+      "commit_sha": "453108b897cd36b5e1badd63d5eb966960f6ecca"
+    }
+  }
+}

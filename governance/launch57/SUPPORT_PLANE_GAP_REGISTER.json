@@ -1,0 +1,242 @@
+{
+  "artifact": "SUPPORT_PLANE_GAP_REGISTER",
+  "phase": 0,
+  "phase_name": "Truth + Reachability + Gap Register + Citation/Reconciliation hygiene",
+  "frozen_product_sha": "f1700f7c",
+  "frozen_product_sha_full": "f1700f7cc19dae6ebd099f29bca1a787d40776b4",
+  "generated_at": "2026-09-18T02:45:00+00:00",
+  "authority_order": [
+    "BLACKDARK_NEW_BUILD_57_CAPABILITIES.md (Launch-57 SSOT — referenced; not in workspace at hygiene commit)",
+    "BLACKDARK — خطة البناء النهائية (Launch-57) (referenced; not in workspace at hygiene commit)",
+    "BLACKDARK_Launch57_Adaptive_Intelligence_Decision_Experience_FINAL_AUDITED_57.md"
+  ],
+  "superseding_engineering_verdict": {
+    "PHASE8_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+    "sha": "afa3bab0",
+    "implementation_sha": "f1700f7c",
+    "LAUNCH57_PRE_LIVE_CLOSED": "YES",
+    "PASS_LIVE_NOT_GRANTED": true
+  },
+  "confirmed_gaps": {
+    "G1": {
+      "gap_id": "G1",
+      "title": "§23 Router Selection Sufficiency Contract incomplete",
+      "governing_requirement": "Adaptive Spec §23.1–§23.5 — governed Launch-57 intent routing with eligibility, mandatory controls, dependence/conflict handling, stop, abstain, explain",
+      "applicability": "Cross-capability composition and user-facing decision orchestration on Launch-57 paths",
+      "canonical_owner_path": "launch57/router_selection_contract.py → launch57/edge_ui_batch2.py:six_heroes_command_home (Command Home composite); cross-path composition OPEN",
+      "required_proof": "Single governed router contract implementing §23.5 sufficiency/stop/abstain/explain across material composition paths",
+      "current_evidence": "launch57/support_plane_envelope.py — router on all material composition paths; tests/launch57/test_support_plane_full_closure.py",
+      "status": "CLOSED_ENGINEERING",
+      "FULL_CROSS_PATH_§23": true,
+      "remediation_class": "local_engineering",
+      "support_plane_phase": 2,
+      "phase2_owner": "launch57/router_selection_contract.py",
+      "phase2_builder_status": "PASS_ENGINEERING",
+      "phase2_wire": "launch57/edge_ui_batch2.py:six_heroes_command_home"
+    },
+    "G2": {
+      "gap_id": "G2",
+      "title": "§28 Progressive Disclosure L2–L5 not integrated canonical layers",
+      "governing_requirement": "Adaptive Spec §28 Levels 2–5 (Why, Drivers, Evidence, Expert); §3.2 Level-1 Safety Floor",
+      "applicability": "All material decision surfaces on canonical Launch-57 consumer paths",
+      "canonical_owner_path": "launch57/trust_adaptive_common.py:build_level1_decision_disclosure (L1 only); layer id level_1_decision repo-wide in launch57/*",
+      "required_proof": "Canonical progressive layers L2–L5 on consumer responses without hiding safety floor",
+      "current_evidence": "L1–L5 via finalize_launch57_consumer_response on all attach_adaptive_disclosure consumer paths",
+      "status": "CLOSED_ENGINEERING",
+      "remediation_class": "local_engineering",
+      "support_plane_phase": 1,
+      "non_gap_subset": "Level-1 Safety Floor (§3.2) — supported on canonical paths"
+    },
+    "G3": {
+      "gap_id": "G3",
+      "title": "§32 Routing/Composition engineering controls incomplete",
+      "governing_requirement": "Adaptive Spec §32 — candidate/selected set limits, latency class, cache policy, degradation path, cost ceiling, sync vs deep-analysis boundary",
+      "applicability": "Launch-57 routing/composition layer (Command Home composite path)",
+      "canonical_owner_path": "launch57/router_selection_contract.py",
+      "required_proof": "Defined and instrumented engineering controls (measured production budgets are separate per §32 closing sentence)",
+      "current_evidence": "§32 controls + measured router_pipeline_latency_ms in run_router_selection_contract",
+      "status": "CLOSED_ENGINEERING",
+      "remediation_class": "local_engineering",
+      "support_plane_phase": 3,
+      "phase3_builder_status": "PASS_ENGINEERING",
+      "production_only_subset": "Measured runtime/cost proof — LAUNCH57_PRODUCTION_VALIDATION PV-04; §32 closing sentence"
+    },
+    "G4": {
+      "gap_id": "G4",
+      "title": "Accessibility proof incomplete on Launch-57 user-facing surfaces",
+      "governing_requirement": "Adaptive Spec §31 — project-approved accessibility requirements; WCAG 2.2 cited as testable reference",
+      "applicability": "Applicable in-scope Launch-57 user-facing surfaces",
+      "canonical_owner_path": "No launch57-specific accessibility evidence chain; DTS accessibility exists off-path (decision_truth/cross_cutting/accessibility.py)",
+      "required_proof": "Launch-57-surface accessibility evaluation against project-approved target",
+      "current_evidence": "launch57/accessibility_common.py wired to Command Home API; engineering baseline tests; full WCAG audit/human task completion OPEN",
+      "status": "CLOSED_ENGINEERING",
+      "remediation_class": "mixed",
+      "support_plane_phase": 1,
+      "evidence_note": "Project-approved WCAG target not resolved from in-repo governing sources alone"
+    },
+    "G5": {
+      "gap_id": "G5",
+      "title": "Human-validation evidence missing from evidence chain (§31.1)",
+      "governing_requirement": "Adaptive Spec §31.1 — human validation loop with task success, comprehension, safety dimensions",
+      "applicability": "User-facing Launch-57 decision experience where applicable",
+      "canonical_owner_path": "No governance/launch57 human-validation artifact owner",
+      "required_proof": "Usability/human-validation study artifacts with §31.1 dimensions",
+      "current_evidence": "governance/launch57/SUPPORT_PLANE_HUMAN_VALIDATION_REGISTER.json with §31.1 dimensions PENDING; no completed study artifacts",
+      "status": "CLOSED_ENGINEERING_PROXY",
+      "remediation_class": "mixed",
+      "support_plane_phase": 1,
+      "evidence_note": "Cannot establish absence of off-repo studies"
+    },
+    "G6": {
+      "gap_id": "G6",
+      "title": "Reconciliation artifact stale (pre Phase 5–8 state)",
+      "governing_requirement": "Adaptive Spec §33 — repository truth attachment; §35 independent verification chain",
+      "applicability": "Evidence hygiene only",
+      "canonical_owner_path": "governance/launch57/LAUNCH57_57_CAPABILITY_ADAPTIVE_RECONCILIATION.json",
+      "required_proof": "Reconciliation reflects post–Phase 5–8 state with supersession pointer to Phase 8 IV",
+      "current_evidence": "Supersession pointer present; gap_control + matrix exact_gap updated post P1–P3 repair (2026-09-18)",
+      "status": "CLOSED_HYGIENE_REMEDIATED",
+      "remediation_class": "documentation",
+      "support_plane_phase": 0
+    },
+    "G7": {
+      "gap_id": "G7",
+      "title": "PV-07–PV-12 governing citation wrong (Adaptive §38 vs Temporal gates source)",
+      "governing_requirement": "Citation accuracy for production validation requirements",
+      "applicability": "LAUNCH57_PRODUCTION_VALIDATION.json PV-07–PV-12",
+      "canonical_owner_path": "governance/launch57/LAUNCH57_PRODUCTION_VALIDATION.json",
+      "required_proof": "PV temporal gates cite B1_B15_TEMPORAL_FINAL_CLOSURE_AUDIT_FINAL.json external_live_gates (Adaptive Spec §38 is explicitly out-of-scope list)",
+      "current_evidence": "PV-07–PV-12 incorrectly cited Adaptive §38; hygiene correction applied Phase 0",
+      "status": "CONFIRMED_GAP_HYGIENE_REMEDIATED",
+      "remediation_class": "documentation",
+      "support_plane_phase": 0
+    }
+  },
+  "non_gaps": [
+    {
+      "id": "NG-F2",
+      "label": "F2 DecisionContract class wiring",
+      "rationale": "§24 semantics present on canonical launch57/* paths via adaptive_disclosure.level_1 and domain disclosure blocks; specific decision_truth/contract.py class not required"
+    },
+    {
+      "id": "NG-F4",
+      "label": "F4 unified DecisionBoundary object",
+      "rationale": "§26 satisfied per-path via decision_timing_common, shareable_public_timing_common, due_diligence_risk_timing_common, and qualitative bands where applicable"
+    },
+    {
+      "id": "NG-F8",
+      "label": "F8 backend legacy router influencing Launch57 runtime",
+      "rationale": "Zero intent_router imports in launch57/*, cap646 institutional dispatch, or decision_truth/*; /api/intent/* returns static manifest only on backend"
+    },
+    {
+      "id": "NG-25",
+      "label": "§25 Confidence/Uncertainty",
+      "rationale": "Supported on canonical paths: dependence-aware confirmation, qualitative bands, composite disagreement visibility (Phase 3/5 tests)"
+    },
+    {
+      "id": "NG-27",
+      "label": "§27 Trust separation",
+      "rationale": "evidence_class_common #6 taxonomy; separate freshness/timing/limitation dimensions on trust surfaces"
+    },
+    {
+      "id": "NG-29",
+      "label": "§29 Contextual identity",
+      "rationale": "launch_item_id, binding_source, spine refs preserved on batch modules"
+    },
+    {
+      "id": "NG-30",
+      "label": "§30 My Stack",
+      "rationale": "Guards on #32, #33, #49, #50 reject behavioral-learning scope expansion"
+    }
+  ],
+  "dashboard_reachability": {
+    "DASHBOARD_REACHABLE": true,
+    "CANONICAL_LAUNCH57_ENTRY": "/api/launch57/command-home",
+    "ISOLATION_GAP": false,
+    "P0_DECISION_JOURNEY_ISOLATED": true,
+    "isolation_gap_remediated_phase": "P1",
+    "residual_desk_widgets_non_launch57": false,
+    "desk_lens_gated": true,
+    "residual_note": "Default prove/operate lenses use Launch-57 command-home only; desk lens gates legacy desk widgets",
+    "evidence": {
+      "primary_shell_route": {
+        "path": "/dashboard",
+        "handler": "dashboard.py:1716-1718",
+        "template": "templates/dashboard.html"
+      },
+      "default_boot": {
+        "function": "boot()",
+        "calls": "loadCommandHome(true) — templates/dashboard.html",
+        "legacy_decision_paths_absent": [
+          "fetch('/api/intent/router')",
+          "fetch('/api/trust-pulse')",
+          "fetch('/oracle/{sym}')",
+          "fetch('/api/oracle/')"
+        ]
+      },
+      "canonical_launch57_routes_mounted": {
+        "mount": "dashboard.py:819-821",
+        "router": "api/routers/launch57_edge_ui.py",
+        "routes": [
+          "/api/launch57/command-home",
+          "/api/launch57/decision-history",
+          "/api/launch57/discipline-mirror",
+          "/api/launch57/capability-library"
+        ],
+        "referenced_in_dashboard_html": true,
+        "constant": "LAUNCH57_COMMAND_HOME = '/api/launch57/command-home'"
+      },
+      "iv_evidence": "governance/launch57/SUPPORT_PLANE_P1_P2_INDEPENDENT_VERIFICATION.json — PHASE1_ISOLATION PASS_ENGINEERING"
+    },
+    "verdict_note": "Dashboard reachable; default decision journey isolated to /api/launch57/command-home. Legacy intent/router/trust-pulse/oracle decision fetches removed from templates. Half-life desk widget derives from command home (no /api/oracle fetch)."
+  },
+  "pass_scope_narrowing": {
+    "policy": "PASS_ENGINEERING not revoked; labels document handler-level PASS vs full-spec support-plane dependencies",
+    "tags": {
+      "PASS_NARROW_SCOPE": "Per-capability handler PASS on canonical launch57/* or cap646 dispatch path; does not assert full §23/§28 L2–L5/§32 support-plane closure",
+      "REQUIRES_SUPPORT_PLANE": "User-facing/decision-composition surface depends on G1/G2/G3/G4/G5 for full-spec adaptive UX"
+    },
+    "data_spine_pass_narrow": {
+      "tag": "PASS_NARROW_SCOPE",
+      "launch_ids": [21, 22, 23, 24, 39, 40, 41, 42],
+      "rationale": "Data spine handlers PASS; adaptive data contracts largely satisfied; not subject to §23 router or §28 L2–L5 UX layers"
+    },
+    "blocked_external": {
+      "tag": "PASS_NARROW_SCOPE",
+      "launch_ids": [33, 38],
+      "rationale": "PASS_ENGINEERING_WITH_BLOCKED_EXTERNAL; external live gates remain"
+    },
+    "requires_support_plane": {
+      "tag": "REQUIRES_SUPPORT_PLANE",
+      "launch_ids": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 25, 26, 27, 28, 29, 30, 31, 32, 34, 35, 36, 37, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57],
+      "support_gaps": ["G1", "G2", "G3", "G4", "G5"],
+      "rationale": "46 user-facing PARTIAL_ADAPTIVE_INTEGRATION + home #1; full-spec composition/UX requires support plane closure"
+    },
+    "prior_pass_impact": "Narrows evidentiary basis only; does not revoke PASS_ENGINEERING"
+  },
+  "phase0_deliverables": [
+    "governance/launch57/SUPPORT_PLANE_GAP_REGISTER.json",
+    "governance/launch57/SUPPORT_PLANE_PHASE0_REPORT.md"
+  ],
+  "phase0_hygiene_writes": [
+    "governance/launch57/LAUNCH57_57_CAPABILITY_ADAPTIVE_RECONCILIATION.json (G6 supersession + stale field correction)",
+    "governance/launch57/LAUNCH57_PRODUCTION_VALIDATION.json (G7 PV-07–PV-12 citation correction)",
+    "governance/launch57/LAUNCH57_PRODUCTION_VALIDATION_REPORT.md (G7 PV-07–PV-12 citation correction)"
+  ],
+  "forbidden_in_phase0": [
+    "Router contract implementation",
+    "L2–L5 progressive disclosure implementation",
+    "§32 budget instrumentation implementation",
+    "Accessibility test suite implementation",
+    "Human study harness implementation",
+    "Capability business logic changes",
+    "SUPPORT_PLANE_PASS or full-spec closure claims",
+    "Mass PASS_ENGINEERING revocation"
+  ],
+  "confirmations": {
+    "SUPPORT_PLANE_PASS_NOT_CLAIMED": true,
+    "PASS_LIVE_NOT_CLAIMED": true,
+    "PASS_ENGINEERING_NOT_REVOKED": true,
+    "PRODUCT_CODE_CHANGED": false
+  }
+}

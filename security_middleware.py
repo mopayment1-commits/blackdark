@@ -87,6 +87,48 @@ def _csp_nonce_mode_enabled() -> bool:
     return True
 
 
+def _request_url_path(request: Request) -> str:
+    """Path for header policy; works with Starlette Request and test stubs."""
+    url = getattr(request, "url", None)
+    if url is not None:
+        path = getattr(url, "path", None)
+        if path is not None:
+            return str(path)
+    scope = getattr(request, "scope", None)
+    if isinstance(scope, dict):
+        return str(scope.get("path") or "")
+    return ""
+
+
+def _request_url_scheme(request: Request) -> str:
+    url = getattr(request, "url", None)
+    if url is not None:
+        scheme = getattr(url, "scheme", None)
+        if scheme:
+            return str(scheme).lower()
+    scope = getattr(request, "scope", None)
+    if isinstance(scope, dict):
+        return str(scope.get("scheme") or "http").lower()
+    return "http"
+
+
+def _effective_scheme(request: Request) -> str:
+    try:
+        from transport_webhook_env.transport import request_effective_scheme
+
+        return str(request_effective_scheme(request) or "").lower() or _request_url_scheme(request)
+    except Exception:
+        return _request_url_scheme(request)
+
+
+def _coop_for_path(path: str) -> str:
+    """Google Identity Services needs popup communication on auth surfaces only."""
+    p = path or ""
+    if p in {"/login", "/register"} or p.startswith("/api/auth/oauth/"):
+        return "same-origin-allow-popups"
+    return "same-origin"
+
+
 def _ensure_request_csp_nonce(request: Request) -> str | None:
     if not _csp_nonce_mode_enabled():
         return None
@@ -225,7 +267,8 @@ def security_headers_for(request: Request) -> dict[str, str]:
             "font-src 'self' data:; "
             "connect-src 'self' https: wss:; "
             "frame-ancestors 'none'; "
-            "base-uri 'self'; "
+            "object-src 'none'; "
+            "base-uri 'none'; "
             "form-action 'self'"
         )
     else:
@@ -237,7 +280,8 @@ def security_headers_for(request: Request) -> dict[str, str]:
             "font-src 'self' data:; "
             "connect-src 'self' https: wss:; "
             "frame-ancestors 'none'; "
-            "base-uri 'self'; "
+            "object-src 'none'; "
+            "base-uri 'none'; "
             "form-action 'self'"
         )
     headers = {
@@ -245,12 +289,12 @@ def security_headers_for(request: Request) -> dict[str, str]:
         "X-Frame-Options": "DENY",
         "Referrer-Policy": "strict-origin-when-cross-origin",
         "Permissions-Policy": "geolocation=(), microphone=(), camera=(), payment=()",
-        "Cross-Origin-Opener-Policy": "same-origin",
+        "Cross-Origin-Opener-Policy": _coop_for_path(_request_url_path(request)),
         "Cross-Origin-Resource-Policy": "same-site",
         "X-XSS-Protection": "0",
         "Content-Security-Policy": csp,
     }
-    if _is_production() or (request.url.scheme == "https"):
+    if _is_production() or (_effective_scheme(request) == "https"):
         headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
     return headers
 
@@ -294,13 +338,44 @@ def _request_origin_ok(request: Request) -> bool:
     return False
 
 
+class SecureTransportMiddleware(BaseHTTPMiddleware):
+    """Fail closed on sensitive production paths when transport is not HTTPS."""
+
+    _SENSITIVE_PREFIXES = ("/api/", "/webhook", "/admin")
+
+    async def dispatch(self, request: Request, call_next) -> Response:
+        path = _request_url_path(request)
+        if _is_production() and any(path.startswith(p) for p in self._SENSITIVE_PREFIXES):
+            from transport_webhook_env.transport import enforce_secure_transport
+
+            try:
+                enforce_secure_transport(request, sensitive=True)
+            except PermissionError:
+                return JSONResponse(
+                    {"error": "insecure_transport_forbidden", "message": "HTTPS required in production."},
+                    status_code=403,
+                )
+        return await call_next(request)
+
+
+async def apply_security_headers_to_response(request: Request, response: Response) -> Response:
+    """Apply SecurityHeadersMiddleware post-processing (CSP, hardening markers, HTML nonce rewrite)."""
+    nonce = _ensure_request_csp_nonce(request)
+    if nonce:
+        response = await _maybe_rewrite_html_with_nonce(response, nonce)
+    for key, value in security_headers_for(request).items():
+        response.headers.setdefault(key, value)
+    response.headers.setdefault("X-Security-Hardening", "1")
+    return response
+
+
 class SecurityHeadersMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next) -> Response:
         # Mint CSP nonce early so template render / HTML rewrite can use it.
-        nonce = _ensure_request_csp_nonce(request)
+        _ensure_request_csp_nonce(request)
 
         # TrustedHost in production — never apply to liveness/readiness probes.
-        path = request.url.path
+        path = _request_url_path(request)
         if (
             path not in HEALTH_PROBE_PATHS
             and _is_production()
@@ -335,12 +410,7 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
                 )
 
         response = await call_next(request)
-        if nonce:
-            response = await _maybe_rewrite_html_with_nonce(response, nonce)
-        for key, value in security_headers_for(request).items():
-            response.headers.setdefault(key, value)
-        response.headers.setdefault("X-Security-Hardening", "1")
-        return response
+        return await apply_security_headers_to_response(request, response)
 
 
 def apply_cors(app) -> None:
@@ -424,6 +494,15 @@ def cookie_to_session_bearer(raw: str | None) -> str:
             return "".join(ch for ch in plain if ch.isalnum() or ch in "-_")
         except Exception:
             return ""
+    try:
+        from secrets_crypto.envelope import is_envelope_blob
+        from secrets_vault import decrypt_secret
+
+        if is_envelope_blob(value):
+            plain = decrypt_secret(value)
+            return "".join(ch for ch in plain if ch.isalnum() or ch in "-_")
+    except Exception:
+        return ""
     # Production rejects unsealed cookies unless explicitly opted in for migration.
     legacy_flag = os.getenv("ALLOW_LEGACY_SESSION_COOKIE", "").strip().lower()
     allow_legacy = legacy_flag in {"1", "true", "yes"} or (

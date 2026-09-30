@@ -1,0 +1,176 @@
+{
+  "artifact": "PHASE3_ADAPTIVE_BATCH_A_INDEPENDENT_VERIFICATION",
+  "verification_type": "independent_engineering",
+  "VERIFIED_IMPLEMENTATION_SHA": "94ec2855",
+  "verified_implementation_sha_full": "94ec28556d6ea9e2fb50d2808a6669912f1cbaa7",
+  "builder_evidence_sha": "6cb1f997",
+  "builder_evidence_sha_full": "6cb1f997f53907cedfed6d6ebd8e9594dae853cc",
+  "verified_at": "2026-09-17T22:08:00+00:00",
+  "verifier": {
+    "role": "independent_verifier",
+    "session": "cursor-cloud-agent-phase3-adaptive-batch-a-iv",
+    "method": "read_only_delta_assessment_runtime_replay_static_import_scan_targeted_tests"
+  },
+  "entry_gate": {
+    "phase2_cross_batch_integration": "PASS",
+    "phase2_cross_batch_integration_sha": "b57efc37",
+    "next_phase_allowed": "PHASE3",
+    "builder_evidence": "governance/launch57/PHASE3_ADAPTIVE_BATCH_A_EVIDENCE.json",
+    "pass": true
+  },
+  "repository_state": {
+    "audited_head_sha": "6cb1f997",
+    "implementation_delta_base": "b57efc37",
+    "implementation_delta_range": "b57efc37..94ec2855",
+    "product_files_changed": [
+      "launch57/trust_adaptive_common.py",
+      "launch57/decision_batch1.py"
+    ],
+    "phase2_product_files_unchanged": true,
+    "register_changed": false,
+    "pass": true
+  },
+  "capability_verification": {
+    "7": {
+      "launch_number": 7,
+      "P3A:#7": "PASS_ENGINEERING",
+      "governing_requirement": "Adaptive Spec §28 Level 1 + market-context semantics (no trade instruction)",
+      "checks": {
+        "context_only_true": true,
+        "standalone_trade_instruction_false": true,
+        "market_regime_derived_from_detect_market_regime_output": true,
+        "interpretation_scope_market_context_not_trade_signal": true,
+        "canonical_owner_preserved": "launch57.decision_batch1:market_regime_compass"
+      },
+      "consumer_path": "launch57/decision_batch1.py:market_regime_compass → detect_market_regime → build_market_context_disclosure",
+      "pass": true
+    },
+    "8": {
+      "launch_number": 8,
+      "P3A:#8": "PASS_ENGINEERING",
+      "governing_requirement": "Adaptive Spec §28 Level 1 + simplification without hiding material risk",
+      "checks": {
+        "material_risk_visible_true": true,
+        "risk_score_from_clear_answer_preserved": true,
+        "verdict_from_build_one_clear_answer_63_preserved": true,
+        "critical_limitation_on_elevated_risk": true,
+        "canonical_owner_preserved": "launch57.decision_batch1:beginner_decision_mode"
+      },
+      "consumer_path": "launch57/decision_batch1.py:beginner_decision_mode → build_one_clear_answer_63 → build_beginner_simplification_disclosure",
+      "pass": true
+    },
+    "9": {
+      "launch_number": 9,
+      "P3A:#9": "PASS_ENGINEERING",
+      "governing_requirement": "Adaptive Spec §28 Level 1 + dependence-aware confirmation",
+      "checks": {
+        "duplicated_evidence_not_independent": true,
+        "independent_confirmation_requires_unique_signal_types": true,
+        "price_change_from_spine_not_parallel_path": true,
+        "sentiment_from_fetch_asset_sentiment": true,
+        "level1_unconfirmed_when_not_independent": true,
+        "canonical_owner_preserved": "launch57.decision_batch1:cross_signal_confirmation"
+      },
+      "consumer_path": "launch57/decision_batch1.py:cross_signal_confirmation → fetch_asset_sentiment/registry_stats → build_dependence_aware_confirmation",
+      "pass": true
+    },
+    "10": {
+      "launch_number": 10,
+      "P3A:#10": "PASS_ENGINEERING",
+      "governing_requirement": "Adaptive Spec §28 Level 1 + explicit material contradiction impact",
+      "checks": {
+        "material_contradiction_explicit": true,
+        "decision_impact_wait_when_contradictions_present": true,
+        "level1_answer_state_reflects_decision_impact": true,
+        "critical_contradiction_wired_to_level1": true,
+        "not_disclosure_only": true,
+        "canonical_owner_preserved": "launch57.decision_batch1:contradiction_detection"
+      },
+      "consumer_path": "launch57/decision_batch1.py:contradiction_detection → sentiment/price contradiction logic → build_material_contradiction_impact",
+      "pass": true
+    },
+    "11": {
+      "launch_number": 11,
+      "P3A:#11": "PASS_ENGINEERING",
+      "governing_requirement": "Adaptive Spec §28 Level 1 + actionability without unsupported precision",
+      "checks": {
+        "qualitative_band_not_probability": true,
+        "unsupported_precision_blocked_true": true,
+        "actionability_not_trade_instruction": true,
+        "raw_score_present_with_band_guard": true,
+        "net_edge_gate_preserved_for_cost_claims": true,
+        "canonical_owner_preserved": "launch57.decision_batch1:smart_money_actionability_score"
+      },
+      "consumer_path": "launch57/decision_batch1.py:smart_money_actionability_score → get_latest_whale_alerts → build_actionability_disclosure",
+      "pass": true
+    }
+  },
+  "support_structure_verification": {
+    "module": "launch57.trust_adaptive_common",
+    "classification": "support_only_not_capability",
+    "batch_a_consumers": [
+      "launch57/decision_batch1.py"
+    ],
+    "batch_a_functions_added": [
+      "build_market_context_disclosure",
+      "build_beginner_simplification_disclosure",
+      "build_dependence_aware_confirmation",
+      "build_material_contradiction_impact",
+      "build_actionability_disclosure"
+    ],
+    "derives_from_canonical_inputs": true,
+    "competing_truth_owner": false,
+    "phase2_consumer_regression_passed": true,
+    "parked_legacy_runtime_dependencies": 0,
+    "pass": true
+  },
+  "phase2_regression_check": {
+    "shared_support_changed": "launch57/trust_adaptive_common.py",
+    "phase2_consumers_regressed": false,
+    "suites_run": [
+      "tests/launch57/test_phase2_adaptive_batch_a.py",
+      "tests/launch57/test_phase2_adaptive_batch_b.py",
+      "tests/launch57/test_trust_batch1.py",
+      "tests/launch57/test_trust_batch2.py"
+    ],
+    "pass": true
+  },
+  "targeted_tests": {
+    "command": "python3 -m pytest tests/launch57/test_phase3_adaptive_batch_a.py tests/launch57/test_decision_batch1.py tests/launch57/test_phase2_adaptive_batch_a.py tests/launch57/test_phase2_adaptive_batch_b.py tests/launch57/test_trust_batch1.py tests/launch57/test_trust_batch2.py -q",
+    "exit_code": 0,
+    "passed": 36,
+    "failed": 0,
+    "pass": true
+  },
+  "runtime_cross_batch_probes": {
+    "7_context_only": true,
+    "7_regime_from_output": true,
+    "8_material_risk_visible": true,
+    "8_verdict_preserved": true,
+    "9_dup_not_independent": true,
+    "9_price_from_spine": true,
+    "10_decision_impact_wait": true,
+    "10_level1_answer_wait": true,
+    "11_qualitative_band": true,
+    "11_precision_blocked": true,
+    "11_not_trade_instruction": true,
+    "pass": true
+  },
+  "verdicts": {
+    "P3A:#7": "PASS_ENGINEERING",
+    "P3A:#8": "PASS_ENGINEERING",
+    "P3A:#9": "PASS_ENGINEERING",
+    "P3A:#10": "PASS_ENGINEERING",
+    "P3A:#11": "PASS_ENGINEERING",
+    "PHASE3_BATCH_A_INDEPENDENT_VERDICT": "PASS_ENGINEERING"
+  },
+  "confirmations": {
+    "PHASE3_BATCH_B_NOT_STARTED": true,
+    "TEMPORAL_WORKSTREAM_REOPENED": false,
+    "PASS_LIVE_NOT_CLAIMED": true,
+    "REGISTER_STATUS_PROMOTION": false,
+    "PRODUCT_CODE_CHANGED_BY_IV": false
+  },
+  "residual_gaps": [],
+  "failed_requirement": null
+}

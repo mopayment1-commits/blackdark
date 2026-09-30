@@ -1,0 +1,53 @@
+{
+  "artifact": "PHASE6_BATCH1_EVIDENCE",
+  "phase": "6_EXPLANATION_AI",
+  "batch": 1,
+  "source_commit": "e8dd65bf",
+  "final_commit": "ab38c91a178ffd29f9ad185765d03639072815df",
+  "generated_at": "2026-09-16T22:25:03.516222+00:00",
+  "build_order": [
+    34,
+    35,
+    36,
+    51
+  ],
+  "handler_module": "launch57.explanation_ai_batch1",
+  "launch_items": {
+    "34": {
+      "ai_system_type": "RULE_BASED",
+      "cap_ids": [
+        "CAP-0025"
+      ],
+      "builder_status": "PENDING_VERIFICATION"
+    },
+    "35": {
+      "ai_system_type": "RULE_BASED",
+      "cap_ids": [
+        "CAP-0026"
+      ],
+      "builder_status": "PENDING_VERIFICATION"
+    },
+    "36": {
+      "ai_system_type": "STATISTICAL",
+      "cap_ids": [
+        "CAP-0024"
+      ],
+      "builder_status": "PENDING_VERIFICATION"
+    },
+    "51": {
+      "ai_system_type": "STATISTICAL",
+      "cap_ids": [
+        "CAP-0065",
+        "CAP-0100"
+      ],
+      "builder_status": "PENDING_VERIFICATION"
+    }
+  },
+  "legacy_bypass_debt": "LAUNCH57_EXPLANATION_AI_BATCH1_CAP_IDS empty → batch01_dedicated (24,25,26) + batch02_dedicated (65,100)",
+  "tests": {
+    "command": "python3 -m pytest tests/launch57/test_explanation_ai_batch1.py tests/launch57/test_explanation_ai_institutional_wire.py -q",
+    "exit_code": 0,
+    "stdout": ".........                                                                [100%]",
+    "passed": true
+  }
+}

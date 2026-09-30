@@ -14,6 +14,7 @@ _CANDIDATE_KEYS: tuple[str, ...] = (
     "POSTGRES_URL",
     "PGDATABASE_URL",
     "RAILWAY_DATABASE_URL",
+    "BLACKDARK_TEST_DATABASE_URL",
 )
 
 

@@ -27,14 +27,17 @@ def test_committed_artifacts_match_baseline():
 
 
 def test_commercial_launch_checklist():
-    from cap978.institutional_gate import CLOSURE_BASELINE, commercial_launch_checklist
+    from cap978.institutional_gate import canonical_external_registry_baseline, commercial_launch_checklist
 
     report = commercial_launch_checklist()
-    expected_total = CLOSURE_BASELINE["external_registry"]["total"]
+    expected_total = canonical_external_registry_baseline()["total"]
     assert report["internal_closure_complete"] is True
     assert report["commercial_launch_ready"] is False
     assert report["total_external_items"] == expected_total
-    assert report["p0_blockers"] >= 3
+    from cap978.external_registry import production_signed_capacity_closes_644
+
+    min_p0 = 2 if production_signed_capacity_closes_644() else 3
+    assert report["p0_blockers"] >= min_p0
     assert all(i["owner"] == "external" for i in report["items"])
 
 
@@ -62,15 +65,25 @@ async def test_institutional_gate_full(tmp_path, monkeypatch):
 
     monkeypatch.setattr(config, "DB_PATH", str(tmp_path / "gate_full.db"))
     monkeypatch.setenv("SERVICE_BUS_LOCAL", "true")
+    monkeypatch.setenv("BLACKDARK_CI_DETERMINISTIC_CLOSURE", "true")
     await database.init_db()
+
+    from cap978.institutional_gate import normalize_ci_gate_signed_capacity
+
+    normalize_ci_gate_signed_capacity()
 
     from cap978.closure import institutional_closure_978
     from cap978.institutional_gate import run_institutional_gate, validate_closure_invariants
 
-    closure = await institutional_closure_978()
+    closure = await institutional_closure_978(ci_deterministic=True)
     invariant_checks = validate_closure_invariants(closure)
     assert all(c["ok"] for c in invariant_checks), [c for c in invariant_checks if not c["ok"]]
 
-    report = await run_institutional_gate(sample=False, check_artifacts=True, include_commercial=False)
+    report = await run_institutional_gate(
+        sample=False,
+        check_artifacts=True,
+        include_commercial=False,
+        ci_deterministic=True,
+    )
     assert report["verdict"] == "PASS"
     assert report["closure_verdict"] == "INSTITUTIONAL_GATE_PASS"

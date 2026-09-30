@@ -141,7 +141,10 @@ def test_glass_box_challenge_pack():
     pack = build_glass_box_challenge_pack()
     assert pack["status"] == "ready_pack"
     assert "exact_datetime" in pack["launch_only_fields"]
-    assert "Prove it" in pack["challenge_text_en"]
+    text = pack["challenge_text_en"]
+    assert "Verify here" in text
+    assert "incorrect model states" in text
+    assert "Prove it" not in text
     assert pack["product_surfaces"]["public_accuracy_ledger"] == "/oracle-accuracy"
 
 

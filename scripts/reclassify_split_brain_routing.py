@@ -204,7 +204,7 @@ def _patch_checklist(ids: frozenset[int], rows_by_id: dict[int, dict]) -> int:
 
 def main() -> None:
     routing_ids = _load_routing_ids()
-    assert len(routing_ids) == 144, len(routing_ids)
+    assert len(routing_ids) == 144, len(routing_ids)  # nosec B101
     audit_data = json.loads(AUDIT_JSON.read_text(encoding="utf-8"))
     rows_by_id = {int(r["capability_id"]): r for r in audit_data["rows"]}
     ids = frozenset(routing_ids)

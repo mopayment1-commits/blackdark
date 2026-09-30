@@ -3,70 +3,41 @@ BLACKDARK — Limited public developer surface (evidence / read APIs).
 
 Full OpenAPI remains available for ops; public docs intentionally omit
 execution, billing webhooks, admin, and key-management write paths.
+
+Allowlist owner: anonymous_route_foundation (P0 canonical).
 """
 
 from __future__ import annotations
 
 from typing import Any
 
-# Sonar S1192: duplicated string literals
-PATH_API_TRUST_OS = '/api/trust-os'
-PATH_ORACLE_ACCURACY = '/oracle-accuracy'
-
-# Path prefixes allowed in the public developer OpenAPI.
-PUBLIC_PATH_PREFIXES: tuple[str, ...] = (
-    "/health/",
+from anonymous_route_foundation import (
+    ANONYMOUS_ROUTE_ALLOWLIST_PREFIXES,
     PATH_API_TRUST_OS,
-    "/api/strategy/",
-    "/api/intent/",
-    "/api/execution/",
-    "/api/acceptance/",
-    "/api/heroes/",
-    "/api/ledger/",
-    "/api/glass-box/",
-    "/api/audit-challenge",
-    "/api/accuracy/",
-    "/api/compliance/",
-    "/api/security/status",
-    "/api/security/external-review-readiness",
-    "/api/platform/production-readiness",
-    "/api/scale/",
-    "/api/viral/",
-    "/api/oracle/accuracy",
-    "/api/oracle/audit-chain",
-    "/api/oracle/half-life",
-    "/api/public/kill-rate",
-    "/api/public/miss-feed",
-    "/api/public/coverage-honesty",
-    "/api/public/brand-coverage-closure",
-    "/api/public/cso-priority-closure",
-    "/api/public/zero-tolerance-closure",
-    "/api/strategy/",
-    "/api/oracle/provenance-score",
-    "/api/emotion-tax/",
-    "/api/contradiction-replay",
-    "/api/proof-arena/",
-    "/api/since-you-left",
-    "/api/anti-hype/",
-    "/api/wow/",
-    "/api/due-diligence/evidence-pack/public-summary",
-    "/api/due-diligence/corpus-passport/public",
-    "/api/locked-predictions",
-    "/api/audience/",
-    "/api/alerts/generosity",
-    "/api/mev/sandwich-report",
-    "/api/fund/emerging-terminal",
-    "/api/auth/oauth/status",
-    "/oracle/",
+    PATH_ORACLE_ACCURACY,
+    path_is_public,
 )
+
+__all__ = [
+    "PUBLIC_PATH_PREFIXES",
+    "PUBLIC_PATH_EXACT",
+    "PATH_API_TRUST_OS",
+    "PATH_ORACLE_ACCURACY",
+    "path_is_public",
+    "filter_openapi_for_public",
+    "public_docs_manifest",
+]
+
+# Backward-compatible exports for existing imports.
+PUBLIC_PATH_PREFIXES: tuple[str, ...] = ANONYMOUS_ROUTE_ALLOWLIST_PREFIXES
 
 PUBLIC_PATH_EXACT: frozenset[str] = frozenset(
     {
         PATH_API_TRUST_OS,
         "/api/audit-challenge",
         "/api/security/status",
-    "/api/security/external-review-readiness",
-    "/api/platform/production-readiness",
+        "/api/security/external-review-readiness",
+        "/api/platform/production-readiness",
         "/api/scale/readiness",
         "/api/viral/readiness",
         "/health/viral",
@@ -96,12 +67,6 @@ PUBLIC_PATH_EXACT: frozenset[str] = frozenset(
         "/docs/public",
     }
 )
-
-
-def path_is_public(path: str) -> bool:
-    if path in PUBLIC_PATH_EXACT:
-        return True
-    return any(path.startswith(prefix) for prefix in PUBLIC_PATH_PREFIXES)
 
 
 def filter_openapi_for_public(schema: dict[str, Any]) -> dict[str, Any]:
@@ -140,7 +105,7 @@ def public_docs_manifest() -> dict[str, Any]:
         "html": "/docs",
         "openapi_json": "/api/docs/public-openapi.json",
         "full_openapi_ops": "/api/docs/openapi.json",
-        "allowed_prefixes": list(PUBLIC_PATH_PREFIXES),
+        "allowed_prefixes": list(ANONYMOUS_ROUTE_ALLOWLIST_PREFIXES),
         "primary_surfaces": [
             {"path": PATH_ORACLE_ACCURACY, "role": "Public Accuracy Ledger including misses"},
             {"path": "/errors", "role": "Alias → ledger misses section"},

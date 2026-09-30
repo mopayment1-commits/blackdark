@@ -1,0 +1,93 @@
+{
+  "artifact": "B6_TEMPORAL_IMPLEMENTATION_EVIDENCE",
+  "builder_session": "cursor-cloud-agent-b6-temporal-implementation",
+  "generated_at": "2026-09-17T14:48:00+00:00",
+  "base_sha": "ae267cac",
+  "implementation_commit": "3162af1e",
+  "B6_CANONICAL_SCOPE": {
+    "batch": "B6",
+    "launch_numbers": [5, 43],
+    "canonical_names": {
+      "5": "Net-Edge Truth Score (CAP-0639)",
+      "43": "Spot-Perp Arbitrage Scanner / Unified Arbitrage Engine (CAP-0230/0635)"
+    },
+    "governing_sources": [
+      "governance/launch57/LAUNCH57_TEMPORAL_EXECUTION_PLAN_B1_B15.md §9.3, §10",
+      "BLACKDARK_Launch57_Global_Time_Temporal_Consistency_FROM_SCRATCH_SPEC_66d6.md §15"
+    ]
+  },
+  "entry_gate": {
+    "B5_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+    "B5_VERIFIED_IV_SHA": "ae267cac",
+    "B5_IMPLEMENTATION_SHA": "37e2534d",
+    "B4_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+    "B1_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+    "B2_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+    "B3:#6": "PASS_ENGINEERING",
+    "B3_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+    "LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING": false,
+    "PASS_LIVE_NOT_CLAIMED": true,
+    "pass": true
+  },
+  "implementation_summary": {
+    "objective": "SPEC §15 net-edge/arbitrage timing for Launch #5 and #43; expired opportunities not presented as current",
+    "owners": {
+      "5": "launch57/trust_batch1.py:net_edge_truth_score",
+      "43": "launch57/edge_ui_batch1.py:spot_perp_arbitrage_scanner",
+      "temporal": "launch57/net_edge_timing_common.py",
+      "bridge": "launch57/b6_net_edge_bridge.py",
+      "isolation": "launch57/batch6_isolation.py"
+    },
+    "spec_fields_preserved": [
+      "quote_time",
+      "order_book_snapshot_time",
+      "funding_timestamp",
+      "transfer_estimate_time",
+      "detection_time",
+      "expected_execution_window",
+      "stale_threshold",
+      "presented_as_current"
+    ]
+  },
+  "changed_paths": [
+    "launch57/net_edge_timing_common.py",
+    "launch57/b6_net_edge_bridge.py",
+    "launch57/batch6_isolation.py",
+    "launch57/trust_batch1.py",
+    "launch57/edge_ui_batch1.py",
+    "tests/launch57/test_temporal_batch6.py",
+    "governance/launch57/B6_TEMPORAL_IMPLEMENTATION_EVIDENCE.json",
+    "governance/launch57/B6_TEMPORAL_IMPLEMENTATION_REPORT.md"
+  ],
+  "protected_state": {
+    "B1_INDEPENDENT_VERDICT": "PRESERVE_VERIFIED_STATE",
+    "B2_INDEPENDENT_VERDICT": "PRESERVE_VERIFIED_STATE",
+    "B3:#6": "PRESERVE_VERIFIED_STATE",
+    "B4_INDEPENDENT_VERDICT": "PRESERVE_VERIFIED_STATE",
+    "B5_INDEPENDENT_VERDICT": "PRESERVE_VERIFIED_STATE",
+    "frozen_owner_modules_unmodified": [
+      "launch57/temporal_common.py",
+      "launch57/evidence_class_common.py",
+      "launch57/freshness_common.py",
+      "launch57/provenance_common.py",
+      "launch57/point_in_time_common.py",
+      "launch57/decision_timing_common.py",
+      "launch57/public_accuracy_common.py"
+    ]
+  },
+  "B6:#5": "PENDING_VERIFICATION",
+  "B6:#43": "PENDING_VERIFICATION",
+  "B6_INDEPENDENT_VERDICT": "PENDING_VERIFICATION",
+  "B6_IMPLEMENTATION_STATUS": "PENDING_VERIFICATION",
+  "PASS_ENGINEERING_NOT_CLAIMED": true,
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "B7_NOT_STARTED": true,
+  "tests": {
+    "command": "python3 -m pytest tests/launch57/test_temporal_batch6.py tests/launch57/test_trust_batch1.py tests/launch57/test_edge_ui_batch1.py tests/launch57/test_temporal_batch5.py tests/launch57/test_temporal_batch4.py -q",
+    "exit_code": 0,
+    "passed": 43,
+    "failed": 0,
+    "pass": true
+  },
+  "next_permitted_action": "independent verification of B6 temporal implementation only"
+}

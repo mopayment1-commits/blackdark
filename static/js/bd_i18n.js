@@ -41,8 +41,17 @@
       } catch (error) {
         console.debug(error);
       }
-      document.cookie =
-        "bd_lang=" + encodeURIComponent(code) + ";path=/;max-age=31536000;SameSite=Lax";
+      if (
+        typeof window !== "undefined" &&
+        window.location &&
+        window.location.protocol === "https:"
+      ) {
+        document.cookie =
+          "__Host-bd_lang=" +
+          encodeURIComponent(code) +
+          ";path=/;max-age=31536000;SameSite=Lax;Secure";
+        document.cookie = "bd_lang=;path=/;max-age=0;SameSite=Lax;Secure";
+      }
       var url = new URL(window.location.href);
       url.searchParams.set("lang", code);
       window.location.href = url.toString();

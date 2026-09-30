@@ -11,26 +11,26 @@ def _landing() -> str:
     return (ROOT / "templates/landing.html").read_text(encoding="utf-8")
 
 
-def test_landing_utility_chrome_outside_collapsible_nav_links():
+def test_landing_uses_global_header_with_session_chrome():
     land = _landing()
-    assert "partials/top_utility.html" in land
-    # Language/Login must NOT sit only inside .nav-links (mobile hides that).
-    nav_links_block_start = land.find('<div class="nav-links">')
-    nav_links_block_end = land.find("</div>", nav_links_block_start)
-    block = land[nav_links_block_start:nav_links_block_end]
-    assert "top_utility" not in block
-    assert "lang_switcher" not in block
-    assert "nav-right" in land
-    assert "/* Hide lens marketing links only" in land or "NEVER hide Language" in land
+    assert "partials/global_header.html" in land
+    global_hdr = (ROOT / "templates/partials/global_header.html").read_text(encoding="utf-8")
+    assert "bd-global-header" in global_hdr
+    assert "bd-global-links" in global_hdr
+    assert "top_utility.html" in global_hdr
 
 
-def test_top_utility_has_lang_login_signup_pricing():
+def test_top_utility_has_anonymous_chrome_branches():
     util = (ROOT / "templates/partials/top_utility.html").read_text(encoding="utf-8")
     assert "lang_switcher.html" in util
     assert "/login" in util
     assert "/login?tab=register" in util
-    assert "/#pricing" in util
-    assert "bd-top-utility" in util
+    assert 'id="bdUtilPricing"' in util
+    assert "bd-header-util" in util
+    assert "header_authenticated" in util
+    assert "bd-tier-badge" in util
+    assert "/profile" in util
+    assert "bd-header-upgrade" not in util
 
 
 def test_lang_switcher_lists_twenty_five_locales():
@@ -67,40 +67,49 @@ def test_lang_switcher_lists_twenty_five_locales():
     assert "_locales" in sw
 
 
-def test_login_has_register_tab_and_top_chrome():
+def test_login_has_register_tab_and_global_header():
     login = (ROOT / "templates/login.html").read_text(encoding="utf-8")
-    assert 'id="tabRegister"' in login
-    assert "top_utility.html" in login
-    assert "login-chrome" in login
+    assert 'id="registerShell"' in login
+    assert "global_header.html" in login
+    assert 'class="login-main"' in login
+    assert 'class="auth-tabs"' in login
+    assert "bd-global-header .bd-header-util" in login
+    assert "login-chrome" not in login
     assert "doRegister" in login
     assert "accepted_terms" in login
 
 
 def test_profile_has_lang_billing_and_signup_gate():
     profile = (ROOT / "templates/profile.html").read_text(encoding="utf-8")
-    assert "top_utility.html" in profile
+    assert "global_header.html" in profile
     assert 'lang="{{ lang|default(\'en\') }}"' in profile or 'lang="{{ lang|default(' in profile
     assert "create-checkout-session?tier=pro" in profile
-    assert "create-checkout-session?tier=whale" in profile
-    assert "Decision Desk $49" in profile
+    assert "create-checkout-session?tier=elite" in profile
+    assert "SEE THE EDGE / ELITE $49.99" in profile
     assert "tab=register" in profile
     assert "billingReady" in profile
 
 
-def test_dashboard_and_accuracy_include_top_utility():
+def test_dashboard_and_accuracy_include_global_header():
     dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
     acc = (ROOT / "templates/oracle_accuracy.html").read_text(encoding="utf-8")
-    assert "top_utility.html" in dash
-    assert "top_utility.html" in acc
+    assert "global_header.html" in dash
+    assert "global_header.html" in acc
 
 
 def test_pricing_ladder_visible_on_landing():
     land = _landing()
-    assert "Decision Desk" in land
-    assert "$49" in land
-    assert "$29" in land
-    assert "pricing.from_open" in land or "From $3,000" in land or "3,000" in land
-    assert "Whale Desk" not in land
-    assert "$199" not in land
+    assert "pricing.decide_pro" in land
+    assert "pricing.see_edge_elite" in land
+    assert "pricing.execute_quant" in land
+    assert "pricing.scale_institutional" in land
+    assert "$19.99" in land
+    assert "$49.99" in land
+    assert "$129.99" in land
+    assert "pricing.from_open" in land or "From $999" in land
+    assert "Decision Desk" not in land
+    assert "$29" not in land
+    assert "3,000" not in land
+    assert "pricing.popular" in land
     assert "billingReadyLine" in land
     assert "/login?tab=register" in land

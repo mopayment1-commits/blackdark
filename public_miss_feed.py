@@ -15,6 +15,7 @@ from urllib.parse import quote
 async def build_public_miss_feed(*, limit: int = 40) -> dict[str, Any]:
     from database import fetch_labeled_oracle_predictions
     from kill_rate_board import build_kill_rate_board
+    from supplemental_public_compliance import map_public_decision_action
 
     rows = await fetch_labeled_oracle_predictions(limit=1200, include_synthetic=False)
     misses = [
@@ -31,7 +32,7 @@ async def build_public_miss_feed(*, limit: int = 40) -> dict[str, Any]:
     for r in misses[:limit]:
         pid = r.get("id") or r.get("prediction_id")
         asset = str(r.get("asset") or r.get("symbol") or "—").upper()
-        verdict = str(r.get("verdict") or r.get("action") or "—")
+        verdict = map_public_decision_action(str(r.get("verdict") or r.get("action") or ""))
         label = str(r.get("label") or "incorrect")
         ts = str(r.get("timestamp") or r.get("created_at") or r.get("resolved_at") or "")
         lesson = (
@@ -44,6 +45,7 @@ async def build_public_miss_feed(*, limit: int = 40) -> dict[str, Any]:
                 "prediction_id": pid,
                 "asset": asset,
                 "verdict": verdict,
+                "public_decision": verdict,
                 "label": label,
                 "score": r.get("opportunity_score") or r.get("score"),
                 "timestamp": ts,

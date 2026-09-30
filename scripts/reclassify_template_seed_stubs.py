@@ -50,7 +50,7 @@ STUBS_BY_BATCH: dict[int, list[int]] = {
 }
 
 ALL_STUBS = frozenset(i for ids in STUBS_BY_BATCH.values() for i in ids)
-assert len(ALL_STUBS) == 311, len(ALL_STUBS)
+assert len(ALL_STUBS) == 311, len(ALL_STUBS)  # nosec B101
 
 EVIDENCE_FILES = {
     3: ROOT / "data/hero_batch_03_201_300_evidence.jsonl",

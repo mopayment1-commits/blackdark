@@ -15,10 +15,15 @@ from datetime import UTC, datetime
 from typing import Any
 
 import aiohttp
+from urllib.parse import urlparse
+
+from path_safety import safe_url_segment
 
 logger = logging.getLogger("BLACKDARK.ArkhamConnector")
 
-BASE_URL = "https://api.arkm.com"
+ARKHAM_ALLOWED_HOST = "api.arkm.com"
+ARKHAM_HTTPS_ORIGIN = f"https://{ARKHAM_ALLOWED_HOST}"
+BASE_URL = ARKHAM_HTTPS_ORIGIN
 _CACHE: dict[str, tuple[float, Any]] = {}
 _RATE_LIMIT_UNTIL = 0.0
 _DEFAULT_TTL = int(os.getenv("ARKHAM_CACHE_TTL_SEC", "3600"))
@@ -60,17 +65,30 @@ def _cache_set(key: str, value: Any) -> None:
     _CACHE[key] = (time.time(), value)
 
 
-async def _api_get(path: str, *, params: dict[str, Any] | None = None) -> dict[str, Any] | None:
+def _assert_arkham_https_url(url: str) -> str:
+    parsed = urlparse(url)
+    if parsed.scheme != "https":
+        raise ValueError(f"Arkham API requires https, got {parsed.scheme!r}")
+    host = (parsed.hostname or "").lower()
+    if host != ARKHAM_ALLOWED_HOST:
+        raise ValueError(f"Arkham host not allowlisted: {host!r}")
+    return url
+
+
+async def _api_get(url: str, *, params: dict[str, Any] | None = None) -> dict[str, Any] | None:
     global _RATE_LIMIT_UNTIL
     key = _api_key()
     if not key or time.time() < _RATE_LIMIT_UNTIL:
         return None
+    try:
+        safe_url = _assert_arkham_https_url(url)
+    except ValueError:
+        return None
     headers = {**_HEADERS, "API-Key": key}
-    url = f"{BASE_URL}{path}"
     timeout = aiohttp.ClientTimeout(total=8)
     try:
         async with aiohttp.ClientSession(timeout=timeout, headers=headers) as session:
-            async with session.get(url, params=params) as resp:
+            async with session.get(safe_url, params=params) as resp:
                 if resp.status == 429:
                     _RATE_LIMIT_UNTIL = time.time() + 60
                     return None
@@ -128,10 +146,24 @@ async def fetch_entity_intelligence_input(
 
     api_data = None
     if address and _api_key():
-        api_data = await _api_get(f"/intelligence/address/{address}")
+        try:
+            addr_seg = safe_url_segment(str(address).strip())
+        except ValueError:
+            addr_seg = None
+        if addr_seg:
+            api_data = await _api_get(f"{ARKHAM_HTTPS_ORIGIN}/intelligence/address/{addr_seg}")
     elif _api_key():
-        query = _ENTITY_QUERIES.get(sym, sym.lower())
-        api_data = await _api_get("/intelligence/search", params={"query": query})
+        query = _ENTITY_QUERIES.get(sym)
+        if query is None:
+            try:
+                query = safe_url_segment(sym.lower())
+            except ValueError:
+                query = None
+        if query:
+            api_data = await _api_get(
+                f"{ARKHAM_HTTPS_ORIGIN}/intelligence/search",
+                params={"query": query},
+            )
 
     if api_data:
         entities = api_data.get("entities") or api_data.get("results") or []

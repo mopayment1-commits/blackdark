@@ -1,0 +1,22 @@
+{
+  "artifact": "PHASE4_BATCH1_EVIDENCE",
+  "phase": "4_SMART_MONEY_INSTANT",
+  "batch": 1,
+  "source_commit": "9adef8c0",
+  "final_commit": "bd9698cdbaaca381ea7e4c4661b1cc815836f4fa",
+  "generated_at": "2026-09-16T21:59:58.259503+00:00",
+  "build_order": [
+    20,
+    16,
+    17,
+    13,
+    14
+  ],
+  "handler_module": "launch57.smart_money_batch1",
+  "tests": {
+    "command": "python3 -m pytest tests/launch57/test_smart_money_batch1.py -q",
+    "exit_code": 0,
+    "stdout": ".....                                                                    [100%]",
+    "passed": true
+  }
+}

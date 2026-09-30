@@ -57,9 +57,14 @@ async def _sample_executions() -> list[dict[str, Any]]:
     return proofs
 
 
-async def build_evidence_room_snapshot(*, include_rows: bool = False, full_closure: bool = True) -> dict[str, Any]:
+async def build_evidence_room_snapshot(
+    *,
+    include_rows: bool = False,
+    full_closure: bool = True,
+    ci_deterministic: bool | None = None,
+) -> dict[str, Any]:
     if full_closure:
-        closure = await institutional_closure_978()
+        closure = await institutional_closure_978(ci_deterministic=ci_deterministic)
     else:
         from cap646.waves import WAVE_A, WAVE_B
 

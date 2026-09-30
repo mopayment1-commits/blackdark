@@ -160,16 +160,6 @@ def _vader_sentiment(text: str) -> float | None:
         return None
 
 
-def _textblob_sentiment(text: str) -> float | None:
-    try:
-        from textblob import TextBlob
-
-        polarity = float(TextBlob(text).sentiment.polarity)
-        return round(max(-1.0, min(1.0, polarity)), 4)
-    except Exception:
-        return None
-
-
 async def _llm_sentiment(text: str) -> float | None:
     if not config.SENTIMENT_LLM_FALLBACK:
         return None
@@ -218,7 +208,7 @@ async def _llm_sentiment(text: str) -> float | None:
 
 def analyze_sentiment_score(text: str) -> float:
     """
-    Score headline text on [-1.0, +1.0] using VADER, TextBlob, then rules.
+    Score headline text on [-1.0, +1.0] using VADER, then rules.
 
     For LLM fallback use analyze_sentiment_score_async().
     """
@@ -230,13 +220,9 @@ def analyze_sentiment_score_detailed(text: str) -> SentimentAnalysisResult:
     if not cleaned:
         return SentimentAnalysisResult(sentiment_score=0.0, analyzer="empty")
 
-    for analyzer_name, scorer in (
-        ("vader", _vader_sentiment),
-        ("textblob", _textblob_sentiment),
-    ):
-        score = scorer(cleaned)
-        if score is not None:
-            return SentimentAnalysisResult(sentiment_score=score, analyzer=analyzer_name)
+    score = _vader_sentiment(cleaned)
+    if score is not None:
+        return SentimentAnalysisResult(sentiment_score=score, analyzer="vader")
 
     rules_score = _rules_sentiment(cleaned)
     return SentimentAnalysisResult(sentiment_score=rules_score, analyzer="rules")
@@ -249,7 +235,6 @@ async def analyze_sentiment_score_async(text: str) -> SentimentAnalysisResult:
 
     for analyzer_name, scorer in (
         ("vader", _vader_sentiment),
-        ("textblob", _textblob_sentiment),
     ):
         score = scorer(cleaned)
         if score is not None:

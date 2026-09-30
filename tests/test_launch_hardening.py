@@ -151,9 +151,10 @@ def test_tv_webhook_uses_compare_digest():
 
 
 @pytest.fixture
-def clean_chain_tr(tmp_path, monkeypatch):
+def clean_chain_tr(monkeypatch):
     import oracle_audit_chain as chain
 
-    path = tmp_path / "chain.jsonl"
+    path = chain.isolated_chain_path_for_tests("launch_hardening")
+    path.unlink(missing_ok=True)
     monkeypatch.setattr(chain, "CHAIN_PATH", path)
     return path
