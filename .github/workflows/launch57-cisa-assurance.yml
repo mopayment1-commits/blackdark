@@ -21,6 +21,7 @@ jobs:
           python-version: "3.12"
       - run: pip install --require-hashes --only-binary=:all: -r requirements.hashes.txt
       - run: pip install --only-binary=:all: pip-audit==2.9.0
+      - run: python scripts/verify_launch57_repo_evidence.py
       - run: python scripts/collect_engineering_security_baseline.py
       - run: python scripts/validate_pentest_deposit_template.py
       - run: python scripts/generate_sbom.py

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import os
+from pathlib import Path
 
 import pytest
 from fastapi.testclient import TestClient
@@ -84,6 +85,28 @@ def test_launch57_closure_status_honest():
     report = launch57_closure_status()
     assert report["cisa_certification_claimed"] is False
     assert report["findings"]["pentest_attestation"]["status"] in {"OPEN", "CLOSED"}
+
+
+def test_cisa_repo_evidence_index_paths_exist():
+    from pathlib import Path
+    import subprocess
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    proc = subprocess.run(
+        [sys.executable, str(root / "scripts" / "verify_launch57_repo_evidence.py")],
+        cwd=root,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 0, proc.stderr or proc.stdout
+
+
+def test_pledge_execution_checklist_present():
+    path = Path(__file__).resolve().parents[1] / "docs/governance/SECURE_BY_DESIGN_PLEDGE_EXECUTION_CHECKLIST.md"
+    assert path.is_file()
+    text = path.read_text(encoding="utf-8")
+    assert "FINDING-01" in text
 
 
 def test_sbom_includes_git_commit_metadata():

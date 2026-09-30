@@ -17,7 +17,8 @@ def _run(script: str, *args: str) -> int:
 
 
 def main() -> int:
-    prod = (os.getenv("LAUNCH57_PROD_URL") or os.getenv("APP_BASE_URL") or "").strip()
+    # Only explicit prod URL — do not infer from APP_BASE_URL (avoids false prod checks in dev/CI).
+    prod = (os.getenv("LAUNCH57_PROD_URL") or "").strip()
     matrix: dict[str, dict] = {}
 
     matrix["engineering_baseline"] = {

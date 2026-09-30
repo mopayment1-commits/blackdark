@@ -37,7 +37,7 @@ def security_posture_public_summary() -> dict[str, Any]:
             "enterprise_sso": "oidc_when_configured",
             "dependency_scanning": "pip_audit_ci",
             "customer_security_logs": "export_api_180d_policy",
-            "vulnerability_disclosure": "/docs/security/VULNERABILITY_DISCLOSURE_POLICY.md",
+            "vulnerability_disclosure": "/api/security/vdp",
         },
         "honesty": {
             "soc2_claimed": False,
@@ -46,7 +46,8 @@ def security_posture_public_summary() -> dict[str, Any]:
             "note": "Engineering posture summary — not a certification.",
         },
         "detail_endpoint": "/api/security/status/detail",
-        "vdp": "/.well-known/security.txt",
+        "vdp": "/api/security/vdp",
+        "security_txt": "/.well-known/security.txt",
     }
 
 
