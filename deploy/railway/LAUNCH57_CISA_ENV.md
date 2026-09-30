@@ -17,6 +17,12 @@ Set on **web** service (production):
 ## Post-deploy verification
 
 ```bash
+# On Railway shell / production runtime (ENV=production):
+python scripts/verify_railway_launch57_env.py
+
 export LAUNCH57_PROD_URL=https://blackdark-production.up.railway.app
+python scripts/verify_launch57_prod_surface.py
 python scripts/launch57_ops_closure_gate.py
 ```
+
+Machine-readable checklist: `governance/launch57/RAILWAY_CISA_ENV_EXPECTATIONS.json`

@@ -6,6 +6,13 @@
 
 Apply `deploy/railway/LAUNCH57_CISA_ENV.md` on the web service.
 
+Validate on the running web service (read-only):
+
+```bash
+python scripts/verify_railway_launch57_env.py
+python scripts/verify_launch57_prod_surface.py   # needs LAUNCH57_PROD_URL
+```
+
 ## 2. Automated repo gate (CI / pre-merge)
 
 ```bash
@@ -26,6 +33,8 @@ Expected blockers until complete:
 | Blocker | Finding | Remediation |
 |---------|---------|-------------|
 | `security_txt_prod` | 14 | Serve `/.well-known/security.txt` on prod URL |
+| `prod_security_surface` | 13/14/16 | VDP + public status reachable on prod |
+| `railway_env` | 04/05/08/10 | Set vars per `RAILWAY_CISA_ENV_EXPECTATIONS.json` when `ENV=production` |
 | `waf_cdn` | 19 | `CDN_WAF_ACTIVE=1` + `deploy/cloudflare/waf-rules.json` deployed |
 | `pentest_attestation` | 18 | Independent test + `POST /api/institutional/pentest/deposit` |
 

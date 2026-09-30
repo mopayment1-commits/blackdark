@@ -37,3 +37,5 @@ terminals/
 .venv/
 venv/
 coverage.xml
+governance/launch57/evidence/*.cyclonedx.json
+governance/launch57/evidence/ENGINEERING_SECURITY_BASELINE.json

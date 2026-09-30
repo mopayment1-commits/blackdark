@@ -14,6 +14,13 @@
 | Supply chain | CycloneDX SBOM + git SHA binding |
 | Customer logging | 180-day policy + export API |
 
+## Engineering round 5 (Railway + prod surface + Syft CI)
+
+- `governance/launch57/RAILWAY_CISA_ENV_EXPECTATIONS.json` + `verify_railway_launch57_env.py`
+- `verify_launch57_prod_surface.py` — prod HTTP smoke (security.txt, VDP, status)
+- `generate_syft_lockfile_sbom.sh` — CI job `syft-prod-lock-sbom` (FINDING-11 supplement)
+- Ops gate matrix: `railway_env`, `prod_security_surface`
+
 ## Engineering round 4 (supply chain + closure playbook)
 
 - `webauthn` pinned in `requirements.lock.txt` / `requirements.hashes.txt` and prod requirements

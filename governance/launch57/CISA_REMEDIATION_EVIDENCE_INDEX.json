@@ -2,7 +2,7 @@
   "program": "LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
   "remediation_sha": "4d8222ac",
-  "phase": "PHASE_ROUND_4_LOCKFILE_PLEDGE_OPS_PLAYBOOK",
+  "phase": "PHASE_ROUND_5_RAILWAY_PROD_SBOM_CI",
   "findings": {
     "FINDING-01": {
       "status": "OPEN_EXECUTIVE",
@@ -28,7 +28,11 @@
     "FINDING-10": { "status": "CLOSED", "evidence": ["scripts/generate_sbom.py"] },
     "FINDING-11": {
       "status": "CLOSED_PARTIAL",
-      "evidence": ["docs/security/SBOM_SCOPE_STATEMENT.md", "scripts/generate_container_sbom.sh"],
+      "evidence": [
+        "docs/security/SBOM_SCOPE_STATEMENT.md",
+        "scripts/generate_container_sbom.sh",
+        "scripts/generate_syft_lockfile_sbom.sh"
+      ],
       "note": "Container SBOM when syft available in deploy pipeline"
     },
     "FINDING-12": { "status": "CLOSED", "evidence": ["docs/security/OPEN_SOURCE_GOVERNANCE.md"] },
@@ -67,5 +71,8 @@
   "ops_closure_gate": "scripts/launch57_ops_closure_gate.py",
   "ci_workflow": ".github/workflows/launch57-cisa-assurance.yml",
   "repo_evidence_gate": "scripts/verify_launch57_repo_evidence.py",
-  "ops_playbook": "docs/ops/LAUNCH57_FINAL_CLOSURE_PLAYBOOK.md"
+  "ops_playbook": "docs/ops/LAUNCH57_FINAL_CLOSURE_PLAYBOOK.md",
+  "railway_env_gate": "scripts/verify_railway_launch57_env.py",
+  "prod_surface_gate": "scripts/verify_launch57_prod_surface.py",
+  "railway_env_spec": "governance/launch57/RAILWAY_CISA_ENV_EXPECTATIONS.json"
 }

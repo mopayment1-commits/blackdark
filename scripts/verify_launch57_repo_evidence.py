@@ -37,12 +37,16 @@ def main() -> int:
             checked += 1
             if not path.is_file():
                 missing.append(f"{fid}: {rel}")
-    for rel in (
-        data.get("aggregate_api", ""),
-        data.get("ops_closure_gate", ""),
-        data.get("ci_workflow", ""),
-        data.get("evidence_index", ""),
-    ):
+    meta_keys = (
+        "ops_closure_gate",
+        "ci_workflow",
+        "repo_evidence_gate",
+        "ops_playbook",
+        "railway_env_gate",
+        "prod_surface_gate",
+        "railway_env_spec",
+    )
+    for rel in [data.get(k, "") for k in meta_keys]:
         if not rel or rel.startswith("GET "):
             continue
         path = ROOT / rel if "/" in rel else None

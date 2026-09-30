@@ -31,6 +31,21 @@ def main() -> int:
         "skipped": not bool(prod),
         "url": prod or None,
     }
+    railway_code = _run("verify_railway_launch57_env.py")
+    matrix["railway_env"] = {
+        "ok": railway_code == 0,
+        "skipped": railway_code == 3,
+        "exit_code": railway_code,
+    }
+    if prod:
+        surface_code = _run("verify_launch57_prod_surface.py", "--url", prod)
+        matrix["prod_security_surface"] = {
+            "ok": surface_code == 0,
+            "exit_code": surface_code,
+            "url": prod,
+        }
+    else:
+        matrix["prod_security_surface"] = {"ok": False, "skipped": True, "url": None}
     waf_code = _run("verify_edge_waf_cdn.py")
     matrix["waf_cdn"] = {"ok": waf_code == 0, "exit_code": waf_code}
     sys.path.insert(0, str(ROOT))
