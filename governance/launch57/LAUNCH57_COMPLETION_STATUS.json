@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-09-30T20:51:17.793637+00:00",
-  "git_commit": "8da51a0c9d49ad31fb939cbca9976a671495e298",
+  "generated_at": "2026-09-30T20:51:28.057757+00:00",
+  "git_commit": "95e08efaf630ff4af04ab52b975fd5e6ab41ed38",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
-  "remediation_sha": "220271e4",
+  "remediation_sha": "95e08efa",
   "phase": "PHASE_ROUND_31_FINDING18_19_ASSURANCE_LANES",
   "cisa_certification_claimed": false,
   "rollup": {

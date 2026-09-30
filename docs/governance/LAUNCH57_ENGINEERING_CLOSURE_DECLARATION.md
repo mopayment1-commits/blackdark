@@ -1,8 +1,8 @@
 # Launch-57 — Engineering closure declaration
 
-**Declared at:** 2026-09-30T20:51:17.768231+00:00  
-**Remediation SHA:** `220271e4`  
-**Git commit:** `8da51a0c9d49ad31fb939cbca9976a671495e298`
+**Declared at:** 2026-09-30T20:51:28.084601+00:00  
+**Remediation SHA:** `95e08efa`  
+**Git commit:** `95e08efaf630ff4af04ab52b975fd5e6ab41ed38`
 
 ## Statement
 

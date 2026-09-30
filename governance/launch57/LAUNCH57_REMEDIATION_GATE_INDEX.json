@@ -1,10 +1,10 @@
 {
   "schema": "launch57_remediation_gate_index_v1",
-  "generated_at": "2026-09-30T20:51:14.227583+00:00",
-  "git_commit": "8da51a0c9d49ad31fb939cbca9976a671495e298",
+  "generated_at": "2026-09-30T20:51:28.109707+00:00",
+  "git_commit": "95e08efaf630ff4af04ab52b975fd5e6ab41ed38",
   "authority": "docs/governance/LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION_PROGRAM.md",
   "phase": "PHASE_ROUND_31_FINDING18_19_ASSURANCE_LANES",
-  "remediation_sha": "220271e4",
+  "remediation_sha": "95e08efa",
   "cisa_certification_claimed": false,
   "program_complete": false,
   "gate_count": 44,
