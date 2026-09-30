@@ -1,7 +1,7 @@
 {
   "program": "LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
-  "remediation_sha": "c821b15f",
+  "remediation_sha": "5f0b3ed3",
   "phase": "PHASE_ROUND_7_OPS_ATTESTATION_RELEASE_SBOM",
   "findings": {
     "FINDING-01": {
