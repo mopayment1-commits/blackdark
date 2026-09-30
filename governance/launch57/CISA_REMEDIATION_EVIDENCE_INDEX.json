@@ -2,7 +2,7 @@
   "program": "LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
   "remediation_sha": "246e1924",
-  "phase": "PHASE_ROUND_10_ENGINEERING_CLOSURE_INVENTORY_LOCK",
+  "phase": "PHASE_ROUND_11_OPS_TRANSITION_ARTIFACT_FRESHNESS",
   "findings": {
     "FINDING-01": {
       "status": "OPEN_EXECUTIVE",
@@ -166,5 +166,8 @@
   "finding_inventory_gate": "scripts/verify_launch57_finding_inventory_lock.py",
   "engineering_closure_declaration_md": "docs/governance/LAUNCH57_ENGINEERING_CLOSURE_DECLARATION.md",
   "engineering_closure_json": "governance/launch57/LAUNCH57_ENGINEERING_CLOSURE.json",
-  "engineering_closure_generator": "scripts/generate_launch57_engineering_closure.py"
+  "engineering_closure_generator": "scripts/generate_launch57_engineering_closure.py",
+  "ops_finding_transition": "scripts/transition_launch57_finding_status.py",
+  "ops_finding_transition_runbook": "docs/ops/LAUNCH57_OPS_FINDING_TRANSITION_RUNBOOK.md",
+  "generated_artifacts_freshness_gate": "scripts/verify_launch57_generated_artifacts_fresh.py"
 }

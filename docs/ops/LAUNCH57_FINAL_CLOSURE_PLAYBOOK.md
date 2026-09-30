@@ -64,3 +64,7 @@ python scripts/launch57_closure_report.py --write   # optional local artifact (g
 ```
 
 See `governance/launch57/LAUNCH57_OPEN_FINDINGS_REGISTER.md` for remaining IDs.
+
+## 8. Close individual findings (verified only)
+
+`docs/ops/LAUNCH57_OPS_FINDING_TRANSITION_RUNBOOK.md` — `transition_launch57_finding_status.py`

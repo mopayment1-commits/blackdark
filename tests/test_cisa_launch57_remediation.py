@@ -164,6 +164,49 @@ def test_launch57_closure_report_marks_runtime_open():
     assert "cisa_certification_claimed" in proc.stdout
 
 
+def test_transition_rejects_fake_pentest_close():
+    import subprocess
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    proc = subprocess.run(
+        [
+            sys.executable,
+            str(root / "scripts" / "transition_launch57_finding_status.py"),
+            "--finding",
+            "FINDING-18",
+        ],
+        cwd=root,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 2
+
+
+def test_generated_artifacts_freshness_gate():
+    import subprocess
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    subprocess.run(
+        [sys.executable, str(root / "scripts" / "generate_launch57_completion_status.py")],
+        cwd=root,
+        check=True,
+    )
+    subprocess.run(
+        [sys.executable, str(root / "scripts" / "generate_launch57_engineering_closure.py")],
+        cwd=root,
+        check=True,
+    )
+    proc = subprocess.run(
+        [sys.executable, str(root / "scripts" / "verify_launch57_generated_artifacts_fresh.py")],
+        cwd=root,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 0, proc.stderr or proc.stdout
+
+
 def test_finding_inventory_lock_matches_index():
     import subprocess
     import sys

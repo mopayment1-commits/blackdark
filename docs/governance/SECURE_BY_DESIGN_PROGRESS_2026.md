@@ -14,6 +14,12 @@
 | Supply chain | CycloneDX SBOM + git SHA binding |
 | Customer logging | 180-day policy + export API |
 
+## Engineering round 11 (ops transition tool + artifact freshness)
+
+- `transition_launch57_finding_status.py` — verified CLOSED transitions only (no fake pentest)
+- `verify_launch57_generated_artifacts_fresh.py` — remediation_sha sync in CI
+- `LAUNCH57_OPS_FINDING_TRANSITION_RUNBOOK.md`
+
 ## Engineering round 10 (engineering closure declaration + inventory lock)
 
 - `FINDING_INVENTORY_LOCK.json` + `verify_launch57_finding_inventory_lock.py` (CI gate)

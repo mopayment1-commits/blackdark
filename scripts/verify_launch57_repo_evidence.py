@@ -59,6 +59,9 @@ def main() -> int:
         "engineering_closure_declaration_md",
         "engineering_closure_json",
         "engineering_closure_generator",
+        "ops_finding_transition",
+        "ops_finding_transition_runbook",
+        "generated_artifacts_freshness_gate",
     )
     for rel in [data.get(k, "") for k in meta_keys]:
         if not rel or rel.startswith("GET "):
