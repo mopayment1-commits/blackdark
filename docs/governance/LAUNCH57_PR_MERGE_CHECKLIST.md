@@ -28,4 +28,5 @@ Use before merging Launch-57 / CISA remediation work to `main`.
 - [ ] Reviewer confirmed `LAUNCH57_REMEDIATION_COMPLETION_STATUS.md` rollup is accurate
 - [ ] Authenticated API `GET /api/security/launch57-closure-status` shows `program_complete: false` until ops closed
 - [ ] `python scripts/verify_launch57_merge_readiness.py` → `safe_to_merge_engineering: true`
+- [ ] `python scripts/verify_launch57_pr_merge_checklist_gates.py` passes (automated checklist bundle)
 - [ ] Post-merge plan: `docs/ops/LAUNCH57_POST_MERGE_OPS.md`

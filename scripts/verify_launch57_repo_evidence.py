@@ -107,6 +107,13 @@ def main() -> int:
         "ci_assurance_manifest_gate",
         "engineering_verification_suite",
         "round_21_ci_manifest_ar",
+        "evidence_index_schema",
+        "evidence_index_schema_gate",
+        "pr_merge_checklist_gates",
+        "open_findings_register_generator",
+        "engineering_handoff",
+        "engineering_handoff_gate",
+        "round_22_handoff_ar",
         "program_authority",
     )
     for rel in [data.get(k, "") for k in meta_keys]:

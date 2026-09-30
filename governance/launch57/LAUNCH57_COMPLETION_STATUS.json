@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-09-30T15:04:06.222133+00:00",
-  "git_commit": "a8c906efe6899ca94876a8da3f40b7ac07b73df0",
+  "generated_at": "2026-09-30T15:05:40.444410+00:00",
+  "git_commit": "cedb095e2c488204ca544bad686a733b470d39a8",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
   "remediation_sha": "a8c906ef",
-  "phase": "PHASE_ROUND_21_CI_ASSURANCE_MANIFEST",
+  "phase": "PHASE_ROUND_22_EVIDENCE_INDEX_SCHEMA_HANDOFF",
   "cisa_certification_claimed": false,
   "rollup": {
     "counts_by_status": {

@@ -1,13 +1,13 @@
 {
   "schema": "launch57_remediation_gate_index_v1",
-  "generated_at": "2026-09-30T15:04:06.193295+00:00",
-  "git_commit": "a8c906efe6899ca94876a8da3f40b7ac07b73df0",
+  "generated_at": "2026-09-30T15:05:37.340657+00:00",
+  "git_commit": "cedb095e2c488204ca544bad686a733b470d39a8",
   "authority": "docs/governance/LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION_PROGRAM.md",
-  "phase": "PHASE_ROUND_21_CI_ASSURANCE_MANIFEST",
+  "phase": "PHASE_ROUND_22_EVIDENCE_INDEX_SCHEMA_HANDOFF",
   "remediation_sha": "a8c906ef",
   "cisa_certification_claimed": false,
   "program_complete": false,
-  "gate_count": 30,
+  "gate_count": 32,
   "gates": [
     {
       "id": "ci_assurance_manifest_gate",
@@ -15,8 +15,18 @@
       "kind": "script"
     },
     {
+      "id": "engineering_handoff_gate",
+      "path": "scripts/verify_launch57_engineering_handoff.py",
+      "kind": "script"
+    },
+    {
       "id": "evidence_class_register_gate",
       "path": "scripts/verify_launch57_evidence_class_register.py",
+      "kind": "script"
+    },
+    {
+      "id": "evidence_index_schema_gate",
+      "path": "scripts/verify_launch57_evidence_index_schema.py",
       "kind": "script"
     },
     {

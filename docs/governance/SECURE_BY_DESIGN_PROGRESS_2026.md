@@ -14,6 +14,13 @@
 | Supply chain | CycloneDX SBOM + git SHA binding |
 | Customer logging | 180-day policy + export API |
 
+## Engineering round 22 (§9 index schema + PR checklist gates + engineering handoff)
+
+- `LAUNCH57_EVIDENCE_INDEX_SCHEMA.json` + `verify_launch57_evidence_index_schema.py`
+- `verify_launch57_pr_merge_checklist_gates.py` + `generate_launch57_open_findings_register.py`
+- `LAUNCH57_ENGINEERING_HANDOFF.json` + `verify_launch57_engineering_handoff.py`
+- `LAUNCH57_ROUND_22_HANDOFF_AR.md`
+
 ## Engineering round 21 (CI E-TEST manifest + engineering verification suite)
 
 - `LAUNCH57_CI_ASSURANCE_MANIFEST.json` + `verify_launch57_ci_assurance_manifest.py` (§3.2 / workflow parity)
