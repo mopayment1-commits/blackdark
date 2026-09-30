@@ -1030,6 +1030,9 @@ try:
     from api.routers.audit import router as audit_router
 
     app.include_router(audit_router)
+    from api.routers.customer_security import router as customer_security_router
+
+    app.include_router(customer_security_router)
 except Exception:
     logger.exception("Audit registry router unavailable")
 
@@ -4638,9 +4641,29 @@ async def api_security_events(
     }
 
 
+@app.get("/.well-known/security.txt", include_in_schema=False)
+async def well_known_security_txt():
+    from pathlib import Path
+
+    from fastapi.responses import FileResponse
+
+    path = Path(__file__).resolve().parent / "static" / ".well-known" / "security.txt"
+    if not path.is_file():
+        raise HTTPException(status_code=404, detail="security.txt not configured")
+    return FileResponse(path, media_type="text/plain; charset=utf-8")
+
+
 @app.get("/api/security/status")
 async def api_security_status():
     """Public security posture summary for due diligence (not a certification)."""
+    from security_posture import security_posture_public_summary
+
+    return security_posture_public_summary()
+
+
+@app.get("/api/security/status/detail")
+async def api_security_status_detail(_user: dict = Depends(require_authenticated)):
+    """Authenticated detailed posture (implementation evidence)."""
     from postgres_backend import use_postgres
     from security_auth import login_rate_limit_backend
     from security_posture import security_posture_report

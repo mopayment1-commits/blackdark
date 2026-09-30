@@ -1,0 +1,29 @@
+{
+  "program": "LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION",
+  "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
+  "remediation_sha": "pending-push",
+  "inventory_reference": "Launch-57 Problem Inventory FINDING-01..19",
+  "normative_framework": "docs/governance/LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION_PROGRAM.md",
+  "phase": "EXECUTION_COMPLETE_ENGINEERING",
+  "findings": {
+    "FINDING-01": { "status": "CLOSED_ENGINEERING", "priority": "P2", "note": "Pledge status doc; executive signature external", "evidence": ["docs/governance/SECURE_BY_DESIGN_PLEDGE_STATUS.md"] },
+    "FINDING-02": { "status": "CLOSED", "priority": "P1", "evidence": ["docs/security/SECURITY_UPDATE_POLICY.md", ".github/workflows/security.yml"] },
+    "FINDING-03": { "status": "CLOSED", "priority": "P1", "evidence": ["anonymous_route_foundation.py", "docs/security/COMMERCIAL_SECURITY_FEATURES.md", "billing/plan_registry.py"] },
+    "FINDING-04": { "status": "CLOSED", "priority": "P1", "evidence": ["user_mfa_policy.py", "deploy/k8s/web-deployment.yaml", "SECURITY.md"] },
+    "FINDING-05": { "status": "CLOSED_PARTIAL", "priority": "P1", "note": "TOTP enroll required; WebAuthn roadmap doc", "evidence": ["docs/security/WEBAUTHN_IMPLEMENTATION.md", "user_mfa_policy.py"] },
+    "FINDING-06": { "status": "CLOSED_PARTIAL", "priority": "P1", "note": "Roadmap+inventory; ongoing regression tests", "evidence": ["docs/security/XSS_SINK_INVENTORY.md", "tests/test_xss_sink_hardening.py"] },
+    "FINDING-07": { "status": "CLOSED", "priority": "P1", "evidence": ["docs/security/VULNERABILITY_CLASS_ELIMINATION_ROADMAP.md"] },
+    "FINDING-08": { "status": "CLOSED", "priority": "P0", "evidence": ["security_events.py", "docs/security/CUSTOMER_SECURITY_LOG_POLICY.md"] },
+    "FINDING-09": { "status": "CLOSED", "priority": "P0", "evidence": ["api/routers/customer_security.py", "customer_security_log_service.py"] },
+    "FINDING-10": { "status": "CLOSED", "priority": "P1", "evidence": ["scripts/generate_sbom.py", "docs/data-room/sbom/cyclonedx-python.json"] },
+    "FINDING-11": { "status": "CLOSED_PARTIAL", "priority": "P1", "note": "Python SBOM + scope statement for container gap", "evidence": ["docs/security/SBOM_SCOPE_STATEMENT.md"] },
+    "FINDING-12": { "status": "CLOSED", "priority": "P1", "evidence": ["docs/security/OPEN_SOURCE_GOVERNANCE.md"] },
+    "FINDING-13": { "status": "CLOSED", "priority": "P0", "evidence": ["docs/security/VULNERABILITY_DISCLOSURE_POLICY.md", "SECURITY.md"] },
+    "FINDING-14": { "status": "CLOSED_REPO", "priority": "P0", "note": "Production curl required at deploy", "evidence": ["static/.well-known/security.txt", "dashboard.py route"] },
+    "FINDING-15": { "status": "CLOSED", "priority": "P0", "evidence": ["docs/security/PRODUCT_SECURITY_ADVISORY_PROCESS.md", "docs/security/advisories/DRYRUN-2026-09-30-process-validation.md"] },
+    "FINDING-16": { "status": "CLOSED", "priority": "P2", "evidence": ["security_posture.py", "dashboard.py /api/security/status/detail"] },
+    "FINDING-17": { "status": "CLOSED", "priority": "P2", "evidence": ["anonymous_route_foundation.py", "tests/test_cisa_launch57_remediation.py"] },
+    "FINDING-18": { "status": "OPEN", "priority": "P2", "note": "Requires external pentest E-OPS", "evidence": ["docs/templates/pentest_scope.md"] },
+    "FINDING-19": { "status": "OPEN", "priority": "P2", "note": "Requires CDN_WAF_ACTIVE E-OPS", "evidence": ["docs/CDN_WAF_CHECKLIST.md"] }
+  }
+}

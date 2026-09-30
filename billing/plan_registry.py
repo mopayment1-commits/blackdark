@@ -113,6 +113,11 @@ PLAN_DEFINITIONS: dict[str, dict[str, Any]] = {
         "price_usd_month_from": 999.0,
         "price_display": "From $999/mo",
         "price_note": "Talk to us — not self-serve checkout",
+        "security_features_included": {
+            "enterprise_oidc_sso": True,
+            "sso_sold_as_separate_addon": False,
+            "reference": "docs/security/COMMERCIAL_SECURITY_FEATURES.md",
+        },
         "self_serve": False,
         "trial_days": 0,
         "popular": False,

@@ -1,10 +1,10 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "serialNumber": "urn:uuid:dde6c324-d0cc-4183-ad1d-5027dfa74ae8",
+  "serialNumber": "urn:uuid:86c24937-2e40-4b49-bf12-691cb7f1bbdf",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-09-14T23:57:36Z",
+    "timestamp": "2026-09-30T11:50:06Z",
     "tools": {
       "components": [
         {
@@ -17,8 +17,8 @@
     "component": {
       "type": "application",
       "name": "blackdark",
-      "version": "rc2",
-      "description": "Generated from requirements.lock.txt sha256=b07a90c5366847da88ea624151ca1587a33a486522aef64dc62a6b6be413c3e8"
+      "version": "launch-57",
+      "description": "Generated from requirements.lock.txt sha256=17322143c23b55dfa3ba4e6f86d34fde832af0d53978cd293ecaa00ba48f8fb9 git=362ebc39ce60a2e61276fbe8bc4f7f6c8e458863"
     },
     "properties": [
       {
@@ -27,7 +27,15 @@
       },
       {
         "name": "blackdark:lockfile_sha256",
-        "value": "b07a90c5366847da88ea624151ca1587a33a486522aef64dc62a6b6be413c3e8"
+        "value": "17322143c23b55dfa3ba4e6f86d34fde832af0d53978cd293ecaa00ba48f8fb9"
+      },
+      {
+        "name": "blackdark:release",
+        "value": "launch-57"
+      },
+      {
+        "name": "blackdark:git_commit",
+        "value": "362ebc39ce60a2e61276fbe8bc4f7f6c8e458863"
       }
     ]
   },
@@ -125,13 +133,6 @@
     },
     {
       "type": "library",
-      "bom-ref": "pkg:pypi/textblob@0.19.0",
-      "name": "textblob",
-      "version": "0.19.0",
-      "purl": "pkg:pypi/textblob@0.19.0"
-    },
-    {
-      "type": "library",
       "bom-ref": "pkg:pypi/stripe@11.6.0",
       "name": "stripe",
       "version": "11.6.0",
@@ -171,6 +172,13 @@
       "name": "cryptography",
       "version": "50.0.0",
       "purl": "pkg:pypi/cryptography@50.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/defusedxml@0.7.1",
+      "name": "defusedxml",
+      "version": "0.7.1",
+      "purl": "pkg:pypi/defusedxml@0.7.1"
     },
     {
       "type": "library",

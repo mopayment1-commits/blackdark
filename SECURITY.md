@@ -13,7 +13,7 @@ This document describes **engineering controls**. It is **not** a SOC2/ISO 27001
 | Passwords | PBKDF2-SHA256, 260,000 iterations |
 | Sessions | SHA-256 hashed tokens + pepper at rest; login revokes prior sessions |
 | Cookies | `bd_token` HttpOnly + SameSite=Lax + Secure (prod/HTTPS) |
-| MFA | Optional TOTP (`/api/auth/mfa/*`) |
+| MFA | TOTP (`/api/auth/mfa/*`); **enrollment required in production** when `USER_MFA_ENROLL_REQUIRED=true` (Launch-57 default) |
 | OAuth | Optional Google/GitHub when client IDs configured |
 | Execution API | Whale tier + Bearer/cookie required |
 | Admin API | `X-Admin-Key` header OR `ADMIN_EMAILS` |
@@ -64,13 +64,30 @@ Soft Launch (`SOFT_LAUNCH=true`) is **demo-only** and must not enable `LIVE_EXEC
 3. Invalidate all sessions: truncate `user_sessions`
 4. Review `maintenance_runs` and `execution_logs`
 
-## Reporting
+## Reporting & vulnerability disclosure
 
-Security issues: contact repository owner privately before public disclosure.
+- **Public VDP:** [Vulnerability Disclosure Policy](docs/security/VULNERABILITY_DISCLOSURE_POLICY.md)
+- **security.txt:** `/.well-known/security.txt` (RFC 9116)
+- Product advisories: `docs/security/PRODUCT_SECURITY_ADVISORY_PROCESS.md`
+
+## Customer security logs
+
+- Policy: `docs/security/CUSTOMER_SECURITY_LOG_POLICY.md` (≥180 day retention)
+- Export: `GET /api/security/customer-logs/export` (authenticated)
+- Commercial: `docs/security/COMMERCIAL_SECURITY_FEATURES.md` (SSO not sold as separate add-on)
+
+## Security updates
+
+- `docs/security/SECURITY_UPDATE_POLICY.md` — severity SLAs, KEV, supported versions
+
+## Open source governance
+
+- `docs/security/OPEN_SOURCE_GOVERNANCE.md`
 
 ## Due Diligence Endpoints
 
-- `GET /api/security/status` — live posture summary (includes honesty + residual risks)
+- `GET /api/security/status` — **public** minimal attestations (not a certification)
+- `GET /api/security/status/detail` — detailed posture (authenticated)
 - `GET /api/security/events` — admin security event log (requires admin + MFA when enforced)
 - Max engineering gate: `python scripts/security_max_audit.py`
 - Playbooks: `docs/SECURITY_HARDENING.md` · `docs/SECURITY_MAX_CHECKLIST.md` · `docs/CDN_WAF_CHECKLIST.md`

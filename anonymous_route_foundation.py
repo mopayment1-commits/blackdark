@@ -66,6 +66,7 @@ INFRASTRUCTURE_EXACT: frozenset[str] = frozenset(
         "/health/viral",
         "/metrics",
         "/api/build-info",
+        "/.well-known/security.txt",
     }
 )
 
@@ -90,6 +91,9 @@ AUTH_FLOW_EXACT: frozenset[str] = frozenset(
         "/api/auth/resend-verification",
         "/api/auth/forgot-username",
         "/api/auth/mfa/complete",
+        "/api/institutional/sso/status",
+        "/api/institutional/sso/authorize",
+        "/api/institutional/sso/callback",
         "/api/auth/oauth/status",
         "/api/i18n/locales",
         "/api/i18n/catalog",
@@ -425,7 +429,9 @@ def enforce_anonymous_route_boundary(request: Request) -> Response | None:
     method = request.method or "GET"
     if is_anonymous_route_allowed(method, path):
         return None
-    return JSONResponse(
+    from security_middleware import security_headers_for
+
+    resp = JSONResponse(
         status_code=401,
         content={
             "detail": "Anonymous access denied",
@@ -435,6 +441,10 @@ def enforce_anonymous_route_boundary(request: Request) -> Response | None:
         },
         headers={"X-Blackdark-Auth-Boundary": "anonymous-denied"},
     )
+    for key, value in security_headers_for(request).items():
+        resp.headers.setdefault(key, value)
+    resp.headers.setdefault("X-Security-Hardening", "1")
+    return resp
 
 
 def build_route_inventory(app: Any) -> list[dict[str, Any]]:

@@ -212,10 +212,14 @@ async def optional_user_from_request(
 
 
 def require_authenticated(
+    request: Request,
     user: Annotated[dict | None, Depends(optional_user_from_request)],
 ) -> dict:
     if user is None:
         raise HTTPException(status_code=401, detail="Authentication required")
+    from user_mfa_policy import assert_user_mfa_enrollment
+
+    assert_user_mfa_enrollment(user, request.url.path or "")
     return user
 
 
