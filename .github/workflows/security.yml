@@ -31,6 +31,31 @@ jobs:
       # Audit the hash-locked tree used by CI (Sonar S8541 / S8544).
       - run: "pip-audit -r requirements.hashes.txt --desc"
 
+  trivy-pip-lock:
+    name: trivy-pip-lock
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Trivy pip lock config (requirements.hashes.txt only)
+        run: |
+          cat > .trivy-pip-ci.yaml <<'EOF'
+          scan:
+            file-patterns:
+              - "pip:requirements\\.hashes\\.txt"
+          EOF
+      - name: Trivy fs pip lock (HIGH/CRITICAL)
+        uses: aquasecurity/trivy-action@a9c7b0f06e461e9d4b4d1711f154ee024b8d7ab8 # v0.36.0
+        with:
+          scan-type: fs
+          scan-ref: .
+          scanners: vuln
+          vuln-type: library
+          severity: HIGH,CRITICAL
+          exit-code: "1"
+          trivy-config: .trivy-pip-ci.yaml
+
   pytest-security:
     name: pytest-security
     runs-on: ubuntu-latest
