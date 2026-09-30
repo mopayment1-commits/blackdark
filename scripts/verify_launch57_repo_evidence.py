@@ -142,6 +142,10 @@ def main() -> int:
         "finding_11_sec_lead_approval_recorder",
         "finding_11_transition_preflight",
         "round_29_finding11_sbom_ar",
+        "finding_14_security_txt_closure_lane",
+        "finding_14_security_txt_closure_lane_gate",
+        "finding_14_transition_preflight",
+        "round_30_finding14_security_txt_ar",
         "program_authority",
     )
     for rel in [data.get(k, "") for k in meta_keys]:

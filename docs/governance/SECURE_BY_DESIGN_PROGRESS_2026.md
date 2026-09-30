@@ -14,6 +14,11 @@
 | Supply chain | CycloneDX SBOM + git SHA binding |
 | Customer logging | 180-day policy + export API |
 
+## Engineering round 30 (FINDING-14 security.txt / RFC-9116 closure lane)
+
+- `LAUNCH57_FINDING_14_SECURITY_TXT_CLOSURE_LANE.json` + verifier + transition preflight
+- `LAUNCH57_ROUND_30_FINDING14_SECURITY_TXT_AR.md`
+
 ## Engineering round 29 (FINDING-11 SBOM closure lane)
 
 - `LAUNCH57_FINDING_11_SBOM_CLOSURE_LANE.json` + `verify_launch57_finding11_sbom_closure_lane.py`

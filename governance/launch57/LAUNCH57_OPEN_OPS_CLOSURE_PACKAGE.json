@@ -38,6 +38,8 @@
       "closure_requires": "record_launch57_security_txt_prod_verification.py + transition_launch57_finding_status.py --finding FINDING-14 --apply",
       "operator_scripts": [
         "scripts/verify_well_known_security_txt.py",
+        "scripts/verify_launch57_finding14_security_txt_closure_lane.py",
+        "scripts/preflight_launch57_finding14_transition.py",
         "scripts/record_launch57_security_txt_prod_verification.py",
         "scripts/transition_launch57_finding_status.py"
       ],

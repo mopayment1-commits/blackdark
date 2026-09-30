@@ -1,0 +1,27 @@
+{
+  "schema": "launch57_finding_14_security_txt_closure_lane_v1",
+  "authority": "docs/governance/LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION_PROGRAM.md",
+  "program_sections": ["§2 RFC-9116", "§6 FINDING-14", "L57-P1-WP3"],
+  "normative": ["RFC-9116", "CISA-SBD"],
+  "finding_id": "FINDING-14",
+  "current_index_status": "CLOSED_REPO",
+  "cisa_certification_claimed": false,
+  "program_complete": false,
+  "repo_artifacts": {
+    "security_txt_static": "static/.well-known/security.txt",
+    "verify_script": "scripts/verify_well_known_security_txt.py",
+    "prod_recorder": "scripts/record_launch57_security_txt_prod_verification.py"
+  },
+  "acceptance_program_ref": "§6 FINDING-14 Acceptance — Contact + Policy + Expires future on production URL",
+  "closure_requires_index": "record_launch57_security_txt_prod_verification.py + transition_launch57_finding_status.py --finding FINDING-14 --apply",
+  "environment": {
+    "prod_url_var": "LAUNCH57_PROD_URL"
+  },
+  "evidence_dir_gitignored": "governance/launch57/evidence/FINDING-14",
+  "transition": {
+    "script": "scripts/transition_launch57_finding_status.py",
+    "apply_flag": "--apply",
+    "preflight": "scripts/preflight_launch57_finding14_transition.py"
+  },
+  "repo_gate": "scripts/verify_launch57_finding14_security_txt_closure_lane.py"
+}
