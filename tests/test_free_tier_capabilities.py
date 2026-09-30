@@ -28,7 +28,7 @@ async def test_free_tier_execute(capability_id: int):
         capability_id,
         params={
             "symbol": "BTC",
-            "address": "0x000000000000000000000000000000000000dead",
+            "address": "0xdead",
             "tier": "whale",
         },
     )

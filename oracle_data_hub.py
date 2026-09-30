@@ -584,16 +584,13 @@ def _llm_synthesis_prompt(
     summary: str,
     hub_context: dict[str, Any],
 ) -> str:
-    macro = hub_context.get("macro") or {}
-    sentiment = hub_context.get("sentiment") or {}
-    geo = hub_context.get("geo_news") or {}
-    return (
-        "You are a crypto oracle. Return ONE sentence starting with 'Buy Now' or 'Do Not Touch', "
-        "then em dash, then reason. Consider war/peace news, macro, fear/greed, derivatives.\n"
-        f"Asset={asset}, score={opportunity_score}, summary={summary}\n"
-        f"Macro regime={macro.get('macro_regime_proxy')}, "
-        f"FearGreed={sentiment.get('fear_greed_index')}, "
-        f"Geo headlines={geo.get('geopolitical_headline_count')}"
+    from financial_data.boundary import build_llm_prompt_text
+
+    return build_llm_prompt_text(
+        asset=asset,
+        opportunity_score=opportunity_score,
+        summary=summary,
+        hub_context=hub_context,
     )
 
 
@@ -624,6 +621,9 @@ async def synthesize_with_free_llm_chain(
     hub_context: dict[str, Any],
 ) -> str | None:
     """Try free LLM providers in order until one responds."""
+    from financial_data.boundary import gate_external_llm_payload
+
+    gate_external_llm_payload(hub_context)
     prompt = _llm_synthesis_prompt(asset, opportunity_score, summary, hub_context)
     handlers = _llm_handlers()
     for name in _llm_chain_names():

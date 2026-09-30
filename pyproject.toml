@@ -104,4 +104,3 @@ line-ending = "auto"
 
 [tool.bandit]
 exclude_dirs = [".venv", "venv", "tests", "data", "node_modules", ".git", "dist", "build"]
-skips = ["B101"]

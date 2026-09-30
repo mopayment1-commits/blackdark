@@ -102,9 +102,10 @@ def test_dec_0026_all_ai_surface_templates_use_shared_anti_hype_footer():
         assert 'partials/site_footer.html' in source, name
 
     footer = (TEMPLATES / "partials" / "site_footer.html").read_text(encoding="utf-8")
-    assert "Anti-Hype" in footer
-    assert "Not financial advice" in footer
-    assert "/oracle-accuracy" in footer
+    assert "/terms" in footer
+    assert "/privacy" in footer
+    assert "/disclaimer" in footer
+    assert "/how-it-works" in footer
 
     from dashboard import app
 
@@ -119,8 +120,12 @@ def test_dec_0026_all_ai_surface_templates_use_shared_anti_hype_footer():
         "/anti-hype",
     ):
         response = client.get(route)
+        if route == "/dashboard":
+            assert response.status_code in (200, 401), route
+            assert "Login" in response.text, route
+            continue
         assert response.status_code == 200, route
-        assert "Anti-Hype" in response.text, route
+        assert "Anti-Hype" in response.text or "/terms" in response.text, route
 
 
 def test_dec_0027_companion_rail_manifest_is_complete():

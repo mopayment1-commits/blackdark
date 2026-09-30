@@ -1,0 +1,88 @@
+{
+  "artifact": "SPEC_12_INDEPENDENT_VERIFICATION",
+  "domain": "SPEC_12_IDENTITY_AUTH_PROFILE",
+  "verification_sha": "5078a804b98993522ef455722c98727b1bb37736",
+  "probe_count": 15,
+  "passed_count": 15,
+  "failed_count": 0,
+  "INDEPENDENT_VERIFICATION_PASS": true,
+  "probes": [
+    {
+      "probe": "iv_anonymous_command_home_denied",
+      "pass": true,
+      "detail": "status=401"
+    },
+    {
+      "probe": "iv_anonymous_decision_history_denied",
+      "pass": true,
+      "detail": "status=401"
+    },
+    {
+      "probe": "iv_guest_trust_public_ok",
+      "pass": true,
+      "detail": "status=200"
+    },
+    {
+      "probe": "iv_file02_anonymous_private_denied",
+      "pass": true,
+      "detail": "{'anonymous_history_denied': True, 'verified_session_entitlement_bound': True, 'watchlist_anonymous_blocked': True, 'aligned': True}"
+    },
+    {
+      "probe": "iv_file03_verified_entitlement_bound",
+      "pass": true,
+      "detail": "{'anonymous_history_denied': True, 'verified_session_entitlement_bound': True, 'watchlist_anonymous_blocked': True, 'aligned': True}"
+    },
+    {
+      "probe": "iv_login_rate_limit_configured",
+      "pass": true,
+      "detail": "{'backend': 'memory', 'max_attempts': 10, 'window_sec': 300, 'probe_first_allowed': True, 'configured': True}"
+    },
+    {
+      "probe": "iv_session_cookie_flags",
+      "pass": true,
+      "detail": "{'cookie_key': 'bd_token', 'httponly': True, 'samesite': 'lax', 'secure_configured': True, 'path': '/', 'max_age_positive': True, 'ok': True}"
+    },
+    {
+      "probe": "iv_password_not_logged",
+      "pass": true,
+      "detail": "{'leakage_detected': True, 'password_redacted_in_log': True, 'ok': True}"
+    },
+    {
+      "probe": "iv_idor_profile_history_blocked",
+      "pass": true,
+      "detail": "{'history_idor_blocked': True, 'mirror_idor_blocked': True, 'blocked': True}"
+    },
+    {
+      "probe": "iv_weak_hashing_forbidden",
+      "pass": true,
+      "detail": "{'hash_algorithm': 'pbkdf2_sha256', 'weak_forbidden': True, 'approved_algorithm': True, 'ok': True}"
+    },
+    {
+      "probe": "iv_runtime_identity_paths_wired",
+      "pass": true,
+      "detail": "{'edge_ui_identity_envelope': True, 'derivatives_identity_envelope': True, 'trust_identity_envelope': True, 'shareable_identity_envelope': True, 'explanation_ai_identity_envelope': True, 'identity_auth_module': True}"
+    },
+    {
+      "probe": "iv_no_parked_identity_scope",
+      "pass": true,
+      "detail": "out of scope"
+    },
+    {
+      "probe": "iv_identity_envelope_honest",
+      "pass": true,
+      "detail": "envelope"
+    },
+    {
+      "probe": "iv_machine_readable_export",
+      "pass": true,
+      "detail": "LAUNCH57_IDENTITY_AUTH_PROFILE_EXPORT"
+    },
+    {
+      "probe": "iv_pass_live_not_claimed",
+      "pass": true,
+      "detail": "honest"
+    }
+  ],
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "generated_at": "2026-09-19T01:07:44.860563+00:00"
+}

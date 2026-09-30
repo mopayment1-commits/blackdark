@@ -1,0 +1,17 @@
+{
+  "schema": "launch57_release_attestation_82_v1",
+  "authority": "docs/governance/LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION_PROGRAM.md",
+  "program_section": "§8.2 Release attestation (allowed wording)",
+  "cisa_certification_claimed": false,
+  "program_complete_81": false,
+  "allowed_attestation_en": "BLACKDARK Launch-57 has been remediated against the August 2024 CISA Secure by Demand procurement guidance checklist areas, with evidence indexed at `governance/launch57/CISA_REMEDIATION_EVIDENCE_INDEX.json`. This is not CISA certification.",
+  "evidence_index_path": "governance/launch57/CISA_REMEDIATION_EVIDENCE_INDEX.json",
+  "forbidden_claims_program_section": "§1.2 Non-goals",
+  "forbidden_phrases": [
+    "CISA certified",
+    "CISA approved",
+    "CISA certification complete",
+    "fully aligned with CISA"
+  ],
+  "usage_rule": "Use allowed_attestation_en only when §8.1 program complete is true with recorded evidence; until then marketing/API must keep cisa_certification_claimed false."
+}

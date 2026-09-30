@@ -1,0 +1,18 @@
+{
+  "release_line": "launch-57",
+  "generated_at": "2026-09-30T20:54:59.059484+00:00",
+  "git_commit": "b7acc7e18c8be354a6a5b903195dc5efb5006a39",
+  "remediation_sha": "95e08efa",
+  "cisa_certification_claimed": false,
+  "artifacts": {
+    "python_cyclonedx": "docs/data-room/sbom/cyclonedx-python.json",
+    "python_cyclonedx_present": true,
+    "syft_prod_lock_cyclonedx": "governance/launch57/evidence/syft-prod-lock.cyclonedx.json"
+  },
+  "ci_artifact_names": [
+    "launch57-engineering-baseline",
+    "launch57-syft-prod-lock-sbom"
+  ],
+  "release_notes_template": "docs/templates/LAUNCH57_RELEASE_NOTES_SBOM.md",
+  "honesty": "Manifest indexes SBOM files; does not imply full container SBOM without image digest."
+}

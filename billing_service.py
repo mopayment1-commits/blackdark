@@ -212,8 +212,16 @@ async def handle_stripe_webhook_event(event: dict[str, Any]) -> dict[str, Any]:
         event_type.replace("\r", " ").replace("\n", " "),
     )
     from billing.webhook_processor import process_stripe_event
+    from transport_webhook_env.webhook_lifecycle import process_verified_webhook
 
-    result = await process_stripe_event(event)
+    result = await process_verified_webhook(
+        provider="stripe",
+        event_id=event_id,
+        event_type=event_type,
+        event=event,
+        processor=process_stripe_event,
+        correlation_id=event_id,
+    )
     logger.info(
         "billing_stripe_webhook_response event_id=%s action=%s handled=%s",
         event_id.replace("\r", " ").replace("\n", " "),
@@ -232,8 +240,17 @@ async def handle_lemon_webhook_event(event: dict[str, Any]) -> dict[str, Any]:
         str(ctx["email"]).replace("\r", " ").replace("\n", " "),
     )
     from billing.webhook_processor import process_lemon_event
+    from transport_webhook_env.webhook_lifecycle import process_verified_webhook
 
-    result = await process_lemon_event(event)
+    event_id = str(ctx["dedupe_key"])[:240]
+    result = await process_verified_webhook(
+        provider="lemon_squeezy",
+        event_id=event_id,
+        event_type=str(ctx["event_name"] or "unknown"),
+        event=event,
+        processor=process_lemon_event,
+        correlation_id=event_id,
+    )
     logger.info(
         "billing_lemon_webhook_response event_name=%s action=%s handled=%s",
         str(ctx["event_name"]).replace("\r", " ").replace("\n", " "),

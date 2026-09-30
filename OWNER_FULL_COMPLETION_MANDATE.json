@@ -1,0 +1,43 @@
+{
+  "mandate_id": "OWNER-FULL-COMPLETION-2026-09-11",
+  "owner_decision": "FULL_COMPLETION_STRICT",
+  "targets": {
+    "all_826_capabilities": true,
+    "strict_goal_per_capability": true,
+    "fix_duplication": true,
+    "fix_internal_defects": true,
+    "acquisition_ready": true,
+    "live_launch_ready": true,
+    "live_user_ready": true
+  },
+  "exclusions": [
+    "external_pentest_execution",
+    "soc2_certification",
+    "legal_contract_signing",
+    "stripe_production_account_owner_actions",
+    "hsm_provisioning"
+  ],
+  "closure_gates": [
+    "G1_TRUTH_BASELINE",
+    "G2_DEDUPLICATION",
+    "G3_SPLIT_BRAIN_ZERO",
+    "G4_GOVERNANCE_FULL",
+    "G5_BATCH_CLOSURE_826",
+    "G6_UI_E2E",
+    "G7_CI_GREEN",
+    "G8_PRODUCTION_INFRA",
+    "G9_EXTERNAL_ASSURANCE",
+    "G10_ACQUISITION_PACK"
+  ],
+  "parallel_execution": "ALLOWED per PARALLEL_EXECUTION_COORDINATION.json",
+  "canonical_sources": {
+    "v6": "governing-sources-population/BLACKDARK_Institutional_Capability_Standard_2026_v6(1).md",
+    "reject_uploaded_v5_masquerading_as_v6": true,
+    "bgs_register": "BUILD_GOVERNANCE_SOURCE_REGISTER.json"
+  },
+  "status_at_mandate": {
+    "capabilities_done": 108,
+    "capabilities_remaining": 718,
+    "phase": "FULL_COMPLETION_EXECUTION_STARTED"
+  }
+}

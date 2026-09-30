@@ -1,0 +1,257 @@
+{
+  "schema": "launch57_remediation_gate_index_v1",
+  "generated_at": "2026-09-30T20:55:11.901235+00:00",
+  "git_commit": "f3384ace9895f48cbb965ec2a5c9d3eded4a5005",
+  "authority": "docs/governance/LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION_PROGRAM.md",
+  "phase": "PHASE_ROUND_32_FINDING01_PLEDGE_CLOSURE_LANE",
+  "remediation_sha": "f3384ace",
+  "cisa_certification_claimed": false,
+  "program_complete": false,
+  "gate_count": 45,
+  "gates": [
+    {
+      "id": "ci_assurance_manifest_gate",
+      "path": "scripts/verify_launch57_ci_assurance_manifest.py",
+      "kind": "script"
+    },
+    {
+      "id": "ci_reviewer_evidence_bundle_gate",
+      "path": "scripts/verify_launch57_ci_reviewer_evidence_bundle.py",
+      "kind": "script"
+    },
+    {
+      "id": "cross_workflow_assurance_gate",
+      "path": "scripts/verify_launch57_cross_workflow_assurance.py",
+      "kind": "script"
+    },
+    {
+      "id": "engineering_handoff_gate",
+      "path": "scripts/verify_launch57_engineering_handoff.py",
+      "kind": "script"
+    },
+    {
+      "id": "evidence_class_register_gate",
+      "path": "scripts/verify_launch57_evidence_class_register.py",
+      "kind": "script"
+    },
+    {
+      "id": "evidence_index_schema_gate",
+      "path": "scripts/verify_launch57_evidence_index_schema.py",
+      "kind": "script"
+    },
+    {
+      "id": "final_closure_playbook_manifest_gate",
+      "path": "scripts/verify_launch57_final_closure_playbook_manifest.py",
+      "kind": "script"
+    },
+    {
+      "id": "finding_01_pledge_closure_lane_gate",
+      "path": "scripts/verify_launch57_finding01_pledge_closure_lane.py",
+      "kind": "script"
+    },
+    {
+      "id": "finding_11_sbom_closure_lane_gate",
+      "path": "scripts/verify_launch57_finding11_sbom_closure_lane.py",
+      "kind": "script"
+    },
+    {
+      "id": "finding_14_security_txt_closure_lane_gate",
+      "path": "scripts/verify_launch57_finding14_security_txt_closure_lane.py",
+      "kind": "script"
+    },
+    {
+      "id": "finding_18_pentest_closure_lane_gate",
+      "path": "scripts/verify_launch57_finding18_pentest_closure_lane.py",
+      "kind": "script"
+    },
+    {
+      "id": "finding_19_waf_closure_lane_gate",
+      "path": "scripts/verify_launch57_finding19_waf_closure_lane.py",
+      "kind": "script"
+    },
+    {
+      "id": "finding_inventory_gate",
+      "path": "scripts/verify_launch57_finding_inventory_lock.py",
+      "kind": "script"
+    },
+    {
+      "id": "generated_artifacts_freshness_gate",
+      "path": "scripts/verify_launch57_generated_artifacts_fresh.py",
+      "kind": "script"
+    },
+    {
+      "id": "independent_verification_gate",
+      "path": "scripts/verify_launch57_independent_verification.py",
+      "kind": "script"
+    },
+    {
+      "id": "iv_repo_bundle_gate",
+      "path": "scripts/verify_launch57_iv_repo_bundle.py",
+      "kind": "script"
+    },
+    {
+      "id": "legal_v4_bundle_gate",
+      "path": "scripts/verify_launch57_legal_v4_bundle.py",
+      "kind": "script"
+    },
+    {
+      "id": "merge_readiness_gate",
+      "path": "scripts/verify_launch57_merge_readiness.py",
+      "kind": "script"
+    },
+    {
+      "id": "merge_to_main_readiness_manifest_gate",
+      "path": "scripts/verify_launch57_merge_to_main_readiness_manifest.py",
+      "kind": "script"
+    },
+    {
+      "id": "normative_traceability_gate",
+      "path": "scripts/verify_launch57_normative_traceability.py",
+      "kind": "script"
+    },
+    {
+      "id": "open_ops_closure_package_gate",
+      "path": "scripts/verify_launch57_open_ops_closure_package.py",
+      "kind": "script"
+    },
+    {
+      "id": "ops_closure_gate",
+      "path": "scripts/launch57_ops_closure_gate.py",
+      "kind": "script"
+    },
+    {
+      "id": "ops_playbook_dry_run",
+      "path": "scripts/run_launch57_ops_playbook_dry_run.py",
+      "kind": "script"
+    },
+    {
+      "id": "ops_v3_bundle_gate",
+      "path": "scripts/verify_launch57_ops_v3_bundle.py",
+      "kind": "script"
+    },
+    {
+      "id": "post_merge_ops_manifest_gate",
+      "path": "scripts/verify_launch57_post_merge_ops_manifest.py",
+      "kind": "script"
+    },
+    {
+      "id": "prod_surface_gate",
+      "path": "scripts/verify_launch57_prod_surface.py",
+      "kind": "script"
+    },
+    {
+      "id": "program_closure_81_gate",
+      "path": "scripts/verify_launch57_program_closure_81.py",
+      "kind": "script"
+    },
+    {
+      "id": "program_integrity_report_gate",
+      "path": "scripts/verify_launch57_program_integrity_report.py",
+      "kind": "script"
+    },
+    {
+      "id": "qa_ci_bundle_gate",
+      "path": "scripts/verify_launch57_qa_ci_bundle.py",
+      "kind": "script"
+    },
+    {
+      "id": "railway_env_gate",
+      "path": "scripts/verify_railway_launch57_env.py",
+      "kind": "script"
+    },
+    {
+      "id": "release_attestation_82_gate",
+      "path": "scripts/verify_launch57_release_attestation_82.py",
+      "kind": "script"
+    },
+    {
+      "id": "remediation_gate_index_gate",
+      "path": "scripts/verify_launch57_gate_index.py",
+      "kind": "script"
+    },
+    {
+      "id": "remediation_lifecycle_index_gate",
+      "path": "scripts/verify_launch57_remediation_lifecycle_index.py",
+      "kind": "script"
+    },
+    {
+      "id": "repo_evidence_gate",
+      "path": "scripts/verify_launch57_repo_evidence.py",
+      "kind": "script"
+    },
+    {
+      "id": "sbom_ntia_scope_gate",
+      "path": "scripts/verify_launch57_sbom_ntia_scope.py",
+      "kind": "script"
+    },
+    {
+      "id": "security_lead_inventory_rerun_gate",
+      "path": "scripts/verify_launch57_security_lead_inventory_rerun.py",
+      "kind": "script"
+    },
+    {
+      "id": "iv_core",
+      "path": "scripts/verify_launch57_independent_verification.py",
+      "kind": "iv_repo_bundle",
+      "expect_exit": 0,
+      "maps_to": "\u00a78.3 V-1..V-4 core"
+    },
+    {
+      "id": "v1_security_lead_bundle",
+      "path": "scripts/verify_launch57_security_lead_inventory_rerun.py",
+      "kind": "iv_repo_bundle",
+      "expect_exit": 0,
+      "maps_to": "\u00a78.3 V-1"
+    },
+    {
+      "id": "v2_qa_bundle",
+      "path": "scripts/verify_launch57_qa_ci_bundle.py",
+      "kind": "iv_repo_bundle",
+      "expect_exit": 0,
+      "maps_to": "\u00a78.3 V-2"
+    },
+    {
+      "id": "v2_cross_workflow",
+      "path": "scripts/verify_launch57_cross_workflow_assurance.py",
+      "kind": "iv_repo_bundle",
+      "expect_exit": 0,
+      "maps_to": "\u00a78.3 V-2 cross-workflow"
+    },
+    {
+      "id": "v2_reviewer_bundle",
+      "path": "scripts/verify_launch57_ci_reviewer_evidence_bundle.py",
+      "kind": "iv_repo_bundle",
+      "expect_exit": 0,
+      "maps_to": "\u00a78.3 V-2 reviewer bundle"
+    },
+    {
+      "id": "v3_ops_bundle_no_prod_required",
+      "path": "scripts/verify_launch57_ops_v3_bundle.py",
+      "kind": "iv_repo_bundle",
+      "expect_exit": 0,
+      "maps_to": "\u00a78.3 V-3 (repo; live when LAUNCH57_PROD_URL set)"
+    },
+    {
+      "id": "v4_legal_bundle",
+      "path": "scripts/verify_launch57_legal_v4_bundle.py",
+      "kind": "iv_repo_bundle",
+      "expect_exit": 0,
+      "maps_to": "\u00a78.3 V-4"
+    },
+    {
+      "id": "open_ops_package",
+      "path": "scripts/verify_launch57_open_ops_closure_package.py",
+      "kind": "iv_repo_bundle",
+      "expect_exit": 0,
+      "maps_to": "\u00a73.3 / \u00a78.1 honesty"
+    },
+    {
+      "id": "program_closure_81_honest_incomplete",
+      "path": "scripts/verify_launch57_program_closure_81.py",
+      "kind": "iv_repo_bundle",
+      "expect_exit": 2,
+      "maps_to": "\u00a78.1 (exit 2 until all CLOSED)"
+    }
+  ],
+  "source": "governance/launch57/CISA_REMEDIATION_EVIDENCE_INDEX.json"
+}

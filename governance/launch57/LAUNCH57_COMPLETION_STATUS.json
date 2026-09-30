@@ -1,0 +1,185 @@
+{
+  "generated_at": "2026-09-30T20:55:11.845818+00:00",
+  "git_commit": "f3384ace9895f48cbb965ec2a5c9d3eded4a5005",
+  "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
+  "remediation_sha": "f3384ace",
+  "phase": "PHASE_ROUND_32_FINDING01_PLEDGE_CLOSURE_LANE",
+  "cisa_certification_claimed": false,
+  "rollup": {
+    "counts_by_status": {
+      "OPEN_EXECUTIVE": 1,
+      "CLOSED": 14,
+      "CLOSED_PARTIAL": 1,
+      "CLOSED_REPO": 1,
+      "OPEN_OPS": 2
+    },
+    "open_finding_ids": [
+      "FINDING-01",
+      "FINDING-18",
+      "FINDING-19"
+    ],
+    "partial_finding_ids": [
+      "FINDING-11"
+    ],
+    "repo_only_finding_ids": [
+      "FINDING-14"
+    ],
+    "engineering_track_complete": true,
+    "program_complete": false
+  },
+  "findings": {
+    "FINDING-01": {
+      "status": "OPEN_EXECUTIVE",
+      "evidence": [
+        "docs/governance/SECURE_BY_DESIGN_PLEDGE_STATUS.md",
+        "docs/governance/SECURE_BY_DESIGN_PLEDGE_SUBMISSION_PACKAGE.md",
+        "docs/governance/SECURE_BY_DESIGN_PLEDGE_EXECUTION_CHECKLIST.md",
+        "scripts/record_launch57_finding01_pledge_readiness.py"
+      ],
+      "closure_requires": "CISA portal pledge submission + URL recorded"
+    },
+    "FINDING-02": {
+      "status": "CLOSED",
+      "evidence": [
+        "docs/security/SECURITY_UPDATE_POLICY.md"
+      ]
+    },
+    "FINDING-03": {
+      "status": "CLOSED",
+      "evidence": [
+        "anonymous_route_foundation.py",
+        "docs/security/COMMERCIAL_SECURITY_FEATURES.md"
+      ]
+    },
+    "FINDING-04": {
+      "status": "CLOSED",
+      "evidence": [
+        "user_mfa_policy.py",
+        "deploy/k8s/web-deployment.yaml"
+      ]
+    },
+    "FINDING-05": {
+      "status": "CLOSED",
+      "evidence": [
+        "webauthn_service.py",
+        "api/routers/auth.py",
+        "docs/security/WEBAUTHN_IMPLEMENTATION.md"
+      ],
+      "note": "Enable WEBAUTHN_RP_ID in production"
+    },
+    "FINDING-06": {
+      "status": "CLOSED",
+      "evidence": [
+        "docs/security/XSS_SINK_INVENTORY.md",
+        "tests/test_xss_sink_hardening.py"
+      ]
+    },
+    "FINDING-07": {
+      "status": "CLOSED",
+      "evidence": [
+        "docs/security/VULNERABILITY_CLASS_ELIMINATION_ROADMAP.md"
+      ]
+    },
+    "FINDING-08": {
+      "status": "CLOSED",
+      "evidence": [
+        "security_events.py"
+      ]
+    },
+    "FINDING-09": {
+      "status": "CLOSED",
+      "evidence": [
+        "api/routers/customer_security.py"
+      ]
+    },
+    "FINDING-10": {
+      "status": "CLOSED",
+      "evidence": [
+        "scripts/generate_sbom.py",
+        "scripts/publish_launch57_release_evidence.py",
+        "docs/data-room/sbom/LAUNCH57_RELEASE_MANIFEST.json"
+      ]
+    },
+    "FINDING-11": {
+      "status": "CLOSED_PARTIAL",
+      "evidence": [
+        "docs/security/SBOM_SCOPE_STATEMENT.md",
+        "governance/launch57/LAUNCH57_NTIA_SBOM_GAP_ANALYSIS.json",
+        "scripts/verify_launch57_sbom_ntia_scope.py",
+        "scripts/generate_container_sbom.sh",
+        "scripts/generate_syft_lockfile_sbom.sh"
+      ],
+      "closure_requires": "LAUNCH57_SBOM_SEC_LEAD_APPROVAL_ID or container/Syft SBOM + transition_launch57_finding_status.py --finding FINDING-11 --apply"
+    },
+    "FINDING-12": {
+      "status": "CLOSED",
+      "evidence": [
+        "docs/security/OPEN_SOURCE_GOVERNANCE.md"
+      ]
+    },
+    "FINDING-13": {
+      "status": "CLOSED",
+      "evidence": [
+        "docs/security/VULNERABILITY_DISCLOSURE_POLICY.md",
+        "api/routers/customer_security.py",
+        "GET /api/security/vdp"
+      ]
+    },
+    "FINDING-14": {
+      "status": "CLOSED_REPO",
+      "evidence": [
+        "static/.well-known/security.txt",
+        "scripts/verify_well_known_security_txt.py",
+        "scripts/record_launch57_security_txt_prod_verification.py"
+      ],
+      "closure_requires": "record_launch57_security_txt_prod_verification.py + transition_launch57_finding_status.py --finding FINDING-14 --apply"
+    },
+    "FINDING-15": {
+      "status": "CLOSED",
+      "evidence": [
+        "docs/security/PRODUCT_SECURITY_ADVISORY_PROCESS.md"
+      ]
+    },
+    "FINDING-16": {
+      "status": "CLOSED",
+      "evidence": [
+        "security_posture.py"
+      ]
+    },
+    "FINDING-17": {
+      "status": "CLOSED",
+      "evidence": [
+        "anonymous_route_foundation.py",
+        "tests/test_cisa_launch57_remediation.py"
+      ]
+    },
+    "FINDING-18": {
+      "status": "OPEN_OPS",
+      "evidence": [
+        "docs/ops/PENTEST_ENGAGEMENT_RUNBOOK.md",
+        "docs/templates/pentest_scope_LAUNCH57.md",
+        "docs/evidence/PENTEST_DEPOSIT_LAUNCH57.md",
+        "scripts/prepare_pentest_deposit_launch57.py",
+        "scripts/verify_launch57_external_assurance.py",
+        "scripts/record_launch57_finding18_assurance_run.py"
+      ],
+      "closure_requires": "Signed pentest deposit + verify_pentest_attestation()"
+    },
+    "FINDING-19": {
+      "status": "OPEN_OPS",
+      "evidence": [
+        "docs/ops/EDGE_WAF_ACTIVATION_RUNBOOK.md",
+        "scripts/verify_edge_waf_cdn.py",
+        "scripts/record_launch57_finding19_waf_run.py"
+      ],
+      "closure_requires": "CDN_WAF_ACTIVE=1 + verify_edge_waf_cdn exit 0"
+    }
+  },
+  "navigation": {
+    "evidence_index": "governance/launch57/CISA_REMEDIATION_EVIDENCE_INDEX.json",
+    "open_register": "governance/launch57/LAUNCH57_OPEN_FINDINGS_REGISTER.md",
+    "ops_playbook": "docs/ops/LAUNCH57_FINAL_CLOSURE_PLAYBOOK.md",
+    "program": "docs/governance/LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION_PROGRAM.md",
+    "pr_merge_checklist": "docs/governance/LAUNCH57_PR_MERGE_CHECKLIST.md"
+  }
+}

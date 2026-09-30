@@ -1,0 +1,69 @@
+{
+  "artifact": "BLACKDARK_LAUNCH57_DATA_RIGHTS_COST_MATRIX",
+  "generated_at": "2026-09-18T13:52:25.014076+00:00",
+  "implementation_sha": "a09cc39b",
+  "rows": [
+    {
+      "source_id": "launch57:binance",
+      "provider": "binance",
+      "rights_licensing_status": "public_feed_review_required",
+      "rate_quota_limits": "provider_default",
+      "cost_class": "free_public",
+      "redistribution_rights": "internal_analysis_default",
+      "provider_sla": "NONE",
+      "internal_slo_class": "sub_second_to_seconds"
+    },
+    {
+      "source_id": "launch57:kraken",
+      "provider": "kraken",
+      "rights_licensing_status": "public_feed_review_required",
+      "rate_quota_limits": "provider_default",
+      "cost_class": "free_public",
+      "redistribution_rights": "internal_analysis_default",
+      "provider_sla": "NONE",
+      "internal_slo_class": "seconds"
+    },
+    {
+      "source_id": "launch57:okx",
+      "provider": "okx",
+      "rights_licensing_status": "public_feed_review_required",
+      "rate_quota_limits": "provider_default",
+      "cost_class": "free_public",
+      "redistribution_rights": "internal_analysis_default",
+      "provider_sla": "NONE",
+      "internal_slo_class": "seconds"
+    },
+    {
+      "source_id": "launch57:bybit",
+      "provider": "bybit",
+      "rights_licensing_status": "public_feed_review_required",
+      "rate_quota_limits": "provider_default",
+      "cost_class": "free_public",
+      "redistribution_rights": "internal_analysis_default",
+      "provider_sla": "NONE",
+      "internal_slo_class": "seconds"
+    },
+    {
+      "source_id": "launch57:coingecko",
+      "provider": "coingecko",
+      "rights_licensing_status": "validation_only_not_execution_grade",
+      "rate_quota_limits": "free_tier_quota",
+      "cost_class": "free_public",
+      "redistribution_rights": "internal_analysis_default",
+      "provider_sla": "NONE",
+      "internal_slo_class": "minutes"
+    },
+    {
+      "source_id": "launch57:coinbase",
+      "provider": "coinbase",
+      "rights_licensing_status": "public_feed_review_required",
+      "rate_quota_limits": "provider_default",
+      "cost_class": "free_public",
+      "redistribution_rights": "internal_analysis_default",
+      "provider_sla": "NONE",
+      "internal_slo_class": "seconds"
+    }
+  ],
+  "free_first_policy": true,
+  "provider_sla_default": "NONE"
+}

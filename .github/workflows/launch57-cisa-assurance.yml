@@ -1,0 +1,126 @@
+name: Launch-57 CISA Assurance
+
+on:
+  push:
+    branches: [main, cursor/cisa-launch57-remediation-exec-292d]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "0 7 * * 1"
+
+permissions:
+  contents: read
+
+jobs:
+  engineering-baseline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: "3.12"
+      - run: pip install --require-hashes --only-binary=:all: -r requirements.hashes.txt
+      - run: pip install --only-binary=:all: pip-audit==2.9.0
+      - run: python scripts/verify_launch57_finding_inventory_lock.py
+      - run: python scripts/verify_launch57_normative_traceability.py
+      - run: python scripts/verify_launch57_independent_verification.py
+      - run: python scripts/verify_launch57_release_attestation_82.py
+      - run: python scripts/verify_launch57_evidence_class_register.py
+      - run: python scripts/verify_launch57_sbom_ntia_scope.py
+      - run: python scripts/verify_launch57_security_lead_inventory_rerun.py
+      - run: python scripts/verify_launch57_qa_ci_bundle.py
+      - run: python scripts/verify_launch57_ops_v3_bundle.py
+      - run: python scripts/verify_launch57_open_ops_closure_package.py
+      - run: python scripts/verify_launch57_legal_v4_bundle.py
+      - run: python scripts/verify_launch57_iv_repo_bundle.py
+      - run: python scripts/verify_launch57_program_integrity_report.py
+      - run: python scripts/run_launch57_ops_playbook_dry_run.py
+      - run: python scripts/generate_launch57_gate_index.py
+      - run: python scripts/verify_launch57_gate_index.py
+      - run: python scripts/preflight_launch57_open_finding_transitions.py
+      - run: python scripts/verify_launch57_ci_assurance_manifest.py
+      - run: python scripts/verify_launch57_evidence_index_schema.py
+      - run: python scripts/verify_launch57_engineering_handoff.py
+      - run: python scripts/generate_launch57_ci_reviewer_evidence_bundle.py
+      - run: python scripts/verify_launch57_cross_workflow_assurance.py
+      - run: python scripts/verify_launch57_ci_reviewer_evidence_bundle.py
+      - run: python scripts/verify_launch57_merge_to_main_readiness_manifest.py
+      - run: python scripts/verify_launch57_post_merge_ops_manifest.py
+      - run: python scripts/preflight_launch57_iv_human_signoffs.py
+      - run: python scripts/verify_launch57_final_closure_playbook_manifest.py
+      - run: python scripts/verify_launch57_remediation_lifecycle_index.py
+      - run: python scripts/run_launch57_open_findings_closure_readiness.py
+      - run: python scripts/verify_launch57_finding11_sbom_closure_lane.py
+      - run: python scripts/preflight_launch57_finding11_transition.py
+      - run: python scripts/verify_launch57_finding14_security_txt_closure_lane.py
+      - run: python scripts/preflight_launch57_finding14_transition.py
+      - run: python scripts/verify_launch57_finding18_pentest_closure_lane.py
+      - run: python scripts/preflight_launch57_finding18_transition.py
+      - run: python scripts/verify_launch57_finding19_waf_closure_lane.py
+      - run: python scripts/preflight_launch57_finding19_transition.py
+      - run: python scripts/verify_launch57_finding01_pledge_closure_lane.py
+      - run: python scripts/preflight_launch57_finding01_transition.py
+      - run: python scripts/generate_launch57_open_findings_register.py
+      - run: python scripts/verify_launch57_pr_merge_checklist_gates.py
+      - run: test "$(python scripts/verify_launch57_program_closure_81.py >/dev/null; echo $?)" = "2"
+      - run: python scripts/verify_launch57_repo_evidence.py
+      - run: python scripts/collect_engineering_security_baseline.py
+      - run: python scripts/validate_pentest_deposit_template.py
+      - run: test "$(python scripts/launch57_closure_report.py >/dev/null; echo $?)" = "2"
+      - run: python scripts/publish_launch57_release_evidence.py
+      - run: python scripts/generate_launch57_completion_status.py
+      - run: python scripts/generate_launch57_engineering_closure.py
+      - run: python scripts/verify_launch57_generated_artifacts_fresh.py
+      - run: python scripts/verify_launch57_merge_readiness.py
+      - run: test "$(python scripts/transition_launch57_finding_status.py --finding FINDING-18 >/dev/null; echo $?)" = "2"
+      - run: python -m pytest tests/test_cisa_launch57_remediation.py -q
+      - uses: actions/upload-artifact@v4
+        with:
+          name: launch57-engineering-baseline
+          path: governance/launch57/evidence/ENGINEERING_SECURITY_BASELINE.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: launch57-release-evidence-bundle
+          path: |
+            docs/data-room/sbom/LAUNCH57_RELEASE_MANIFEST.json
+            docs/data-room/sbom/cyclonedx-python.json
+            governance/launch57/LAUNCH57_REMEDIATION_COMPLETION_STATUS.md
+            governance/launch57/LAUNCH57_COMPLETION_STATUS.json
+            governance/launch57/LAUNCH57_ENGINEERING_CLOSURE.json
+            docs/governance/LAUNCH57_ENGINEERING_CLOSURE_DECLARATION.md
+
+  syft-prod-lock-sbom:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Install syft
+        run: curl -sSfL https://raw.githubusercontent.com/anchore/syft/v1.18.1/install.sh | sh -s -- -b /usr/local/bin v1.18.1
+      - run: chmod +x scripts/generate_syft_lockfile_sbom.sh && scripts/generate_syft_lockfile_sbom.sh
+      - run: python scripts/validate_syft_sbom_artifact.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: launch57-syft-prod-lock-sbom
+          path: governance/launch57/evidence/syft-prod-lock.cyclonedx.json
+
+  ops-gate-hint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: "3.12"
+      - run: |
+          python scripts/verify_edge_waf_cdn.py || true
+          echo "Ops: set CDN_WAF_ACTIVE and run launch57_ops_closure_gate.py with LAUNCH57_PROD_URL"
+      - name: Production security.txt (optional secret LAUNCH57_PROD_URL)
+        if: ${{ secrets.LAUNCH57_PROD_URL != '' }}
+        env:
+          LAUNCH57_PROD_URL: ${{ secrets.LAUNCH57_PROD_URL }}
+        run: python scripts/verify_well_known_security_txt.py --url "$LAUNCH57_PROD_URL"
+        continue-on-error: true
+      - name: Production security surface (optional LAUNCH57_PROD_URL)
+        if: ${{ secrets.LAUNCH57_PROD_URL != '' }}
+        env:
+          LAUNCH57_PROD_URL: ${{ secrets.LAUNCH57_PROD_URL }}
+        run: python scripts/verify_launch57_prod_surface.py
+        continue-on-error: true

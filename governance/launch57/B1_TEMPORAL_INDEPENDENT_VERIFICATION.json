@@ -1,0 +1,113 @@
+{
+  "artifact": "B1_TEMPORAL_INDEPENDENT_VERIFICATION",
+  "verification_type": "independent_engineering",
+  "verified_sha": "4a3b24cc7d69ab775ec2a60009dda7d6384d5f11",
+  "verified_at": "2026-09-17T09:20:00+00:00",
+  "verifier": {
+    "role": "independent_verifier",
+    "session": "cursor-cloud-agent-independent-verification-b1",
+    "method": "adversarial_static_runtime_test_replay"
+  },
+  "scope": {
+    "batch": "B1",
+    "launch_numbers": [42, 22, 23, 24, 21],
+    "governing_spec_sha256": "63aaed8b185a07e014d0a6028120ad94a6a3a18fa072472533aa2ac84f55684a"
+  },
+  "B1_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+  "B1_AUTHORIZED_FOR_DEPENDENT_PROGRESS": true,
+  "B1_ISOLATION_LEAKAGE": 0,
+  "LEGACY_RUNTIME_DEPENDENCIES": 0,
+  "LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING": false,
+  "LAUNCH57_TEMPORAL_CONSISTENCY_READY_FOR_LOCAL_USE": false,
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "verification_results": {
+    "isolation_static_import_scan": {
+      "files": [
+        "launch57/data_batch1.py",
+        "launch57/batch1_isolation.py",
+        "launch57/temporal_common.py"
+      ],
+      "prohibited_modules_leaked": [],
+      "dynamic_import_detected": false,
+      "pass": true
+    },
+    "runtime_module_load_scan": {
+      "after_import_launch57_data_batch1": [],
+      "pass": true
+    },
+    "prohibited_dependency_absence": {
+      "failure.freshness": true,
+      "cap646.evidence_class": true,
+      "data_governance.freshness": true,
+      "pass": true
+    },
+    "owner_substitution_absence": {
+      "hash_41_substituted": false,
+      "hash_6_substituted": false,
+      "pass": true
+    },
+    "freshness_fail_closed": {
+      "hash_22_presented_as_live_always_false": true,
+      "hash_21_presented_as_live_always_false": true,
+      "hash_22_no_freshness_state_field": true,
+      "hash_21_no_freshness_state_field": true,
+      "pass": true
+    },
+    "evidence_class_fail_closed": {
+      "no_evidence_class_metadata_emitted": true,
+      "temporal_dependency_pending_6_present": true,
+      "pass": true
+    },
+    "temporal_primitives": {
+      "utc_aware_timestamps": true,
+      "rfc3339_serialization": true,
+      "unknown_available_at_not_fabricated_from_source_only": true,
+      "future_provider_timestamp_rejection": true,
+      "deterministic_equal_timestamp_ordering": true,
+      "naive_datetime_rejection": true,
+      "pass": true
+    },
+    "b1_to_41_contract": {
+      "documented": true,
+      "auto_activate_false": true,
+      "explicit_post_41_reconciliation": true,
+      "no_automatic_dependency_activation": true,
+      "rebuild_b1_forbidden": true,
+      "pass": true
+    },
+    "delta_scope_8052eaa8_to_4a3b24cc": {
+      "paths_outside_launch57": [],
+      "unrelated_modification": false,
+      "pass": true
+    },
+    "builder_self_certification": {
+      "builder_claimed_pass_engineering": false,
+      "builder_batch_verdict_at_verification": "PENDING_VERIFICATION",
+      "pass": true
+    }
+  },
+  "adversarial_tests": {
+    "command": "python3 -m pytest tests/launch57/test_b1_isolation_closure.py tests/launch57/test_temporal_batch1.py tests/launch57/test_data_batch1.py -v",
+    "exit_code": 0,
+    "passed": 39,
+    "failed": 0,
+    "pass": true
+  },
+  "temporal_dependency_pending_confirmed": [
+    {
+      "launch_number": 6,
+      "genuinely_required": true,
+      "reason": "all B1 surfaces previously used ai_compliance_footer; #6 owner not integrated"
+    },
+    {
+      "launch_number": 41,
+      "genuinely_required": true,
+      "reason": "only #22 and #21 freshness paths; blocked via BLOCKED_BY_DEPENDENCY_ORDER"
+    }
+  ],
+  "notes": [
+    "market_context remains B1 data-acquisition adapter (pre-existing engineering); not a temporal/freshness/evidence legacy owner",
+    "data_batch2 legacy deps are B2 scope; excluded from B1 verdict",
+    "Global temporal PASS intentionally not set"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "artifact": "BLACKDARK_LAUNCH57_DATA_QUALITY_FRESHNESS_RECONCILIATION",
+  "generated_at": "2026-09-18T13:52:25.014076+00:00",
+  "implementation_sha": "a09cc39b",
+  "freshness_owner": "launch57.freshness_common (#41)",
+  "quality_owner": "launch57.provenance_common (#40)",
+  "pit_owner": "launch57.point_in_time_common (#39)",
+  "reconciliation_owner": "launch57.data_governance_common",
+  "b1_to_41_bridge": "launch57.b1_freshness_bridge",
+  "stale_as_live_blocked": true,
+  "conflict_quarantine_policy": "no_silent_average",
+  "cross_source_reconciliation_wired": true,
+  "anti_lookahead_owner": "launch57.temporal_common + launch57.point_in_time_common",
+  "reconciliation_demo_conflict": {
+    "state": "CONFLICT",
+    "method": "quarantine_no_average",
+    "canonical_value": null,
+    "conflicting_sources": [
+      "a",
+      "b"
+    ],
+    "divergence_pct": 100.0,
+    "launch57_reconciliation_state": "CONFLICT",
+    "policy": "no_silent_average_on_conflict",
+    "owner": "launch57.data_governance_common"
+  },
+  "reconciliation_demo_consensus": {
+    "state": "CONSENSUS",
+    "method": "primary_authoritative",
+    "canonical_value": 100.0,
+    "sources": [
+      "a",
+      "b"
+    ],
+    "launch57_reconciliation_state": "AGREED",
+    "policy": "no_silent_average_on_conflict",
+    "owner": "launch57.data_governance_common"
+  }
+}

@@ -1,0 +1,340 @@
+{
+  "artifact": "SPEC_11_REQUIREMENTS_REGISTER",
+  "domain": "SPEC_11_GLOBAL_TIME_TEMPORAL_CONSISTENCY",
+  "generated_at": "2026-09-19T00:56:17.840787+00:00",
+  "spec_version": "launch57-spec11-global-time-temporal-consistency-1.0.0",
+  "requirement_count": 24,
+  "requirements": [
+    {
+      "req_id": "REQ-S11-001",
+      "title": "Launch-57 temporal scope lock only",
+      "spec_section": "§2",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/temporal_common.py"
+      ],
+      "tests": [
+        "test_temporal_batch1.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S11-002",
+      "title": "UTC canonical storage/transport",
+      "spec_section": "§2",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/temporal_common.py"
+      ],
+      "tests": [
+        "test_temporal_batch1.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S11-003",
+      "title": "Naive datetime fail-closed",
+      "spec_section": "§2",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/temporal_common.py"
+      ],
+      "tests": [
+        "test_temporal_batch1.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S11-004",
+      "title": "IANA timezone validation + precedence",
+      "spec_section": "§5–§6",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/temporal_common.py"
+      ],
+      "tests": [
+        "test_temporal_batch1.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S11-005",
+      "title": "Display TZ does not mutate canonical",
+      "spec_section": "§2",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/global_time_temporal_consistency_common.py"
+      ],
+      "tests": [
+        "test_spec11"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S11-006",
+      "title": "available_at not fabricated",
+      "spec_section": "§3A/§4",
+      "launch_ids": [
+        39
+      ],
+      "owner_modules": [
+        "launch57/temporal_common.py"
+      ],
+      "tests": [
+        "test_temporal_batch1.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S11-007",
+      "title": "Decision timing #2/#3 authoritative",
+      "spec_section": "§13",
+      "launch_ids": [
+        2,
+        3
+      ],
+      "owner_modules": [
+        "launch57/decision_timing_common.py"
+      ],
+      "tests": [
+        "test_temporal_batch4.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S11-008",
+      "title": "Untrusted decision_time rejected",
+      "spec_section": "§13",
+      "launch_ids": [
+        3
+      ],
+      "owner_modules": [
+        "launch57/decision_timing_common.py"
+      ],
+      "tests": [
+        "test_spec11"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S11-009",
+      "title": "Public accuracy ordering #4",
+      "spec_section": "§14",
+      "launch_ids": [
+        4
+      ],
+      "owner_modules": [
+        "launch57/public_accuracy_common.py"
+      ],
+      "tests": [
+        "test_temporal_batch5.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S11-010",
+      "title": "Net-edge opportunity expiry #5/#43",
+      "spec_section": "§15",
+      "launch_ids": [
+        5,
+        43
+      ],
+      "owner_modules": [
+        "launch57/net_edge_timing_common.py"
+      ],
+      "tests": [
+        "test_temporal_batch6.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S11-011",
+      "title": "Alert timing chronology #33",
+      "spec_section": "§17",
+      "launch_ids": [
+        33
+      ],
+      "owner_modules": [
+        "launch57/alert_timing_common.py"
+      ],
+      "tests": [
+        "test_temporal_batch8.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S11-012",
+      "title": "Shareable/public timing #44–#46",
+      "spec_section": "§19",
+      "launch_ids": [
+        44,
+        45,
+        46
+      ],
+      "owner_modules": [
+        "launch57/shareable_public_timing_common.py"
+      ],
+      "tests": [
+        "test_temporal_batch10.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S11-013",
+      "title": "Personal history timing #49/#50",
+      "spec_section": "§20",
+      "launch_ids": [
+        49,
+        50
+      ],
+      "owner_modules": [
+        "launch57/personal_history_timing_common.py"
+      ],
+      "tests": [
+        "test_temporal_batch11.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S11-014",
+      "title": "Chart display TZ consistency",
+      "spec_section": "§22",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/chart_display_timing_common.py"
+      ],
+      "tests": [
+        "test_temporal_batch13.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S11-015",
+      "title": "Infrastructure API/DB temporal B14",
+      "spec_section": "§23–§24",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/infrastructure_temporal_common.py"
+      ],
+      "tests": [
+        "test_temporal_batch14.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S11-016",
+      "title": "B1–B15 batch IV engineering closed",
+      "spec_section": "§42",
+      "launch_ids": [],
+      "owner_modules": [
+        "governance/launch57/B15_TEMPORAL_INDEPENDENT_VERIFICATION.json"
+      ],
+      "tests": [
+        "test_temporal_batch15.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S11-017",
+      "title": "FILE 06 live/SIM temporal honesty",
+      "spec_section": "§9",
+      "launch_ids": [
+        6
+      ],
+      "owner_modules": [
+        "launch57/compounding_evidence_common.py"
+      ],
+      "tests": [
+        "test_spec11"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S11-018",
+      "title": "FILE 08 stale net-edge fail-closed",
+      "spec_section": "§15",
+      "launch_ids": [
+        5
+      ],
+      "owner_modules": [
+        "launch57/decision_truth_common.py"
+      ],
+      "tests": [
+        "test_spec11"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S11-019",
+      "title": "Runtime temporal paths wired",
+      "spec_section": "§34",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/b4_decision_bridge.py"
+      ],
+      "tests": [
+        "test_spec11"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S11-020",
+      "title": "Monotonic vs wall-clock separation",
+      "spec_section": "§25A",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/temporal_common.py"
+      ],
+      "tests": [
+        "test_temporal_batch1.py"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S11-021",
+      "title": "PASS_LIVE not claimed",
+      "spec_section": "§38",
+      "launch_ids": [],
+      "owner_modules": [],
+      "tests": [],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S11-022",
+      "title": "Acceptance criteria engineering gate",
+      "spec_section": "§39",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/global_time_temporal_consistency_common.py"
+      ],
+      "tests": [
+        "test_spec11"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S11-023",
+      "title": "Independent verification adversarial probes",
+      "spec_section": "§37",
+      "launch_ids": [],
+      "owner_modules": [],
+      "tests": [
+        "test_spec11"
+      ],
+      "mandatory": true
+    },
+    {
+      "req_id": "REQ-S11-024",
+      "title": "Envelope cannot grant PASS_ENGINEERING",
+      "spec_section": "§42",
+      "launch_ids": [],
+      "owner_modules": [
+        "launch57/global_time_temporal_consistency_common.py"
+      ],
+      "tests": [
+        "test_spec11"
+      ],
+      "mandatory": true
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "artifact": "BLACKDARK_CAPABILITY_ROOT_CAUSE_GAPS",
+  "generated_at": "2026-09-15T03:32:17.130676+00:00",
+  "git": {
+    "current_head_sha": "fdaa98a04b994b2531cf77a2076026ee6392c14f"
+  },
+  "non_pass_engineering_capabilities": [],
+  "root_cause_taxonomy_counts": {
+    "CAPACITY_GAP": 1,
+    "EXTERNAL_ONLY_GAP": 1,
+    "RUNTIME_NOT_WIRED": 66,
+    "TEST_COVERAGE_INCOMPLETE": 152
+  },
+  "phantom_detection": {
+    "EVIDENCE_ONLY_GAP": 2,
+    "GENERIC_HANDLER_FALSE_CAPABILITY_PATHS": 123,
+    "AGGREGATE_PASS_HIDDEN_UNVERIFIED_IDS": 152
+  },
+  "semantic_correction": {
+    "provenance_classification": "POST_RECONCILIATION_ARTIFACT_ONLY_HEAD_ADVANCE",
+    "material_capability_changes_since_reconciliation": 0,
+    "prior_artifact_generation_sha": "36df58ed8ad3",
+    "corrected_at": "2026-09-15T03:32:17.130676+00:00"
+  },
+  "exclusive_taxonomy_counts": {
+    "EVIDENCE_ONLY_GAP": 0,
+    "STALE_TRACKER_ONLY": 0
+  },
+  "cap_0644_root_cause_set": [
+    "CAPACITY_GAP"
+  ],
+  "cap_0645_root_cause_set": [
+    "EXTERNAL_ONLY_GAP"
+  ],
+  "phase2_closure": {
+    "closed_at": "2026-09-15T04:24:09.145042+00:00",
+    "verdict": "CAPABILITY_LOCAL_ENGINEERING_CLOSED_WITH_GENUINE_LIVE_EXTERNAL_GATES",
+    "local_engineering_workset": 153,
+    "promoted_to_pass_engineering": 154,
+    "remaining_external_only": 0,
+    "remaining_local_gaps": 0
+  }
+}

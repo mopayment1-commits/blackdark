@@ -1,0 +1,80 @@
+#!/usr/bin/env python3
+"""Post-deploy ops gate for Launch-57 CISA closure (honest matrix)."""
+
+from __future__ import annotations
+
+import json
+import os
+import subprocess
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+
+
+def _run(script: str, *args: str) -> int:
+    return subprocess.run([sys.executable, str(ROOT / "scripts" / script), *args], cwd=ROOT).returncode
+
+
+def main() -> int:
+    # Only explicit prod URL — do not infer from APP_BASE_URL (avoids false prod checks in dev/CI).
+    prod = (os.getenv("LAUNCH57_PROD_URL") or "").strip()
+    matrix: dict[str, dict] = {}
+
+    if os.getenv("LAUNCH57_SKIP_ENGINEERING_BASELINE", "").strip():
+        matrix["engineering_baseline"] = {
+            "ok": True,
+            "skipped": True,
+            "artifact": "governance/launch57/evidence/ENGINEERING_SECURITY_BASELINE.json",
+        }
+    else:
+        matrix["engineering_baseline"] = {
+            "ok": _run("collect_engineering_security_baseline.py") == 0,
+            "artifact": "governance/launch57/evidence/ENGINEERING_SECURITY_BASELINE.json",
+        }
+    matrix["security_txt_repo"] = {"ok": _run("verify_well_known_security_txt.py") == 0}
+    matrix["security_txt_prod"] = {
+        "ok": _run("verify_well_known_security_txt.py", "--url", prod) == 0 if prod else False,
+        "skipped": not bool(prod),
+        "url": prod or None,
+    }
+    railway_code = _run("verify_railway_launch57_env.py")
+    matrix["railway_env"] = {
+        "ok": railway_code == 0,
+        "skipped": railway_code == 3,
+        "exit_code": railway_code,
+    }
+    if prod:
+        surface_code = _run("verify_launch57_prod_surface.py", "--url", prod)
+        matrix["prod_security_surface"] = {
+            "ok": surface_code == 0,
+            "exit_code": surface_code,
+            "url": prod,
+        }
+        p7_code = _run("verify_launch57_p7_wp5_production_smoke.py")
+        matrix["p7_wp5_production_smoke"] = {
+            "ok": p7_code == 0,
+            "exit_code": p7_code,
+            "url": prod,
+            "program_ref": "L57-P7-WP5",
+        }
+    else:
+        matrix["prod_security_surface"] = {"ok": False, "skipped": True, "url": None}
+        matrix["p7_wp5_production_smoke"] = {"ok": False, "skipped": True, "url": None}
+    waf_code = _run("verify_edge_waf_cdn.py")
+    matrix["waf_cdn"] = {"ok": waf_code == 0, "exit_code": waf_code}
+    sys.path.insert(0, str(ROOT))
+    from pentest_attestation import verify_pentest_attestation
+
+    matrix["pentest_attestation"] = {"ok": verify_pentest_attestation()}
+
+    print(json.dumps({"matrix": matrix}, indent=2))
+    blockers = [k for k, v in matrix.items() if not v.get("ok") and not v.get("skipped")]
+    if blockers:
+        print(f"BLOCKERS: {', '.join(blockers)}", file=sys.stderr)
+        return 2
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

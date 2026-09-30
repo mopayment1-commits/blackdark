@@ -508,17 +508,14 @@ def _formatted_opportunities(
 
 
 def _apply_truth_to_row(row: dict[str, Any], quote_age_ms: float) -> None:
-    from net_edge_truth import compute_net_edge_truth
+    from decision_truth.govern import govern_arbitrage_row
 
     if quote_age_ms and not row.get("quote_age_ms"):
         row["quote_age_ms"] = quote_age_ms
-    try:
-        truth = compute_net_edge_truth(row)
-    except Exception:
-        logger.debug("net-edge truth on scan row failed", exc_info=True)
-        truth = {"enabled": False, "error": "unavailable"}
-    row["net_edge_truth"] = truth
-    if not truth.get("reject"):
+    governed = govern_arbitrage_row(dict(row))
+    row.update(governed)
+    truth = row.get("net_edge_truth") or {}
+    if not truth.get("reject") and not row.get("truth_rejected"):
         return
     row["truth_rejected"] = True
     row["execution_feasibility"] = "not_executable"

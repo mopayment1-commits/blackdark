@@ -11,7 +11,9 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import re
+import subprocess
 import uuid
 from datetime import datetime, timezone
 from pathlib import Path
@@ -39,6 +41,19 @@ def _parse_lock(path: Path) -> list[tuple[str, str]]:
     return comps
 
 
+def _git_commit() -> str:
+    try:
+        out = subprocess.check_output(
+            ["git", "rev-parse", "HEAD"],
+            cwd=ROOT,
+            stderr=subprocess.DEVNULL,
+            text=True,
+        )
+        return out.strip()
+    except (subprocess.CalledProcessError, FileNotFoundError, OSError):
+        return ""
+
+
 def build_sbom(components: list[tuple[str, str]], *, lock_sha: str) -> dict:
     now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     bom_ref_components = []
@@ -53,6 +68,18 @@ def build_sbom(components: list[tuple[str, str]], *, lock_sha: str) -> dict:
                 "purl": purl,
             }
         )
+    git_sha = _git_commit()
+    release = os.getenv("BLACKDARK_RELEASE", "launch-57")
+    image_digest = os.getenv("BLACKDARK_IMAGE_DIGEST", "").strip()
+    props = [
+        {"name": "blackdark:lockfile", "value": "requirements.lock.txt"},
+        {"name": "blackdark:lockfile_sha256", "value": lock_sha},
+        {"name": "blackdark:release", "value": release},
+    ]
+    if git_sha:
+        props.append({"name": "blackdark:git_commit", "value": git_sha})
+    if image_digest:
+        props.append({"name": "blackdark:image_digest", "value": image_digest})
     return {
         "bomFormat": "CycloneDX",
         "specVersion": "1.5",
@@ -72,13 +99,10 @@ def build_sbom(components: list[tuple[str, str]], *, lock_sha: str) -> dict:
             "component": {
                 "type": "application",
                 "name": "blackdark",
-                "version": "rc2",
-                "description": f"Generated from requirements.lock.txt sha256={lock_sha}",
+                "version": release,
+                "description": f"Generated from requirements.lock.txt sha256={lock_sha} git={git_sha or 'unknown'}",
             },
-            "properties": [
-                {"name": "blackdark:lockfile", "value": "requirements.lock.txt"},
-                {"name": "blackdark:lockfile_sha256", "value": lock_sha},
-            ],
+            "properties": props,
         },
         "components": bom_ref_components,
     }

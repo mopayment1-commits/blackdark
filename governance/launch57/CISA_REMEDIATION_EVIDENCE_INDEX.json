@@ -1,0 +1,276 @@
+{
+  "program": "LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION",
+  "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
+  "remediation_sha": "f3384ace",
+  "phase": "PHASE_ROUND_32_FINDING01_PLEDGE_CLOSURE_LANE",
+  "independent_verification_register": "governance/launch57/LAUNCH57_INDEPENDENT_VERIFICATION_REGISTER.json",
+  "findings": {
+    "FINDING-01": {
+      "status": "OPEN_EXECUTIVE",
+      "evidence": [
+        "docs/governance/SECURE_BY_DESIGN_PLEDGE_STATUS.md",
+        "docs/governance/SECURE_BY_DESIGN_PLEDGE_SUBMISSION_PACKAGE.md",
+        "docs/governance/SECURE_BY_DESIGN_PLEDGE_EXECUTION_CHECKLIST.md",
+        "scripts/record_launch57_finding01_pledge_readiness.py"
+      ],
+      "closure_requires": "CISA portal pledge submission + URL recorded"
+    },
+    "FINDING-02": {
+      "status": "CLOSED",
+      "evidence": [
+        "docs/security/SECURITY_UPDATE_POLICY.md"
+      ]
+    },
+    "FINDING-03": {
+      "status": "CLOSED",
+      "evidence": [
+        "anonymous_route_foundation.py",
+        "docs/security/COMMERCIAL_SECURITY_FEATURES.md"
+      ]
+    },
+    "FINDING-04": {
+      "status": "CLOSED",
+      "evidence": [
+        "user_mfa_policy.py",
+        "deploy/k8s/web-deployment.yaml"
+      ]
+    },
+    "FINDING-05": {
+      "status": "CLOSED",
+      "evidence": [
+        "webauthn_service.py",
+        "api/routers/auth.py",
+        "docs/security/WEBAUTHN_IMPLEMENTATION.md"
+      ],
+      "note": "Enable WEBAUTHN_RP_ID in production"
+    },
+    "FINDING-06": {
+      "status": "CLOSED",
+      "evidence": [
+        "docs/security/XSS_SINK_INVENTORY.md",
+        "tests/test_xss_sink_hardening.py"
+      ]
+    },
+    "FINDING-07": {
+      "status": "CLOSED",
+      "evidence": [
+        "docs/security/VULNERABILITY_CLASS_ELIMINATION_ROADMAP.md"
+      ]
+    },
+    "FINDING-08": {
+      "status": "CLOSED",
+      "evidence": [
+        "security_events.py"
+      ]
+    },
+    "FINDING-09": {
+      "status": "CLOSED",
+      "evidence": [
+        "api/routers/customer_security.py"
+      ]
+    },
+    "FINDING-10": {
+      "status": "CLOSED",
+      "evidence": [
+        "scripts/generate_sbom.py",
+        "scripts/publish_launch57_release_evidence.py",
+        "docs/data-room/sbom/LAUNCH57_RELEASE_MANIFEST.json"
+      ]
+    },
+    "FINDING-11": {
+      "status": "CLOSED_PARTIAL",
+      "evidence": [
+        "docs/security/SBOM_SCOPE_STATEMENT.md",
+        "governance/launch57/LAUNCH57_NTIA_SBOM_GAP_ANALYSIS.json",
+        "scripts/verify_launch57_sbom_ntia_scope.py",
+        "scripts/generate_container_sbom.sh",
+        "scripts/generate_syft_lockfile_sbom.sh"
+      ],
+      "closure_requires": "LAUNCH57_SBOM_SEC_LEAD_APPROVAL_ID or container/Syft SBOM + transition_launch57_finding_status.py --finding FINDING-11 --apply"
+    },
+    "FINDING-12": {
+      "status": "CLOSED",
+      "evidence": [
+        "docs/security/OPEN_SOURCE_GOVERNANCE.md"
+      ]
+    },
+    "FINDING-13": {
+      "status": "CLOSED",
+      "evidence": [
+        "docs/security/VULNERABILITY_DISCLOSURE_POLICY.md",
+        "api/routers/customer_security.py",
+        "GET /api/security/vdp"
+      ]
+    },
+    "FINDING-14": {
+      "status": "CLOSED_REPO",
+      "evidence": [
+        "static/.well-known/security.txt",
+        "scripts/verify_well_known_security_txt.py",
+        "scripts/record_launch57_security_txt_prod_verification.py"
+      ],
+      "closure_requires": "record_launch57_security_txt_prod_verification.py + transition_launch57_finding_status.py --finding FINDING-14 --apply"
+    },
+    "FINDING-15": {
+      "status": "CLOSED",
+      "evidence": [
+        "docs/security/PRODUCT_SECURITY_ADVISORY_PROCESS.md"
+      ]
+    },
+    "FINDING-16": {
+      "status": "CLOSED",
+      "evidence": [
+        "security_posture.py"
+      ]
+    },
+    "FINDING-17": {
+      "status": "CLOSED",
+      "evidence": [
+        "anonymous_route_foundation.py",
+        "tests/test_cisa_launch57_remediation.py"
+      ]
+    },
+    "FINDING-18": {
+      "status": "OPEN_OPS",
+      "evidence": [
+        "docs/ops/PENTEST_ENGAGEMENT_RUNBOOK.md",
+        "docs/templates/pentest_scope_LAUNCH57.md",
+        "docs/evidence/PENTEST_DEPOSIT_LAUNCH57.md",
+        "scripts/prepare_pentest_deposit_launch57.py",
+        "scripts/verify_launch57_external_assurance.py",
+        "scripts/record_launch57_finding18_assurance_run.py"
+      ],
+      "closure_requires": "Signed pentest deposit + verify_pentest_attestation()"
+    },
+    "FINDING-19": {
+      "status": "OPEN_OPS",
+      "evidence": [
+        "docs/ops/EDGE_WAF_ACTIVATION_RUNBOOK.md",
+        "scripts/verify_edge_waf_cdn.py",
+        "scripts/record_launch57_finding19_waf_run.py"
+      ],
+      "closure_requires": "CDN_WAF_ACTIVE=1 + verify_edge_waf_cdn exit 0"
+    }
+  },
+  "aggregate_api": "GET /api/security/launch57-closure-status",
+  "ops_closure_gate": "scripts/launch57_ops_closure_gate.py",
+  "ci_workflow": ".github/workflows/launch57-cisa-assurance.yml",
+  "repo_evidence_gate": "scripts/verify_launch57_repo_evidence.py",
+  "ops_playbook": "docs/ops/LAUNCH57_FINAL_CLOSURE_PLAYBOOK.md",
+  "final_closure_playbook_manifest": "governance/launch57/LAUNCH57_FINAL_CLOSURE_PLAYBOOK_MANIFEST.json",
+  "final_closure_playbook_manifest_gate": "scripts/verify_launch57_final_closure_playbook_manifest.py",
+  "railway_env_gate": "scripts/verify_railway_launch57_env.py",
+  "prod_surface_gate": "scripts/verify_launch57_prod_surface.py",
+  "railway_env_spec": "governance/launch57/RAILWAY_CISA_ENV_EXPECTATIONS.json",
+  "open_findings_register": "governance/launch57/LAUNCH57_OPEN_FINDINGS_REGISTER.md",
+  "closure_report_script": "scripts/launch57_closure_report.py",
+  "ops_attestation_recorder": "scripts/record_launch57_ops_attestation.py",
+  "release_evidence_publisher": "scripts/publish_launch57_release_evidence.py",
+  "completion_status_md": "governance/launch57/LAUNCH57_REMEDIATION_COMPLETION_STATUS.md",
+  "completion_status_json": "governance/launch57/LAUNCH57_COMPLETION_STATUS.json",
+  "completion_status_generator": "scripts/generate_launch57_completion_status.py",
+  "pr_merge_checklist": "docs/governance/LAUNCH57_PR_MERGE_CHECKLIST.md",
+  "pr_template": ".github/PULL_REQUEST_TEMPLATE/launch57_cisa_remediation.md",
+  "finding_inventory_lock": "governance/launch57/FINDING_INVENTORY_LOCK.json",
+  "finding_inventory_gate": "scripts/verify_launch57_finding_inventory_lock.py",
+  "engineering_closure_declaration_md": "docs/governance/LAUNCH57_ENGINEERING_CLOSURE_DECLARATION.md",
+  "engineering_closure_json": "governance/launch57/LAUNCH57_ENGINEERING_CLOSURE.json",
+  "engineering_closure_generator": "scripts/generate_launch57_engineering_closure.py",
+  "ops_finding_transition": "scripts/transition_launch57_finding_status.py",
+  "ops_finding_transition_runbook": "docs/ops/LAUNCH57_OPS_FINDING_TRANSITION_RUNBOOK.md",
+  "generated_artifacts_freshness_gate": "scripts/verify_launch57_generated_artifacts_fresh.py",
+  "merge_readiness_gate": "scripts/verify_launch57_merge_readiness.py",
+  "merge_readiness_doc": "docs/governance/LAUNCH57_MERGE_TO_MAIN_READINESS.md",
+  "post_merge_ops_doc": "docs/ops/LAUNCH57_POST_MERGE_OPS.md",
+  "pledge_submission_recorder": "scripts/record_pledge_submission.py",
+  "normative_traceability": "governance/launch57/LAUNCH57_NORMATIVE_TRACEABILITY.json",
+  "normative_traceability_gate": "scripts/verify_launch57_normative_traceability.py",
+  "executive_summary_ar": "docs/governance/LAUNCH57_REMEDIATION_EXECUTIVE_SUMMARY_AR.md",
+  "independent_verification_ar": "docs/governance/LAUNCH57_INDEPENDENT_VERIFICATION_AR.md",
+  "independent_verification_gate": "scripts/verify_launch57_independent_verification.py",
+  "release_attestation_82": "governance/launch57/LAUNCH57_RELEASE_ATTESTATION_82.json",
+  "release_attestation_82_gate": "scripts/verify_launch57_release_attestation_82.py",
+  "release_attestation_ar": "docs/governance/LAUNCH57_RELEASE_ATTESTATION_AR.md",
+  "evidence_class_register": "governance/launch57/LAUNCH57_EVIDENCE_CLASS_REGISTER.json",
+  "evidence_class_register_gate": "scripts/verify_launch57_evidence_class_register.py",
+  "program_closure_81_gate": "scripts/verify_launch57_program_closure_81.py",
+  "iv_signoff_recorder": "scripts/record_launch57_independent_verification_signoff.py",
+  "ntia_sbom_gap_analysis": "governance/launch57/LAUNCH57_NTIA_SBOM_GAP_ANALYSIS.json",
+  "sbom_ntia_scope_gate": "scripts/verify_launch57_sbom_ntia_scope.py",
+  "security_lead_inventory_rerun_gate": "scripts/verify_launch57_security_lead_inventory_rerun.py",
+  "finding14_prod_run_recorder": "scripts/record_launch57_security_txt_prod_verification.py",
+  "round_16_ops_evidence_ar": "docs/governance/LAUNCH57_ROUND_16_OPS_EVIDENCE_AR.md",
+  "p7_wp5_production_smoke": "scripts/verify_launch57_p7_wp5_production_smoke.py",
+  "p7_wp5_prod_smoke_recorder": "scripts/record_launch57_p7_wp5_prod_smoke.py",
+  "qa_ci_bundle_gate": "scripts/verify_launch57_qa_ci_bundle.py",
+  "ops_v3_bundle_gate": "scripts/verify_launch57_ops_v3_bundle.py",
+  "round_17_p7_wp5_ar": "docs/governance/LAUNCH57_ROUND_17_P7_WP5_AR.md",
+  "open_ops_closure_package": "governance/launch57/LAUNCH57_OPEN_OPS_CLOSURE_PACKAGE.json",
+  "open_ops_closure_package_gate": "scripts/verify_launch57_open_ops_closure_package.py",
+  "legal_v4_bundle_gate": "scripts/verify_launch57_legal_v4_bundle.py",
+  "legal_review_signoff_recorder": "scripts/record_launch57_legal_review_signoff.py",
+  "round_18_open_ops_ar": "docs/governance/LAUNCH57_ROUND_18_OPEN_OPS_AR.md",
+  "iv_repo_bundle": "governance/launch57/LAUNCH57_INDEPENDENT_VERIFICATION_REPO_BUNDLE.json",
+  "iv_repo_bundle_gate": "scripts/verify_launch57_iv_repo_bundle.py",
+  "program_integrity_report_gate": "scripts/verify_launch57_program_integrity_report.py",
+  "ops_playbook_dry_run": "scripts/run_launch57_ops_playbook_dry_run.py",
+  "round_19_iv_bundle_ar": "docs/governance/LAUNCH57_ROUND_19_IV_BUNDLE_AR.md",
+  "remediation_gate_index": "governance/launch57/LAUNCH57_REMEDIATION_GATE_INDEX.json",
+  "remediation_gate_index_generator": "scripts/generate_launch57_gate_index.py",
+  "remediation_gate_index_gate": "scripts/verify_launch57_gate_index.py",
+  "preflight_open_finding_transitions": "scripts/preflight_launch57_open_finding_transitions.py",
+  "round_20_gate_index_ar": "docs/governance/LAUNCH57_ROUND_20_GATE_INDEX_AR.md",
+  "ci_assurance_manifest": "governance/launch57/LAUNCH57_CI_ASSURANCE_MANIFEST.json",
+  "ci_assurance_manifest_gate": "scripts/verify_launch57_ci_assurance_manifest.py",
+  "engineering_verification_suite": "scripts/run_launch57_engineering_verification_suite.py",
+  "round_21_ci_manifest_ar": "docs/governance/LAUNCH57_ROUND_21_CI_MANIFEST_AR.md",
+  "evidence_index_schema": "governance/launch57/LAUNCH57_EVIDENCE_INDEX_SCHEMA.json",
+  "evidence_index_schema_gate": "scripts/verify_launch57_evidence_index_schema.py",
+  "pr_merge_checklist_gates": "scripts/verify_launch57_pr_merge_checklist_gates.py",
+  "open_findings_register_generator": "scripts/generate_launch57_open_findings_register.py",
+  "engineering_handoff": "governance/launch57/LAUNCH57_ENGINEERING_HANDOFF.json",
+  "engineering_handoff_gate": "scripts/verify_launch57_engineering_handoff.py",
+  "round_22_handoff_ar": "docs/governance/LAUNCH57_ROUND_22_HANDOFF_AR.md",
+  "cross_workflow_assurance": "governance/launch57/LAUNCH57_CROSS_WORKFLOW_ASSURANCE.json",
+  "cross_workflow_assurance_gate": "scripts/verify_launch57_cross_workflow_assurance.py",
+  "ci_reviewer_evidence_bundle": "governance/launch57/LAUNCH57_CI_REVIEWER_EVIDENCE_BUNDLE.json",
+  "ci_reviewer_evidence_bundle_generator": "scripts/generate_launch57_ci_reviewer_evidence_bundle.py",
+  "round_23_cross_workflow_ar": "docs/governance/LAUNCH57_ROUND_23_CROSS_WORKFLOW_AR.md",
+  "qa_v2_ci_recording": "governance/launch57/LAUNCH57_QA_V2_CI_RECORDING.json",
+  "ci_reviewer_evidence_bundle_gate": "scripts/verify_launch57_ci_reviewer_evidence_bundle.py",
+  "qa_v2_ci_urls_recorder": "scripts/record_launch57_qa_v2_ci_urls.py",
+  "round_24_qa_v2_recording_ar": "docs/governance/LAUNCH57_ROUND_24_QA_V2_RECORDING_AR.md",
+  "post_merge_ops_manifest": "governance/launch57/LAUNCH57_POST_MERGE_OPS_MANIFEST.json",
+  "post_merge_ops_manifest_gate": "scripts/verify_launch57_post_merge_ops_manifest.py",
+  "iv_human_signoff_preflight": "scripts/preflight_launch57_iv_human_signoffs.py",
+  "round_25_post_merge_ops_ar": "docs/governance/LAUNCH57_ROUND_25_POST_MERGE_OPS_AR.md",
+  "merge_to_main_readiness_manifest": "governance/launch57/LAUNCH57_MERGE_TO_MAIN_READINESS_MANIFEST.json",
+  "merge_to_main_readiness_manifest_gate": "scripts/verify_launch57_merge_to_main_readiness_manifest.py",
+  "round_26_merge_readiness_ar": "docs/governance/LAUNCH57_ROUND_26_MERGE_READINESS_AR.md",
+  "round_27_final_closure_ar": "docs/governance/LAUNCH57_ROUND_27_FINAL_CLOSURE_AR.md",
+  "remediation_lifecycle_index": "governance/launch57/LAUNCH57_REMEDIATION_LIFECYCLE_INDEX.json",
+  "remediation_lifecycle_index_gate": "scripts/verify_launch57_remediation_lifecycle_index.py",
+  "open_findings_closure_readiness": "scripts/run_launch57_open_findings_closure_readiness.py",
+  "round_28_lifecycle_index_ar": "docs/governance/LAUNCH57_ROUND_28_LIFECYCLE_INDEX_AR.md",
+  "finding_11_sbom_closure_lane": "governance/launch57/LAUNCH57_FINDING_11_SBOM_CLOSURE_LANE.json",
+  "finding_11_sbom_closure_lane_gate": "scripts/verify_launch57_finding11_sbom_closure_lane.py",
+  "finding_11_sec_lead_approval_recorder": "scripts/record_launch57_finding11_sec_lead_approval.py",
+  "finding_11_transition_preflight": "scripts/preflight_launch57_finding11_transition.py",
+  "round_29_finding11_sbom_ar": "docs/governance/LAUNCH57_ROUND_29_FINDING11_SBOM_AR.md",
+  "finding_14_security_txt_closure_lane": "governance/launch57/LAUNCH57_FINDING_14_SECURITY_TXT_CLOSURE_LANE.json",
+  "finding_14_security_txt_closure_lane_gate": "scripts/verify_launch57_finding14_security_txt_closure_lane.py",
+  "finding_14_transition_preflight": "scripts/preflight_launch57_finding14_transition.py",
+  "round_30_finding14_security_txt_ar": "docs/governance/LAUNCH57_ROUND_30_FINDING14_SECURITY_TXT_AR.md",
+  "finding_18_pentest_closure_lane": "governance/launch57/LAUNCH57_FINDING_18_PENTEST_CLOSURE_LANE.json",
+  "finding_18_pentest_closure_lane_gate": "scripts/verify_launch57_finding18_pentest_closure_lane.py",
+  "finding_18_transition_preflight": "scripts/preflight_launch57_finding18_transition.py",
+  "finding_19_waf_closure_lane": "governance/launch57/LAUNCH57_FINDING_19_WAF_CLOSURE_LANE.json",
+  "finding_19_waf_closure_lane_gate": "scripts/verify_launch57_finding19_waf_closure_lane.py",
+  "finding_19_transition_preflight": "scripts/preflight_launch57_finding19_transition.py",
+  "round_31_finding18_19_ar": "docs/governance/LAUNCH57_ROUND_31_FINDING18_19_AR.md",
+  "finding_01_pledge_closure_lane": "governance/launch57/LAUNCH57_FINDING_01_PLEDGE_CLOSURE_LANE.json",
+  "finding_01_pledge_closure_lane_gate": "scripts/verify_launch57_finding01_pledge_closure_lane.py",
+  "finding_01_transition_preflight": "scripts/preflight_launch57_finding01_transition.py",
+  "round_32_finding01_pledge_ar": "docs/governance/LAUNCH57_ROUND_32_FINDING01_PLEDGE_AR.md",
+  "program_authority": "docs/governance/LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION_PROGRAM.md"
+}

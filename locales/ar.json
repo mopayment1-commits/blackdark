@@ -108,6 +108,8 @@
   "dash.symbol": "الرمز",
   "dash.stealth.sub": "جمهور Whale · إرشاد حجم الشريحة — ليس ضمان توجيه Stealth",
   "dash.portfolio.sub": "المخاطر بلغة بسيطة — الحيازات تبقى في المتصفح",
+  "dash.intent.question": "ماذا أفعل الآن؟",
+  "dash.intent.hint": "أربعة أبواب — Decide · Verify · My book · Alerts. أداة تحليلية وليست نصيحة.",
   "login.trial": "تجربة Pro 7 أيام عند التسجيل — LAUNCHPRO = 14 يومًا",
   "login.tab.login": "دخول",
   "login.tab.register": "إنشاء حساب",

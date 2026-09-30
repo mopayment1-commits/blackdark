@@ -94,7 +94,7 @@ def _run(script: str, *, attempts: int = 2) -> dict:
         }
         if proc.returncode == 0:
             return last
-    assert last is not None
+    assert last is not None  # nosec B101
     return last
 
 

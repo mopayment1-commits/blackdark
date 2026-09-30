@@ -1,0 +1,35 @@
+{
+  "schema": "launch57_cross_workflow_assurance_v1",
+  "authority": "docs/governance/LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION_PROGRAM.md",
+  "program_sections": [
+    "§3.2 E-TEST",
+    "§8.3 V-2",
+    "docs/governance/LAUNCH57_PR_MERGE_CHECKLIST.md"
+  ],
+  "cisa_certification_claimed": false,
+  "program_complete": false,
+  "workflows": [
+    {
+      "path": ".github/workflows/security.yml",
+      "job": "pytest-security",
+      "required_pytest_modules": [
+        "tests/test_cisa_launch57_remediation.py"
+      ],
+      "checklist_ref": "PR merge checklist: security.yml includes Launch-57 pytest module"
+    },
+    {
+      "path": ".github/workflows/launch57-cisa-assurance.yml",
+      "job": "engineering-baseline",
+      "required_pytest_modules": [
+        "tests/test_cisa_launch57_remediation.py"
+      ],
+      "checklist_ref": "PR merge checklist: launch57-cisa-assurance workflow green"
+    }
+  ],
+  "independent_verification_register": "governance/launch57/LAUNCH57_INDEPENDENT_VERIFICATION_REGISTER.json",
+  "qa_v2_human_signoff_field": "qa_ci_green_run_url",
+  "reviewer_evidence_bundle": "governance/launch57/LAUNCH57_CI_REVIEWER_EVIDENCE_BUNDLE.json",
+  "reviewer_bundle_generator": "scripts/generate_launch57_ci_reviewer_evidence_bundle.py",
+  "repo_gate": "scripts/verify_launch57_cross_workflow_assurance.py",
+  "honesty": "Automated gate proves workflow wiring only; QA must record both workflow run URLs for V-2 human sign-off."
+}

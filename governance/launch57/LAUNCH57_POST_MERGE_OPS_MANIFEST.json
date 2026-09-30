@@ -1,0 +1,93 @@
+{
+  "schema": "launch57_post_merge_ops_manifest_v1",
+  "authority": "docs/ops/LAUNCH57_POST_MERGE_OPS.md",
+  "program_sections": ["§3.3 Finding closure rule", "§8.3 Independent verification", "§8.1 Program complete"],
+  "cisa_certification_claimed": false,
+  "program_complete": false,
+  "engineering_handoff": "governance/launch57/LAUNCH57_ENGINEERING_HANDOFF.json",
+  "open_ops_closure_package": "governance/launch57/LAUNCH57_OPEN_OPS_CLOSURE_PACKAGE.json",
+  "finding_transition_runbook": "docs/ops/LAUNCH57_OPS_FINDING_TRANSITION_RUNBOOK.md",
+  "final_closure_playbook_manifest": "governance/launch57/LAUNCH57_FINAL_CLOSURE_PLAYBOOK_MANIFEST.json",
+  "steps": [
+    {
+      "id": "railway_env",
+      "doc_section": 1,
+      "scripts": ["scripts/verify_railway_launch57_env.py"],
+      "evidence_classes": ["E-OPS"]
+    },
+    {
+      "id": "prod_surface",
+      "doc_section": 2,
+      "requires_env": ["LAUNCH57_PROD_URL"],
+      "scripts": [
+        "scripts/verify_launch57_prod_surface.py",
+        "scripts/verify_well_known_security_txt.py",
+        "scripts/record_launch57_security_txt_prod_verification.py",
+        "scripts/verify_launch57_p7_wp5_production_smoke.py",
+        "scripts/record_launch57_p7_wp5_prod_smoke.py"
+      ],
+      "evidence_classes": ["E-RUN", "E-OPS"],
+      "maps_to": "§8.3 V-3"
+    },
+    {
+      "id": "qa_v2_ci_urls",
+      "doc_section": 3,
+      "scripts": [
+        "scripts/verify_launch57_cross_workflow_assurance.py",
+        "scripts/verify_launch57_ci_reviewer_evidence_bundle.py",
+        "scripts/record_launch57_qa_v2_ci_urls.py",
+        "scripts/record_launch57_independent_verification_signoff.py"
+      ],
+      "evidence_classes": ["E-TEST"],
+      "maps_to": "§8.3 V-2",
+      "recording_spec": "governance/launch57/LAUNCH57_QA_V2_CI_RECORDING.json"
+    },
+    {
+      "id": "finding_transitions",
+      "doc_section": 4,
+      "scripts": [
+        "scripts/preflight_launch57_open_finding_transitions.py",
+        "scripts/transition_launch57_finding_status.py"
+      ],
+      "evidence_classes": ["E-OPS", "E-LEGAL"]
+    },
+    {
+      "id": "ops_attestation",
+      "doc_section": 5,
+      "scripts": [
+        "scripts/record_launch57_ops_attestation.py",
+        "scripts/record_launch57_ops_attestation.sh"
+      ],
+      "evidence_classes": ["E-OPS"]
+    },
+    {
+      "id": "executive_pledge",
+      "doc_section": 6,
+      "scripts": [
+        "scripts/record_pledge_submission.py",
+        "scripts/record_launch57_finding01_pledge_readiness.py"
+      ],
+      "evidence_classes": ["E-LEGAL"],
+      "maps_to": "FINDING-01"
+    },
+    {
+      "id": "regenerate_status",
+      "doc_section": 7,
+      "scripts": [
+        "scripts/generate_launch57_completion_status.py",
+        "scripts/generate_launch57_engineering_closure.py",
+        "scripts/verify_launch57_program_closure_81.py"
+      ],
+      "evidence_classes": ["E-ART"],
+      "honest_nonzero_exit": {
+        "script": "verify_launch57_program_closure_81.py",
+        "expected_exit": 2,
+        "until": "all 19 findings CLOSED in evidence index"
+      }
+    }
+  ],
+  "aggregate_gates": [
+    "scripts/launch57_ops_closure_gate.py",
+    "scripts/preflight_launch57_iv_human_signoffs.py"
+  ]
+}

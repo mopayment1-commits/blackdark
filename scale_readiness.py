@@ -13,6 +13,28 @@ from typing import Any
 import config
 
 
+def signed_load_evidence_from_capability_result(result: dict[str, Any]) -> bool:
+    """Resolve signed load evidence across heterogeneous capability response shapes."""
+    report = result.get("report")
+    if isinstance(report, dict):
+        sle = report.get("signed_load_evidence") or {}
+        if sle.get("present"):
+            return True
+    for key in ("capacity_load_evidence",):
+        block = result.get(key)
+        if not isinstance(block, dict):
+            continue
+        sle = block.get("signed_load_evidence") or {}
+        if sle.get("present"):
+            return True
+        domain = block.get("domain_result")
+        if isinstance(domain, dict):
+            nested = domain.get("report")
+            if isinstance(nested, dict) and (nested.get("signed_load_evidence") or {}).get("present"):
+                return True
+    return False
+
+
 def _signed_load_evidence_present() -> bool:
     path = os.getenv("SIGNED_LOAD_EVIDENCE_JSON", "").strip()
     if path and os.path.isfile(path):
@@ -49,8 +71,8 @@ def _signed_load_evidence_payload() -> dict[str, Any]:
             import json
 
             payload["artifact"] = json.loads(open(path, encoding="utf-8").read())
-        except Exception as exc:
-            payload["artifact_error"] = str(exc)
+        except Exception:
+            payload["artifact_error"] = "artifact_load_failed"
     return payload
 
 

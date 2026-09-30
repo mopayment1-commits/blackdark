@@ -1,0 +1,80 @@
+{
+  "schema": "launch57_final_closure_playbook_manifest_v1",
+  "authority": "docs/ops/LAUNCH57_FINAL_CLOSURE_PLAYBOOK.md",
+  "program_sections": ["§8.1 Program complete", "§3.3 Finding closure rule", "§6 FINDING-01/14/18/19"],
+  "cisa_certification_claimed": false,
+  "program_complete": false,
+  "evidence_index_ops_playbook_field": "ops_playbook",
+  "open_ops_closure_package": "governance/launch57/LAUNCH57_OPEN_OPS_CLOSURE_PACKAGE.json",
+  "post_merge_ops_manifest": "governance/launch57/LAUNCH57_POST_MERGE_OPS_MANIFEST.json",
+  "merge_to_main_readiness_manifest": "governance/launch57/LAUNCH57_MERGE_TO_MAIN_READINESS_MANIFEST.json",
+  "finding_transition_runbook": "docs/ops/LAUNCH57_OPS_FINDING_TRANSITION_RUNBOOK.md",
+  "steps": [
+    {
+      "id": "railway_prod_env",
+      "doc_section": 1,
+      "scripts": [
+        "scripts/verify_railway_launch57_env.py",
+        "scripts/verify_launch57_prod_surface.py"
+      ],
+      "spec": "governance/launch57/RAILWAY_CISA_ENV_EXPECTATIONS.json"
+    },
+    {
+      "id": "pre_merge_repo_gate",
+      "doc_section": 2,
+      "scripts": [
+        "scripts/verify_launch57_merge_to_main_readiness_manifest.py",
+        "scripts/verify_launch57_repo_evidence.py"
+      ],
+      "test_module": "tests/test_cisa_launch57_remediation.py"
+    },
+    {
+      "id": "post_deploy_ops_matrix",
+      "doc_section": 3,
+      "scripts": [
+        "scripts/launch57_ops_closure_gate.py",
+        "scripts/record_launch57_ops_attestation.py",
+        "scripts/record_launch57_ops_attestation.sh",
+        "scripts/publish_launch57_release_evidence.py"
+      ],
+      "evidence_classes": ["E-OPS", "E-ART"]
+    },
+    {
+      "id": "pentest_finding_18",
+      "doc_section": 4,
+      "artifacts": [
+        "docs/templates/pentest_scope_LAUNCH57.md",
+        "docs/ops/PENTEST_ENGAGEMENT_RUNBOOK.md",
+        "docs/evidence/pentest_attestation.template.json"
+      ],
+      "scripts": ["scripts/verify_launch57_external_assurance.py"]
+    },
+    {
+      "id": "executive_pledge_finding_01",
+      "doc_section": 5,
+      "artifacts": ["docs/governance/SECURE_BY_DESIGN_PLEDGE_EXECUTION_CHECKLIST.md"]
+    },
+    {
+      "id": "aggregate_closure_report",
+      "doc_section": 7,
+      "scripts": ["scripts/launch57_closure_report.py"],
+      "honest_nonzero_exit": {
+        "script": "launch57_closure_report.py",
+        "expected_exit": 2,
+        "until": "open runtime findings resolved"
+      },
+      "artifacts": ["governance/launch57/LAUNCH57_OPEN_FINDINGS_REGISTER.md"]
+    },
+    {
+      "id": "verified_finding_transitions",
+      "doc_section": 8,
+      "scripts": ["scripts/transition_launch57_finding_status.py"],
+      "runbook": "docs/ops/LAUNCH57_OPS_FINDING_TRANSITION_RUNBOOK.md"
+    }
+  ],
+  "aggregate_gates": [
+    "scripts/verify_launch57_program_closure_81.py",
+    "scripts/preflight_launch57_open_finding_transitions.py"
+  ],
+  "repo_gate": "scripts/verify_launch57_final_closure_playbook_manifest.py"
+}

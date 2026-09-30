@@ -1,0 +1,78 @@
+{
+  "artifact": "SPEC_08_INDEPENDENT_VERIFICATION",
+  "domain": "SPEC_08_DECISION_TRUTH",
+  "verification_sha": "d2143c07eed2c83d610bd6d27c866f98fced44b6",
+  "probe_count": 13,
+  "passed_count": 13,
+  "failed_count": 0,
+  "INDEPENDENT_VERIFICATION_PASS": true,
+  "probes": [
+    {
+      "probe": "iv_insufficient_evidence_abstain",
+      "pass": true,
+      "detail": "stale_data"
+    },
+    {
+      "probe": "iv_sim_stale_not_live_on_decision",
+      "pass": true,
+      "detail": "{'sim_live_contamination_blocked': True, 'stale_not_live_on_decision': True, 'decision_truth_ok': True}"
+    },
+    {
+      "probe": "iv_certificate_rejects_untrusted_time",
+      "pass": true,
+      "detail": "{'untrusted_decision_time_rejected': True, 'trusted_decision_time_accepted': True, 'gate_ok': True, 'owner': 'launch57.decision_timing_common'}"
+    },
+    {
+      "probe": "iv_net_edge_refuses_stale",
+      "pass": true,
+      "detail": "ABSTAIN"
+    },
+    {
+      "probe": "iv_contradiction_abstain",
+      "pass": true,
+      "detail": "conflicting_signals"
+    },
+    {
+      "probe": "iv_runtime_paths_wired",
+      "pass": true,
+      "detail": "{'trust_batch1_oracle': True, 'trust_batch1_net_edge': True, 'decision_common_spine': True, 'decision_common_stale_gate': True, 'b4_decision_bridge': True, 'b4_timing_context': True, 'decision_timing_certificate': True}"
+    },
+    {
+      "probe": "iv_no_parked_decision_scope",
+      "pass": true,
+      "detail": "out of scope"
+    },
+    {
+      "probe": "iv_file02_file03_aligned",
+      "pass": true,
+      "detail": "{'file02_public_accuracy_anonymous': True, 'file02_private_history_anonymous_denied': True, 'file03_unverified_cannot_unlock_history': True, 'aligned': True}"
+    },
+    {
+      "probe": "iv_machine_readable_export",
+      "pass": true,
+      "detail": "LAUNCH57_DECISION_TRUTH_EXPORT"
+    },
+    {
+      "probe": "iv_guest_trust_public_read",
+      "pass": true,
+      "detail": "status=200"
+    },
+    {
+      "probe": "iv_history_auth_gated",
+      "pass": true,
+      "detail": "status=401"
+    },
+    {
+      "probe": "iv_stale_oracle_abstain",
+      "pass": true,
+      "detail": "ABSTAIN"
+    },
+    {
+      "probe": "iv_pass_live_not_claimed",
+      "pass": true,
+      "detail": "honest"
+    }
+  ],
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "generated_at": "2026-09-19T00:23:58.653848+00:00"
+}

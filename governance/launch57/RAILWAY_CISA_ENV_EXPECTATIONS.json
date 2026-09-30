@@ -1,0 +1,60 @@
+{
+  "schema": "launch57_railway_cisa_env_v1",
+  "doc": "deploy/railway/LAUNCH57_CISA_ENV.md",
+  "production_env_equals": "production",
+  "variables": [
+    {
+      "name": "ENV",
+      "equals": "production",
+      "required_in_production": true
+    },
+    {
+      "name": "APP_BASE_URL",
+      "required_in_production": true,
+      "https_url": true,
+      "findings": ["05", "14"]
+    },
+    {
+      "name": "WEBAUTHN_RP_ID",
+      "required_in_production": true,
+      "matches_hostname_of": "APP_BASE_URL",
+      "findings": ["05"]
+    },
+    {
+      "name": "USER_MFA_ENROLL_REQUIRED",
+      "required_in_production": true,
+      "equals": "true",
+      "findings": ["04"]
+    },
+    {
+      "name": "SECURITY_LOG_RETENTION_DAYS",
+      "required_in_production": true,
+      "min_int": 180,
+      "findings": ["08"]
+    },
+    {
+      "name": "BLACKDARK_RELEASE",
+      "required_in_production": true,
+      "equals": "launch-57",
+      "findings": ["10"]
+    },
+    {
+      "name": "AUDIT_SIGNING_KEY",
+      "required_in_production": true,
+      "min_length": 32,
+      "findings": ["ops"]
+    },
+    {
+      "name": "CDN_WAF_ACTIVE",
+      "required_in_production": false,
+      "equals": "1",
+      "findings": ["19"],
+      "note": "Set after Cloudflare WAF activation"
+    },
+    {
+      "name": "CLOUDFLARE_ZONE_ID",
+      "required_in_production": false,
+      "findings": ["19"]
+    }
+  ]
+}

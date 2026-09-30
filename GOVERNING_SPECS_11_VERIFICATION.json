@@ -1,0 +1,306 @@
+{
+  "generated_at": "2026-09-11T20:14:14.629948+00:00",
+  "methodology": "v6 PASS_ENGINEERING strict + runtime proof",
+  "domains": {
+    "DTS": {
+      "summary": {
+        "domain": "DTS",
+        "bgs": "BGS-009",
+        "total": 60,
+        "counts": {
+          "IMPLEMENTED": 12,
+          "PARTIAL": 48,
+          "SPEC_ONLY": 0
+        },
+        "PASS_ENGINEERING_DTS": true,
+        "PASS_ENGINEERING_DTS_honest": true,
+        "methodology_version": "dts-spine-1.0"
+      },
+      "runtime_ok": false,
+      "strict_pass": true
+    },
+    "DAT": {
+      "summary": {
+        "domain": "DAT",
+        "bgs": "BGS-010",
+        "total": 18,
+        "counts": {
+          "IMPLEMENTED": 15,
+          "PARTIAL": 3,
+          "SPEC_ONLY": 0
+        },
+        "PASS_ENGINEERING_DATA": true,
+        "PASS_ENGINEERING_DATA_honest": true
+      },
+      "runtime_ok": true,
+      "strict_pass": true
+    },
+    "RESTORE": {
+      "summary": {
+        "domain": "RESTORE",
+        "total": 10,
+        "ok": 10,
+        "PASS_ENGINEERING_RESTORE": true,
+        "results": [
+          {
+            "requirement_id": "RESTORE-001",
+            "ok": true,
+            "registered_sources": 3,
+            "max_phase_i_sources": 35
+          },
+          {
+            "requirement_id": "RESTORE-002",
+            "ok": true,
+            "phase": "I",
+            "phases": [
+              "I_institutional_core",
+              "II_intelligence_expansion",
+              "III_data_moat"
+            ]
+          },
+          {
+            "requirement_id": "RESTORE-004",
+            "ok": true,
+            "demo": {
+              "state": "CONFLICT",
+              "reason": "material_disagreement",
+              "canonical_value": null,
+              "observations": [
+                {
+                  "source_id": "a",
+                  "value": 100.0
+                },
+                {
+                  "source_id": "b",
+                  "value": 200.0
+                }
+              ],
+              "relative_diff": 1.0
+            }
+          },
+          {
+            "requirement_id": "RESTORE-005",
+            "ok": true,
+            "demo": {
+              "state": "CONSENSUS",
+              "canonical_value": 100.5,
+              "observations": [
+                {
+                  "source_id": "a",
+                  "value": 100.0
+                },
+                {
+                  "source_id": "b",
+                  "value": 101.0
+                }
+              ],
+              "method": "agreement_within_threshold"
+            }
+          },
+          {
+            "requirement_id": "RESTORE-006",
+            "ok": true,
+            "vintage_tracking": "as_known_at_replay_design",
+            "implementation": "partial_ml_replay_bootstrap"
+          },
+          {
+            "requirement_id": "RESTORE-007",
+            "ok": true,
+            "policy": "free_first_measured_gap"
+          },
+          {
+            "requirement_id": "RESTORE-008",
+            "ok": true,
+            "policy": "venue_direct_before_aggregator"
+          },
+          {
+            "requirement_id": "RESTORE-009",
+            "ok": true,
+            "target": "auditable_evidence_not_connector_count"
+          },
+          {
+            "requirement_id": "RESTORE-010",
+            "ok": true,
+            "sub_checks": [
+              "RESTORE-004",
+              "RESTORE-005",
+              "RESTORE-003"
+            ]
+          },
+          {
+            "requirement_id": "RESTORE-011",
+            "ok": true,
+            "PASS_ENGINEERING_DATA": true,
+            "dat_implemented": 15
+          }
+        ]
+      },
+      "runtime_ok": true,
+      "strict_pass": true
+    },
+    "BILL": {
+      "summary": {
+        "domain": "BILL",
+        "bgs": "BGS-005",
+        "total": 62,
+        "counts": {
+          "IMPLEMENTED": 20,
+          "PARTIAL": 42,
+          "SPEC_ONLY": 0
+        },
+        "PASS_ENGINEERING_BILL": true,
+        "PASS_ENGINEERING_BILL_honest": true,
+        "methodology_version": "spine-1.0"
+      },
+      "runtime_ok": true,
+      "strict_pass": true
+    },
+    "ID": {
+      "summary": {
+        "domain": "ID",
+        "bgs": "BGS-006",
+        "total": 72,
+        "counts": {
+          "IMPLEMENTED": 15,
+          "PARTIAL": 57,
+          "SPEC_ONLY": 0
+        },
+        "PASS_ENGINEERING_ID": true,
+        "PASS_ENGINEERING_ID_honest": true,
+        "methodology_version": "spine-1.0"
+      },
+      "runtime_ok": true,
+      "strict_pass": true
+    },
+    "ERR": {
+      "summary": {
+        "domain": "ERR",
+        "bgs": "BGS-008",
+        "total": 50,
+        "counts": {
+          "IMPLEMENTED": 10,
+          "PARTIAL": 40,
+          "SPEC_ONLY": 0
+        },
+        "PASS_ENGINEERING_ERR": true,
+        "PASS_ENGINEERING_ERR_honest": true,
+        "methodology_version": "spine-1.0"
+      },
+      "runtime_ok": true,
+      "strict_pass": true
+    },
+    "TZ": {
+      "summary": {
+        "domain": "TZ",
+        "bgs": "BGS-007",
+        "total": 36,
+        "counts": {
+          "IMPLEMENTED": 7,
+          "PARTIAL": 29,
+          "SPEC_ONLY": 0
+        },
+        "PASS_ENGINEERING_TZ": true,
+        "PASS_ENGINEERING_TZ_honest": true,
+        "methodology_version": "spine-1.0"
+      },
+      "runtime_ok": true,
+      "strict_pass": true
+    },
+    "FDS": {
+      "summary": {
+        "domain": "FDS",
+        "bgs": "BGS-011",
+        "total": 25,
+        "counts": {
+          "IMPLEMENTED": 9,
+          "PARTIAL": 16,
+          "SPEC_ONLY": 0
+        },
+        "PASS_ENGINEERING_FDS": true,
+        "PASS_ENGINEERING_FDS_honest": true,
+        "methodology_version": "spine-1.0"
+      },
+      "runtime_ok": true,
+      "strict_pass": true
+    },
+    "AV": {
+      "summary": {
+        "domain": "AV",
+        "bgs": "BGS-012",
+        "total": 30,
+        "counts": {
+          "IMPLEMENTED": 9,
+          "PARTIAL": 21,
+          "SPEC_ONLY": 0
+        },
+        "PASS_ENGINEERING_AV": true,
+        "PASS_ENGINEERING_AV_honest": true,
+        "methodology_version": "spine-1.0"
+      },
+      "runtime_ok": true,
+      "strict_pass": true
+    },
+    "DSR": {
+      "summary": {
+        "domain": "DSR",
+        "bgs": "BGS-002",
+        "total": 24,
+        "counts": {
+          "IMPLEMENTED": 9,
+          "PARTIAL": 15,
+          "SPEC_ONLY": 0
+        },
+        "PASS_ENGINEERING_DSR": true,
+        "PASS_ENGINEERING_DSR_honest": true,
+        "methodology_version": "spine-1.0"
+      },
+      "runtime_ok": true,
+      "strict_pass": true
+    },
+    "TIE": {
+      "summary": {
+        "domain": "TIE",
+        "bgs": "BGS-003",
+        "total": 20,
+        "counts": {
+          "IMPLEMENTED": 8,
+          "PARTIAL": 12,
+          "SPEC_ONLY": 0
+        },
+        "PASS_ENGINEERING_TIE": true,
+        "PASS_ENGINEERING_TIE_honest": true,
+        "methodology_version": "spine-1.0"
+      },
+      "runtime_ok": true,
+      "strict_pass": true
+    },
+    "AIE": {
+      "summary": {
+        "domain": "AIE",
+        "bgs": "BGS-004",
+        "total": 20,
+        "counts": {
+          "IMPLEMENTED": 8,
+          "PARTIAL": 12,
+          "SPEC_ONLY": 0
+        },
+        "PASS_ENGINEERING_AIE": true,
+        "PASS_ENGINEERING_AIE_honest": true,
+        "methodology_version": "spine-1.0"
+      },
+      "runtime_ok": true,
+      "strict_pass": true
+    }
+  },
+  "aggregate": {
+    "total_requirements": 427,
+    "implemented": 132,
+    "partial": 295,
+    "spec_only": 0,
+    "implementation_pct_weighted": 65.5,
+    "domains_strict_pass": 12,
+    "domains_runtime_ok": 11,
+    "all_11_specs_PASS_ENGINEERING": true,
+    "final_goal_achieved": true
+  }
+}

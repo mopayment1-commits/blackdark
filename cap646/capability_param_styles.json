@@ -1,0 +1,1300 @@
+{
+  "overrides": {
+    "5": {
+      "module": "bd_platform.onchain_hub",
+      "entrypoint": "dexscreener_pairs",
+      "was": "symbol",
+      "correct": "query"
+    },
+    "25": {
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "was": "symbol_tier",
+      "correct": "symbol"
+    },
+    "29": {
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "was": "symbol_tier",
+      "correct": "symbol"
+    },
+    "31": {
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "was": "symbol_tier",
+      "correct": "symbol"
+    },
+    "34": {
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "was": "symbol_tier",
+      "correct": "symbol"
+    },
+    "48": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "49": {
+      "module": "options_fetcher",
+      "entrypoint": "fetch_options_overview",
+      "was": "symbols",
+      "correct": "assets"
+    },
+    "54": {
+      "module": "live_book_hub",
+      "entrypoint": "hub_stats",
+      "was": "books",
+      "correct": "none"
+    },
+    "56": {
+      "module": "bd_platform.market_rankings",
+      "entrypoint": "market_rankings",
+      "was": "none",
+      "correct": "limit"
+    },
+    "57": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "58": {
+      "module": "bd_platform.tradingview_bridge",
+      "entrypoint": "chart_config",
+      "was": "none",
+      "correct": "symbol"
+    },
+    "66": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "80": {
+      "module": "bd_platform.onchain_hub",
+      "entrypoint": "dexscreener_pairs",
+      "was": "symbol",
+      "correct": "query"
+    },
+    "85": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "86": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "87": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "88": {
+      "module": "bd_platform.liquidation_radar",
+      "entrypoint": "liquidation_radar",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "89": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "90": {
+      "module": "sentiment_engine",
+      "entrypoint": "build_sentiment_context_safe",
+      "was": "symbol",
+      "correct": "assets"
+    },
+    "91": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "95": {
+      "module": "bd_platform.tradingview_bridge",
+      "entrypoint": "chart_config",
+      "was": "none",
+      "correct": "symbol"
+    },
+    "102": {
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "was": "symbol_tier",
+      "correct": "symbol"
+    },
+    "115": {
+      "module": "bd_platform.market_rankings",
+      "entrypoint": "market_rankings",
+      "was": "none",
+      "correct": "limit"
+    },
+    "116": {
+      "module": "bd_platform.onchain_hub",
+      "entrypoint": "dexscreener_pairs",
+      "was": "symbol",
+      "correct": "query"
+    },
+    "122": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "123": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "124": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "126": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "127": {
+      "module": "bd_platform.alpha_factor_ranking",
+      "entrypoint": "rank_assets_by_alpha_factors",
+      "was": "none",
+      "correct": "limit"
+    },
+    "128": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "129": {
+      "module": "sentiment_gate",
+      "entrypoint": "fetch_asset_sentiment",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "133": {
+      "module": "bd_platform.news_classifier",
+      "entrypoint": "coindesk_feed",
+      "was": "none",
+      "correct": "limit"
+    },
+    "134": {
+      "module": "bd_platform.news_classifier",
+      "entrypoint": "coindesk_feed",
+      "was": "none",
+      "correct": "limit"
+    },
+    "138": {
+      "module": "bd_platform.token_unlocks",
+      "entrypoint": "unlock_calendar",
+      "was": "none",
+      "correct": "limit"
+    },
+    "139": {
+      "module": "bd_platform.token_unlocks",
+      "entrypoint": "unlock_calendar",
+      "was": "none",
+      "correct": "limit"
+    },
+    "141": {
+      "module": "bd_platform.token_unlocks",
+      "entrypoint": "unlock_calendar",
+      "was": "none",
+      "correct": "limit"
+    },
+    "142": {
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "was": "symbol_tier",
+      "correct": "symbol"
+    },
+    "143": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "146": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "147": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "150": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "163": {
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "was": "symbol_tier",
+      "correct": "symbol"
+    },
+    "164": {
+      "module": "bd_platform.token_unlocks",
+      "entrypoint": "unlock_calendar",
+      "was": "none",
+      "correct": "limit"
+    },
+    "165": {
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "was": "symbol_tier",
+      "correct": "symbol"
+    },
+    "166": {
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "was": "symbol_tier",
+      "correct": "symbol"
+    },
+    "167": {
+      "module": "sentiment_engine",
+      "entrypoint": "build_sentiment_context_safe",
+      "was": "symbol",
+      "correct": "assets"
+    },
+    "168": {
+      "module": "sentiment_engine",
+      "entrypoint": "build_sentiment_context_safe",
+      "was": "symbol",
+      "correct": "assets"
+    },
+    "169": {
+      "module": "sentiment_engine",
+      "entrypoint": "build_sentiment_context_safe",
+      "was": "symbol",
+      "correct": "assets"
+    },
+    "170": {
+      "module": "bd_platform.market_rankings",
+      "entrypoint": "market_rankings",
+      "was": "none",
+      "correct": "limit"
+    },
+    "171": {
+      "module": "bd_platform.market_rankings",
+      "entrypoint": "market_rankings",
+      "was": "none",
+      "correct": "limit"
+    },
+    "175": {
+      "module": "sentiment_gate",
+      "entrypoint": "fetch_asset_sentiment",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "176": {
+      "module": "sentiment_engine",
+      "entrypoint": "build_sentiment_context_safe",
+      "was": "symbol",
+      "correct": "assets"
+    },
+    "177": {
+      "module": "sentiment_engine",
+      "entrypoint": "build_sentiment_context_safe",
+      "was": "symbol",
+      "correct": "assets"
+    },
+    "178": {
+      "module": "sentiment_engine",
+      "entrypoint": "build_sentiment_context_safe",
+      "was": "symbol",
+      "correct": "assets"
+    },
+    "199": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "202": {
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "was": "symbol_tier",
+      "correct": "symbol"
+    },
+    "203": {
+      "module": "bd_platform.onchain_hub",
+      "entrypoint": "dexscreener_pairs",
+      "was": "symbol",
+      "correct": "query"
+    },
+    "205": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "209": {
+      "module": "bd_platform.tradingview_bridge",
+      "entrypoint": "chart_config",
+      "was": "none",
+      "correct": "symbol"
+    },
+    "211": {
+      "module": "bd_platform.market_rankings",
+      "entrypoint": "market_rankings",
+      "was": "none",
+      "correct": "limit"
+    },
+    "219": {
+      "module": "blackdark.canonical.resolver",
+      "entrypoint": "resolve_asset",
+      "was": "symbol",
+      "correct": "raw"
+    },
+    "220": {
+      "module": "blackdark.canonical.resolver",
+      "entrypoint": "resolve_asset",
+      "was": "symbol",
+      "correct": "raw"
+    },
+    "223": {
+      "module": "sentiment_engine",
+      "entrypoint": "build_sentiment_context_safe",
+      "was": "symbol",
+      "correct": "assets"
+    },
+    "231": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "234": {
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "was": "symbol_tier",
+      "correct": "symbol"
+    },
+    "235": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "236": {
+      "module": "bd_platform.onchain_hub",
+      "entrypoint": "dexscreener_pairs",
+      "was": "symbol",
+      "correct": "query"
+    },
+    "240": {
+      "module": "bd_platform.market_rankings",
+      "entrypoint": "market_rankings",
+      "was": "none",
+      "correct": "limit"
+    },
+    "242": {
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "was": "symbol_tier",
+      "correct": "symbol"
+    },
+    "246": {
+      "module": "blackdark.canonical.resolver",
+      "entrypoint": "resolve_asset",
+      "was": "symbol",
+      "correct": "raw"
+    },
+    "252": {
+      "module": "bd_platform.liquidation_radar",
+      "entrypoint": "liquidation_radar",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "253": {
+      "module": "bd_platform.liquidation_radar",
+      "entrypoint": "liquidation_radar",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "254": {
+      "module": "bd_platform.liquidation_radar",
+      "entrypoint": "liquidation_radar",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "259": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "261": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "262": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "263": {
+      "module": "options_fetcher",
+      "entrypoint": "fetch_options_overview",
+      "was": "symbols",
+      "correct": "assets"
+    },
+    "264": {
+      "module": "options_fetcher",
+      "entrypoint": "fetch_options_overview",
+      "was": "symbols",
+      "correct": "assets"
+    },
+    "265": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "270": {
+      "module": "bd_platform.liquidation_radar",
+      "entrypoint": "liquidation_radar",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "271": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "273": {
+      "module": "bd_platform.liquidation_radar",
+      "entrypoint": "liquidation_radar",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "298": {
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "was": "symbol_tier",
+      "correct": "symbol"
+    },
+    "299": {
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "was": "symbol_tier",
+      "correct": "symbol"
+    },
+    "300": {
+      "module": "bd_platform.tradingview_bridge",
+      "entrypoint": "chart_config",
+      "was": "none",
+      "correct": "symbol"
+    },
+    "301": {
+      "module": "bd_platform.tradingview_bridge",
+      "entrypoint": "chart_config",
+      "was": "none",
+      "correct": "symbol"
+    },
+    "305": {
+      "module": "bd_platform.market_rankings",
+      "entrypoint": "market_rankings",
+      "was": "none",
+      "correct": "limit"
+    },
+    "306": {
+      "module": "bd_platform.market_rankings",
+      "entrypoint": "market_rankings",
+      "was": "none",
+      "correct": "limit"
+    },
+    "311": {
+      "module": "bd_platform.news_classifier",
+      "entrypoint": "coindesk_feed",
+      "was": "none",
+      "correct": "limit"
+    },
+    "316": {
+      "module": "bd_platform.tradingview_bridge",
+      "entrypoint": "chart_config",
+      "was": "none",
+      "correct": "symbol"
+    },
+    "321": {
+      "module": "bd_platform.market_rankings",
+      "entrypoint": "market_rankings",
+      "was": "none",
+      "correct": "limit"
+    },
+    "322": {
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "was": "symbol_tier",
+      "correct": "symbol"
+    },
+    "335": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "336": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "342": {
+      "module": "bd_platform.market_rankings",
+      "entrypoint": "market_rankings",
+      "was": "none",
+      "correct": "limit"
+    },
+    "345": {
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "was": "symbol_tier",
+      "correct": "symbol"
+    },
+    "354": {
+      "module": "bd_platform.onchain_hub",
+      "entrypoint": "dexscreener_pairs",
+      "was": "symbol",
+      "correct": "query"
+    },
+    "361": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "362": {
+      "module": "bd_platform.market_rankings",
+      "entrypoint": "market_rankings",
+      "was": "none",
+      "correct": "limit"
+    },
+    "364": {
+      "module": "bd_platform.market_rankings",
+      "entrypoint": "market_rankings",
+      "was": "none",
+      "correct": "limit"
+    },
+    "366": {
+      "module": "blackdark.canonical.resolver",
+      "entrypoint": "resolve_asset",
+      "was": "symbol",
+      "correct": "raw"
+    },
+    "369": {
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "was": "symbol_tier",
+      "correct": "symbol"
+    },
+    "392": {
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "was": "symbol_tier",
+      "correct": "symbol"
+    },
+    "398": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "405": {
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "was": "symbol_tier",
+      "correct": "symbol"
+    },
+    "407": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "408": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "409": {
+      "module": "bd_platform.token_unlocks",
+      "entrypoint": "unlock_calendar",
+      "was": "none",
+      "correct": "limit"
+    },
+    "422": {
+      "module": "bd_platform.market_rankings",
+      "entrypoint": "market_rankings",
+      "was": "none",
+      "correct": "limit"
+    },
+    "436": {
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "was": "symbol_tier",
+      "correct": "symbol"
+    },
+    "440": {
+      "module": "bd_platform.liquidation_radar",
+      "entrypoint": "liquidation_radar",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "441": {
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "was": "symbol_tier",
+      "correct": "symbol"
+    },
+    "458": {
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "was": "symbol_tier",
+      "correct": "symbol"
+    },
+    "469": {
+      "module": "bd_platform.onchain_hub",
+      "entrypoint": "dexscreener_pairs",
+      "was": "symbol",
+      "correct": "query"
+    },
+    "476": {
+      "module": "bd_platform.tradingview_bridge",
+      "entrypoint": "chart_config",
+      "was": "none",
+      "correct": "symbol"
+    },
+    "481": {
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "was": "symbol_tier",
+      "correct": "symbol"
+    },
+    "485": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "486": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "487": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "488": {
+      "module": "bd_platform.onchain_hub",
+      "entrypoint": "dexscreener_pairs",
+      "was": "symbol",
+      "correct": "query"
+    },
+    "490": {
+      "module": "blackdark.canonical.resolver",
+      "entrypoint": "resolve_asset",
+      "was": "symbol",
+      "correct": "raw"
+    },
+    "491": {
+      "module": "blackdark.canonical.resolver",
+      "entrypoint": "resolve_asset",
+      "was": "symbol",
+      "correct": "raw"
+    },
+    "495": {
+      "module": "live_book_hub",
+      "entrypoint": "hub_stats",
+      "was": "books",
+      "correct": "none"
+    },
+    "502": {
+      "module": "blackdark.canonical.resolver",
+      "entrypoint": "resolve_asset",
+      "was": "symbol",
+      "correct": "raw"
+    },
+    "503": {
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "was": "symbol_tier",
+      "correct": "symbol"
+    },
+    "511": {
+      "module": "options_fetcher",
+      "entrypoint": "fetch_options_overview",
+      "was": "symbols",
+      "correct": "assets"
+    },
+    "512": {
+      "module": "bd_platform.liquidation_radar",
+      "entrypoint": "liquidation_radar",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "513": {
+      "module": "blackdark.canonical.resolver",
+      "entrypoint": "resolve_asset",
+      "was": "symbol",
+      "correct": "raw"
+    },
+    "520": {
+      "module": "bd_platform.onchain_hub",
+      "entrypoint": "dexscreener_pairs",
+      "was": "symbol",
+      "correct": "query"
+    },
+    "521": {
+      "module": "bd_platform.onchain_hub",
+      "entrypoint": "dexscreener_pairs",
+      "was": "symbol",
+      "correct": "query"
+    },
+    "528": {
+      "module": "bd_platform.liquidation_radar",
+      "entrypoint": "liquidation_radar",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "529": {
+      "module": "bd_platform.liquidation_radar",
+      "entrypoint": "liquidation_radar",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "530": {
+      "module": "bd_platform.liquidation_radar",
+      "entrypoint": "liquidation_radar",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "531": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "532": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "533": {
+      "module": "bd_platform.footprint_analytics",
+      "entrypoint": "footprint_snapshot",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "539": {
+      "module": "live_book_hub",
+      "entrypoint": "hub_stats",
+      "was": "books",
+      "correct": "none"
+    },
+    "540": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "542": {
+      "module": "bd_platform.liquidation_radar",
+      "entrypoint": "liquidation_radar",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "543": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "545": {
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "was": "symbol_tier",
+      "correct": "symbol"
+    },
+    "546": {
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "was": "symbol_tier",
+      "correct": "symbol"
+    },
+    "547": {
+      "module": "bd_platform.tradingview_bridge",
+      "entrypoint": "chart_config",
+      "was": "none",
+      "correct": "symbol"
+    },
+    "552": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "554": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "555": {
+      "module": "options_fetcher",
+      "entrypoint": "fetch_options_overview",
+      "was": "symbols",
+      "correct": "assets"
+    },
+    "556": {
+      "module": "options_fetcher",
+      "entrypoint": "fetch_options_overview",
+      "was": "symbols",
+      "correct": "assets"
+    },
+    "557": {
+      "module": "options_fetcher",
+      "entrypoint": "fetch_options_overview",
+      "was": "symbols",
+      "correct": "assets"
+    },
+    "558": {
+      "module": "options_fetcher",
+      "entrypoint": "fetch_options_overview",
+      "was": "symbols",
+      "correct": "assets"
+    },
+    "564": {
+      "module": "bd_platform.news_classifier",
+      "entrypoint": "coindesk_feed",
+      "was": "none",
+      "correct": "limit"
+    },
+    "566": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "567": {
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "was": "symbol_tier",
+      "correct": "symbol"
+    },
+    "581": {
+      "module": "bd_platform.onchain_hub",
+      "entrypoint": "dexscreener_pairs",
+      "was": "symbol",
+      "correct": "query"
+    },
+    "586": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "589": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "590": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "591": {
+      "module": "sentiment_gate",
+      "entrypoint": "fetch_asset_sentiment",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "592": {
+      "module": "bd_platform.onchain_hub",
+      "entrypoint": "dexscreener_pairs",
+      "was": "symbol",
+      "correct": "query"
+    },
+    "593": {
+      "module": "sentiment_engine",
+      "entrypoint": "build_sentiment_context_safe",
+      "was": "symbol",
+      "correct": "assets"
+    },
+    "597": {
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "was": "symbol_tier",
+      "correct": "symbol"
+    },
+    "604": {
+      "module": "bd_platform.token_unlocks",
+      "entrypoint": "unlock_calendar",
+      "was": "none",
+      "correct": "limit"
+    },
+    "605": {
+      "module": "sentiment_engine",
+      "entrypoint": "build_sentiment_context_safe",
+      "was": "symbol",
+      "correct": "assets"
+    },
+    "609": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "611": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "613": {
+      "module": "bd_platform.liquidation_radar",
+      "entrypoint": "liquidation_radar",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "614": {
+      "module": "bd_platform.onchain_hub",
+      "entrypoint": "dexscreener_pairs",
+      "was": "symbol",
+      "correct": "query"
+    },
+    "621": {
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "was": "symbol_tier",
+      "correct": "symbol"
+    },
+    "622": {
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "was": "symbol_tier",
+      "correct": "symbol"
+    },
+    "628": {
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "was": "symbol_tier",
+      "correct": "symbol"
+    },
+    "633": {
+      "module": "live_book_hub",
+      "entrypoint": "hub_stats",
+      "was": "books",
+      "correct": "none"
+    },
+    "634": {
+      "module": "live_book_hub",
+      "entrypoint": "hub_stats",
+      "was": "books",
+      "correct": "none"
+    },
+    "637": {
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "was": "symbol_tier",
+      "correct": "symbol"
+    },
+    "639": {
+      "module": "net_edge_truth",
+      "entrypoint": "compute_net_edge_truth",
+      "was": "edge",
+      "correct": "opportunity"
+    },
+    "643": {
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "was": "symbol_tier",
+      "correct": "symbol"
+    },
+    "659": {
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "was": "symbol_tier",
+      "correct": "symbol"
+    },
+    "664": {
+      "module": "bd_platform.onchain_hub",
+      "entrypoint": "dexscreener_pairs",
+      "was": "symbol",
+      "correct": "query"
+    },
+    "665": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "666": {
+      "module": "options_fetcher",
+      "entrypoint": "fetch_options_overview",
+      "was": "symbols",
+      "correct": "assets"
+    },
+    "674": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "676": {
+      "module": "bd_platform.token_unlocks",
+      "entrypoint": "unlock_calendar",
+      "was": "none",
+      "correct": "limit"
+    },
+    "689": {
+      "module": "bd_platform.market_rankings",
+      "entrypoint": "market_rankings",
+      "was": "none",
+      "correct": "limit"
+    },
+    "707": {
+      "module": "bd_platform.liquidation_radar",
+      "entrypoint": "liquidation_radar",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "736": {
+      "module": "bd_platform.onchain_hub",
+      "entrypoint": "dexscreener_pairs",
+      "was": "symbol",
+      "correct": "query"
+    },
+    "743": {
+      "module": "bd_platform.tradingview_bridge",
+      "entrypoint": "chart_config",
+      "was": "none",
+      "correct": "symbol"
+    },
+    "748": {
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "was": "symbol_tier",
+      "correct": "symbol"
+    },
+    "752": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "753": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "754": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "755": {
+      "module": "bd_platform.onchain_hub",
+      "entrypoint": "dexscreener_pairs",
+      "was": "symbol",
+      "correct": "query"
+    },
+    "757": {
+      "module": "blackdark.canonical.resolver",
+      "entrypoint": "resolve_asset",
+      "was": "symbol",
+      "correct": "raw"
+    },
+    "758": {
+      "module": "blackdark.canonical.resolver",
+      "entrypoint": "resolve_asset",
+      "was": "symbol",
+      "correct": "raw"
+    },
+    "762": {
+      "module": "live_book_hub",
+      "entrypoint": "hub_stats",
+      "was": "books",
+      "correct": "none"
+    },
+    "766": {
+      "module": "blackdark.canonical.resolver",
+      "entrypoint": "resolve_asset",
+      "was": "symbol",
+      "correct": "raw"
+    },
+    "769": {
+      "module": "blackdark.canonical.resolver",
+      "entrypoint": "resolve_asset",
+      "was": "symbol",
+      "correct": "raw"
+    },
+    "778": {
+      "module": "options_fetcher",
+      "entrypoint": "fetch_options_overview",
+      "was": "symbols",
+      "correct": "assets"
+    },
+    "779": {
+      "module": "bd_platform.liquidation_radar",
+      "entrypoint": "liquidation_radar",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "780": {
+      "module": "blackdark.canonical.resolver",
+      "entrypoint": "resolve_asset",
+      "was": "symbol",
+      "correct": "raw"
+    },
+    "787": {
+      "module": "bd_platform.onchain_hub",
+      "entrypoint": "dexscreener_pairs",
+      "was": "symbol",
+      "correct": "query"
+    },
+    "788": {
+      "module": "bd_platform.onchain_hub",
+      "entrypoint": "dexscreener_pairs",
+      "was": "symbol",
+      "correct": "query"
+    },
+    "794": {
+      "module": "bd_platform.liquidation_radar",
+      "entrypoint": "liquidation_radar",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "795": {
+      "module": "bd_platform.liquidation_radar",
+      "entrypoint": "liquidation_radar",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "796": {
+      "module": "bd_platform.liquidation_radar",
+      "entrypoint": "liquidation_radar",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "797": {
+      "module": "bd_platform.liquidation_radar",
+      "entrypoint": "liquidation_radar",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "798": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "799": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "800": {
+      "module": "bd_platform.footprint_analytics",
+      "entrypoint": "footprint_snapshot",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "806": {
+      "module": "live_book_hub",
+      "entrypoint": "hub_stats",
+      "was": "books",
+      "correct": "none"
+    },
+    "809": {
+      "module": "bd_platform.liquidation_radar",
+      "entrypoint": "liquidation_radar",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "816": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "817": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "818": {
+      "module": "bd_platform.liquidation_radar",
+      "entrypoint": "liquidation_radar",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "819": {
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "was": "symbol",
+      "correct": "asset"
+    },
+    "822": {
+      "module": "options_fetcher",
+      "entrypoint": "fetch_options_overview",
+      "was": "symbols",
+      "correct": "assets"
+    },
+    "823": {
+      "module": "options_fetcher",
+      "entrypoint": "fetch_options_overview",
+      "was": "symbols",
+      "correct": "assets"
+    },
+    "824": {
+      "module": "options_fetcher",
+      "entrypoint": "fetch_options_overview",
+      "was": "symbols",
+      "correct": "assets"
+    },
+    "825": {
+      "module": "options_fetcher",
+      "entrypoint": "fetch_options_overview",
+      "was": "symbols",
+      "correct": "assets"
+    }
+  }
+}

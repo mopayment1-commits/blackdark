@@ -1,0 +1,131 @@
+{
+  "artifact": "BLACKDARK_LAUNCH57_CAPABILITY_VERIFICATION_EVIDENCE_INDEX",
+  "generated_at": "2026-09-18T15:01:46.813979+00:00",
+  "implementation_sha": "c7114d46",
+  "baseline_sha": "be79474e7a59c25b7ce991cdb3d11c7967ad0c25188d756a217d1f5b8bb1d5b9",
+  "capabilities": [
+    {
+      "launch_item_id": 2,
+      "verification_attributable": true,
+      "compounding_touchpoint": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 3,
+      "verification_attributable": true,
+      "compounding_touchpoint": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 4,
+      "verification_attributable": true,
+      "compounding_touchpoint": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 44,
+      "verification_attributable": true,
+      "compounding_touchpoint": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 45,
+      "verification_attributable": true,
+      "compounding_touchpoint": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 46,
+      "verification_attributable": true,
+      "compounding_touchpoint": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 48,
+      "verification_attributable": true,
+      "compounding_touchpoint": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 49,
+      "verification_attributable": true,
+      "compounding_touchpoint": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 50,
+      "verification_attributable": true,
+      "compounding_touchpoint": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 51,
+      "verification_attributable": true,
+      "compounding_touchpoint": true,
+      "launch57_only": true
+    }
+  ],
+  "all_57_attributable": true,
+  "compounding_touchpoints": [
+    {
+      "launch_item_id": 2,
+      "compounding_control": "oracle_decision_evidence",
+      "wired": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 3,
+      "compounding_control": "decision_certificate_immutable",
+      "wired": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 4,
+      "compounding_control": "public_accuracy_history",
+      "wired": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 44,
+      "compounding_control": "share_card_distribution_evidence",
+      "wired": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 45,
+      "compounding_control": "shareable_outcome_accuracy",
+      "wired": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 46,
+      "compounding_control": "guest_trust_distribution",
+      "wired": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 48,
+      "compounding_control": "abstain_reject_evidence",
+      "wired": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 49,
+      "compounding_control": "personal_history_readonly",
+      "wired": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 50,
+      "compounding_control": "discipline_mirror_reflective",
+      "wired": true,
+      "launch57_only": true
+    },
+    {
+      "launch_item_id": 51,
+      "compounding_control": "research_track_record_brief",
+      "wired": true,
+      "launch57_only": true
+    }
+  ]
+}

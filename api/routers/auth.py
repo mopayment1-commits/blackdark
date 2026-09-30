@@ -24,6 +24,7 @@ from api.openapi_responses import COMMON_ERROR_RESPONSES
 from security_models import (
     AuthChangePasswordBody,
     AuthForgotPasswordBody,
+    AuthGoogleCredentialBody,
     AuthLoginBody,
     AuthMfaChallengeBody,
     AuthMfaConfirmBody,
@@ -119,6 +120,17 @@ async def auth_register(body: AuthRegisterBody, background_tasks: BackgroundTask
         return resp
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
+    except HTTPException:
+        raise
+    except RuntimeError as exc:
+        logger.exception("auth_register_runtime_failure")
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
+    except Exception as exc:
+        logger.exception("auth_register_failure")
+        raise HTTPException(
+            status_code=503,
+            detail=f"registration_unavailable:{type(exc).__name__}",
+        ) from exc
 
 
 @router.post("/login", responses=COMMON_ERROR_RESPONSES)
@@ -411,6 +423,43 @@ async def auth_oauth_status():
     return oauth_status()
 
 
+@router.post("/oauth/google/credential", responses=COMMON_ERROR_RESPONSES)
+async def auth_google_credential(
+    body: AuthGoogleCredentialBody,
+    background_tasks: BackgroundTasks,
+):
+    from oauth_service import google_signin_status, login_or_link_oauth_user, verify_google_credential
+    from pricing_catalog import normalize_signup_plan
+
+    gis = google_signin_status()
+    if gis["state"] != "CONFIGURED":
+        raise HTTPException(
+            status_code=503,
+            detail=gis.get("message") or "Google sign-in not configured",
+        )
+    try:
+        profile = await verify_google_credential(body.credential)
+        result = await login_or_link_oauth_user(profile)
+        selected_plan = normalize_signup_plan(body.plan)
+        result["selected_plan"] = selected_plan
+        background_tasks.add_task(
+            record_behavior,
+            "auth_google_gis",
+            user=result.get("user"),
+            payload={"selected_plan": selected_plan},
+        )
+        from observability import increment_metric
+
+        increment_metric("auth_logins_total")
+        resp = JSONResponse(_session_response_body(result))
+        _attach_session_cookie(resp, result.get("token"))
+        return resp
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    except Exception as exc:
+        raise HTTPException(status_code=502, detail=f"Google sign-in failed: {exc}") from exc
+
+
 @router.get("/oauth/{provider}/start", responses=COMMON_ERROR_RESPONSES)
 async def auth_oauth_start(provider: str):
     from identity_service import store_oauth_state_async
@@ -626,6 +675,67 @@ async def auth_avatar_delete(user: dict | None = Depends(optional_user)):
     url = f"/api/auth/avatar/{uid}.svg"
     await update_user_profile_fields(uid, {"avatar_url": url})
     return {"ok": True, "avatar_url": url}
+
+
+@router.get("/webauthn/status", responses=COMMON_ERROR_RESPONSES)
+async def auth_webauthn_status():
+    from webauthn_service import webauthn_status
+
+    return webauthn_status()
+
+
+@router.post("/webauthn/register/options", responses=COMMON_ERROR_RESPONSES)
+async def auth_webauthn_register_options(user: dict | None = Depends(optional_user)):
+    if not user:
+        raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
+    from webauthn_service import registration_options
+
+    try:
+        return await registration_options(int(user["id"]), str(user["email"]))
+    except RuntimeError as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
+
+
+@router.post("/webauthn/register/verify", responses=COMMON_ERROR_RESPONSES)
+async def auth_webauthn_register_verify(
+    body: dict[str, Any],
+    user: dict | None = Depends(optional_user),
+):
+    if not user:
+        raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
+    from webauthn_service import registration_verify
+
+    try:
+        return await registration_verify(int(user["id"]), body)
+    except (ValueError, RuntimeError) as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@router.post("/webauthn/login/options", responses=COMMON_ERROR_RESPONSES)
+async def auth_webauthn_login_options(body: dict[str, Any]):
+    email = str(body.get("email") or "").strip()
+    if not email:
+        raise HTTPException(status_code=400, detail="email required")
+    from webauthn_service import login_options
+
+    try:
+        return await login_options(email)
+    except (ValueError, RuntimeError) as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@router.post("/webauthn/login/verify", responses=COMMON_ERROR_RESPONSES)
+async def auth_webauthn_login_verify(body: dict[str, Any], background_tasks: BackgroundTasks):
+    from webauthn_service import login_verify
+
+    try:
+        result = await login_verify(body)
+        background_tasks.add_task(record_behavior, "auth_login_webauthn", user=result.get("user"))
+        resp = JSONResponse(_session_response_body(result))
+        _attach_session_cookie(resp, result.get("token"))
+        return resp
+    except (ValueError, RuntimeError) as exc:
+        raise HTTPException(status_code=401, detail=str(exc)) from exc
 
 
 @router.get("/avatar/{filename}", responses=COMMON_ERROR_RESPONSES)

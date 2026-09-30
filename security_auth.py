@@ -55,14 +55,33 @@ def login_rate_limit_backend() -> str:
     return _rate_limit_backend
 
 
+def _session_token_pepper() -> str:
+    """Session hashing secret — dedicated pepper first, then vault/MFA keys (Railway parity)."""
+    for env_name in (
+        "SESSION_TOKEN_PEPPER",
+        "SECRETS_MASTER_KEY",
+        "SECRETS_VAULT_KEY",
+        "MFA_ENCRYPTION_KEY",
+    ):
+        value = os.getenv(env_name, "").strip()
+        if value:
+            if env_name != "SESSION_TOKEN_PEPPER" and is_production_env():
+                logger.warning(
+                    "SESSION_TOKEN_PEPPER unset — using %s for session hashing",
+                    env_name,
+                )
+            return value
+    if is_production_env():
+        raise RuntimeError(
+            "SESSION_TOKEN_PEPPER must be set in production "
+            "(or configure SECRETS_MASTER_KEY / SECRETS_VAULT_KEY / MFA_ENCRYPTION_KEY)"
+        )
+    logger.warning("SESSION_TOKEN_PEPPER unset — using insecure dev default")
+    return "blackdark-session-pepper-change-me"
+
+
 def hash_session_token(token: str) -> str:
-    pepper = os.getenv("SESSION_TOKEN_PEPPER", "").strip()
-    if not pepper:
-        if is_production_env():
-            raise RuntimeError("SESSION_TOKEN_PEPPER must be set in production")
-        pepper = "blackdark-session-pepper-change-me"
-        logger.warning("SESSION_TOKEN_PEPPER unset — using insecure dev default")
-    return hashlib.sha256(f"{pepper}:{token}".encode()).hexdigest()
+    return hashlib.sha256(f"{_session_token_pepper()}:{token}".encode()).hexdigest()
 
 
 def _memory_login_rate_limit(key: str) -> None:
@@ -193,10 +212,14 @@ async def optional_user_from_request(
 
 
 def require_authenticated(
+    request: Request,
     user: Annotated[dict | None, Depends(optional_user_from_request)],
 ) -> dict:
     if user is None:
         raise HTTPException(status_code=401, detail="Authentication required")
+    from user_mfa_policy import assert_user_mfa_enrollment
+
+    assert_user_mfa_enrollment(user, request.url.path or "")
     return user
 
 
@@ -216,14 +239,27 @@ async def require_admin(
     user: Annotated[dict | None, Depends(optional_user_from_request)],
     x_admin_key: Annotated[str | None, Header(alias="X-Admin-Key")] = None,
     x_admin_totp: Annotated[str | None, Header(alias="X-Admin-TOTP")] = None,
+    x_actor_email: Annotated[str | None, Header(alias="X-Actor-Email")] = None,
 ) -> dict:
     """Fail-closed admin auth — never trusts reverse-proxy peer/loopback.
 
     Requires X-Admin-Key or an ADMIN_EMAILS session, plus admin MFA when policy is on.
+    Shared admin API keys require X-Actor-Email in production (SDG-07).
     """
     admin_user: dict | None = None
     if verify_admin_key(x_admin_key):
-        admin_user = {"email": "admin@system", "tier": "whale", "is_admin": True}
+        actor_email = (x_actor_email or (user or {}).get("email") or "").strip().lower()
+        if not actor_email and is_production_env():
+            raise HTTPException(
+                status_code=403,
+                detail={"error": "shared_admin_key_requires_x_actor_email"},
+            )
+        admin_user = {
+            "email": actor_email or "admin@system",
+            "tier": "whale",
+            "is_admin": True,
+            "admin_key_auth": True,
+        }
     elif user and is_admin_user(user):
         user = dict(user)
         user["is_admin"] = True

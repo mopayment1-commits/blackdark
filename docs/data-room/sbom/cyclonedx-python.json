@@ -1,10 +1,10 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "serialNumber": "urn:uuid:343e4824-f0ab-45d9-8eb6-f5f30b28e539",
+  "serialNumber": "urn:uuid:221b4dda-1b33-44c9-aaf4-b1e7f3793beb",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-08-12T11:01:28Z",
+    "timestamp": "2026-09-30T20:54:59Z",
     "tools": {
       "components": [
         {
@@ -17,8 +17,8 @@
     "component": {
       "type": "application",
       "name": "blackdark",
-      "version": "rc2",
-      "description": "Generated from requirements.lock.txt sha256=96021f5982cb1a967db5a20559dda07a68ab89c4f808e5252b99a6af01a65d27"
+      "version": "launch-57",
+      "description": "Generated from requirements.lock.txt sha256=258ef4f966fc8743012b9d66cd79c4627d236ad1d11cad3ae13a0722259a69f3 git=b7acc7e18c8be354a6a5b903195dc5efb5006a39"
     },
     "properties": [
       {
@@ -27,7 +27,15 @@
       },
       {
         "name": "blackdark:lockfile_sha256",
-        "value": "96021f5982cb1a967db5a20559dda07a68ab89c4f808e5252b99a6af01a65d27"
+        "value": "258ef4f966fc8743012b9d66cd79c4627d236ad1d11cad3ae13a0722259a69f3"
+      },
+      {
+        "name": "blackdark:release",
+        "value": "launch-57"
+      },
+      {
+        "name": "blackdark:git_commit",
+        "value": "b7acc7e18c8be354a6a5b903195dc5efb5006a39"
       }
     ]
   },
@@ -62,10 +70,10 @@
     },
     {
       "type": "library",
-      "bom-ref": "pkg:pypi/starlette@1.3.1",
+      "bom-ref": "pkg:pypi/starlette@1.6.0",
       "name": "starlette",
-      "version": "1.3.1",
-      "purl": "pkg:pypi/starlette@1.3.1"
+      "version": "1.6.0",
+      "purl": "pkg:pypi/starlette@1.6.0"
     },
     {
       "type": "library",
@@ -97,10 +105,17 @@
     },
     {
       "type": "library",
-      "bom-ref": "pkg:pypi/aioboto3@13.4.0",
-      "name": "aioboto3",
-      "version": "13.4.0",
-      "purl": "pkg:pypi/aioboto3@13.4.0"
+      "bom-ref": "pkg:pypi/google-cloud-bigquery@3.43.0",
+      "name": "google-cloud-bigquery",
+      "version": "3.43.0",
+      "purl": "pkg:pypi/google-cloud-bigquery@3.43.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/dbt-bigquery@1.9.0",
+      "name": "dbt-bigquery",
+      "version": "1.9.0",
+      "purl": "pkg:pypi/dbt-bigquery@1.9.0"
     },
     {
       "type": "library",
@@ -115,13 +130,6 @@
       "name": "vaderSentiment",
       "version": "3.3.2",
       "purl": "pkg:pypi/vadersentiment@3.3.2"
-    },
-    {
-      "type": "library",
-      "bom-ref": "pkg:pypi/textblob@0.19.0",
-      "name": "textblob",
-      "version": "0.19.0",
-      "purl": "pkg:pypi/textblob@0.19.0"
     },
     {
       "type": "library",
@@ -167,6 +175,13 @@
     },
     {
       "type": "library",
+      "bom-ref": "pkg:pypi/defusedxml@0.7.1",
+      "name": "defusedxml",
+      "version": "0.7.1",
+      "purl": "pkg:pypi/defusedxml@0.7.1"
+    },
+    {
+      "type": "library",
       "bom-ref": "pkg:pypi/python-dotenv@1.2.2",
       "name": "python-dotenv",
       "version": "1.2.2",
@@ -209,10 +224,17 @@
     },
     {
       "type": "library",
-      "bom-ref": "pkg:pypi/authlib@1.6.12",
+      "bom-ref": "pkg:pypi/webauthn@2.8.0",
+      "name": "webauthn",
+      "version": "2.8.0",
+      "purl": "pkg:pypi/webauthn@2.8.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/authlib@1.8.0",
       "name": "authlib",
-      "version": "1.6.12",
-      "purl": "pkg:pypi/authlib@1.6.12"
+      "version": "1.8.0",
+      "purl": "pkg:pypi/authlib@1.8.0"
     },
     {
       "type": "library",
@@ -230,10 +252,31 @@
     },
     {
       "type": "library",
-      "bom-ref": "pkg:pypi/ruff@0.16.2",
+      "bom-ref": "pkg:pypi/ruff@0.16.9",
       "name": "ruff",
-      "version": "0.16.2",
-      "purl": "pkg:pypi/ruff@0.16.2"
+      "version": "0.16.9",
+      "purl": "pkg:pypi/ruff@0.16.9"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/sqlparse@0.6.0",
+      "name": "sqlparse",
+      "version": "0.6.0",
+      "purl": "pkg:pypi/sqlparse@0.6.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/apscheduler@3.11.3",
+      "name": "APScheduler",
+      "version": "3.11.3",
+      "purl": "pkg:pypi/apscheduler@3.11.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/greenlet@3.5.4",
+      "name": "greenlet",
+      "version": "3.5.4",
+      "purl": "pkg:pypi/greenlet@3.5.4"
     }
   ]
 }

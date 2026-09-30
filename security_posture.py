@@ -8,6 +8,49 @@ import os
 from typing import Any
 
 
+def security_posture_public_summary() -> dict[str, Any]:
+    """Minimal public attestations (FINDING-16 remediation)."""
+    from security_auth import is_production_env
+    from user_mfa_policy import user_mfa_enrollment_required
+
+    try:
+        from webauthn_service import webauthn_status as _wa
+
+        wa = _wa()
+    except Exception:
+        wa = {"enabled": False}
+
+    soft = os.getenv("SOFT_LAUNCH", "").lower() in {"1", "true", "yes"}
+    return {
+        "product": "BLACKDARK",
+        "surface": "security_posture_public",
+        "launch_line": "Launch-57",
+        "production": is_production_env(),
+        "soft_launch": soft,
+        "attestations": {
+            "credential_hashing": "PBKDF2-SHA256",
+            "sessions": "hashed_at_rest",
+            "user_api_keys": "fernet_encrypted_when_configured",
+            "admin_mfa_policy": "enforced_when_configured",
+            "user_mfa": "totp_enroll_required" if user_mfa_enrollment_required() else "totp_optional",
+            "phishing_resistant_webauthn": "available" if wa.get("enabled") else "configure_WEBAUTHN_RP_ID",
+            "enterprise_sso": "oidc_when_configured",
+            "dependency_scanning": "pip_audit_ci",
+            "customer_security_logs": "export_api_180d_policy",
+            "vulnerability_disclosure": "/api/security/vdp",
+        },
+        "honesty": {
+            "soc2_claimed": False,
+            "iso27001_claimed": False,
+            "cisa_certification_claimed": False,
+            "note": "Engineering posture summary — not a certification.",
+        },
+        "detail_endpoint": "/api/security/status/detail",
+        "vdp": "/api/security/vdp",
+        "security_txt": "/.well-known/security.txt",
+    }
+
+
 def security_posture_report() -> dict[str, Any]:
     from pentest_attestation import pentest_attestation_status, verify_pentest_attestation
     from security_auth import admin_emails, is_production_env, login_rate_limit_backend
@@ -70,7 +113,11 @@ def security_posture_report() -> dict[str, Any]:
         {
             "id": "mfa_totp_available",
             "ok": mfa_available,
-            "detail": "Optional TOTP enrollment for users",
+            "detail": (
+                "TOTP enroll required when USER_MFA_ENROLL_REQUIRED"
+                if __import__("user_mfa_policy", fromlist=["user_mfa_enrollment_required"]).user_mfa_enrollment_required()
+                else "Optional TOTP enrollment for users"
+            ),
         },
         {
             "id": "oauth_optional",
@@ -139,7 +186,12 @@ def security_posture_report() -> dict[str, Any]:
             "user_api_keys": "Fernet encrypted vault (per-user)",
             "model_weights": "local joblib artifacts + MODEL_WEIGHTS_KEY obfuscation (not Fernet+HMAC certification)",
             "execution_endpoints": "whale_tier_required",
-            "mfa": "TOTP available (user-enrolled)" if mfa_available else "unavailable",
+            "mfa": (
+                "TOTP enroll required (Launch-57 policy)"
+                if mfa_available
+                and __import__("user_mfa_policy", fromlist=["user_mfa_enrollment_required"]).user_mfa_enrollment_required()
+                else ("TOTP available (user-enrolled)" if mfa_available else "unavailable")
+            ),
             "oauth": oauth if oauth_available else {"enabled": False},
             "csrf_cookie_mutations": "Origin/Referer check when bd_token cookie used without Bearer",
             "security_headers": "CSP + nosniff + frame-deny + HSTS(prod)",

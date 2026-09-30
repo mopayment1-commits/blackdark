@@ -45,6 +45,15 @@ spec:
               value: web
             - name: ENV
               value: production
+            - name: USER_MFA_ENROLL_REQUIRED
+              value: "true"
+            - name: SECURITY_LOG_RETENTION_DAYS
+              value: "180"
+            - name: BLACKDARK_RELEASE
+              value: launch-57
+            # Set to production hostname (WebAuthn RP ID), e.g. blackdark-production.up.railway.app
+            - name: WEBAUTHN_RP_ID
+              value: ""
             - name: VIRAL_MODE
               value: "true"
             - name: SERVICE_BUS_LOCAL

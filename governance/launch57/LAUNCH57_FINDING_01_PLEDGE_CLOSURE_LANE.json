@@ -1,0 +1,28 @@
+{
+  "schema": "launch57_finding_01_pledge_closure_lane_v1",
+  "authority": "docs/governance/LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION_PROGRAM.md",
+  "program_sections": ["§6 FINDING-01", "L57-P6-WP1", "L57-P6-WP2", "§2 CISA-SBDf"],
+  "normative": ["CISA-SBDf"],
+  "finding_id": "FINDING-01",
+  "current_index_status": "OPEN_EXECUTIVE",
+  "cisa_certification_claimed": false,
+  "program_complete": false,
+  "repo_artifacts": {
+    "pledge_status": "docs/governance/SECURE_BY_DESIGN_PLEDGE_STATUS.md",
+    "submission_package": "docs/governance/SECURE_BY_DESIGN_PLEDGE_SUBMISSION_PACKAGE.md",
+    "execution_checklist": "docs/governance/SECURE_BY_DESIGN_PLEDGE_EXECUTION_CHECKLIST.md",
+    "readiness_recorder": "scripts/record_launch57_finding01_pledge_readiness.py",
+    "submission_recorder": "scripts/record_pledge_submission.py"
+  },
+  "acceptance_program_ref": "§6 FINDING-01 Acceptance — CISA pledge URL + progress or documented decline (E-LEGAL)",
+  "closure_requires_index": "CISA portal pledge submission + URL recorded",
+  "status_submission_heading": "## Submission record",
+  "evidence_dir_gitignored": "governance/launch57/evidence/FINDING-01",
+  "transition": {
+    "script": "scripts/transition_launch57_finding_status.py",
+    "apply_flag": "--apply",
+    "preflight": "scripts/preflight_launch57_finding01_transition.py",
+    "requires_flag": "--pledge-url"
+  },
+  "repo_gate": "scripts/verify_launch57_finding01_pledge_closure_lane.py"
+}

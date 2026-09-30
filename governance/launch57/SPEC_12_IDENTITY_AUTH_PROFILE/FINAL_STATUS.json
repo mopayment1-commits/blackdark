@@ -1,0 +1,36 @@
+{
+  "artifact": "SPEC_12_FINAL_STATUS",
+  "domain": "SPEC_12_IDENTITY_AUTH_PROFILE",
+  "spec_version": "launch57-spec12-identity-auth-profile-1.0.0",
+  "governing_spec": "/home/ubuntu/.cursor/projects/workspace/uploads/BLACKDARK_Launch57_Identity_Auth_Profile_FROM_SCRATCH_SPEC_4__1__e47c.md",
+  "final_sha": "5078a804b98993522ef455722c98727b1bb37736",
+  "branch": "cursor/launch57-phase8-launch-coherence-358c",
+  "PASS_ENGINEERING": true,
+  "LOCAL_INSTITUTIONAL_CLOSURE": true,
+  "LOCAL_WORK_REMAINING": 0,
+  "LOCAL_ENGINEERING_GAP_COUNT": 0,
+  "LOCAL_ENGINEERING_GAPS": [],
+  "PASS_LIVE": false,
+  "LIVE_VALIDATION_PENDING": true,
+  "live_blockers_only": [
+    "PASS_LIVE requires production OIDC/Google token verification drill",
+    "Production email delivery for verification/reset under real domains",
+    "Live passkey/WebAuthn ceremony verification in production browsers",
+    "Production session revocation and active-session UI drill"
+  ],
+  "auth_gate_ok": true,
+  "launch57_only_ok": true,
+  "BUILDER_STATUS": "PASS_ENGINEERING",
+  "IV_STATUS": "PASS_ENGINEERING",
+  "tests_pass": true,
+  "runtime_truth_yes_count": 24,
+  "runtime_truth_total": 24,
+  "closure_status": "CLOSED_LOCAL",
+  "tests": {
+    "command": "python3 -m pytest tests/launch57/test_spec12_identity_auth_profile.py tests/launch57/test_identity_auth.py tests/launch57/test_spec02_anonymous_visitor_public_intelligence.py tests/launch57/test_spec03_billing_subscription_entitlement.py -k not test_spec12_artifact_paths_exist -q --tb=no",
+    "exit_code": 0,
+    "passed": true,
+    "summary": "ile.py::test_anonymous_denied_private_launch57_endpoints\n  /home/ubuntu/.local/lib/python3.12/site-packages/fastapi/openapi/utils.py:303: UserWarning: Duplicate Operation ID storage_legacy_purge_api_storage_legacy_purge_post for function storage_legacy_purge at /workspace/dashboard.py\n    warnings.warn(message, stacklevel=1)\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n"
+  },
+  "generated_at": "2026-09-19T01:07:44.860563+00:00"
+}

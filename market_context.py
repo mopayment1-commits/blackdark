@@ -48,7 +48,7 @@ async def _rest_get(
     try:
         if owns_session:
             session = aiohttp.ClientSession(timeout=_HTTP_TIMEOUT, headers=_HTTP_HEADERS)
-        assert session is not None
+        assert session is not None  # nosec B101
         async with session.get(url, params=params, headers=headers) as resp:
             if resp.status != 200:
                 logger.debug(
@@ -135,14 +135,42 @@ _COINGECKO_IDS: dict[str, str] = {
 }
 
 
+def enrich_ticker_freshness(row: dict[str, Any], *, fetched_at: datetime | None = None) -> dict[str, Any]:
+    """Attach canonical quote age for Launch #22 → #41 freshness bridge."""
+    from launch57.freshness_common import resolve_quote_age_sec
+    from launch57.temporal_common import to_rfc3339
+
+    fetched = fetched_at or datetime.now(UTC)
+    event_raw = row.get("event_time") or row.get("timestamp") or row.get("source_time")
+    age_sec, source_iso = resolve_quote_age_sec(
+        age_sec=row.get("age_sec") if row.get("age_sec") is not None else None,
+        age_ms=row.get("freshness_ms"),
+        event_time=event_raw,
+        fetched_at=fetched if float(row.get("price") or 0) > 0 else None,
+    )
+    out = dict(row)
+    if age_sec is not None:
+        out["age_sec"] = age_sec
+    if source_iso:
+        out["timestamp"] = source_iso
+    if event_raw is not None:
+        out.setdefault("event_time", event_raw)
+    out["fetched_at"] = to_rfc3339(fetched)
+    return out
+
+
 def _binance_ticker_from_json(data: dict[str, Any], *, source: str) -> dict[str, Any]:
-    return {
+    row: dict[str, Any] = {
         "price": float(data["lastPrice"]),
         "change_24h": float(data["priceChangePercent"]),
         "volume": float(data["volume"]),
         "quote_volume": float(data.get("quoteVolume") or 0),
         "source": source,
     }
+    close_time = data.get("closeTime")
+    if close_time is not None:
+        row["event_time"] = close_time
+    return row
 
 
 # Kraken uses non-standard pair names for some assets.
@@ -286,13 +314,16 @@ async def _fetch_okx_ticker(
         change = ((price - open24) / open24 * 100.0) if open24 else 0.0
         volume = float(row.get("vol24h") or 0)
         quote_volume = float(row.get("volCcy24h") or 0)
-        return {
+        out = {
             "price": price,
             "change_24h": change,
             "volume": volume,
             "quote_volume": quote_volume,
             "source": "okx",
         }
+        if row.get("ts") is not None:
+            out["event_time"] = row.get("ts")
+        return out
     except (KeyError, TypeError, ValueError, IndexError):
         return None
 
@@ -323,13 +354,16 @@ async def _fetch_bybit_ticker(
         change = float(row.get("price24hPcnt") or 0) * 100.0
         volume = float(row.get("volume24h") or 0)
         quote_volume = float(row.get("turnover24h") or 0)
-        return {
+        out = {
             "price": price,
             "change_24h": change,
             "volume": volume,
             "quote_volume": quote_volume,
             "source": "bybit",
         }
+        if row.get("time") is not None:
+            out["event_time"] = row.get("time")
+        return out
     except (KeyError, TypeError, ValueError, IndexError):
         return None
 
@@ -355,13 +389,17 @@ async def _fetch_cryptocompare_ticker(
         change = float(row.get("CHANGEPCT24HOUR") or 0)
         volume = float(row.get("VOLUME24HOUR") or 0)
         quote_volume = float(row.get("VOLUME24HOURTO") or 0)
-        return {
+        out = {
             "price": price,
             "change_24h": change,
             "volume": volume,
             "quote_volume": quote_volume,
             "source": "cryptocompare",
         }
+        last_update = row.get("LASTUPDATE")
+        if last_update is not None:
+            out["event_time"] = last_update
+        return out
     except (KeyError, TypeError, ValueError):
         return None
 
@@ -437,18 +475,19 @@ async def _fallback_rest_ticker(
 async def fetch_binance_ticker(pair: str) -> dict | None:
     """Live spot ticker — WS when fresh, else multi-source REST (Railway/cloud safe)."""
     asset = pair.replace("USDT", "").upper()
+    fetched_at = datetime.now(UTC)
 
     ws_row = await _ws_ticker_if_enabled(asset)
     if ws_row is not None:
-        return ws_row
+        return enrich_ticker_freshness(ws_row, fetched_at=fetched_at)
 
     async with aiohttp.ClientSession(timeout=_HTTP_TIMEOUT, headers=_HTTP_HEADERS) as session:
         row = await _primary_rest_ticker(pair, session)
         if row is not None:
-            return row
+            return enrich_ticker_freshness(row, fetched_at=fetched_at)
         row = await _fallback_rest_ticker(asset, session)
         if row is not None:
-            return row
+            return enrich_ticker_freshness(row, fetched_at=fetched_at)
 
     logger.warning("All price sources failed | asset=%s", _safe_asset_label(asset).replace("\r", " ").replace("\n", " "))
     return None
@@ -1111,6 +1150,21 @@ _ALLOWED_KLINE_INTERVALS = {
     "1m", "3m", "5m", "15m", "30m", "1h", "2h", "4h", "6h", "8h", "12h", "1d", "3d", "1w", "1M",
 }
 
+_BINANCE_KLINES_API_PATH = "/api/v3/klines"
+_BINANCE_REST_HOST_SET = frozenset(h.lower() for h in _BINANCE_REST_HOSTS)
+
+
+def binance_allowed_rest_hosts() -> tuple[str, ...]:
+    """HTTPS-only Binance REST hosts used by market_context fetchers."""
+    return _BINANCE_REST_HOSTS
+
+
+def _binance_https_origin(host: str) -> str:
+    normalized = str(host).strip().lower()
+    if normalized not in _BINANCE_REST_HOST_SET:
+        raise ValueError(f"Binance host not allowlisted: {host!r}")
+    return f"https://{normalized}"
+
 
 async def fetch_binance_klines(pair: str, interval: str = "1h", limit: int = 200) -> list[float]:
     if config.PRICE_FEED_WS_ONLY:
@@ -1141,6 +1195,110 @@ async def fetch_binance_klines(pair: str, interval: str = "1h", limit: int = 200
     except (aiohttp.ClientError, TypeError, ValueError):
         return []
     return []
+
+
+async def fetch_binance_klines_bars(
+    pair: str,
+    interval: str = "1h",
+    limit: int = 200,
+) -> tuple[list[dict[str, Any]], str]:
+    """Full OHLCV bars from Binance klines API. Returns (bars, source_host)."""
+    if not pair.isalnum():
+        return [], "invalid_pair"
+    if interval not in _ALLOWED_KLINE_INTERVALS:
+        interval = "1h"
+    limit = max(1, min(int(limit), 1000))
+    hosts = ("data-api.binance.vision", "api.binance.us", "api.binance.com")
+    kline_params = {"symbol": pair, "interval": interval, "limit": limit}
+    try:
+        async with aiohttp.ClientSession(timeout=_HTTP_TIMEOUT, headers=_HTTP_HEADERS) as session:
+            for host in hosts:
+                try:
+                    origin = _binance_https_origin(host)
+                except ValueError:
+                    continue
+                try:
+                    async with session.get(
+                        f"{origin}{_BINANCE_KLINES_API_PATH}",
+                        params=kline_params,
+                    ) as resp:
+                        if resp.status != 200:
+                            continue
+                        rows = await resp.json()
+                    bars: list[dict[str, Any]] = []
+                    for row in rows:
+                        if not isinstance(row, list) or len(row) < 6:
+                            continue
+                        try:
+                            bars.append(
+                                {
+                                    "open_time_ms": int(row[0]),
+                                    "open": float(row[1]),
+                                    "high": float(row[2]),
+                                    "low": float(row[3]),
+                                    "close": float(row[4]),
+                                    "volume": float(row[5]),
+                                    "close_time_ms": int(row[6]) if len(row) > 6 else int(row[0]),
+                                }
+                            )
+                        except (TypeError, ValueError):
+                            continue
+                    if bars:
+                        return bars, host
+                except (aiohttp.ClientError, TypeError, ValueError):
+                    continue
+    except (aiohttp.ClientError, TypeError, ValueError):
+        return [], "unavailable"
+    return [], "unavailable"
+
+
+async def fetch_symbol_exchange_metadata(pair: str) -> dict[str, Any] | None:
+    """Symbol filters from Binance exchangeInfo — precision/tick/lot metadata."""
+    if not pair.isalnum():
+        return None
+    hosts = ("data-api.binance.vision", "api.binance.us", "api.binance.com")
+    try:
+        async with aiohttp.ClientSession(timeout=_HTTP_TIMEOUT, headers=_HTTP_HEADERS) as session:
+            for host in hosts:
+                url = f"https://{host}/api/v3/exchangeInfo?symbol={pair}"
+                try:
+                    async with session.get(url) as resp:
+                        if resp.status != 200:
+                            continue
+                        payload = await resp.json()
+                    symbols = payload.get("symbols") or []
+                    if not symbols:
+                        continue
+                    row = symbols[0]
+                    filters = {f.get("filterType"): f for f in (row.get("filters") or []) if isinstance(f, dict)}
+                    price_filter = filters.get("PRICE_FILTER") or {}
+                    lot_filter = filters.get("LOT_SIZE") or {}
+                    asset = pair[:-4] if pair.endswith("USDT") else pair
+                    return {
+                        "canonical_symbol": asset,
+                        "display_symbol": pair,
+                        "base_asset": row.get("baseAsset") or asset,
+                        "quote_asset": row.get("quoteAsset") or "USDT",
+                        "market_type": "spot",
+                        "status": row.get("status"),
+                        "provider": f"binance:{host}",
+                        "tick_size": price_filter.get("tickSize"),
+                        "min_price": price_filter.get("minPrice"),
+                        "max_price": price_filter.get("maxPrice"),
+                        "step_size": lot_filter.get("stepSize"),
+                        "min_qty": lot_filter.get("minQty"),
+                        "precision": {
+                            "price": row.get("quotePrecision"),
+                            "base": row.get("baseAssetPrecision"),
+                            "quote": row.get("quotePrecision"),
+                        },
+                        "delisted": str(row.get("status") or "").upper() not in {"TRADING", "BREAK"},
+                    }
+                except (aiohttp.ClientError, TypeError, ValueError):
+                    continue
+    except (aiohttp.ClientError, TypeError, ValueError):
+        return None
+    return None
 
 
 def parse_alert_metadata(row: dict) -> dict:

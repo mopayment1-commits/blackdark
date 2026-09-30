@@ -1,0 +1,324 @@
+{
+  "PHASE_I_SOURCE_SCOPE_DEFINED": true,
+  "phase_i_source_count": 31,
+  "phase_i_admitted_or_registered": 12,
+  "phase_i_wired_connectors": 12,
+  "phase_i_unique_runtime_connectors": 16,
+  "PHASE_I_RUNTIME_WIRING_RECONCILED": true,
+  "phase_i_min": 25,
+  "phase_i_max": 35,
+  "within_bounds": true,
+  "PREMATURE_100_SOURCE_EXPANSION": false,
+  "full_catalog_sources": 103,
+  "phase_ii_eligible": false,
+  "entries": [
+    {
+      "source_id": "aave_v3",
+      "admission_state": "CATALOG_REFERENCE_ONLY",
+      "current_connector_state": "NOT_IN_CATALOG",
+      "decision_use": "phase_i_candidate",
+      "source_role": "SECONDARY",
+      "reason": "Phase I scope candidate pending catalog admission"
+    },
+    {
+      "source_id": "binance_funding",
+      "admission_state": "CATALOG_REFERENCE_ONLY",
+      "current_connector_state": "NOT_IN_CATALOG",
+      "decision_use": "phase_i_candidate",
+      "source_role": "SECONDARY",
+      "reason": "Phase I scope candidate pending catalog admission"
+    },
+    {
+      "source_id": "binance_futures",
+      "provider": "Binance Futures",
+      "decision_use": "institutional_core",
+      "source_role": "SECONDARY",
+      "independence": "aggregator_or_rest",
+      "data_domain": "prices",
+      "required_depth": "rest_backfill",
+      "rights_state": "internal_analysis_default",
+      "current_connector_state": "active",
+      "admission_state": "REGISTERED_PHASE_I",
+      "reason": "Phase I institutional-core route"
+    },
+    {
+      "source_id": "binance_oi",
+      "admission_state": "CATALOG_REFERENCE_ONLY",
+      "current_connector_state": "NOT_IN_CATALOG",
+      "decision_use": "phase_i_candidate",
+      "source_role": "SECONDARY",
+      "reason": "Phase I scope candidate pending catalog admission"
+    },
+    {
+      "source_id": "binance_spot",
+      "provider": "Binance Spot",
+      "decision_use": "institutional_core",
+      "source_role": "SECONDARY",
+      "independence": "aggregator_or_rest",
+      "data_domain": "prices",
+      "required_depth": "rest_backfill",
+      "rights_state": "internal_analysis_default",
+      "current_connector_state": "active",
+      "admission_state": "ADMITTED_PHASE_I",
+      "reason": "Phase I institutional-core route"
+    },
+    {
+      "source_id": "binance_ws",
+      "provider": "Binance WebSocket",
+      "decision_use": "institutional_core",
+      "source_role": "PRIMARY",
+      "independence": "venue_direct",
+      "data_domain": "prices",
+      "required_depth": "live_only",
+      "rights_state": "internal_analysis_default",
+      "current_connector_state": "active",
+      "admission_state": "ADMITTED_PHASE_I",
+      "reason": "Phase I institutional-core route"
+    },
+    {
+      "source_id": "bitcoin_rpc",
+      "admission_state": "CATALOG_REFERENCE_ONLY",
+      "current_connector_state": "NOT_IN_CATALOG",
+      "decision_use": "phase_i_candidate",
+      "source_role": "SECONDARY",
+      "reason": "Phase I scope candidate pending catalog admission"
+    },
+    {
+      "source_id": "bybit_spot",
+      "provider": "Bybit Spot",
+      "decision_use": "institutional_core",
+      "source_role": "SECONDARY",
+      "independence": "aggregator_or_rest",
+      "data_domain": "prices",
+      "required_depth": "rest_backfill",
+      "rights_state": "internal_analysis_default",
+      "current_connector_state": "active",
+      "admission_state": "ADMITTED_PHASE_I",
+      "reason": "Phase I institutional-core route"
+    },
+    {
+      "source_id": "cftc_reports",
+      "admission_state": "CATALOG_REFERENCE_ONLY",
+      "current_connector_state": "NOT_IN_CATALOG",
+      "decision_use": "phase_i_candidate",
+      "source_role": "SECONDARY",
+      "reason": "Phase I scope candidate pending catalog admission"
+    },
+    {
+      "source_id": "chainlink_oracle",
+      "admission_state": "CATALOG_REFERENCE_ONLY",
+      "current_connector_state": "NOT_IN_CATALOG",
+      "decision_use": "phase_i_candidate",
+      "source_role": "SECONDARY",
+      "reason": "Phase I scope candidate pending catalog admission"
+    },
+    {
+      "source_id": "coinbase_spot",
+      "provider": "Coinbase Advanced",
+      "decision_use": "institutional_core",
+      "source_role": "SECONDARY",
+      "independence": "aggregator_or_rest",
+      "data_domain": "prices",
+      "required_depth": "rest_backfill",
+      "rights_state": "internal_analysis_default",
+      "current_connector_state": "active",
+      "admission_state": "ADMITTED_PHASE_I",
+      "reason": "Phase I institutional-core route"
+    },
+    {
+      "source_id": "coingecko_derivatives",
+      "admission_state": "CATALOG_REFERENCE_ONLY",
+      "current_connector_state": "NOT_IN_CATALOG",
+      "decision_use": "phase_i_candidate",
+      "source_role": "SECONDARY",
+      "reason": "Phase I scope candidate pending catalog admission"
+    },
+    {
+      "source_id": "coingecko_prices",
+      "provider": "CoinGecko",
+      "decision_use": "institutional_core",
+      "source_role": "SECONDARY",
+      "independence": "aggregator_or_rest",
+      "data_domain": "prices",
+      "required_depth": "rest_backfill",
+      "rights_state": "internal_analysis_default",
+      "current_connector_state": "active",
+      "admission_state": "ADMITTED_PHASE_I",
+      "reason": "Phase I institutional-core route"
+    },
+    {
+      "source_id": "coinmarketcap_prices",
+      "admission_state": "CATALOG_REFERENCE_ONLY",
+      "current_connector_state": "NOT_IN_CATALOG",
+      "decision_use": "phase_i_candidate",
+      "source_role": "SECONDARY",
+      "reason": "Phase I scope candidate pending catalog admission"
+    },
+    {
+      "source_id": "cryptopanic",
+      "provider": "CryptoPanic",
+      "decision_use": "institutional_core",
+      "source_role": "SECONDARY",
+      "independence": "aggregator_or_rest",
+      "data_domain": "news",
+      "required_depth": "rest_backfill",
+      "rights_state": "internal_analysis_default",
+      "current_connector_state": "active",
+      "admission_state": "REGISTERED_PHASE_I",
+      "reason": "Phase I institutional-core route"
+    },
+    {
+      "source_id": "curve_finance",
+      "admission_state": "CATALOG_REFERENCE_ONLY",
+      "current_connector_state": "NOT_IN_CATALOG",
+      "decision_use": "phase_i_candidate",
+      "source_role": "SECONDARY",
+      "reason": "Phase I scope candidate pending catalog admission"
+    },
+    {
+      "source_id": "defillama_tvl",
+      "provider": "DeFiLlama TVL",
+      "decision_use": "institutional_core",
+      "source_role": "SECONDARY",
+      "independence": "aggregator_or_rest",
+      "data_domain": "defi",
+      "required_depth": "rest_backfill",
+      "rights_state": "internal_analysis_default",
+      "current_connector_state": "active",
+      "admission_state": "ADMITTED_PHASE_I",
+      "reason": "Phase I institutional-core route"
+    },
+    {
+      "source_id": "dune_analytics",
+      "admission_state": "CATALOG_REFERENCE_ONLY",
+      "current_connector_state": "NOT_IN_CATALOG",
+      "decision_use": "phase_i_candidate",
+      "source_role": "SECONDARY",
+      "reason": "Phase I scope candidate pending catalog admission"
+    },
+    {
+      "source_id": "dydx",
+      "admission_state": "CATALOG_REFERENCE_ONLY",
+      "current_connector_state": "NOT_IN_CATALOG",
+      "decision_use": "phase_i_candidate",
+      "source_role": "SECONDARY",
+      "reason": "Phase I scope candidate pending catalog admission"
+    },
+    {
+      "source_id": "ethereum_rpc",
+      "admission_state": "CATALOG_REFERENCE_ONLY",
+      "current_connector_state": "NOT_IN_CATALOG",
+      "decision_use": "phase_i_candidate",
+      "source_role": "SECONDARY",
+      "reason": "Phase I scope candidate pending catalog admission"
+    },
+    {
+      "source_id": "fred",
+      "provider": "FRED (Fed)",
+      "decision_use": "institutional_core",
+      "source_role": "SECONDARY",
+      "independence": "aggregator_or_rest",
+      "data_domain": "macro",
+      "required_depth": "rest_backfill",
+      "rights_state": "internal_analysis_default",
+      "current_connector_state": "active",
+      "admission_state": "ADMITTED_PHASE_I",
+      "reason": "Phase I institutional-core route"
+    },
+    {
+      "source_id": "glassnode",
+      "admission_state": "CATALOG_REFERENCE_ONLY",
+      "current_connector_state": "NOT_IN_CATALOG",
+      "decision_use": "phase_i_candidate",
+      "source_role": "SECONDARY",
+      "reason": "Phase I scope candidate pending catalog admission"
+    },
+    {
+      "source_id": "hyperliquid",
+      "admission_state": "CATALOG_REFERENCE_ONLY",
+      "current_connector_state": "NOT_IN_CATALOG",
+      "decision_use": "phase_i_candidate",
+      "source_role": "SECONDARY",
+      "reason": "Phase I scope candidate pending catalog admission"
+    },
+    {
+      "source_id": "kraken_spot",
+      "provider": "Kraken",
+      "decision_use": "institutional_core",
+      "source_role": "SECONDARY",
+      "independence": "aggregator_or_rest",
+      "data_domain": "prices",
+      "required_depth": "rest_backfill",
+      "rights_state": "internal_analysis_default",
+      "current_connector_state": "active",
+      "admission_state": "ADMITTED_PHASE_I",
+      "reason": "Phase I institutional-core route"
+    },
+    {
+      "source_id": "lunarcrush",
+      "provider": "LunarCrush",
+      "decision_use": "institutional_core",
+      "source_role": "VALIDATION_ONLY",
+      "independence": "aggregator_or_rest",
+      "data_domain": "sentiment",
+      "required_depth": "rest_backfill",
+      "rights_state": "internal_analysis_default",
+      "current_connector_state": "active",
+      "admission_state": "REGISTERED_PHASE_I",
+      "reason": "Phase I institutional-core route"
+    },
+    {
+      "source_id": "messari",
+      "admission_state": "CATALOG_REFERENCE_ONLY",
+      "current_connector_state": "NOT_IN_CATALOG",
+      "decision_use": "phase_i_candidate",
+      "source_role": "SECONDARY",
+      "reason": "Phase I scope candidate pending catalog admission"
+    },
+    {
+      "source_id": "newsapi_crypto",
+      "admission_state": "CATALOG_REFERENCE_ONLY",
+      "current_connector_state": "NOT_IN_CATALOG",
+      "decision_use": "phase_i_candidate",
+      "source_role": "SECONDARY",
+      "reason": "Phase I scope candidate pending catalog admission"
+    },
+    {
+      "source_id": "okx_spot",
+      "provider": "OKX Spot",
+      "decision_use": "institutional_core",
+      "source_role": "SECONDARY",
+      "independence": "aggregator_or_rest",
+      "data_domain": "prices",
+      "required_depth": "rest_backfill",
+      "rights_state": "internal_analysis_default",
+      "current_connector_state": "active",
+      "admission_state": "ADMITTED_PHASE_I",
+      "reason": "Phase I institutional-core route"
+    },
+    {
+      "source_id": "pyth_network",
+      "admission_state": "CATALOG_REFERENCE_ONLY",
+      "current_connector_state": "NOT_IN_CATALOG",
+      "decision_use": "phase_i_candidate",
+      "source_role": "SECONDARY",
+      "reason": "Phase I scope candidate pending catalog admission"
+    },
+    {
+      "source_id": "sec_edgar",
+      "admission_state": "CATALOG_REFERENCE_ONLY",
+      "current_connector_state": "NOT_IN_CATALOG",
+      "decision_use": "phase_i_candidate",
+      "source_role": "SECONDARY",
+      "reason": "Phase I scope candidate pending catalog admission"
+    },
+    {
+      "source_id": "uniswap_v3",
+      "admission_state": "CATALOG_REFERENCE_ONLY",
+      "current_connector_state": "NOT_IN_CATALOG",
+      "decision_use": "phase_i_candidate",
+      "source_role": "SECONDARY",
+      "reason": "Phase I scope candidate pending catalog admission"
+    }
+  ]
+}

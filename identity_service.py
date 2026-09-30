@@ -95,8 +95,8 @@ def validate_email(email: str) -> str:
 
 
 def validate_password(password: str, *, email: str = "") -> None:
-    if len(password) < 10:
-        raise ValueError("Password must be at least 10 characters")
+    if len(password) < 12:
+        raise ValueError("Password must be at least 12 characters")
     if len(password) > 128:
         raise ValueError("Password too long")
     lowered = password.lower().strip()

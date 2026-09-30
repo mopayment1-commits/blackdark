@@ -1,0 +1,72 @@
+{
+  "schema": "launch57_ci_assurance_manifest_v1",
+  "authority": "docs/governance/LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION_PROGRAM.md",
+  "program_sections": ["§3.2 Required evidence classes (E-TEST)", "§8.3 V-2"],
+  "evidence_class": "E-TEST",
+  "workflow": ".github/workflows/launch57-cisa-assurance.yml",
+  "cisa_certification_claimed": false,
+  "qa_ci_run_url_field": "§8.3 V-2 qa_ci_green_run_url",
+  "engineering_baseline_job": {
+    "required_verify_scripts": [
+      "verify_launch57_finding_inventory_lock.py",
+      "verify_launch57_normative_traceability.py",
+      "verify_launch57_independent_verification.py",
+      "verify_launch57_release_attestation_82.py",
+      "verify_launch57_evidence_class_register.py",
+      "verify_launch57_sbom_ntia_scope.py",
+      "verify_launch57_security_lead_inventory_rerun.py",
+      "verify_launch57_qa_ci_bundle.py",
+      "verify_launch57_ops_v3_bundle.py",
+      "verify_launch57_open_ops_closure_package.py",
+      "verify_launch57_legal_v4_bundle.py",
+      "verify_launch57_iv_repo_bundle.py",
+      "verify_launch57_program_integrity_report.py",
+      "verify_launch57_gate_index.py",
+      "verify_launch57_repo_evidence.py",
+      "verify_launch57_generated_artifacts_fresh.py",
+      "verify_launch57_merge_readiness.py",
+      "verify_launch57_cross_workflow_assurance.py",
+      "verify_launch57_ci_reviewer_evidence_bundle.py",
+      "verify_launch57_post_merge_ops_manifest.py",
+      "verify_launch57_merge_to_main_readiness_manifest.py",
+      "verify_launch57_final_closure_playbook_manifest.py",
+      "verify_launch57_remediation_lifecycle_index.py",
+      "verify_launch57_finding11_sbom_closure_lane.py",
+      "verify_launch57_finding14_security_txt_closure_lane.py",
+      "verify_launch57_finding18_pentest_closure_lane.py",
+      "verify_launch57_finding19_waf_closure_lane.py",
+      "verify_launch57_finding01_pledge_closure_lane.py"
+    ],
+    "required_test_invocation": "tests/test_cisa_launch57_remediation.py",
+    "honest_nonzero_exits": [
+      {
+        "description": "§8.1 program not complete",
+        "script": "verify_launch57_program_closure_81.py",
+        "expected_exit": 2
+      },
+      {
+        "description": "Runtime/open findings remain",
+        "script": "launch57_closure_report.py",
+        "expected_exit": 2
+      },
+      {
+        "description": "FINDING-18 blocked without pentest",
+        "script": "transition_launch57_finding_status.py",
+        "args": ["--finding", "FINDING-18"],
+        "expected_exit": 2
+      }
+    ]
+  },
+  "cross_workflow_assurance": {
+    "spec": "governance/launch57/LAUNCH57_CROSS_WORKFLOW_ASSURANCE.json",
+    "verify_script": "verify_launch57_cross_workflow_assurance.py",
+    "security_workflow": ".github/workflows/security.yml",
+    "launch57_workflow": ".github/workflows/launch57-cisa-assurance.yml",
+    "program_ref": "§8.3 V-2"
+  },
+  "syft_job": {
+    "workflow_job": "syft-prod-lock-sbom",
+    "script": "validate_syft_sbom_artifact.py",
+    "program_ref": "§6 FINDING-11"
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "schema": "launch57_independent_verification_register_v1",
+  "authority": "docs/governance/LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION_PROGRAM.md",
+  "program_section": "§8.3 Independent verification (required)",
+  "cisa_certification_claimed": false,
+  "program_closure_verification_complete": false,
+  "steps": {
+    "V-1": {
+      "executor": "Security Lead",
+      "method": "Re-run full inventory checklist vs remediation SHA",
+      "evidence_classes": ["E-ART", "E-TEST"],
+      "repo_gates": [
+        "scripts/verify_launch57_finding_inventory_lock.py",
+        "scripts/verify_launch57_normative_traceability.py",
+        "scripts/verify_launch57_repo_evidence.py",
+        "scripts/verify_launch57_generated_artifacts_fresh.py"
+      ],
+      "human_signoff": {
+        "required": true,
+        "field": "security_lead_inventory_rerun_at",
+        "description": "Security Lead attests inventory checklist re-run at remediation SHA (not automated)."
+      }
+    },
+    "V-2": {
+      "executor": "QA",
+      "method": "CI security workflow green + new denial-header tests",
+      "evidence_classes": ["E-TEST"],
+      "repo_gates": [
+        ".github/workflows/launch57-cisa-assurance.yml",
+        ".github/workflows/security.yml"
+      ],
+      "test_markers": {
+        "module": "tests/test_cisa_launch57_remediation.py",
+        "required_test_names": [
+          "test_anonymous_denial_includes_security_headers"
+        ]
+      },
+      "repo_automation": [
+        "scripts/verify_launch57_cross_workflow_assurance.py",
+        "scripts/verify_launch57_ci_reviewer_evidence_bundle.py"
+      ],
+      "signoff_recorder": "scripts/record_launch57_qa_v2_ci_urls.py",
+      "recording_spec": "governance/launch57/LAUNCH57_QA_V2_CI_RECORDING.json",
+      "human_signoff": {
+        "required": true,
+        "field": "qa_ci_green_run_url",
+        "description": "QA records CI run URL for launch57-cisa-assurance + security on remediation SHA."
+      }
+    },
+    "V-3": {
+      "executor": "Ops",
+      "method": "Production smoke: security.txt, SSO authorize, log export window",
+      "evidence_classes": ["E-RUN", "E-OPS"],
+      "operator_scripts": [
+        "scripts/verify_launch57_prod_surface.py",
+        "scripts/verify_launch57_p7_wp5_production_smoke.py",
+        "scripts/record_launch57_p7_wp5_prod_smoke.py",
+        "scripts/verify_launch57_ops_v3_bundle.py",
+        "scripts/launch57_ops_closure_gate.py",
+        "scripts/verify_well_known_security_txt.py"
+      ],
+      "environment": {
+        "prod_url_var": "LAUNCH57_PROD_URL"
+      },
+      "human_signoff": {
+        "required": true,
+        "field": "ops_production_smoke_at",
+        "description": "Ops attests production smoke per L57-P7-WP5; deposit E-RUN under governance/launch57/evidence/."
+      }
+    },
+    "V-4": {
+      "executor": "Legal",
+      "method": "Pricing/SSO/logs/VDP alignment review",
+      "evidence_classes": ["E-LEGAL"],
+      "review_artifacts": [
+        "docs/security/VULNERABILITY_DISCLOSURE_POLICY.md",
+        "docs/security/CUSTOMER_SECURITY_LOG_POLICY.md",
+        "docs/security/COMMERCIAL_SECURITY_FEATURES.md"
+      ],
+      "repo_gates": [
+        "scripts/verify_launch57_legal_v4_bundle.py"
+      ],
+      "signoff_recorder": "scripts/record_launch57_legal_review_signoff.py",
+      "human_signoff": {
+        "required": true,
+        "field": "legal_alignment_review_id",
+        "description": "Legal review ID recorded; no repo script may assert Legal PASS without this field."
+      }
+    }
+  },
+  "closure_note": "Program §8.1 requires all 19 findings CLOSED in the evidence index; §8.3 steps are independent human gates and do not override finding-level evidence doctrine (§3)."
+}

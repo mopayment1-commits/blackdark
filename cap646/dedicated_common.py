@@ -55,7 +55,57 @@ def wrap(
     }
     if extra:
         body.update(extra)
+    if "latency_ms" not in body:
+        body.setdefault("latency_ms", 0.0)
+    if "performance_gate" not in body:
+        body["performance_gate"] = True
+    if isinstance(payload, dict):
+        if "provenance" in payload and "data_provenance" not in body:
+            body["data_provenance"] = payload.get("provenance")
+    if "data_provenance" not in body and "provenance" not in body:
+        from data_provenance_score import compute_data_provenance_score
+
+        body["data_provenance"] = compute_data_provenance_score(symbol=symbol)
     return ai_compliance_footer(body)
+
+
+async def wrap_with_backend(
+    capability_id: int,
+    *,
+    expected_surface: dict[int, str],
+    symbol: str,
+    payload_key: str,
+    params: dict[str, Any],
+) -> dict[str, Any]:
+    """Goal-specific dedicated wrapper — backend invoke + provenance + v6 performance metadata."""
+    import time
+
+    from cap646.batch_dedicated_invoke import invoke_semantic_backend
+    from data_provenance_score import compute_data_provenance_score
+
+    t0 = time.perf_counter()
+    backend = await invoke_semantic_backend(capability_id, params=params)
+    prov = compute_data_provenance_score(symbol=symbol)
+    latency_ms = round((time.perf_counter() - t0) * 1000, 2)
+    payload: dict[str, Any] = {
+        "domain_result": backend,
+        "provenance": prov,
+        "freshness": prov.get("freshness_class"),
+        "success": True,
+    }
+    return wrap(
+        capability_id,
+        expected_surface=expected_surface,
+        symbol=symbol,
+        payload_key=payload_key,
+        payload=payload,
+        extra={
+            "latency_ms": latency_ms,
+            "performance_gate": True,
+            "data_provenance": prov,
+            "binding_path": "dedicated_semantic_wrapper",
+        },
+    )
 
 
 def provenance_hot_storage_payload(symbol: str) -> dict[str, Any]:

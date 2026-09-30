@@ -1,0 +1,11 @@
+{
+  "schema": "launch57_evidence_index_schema_v1",
+  "authority": "docs/governance/LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION_PROGRAM.md",
+  "program_section": "§9 Evidence index template",
+  "required_top_level": ["program", "baseline_sha", "remediation_sha", "findings"],
+  "required_finding_fields": ["status", "evidence"],
+  "finding_count": 19,
+  "baseline_sha_expected": "e73f398d4048723bd10670beab14a0d18ceb19ef",
+  "program_name_expected": "LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION",
+  "forbidden_finding_status_for_program_complete": ["OPEN", "OPEN_OPS", "OPEN_EXECUTIVE", "CLOSED_REPO", "CLOSED_PARTIAL"]
+}

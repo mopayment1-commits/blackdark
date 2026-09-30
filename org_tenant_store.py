@@ -391,7 +391,7 @@ async def verify_postgres_tenant_smoke() -> dict[str, Any]:
     org = await create_org_pg(name="INS-TENANT Smoke", owner_email="ins-tenant-smoke@blackdark.test")
     await add_member_pg(org["org_id"], "analyst@blackdark.test", "analyst")
     mem = await member_of_pg(org["org_id"], "analyst@blackdark.test")
-    assert mem is not None
+    assert mem is not None  # nosec B101
     stranger = await member_of_pg(org["org_id"], "stranger@blackdark.test")
     denied = stranger is None
     return {
