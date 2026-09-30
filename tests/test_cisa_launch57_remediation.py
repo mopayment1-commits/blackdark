@@ -164,6 +164,53 @@ def test_launch57_closure_report_marks_runtime_open():
     assert "cisa_certification_claimed" in proc.stdout
 
 
+def test_iv_repo_bundle_gate():
+    import subprocess
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    proc = subprocess.run(
+        [sys.executable, str(root / "scripts/verify_launch57_iv_repo_bundle.py")],
+        cwd=root,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 0, proc.stderr or proc.stdout
+    report = json.loads(proc.stdout)
+    assert report["program_closure_verification_complete"] is False
+
+
+def test_program_integrity_report():
+    import subprocess
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    proc = subprocess.run(
+        [sys.executable, str(root / "scripts/verify_launch57_program_integrity_report.py")],
+        cwd=root,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 0, proc.stderr or proc.stdout
+    report = json.loads(proc.stdout)
+    assert report["integrity_pass"] is True
+    assert report["program_complete_81"] is False
+
+
+def test_ops_playbook_dry_run():
+    import subprocess
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    proc = subprocess.run(
+        [sys.executable, str(root / "scripts/run_launch57_ops_playbook_dry_run.py")],
+        cwd=root,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 0, proc.stderr or proc.stdout
+
+
 def test_open_ops_closure_package_gate():
     import subprocess
     import sys

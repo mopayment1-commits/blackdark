@@ -1,0 +1,51 @@
+{
+  "schema": "launch57_iv_repo_bundle_v1",
+  "authority": "docs/governance/LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION_PROGRAM.md",
+  "program_section": "§8.3 Independent verification (required)",
+  "cisa_certification_claimed": false,
+  "program_closure_verification_complete": false,
+  "repo_scripts": [
+    {
+      "id": "iv_core",
+      "script": "scripts/verify_launch57_independent_verification.py",
+      "expect_exit": 0,
+      "maps_to": "§8.3 V-1..V-4 core"
+    },
+    {
+      "id": "v1_security_lead_bundle",
+      "script": "scripts/verify_launch57_security_lead_inventory_rerun.py",
+      "expect_exit": 0,
+      "maps_to": "§8.3 V-1"
+    },
+    {
+      "id": "v2_qa_bundle",
+      "script": "scripts/verify_launch57_qa_ci_bundle.py",
+      "expect_exit": 0,
+      "maps_to": "§8.3 V-2"
+    },
+    {
+      "id": "v3_ops_bundle_no_prod_required",
+      "script": "scripts/verify_launch57_ops_v3_bundle.py",
+      "expect_exit": 0,
+      "maps_to": "§8.3 V-3 (repo; live when LAUNCH57_PROD_URL set)"
+    },
+    {
+      "id": "v4_legal_bundle",
+      "script": "scripts/verify_launch57_legal_v4_bundle.py",
+      "expect_exit": 0,
+      "maps_to": "§8.3 V-4"
+    },
+    {
+      "id": "open_ops_package",
+      "script": "scripts/verify_launch57_open_ops_closure_package.py",
+      "expect_exit": 0,
+      "maps_to": "§3.3 / §8.1 honesty"
+    },
+    {
+      "id": "program_closure_81_honest_incomplete",
+      "script": "scripts/verify_launch57_program_closure_81.py",
+      "expect_exit": 2,
+      "maps_to": "§8.1 (exit 2 until all CLOSED)"
+    }
+  ]
+}

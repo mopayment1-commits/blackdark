@@ -93,6 +93,11 @@ def main() -> int:
         "legal_v4_bundle_gate",
         "legal_review_signoff_recorder",
         "round_18_open_ops_ar",
+        "iv_repo_bundle",
+        "iv_repo_bundle_gate",
+        "program_integrity_report_gate",
+        "ops_playbook_dry_run",
+        "round_19_iv_bundle_ar",
         "program_authority",
     )
     for rel in [data.get(k, "") for k in meta_keys]:

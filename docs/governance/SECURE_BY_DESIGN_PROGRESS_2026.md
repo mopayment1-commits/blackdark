@@ -14,6 +14,13 @@
 | Supply chain | CycloneDX SBOM + git SHA binding |
 | Customer logging | 180-day policy + export API |
 
+## Engineering round 19 (§8.3 IV repo bundle + program integrity report)
+
+- `LAUNCH57_INDEPENDENT_VERIFICATION_REPO_BUNDLE.json` + `verify_launch57_iv_repo_bundle.py`
+- `verify_launch57_program_integrity_report.py` (§8.1 honest incomplete + governance JSON flags)
+- `run_launch57_ops_playbook_dry_run.py` — no `transition --apply`
+- `LAUNCH57_ROUND_19_IV_BUNDLE_AR.md`
+
 ## Engineering round 18 (open ops closure package + §8.3 V-4 + FINDING 01/18/19 recorders)
 
 - `LAUNCH57_OPEN_OPS_CLOSURE_PACKAGE.json` + `verify_launch57_open_ops_closure_package.py`
