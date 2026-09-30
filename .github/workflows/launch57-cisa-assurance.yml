@@ -44,6 +44,8 @@ jobs:
       - run: python scripts/generate_launch57_ci_reviewer_evidence_bundle.py
       - run: python scripts/verify_launch57_cross_workflow_assurance.py
       - run: python scripts/verify_launch57_ci_reviewer_evidence_bundle.py
+      - run: python scripts/verify_launch57_post_merge_ops_manifest.py
+      - run: python scripts/preflight_launch57_iv_human_signoffs.py
       - run: python scripts/generate_launch57_open_findings_register.py
       - run: python scripts/verify_launch57_pr_merge_checklist_gates.py
       - run: test "$(python scripts/verify_launch57_program_closure_81.py >/dev/null; echo $?)" = "2"

@@ -9,6 +9,9 @@
   "safe_to_merge_engineering_gate": "scripts/verify_launch57_merge_readiness.py",
   "pr_merge_checklist_gates": "scripts/verify_launch57_pr_merge_checklist_gates.py",
   "post_merge_ops": "docs/ops/LAUNCH57_POST_MERGE_OPS.md",
+  "post_merge_ops_manifest": "governance/launch57/LAUNCH57_POST_MERGE_OPS_MANIFEST.json",
+  "post_merge_ops_manifest_gate": "scripts/verify_launch57_post_merge_ops_manifest.py",
+  "iv_human_signoff_preflight": "scripts/preflight_launch57_iv_human_signoffs.py",
   "open_ops_closure_package": "governance/launch57/LAUNCH57_OPEN_OPS_CLOSURE_PACKAGE.json",
   "allowed_release_attestation": "governance/launch57/LAUNCH57_RELEASE_ATTESTATION_82.json",
   "forbidden_until_program_complete_81": [

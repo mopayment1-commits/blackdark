@@ -16,6 +16,7 @@ GOVERNANCE_JSON = (
     "governance/launch57/LAUNCH57_OPEN_OPS_CLOSURE_PACKAGE.json",
     "governance/launch57/LAUNCH57_INDEPENDENT_VERIFICATION_REGISTER.json",
     "governance/launch57/LAUNCH57_INDEPENDENT_VERIFICATION_REPO_BUNDLE.json",
+    "governance/launch57/LAUNCH57_POST_MERGE_OPS_MANIFEST.json",
 )
 
 

@@ -26,7 +26,8 @@
       "verify_launch57_generated_artifacts_fresh.py",
       "verify_launch57_merge_readiness.py",
       "verify_launch57_cross_workflow_assurance.py",
-      "verify_launch57_ci_reviewer_evidence_bundle.py"
+      "verify_launch57_ci_reviewer_evidence_bundle.py",
+      "verify_launch57_post_merge_ops_manifest.py"
     ],
     "required_test_invocation": "tests/test_cisa_launch57_remediation.py",
     "honest_nonzero_exits": [

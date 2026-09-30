@@ -123,6 +123,10 @@ def main() -> int:
         "ci_reviewer_evidence_bundle_gate",
         "qa_v2_ci_urls_recorder",
         "round_24_qa_v2_recording_ar",
+        "post_merge_ops_manifest",
+        "post_merge_ops_manifest_gate",
+        "iv_human_signoff_preflight",
+        "round_25_post_merge_ops_ar",
         "program_authority",
     )
     for rel in [data.get(k, "") for k in meta_keys]:

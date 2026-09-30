@@ -19,7 +19,17 @@ def main() -> int:
         print("handoff must not claim certification or program complete", file=sys.stderr)
         return 1
     errors: list[str] = []
-    for key in ("safe_to_merge_engineering_gate", "pr_merge_checklist_gates", "post_merge_ops", "open_ops_closure_package", "allowed_release_attestation", "merge_readiness_doc"):
+    for key in (
+        "safe_to_merge_engineering_gate",
+        "pr_merge_checklist_gates",
+        "post_merge_ops",
+        "post_merge_ops_manifest",
+        "post_merge_ops_manifest_gate",
+        "iv_human_signoff_preflight",
+        "open_ops_closure_package",
+        "allowed_release_attestation",
+        "merge_readiness_doc",
+    ):
         rel = data.get(key)
         if not rel or not (ROOT / rel).is_file():
             errors.append(f"missing {key}: {rel}")

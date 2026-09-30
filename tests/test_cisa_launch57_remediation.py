@@ -246,6 +246,37 @@ def test_ci_reviewer_evidence_bundle_gate():
     assert proc.returncode == 0, proc.stderr or proc.stdout
 
 
+def test_post_merge_ops_manifest_gate():
+    import subprocess
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    proc = subprocess.run(
+        [sys.executable, str(root / "scripts/verify_launch57_post_merge_ops_manifest.py")],
+        cwd=root,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 0, proc.stderr or proc.stdout
+
+
+def test_preflight_iv_human_signoffs_honest():
+    import json
+    import subprocess
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    proc = subprocess.run(
+        [sys.executable, str(root / "scripts/preflight_launch57_iv_human_signoffs.py")],
+        cwd=root,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 0, proc.stderr or proc.stdout
+    report = json.loads(proc.stdout)
+    assert report.get("program_closure_verification_complete") is False
+
+
 def test_record_qa_v2_ci_urls_rejects_invalid_url():
     import subprocess
     import sys

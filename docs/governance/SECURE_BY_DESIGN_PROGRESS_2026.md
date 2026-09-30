@@ -14,6 +14,13 @@
 | Supply chain | CycloneDX SBOM + git SHA binding |
 | Customer logging | 180-day policy + export API |
 
+## Engineering round 25 (post-merge ops manifest + §8.3 human preflight)
+
+- `LAUNCH57_POST_MERGE_OPS_MANIFEST.json` + `verify_launch57_post_merge_ops_manifest.py`
+- `preflight_launch57_iv_human_signoffs.py` — PENDING/RECORDED report only
+- `LAUNCH57_POST_MERGE_OPS.md` §8.3 V-2 QA CI section
+- `LAUNCH57_ROUND_25_POST_MERGE_OPS_AR.md`
+
 ## Engineering round 24 (§8.3 V-2 CI URL recording spec + reviewer bundle gate)
 
 - `LAUNCH57_QA_V2_CI_RECORDING.json` + `record_launch57_qa_v2_ci_urls.py` (gitignored `evidence/V-2/`)
