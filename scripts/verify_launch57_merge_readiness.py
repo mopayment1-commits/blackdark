@@ -19,6 +19,8 @@ GATES = (
     "verify_launch57_repo_evidence.py",
     "verify_launch57_generated_artifacts_fresh.py",
     "verify_launch57_independent_verification.py",
+    "verify_launch57_release_attestation_82.py",
+    "verify_launch57_evidence_class_register.py",
 )
 
 

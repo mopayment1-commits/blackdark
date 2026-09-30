@@ -69,6 +69,15 @@ def main() -> int:
         "normative_traceability",
         "normative_traceability_gate",
         "executive_summary_ar",
+        "independent_verification_ar",
+        "independent_verification_gate",
+        "independent_verification_register",
+        "release_attestation_82",
+        "release_attestation_82_gate",
+        "release_attestation_ar",
+        "evidence_class_register",
+        "evidence_class_register_gate",
+        "program_closure_81_gate",
         "program_authority",
     )
     for rel in [data.get(k, "") for k in meta_keys]:

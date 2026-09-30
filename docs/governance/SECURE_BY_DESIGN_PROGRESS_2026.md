@@ -14,6 +14,14 @@
 | Supply chain | CycloneDX SBOM + git SHA binding |
 | Customer logging | 180-day policy + export API |
 
+## Engineering round 15 (§8.2 attestation lock + §3.2 evidence classes + §8.1 gate)
+
+- `LAUNCH57_RELEASE_ATTESTATION_82.json` + `verify_launch57_release_attestation_82.py` (wording locked to program §8.2; forbidden claim scan)
+- `LAUNCH57_EVIDENCE_CLASS_REGISTER.json` + `verify_launch57_evidence_class_register.py` (§6 verification → E-ART/E-TEST/…)
+- `verify_launch57_program_closure_81.py` — exit 2 until all findings `CLOSED` exactly
+- `record_launch57_independent_verification_signoff.py` — gitignored §8.3 human records
+- `LAUNCH57_RELEASE_ATTESTATION_AR.md`
+
 ## Engineering round 14 (program §8.3 independent verification register)
 
 - `LAUNCH57_INDEPENDENT_VERIFICATION_REGISTER.json` + `verify_launch57_independent_verification.py` (V-1..V-4; human sign-off honest)

@@ -164,6 +164,75 @@ def test_launch57_closure_report_marks_runtime_open():
     assert "cisa_certification_claimed" in proc.stdout
 
 
+def test_release_attestation_82_gate():
+    import subprocess
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    proc = subprocess.run(
+        [sys.executable, str(root / "scripts/verify_launch57_release_attestation_82.py")],
+        cwd=root,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 0, proc.stderr or proc.stdout
+    report = json.loads(proc.stdout)
+    assert report["pass"] is True
+
+
+def test_program_closure_81_honest_not_complete():
+    import subprocess
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    proc = subprocess.run(
+        [sys.executable, str(root / "scripts/verify_launch57_program_closure_81.py")],
+        cwd=root,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 2
+    report = json.loads(proc.stdout)
+    assert report["program_complete_81"] is False
+
+
+def test_evidence_class_register_gate():
+    import subprocess
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    proc = subprocess.run(
+        [sys.executable, str(root / "scripts/verify_launch57_evidence_class_register.py")],
+        cwd=root,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 0, proc.stderr or proc.stdout
+
+
+def test_iv_signoff_recorder_dry_run(tmp_path, monkeypatch):
+    import subprocess
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    proc = subprocess.run(
+        [
+            sys.executable,
+            str(root / "scripts/record_launch57_independent_verification_signoff.py"),
+            "--step",
+            "V-2",
+            "--signer-role",
+            "QA",
+            "--reference",
+            "https://example.test/ci/1",
+        ],
+        cwd=root,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 0, proc.stderr or proc.stdout
+
+
 def test_independent_verification_gate():
     import subprocess
     import sys

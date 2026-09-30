@@ -2,7 +2,7 @@
   "program": "LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
   "remediation_sha": "8682e9dc",
-  "phase": "PHASE_ROUND_14_INDEPENDENT_VERIFICATION_83",
+  "phase": "PHASE_ROUND_15_RELEASE_ATTESTATION_82_EVIDENCE_CLASSES",
   "independent_verification_register": "governance/launch57/LAUNCH57_INDEPENDENT_VERIFICATION_REGISTER.json",
   "findings": {
     "FINDING-01": {
@@ -180,5 +180,12 @@
   "executive_summary_ar": "docs/governance/LAUNCH57_REMEDIATION_EXECUTIVE_SUMMARY_AR.md",
   "independent_verification_ar": "docs/governance/LAUNCH57_INDEPENDENT_VERIFICATION_AR.md",
   "independent_verification_gate": "scripts/verify_launch57_independent_verification.py",
+  "release_attestation_82": "governance/launch57/LAUNCH57_RELEASE_ATTESTATION_82.json",
+  "release_attestation_82_gate": "scripts/verify_launch57_release_attestation_82.py",
+  "release_attestation_ar": "docs/governance/LAUNCH57_RELEASE_ATTESTATION_AR.md",
+  "evidence_class_register": "governance/launch57/LAUNCH57_EVIDENCE_CLASS_REGISTER.json",
+  "evidence_class_register_gate": "scripts/verify_launch57_evidence_class_register.py",
+  "program_closure_81_gate": "scripts/verify_launch57_program_closure_81.py",
+  "iv_signoff_recorder": "scripts/record_launch57_independent_verification_signoff.py",
   "program_authority": "docs/governance/LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION_PROGRAM.md"
 }

@@ -24,6 +24,9 @@ jobs:
       - run: python scripts/verify_launch57_finding_inventory_lock.py
       - run: python scripts/verify_launch57_normative_traceability.py
       - run: python scripts/verify_launch57_independent_verification.py
+      - run: python scripts/verify_launch57_release_attestation_82.py
+      - run: python scripts/verify_launch57_evidence_class_register.py
+      - run: test "$(python scripts/verify_launch57_program_closure_81.py >/dev/null; echo $?)" = "2"
       - run: python scripts/verify_launch57_repo_evidence.py
       - run: python scripts/collect_engineering_security_baseline.py
       - run: python scripts/validate_pentest_deposit_template.py
