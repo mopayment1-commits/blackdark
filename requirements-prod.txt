@@ -28,3 +28,6 @@ pyarrow
 google-cloud-bigquery
 dbt-bigquery==1.9.0
 httpx
+# GHSA-hj66-6f7g-4r5v / GHSA-xpv3-w29h-x7cv — oauthlib 4.0.0+
+oauthlib>=4.0.0,<5.0.0
+sqlparse>=0.6.0,<0.7.0

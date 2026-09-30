@@ -1,0 +1,55 @@
+{
+  "artifact": "TRIVY_REMEDIATION_R1_EVIDENCE",
+  "remediation_phase": "R0_R1",
+  "target": {
+    "repository": "mopayment1-commits/blackdark",
+    "pr": 493,
+    "branch": "cursor/launch57-trivy-remediation-031c",
+    "implementation_sha": "68362fdde31102dfad022d92b35cce38bd367a2f",
+    "report_snapshot_sha": "e4a9136d66e4056b6c11e3e3b45071ae92ab8f29",
+    "report_title": "BLACKDARK FINAL TRIVY VULNERABILITY AUDIT & REMEDIATION REPORT",
+    "trivy_version_report": "0.74.0",
+    "assessment_date": "2026-09-29"
+  },
+  "authority": {
+    "oauthlib_cve_2026_49264": "GHSA-hj66-6f7g-4r5v — fixed in oauthlib 4.0.0",
+    "oauthlib_cve_2026_49265": "GHSA-xpv3-w29h-x7cv — fixed in oauthlib 4.0.0",
+    "sqlparse_pysec_2026_3698": "PYSEC-2026-3698 — fixed in sqlparse 0.6.0"
+  },
+  "changes": [
+    {
+      "id": "R1-OAUTH",
+      "action": "Pin oauthlib>=4.0.0,<5.0.0 in requirements.txt and requirements-prod.txt; regenerate lock/hash files",
+      "before": "oauthlib==3.3.1",
+      "after": "oauthlib==4.0.0"
+    },
+    {
+      "id": "R1-SQLPARSE",
+      "action": "Align prod hash lock sqlparse with >=0.6.0 bound (pip-audit PYSEC-2026-3698)",
+      "before": "sqlparse==0.5.5 in requirements-prod.hashes.txt",
+      "after": "sqlparse==0.6.0"
+    },
+    {
+      "id": "R2-NLTK",
+      "action": "No code change — nltk already absent from head requirements.hashes.txt (TRV-001 stale at snapshot)"
+    }
+  ],
+  "verification": {
+    "pip_audit_prod_hashes": "No known vulnerabilities found (post R1)",
+    "pytest": [
+      "tests/test_security.py",
+      "tests/test_security_hardening.py",
+      "tests/test_d13_auth_abuse.py"
+    ],
+    "pytest_result": "PASS"
+  },
+  "open_gaps_remaining": [
+    "PG-03 application image Trivy scan @ built digest",
+    "H-01 python:3.12-slim OS CVE bucket rescan",
+    "J-01 postgres:16-alpine image rescan",
+    "K-01 kafka bitnami/kafka:3.7 tag/manifest resolution",
+    "L-01 vault:1.17 dev-profile image rescan",
+    "UG-06 immutable RC scan @ merged remediation SHA"
+  ],
+  "status": "REMEDIATED_PENDING_INDEPENDENT_VERIFICATION"
+}
