@@ -109,13 +109,15 @@ async def test_auth0_callback_exchanges_code_and_issues_session(auth0_env, tmp_p
 
 
 def test_public_sso_routes_without_auth(monkeypatch):
-    monkeypatch.setenv("SOFT_LAUNCH", "true")
+    monkeypatch.setenv("SOFT_LAUNCH", "false")
+    monkeypatch.setenv("ENV", "production")
     monkeypatch.setenv("APP_BASE_URL", "https://blackdark-production.up.railway.app")
+    monkeypatch.setenv("AUDIT_SIGNING_KEY", "test-audit-signing-key-32chars-minimum-xx")
     from fastapi.testclient import TestClient
 
     from dashboard import app
 
-    client = TestClient(app)
+    client = TestClient(app, base_url="https://blackdark-production.up.railway.app")
     status = client.get("/api/institutional/sso/status")
     assert status.status_code == 200
     body = status.json()
