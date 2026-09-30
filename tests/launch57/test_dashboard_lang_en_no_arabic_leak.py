@@ -14,9 +14,9 @@ ARABIC_INTENT_QUESTION = "ماذا أفعل الآن؟"
 def authed_client():
     from dashboard import app
 
-    client = TestClient(app)
+    client = TestClient(app, base_url="https://testserver")
     client.cookies.set("bd_token", "dashboard-lang-en-no-arabic-leak")
-    client.cookies.set("bd_lang", "en")
+    client.cookies.set("__Host-bd_lang", "en")
     return client
 
 

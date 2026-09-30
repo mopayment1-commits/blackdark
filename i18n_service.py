@@ -8,6 +8,7 @@ RTL: Arabic, Hebrew, Urdu, Persian/Farsi.
 from __future__ import annotations
 
 import json
+import os
 from collections.abc import Callable
 from pathlib import Path
 from typing import Any
@@ -48,6 +49,8 @@ LOCALES: dict[str, dict[str, str]] = {
 }
 
 DEFAULT_LANG = "en"
+LANG_COOKIE_LEGACY = "bd_lang"
+LANG_COOKIE_HOST = "__Host-bd_lang"
 _ALIASES = {
     "zh": "zh-CN",
     "zh-cn": "zh-CN",
@@ -643,8 +646,47 @@ def catalog_for(lang: str | None) -> dict[str, str]:
     return dict(catalogs().get(code) or EN)
 
 
+def lang_cookie_is_secure(request: Any) -> bool:
+    if os.getenv("COOKIE_SECURE", "").strip().lower() in {"1", "true", "yes"}:
+        return True
+    try:
+        scheme = (getattr(getattr(request, "url", None), "scheme", "") or "").lower()
+        return scheme == "https"
+    except Exception:
+        return False
+
+
+def read_lang_cookie(request: Any) -> str | None:
+    try:
+        host_val = request.cookies.get(LANG_COOKIE_HOST)
+        if host_val:
+            return normalize_lang(host_val)
+        legacy = request.cookies.get(LANG_COOKIE_LEGACY)
+        if legacy:
+            return normalize_lang(legacy)
+    except Exception:
+        pass
+    return None
+
+
+def apply_lang_preference_cookie(response: Any, request: Any, lang: str) -> None:
+    """HTTPS: __Host-bd_lang (Secure, path=/). Always retire legacy bd_lang."""
+    code = normalize_lang(lang)
+    if lang_cookie_is_secure(request):
+        response.set_cookie(
+            LANG_COOKIE_HOST,
+            code,
+            max_age=60 * 60 * 24 * 365,
+            httponly=True,
+            samesite="lax",
+            secure=True,
+            path="/",
+        )
+    response.delete_cookie(LANG_COOKIE_LEGACY, path="/")
+
+
 def resolve_request_lang(request: Any) -> str:
-    """lang query → cookie bd_lang → Accept-Language → en."""
+    """lang query → language cookie → Accept-Language → en."""
     try:
         q = request.query_params.get("lang")
         if q:
@@ -652,9 +694,9 @@ def resolve_request_lang(request: Any) -> str:
     except Exception:
         pass
     try:
-        cookie = request.cookies.get("bd_lang")
+        cookie = read_lang_cookie(request)
         if cookie:
-            return normalize_lang(cookie)
+            return cookie
     except Exception:
         pass
     try:

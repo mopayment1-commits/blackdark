@@ -112,16 +112,11 @@ def render_page(request: Request, name: str, context: dict[str, Any] | None = No
     """Render a Jinja template with full i18n context (lang switcher + t())."""
     from i18n_service import template_context
 
+    from i18n_service import apply_lang_preference_cookie
+
     ctx = template_context(request, context)
     response = templates.TemplateResponse(request, name, ctx)
-    response.set_cookie(
-        "bd_lang",
-        str(ctx.get("lang") or "en"),
-        max_age=60 * 60 * 24 * 365,
-        httponly=True,
-        samesite="lax",
-        secure=_cookie_secure(request),
-    )
+    apply_lang_preference_cookie(response, request, str(ctx.get("lang") or "en"))
     return response
 
 
@@ -1835,23 +1830,17 @@ _LANDING_HTML_CACHE_TTL = float(os.getenv("LANDING_HTML_CACHE_TTL_SEC", "45"))
 async def landing_page(request: Request):
     import time
 
-    from i18n_service import resolve_request_lang, template_context
+    from i18n_service import apply_lang_preference_cookie, resolve_request_lang, template_context
 
     lang = resolve_request_lang(request)
     auth_segment = "auth" if getattr(request.state, "header_user", None) else "anon"
     cache_key = f"v2:{lang}:{auth_segment}"
     now = time.time()
     hit = _landing_html_cache.get(cache_key)
+
     if hit and (now - hit[0]) < _LANDING_HTML_CACHE_TTL:
         response = HTMLResponse(hit[1])
-        response.set_cookie(
-            "bd_lang",
-            lang,
-            max_age=60 * 60 * 24 * 365,
-            httponly=True,
-            samesite="lax",
-            secure=_cookie_secure(request),
-        )
+        apply_lang_preference_cookie(response, request, lang)
         response.headers["X-Landing-Cache"] = "HIT"
         return response
 
@@ -1867,14 +1856,7 @@ async def landing_page(request: Request):
         for key, _ in oldest:
             _landing_html_cache.pop(key, None)
     response = HTMLResponse(html)
-    response.set_cookie(
-        "bd_lang",
-        lang,
-        max_age=60 * 60 * 24 * 365,
-        httponly=True,
-        samesite="lax",
-        secure=_cookie_secure(request),
-    )
+    apply_lang_preference_cookie(response, request, lang)
     response.headers["X-Landing-Cache"] = "MISS"
     return response
 
