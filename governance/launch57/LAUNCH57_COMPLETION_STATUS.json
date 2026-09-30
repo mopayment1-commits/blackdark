@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-09-30T14:49:48.025495+00:00",
-  "git_commit": "47702b700277e8aa77119d765ceb3fc9745f76ed",
+  "generated_at": "2026-09-30T14:49:54.951146+00:00",
+  "git_commit": "8432052ec782be19a07e0a88213abc69ab0ab38f",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
-  "remediation_sha": "b061337c",
+  "remediation_sha": "8432052e",
   "phase": "PHASE_ROUND_20_REMEDIATION_GATE_INDEX",
   "cisa_certification_claimed": false,
   "rollup": {
