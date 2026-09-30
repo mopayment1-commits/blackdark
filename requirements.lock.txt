@@ -28,6 +28,7 @@ pytest-cov==7.1.0
 httpx==0.28.1
 pyotp==2.10.0
 authlib==1.6.12
+oauthlib==4.0.0
 alembic==1.16.5
 SQLAlchemy==2.0.51
 ruff==0.16.2

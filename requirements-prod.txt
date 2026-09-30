@@ -28,3 +28,4 @@ pyarrow
 google-cloud-bigquery
 dbt-bigquery==1.9.0
 httpx
+oauthlib==4.0.0

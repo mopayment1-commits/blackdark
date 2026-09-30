@@ -1,10 +1,10 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "serialNumber": "urn:uuid:dde6c324-d0cc-4183-ad1d-5027dfa74ae8",
+  "serialNumber": "urn:uuid:32181085-552e-4584-aafd-5066f7a47e58",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-09-14T23:57:36Z",
+    "timestamp": "2026-09-30T22:32:11Z",
     "tools": {
       "components": [
         {
@@ -18,7 +18,7 @@
       "type": "application",
       "name": "blackdark",
       "version": "rc2",
-      "description": "Generated from requirements.lock.txt sha256=b07a90c5366847da88ea624151ca1587a33a486522aef64dc62a6b6be413c3e8"
+      "description": "Generated from requirements.lock.txt sha256=b8b593c6bb24ba2965635874465ab93fdab4a94959e3b5b407a43fc21c1c381f"
     },
     "properties": [
       {
@@ -27,7 +27,7 @@
       },
       {
         "name": "blackdark:lockfile_sha256",
-        "value": "b07a90c5366847da88ea624151ca1587a33a486522aef64dc62a6b6be413c3e8"
+        "value": "b8b593c6bb24ba2965635874465ab93fdab4a94959e3b5b407a43fc21c1c381f"
       }
     ]
   },
@@ -125,13 +125,6 @@
     },
     {
       "type": "library",
-      "bom-ref": "pkg:pypi/textblob@0.19.0",
-      "name": "textblob",
-      "version": "0.19.0",
-      "purl": "pkg:pypi/textblob@0.19.0"
-    },
-    {
-      "type": "library",
       "bom-ref": "pkg:pypi/stripe@11.6.0",
       "name": "stripe",
       "version": "11.6.0",
@@ -171,6 +164,13 @@
       "name": "cryptography",
       "version": "50.0.0",
       "purl": "pkg:pypi/cryptography@50.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/defusedxml@0.7.1",
+      "name": "defusedxml",
+      "version": "0.7.1",
+      "purl": "pkg:pypi/defusedxml@0.7.1"
     },
     {
       "type": "library",
@@ -220,6 +220,13 @@
       "name": "authlib",
       "version": "1.6.12",
       "purl": "pkg:pypi/authlib@1.6.12"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/oauthlib@4.0.0",
+      "name": "oauthlib",
+      "version": "4.0.0",
+      "purl": "pkg:pypi/oauthlib@4.0.0"
     },
     {
       "type": "library",
