@@ -267,7 +267,8 @@ def security_headers_for(request: Request) -> dict[str, str]:
             "font-src 'self' data:; "
             "connect-src 'self' https: wss:; "
             "frame-ancestors 'none'; "
-            "base-uri 'self'; "
+            "object-src 'none'; "
+            "base-uri 'none'; "
             "form-action 'self'"
         )
     else:
@@ -279,7 +280,8 @@ def security_headers_for(request: Request) -> dict[str, str]:
             "font-src 'self' data:; "
             "connect-src 'self' https: wss:; "
             "frame-ancestors 'none'; "
-            "base-uri 'self'; "
+            "object-src 'none'; "
+            "base-uri 'none'; "
             "form-action 'self'"
         )
     headers = {

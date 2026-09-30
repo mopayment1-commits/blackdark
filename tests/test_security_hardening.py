@@ -32,6 +32,8 @@ def test_security_headers_helper():
     csp = headers["Content-Security-Policy"]
     assert "nonce-" in csp
     assert "strict-dynamic" in csp
+    assert "object-src 'none'" in csp
+    assert "base-uri 'none'" in csp
     script_src = csp.split("script-src")[1].split(";")[0]
     assert "'unsafe-inline'" not in script_src
     assert "Strict-Transport-Security" in headers
@@ -156,6 +158,8 @@ def test_csp_nonce_mode_emits_nonce_without_unsafe_inline(monkeypatch):
     csp = headers["Content-Security-Policy"]
     assert "strict-dynamic" in csp
     assert "nonce-" in csp
+    assert "object-src 'none'" in csp
+    assert "base-uri 'none'" in csp
     assert "'unsafe-inline'" not in csp.split("script-src")[1].split(";")[0]
     assert getattr(req.state, "csp_nonce", None)
 
@@ -168,5 +172,8 @@ def test_csp_nonce_mode_can_rollback_to_unsafe_inline(monkeypatch):
     monkeypatch.delenv("CONTENT_SECURITY_POLICY", raising=False)
     req = SimpleNamespace(state=SimpleNamespace(), url=SimpleNamespace(scheme="http"))
     headers = security_headers_for(req)
-    script_src = headers["Content-Security-Policy"].split("script-src")[1].split(";")[0]
+    csp = headers["Content-Security-Policy"]
+    assert "object-src 'none'" in csp
+    assert "base-uri 'none'" in csp
+    script_src = csp.split("script-src")[1].split(";")[0]
     assert "'unsafe-inline'" in script_src
