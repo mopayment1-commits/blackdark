@@ -13,6 +13,8 @@ Generated from `CISA_REMEDIATION_EVIDENCE_INDEX.json`. **Not** a certification.
 **Ops closure package (SSOT):** `governance/launch57/LAUNCH57_OPEN_OPS_CLOSURE_PACKAGE.json`
 
 **Aggregate report:** `python scripts/launch57_closure_report.py`
+**Closure readiness (dry-run):** `python scripts/run_launch57_open_findings_closure_readiness.py`
+**Lifecycle index:** `governance/launch57/LAUNCH57_REMEDIATION_LIFECYCLE_INDEX.json`
 **PR merge gates:** `python scripts/verify_launch57_pr_merge_checklist_gates.py`
 
 Regenerate: `python scripts/generate_launch57_open_findings_register.py`

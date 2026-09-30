@@ -1,13 +1,13 @@
 {
   "schema": "launch57_remediation_gate_index_v1",
-  "generated_at": "2026-09-30T15:45:31.989304+00:00",
-  "git_commit": "601bcea9941b0be6f4630596eab14e1f8229c78d",
+  "generated_at": "2026-09-30T15:49:44.001760+00:00",
+  "git_commit": "f5ac29b3b0b3db3e98d551989823b7b01114ab34",
   "authority": "docs/governance/LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION_PROGRAM.md",
-  "phase": "PHASE_ROUND_27_FINAL_CLOSURE_PLAYBOOK_MANIFEST",
+  "phase": "PHASE_ROUND_28_REMEDIATION_LIFECYCLE_INDEX",
   "remediation_sha": "601bcea9",
   "cisa_certification_claimed": false,
   "program_complete": false,
-  "gate_count": 39,
+  "gate_count": 40,
   "gates": [
     {
       "id": "ci_assurance_manifest_gate",
@@ -142,6 +142,11 @@
     {
       "id": "remediation_gate_index_gate",
       "path": "scripts/verify_launch57_gate_index.py",
+      "kind": "script"
+    },
+    {
+      "id": "remediation_lifecycle_index_gate",
+      "path": "scripts/verify_launch57_remediation_lifecycle_index.py",
       "kind": "script"
     },
     {

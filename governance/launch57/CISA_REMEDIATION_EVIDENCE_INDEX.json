@@ -2,7 +2,7 @@
   "program": "LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
   "remediation_sha": "601bcea9",
-  "phase": "PHASE_ROUND_27_FINAL_CLOSURE_PLAYBOOK_MANIFEST",
+  "phase": "PHASE_ROUND_28_REMEDIATION_LIFECYCLE_INDEX",
   "independent_verification_register": "governance/launch57/LAUNCH57_INDEPENDENT_VERIFICATION_REGISTER.json",
   "findings": {
     "FINDING-01": {
@@ -248,5 +248,9 @@
   "merge_to_main_readiness_manifest_gate": "scripts/verify_launch57_merge_to_main_readiness_manifest.py",
   "round_26_merge_readiness_ar": "docs/governance/LAUNCH57_ROUND_26_MERGE_READINESS_AR.md",
   "round_27_final_closure_ar": "docs/governance/LAUNCH57_ROUND_27_FINAL_CLOSURE_AR.md",
+  "remediation_lifecycle_index": "governance/launch57/LAUNCH57_REMEDIATION_LIFECYCLE_INDEX.json",
+  "remediation_lifecycle_index_gate": "scripts/verify_launch57_remediation_lifecycle_index.py",
+  "open_findings_closure_readiness": "scripts/run_launch57_open_findings_closure_readiness.py",
+  "round_28_lifecycle_index_ar": "docs/governance/LAUNCH57_ROUND_28_LIFECYCLE_INDEX_AR.md",
   "program_authority": "docs/governance/LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION_PROGRAM.md"
 }

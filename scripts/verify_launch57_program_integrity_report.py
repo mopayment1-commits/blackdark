@@ -19,6 +19,7 @@ GOVERNANCE_JSON = (
     "governance/launch57/LAUNCH57_POST_MERGE_OPS_MANIFEST.json",
     "governance/launch57/LAUNCH57_MERGE_TO_MAIN_READINESS_MANIFEST.json",
     "governance/launch57/LAUNCH57_FINAL_CLOSURE_PLAYBOOK_MANIFEST.json",
+    "governance/launch57/LAUNCH57_REMEDIATION_LIFECYCLE_INDEX.json",
 )
 
 

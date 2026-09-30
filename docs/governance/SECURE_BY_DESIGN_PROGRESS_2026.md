@@ -14,6 +14,12 @@
 | Supply chain | CycloneDX SBOM + git SHA binding |
 | Customer logging | 180-day policy + export API |
 
+## Engineering round 28 (remediation lifecycle index + open findings readiness)
+
+- `LAUNCH57_REMEDIATION_LIFECYCLE_INDEX.json` + `verify_launch57_remediation_lifecycle_index.py`
+- `run_launch57_open_findings_closure_readiness.py` — §8.1/§3.3 dry-run rollup
+- `LAUNCH57_ROUND_28_LIFECYCLE_INDEX_AR.md`
+
 ## Engineering round 27 (final closure playbook manifest)
 
 - `LAUNCH57_FINAL_CLOSURE_PLAYBOOK_MANIFEST.json` + `verify_launch57_final_closure_playbook_manifest.py`

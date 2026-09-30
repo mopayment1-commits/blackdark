@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-09-30T15:45:31.936354+00:00",
-  "git_commit": "601bcea9941b0be6f4630596eab14e1f8229c78d",
+  "generated_at": "2026-09-30T15:49:47.287541+00:00",
+  "git_commit": "f5ac29b3b0b3db3e98d551989823b7b01114ab34",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
   "remediation_sha": "601bcea9",
-  "phase": "PHASE_ROUND_27_FINAL_CLOSURE_PLAYBOOK_MANIFEST",
+  "phase": "PHASE_ROUND_28_REMEDIATION_LIFECYCLE_INDEX",
   "cisa_certification_claimed": false,
   "rollup": {
     "counts_by_status": {

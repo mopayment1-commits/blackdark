@@ -38,6 +38,7 @@ GATES = (
     "verify_launch57_post_merge_ops_manifest.py",
     "verify_launch57_merge_to_main_readiness_manifest.py",
     "verify_launch57_final_closure_playbook_manifest.py",
+    "verify_launch57_remediation_lifecycle_index.py",
 )
 
 

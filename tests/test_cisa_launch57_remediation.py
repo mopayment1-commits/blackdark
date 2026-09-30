@@ -246,6 +246,38 @@ def test_ci_reviewer_evidence_bundle_gate():
     assert proc.returncode == 0, proc.stderr or proc.stdout
 
 
+def test_remediation_lifecycle_index_gate():
+    import subprocess
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    proc = subprocess.run(
+        [sys.executable, str(root / "scripts/verify_launch57_remediation_lifecycle_index.py")],
+        cwd=root,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 0, proc.stderr or proc.stdout
+
+
+def test_open_findings_closure_readiness_honest():
+    import json
+    import subprocess
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    proc = subprocess.run(
+        [sys.executable, str(root / "scripts/run_launch57_open_findings_closure_readiness.py")],
+        cwd=root,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 0, proc.stderr or proc.stdout
+    report = json.loads(proc.stdout)
+    assert report.get("cisa_certification_claimed") is False
+    assert report.get("program_complete_81") is False
+
+
 def test_final_closure_playbook_manifest_gate():
     import subprocess
     import sys

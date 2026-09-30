@@ -133,6 +133,10 @@ def main() -> int:
         "final_closure_playbook_manifest",
         "final_closure_playbook_manifest_gate",
         "round_27_final_closure_ar",
+        "remediation_lifecycle_index",
+        "remediation_lifecycle_index_gate",
+        "open_findings_closure_readiness",
+        "round_28_lifecycle_index_ar",
         "program_authority",
     )
     for rel in [data.get(k, "") for k in meta_keys]:

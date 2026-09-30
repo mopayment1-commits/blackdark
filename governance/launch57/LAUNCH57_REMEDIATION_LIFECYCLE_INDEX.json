@@ -1,0 +1,47 @@
+{
+  "schema": "launch57_remediation_lifecycle_index_v1",
+  "authority": "docs/governance/LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION_PROGRAM.md",
+  "program_sections": ["§8.1 Program complete", "§8.3 Independent verification", "§3.3 Finding closure rule"],
+  "cisa_certification_claimed": false,
+  "program_complete": false,
+  "evidence_index": "governance/launch57/CISA_REMEDIATION_EVIDENCE_INDEX.json",
+  "open_findings_register": "governance/launch57/LAUNCH57_OPEN_FINDINGS_REGISTER.md",
+  "open_ops_closure_package": "governance/launch57/LAUNCH57_OPEN_OPS_CLOSURE_PACKAGE.json",
+  "lifecycle_stages": [
+    {
+      "id": "pre_merge_engineering",
+      "order": 1,
+      "manifest": "governance/launch57/LAUNCH57_MERGE_TO_MAIN_READINESS_MANIFEST.json",
+      "manifest_gate": "scripts/verify_launch57_merge_to_main_readiness_manifest.py",
+      "primary_doc": "docs/governance/LAUNCH57_MERGE_TO_MAIN_READINESS.md"
+    },
+    {
+      "id": "post_merge_ops",
+      "order": 2,
+      "manifest": "governance/launch57/LAUNCH57_POST_MERGE_OPS_MANIFEST.json",
+      "manifest_gate": "scripts/verify_launch57_post_merge_ops_manifest.py",
+      "primary_doc": "docs/ops/LAUNCH57_POST_MERGE_OPS.md"
+    },
+    {
+      "id": "final_closure_ops_executive",
+      "order": 3,
+      "manifest": "governance/launch57/LAUNCH57_FINAL_CLOSURE_PLAYBOOK_MANIFEST.json",
+      "manifest_gate": "scripts/verify_launch57_final_closure_playbook_manifest.py",
+      "primary_doc": "docs/ops/LAUNCH57_FINAL_CLOSURE_PLAYBOOK.md"
+    }
+  ],
+  "program_closure_gates": [
+    {
+      "id": "closure_81",
+      "script": "scripts/verify_launch57_program_closure_81.py",
+      "expected_exit_until_complete": 2
+    },
+    {
+      "id": "closure_report",
+      "script": "scripts/launch57_closure_report.py",
+      "expected_exit_until_complete": 2
+    }
+  ],
+  "open_findings_closure_readiness": "scripts/run_launch57_open_findings_closure_readiness.py",
+  "repo_gate": "scripts/verify_launch57_remediation_lifecycle_index.py"
+}
