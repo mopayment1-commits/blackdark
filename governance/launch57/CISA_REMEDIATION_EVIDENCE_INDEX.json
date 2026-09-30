@@ -1,7 +1,7 @@
 {
   "program": "LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
-  "remediation_sha": "5517651c",
+  "remediation_sha": "7f137586",
   "phase": "PHASE_ROUND_13_NORMATIVE_TRACEABILITY_AR_EXEC_SUMMARY",
   "findings": {
     "FINDING-01": {
