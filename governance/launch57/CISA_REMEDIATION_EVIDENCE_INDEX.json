@@ -2,7 +2,7 @@
   "program": "LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
   "remediation_sha": "c821b15f",
-  "phase": "PHASE_ROUND_6_PENTEST_REPORT_PROD_CI",
+  "phase": "PHASE_ROUND_7_OPS_ATTESTATION_RELEASE_SBOM",
   "findings": {
     "FINDING-01": {
       "status": "OPEN_EXECUTIVE",
@@ -70,7 +70,9 @@
     "FINDING-10": {
       "status": "CLOSED",
       "evidence": [
-        "scripts/generate_sbom.py"
+        "scripts/generate_sbom.py",
+        "scripts/publish_launch57_release_evidence.py",
+        "docs/data-room/sbom/LAUNCH57_RELEASE_MANIFEST.json"
       ]
     },
     "FINDING-11": {
@@ -152,5 +154,7 @@
   "prod_surface_gate": "scripts/verify_launch57_prod_surface.py",
   "railway_env_spec": "governance/launch57/RAILWAY_CISA_ENV_EXPECTATIONS.json",
   "open_findings_register": "governance/launch57/LAUNCH57_OPEN_FINDINGS_REGISTER.md",
-  "closure_report_script": "scripts/launch57_closure_report.py"
+  "closure_report_script": "scripts/launch57_closure_report.py",
+  "ops_attestation_recorder": "scripts/record_launch57_ops_attestation.py",
+  "release_evidence_publisher": "scripts/publish_launch57_release_evidence.py"
 }

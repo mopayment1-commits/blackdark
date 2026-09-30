@@ -26,7 +26,11 @@ python -m pytest tests/test_cisa_launch57_remediation.py -q
 export LAUNCH57_PROD_URL=https://blackdark-production.up.railway.app
 export CDN_WAF_ACTIVE=1   # after Cloudflare proxy + WAF rules applied
 python scripts/launch57_ops_closure_gate.py
+./scripts/record_launch57_ops_attestation.sh --fail-on-blockers
 ```
+
+Record honest ops log (not pentest): `scripts/record_launch57_ops_attestation.py`  
+Release SBOM manifest: `scripts/publish_launch57_release_evidence.py`
 
 Expected blockers until complete:
 

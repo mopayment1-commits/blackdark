@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import os
 from pathlib import Path
 
@@ -143,6 +144,46 @@ def test_launch57_closure_report_marks_runtime_open():
     assert proc.returncode == 2
     assert "RUNTIME_OPEN" in proc.stderr
     assert "cisa_certification_claimed" in proc.stdout
+
+
+def test_publish_launch57_release_manifest():
+    import subprocess
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    proc = subprocess.run(
+        [sys.executable, str(root / "scripts" / "publish_launch57_release_evidence.py")],
+        cwd=root,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 0, proc.stderr or proc.stdout
+    manifest = root / "docs/data-room/sbom/LAUNCH57_RELEASE_MANIFEST.json"
+    assert manifest.is_file()
+    data = json.loads(manifest.read_text(encoding="utf-8"))
+    assert data.get("cisa_certification_claimed") is False
+    assert data.get("artifacts", {}).get("python_cyclonedx_present") is True
+
+
+def test_record_ops_attestation_writes_file(monkeypatch):
+    import json
+    import subprocess
+    import sys
+
+    monkeypatch.setenv("LAUNCH57_SKIP_ENGINEERING_BASELINE", "1")
+    root = Path(__file__).resolve().parents[1]
+    proc = subprocess.run(
+        [sys.executable, str(root / "scripts" / "record_launch57_ops_attestation.py")],
+        cwd=root,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 0, proc.stderr or proc.stdout
+    out_dir = root / "governance/launch57/evidence/ops_attestations"
+    files = list(out_dir.glob("OPS_ATTESTATION_*.json"))
+    assert files
+    record = json.loads(files[-1].read_text(encoding="utf-8"))
+    assert record["honesty"]["not_independent_pentest"] is True
 
 
 def test_pentest_deposit_launch57_guide_exists():

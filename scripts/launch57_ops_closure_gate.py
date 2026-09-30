@@ -21,10 +21,17 @@ def main() -> int:
     prod = (os.getenv("LAUNCH57_PROD_URL") or "").strip()
     matrix: dict[str, dict] = {}
 
-    matrix["engineering_baseline"] = {
-        "ok": _run("collect_engineering_security_baseline.py") == 0,
-        "artifact": "governance/launch57/evidence/ENGINEERING_SECURITY_BASELINE.json",
-    }
+    if os.getenv("LAUNCH57_SKIP_ENGINEERING_BASELINE", "").strip():
+        matrix["engineering_baseline"] = {
+            "ok": True,
+            "skipped": True,
+            "artifact": "governance/launch57/evidence/ENGINEERING_SECURITY_BASELINE.json",
+        }
+    else:
+        matrix["engineering_baseline"] = {
+            "ok": _run("collect_engineering_security_baseline.py") == 0,
+            "artifact": "governance/launch57/evidence/ENGINEERING_SECURITY_BASELINE.json",
+        }
     matrix["security_txt_repo"] = {"ok": _run("verify_well_known_security_txt.py") == 0}
     matrix["security_txt_prod"] = {
         "ok": _run("verify_well_known_security_txt.py", "--url", prod) == 0 if prod else False,

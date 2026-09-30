@@ -25,7 +25,7 @@ jobs:
       - run: python scripts/collect_engineering_security_baseline.py
       - run: python scripts/validate_pentest_deposit_template.py
       - run: test "$(python scripts/launch57_closure_report.py >/dev/null; echo $?)" = "2"
-      - run: python scripts/generate_sbom.py
+      - run: python scripts/publish_launch57_release_evidence.py
       - run: python -m pytest tests/test_cisa_launch57_remediation.py -q
       - uses: actions/upload-artifact@v4
         with:

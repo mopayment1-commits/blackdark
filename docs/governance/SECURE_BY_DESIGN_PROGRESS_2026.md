@@ -14,6 +14,12 @@
 | Supply chain | CycloneDX SBOM + git SHA binding |
 | Customer logging | 180-day policy + export API |
 
+## Engineering round 7 (ops attestation log + release SBOM manifest)
+
+- `record_launch57_ops_attestation.py` / `.sh` — honest ops gate records (gitignored JSON)
+- `publish_launch57_release_evidence.py` + `LAUNCH57_RELEASE_MANIFEST.json` + release notes template
+- Ops gate: `LAUNCH57_SKIP_ENGINEERING_BASELINE` for faster operator reruns
+
 ## Engineering round 6 (pentest deposit path + closure report + prod CI)
 
 - `docs/evidence/PENTEST_DEPOSIT_LAUNCH57.md` + `prepare_pentest_deposit_launch57.py`
