@@ -14,6 +14,11 @@
 | Supply chain | CycloneDX SBOM + git SHA binding |
 | Customer logging | 180-day policy + export API |
 
+## Engineering round 9 (API inventory + PR checklist)
+
+- `launch57_completion_status.py` embedded in `GET /api/security/launch57-closure-status`
+- `LAUNCH57_PR_MERGE_CHECKLIST.md` + GitHub PR template `launch57_cisa_remediation.md`
+
 ## Engineering round 8 (completion status rollup + CI evidence bundle)
 
 - `generate_launch57_completion_status.py` → MD + JSON for all FINDING-01…19

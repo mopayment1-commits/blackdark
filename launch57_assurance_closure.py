@@ -19,11 +19,15 @@ def launch57_closure_status() -> dict[str, Any]:
         os.getenv("CDN_WAF_ACTIVE", "").strip() or os.getenv("CLOUDFLARE_ZONE_ID", "").strip()
     )
 
+    from launch57_completion_status import completion_status_attachment
+
+    inventory = completion_status_attachment()
     return {
         "program": "LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION",
         "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
         "evidence_index": "governance/launch57/CISA_REMEDIATION_EVIDENCE_INDEX.json",
         "cisa_certification_claimed": False,
+        "cisa_remediation_inventory": inventory,
         "findings": {
             "pentest_attestation": {
                 "status": "CLOSED" if verify_pentest_attestation() else "OPEN",

@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-09-30T12:26:55.666254+00:00",
-  "git_commit": "9ce171a3a19ab73a108e646a8513938ab7c9972c",
+  "generated_at": "2026-09-30T12:29:14.906018+00:00",
+  "git_commit": "ef14400bd50bf8338d2869bd556f271923ef65aa",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
   "remediation_sha": "9ce171a3",
-  "phase": "PHASE_ROUND_8_COMPLETION_STATUS_ROLLUP",
+  "phase": "PHASE_ROUND_9_API_PR_CHECKLIST",
   "cisa_certification_claimed": false,
   "rollup": {
     "counts_by_status": {
@@ -173,6 +173,7 @@
     "evidence_index": "governance/launch57/CISA_REMEDIATION_EVIDENCE_INDEX.json",
     "open_register": "governance/launch57/LAUNCH57_OPEN_FINDINGS_REGISTER.md",
     "ops_playbook": "docs/ops/LAUNCH57_FINAL_CLOSURE_PLAYBOOK.md",
-    "program": "docs/governance/LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION_PROGRAM.md"
+    "program": "docs/governance/LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION_PROGRAM.md",
+    "pr_merge_checklist": "docs/governance/LAUNCH57_PR_MERGE_CHECKLIST.md"
   }
 }

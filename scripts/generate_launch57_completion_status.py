@@ -98,6 +98,7 @@ def main() -> int:
             "open_register": index.get("open_findings_register"),
             "ops_playbook": index.get("ops_playbook"),
             "program": "docs/governance/LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION_PROGRAM.md",
+            "pr_merge_checklist": "docs/governance/LAUNCH57_PR_MERGE_CHECKLIST.md",
         },
     }
     OUT_JSON.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")

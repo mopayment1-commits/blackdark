@@ -2,7 +2,7 @@
   "program": "LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
   "remediation_sha": "9ce171a3",
-  "phase": "PHASE_ROUND_8_COMPLETION_STATUS_ROLLUP",
+  "phase": "PHASE_ROUND_9_API_PR_CHECKLIST",
   "findings": {
     "FINDING-01": {
       "status": "OPEN_EXECUTIVE",
@@ -159,5 +159,7 @@
   "release_evidence_publisher": "scripts/publish_launch57_release_evidence.py",
   "completion_status_md": "governance/launch57/LAUNCH57_REMEDIATION_COMPLETION_STATUS.md",
   "completion_status_json": "governance/launch57/LAUNCH57_COMPLETION_STATUS.json",
-  "completion_status_generator": "scripts/generate_launch57_completion_status.py"
+  "completion_status_generator": "scripts/generate_launch57_completion_status.py",
+  "pr_merge_checklist": "docs/governance/LAUNCH57_PR_MERGE_CHECKLIST.md",
+  "pr_template": ".github/PULL_REQUEST_TEMPLATE/launch57_cisa_remediation.md"
 }

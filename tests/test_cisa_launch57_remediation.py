@@ -86,6 +86,24 @@ def test_launch57_closure_status_honest():
     report = launch57_closure_status()
     assert report["cisa_certification_claimed"] is False
     assert report["findings"]["pentest_attestation"]["status"] in {"OPEN", "CLOSED"}
+    inv = report.get("cisa_remediation_inventory") or {}
+    assert inv.get("finding_count") == 19
+    assert inv.get("program_complete") is False
+    assert "FINDING-01" in (inv.get("open_finding_ids") or [])
+
+
+def test_launch57_closure_status_api_authenticated(strict_client: TestClient, monkeypatch):
+    async def _fake_user(_token: str):
+        return {"email": "reviewer@example.test", "tier": "pro", "mfa_enrolled": True}
+
+    monkeypatch.setattr("auth_service.get_user_from_token", _fake_user)
+    r = strict_client.get(
+        "/api/security/launch57-closure-status",
+        headers={"Authorization": "Bearer test-launch57-closure"},
+    )
+    assert r.status_code == 200
+    body = r.json()
+    assert body.get("cisa_remediation_inventory", {}).get("finding_count") == 19
 
 
 def test_cisa_repo_evidence_index_paths_exist():
