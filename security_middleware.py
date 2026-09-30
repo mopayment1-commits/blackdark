@@ -358,10 +358,21 @@ class SecureTransportMiddleware(BaseHTTPMiddleware):
         return await call_next(request)
 
 
+async def apply_security_headers_to_response(request: Request, response: Response) -> Response:
+    """Apply SecurityHeadersMiddleware post-processing (CSP, hardening markers, HTML nonce rewrite)."""
+    nonce = _ensure_request_csp_nonce(request)
+    if nonce:
+        response = await _maybe_rewrite_html_with_nonce(response, nonce)
+    for key, value in security_headers_for(request).items():
+        response.headers.setdefault(key, value)
+    response.headers.setdefault("X-Security-Hardening", "1")
+    return response
+
+
 class SecurityHeadersMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next) -> Response:
         # Mint CSP nonce early so template render / HTML rewrite can use it.
-        nonce = _ensure_request_csp_nonce(request)
+        _ensure_request_csp_nonce(request)
 
         # TrustedHost in production — never apply to liveness/readiness probes.
         path = _request_url_path(request)
@@ -399,12 +410,7 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
                 )
 
         response = await call_next(request)
-        if nonce:
-            response = await _maybe_rewrite_html_with_nonce(response, nonce)
-        for key, value in security_headers_for(request).items():
-            response.headers.setdefault(key, value)
-        response.headers.setdefault("X-Security-Hardening", "1")
-        return response
+        return await apply_security_headers_to_response(request, response)
 
 
 def apply_cors(app) -> None:

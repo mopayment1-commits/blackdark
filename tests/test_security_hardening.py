@@ -147,6 +147,25 @@ async def test_logout_clears_without_user_token_field():
     assert 'user.get("token")' not in src
 
 
+def test_anonymous_dashboard_html_auth_gate_includes_csp():
+    from fastapi.testclient import TestClient
+
+    from dashboard import app
+
+    client = TestClient(app)
+    response = client.get("/dashboard", headers={"Accept": "text/html"})
+    assert response.status_code == 401
+    assert response.headers.get("X-Blackdark-Auth-Boundary") == "dashboard-auth-required-html"
+    assert "text/html" in (response.headers.get("content-type") or "").lower()
+    csp = response.headers.get("Content-Security-Policy") or ""
+    assert csp
+    assert "object-src 'none'" in csp
+    assert "base-uri 'none'" in csp
+    assert "nonce-" in csp
+    assert "strict-dynamic" in csp
+    assert response.headers.get("X-Security-Hardening") == "1"
+
+
 def test_csp_nonce_mode_emits_nonce_without_unsafe_inline(monkeypatch):
     from types import SimpleNamespace
     from security_middleware import security_headers_for

@@ -754,21 +754,27 @@ async def header_session_middleware(request: Request, call_next):
 async def anonymous_route_enforcement_middleware(request: Request, call_next):
     """P0 — PRIVATE_BY_DEFAULT server-side boundary for cookie-less requests."""
     from anonymous_route_foundation import enforce_anonymous_route_boundary
+    from security_middleware import apply_security_headers_to_response
+
+    async def _auth_required_html(response):
+        return await apply_security_headers_to_response(request, response)
 
     path = request.url.path or ""
     if path in _HTML_AUTH_GATE_EXACT and anonymous_denial_should_be_html(request):
         if await _resolve_html_auth_user(request) is None:
             if path == "/dashboard":
-                return render_dashboard_auth_required(request)
+                return await _auth_required_html(render_dashboard_auth_required(request))
             if path == "/profile":
-                return render_profile_auth_required(request)
+                return await _auth_required_html(render_profile_auth_required(request))
             if path == "/discipline-mirror":
-                return render_surface_auth_required(
-                    request,
-                    lens="discipline",
-                    lens_label="Discipline Mirror",
-                    lens_hint="Your private discipline mirror opens after sign-in.",
-                    boundary="discipline-auth-required-html",
+                return await _auth_required_html(
+                    render_surface_auth_required(
+                        request,
+                        lens="discipline",
+                        lens_label="Discipline Mirror",
+                        lens_hint="Your private discipline mirror opens after sign-in.",
+                        boundary="discipline-auth-required-html",
+                    )
                 )
 
     denial = enforce_anonymous_route_boundary(request)
@@ -776,16 +782,18 @@ async def anonymous_route_enforcement_middleware(request: Request, call_next):
         path = request.url.path or ""
         if anonymous_denial_should_be_html(request):
             if path == "/dashboard":
-                return render_dashboard_auth_required(request)
+                return await _auth_required_html(render_dashboard_auth_required(request))
             if path == "/profile":
-                return render_profile_auth_required(request)
+                return await _auth_required_html(render_profile_auth_required(request))
             if path == "/discipline-mirror":
-                return render_surface_auth_required(
-                    request,
-                    lens="discipline",
-                    lens_label="Discipline Mirror",
-                    lens_hint="Your private discipline mirror opens after sign-in.",
-                    boundary="discipline-auth-required-html",
+                return await _auth_required_html(
+                    render_surface_auth_required(
+                        request,
+                        lens="discipline",
+                        lens_label="Discipline Mirror",
+                        lens_hint="Your private discipline mirror opens after sign-in.",
+                        boundary="discipline-auth-required-html",
+                    )
                 )
         return denial
     return await call_next(request)
