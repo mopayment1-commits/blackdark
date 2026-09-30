@@ -1,7 +1,7 @@
 {
   "program": "LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
-  "remediation_sha": "cf261ede",
+  "remediation_sha": "246e1924",
   "phase": "PHASE_ROUND_10_ENGINEERING_CLOSURE_INVENTORY_LOCK",
   "findings": {
     "FINDING-01": {
