@@ -5,10 +5,10 @@
   "evidence_class": "E-TEST",
   "cisa_certification_claimed": false,
   "program_complete": false,
-  "generated_at": "2026-09-30T15:52:13.544396+00:00",
-  "remediation_sha": "ce0c750e",
+  "generated_at": "2026-09-30T15:52:30.008580+00:00",
+  "remediation_sha": "98f5e37d",
   "phase": "PHASE_ROUND_29_FINDING11_SBOM_CLOSURE_LANE",
-  "git_head_short": "74bc3525",
+  "git_head_short": "98f5e37d",
   "workflow_runs": {
     "security_pytest_security": {
       "workflow": ".github/workflows/security.yml",
