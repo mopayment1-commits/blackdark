@@ -1,9 +1,9 @@
 # Launch-57 — CISA remediation completion status
 
-**Generated:** 2026-09-30T14:37:41.772213+00:00  
+**Generated:** 2026-09-30T14:40:49.504654+00:00  
 **Baseline SHA:** `e73f398d4048723bd10670beab14a0d18ceb19ef`  
 **Remediation SHA:** `02ebbdba`  
-**Phase:** `PHASE_ROUND_17_P7_WP5_PRODUCTION_SMOKE`
+**Phase:** `PHASE_ROUND_18_OPEN_OPS_CLOSURE_PACKAGE`
 
 > **Honesty:** This is an engineering/ops status rollup. It does **not** claim CISA certification, pledge completion, or independent pentest unless each finding row shows full closure with verified ops evidence.
 
@@ -22,7 +22,7 @@
 
 | Finding | Status | Primary evidence | Remaining closure |
 |---------|--------|------------------|-------------------|
-| FINDING-01 | OPEN_EXECUTIVE | `docs/governance/SECURE_BY_DESIGN_PLEDGE_STATUS.md`, `docs/governance/SECURE_BY_DESIGN_PLEDGE_SUBMISSION_PACKAGE.md` (+1) | CISA portal pledge submission + URL recorded |
+| FINDING-01 | OPEN_EXECUTIVE | `docs/governance/SECURE_BY_DESIGN_PLEDGE_STATUS.md`, `docs/governance/SECURE_BY_DESIGN_PLEDGE_SUBMISSION_PACKAGE.md` (+2) | CISA portal pledge submission + URL recorded |
 | FINDING-02 | CLOSED | `docs/security/SECURITY_UPDATE_POLICY.md` | — |
 | FINDING-03 | CLOSED | `anonymous_route_foundation.py`, `docs/security/COMMERCIAL_SECURITY_FEATURES.md` | — |
 | FINDING-04 | CLOSED | `user_mfa_policy.py`, `deploy/k8s/web-deployment.yaml` | — |
@@ -39,8 +39,8 @@
 | FINDING-15 | CLOSED | `docs/security/PRODUCT_SECURITY_ADVISORY_PROCESS.md` | — |
 | FINDING-16 | CLOSED | `security_posture.py` | — |
 | FINDING-17 | CLOSED | `anonymous_route_foundation.py`, `tests/test_cisa_launch57_remediation.py` | — |
-| FINDING-18 | OPEN_OPS | `docs/ops/PENTEST_ENGAGEMENT_RUNBOOK.md`, `docs/templates/pentest_scope_LAUNCH57.md` (+3) | Signed pentest deposit + verify_pentest_attestation() |
-| FINDING-19 | OPEN_OPS | `docs/ops/EDGE_WAF_ACTIVATION_RUNBOOK.md`, `scripts/verify_edge_waf_cdn.py` | CDN_WAF_ACTIVE=1 + verify_edge_waf_cdn exit 0 |
+| FINDING-18 | OPEN_OPS | `docs/ops/PENTEST_ENGAGEMENT_RUNBOOK.md`, `docs/templates/pentest_scope_LAUNCH57.md` (+4) | Signed pentest deposit + verify_pentest_attestation() |
+| FINDING-19 | OPEN_OPS | `docs/ops/EDGE_WAF_ACTIVATION_RUNBOOK.md`, `scripts/verify_edge_waf_cdn.py` (+1) | CDN_WAF_ACTIVE=1 + verify_edge_waf_cdn exit 0 |
 
 ## Verification commands
 

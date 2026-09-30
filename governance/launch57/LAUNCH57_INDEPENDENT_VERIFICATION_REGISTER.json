@@ -71,6 +71,10 @@
         "docs/security/CUSTOMER_SECURITY_LOG_POLICY.md",
         "docs/security/COMMERCIAL_SECURITY_FEATURES.md"
       ],
+      "repo_gates": [
+        "scripts/verify_launch57_legal_v4_bundle.py"
+      ],
+      "signoff_recorder": "scripts/record_launch57_legal_review_signoff.py",
       "human_signoff": {
         "required": true,
         "field": "legal_alignment_review_id",

@@ -51,8 +51,16 @@ def main() -> int:
             "exit_code": surface_code,
             "url": prod,
         }
+        p7_code = _run("verify_launch57_p7_wp5_production_smoke.py")
+        matrix["p7_wp5_production_smoke"] = {
+            "ok": p7_code == 0,
+            "exit_code": p7_code,
+            "url": prod,
+            "program_ref": "L57-P7-WP5",
+        }
     else:
         matrix["prod_security_surface"] = {"ok": False, "skipped": True, "url": None}
+        matrix["p7_wp5_production_smoke"] = {"ok": False, "skipped": True, "url": None}
     waf_code = _run("verify_edge_waf_cdn.py")
     matrix["waf_cdn"] = {"ok": waf_code == 0, "exit_code": waf_code}
     sys.path.insert(0, str(ROOT))

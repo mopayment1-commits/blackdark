@@ -25,6 +25,8 @@ GATES = (
     "verify_launch57_security_lead_inventory_rerun.py",
     "verify_launch57_qa_ci_bundle.py",
     "verify_launch57_ops_v3_bundle.py",
+    "verify_launch57_open_ops_closure_package.py",
+    "verify_launch57_legal_v4_bundle.py",
 )
 
 

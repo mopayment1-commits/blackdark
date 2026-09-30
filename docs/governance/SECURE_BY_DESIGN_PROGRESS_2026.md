@@ -14,6 +14,13 @@
 | Supply chain | CycloneDX SBOM + git SHA binding |
 | Customer logging | 180-day policy + export API |
 
+## Engineering round 18 (open ops closure package + §8.3 V-4 + FINDING 01/18/19 recorders)
+
+- `LAUNCH57_OPEN_OPS_CLOSURE_PACKAGE.json` + `verify_launch57_open_ops_closure_package.py`
+- `verify_launch57_legal_v4_bundle.py` + `record_launch57_legal_review_signoff.py`
+- E-OPS/E-LEGAL recorders for FINDING-01/18/19 (gitignored evidence; no auto-close)
+- Ops gate matrix includes `p7_wp5_production_smoke`
+
 ## Engineering round 17 (L57-P7-WP5 production smoke + §8.3 V-2/V-3 bundles)
 
 - `verify_launch57_p7_wp5_production_smoke.py` + `record_launch57_p7_wp5_prod_smoke.py` (Phase 7 WP5)

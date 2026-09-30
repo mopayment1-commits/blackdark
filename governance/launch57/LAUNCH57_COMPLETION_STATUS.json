@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-09-30T14:37:41.772213+00:00",
-  "git_commit": "02ebbdba8dff46a14126b56143d9975addc10795",
+  "generated_at": "2026-09-30T14:40:49.504654+00:00",
+  "git_commit": "51982094d131132969ea1b528b36d63aac981274",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
   "remediation_sha": "02ebbdba",
-  "phase": "PHASE_ROUND_17_P7_WP5_PRODUCTION_SMOKE",
+  "phase": "PHASE_ROUND_18_OPEN_OPS_CLOSURE_PACKAGE",
   "cisa_certification_claimed": false,
   "rollup": {
     "counts_by_status": {
@@ -33,7 +33,8 @@
       "evidence": [
         "docs/governance/SECURE_BY_DESIGN_PLEDGE_STATUS.md",
         "docs/governance/SECURE_BY_DESIGN_PLEDGE_SUBMISSION_PACKAGE.md",
-        "docs/governance/SECURE_BY_DESIGN_PLEDGE_EXECUTION_CHECKLIST.md"
+        "docs/governance/SECURE_BY_DESIGN_PLEDGE_EXECUTION_CHECKLIST.md",
+        "scripts/record_launch57_finding01_pledge_readiness.py"
       ],
       "closure_requires": "CISA portal pledge submission + URL recorded"
     },
@@ -159,7 +160,8 @@
         "docs/templates/pentest_scope_LAUNCH57.md",
         "docs/evidence/PENTEST_DEPOSIT_LAUNCH57.md",
         "scripts/prepare_pentest_deposit_launch57.py",
-        "scripts/verify_launch57_external_assurance.py"
+        "scripts/verify_launch57_external_assurance.py",
+        "scripts/record_launch57_finding18_assurance_run.py"
       ],
       "closure_requires": "Signed pentest deposit + verify_pentest_attestation()"
     },
@@ -167,7 +169,8 @@
       "status": "OPEN_OPS",
       "evidence": [
         "docs/ops/EDGE_WAF_ACTIVATION_RUNBOOK.md",
-        "scripts/verify_edge_waf_cdn.py"
+        "scripts/verify_edge_waf_cdn.py",
+        "scripts/record_launch57_finding19_waf_run.py"
       ],
       "closure_requires": "CDN_WAF_ACTIVE=1 + verify_edge_waf_cdn exit 0"
     }

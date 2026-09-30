@@ -2,7 +2,7 @@
   "program": "LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION",
   "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
   "remediation_sha": "02ebbdba",
-  "phase": "PHASE_ROUND_17_P7_WP5_PRODUCTION_SMOKE",
+  "phase": "PHASE_ROUND_18_OPEN_OPS_CLOSURE_PACKAGE",
   "independent_verification_register": "governance/launch57/LAUNCH57_INDEPENDENT_VERIFICATION_REGISTER.json",
   "findings": {
     "FINDING-01": {
@@ -10,7 +10,8 @@
       "evidence": [
         "docs/governance/SECURE_BY_DESIGN_PLEDGE_STATUS.md",
         "docs/governance/SECURE_BY_DESIGN_PLEDGE_SUBMISSION_PACKAGE.md",
-        "docs/governance/SECURE_BY_DESIGN_PLEDGE_EXECUTION_CHECKLIST.md"
+        "docs/governance/SECURE_BY_DESIGN_PLEDGE_EXECUTION_CHECKLIST.md",
+        "scripts/record_launch57_finding01_pledge_readiness.py"
       ],
       "closure_requires": "CISA portal pledge submission + URL recorded"
     },
@@ -136,7 +137,8 @@
         "docs/templates/pentest_scope_LAUNCH57.md",
         "docs/evidence/PENTEST_DEPOSIT_LAUNCH57.md",
         "scripts/prepare_pentest_deposit_launch57.py",
-        "scripts/verify_launch57_external_assurance.py"
+        "scripts/verify_launch57_external_assurance.py",
+        "scripts/record_launch57_finding18_assurance_run.py"
       ],
       "closure_requires": "Signed pentest deposit + verify_pentest_attestation()"
     },
@@ -144,7 +146,8 @@
       "status": "OPEN_OPS",
       "evidence": [
         "docs/ops/EDGE_WAF_ACTIVATION_RUNBOOK.md",
-        "scripts/verify_edge_waf_cdn.py"
+        "scripts/verify_edge_waf_cdn.py",
+        "scripts/record_launch57_finding19_waf_run.py"
       ],
       "closure_requires": "CDN_WAF_ACTIVE=1 + verify_edge_waf_cdn exit 0"
     }
@@ -200,5 +203,10 @@
   "qa_ci_bundle_gate": "scripts/verify_launch57_qa_ci_bundle.py",
   "ops_v3_bundle_gate": "scripts/verify_launch57_ops_v3_bundle.py",
   "round_17_p7_wp5_ar": "docs/governance/LAUNCH57_ROUND_17_P7_WP5_AR.md",
+  "open_ops_closure_package": "governance/launch57/LAUNCH57_OPEN_OPS_CLOSURE_PACKAGE.json",
+  "open_ops_closure_package_gate": "scripts/verify_launch57_open_ops_closure_package.py",
+  "legal_v4_bundle_gate": "scripts/verify_launch57_legal_v4_bundle.py",
+  "legal_review_signoff_recorder": "scripts/record_launch57_legal_review_signoff.py",
+  "round_18_open_ops_ar": "docs/governance/LAUNCH57_ROUND_18_OPEN_OPS_AR.md",
   "program_authority": "docs/governance/LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION_PROGRAM.md"
 }
