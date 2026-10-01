@@ -1,0 +1,1779 @@
+{
+  "generated_at": "2026-09-03T12:20:30.490768+00:00",
+  "standard": "ISO/IEC/IEEE 29148",
+  "scope": "Batch03 IDs 101-150 (50 rows)",
+  "pre_probe": true,
+  "rows": [
+    {
+      "capability_id": 101,
+      "capability_name": "AI Data Analyst / Ask AI",
+      "expected_surface": "ai_data_analyst_ask_ai",
+      "status": "PRODUCTION-ALIGNED",
+      "production_spine": "batch03",
+      "payload_root": "oracle_freshness",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap101",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "oracle_freshness.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "oracle_freshness.deviation_ms",
+          "type": "numeric",
+          "condition": "< 5000"
+        },
+        {
+          "field": "oracle_freshness.status",
+          "type": "enum",
+          "condition": "in fresh,stale,critical_stale"
+        },
+        {
+          "field": "oracle_freshness.accepted",
+          "type": "boolean",
+          "condition": "in true,false"
+        },
+        {
+          "field": "oracle_freshness.feature_ref",
+          "type": "numeric",
+          "condition": "== 101"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)",
+      "functional_gap": {
+        "catalog_name": "AI Data Analyst / Ask AI",
+        "implemented_scope": "Oracle timestamp freshness gate only (validate_oracle_freshness_101 \u2192 /oracle/validate)",
+        "missing_scope": "No NL Ask-AI chat, analyst Q&A, or generative reporting in binding _cap101",
+        "decision": "PARTIAL_MISNAMED \u2014 acceptance covers freshness sub-capability; full Ask-AI not implemented in current spine"
+      }
+    },
+    {
+      "capability_id": 102,
+      "capability_name": "AI-Generated Reporting",
+      "expected_surface": "ai_generated_reporting",
+      "status": "PRODUCTION-ALIGNED",
+      "production_spine": "batch03",
+      "payload_root": "il_vulnerability",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap102",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "il_vulnerability.vulnerability_score",
+          "type": "numeric",
+          "condition": ">= 0"
+        },
+        {
+          "field": "il_vulnerability.vulnerability_score",
+          "type": "numeric",
+          "condition": "<= 100"
+        },
+        {
+          "field": "il_vulnerability.feature_ref",
+          "type": "numeric",
+          "condition": "== 102"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 103,
+      "capability_name": "API Data Platform",
+      "expected_surface": "api_data_platform",
+      "status": "OVERLAP-PARTIAL",
+      "production_spine": "batch01",
+      "payload_root": null,
+      "binding_file": "cap646/batch01_production.py",
+      "binding_function": "cap646.batch01_production.cap_103",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "hot_storage",
+          "type": "present",
+          "condition": "not_null"
+        },
+        {
+          "field": "graphql",
+          "type": "enum",
+          "condition": "== /graphql"
+        },
+        {
+          "field": "institutional_api",
+          "type": "enum",
+          "condition": "== /api/institutional"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)",
+      "notes": "OVERLAP-PARTIAL \u2014 batch01 spine via handle_institutional_capability"
+    },
+    {
+      "capability_id": 104,
+      "capability_name": "High-Resolution / Block-Level Data Delivery",
+      "expected_surface": "high_resolution_block_level_data_delivery",
+      "status": "PRODUCTION-ALIGNED",
+      "production_spine": "batch03",
+      "payload_root": "block_level_delivery",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap104",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "block_level_delivery.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "block_level_delivery.all_passed",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "block_level_delivery.checks",
+          "type": "list_min_length",
+          "condition": ">= 1"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 105,
+      "capability_name": "Historical Full-Data Layer",
+      "expected_surface": "historical_full_data_layer",
+      "status": "PRODUCTION-ALIGNED",
+      "production_spine": "batch03",
+      "payload_root": "historical_data_layer",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap105",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "historical_data_layer.tail_risk_alpha.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "historical_data_layer.tail_risk_alpha.feature_ref",
+          "type": "numeric",
+          "condition": "== 105"
+        },
+        {
+          "field": "historical_data_layer.tail_risk_alpha.tail_alpha",
+          "type": "numeric",
+          "condition": "present"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 106,
+      "capability_name": "Data Quality & Provenance Layer",
+      "expected_surface": "data_quality_provenance_layer",
+      "status": "REUSED-LINK",
+      "production_spine": "batch03",
+      "payload_root": "data_quality_provenance",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap106",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "catalog_link.duplicate_of",
+          "type": "numeric",
+          "condition": "== 63"
+        },
+        {
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "data_quality_provenance.provenance.score",
+          "type": "numeric",
+          "condition": ">= 0"
+        },
+        {
+          "field": "data_quality_provenance.provenance.score",
+          "type": "numeric",
+          "condition": "<= 100"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 107,
+      "capability_name": "Metric Methodology Registry",
+      "expected_surface": "metric_methodology_registry",
+      "status": "REUSED-LINK",
+      "production_spine": "batch03",
+      "payload_root": "metric_methodology",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap107",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "catalog_link.duplicate_of",
+          "type": "numeric",
+          "condition": "== 64"
+        },
+        {
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "metric_methodology.methodology_registry",
+          "type": "present",
+          "condition": "not_null"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 108,
+      "capability_name": "Institutional Data & API Delivery",
+      "expected_surface": "institutional_data_api_delivery",
+      "status": "PRODUCTION-ALIGNED",
+      "production_spine": "batch03",
+      "payload_root": "institutional_data_api",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap108",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "institutional_data_api.skew",
+          "type": "numeric",
+          "condition": ">= -1"
+        },
+        {
+          "field": "institutional_data_api.skew",
+          "type": "numeric",
+          "condition": "<= 1"
+        },
+        {
+          "field": "institutional_data_api.feature_ref",
+          "type": "numeric",
+          "condition": "== 108"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 109,
+      "capability_name": "White-Label Research & Reporting",
+      "expected_surface": "white_label_research_reporting",
+      "status": "PRODUCTION-ALIGNED",
+      "production_spine": "batch03",
+      "payload_root": "white_label_research",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap109",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "white_label_research.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "white_label_research.spike_anchors",
+          "type": "present",
+          "condition": "not_null"
+        },
+        {
+          "field": "white_label_research.feature_ref",
+          "type": "enum",
+          "condition": "in 82,100,109"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 110,
+      "capability_name": "Cross-Domain Decision Intelligence Layer",
+      "expected_surface": "cross_domain_decision_intelligence_layer",
+      "status": "REUSED-LINK",
+      "production_spine": "batch03",
+      "payload_root": "cross_domain_decision",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap110",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "catalog_link.duplicate_of",
+          "type": "numeric",
+          "condition": "== 69"
+        },
+        {
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "cross_domain_decision.multi_dimensional.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "cross_domain_decision.multi_dimensional.composite_score",
+          "type": "numeric",
+          "condition": ">= 0"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 111,
+      "capability_name": "Exchange Flow Actionability Score",
+      "expected_surface": "exchange_flow_actionability_score",
+      "status": "PRODUCTION-ALIGNED",
+      "production_spine": "batch03",
+      "payload_root": "exchange_flow_actionability",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap111",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "exchange_flow_actionability.pearson_r",
+          "type": "numeric",
+          "condition": ">= -1"
+        },
+        {
+          "field": "exchange_flow_actionability.pearson_r",
+          "type": "numeric",
+          "condition": "<= 1"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 112,
+      "capability_name": "Flow-to-Price Explanation Engine",
+      "expected_surface": "flow_to_price_explanation_engine",
+      "status": "PRODUCTION-ALIGNED",
+      "production_spine": "batch03",
+      "payload_root": "flow_to_price_explanation",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap112",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "flow_to_price_explanation.gcli_score",
+          "type": "numeric",
+          "condition": ">= 0"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 113,
+      "capability_name": "Asset Intelligence Profiles",
+      "expected_surface": "asset_intelligence_profiles",
+      "status": "PRODUCTION-ALIGNED",
+      "production_spine": "batch03",
+      "payload_root": "asset_intelligence_profile",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap113",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "asset_intelligence_profile.delta",
+          "type": "numeric",
+          "condition": "present"
+        },
+        {
+          "field": "asset_intelligence_profile.feature_ref",
+          "type": "numeric",
+          "condition": "== 113"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 114,
+      "capability_name": "Asset Classification & Taxonomy",
+      "expected_surface": "asset_classification_taxonomy",
+      "status": "PRODUCTION-ALIGNED",
+      "production_spine": "batch03",
+      "payload_root": "asset_classification_taxonomy",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap114",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "asset_classification_taxonomy.whale_filtered_ratio",
+          "type": "numeric",
+          "condition": "> 0"
+        },
+        {
+          "field": "asset_classification_taxonomy.feature_ref",
+          "type": "numeric",
+          "condition": "== 114"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 115,
+      "capability_name": "Asset Screener",
+      "expected_surface": "asset_screener",
+      "status": "PRODUCTION-ALIGNED",
+      "production_spine": "batch03",
+      "payload_root": "asset_screener",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap115",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "asset_screener.velocity_pct",
+          "type": "numeric",
+          "condition": "> 0"
+        },
+        {
+          "field": "asset_screener.feature_ref",
+          "type": "numeric",
+          "condition": "== 115"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 116,
+      "capability_name": "Market Pair Intelligence",
+      "expected_surface": "market_pair_intelligence",
+      "status": "PRODUCTION-ALIGNED",
+      "production_spine": "batch03",
+      "payload_root": "market_pair_intelligence",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap116",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "market_pair_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "market_pair_intelligence.all_passed",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "market_pair_intelligence.checks",
+          "type": "list_min_length",
+          "condition": ">= 1"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 117,
+      "capability_name": "Real Volume / Quality-Adjusted Volume",
+      "expected_surface": "real_volume_quality_adjusted_volume",
+      "status": "PRODUCTION-ALIGNED",
+      "production_spine": "batch03",
+      "payload_root": "real_volume_quality_adjusted",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap117",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "real_volume_quality_adjusted.vacuum_pct",
+          "type": "numeric",
+          "condition": ">= 0"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 118,
+      "capability_name": "VWAP Price Intelligence",
+      "expected_surface": "vwap_price_intelligence",
+      "status": "PRODUCTION-ALIGNED",
+      "production_spine": "batch03",
+      "payload_root": "vwap_price_intelligence",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap118",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "vwap_price_intelligence.risk_distribution",
+          "type": "present",
+          "condition": "not_null"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 119,
+      "capability_name": "Market Cap & FDV Intelligence",
+      "expected_surface": "market_cap_fdv_intelligence",
+      "status": "PRODUCTION-ALIGNED",
+      "production_spine": "batch03",
+      "payload_root": "market_cap_fdv",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap119",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "market_cap_fdv.execution_rejected",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "market_cap_fdv.reference_price",
+          "type": "numeric",
+          "condition": "> 0"
+        },
+        {
+          "field": "market_cap_fdv.feature_ref",
+          "type": "numeric",
+          "condition": "== 119"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 120,
+      "capability_name": "Supply Intelligence",
+      "expected_surface": "supply_intelligence",
+      "status": "PRODUCTION-ALIGNED",
+      "production_spine": "batch03",
+      "payload_root": "supply_intelligence",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap120",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "supply_intelligence.leverage_risk_analysis.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "supply_intelligence.leverage_risk_analysis.optimization_rejected",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "supply_intelligence.drawdown_lifecycle",
+          "type": "present",
+          "condition": "not_null"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 121,
+      "capability_name": "ROI & ATH Intelligence",
+      "expected_surface": "roi_ath_intelligence",
+      "status": "PRODUCTION-ALIGNED",
+      "production_spine": "batch03",
+      "payload_root": "roi_ath_intelligence",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap121",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "roi_ath_intelligence.pnl_attribution",
+          "type": "present",
+          "condition": "not_null"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 122,
+      "capability_name": "Volatility Intelligence",
+      "expected_surface": "volatility_intelligence",
+      "status": "PRODUCTION-ALIGNED",
+      "production_spine": "batch03",
+      "payload_root": "volatility_intelligence",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap122",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "volatility_intelligence.statistical_not_ai",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "volatility_intelligence.chow_f_statistic",
+          "type": "numeric",
+          "condition": ">= 0"
+        },
+        {
+          "field": "volatility_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 122"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 123,
+      "capability_name": "Sharpe Ratio Intelligence",
+      "expected_surface": "sharpe_ratio_intelligence",
+      "status": "PRODUCTION-ALIGNED",
+      "production_spine": "batch03",
+      "payload_root": "sharpe_ratio_intelligence",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap123",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "sharpe_ratio_intelligence.poc_price",
+          "type": "numeric",
+          "condition": "> 0"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 124,
+      "capability_name": "Futures Funding Rate Intelligence",
+      "expected_surface": "futures_funding_rate_intelligence",
+      "status": "PRODUCTION-ALIGNED",
+      "production_spine": "batch03",
+      "payload_root": "futures_funding_rate",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap124",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "futures_funding_rate.gaps",
+          "type": "list_min_length",
+          "condition": ">= 0"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 125,
+      "capability_name": "Futures Open Interest Intelligence",
+      "expected_surface": "futures_open_interest_intelligence",
+      "status": "REUSED-LINK",
+      "production_spine": "batch03",
+      "payload_root": "futures_open_interest",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap125",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "catalog_link.duplicate_of",
+          "type": "numeric",
+          "condition": "== 85"
+        },
+        {
+          "field": "catalog_link.classification",
+          "type": "enum",
+          "condition": "== REUSED-LINK"
+        },
+        {
+          "field": "futures_open_interest.open_interest_usd",
+          "type": "numeric",
+          "condition": ">= 0",
+          "decision": "ZERO_ACCEPTABLE",
+          "rationale": "open_interest_usd may be 0 when Binance public free_tier.available=false \u2014 contract passes with numeric zero; does NOT imply live OI feed failure."
+        },
+        {
+          "field": "futures_open_interest.derivatives_overview",
+          "type": "present",
+          "condition": "not_null",
+          "rationale": "Overview object must exist even when OI fields are zero."
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 126,
+      "capability_name": "Futures Volume Intelligence",
+      "expected_surface": "futures_volume_intelligence",
+      "status": "PRODUCTION-ALIGNED",
+      "production_spine": "batch03",
+      "payload_root": "futures_volume",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap126",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "futures_volume.no_shield_no_execution",
+          "type": "boolean",
+          "condition": "== true"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 127,
+      "capability_name": "Multi-Factor Market Overview",
+      "expected_surface": "multi_factor_market_overview",
+      "status": "PRODUCTION-ALIGNED",
+      "production_spine": "batch03",
+      "payload_root": "multi_factor_market_overview",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap127",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "multi_factor_market_overview.exploiter_naming_rejected",
+          "type": "boolean",
+          "condition": "== true"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 128,
+      "capability_name": "Momentum Intelligence",
+      "expected_surface": "momentum_intelligence",
+      "status": "PRODUCTION-ALIGNED",
+      "production_spine": "batch03",
+      "payload_root": "momentum_intelligence",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap128",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "momentum_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "momentum_intelligence.all_passed",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "momentum_intelligence.checks",
+          "type": "list_min_length",
+          "condition": ">= 1"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 129,
+      "capability_name": "Sentiment Intelligence",
+      "expected_surface": "sentiment_intelligence",
+      "status": "OVERLAP-PARTIAL",
+      "production_spine": "batch01",
+      "payload_root": null,
+      "binding_file": "cap646/batch01_production.py",
+      "binding_function": "cap646.batch01_production.cap_129",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "context",
+          "type": "present",
+          "condition": "not_null"
+        },
+        {
+          "field": "gate",
+          "type": "present",
+          "condition": "not_null"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)",
+      "notes": "OVERLAP-PARTIAL \u2014 batch01 market handler sentiment_intelligence"
+    },
+    {
+      "capability_id": 130,
+      "capability_name": "Mindshare Intelligence",
+      "expected_surface": "mindshare_intelligence",
+      "status": "PRODUCTION-ALIGNED",
+      "production_spine": "batch03",
+      "payload_root": "mindshare_intelligence",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap130",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "mindshare_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "mindshare_intelligence.execution_rejected",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "mindshare_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 130"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 131,
+      "capability_name": "Narrative & Sector Intelligence",
+      "expected_surface": "narrative_sector_intelligence",
+      "status": "PRODUCTION-ALIGNED",
+      "production_spine": "batch03",
+      "payload_root": "narrative_sector_intelligence",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap131",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "narrative_sector_intelligence.dust_asset_count",
+          "type": "numeric",
+          "condition": ">= 0"
+        },
+        {
+          "field": "narrative_sector_intelligence.execution_rejected",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "narrative_sector_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 131"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 132,
+      "capability_name": "Mindshare Gainers / Losers",
+      "expected_surface": "mindshare_gainers_losers",
+      "status": "PRODUCTION-ALIGNED",
+      "production_spine": "batch03",
+      "payload_root": "mindshare_gainers_losers",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap132",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "mindshare_gainers_losers.risk_score",
+          "type": "numeric",
+          "condition": ">= 0"
+        },
+        {
+          "field": "mindshare_gainers_losers.self_patching_rejected",
+          "type": "boolean",
+          "condition": "== true"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 133,
+      "capability_name": "Curated Crypto News Intelligence",
+      "expected_surface": "curated_crypto_news_intelligence",
+      "status": "PRODUCTION-ALIGNED",
+      "production_spine": "batch03",
+      "payload_root": "curated_crypto_news",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap133",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "curated_crypto_news.dimensions.macro.event_nexus.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "curated_crypto_news.dimensions.macro.event_nexus.feature_ref",
+          "type": "numeric",
+          "condition": "== 133"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 134,
+      "capability_name": "AI News Summaries",
+      "expected_surface": "ai_news_summaries",
+      "status": "PRODUCTION-ALIGNED",
+      "production_spine": "batch03",
+      "payload_root": "ai_news_summaries",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap134",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "ai_news_summaries.convergence_pct",
+          "type": "numeric",
+          "condition": ">= 0"
+        },
+        {
+          "field": "ai_news_summaries.feature_ref",
+          "type": "numeric",
+          "condition": "== 134"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 135,
+      "capability_name": "Real-Time Industry Event Monitoring",
+      "expected_surface": "real_time_industry_event_monitoring",
+      "status": "PRODUCTION-ALIGNED",
+      "production_spine": "batch03",
+      "payload_root": "industry_event_monitoring",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap135",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "industry_event_monitoring.vortex_score",
+          "type": "numeric",
+          "condition": ">= 0"
+        },
+        {
+          "field": "industry_event_monitoring.rule_based_only",
+          "type": "boolean",
+          "condition": "== true"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 136,
+      "capability_name": "Agentic Monitoring Views",
+      "expected_surface": "agentic_monitoring_views",
+      "status": "PRODUCTION-ALIGNED",
+      "production_spine": "batch03",
+      "payload_root": "agentic_monitoring_views",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap136",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "agentic_monitoring_views.reply",
+          "type": "present",
+          "condition": "not_null"
+        },
+        {
+          "field": "agentic_monitoring_views.rule_based_faq",
+          "type": "boolean",
+          "condition": "== true"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 137,
+      "capability_name": "Custom Watchlists",
+      "expected_surface": "custom_watchlists",
+      "status": "PRODUCTION-ALIGNED",
+      "production_spine": "batch03",
+      "payload_root": "custom_watchlists",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap137",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "custom_watchlists.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "custom_watchlists.not_a_technical_feature",
+          "type": "boolean",
+          "condition": "== true"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 138,
+      "capability_name": "Token Unlock Calendar",
+      "expected_surface": "token_unlock_calendar",
+      "status": "PRODUCTION-ALIGNED",
+      "production_spine": "batch03",
+      "payload_root": "token_unlock_calendar",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap138",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "token_unlock_calendar.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "token_unlock_calendar.bundle",
+          "type": "present",
+          "condition": "not_null"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 139,
+      "capability_name": "Vesting Schedule Intelligence",
+      "expected_surface": "vesting_schedule_intelligence",
+      "status": "PRODUCTION-ALIGNED",
+      "production_spine": "batch03",
+      "payload_root": "vesting_schedule_intelligence",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap139",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "vesting_schedule_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "vesting_schedule_intelligence.all_passed",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "vesting_schedule_intelligence.checks",
+          "type": "list_min_length",
+          "condition": ">= 1"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 140,
+      "capability_name": "Token Allocation Intelligence",
+      "expected_surface": "token_allocation_intelligence",
+      "status": "PRODUCTION-ALIGNED",
+      "production_spine": "batch03",
+      "payload_root": "token_allocation_intelligence",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap140",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "token_allocation_intelligence.duplicate_of",
+          "type": "numeric",
+          "condition": "== 90"
+        },
+        {
+          "field": "token_allocation_intelligence.not_standalone",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "token_allocation_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 140"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 141,
+      "capability_name": "Unlock Impact Intelligence",
+      "expected_surface": "unlock_impact_intelligence",
+      "status": "PRODUCTION-ALIGNED",
+      "production_spine": "batch03",
+      "payload_root": "unlock_impact_intelligence",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap141",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "unlock_impact_intelligence.items",
+          "type": "list_min_length",
+          "condition": ">= 1"
+        },
+        {
+          "field": "unlock_impact_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 141"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 142,
+      "capability_name": "Fundraising Rounds Intelligence",
+      "expected_surface": "fundraising_rounds_intelligence",
+      "status": "PRODUCTION-ALIGNED",
+      "production_spine": "batch03",
+      "payload_root": "fundraising_rounds",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap142",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "fundraising_rounds.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "fundraising_rounds.metrics.network_growth.value",
+          "type": "numeric",
+          "condition": "> 0"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 143,
+      "capability_name": "Investor Intelligence",
+      "expected_surface": "investor_intelligence",
+      "status": "PRODUCTION-ALIGNED",
+      "production_spine": "batch03",
+      "payload_root": "investor_intelligence",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap143",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "investor_intelligence.events",
+          "type": "list_min_length",
+          "condition": ">= 0"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 144,
+      "capability_name": "Fund & Fund-Manager Intelligence",
+      "expected_surface": "fund_fund_manager_intelligence",
+      "status": "PRODUCTION-ALIGNED",
+      "production_spine": "batch03",
+      "payload_root": "fund_manager_intelligence",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap144",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "fund_manager_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "fund_manager_intelligence.alerts",
+          "type": "list_min_length",
+          "condition": ">= 1"
+        },
+        {
+          "field": "fund_manager_intelligence.cross_validation_on_chain",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "fund_manager_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 144"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 145,
+      "capability_name": "M&A Intelligence",
+      "expected_surface": "m_a_intelligence",
+      "status": "PRODUCTION-ALIGNED",
+      "production_spine": "batch03",
+      "payload_root": "ma_intelligence",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap145",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "ma_intelligence.price",
+          "type": "numeric",
+          "condition": "> 0"
+        },
+        {
+          "field": "ma_intelligence.volume_24h",
+          "type": "numeric",
+          "condition": "> 0"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 146,
+      "capability_name": "Capital Flow & Funding Trend Intelligence",
+      "expected_surface": "capital_flow_funding_trend_intelligence",
+      "status": "PRODUCTION-ALIGNED",
+      "production_spine": "batch03",
+      "payload_root": "capital_flow_funding_trends",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap146",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "capital_flow_funding_trends.consensus_accepted",
+          "type": "boolean",
+          "condition": "in true,false"
+        },
+        {
+          "field": "capital_flow_funding_trends.primary_price",
+          "type": "numeric",
+          "condition": "> 0"
+        },
+        {
+          "field": "capital_flow_funding_trends.divergences_pct",
+          "type": "present",
+          "condition": "not_null"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 147,
+      "capability_name": "Comparable Funding & Valuation Analysis",
+      "expected_surface": "comparable_funding_valuation_analysis",
+      "status": "PRODUCTION-ALIGNED",
+      "production_spine": "batch03",
+      "payload_root": "comparable_funding_valuation",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap147",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "comparable_funding_valuation.trading_engine_rejected",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "comparable_funding_valuation.feature_ref",
+          "type": "numeric",
+          "condition": "== 147"
+        },
+        {
+          "field": "comparable_funding_valuation.insight_only",
+          "type": "boolean",
+          "condition": "== true"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 148,
+      "capability_name": "Due Diligence Report Engine",
+      "expected_surface": "due_diligence_report_engine",
+      "status": "PRODUCTION-ALIGNED",
+      "production_spine": "batch03",
+      "payload_root": "due_diligence_report",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap148",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "due_diligence_report.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "due_diligence_report.block_height",
+          "type": "numeric",
+          "condition": "> 0"
+        },
+        {
+          "field": "due_diligence_report.cross_validation_primary_rpc",
+          "type": "boolean",
+          "condition": "== true"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 149,
+      "capability_name": "Automated Risk Scoring from Diligence",
+      "expected_surface": "automated_risk_scoring_from_diligence",
+      "status": "PRODUCTION-ALIGNED",
+      "production_spine": "batch03",
+      "payload_root": "automated_risk_scoring",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap149",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "automated_risk_scoring.tvl_usd",
+          "type": "numeric",
+          "condition": "> 0"
+        },
+        {
+          "field": "automated_risk_scoring.protocol",
+          "type": "string_nonempty",
+          "condition": "length >= 1"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 150,
+      "capability_name": "Protocol KPI Intelligence",
+      "expected_surface": "protocol_kpi_intelligence",
+      "status": "PRODUCTION-ALIGNED",
+      "production_spine": "batch03",
+      "payload_root": "protocol_kpi_intelligence",
+      "binding_file": "cap646/batch03_dedicated.py",
+      "binding_function": "_cap150",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "protocol_kpi_intelligence.daily_top3",
+          "type": "present",
+          "condition": "not_null"
+        },
+        {
+          "field": "protocol_kpi_intelligence.opportunity_score.opportunity_score",
+          "type": "numeric",
+          "condition": ">= 0"
+        },
+        {
+          "field": "protocol_kpi_intelligence.opportunity_score.opportunity_score",
+          "type": "numeric",
+          "condition": "<= 100"
+        }
+      ],
+      "source": "catalog+handler_contract \u2014 written before probe (ISO 29148)"
+    }
+  ]
+}

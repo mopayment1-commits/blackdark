@@ -1,0 +1,173 @@
+{
+  "generated_at": "2026-09-03T16:58:20.572821+00:00",
+  "scope": "Batch04 Phase-1 initial duplication scan (IDs 151-200)",
+  "standards": [
+    "TOGAF/MECE capability overlap",
+    "Roy & Cordy Type-1..4",
+    "CWE-1041 / jscpd"
+  ],
+  "scopes": {
+    "D1_internal_151_200": {
+      "pairs_confirmed": [
+        {
+          "a": 159,
+          "b": 103,
+          "scope": "151-200 vs 1-150",
+          "classification": "DUPLICATE-CONFIRMED\u2192REUSED-LINK",
+          "evidence": "REPEAT_CANONICAL API Data Platform; gap DUPLICATE/ALREADY_COVERED"
+        },
+        {
+          "a": 175,
+          "b": "batch01",
+          "scope": "batch01 overlap",
+          "classification": "OVERLAP-PARTIAL",
+          "evidence": "LEGACY_BATCH01_EXTENSION_IDS; n14_excluded_legacy_extension"
+        },
+        {
+          "a": 183,
+          "b": 130,
+          "scope": "hero layer",
+          "classification": "REUSED-LINK candidate",
+          "evidence": "hero exact_fn_reuse transaction_risk_insight_130"
+        }
+      ],
+      "clusters_candidate": [
+        {
+          "ids": [
+            167,
+            168,
+            169,
+            170,
+            171,
+            172,
+            173,
+            174,
+            175,
+            176,
+            177,
+            178
+          ],
+          "name": "social_sentiment_volume_cluster",
+          "classification": "OVERLAP-PARTIAL candidate",
+          "action": "MECE semantic audit required"
+        },
+        {
+          "ids": [
+            187,
+            188,
+            189,
+            190,
+            191
+          ],
+          "name": "exchange_flow_cluster",
+          "classification": "OVERLAP-PARTIAL candidate",
+          "action": "MECE semantic audit required"
+        },
+        {
+          "ids": [
+            194,
+            195,
+            196,
+            197,
+            198,
+            199,
+            200
+          ],
+          "name": "onchain_valuation_metrics_cluster",
+          "classification": "OVERLAP-PARTIAL candidate",
+          "action": "MECE semantic audit required"
+        },
+        {
+          "ids": [
+            151,
+            152,
+            157,
+            163
+          ],
+          "name": "research_reporting_cluster",
+          "classification": "OVERLAP-PARTIAL candidate",
+          "action": "distinct vs batch03 research IDs 100/109"
+        }
+      ],
+      "distinct_default": "remaining IDs pending per-pair MECE after dedicated handlers exist"
+    },
+    "D1_vs_1_150": {
+      "pairs": [
+        {
+          "a": 159,
+          "b": 103,
+          "scope": "151-200 vs 1-150",
+          "classification": "DUPLICATE-CONFIRMED\u2192REUSED-LINK",
+          "evidence": "REPEAT_CANONICAL API Data Platform; gap DUPLICATE/ALREADY_COVERED"
+        },
+        {
+          "a": 175,
+          "b": "batch01",
+          "scope": "batch01 overlap",
+          "classification": "OVERLAP-PARTIAL",
+          "evidence": "LEGACY_BATCH01_EXTENSION_IDS; n14_excluded_legacy_extension"
+        }
+      ],
+      "note": "Full 50\u00d7150 matrix not exhaustively run \u2014 confirmed pairs listed; expand during implementation"
+    },
+    "D1_hero_batch_scopes": {
+      "files_searched": [
+        "bd_platform/data_sources_layer.py",
+        "bd_platform/intelligence_analysis_layer.py",
+        "bd_platform/risk_infrastructure_layer.py",
+        "bd_platform/arbitrage_portfolio_ux_layer.py",
+        "bd_platform/derivatives_ta_research_layer.py",
+        "bd_platform/onchain_platform_layer.py"
+      ],
+      "split_brain_warning": "Hero layer ID numbers reuse different semantics than official catalog for several IDs (e.g. catalog #153 \u2260 hero #153 fn)",
+      "hero_gap_report": "docs/HERO_BATCH_02_101_200_GAP_REPORT.json"
+    },
+    "D1_option_a_ssot": {
+      "scope": "Option-A pre-batch IDs vs 151-200",
+      "result": "NOT_APPLICABLE \u2014 no direct ID collision; semantic overlap audit deferred to cluster review",
+      "option_a_ids_checked": [
+        {
+          "option_a_id": 338,
+          "capability": "Data Quality Pipeline",
+          "status": "PRODUCTION-ALIGNED"
+        },
+        {
+          "option_a_id": 500,
+          "capability": "Data Quality & Normalization",
+          "status": "PRODUCTION-ALIGNED"
+        },
+        {
+          "option_a_id": 507,
+          "capability": "OHLCV",
+          "status": "PRODUCTION-ALIGNED"
+        },
+        {
+          "option_a_id": 534,
+          "capability": "Bucketed CVD",
+          "status": "PRODUCTION-ALIGNED"
+        }
+      ],
+      "option_a_count": 4
+    }
+  },
+  "jscpd": {
+    "exit_code": 0,
+    "files_scanned": [
+      "bd_platform/data_sources_layer.py",
+      "bd_platform/intelligence_analysis_layer.py",
+      "bd_platform/risk_infrastructure_layer.py",
+      "bd_platform/arbitrage_portfolio_ux_layer.py",
+      "bd_platform/derivatives_ta_research_layer.py",
+      "bd_platform/onchain_platform_layer.py"
+    ],
+    "duplicated_lines": 75,
+    "duplicated_tokens": 466,
+    "total_lines": 6,
+    "clones": 6,
+    "report_path": "docs/.jscpd-batch04-phase1/jscpd-report.json"
+  },
+  "batch04_independent_current": 0,
+  "progress_826_current": 148,
+  "batch05_open": false,
+  "live_gate": "AWAITING_DEPLOY per owner agreement"
+}

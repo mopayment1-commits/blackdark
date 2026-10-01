@@ -1,0 +1,49 @@
+{
+  "verified_at": "2026-09-03T17:30:00+00:00",
+  "fix": "cap646/institutional_gateway.gateway_execute uses canonical_id() before entitlement_engine.check (inherited from batch03 fix)",
+  "contract_test": "tests/cap646/test_batch04_gateway_canonical_entitlement_contract.py",
+  "scope": "Batch04 IDs 151-200",
+  "pending_reused_link_pairs": {
+    "159": 103
+  },
+  "distinct_catalog_link_only": {
+    "183": 130
+  },
+  "overlap_batch01": [175],
+  "behavior": {
+    "159_free": {
+      "canonical_id": 103,
+      "gateway_allowed": false,
+      "runtime_canonical_allowed": false,
+      "aligned": true,
+      "gateway_error": "entitlement_denied",
+      "production_spine_reached": false,
+      "note": "PENDING_CANONICAL_AUDIT — REUSED-LINK not final"
+    },
+    "159_elite": {
+      "canonical_id": 103,
+      "gateway_allowed": true,
+      "production_spine": "batch04",
+      "catalog_link_duplicate_of": 103
+    },
+    "183_free": {
+      "canonical_id": 183,
+      "gateway_allowed": true,
+      "production_spine": "batch04",
+      "catalog_link_duplicate_of": 130,
+      "note": "Gateway checks #183 not #130; catalog_link is stamp only"
+    },
+    "175_pro": {
+      "canonical_id": 175,
+      "production_spine": "batch01",
+      "overlap_partial": true
+    },
+    "161_free": {
+      "canonical_id": 161,
+      "gateway_allowed": false,
+      "required_tier": "elite"
+    }
+  },
+  "proof_script": "scripts/verify_entitlement_batch04_gateway_proof.py",
+  "proof_json": "docs/BATCH04_ENTITLEMENT_GATEWAY_PROOF.json"
+}

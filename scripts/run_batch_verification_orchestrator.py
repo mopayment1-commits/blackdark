@@ -54,6 +54,22 @@ ORCHESTRATED_SCRIPTS: list[dict[str, str]] = [
         "script": "verify_entitlement_batch02_gateway_proof.py",
         "verifies": "Entitlement gateway path for batch02 sample IDs (no skip_entitlement)",
     },
+    {
+        "script": "audit_official_batch03_rtm.py",
+        "verifies": "RTM audit: 50/50 official batch03 IDs including REUSED-LINK and OVERLAP-PARTIAL",
+    },
+    {
+        "script": "verify_official_batch03_production.py",
+        "verifies": "HTTP GET /api/cap646/{id} for IDs 101–150 with status 200",
+    },
+    {
+        "script": "verify_entitlement_batch03_gateway_proof.py",
+        "verifies": "Entitlement gateway path for batch03 sample IDs (no skip_entitlement)",
+    },
+    {
+        "script": "verify_entitlement_batch04_gateway_proof.py",
+        "verifies": "Entitlement gateway path for batch04 sample IDs 151-200 (no skip_entitlement)",
+    },
 ]
 
 
@@ -133,6 +149,7 @@ async def main() -> None:
         "batches": {
             "batch01": {"scope": "1–50", "status": batch_status},
             "batch02": {"scope": "51–100", "status": batch_status},
+            "batch03": {"scope": "101–150", "status": "PENDING_OWNER_APPROVAL" if batch_status != "INSTITUTIONAL_CLOSED" else batch_status},
         },
         "orchestrated_scripts": [
             {**entry, **next(r for r in results if r["script"] == entry["script"])}

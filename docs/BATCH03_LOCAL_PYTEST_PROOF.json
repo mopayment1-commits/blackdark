@@ -1,0 +1,22 @@
+{
+  "proof_type": "LOCAL_GOVERNANCE_COMPLETE — non-regression Batch01+02+03",
+  "classification": "بديل محلي مؤقت — لا يعادل الإنتاج",
+  "executed_at_utc": "2026-09-03T10:46:14Z",
+  "git_commit": "6e1954ffea6c7d360d2008052a67c34b759520b7",
+  "git_commit_short": "6e1954f",
+  "commit_authored_at_utc": "2026-09-03T10:40:32Z",
+  "pytest_after_commit": true,
+  "timing_note": "pytest executed 5m42s AFTER commit 6e1954f (10:46:14Z > 10:40:32Z)",
+  "branch": "cursor/batch-03-101-150-e85e",
+  "pytest_command": "python3 -m pytest tests/cap646/test_batch01_production.py tests/cap646/test_batch01_dedicated.py tests/cap646/test_batch02_dedicated.py tests/cap646/test_batch03_prep_dedicated.py tests/cap646/test_batch03_gateway_canonical_entitlement_contract.py tests/cap646/test_batch03_reused_link_contract.py tests/cap646/test_batch_spine.py tests/cap646/test_get_entitlement.py tests/cap646/test_cap69_dual_path.py tests/cap646/test_dedicated_common.py tests/cap646/test_runtime_spine_coverage.py -q -m 'not slow' --tb=no",
+  "pytest_exit_code": 0,
+  "tests_collected": 507,
+  "tests_failed": 0,
+  "marker_filter": "not slow",
+  "gateway_contract_tests_included": true,
+  "prior_run_superseded": {
+    "commit": "f41c394",
+    "executed_at_utc": "2026-09-03T10:35:00Z",
+    "reason": "superseded by fresh run on 6e1954f per corrective order item 5"
+  }
+}

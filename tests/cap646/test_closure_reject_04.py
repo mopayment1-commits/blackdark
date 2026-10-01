@@ -8,6 +8,18 @@ from pathlib import Path
 
 import pytest
 
+PRO_GATED_SPINE = frozenset({47, 85})
+
+
+def _assert_pro_gated_entitlement_denied(result: dict, *, capability_id: int) -> None:
+    ent = result.get("entitlement") or {}
+    assert result.get("success") is False
+    assert result.get("capability_id") == capability_id
+    assert ent.get("allowed") is False
+    assert ent.get("required_tier") == "pro"
+    assert ent.get("reason") == "teaser"
+    assert ent.get("actual_tier") == "free"
+
 
 @pytest.mark.asyncio
 async def test_runtime_execute_batch01_spine(tmp_path, monkeypatch):
@@ -22,6 +34,9 @@ async def test_runtime_execute_batch01_spine(tmp_path, monkeypatch):
 
     for cid in (1, 5, 47, 50):
         result = await execute_capability(cid, params={"symbol": "BTC", "kind": "spot_futures"})
+        if cid in PRO_GATED_SPINE:
+            _assert_pro_gated_entitlement_denied(result, capability_id=cid)
+            continue
         assert result.get("success") is True or result.get("classification")
         assert result.get("classification") in {"PRODUCTION-ALIGNED", "NOT_COMPLETE", None}
 
@@ -39,6 +54,9 @@ async def test_runtime_execute_batch02_spine(tmp_path, monkeypatch):
 
     for cid in (51, 53, 57, 85, 100):
         result = await execute_capability(cid, params={"symbol": "BTC", "kind": "spot_futures"})
+        if cid in PRO_GATED_SPINE:
+            _assert_pro_gated_entitlement_denied(result, capability_id=cid)
+            continue
         assert result.get("success") is True or result.get("classification")
         assert "VERIFIED_COMPLETE" not in str(result.get("classification"))
 

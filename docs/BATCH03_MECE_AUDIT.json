@@ -1,0 +1,106 @@
+{
+  "generated_at": "2026-09-03T10:46:30Z",
+  "git_commit": "6e1954f",
+  "internal_101_150": {
+    "pairs_checked": 1225,
+    "overlaps": [],
+    "search_method": "Python goal_key comparison across all C(50,2) pairs using cap646.catalog catalog_by_id()",
+    "result": "0 semantic overlaps within 101-150"
+  },
+  "vs_1_100": {
+    "pairs_checked": 5000,
+    "overlaps": [
+      {
+        "a": 106,
+        "b": 63,
+        "type": "same_goal",
+        "goal": "data quality & provenance layer",
+        "time_decision": "Migrate",
+        "adr": "docs/ADR_BATCH03_REUSED_LINK_TIME.md"
+      },
+      {
+        "a": 107,
+        "b": 64,
+        "type": "same_goal",
+        "goal": "metric methodology registry",
+        "time_decision": "Migrate",
+        "adr": "docs/ADR_BATCH03_REUSED_LINK_TIME.md"
+      },
+      {
+        "a": 110,
+        "b": 69,
+        "type": "same_goal",
+        "goal": "cross-domain decision intelligence layer",
+        "time_decision": "Migrate",
+        "adr": "docs/ADR_BATCH03_REUSED_LINK_TIME.md"
+      },
+      {
+        "a": 125,
+        "b": 85,
+        "type": "same_goal",
+        "goal": "futures open interest intelligence",
+        "time_decision": "Migrate",
+        "adr": "docs/ADR_BATCH03_REUSED_LINK_TIME.md"
+      }
+    ],
+    "search_method": "Python goal_key comparison: 50 batch03 IDs \u00d7 100 batch01+02 IDs"
+  },
+  "vs_hero_batch04_17": {
+    "status": "NOT_APPLICABLE",
+    "search_commands": [
+      "ls cap646/batch04_* cap646/batch05_* ... cap646/batch17_* \u2192 No such file or directory (no official batch04-17 production spine in repo)",
+      "ls data/hero_batch_*_evidence.jsonl \u2192 7 files found (legacy hero evidence only)",
+      "rg batch04 docs/BATCH_INTERNAL_ID_MAPPING.md \u2192 official hero scope IDs 151-850"
+    ],
+    "search_results": {
+      "cap646_batch04_17_spine_files": "none \u2014 glob cap646/batch04_* through cap646/batch17_* returned empty",
+      "numeric_id_overlap_batch03_vs_hero_scope": false,
+      "batch03_scope": "101-150",
+      "hero_official_scope": "151-850 per docs/BATCH_INTERNAL_ID_MAPPING.md"
+    },
+    "verdict": "NOT_APPLICABLE \u2014 no numeric ID overlap between batch03 (101-150) and hero batch04-17 official scope (151-850); no batch04-17 production spine modules exist in repository",
+    "pairs_checked": "NOT_APPLICABLE \u2014 zero comparable ID pairs by design"
+  },
+  "vs_special_338_500_507_534": {
+    "status": "SEARCHED",
+    "search_commands": [
+      "rg '\"id\": 338|\"id\": 500|\"id\": 507|\"id\": 534' docs/CAPABILITIES_826_INVENTORY.json \u2192 all four IDs present in SSOT",
+      "Python goal_key comparison: 50 batch03 IDs \u00d7 4 special IDs = 200 pairs"
+    ],
+    "search_results": {
+      "ids_found_in_inventory": [
+        338,
+        500,
+        507,
+        534
+      ],
+      "pairs_checked": 200,
+      "semantic_overlaps": 0
+    },
+    "verdict": "200 pairs checked \u2014 0 semantic overlaps (not NOT_APPLICABLE; IDs exist and were compared)"
+  },
+  "vs_k_counted_n14": {
+    "counted_ids": [
+      338,
+      500,
+      507,
+      534
+    ],
+    "excluded_from_k_not_checked_for_progress": [
+      175,
+      214,
+      245,
+      584,
+      629,
+      630,
+      631,
+      642,
+      644,
+      646
+    ],
+    "batch03_vs_k_pairs_checked": 200,
+    "overlaps": [],
+    "new_time_decisions_required": 0,
+    "note": "Excluded 10 legacy IDs removed from progress_826 \u2014 not in MECE k-scope"
+  }
+}

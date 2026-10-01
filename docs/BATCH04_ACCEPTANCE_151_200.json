@@ -1,0 +1,1879 @@
+{
+  "generated_at": "2026-09-03T17:25:09.622502+00:00",
+  "standard": "ISO/IEC/IEEE 29148",
+  "scope": "Batch04 IDs 151-200 (50 rows)",
+  "pre_probe": true,
+  "official_batch": "batch04",
+  "note": "Bindings in cap646/batch04_dedicated.py \u2014 catalog-aligned handlers (build phase)",
+  "gateway_proof": "docs/BATCH04_ENTITLEMENT_GATEWAY_PROOF.json",
+  "pa_closure_registry": "docs/BATCH04_PA_CLOSURE_REGISTRY.json",
+  "gate_zero_checklist": "docs/BATCH04_GATE_ZERO_CHECKLIST.md",
+  "blocker_escalation": "docs/BATCH04_BLOCKER_ESCALATION_OWNER.md",
+  "rows": [
+    {
+      "capability_id": 151,
+      "capability_name": "Quarterly Protocol Performance Reports",
+      "expected_surface": "quarterly_protocol_performance_reports",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "quarterly_protocol_performance_reports",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap151",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "quarterly_protocol_performance_reports.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "quarterly_protocol_performance_reports.feature_ref",
+          "type": "numeric",
+          "condition": "== 151"
+        },
+        {
+          "field": "quarterly_protocol_performance_reports.reporting_period",
+          "type": "enum",
+          "condition": "== quarterly"
+        },
+        {
+          "field": "quarterly_protocol_performance_reports.protocol_tvl_usd",
+          "type": "numeric",
+          "condition": "> 0"
+        },
+        {
+          "field": "quarterly_protocol_performance_reports.protocol_performance.quarterly_summary",
+          "type": "present",
+          "condition": "not_null"
+        }
+      ],
+      "requirement_contract": {
+        "business_objective": "Deliver institutional quarterly protocol performance summary for a symbol",
+        "expected_output": "quarterly_protocol_performance_reports with quarter_label, TVL, performance_score, dimension breakdown",
+        "canonical_binding": "cap646/batch04_dedicated.py::_cap151",
+        "canonical_module": "cap646.batch04_quarterly_protocol.build_quarterly_protocol_report"
+      },
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "hero_underlying": "bd_platform.data_sources_layer.explain_opportunity_151",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 152,
+      "capability_name": "Governance & Proposal Intelligence",
+      "expected_surface": "governance_proposal_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "governance_proposal_intelligence",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap152",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "governance_proposal_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "governance_proposal_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 152"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "hero_underlying": "bd_platform.data_sources_layer.run_data_sources_e2e_140_152",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 153,
+      "capability_name": "Project Monitoring Coverage Registry",
+      "expected_surface": "project_monitoring_coverage_registry",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "project_monitoring_coverage_registry",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap153",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "project_monitoring_coverage_registry.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "project_monitoring_coverage_registry.feature_ref",
+          "type": "numeric",
+          "condition": "== 153"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "hero_underlying": "bd_platform.intelligence_analysis_layer.analyze_arbitrage_opportunity_153",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 154,
+      "capability_name": "AI Crypto Copilot",
+      "expected_surface": "ai_crypto_copilot",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "ai_crypto_copilot",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap154",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "ai_crypto_copilot.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "ai_crypto_copilot.feature_ref",
+          "type": "numeric",
+          "condition": "== 154"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "hero_underlying": "bd_platform.intelligence_analysis_layer.financial_brain_status_154",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 155,
+      "capability_name": "AI Deep Research",
+      "expected_surface": "ai_deep_research",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "ai_deep_research",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap155",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "ai_deep_research.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "ai_deep_research.feature_ref",
+          "type": "numeric",
+          "condition": "== 155"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "hero_underlying": "bd_platform.intelligence_analysis_layer.stat_arb_insight_155",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 156,
+      "capability_name": "Crypto Knowledge Graph",
+      "expected_surface": "crypto_knowledge_graph",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "crypto_knowledge_graph",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap156",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "crypto_knowledge_graph.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "crypto_knowledge_graph.feature_ref",
+          "type": "numeric",
+          "condition": "== 156"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "hero_underlying": "bd_platform.intelligence_analysis_layer.asset_registry_105_coins_156",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 157,
+      "capability_name": "Research Library",
+      "expected_surface": "research_library",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "research_library",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap157",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "research_library.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "research_library.feature_ref",
+          "type": "numeric",
+          "condition": "== 157"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "hero_underlying": "bd_platform.intelligence_analysis_layer.onchain_advanced_status_157",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 158,
+      "capability_name": "Institutional Research Feed",
+      "expected_surface": "institutional_research_feed",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "institutional_research_feed",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap158",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "institutional_research_feed.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "institutional_research_feed.feature_ref",
+          "type": "numeric",
+          "condition": "== 158"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "hero_underlying": "bd_platform.intelligence_analysis_layer.multi_venue_websocket_status_158",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 159,
+      "capability_name": "API Data Platform",
+      "expected_surface": "api_data_platform",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "api_data_platform",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap159",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "api_data_platform.canonical_overlap",
+          "type": "numeric",
+          "condition": "== 103"
+        },
+        {
+          "field": "api_data_platform.canonical_status",
+          "type": "enum",
+          "condition": "== OVERLAP-PARTIAL"
+        },
+        {
+          "field": "api_data_platform.institutional_api",
+          "type": "enum",
+          "condition": "== /api/institutional"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "NOT_COMPLETE suspended — await #103 maturity or DISTINCT ADR",
+      "hero_underlying": "bd_platform.intelligence_analysis_layer.compute_gas_volatility_profile_159",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)",
+      "notes": "BLOCKER-159-103 owner decision: NOT_COMPLETE — no REUSED-LINK until #103 matures (Tolerate 2026-10-03)",
+      "pending_canonical_audit": "BLOCKER-159-103",
+      "duplicate_candidates": [
+        {
+          "pair": "159\u2194103",
+          "scope": "151-200 vs 1-150",
+          "classification": "NOT_COMPLETE",
+          "evidence": "Canonical #103 OVERLAP-PARTIAL on batch01 — REUSED-LINK blocked"
+        }
+      ]
+    },
+    {
+      "capability_id": 160,
+      "capability_name": "Pay-Per-Request Data Access",
+      "expected_surface": "pay_per_request_data_access",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "pay_per_request_data_access",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap160",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "pay_per_request_data_access.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "pay_per_request_data_access.feature_ref",
+          "type": "numeric",
+          "condition": "== 160"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "hero_underlying": "bd_platform.intelligence_analysis_layer.detect_volatility_squeeze_160",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 161,
+      "capability_name": "Institutional Data Delivery & Entitlements",
+      "expected_surface": "institutional_data_delivery_entitlements",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "institutional_data_delivery_entitlements",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap161",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "institutional_data_delivery_entitlements.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "institutional_data_delivery_entitlements.feature_ref",
+          "type": "numeric",
+          "condition": "== 161"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "hero_underlying": "bd_platform.intelligence_analysis_layer.alert_delivery_status_161",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 162,
+      "capability_name": "Evidence & Provenance Layer",
+      "expected_surface": "evidence_provenance_layer",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "evidence_provenance_layer",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap162",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "evidence_provenance_layer.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "evidence_provenance_layer.feature_ref",
+          "type": "numeric",
+          "condition": "== 162"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "hero_underlying": "bd_platform.intelligence_analysis_layer.data_grid_ui_status_162",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 163,
+      "capability_name": "Cross-Domain Research-to-Decision Intelligence",
+      "expected_surface": "cross_domain_research_to_decision_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "cross_domain_research_to_decision_intelligence",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap163",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "cross_domain_research_to_decision_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "cross_domain_research_to_decision_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 163"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "hero_underlying": "bd_platform.intelligence_analysis_layer.run_intelligence_analysis_e2e_153_163",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 164,
+      "capability_name": "Token Unlock Actionability Score",
+      "expected_surface": "token_unlock_actionability_score",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "token_unlock_actionability_score",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap164",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "token_unlock_actionability_score.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "token_unlock_actionability_score.feature_ref",
+          "type": "numeric",
+          "condition": "== 164"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "hero_underlying": "bd_platform.risk_infrastructure_layer.liquidity_impact_warning_164",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 165,
+      "capability_name": "Fundraising Momentum Score",
+      "expected_surface": "fundraising_momentum_score",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "fundraising_momentum_score",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap165",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "fundraising_momentum_score.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "fundraising_momentum_score.feature_ref",
+          "type": "numeric",
+          "condition": "== 165"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "hero_underlying": "bd_platform.risk_infrastructure_layer.hashrate_capitulation_forecast_165",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 166,
+      "capability_name": "Research Confidence Score",
+      "expected_surface": "research_confidence_score",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "research_confidence_score",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap166",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "research_confidence_score.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "research_confidence_score.feature_ref",
+          "type": "numeric",
+          "condition": "== 166"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "hero_underlying": "bd_platform.risk_infrastructure_layer.brokerage_rejected_status_166",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 167,
+      "capability_name": "Social Volume Intelligence",
+      "expected_surface": "social_volume_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "social_volume_intelligence",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap167",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "social_volume_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "social_volume_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 167"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "hero_underlying": "bd_platform.risk_infrastructure_layer.validate_time_sync_167",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 168,
+      "capability_name": "Social Dominance Intelligence",
+      "expected_surface": "social_dominance_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "social_dominance_intelligence",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap168",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "social_dominance_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "social_dominance_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 168"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "hero_underlying": "bd_platform.risk_infrastructure_layer.attach_cluster_index_168",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 169,
+      "capability_name": "Unique Social Volume",
+      "expected_surface": "unique_social_volume",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "unique_social_volume",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap169",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "unique_social_volume.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "unique_social_volume.feature_ref",
+          "type": "numeric",
+          "condition": "== 169"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "hero_underlying": "bd_platform.risk_infrastructure_layer.attach_correlation_decay_169",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 170,
+      "capability_name": "Trending Words",
+      "expected_surface": "trending_words",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "trending_words",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap170",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "trending_words.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "trending_words.feature_ref",
+          "type": "numeric",
+          "condition": "== 170"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "hero_underlying": "bd_platform.risk_infrastructure_layer.compute_oi_momentum_delta_170",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 171,
+      "capability_name": "Trending Coins",
+      "expected_surface": "trending_coins",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "trending_coins",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap171",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "trending_coins.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "trending_coins.feature_ref",
+          "type": "numeric",
+          "condition": "== 171"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "hero_underlying": "bd_platform.risk_infrastructure_layer.attach_m2_macro_flow_171",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 172,
+      "capability_name": "Historical Crypto Trends",
+      "expected_surface": "historical_crypto_trends",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "historical_crypto_trends",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap172",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "historical_crypto_trends.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "historical_crypto_trends.feature_ref",
+          "type": "numeric",
+          "condition": "== 172"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "hero_underlying": "bd_platform.risk_infrastructure_layer.institutional_memory_status_172",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 173,
+      "capability_name": "Key Narratives Intelligence",
+      "expected_surface": "key_narratives_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "key_narratives_intelligence",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap173",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "key_narratives_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "key_narratives_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 173"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "hero_underlying": "bd_platform.risk_infrastructure_layer.institutional_rbac_status_173",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 174,
+      "capability_name": "Alpha Narratives Intelligence",
+      "expected_surface": "alpha_narratives_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "alpha_narratives_intelligence",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap174",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "alpha_narratives_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "alpha_narratives_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 174"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "hero_underlying": "bd_platform.risk_infrastructure_layer.full_white_label_status_174",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 175,
+      "capability_name": "Social Sentiment Intelligence",
+      "expected_surface": "sentiment_ai",
+      "status": "OVERLAP-PARTIAL",
+      "production_spine": "batch01",
+      "payload_root": "gate",
+      "binding_file": "cap646/batch01_production.py",
+      "binding_function": "cap_175",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "production_spine",
+          "type": "enum",
+          "condition": "== batch01"
+        },
+        {
+          "field": "gate.asset",
+          "type": "present",
+          "condition": "present"
+        },
+        {
+          "field": "context.sentiment_compound_index",
+          "type": "present",
+          "condition": "present"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 batch01 route until dedicated batch04 replaces; excluded from batch04_independent",
+      "hero_underlying": "bd_platform.risk_infrastructure_layer.risk_intelligence_status_175",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)",
+      "notes": "OVERLAP-PARTIAL \u2014 legacy batch01 extension; excluded from batch04_independent",
+      "functional_gap": {
+        "catalog_name": "Social Sentiment Intelligence",
+        "implemented_scope": "batch01 sentiment_ai gate (LEGACY_BATCH01_EXTENSION_IDS)",
+        "decision": "OVERLAP-PARTIAL \u2014 catalog surface social_sentiment_intelligence vs runtime sentiment_ai"
+      },
+      "duplicate_candidates": [
+        {
+          "pair": "175\u2194batch01",
+          "scope": "batch01 overlap",
+          "classification": "OVERLAP-PARTIAL",
+          "evidence": "LEGACY_BATCH01_EXTENSION_IDS; n14_excluded_legacy_extension"
+        }
+      ]
+    },
+    {
+      "capability_id": 176,
+      "capability_name": "Weighted Social Sentiment",
+      "expected_surface": "weighted_social_sentiment",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "weighted_social_sentiment",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap176",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "weighted_social_sentiment.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "weighted_social_sentiment.feature_ref",
+          "type": "numeric",
+          "condition": "== 176"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "hero_underlying": "bd_platform.risk_infrastructure_layer.run_risk_infrastructure_e2e_164_176",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 177,
+      "capability_name": "Social Sentiment Balance",
+      "expected_surface": "social_sentiment_balance",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "social_sentiment_balance",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap177",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "social_sentiment_balance.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "social_sentiment_balance.feature_ref",
+          "type": "numeric",
+          "condition": "== 177"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "hero_underlying": "bd_platform.arbitrage_portfolio_ux_layer.analyze_arbitrage_cost_177",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 178,
+      "capability_name": "Social Source Breakdown",
+      "expected_surface": "social_source_breakdown",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "social_source_breakdown",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap178",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "social_source_breakdown.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "social_source_breakdown.feature_ref",
+          "type": "numeric",
+          "condition": "== 178"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "hero_underlying": "bd_platform.arbitrage_portfolio_ux_layer.attach_scenarios_178",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 179,
+      "capability_name": "Development Activity Intelligence",
+      "expected_surface": "development_activity_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "development_activity_intelligence",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap179",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "development_activity_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "development_activity_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 179"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "hero_underlying": "bd_platform.arbitrage_portfolio_ux_layer.build_command_center_dashboard_179",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 180,
+      "capability_name": "Development Activity Contributors",
+      "expected_surface": "development_activity_contributors",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "development_activity_contributors",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap180",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "development_activity_contributors.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "development_activity_contributors.feature_ref",
+          "type": "numeric",
+          "condition": "== 180"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "hero_underlying": "bd_platform.arbitrage_portfolio_ux_layer.attach_whale_visualization_180",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 181,
+      "capability_name": "Ecosystem Development Dashboard",
+      "expected_surface": "ecosystem_development_dashboard",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "ecosystem_development_dashboard",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap181",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "ecosystem_development_dashboard.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "ecosystem_development_dashboard.feature_ref",
+          "type": "numeric",
+          "condition": "== 181"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "hero_underlying": "bd_platform.arbitrage_portfolio_ux_layer.committee_packets_status_181",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 182,
+      "capability_name": "Developer Activity Change Detection",
+      "expected_surface": "developer_activity_change_detection",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "developer_activity_change_detection",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap182",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "developer_activity_change_detection.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "developer_activity_change_detection.feature_ref",
+          "type": "numeric",
+          "condition": "== 182"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "hero_underlying": "bd_platform.arbitrage_portfolio_ux_layer.white_label_infrastructure_status_182",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 183,
+      "capability_name": "Whale Transaction Intelligence",
+      "expected_surface": "whale_transaction_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "whale_transaction",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap183",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "whale_transaction.risk_score",
+          "type": "numeric",
+          "condition": ">= 0"
+        },
+        {
+          "field": "classification",
+          "type": "enum",
+          "condition": "== NOT_COMPLETE"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "DISTINCT-only Option B approved — no REUSED-LINK to #130",
+      "hero_underlying": "bd_platform.onchain_platform_layer.transaction_risk_insight_130",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)",
+      "notes": "BLOCKER-183-130 owner decision: DISTINCT whale payload; #130 PRODUCTION-ALIGNED in Batch03 untouched",
+      "pending_canonical_audit": "BLOCKER-183-130",
+      "duplicate_candidates": [
+        {
+          "pair": "183\u2194130",
+          "scope": "151-200 vs 1-150",
+          "classification": "NOT_COMPLETE",
+          "evidence": "Semantic mismatch whale vs mindshare — REUSED-LINK rejected"
+        }
+      ]
+    },
+    {
+      "capability_id": 184,
+      "capability_name": "Whale & Shark Holder Cohorts",
+      "expected_surface": "whale_shark_holder_cohorts",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "whale_shark_holder_cohorts",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap184",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "whale_shark_holder_cohorts.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "whale_shark_holder_cohorts.feature_ref",
+          "type": "numeric",
+          "condition": "== 184"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "hero_underlying": "bd_platform.arbitrage_portfolio_ux_layer.fund_reporting_status_184",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 185,
+      "capability_name": "Top Holders Intelligence",
+      "expected_surface": "top_holders_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "top_holders_intelligence",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap185",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "top_holders_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "top_holders_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 185"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "hero_underlying": "bd_platform.arbitrage_portfolio_ux_layer.acquisition_evidence_package_185",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 186,
+      "capability_name": "Historical Wallet Balance Tool",
+      "expected_surface": "historical_wallet_balance_tool",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "historical_wallet_balance_tool",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap186",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "historical_wallet_balance_tool.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "historical_wallet_balance_tool.feature_ref",
+          "type": "numeric",
+          "condition": "== 186"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "hero_underlying": "bd_platform.arbitrage_portfolio_ux_layer.continuous_learning_status_186",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 187,
+      "capability_name": "Exchange Inflow Intelligence",
+      "expected_surface": "exchange_inflow_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "exchange_inflow_intelligence",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap187",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "exchange_inflow_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "exchange_inflow_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 187"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "hero_underlying": "bd_platform.arbitrage_portfolio_ux_layer.latency_monitoring_status_187",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 188,
+      "capability_name": "Exchange Outflow Intelligence",
+      "expected_surface": "exchange_outflow_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "exchange_outflow_intelligence",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap188",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "exchange_outflow_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "exchange_outflow_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 188"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "hero_underlying": "bd_platform.arbitrage_portfolio_ux_layer.risk_alert_user_confirmation_188",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 189,
+      "capability_name": "Exchange Netflow Intelligence",
+      "expected_surface": "exchange_netflow_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "exchange_netflow_intelligence",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap189",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "exchange_netflow_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "exchange_netflow_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 189"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "hero_underlying": "bd_platform.arbitrage_portfolio_ux_layer.analyze_liquidity_capacity_189",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 190,
+      "capability_name": "Exchange Supply / Balance Intelligence",
+      "expected_surface": "exchange_supply_balance_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "exchange_supply_balance_intelligence",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap190",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "exchange_supply_balance_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "exchange_supply_balance_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 190"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "hero_underlying": "bd_platform.arbitrage_portfolio_ux_layer.attach_arbitrage_extensions_177_189_190",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 191,
+      "capability_name": "Exchange User Activity",
+      "expected_surface": "exchange_user_activity",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "exchange_user_activity",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap191",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "exchange_user_activity.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "exchange_user_activity.feature_ref",
+          "type": "numeric",
+          "condition": "== 191"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "hero_underlying": "bd_platform.arbitrage_portfolio_ux_layer.run_arbitrage_portfolio_ux_e2e_177_191",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 192,
+      "capability_name": "Network Activity Intelligence",
+      "expected_surface": "network_activity_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "network_activity_intelligence",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap192",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "network_activity_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "network_activity_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 192"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "hero_underlying": "bd_platform.derivatives_ta_research_layer.analyze_funding_rate_192",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 193,
+      "capability_name": "Transaction Volume Intelligence",
+      "expected_surface": "transaction_volume_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "transaction_volume_intelligence",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap193",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "transaction_volume_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "transaction_volume_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 193"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "hero_underlying": "bd_platform.derivatives_ta_research_layer.auto_arbitrage_rejected_status_193",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 194,
+      "capability_name": "NVT Intelligence",
+      "expected_surface": "nvt_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "nvt_intelligence",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap194",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "nvt_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "nvt_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 194"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "hero_underlying": "bd_platform.derivatives_ta_research_layer.compute_cvd_194",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 195,
+      "capability_name": "MVRV Intelligence",
+      "expected_surface": "mvrv_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "mvrv_intelligence",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap195",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "mvrv_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "mvrv_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 195"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 complete delegated path or rebuild dedicated handler",
+      "hero_underlying": "bd_platform.derivatives_ta_research_layer.strategy_simulator_195",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 196,
+      "capability_name": "Realized Cap / Realized Value Intelligence",
+      "expected_surface": "realized_cap_realized_value_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "realized_cap_realized_value_intelligence",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap196",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "realized_cap_realized_value_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "realized_cap_realized_value_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 196"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "hero_underlying": "bd_platform.derivatives_ta_research_layer.ingest_yahoo_finance_macro_196",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 197,
+      "capability_name": "Daily Active Addresses",
+      "expected_surface": "daily_active_addresses",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "daily_active_addresses",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap197",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "daily_active_addresses.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "daily_active_addresses.feature_ref",
+          "type": "numeric",
+          "condition": "== 197"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "hero_underlying": "bd_platform.derivatives_ta_research_layer.attach_macro_research_sources_196_197",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 198,
+      "capability_name": "Age Consumed / Dormancy Intelligence",
+      "expected_surface": "age_consumed_dormancy_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "age_consumed_dormancy_intelligence",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap198",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "age_consumed_dormancy_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "age_consumed_dormancy_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 198"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "hero_underlying": "bd_platform.derivatives_ta_research_layer.ingest_binance_research_198",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 199,
+      "capability_name": "Mean Dollar Invested Age",
+      "expected_surface": "mean_dollar_invested_age",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "mean_dollar_invested_age",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap199",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "mean_dollar_invested_age.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "mean_dollar_invested_age.feature_ref",
+          "type": "numeric",
+          "condition": "== 199"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "hero_underlying": "bd_platform.derivatives_ta_research_layer.ingest_messari_research_199",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    },
+    {
+      "capability_id": 200,
+      "capability_name": "Token Circulation Intelligence",
+      "expected_surface": "token_circulation_intelligence",
+      "status": "NOT_COMPLETE",
+      "production_spine": "batch04",
+      "payload_root": "token_circulation_intelligence",
+      "binding_file": "cap646/batch04_dedicated.py",
+      "binding_function": "_cap200",
+      "domain_rules": [
+        {
+          "field": "success",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "surface",
+          "type": "enum",
+          "condition": "== expected_surface"
+        },
+        {
+          "field": "token_circulation_intelligence.ok",
+          "type": "boolean",
+          "condition": "== true"
+        },
+        {
+          "field": "token_circulation_intelligence.feature_ref",
+          "type": "numeric",
+          "condition": "== 200"
+        }
+      ],
+      "prebuild_classification": "Brownfield",
+      "build_decision": "Strangler \u2014 realign hero fn semantics to catalog; wrap in batch04 dedicated",
+      "hero_underlying": "bd_platform.derivatives_ta_research_layer.ingest_coingecko_reports_200",
+      "source": "catalog+planned_handler_contract \u2014 written before probe (ISO 29148)"
+    }
+  ]
+}

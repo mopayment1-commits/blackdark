@@ -1,0 +1,19 @@
+{
+  "generated_at": "2026-09-03T10:03:25.930485+00:00",
+  "git_commit": "f5bae3f445bcf394898184282fe919a6893fb6d2",
+  "scope": "batch03 spine modules (batch03_dedicated, batch03_production, institutional_gateway)",
+  "local_pytest_coverage": {
+    "pytest_exit_code": 0,
+    "coverage_xml": "coverage-batch03.xml",
+    "line_coverage_pct": 97.66,
+    "stdout_tail": "........................................................................ [ 51%]\n....................................................................     [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage XML written to file /workspace/coverage-batch03.xml\n",
+    "stderr_tail": ""
+  },
+  "quality_gate_status": "NOT_SONAR_VERIFIED",
+  "security_rating": "N/A — see docs/BATCH03_SONAR_QUALITY_GATE_PROOF.json (project snapshot E/A only on last main analysis)",
+  "security_rating_source": "AWAITING_OWNER_ACTION — no Sonar analysis for PR #362 / branch cursor/batch-03-101-150-e85e",
+  "new_code_coverage_pct": null,
+  "coverage_threshold_pct": 80,
+  "critical_gate_ci": ".github/workflows/sonarcloud.yml",
+  "note": "Local batch03 module coverage (97.66%) is secondary only. Sonar Quality Gate for this branch: AWAITING_OWNER_ACTION per docs/BATCH03_SONAR_QUALITY_GATE_PROOF.json"
+}

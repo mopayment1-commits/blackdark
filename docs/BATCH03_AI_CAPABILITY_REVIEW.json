@@ -1,0 +1,229 @@
+{
+  "generated_at": "2026-09-03T10:03:25.929535+00:00",
+  "git_commit": "f5bae3f445bcf394898184282fe919a6893fb6d2",
+  "method": "Static analysis of batch03_dedicated handler imports + bd_platform callee review",
+  "ai_ml_capabilities_requiring_psi_ks": [],
+  "explicit_non_ai_capabilities": [
+    {
+      "capability_id": 101,
+      "capability": "AI Data Analyst / Ask AI",
+      "reason": "NOT_AI_ML \u2014 deterministic/rule-based backend; catalog AI naming only"
+    },
+    {
+      "capability_id": 102,
+      "capability": "AI-Generated Reporting",
+      "reason": "NOT_AI_ML \u2014 deterministic/rule-based backend; catalog AI naming only"
+    },
+    {
+      "capability_id": 104,
+      "capability": "High-Resolution / Block-Level Data Delivery",
+      "reason": "NOT_AI_ML \u2014 deterministic/rule-based backend; catalog AI naming only"
+    },
+    {
+      "capability_id": 105,
+      "capability": "Historical Full-Data Layer",
+      "reason": "NOT_AI_ML \u2014 deterministic/rule-based backend; catalog AI naming only"
+    },
+    {
+      "capability_id": 108,
+      "capability": "Institutional Data & API Delivery",
+      "reason": "NOT_AI_ML \u2014 deterministic/rule-based backend; catalog AI naming only"
+    },
+    {
+      "capability_id": 109,
+      "capability": "White-Label Research & Reporting",
+      "reason": "NOT_AI_ML \u2014 deterministic/rule-based backend; catalog AI naming only"
+    },
+    {
+      "capability_id": 111,
+      "capability": "Exchange Flow Actionability Score",
+      "reason": "NOT_AI_ML \u2014 deterministic/rule-based backend; catalog AI naming only"
+    },
+    {
+      "capability_id": 112,
+      "capability": "Flow-to-Price Explanation Engine",
+      "reason": "NOT_AI_ML \u2014 deterministic/rule-based backend; catalog AI naming only"
+    },
+    {
+      "capability_id": 113,
+      "capability": "Asset Intelligence Profiles",
+      "reason": "NOT_AI_ML \u2014 deterministic/rule-based backend; catalog AI naming only"
+    },
+    {
+      "capability_id": 114,
+      "capability": "Asset Classification & Taxonomy",
+      "reason": "NOT_AI_ML \u2014 deterministic/rule-based backend; catalog AI naming only"
+    },
+    {
+      "capability_id": 115,
+      "capability": "Asset Screener",
+      "reason": "NOT_AI_ML \u2014 deterministic/rule-based backend; catalog AI naming only"
+    },
+    {
+      "capability_id": 116,
+      "capability": "Market Pair Intelligence",
+      "reason": "NOT_AI_ML \u2014 deterministic/rule-based backend; catalog AI naming only"
+    },
+    {
+      "capability_id": 117,
+      "capability": "Real Volume / Quality-Adjusted Volume",
+      "reason": "NOT_AI_ML \u2014 deterministic/rule-based backend; catalog AI naming only"
+    },
+    {
+      "capability_id": 118,
+      "capability": "VWAP Price Intelligence",
+      "reason": "NOT_AI_ML \u2014 deterministic/rule-based backend; catalog AI naming only"
+    },
+    {
+      "capability_id": 119,
+      "capability": "Market Cap & FDV Intelligence",
+      "reason": "NOT_AI_ML \u2014 deterministic/rule-based backend; catalog AI naming only"
+    },
+    {
+      "capability_id": 120,
+      "capability": "Supply Intelligence",
+      "reason": "NOT_AI_ML \u2014 deterministic/rule-based backend; catalog AI naming only"
+    },
+    {
+      "capability_id": 121,
+      "capability": "ROI & ATH Intelligence",
+      "reason": "NOT_AI_ML \u2014 deterministic/rule-based backend; catalog AI naming only"
+    },
+    {
+      "capability_id": 122,
+      "capability": "Volatility Intelligence",
+      "reason": "NOT_AI_ML \u2014 deterministic/rule-based backend; catalog AI naming only"
+    },
+    {
+      "capability_id": 123,
+      "capability": "Sharpe Ratio Intelligence",
+      "reason": "NOT_AI_ML \u2014 deterministic/rule-based backend; catalog AI naming only"
+    },
+    {
+      "capability_id": 124,
+      "capability": "Futures Funding Rate Intelligence",
+      "reason": "NOT_AI_ML \u2014 deterministic/rule-based backend; catalog AI naming only"
+    },
+    {
+      "capability_id": 126,
+      "capability": "Futures Volume Intelligence",
+      "reason": "NOT_AI_ML \u2014 deterministic/rule-based backend; catalog AI naming only"
+    },
+    {
+      "capability_id": 127,
+      "capability": "Multi-Factor Market Overview",
+      "reason": "NOT_AI_ML \u2014 deterministic/rule-based backend; catalog AI naming only"
+    },
+    {
+      "capability_id": 128,
+      "capability": "Momentum Intelligence",
+      "reason": "NOT_AI_ML \u2014 deterministic/rule-based backend; catalog AI naming only"
+    },
+    {
+      "capability_id": 130,
+      "capability": "Mindshare Intelligence",
+      "reason": "NOT_AI_ML \u2014 deterministic/rule-based backend; catalog AI naming only"
+    },
+    {
+      "capability_id": 131,
+      "capability": "Narrative & Sector Intelligence",
+      "reason": "NOT_AI_ML \u2014 deterministic/rule-based backend; catalog AI naming only"
+    },
+    {
+      "capability_id": 132,
+      "capability": "Mindshare Gainers / Losers",
+      "reason": "NOT_AI_ML \u2014 deterministic/rule-based backend; catalog AI naming only"
+    },
+    {
+      "capability_id": 133,
+      "capability": "Curated Crypto News Intelligence",
+      "reason": "NOT_AI_ML \u2014 deterministic/rule-based backend; catalog AI naming only"
+    },
+    {
+      "capability_id": 134,
+      "capability": "AI News Summaries",
+      "reason": "NOT_AI_ML \u2014 deterministic/rule-based backend; catalog AI naming only"
+    },
+    {
+      "capability_id": 135,
+      "capability": "Real-Time Industry Event Monitoring",
+      "reason": "NOT_AI_ML \u2014 deterministic/rule-based backend; catalog AI naming only"
+    },
+    {
+      "capability_id": 136,
+      "capability": "Agentic Monitoring Views",
+      "reason": "NOT_AI_ML \u2014 deterministic/rule-based backend; catalog AI naming only"
+    },
+    {
+      "capability_id": 137,
+      "capability": "Custom Watchlists",
+      "reason": "NOT_AI_ML \u2014 deterministic/rule-based backend; catalog AI naming only"
+    },
+    {
+      "capability_id": 138,
+      "capability": "Token Unlock Calendar",
+      "reason": "NOT_AI_ML \u2014 deterministic/rule-based backend; catalog AI naming only"
+    },
+    {
+      "capability_id": 139,
+      "capability": "Vesting Schedule Intelligence",
+      "reason": "NOT_AI_ML \u2014 deterministic/rule-based backend; catalog AI naming only"
+    },
+    {
+      "capability_id": 140,
+      "capability": "Token Allocation Intelligence",
+      "reason": "NOT_AI_ML \u2014 deterministic/rule-based backend; catalog AI naming only"
+    },
+    {
+      "capability_id": 141,
+      "capability": "Unlock Impact Intelligence",
+      "reason": "NOT_AI_ML \u2014 deterministic/rule-based backend; catalog AI naming only"
+    },
+    {
+      "capability_id": 142,
+      "capability": "Fundraising Rounds Intelligence",
+      "reason": "NOT_AI_ML \u2014 deterministic/rule-based backend; catalog AI naming only"
+    },
+    {
+      "capability_id": 143,
+      "capability": "Investor Intelligence",
+      "reason": "NOT_AI_ML \u2014 deterministic/rule-based backend; catalog AI naming only"
+    },
+    {
+      "capability_id": 144,
+      "capability": "Fund & Fund-Manager Intelligence",
+      "reason": "NOT_AI_ML \u2014 deterministic/rule-based backend; catalog AI naming only"
+    },
+    {
+      "capability_id": 145,
+      "capability": "M&A Intelligence",
+      "reason": "NOT_AI_ML \u2014 deterministic/rule-based backend; catalog AI naming only"
+    },
+    {
+      "capability_id": 146,
+      "capability": "Capital Flow & Funding Trend Intelligence",
+      "reason": "NOT_AI_ML \u2014 deterministic/rule-based backend; catalog AI naming only"
+    },
+    {
+      "capability_id": 147,
+      "capability": "Comparable Funding & Valuation Analysis",
+      "reason": "NOT_AI_ML \u2014 deterministic/rule-based backend; catalog AI naming only"
+    },
+    {
+      "capability_id": 148,
+      "capability": "Due Diligence Report Engine",
+      "reason": "NOT_AI_ML \u2014 deterministic/rule-based backend; catalog AI naming only"
+    },
+    {
+      "capability_id": 149,
+      "capability": "Automated Risk Scoring from Diligence",
+      "reason": "NOT_AI_ML \u2014 deterministic/rule-based backend; catalog AI naming only"
+    },
+    {
+      "capability_id": 150,
+      "capability": "Protocol KPI Intelligence",
+      "reason": "NOT_AI_ML \u2014 deterministic/rule-based backend; catalog AI naming only"
+    }
+  ],
+  "verdict": "ZERO capabilities among the 44 independent builds invoke ML inference, LLM, or stochastic recommendation engines. Catalog names containing 'AI' (#101, #102, #134, #136) map to deterministic rule/seed backends \u2014 PSI/KS not applicable."
+}

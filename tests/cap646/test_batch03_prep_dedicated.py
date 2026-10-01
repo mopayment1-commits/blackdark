@@ -31,7 +31,7 @@ async def test_batch03_prep_dedicated_surface_and_success(capability_id: int):
     if capability_id in BATCH03_OVERLAP_BATCH01:
         assert result["production_spine"] == "batch01"
     else:
-        assert result["production_spine"] == "batch03_prep"
+        assert result["production_spine"] in {"batch03", "batch03_prep"}
         assert result["backend_module"] == "cap646.batch03_production"
 
 

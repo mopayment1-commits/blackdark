@@ -16,7 +16,7 @@ HANDLER_ROUTE_SAMPLES = [
     (88, "T05"),  # liquidation
     (17, "T13"),  # alerts
     (63, "T03"),  # data quality
-    (200, "T04"),  # market (non-batch)
+    (200, "T11"),  # batch04 token circulation — first official spine coverage (SLSA)
     (400, "T12"),  # ai
     (338, "T04"),  # option A data
     (500, "T04"),  # option A data
@@ -90,21 +90,35 @@ async def test_verified_capability_paths():
 
 @pytest.mark.asyncio
 async def test_handler_exception_path(monkeypatch):
+    """SLSA non-regression: #200 routes batch04 spine, not handle_market_capability.
+
+    Gap matrix had #200 as NOT_IMPLEMENTED before Batch04; first correct official
+    coverage is ``handle_batch04_capability`` on track T11 (Token Circulation
+    Intelligence). Patching ``handle_market_capability`` is a stale pre-batch04
+    probe and must not be used for exception-path proof.
+    """
     import cap646.runtime as runtime_mod
 
     async def _boom(*_args, **_kwargs):
         raise RuntimeError("test handler failure")
 
-    monkeypatch.setattr(runtime_mod, "handle_market_capability", _boom)
+    monkeypatch.setattr(runtime_mod, "handle_batch04_capability", _boom)
     result = await execute_capability(200, params={"symbol": "BTC"}, skip_entitlement=True)
     assert result.get("success") is False
     assert "test handler failure" in str(result.get("error", ""))
 
 
 @pytest.mark.asyncio
-async def test_non_batch_market_handler_path():
+async def test_batch04_token_circulation_spine_path():
+    """#200 first official coverage on batch04 spine (NOT_COMPLETE, track T11).
+
+    Pre-batch04: gap matrix NOT_IMPLEMENTED — never closed via handle_market_capability.
+  Post-batch04: routes through BATCH04_IDS → handle_batch04_capability (SLSA provenance).
+    """
     result = await execute_capability(200, params={"symbol": "BTC"}, skip_entitlement=True)
     assert result.get("capability_id") == 200
+    assert result.get("production_spine") == "batch04"
+    assert result.get("surface") == "token_circulation_intelligence"
     assert "classification" in result
 
 
