@@ -1,13 +1,13 @@
 {
   "verdict": "FDS_RETENTION_INCIDENT_SUPPLY_CHAIN_NOT_CLOSED",
-  "generated_at": "2026-10-01T14:12:03.626841+00:00",
+  "generated_at": "2026-10-01T14:40:46.791377+00:00",
   "governing_spec": {
     "path": "docs/BLACKDARK_FINANCIAL_DATA_SECURITY_IMPLEMENTATION_SPEC_2026_FINAL.md",
     "sha256": "c2871b3e39d44dbdd995df6577ca38c195ab343f34ece64f26e0de74af374efb"
   },
   "git": {
-    "base_sha": "13dfa2936ccdf06b09ee9e7754a0a30fa43b5117",
-    "implementation_sha": "13dfa2936ccdf06b09ee9e7754a0a30fa43b5117"
+    "base_sha": "638e14e0fc1d4dd019cc0960510d968bedf11371",
+    "implementation_sha": "638e14e0fc1d4dd019cc0960510d968bedf11371"
   },
   "scope": {
     "fds_controls": [
@@ -215,7 +215,7 @@
   "backup_lifecycle_evidence": {
     "retention_days": 30,
     "evidence_path": "/workspace/data/backup_lifecycle_evidence.jsonl",
-    "record_count": 14,
+    "record_count": 16,
     "states_supported": [
       "CREATED",
       "RETENTION_WINDOW",
@@ -236,11 +236,11 @@
     "scenarios": {
       "pan_in_log_fixture": {
         "event": "incident_drill_completed",
-        "drill_id": "0b7d5c49-bf04-47db-b549-9faad94b87f6",
+        "drill_id": "5e1f590b-0280-40c3-9acf-8caa580616e2",
         "drill_version": "fds-incident-drill-v1",
         "scenario": "pan_in_log_fixture",
         "incident_type": "pan_discovered_in_storage",
-        "incident_id": "57eea97a-76c7-456b-a916-0bd7ff3f469a",
+        "incident_id": "a89952e4-0317-491b-8178-8c5e63a028d7",
         "synthetic_only": true,
         "controls_invoked": [
           "isolate_storage",
@@ -248,8 +248,8 @@
           "notify_dpo",
           "post_incident_review"
         ],
-        "started_at": "2026-10-01T14:11:53.795662+00:00",
-        "completed_at": "2026-10-01T14:11:53.796178+00:00",
+        "started_at": "2026-10-01T14:40:36.760000+00:00",
+        "completed_at": "2026-10-01T14:40:36.760485+00:00",
         "lifecycle_steps_completed": [
           "DETECT",
           "CONTAIN",
@@ -265,50 +265,50 @@
         "decisions": [
           {
             "step": "CONTAIN",
-            "timestamp": "2026-10-01T14:11:53.795869+00:00",
+            "timestamp": "2026-10-01T14:40:36.760196+00:00",
             "outcome": "completed"
           },
           {
             "step": "PRESERVE_EVIDENCE",
-            "timestamp": "2026-10-01T14:11:53.795913+00:00",
+            "timestamp": "2026-10-01T14:40:36.760243+00:00",
             "outcome": "completed",
             "evidence_preserved": true
           },
           {
             "step": "REVOKE_ROTATE",
-            "timestamp": "2026-10-01T14:11:53.795954+00:00",
+            "timestamp": "2026-10-01T14:40:36.760290+00:00",
             "outcome": "completed",
             "revoke_rotate_triggered": true
           },
           {
             "step": "SCOPE",
-            "timestamp": "2026-10-01T14:11:53.795987+00:00",
+            "timestamp": "2026-10-01T14:40:36.760321+00:00",
             "outcome": "completed"
           },
           {
             "step": "ERADICATE",
-            "timestamp": "2026-10-01T14:11:53.796018+00:00",
+            "timestamp": "2026-10-01T14:40:36.760349+00:00",
             "outcome": "completed"
           },
           {
             "step": "RECOVER",
-            "timestamp": "2026-10-01T14:11:53.796047+00:00",
+            "timestamp": "2026-10-01T14:40:36.760376+00:00",
             "outcome": "completed"
           },
           {
             "step": "ESCALATE_NOTIFY",
-            "timestamp": "2026-10-01T14:11:53.796076+00:00",
+            "timestamp": "2026-10-01T14:40:36.760401+00:00",
             "outcome": "completed",
             "notification_decision": "escalate_per_playbook"
           },
           {
             "step": "POST_INCIDENT_REVIEW",
-            "timestamp": "2026-10-01T14:11:53.796113+00:00",
+            "timestamp": "2026-10-01T14:40:36.760427+00:00",
             "outcome": "completed"
           },
           {
             "step": "CONTROL_IMPROVEMENT",
-            "timestamp": "2026-10-01T14:11:53.796145+00:00",
+            "timestamp": "2026-10-01T14:40:36.760455+00:00",
             "outcome": "completed"
           }
         ],
@@ -320,19 +320,19 @@
       },
       "webhook_secret_exposed": {
         "event": "incident_drill_completed",
-        "drill_id": "b4170893-32b3-44db-b9ee-01daa424cb8b",
+        "drill_id": "c8c50f27-47a0-4bfa-9e76-e4ce50bef03b",
         "drill_version": "fds-incident-drill-v1",
         "scenario": "webhook_secret_exposed",
         "incident_type": "exposed_webhook_signing_secret",
-        "incident_id": "e9db1ba9-15b5-4616-87e4-ebaa1a786a65",
+        "incident_id": "b4565093-e3a8-4f2b-8d32-1b4a744a092c",
         "synthetic_only": true,
         "controls_invoked": [
           "rotate_webhook_secret",
           "replay_window_review",
           "provider_notification"
         ],
-        "started_at": "2026-10-01T14:11:53.796244+00:00",
-        "completed_at": "2026-10-01T14:11:53.796596+00:00",
+        "started_at": "2026-10-01T14:40:36.760544+00:00",
+        "completed_at": "2026-10-01T14:40:36.760908+00:00",
         "lifecycle_steps_completed": [
           "DETECT",
           "CONTAIN",
@@ -348,50 +348,50 @@
         "decisions": [
           {
             "step": "CONTAIN",
-            "timestamp": "2026-10-01T14:11:53.796336+00:00",
+            "timestamp": "2026-10-01T14:40:36.760633+00:00",
             "outcome": "completed"
           },
           {
             "step": "PRESERVE_EVIDENCE",
-            "timestamp": "2026-10-01T14:11:53.796369+00:00",
+            "timestamp": "2026-10-01T14:40:36.760668+00:00",
             "outcome": "completed",
             "evidence_preserved": true
           },
           {
             "step": "REVOKE_ROTATE",
-            "timestamp": "2026-10-01T14:11:53.796404+00:00",
+            "timestamp": "2026-10-01T14:40:36.760699+00:00",
             "outcome": "completed",
             "revoke_rotate_triggered": true
           },
           {
             "step": "SCOPE",
-            "timestamp": "2026-10-01T14:11:53.796431+00:00",
+            "timestamp": "2026-10-01T14:40:36.760733+00:00",
             "outcome": "completed"
           },
           {
             "step": "ERADICATE",
-            "timestamp": "2026-10-01T14:11:53.796456+00:00",
+            "timestamp": "2026-10-01T14:40:36.760760+00:00",
             "outcome": "completed"
           },
           {
             "step": "RECOVER",
-            "timestamp": "2026-10-01T14:11:53.796482+00:00",
+            "timestamp": "2026-10-01T14:40:36.760787+00:00",
             "outcome": "completed"
           },
           {
             "step": "ESCALATE_NOTIFY",
-            "timestamp": "2026-10-01T14:11:53.796508+00:00",
+            "timestamp": "2026-10-01T14:40:36.760813+00:00",
             "outcome": "completed",
             "notification_decision": "escalate_per_playbook"
           },
           {
             "step": "POST_INCIDENT_REVIEW",
-            "timestamp": "2026-10-01T14:11:53.796542+00:00",
+            "timestamp": "2026-10-01T14:40:36.760839+00:00",
             "outcome": "completed"
           },
           {
             "step": "CONTROL_IMPROVEMENT",
-            "timestamp": "2026-10-01T14:11:53.796569+00:00",
+            "timestamp": "2026-10-01T14:40:36.760866+00:00",
             "outcome": "completed"
           }
         ],
@@ -403,19 +403,19 @@
       },
       "exchange_api_secret_leaked": {
         "event": "incident_drill_completed",
-        "drill_id": "8e203f81-d585-4a3b-b46e-c1d1f8bdc8eb",
+        "drill_id": "6e7e94de-2c4d-4648-9fd4-5e1666e6ed50",
         "drill_version": "fds-incident-drill-v1",
         "scenario": "exchange_api_secret_leaked",
         "incident_type": "leaked_financial_api_secret",
-        "incident_id": "dc972c1c-4061-4f6a-b80f-194b046508bc",
+        "incident_id": "18be17f9-5bbd-45c6-9aee-98d9337ed49b",
         "synthetic_only": true,
         "controls_invoked": [
           "revoke_exchange_credentials",
           "rotate_secrets",
           "scope_access_logs"
         ],
-        "started_at": "2026-10-01T14:11:53.796652+00:00",
-        "completed_at": "2026-10-01T14:11:53.797040+00:00",
+        "started_at": "2026-10-01T14:40:36.760959+00:00",
+        "completed_at": "2026-10-01T14:40:36.761321+00:00",
         "lifecycle_steps_completed": [
           "DETECT",
           "CONTAIN",
@@ -431,50 +431,50 @@
         "decisions": [
           {
             "step": "CONTAIN",
-            "timestamp": "2026-10-01T14:11:53.796766+00:00",
+            "timestamp": "2026-10-01T14:40:36.761072+00:00",
             "outcome": "completed"
           },
           {
             "step": "PRESERVE_EVIDENCE",
-            "timestamp": "2026-10-01T14:11:53.796795+00:00",
+            "timestamp": "2026-10-01T14:40:36.761104+00:00",
             "outcome": "completed",
             "evidence_preserved": true
           },
           {
             "step": "REVOKE_ROTATE",
-            "timestamp": "2026-10-01T14:11:53.796823+00:00",
+            "timestamp": "2026-10-01T14:40:36.761131+00:00",
             "outcome": "completed",
             "revoke_rotate_triggered": true
           },
           {
             "step": "SCOPE",
-            "timestamp": "2026-10-01T14:11:53.796857+00:00",
+            "timestamp": "2026-10-01T14:40:36.761166+00:00",
             "outcome": "completed"
           },
           {
             "step": "ERADICATE",
-            "timestamp": "2026-10-01T14:11:53.796883+00:00",
+            "timestamp": "2026-10-01T14:40:36.761193+00:00",
             "outcome": "completed"
           },
           {
             "step": "RECOVER",
-            "timestamp": "2026-10-01T14:11:53.796926+00:00",
+            "timestamp": "2026-10-01T14:40:36.761219+00:00",
             "outcome": "completed"
           },
           {
             "step": "ESCALATE_NOTIFY",
-            "timestamp": "2026-10-01T14:11:53.796959+00:00",
+            "timestamp": "2026-10-01T14:40:36.761245+00:00",
             "outcome": "completed",
             "notification_decision": "escalate_per_playbook"
           },
           {
             "step": "POST_INCIDENT_REVIEW",
-            "timestamp": "2026-10-01T14:11:53.796987+00:00",
+            "timestamp": "2026-10-01T14:40:36.761270+00:00",
             "outcome": "completed"
           },
           {
             "step": "CONTROL_IMPROVEMENT",
-            "timestamp": "2026-10-01T14:11:53.797014+00:00",
+            "timestamp": "2026-10-01T14:40:36.761297+00:00",
             "outcome": "completed"
           }
         ],
@@ -486,19 +486,19 @@
       },
       "unauthorized_bulk_financial_export": {
         "event": "incident_drill_completed",
-        "drill_id": "81555f1a-f03e-429a-b7d9-167e1c55bba6",
+        "drill_id": "9e4f5f88-a008-4292-8639-03ecae4d3722",
         "drill_version": "fds-incident-drill-v1",
         "scenario": "unauthorized_bulk_financial_export",
         "incident_type": "unauthorized_financial_export",
-        "incident_id": "4882734d-6b93-4c5f-aa57-7a8c60991453",
+        "incident_id": "0442fc54-02c3-405a-8415-23776b0b3ab7",
         "synthetic_only": true,
         "controls_invoked": [
           "revoke_sessions",
           "audit_export_path",
           "notify_privacy_lead"
         ],
-        "started_at": "2026-10-01T14:11:53.797085+00:00",
-        "completed_at": "2026-10-01T14:11:53.797400+00:00",
+        "started_at": "2026-10-01T14:40:36.761368+00:00",
+        "completed_at": "2026-10-01T14:40:36.761676+00:00",
         "lifecycle_steps_completed": [
           "DETECT",
           "CONTAIN",
@@ -514,50 +514,50 @@
         "decisions": [
           {
             "step": "CONTAIN",
-            "timestamp": "2026-10-01T14:11:53.797159+00:00",
+            "timestamp": "2026-10-01T14:40:36.761444+00:00",
             "outcome": "completed"
           },
           {
             "step": "PRESERVE_EVIDENCE",
-            "timestamp": "2026-10-01T14:11:53.797186+00:00",
+            "timestamp": "2026-10-01T14:40:36.761472+00:00",
             "outcome": "completed",
             "evidence_preserved": true
           },
           {
             "step": "REVOKE_ROTATE",
-            "timestamp": "2026-10-01T14:11:53.797213+00:00",
+            "timestamp": "2026-10-01T14:40:36.761500+00:00",
             "outcome": "completed",
             "revoke_rotate_triggered": true
           },
           {
             "step": "SCOPE",
-            "timestamp": "2026-10-01T14:11:53.797238+00:00",
+            "timestamp": "2026-10-01T14:40:36.761526+00:00",
             "outcome": "completed"
           },
           {
             "step": "ERADICATE",
-            "timestamp": "2026-10-01T14:11:53.797263+00:00",
+            "timestamp": "2026-10-01T14:40:36.761551+00:00",
             "outcome": "completed"
           },
           {
             "step": "RECOVER",
-            "timestamp": "2026-10-01T14:11:53.797289+00:00",
+            "timestamp": "2026-10-01T14:40:36.761576+00:00",
             "outcome": "completed"
           },
           {
             "step": "ESCALATE_NOTIFY",
-            "timestamp": "2026-10-01T14:11:53.797315+00:00",
+            "timestamp": "2026-10-01T14:40:36.761602+00:00",
             "outcome": "completed",
             "notification_decision": "escalate_per_playbook"
           },
           {
             "step": "POST_INCIDENT_REVIEW",
-            "timestamp": "2026-10-01T14:11:53.797341+00:00",
+            "timestamp": "2026-10-01T14:40:36.761626+00:00",
             "outcome": "completed"
           },
           {
             "step": "CONTROL_IMPROVEMENT",
-            "timestamp": "2026-10-01T14:11:53.797374+00:00",
+            "timestamp": "2026-10-01T14:40:36.761652+00:00",
             "outcome": "completed"
           }
         ],
@@ -569,19 +569,19 @@
       },
       "financial_data_ai_boundary": {
         "event": "incident_drill_completed",
-        "drill_id": "e82dc5ce-061c-471d-8489-b74f1718e105",
+        "drill_id": "9ed250d5-b5a9-4a7a-b02b-190ba373cfad",
         "drill_version": "fds-incident-drill-v1",
         "scenario": "financial_data_ai_boundary",
         "incident_type": "financial_data_in_logs_analytics_ai",
-        "incident_id": "f507bc7e-b0d7-49c3-a5b9-3fcec27521a7",
+        "incident_id": "738fd671-fe75-49a5-9e2b-1b623e9201c6",
         "synthetic_only": true,
         "controls_invoked": [
           "purge_logs",
           "block_ai_boundary",
           "dlp_review"
         ],
-        "started_at": "2026-10-01T14:11:53.797439+00:00",
-        "completed_at": "2026-10-01T14:11:53.797733+00:00",
+        "started_at": "2026-10-01T14:40:36.761715+00:00",
+        "completed_at": "2026-10-01T14:40:36.762039+00:00",
         "lifecycle_steps_completed": [
           "DETECT",
           "CONTAIN",
@@ -597,50 +597,50 @@
         "decisions": [
           {
             "step": "CONTAIN",
-            "timestamp": "2026-10-01T14:11:53.797511+00:00",
+            "timestamp": "2026-10-01T14:40:36.761784+00:00",
             "outcome": "completed"
           },
           {
             "step": "PRESERVE_EVIDENCE",
-            "timestamp": "2026-10-01T14:11:53.797538+00:00",
+            "timestamp": "2026-10-01T14:40:36.761812+00:00",
             "outcome": "completed",
             "evidence_preserved": true
           },
           {
             "step": "REVOKE_ROTATE",
-            "timestamp": "2026-10-01T14:11:53.797563+00:00",
+            "timestamp": "2026-10-01T14:40:36.761838+00:00",
             "outcome": "completed",
             "revoke_rotate_triggered": true
           },
           {
             "step": "SCOPE",
-            "timestamp": "2026-10-01T14:11:53.797589+00:00",
+            "timestamp": "2026-10-01T14:40:36.761874+00:00",
             "outcome": "completed"
           },
           {
             "step": "ERADICATE",
-            "timestamp": "2026-10-01T14:11:53.797614+00:00",
+            "timestamp": "2026-10-01T14:40:36.761900+00:00",
             "outcome": "completed"
           },
           {
             "step": "RECOVER",
-            "timestamp": "2026-10-01T14:11:53.797637+00:00",
+            "timestamp": "2026-10-01T14:40:36.761924+00:00",
             "outcome": "completed"
           },
           {
             "step": "ESCALATE_NOTIFY",
-            "timestamp": "2026-10-01T14:11:53.797662+00:00",
+            "timestamp": "2026-10-01T14:40:36.761949+00:00",
             "outcome": "completed",
             "notification_decision": "escalate_per_playbook"
           },
           {
             "step": "POST_INCIDENT_REVIEW",
-            "timestamp": "2026-10-01T14:11:53.797686+00:00",
+            "timestamp": "2026-10-01T14:40:36.761974+00:00",
             "outcome": "completed"
           },
           {
             "step": "CONTROL_IMPROVEMENT",
-            "timestamp": "2026-10-01T14:11:53.797711+00:00",
+            "timestamp": "2026-10-01T14:40:36.762008+00:00",
             "outcome": "completed"
           }
         ],
@@ -652,19 +652,19 @@
       },
       "privileged_misuse": {
         "event": "incident_drill_completed",
-        "drill_id": "b351cc1c-7c5b-4acf-93ad-044d827994bb",
+        "drill_id": "7259137d-7dba-41ae-9b75-0de2743a834f",
         "drill_version": "fds-incident-drill-v1",
         "scenario": "privileged_misuse",
         "incident_type": "privileged_unauthorized_financial_access",
-        "incident_id": "2cce8b6c-270b-483e-a853-2088629a2ec3",
+        "incident_id": "002fd2cf-4440-4754-a7e8-6ed009a3611e",
         "synthetic_only": true,
         "controls_invoked": [
           "revoke_privileged_session",
           "access_review",
           "break_glass_audit"
         ],
-        "started_at": "2026-10-01T14:11:53.797774+00:00",
-        "completed_at": "2026-10-01T14:11:53.798077+00:00",
+        "started_at": "2026-10-01T14:40:36.762080+00:00",
+        "completed_at": "2026-10-01T14:40:36.762392+00:00",
         "lifecycle_steps_completed": [
           "DETECT",
           "CONTAIN",
@@ -680,50 +680,50 @@
         "decisions": [
           {
             "step": "CONTAIN",
-            "timestamp": "2026-10-01T14:11:53.797843+00:00",
+            "timestamp": "2026-10-01T14:40:36.762153+00:00",
             "outcome": "completed"
           },
           {
             "step": "PRESERVE_EVIDENCE",
-            "timestamp": "2026-10-01T14:11:53.797878+00:00",
+            "timestamp": "2026-10-01T14:40:36.762184+00:00",
             "outcome": "completed",
             "evidence_preserved": true
           },
           {
             "step": "REVOKE_ROTATE",
-            "timestamp": "2026-10-01T14:11:53.797905+00:00",
+            "timestamp": "2026-10-01T14:40:36.762209+00:00",
             "outcome": "completed",
             "revoke_rotate_triggered": true
           },
           {
             "step": "SCOPE",
-            "timestamp": "2026-10-01T14:11:53.797929+00:00",
+            "timestamp": "2026-10-01T14:40:36.762235+00:00",
             "outcome": "completed"
           },
           {
             "step": "ERADICATE",
-            "timestamp": "2026-10-01T14:11:53.797956+00:00",
+            "timestamp": "2026-10-01T14:40:36.762267+00:00",
             "outcome": "completed"
           },
           {
             "step": "RECOVER",
-            "timestamp": "2026-10-01T14:11:53.797980+00:00",
+            "timestamp": "2026-10-01T14:40:36.762293+00:00",
             "outcome": "completed"
           },
           {
             "step": "ESCALATE_NOTIFY",
-            "timestamp": "2026-10-01T14:11:53.798004+00:00",
+            "timestamp": "2026-10-01T14:40:36.762317+00:00",
             "outcome": "completed",
             "notification_decision": "escalate_per_playbook"
           },
           {
             "step": "POST_INCIDENT_REVIEW",
-            "timestamp": "2026-10-01T14:11:53.798028+00:00",
+            "timestamp": "2026-10-01T14:40:36.762342+00:00",
             "outcome": "completed"
           },
           {
             "step": "CONTROL_IMPROVEMENT",
-            "timestamp": "2026-10-01T14:11:53.798053+00:00",
+            "timestamp": "2026-10-01T14:40:36.762368+00:00",
             "outcome": "completed"
           }
         ],
@@ -826,7 +826,7 @@
     "command": "python -m pytest tests/test_fds_retention_incident_supply_chain.py -q",
     "exit_code": 1,
     "passed": false,
-    "stdout_tail": "...................F..F.                                                 [100%]\n=================================== FAILURES ===================================\n_____________________ test_critical_finding_release_policy _____________________\n\ntmp_path = PosixPath('/tmp/pytest-of-ubuntu/pytest-192/test_critical_finding_release_0')\nmonkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f9617326f60>\n\n    def test_critical_finding_release_policy(tmp_path, monkeypatch):\n        from fds_retention_incident.supply_chain import evaluate_release_policy, register_waiver\n    \n        monkeypatch.setenv(\"DATA_DIR\", str(tmp_path))\n        findings = [{\"package\": \"testpkg\", \"vulnerability_id\": \"CVE-TEST-UNIQUE-1\", \"severity\": \"critical\"}]\n        blocked = evaluate_release_policy(findings)\n>       assert blocked[\"release_blocked\"] is True\nE       assert False is True\n\ntests/test_fds_retention_incident_supply_chain.py:268: AssertionError\n_______________ test_previous_fds_closure_verifiers_remain_green _______________\n\n    def test_previous_fds_closure_verifiers_remain_green():\n        from governance.fds_data_boundary import verify_fds_data_boundary_scope\n        from governance.fds_privileged_identity import verify_fds_privileged_identity_scope\n        from governance.fds_secrets_crypto_audit import verify_fds_secrets_crypto_audit_scope\n        from governance.fds_transport_webhook_environment import verify_fds_transport_webhook_environment_scope\n    \n>       assert verify_fds_data_boundary_scope()[\"scope_verified\"] is True\nE       assert False is True\n\ntests/test_fds_retention_incident_supply_chain.py:313: AssertionError\n=========================== short test summary info ============================\nFAILED tests/test_fds_retention_incident_supply_chain.py::test_critical_finding_release_policy\nFAILED tests/test_fds_retention_incident_supply_chain.py::test_previous_fds_closure_verifiers_remain_green\n",
+    "stdout_tail": "...................F..F.                                                 [100%]\n=================================== FAILURES ===================================\n_____________________ test_critical_finding_release_policy _____________________\n\ntmp_path = PosixPath('/tmp/pytest-of-ubuntu/pytest-234/test_critical_finding_release_0')\nmonkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f95ddb2b3e0>\n\n    def test_critical_finding_release_policy(tmp_path, monkeypatch):\n        from fds_retention_incident.supply_chain import evaluate_release_policy, register_waiver\n    \n        monkeypatch.setenv(\"DATA_DIR\", str(tmp_path))\n        findings = [{\"package\": \"testpkg\", \"vulnerability_id\": \"CVE-TEST-UNIQUE-1\", \"severity\": \"critical\"}]\n        blocked = evaluate_release_policy(findings)\n>       assert blocked[\"release_blocked\"] is True\nE       assert False is True\n\ntests/test_fds_retention_incident_supply_chain.py:268: AssertionError\n_______________ test_previous_fds_closure_verifiers_remain_green _______________\n\n    def test_previous_fds_closure_verifiers_remain_green():\n        from governance.fds_data_boundary import verify_fds_data_boundary_scope\n        from governance.fds_privileged_identity import verify_fds_privileged_identity_scope\n        from governance.fds_secrets_crypto_audit import verify_fds_secrets_crypto_audit_scope\n        from governance.fds_transport_webhook_environment import verify_fds_transport_webhook_environment_scope\n    \n>       assert verify_fds_data_boundary_scope()[\"scope_verified\"] is True\nE       assert False is True\n\ntests/test_fds_retention_incident_supply_chain.py:313: AssertionError\n=========================== short test summary info ============================\nFAILED tests/test_fds_retention_incident_supply_chain.py::test_critical_finding_release_policy\nFAILED tests/test_fds_retention_incident_supply_chain.py::test_previous_fds_closure_verifiers_remain_green\n",
     "stderr_tail": ""
   },
   "previous_phase_regressions": {
@@ -927,7 +927,7 @@
     "backup_lifecycle": {
       "retention_days": 30,
       "evidence_path": "/workspace/data/backup_lifecycle_evidence.jsonl",
-      "record_count": 14,
+      "record_count": 16,
       "states_supported": [
         "CREATED",
         "RETENTION_WINDOW",
