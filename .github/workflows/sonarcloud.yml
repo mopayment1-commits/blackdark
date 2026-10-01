@@ -128,6 +128,10 @@ jobs:
             tests/launch57/test_phase5_adaptive_batch_a.py \
             tests/launch57/test_phase6_adaptive_batch1.py \
             tests/launch57/test_generate_spec_closure_markdown_coverage.py \
+            tests/launch57/test_literal_closure_documents_coverage.py \
+            tests/launch57/test_generate_financial_security_closure_coverage.py \
+            tests/launch57/test_gov_io_coverage.py \
+            tests/test_failure_injection_sonar_coverage.py \
             tests/launch57/test_commercial_inventory_common.py \
             tests/launch57/test_adaptive_decision_experience_common.py \
             tests/launch57/test_temporal_evidence_intelligence_support_layer_spec_common.py \

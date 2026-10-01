@@ -56,3 +56,27 @@ def test_pre_launch_public_document_strips_hygiene_payload():
     assert doc["gates"]["g"]["status"] == "FAIL"
     console = pr.pre_launch_console_summary(report)
     assert console["gate_statuses"]["g"] == "FAIL"
+
+
+def test_institutional_matrix_public_and_console_summary():
+    matrix = {
+        "generated_at": "t",
+        "frameworks": {"f": 1},
+        "summary": {
+            "domain_status_counts": {"PASS": 2, "PARTIAL": 1, "FAIL": 0},
+            "institutional_maturity_score_100": 90,
+            "final_goal_achieved": False,
+            "final_goal_blocked_by": ["x"],
+            "excluded_from_scope": ["y"],
+            "automatable_backlog_priority": ["z"],
+        },
+    }
+    doc = pr.institutional_matrix_public_document(matrix)
+    assert doc["summary"]["institutional_maturity_score_100"] == 90
+    console = pr.institutional_matrix_console_summary(matrix)
+    assert console["final_goal_achieved"] is False
+
+
+def test_gate_public_view_non_dict():
+    assert pr._gate_public_view(None)["status"] == "UNKNOWN"
+    assert pr._gate_public_view({"status": "PASS", "note": "ok"})["note"] == "ok"
