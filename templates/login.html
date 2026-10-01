@@ -6,6 +6,7 @@
     <title>BLACKDARK — Login</title>
     <link rel="stylesheet" href="/static/css/trust-os.css">
     {% if google_signin.state == 'CONFIGURED' %}
+    {# SRI غير مُضاف: تقرير 28 Sep يمنع الإغلاق بـ SRI قبل دعم المورد، ولم يُجلب نص Google في هذه الجولة. #}
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     {% endif %}
     <style>

@@ -31,8 +31,9 @@ button,.btn{border:0;background:var(--ok);color:#062016;font-weight:800;padding:
 <div class="box" data-evidence><p class="sub" id="line"></p><p class="muted" id="disc"></p></div>
 <a class="btn" id="share" href="#" target="_blank" rel="noopener">Share</a>
 </main>
+<script src="/static/js/dom_escape.js"></script>
 <script>
-async function load(){const d=await(await fetch('/api/validity-decay?limit=20')).json();document.getElementById('hero').textContent=d.headline||'—';document.getElementById('line').textContent=`n=${d.sample_n} · median ${d.median_validity_minutes} min · mean ${d.mean_validity_minutes} min`;document.getElementById('disc').textContent=d.doctrine||'';document.getElementById('share').href=d.share_urls?.x||'#';}load();
+async function load(){const d=await(await fetch('/api/validity-decay?limit=20')).json();document.getElementById('hero').textContent=d.headline||'—';document.getElementById('line').textContent=`n=${d.sample_n} · median ${d.median_validity_minutes} min · mean ${d.mean_validity_minutes} min`;document.getElementById('disc').textContent=d.doctrine||'';window.BDDomSafe.setAnchorHref(document.getElementById('share'),d.share_urls?.x);}load();
 </script>
 </body>
 </html>

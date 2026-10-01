@@ -1097,7 +1097,7 @@
     <script src="/static/js/dom_escape.js"></script>
     <script src="/static/js/public_decision_map.js"></script>
     <script>
-        const { escapeHtml, esc, safeUrl } = window.BDDomSafe;
+        const { escapeHtml, esc, safeUrl, setAnchorHref, assignLocationHref, openWindow } = window.BDDomSafe;
 
         function currentLang() {
             return (window.BD_I18N && window.BD_I18N.lang) || document.documentElement.lang || 'en';
@@ -1143,11 +1143,11 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             const tgBtn = document.getElementById('shareTelegramBtn');
             const rdBtn = document.getElementById('shareRedditBtn');
 
-            if (xBtn) xBtn.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
-            if (fbBtn) fbBtn.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(text)}`;
-            if (waBtn) waBtn.href = `https://wa.me/?text=${encodeURIComponent(full)}`;
-            if (tgBtn) tgBtn.href = `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`;
-            if (rdBtn) rdBtn.href = `https://www.reddit.com/submit?url=${encodeURIComponent(url)}&title=${encodeURIComponent(text)}`;
+            if (xBtn) setAnchorHref(xBtn, `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`);
+            if (fbBtn) setAnchorHref(fbBtn, `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(text)}`);
+            if (waBtn) setAnchorHref(waBtn, `https://wa.me/?text=${encodeURIComponent(full)}`);
+            if (tgBtn) setAnchorHref(tgBtn, `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`);
+            if (rdBtn) setAnchorHref(rdBtn, `https://www.reddit.com/submit?url=${encodeURIComponent(url)}&title=${encodeURIComponent(text)}`);
 
             const igBtn = document.getElementById('shareInstagramBtn');
             if (igBtn) {
@@ -1501,7 +1501,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 const mode = document.getElementById('landingUxMode');
                 if (mode && d.ux_mode_default) mode.value = d.ux_mode_default;
                 if ((aud === 'fund' || aud === 'whale' || aud === 'pro') && d.entry_path) {
-                    window.location.href = d.entry_path;
+                    assignLocationHref(d.entry_path);
                 }
             } catch (error) { console.debug(error); }
         }
@@ -1571,7 +1571,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 if (!link) return;
                 const username = (data.bot_username || '').replace('@', '');
                 if (username) {
-                    link.href = `https://t.me/${username}`;
+                    setAnchorHref(link, `https://t.me/${username}`);
                     link.textContent = `@${username} — Start Free`;
                 }
             } catch (error) { console.debug(error); }
@@ -1867,7 +1867,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             const text = proof.share_text || 'BLACKDARK Trust Pulse — verify /oracle-accuracy';
             if (navigator.clipboard) navigator.clipboard.writeText(text).catch(() => {});
             if (proof.share_urls && proof.share_urls.x) {
-                window.open(proof.share_urls.x, '_blank', 'noopener');
+                openWindow(proof.share_urls.x);
             }
         }
         document.getElementById('lpShareBtn')?.addEventListener('click', shareLandingPulseProof);

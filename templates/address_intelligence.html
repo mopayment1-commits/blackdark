@@ -116,7 +116,13 @@ th{color:var(--muted);font-size:.72rem;text-transform:uppercase}
 </main>
 <script>
 const $=id=>document.getElementById(id);
-function metric(k,v){return `<div class="metric"><div class="k">${k}</div><div class="v">${v}</div></div>`;}
+function clearEl(el){while(el&&el.firstChild)el.removeChild(el.firstChild);}
+function appendMetric(parent,k,v){
+  const d=document.createElement('div');d.className='metric';
+  const kk=document.createElement('div');kk.className='k';kk.textContent=String(k??'');
+  const vv=document.createElement('div');vv.className='v';vv.textContent=String(v??'');
+  d.appendChild(kk);d.appendChild(vv);parent.appendChild(d);
+}
 function params(){return {addr:encodeURIComponent($('addrInput').value.trim()),chain:encodeURIComponent($('chainSelect').value)};}
 document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
   document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
@@ -126,8 +132,8 @@ document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
 }));
 
 function renderChart(series){
-  const wrap=$('histChart'); wrap.innerHTML='';
-  if(!series||!series.length){wrap.innerHTML='<div class="empty">No history data</div>';return;}
+  const wrap=$('histChart'); clearEl(wrap);
+  if(!series||!series.length){const e=document.createElement('div');e.className='empty';e.textContent='No history data';wrap.appendChild(e);return;}
   const vals=series.map(p=>p.total_usd||0);
   const max=Math.max(...vals,1);
   const w=wrap.clientWidth||600;
@@ -149,14 +155,15 @@ async function loadSearch(){
     const d=await(await fetch(`/api/platform/address-intelligence/search?address=${addr}&chain=${chain}`)).json();
     if(!d.ok) throw new Error(d.error||'Search failed');
     $('searchHero').textContent=d.entity_label?`${d.entity_label}`:`${d.address.slice(0,10)}…`;
-    $('searchMetrics').innerHTML=[
-      metric('Total USD',d.total_usd?`$${Math.round(d.total_usd).toLocaleString()}`:'—'),
-      metric('Chain',d.chain||'—'),
-      metric('Source',(d.balance||{}).source||'—'),
-      metric('Clusters',((d.clusters||{}).clusters||[]).length)
-    ].join('');
+    const sm=$('searchMetrics');clearEl(sm);
+    appendMetric(sm,'Total USD',d.total_usd?`$${Math.round(d.total_usd).toLocaleString()}`:'—');
+    appendMetric(sm,'Chain',d.chain||'—');
+    appendMetric(sm,'Source',(d.balance||{}).source||'—');
+    appendMetric(sm,'Clusters',((d.clusters||{}).clusters||[]).length);
     const labels=(d.labels||{}).labels||[];
-    $('searchLabels').innerHTML=labels.length?labels.map(l=>`<span class="label-pill">${l.label||'—'}</span>`).join(''):'<span class="empty">No labels</span>';
+    const sl=$('searchLabels');clearEl(sl);
+    if(!labels.length){const e=document.createElement('span');e.className='empty';e.textContent='No labels';sl.appendChild(e);}
+    else labels.forEach(l=>{const s=document.createElement('span');s.className='label-pill';s.textContent=l.label||'—';sl.appendChild(s);});
     $('searchMeta').textContent=`${d.latency_ms}ms · ${d.data_state} · SLA ${d.sla_met?'met':'missed'}`;
     $('searchResults').style.display='block';
   }catch(e){$('searchError').textContent=e.message;$('searchError').style.display='block';}
@@ -184,8 +191,17 @@ async function loadUpdates(){
     const d=await(await fetch(`/api/platform/address-intelligence/updates?address=${addr}&chain=${chain}`)).json();
     if(!d.ok) throw new Error(d.error||'Updates failed');
     $('updHero').textContent=d.headline||'—';
-    const feed=(d.feed||[]).map(u=>`<div class="feed-row"><span>${u.timestamp?.slice(0,19)||'—'}</span><span class="${u.direction==='inflow'?'inflow':'outflow'}">${u.direction} $${Math.abs(u.delta_usd||0).toLocaleString()}</span><span>$${Math.round(u.current_usd||0).toLocaleString()}</span></div>`).join('');
-    $('updFeed').innerHTML=feed||'<div class="empty">No updates yet — snapshots accumulate on each poll</div>';
+    const uf=$('updFeed');clearEl(uf);
+    const feed=d.feed||[];
+    if(!feed.length){const e=document.createElement('div');e.className='empty';e.textContent='No updates yet — snapshots accumulate on each poll';uf.appendChild(e);}
+    else feed.forEach(u=>{
+      const row=document.createElement('div');row.className='feed-row';
+      const t=document.createElement('span');t.textContent=u.timestamp?.slice(0,19)||'—';
+      const dir=document.createElement('span');dir.className=u.direction==='inflow'?'inflow':'outflow';
+      dir.textContent=`${u.direction} $${Math.abs(u.delta_usd||0).toLocaleString()}`;
+      const bal=document.createElement('span');bal.textContent=`$${Math.round(u.current_usd||0).toLocaleString()}`;
+      row.appendChild(t);row.appendChild(dir);row.appendChild(bal);uf.appendChild(row);
+    });
     $('updMeta').textContent=`${d.feed_count} updates · ${d.latency_ms}ms · chain ${d.chain}`;
     $('updResults').style.display='block';
   }catch(e){$('updError').textContent=e.message;$('updError').style.display='block';}

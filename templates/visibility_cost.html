@@ -31,8 +31,9 @@ button,.btn{border:0;background:var(--ok);color:#062016;font-weight:800;padding:
 <div class="box" data-evidence><p class="sub" id="line"></p><p class="muted" id="disc"></p></div>
 <a class="btn" id="share" href="#" target="_blank" rel="noopener">Share</a>
 </main>
+<script src="/static/js/dom_escape.js"></script>
 <script>
-async function load(){const a=document.getElementById('asset').value||'ETH';const n=document.getElementById('n').value||250000;const d=await(await fetch('/api/visibility-cost?asset='+encodeURIComponent(a)+'&notional_usd='+encodeURIComponent(n))).json();document.getElementById('hero').textContent=d.headline||('≈ $'+(d.estimated_visibility_cost_usd??0));document.getElementById('line').textContent=`${d.total_visibility_bps} bps on $${d.notional_usd} · sandwich ${d.components_bps?.sandwich_mev} · size ${d.components_bps?.size_impact}`;document.getElementById('disc').textContent=d.disclaimer||'';document.getElementById('share').href=d.share_urls?.x||'#';}load();
+async function load(){const a=document.getElementById('asset').value||'ETH';const n=document.getElementById('n').value||250000;const d=await(await fetch('/api/visibility-cost?asset='+encodeURIComponent(a)+'&notional_usd='+encodeURIComponent(n))).json();document.getElementById('hero').textContent=d.headline||('≈ $'+(d.estimated_visibility_cost_usd??0));document.getElementById('line').textContent=`${d.total_visibility_bps} bps on $${d.notional_usd} · sandwich ${d.components_bps?.sandwich_mev} · size ${d.components_bps?.size_impact}`;document.getElementById('disc').textContent=d.disclaimer||'';window.BDDomSafe.setAnchorHref(document.getElementById('share'),d.share_urls?.x);}load();
 </script>
 </body>
 </html>

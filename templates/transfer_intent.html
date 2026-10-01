@@ -31,8 +31,9 @@ button,.btn{border:0;background:var(--ok);color:#062016;font-weight:800;padding:
 <div class="box" data-evidence><p class="sub" id="line"></p><p class="muted" id="disc"></p></div>
 <a class="btn" id="share" href="#" target="_blank" rel="noopener">Share</a>
 </main>
+<script src="/static/js/dom_escape.js"></script>
 <script>
-async function load(){const d=await(await fetch('/api/transfer-intent?asset=BTC')).json();const p=d.probabilities||{};document.getElementById('hero').textContent=d.headline||'—';document.getElementById('line').textContent=`Custody ${p.custody_percent}% · Collateral ${p.collateral_percent}% · Directional ${p.directional_percent}% · band ${d.confidence_band}`;document.getElementById('disc').textContent=d.doctrine||'';document.getElementById('share').href=d.share_urls?.x||'#';}load();
+async function load(){const d=await(await fetch('/api/transfer-intent?asset=BTC')).json();const p=d.probabilities||{};document.getElementById('hero').textContent=d.headline||'—';document.getElementById('line').textContent=`Custody ${p.custody_percent}% · Collateral ${p.collateral_percent}% · Directional ${p.directional_percent}% · band ${d.confidence_band}`;document.getElementById('disc').textContent=d.doctrine||'';window.BDDomSafe.setAnchorHref(document.getElementById('share'),d.share_urls?.x);}load();
 </script>
 </body>
 </html>

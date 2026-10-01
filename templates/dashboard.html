@@ -379,6 +379,7 @@
     </main>
     {% include "partials/site_footer.html" %}
 
+    <script src="/static/js/dom_escape.js"></script>
     <script>
         const fmt = (n, d=2) => n == null ? '—' : Number(n).toLocaleString(undefined, { maximumFractionDigits: d });
         const vc = v => (v || 'WAIT').toUpperCase();
@@ -410,6 +411,13 @@
                 .replaceAll("'", '&#39;');
         }
         function esc(s) { return escapeHtml(s); }
+
+        function goNavUrl(href) {
+            if (window.BDDomSafe && window.BDDomSafe.assignLocationHref) window.BDDomSafe.assignLocationHref(href);
+        }
+        function openNavUrl(url) {
+            if (window.BDDomSafe && window.BDDomSafe.openWindow) window.BDDomSafe.openWindow(url);
+        }
 
         function currentLang() {
             return (window.BD_I18N && window.BD_I18N.lang) || document.documentElement.lang || 'en';
@@ -546,7 +554,7 @@
             btn.textContent = 'Upgrade';
             btn.onclick = () => {
                 if (nextUpgrade.checkout_tier) upgradeTier(nextUpgrade.checkout_tier);
-                else location.href = nextUpgrade.href || '/data-room';
+                else goNavUrl(nextUpgrade.href || '/data-room');
             };
         }
 
@@ -591,7 +599,7 @@
         async function upgradeTier(tier) {
             const target = tier || (nextUpgrade && nextUpgrade.checkout_tier) || 'pro';
             if (!target) {
-                location.href = (nextUpgrade && nextUpgrade.href) || '/data-room';
+                goNavUrl((nextUpgrade && nextUpgrade.href) || '/data-room');
                 return;
             }
             try {
@@ -600,9 +608,9 @@
                     body: JSON.stringify({ tier: target }),
                 });
                 const d = await res.json();
-                if (d.url) { location.href = d.url; return; }
+                if (d.url) { goNavUrl(d.url); return; }
             } catch (error) { console.debug(error); }
-            location.href = '/create-checkout-session?tier=' + target;
+            goNavUrl('/create-checkout-session?tier=' + target);
         }
 
         let lastPulse = null;
@@ -1278,7 +1286,7 @@
                 return;
             }
             if (text && navigator.clipboard) navigator.clipboard.writeText(text).catch(() => {});
-            if (url) window.open(url, '_blank', 'noopener');
+            if (url) openNavUrl(url);
             else if (text) alert('Proof text copied');
         }
 
@@ -1360,13 +1368,8 @@
             return `<div style="margin-top:1rem;padding:.85rem 1rem;border:1px solid var(--border,#2a2a35);border-radius:10px;color:#a1a1aa;font-size:.85rem">${esc(d.upgrade_hint.message || '')}${teaserHtml}<button class="btn" style="margin-top:.65rem" type="button" data-bd-call="switchUxModePro">Switch to Pro</button></div>`;
         }
         function safeShareUrl(u) {
-            const s = String(u || '').trim();
-            if (!s) return '';
-            if (s.startsWith('/') && !s.startsWith('//')) {
-                if (s.toLowerCase().includes('javascript:')) return '';
-                return esc(s);
-            }
-            return (/^https?:\/\//i.test(s)) ? esc(s) : '';
+            const safe = (window.BDDomSafe && window.BDDomSafe.allowedNavigationUrl(u)) || '';
+            return safe ? esc(safe) : '';
         }
         function buildFactorDrawer(d) {
             const whyBlock = d.oqs_why || {};
@@ -2178,7 +2181,7 @@
                 paintLensChrome(d);
                 if (currentLens === 'room' && scroll) {
                     const href = (d.lens && d.lens.cta_primary && d.lens.cta_primary.href) || '/data-room';
-                    setTimeout(() => { location.href = href; }, 180);
+                    setTimeout(() => { goNavUrl(href); }, 180);
                     return;
                 }
                 if (scroll) scrollForLens(currentLens);
@@ -2212,7 +2215,7 @@
                     const action = btn.dataset.action;
                     const path = btn.dataset.path || '';
                     if (id === 'verify' || (action === 'navigate' && path.includes('oracle-accuracy'))) {
-                        location.href = '/oracle-accuracy';
+                        goNavUrl('/oracle-accuracy');
                         return;
                     }
                     if (id === 'decide' || action === 'oracle') { scrollToId('decide'); askOracle(); return; }

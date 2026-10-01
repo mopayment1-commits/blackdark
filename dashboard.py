@@ -105,7 +105,12 @@ def _require_terms_ack_or_403(request: Request):
 def _cookie_secure(request: Request | None = None) -> bool:
     if os.getenv("COOKIE_SECURE", "").strip().lower() in {"1", "true", "yes"}:
         return True
-    return bool(request is not None and (request.url.scheme or "").lower() == "https")
+    if request is None:
+        return False
+    if (request.url.scheme or "").lower() == "https":
+        return True
+    xfp = (request.headers.get("x-forwarded-proto") or "").split(",")[0].strip().lower()
+    return xfp == "https"
 
 
 def render_page(request: Request, name: str, context: dict[str, Any] | None = None) -> HTMLResponse:
@@ -691,9 +696,8 @@ except Exception:
     pass
 
 try:
-    from security_middleware import SecureTransportMiddleware, SecurityHeadersMiddleware
+    from security_middleware import SecureTransportMiddleware
 
-    app.add_middleware(SecurityHeadersMiddleware)
     app.add_middleware(SecureTransportMiddleware)
 except Exception:
     pass
@@ -5182,6 +5186,15 @@ async def checkout_cancel(request: Request):
 @app.get("/landing", response_class=HTMLResponse)
 async def landing_alias(request: Request):
     return await landing_page(request)
+
+
+# Outermost: security headers on every response (including @app.middleware 401 short-circuits).
+try:
+    from security_middleware import SecurityHeadersMiddleware
+
+    app.add_middleware(SecurityHeadersMiddleware)
+except Exception:
+    pass
 
 
 if __name__ == "__main__":

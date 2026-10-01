@@ -119,19 +119,28 @@ async function loadPools() {
   const r = await fetch(`/api/platform/defi/il/pools?query=${encodeURIComponent(a + ' ' + b)}`);
   const d = await r.json();
   const el = $('pools');
+  while (el.firstChild) el.removeChild(el.firstChild);
   if (!d.pools || !d.pools.length) {
-    el.innerHTML = '<span class="status">No pools found — try another pair.</span>';
+    const span = document.createElement('span');
+    span.className = 'status';
+    span.textContent = 'No pools found — try another pair.';
+    el.appendChild(span);
     return;
   }
-  el.innerHTML = d.pools.slice(0, 8).map((p, i) =>
-    `<div class="pool-row" data-idx="${i}"><strong>${p.base_symbol}/${p.quote_symbol}</strong> · ${p.dex} · ${fmtUsd(p.liquidity_usd)} liq · ${p.price_change_24h_pct?.toFixed(1) ?? '—'}% 24h</div>`
-  ).join('');
-  d.pools.forEach((p, i) => {
-    el.children[i].onclick = () => {
+  d.pools.slice(0, 8).forEach((p, i) => {
+    const row = document.createElement('div');
+    row.className = 'pool-row';
+    row.dataset.idx = String(i);
+    const strong = document.createElement('strong');
+    strong.textContent = `${p.base_symbol}/${p.quote_symbol}`;
+    row.appendChild(strong);
+    row.appendChild(document.createTextNode(` · ${p.dex} · ${fmtUsd(p.liquidity_usd)} liq · ${p.price_change_24h_pct?.toFixed(1) ?? '—'}% 24h`));
+    row.onclick = () => {
       selectedPair = p.pair_address;
       $('priceChange').value = Math.round(p.price_change_24h_pct || 0);
       updatePriceLabel();
     };
+    el.appendChild(row);
   });
 }
 
@@ -139,16 +148,31 @@ function updatePriceLabel() {
   $('priceChangeLabel').textContent = `${$('priceChange').value}% from current pool price`;
 }
 
+function appendMetric(parent, k, v, vClass) {
+  const d = document.createElement('div');
+  d.className = 'metric';
+  const kk = document.createElement('div');
+  kk.className = 'k';
+  kk.textContent = k;
+  const vv = document.createElement('div');
+  vv.className = 'v' + (vClass ? ' ' + vClass : '');
+  vv.textContent = v;
+  d.appendChild(kk);
+  d.appendChild(vv);
+  parent.appendChild(d);
+}
+
 function renderMetrics(sim, vuln) {
   const il = sim.impermanent_loss_pct;
   const net = sim.net_vs_hodl_usd;
-  $('metrics').innerHTML = `
-    <div class="metric"><div class="k">Impermanent Loss</div><div class="v ${il < 0 ? 'neg' : 'pos'}">${il?.toFixed(2)}%</div></div>
-    <div class="metric"><div class="k">LP Value</div><div class="v">${fmtUsd(sim.lp_value_usd)}</div></div>
-    <div class="metric"><div class="k">HODL Value</div><div class="v">${fmtUsd(sim.hodl_value_usd)}</div></div>
-    <div class="metric"><div class="k">Fee Income</div><div class="v pos">${fmtUsd(sim.fee_income_usd)}</div></div>
-    <div class="metric"><div class="k">Net vs HODL</div><div class="v ${net < 0 ? 'neg' : 'pos'}">${fmtUsd(net)}</div></div>
-    <div class="metric"><div class="k">IL Risk Score</div><div class="v">${vuln?.il_vulnerability_score ?? '—'}/100</div></div>`;
+  const parent = $('metrics');
+  while (parent.firstChild) parent.removeChild(parent.firstChild);
+  appendMetric(parent, 'Impermanent Loss', `${il?.toFixed(2)}%`, il < 0 ? 'neg' : 'pos');
+  appendMetric(parent, 'LP Value', fmtUsd(sim.lp_value_usd), '');
+  appendMetric(parent, 'HODL Value', fmtUsd(sim.hodl_value_usd), '');
+  appendMetric(parent, 'Fee Income', fmtUsd(sim.fee_income_usd), 'pos');
+  appendMetric(parent, 'Net vs HODL', fmtUsd(net), net < 0 ? 'neg' : 'pos');
+  appendMetric(parent, 'IL Risk Score', `${vuln?.il_vulnerability_score ?? '—'}/100`, '');
 }
 
 function renderChart(curve) {
@@ -183,8 +207,14 @@ function renderChart(curve) {
 
 function renderAlerts(alerts) {
   const el = $('alerts');
-  if (!alerts || !alerts.length) { el.innerHTML = ''; return; }
-  el.innerHTML = alerts.map(a => `<div class="alert ${a.level === 'high' ? 'high' : ''}">${a.message}</div>`).join('');
+  while (el.firstChild) el.removeChild(el.firstChild);
+  if (!alerts || !alerts.length) return;
+  alerts.forEach(a => {
+    const div = document.createElement('div');
+    div.className = 'alert' + (a.level === 'high' ? ' high' : '');
+    div.textContent = a.message || '';
+    el.appendChild(div);
+  });
 }
 
 async function runSim() {

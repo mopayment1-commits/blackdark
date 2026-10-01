@@ -108,7 +108,7 @@
 </div>
 <script src="/static/js/dom_escape.js"></script>
 <script type="module">
-    const { esc } = window.BDDomSafe;
+    const { esc, setAnchorHref, assignLocationHref } = window.BDDomSafe;
     function authHeaders() {
         // HttpOnly cookie session — do not attach Bearer from localStorage.
         return { 'Content-Type': 'application/json' };
@@ -179,9 +179,9 @@
             }
             btn.style.display = '';
             btn.textContent = up.cta || up.label || 'Upgrade';
-            btn.href = up.href || '/#pricing';
+            setAnchorHref(btn, up.href || '/#pricing');
             if (reason) reason.textContent = up.reason || 'Next depth on the Option A ladder.';
-        } catch (error) { console.debug(error); btn.href = '/create-checkout-session?tier=pro';
+        } catch (error) { console.debug(error); setAnchorHref(btn, '/create-checkout-session?tier=pro');
             btn.textContent = 'Start 7-Day Trial · DECIDE / PRO $19.99'; }
     }
     async function loadSubscriberValue(tier) {
@@ -290,12 +290,12 @@
     async function logoutAll() {
         await fetch('/api/auth/logout-all', { method: 'POST', headers: authHeaders(), credentials: 'same-origin' });
         localStorage.removeItem('bd_token'); localStorage.removeItem('bd_user');
-        location.href = '/login';
+        assignLocationHref('/login');
     }
     async function openPortal() {
         const res = await fetch('/api/billing/portal', { method: 'POST', headers: authHeaders(), credentials: 'same-origin' });
         const d = await res.json();
-        if (d.url) location.href = d.url; else setMsg('billingMsg', d.detail || 'Portal unavailable — complete Lemon/Stripe setup', false);
+        if (d.url) assignLocationHref(d.url); else setMsg('billingMsg', d.detail || 'Portal unavailable — complete Lemon/Stripe setup', false);
     }
     async function loadBillingReady() {
         const el = document.getElementById('billingReady');

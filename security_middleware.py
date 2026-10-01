@@ -261,11 +261,11 @@ def security_headers_for(request: Request) -> dict[str, str]:
     elif nonce_mode and nonce:
         csp = (
             "default-src 'self'; "
-            f"script-src 'nonce-{nonce}' 'strict-dynamic'; "
+            f"script-src 'nonce-{nonce}' 'strict-dynamic' https://accounts.google.com; "
             "style-src 'self' 'unsafe-inline'; "
-            "img-src 'self' data: https:; "
+            "img-src 'self' data:; "
             "font-src 'self' data:; "
-            "connect-src 'self' https: wss:; "
+            "connect-src 'self' https://accounts.google.com; "
             "frame-ancestors 'none'; "
             "base-uri 'self'; "
             "form-action 'self'"
@@ -273,11 +273,11 @@ def security_headers_for(request: Request) -> dict[str, str]:
     else:
         csp = (
             "default-src 'self'; "
-            "script-src 'self' 'unsafe-inline'; "
+            "script-src 'self' 'unsafe-inline' https://accounts.google.com; "
             "style-src 'self' 'unsafe-inline'; "
-            "img-src 'self' data: https:; "
+            "img-src 'self' data:; "
             "font-src 'self' data:; "
-            "connect-src 'self' https: wss:; "
+            "connect-src 'self' https://accounts.google.com; "
             "frame-ancestors 'none'; "
             "base-uri 'self'; "
             "form-action 'self'"
@@ -295,6 +295,14 @@ def security_headers_for(request: Request) -> dict[str, str]:
     if _is_production() or (_effective_scheme(request) == "https"):
         headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
     return headers
+
+
+def apply_security_headers_to_response(request: Request, response: Response) -> Response:
+    """Attach baseline security headers (including 401/403 short-circuit responses)."""
+    for key, value in security_headers_for(request).items():
+        response.headers.setdefault(key, value)
+    response.headers.setdefault("X-Security-Hardening", "1")
+    return response
 
 
 def _request_origin_ok(request: Request) -> bool:
@@ -349,9 +357,12 @@ class SecureTransportMiddleware(BaseHTTPMiddleware):
             try:
                 enforce_secure_transport(request, sensitive=True)
             except PermissionError:
-                return JSONResponse(
-                    {"error": "insecure_transport_forbidden", "message": "HTTPS required in production."},
-                    status_code=403,
+                return apply_security_headers_to_response(
+                    request,
+                    JSONResponse(
+                        {"error": "insecure_transport_forbidden", "message": "HTTPS required in production."},
+                        status_code=403,
+                    ),
                 )
         return await call_next(request)
 
@@ -378,9 +389,12 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
             # If only localhost defaults + no APP_BASE_URL, skip hard fail (misconfig)
             configured = bool((os.getenv("ALLOWED_HOSTS") or os.getenv("APP_BASE_URL") or "").strip())
             if configured and host and host not in allowed:
-                return JSONResponse(
-                    {"error": "invalid_host", "message": "Host header rejected."},
-                    status_code=400,
+                return apply_security_headers_to_response(
+                    request,
+                    JSONResponse(
+                        {"error": "invalid_host", "message": "Host header rejected."},
+                        status_code=400,
+                    ),
                 )
 
         # CSRF: cookie present + mutating → require Origin/Referer match
@@ -388,21 +402,21 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
             cookie = request.cookies.get("bd_token")
             auth = request.headers.get("authorization") or ""
             if cookie and not auth.startswith("Bearer ") and not _request_origin_ok(request):
-                return JSONResponse(
-                    {
-                        "error": "csrf_rejected",
-                        "message": "Cross-site request blocked. Send a same-origin Origin or use Bearer token.",
-                    },
-                    status_code=403,
+                return apply_security_headers_to_response(
+                    request,
+                    JSONResponse(
+                        {
+                            "error": "csrf_rejected",
+                            "message": "Cross-site request blocked. Send a same-origin Origin or use Bearer token.",
+                        },
+                        status_code=403,
+                    ),
                 )
 
         response = await call_next(request)
         if nonce:
             response = await _maybe_rewrite_html_with_nonce(response, nonce)
-        for key, value in security_headers_for(request).items():
-            response.headers.setdefault(key, value)
-        response.headers.setdefault("X-Security-Hardening", "1")
-        return response
+        return apply_security_headers_to_response(request, response)
 
 
 def apply_cors(app) -> None:
