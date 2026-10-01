@@ -4,25 +4,15 @@ from __future__ import annotations
 
 import pytest
 
-from failure.injection import FaultKind, inject_fault
+from failure.injection import FAULT_MATRIX, FaultKind, inject_fault
 
 
-@pytest.mark.parametrize(
-    "kind",
-    [
-        FaultKind.STALE_DATA,
-        FaultKind.PARTIAL_DATA,
-        FaultKind.CONFLICTING_DATA,
-        FaultKind.AI_FAILURE,
-        FaultKind.LOST_RESPONSE,
-        FaultKind.PROVIDER_FAILURE,
-        FaultKind.RECONCILIATION,
-        FaultKind.HTTP_429,
-        FaultKind.OFFLINE,
-        FaultKind.TIMEOUT,
-    ],
-)
-def test_inject_fault_returns_dict(kind: FaultKind):
+@pytest.mark.parametrize("kind", list(FaultKind))
+def test_inject_fault_every_kind(kind: FaultKind):
     out = inject_fault(kind, correlation_id="sonar-cov")
     assert isinstance(out, dict)
     assert out
+
+
+def test_fault_matrix_lists_all_kinds():
+    assert set(FAULT_MATRIX) == {k.value for k in FaultKind}

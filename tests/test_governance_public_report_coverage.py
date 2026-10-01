@@ -6,9 +6,19 @@ import governance.public_report as pr
 
 
 def test_coerce_and_gate_statuses():
+    assert pr.coerce_bool(True) is True
     assert pr.coerce_bool("yes") is False
+    assert pr.coerce_int(True) == 1
+    assert pr.coerce_int(7) == 7
     assert pr.coerce_int(3.9) == 3
-    report = {"gates": {"g1": {"status": "PASS"}, "g2": {"status": "NOT_A_STATUS"}}}
+    assert pr.coerce_int("x") == 0
+    report = {
+        "gates": {
+            "g1": {"status": "PASS"},
+            "g2": {"status": "NOT_A_STATUS"},
+            "bad": "not-a-dict",
+        }
+    }
     statuses = pr.gate_statuses_from_report(report)
     assert statuses["g1"] == "PASS"
     assert statuses["g2"] == "UNKNOWN"
@@ -40,7 +50,11 @@ def test_institutional_matrix_and_fds_line():
     assert sink["institutional_maturity_score_100"] == 88
     lines = pr.institutional_matrix_stdout_lines(sink)
     assert any("domain_PASS=1" in ln for ln in lines)
-    assert "status=clean" in pr.fds_scan_stdout_line(clean=True, files_scanned=1, pan_finding_count=0, secret_finding_count=0)
+    clean = pr.fds_scan_stdout_line(clean=True, files_scanned=1, pan_finding_count=0, secret_finding_count=0)
+    dirty = pr.fds_scan_stdout_line(clean=False, files_scanned=2, pan_finding_count=1, secret_finding_count=3)
+    assert "status=clean" in clean
+    assert "status=dirty" in dirty
+    assert "pan_finding_count=1" in dirty
 
 
 def test_pre_launch_public_document_strips_hygiene_payload():
