@@ -573,3 +573,15 @@ def build_final_status(*, skip_tests: bool = False, tests: dict[str, Any] | None
         "runtime_truth_total": len(truth),
         "closure_status": "CLOSED_LOCAL" if pass_engineering else "NOT_CLOSED",
     }
+
+
+def _git_sha(short: bool = True) -> str:
+    return _spec_helpers.git_sha(_ROOT, short=short)
+
+
+def _git_branch() -> str:
+    return _spec_helpers.git_branch(_ROOT)
+
+
+def _resolve_spec_path() -> Path | None:
+    return _spec_helpers.resolve_spec_path(_SPEC_CANDIDATES)
