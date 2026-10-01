@@ -135,6 +135,7 @@ jobs:
             tests/test_governance_rfc9457_sonar_coverage.py \
             tests/launch57/test_emit_billing_public_artifacts_coverage.py \
             tests/test_timezone_governance_sonar_coverage.py \
+            tests/test_governance_identity_storage_sonar_coverage.py \
             tests/launch57/test_commercial_inventory_common.py \
             tests/launch57/test_adaptive_decision_experience_common.py \
             tests/launch57/test_temporal_evidence_intelligence_support_layer_spec_common.py \
