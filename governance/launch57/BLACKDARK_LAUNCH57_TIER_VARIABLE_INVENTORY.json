@@ -1,0 +1,99 @@
+{
+  "artifact": "BLACKDARK_LAUNCH57_TIER_VARIABLE_INVENTORY",
+  "generated_at": "2026-09-18T15:27:40.281539+00:00",
+  "implementation_sha": "49851007",
+  "tier_variables": [
+    {
+      "launch_item_id": 32,
+      "tier_variable": "watchlist_count",
+      "configuration": {
+        "watchlist_limit": 25,
+        "variable": "watchlist_count"
+      },
+      "tierability_status": "IMPLEMENTED",
+      "not_counted_as_capability": true,
+      "audit_only": true
+    },
+    {
+      "launch_item_id": 33,
+      "tier_variable": "alert_delivery",
+      "configuration": {
+        "alert_channels": "tier_gated",
+        "variable": "alert_delivery"
+      },
+      "tierability_status": "IMPLEMENTED",
+      "not_counted_as_capability": true,
+      "audit_only": true
+    },
+    {
+      "launch_item_id": 46,
+      "tier_variable": "public_trust_surface",
+      "configuration": {
+        "visitor_tier_gating": true,
+        "variable": "public_trust_surface"
+      },
+      "tierability_status": "IMPLEMENTED",
+      "not_counted_as_capability": true,
+      "audit_only": true
+    },
+    {
+      "launch_item_id": 49,
+      "tier_variable": "history_rows",
+      "configuration": {
+        "history_depth": "free_limited",
+        "variable": "history_rows"
+      },
+      "tierability_status": "IMPLEMENTED",
+      "not_counted_as_capability": true,
+      "audit_only": true
+    },
+    {
+      "launch_item_id": 50,
+      "tier_variable": "discipline_mirror_rows",
+      "configuration": {
+        "mirror_depth": 20,
+        "variable": "discipline_mirror_rows"
+      },
+      "tierability_status": "IMPLEMENTED",
+      "not_counted_as_capability": true,
+      "audit_only": true
+    },
+    {
+      "launch_item_id": 51,
+      "tier_variable": "research_queries",
+      "configuration": {
+        "research_depth": "tier_gated",
+        "variable": "research_queries"
+      },
+      "tierability_status": "IMPLEMENTED",
+      "not_counted_as_capability": true,
+      "audit_only": true
+    },
+    {
+      "launch_item_id": 52,
+      "tier_variable": "library_search",
+      "configuration": {
+        "search_depth": "public",
+        "variable": "library_search"
+      },
+      "tierability_status": "IMPLEMENTED",
+      "not_counted_as_capability": true,
+      "audit_only": true
+    },
+    {
+      "launch_item_id": 21,
+      "tier_variable": "market_data_refresh_frequency",
+      "tierability_status": "POTENTIALLY_TIERABLE",
+      "not_counted_as_capability": true,
+      "audit_only": true
+    },
+    {
+      "launch_item_id": 4,
+      "tier_variable": "accuracy_history_depth",
+      "tierability_status": "POTENTIALLY_TIERABLE",
+      "not_counted_as_capability": true,
+      "audit_only": true
+    }
+  ],
+  "not_counted_in_launch57_capability_count": true
+}

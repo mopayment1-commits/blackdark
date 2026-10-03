@@ -1,0 +1,13 @@
+{
+  "LOCAL_POSTGRES_RESTORE_REHEARSAL_PERFORMED": true,
+  "database": "blackdark_pr_restore_rehearsal",
+  "started_at": "2026-09-15T17:20:03Z",
+  "BACKUP_CREATION_VERIFIED": true,
+  "RESTORE_EXECUTION_VERIFIED": true,
+  "RESTORED_DATA_INTEGRITY_VERIFIED": true,
+  "RESTORED_APP_BOOT_VERIFIED": true,
+  "TRUE_LOCAL_RESTORE_GAPS": 0,
+  "gaps": [],
+  "GENUINE_EXTERNAL_RESTORE_VALIDATION_PENDING": 1,
+  "completed_at": "2026-09-15T17:20:03Z"
+}

@@ -1,0 +1,585 @@
+{
+  "results": [
+    {
+      "source": "/",
+      "href": "/",
+      "path": "/",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/",
+      "href": "/about",
+      "path": "/about",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/platform",
+      "href": "/address-intelligence",
+      "path": "/address-intelligence",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/emotion-tax",
+      "href": "/anti-hype",
+      "path": "/anti-hype",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/",
+      "href": "/b2b",
+      "path": "/b2b",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/allocator-receipt",
+      "href": "/b2b/committee-one-pager",
+      "path": "/b2b/committee-one-pager",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/",
+      "href": "/capabilities",
+      "path": "/capabilities",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/",
+      "href": "/changelog",
+      "path": "/changelog",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/",
+      "href": "/complaints",
+      "path": "/complaints",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/",
+      "href": "/compliance",
+      "path": "/compliance",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/",
+      "href": "/contact",
+      "path": "/contact",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/kill-rate",
+      "href": "/contradiction-replay",
+      "path": "/contradiction-replay",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/",
+      "href": "/cookies",
+      "path": "/cookies",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/anti-hype",
+      "href": "/corpus-passport",
+      "path": "/corpus-passport",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/cap646",
+      "href": "/coverage-honesty",
+      "path": "/coverage-honesty",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/institutional",
+      "href": "/d5-honesty",
+      "path": "/d5-honesty",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/address-intelligence",
+      "href": "/dashboard",
+      "path": "/dashboard",
+      "status": 401,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_login_gate"
+    },
+    {
+      "source": "/",
+      "href": "/dashboard?lens=desk",
+      "path": "/dashboard?lens=desk",
+      "status": 401,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_login_gate"
+    },
+    {
+      "source": "/",
+      "href": "/dashboard?lens=operate",
+      "path": "/dashboard?lens=operate",
+      "status": 401,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_login_gate"
+    },
+    {
+      "source": "/how-it-works",
+      "href": "/dashboard?lens=prove#decide",
+      "path": "/dashboard?lens=prove",
+      "status": 401,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_login_gate"
+    },
+    {
+      "source": "/",
+      "href": "/data-room",
+      "path": "/data-room",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/",
+      "href": "/data-room?lens=room",
+      "path": "/data-room?lens=room",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/capabilities",
+      "href": "/discipline-mirror",
+      "path": "/discipline-mirror",
+      "status": 401,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_login_gate"
+    },
+    {
+      "source": "/",
+      "href": "/disclaimer",
+      "path": "/disclaimer",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/b2b",
+      "href": "/docs",
+      "path": "/docs",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/docs",
+      "href": "/errors",
+      "path": "/errors",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/",
+      "href": "/faq",
+      "path": "/faq",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/",
+      "href": "/feedback",
+      "path": "/feedback",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/",
+      "href": "/how-it-works",
+      "path": "/how-it-works",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/login",
+      "href": "/identity-standards",
+      "path": "/identity-standards",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/platform",
+      "href": "/il-simulator",
+      "path": "/il-simulator",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/cap646",
+      "href": "/institutional",
+      "path": "/institutional",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/address-intelligence",
+      "href": "/intelligence-ledger",
+      "path": "/intelligence-ledger",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/anti-hype",
+      "href": "/kill-rate",
+      "path": "/kill-rate",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/",
+      "href": "/legal",
+      "path": "/legal",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/",
+      "href": "/login",
+      "path": "/login",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/",
+      "href": "/login?next=/dashboard",
+      "path": "/login?next=/dashboard",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/capabilities",
+      "href": "/login?next=/dashboard%23stealth",
+      "path": "/login?next=/dashboard%23stealth",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/",
+      "href": "/login?next=/dashboard%3Flens%3Doperate",
+      "path": "/login?next=/dashboard%3Flens%3Doperate",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/",
+      "href": "/login?next=/dashboard%3Flens%3Dprove",
+      "path": "/login?next=/dashboard%3Flens%3Dprove",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/",
+      "href": "/login?next=/discipline-mirror",
+      "path": "/login?next=/discipline-mirror",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/",
+      "href": "/login?next=/profile",
+      "path": "/login?next=/profile",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/",
+      "href": "/login?tab=register",
+      "path": "/login?tab=register",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/",
+      "href": "/login?tab=register&plan=elite",
+      "path": "/login?tab=register&plan=elite",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/",
+      "href": "/login?tab=register&plan=free",
+      "path": "/login?tab=register&plan=free",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/",
+      "href": "/login?tab=register&plan=institutional",
+      "path": "/login?tab=register&plan=institutional",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/",
+      "href": "/login?tab=register&plan=pro",
+      "path": "/login?tab=register&plan=pro",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/",
+      "href": "/login?tab=register&plan=quant",
+      "path": "/login?tab=register&plan=quant",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/intelligence-ledger",
+      "href": "/market-intelligence",
+      "path": "/market-intelligence",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/alert-passport",
+      "href": "/miss-feed",
+      "path": "/miss-feed",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/d5-honesty",
+      "href": "/model-card",
+      "path": "/model-card",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/cookies",
+      "href": "/msa",
+      "path": "/msa",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/",
+      "href": "/oracle-accuracy",
+      "path": "/oracle-accuracy",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/address-intelligence",
+      "href": "/platform",
+      "path": "/platform",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/data-room",
+      "href": "/priority-chain",
+      "path": "/priority-chain",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/",
+      "href": "/privacy",
+      "path": "/privacy",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/contradiction-replay",
+      "href": "/proof-arena",
+      "path": "/proof-arena",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/",
+      "href": "/refund",
+      "path": "/refund",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/cookies",
+      "href": "/sla",
+      "path": "/sla",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/",
+      "href": "/status",
+      "path": "/status",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/",
+      "href": "/terms",
+      "path": "/terms",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/alert-passport",
+      "href": "/unique-ten",
+      "path": "/unique-ten",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/il-simulator",
+      "href": "/visibility-cost",
+      "path": "/visibility-cost",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    },
+    {
+      "source": "/data-room",
+      "href": "/zero-tolerance",
+      "path": "/zero-tolerance",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "ok": true,
+      "reason": "html_200"
+    }
+  ],
+  "summary": {
+    "PUBLIC_NAV_JSON_RESPONSES": 0,
+    "PUBLIC_DEAD_BUTTONS": 0,
+    "TOTAL_LINKS": 64
+  }
+}

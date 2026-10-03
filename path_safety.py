@@ -6,6 +6,7 @@ import json
 import os
 import re
 from pathlib import Path
+from collections.abc import Iterable, Sequence
 from typing import Any
 from urllib.parse import urlparse
 from urllib.request import Request, urlopen
@@ -215,5 +216,125 @@ def read_json_mapping(path: Path) -> dict[str, object]:
 
 def write_json_mapping(path: Path, document: dict[str, object]) -> None:
     """Write a sanitized JSON mapping to a resolved path."""
-    safe = coerce_json_mapping(document)
-    path.write_text(json.dumps(safe, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    write_json_artifact(path, coerce_json_mapping(document), base=project_root_dir())
+
+
+def project_root_dir(*, project_root: Path | str | None = None) -> Path:
+    """Resolved repository root (directory containing path_safety.py)."""
+    if project_root is not None:
+        return Path(project_root).resolve()
+    return Path(__file__).resolve().parent
+
+
+def resolve_project_file(*parts: str, project_root: Path | str | None = None) -> Path:
+    """Resolve a path under the repository root; reject traversal in parts."""
+    root = project_root_dir(project_root=project_root)
+    for part in parts:
+        cleaned = str(part).strip().replace("\\", "/")
+        if not cleaned or cleaned in {".", ".."} or "/" in cleaned:
+            raise ValueError(f"Unsafe project path part: {part!r}")
+    return resolve_under(root, *parts)
+
+
+_PUBLIC_ARTIFACT_SUFFIXES = frozenset({".json", ".jsonl", ".md", ".txt", ".csv", ".log"})
+_SECRET_PATH_SEGMENT_RE = re.compile(
+    r"(^|/)(secrets?|vault|credentials?|passwords?|private[-_]?keys?|\.env)(/|$)",
+    re.IGNORECASE,
+)
+
+
+def _resolve_public_artifact_path(path: Path, base: Path | str) -> Path:
+    """Artifact destinations only — never under secret/vault/credential paths (S2083 + CWE-312)."""
+    base_resolved = Path(base).resolve()
+    bounded = ensure_under(Path(path).resolve(), base_resolved)
+    rel_parts = bounded.relative_to(base_resolved).parts
+    if not rel_parts:
+        raise ValueError("Refusing to write repository root path")
+    dest = resolve_under(base_resolved, *rel_parts)
+    rel_posix = dest.relative_to(base_resolved).as_posix()
+    if _SECRET_PATH_SEGMENT_RE.search(rel_posix):
+        raise ValueError(f"Refusing artifact write under secret-class path: {dest}")
+    suffix = dest.suffix.lower()
+    if suffix and suffix not in _PUBLIC_ARTIFACT_SUFFIXES:
+        raise ValueError(f"Unsupported public artifact extension: {suffix!r}")
+    return dest
+
+
+def _write_public_artifact_bytes(dest: Path, payload: bytes) -> None:
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    with dest.open("wb") as handle:
+        handle.write(payload)
+
+
+def write_json_artifact(path: Path, document: object, *, base: Path | str) -> None:
+    """Write JSON-safe artifact data (coerced — not raw secrets)."""
+    dest = _resolve_public_artifact_path(path, base)
+    safe = coerce_json_value(document)
+    data = (json.dumps(safe, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+    _write_public_artifact_bytes(dest, data)
+
+
+def write_public_text_lines(path: Path, lines: Sequence[str], *, base: Path | str) -> None:
+    """Write markdown/text closure artifacts from discrete public-audit lines (no free blob param)."""
+    dest = _resolve_public_artifact_path(path, base)
+    if dest.suffix.lower() not in {".md", ".txt", ".jsonl", ".log", ".csv", ""}:
+        raise ValueError(f"Prose artifacts must use .md/.txt/.jsonl/.log/.csv: {dest}")
+    safe_lines = [str(coerce_json_value(line)) for line in lines]
+    body = "\n".join(safe_lines)
+    if body and not body.endswith("\n"):
+        body += "\n"
+    _write_public_artifact_bytes(dest, body.encode("utf-8"))
+
+
+def write_jsonl_artifact(path: Path, rows: Iterable[object], *, base: Path | str) -> None:
+    """Append-safe JSONL artifact write from JSON-safe rows."""
+    dest = _resolve_public_artifact_path(path, base)
+    chunks: list[bytes] = []
+    for row in rows:
+        if not row:
+            continue
+        safe = coerce_json_value(row)
+        chunks.append((json.dumps(safe, default=str) + "\n").encode("utf-8"))
+    _write_public_artifact_bytes(dest, b"".join(chunks))
+
+
+def write_json_at_data(*parts: str, value: object, project_root: Path | str | None = None) -> Path:
+    """Serialize JSON under ``<project>/data/...`` using literal path parts only."""
+    target = safe_data_file(*parts, project_root=project_root)
+    write_json_artifact(target, value, base=project_data_dir(project_root=project_root))
+    return target
+
+
+_BACKUP_BASENAME_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*$")
+
+
+def backup_data_dir(*, project_root: Path | str | None = None) -> Path:
+    """Resolved ``<project>/data/backups`` directory."""
+    return resolve_under(project_data_dir(project_root=project_root), "backups")
+
+
+def resolve_backup_store_dir(*, project_root: Path | str | None = None) -> Path:
+    """Backup directory bound to project ``data/backups`` (ignores hostile BACKUP_DIR)."""
+    root = project_root_dir(project_root=project_root)
+    raw = os.getenv("BACKUP_DIR", "data/backups").strip()
+    if raw in {"", "data/backups", "backups"}:
+        return backup_data_dir(project_root=root)
+    candidate = Path(raw)
+    if not candidate.is_absolute():
+        candidate = (root / raw).resolve()
+    return ensure_under(candidate, root)
+
+
+def resolve_backup_file(
+    basename: str,
+    *,
+    store: Path | None = None,
+    project_root: Path | str | None = None,
+) -> Path:
+    """Map an evidence basename to a file under the bounded backup store."""
+    name = Path(str(basename)).name
+    if not name or not _BACKUP_BASENAME_RE.fullmatch(name):
+        raise ValueError(f"Unsafe backup basename: {basename!r}")
+    base = store if store is not None else resolve_backup_store_dir(project_root=project_root)
+    root = project_root_dir(project_root=project_root)
+    return ensure_under((base / name).resolve(), root)

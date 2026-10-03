@@ -1,0 +1,1009 @@
+{
+  "verdict": "FDS_RETENTION_INCIDENT_SUPPLY_CHAIN_NOT_CLOSED",
+  "generated_at": "2026-10-01T15:31:36.000594+00:00",
+  "governing_spec": {
+    "path": "docs/BLACKDARK_FINANCIAL_DATA_SECURITY_IMPLEMENTATION_SPEC_2026_FINAL.md",
+    "sha256": "c2871b3e39d44dbdd995df6577ca38c195ab343f34ece64f26e0de74af374efb"
+  },
+  "git": {
+    "base_sha": "4e0e0ba8f8ee1da2a6b82d8baec161198984c8b7",
+    "implementation_sha": "4e0e0ba8f8ee1da2a6b82d8baec161198984c8b7"
+  },
+  "scope": {
+    "fds_controls": [
+      "FDS-20",
+      "FDS-21"
+    ],
+    "sdg_controls": [
+      "SDG-15",
+      "SDG-16",
+      "SDG-17"
+    ]
+  },
+  "canonical_owners": {
+    "retention_policy": "fds_retention_incident/retention_policy.py",
+    "account_closure": "fds_retention_incident/account_closure.py",
+    "backup_lifecycle": "fds_retention_incident/backup_lifecycle.py",
+    "incident_playbook": "fds_retention_incident/incident_playbook.py",
+    "incident_drill": "fds_retention_incident/incident_drill.py",
+    "supply_chain": "fds_retention_incident/supply_chain.py",
+    "payment_script_inventory": "fds_retention_incident/payment_script_inventory.py",
+    "gdpr_service": "gdpr_service.py",
+    "backup_script": "scripts/backup_postgres.py",
+    "market_retention": "data_governance/retention.py",
+    "incident_runbook": "docs/ops/INCIDENT_RESPONSE.md",
+    "financial_playbook": "docs/ops/FINANCIAL_DATA_INCIDENT_PLAYBOOK.md",
+    "sca_ci": ".github/workflows/security.yml",
+    "sbom_generator": "scripts/generate_sbom.py"
+  },
+  "retention_matrix": [
+    {
+      "policy_key": "financial_credentials",
+      "policy_version": "fds-retention-v1",
+      "fds_classes": [
+        "FDS-C3",
+        "FDS-C4"
+      ],
+      "purpose": "exchange_and_financial_api_credentials",
+      "owner": "user_keys_service",
+      "legal_basis": "contract",
+      "retention_days": 0,
+      "retention_note": "retain_until_account_active_or_legal_hold",
+      "max_retention_days": 365,
+      "deletion_trigger": "account_closure_or_credential_revocation",
+      "deletion_method": "CRYPTO_ERASE",
+      "backup_handling": "BACKUP_EXPIRY",
+      "verification": "credential_revocation_audit"
+    },
+    {
+      "policy_key": "payment_references",
+      "policy_version": "fds-retention-v1",
+      "fds_classes": [
+        "FDS-C6"
+      ],
+      "purpose": "payment_provider_reconciliation",
+      "owner": "billing/subscription_engine",
+      "legal_basis": "contract_and_legal_obligation",
+      "retention_days": 2555,
+      "deletion_trigger": "retention_expiry_or_account_closure_anonymize",
+      "deletion_method": "ANONYMIZE",
+      "backup_handling": "BACKUP_EXPIRY",
+      "verification": "billing_audit_ledger"
+    },
+    {
+      "policy_key": "subscription_identifiers",
+      "policy_version": "fds-retention-v1",
+      "fds_classes": [
+        "FDS-C6"
+      ],
+      "purpose": "subscription_lifecycle_and_provider_reconciliation",
+      "owner": "billing/subscription_engine",
+      "legal_basis": "contract_and_legal_obligation",
+      "retention_days": 2555,
+      "deletion_trigger": "retention_expiry_or_account_closure_anonymize",
+      "deletion_method": "ANONYMIZE",
+      "backup_handling": "BACKUP_EXPIRY",
+      "verification": "subscription_accounts_audit"
+    },
+    {
+      "policy_key": "billing_history",
+      "policy_version": "fds-retention-v1",
+      "fds_classes": [
+        "FDS-C6"
+      ],
+      "purpose": "billing_payment_events_and_invoice_reconciliation",
+      "owner": "billing/subscription_engine",
+      "legal_basis": "legal_obligation",
+      "retention_days": 2555,
+      "deletion_trigger": "retention_expiry_only",
+      "deletion_method": "ANONYMIZE",
+      "backup_handling": "BACKUP_EXPIRY",
+      "verification": "billing_payment_events_audit"
+    },
+    {
+      "policy_key": "financial_account_metadata",
+      "policy_version": "fds-retention-v1",
+      "fds_classes": [
+        "FDS-C5"
+      ],
+      "purpose": "financial_account_profile_and_tier_metadata",
+      "owner": "database/subscription_accounts",
+      "legal_basis": "contract",
+      "retention_days": 365,
+      "deletion_trigger": "account_closure_or_dsr_erase",
+      "deletion_method": "DELETE",
+      "backup_handling": "BACKUP_EXPIRY",
+      "verification": "account_closure_audit"
+    },
+    {
+      "policy_key": "user_personal",
+      "policy_version": "fds-retention-v1",
+      "fds_classes": [
+        "FDS-C5"
+      ],
+      "purpose": "user_financial_intelligence",
+      "owner": "gdpr_service",
+      "legal_basis": "contract",
+      "retention_days": 365,
+      "deletion_trigger": "account_closure_or_dsr_erase",
+      "deletion_method": "DELETE",
+      "backup_handling": "BACKUP_EXPIRY",
+      "verification": "dsr_erase_audit"
+    },
+    {
+      "policy_key": "support_export_artifacts",
+      "policy_version": "fds-retention-v1",
+      "fds_classes": [
+        "FDS-C5",
+        "FDS-C6"
+      ],
+      "purpose": "dsr_export_and_support_artifacts_with_financial_metadata",
+      "owner": "gdpr_service",
+      "legal_basis": "contract",
+      "retention_days": 30,
+      "deletion_trigger": "export_delivery_or_account_closure",
+      "deletion_method": "DELETE",
+      "backup_handling": "BACKUP_EXPIRY",
+      "verification": "dsr_export_audit"
+    },
+    {
+      "policy_key": "audit_replay",
+      "policy_version": "fds-retention-v1",
+      "fds_classes": [],
+      "purpose": "tamper_evident_audit_and_security",
+      "owner": "audit_registry",
+      "legal_basis": "legal_obligation",
+      "retention_days": 2555,
+      "deletion_trigger": "retention_expiry_only",
+      "deletion_method": "ANONYMIZE",
+      "backup_handling": "BACKUP_EXPIRY",
+      "verification": "audit_retention_review"
+    },
+    {
+      "policy_key": "credential_rotation",
+      "policy_version": "fds-retention-v1",
+      "fds_classes": [
+        "FDS-C4"
+      ],
+      "purpose": "rotated_financial_secrets_metadata",
+      "owner": "secrets_crypto/lifecycle",
+      "legal_basis": "security",
+      "retention_days": 90,
+      "deletion_trigger": "rotation_grace_expired",
+      "deletion_method": "REVOKE",
+      "backup_handling": "BACKUP_EXPIRY",
+      "verification": "secret_lifecycle_evidence"
+    },
+    {
+      "policy_key": "revoked_financial_credentials",
+      "policy_version": "fds-retention-v1",
+      "fds_classes": [
+        "FDS-C3",
+        "FDS-C4"
+      ],
+      "purpose": "revoked_or_expired_financial_credential_metadata",
+      "owner": "secrets_crypto/lifecycle",
+      "legal_basis": "security",
+      "retention_days": 90,
+      "deletion_trigger": "revocation_grace_expired",
+      "deletion_method": "TOKEN_REVOKE",
+      "backup_handling": "BACKUP_EXPIRY",
+      "verification": "credential_revocation_audit"
+    },
+    {
+      "policy_key": "zero_retention",
+      "policy_version": "fds-retention-v1",
+      "fds_classes": [
+        "FDS-C1",
+        "FDS-C2"
+      ],
+      "purpose": "prohibited_storage",
+      "owner": "financial_data/boundary",
+      "legal_basis": "prohibited",
+      "retention_days": 0,
+      "deletion_trigger": "immediate_reject",
+      "deletion_method": "ZERO_RETENTION",
+      "backup_handling": "ZERO_RETENTION",
+      "verification": "scanner_and_boundary"
+    }
+  ],
+  "deletion_revocation_paths": {
+    "account_closure": "fds_retention_incident/account_closure.py",
+    "credential_revoke": "secrets_crypto/lifecycle.py + account_closure.revoke_financial_credentials",
+    "backup_expiry": "fds_retention_incident/backup_lifecycle.py"
+  },
+  "backup_lifecycle_evidence": {
+    "retention_days": 30,
+    "evidence_path": "/workspace/data/backup_lifecycle_evidence.jsonl",
+    "record_count": 18,
+    "states_supported": [
+      "CREATED",
+      "RETENTION_WINDOW",
+      "EXPIRED",
+      "DELETED",
+      "VERIFIED",
+      "FAILED",
+      "LEGAL_HOLD"
+    ]
+  },
+  "incident_playbook_version": "fds-financial-incident-v1",
+  "drill_scenarios_results": {
+    "drill_version": "fds-incident-drill-v1",
+    "scenario_count": 6,
+    "passed": 6,
+    "failed": 0,
+    "all_passed": true,
+    "scenarios": {
+      "pan_in_log_fixture": {
+        "event": "incident_drill_completed",
+        "drill_id": "6514ff72-f596-41fc-b5c8-5dd39b3fddda",
+        "drill_version": "fds-incident-drill-v1",
+        "scenario": "pan_in_log_fixture",
+        "incident_type": "pan_discovered_in_storage",
+        "incident_id": "6c62c5af-d613-4ea5-bfef-0eb6257635e7",
+        "synthetic_only": true,
+        "controls_invoked": [
+          "isolate_storage",
+          "purge_pan",
+          "notify_dpo",
+          "post_incident_review"
+        ],
+        "started_at": "2026-10-01T15:31:26.168101+00:00",
+        "completed_at": "2026-10-01T15:31:26.168704+00:00",
+        "lifecycle_steps_completed": [
+          "DETECT",
+          "CONTAIN",
+          "PRESERVE_EVIDENCE",
+          "REVOKE_ROTATE",
+          "SCOPE",
+          "ERADICATE",
+          "RECOVER",
+          "ESCALATE_NOTIFY",
+          "POST_INCIDENT_REVIEW",
+          "CONTROL_IMPROVEMENT"
+        ],
+        "decisions": [
+          {
+            "step": "CONTAIN",
+            "timestamp": "2026-10-01T15:31:26.168379+00:00",
+            "outcome": "completed"
+          },
+          {
+            "step": "PRESERVE_EVIDENCE",
+            "timestamp": "2026-10-01T15:31:26.168427+00:00",
+            "outcome": "completed",
+            "evidence_preserved": true
+          },
+          {
+            "step": "REVOKE_ROTATE",
+            "timestamp": "2026-10-01T15:31:26.168472+00:00",
+            "outcome": "completed",
+            "revoke_rotate_triggered": true
+          },
+          {
+            "step": "SCOPE",
+            "timestamp": "2026-10-01T15:31:26.168506+00:00",
+            "outcome": "completed"
+          },
+          {
+            "step": "ERADICATE",
+            "timestamp": "2026-10-01T15:31:26.168537+00:00",
+            "outcome": "completed"
+          },
+          {
+            "step": "RECOVER",
+            "timestamp": "2026-10-01T15:31:26.168568+00:00",
+            "outcome": "completed"
+          },
+          {
+            "step": "ESCALATE_NOTIFY",
+            "timestamp": "2026-10-01T15:31:26.168598+00:00",
+            "outcome": "completed",
+            "notification_decision": "escalate_per_playbook"
+          },
+          {
+            "step": "POST_INCIDENT_REVIEW",
+            "timestamp": "2026-10-01T15:31:26.168629+00:00",
+            "outcome": "completed"
+          },
+          {
+            "step": "CONTROL_IMPROVEMENT",
+            "timestamp": "2026-10-01T15:31:26.168667+00:00",
+            "outcome": "completed"
+          }
+        ],
+        "outcome": "PASS",
+        "unresolved_gaps": [],
+        "policy_version": "fds-financial-incident-v1",
+        "post_incident_review_required": true,
+        "post_incident_review_completed": true
+      },
+      "webhook_secret_exposed": {
+        "event": "incident_drill_completed",
+        "drill_id": "6d278d4a-6d1f-4bd4-9310-33d1b19a3394",
+        "drill_version": "fds-incident-drill-v1",
+        "scenario": "webhook_secret_exposed",
+        "incident_type": "exposed_webhook_signing_secret",
+        "incident_id": "ab91415b-f027-4578-97fa-d1b59e7a6be2",
+        "synthetic_only": true,
+        "controls_invoked": [
+          "rotate_webhook_secret",
+          "replay_window_review",
+          "provider_notification"
+        ],
+        "started_at": "2026-10-01T15:31:26.168783+00:00",
+        "completed_at": "2026-10-01T15:31:26.169191+00:00",
+        "lifecycle_steps_completed": [
+          "DETECT",
+          "CONTAIN",
+          "PRESERVE_EVIDENCE",
+          "REVOKE_ROTATE",
+          "SCOPE",
+          "ERADICATE",
+          "RECOVER",
+          "ESCALATE_NOTIFY",
+          "POST_INCIDENT_REVIEW",
+          "CONTROL_IMPROVEMENT"
+        ],
+        "decisions": [
+          {
+            "step": "CONTAIN",
+            "timestamp": "2026-10-01T15:31:26.168910+00:00",
+            "outcome": "completed"
+          },
+          {
+            "step": "PRESERVE_EVIDENCE",
+            "timestamp": "2026-10-01T15:31:26.168948+00:00",
+            "outcome": "completed",
+            "evidence_preserved": true
+          },
+          {
+            "step": "REVOKE_ROTATE",
+            "timestamp": "2026-10-01T15:31:26.168985+00:00",
+            "outcome": "completed",
+            "revoke_rotate_triggered": true
+          },
+          {
+            "step": "SCOPE",
+            "timestamp": "2026-10-01T15:31:26.169014+00:00",
+            "outcome": "completed"
+          },
+          {
+            "step": "ERADICATE",
+            "timestamp": "2026-10-01T15:31:26.169043+00:00",
+            "outcome": "completed"
+          },
+          {
+            "step": "RECOVER",
+            "timestamp": "2026-10-01T15:31:26.169072+00:00",
+            "outcome": "completed"
+          },
+          {
+            "step": "ESCALATE_NOTIFY",
+            "timestamp": "2026-10-01T15:31:26.169102+00:00",
+            "outcome": "completed",
+            "notification_decision": "escalate_per_playbook"
+          },
+          {
+            "step": "POST_INCIDENT_REVIEW",
+            "timestamp": "2026-10-01T15:31:26.169131+00:00",
+            "outcome": "completed"
+          },
+          {
+            "step": "CONTROL_IMPROVEMENT",
+            "timestamp": "2026-10-01T15:31:26.169159+00:00",
+            "outcome": "completed"
+          }
+        ],
+        "outcome": "PASS",
+        "unresolved_gaps": [],
+        "policy_version": "fds-financial-incident-v1",
+        "post_incident_review_required": true,
+        "post_incident_review_completed": true
+      },
+      "exchange_api_secret_leaked": {
+        "event": "incident_drill_completed",
+        "drill_id": "1ebf11a2-9677-44e7-9d15-c9ad223d8008",
+        "drill_version": "fds-incident-drill-v1",
+        "scenario": "exchange_api_secret_leaked",
+        "incident_type": "leaked_financial_api_secret",
+        "incident_id": "b39d6ce1-e0c2-4622-bf96-d4ec519ee856",
+        "synthetic_only": true,
+        "controls_invoked": [
+          "revoke_exchange_credentials",
+          "rotate_secrets",
+          "scope_access_logs"
+        ],
+        "started_at": "2026-10-01T15:31:26.169242+00:00",
+        "completed_at": "2026-10-01T15:31:26.169594+00:00",
+        "lifecycle_steps_completed": [
+          "DETECT",
+          "CONTAIN",
+          "PRESERVE_EVIDENCE",
+          "REVOKE_ROTATE",
+          "SCOPE",
+          "ERADICATE",
+          "RECOVER",
+          "ESCALATE_NOTIFY",
+          "POST_INCIDENT_REVIEW",
+          "CONTROL_IMPROVEMENT"
+        ],
+        "decisions": [
+          {
+            "step": "CONTAIN",
+            "timestamp": "2026-10-01T15:31:26.169355+00:00",
+            "outcome": "completed"
+          },
+          {
+            "step": "PRESERVE_EVIDENCE",
+            "timestamp": "2026-10-01T15:31:26.169387+00:00",
+            "outcome": "completed",
+            "evidence_preserved": true
+          },
+          {
+            "step": "REVOKE_ROTATE",
+            "timestamp": "2026-10-01T15:31:26.169415+00:00",
+            "outcome": "completed",
+            "revoke_rotate_triggered": true
+          },
+          {
+            "step": "SCOPE",
+            "timestamp": "2026-10-01T15:31:26.169440+00:00",
+            "outcome": "completed"
+          },
+          {
+            "step": "ERADICATE",
+            "timestamp": "2026-10-01T15:31:26.169469+00:00",
+            "outcome": "completed"
+          },
+          {
+            "step": "RECOVER",
+            "timestamp": "2026-10-01T15:31:26.169494+00:00",
+            "outcome": "completed"
+          },
+          {
+            "step": "ESCALATE_NOTIFY",
+            "timestamp": "2026-10-01T15:31:26.169519+00:00",
+            "outcome": "completed",
+            "notification_decision": "escalate_per_playbook"
+          },
+          {
+            "step": "POST_INCIDENT_REVIEW",
+            "timestamp": "2026-10-01T15:31:26.169544+00:00",
+            "outcome": "completed"
+          },
+          {
+            "step": "CONTROL_IMPROVEMENT",
+            "timestamp": "2026-10-01T15:31:26.169570+00:00",
+            "outcome": "completed"
+          }
+        ],
+        "outcome": "PASS",
+        "unresolved_gaps": [],
+        "policy_version": "fds-financial-incident-v1",
+        "post_incident_review_required": true,
+        "post_incident_review_completed": true
+      },
+      "unauthorized_bulk_financial_export": {
+        "event": "incident_drill_completed",
+        "drill_id": "46541dc0-c02d-466d-adb0-7cc86665704c",
+        "drill_version": "fds-incident-drill-v1",
+        "scenario": "unauthorized_bulk_financial_export",
+        "incident_type": "unauthorized_financial_export",
+        "incident_id": "dd8d30aa-3054-4f41-a9e2-106c5521029a",
+        "synthetic_only": true,
+        "controls_invoked": [
+          "revoke_sessions",
+          "audit_export_path",
+          "notify_privacy_lead"
+        ],
+        "started_at": "2026-10-01T15:31:26.169635+00:00",
+        "completed_at": "2026-10-01T15:31:26.169946+00:00",
+        "lifecycle_steps_completed": [
+          "DETECT",
+          "CONTAIN",
+          "PRESERVE_EVIDENCE",
+          "REVOKE_ROTATE",
+          "SCOPE",
+          "ERADICATE",
+          "RECOVER",
+          "ESCALATE_NOTIFY",
+          "POST_INCIDENT_REVIEW",
+          "CONTROL_IMPROVEMENT"
+        ],
+        "decisions": [
+          {
+            "step": "CONTAIN",
+            "timestamp": "2026-10-01T15:31:26.169705+00:00",
+            "outcome": "completed"
+          },
+          {
+            "step": "PRESERVE_EVIDENCE",
+            "timestamp": "2026-10-01T15:31:26.169733+00:00",
+            "outcome": "completed",
+            "evidence_preserved": true
+          },
+          {
+            "step": "REVOKE_ROTATE",
+            "timestamp": "2026-10-01T15:31:26.169760+00:00",
+            "outcome": "completed",
+            "revoke_rotate_triggered": true
+          },
+          {
+            "step": "SCOPE",
+            "timestamp": "2026-10-01T15:31:26.169784+00:00",
+            "outcome": "completed"
+          },
+          {
+            "step": "ERADICATE",
+            "timestamp": "2026-10-01T15:31:26.169809+00:00",
+            "outcome": "completed"
+          },
+          {
+            "step": "RECOVER",
+            "timestamp": "2026-10-01T15:31:26.169834+00:00",
+            "outcome": "completed"
+          },
+          {
+            "step": "ESCALATE_NOTIFY",
+            "timestamp": "2026-10-01T15:31:26.169869+00:00",
+            "outcome": "completed",
+            "notification_decision": "escalate_per_playbook"
+          },
+          {
+            "step": "POST_INCIDENT_REVIEW",
+            "timestamp": "2026-10-01T15:31:26.169896+00:00",
+            "outcome": "completed"
+          },
+          {
+            "step": "CONTROL_IMPROVEMENT",
+            "timestamp": "2026-10-01T15:31:26.169922+00:00",
+            "outcome": "completed"
+          }
+        ],
+        "outcome": "PASS",
+        "unresolved_gaps": [],
+        "policy_version": "fds-financial-incident-v1",
+        "post_incident_review_required": true,
+        "post_incident_review_completed": true
+      },
+      "financial_data_ai_boundary": {
+        "event": "incident_drill_completed",
+        "drill_id": "4624cc06-2010-4e40-a658-86d6417e9831",
+        "drill_version": "fds-incident-drill-v1",
+        "scenario": "financial_data_ai_boundary",
+        "incident_type": "financial_data_in_logs_analytics_ai",
+        "incident_id": "c1a27d8a-681c-4980-b33d-13efe711cd5d",
+        "synthetic_only": true,
+        "controls_invoked": [
+          "purge_logs",
+          "block_ai_boundary",
+          "dlp_review"
+        ],
+        "started_at": "2026-10-01T15:31:26.169990+00:00",
+        "completed_at": "2026-10-01T15:31:26.170304+00:00",
+        "lifecycle_steps_completed": [
+          "DETECT",
+          "CONTAIN",
+          "PRESERVE_EVIDENCE",
+          "REVOKE_ROTATE",
+          "SCOPE",
+          "ERADICATE",
+          "RECOVER",
+          "ESCALATE_NOTIFY",
+          "POST_INCIDENT_REVIEW",
+          "CONTROL_IMPROVEMENT"
+        ],
+        "decisions": [
+          {
+            "step": "CONTAIN",
+            "timestamp": "2026-10-01T15:31:26.170068+00:00",
+            "outcome": "completed"
+          },
+          {
+            "step": "PRESERVE_EVIDENCE",
+            "timestamp": "2026-10-01T15:31:26.170096+00:00",
+            "outcome": "completed",
+            "evidence_preserved": true
+          },
+          {
+            "step": "REVOKE_ROTATE",
+            "timestamp": "2026-10-01T15:31:26.170129+00:00",
+            "outcome": "completed",
+            "revoke_rotate_triggered": true
+          },
+          {
+            "step": "SCOPE",
+            "timestamp": "2026-10-01T15:31:26.170155+00:00",
+            "outcome": "completed"
+          },
+          {
+            "step": "ERADICATE",
+            "timestamp": "2026-10-01T15:31:26.170180+00:00",
+            "outcome": "completed"
+          },
+          {
+            "step": "RECOVER",
+            "timestamp": "2026-10-01T15:31:26.170205+00:00",
+            "outcome": "completed"
+          },
+          {
+            "step": "ESCALATE_NOTIFY",
+            "timestamp": "2026-10-01T15:31:26.170230+00:00",
+            "outcome": "completed",
+            "notification_decision": "escalate_per_playbook"
+          },
+          {
+            "step": "POST_INCIDENT_REVIEW",
+            "timestamp": "2026-10-01T15:31:26.170256+00:00",
+            "outcome": "completed"
+          },
+          {
+            "step": "CONTROL_IMPROVEMENT",
+            "timestamp": "2026-10-01T15:31:26.170281+00:00",
+            "outcome": "completed"
+          }
+        ],
+        "outcome": "PASS",
+        "unresolved_gaps": [],
+        "policy_version": "fds-financial-incident-v1",
+        "post_incident_review_required": true,
+        "post_incident_review_completed": true
+      },
+      "privileged_misuse": {
+        "event": "incident_drill_completed",
+        "drill_id": "0f4132c3-097d-495c-97e0-55b6ba3e517b",
+        "drill_version": "fds-incident-drill-v1",
+        "scenario": "privileged_misuse",
+        "incident_type": "privileged_unauthorized_financial_access",
+        "incident_id": "20b847af-35c5-404c-b3db-1a15902b2a05",
+        "synthetic_only": true,
+        "controls_invoked": [
+          "revoke_privileged_session",
+          "access_review",
+          "break_glass_audit"
+        ],
+        "started_at": "2026-10-01T15:31:26.170345+00:00",
+        "completed_at": "2026-10-01T15:31:26.170642+00:00",
+        "lifecycle_steps_completed": [
+          "DETECT",
+          "CONTAIN",
+          "PRESERVE_EVIDENCE",
+          "REVOKE_ROTATE",
+          "SCOPE",
+          "ERADICATE",
+          "RECOVER",
+          "ESCALATE_NOTIFY",
+          "POST_INCIDENT_REVIEW",
+          "CONTROL_IMPROVEMENT"
+        ],
+        "decisions": [
+          {
+            "step": "CONTAIN",
+            "timestamp": "2026-10-01T15:31:26.170418+00:00",
+            "outcome": "completed"
+          },
+          {
+            "step": "PRESERVE_EVIDENCE",
+            "timestamp": "2026-10-01T15:31:26.170445+00:00",
+            "outcome": "completed",
+            "evidence_preserved": true
+          },
+          {
+            "step": "REVOKE_ROTATE",
+            "timestamp": "2026-10-01T15:31:26.170471+00:00",
+            "outcome": "completed",
+            "revoke_rotate_triggered": true
+          },
+          {
+            "step": "SCOPE",
+            "timestamp": "2026-10-01T15:31:26.170496+00:00",
+            "outcome": "completed"
+          },
+          {
+            "step": "ERADICATE",
+            "timestamp": "2026-10-01T15:31:26.170521+00:00",
+            "outcome": "completed"
+          },
+          {
+            "step": "RECOVER",
+            "timestamp": "2026-10-01T15:31:26.170545+00:00",
+            "outcome": "completed"
+          },
+          {
+            "step": "ESCALATE_NOTIFY",
+            "timestamp": "2026-10-01T15:31:26.170569+00:00",
+            "outcome": "completed",
+            "notification_decision": "escalate_per_playbook"
+          },
+          {
+            "step": "POST_INCIDENT_REVIEW",
+            "timestamp": "2026-10-01T15:31:26.170592+00:00",
+            "outcome": "completed"
+          },
+          {
+            "step": "CONTROL_IMPROVEMENT",
+            "timestamp": "2026-10-01T15:31:26.170618+00:00",
+            "outcome": "completed"
+          }
+        ],
+        "outcome": "PASS",
+        "unresolved_gaps": [],
+        "policy_version": "fds-financial-incident-v1",
+        "post_incident_review_required": true,
+        "post_incident_review_completed": true
+      }
+    }
+  },
+  "supply_chain_controls": {
+    "version": "fds-supply-chain-v1",
+    "sca": {
+      "tool": "pip-audit",
+      "finding_count": 0
+    },
+    "sbom": {
+      "format": "CycloneDX",
+      "component_count": 34
+    },
+    "waivers": {
+      "active": 1,
+      "uncontrolled": 0
+    },
+    "release_policy": {
+      "release_blocked": false,
+      "blocked_findings": [],
+      "waived_findings": [],
+      "policy": "critical_vulnerabilities_block_release_without_explicit_waiver"
+    },
+    "dependency_monitoring_contract": "pip-audit weekly CI + SBOM on security workflow",
+    "controlled_update_path": "requirements.lock.txt hash-pinned PR review"
+  },
+  "sca_results": {
+    "finding_count": 0,
+    "tool": "pip-audit"
+  },
+  "sbom_results": {
+    "format": "CycloneDX",
+    "spec_version": "1.5",
+    "component_count": 34,
+    "output_path": "docs/data-room/sbom/cyclonedx-python.json",
+    "machine_readable": true,
+    "generated": true
+  },
+  "payment_script_inventory": [
+    {
+      "template": "templates/landing.html",
+      "exists": true,
+      "scripts": [
+        "/static/js/dom_escape.js",
+        "/static/js/public_decision_map.js"
+      ],
+      "third_party": [],
+      "hosted_checkout_redirect": true,
+      "payment_sensitive": true
+    },
+    {
+      "template": "templates/dashboard.html",
+      "exists": true,
+      "scripts": [
+        "https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"
+      ],
+      "third_party": [
+        "https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"
+      ],
+      "hosted_checkout_redirect": true,
+      "payment_sensitive": true
+    },
+    {
+      "template": "templates/utility.html",
+      "exists": true,
+      "scripts": [],
+      "third_party": [],
+      "hosted_checkout_redirect": false,
+      "payment_sensitive": false
+    }
+  ],
+  "machine_counters": {
+    "FINANCIAL_RETENTION_POLICY_GAPS": 0,
+    "INDEFINITE_FINANCIAL_RETENTION_PATHS": 0,
+    "ACCOUNT_CLOSURE_RETENTION_GAPS": 0,
+    "FINANCIAL_CREDENTIAL_REVOCATION_GAPS": 0,
+    "BACKUP_EXPIRY_POLICY_GAPS": 0,
+    "BACKUP_DELETION_VERIFICATION_GAPS": 0,
+    "FALSE_DELETION_CLAIM_PATHS": 0,
+    "FINANCIAL_INCIDENT_PLAYBOOK_GAPS": 0,
+    "FINANCIAL_INCIDENT_ROUTING_GAPS": 0,
+    "INCIDENT_SECRET_LEAK_IN_RECORD_PATHS": 0,
+    "INCIDENT_DRILL_GAPS": 0,
+    "INCIDENT_POST_REVIEW_GAPS": 0,
+    "SCA_COVERAGE_GAPS": 0,
+    "SBOM_GAPS": 0,
+    "CRITICAL_DEPENDENCY_RELEASE_POLICY_GAPS": 0,
+    "UNCONTROLLED_SECURITY_DEPENDENCY_WAIVERS": 0,
+    "PAYMENT_FLOW_THIRD_PARTY_SCRIPT_GAPS": 0
+  },
+  "tests": {
+    "command": "python -m pytest tests/test_fds_retention_incident_supply_chain.py -q",
+    "exit_code": 0,
+    "passed": true,
+    "stdout_tail": "........................                                                 [100%]\n",
+    "stderr_tail": ""
+  },
+  "previous_phase_regressions": {
+    "fds_transport_webhook_environment_closure_verify.py": {
+      "command": "python fds_transport_webhook_environment_closure_verify.py",
+      "exit_code": 1,
+      "passed": false
+    },
+    "fds_secrets_crypto_audit_identity_closure_verify.py": {
+      "command": "python fds_secrets_crypto_audit_identity_closure_verify.py",
+      "exit_code": 1,
+      "passed": false
+    },
+    "fds_privileged_identity_authorization_closure_verify.py": {
+      "command": "python fds_privileged_identity_authorization_closure_verify.py",
+      "exit_code": 0,
+      "passed": true
+    },
+    "fds_security_governance_data_boundary_closure_verify.py": {
+      "command": "python fds_security_governance_data_boundary_closure_verify.py",
+      "exit_code": 0,
+      "passed": true
+    }
+  },
+  "evaluation": {
+    "scope_verified": true,
+    "controls": {
+      "FDS-20": {
+        "verified": true,
+        "evidence": "fds_retention_incident.retention_policy + account_closure"
+      },
+      "FDS-21": {
+        "verified": true,
+        "evidence": "fds_retention_incident.incident_playbook + incident_drill"
+      }
+    },
+    "sdg": {
+      "SDG-15": {
+        "verified": true,
+        "evidence": "fds_retention_incident.backup_lifecycle"
+      },
+      "SDG-16": {
+        "verified": true,
+        "evidence": "fds_retention_incident.incident_drill"
+      },
+      "SDG-17": {
+        "verified": true,
+        "evidence": "fds_retention_incident.supply_chain + payment_script_inventory"
+      }
+    },
+    "gaps": {
+      "FINANCIAL_RETENTION_POLICY_GAPS": 0,
+      "INDEFINITE_FINANCIAL_RETENTION_PATHS": 0,
+      "ACCOUNT_CLOSURE_RETENTION_GAPS": 0,
+      "FINANCIAL_CREDENTIAL_REVOCATION_GAPS": 0,
+      "BACKUP_EXPIRY_POLICY_GAPS": 0,
+      "BACKUP_DELETION_VERIFICATION_GAPS": 0,
+      "FALSE_DELETION_CLAIM_PATHS": 0,
+      "FINANCIAL_INCIDENT_PLAYBOOK_GAPS": 0,
+      "FINANCIAL_INCIDENT_ROUTING_GAPS": 0,
+      "INCIDENT_SECRET_LEAK_IN_RECORD_PATHS": 0,
+      "INCIDENT_DRILL_GAPS": 0,
+      "INCIDENT_POST_REVIEW_GAPS": 0,
+      "SCA_COVERAGE_GAPS": 0,
+      "SBOM_GAPS": 0,
+      "CRITICAL_DEPENDENCY_RELEASE_POLICY_GAPS": 0,
+      "UNCONTROLLED_SECURITY_DEPENDENCY_WAIVERS": 0,
+      "PAYMENT_FLOW_THIRD_PARTY_SCRIPT_GAPS": 0
+    },
+    "retention_matrix_version": "fds-retention-v1",
+    "incident_playbook": {
+      "playbook_version": "fds-financial-incident-v1",
+      "incident_types": [
+        "pan_discovered_in_storage",
+        "sad_discovered",
+        "leaked_financial_api_secret",
+        "exposed_webhook_signing_secret",
+        "unauthorized_financial_export",
+        "bank_credential_exposure",
+        "privileged_unauthorized_financial_access",
+        "financial_data_in_logs_analytics_ai",
+        "compromised_payment_integration"
+      ],
+      "lifecycle_steps": [
+        "DETECT",
+        "CONTAIN",
+        "PRESERVE_EVIDENCE",
+        "REVOKE_ROTATE",
+        "SCOPE",
+        "ERADICATE",
+        "RECOVER",
+        "ESCALATE_NOTIFY",
+        "POST_INCIDENT_REVIEW",
+        "CONTROL_IMPROVEMENT"
+      ],
+      "evidence_path": "data/financial_incident_evidence.jsonl"
+    },
+    "backup_lifecycle": {
+      "retention_days": 30,
+      "evidence_path": "/workspace/data/backup_lifecycle_evidence.jsonl",
+      "record_count": 18,
+      "states_supported": [
+        "CREATED",
+        "RETENTION_WINDOW",
+        "EXPIRED",
+        "DELETED",
+        "VERIFIED",
+        "FAILED",
+        "LEGAL_HOLD"
+      ]
+    },
+    "drill_summary": {
+      "all_passed": true,
+      "scenario_count": 6
+    },
+    "supply_chain": {
+      "version": "fds-supply-chain-v1",
+      "sca": {
+        "tool": "pip-audit",
+        "finding_count": 0
+      },
+      "sbom": {
+        "format": "CycloneDX",
+        "component_count": 34
+      },
+      "waivers": {
+        "active": 1,
+        "uncontrolled": 0
+      },
+      "release_policy": {
+        "release_blocked": false,
+        "blocked_findings": [],
+        "waived_findings": [],
+        "policy": "critical_vulnerabilities_block_release_without_explicit_waiver"
+      },
+      "dependency_monitoring_contract": "pip-audit weekly CI + SBOM on security workflow",
+      "controlled_update_path": "requirements.lock.txt hash-pinned PR review"
+    },
+    "production_validation_pending": [
+      "actual_cloud_backup_expiry_deletion_proof",
+      "real_incident_exercise_participation",
+      "provider_side_credential_revocation_proof",
+      "live_dependency_monitoring_service_behavior"
+    ]
+  },
+  "local_gaps": [],
+  "production_validation_pending": [
+    "actual_cloud_backup_expiry_deletion_proof",
+    "real_incident_exercise_participation",
+    "provider_side_credential_revocation_proof",
+    "live_dependency_monitoring_service_behavior"
+  ],
+  "summary": {
+    "fds_controls_in_scope": 2,
+    "fully_implemented_verified_local": 2,
+    "partial_local": 0,
+    "not_implemented_local": 0,
+    "locally_buildable_remaining": 0,
+    "production_validation_pending": 4,
+    "previous_fds_phase_regression_failures": 2,
+    "regression_failures": 2,
+    "FINANCIAL_RETENTION_POLICY_GAPS": 0,
+    "INDEFINITE_FINANCIAL_RETENTION_PATHS": 0,
+    "ACCOUNT_CLOSURE_RETENTION_GAPS": 0,
+    "FINANCIAL_CREDENTIAL_REVOCATION_GAPS": 0,
+    "BACKUP_EXPIRY_POLICY_GAPS": 0,
+    "BACKUP_DELETION_VERIFICATION_GAPS": 0,
+    "FALSE_DELETION_CLAIM_PATHS": 0,
+    "FINANCIAL_INCIDENT_PLAYBOOK_GAPS": 0,
+    "FINANCIAL_INCIDENT_ROUTING_GAPS": 0,
+    "INCIDENT_SECRET_LEAK_IN_RECORD_PATHS": 0,
+    "INCIDENT_DRILL_GAPS": 0,
+    "INCIDENT_POST_REVIEW_GAPS": 0,
+    "SCA_COVERAGE_GAPS": 0,
+    "SBOM_GAPS": 0,
+    "CRITICAL_DEPENDENCY_RELEASE_POLICY_GAPS": 0,
+    "UNCONTROLLED_SECURITY_DEPENDENCY_WAIVERS": 0,
+    "PAYMENT_FLOW_THIRD_PARTY_SCRIPT_GAPS": 0
+  }
+}

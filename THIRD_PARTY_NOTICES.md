@@ -36,7 +36,6 @@ without infecting proprietary application code (no GPL/AGPL in the direct stack)
 | aioboto3 | Apache-2.0 | ✅ | S3 sync (optional) |
 | ccxt | MIT | ✅ | Exchange market data |
 | vaderSentiment | MIT | ✅ | NLP sentiment |
-| textblob | MIT | ✅ | NLP (uses NLTK, Apache-2.0) |
 | stripe | MIT | ✅ | Payments SDK |
 | scikit-learn | BSD-3-Clause | ✅ | ML training |
 | joblib | BSD-3-Clause | ✅ | Model serialization |

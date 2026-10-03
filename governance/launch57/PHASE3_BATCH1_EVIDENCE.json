@@ -1,0 +1,21 @@
+{
+  "artifact": "PHASE3_BATCH1_EVIDENCE",
+  "phase": "3_DECISION",
+  "batch": 1,
+  "source_commit": "4d4dd6c7",
+  "final_commit": "45512f47a92bf4da6d449652b1d1c9694ee9f491",
+  "generated_at": "2026-09-16T21:45:05.023777+00:00",
+  "build_order": [
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "tests": {
+    "command": "python3 -m pytest tests/launch57/test_decision_batch1.py -q",
+    "exit_code": 0,
+    "stdout": "......                                                                   [100%]",
+    "passed": true
+  }
+}

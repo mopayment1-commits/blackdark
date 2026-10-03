@@ -1,0 +1,29 @@
+{
+  "artifact": "SPEC_12_FINAL_STATUS",
+  "domain": "SPEC_12_IDENTITY_AUTH_PROFILE",
+  "spec_version": "launch57-spec12-identity-auth-profile-1.0.0",
+  "governing_spec": "/workspace/governance/launch57/BLACKDARK_LAUNCH57_IDENTITY_AUTH_PROFILE_REPORT.md",
+  "final_sha": "638e14e0fc1d4dd019cc0960510d968bedf11371",
+  "branch": "cursor/launch57-phase8-launch-coherence-358c",
+  "generated_at": "2026-10-01T14:30:49.751020+00:00",
+  "PASS_ENGINEERING": true,
+  "LOCAL_INSTITUTIONAL_CLOSURE": true,
+  "LOCAL_WORK_REMAINING": 0,
+  "LOCAL_ENGINEERING_GAP_COUNT": 0,
+  "LOCAL_ENGINEERING_GAPS": [],
+  "PASS_LIVE": false,
+  "LIVE_VALIDATION_PENDING": true,
+  "live_blockers_only": [
+    "PASS_LIVE requires production OIDC/Google token verification drill",
+    "Production email delivery for verification/reset under real domains",
+    "Live passkey/WebAuthn ceremony verification in production browsers",
+    "Production session revocation and active-session UI drill"
+  ],
+  "launch57_only_ok": true,
+  "BUILDER_STATUS": "PASS_ENGINEERING",
+  "IV_STATUS": "PASS_ENGINEERING",
+  "closure_status": "CLOSED_LOCAL",
+  "runtime_truth_yes_count": 24,
+  "runtime_truth_total": 24,
+  "tests_pass": true
+}

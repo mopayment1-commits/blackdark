@@ -1,0 +1,359 @@
+{
+  "artifact": "B15_TEMPORAL_INDEPENDENT_VERIFICATION",
+  "verification_type": "independent_engineering",
+  "VERIFIED_IMPLEMENTATION_SHA": "6089b277",
+  "verified_implementation_sha_full": "6089b2774224cf43740b56447cb8ffa65809a758",
+  "builder_evidence_commit": "f5658d1a",
+  "head_at_iv": "f5658d1a",
+  "b15_code_unchanged_since_implementation": true,
+  "verified_at": "2026-09-17T20:30:00+00:00",
+  "verifier": {
+    "role": "independent_verifier",
+    "session": "cursor-cloud-agent-b15-temporal-independent-verification",
+    "method": "independent_iv_artifact_cross_check_integrated_pytest_residual_audit_spec_39_38_40_41_42_reconciliation"
+  },
+  "scope": {
+    "batch": "B15",
+    "launch_numbers": "cross-cutting (Phase 8 integrated reconciliation)",
+    "domain": "Final temporal reconciliation and global verdict",
+    "governing_spec": "BLACKDARK_Launch57_Global_Time_Temporal_Consistency_FROM_SCRATCH_SPEC_66d6.md §37–§42",
+    "plan": "governance/launch57/LAUNCH57_TEMPORAL_EXECUTION_PLAN_B1_B15.md §4, §12, §13 R4"
+  },
+  "entry_gate": {
+    "B14_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+    "B14_VERIFIED_IV_SHA": "9a6dfaf8",
+    "B1_B14_ALL_PASS_ENGINEERING": true,
+    "f5658d1a_product_code_delta_after_6089b277": "none — governance/evidence only",
+    "pass": true
+  },
+  "final_state_integrity": {
+    "head_sha": "f5658d1a4224cf43740b56447cb8ffa65809a758",
+    "implementation_commit": "6089b277",
+    "evidence_commit": "f5658d1a",
+    "post_implementation_changes": [
+      "governance/launch57/B15_TEMPORAL_IMPLEMENTATION_EVIDENCE.json",
+      "governance/launch57/B15_TEMPORAL_IMPLEMENTATION_REPORT.md"
+    ],
+    "product_code_changes_after_6089b277": [],
+    "b15_product_code_in_6089b277": false,
+    "b15_test_only_product_delta": [
+      "tests/launch57/test_temporal_batch15.py"
+    ],
+    "frozen_b1_b14_owners_modified_by_b15": false,
+    "pass": true
+  },
+  "independent_batch_verdict_cross_check": {
+    "method": "Read each authoritative IV artifact file directly; do not trust generator output",
+    "artifacts": {
+      "B1": "B1_TEMPORAL_INDEPENDENT_VERIFICATION.json",
+      "B2": "B2_40_INDEPENDENT_VERIFICATION.json",
+      "B3": "B3_6_TRUST_BOUNDARY_INDEPENDENT_VERIFICATION.json",
+      "B4": "B4_TEMPORAL_INDEPENDENT_VERIFICATION.json",
+      "B5": "B5_TEMPORAL_INDEPENDENT_VERIFICATION.json",
+      "B6": "B6_TEMPORAL_INDEPENDENT_VERIFICATION.json",
+      "B7": "B7_TEMPORAL_INDEPENDENT_VERIFICATION.json",
+      "B8": "B8_TEMPORAL_INDEPENDENT_VERIFICATION.json",
+      "B9": "B9_TEMPORAL_INDEPENDENT_VERIFICATION.json",
+      "B10": "B10_TEMPORAL_INDEPENDENT_VERIFICATION.json",
+      "B11": "B11_TEMPORAL_INDEPENDENT_VERIFICATION.json",
+      "B12": "B12_TEMPORAL_INDEPENDENT_VERIFICATION.json",
+      "B13": "B13_TEMPORAL_INDEPENDENT_VERIFICATION.json",
+      "B14": "B14_TEMPORAL_INDEPENDENT_VERIFICATION.json"
+    },
+    "observed_verdicts": {
+      "B1": "PASS_ENGINEERING",
+      "B2": "PASS_ENGINEERING",
+      "B3": "PASS_ENGINEERING",
+      "B4": "PASS_ENGINEERING",
+      "B5": "PASS_ENGINEERING",
+      "B6": "PASS_ENGINEERING",
+      "B7": "PASS_ENGINEERING",
+      "B8": "PASS_ENGINEERING",
+      "B9": "PASS_ENGINEERING",
+      "B10": "PASS_ENGINEERING",
+      "B11": "PASS_ENGINEERING",
+      "B12": "PASS_ENGINEERING",
+      "B13": "PASS_ENGINEERING",
+      "B14": "PASS_ENGINEERING"
+    },
+    "all_pass_engineering": true,
+    "B1_TO_41_TARGETED_RECONCILIATION": "PASS_ENGINEERING",
+    "B1_TO_41_source": "B3_6_TRUST_BOUNDARY_INDEPENDENT_VERIFICATION.json (B1 artifact has no field; B1_TO_41_INDEPENDENT_VERIFICATION.json also PASS_ENGINEERING)",
+    "pass": true
+  },
+  "independent_reconciliation": {
+    "method": "Derive integrated result from B1–B14 IV evidence, integrated tests, consumer audits, and §41 finding buckets — not from generator PASS flag alone",
+    "verdict_state_consistency": "PASS — all 14 batch IV verdicts PASS_ENGINEERING with no contradictory stale NOT_COMPLETE artifacts used as authority",
+    "dependency_order_consistency": "PASS — B2..B14 entry gates in IV artifacts chain correctly (each references prior batch PASS)",
+    "isolation_consistency": "PASS — B1–B14 IV artifacts report zero isolation leakage on frozen owners; B15 added no launch57/ product code",
+    "canonical_temporal_ownership_consistency": "PASS — B1 temporal_common frozen; B2–B12 domain owners verified; B13 chart_display_timing_common; B14 infrastructure_temporal_common; no cross-batch owner conflicts",
+    "cross_batch_timestamp_conflicts": [],
+    "contradictory_or_stale_evidence": [],
+    "repository_sha_matches_evidence": true,
+    "integrated_temporal_reconciliation_pass": true,
+    "finding_buckets_all_empty": true,
+    "pass": true
+  },
+  "spec_section_39_acceptance_criteria": {
+    "1_canonical_timestamps_utc_aware": {
+      "verdict": "PASS",
+      "evidence": "B1 IV temporal_primitives.utc_aware_timestamps; launch57/temporal_common.py; integrated tests 0 naive_datetime_findings"
+    },
+    "2_no_critical_naive_datetime_path": {
+      "verdict": "PASS",
+      "evidence": "B1 IV naive_datetime_rejection; reconciliation naive_datetime_findings=[]; B14 validate_api_timestamp_string fail-closed"
+    },
+    "3_iana_timezone_ids": {
+      "verdict": "PASS",
+      "evidence": "B1 resolve_user_timezone uses zoneinfo/IANA IDs; B13/B14 bind America/New_York etc."
+    },
+    "4_explicit_user_preference_wins": {
+      "verdict": "PASS",
+      "evidence": "B1 IV timezone precedence request→account→session→browser→UTC"
+    },
+    "5_invalid_timezone_safe_fallback": {
+      "verdict": "PASS",
+      "evidence": "B1 tests + temporal_common invalid zone → UTC fallback"
+    },
+    "6_freshness_uses_canonical_time": {
+      "verdict": "PASS",
+      "evidence": "B2 IV #41 freshness_common; B1_TO_41 PASS_ENGINEERING; stale_live_inconsistencies=[]"
+    },
+    "7_evidence_class_not_altered_by_rendering": {
+      "verdict": "PASS",
+      "evidence": "B3 IV trust boundary PASS_ENGINEERING; evidence_class_common source-governs-trust"
+    },
+    "8_source_event_availability_timing_preserved": {
+      "verdict": "PASS",
+      "evidence": "B2 provenance_common + point_in_time_common IV PASS; availability_time_unknown_or_fabrication_findings=[]"
+    },
+    "9_historical_decisions_immutable": {
+      "verdict": "PASS",
+      "evidence": "B4 decision_timing_common IV PASS_ENGINEERING"
+    },
+    "10_point_in_time_integrity_39": {
+      "verdict": "PASS",
+      "evidence": "B2 #39 point_in_time_common IV PASS; point_in_time_violations=[]"
+    },
+    "11_public_accuracy_ordering_4": {
+      "verdict": "PASS",
+      "evidence": "B5 public_accuracy_common IV PASS_ENGINEERING"
+    },
+    "12_time_sensitive_opportunity_5_43": {
+      "verdict": "PASS",
+      "evidence": "B6 net_edge_timing_common IV PASS_ENGINEERING"
+    },
+    "13_charts_one_display_timezone": {
+      "verdict": "PASS",
+      "evidence": "B13 IV S22 controls PASS; chart_inconsistencies=[]; sole in-scope chart owner #23 wired"
+    },
+    "14_alerts_trigger_delivery_chronology": {
+      "verdict": "PASS",
+      "evidence": "B8 alert_timing_common IV PASS; alert_timing_failures=[]"
+    },
+    "15_ai_outputs_user_time_correct": {
+      "verdict": "PASS",
+      "evidence": "B9 research_explanation_timing_common IV PASS_ENGINEERING"
+    },
+    "16_dst_tests_pass": {
+      "verdict": "PASS",
+      "evidence": "B14 IV adversarial DST probes PASS; dst_failures=[]; dst_gap_fold_failures=[]"
+    },
+    "17_no_lookahead_leakage": {
+      "verdict": "PASS",
+      "evidence": "B2/B4 IV; lookahead_violations=[]"
+    },
+    "18_independent_verification_passes": {
+      "verdict": "PASS",
+      "evidence": "B1–B14 authoritative IV artifacts all PASS_ENGINEERING; B15 IV completes §37"
+    },
+    "19_phase8_integrated_reconciliation_final_sha": {
+      "verdict": "PASS",
+      "evidence": "161 integrated B1–B14 tests pass @ f5658d1a; unresolved_temporal_inconsistencies=[]; unresolved_dependency_order_defects=[]; unresolved_scope_isolation_defects=[]; unresolved_cross_batch_timestamp_conflicts=[]"
+    },
+    "20_timestamp_precision_unit_explicit": {
+      "verdict": "PASS",
+      "evidence": "B1 unit inference + B14 epoch unit contract; timestamp_precision_unit_violations=[]"
+    },
+    "21_deterministic_ordering_beyond_timestamps": {
+      "verdict": "PASS",
+      "evidence": "B1 deterministic_equal_timestamp_ordering; equal_time_ordering_defects=[]"
+    },
+    "22_provider_host_clock_skew_governed": {
+      "verdict": "PASS",
+      "evidence": "B14 check_clock_skew_budget + finalize fail-closed; provider_clock_skew_defects=[]; host_clock_skew_defects=[]"
+    },
+    "23_available_at_not_fabricated": {
+      "verdict": "PASS",
+      "evidence": "B1 IV unknown_available_at_not_fabricated_from_source_only; availability_time_unknown_or_fabrication_findings=[]"
+    },
+    "24_wall_monotonic_separated": {
+      "verdict": "PASS",
+      "evidence": "B14 MonotonicTimer vs wall_clock_now IV adversarial PASS"
+    },
+    "25_iana_zone_identity_preserved_for_civil_time": {
+      "verdict": "PASS",
+      "evidence": "B14 prepare_db_civil_intent + resolve_local_civil_time preserve zone identity separately from UTC instant"
+    },
+    "26_tzdb_dependency_controlled": {
+      "verdict": "PASS",
+      "evidence": "zoneinfo package referenced in temporal envelope; tzdb_version_update_findings=[] (no uncontrolled drift detected)"
+    },
+    "27_dst_gaps_folds_recurrence_deterministic": {
+      "verdict": "PASS",
+      "evidence": "B14 REJECT/FIRST/SECOND/SHIFT_NEXT_VALID policies tested; recurrence_failures=[]"
+    },
+    "28_api_timestamps_unambiguous_versioned": {
+      "verdict": "PASS",
+      "evidence": "B14 serialize_api_instant RFC3339 Z; B1 to_rfc3339 on domain owners; api_database_serialization_defects=[]"
+    },
+    "29_leap_second_documented_tested": {
+      "verdict": "PASS",
+      "evidence": "B1 test_leap_second_normalization; temporal_common LeapSecondPolicy.NORMALIZE_TO_59; infrastructure_temporal_common leap_second_policy"
+    },
+    "30_no_false_pass_live": {
+      "verdict": "PASS",
+      "evidence": "PASS_LIVE_NOT_CLAIMED=true across B1–B15 IV; six §38 gates remain NEEDS_EXTERNAL_VERIFICATION"
+    },
+    "all_applicable_pass": true,
+    "failed_criteria": [],
+    "not_applicable_criteria": []
+  },
+  "residual_re_evaluation": {
+    "B13-CHART-COVERAGE": {
+      "classification": "DOCUMENTED_RESIDUAL",
+      "re_evaluated_at_iv": true,
+      "in_scope_launch57_chart_consumers": [
+        "launch57/data_batch1.py:ohlcv (#23) → attach_chart_envelope"
+      ],
+      "out_of_scope_or_non_chart": [
+        "bd_platform/* (capabilities #301–#400)",
+        "cap646/fallbacks.resolve_ohlcv_closes (closes only, no chart_view)"
+      ],
+      "uncovered_applicable_paths": [],
+      "blocks_global_pass": false,
+      "verdict": "NON_BLOCKING"
+    },
+    "B14-ENVELOPE-COVERAGE": {
+      "classification": "DOCUMENTED_RESIDUAL",
+      "re_evaluated_at_iv": true,
+      "b14_wired_paths": [
+        "launch57/data_batch1.py (all API finalizers)",
+        "launch57/chart_common.py (post-B13)",
+        "launch57/smart_money_common.py"
+      ],
+      "equivalent_verified_canonical_paths": [
+        "launch57/data_batch2.py → B2 owners",
+        "launch57/trust_batch*.py → B4 decision_timing",
+        "launch57/decision_batch*.py → B4–B7 owners",
+        "launch57/edge_ui_common.py → B11 personal_history",
+        "launch57/explanation_ai_common.py / derivatives_common.py → B8/B9"
+      ],
+      "uncovered_applicable_paths": [],
+      "blocks_global_pass": false,
+      "verdict": "NON_BLOCKING",
+      "iv_source": "B14_TEMPORAL_INDEPENDENT_VERIFICATION.json launch57_infrastructure_consumer_audit"
+    },
+    "pass": true
+  },
+  "spec_section_38_external_gates": {
+    "method": "Retain NEEDS_EXTERNAL_VERIFICATION only where production/external evidence genuinely required; do not convert to PASS_LIVE or fail engineering for legitimate external-only gates",
+    "gates": [
+      {
+        "gate": "production_host_clock_sync",
+        "status": "NEEDS_EXTERNAL_VERIFICATION",
+        "spec": "§38 / §25",
+        "blocks_engineering_pass": false,
+        "rationale": "NTP/host sync is production-only; B14 local skew budget tested"
+      },
+      {
+        "gate": "browser_device_timezone_detection",
+        "status": "NEEDS_EXTERNAL_VERIFICATION",
+        "spec": "§38",
+        "blocks_engineering_pass": false,
+        "rationale": "Browser TZ detection requires real client devices"
+      },
+      {
+        "gate": "cross_device_persistence",
+        "status": "NEEDS_EXTERNAL_VERIFICATION",
+        "spec": "§38",
+        "blocks_engineering_pass": false,
+        "rationale": "Cross-device persistence requires production storage"
+      },
+      {
+        "gate": "production_alert_delivery_timing",
+        "status": "NEEDS_EXTERNAL_VERIFICATION",
+        "spec": "§38",
+        "blocks_engineering_pass": false,
+        "rationale": "Delivery latency is production transport; B8 trigger logic verified locally"
+      },
+      {
+        "gate": "production_dst_sensitive_scheduling",
+        "status": "NEEDS_EXTERNAL_VERIFICATION",
+        "spec": "§38 / §27",
+        "blocks_engineering_pass": false,
+        "rationale": "Runtime schedule executor not in Launch-57 scope; B14 library policy tested"
+      },
+      {
+        "gate": "production_email_notification_rendering",
+        "status": "NEEDS_EXTERNAL_VERIFICATION",
+        "spec": "§38",
+        "blocks_engineering_pass": false,
+        "rationale": "Email rendering requires production notification stack"
+      }
+    ],
+    "false_pass_live_claims": 0,
+    "local_defects_misclassified_as_external": 0,
+    "pass": true
+  },
+  "artifact_consistency": {
+    "section_40_report_a_through_u_complete": true,
+    "section_41_reconciliation_matches_independent_findings": true,
+    "section_42_final_fields_consistent": true,
+    "generator_not_used_as_independent_proof": true,
+    "pass": true
+  },
+  "targeted_tests": {
+    "b15_command": "python3 -m pytest tests/launch57/test_temporal_batch15.py -q",
+    "b15_exit_code": 0,
+    "b15_collected": 21,
+    "b15_passed": 21,
+    "b15_failed": 0,
+    "integrated_command": "python3 -m pytest tests/launch57/test_temporal_batch1.py … test_temporal_batch14.py -q",
+    "integrated_exit_code": 0,
+    "integrated_collected": 161,
+    "integrated_passed": 161,
+    "integrated_failed": 0,
+    "pass": true
+  },
+  "defects": [],
+  "B15_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+  "B15_IMPLEMENTATION_STATUS": "PASS_ENGINEERING",
+  "LAUNCH57_TEMPORAL_CONSISTENCY_PASS_ENGINEERING": true,
+  "LAUNCH57_TEMPORAL_CONSISTENCY_READY_FOR_LOCAL_USE": true,
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "PASS_ENGINEERING_NOT_CLAIMED": false,
+  "protected_state": {
+    "B1_INDEPENDENT_VERDICT": "PRESERVE_VERIFIED_STATE",
+    "B2_INDEPENDENT_VERDICT": "PRESERVE_VERIFIED_STATE",
+    "B3_INDEPENDENT_VERDICT": "PRESERVE_VERIFIED_STATE",
+    "B4_INDEPENDENT_VERDICT": "PRESERVE_VERIFIED_STATE",
+    "B5_INDEPENDENT_VERDICT": "PRESERVE_VERIFIED_STATE",
+    "B6_INDEPENDENT_VERDICT": "PRESERVE_VERIFIED_STATE",
+    "B7_INDEPENDENT_VERDICT": "PRESERVE_VERIFIED_STATE",
+    "B8_INDEPENDENT_VERDICT": "PRESERVE_VERIFIED_STATE",
+    "B9_INDEPENDENT_VERDICT": "PRESERVE_VERIFIED_STATE",
+    "B10_INDEPENDENT_VERDICT": "PRESERVE_VERIFIED_STATE",
+    "B11_INDEPENDENT_VERDICT": "PRESERVE_VERIFIED_STATE",
+    "B12_INDEPENDENT_VERDICT": "PRESERVE_VERIFIED_STATE",
+    "B13_INDEPENDENT_VERDICT": "PRESERVE_VERIFIED_STATE",
+    "B14_INDEPENDENT_VERDICT": "PRESERVE_VERIFIED_STATE",
+    "reopen_trigger": "NONE"
+  },
+  "implementation_modified_during_verification": false,
+  "historical_artifacts_preserved": [
+    "governance/launch57/B15_TEMPORAL_IMPLEMENTATION_EVIDENCE.json",
+    "governance/launch57/B15_TEMPORAL_IMPLEMENTATION_REPORT.md"
+  ],
+  "next_permitted_action": "NONE — Launch-57 temporal engineering reconciliation closed; external §38 gates remain for PASS_LIVE only"
+}

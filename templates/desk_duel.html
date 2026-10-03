@@ -31,8 +31,9 @@ button,.btn{border:0;background:var(--ok);color:#062016;font-weight:800;padding:
 <div class="box" data-evidence><p class="sub" id="line"></p><p class="muted" id="disc"></p></div>
 <a class="btn" id="share" href="#" target="_blank" rel="noopener">Share</a>
 </main>
+<script src="/static/js/dom_escape.js"></script>
 <script>
-async function load(){const d=await(await fetch('/api/desk-duel')).json();document.getElementById('hero').textContent=d.headline||`Duels ${d.count}`;const first=(d.duels||[])[0];document.getElementById('line').textContent=first?`Latest ${first.duel_id} · ${first.asset} · ${first.status} · host ${first.host?.desk} vs ${first.challenger?.desk}`:'No duels';document.getElementById('disc').textContent=d.doctrine||'';document.getElementById('share').href=d.share_urls?.x||'#';}async function createDuel(){await fetch('/api/desk-duel',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({host_desk:'Your Desk',host_verdict:'WAIT',invitee_desk:'Rival'})});load();}load();
+async function load(){const d=await(await fetch('/api/desk-duel')).json();document.getElementById('hero').textContent=d.headline||`Duels ${d.count}`;const first=(d.duels||[])[0];document.getElementById('line').textContent=first?`Latest ${first.duel_id} · ${first.asset} · ${first.status} · host ${first.host?.desk} vs ${first.challenger?.desk}`:'No duels';document.getElementById('disc').textContent=d.doctrine||'';window.BDDomSafe.setAnchorHref(document.getElementById('share'),d.share_urls?.x);}async function createDuel(){await fetch('/api/desk-duel',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({host_desk:'Your Desk',host_verdict:'WAIT',invitee_desk:'Rival'})});load();}load();
 </script>
 </body>
 </html>

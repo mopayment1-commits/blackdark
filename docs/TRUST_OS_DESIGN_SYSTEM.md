@@ -5,7 +5,7 @@
 ## Canon
 
 - 1 product · 4 lenses · 6 heroes · Trust Pulse first-open
-- Pricing: Proof Pass $0 · Decision Pro $29 · Decision Desk $49 · Institutional from $3,000 → open
+- Pricing: DISCOVER/FREE $0 · DECIDE/PRO $19.99/mo · SEE THE EDGE/ELITE $49.99/mo · EXECUTE THE EDGE/QUANT $129.99/mo · SCALE THE EDGE/INSTITUTIONAL from $999/mo
 - Share = Proof Cards · Verify = Public Accuracy Ledger
 - Anti-Hype: prove it, don’t manipulate
 
@@ -18,7 +18,7 @@
 | Soft Gold `#FFD700` as system accent | Crypto-bro / cheap signal |
 | ARENA / prediction leaderboards | Outside Trust OS canon |
 | FOMO seat counters / fake scarcity | Conflicts with Anti-Hype |
-| Explorer / Plus $19 / TradingView-copy 5-tier ladder | Superseded by Trust OS $0/$29/$49/$3000→open |
+| Explorer / Plus $19 / TradingView-copy 5-tier ladder | Superseded by Launch-57 SSOT five-depth ladder |
 | First-viewport stats strips | Breaks hero budget |
 
 ## Palette

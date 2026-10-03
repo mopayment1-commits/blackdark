@@ -1,0 +1,57 @@
+{
+  "EXTERNAL_GATES_COUNT": 5,
+  "EXTERNAL_GATES_CONTAIN_NO_LOCAL_ENGINEERING": true,
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "gates": [
+    {
+      "requirement": "DATA-054 provider contractual SLA",
+      "local_engineering_completed": true,
+      "external_dependency": "Vendor contractual SLA documents",
+      "why_external": "Cannot invent contractual SLA; local SLO framework and PROVIDER_SLA=NONE implemented",
+      "future_evidence_procedure": "Attach signed SLA artifact per source when obtained",
+      "pass_criterion": "SLA artifact on file or PROVIDER_SLA=NONE with measured internal SLO",
+      "NO_LOCAL_ENGINEERING_REMAINS": true,
+      "status": "GENUINE_EXTERNAL_DEPENDENCY_GATED"
+    },
+    {
+      "requirement": "DATA-077 redistribution/licensing legal evidence",
+      "local_engineering_completed": true,
+      "external_dependency": "Provider terms / legal review for redistribution",
+      "why_external": "Legal conclusions cannot be manufactured locally",
+      "future_evidence_procedure": "Rights registry entry with counsel-reviewed classification",
+      "pass_criterion": "rights_state != UNDOCUMENTED for production redistribution",
+      "NO_LOCAL_ENGINEERING_REMAINS": true,
+      "status": "GENUINE_EXTERNAL_DEPENDENCY_GATED"
+    },
+    {
+      "requirement": "Live provider reliability SLO measurement",
+      "local_engineering_completed": true,
+      "external_dependency": "Production traffic over real time",
+      "why_external": "Measured live reliability requires production operation",
+      "future_evidence_procedure": "Prometheus/Grafana SLO dashboard from production",
+      "pass_criterion": "30d measured availability/freshness meets internal SLO",
+      "NO_LOCAL_ENGINEERING_REMAINS": true,
+      "status": "LIVE_PRODUCTION_EVIDENCE_GATED"
+    },
+    {
+      "requirement": "Production backup/restore drill",
+      "local_engineering_completed": true,
+      "external_dependency": "Production environment restore",
+      "why_external": "Local restore test completed; production drill requires prod infra",
+      "future_evidence_procedure": "Quarterly production restore drill log",
+      "pass_criterion": "RTO/RPO met in production drill",
+      "NO_LOCAL_ENGINEERING_REMAINS": true,
+      "status": "LIVE_PRODUCTION_EVIDENCE_GATED"
+    },
+    {
+      "requirement": "DATA-092 GLBA applicability",
+      "local_engineering_completed": true,
+      "external_dependency": "Professional legal applicability determination",
+      "why_external": "GLBA applicability is documented determination not assumed requirement",
+      "future_evidence_procedure": "Legal memo in institutional_due_diligence",
+      "pass_criterion": "Applicability register entry with counsel sign-off",
+      "NO_LOCAL_ENGINEERING_REMAINS": true,
+      "status": "GENUINE_EXTERNAL_DEPENDENCY_GATED"
+    }
+  ]
+}

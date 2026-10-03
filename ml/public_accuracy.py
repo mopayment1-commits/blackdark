@@ -12,10 +12,32 @@ Live-only hit rate is the primary metric; synthetic seeded data is labeled separ
 
 from __future__ import annotations
 
+import asyncio
+import copy
+import os
+import time
 from typing import Any
 
 import config
 from oracle_integrity import is_synthetic_prediction
+
+_PAYLOAD_CACHE: dict[str, Any] | None = None
+_PAYLOAD_CACHE_KEY: tuple[Any, ...] | None = None
+_PAYLOAD_CACHE_AT: float = 0.0
+_PAYLOAD_LOCK = asyncio.Lock()
+
+
+def _public_accuracy_cache_key(recent_limit: int) -> tuple[Any, ...]:
+    from oracle_audit_chain import _chain_file_fingerprint, chain_path
+
+    return (recent_limit, _chain_file_fingerprint(chain_path()))
+
+
+def invalidate_public_accuracy_cache() -> None:
+    global _PAYLOAD_CACHE, _PAYLOAD_CACHE_KEY, _PAYLOAD_CACHE_AT
+    _PAYLOAD_CACHE = None
+    _PAYLOAD_CACHE_KEY = None
+    _PAYLOAD_CACHE_AT = 0.0
 
 
 def _track_record_block() -> dict[str, Any]:
@@ -35,13 +57,20 @@ def _chain_ref(pred_id: Any, chain_meta: dict[str, Any] | None) -> str | None:
     return None
 
 
+def _public_verdict_display(raw_verdict: Any) -> str:
+    from supplemental_public_compliance import map_public_decision_action
+
+    return map_public_decision_action(str(raw_verdict or ""))
+
+
 def _public_recent_row(row: dict[str, Any], chain_meta: dict[str, Any] | None, label: str) -> dict[str, Any]:
     pred_id = row.get("id")
+    raw_verdict = row.get("verdict")
     return {
         "prediction_id": pred_id,
         "timestamp": row.get("timestamp"),
         "asset": row.get("asset"),
-        "verdict": row.get("verdict"),
+        "verdict": _public_verdict_display(raw_verdict),
         "price_at_prediction": row.get("price_at_prediction"),
         "price_after_24h": row.get("price_after_24h"),
         "label": label,
@@ -57,8 +86,11 @@ def _public_recent_row(row: dict[str, Any], chain_meta: dict[str, Any] | None, l
     }
 
 
-def _public_recent_predictions(recent: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], int, int]:
-    chain_lookup = _chain_lookup()
+def _public_recent_predictions(
+    recent: list[dict[str, Any]],
+    chain_lookup: dict[str, dict[str, Any]] | None = None,
+) -> tuple[list[dict[str, Any]], int, int]:
+    chain_lookup = chain_lookup if chain_lookup is not None else _chain_lookup()
     public_recent = []
     correct = 0
     resolved_rows = 0
@@ -76,41 +108,102 @@ def _public_recent_predictions(recent: list[dict[str, Any]]) -> tuple[list[dict[
 
 
 async def build_public_accuracy_payload(*, recent_limit: int = 20) -> dict[str, Any]:
+    ttl = float(os.getenv("PUBLIC_ACCURACY_CACHE_SEC", "25"))
+    key = _public_accuracy_cache_key(recent_limit)
+    now = time.monotonic()
+    global _PAYLOAD_CACHE, _PAYLOAD_CACHE_KEY, _PAYLOAD_CACHE_AT
+    if (
+        _PAYLOAD_CACHE is not None
+        and _PAYLOAD_CACHE_KEY == key
+        and (now - _PAYLOAD_CACHE_AT) < ttl
+    ):
+        return copy.deepcopy(_PAYLOAD_CACHE)
+    async with _PAYLOAD_LOCK:
+        now = time.monotonic()
+        if (
+            _PAYLOAD_CACHE is not None
+            and _PAYLOAD_CACHE_KEY == key
+            and (now - _PAYLOAD_CACHE_AT) < ttl
+        ):
+            return copy.deepcopy(_PAYLOAD_CACHE)
+        payload = await _build_public_accuracy_payload_uncached(recent_limit=recent_limit)
+        _PAYLOAD_CACHE = payload
+        _PAYLOAD_CACHE_KEY = key
+        _PAYLOAD_CACHE_AT = now
+        return copy.deepcopy(payload)
 
-    from database import fetch_labeled_oracle_predictions, fetch_oracle_audit_stats
+
+async def _build_public_accuracy_payload_uncached(*, recent_limit: int = 20) -> dict[str, Any]:
+    from database import count_labeled_oracle_predictions, fetch_oracle_audit_stats
+    from ml.drift_monitor import load_feature_envelope
     from ml.experience_log import public_experience_block
     from ml.train_baseline import model_status
     from ml.training_utils import LEAKAGE_GUARD_NOTE
+    from oracle_audit_chain import chain_summary, read_recent_chain_records
+
+    stats, ml_status, labeled_count, experience = await asyncio.gather(
+        fetch_oracle_audit_stats(limit=recent_limit, include_synthetic=False),
+        model_status(),
+        count_labeled_oracle_predictions(include_synthetic=False),
+        asyncio.to_thread(public_experience_block),
+    )
+
+    def _chain_and_blocks() -> tuple[Any, ...]:
+        chain_ctx = chain_summary(limit=8)
+        chain_recent_tail = read_recent_chain_records(200)
+        return (
+            chain_ctx,
+            chain_recent_tail,
+            _track_record_block(),
+            _regime_models_block(),
+            _signal_registry_block(),
+            _drift_status_block(),
+            load_feature_envelope(),
+        )
+
+    (
+        chain_ctx,
+        chain_recent_tail,
+        track_record_block,
+        regime_block,
+        signal_block,
+        drift_block,
+        envelope,
+    ) = await asyncio.to_thread(_chain_and_blocks)
+    chain_verify = chain_ctx.get("integrity") or {}
+    chain_lookup = _chain_lookup_from_recent(chain_recent_tail)
 
 
 
-    stats = await fetch_oracle_audit_stats(limit=recent_limit, include_synthetic=False)
-
-    ml_status = await model_status()
-
-    labeled = await fetch_labeled_oracle_predictions(limit=1000, include_synthetic=False)
-
-    experience = public_experience_block()
-
-
-
-    public_recent, correct, resolved_rows = _public_recent_predictions(stats.get("recent") or [])
-
-
+    recent_raw = stats.get("recent") or []
+    public_recent, correct, resolved_rows = _public_recent_predictions(recent_raw, chain_lookup)
 
     hit_rate = round(correct / resolved_rows * 100, 2) if resolved_rows else 0.0
 
+    live_block = stats.get("live") or {}
+    live_resolved = int(
+        live_block.get("resolved_predictions", stats.get("resolved_predictions", 0)) or 0
+    )
+    live_total = int(live_block.get("total_predictions", stats.get("total_predictions", 0)) or 0)
+    live_pending = int(
+        live_block.get("pending_predictions", stats.get("pending_predictions", 0)) or 0
+    )
+    metrics_footnote = (
+        f"Average accuracy is the cumulative mean over {live_resolved} resolved live prediction(s). "
+        f"Logged total ({live_total}) includes {live_pending} still pending 24h resolution."
+    )
+    if public_recent:
+        recent_table_footnote = (
+            f"Showing {min(len(public_recent), recent_limit)} most recent resolved rows "
+            f"from the last {len(recent_raw)} logged prediction(s) in this window."
+        )
+    else:
+        recent_table_footnote = (
+            f"No resolved rows in the last {len(recent_raw)} logged prediction(s) "
+            f"(window limit {recent_limit}). Cumulative stats above still use all {live_resolved} resolved live rows."
+        )
 
 
-    track_record_block = _track_record_block()
-
-
-
-    from ml.drift_monitor import load_feature_envelope
-
-
-
-    envelope = load_feature_envelope()
 
     production_engine = "ml_model" if ml_status.get("latest_model_loaded") else "rules_engine"
 
@@ -182,6 +275,14 @@ async def build_public_accuracy_payload(*, recent_limit: int = 20) -> dict[str, 
 
             "metrics_scope": "live_only",
 
+            "recent_resolved_shown": len(public_recent[:recent_limit]),
+
+            "recent_window_scanned": len(recent_raw),
+
+            "metrics_footnote": metrics_footnote,
+
+            "recent_table_footnote": recent_table_footnote,
+
         },
 
         "synthetic_demo_data": {
@@ -208,7 +309,7 @@ async def build_public_accuracy_payload(*, recent_limit: int = 20) -> dict[str, 
 
             "production_engine": production_engine,
 
-            "labeled_samples": len(labeled),
+            "labeled_samples": int(labeled_count),
 
             "min_samples_required": ml_status.get("min_samples_required"),
 
@@ -240,13 +341,13 @@ async def build_public_accuracy_payload(*, recent_limit: int = 20) -> dict[str, 
 
         },
 
-        "proof_chain": _proof_chain_block(),
+        "proof_chain": _proof_chain_block_from_summary(chain_ctx, chain_verify),
 
-        "regime_models": _regime_models_block(),
+        "regime_models": regime_block,
 
-        "signal_registry": _signal_registry_block(),
+        "signal_registry": signal_block,
 
-        "drift": _drift_status_block(),
+        "drift": drift_block,
 
         "constitution": "docs/PRODUCT_CONSTITUTION_AR.md",
 
@@ -277,7 +378,10 @@ def _signal_registry_block() -> dict[str, Any]:
             "unlabeled": stats.get("unlabeled", 0),
             "by_type": stats.get("by_type") or {},
             "by_label": stats.get("by_label") or {},
-            "moat_claim": stats.get("moat_claim"),
+            "public_lexicon_note": (
+                "Public analytical feature lexicon — entry counts by type; "
+                "labels grow as Oracle decisions resolve."
+            ),
             "generated_at": stats.get("generated_at"),
             "api": "/api/oracle/signals",
         }
@@ -312,41 +416,67 @@ def _drift_status_block() -> dict[str, Any]:
     }
 
 
+def _chain_lookup_from_recent(recent: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
+    index: dict[str, dict[str, Any]] = {}
+    for entry in recent:
+        pid = entry.get("prediction_id")
+        if pid is None:
+            continue
+        index[str(pid)] = {
+            "chain_hash": entry.get("chain_hash"),
+            "prev_hash": entry.get("prev_hash"),
+            "seq": entry.get("seq"),
+        }
+    return index
+
+
 def _chain_lookup() -> dict[str, dict[str, Any]]:
     """Map prediction_id -> latest audit-chain entry (best-effort)."""
-    index: dict[str, dict[str, Any]] = {}
     try:
-        from oracle_audit_chain import chain_summary
+        from oracle_audit_chain import read_recent_chain_records
 
-        recent = (chain_summary(limit=200) or {}).get("recent_records") or []
-        for entry in recent:
-            pid = entry.get("prediction_id")
-            if pid is None:
-                continue
-            index[str(pid)] = {
-                "chain_hash": entry.get("chain_hash"),
-                "prev_hash": entry.get("prev_hash"),
-                "seq": entry.get("seq"),
-            }
+        return _chain_lookup_from_recent(read_recent_chain_records(200))
     except Exception:
         return {}
-    return index
+
+
+def _proof_chain_block_from_summary(summary: dict[str, Any], verify: dict[str, Any]) -> dict[str, Any]:
+    try:
+        from supplemental_public_compliance import sanitize_public_decision_records
+
+        if summary.get("recent_records"):
+            summary = {
+                **summary,
+                "recent_records": sanitize_public_decision_records(list(summary["recent_records"])),
+            }
+        recent = summary.get("recent_records") or []
+        tip = recent[-1] if recent else {}
+        block: dict[str, Any] = {
+            "summary": summary,
+            "verify": verify,
+            "public_page": "/oracle-accuracy",
+            "tip_hash": tip.get("chain_hash") if verify.get("valid") else None,
+            "total_records": summary.get("total_records"),
+        }
+        if not verify.get("valid"):
+            block["integrity_status"] = "failed"
+            block["integrity_message"] = verify.get("integrity_failure_reason") or (
+                "Audit chain integrity check failed — tip linkage cannot be used as proof."
+            )
+        else:
+            block["integrity_status"] = "verified"
+        return block
+    except Exception as exc:
+        return {"error": str(exc)}
 
 
 def _proof_chain_block() -> dict[str, Any]:
     try:
-        from oracle_audit_chain import chain_summary, verify_chain
+        from oracle_audit_chain import chain_summary
 
         summary = chain_summary(limit=8)
-        recent = summary.get("recent_records") or []
-        tip = recent[-1] if recent else {}
-        return {
-            "summary": summary,
-            "verify": verify_chain(),
-            "public_page": "/oracle-accuracy",
-            "tip_hash": tip.get("chain_hash"),
-            "total_records": summary.get("total_records"),
-        }
+        verify = summary.get("integrity") or {}
+        return _proof_chain_block_from_summary(summary, verify)
     except Exception as exc:
         return {"error": str(exc)}
 

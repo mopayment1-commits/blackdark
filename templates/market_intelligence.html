@@ -110,8 +110,21 @@ document.querySelectorAll('.tab').forEach(t => t.onclick = () => {
   $(`panel-${t.dataset.tab}`).classList.add('active');
 });
 
-function alertsHtml(alerts) {
-  return (alerts||[]).map(a => `<div class="alert ${a.level==='high'?'high':''}">${a.message||a.detail||a.code}</div>`).join('');
+function clearEl(el){if(!el)return;let child=el.firstChild;while(child){const next=child.nextSibling;el.removeChild(child);child=next;}}
+function appendMetric(parent,k,v){
+  const d=document.createElement('div');d.className='metric';
+  const kk=document.createElement('div');kk.className='k';kk.textContent=String(k??'');
+  const vv=document.createElement('div');vv.className='v';vv.textContent=String(v??'');
+  d.appendChild(kk);d.appendChild(vv);parent.appendChild(d);
+}
+function renderAlerts(parent, alerts) {
+  clearEl(parent);
+  (alerts||[]).forEach(a => {
+    const div=document.createElement('div');
+    div.className='alert'+(a.level==='high'?' high':'');
+    div.textContent=a.message||a.detail||a.code||'';
+    parent.appendChild(div);
+  });
 }
 
 async function loadMvrv() {
@@ -123,12 +136,12 @@ async function loadMvrv() {
     if (!d.ok) { $('mvrvError').style.display='block'; $('mvrvError').textContent=d.error||'Data unavailable'; return; }
     $('mvrvResults').style.display='block';
     $('mvrvHero').textContent = `Z-Score ${d.z_score} · ${d.regime.replace(/_/g,' ')}`;
-    $('mvrvMetrics').innerHTML = `
-      <div class="metric"><div class="k">Z-Score</div><div class="v">${d.z_score}</div></div>
-      <div class="metric"><div class="k">MVRV</div><div class="v">${d.mvrv_ratio}</div></div>
-      <div class="metric"><div class="k">Signal</div><div class="v">${d.realignment_signal}</div></div>
-      <div class="metric"><div class="k">Price</div><div class="v">$${Number(d.price).toLocaleString()}</div></div>`;
-    $('mvrvAlerts').innerHTML = alertsHtml(d.alerts);
+    const mm=$('mvrvMetrics');clearEl(mm);
+    appendMetric(mm,'Z-Score',d.z_score);
+    appendMetric(mm,'MVRV',d.mvrv_ratio);
+    appendMetric(mm,'Signal',d.realignment_signal);
+    appendMetric(mm,'Price',`$${Number(d.price).toLocaleString()}`);
+    renderAlerts($('mvrvAlerts'), d.alerts);
     $('mvrvMeta').textContent = `${d.latency_ms}ms · ${d.data_state} · ${d.sources?.join(', ')}`;
   } catch(e) { $('mvrvLoading').style.display='none'; $('mvrvError').style.display='block'; $('mvrvError').textContent='Network error'; }
 }
@@ -140,10 +153,17 @@ async function loadAlpha() {
     $('alphaLoading').style.display='none';
     if (!d.ok) { $('alphaError').style.display='block'; $('alphaError').textContent=d.error||'Ranking unavailable'; return; }
     $('alphaResults').style.display='block';
-    $('alphaTable').innerHTML = (d.rankings||[]).map(r => `<tr>
-      <td>${r.alpha_rank}</td><td><strong>${r.symbol}</strong></td><td>${r.alpha_score}</td>
-      <td>${(r.change_24h_pct??0).toFixed(1)}%</td>
-      <td>${r.factors?.momentum?.toFixed(0)}</td><td>${r.factors?.liquidity?.toFixed(0)}</td></tr>`).join('');
+    const at=$('alphaTable');clearEl(at);
+    (d.rankings||[]).forEach(r=>{
+      const tr=document.createElement('tr');
+      [r.alpha_rank,r.symbol,r.alpha_score,`${(r.change_24h_pct??0).toFixed(1)}%`,r.factors?.momentum?.toFixed(0),r.factors?.liquidity?.toFixed(0)].forEach((cell,i)=>{
+        const td=document.createElement('td');
+        if(i===1){const strong=document.createElement('strong');strong.textContent=String(cell??'');td.appendChild(strong);}
+        else td.textContent=String(cell??'');
+        tr.appendChild(td);
+      });
+      at.appendChild(tr);
+    });
     $('alphaMeta').textContent = `${d.count} assets · ${d.latency_ms}ms · BTC bench ${d.btc_benchmark_change_24h_pct}%`;
   } catch(e) { $('alphaLoading').style.display='none'; $('alphaError').style.display='block'; $('alphaError').textContent='Network error'; }
 }
@@ -157,10 +177,14 @@ async function loadSqueeze() {
     if (!d.ok) { $('sqError').style.display='block'; $('sqError').textContent=d.error||'Futures data unavailable'; return; }
     $('sqResults').style.display='block';
     $('sqHero').textContent = d.headline||'—';
-    $('sqCoords').innerHTML = (d.coordinates||[]).slice(0,12).map(c => `<div class="coord">
-      <span>${c.squeeze_type} · ${c.side||''} ${c.leverage_tier?c.leverage_tier+'x':''}</span>
-      <span>$${Number(c.trigger_price).toLocaleString()} (${c.distance_pct}%)</span></div>`).join('');
-    $('sqAlerts').innerHTML = alertsHtml(d.alerts);
+    const sc=$('sqCoords');clearEl(sc);
+    (d.coordinates||[]).slice(0,12).forEach(c=>{
+      const div=document.createElement('div');div.className='coord';
+      const s1=document.createElement('span');s1.textContent=`${c.squeeze_type} · ${c.side||''} ${c.leverage_tier?c.leverage_tier+'x':''}`;
+      const s2=document.createElement('span');s2.textContent=`$${Number(c.trigger_price).toLocaleString()} (${c.distance_pct}%)`;
+      div.appendChild(s1);div.appendChild(s2);sc.appendChild(div);
+    });
+    renderAlerts($('sqAlerts'), d.alerts);
     $('sqMeta').textContent = `Mark $${Number(d.mark_price).toLocaleString()} · OI $${(d.metrics?.open_interest_usd/1e9).toFixed(2)}B · ${d.latency_ms}ms`;
   } catch(e) { $('sqLoading').style.display='none'; $('sqError').style.display='block'; $('sqError').textContent='Network error'; }
 }

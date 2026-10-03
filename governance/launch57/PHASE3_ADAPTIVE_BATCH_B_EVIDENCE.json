@@ -1,0 +1,56 @@
+{
+  "artifact": "PHASE3_ADAPTIVE_BATCH_B_EVIDENCE",
+  "phase": "3_ADAPTIVE_BATCH_B",
+  "build_order": [
+    12,
+    37
+  ],
+  "entry_gate": {
+    "PHASE3_BATCH_A_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+    "verified_at_sha": "0a4bc5aa"
+  },
+  "starting_head_sha": "0a4bc5aa",
+  "implementation_sha": "5e8b4587a25407206a39b3571c23982b33d5d0c9",
+  "generated_at": "2026-09-17T22:12:16.875697+00:00",
+  "builder_status_max": "PENDING_VERIFICATION",
+  "items": {
+    "12": {
+      "governing_requirement": "Adaptive Spec §28 Level 1 + structured conviction without hiding material disagreement",
+      "proven_adaptive_gap": "Conviction score exposed without structured_conviction_disclosure or visible material disagreements",
+      "execution_disposition": "ADAPTIVE_GAP_IMPLEMENTATION_REQUIRED",
+      "canonical_path_reused": "launch57.decision_batch2:smart_money_conviction_engine",
+      "shared_support_path": "launch57.trust_adaptive_common",
+      "builder_state": "PENDING_VERIFICATION"
+    },
+    "37": {
+      "governing_requirement": "Adaptive Spec §28 Level 1 + composition of approved Launch-57 evidence only",
+      "proven_adaptive_gap": "Cross-market decision engine missing approved_evidence_composition guard",
+      "execution_disposition": "ADAPTIVE_GAP_IMPLEMENTATION_REQUIRED",
+      "canonical_path_reused": "launch57.decision_batch2:cross_market_decision_engine",
+      "shared_support_path": "launch57.trust_adaptive_common",
+      "builder_state": "PENDING_VERIFICATION"
+    }
+  },
+  "product_files_changed": [
+    "launch57/trust_adaptive_common.py",
+    "launch57/decision_batch2.py"
+  ],
+  "support_files_changed": [
+    "launch57/trust_adaptive_common.py"
+  ],
+  "tests": {
+    "command": "python3 -m pytest tests/launch57/test_phase3_adaptive_batch_b.py tests/launch57/test_decision_batch2.py -q",
+    "exit_code": 0,
+    "stdout": ".........                                                                [100%]",
+    "stderr": "",
+    "passed": true
+  },
+  "confirmations": {
+    "PHASE3_BATCH_B_IMPLEMENTATION_STATUS": "PENDING_VERIFICATION",
+    "PHASE4_NOT_STARTED": true,
+    "TEMPORAL_WORKSTREAM_REOPENED": false,
+    "PASS_ENGINEERING_NOT_CLAIMED": true,
+    "PASS_LIVE_NOT_CLAIMED": true,
+    "REGISTER_STATUS_PROMOTION": false
+  }
+}

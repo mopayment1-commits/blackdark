@@ -87,6 +87,48 @@ def _csp_nonce_mode_enabled() -> bool:
     return True
 
 
+def _request_url_path(request: Request) -> str:
+    """Path for header policy; works with Starlette Request and test stubs."""
+    url = getattr(request, "url", None)
+    if url is not None:
+        path = getattr(url, "path", None)
+        if path is not None:
+            return str(path)
+    scope = getattr(request, "scope", None)
+    if isinstance(scope, dict):
+        return str(scope.get("path") or "")
+    return ""
+
+
+def _request_url_scheme(request: Request) -> str:
+    url = getattr(request, "url", None)
+    if url is not None:
+        scheme = getattr(url, "scheme", None)
+        if scheme:
+            return str(scheme).lower()
+    scope = getattr(request, "scope", None)
+    if isinstance(scope, dict):
+        return str(scope.get("scheme") or "http").lower()
+    return "http"
+
+
+def _effective_scheme(request: Request) -> str:
+    try:
+        from transport_webhook_env.transport import request_effective_scheme
+
+        return str(request_effective_scheme(request) or "").lower() or _request_url_scheme(request)
+    except Exception:
+        return _request_url_scheme(request)
+
+
+def _coop_for_path(path: str) -> str:
+    """Google Identity Services needs popup communication on auth surfaces only."""
+    p = path or ""
+    if p in {"/login", "/register"} or p.startswith("/api/auth/oauth/"):
+        return "same-origin-allow-popups"
+    return "same-origin"
+
+
 def _ensure_request_csp_nonce(request: Request) -> str | None:
     if not _csp_nonce_mode_enabled():
         return None
@@ -102,7 +144,7 @@ def _ensure_request_csp_nonce(request: Request) -> str | None:
 
 
 def _inject_html_csp_nonce(html: str, nonce: str) -> str:
-    """Attach nonce to every <script> tag and ensure csp_events binder is present."""
+    """Attach nonce to <script> and <style> tags; ensure csp_events binder is present."""
     import re
 
     def _add_nonce(match: re.Match[str]) -> str:
@@ -111,7 +153,14 @@ def _inject_html_csp_nonce(html: str, nonce: str) -> str:
             return tag
         return tag.replace("<script", f'<script nonce="{nonce}"', 1)
 
+    def _add_style_nonce(match: re.Match[str]) -> str:
+        tag = match.group(0)
+        if re.search(r"\bnonce\s*=", tag, flags=re.I):
+            return tag
+        return tag.replace("<style", f'<style nonce="{nonce}"', 1)
+
     out = re.sub(r"<script\b[^>]*>", _add_nonce, html, flags=re.I)
+    out = re.sub(r"<style\b[^>]*>", _add_style_nonce, out, flags=re.I)
     binder = f'<script nonce="{nonce}" src="/static/js/csp_events.js"></script>'
     if "csp_events.js" not in out:
         lower = out.lower()
@@ -219,11 +268,14 @@ def security_headers_for(request: Request) -> dict[str, str]:
     elif nonce_mode and nonce:
         csp = (
             "default-src 'self'; "
-            f"script-src 'nonce-{nonce}' 'strict-dynamic'; "
-            "style-src 'self' 'unsafe-inline'; "
-            "img-src 'self' data: https:; "
+            f"script-src 'nonce-{nonce}' 'strict-dynamic' https://accounts.google.com "
+            "https://accounts.google.com/gsi/client; "
+            f"style-src 'self' 'nonce-{nonce}' https://accounts.google.com/gsi/style; "
+            "style-src-attr 'unsafe-inline'; "
+            "img-src 'self' data:; "
             "font-src 'self' data:; "
-            "connect-src 'self' https: wss:; "
+            "connect-src 'self' https://accounts.google.com https://accounts.google.com/gsi/; "
+            "frame-src 'self' https://accounts.google.com/gsi/; "
             "frame-ancestors 'none'; "
             "base-uri 'self'; "
             "form-action 'self'"
@@ -231,11 +283,14 @@ def security_headers_for(request: Request) -> dict[str, str]:
     else:
         csp = (
             "default-src 'self'; "
-            "script-src 'self' 'unsafe-inline'; "
-            "style-src 'self' 'unsafe-inline'; "
-            "img-src 'self' data: https:; "
+            "script-src 'self' 'unsafe-inline' https://accounts.google.com "
+            "https://accounts.google.com/gsi/client; "
+            "style-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/style; "
+            "style-src-attr 'unsafe-inline'; "
+            "img-src 'self' data:; "
             "font-src 'self' data:; "
-            "connect-src 'self' https: wss:; "
+            "connect-src 'self' https://accounts.google.com https://accounts.google.com/gsi/; "
+            "frame-src 'self' https://accounts.google.com/gsi/; "
             "frame-ancestors 'none'; "
             "base-uri 'self'; "
             "form-action 'self'"
@@ -245,14 +300,22 @@ def security_headers_for(request: Request) -> dict[str, str]:
         "X-Frame-Options": "DENY",
         "Referrer-Policy": "strict-origin-when-cross-origin",
         "Permissions-Policy": "geolocation=(), microphone=(), camera=(), payment=()",
-        "Cross-Origin-Opener-Policy": "same-origin",
+        "Cross-Origin-Opener-Policy": _coop_for_path(_request_url_path(request)),
         "Cross-Origin-Resource-Policy": "same-site",
         "X-XSS-Protection": "0",
         "Content-Security-Policy": csp,
     }
-    if _is_production() or (request.url.scheme == "https"):
+    if _is_production() or (_effective_scheme(request) == "https"):
         headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
     return headers
+
+
+def apply_security_headers_to_response(request: Request, response: Response) -> Response:
+    """Attach baseline security headers (including 401/403 short-circuit responses)."""
+    for key, value in security_headers_for(request).items():
+        response.headers.setdefault(key, value)
+    response.headers.setdefault("X-Security-Hardening", "1")
+    return response
 
 
 def _request_origin_ok(request: Request) -> bool:
@@ -294,13 +357,36 @@ def _request_origin_ok(request: Request) -> bool:
     return False
 
 
+class SecureTransportMiddleware(BaseHTTPMiddleware):
+    """Fail closed on sensitive production paths when transport is not HTTPS."""
+
+    _SENSITIVE_PREFIXES = ("/api/", "/webhook", "/admin")
+
+    async def dispatch(self, request: Request, call_next) -> Response:
+        path = _request_url_path(request)
+        if _is_production() and any(path.startswith(p) for p in self._SENSITIVE_PREFIXES):
+            from transport_webhook_env.transport import enforce_secure_transport
+
+            try:
+                enforce_secure_transport(request, sensitive=True)
+            except PermissionError:
+                return apply_security_headers_to_response(
+                    request,
+                    JSONResponse(
+                        {"error": "insecure_transport_forbidden", "message": "HTTPS required in production."},
+                        status_code=403,
+                    ),
+                )
+        return await call_next(request)
+
+
 class SecurityHeadersMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next) -> Response:
         # Mint CSP nonce early so template render / HTML rewrite can use it.
         nonce = _ensure_request_csp_nonce(request)
 
         # TrustedHost in production — never apply to liveness/readiness probes.
-        path = request.url.path
+        path = _request_url_path(request)
         if (
             path not in HEALTH_PROBE_PATHS
             and _is_production()
@@ -316,9 +402,12 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
             # If only localhost defaults + no APP_BASE_URL, skip hard fail (misconfig)
             configured = bool((os.getenv("ALLOWED_HOSTS") or os.getenv("APP_BASE_URL") or "").strip())
             if configured and host and host not in allowed:
-                return JSONResponse(
-                    {"error": "invalid_host", "message": "Host header rejected."},
-                    status_code=400,
+                return apply_security_headers_to_response(
+                    request,
+                    JSONResponse(
+                        {"error": "invalid_host", "message": "Host header rejected."},
+                        status_code=400,
+                    ),
                 )
 
         # CSRF: cookie present + mutating → require Origin/Referer match
@@ -326,21 +415,21 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
             cookie = request.cookies.get("bd_token")
             auth = request.headers.get("authorization") or ""
             if cookie and not auth.startswith("Bearer ") and not _request_origin_ok(request):
-                return JSONResponse(
-                    {
-                        "error": "csrf_rejected",
-                        "message": "Cross-site request blocked. Send a same-origin Origin or use Bearer token.",
-                    },
-                    status_code=403,
+                return apply_security_headers_to_response(
+                    request,
+                    JSONResponse(
+                        {
+                            "error": "csrf_rejected",
+                            "message": "Cross-site request blocked. Send a same-origin Origin or use Bearer token.",
+                        },
+                        status_code=403,
+                    ),
                 )
 
         response = await call_next(request)
         if nonce:
             response = await _maybe_rewrite_html_with_nonce(response, nonce)
-        for key, value in security_headers_for(request).items():
-            response.headers.setdefault(key, value)
-        response.headers.setdefault("X-Security-Hardening", "1")
-        return response
+        return apply_security_headers_to_response(request, response)
 
 
 def apply_cors(app) -> None:
@@ -424,6 +513,15 @@ def cookie_to_session_bearer(raw: str | None) -> str:
             return "".join(ch for ch in plain if ch.isalnum() or ch in "-_")
         except Exception:
             return ""
+    try:
+        from secrets_crypto.envelope import is_envelope_blob
+        from secrets_vault import decrypt_secret
+
+        if is_envelope_blob(value):
+            plain = decrypt_secret(value)
+            return "".join(ch for ch in plain if ch.isalnum() or ch in "-_")
+    except Exception:
+        return ""
     # Production rejects unsealed cookies unless explicitly opted in for migration.
     legacy_flag = os.getenv("ALLOW_LEGACY_SESSION_COOKIE", "").strip().lower()
     allow_legacy = legacy_flag in {"1", "true", "yes"} or (

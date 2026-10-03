@@ -7,8 +7,9 @@ import oracle_track_record as tr
 
 
 @pytest.fixture
-def clean_chain(tmp_path, monkeypatch):
-    path = tmp_path / "chain.jsonl"
+def clean_chain(monkeypatch):
+    path = chain.isolated_chain_path_for_tests("oracle_track_record")
+    path.unlink(missing_ok=True)
     monkeypatch.setattr(chain, "CHAIN_PATH", path)
     return path
 

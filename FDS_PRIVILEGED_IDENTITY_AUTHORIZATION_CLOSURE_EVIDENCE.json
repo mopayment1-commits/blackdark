@@ -1,0 +1,489 @@
+{
+  "verdict": "FDS_PRIVILEGED_IDENTITY_AUTHORIZATION_CLOSED",
+  "generated_at": "2026-09-15T01:28:42.757528+00:00",
+  "governing_spec": {
+    "path": "docs/BLACKDARK_FINANCIAL_DATA_SECURITY_IMPLEMENTATION_SPEC_2026_FINAL.md",
+    "sha256": "c2871b3e39d44dbdd995df6577ca38c195ab343f34ece64f26e0de74af374efb"
+  },
+  "git": {
+    "base_sha": "bb1ccb1bbed7aff6da7be84487de85b8ed08addc",
+    "implementation_sha": "bb1ccb1bbed7aff6da7be84487de85b8ed08addc"
+  },
+  "scope": {
+    "fds_controls": [
+      "FDS-10",
+      "FDS-11",
+      "FDS-12",
+      "FDS-17",
+      "FDS-22",
+      "FDS-23"
+    ],
+    "sdg_controls": [
+      "SDG-06",
+      "SDG-07",
+      "SDG-09",
+      "SDG-14",
+      "SDG-18"
+    ]
+  },
+  "canonical_owners": {
+    "operations": "privileged_access/operations.py",
+    "policy": "privileged_access/policy.py",
+    "step_up": "privileged_access/step_up.py",
+    "sessions": "privileged_access/sessions.py",
+    "break_glass": "privileged_access/break_glass.py",
+    "access_review": "privileged_access/access_review.py",
+    "detectors": "privileged_access/detectors.py",
+    "deps": "privileged_access/deps.py",
+    "api": "api/routers/privileged_access.py",
+    "admin_mfa": "admin_mfa.py",
+    "security_auth": "security_auth.py",
+    "org_rbac": "org_rbac.py"
+  },
+  "protected_operation_inventory": [
+    {
+      "operation": "billing.admin.metrics",
+      "mfa_required": true,
+      "step_up_required": true,
+      "org_permission": "billing.manage",
+      "resource_owner_required": false,
+      "resource_class": "billing_admin",
+      "description": "View privileged billing metrics"
+    },
+    {
+      "operation": "billing.admin.sweep",
+      "mfa_required": true,
+      "step_up_required": true,
+      "org_permission": "billing.manage",
+      "resource_owner_required": false,
+      "resource_class": "billing_admin",
+      "description": "Run billing reconciliation sweep"
+    },
+    {
+      "operation": "billing.portal",
+      "mfa_required": false,
+      "step_up_required": true,
+      "org_permission": null,
+      "resource_owner_required": true,
+      "resource_class": "billing_subscription",
+      "description": "Open hosted payment portal (payment method change)"
+    },
+    {
+      "operation": "billing.cancel",
+      "mfa_required": false,
+      "step_up_required": true,
+      "org_permission": null,
+      "resource_owner_required": true,
+      "resource_class": "billing_subscription",
+      "description": "Cancel subscription auto-renewal"
+    },
+    {
+      "operation": "billing.downgrade",
+      "mfa_required": false,
+      "step_up_required": true,
+      "org_permission": null,
+      "resource_owner_required": true,
+      "resource_class": "billing_subscription",
+      "description": "Schedule subscription downgrade"
+    },
+    {
+      "operation": "privacy.dsr.export",
+      "mfa_required": true,
+      "step_up_required": true,
+      "org_permission": null,
+      "resource_owner_required": true,
+      "resource_class": "financial_export",
+      "description": "Export personal/financial-linked data (DSR)"
+    },
+    {
+      "operation": "privacy.dsr.erase",
+      "mfa_required": true,
+      "step_up_required": true,
+      "org_permission": null,
+      "resource_owner_required": true,
+      "resource_class": "financial_erasure",
+      "description": "Erase personal data (DSR)"
+    },
+    {
+      "operation": "user.exchange_keys.store",
+      "mfa_required": true,
+      "step_up_required": true,
+      "org_permission": null,
+      "resource_owner_required": true,
+      "resource_class": "financial_api_credential",
+      "description": "Store exchange API credentials"
+    },
+    {
+      "operation": "user.exchange_keys.delete",
+      "mfa_required": true,
+      "step_up_required": true,
+      "org_permission": null,
+      "resource_owner_required": true,
+      "resource_class": "financial_api_credential",
+      "description": "Delete exchange API credentials"
+    },
+    {
+      "operation": "institutional.role.change",
+      "mfa_required": true,
+      "step_up_required": true,
+      "org_permission": "org.manage",
+      "resource_owner_required": false,
+      "resource_class": "privileged_role",
+      "description": "Change org member role/permissions"
+    },
+    {
+      "operation": "break_glass.activate",
+      "mfa_required": true,
+      "step_up_required": true,
+      "org_permission": null,
+      "resource_owner_required": false,
+      "resource_class": "break_glass",
+      "description": "Activate emergency privileged access"
+    },
+    {
+      "operation": "access_review.submit",
+      "mfa_required": true,
+      "step_up_required": false,
+      "org_permission": "compliance.view",
+      "resource_owner_required": false,
+      "resource_class": "access_review",
+      "description": "Submit privileged access recertification decision"
+    }
+  ],
+  "mfa_coverage": [
+    {
+      "operation": "billing.admin.metrics",
+      "mfa_required": true,
+      "step_up_required": true,
+      "org_permission": "billing.manage",
+      "resource_owner_required": false,
+      "resource_class": "billing_admin",
+      "description": "View privileged billing metrics"
+    },
+    {
+      "operation": "billing.admin.sweep",
+      "mfa_required": true,
+      "step_up_required": true,
+      "org_permission": "billing.manage",
+      "resource_owner_required": false,
+      "resource_class": "billing_admin",
+      "description": "Run billing reconciliation sweep"
+    },
+    {
+      "operation": "privacy.dsr.export",
+      "mfa_required": true,
+      "step_up_required": true,
+      "org_permission": null,
+      "resource_owner_required": true,
+      "resource_class": "financial_export",
+      "description": "Export personal/financial-linked data (DSR)"
+    },
+    {
+      "operation": "privacy.dsr.erase",
+      "mfa_required": true,
+      "step_up_required": true,
+      "org_permission": null,
+      "resource_owner_required": true,
+      "resource_class": "financial_erasure",
+      "description": "Erase personal data (DSR)"
+    },
+    {
+      "operation": "user.exchange_keys.store",
+      "mfa_required": true,
+      "step_up_required": true,
+      "org_permission": null,
+      "resource_owner_required": true,
+      "resource_class": "financial_api_credential",
+      "description": "Store exchange API credentials"
+    },
+    {
+      "operation": "user.exchange_keys.delete",
+      "mfa_required": true,
+      "step_up_required": true,
+      "org_permission": null,
+      "resource_owner_required": true,
+      "resource_class": "financial_api_credential",
+      "description": "Delete exchange API credentials"
+    },
+    {
+      "operation": "institutional.role.change",
+      "mfa_required": true,
+      "step_up_required": true,
+      "org_permission": "org.manage",
+      "resource_owner_required": false,
+      "resource_class": "privileged_role",
+      "description": "Change org member role/permissions"
+    },
+    {
+      "operation": "break_glass.activate",
+      "mfa_required": true,
+      "step_up_required": true,
+      "org_permission": null,
+      "resource_owner_required": false,
+      "resource_class": "break_glass",
+      "description": "Activate emergency privileged access"
+    },
+    {
+      "operation": "access_review.submit",
+      "mfa_required": true,
+      "step_up_required": false,
+      "org_permission": "compliance.view",
+      "resource_owner_required": false,
+      "resource_class": "access_review",
+      "description": "Submit privileged access recertification decision"
+    }
+  ],
+  "step_up_coverage": [
+    {
+      "operation": "billing.admin.metrics",
+      "mfa_required": true,
+      "step_up_required": true,
+      "org_permission": "billing.manage",
+      "resource_owner_required": false,
+      "resource_class": "billing_admin",
+      "description": "View privileged billing metrics"
+    },
+    {
+      "operation": "billing.admin.sweep",
+      "mfa_required": true,
+      "step_up_required": true,
+      "org_permission": "billing.manage",
+      "resource_owner_required": false,
+      "resource_class": "billing_admin",
+      "description": "Run billing reconciliation sweep"
+    },
+    {
+      "operation": "billing.portal",
+      "mfa_required": false,
+      "step_up_required": true,
+      "org_permission": null,
+      "resource_owner_required": true,
+      "resource_class": "billing_subscription",
+      "description": "Open hosted payment portal (payment method change)"
+    },
+    {
+      "operation": "billing.cancel",
+      "mfa_required": false,
+      "step_up_required": true,
+      "org_permission": null,
+      "resource_owner_required": true,
+      "resource_class": "billing_subscription",
+      "description": "Cancel subscription auto-renewal"
+    },
+    {
+      "operation": "billing.downgrade",
+      "mfa_required": false,
+      "step_up_required": true,
+      "org_permission": null,
+      "resource_owner_required": true,
+      "resource_class": "billing_subscription",
+      "description": "Schedule subscription downgrade"
+    },
+    {
+      "operation": "privacy.dsr.export",
+      "mfa_required": true,
+      "step_up_required": true,
+      "org_permission": null,
+      "resource_owner_required": true,
+      "resource_class": "financial_export",
+      "description": "Export personal/financial-linked data (DSR)"
+    },
+    {
+      "operation": "privacy.dsr.erase",
+      "mfa_required": true,
+      "step_up_required": true,
+      "org_permission": null,
+      "resource_owner_required": true,
+      "resource_class": "financial_erasure",
+      "description": "Erase personal data (DSR)"
+    },
+    {
+      "operation": "user.exchange_keys.store",
+      "mfa_required": true,
+      "step_up_required": true,
+      "org_permission": null,
+      "resource_owner_required": true,
+      "resource_class": "financial_api_credential",
+      "description": "Store exchange API credentials"
+    },
+    {
+      "operation": "user.exchange_keys.delete",
+      "mfa_required": true,
+      "step_up_required": true,
+      "org_permission": null,
+      "resource_owner_required": true,
+      "resource_class": "financial_api_credential",
+      "description": "Delete exchange API credentials"
+    },
+    {
+      "operation": "institutional.role.change",
+      "mfa_required": true,
+      "step_up_required": true,
+      "org_permission": "org.manage",
+      "resource_owner_required": false,
+      "resource_class": "privileged_role",
+      "description": "Change org member role/permissions"
+    },
+    {
+      "operation": "break_glass.activate",
+      "mfa_required": true,
+      "step_up_required": true,
+      "org_permission": null,
+      "resource_owner_required": false,
+      "resource_class": "break_glass",
+      "description": "Activate emergency privileged access"
+    }
+  ],
+  "privileged_session_policy": {
+    "module": "privileged_access/sessions.py",
+    "ttl_env": "PRIVILEGED_SESSION_TTL_SEC"
+  },
+  "alert_detector_coverage": {
+    "bulk_financial_export": "privileged_access.detectors.detect_bulk_financial_export",
+    "repeated_denied_access": "privileged_access.detectors.detect_repeated_denied_financial_access",
+    "audit_bypass": "privileged_access.detectors.detect_audit_bypass_attempt"
+  },
+  "break_glass_evidence": {
+    "verified": true,
+    "evidence": "privileged_access.break_glass"
+  },
+  "access_review_evidence": {
+    "verified": true,
+    "evidence": "privileged_access.access_review"
+  },
+  "anti_bypass_counters": {
+    "PRIVILEGED_FINANCIAL_MFA_BYPASS_PATHS": 0,
+    "RESOURCE_AUTHORIZATION_BYPASS_PATHS": 0,
+    "TENANT_ISOLATION_AUTHZ_GAPS": 0,
+    "STEP_UP_BYPASS_PATHS": 0,
+    "STALE_PRIVILEGED_SESSION_PATHS": 0,
+    "SHARED_HUMAN_ADMIN_CREDENTIAL_PATHS": 0,
+    "UNMONITORED_BULK_EXPORT_PATHS": 0,
+    "UNUSUAL_ACCESS_ALERT_GAPS": 0,
+    "AUDIT_BYPASS_ALERT_GAPS": 0,
+    "BREAK_GLASS_CONTROL_GAPS": 0,
+    "BREAK_GLASS_EXPIRY_GAPS": 0,
+    "ACCESS_RECERTIFICATION_GAPS": 0,
+    "ACCESS_REVIEW_EVIDENCE_GAPS": 0
+  },
+  "tests": {
+    "command": "python -m pytest tests/test_fds_privileged_identity_authorization.py -q",
+    "exit_code": 0,
+    "passed": true,
+    "stdout_tail": ".........................                                                [100%]\n",
+    "stderr_tail": ""
+  },
+  "previous_fds_governance_regression": {
+    "command": "python fds_security_governance_data_boundary_closure_verify.py",
+    "exit_code": 0,
+    "passed": true
+  },
+  "payment_regression": {
+    "exit_code": 0,
+    "passed": true
+  },
+  "evaluation": {
+    "scope_verified": true,
+    "controls": {
+      "FDS-10": {
+        "verified": true,
+        "evidence": "privileged_access.operations + policy + router wiring"
+      },
+      "FDS-11": {
+        "verified": true,
+        "evidence": "privileged_access.policy resource/tenant"
+      },
+      "FDS-12": {
+        "verified": true,
+        "evidence": "privileged_access.step_up"
+      },
+      "FDS-17": {
+        "verified": true,
+        "evidence": "privileged_access.detectors"
+      },
+      "FDS-22": {
+        "verified": true,
+        "evidence": "privileged_access.break_glass"
+      },
+      "FDS-23": {
+        "verified": true,
+        "evidence": "privileged_access.access_review"
+      }
+    },
+    "sdg": {
+      "SDG-06": {
+        "verified": true,
+        "evidence": "privileged_access.sessions"
+      },
+      "SDG-07": {
+        "verified": true,
+        "evidence": "security_auth + policy attribution"
+      },
+      "SDG-09": {
+        "verified": true,
+        "evidence": "privileged_access.detectors"
+      },
+      "SDG-14": {
+        "verified": true,
+        "evidence": "privileged_access.break_glass"
+      },
+      "SDG-18": {
+        "verified": true,
+        "evidence": "privileged_access.access_review"
+      }
+    },
+    "gaps": {
+      "PRIVILEGED_FINANCIAL_MFA_BYPASS_PATHS": 0,
+      "RESOURCE_AUTHORIZATION_BYPASS_PATHS": 0,
+      "TENANT_ISOLATION_AUTHZ_GAPS": 0,
+      "STEP_UP_BYPASS_PATHS": 0,
+      "STALE_PRIVILEGED_SESSION_PATHS": 0,
+      "SHARED_HUMAN_ADMIN_CREDENTIAL_PATHS": 0,
+      "UNMONITORED_BULK_EXPORT_PATHS": 0,
+      "UNUSUAL_ACCESS_ALERT_GAPS": 0,
+      "AUDIT_BYPASS_ALERT_GAPS": 0,
+      "BREAK_GLASS_CONTROL_GAPS": 0,
+      "BREAK_GLASS_EXPIRY_GAPS": 0,
+      "ACCESS_RECERTIFICATION_GAPS": 0,
+      "ACCESS_REVIEW_EVIDENCE_GAPS": 0
+    },
+    "protected_operations": 12,
+    "mfa_operations": 9,
+    "step_up_operations": 11,
+    "detector_samples": {
+      "bulk_export": true,
+      "denied_access": true,
+      "audit_bypass": {
+        "detected": true,
+        "detector": "audit_bypass_attempt",
+        "actor": "verify@example.com",
+        "flag": "AUDIT_BYPASS",
+        "severity": "critical"
+      }
+    }
+  },
+  "local_gaps": [],
+  "production_validation_pending": [],
+  "summary": {
+    "fds_controls_in_scope": 6,
+    "fully_implemented_verified_local": 6,
+    "partial_local": 0,
+    "not_implemented_local": 0,
+    "locally_buildable_remaining": 0,
+    "previous_fds_security_governance_regression_failures": 0,
+    "regression_failures": 0,
+    "PRIVILEGED_FINANCIAL_MFA_BYPASS_PATHS": 0,
+    "RESOURCE_AUTHORIZATION_BYPASS_PATHS": 0,
+    "TENANT_ISOLATION_AUTHZ_GAPS": 0,
+    "STEP_UP_BYPASS_PATHS": 0,
+    "STALE_PRIVILEGED_SESSION_PATHS": 0,
+    "SHARED_HUMAN_ADMIN_CREDENTIAL_PATHS": 0,
+    "UNMONITORED_BULK_EXPORT_PATHS": 0,
+    "UNUSUAL_ACCESS_ALERT_GAPS": 0,
+    "AUDIT_BYPASS_ALERT_GAPS": 0,
+    "BREAK_GLASS_CONTROL_GAPS": 0,
+    "BREAK_GLASS_EXPIRY_GAPS": 0,
+    "ACCESS_RECERTIFICATION_GAPS": 0,
+    "ACCESS_REVIEW_EVIDENCE_GAPS": 0
+  }
+}

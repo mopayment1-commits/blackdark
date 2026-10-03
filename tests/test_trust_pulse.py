@@ -96,7 +96,8 @@ def test_routes_and_templates_wire():
     assert 'id="trust-pulse"' in dash
     assert "loadTrustPulse" in dash
     assert "startTrustPulseStream" in dash
-    assert "previous_factors" in dash
+    assert "/api/launch57/command-home" in dash
+    assert "loadCommandHome" in dash
     assert 'id="trust-pulse"' in land
     assert "loadLandingTrustPulse" in land
     assert Path("docs/TRUST_PULSE.md").is_file()

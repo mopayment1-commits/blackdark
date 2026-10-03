@@ -40,7 +40,7 @@ def _save_store(store: dict[str, Any]) -> None:
 
 def capture_market_snapshot() -> dict[str, Any]:
     """Point-in-time facts used to compute Top-3 deltas."""
-    snap: dict[str, Any] = {"captured_at": _utcnow(), "ts": time.time()}
+    snap: dict[str, Any] = {"captured_at": _utcnow(), "ts": time.time()}  # طابع منتج؛ Accept حسب تقرير 28 Sep
 
     try:
         from kill_rate_board import build_kill_rate_board

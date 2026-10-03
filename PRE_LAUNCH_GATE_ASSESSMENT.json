@@ -1,0 +1,221 @@
+{
+  "generated_at": "2026-09-11T20:32:00.029243+00:00",
+  "program": "PRE_LAUNCH_INSTITUTIONAL_COMPLETION",
+  "pre_launch_ready": false,
+  "pre_launch_ready_automatable": false,
+  "railway_deploy_allowed": false,
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "blk_002_postgres_separate": false,
+  "secrets_hygiene_clean": true,
+  "security_workflows_open": [
+    "WF-019",
+    "WF-020"
+  ],
+  "gates": {
+    "G1_TRUTH_BASELINE": {
+      "status": "PARTIAL",
+      "production_aligned": 114,
+      "pending_inventory": 662,
+      "mock_or_stub_master": 307,
+      "implemented_master": 110
+    },
+    "G2_DEDUPLICATION": {
+      "status": "PARTIAL",
+      "note": "duplicate routing fixed; REUSED-LINK taxonomy open"
+    },
+    "G3_SPLIT_BRAIN": {
+      "status": "PARTIAL",
+      "note": "pdf→cap646 delegation for 58 IDs; manifest not fully cleared"
+    },
+    "G4_GOVERNANCE_FULL": {
+      "status": "PARTIAL",
+      "domains_strict_pass": 13,
+      "domains_total": 12,
+      "dts": {
+        "domain": "DTS",
+        "bgs": "BGS-009",
+        "total": 60,
+        "counts": {
+          "IMPLEMENTED": 12,
+          "PARTIAL": 48,
+          "SPEC_ONLY": 0
+        },
+        "PASS_ENGINEERING_DTS": true,
+        "PASS_ENGINEERING_DTS_honest": true,
+        "methodology_version": "dts-spine-1.0"
+      },
+      "dat": {
+        "domain": "DAT",
+        "bgs": "BGS-010",
+        "total": 18,
+        "counts": {
+          "IMPLEMENTED": 15,
+          "PARTIAL": 3,
+          "SPEC_ONLY": 0
+        },
+        "PASS_ENGINEERING_DATA": true,
+        "PASS_ENGINEERING_DATA_honest": true
+      },
+      "restore": {
+        "domain": "RESTORE",
+        "total": 10,
+        "ok": 10,
+        "PASS_ENGINEERING_RESTORE": true
+      },
+      "bill": {
+        "domain": "BILL",
+        "bgs": "BGS-005",
+        "total": 62,
+        "counts": {
+          "IMPLEMENTED": 20,
+          "PARTIAL": 42,
+          "SPEC_ONLY": 0
+        },
+        "PASS_ENGINEERING_BILL": true,
+        "PASS_ENGINEERING_BILL_honest": true,
+        "methodology_version": "spine-1.0"
+      },
+      "id": {
+        "domain": "ID",
+        "bgs": "BGS-006",
+        "total": 72,
+        "counts": {
+          "IMPLEMENTED": 15,
+          "PARTIAL": 57,
+          "SPEC_ONLY": 0
+        },
+        "PASS_ENGINEERING_ID": true,
+        "PASS_ENGINEERING_ID_honest": true,
+        "methodology_version": "spine-1.0"
+      },
+      "err": {
+        "domain": "ERR",
+        "bgs": "BGS-008",
+        "total": 50,
+        "counts": {
+          "IMPLEMENTED": 10,
+          "PARTIAL": 40,
+          "SPEC_ONLY": 0
+        },
+        "PASS_ENGINEERING_ERR": true,
+        "PASS_ENGINEERING_ERR_honest": true,
+        "methodology_version": "spine-1.0"
+      },
+      "tz": {
+        "domain": "TZ",
+        "bgs": "BGS-007",
+        "total": 36,
+        "counts": {
+          "IMPLEMENTED": 7,
+          "PARTIAL": 29,
+          "SPEC_ONLY": 0
+        },
+        "PASS_ENGINEERING_TZ": true,
+        "PASS_ENGINEERING_TZ_honest": true,
+        "methodology_version": "spine-1.0"
+      },
+      "fds": {
+        "domain": "FDS",
+        "bgs": "BGS-011",
+        "total": 25,
+        "counts": {
+          "IMPLEMENTED": 9,
+          "PARTIAL": 16,
+          "SPEC_ONLY": 0
+        },
+        "PASS_ENGINEERING_FDS": true,
+        "PASS_ENGINEERING_FDS_honest": true,
+        "methodology_version": "spine-1.0"
+      },
+      "av": {
+        "domain": "AV",
+        "bgs": "BGS-012",
+        "total": 30,
+        "counts": {
+          "IMPLEMENTED": 9,
+          "PARTIAL": 21,
+          "SPEC_ONLY": 0
+        },
+        "PASS_ENGINEERING_AV": true,
+        "PASS_ENGINEERING_AV_honest": true,
+        "methodology_version": "spine-1.0"
+      },
+      "dsr": {
+        "domain": "DSR",
+        "bgs": "BGS-002",
+        "total": 24,
+        "counts": {
+          "IMPLEMENTED": 9,
+          "PARTIAL": 15,
+          "SPEC_ONLY": 0
+        },
+        "PASS_ENGINEERING_DSR": true,
+        "PASS_ENGINEERING_DSR_honest": true,
+        "methodology_version": "spine-1.0"
+      },
+      "tie": {
+        "domain": "TIE",
+        "bgs": "BGS-003",
+        "total": 20,
+        "counts": {
+          "IMPLEMENTED": 8,
+          "PARTIAL": 12,
+          "SPEC_ONLY": 0
+        },
+        "PASS_ENGINEERING_TIE": true,
+        "PASS_ENGINEERING_TIE_honest": true,
+        "methodology_version": "spine-1.0"
+      },
+      "aie": {
+        "domain": "AIE",
+        "bgs": "BGS-004",
+        "total": 20,
+        "counts": {
+          "IMPLEMENTED": 8,
+          "PARTIAL": 12,
+          "SPEC_ONLY": 0
+        },
+        "PASS_ENGINEERING_AIE": true,
+        "PASS_ENGINEERING_AIE_honest": true,
+        "methodology_version": "spine-1.0"
+      },
+      "note": "Catalog spines mark IDs IMPLEMENTED/PARTIAL without per-ID code+test — see HONEST_DEEP_INSTITUTIONAL_AUDIT.json"
+    },
+    "G5_BATCH_CLOSURE": {
+      "status": "PASS",
+      "batch_verify_pass": true,
+      "capabilities_verified": 826,
+      "rescue_tier_rejected": true
+    },
+    "G6_UI_E2E": {
+      "status": "FAIL",
+      "note": "No Playwright/browser E2E for signup/pay/decision paths"
+    },
+    "G7_CI_GREEN": {
+      "status": "PASS"
+    },
+    "G8_PRODUCTION_INFRA": {
+      "status": "PARTIAL",
+      "postgresql_configured": false,
+      "railway_ready": false
+    },
+    "G9_EXTERNAL_ASSURANCE": {
+      "status": "FAIL",
+      "note": "Pentest/SOC2/vendor licenses — owner/external"
+    },
+    "G10_LAUNCH_PACK": {
+      "status": "PARTIAL",
+      "note": "Data room partial; discovery freeze not reconciled"
+    }
+  },
+  "honest_summary": {
+    "runtime_batch_closure": "826/826",
+    "inventory_production_aligned": "114/826",
+    "master_implemented": "110/826",
+    "dts_implemented": 12,
+    "dat_implemented": 15,
+    "restore_ok": 10,
+    "governing_specs_strict_pass": 13,
+    "governing_specs_total": 12
+  }
+}

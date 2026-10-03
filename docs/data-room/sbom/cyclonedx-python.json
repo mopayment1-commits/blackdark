@@ -1,10 +1,10 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "serialNumber": "urn:uuid:343e4824-f0ab-45d9-8eb6-f5f30b28e539",
+  "serialNumber": "urn:uuid:32181085-552e-4584-aafd-5066f7a47e58",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-08-12T11:01:28Z",
+    "timestamp": "2026-09-30T22:32:11Z",
     "tools": {
       "components": [
         {
@@ -18,7 +18,7 @@
       "type": "application",
       "name": "blackdark",
       "version": "rc2",
-      "description": "Generated from requirements.lock.txt sha256=96021f5982cb1a967db5a20559dda07a68ab89c4f808e5252b99a6af01a65d27"
+      "description": "Generated from requirements.lock.txt sha256=b8b593c6bb24ba2965635874465ab93fdab4a94959e3b5b407a43fc21c1c381f"
     },
     "properties": [
       {
@@ -27,7 +27,7 @@
       },
       {
         "name": "blackdark:lockfile_sha256",
-        "value": "96021f5982cb1a967db5a20559dda07a68ab89c4f808e5252b99a6af01a65d27"
+        "value": "b8b593c6bb24ba2965635874465ab93fdab4a94959e3b5b407a43fc21c1c381f"
       }
     ]
   },
@@ -97,10 +97,17 @@
     },
     {
       "type": "library",
-      "bom-ref": "pkg:pypi/aioboto3@13.4.0",
-      "name": "aioboto3",
-      "version": "13.4.0",
-      "purl": "pkg:pypi/aioboto3@13.4.0"
+      "bom-ref": "pkg:pypi/google-cloud-bigquery@3.43.0",
+      "name": "google-cloud-bigquery",
+      "version": "3.43.0",
+      "purl": "pkg:pypi/google-cloud-bigquery@3.43.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/dbt-bigquery@1.9.0",
+      "name": "dbt-bigquery",
+      "version": "1.9.0",
+      "purl": "pkg:pypi/dbt-bigquery@1.9.0"
     },
     {
       "type": "library",
@@ -115,13 +122,6 @@
       "name": "vaderSentiment",
       "version": "3.3.2",
       "purl": "pkg:pypi/vadersentiment@3.3.2"
-    },
-    {
-      "type": "library",
-      "bom-ref": "pkg:pypi/textblob@0.19.0",
-      "name": "textblob",
-      "version": "0.19.0",
-      "purl": "pkg:pypi/textblob@0.19.0"
     },
     {
       "type": "library",
@@ -164,6 +164,13 @@
       "name": "cryptography",
       "version": "50.0.0",
       "purl": "pkg:pypi/cryptography@50.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/defusedxml@0.7.1",
+      "name": "defusedxml",
+      "version": "0.7.1",
+      "purl": "pkg:pypi/defusedxml@0.7.1"
     },
     {
       "type": "library",
@@ -216,6 +223,13 @@
     },
     {
       "type": "library",
+      "bom-ref": "pkg:pypi/oauthlib@4.0.0",
+      "name": "oauthlib",
+      "version": "4.0.0",
+      "purl": "pkg:pypi/oauthlib@4.0.0"
+    },
+    {
+      "type": "library",
       "bom-ref": "pkg:pypi/alembic@1.16.5",
       "name": "alembic",
       "version": "1.16.5",
@@ -234,6 +248,27 @@
       "name": "ruff",
       "version": "0.16.2",
       "purl": "pkg:pypi/ruff@0.16.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/sqlparse@0.6.0",
+      "name": "sqlparse",
+      "version": "0.6.0",
+      "purl": "pkg:pypi/sqlparse@0.6.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/apscheduler@3.11.3",
+      "name": "APScheduler",
+      "version": "3.11.3",
+      "purl": "pkg:pypi/apscheduler@3.11.3"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/greenlet@3.5.4",
+      "name": "greenlet",
+      "version": "3.5.4",
+      "purl": "pkg:pypi/greenlet@3.5.4"
     }
   ]
 }

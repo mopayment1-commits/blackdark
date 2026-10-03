@@ -92,20 +92,24 @@ FAQ_ITEMS: list[dict[str, str]] = [
         "a": "No. We sell reviewable decisions and proof — not guaranteed returns. Hits and misses are published on the Ledger.",
     },
     {
-        "q": "What is Proof Pass (Free)?",
-        "a": "Prove lens: understandable Why + shareable Decision Certificate, limited certified decisions per day, with a Free Proof watermark.",
+        "q": "What is DISCOVER / FREE ($0)?",
+        "a": "Public Prove surface: Trust Pulse + Why + shareable Decision Certificate, with a daily certified decision limit and Free Proof watermark.",
     },
     {
-        "q": "What do I get with Decision Pro ($29 USD)?",
-        "a": "Operate lens: daily habit depth — unlimited Oracle (no tight Free ceiling), Portfolio AI, alerts, no Free watermark, plus AI Chat. 7-day trial available.",
+        "q": "What do I get with DECIDE / PRO ($19.99/mo or $199/yr)?",
+        "a": "Operate lens: daily habit depth — unlimited Oracle (no Free daily ceiling), Portfolio AI, alerts, no Free watermark, plus AI Chat. 7-day trial available.",
     },
     {
-        "q": "What is Decision Desk?",
-        "a": "Desk lens ($49 USD): packaging to convince someone else — Signal-to-Noise, Stealth views, Evidence pack, API priority.",
+        "q": "What is SEE THE EDGE / ELITE ($49.99/mo or $499/yr)?",
+        "a": "Desk lens: packaging to convince someone else — Signal-to-Noise, Stealth views, Evidence pack, API priority.",
     },
     {
-        "q": "How do funds engage?",
-        "a": "Room lens — Data Room and Integration Addendum. Talk to us; not self-serve Checkout.",
+        "q": "What is EXECUTE THE EDGE / QUANT ($129.99/mo or $1,299/yr)?",
+        "a": "Quant depth: backtesting suite, higher API scale, and systematic workflow tools for serious desks.",
+    },
+    {
+        "q": "How do funds engage (SCALE THE EDGE / INSTITUTIONAL)?",
+        "a": "Room lens from $999/mo — Data Room and Integration Addendum. Talk to us; not self-serve checkout.",
     },
     {
         "q": "What can I share on social / WhatsApp?",
@@ -113,7 +117,7 @@ FAQ_ITEMS: list[dict[str, str]] = [
     },
     {
         "q": "Where is AI Chat and who can use it?",
-        "a": "Inside the dashboard Operate/Desk experience. Available on Decision Pro and Decision Desk. It explains the current decision context — it does not replace the Oracle or guarantee outcomes.",
+        "a": "Inside the dashboard Operate/Desk experience. Available on DECIDE / PRO and paid tiers above. It explains the current decision context — it does not replace the Oracle or guarantee outcomes.",
     },
     {
         "q": "How do I reset my password?",
@@ -187,12 +191,13 @@ def footer_manifest() -> dict[str, Any]:
         "tagline": "Trust OS — Decide. Prove it. Share it.",
         "story": "Prove → Operate → Desk → Room",
         "product": [
-            {"label": "Trust Pulse", "href": "/dashboard?lens=prove#trust-pulse"},
-            {"label": "Decide", "href": "/dashboard?lens=prove#decide"},
+            {"label": "Trust Pulse", "href": "/#trust-pulse"},
+            {"label": "Decide", "href": "/login?next=/dashboard%3Flens%3Dprove"},
             {"label": "Verify", "href": "/oracle-accuracy"},
-            {"label": "Dashboard", "href": "/dashboard"},
+            {"label": "Dashboard", "href": "/login?next=/dashboard"},
             {"label": "Pricing", "href": "/#pricing"},
-            {"label": "AI Chat", "href": "/dashboard?lens=operate#ai-chat"},
+            {"label": "Profile & Billing", "href": "/login?next=/profile"},
+            {"label": "AI Chat", "href": "/login?next=/dashboard%3Flens%3Doperate"},
         ],
         "trust": [
             {"label": "How it works", "href": "/how-it-works"},

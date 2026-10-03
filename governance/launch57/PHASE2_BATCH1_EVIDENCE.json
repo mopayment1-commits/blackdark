@@ -1,0 +1,132 @@
+{
+  "artifact": "PHASE2_BATCH1_EVIDENCE",
+  "phase": "2_TRUST",
+  "batch": 1,
+  "source_commit": "92b1d00e",
+  "final_commit": "ade23819e2952bbaf260eec645d89c643b183b68",
+  "generated_at": "2026-09-16T20:09:01.254898+00:00",
+  "build_order": [
+    6,
+    5,
+    4,
+    3,
+    2
+  ],
+  "tests": {
+    "command": "python3 -m pytest tests/launch57/test_trust_batch1.py -q",
+    "exit_code": 0,
+    "stdout": ".........                                                                [100%]",
+    "stderr": "",
+    "passed": true
+  },
+  "items": {
+    "6": {
+      "name": "Evidence class visible (LIVE/DELAYED/SIM)",
+      "cap_ids": [],
+      "build_decision": "EXTEND",
+      "entrypoint": "user_evidence_display / attach_trust_envelope",
+      "runtime_path": "launch57/trust_batch1.py:attach_trust_envelope (cross-cutting on all trust outputs)",
+      "consumer_paths": [
+        "launch57/trust_batch1.py",
+        "cap646/evidence_class.py",
+        "decision_truth/evidence_taxonomy.py"
+      ],
+      "semantic_oracle": "canonical evidence_class → user_facing LIVE|DELAYED|SIM visible on every trust surface",
+      "tests": [
+        "tests/launch57/test_trust_batch1.py::test_user_evidence_display_maps_live_delayed_sim",
+        "tests/launch57/test_trust_batch1.py::test_attach_trust_envelope_includes_evidence_display"
+      ],
+      "builder_status": "PENDING_VERIFICATION",
+      "commit_sha": "ade23819e2952bbaf260eec645d89c643b183b68"
+    },
+    "5": {
+      "name": "Net-Edge / Cost Autopsy",
+      "cap_ids": [
+        "CAP-0639"
+      ],
+      "numeric_ids": [
+        639
+      ],
+      "build_decision": "EXTEND",
+      "entrypoint": "net_edge_truth_score",
+      "runtime_path": "cap646/runtime.py → institutional_official_production → launch57/trust_batch1.py:net_edge_truth_score",
+      "consumer_paths": [
+        "launch57/trust_batch1.py",
+        "cap646/institutional_official_production.py",
+        "net_edge_truth.py"
+      ],
+      "semantic_oracle": "Net-Edge before cost claim; FIN_004 demo blocked; opportunity required",
+      "tests": [
+        "tests/launch57/test_trust_batch1.py::test_net_edge_rejects_missing_opportunity_no_demo",
+        "tests/launch57/test_trust_batch1.py::test_net_edge_rejects_demo_opportunity",
+        "tests/launch57/test_trust_batch1.py::test_net_edge_scores_real_opportunity"
+      ],
+      "builder_status": "PENDING_VERIFICATION",
+      "commit_sha": "ade23819e2952bbaf260eec645d89c643b183b68"
+    },
+    "4": {
+      "name": "Public Accuracy Ledger (live only)",
+      "cap_ids": [
+        "CAP-0640"
+      ],
+      "numeric_ids": [
+        640
+      ],
+      "build_decision": "EXTEND",
+      "entrypoint": "public_accuracy_ledger",
+      "runtime_path": "cap646/runtime.py → launch57/trust_batch1.py:public_accuracy_ledger",
+      "consumer_paths": [
+        "launch57/trust_batch1.py",
+        "oracle_track_record.py",
+        "cap646/institutional_official_production.py"
+      ],
+      "semantic_oracle": "live_only primary metrics; synthetic_demo_data excluded",
+      "tests": [
+        "tests/launch57/test_trust_batch1.py::test_public_accuracy_ledger_live_only_primary"
+      ],
+      "builder_status": "PENDING_VERIFICATION",
+      "commit_sha": "ade23819e2952bbaf260eec645d89c643b183b68"
+    },
+    "3": {
+      "name": "Decision Certificate + hash",
+      "cap_ids": [
+        "CAP-0641"
+      ],
+      "numeric_ids": [
+        641
+      ],
+      "build_decision": "EXTEND",
+      "entrypoint": "decision_certificate_export",
+      "runtime_path": "cap646/runtime.py → launch57/trust_batch1.py:decision_certificate_export",
+      "consumer_paths": [
+        "launch57/trust_batch1.py",
+        "decision_certificate.py",
+        "cap646/institutional_official_production.py"
+      ],
+      "semantic_oracle": "certificate_hash present; shareable proof identity",
+      "tests": [
+        "tests/launch57/test_trust_batch1.py::test_decision_certificate_includes_hash"
+      ],
+      "builder_status": "PENDING_VERIFICATION",
+      "commit_sha": "ade23819e2952bbaf260eec645d89c643b183b68"
+    },
+    "2": {
+      "name": "Single-Sentence Oracle (ACT/WAIT/ABSTAIN)",
+      "cap_ids": [],
+      "build_decision": "EXTEND",
+      "entrypoint": "single_sentence_oracle",
+      "runtime_path": "launch57/trust_batch1.py:single_sentence_oracle",
+      "consumer_paths": [
+        "launch57/trust_batch1.py",
+        "trust_pulse.py",
+        "decision_truth/product/six_heroes.py"
+      ],
+      "semantic_oracle": "one governed sentence + action; evidence display attached",
+      "tests": [
+        "tests/launch57/test_trust_batch1.py::test_single_sentence_oracle_act_wait_abstain"
+      ],
+      "builder_status": "PENDING_VERIFICATION",
+      "commit_sha": "ade23819e2952bbaf260eec645d89c643b183b68"
+    }
+  }
+}

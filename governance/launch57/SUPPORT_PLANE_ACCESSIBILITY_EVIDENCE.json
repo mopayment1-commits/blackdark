@@ -1,0 +1,34 @@
+{
+  "artifact": "SUPPORT_PLANE_ACCESSIBILITY_EVIDENCE",
+  "governing_requirement": "Adaptive Spec §31",
+  "standard": "WCAG 2.2 AA",
+  "engineering_verification_complete": true,
+  "verified_at": "2026-09-18T11:45:00+00:00",
+  "surfaces": [
+    {
+      "surface": "six_heroes_command_home",
+      "api": "/api/launch57/command-home",
+      "envelope": "launch57/accessibility_common.py",
+      "tests": ["tests/launch57/test_support_plane_accessibility_baseline.py"]
+    },
+    {
+      "surface": "dashboard_trust_pulse",
+      "template": "templates/dashboard.html",
+      "tests": ["tests/launch57/test_support_plane_accessibility_baseline.py"]
+    },
+    {
+      "surface": "landing_decision_journey",
+      "template": "templates/landing.html",
+      "tests": ["tests/launch57/test_support_plane_phase1_isolation.py"]
+    }
+  ],
+  "controls_verified": [
+    "keyboard_navigation",
+    "visible_focus",
+    "screen_reader_labels",
+    "non_color_only_status",
+    "predictable_navigation",
+    "critical_evidence_not_hidden"
+  ],
+  "PASS_LIVE_NOT_CLAIMED": true
+}

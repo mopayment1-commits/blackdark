@@ -1,0 +1,120 @@
+{
+  "artifact": "BLACKDARK_LAUNCH57_CAPABILITY_LIBRARY_RECONCILIATION",
+  "generated_at": "2026-09-18T15:11:45.445882+00:00",
+  "implementation_sha": "a3a6bd02",
+  "baseline_sha": "70877222ce5002b8bb84de049f5f9bba98a953081023c0b6921e7a383b89c421",
+  "capability_library_version": "launch57-capability-library-1.0.0",
+  "scope": "LAUNCH57_IDS",
+  "canonical_owner": "launch57.edge_ui_batch1:capability_library_search",
+  "support_layer": "launch57.capability_library_common",
+  "runtime_guard": "launch57.trust_adaptive_common:apply_capability_library_guard",
+  "ssot_sources": [
+    "governance/launch57/LAUNCH57_REGISTER.json",
+    "governance/launch57/LAUNCH57_SIX_HERO_MATRIX.json",
+    "governance/launch57/LAUNCH57_CAPABILITY_SYSTEM_GRAPH.json"
+  ],
+  "library_scope": {
+    "library_count": 57,
+    "expected_count": 57,
+    "exactly_57": true,
+    "missing_launch_numbers": [],
+    "duplicate_count": 0,
+    "parked_exposed": 0,
+    "no_second_registry": true,
+    "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+    "launch57_scope_only": true
+  },
+  "duplicate_guard": {
+    "duplicate_launch_numbers": [],
+    "no_duplicates": true
+  },
+  "hero_mapping_guard": {
+    "hero_matrix_source": "governance/launch57/LAUNCH57_SIX_HERO_MATRIX.json",
+    "missing_hero_rows": [],
+    "canonical_only": true
+  },
+  "components": [
+    {
+      "component_id": "launch57_register_ssot",
+      "owner_path": "governance/launch57/LAUNCH57_REGISTER.json (reused)",
+      "consumer_capability_ids": [
+        52
+      ],
+      "launch_scope": "LAUNCH57",
+      "reuse_only": true
+    },
+    {
+      "component_id": "six_hero_matrix",
+      "owner_path": "governance/launch57/LAUNCH57_SIX_HERO_MATRIX.json (reused)",
+      "consumer_capability_ids": [
+        52
+      ],
+      "launch_scope": "LAUNCH57",
+      "reuse_only": true
+    },
+    {
+      "component_id": "capability_system_graph",
+      "owner_path": "governance/launch57/LAUNCH57_CAPABILITY_SYSTEM_GRAPH.json (reused)",
+      "consumer_capability_ids": [
+        52
+      ],
+      "launch_scope": "LAUNCH57",
+      "reuse_only": true
+    },
+    {
+      "component_id": "trust_adaptive_library_guard",
+      "owner_path": "launch57/trust_adaptive_common.py:apply_capability_library_guard (reused)",
+      "consumer_capability_ids": [
+        52
+      ],
+      "launch_scope": "LAUNCH57",
+      "reuse_only": true
+    },
+    {
+      "component_id": "edge_ui_library_search",
+      "owner_path": "launch57/edge_ui_batch1.py:capability_library_search",
+      "consumer_capability_ids": [
+        52
+      ],
+      "launch_scope": "LAUNCH57",
+      "reuse_only": true
+    }
+  ],
+  "api_routes": [
+    "/api/launch57/capability-library",
+    "/api/launch57/capability-library/compare",
+    "/api/launch57/capability-library/{launch_number}"
+  ],
+  "acceptance_criteria_24": {
+    "ac01_library_count_57": true,
+    "ac02_no_out_of_scope": true,
+    "ac03_no_duplicate_identity": true,
+    "ac04_no_second_ssot": true,
+    "ac05_search_by_name": true,
+    "ac06_search_by_intent": true,
+    "ac07_arabic_and_english": true,
+    "ac08_detail_pages_resolve": true,
+    "ac09_current_status_accurate": true,
+    "ac10_evidence_state_accurate": true,
+    "ac11_freshness_state_accurate": true,
+    "ac12_limitations_visible": true,
+    "ac13_hero_mappings_canonical": true,
+    "ac14_dependencies_canonical": true,
+    "ac15_comparison_factual": true,
+    "ac16_public_private_enforced": true,
+    "ac17_no_private_leakage": true,
+    "ac18_no_metadata_only_pass": true,
+    "ac19_independent_verification_separate": true,
+    "ac20_phase8_e2e": true,
+    "invalid_query_safe": true,
+    "secondary_layer_preserved": true
+  },
+  "parked_contamination": [],
+  "external_blockers": [
+    {
+      "id": "PASS_LIVE",
+      "category": "NEEDS_EXTERNAL_VERIFICATION",
+      "detail": "Production live validation not granted"
+    }
+  ]
+}

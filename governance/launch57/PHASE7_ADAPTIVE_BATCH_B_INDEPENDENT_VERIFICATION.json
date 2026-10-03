@@ -1,0 +1,122 @@
+{
+  "artifact": "PHASE7_ADAPTIVE_BATCH_B_INDEPENDENT_VERIFICATION",
+  "verification_type": "independent_engineering",
+  "VERIFIED_IMPLEMENTATION_SHA": "840a7b23",
+  "verified_implementation_sha_full": "840a7b233fa4c4f2ae9e81c71b0ea6eb5ed4ef78",
+  "builder_evidence_sha": "6d442c58",
+  "builder_evidence_sha_full": "6d442c58bc036f2662541ba53d5fc59587f70f9f",
+  "verified_at": "2026-09-18T01:06:00+00:00",
+  "verifier": {
+    "role": "independent_verifier",
+    "session": "cursor-cloud-agent-phase7-adaptive-batch-b-iv",
+    "method": "read_only_delta_assessment_runtime_replay_static_import_scan_targeted_tests_bypass_simulation"
+  },
+  "entry_gate": {
+    "PHASE7_BATCH_A_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+    "verified_at_sha": "292d876c",
+    "builder_evidence": "governance/launch57/PHASE7_ADAPTIVE_BATCH_A_INDEPENDENT_VERIFICATION.json",
+    "pass": true
+  },
+  "repository_state": {
+    "audited_head_sha": "6d442c58",
+    "product_under_test_sha": "840a7b23",
+    "later_product_changes_invalidating_verification": false,
+    "implementation_delta_base": "292d876c",
+    "implementation_delta_range": "292d876c..840a7b23",
+    "product_files_changed": [
+      "launch57/trust_adaptive_common.py",
+      "launch57/edge_ui_batch2.py",
+      "tests/launch57/test_phase7_adaptive_batch_b.py",
+      "tests/launch57/test_edge_ui_batch2.py"
+    ],
+    "post_implementation_changes": [
+      "governance/launch57/PHASE7_ADAPTIVE_BATCH_B_EVIDENCE.json",
+      "governance/launch57/PHASE7_ADAPTIVE_BATCH_B_REPORT.md"
+    ],
+    "register_changed": false,
+    "pass": true
+  },
+  "capability_verification": {
+    "1": {
+      "launch_number": 1,
+      "P7:#1": "PASS_ENGINEERING",
+      "checks": {
+        "readiness_allowed_capabilities_only": true,
+        "parked_not_ready_cannot_surface_as_valid": true,
+        "canonical_launch57_runtime_paths_preserved": true,
+        "evidence_trust_readiness_not_overridden_by_metadata": true,
+        "six_heroes_primary_surfaces": true,
+        "no_duplicate_capability_directory": true,
+        "runtime_semantics_not_disclosure_only": true,
+        "behavioral_test_fails_if_control_bypassed": true,
+        "canonical_owner_preserved": "launch57.edge_ui_batch2:six_heroes_command_home",
+        "parallel_truth_path": false,
+        "parked_legacy_runtime_dependency": false
+      },
+      "consumer_path": "api/routers/launch57_edge_ui.py → six_heroes_command_home → single_sentence_oracle + build_six_heroes + apply_command_home_guard + launch57_home_eligible_ids",
+      "runtime_probes": {
+        "grounded_answer_state": "COMMAND_HOME_GROUNDED",
+        "grounded_success": true,
+        "six_heroes_primary": true,
+        "no_duplicate_capability_directory": true,
+        "heroes_derived_from": "canonical_decision_truth",
+        "oracle_path": "launch57.trust_batch1:single_sentence_oracle",
+        "parked_rejection_answer_state": "UNSUPPORTED_READINESS_SCOPE_REJECTED",
+        "parked_rejection_eligible_empty": true,
+        "metadata_override_rejected": true,
+        "dispatch_launch_item_id": 1
+      },
+      "bypass_simulation": {
+        "helper": "apply_command_home_guard",
+        "real_answer_state": "UNSUPPORTED_READINESS_SCOPE_REJECTED",
+        "real_eligible_empty": true,
+        "bypass_eligible_has_parked": true,
+        "control_active": true
+      },
+      "pass": true
+    }
+  },
+  "shared_support_regression": {
+    "changed_functions": [
+      "apply_command_home_guard",
+      "build_command_home_disclosure"
+    ],
+    "consumers_of_changed_code": [
+      "launch57/edge_ui_batch2.py"
+    ],
+    "affected_prior_consumers": [
+      "launch57/edge_ui_batch1.py",
+      "tests/launch57/test_phase7_adaptive_batch_a.py"
+    ],
+    "phase7_batch_b_regression_passed": true,
+    "edge_ui_batch2_regression_passed": true,
+    "six_heroes_canonical_regression_passed": true,
+    "phase7_batch_a_affected_regression_passed": true,
+    "phase7_batch_a_independent_verdict_still_valid": true,
+    "unaffected_prior_capabilities_reverified": false,
+    "competing_truth_owner": false,
+    "pass": true
+  },
+  "targeted_tests": {
+    "command": "python3 -m pytest tests/launch57/test_phase7_adaptive_batch_b.py tests/launch57/test_edge_ui_batch2.py tests/test_decision_truth_p5_product_experience.py tests/launch57/test_phase7_adaptive_batch_a.py tests/launch57/test_edge_ui_batch1.py tests/launch57/test_edge_ui_institutional_wire.py -q",
+    "exit_code": 0,
+    "passed": 53,
+    "failed": 0,
+    "pass": true
+  },
+  "verdicts": {
+    "P7:#1": "PASS_ENGINEERING",
+    "PHASE7_BATCH_B_INDEPENDENT_VERDICT": "PASS_ENGINEERING"
+  },
+  "confirmations": {
+    "PASS_LIVE_NOT_CLAIMED": true,
+    "REGISTER_STATUS_PROMOTION": false,
+    "PRODUCT_CODE_CHANGED_BY_IV": false
+  },
+  "residual_gaps": [
+    "trust_adaptive_common.py retains duplicate identical derivatives helper definitions from Phase 5 Batch A (runtime uses later copy; maintainability cleanup deferred)",
+    "legacy cap646.batch01_dedicated/batch10_dedicated handlers exist but Launch-57 API routes command home via launch57.edge_ui_batch2 first",
+    "#1 not wired through cap646.institutional_official_production — API consumer path is canonical"
+  ],
+  "failed_requirement": null
+}

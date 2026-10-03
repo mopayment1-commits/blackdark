@@ -1,0 +1,257 @@
+{
+  "artifact": "PHASE7_ADAPTIVE_BATCH_A_INDEPENDENT_VERIFICATION",
+  "verification_type": "independent_engineering",
+  "VERIFIED_IMPLEMENTATION_SHA": "afa84b07",
+  "verified_implementation_sha_full": "afa84b0702af47f5849ca1bc1243432884970dc5",
+  "builder_evidence_sha": "a0ab909e",
+  "builder_evidence_sha_full": "a0ab909e8a9913fe07286eb70bd5f5628aeccabf",
+  "verified_at": "2026-09-18T00:52:00+00:00",
+  "verifier": {
+    "role": "independent_verifier",
+    "session": "cursor-cloud-agent-phase7-adaptive-batch-a-iv",
+    "method": "read_only_delta_assessment_runtime_replay_static_import_scan_targeted_tests_bypass_simulation"
+  },
+  "entry_gate": {
+    "PHASE6_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+    "verified_at_sha": "0e5d37cc",
+    "builder_evidence": "governance/launch57/PHASE6_INDEPENDENT_VERDICT_CLOSURE.json",
+    "net_edge_entry_gate": {
+      "P2A:#5": "PASS_ENGINEERING",
+      "evidence": "governance/launch57/PHASE2_ADAPTIVE_BATCH_A_INDEPENDENT_VERIFICATION.json"
+    },
+    "pass": true
+  },
+  "repository_state": {
+    "audited_head_sha": "a0ab909e",
+    "product_under_test_sha": "afa84b07",
+    "later_product_changes_invalidating_verification": false,
+    "implementation_delta_base": "0e5d37cc",
+    "implementation_delta_range": "0e5d37cc..afa84b07",
+    "product_files_changed": [
+      "launch57/trust_adaptive_common.py",
+      "launch57/edge_ui_batch1.py",
+      "tests/launch57/test_phase7_adaptive_batch_a.py",
+      "tests/launch57/test_edge_ui_batch1.py"
+    ],
+    "post_implementation_changes": [
+      "governance/launch57/PHASE7_ADAPTIVE_BATCH_A_EVIDENCE.json",
+      "governance/launch57/PHASE7_ADAPTIVE_BATCH_A_REPORT.md"
+    ],
+    "register_changed": false,
+    "pass": true
+  },
+  "capability_verification": {
+    "43": {
+      "launch_number": 43,
+      "P7:#43": "PASS_ENGINEERING",
+      "checks": {
+        "gross_spread_not_executable_without_net_edge": true,
+        "net_edge_path_reuses_capability_5": true,
+        "executable_false_without_same_opportunity_net_edge": true,
+        "gross_spread_only_semantics": true,
+        "runtime_semantics_not_disclosure_only": true,
+        "behavioral_test_fails_if_control_bypassed": true,
+        "canonical_owner_preserved": "launch57.edge_ui_batch1:spot_perp_arbitrage_scanner",
+        "parallel_truth_path": false,
+        "parked_legacy_runtime_dependency": false
+      },
+      "consumer_path": "cap646.institutional_official_production → execute_launch57_edge_ui_batch1 → spot_perp_arbitrage_scanner → apply_spot_perp_net_edge_semantics → require_net_edge_if_cost_claim + net_edge_truth_score",
+      "runtime_probes": {
+        "answer_state": "GROSS_SPREAD_NOT_EXECUTABLE",
+        "executable": false,
+        "gross_spread_only": true,
+        "presented_as_actionable": false,
+        "dispatch_launch_item_id": 43
+      },
+      "bypass_simulation": {
+        "helper": "apply_spot_perp_net_edge_semantics",
+        "real_answer_state": "GROSS_SPREAD_NOT_EXECUTABLE",
+        "real_executable": false,
+        "bypass_executable": true,
+        "control_active": true
+      },
+      "pass": true
+    },
+    "38": {
+      "launch_number": 38,
+      "P7:#38": "BLOCKED_EXTERNAL",
+      "checks": {
+        "btc_eth_only_scope": true,
+        "no_licensed_source_configured": true,
+        "local_proxy_not_presented_as_live": true,
+        "reference_only_when_unlicensed": true,
+        "external_blocker_preserved": true,
+        "local_work_exhausted": true,
+        "runtime_semantics_not_disclosure_only": true,
+        "behavioral_test_fails_if_control_bypassed": true,
+        "canonical_owner_preserved": "launch57.edge_ui_batch1:mvrv_mvrv_z_score_suite",
+        "parallel_truth_path": false,
+        "parked_legacy_runtime_dependency": false
+      },
+      "consumer_path": "cap646.institutional_official_production → execute_launch57_edge_ui_batch1 → mvrv_mvrv_z_score_suite → compute_mvrv_realignment + apply_mvrv_provenance_guard",
+      "runtime_probes": {
+        "answer_state": "BLOCKED_EXTERNAL_NO_LICENSED_SOURCE",
+        "blocker": "BLOCKED_EXTERNAL",
+        "presented_as_live": false,
+        "reference_only": true,
+        "licensed_mvrv_source_configured": false,
+        "dispatch_launch_item_id": 38
+      },
+      "bypass_simulation": {
+        "helper": "apply_mvrv_provenance_guard",
+        "real_presented_as_live": false,
+        "bypass_presented_as_live": true,
+        "control_active": true
+      },
+      "blocked_external_valid": true,
+      "pass": true
+    },
+    "49": {
+      "launch_number": 49,
+      "P7:#49": "PASS_ENGINEERING",
+      "checks": {
+        "history_only_semantics": true,
+        "behavioral_learning_rejected": true,
+        "decisions_empty_when_learning_scope_requested": true,
+        "not_behavioral_learning_logic": true,
+        "runtime_semantics_not_disclosure_only": true,
+        "behavioral_test_fails_if_control_bypassed": true,
+        "canonical_owner_preserved": "launch57.edge_ui_batch1:personal_decision_history",
+        "parallel_truth_path": false,
+        "parked_legacy_runtime_dependency": false
+      },
+      "consumer_path": "execute_launch57_edge_ui_product → personal_decision_history → read_decision_history_rows + apply_personal_history_guard",
+      "runtime_probes": {
+        "answer_state": "UNSUPPORTED_LEARNING_SCOPE_REJECTED",
+        "success": false,
+        "decisions_empty": true,
+        "history_only": true,
+        "dispatch_launch_item_id": 49
+      },
+      "bypass_simulation": {
+        "helper": "apply_personal_history_guard",
+        "real_decisions_empty": true,
+        "bypass_decisions_nonempty": true,
+        "control_active": true
+      },
+      "pass": true
+    },
+    "50": {
+      "launch_number": 50,
+      "P7:#50": "PASS_ENGINEERING",
+      "checks": {
+        "reflective_only_semantics": true,
+        "market_evidence_false": true,
+        "financial_truth_false": true,
+        "hero_deepening_stripped": true,
+        "not_market_or_financial_evidence": true,
+        "runtime_semantics_not_disclosure_only": true,
+        "behavioral_test_fails_if_control_bypassed": true,
+        "canonical_owner_preserved": "launch57.edge_ui_batch1:discipline_mirror_light",
+        "parallel_truth_path": false,
+        "parked_legacy_runtime_dependency": false
+      },
+      "consumer_path": "execute_launch57_edge_ui_product → discipline_mirror_light → personal_mirror + apply_discipline_mirror_guard",
+      "runtime_probes": {
+        "reflective_only": true,
+        "market_evidence": false,
+        "hero_deepening_absent": true,
+        "dispatch_launch_item_id": 50
+      },
+      "bypass_simulation": {
+        "helper": "apply_discipline_mirror_guard",
+        "real_hero_deepening_absent": true,
+        "bypass_hero_deepening_present": true,
+        "control_active": true
+      },
+      "pass": true
+    },
+    "52": {
+      "launch_number": 52,
+      "P7:#52": "PASS_ENGINEERING",
+      "checks": {
+        "launch57_ssot_only": true,
+        "parked_injection_rejected": true,
+        "no_second_registry": true,
+        "canonical_identity_preserved": true,
+        "no_parallel_metadata_override": true,
+        "runtime_semantics_not_disclosure_only": true,
+        "behavioral_test_fails_if_control_bypassed": true,
+        "canonical_owner_preserved": "launch57.edge_ui_batch1:capability_library_search",
+        "parallel_truth_path": false,
+        "parked_legacy_runtime_dependency": false
+      },
+      "consumer_path": "execute_launch57_edge_ui_product → capability_library_search → launch57_library_entries + apply_capability_library_guard",
+      "runtime_probes": {
+        "answer_state": "UNSUPPORTED_REGISTRY_SCOPE_REJECTED",
+        "results_empty": true,
+        "no_second_registry": true,
+        "ssot_source": "governance/launch57/LAUNCH57_REGISTER.json",
+        "dispatch_launch_item_id": 52
+      },
+      "bypass_simulation": {
+        "helper": "apply_capability_library_guard",
+        "real_results_empty": true,
+        "bypass_results_nonempty": true,
+        "control_active": true
+      },
+      "pass": true
+    }
+  },
+  "shared_support_regression": {
+    "changed_functions": [
+      "apply_spot_perp_net_edge_semantics",
+      "apply_mvrv_provenance_guard",
+      "apply_personal_history_guard",
+      "apply_discipline_mirror_guard",
+      "apply_capability_library_guard"
+    ],
+    "consumers_of_changed_code": [
+      "launch57/edge_ui_batch1.py"
+    ],
+    "affected_prior_consumers": [
+      "launch57/explanation_ai_batch1.py",
+      "tests/launch57/test_phase6_adaptive_batch1.py",
+      "tests/launch57/test_explanation_ai_batch1.py",
+      "tests/launch57/test_temporal_batch9.py"
+    ],
+    "phase7_batch_a_regression_passed": true,
+    "edge_ui_batch1_regression_passed": true,
+    "institutional_wire_regression_passed": true,
+    "temporal_batch6_regression_passed": true,
+    "temporal_batch11_regression_passed": true,
+    "phase6_affected_regression_passed": true,
+    "phase6_independent_verdict_still_valid": true,
+    "phase5_affected_regression_passed": true,
+    "unaffected_prior_capabilities_reverified": false,
+    "competing_truth_owner": false,
+    "pass": true
+  },
+  "targeted_tests": {
+    "command": "python3 -m pytest tests/launch57/test_phase7_adaptive_batch_a.py tests/launch57/test_edge_ui_batch1.py tests/launch57/test_edge_ui_institutional_wire.py tests/launch57/test_temporal_batch6.py tests/launch57/test_temporal_batch11.py tests/launch57/test_phase6_adaptive_batch1.py tests/launch57/test_explanation_ai_batch1.py tests/launch57/test_explanation_ai_institutional_wire.py tests/launch57/test_temporal_batch9.py tests/launch57/test_phase5_adaptive_batch_b.py tests/launch57/test_derivatives_batch2.py -q",
+    "exit_code": 0,
+    "passed": 72,
+    "failed": 0,
+    "pass": true
+  },
+  "verdicts": {
+    "P7:#43": "PASS_ENGINEERING",
+    "P7:#38": "BLOCKED_EXTERNAL",
+    "P7:#49": "PASS_ENGINEERING",
+    "P7:#50": "PASS_ENGINEERING",
+    "P7:#52": "PASS_ENGINEERING",
+    "PHASE7_BATCH_A_INDEPENDENT_VERDICT": "PASS_ENGINEERING",
+    "PHASE7_BATCH_B_MAY_BEGIN": true
+  },
+  "confirmations": {
+    "PASS_LIVE_NOT_CLAIMED": true,
+    "REGISTER_STATUS_PROMOTION": false,
+    "PRODUCT_CODE_CHANGED_BY_IV": false
+  },
+  "residual_gaps": [
+    "trust_adaptive_common.py retains duplicate identical derivatives helper definitions from Phase 5 Batch A (runtime uses later copy; maintainability cleanup deferred)",
+    "legacy cap646.batch01_dedicated/batch10_dedicated handlers exist but Launch-57 dispatch routes LAUNCH57_EDGE_UI_BATCH1_CAP_IDS first",
+    "#38 licensed on-chain MVRV source not configured — valid BLOCKED_EXTERNAL preserved by apply_mvrv_provenance_guard"
+  ],
+  "failed_requirement": null
+}

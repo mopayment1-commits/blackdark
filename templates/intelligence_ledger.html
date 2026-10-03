@@ -119,10 +119,21 @@ document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
   document.getElementById('panel-'+t.dataset.tab).classList.add('active');
 }));
 
-function metric(k,v){return `<div class="metric"><div class="k">${k}</div><div class="v">${v}</div></div>`;}
-function alertsHtml(list){
-  if(!list||!list.length) return '';
-  return list.map(a=>`<div class="alert ${a.level==='high'?'high':''}">${a.message||a.code}</div>`).join('');
+function clearEl(el){if(!el)return;let child=el.firstChild;while(child){const next=child.nextSibling;el.removeChild(child);child=next;}}
+function appendMetric(parent,k,v){
+  const d=document.createElement('div');d.className='metric';
+  const kk=document.createElement('div');kk.className='k';kk.textContent=String(k??'');
+  const vv=document.createElement('div');vv.className='v';vv.textContent=String(v??'');
+  d.appendChild(kk);d.appendChild(vv);parent.appendChild(d);
+}
+function renderAlerts(parent,list){
+  clearEl(parent);
+  (list||[]).forEach(a=>{
+    const div=document.createElement('div');
+    div.className='alert'+(a.level==='high'?' high':'');
+    div.textContent=a.message||a.code||'';
+    parent.appendChild(div);
+  });
 }
 
 async function loadExecution(){
@@ -138,21 +149,22 @@ async function loadExecution(){
     document.getElementById('execHero').textContent=d.headline||'—';
     const best=d.recommended_route||{};
     const one=d.oneinch_data_source||{};
-    document.getElementById('execMetrics').innerHTML=[
-      metric('Optimal Slippage',(d.slippage_optimization?.optimal_slippage_bps||'—')+' bps'),
-      metric('Best Venue',best.venue||'—'),
-      metric('1inch State',one.ok?(one.quote?.fallback?'Fallback':'Live'):'N/A'),
-      metric('Latency',(d.latency_ms||'—')+' ms')
-    ].join('');
+    const em=document.getElementById('execMetrics');clearEl(em);
+    appendMetric(em,'Optimal Slippage',(d.slippage_optimization?.optimal_slippage_bps||'—')+' bps');
+    appendMetric(em,'Best Venue',best.venue||'—');
+    appendMetric(em,'1inch State',one.ok?(one.quote?.fallback?'Fallback':'Live'):'N/A');
+    appendMetric(em,'Latency',(d.latency_ms||'—')+' ms');
     const tbody=document.getElementById('execRoutes');
-    tbody.innerHTML='';
+    clearEl(tbody);
     (d.routes||[]).forEach((r,i)=>{
       const tr=document.createElement('tr');
       if(i===0) tr.className='best-row';
-      tr.innerHTML=`<td>${r.venue}</td><td>${r.source||'—'}</td><td>${r.slippage_bps??'—'} bps</td><td>${r.gas_bps??0} bps</td><td>${(r.effective_cost_bps??'—')} bps</td>`;
+      [r.venue,r.source||'—',`${r.slippage_bps??'—'} bps`,`${r.gas_bps??0} bps`,`${(r.effective_cost_bps??'—')} bps`].forEach(text=>{
+        const td=document.createElement('td');td.textContent=String(text);tr.appendChild(td);
+      });
       tbody.appendChild(tr);
     });
-    document.getElementById('execAlerts').innerHTML=alertsHtml(d.alerts);
+    renderAlerts(document.getElementById('execAlerts'),d.alerts);
     document.getElementById('execMeta').textContent=`Sources: ${(d.data_sources||[]).join(', ')} · SLA ${d.sla_met?'met':'missed'} · ${d.timestamp||''}`;
     document.getElementById('execResults').style.display='block';
   }catch(e){
@@ -175,21 +187,20 @@ async function loadSlippage(){
     const asym=d.asymmetric_slippage||{};
     document.getElementById('slipHero').textContent=d.headline||'—';
     document.getElementById('slipFormula').textContent=o.formula||'optimal = base + vol + depth + gas + asymmetric_adj';
-    document.getElementById('slipMetrics').innerHTML=[
-      metric('Optimal',(d.optimal_slippage_bps??'—')+' bps'),
-      metric('Buy Cost',(asym.buy_slippage_bps??'—')+' bps'),
-      metric('Sell Cost',(asym.sell_slippage_bps??'—')+' bps'),
-      metric('Spread',(asym.asymmetry_spread_bps??'—')+' bps'),
-      metric('Bias',asym.directional_bias||'—'),
-      metric('Base',(o.base_bps??'—')+' bps'),
-      metric('Vol Adj',(o.volatility_adj_bps??'—')+' bps'),
-      metric('Depth Adj',(o.liquidity_depth_adj_bps??'—')+' bps'),
-      metric('Gas Adj',(o.gas_adj_bps??'—')+' bps'),
-      metric('Asym Adj',(o.asymmetric_adj_bps??'—')+' bps'),
-      metric('24h Vol',(o.inputs?.volatility_24h_pct??'—')+'%'),
-      metric('Liquidity',o.inputs?.liquidity_usd?('$'+Math.round(o.inputs.liquidity_usd).toLocaleString()):'—')
-    ].join('');
-    document.getElementById('slipAlerts').innerHTML=alertsHtml(d.alerts);
+    const sm=document.getElementById('slipMetrics');clearEl(sm);
+    appendMetric(sm,'Optimal',(d.optimal_slippage_bps??'—')+' bps');
+    appendMetric(sm,'Buy Cost',(asym.buy_slippage_bps??'—')+' bps');
+    appendMetric(sm,'Sell Cost',(asym.sell_slippage_bps??'—')+' bps');
+    appendMetric(sm,'Spread',(asym.asymmetry_spread_bps??'—')+' bps');
+    appendMetric(sm,'Bias',asym.directional_bias||'—');
+    appendMetric(sm,'Base',(o.base_bps??'—')+' bps');
+    appendMetric(sm,'Vol Adj',(o.volatility_adj_bps??'—')+' bps');
+    appendMetric(sm,'Depth Adj',(o.liquidity_depth_adj_bps??'—')+' bps');
+    appendMetric(sm,'Gas Adj',(o.gas_adj_bps??'—')+' bps');
+    appendMetric(sm,'Asym Adj',(o.asymmetric_adj_bps??'—')+' bps');
+    appendMetric(sm,'24h Vol',(o.inputs?.volatility_24h_pct??'—')+'%');
+    appendMetric(sm,'Liquidity',o.inputs?.liquidity_usd?('$'+Math.round(o.inputs.liquidity_usd).toLocaleString()):'—');
+    renderAlerts(document.getElementById('slipAlerts'),d.alerts);
     document.getElementById('slipMeta').textContent=`SLA ${d.sla_met?'≤2s met':'missed'} · ${d.latency_ms||'—'} ms · ${d.timestamp||''}`;
     document.getElementById('slipResults').style.display='block';
   }catch(e){

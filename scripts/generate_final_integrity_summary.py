@@ -67,7 +67,7 @@ def _run_pytest() -> dict[str, Any]:
 def main() -> None:
     all_rows, by_id = _load_evidence()
     unique_ids = sorted(by_id)
-    assert len(all_rows) == 600, len(all_rows)
+    assert len(all_rows) == 600, len(all_rows)  # nosec B101
 
     wrapper = _load_manifest_ids(ROOT / "docs/TEMPLATE_STUB_RECLASSIFICATION_MANIFEST.json")
     split144 = _load_manifest_ids(ROOT / "docs/SPLIT_BRAIN_ROUTING_RECLASSIFICATION_MANIFEST.json")

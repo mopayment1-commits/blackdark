@@ -234,7 +234,7 @@ async def build_pentagonal_template() -> dict[str, Any]:
             drift["psi_status"] = ai_row.get("psi_status")
         entry.update(drift)
         rows.append(entry)
-    assert len(rows) == 100, f"Expected 100 rows, got {len(rows)}"
+    assert len(rows) == 100, f"Expected 100 rows, got {len(rows)}"  # nosec B101
     return {
         "generated_at": datetime.now(UTC).isoformat(),
         "scope": "capabilities 1-100",

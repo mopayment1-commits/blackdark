@@ -50,8 +50,10 @@ async def validate_capability(cap_id: int) -> dict[str, Any]:
         return {"status": "FAIL", "evidence": [], "detail": result}
 
     if cap_id in SIGNED_INFRA_SLOTS:
+        from scale_readiness import signed_load_evidence_from_capability_result
+
         result = await execute_capability(cap_id, skip_entitlement=True, params={"symbol": "BTC"})
-        signed = bool((result.get("report") or {}).get("signed_load_evidence", {}).get("present"))
+        signed = signed_load_evidence_from_capability_result(result)
         internal = bool(result.get("success"))
         if signed:
             return {"status": "PASS", "evidence": ["signed_load_evidence_present"], "detail": result}

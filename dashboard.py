@@ -47,6 +47,7 @@ load_dotenv(_ROOT / ".env")
 load_dotenv(_ROOT / ".env.launch.local", override=False)
 
 import config
+from log_safety import sanitize_log_value
 from safe_errors import public_error
 from security_auth import (
     is_admin_user,
@@ -104,7 +105,12 @@ def _require_terms_ack_or_403(request: Request):
 def _cookie_secure(request: Request | None = None) -> bool:
     if os.getenv("COOKIE_SECURE", "").strip().lower() in {"1", "true", "yes"}:
         return True
-    return bool(request is not None and (request.url.scheme or "").lower() == "https")
+    if request is None:
+        return False
+    if (request.url.scheme or "").lower() == "https":
+        return True
+    xfp = (request.headers.get("x-forwarded-proto") or "").split(",")[0].strip().lower()
+    return xfp == "https"
 
 
 def render_page(request: Request, name: str, context: dict[str, Any] | None = None) -> HTMLResponse:
@@ -122,6 +128,86 @@ def render_page(request: Request, name: str, context: dict[str, Any] | None = No
         secure=_cookie_secure(request),
     )
     return response
+
+
+def _auth_required_next_path(request: Request) -> str:
+    path = request.url.path or "/"
+    query = str(request.url.query or "")
+    return path + (f"?{query}" if query else "")
+
+
+def render_surface_auth_required(
+    request: Request,
+    *,
+    lens: str,
+    lens_label: str,
+    lens_hint: str,
+    boundary: str = "surface-auth-required-html",
+) -> HTMLResponse:
+    """Human login gate for private HTML surfaces — never raw JSON in the browser."""
+    response = render_page(
+        request,
+        "auth_required.html",
+        {
+            "lens": lens,
+            "lens_label": lens_label,
+            "lens_hint": lens_hint,
+            "public_prove_href": "/#try-oracle",
+            "next_path": _auth_required_next_path(request),
+        },
+    )
+    response.status_code = 401
+    response.headers["X-Blackdark-Auth-Boundary"] = boundary
+    return response
+
+
+def render_dashboard_auth_required(request: Request) -> HTMLResponse:
+    """Human login gate for anonymous /dashboard — never raw JSON."""
+    lens = (request.query_params.get("lens") or "prove").strip().lower()
+    if lens not in {"prove", "operate", "desk", "room"}:
+        lens = "prove"
+    lens_labels = {
+        "prove": "Prove",
+        "operate": "Operate",
+        "desk": "Desk",
+        "room": "Room",
+    }
+    lens_hints = {
+        "prove": "Try the public oracle demo on the homepage while you sign up.",
+        "operate": "Operate opens after you create a free account.",
+        "desk": "Desk is available after sign-in.",
+        "room": "Room surfaces open after sign-in.",
+    }
+    return render_surface_auth_required(
+        request,
+        lens=lens,
+        lens_label=lens_labels.get(lens, "Prove"),
+        lens_hint=lens_hints.get(lens, lens_hints["prove"]),
+        boundary="dashboard-auth-required-html",
+    )
+
+
+def render_profile_auth_required(request: Request) -> HTMLResponse:
+    return render_surface_auth_required(
+        request,
+        lens="profile",
+        lens_label="Profile & Billing",
+        lens_hint="Sign in to manage identity, security, and your USD plan.",
+        boundary="profile-auth-required-html",
+    )
+
+
+_HTML_AUTH_GATE_EXACT: frozenset[str] = frozenset({"/profile", "/dashboard", "/discipline-mirror"})
+
+
+def anonymous_denial_should_be_html(request: Request) -> bool:
+    if (request.method or "GET").upper() != "GET":
+        return False
+    path = request.url.path or ""
+    if path in _HTML_AUTH_GATE_EXACT:
+        return True
+    accept = (request.headers.get("accept") or "").lower()
+    return "text/html" in accept
 
 
 def _sector_for_asset(asset: str) -> str:
@@ -454,6 +540,12 @@ async def _start_web_microservice(app: FastAPI) -> None:
         app.state.uptime_probe_task = start_uptime_probe_loop()
     except Exception:
         logger.exception("Uptime self-probe failed in web mode")
+    try:
+        from ops.monitoring_alerting import start_monitoring_loop
+
+        app.state.monitoring_task = start_monitoring_loop()
+    except Exception:
+        logger.exception("Monitoring alerting loop failed to start")
 
 
 async def _start_background_runtime(app: FastAPI) -> None:
@@ -604,11 +696,108 @@ except Exception:
     pass
 
 try:
-    from security_middleware import SecurityHeadersMiddleware
+    from security_middleware import SecureTransportMiddleware
 
-    app.add_middleware(SecurityHeadersMiddleware)
+    app.add_middleware(SecureTransportMiddleware)
 except Exception:
     pass
+
+
+async def _resolve_html_auth_user(request: Request) -> dict | None:
+    """Valid session only — stale/invalid bd_token must not unlock private HTML surfaces."""
+    from auth_service import get_user_from_token
+
+    auth = (request.headers.get("authorization") or "").strip()
+    token: str | None = None
+    if auth.lower().startswith("bearer "):
+        token = auth[7:].strip()
+    elif request.cookies.get("bd_token"):
+        from security_middleware import cookie_to_session_bearer
+
+        token = cookie_to_session_bearer(request.cookies.get("bd_token"))
+    if not token:
+        return None
+    return await get_user_from_token(token)
+
+
+def _header_user_payload(user: dict[str, Any]) -> dict[str, Any]:
+    from auth_service import TIER_FEATURES, normalize_tier
+
+    name = str(user.get("name") or "").strip()
+    email = str(user.get("email") or "").strip()
+    if name:
+        display = name
+    elif email and "@" in email:
+        display = email.split("@", 1)[0]
+    else:
+        display = "Account"
+    initial = (display[0] if display else "U").upper()
+    tier = normalize_tier(str(user.get("tier") or "free"))
+    tier_meta = TIER_FEATURES.get(tier) or TIER_FEATURES["free"]
+    tier_label = str(tier_meta.get("label") or tier).upper()
+    show_upgrade = tier not in {"elite", "whale", "quant", "institutional"}
+    return {
+        "display": display,
+        "initial": initial,
+        "email": email,
+        "tier": tier,
+        "tier_label": tier_label,
+        "show_upgrade": show_upgrade,
+    }
+
+
+@app.middleware("http")
+async def header_session_middleware(request: Request, call_next):
+    """Expose validated session user for global header chrome (SSR)."""
+    request.state.header_user = None
+    try:
+        user = await _resolve_html_auth_user(request)
+        if user:
+            request.state.header_user = _header_user_payload(user)
+    except Exception:
+        request.state.header_user = None
+    return await call_next(request)
+
+
+@app.middleware("http")
+async def anonymous_route_enforcement_middleware(request: Request, call_next):
+    """P0 — PRIVATE_BY_DEFAULT server-side boundary for cookie-less requests."""
+    from anonymous_route_foundation import enforce_anonymous_route_boundary
+
+    path = request.url.path or ""
+    if path in _HTML_AUTH_GATE_EXACT and anonymous_denial_should_be_html(request):
+        if await _resolve_html_auth_user(request) is None:
+            if path == "/dashboard":
+                return render_dashboard_auth_required(request)
+            if path == "/profile":
+                return render_profile_auth_required(request)
+            if path == "/discipline-mirror":
+                return render_surface_auth_required(
+                    request,
+                    lens="discipline",
+                    lens_label="Discipline Mirror",
+                    lens_hint="Your private discipline mirror opens after sign-in.",
+                    boundary="discipline-auth-required-html",
+                )
+
+    denial = enforce_anonymous_route_boundary(request)
+    if denial is not None:
+        path = request.url.path or ""
+        if anonymous_denial_should_be_html(request):
+            if path == "/dashboard":
+                return render_dashboard_auth_required(request)
+            if path == "/profile":
+                return render_profile_auth_required(request)
+            if path == "/discipline-mirror":
+                return render_surface_auth_required(
+                    request,
+                    lens="discipline",
+                    lens_label="Discipline Mirror",
+                    lens_hint="Your private discipline mirror opens after sign-in.",
+                    boundary="discipline-auth-required-html",
+                )
+        return denial
+    return await call_next(request)
 
 
 @app.middleware("http")
@@ -777,6 +966,13 @@ except ImportError:
     pass
 
 try:
+    from api.routers.privileged_access import router as privileged_access_router
+
+    app.include_router(privileged_access_router)
+except ImportError:
+    pass
+
+try:
     from api.routers.gtm import router as gtm_router
 
     app.include_router(gtm_router)
@@ -789,6 +985,13 @@ try:
     app.include_router(heroes_router)
 except Exception:
     logger.exception("Heroes router unavailable")
+
+try:
+    from api.routers.launch57_edge_ui import router as launch57_edge_ui_router
+
+    app.include_router(launch57_edge_ui_router)
+except Exception:
+    logger.exception("Launch-57 edge UI router unavailable")
 
 try:
     from api.routers.telegram import router as telegram_router
@@ -833,6 +1036,27 @@ try:
     app.include_router(audit_router)
 except Exception:
     logger.exception("Audit registry router unavailable")
+
+try:
+    from api.routers.decision_truth import router as decision_truth_router
+
+    app.include_router(decision_truth_router)
+except Exception:
+    logger.exception("Decision Truth router unavailable")
+
+try:
+    from api.routers.data_governance import router as data_governance_router
+
+    app.include_router(data_governance_router)
+except Exception:
+    logger.exception("Data Governance router unavailable")
+
+try:
+    from api.routers.monitoring import router as monitoring_router
+
+    app.include_router(monitoring_router)
+except Exception:
+    logger.exception("Monitoring router unavailable")
 
 try:
     from api.routers.compounding import router as compounding_router
@@ -1295,10 +1519,114 @@ async def _build_opportunity_explanation(
         }
     )
 
+def _request_public_origin(request: Request) -> str:
+    """Canonical browser origin for OAuth redirects (APP_BASE_URL or forwarded proxy headers)."""
+    configured = (os.getenv("APP_BASE_URL") or "").strip().rstrip("/")
+    if configured:
+        return configured
+    proto = (request.headers.get("x-forwarded-proto") or request.url.scheme or "https").split(",")[0].strip()
+    host = (request.headers.get("x-forwarded-host") or request.headers.get("host") or "").split(",")[0].strip()
+    if host:
+        return f"{proto}://{host}".rstrip("/")
+    return str(request.base_url).rstrip("/")
+
+
+def _google_login_uri_base(request: Request) -> str:
+    return f"{_request_public_origin(request)}/login"
+
+
+def _login_auth_tab(request: Request) -> str:
+    """Whitelisted login page tab for display only (login | register)."""
+    tab = (request.query_params.get("tab") or "").strip().lower()
+    return "register" if tab == "register" else "login"
+
+
+def _google_post_auth_redirect(plan: str | None, next_path: str | None) -> str:
+    from pricing_catalog import normalize_signup_plan
+
+    selected = normalize_signup_plan(plan or "free")
+    if selected in {"pro", "elite", "quant"}:
+        return f"/create-checkout-session?tier={selected}"
+    if selected == "institutional":
+        return "/data-room?from=signup"
+    if next_path and next_path.startswith("/") and not next_path.startswith("//"):
+        return next_path
+    return "/dashboard"
+
+
 # ========== LANDING PAGE (ROOT) ==========
 @app.get("/login", response_class=HTMLResponse)
 async def login_page(request: Request):
-    return render_page(request, "login.html", _footer_ctx())
+    from oauth_service import google_signin_status
+
+    return render_page(
+        request,
+        "login.html",
+        {
+            **_footer_ctx(),
+            "auth_tab": _login_auth_tab(request),
+            "google_signin": google_signin_status(),
+            "google_login_uri_base": _google_login_uri_base(request),
+        },
+    )
+
+
+@app.post("/login")
+async def login_google_gis_redirect(request: Request):
+    """Google Identity Services redirect UX — credential POST from accounts.google.com."""
+    from urllib.parse import quote
+
+    from oauth_service import google_signin_status, login_or_link_oauth_user, verify_google_credential
+    from security_middleware import attach_session_cookie
+
+    if google_signin_status()["state"] != "CONFIGURED":
+        return RedirectResponse(url="/login?google_error=not_configured", status_code=303)
+
+    form = await request.form()
+    credential = form.get("credential")
+    if not credential:
+        return RedirectResponse(url="/login?google_error=missing_credential", status_code=303)
+
+    try:
+        profile = await verify_google_credential(str(credential))
+        result = await login_or_link_oauth_user(profile)
+    except ValueError as exc:
+        return RedirectResponse(url=f"/login?google_error={quote(str(exc)[:120])}", status_code=303)
+    except Exception:
+        return RedirectResponse(url="/login?google_error=signin_failed", status_code=303)
+
+    dest = _google_post_auth_redirect(
+        request.query_params.get("plan"),
+        request.query_params.get("next"),
+    )
+    resp = RedirectResponse(url=dest, status_code=303)
+    token = result.get("token")
+    if token:
+        attach_session_cookie(resp, str(token))
+    return resp
+
+
+@app.get("/pricing")
+async def pricing_page_redirect():
+    """Visitor pricing is the homepage plan cards — not a JSON catalog."""
+    return RedirectResponse(url="/#pricing", status_code=302)
+
+
+@app.get("/identity-standards", response_class=HTMLResponse)
+async def identity_standards_page(request: Request):
+    from identity_service import identity_architecture
+
+    return render_page(
+        request,
+        "utility.html",
+        {
+            **_footer_ctx(),
+            "page": "identity_standards",
+            "title": "Identity standards",
+            "lead": "How BLACKDARK handles accounts, sessions, and privileged access — public summary for visitors.",
+            "identity": identity_architecture(),
+        },
+    )
 
 
 @app.get("/register")
@@ -1514,8 +1842,10 @@ async def landing_page(request: Request):
     from i18n_service import resolve_request_lang, template_context
 
     lang = resolve_request_lang(request)
+    auth_segment = "auth" if getattr(request.state, "header_user", None) else "anon"
+    cache_key = f"v2:{lang}:{auth_segment}"
     now = time.time()
-    hit = _landing_html_cache.get(lang)
+    hit = _landing_html_cache.get(cache_key)
     if hit and (now - hit[0]) < _LANDING_HTML_CACHE_TTL:
         response = HTMLResponse(hit[1])
         response.set_cookie(
@@ -1534,7 +1864,7 @@ async def landing_page(request: Request):
     ctx["telegram_bot_username"] = _cfg.TELEGRAM_BOT_USERNAME
     ctx["telegram_bot_url"] = f"https://t.me/{_cfg.TELEGRAM_BOT_USERNAME}" if _cfg.TELEGRAM_BOT_USERNAME else None
     html = templates.get_template("landing.html").render({"request": request, **ctx})
-    _landing_html_cache[lang] = (now, html)
+    _landing_html_cache[cache_key] = (now, html)
     # Bound memory if many locales are probed.
     if len(_landing_html_cache) > 32:
         oldest = sorted(_landing_html_cache.items(), key=lambda kv: kv[1][0])[:8]
@@ -2085,7 +2415,17 @@ async def api_trust_os():
     """Honest acquisition framing — four value layers + historical evidence."""
     from trust_compounding import trust_os_enhanced
 
-    return await trust_os_enhanced()
+    try:
+        return await trust_os_enhanced()
+    except Exception:
+        logger.exception("GET /api/trust-os failed")
+        return JSONResponse(
+            status_code=500,
+            content={
+                "error": "trust_os_unavailable",
+                "message": "Trust OS manifest is temporarily unavailable.",
+            },
+        )
 
 
 @app.get("/api/scale/readiness")
@@ -2093,7 +2433,14 @@ async def api_scale_readiness():
     """Honest concurrent-scale posture for ops and diligence."""
     from scale_readiness import scale_readiness_report
 
-    return scale_readiness_report()
+    try:
+        return scale_readiness_report()
+    except Exception as exc:
+        logger.warning("scale_readiness_report failed detail=%s", sanitize_log_value(exc))
+        return {
+            "error": "scale_readiness_unavailable",
+            "message": "Scale readiness temporarily unavailable.",
+        }
 
 
 @app.get("/api/viral/readiness")
@@ -2101,7 +2448,14 @@ async def api_viral_readiness():
     """Viral launch capacity posture — protections + HA prerequisites."""
     from viral_capacity import viral_readiness_report
 
-    return viral_readiness_report()
+    try:
+        return viral_readiness_report()
+    except Exception as exc:
+        logger.warning("viral_readiness_report failed detail=%s", sanitize_log_value(exc))
+        return {
+            "error": "viral_readiness_unavailable",
+            "message": "Viral readiness temporarily unavailable.",
+        }
 
 
 @app.get("/contact", response_class=HTMLResponse)
@@ -2148,7 +2502,7 @@ async def faq_page(request: Request):
         {
             "page": "faq",
             "title": "FAQ",
-            "lead": "Straight answers on Proof Pass, Decision Pro, Decision Desk, sharing, and AI Chat.",
+            "lead": "Straight answers on DISCOVER / FREE, DECIDE / PRO, ELITE, QUANT, INSTITUTIONAL, sharing, and AI Chat.",
             "faq": FAQ_ITEMS,
             **_footer_ctx(),
         },
@@ -2195,14 +2549,26 @@ async def status_page(request: Request):
     from site_services import public_status_report
 
     status = public_status_report()
+    guest_trust: dict[str, Any] = {}
+    try:
+        from launch57.trust_batch2 import guest_trust_surface
+
+        payload = guest_trust_surface(
+            symbol="BTC",
+            params={"symbol": "BTC", "user_key": "anonymous"},
+        )
+        guest_trust = dict(payload.get("guest_trust") or {})
+    except Exception:
+        guest_trust = {}
     return templates.TemplateResponse(
         request,
         STR_UTILITY_HTML,
         {
             "page": "status",
             "title": "System status",
-            "lead": "Public engineering posture — no secrets, no contractual SLA unless contracted.",
+            "lead": "Public guest trust and engineering posture — no secrets, no contractual SLA unless contracted.",
             "status": status,
+            "guest_trust": guest_trust,
             **_footer_ctx(),
         },
     )
@@ -2461,8 +2827,15 @@ async def _compute_oracle_quick_payload(
     resistance = round(price * 1.03, -2)
     action = _oracle_action(score, price, support, resistance)
     sentiment = _oracle_sentiment(change)
-    decision_action = "ACT" if str(verdict).upper() in {"BUY", "ACT", "BULLISH"} else "WAIT"
-    decision_sentence = _quick_decision_sentence(lang, decision_action, asset, score, action)
+    from supplemental_public_compliance import map_public_decision_action, public_decision_sentence
+
+    raw_action = "ACT" if str(verdict).upper() in {"BUY", "ACT", "BULLISH"} else "WAIT"
+    decision_action = map_public_decision_action(raw_action)
+    decision_sentence = (
+        public_decision_sentence(asset, decision_action)
+        if decision_action == "CONDITIONS MET"
+        else _quick_decision_sentence(lang, decision_action, asset, score, action)
+    )
     return _quick_payload(
         asset,
         price,
@@ -2981,13 +3354,17 @@ def _apply_zero_tolerance_safe(payload: dict[str, Any]) -> dict[str, Any]:
         return payload
 
 
-def _sanitize_oracle_response(payload: dict[str, Any], user: dict | None) -> dict[str, Any]:
+def _sanitize_oracle_response(
+    payload: dict[str, Any],
+    user: dict | None,
+    request: Request | None = None,
+) -> dict[str, Any]:
     from regulatory_compliance_guard import apply_regulatory_compliance
     from security_sanitize import sanitize_oracle_payload
 
     if user and is_admin_user(user):
         return apply_regulatory_compliance(payload)
-    return sanitize_oracle_payload(payload)
+    return sanitize_oracle_payload(payload, user=user, request=request)
 
 
 @app.get("/oracle/{symbol}", responses=COMMON_ERROR_RESPONSES)
@@ -3025,7 +3402,7 @@ async def oracle(
         payload = _attach_oracle_freshness_safe(payload, asset)
         payload = _apply_zero_tolerance_safe(payload)
         try:
-            cleaned = _sanitize_oracle_response(payload, user)
+            cleaned = _sanitize_oracle_response(payload, user, request)
         except Exception:
             logger.exception("oracle sanitize failed")
             cleaned = payload
@@ -4182,7 +4559,14 @@ async def analytics_stats():
 
 
 @app.post("/api/analytics/view")
-async def analytics_view(data: dict = Body(default={})):
+async def analytics_view(request: Request, data: dict = Body(default={})):
+    from supplemental_public_compliance import optional_analytics_allowed
+
+    if not optional_analytics_allowed(request):
+        return JSONResponse(
+            {"ok": False, "skipped": True, "reason": "eea_optional_analytics_not_accepted"},
+            status_code=403,
+        )
     from database import increment_platform_metric
 
     page = str(data.get("page") or "page_views")
@@ -4532,7 +4916,8 @@ async def build_info():
         cap646_import_ok = True
         cap646_routes = len(_cap646_router.routes)
     except Exception as exc:
-        cap646_import_error = str(exc)
+        logger.warning("cap646 router import failed detail=%s", sanitize_log_value(exc))
+        cap646_import_error = "cap646_import_unavailable"
         cap646_routes = 0
     return {
         "ui_language": "en",
@@ -4551,9 +4936,20 @@ async def build_info():
 
 @app.post("/portfolio/analyze", responses=COMMON_ERROR_RESPONSES)
 async def portfolio_analyze(
+    request: Request,
     payload: list | dict = Body(...),
     _user: dict | None = Depends(require_feature("portfolio_ai")),
 ):
+    from supplemental_public_compliance import eu_personalization_blocked
+
+    if eu_personalization_blocked(request, _user):
+        raise HTTPException(
+            status_code=403,
+            detail={
+                "error": "eea_personalization_blocked",
+                "message": "Portfolio personalization is not available for EU/EEA public layer.",
+            },
+        )
     if isinstance(payload, dict):
         assets = payload.get("holdings") or payload.get("assets") or payload.get("positions") or []
     else:
@@ -4561,6 +4957,18 @@ async def portfolio_analyze(
     if not isinstance(assets, list) or not assets:
         raise HTTPException(status_code=400, detail="No assets provided")
     return await _analyze_portfolio_holdings(assets)
+
+@app.get("/join-waitlist", response_class=HTMLResponse)
+async def join_waitlist_page(request: Request):
+    """Visitor waitlist lives on the homepage — never a bare POST endpoint."""
+    return RedirectResponse(url="/#waitlist", status_code=302)
+
+
+@app.get("/trust", response_class=HTMLResponse)
+async def trust_page_redirect(request: Request):
+    """Legacy /trust bookmark → public compliance HTML."""
+    return RedirectResponse(url="/compliance", status_code=302)
+
 
 @app.post("/join-waitlist", responses=COMMON_ERROR_RESPONSES)
 async def join_waitlist(data: dict, background_tasks: BackgroundTasks):
@@ -4714,7 +5122,14 @@ async def checkout_post(tier: str = "pro", user: dict | None = Depends(optional_
 
 @app.post("/webhook", responses=COMMON_ERROR_RESPONSES)
 async def stripe_webhook(request: Request):
-    from billing_service import handle_stripe_webhook_event
+    from billing.webhook_processor import process_stripe_event
+    from transport_webhook_env.transport import enforce_secure_transport
+    from transport_webhook_env.webhook_lifecycle import process_verified_webhook, reject_security_event
+
+    try:
+        enforce_secure_transport(request, sensitive=True)
+    except PermissionError:
+        raise HTTPException(status_code=403, detail="HTTPS required") from None
 
     payload = await request.body()
     sig_header = request.headers.get("stripe-signature", "")
@@ -4723,15 +5138,26 @@ async def stripe_webhook(request: Request):
     if not endpoint_secret:
         raise HTTPException(status_code=503, detail="Webhook secret not configured")
 
+    correlation_id = request.headers.get("X-Correlation-Id") or request.headers.get("X-Request-Id") or ""
     try:
         event = stripe.Webhook.construct_event(payload, sig_header, endpoint_secret)
     except ValueError as exc:
+        reject_security_event(provider="stripe", reason="invalid_payload", correlation_id=correlation_id or "stripe")
         raise HTTPException(status_code=400, detail="Invalid payload") from exc
     except stripe.SignatureVerificationError as exc:
+        reject_security_event(provider="stripe", reason="invalid_signature", correlation_id=correlation_id or "stripe")
         raise HTTPException(status_code=400, detail="Invalid signature") from exc
 
-    result = await handle_stripe_webhook_event(event)
-    return {"received": True, **result}
+    correlation_id = correlation_id or str(event.get("id") or "")
+    result = await process_verified_webhook(
+        provider="stripe",
+        event_id=str(event.get("id") or ""),
+        event_type=str(event.get("type") or ""),
+        event=event,
+        processor=process_stripe_event,
+        correlation_id=correlation_id,
+    )
+    return result
 
 
 @app.post("/webhook/lemon")
@@ -4761,7 +5187,7 @@ async def checkout_cancel(request: Request):
         {
             "page": "cancel",
             "title": "Checkout cancelled",
-            "lead": "No charge was made. You can restart Decision Pro anytime — or stay on Proof Pass.",
+            "lead": "No charge was made. You can restart DECIDE / PRO anytime — or stay on DISCOVER / FREE.",
             **_footer_ctx(),
         },
     )
@@ -4770,6 +5196,15 @@ async def checkout_cancel(request: Request):
 @app.get("/landing", response_class=HTMLResponse)
 async def landing_alias(request: Request):
     return await landing_page(request)
+
+
+# Outermost: security headers on every response (including @app.middleware 401 short-circuits).
+try:
+    from security_middleware import SecurityHeadersMiddleware
+
+    app.add_middleware(SecurityHeadersMiddleware)
+except Exception:
+    pass
 
 
 if __name__ == "__main__":

@@ -33,6 +33,51 @@
     return "";
   }
 
+  /** External href hosts present in landing.html / dashboard.html @ e7ec0cd4 (share + t.me bot). */
+  const SHARE_NAV_HOSTS = new Set([
+    "twitter.com", // landing.html — share X intent
+    "www.facebook.com", // landing.html — share Facebook
+    "wa.me", // landing.html — share WhatsApp
+    "t.me", // landing.html:933,1574 — Telegram bot / share
+    "www.reddit.com", // landing.html — share Reddit
+  ]);
+
+  /** Navigation allowlist: same-origin http(s), root-relative path (not //), or known share hosts. */
+  function allowedNavigationUrl(value) {
+    const raw = String(value ?? "").trim();
+    if (!raw) return "";
+    if (raw.startsWith("/") && !raw.startsWith("//")) {
+      if (/[<>"']/.test(raw) || /javascript:/i.test(raw)) return "";
+      return raw;
+    }
+    try {
+      const base = global.location ? global.location.origin : "";
+      const u = new URL(raw, base || undefined);
+      if (u.protocol !== "http:" && u.protocol !== "https:") return "";
+      if (base && u.origin === base) return u.href;
+      if (SHARE_NAV_HOSTS.has(u.hostname)) return u.href;
+    } catch (_err) {
+      /* reject */
+    }
+    return "";
+  }
+
+  function setAnchorHref(el, value) {
+    if (!el) return;
+    const safe = allowedNavigationUrl(value);
+    el.href = safe || "#";
+  }
+
+  function assignLocationHref(value) {
+    const safe = allowedNavigationUrl(value);
+    if (safe) global.location.href = safe;
+  }
+
+  function openWindow(value) {
+    const safe = allowedNavigationUrl(value);
+    if (safe) global.open(safe, "_blank", "noopener");
+  }
+
   function setText(el, value) {
     if (!el) return;
     el.textContent = value == null ? "" : String(value);
@@ -42,6 +87,10 @@
     escapeHtml: escapeHtml,
     esc: escapeHtml,
     safeUrl: safeUrl,
+    allowedNavigationUrl: allowedNavigationUrl,
+    setAnchorHref: setAnchorHref,
+    assignLocationHref: assignLocationHref,
+    openWindow: openWindow,
     setText: setText,
   };
 

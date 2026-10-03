@@ -1,0 +1,28 @@
+{
+  "artifact": "BLACKDARK_LAUNCH57_IDENTITY_AUTH_PROFILE_INDEPENDENT_VERIFICATION",
+  "verification_type": "engineering_closure",
+  "verified_at": "2026-09-18T14:46:21.717191+00:00",
+  "implementation_sha": "176e0bff",
+  "baseline_sha": "27db8354023b2e197bdb6b6d804c3296f6289a9de511bea8a283f28a31764a6a",
+  "verdict": "PASS_ENGINEERING",
+  "LAUNCH57_IDENTITY_AUTH_PASS_ENGINEERING": true,
+  "LAUNCH57_IDENTITY_AUTH_READY_FOR_LOCAL_USE": true,
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "checks": {
+    "IMMUTABLE_USER_IDENTITY": true,
+    "PRIVATE_STATE_PROTECTED": true,
+    "CROSS_USER_DENIAL": true,
+    "ANONYMOUS_BOUNDARY": true,
+    "AUTH_ENTITLEMENT_SEPARATION": true,
+    "STEP_UP_FAIL_CLOSED": true,
+    "LOG_REDACTION": true,
+    "NO_FALSE_PASS_LIVE": true
+  },
+  "test_evidence": {
+    "command": "python3 -m pytest tests/launch57/test_identity_auth.py tests/launch57/test_trust_batch2.py tests/launch57/test_edge_ui_batch1.py tests/launch57/test_derivatives_batch2.py tests/launch57/test_financial_security.py tests/launch57/test_phase8_e2e_acceptance.py -q",
+    "exit_code": "0",
+    "stdout_tail": "rage_maintenance at /workspace/dashboard.py\n    warnings.warn(message, stacklevel=1)\n\ntests/launch57/test_trust_batch2.py::test_execute_dispatch_launch_items\n  /home/ubuntu/.local/lib/python3.12/site-packages/fastapi/openapi/utils.py:303: UserWarning: Duplicate Operation ID storage_legacy_purge_api_storage_legacy_purge_post for function storage_legacy_purge at /workspace/dashboard.py\n    warnings.warn(message, stacklevel=1)\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html",
+    "stderr_tail": "",
+    "passed": true
+  }
+}

@@ -27,6 +27,11 @@ CHECK_ID_CATALOG: tuple[str, ...] = (
     "admin_auth_configured",
     "admin_mfa_configured",
     "identity_debug_tokens_off",
+    "secret_manager_configured",
+    "kms_hsm_configured",
+    "audit_signing_key_configured",
+    "no_local_fernet_production_root",
+    "fips_no_false_claim",
     "b2b_demo_key_disabled",
     "demo_key_not_publicly_exposed",
     "soft_launch_no_live_money",
@@ -36,6 +41,7 @@ CHECK_ID_CATALOG: tuple[str, ...] = (
     "viral_soft_launch_unset",
     "sentry_observability",
     "uptime_self_probe",
+    "monitoring_ops_alerting",
     "telegram_bot",
     "telegram_webhook_secret",
     "price_feed_railway",
@@ -45,6 +51,7 @@ CHECK_ID_CATALOG: tuple[str, ...] = (
 _INSECURE_DEFAULTS = (
     "blackdark-dev-change-me-in-production",
     "blackdark-session-pepper-change-me",
+    "blackdark-audit-dev-sign",
     "change-me",
     "changeme",
     "secret",
@@ -116,6 +123,49 @@ def _billing_webhook_ok(lemon: bool, stripe: bool) -> bool:
     return True
 
 
+def _secret_manager_ok() -> bool:
+    if not is_production():
+        return True
+    provider = (os.getenv("SECRET_MANAGER_PROVIDER") or "").strip().lower()
+    if provider in {"hashicorp", "managed_env"}:
+        return True
+    return bool((os.getenv("VAULT_ADDR") or "").strip() and (os.getenv("VAULT_TOKEN") or "").strip())
+
+
+def _kms_ok() -> bool:
+    if not is_production():
+        return True
+    kms_provider = (os.getenv("KMS_PROVIDER") or "").strip().lower()
+    if kms_provider in {"hashicorp", "managed_env", "vault_transit"}:
+        return True
+    return bool((os.getenv("KMS_KEY_ID") or "").strip() or (os.getenv("KMS_KEY_ARN") or "").strip())
+
+
+def _audit_signing_ok() -> bool:
+    key = (os.getenv("AUDIT_SIGNING_KEY") or "").strip()
+    if not is_production():
+        return True
+    return bool(key) and key not in _INSECURE_DEFAULTS
+
+
+def _no_local_fernet_prod_root() -> bool:
+    if not is_production():
+        return True
+    provider = (os.getenv("SECRET_MANAGER_PROVIDER") or "").strip().lower()
+    kms_provider = (os.getenv("KMS_PROVIDER") or "").strip().lower()
+    return provider != "local_fernet" and kms_provider != "local_dev"
+
+
+def _fips_no_false_claim() -> bool:
+    try:
+        from secrets_crypto.fips import assert_no_false_fips_claim
+
+        assert_no_false_fips_claim()
+        return True
+    except Exception:
+        return False
+
+
 def _secret_hygiene() -> tuple[bool, bool, bool]:
     """Presence + insecure-default checks without retaining clear-text secrets."""
     secrets_ok = env_configured("SECRETS_MASTER_KEY") or env_configured("SECRETS_VAULT_KEY")
@@ -150,6 +200,17 @@ def _telegram_active() -> bool:
     return env_configured("TELEGRAM_BOT_TOKEN")
 
 
+def _monitoring_ops_configured() -> bool:
+    if not _env_truthy("MONITORING_ENABLED", "true"):
+        return False
+    base = env_configured("MONITORING_BASE_URL") or env_configured("APP_BASE_URL") or env_configured("PUBLIC_BASE_URL")
+    telegram_ops = env_configured("TELEGRAM_BOT_TOKEN") and (
+        env_configured("OPS_TELEGRAM_CHAT_ID") or env_configured("TELEGRAM_CHAT_ID")
+    )
+    webhook = env_configured("MONITORING_WEBHOOK_URL")
+    return bool(base and (telegram_ops or webhook))
+
+
 def _collect_guard_context() -> dict[str, Any]:
     from billing_service import billing_configured
     from postgres_backend import use_postgres
@@ -178,6 +239,7 @@ def _collect_guard_context() -> dict[str, Any]:
         "billing": billing_configured(),
         "sentry": env_configured("SENTRY_DSN"),
         "uptime_probe": _env_truthy("UPTIME_SELF_PROBE_ENABLED", "true"),
+        "monitoring_ops": _monitoring_ops_configured(),
         "lemon": lemon,
         "stripe": stripe,
         "telegram": _telegram_active(),
@@ -198,6 +260,11 @@ def _collect_guard_context() -> dict[str, Any]:
         "multi_instance_ok": int(parallel.get("parallelism") or 1) >= 2,
         "sqlite_forbidden_ok": pg if strict_prod else (pg or soft_launch or not is_production()),
         "prod_secrets_hygiene": prod_secrets_hygiene,
+        "secret_manager_ok": _secret_manager_ok(),
+        "kms_ok": _kms_ok(),
+        "audit_signing_ok": _audit_signing_ok(),
+        "no_local_fernet_prod_root": _no_local_fernet_prod_root(),
+        "fips_no_false_claim": _fips_no_false_claim(),
     }
 
 
@@ -258,6 +325,8 @@ def _build_guard_checks(ctx: dict[str, Any]) -> list[dict[str, Any]]:
                hint="Set SENTRY_DSN for production error tracking"),
         _check("uptime_self_probe", ctx["uptime_probe"], required=False,
                hint="UPTIME_SELF_PROBE_ENABLED=true (default) + UptimeRobot external"),
+        _check("monitoring_ops_alerting", ctx["monitoring_ops"], required=strict_prod,
+               hint="Set MONITORING_BASE_URL + OPS_TELEGRAM_CHAT_ID (or MONITORING_WEBHOOK_URL). Run scripts/setup_monitoring.py"),
         _check("telegram_bot", telegram, required=False,
                hint="Set TELEGRAM_BOT_TOKEN + webhook for GTM growth loop"),
         _check("telegram_webhook_secret", (not telegram) or ctx["telegram_secret"], required=bool(telegram),
@@ -271,6 +340,36 @@ def _build_guard_checks(ctx: dict[str, Any]) -> list[dict[str, Any]]:
             (os.getenv("IDENTITY_DEBUG_TOKENS", "").lower() not in {"1", "true", "yes"}) if is_production() else True,
             required=is_production(),
             hint="Unset IDENTITY_DEBUG_TOKENS in production (runtime hard-off exists; env must stay false for hygiene)",
+        ),
+        _check(
+            "secret_manager_configured",
+            ctx["secret_manager_ok"],
+            required=strict_prod,
+            hint="Set SECRET_MANAGER_PROVIDER=hashicorp with VAULT_ADDR/VAULT_TOKEN (or managed_env) — local Fernet is dev-only",
+        ),
+        _check(
+            "kms_hsm_configured",
+            ctx["kms_ok"],
+            required=strict_prod,
+            hint="Set KMS_PROVIDER and KMS_KEY_ID/KMS_KEY_ARN (or VAULT_TRANSIT_KEY) for envelope KEK authority",
+        ),
+        _check(
+            "audit_signing_key_configured",
+            ctx["audit_signing_ok"],
+            required=strict_prod,
+            hint="Set AUDIT_SIGNING_KEY to a dedicated production secret (not dev default, not shared with SECRETS_MASTER_KEY)",
+        ),
+        _check(
+            "no_local_fernet_production_root",
+            ctx["no_local_fernet_prod_root"],
+            required=strict_prod,
+            hint="Production must not use local_fernet/local_dev as canonical secret/KMS root of trust",
+        ),
+        _check(
+            "fips_no_false_claim",
+            ctx["fips_no_false_claim"],
+            required=strict_prod,
+            hint="Do not set FIPS_VALIDATED=true without FIPS_VALIDATION_EVIDENCE_PATH certificate evidence",
         ),
     ]
 
@@ -353,6 +452,7 @@ def _production_guard_state() -> dict[str, Any]:
         "billing": billing_configured(),
         "sentry": env_configured("SENTRY_DSN"),
         "uptime_probe": _env_flag("UPTIME_SELF_PROBE_ENABLED", "true"),
+        "monitoring_ops": _monitoring_ops_configured(),
         "lemon": lemon,
         "stripe": stripe,
         "lemon_whale": env_configured("LEMON_SQUEEZY_CHECKOUT_WHALE"),
@@ -494,6 +594,12 @@ def _observability_growth_checks(s: dict[str, Any]) -> list[dict[str, Any]]:
     return [
         _check("sentry_observability", s["sentry"], required=False, hint="Set SENTRY_DSN for production error tracking"),
         _check("uptime_self_probe", s["uptime_probe"], required=False, hint="UPTIME_SELF_PROBE_ENABLED=true (default) + UptimeRobot external"),
+        _check(
+            "monitoring_ops_alerting",
+            s["monitoring_ops"],
+            required=bool(s.get("strict_prod")),
+            hint="MONITORING_BASE_URL + OPS_TELEGRAM_CHAT_ID or MONITORING_WEBHOOK_URL. Run scripts/setup_monitoring.py",
+        ),
         _check("telegram_bot", s["telegram"], required=False, hint="Set TELEGRAM_BOT_TOKEN + webhook for GTM growth loop"),
         _check("telegram_webhook_secret", (not s["telegram"]) or s["telegram_secret"], required=bool(s["telegram"]), hint="Set TELEGRAM_WEBHOOK_SECRET when TELEGRAM_BOT_TOKEN is set"),
         _check("price_feed_railway", not getattr(config, "PRICE_FEED_WS_ONLY", True), required=False, hint="PRICE_FEED_WS_ONLY=false on Railway cloud"),

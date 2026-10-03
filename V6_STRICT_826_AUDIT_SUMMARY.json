@@ -1,0 +1,101 @@
+{
+  "generated_at": "2026-09-11T20:56:03.207282+00:00",
+  "methodology": "v6 §2.1 thirteen gates — no catalog inflation",
+  "pass_engineering": 826,
+  "not_complete": 0,
+  "canonically_covered": 36,
+  "external_blocked": 0,
+  "pass_pct": 100.0,
+  "committee_ready_full_completion_claim": false,
+  "prior_claim_retracted": true,
+  "retraction_reason": "Superficial audit — keyword routing and auto-pass gates; see V6_TRUE_INSTITUTIONAL_AUDIT_SUMMARY.json",
+  "top_failed_gates": [],
+  "top_binding_sources_failed": [],
+  "by_batch": {
+    "batch01": {
+      "pass": 50,
+      "total": 50,
+      "pct": 100.0
+    },
+    "batch02": {
+      "pass": 50,
+      "total": 50,
+      "pct": 100.0
+    },
+    "batch03": {
+      "pass": 50,
+      "total": 50,
+      "pct": 100.0
+    },
+    "batch04": {
+      "pass": 50,
+      "total": 50,
+      "pct": 100.0
+    },
+    "batch05": {
+      "pass": 50,
+      "total": 50,
+      "pct": 100.0
+    },
+    "batch06": {
+      "pass": 50,
+      "total": 50,
+      "pct": 100.0
+    },
+    "batch07": {
+      "pass": 50,
+      "total": 50,
+      "pct": 100.0
+    },
+    "batch08": {
+      "pass": 50,
+      "total": 50,
+      "pct": 100.0
+    },
+    "batch09": {
+      "pass": 50,
+      "total": 50,
+      "pct": 100.0
+    },
+    "batch10": {
+      "pass": 50,
+      "total": 50,
+      "pct": 100.0
+    },
+    "batch11": {
+      "pass": 50,
+      "total": 50,
+      "pct": 100.0
+    },
+    "batch12": {
+      "pass": 50,
+      "total": 50,
+      "pct": 100.0
+    },
+    "batch13": {
+      "pass": 50,
+      "total": 50,
+      "pct": 100.0
+    },
+    "batch14": {
+      "pass": 50,
+      "total": 50,
+      "pct": 100.0
+    },
+    "batch15": {
+      "pass": 50,
+      "total": 50,
+      "pct": 100.0
+    },
+    "batch16": {
+      "pass": 50,
+      "total": 50,
+      "pct": 100.0
+    },
+    "batch17": {
+      "pass": 26,
+      "total": 26,
+      "pct": 100.0
+    }
+  }
+}
