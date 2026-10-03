@@ -110,7 +110,7 @@ document.querySelectorAll('.tab').forEach(t => t.onclick = () => {
   $(`panel-${t.dataset.tab}`).classList.add('active');
 });
 
-function clearEl(el){while(el&&el.firstChild)el.removeChild(el.firstChild);}
+function clearEl(el){if(!el)return;let child=el.firstChild;while(child){const next=child.nextSibling;el.removeChild(child);child=next;}}
 function appendMetric(parent,k,v){
   const d=document.createElement('div');d.className='metric';
   const kk=document.createElement('div');kk.className='k';kk.textContent=String(k??'');
