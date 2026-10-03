@@ -144,7 +144,7 @@ def _ensure_request_csp_nonce(request: Request) -> str | None:
 
 
 def _inject_html_csp_nonce(html: str, nonce: str) -> str:
-    """Attach nonce to every <script> tag and ensure csp_events binder is present."""
+    """Attach nonce to <script> and <style> tags; ensure csp_events binder is present."""
     import re
 
     def _add_nonce(match: re.Match[str]) -> str:
@@ -153,7 +153,14 @@ def _inject_html_csp_nonce(html: str, nonce: str) -> str:
             return tag
         return tag.replace("<script", f'<script nonce="{nonce}"', 1)
 
+    def _add_style_nonce(match: re.Match[str]) -> str:
+        tag = match.group(0)
+        if re.search(r"\bnonce\s*=", tag, flags=re.I):
+            return tag
+        return tag.replace("<style", f'<style nonce="{nonce}"', 1)
+
     out = re.sub(r"<script\b[^>]*>", _add_nonce, html, flags=re.I)
+    out = re.sub(r"<style\b[^>]*>", _add_style_nonce, out, flags=re.I)
     binder = f'<script nonce="{nonce}" src="/static/js/csp_events.js"></script>'
     if "csp_events.js" not in out:
         lower = out.lower()
@@ -261,11 +268,14 @@ def security_headers_for(request: Request) -> dict[str, str]:
     elif nonce_mode and nonce:
         csp = (
             "default-src 'self'; "
-            f"script-src 'nonce-{nonce}' 'strict-dynamic' https://accounts.google.com; "
-            "style-src 'self' 'unsafe-inline'; "
+            f"script-src 'nonce-{nonce}' 'strict-dynamic' https://accounts.google.com "
+            "https://accounts.google.com/gsi/client; "
+            f"style-src 'self' 'nonce-{nonce}' https://accounts.google.com/gsi/style; "
+            "style-src-attr 'unsafe-inline'; "
             "img-src 'self' data:; "
             "font-src 'self' data:; "
-            "connect-src 'self' https://accounts.google.com; "
+            "connect-src 'self' https://accounts.google.com https://accounts.google.com/gsi/; "
+            "frame-src 'self' https://accounts.google.com/gsi/; "
             "frame-ancestors 'none'; "
             "base-uri 'self'; "
             "form-action 'self'"
@@ -273,11 +283,14 @@ def security_headers_for(request: Request) -> dict[str, str]:
     else:
         csp = (
             "default-src 'self'; "
-            "script-src 'self' 'unsafe-inline' https://accounts.google.com; "
-            "style-src 'self' 'unsafe-inline'; "
+            "script-src 'self' 'unsafe-inline' https://accounts.google.com "
+            "https://accounts.google.com/gsi/client; "
+            "style-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/style; "
+            "style-src-attr 'unsafe-inline'; "
             "img-src 'self' data:; "
             "font-src 'self' data:; "
-            "connect-src 'self' https://accounts.google.com; "
+            "connect-src 'self' https://accounts.google.com https://accounts.google.com/gsi/; "
+            "frame-src 'self' https://accounts.google.com/gsi/; "
             "frame-ancestors 'none'; "
             "base-uri 'self'; "
             "form-action 'self'"

@@ -33,13 +33,13 @@
     return "";
   }
 
-  /** Hosts used for share/deep-link hrefs in inventoried templates (landing, emotion_tax, API share_urls). */
+  /** External href hosts present in landing.html / dashboard.html @ e7ec0cd4 (share + t.me bot). */
   const SHARE_NAV_HOSTS = new Set([
-    "twitter.com",
-    "www.facebook.com",
-    "wa.me",
-    "t.me",
-    "www.reddit.com",
+    "twitter.com", // landing.html — share X intent
+    "www.facebook.com", // landing.html — share Facebook
+    "wa.me", // landing.html — share WhatsApp
+    "t.me", // landing.html:933,1574 — Telegram bot / share
+    "www.reddit.com", // landing.html — share Reddit
   ]);
 
   /** Navigation allowlist: same-origin http(s), root-relative path (not //), or known share hosts. */

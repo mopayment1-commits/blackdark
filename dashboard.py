@@ -2415,7 +2415,17 @@ async def api_trust_os():
     """Honest acquisition framing — four value layers + historical evidence."""
     from trust_compounding import trust_os_enhanced
 
-    return await trust_os_enhanced()
+    try:
+        return await trust_os_enhanced()
+    except Exception:
+        logger.exception("GET /api/trust-os failed")
+        return JSONResponse(
+            status_code=500,
+            content={
+                "error": "trust_os_unavailable",
+                "message": "Trust OS manifest is temporarily unavailable.",
+            },
+        )
 
 
 @app.get("/api/scale/readiness")

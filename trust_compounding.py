@@ -76,14 +76,31 @@ async def get_certificate(certificate_id: str) -> dict[str, Any] | None:
     return _cert_api(dict(raw)) if raw else None
 
 
+def _empty_accuracy_track() -> dict[str, Any]:
+    return {
+        "oracle": {"resolved_count": 0, "correct_count": 0, "hit_rate_percent": 0.0, "history": []},
+        "learning_registry": {"predictions": 0, "outcomes": 0, "recent_outcomes": []},
+        "track_record": "historical",
+        "generated_at": utcnow(),
+    }
+
+
 async def trust_os_enhanced() -> dict[str, Any]:
     from trust_os import trust_os_manifest
 
     manifest = trust_os_manifest()
     from learning_compounding import accuracy_track_record
 
-    track = await accuracy_track_record(limit=50)
-    evidence = await list_evidence(limit=20)
+    try:
+        track = await accuracy_track_record(limit=50)
+    except Exception:
+        logger.exception("Unable to load accuracy track record for /api/trust-os")
+        track = _empty_accuracy_track()
+    try:
+        evidence = await list_evidence(limit=20)
+    except Exception:
+        logger.exception("Unable to list trust evidence for /api/trust-os")
+        evidence = []
     manifest["historical_evidence"] = {
         "evidence_count": len(evidence),
         "accuracy_track_record": track.get("oracle", {}),
