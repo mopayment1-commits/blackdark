@@ -8,11 +8,13 @@ from __future__ import annotations
 
 import json
 import threading
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
-from typing import Any
+from typing import Any, Awaitable, Callable
 
 from path_safety import ensure_under, safe_data_file
+
+QueryOhlcvFn = Callable[..., Awaitable[list[dict[str, Any]]]]
 
 _LOCK = threading.Lock()
 _APPENDIX_PATH = safe_data_file("decision_ledger_recommendation_appendix.jsonl")
@@ -137,3 +139,135 @@ def recommendation_row_from_oracle_enrichment(
 
 def appendix_write_path() -> Path:
     return ensure_under(_APPENDIX_PATH, _DATA_BASE)
+
+
+def _parse_event_time(raw: str) -> datetime:
+    cleaned = str(raw).replace("Z", "+00:00")
+    dt = datetime.fromisoformat(cleaned)
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=UTC)
+    return dt.astimezone(UTC)
+
+
+def _label_from_recommendation_close(
+    recommendation: str,
+    price_at: float,
+    close_after: float,
+) -> str:
+    from ml.labeling_pipeline import score_verdict_accuracy
+
+    outcome, _, _ = score_verdict_accuracy(recommendation, price_at, close_after)
+    return "correct" if outcome == "correct" else "incorrect"
+
+
+async def _price_at_event(
+    session: Any,
+    *,
+    asset: str,
+    event_dt: datetime,
+    query_ohlcv: QueryOhlcvFn,
+) -> float | None:
+    rows = await query_ohlcv(
+        session,
+        symbol=str(asset).upper(),
+        interval="1h",
+        end_time=event_dt,
+        limit=200,
+    )
+    candidates: list[tuple[datetime, dict[str, Any]]] = []
+    for row in rows:
+        raw_ot = row.get("open_time")
+        if not raw_ot:
+            continue
+        open_time = _parse_event_time(str(raw_ot))
+        if open_time <= event_dt:
+            candidates.append((open_time, row))
+    if not candidates:
+        return None
+    _, candle = max(candidates, key=lambda item: item[0])
+    try:
+        close = float(candle.get("close") or 0)
+    except (TypeError, ValueError):
+        return None
+    return close if close > 0 else None
+
+
+async def _close_at_or_after_horizon(
+    session: Any,
+    *,
+    asset: str,
+    horizon_dt: datetime,
+    query_ohlcv: QueryOhlcvFn,
+) -> float | None:
+    rows = await query_ohlcv(
+        session,
+        symbol=str(asset).upper(),
+        interval="1h",
+        start_time=horizon_dt,
+        limit=200,
+    )
+    candidates: list[tuple[datetime, dict[str, Any]]] = []
+    for row in rows:
+        raw_ot = row.get("open_time")
+        if not raw_ot:
+            continue
+        open_time = _parse_event_time(str(raw_ot))
+        if open_time >= horizon_dt:
+            candidates.append((open_time, row))
+    if not candidates:
+        return None
+    _, candle = min(candidates, key=lambda item: item[0])
+    try:
+        close = float(candle.get("close") or 0)
+    except (TypeError, ValueError):
+        return None
+    return close if close > 0 else None
+
+
+async def resolve_appendix_outcome_from_ohlcv(
+    row: dict[str, Any],
+    session: Any,
+    *,
+    query_ohlcv: QueryOhlcvFn,
+) -> dict[str, Any]:
+    """Fill actual_outcome/label on an appendix row using OHLCV close at event_time + horizon."""
+    updated = dict(row)
+    if str(updated.get("outcome_horizon") or "") != "24h":
+        return updated
+
+    event_raw = str(updated.get("event_time") or "")
+    if not event_raw:
+        return updated
+
+    event_dt = _parse_event_time(event_raw)
+    horizon_dt = event_dt + timedelta(hours=24)
+    asset = str(updated.get("asset") or "").upper()
+    if not asset:
+        return updated
+
+    close_after = await _close_at_or_after_horizon(
+        session,
+        asset=asset,
+        horizon_dt=horizon_dt,
+        query_ohlcv=query_ohlcv,
+    )
+    if close_after is None:
+        updated["actual_outcome"] = ""
+        updated["label"] = ""
+        return updated
+
+    price_at = await _price_at_event(
+        session,
+        asset=asset,
+        event_dt=event_dt,
+        query_ohlcv=query_ohlcv,
+    )
+    price_at_f = float(price_at or 0)
+
+    updated["actual_outcome"] = str(close_after)
+    updated["label"] = _label_from_recommendation_close(
+        str(updated.get("recommendation") or ""),
+        price_at_f,
+        close_after,
+    )
+    return updated
