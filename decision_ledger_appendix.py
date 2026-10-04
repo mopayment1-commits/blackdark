@@ -129,7 +129,7 @@ def recommendation_row_from_oracle_enrichment(
         recommendation=str(out.get("decision_action") or verdict),
         user_action=str(out.get("user_action") or ""),
         user_override=str(out.get("user_override") or ""),
-        outcome_horizon=str(out.get("outcome_horizon") or ""),
+        outcome_horizon=str(out.get("outcome_horizon") or "24h"),
         data_version=data_version,
         feature_set_version=str(out.get("feature_set_version") or out.get("feature_version") or "unknown"),
     )
