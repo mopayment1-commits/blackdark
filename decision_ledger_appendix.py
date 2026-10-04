@@ -25,12 +25,14 @@ _APPENDIX_FIELDS = (
     "tenant_id",
     "user_ref",
     "event_time",
+    "ingestion_timestamp",
     "asset",
     "market_state",
     "model_id",
     "model_version",
     "model_confidence",
     "recommendation",
+    "no_action",
     "user_action",
     "user_override",
     "outcome_horizon",
@@ -38,6 +40,9 @@ _APPENDIX_FIELDS = (
     "feature_set_version",
     "actual_outcome",
     "label",
+    "candle_source",
+    "candle_interval",
+    "failure_reason",
 )
 
 
@@ -64,6 +69,7 @@ def append_recommendation_decision_record(
     model_version: str,
     model_confidence: str | float | int,
     recommendation: str,
+    no_action: bool,
     user_action: str,
     user_override: str,
     outcome_horizon: str,
@@ -76,12 +82,14 @@ def append_recommendation_decision_record(
         "tenant_id": str(tenant_id),
         "user_ref": str(user_ref),
         "event_time": str(event_time),
+        "ingestion_timestamp": _utcnow(),
         "asset": str(asset).upper(),
         "market_state": str(market_state),
         "model_id": str(model_id),
         "model_version": str(model_version),
         "model_confidence": model_confidence,
         "recommendation": str(recommendation),
+        "no_action": bool(no_action),
         "user_action": str(user_action),
         "user_override": str(user_override),
         "outcome_horizon": str(outcome_horizon),
@@ -89,6 +97,9 @@ def append_recommendation_decision_record(
         "feature_set_version": str(feature_set_version),
         "actual_outcome": "",
         "label": "",
+        "candle_source": "",
+        "candle_interval": "",
+        "failure_reason": "",
     }
     with _LOCK:
         _persist(row)
@@ -113,6 +124,7 @@ def recommendation_row_from_oracle_enrichment(
         or dg.get("version")
         or "unknown"
     )
+    recommendation = str(out.get("decision_action") or verdict)
     return append_recommendation_decision_record(
         decision_id=decision_id,
         tenant_id=str(out.get("tenant_id") or out.get("org_id") or tier or "default"),
@@ -128,7 +140,8 @@ def recommendation_row_from_oracle_enrichment(
         model_id=str(out.get("model_id") or out.get("kind") or "oracle_direction"),
         model_version=str(out.get("model_version") or "unknown"),
         model_confidence=out.get("model_confidence") or out.get("opportunity_score") or 0,
-        recommendation=str(out.get("decision_action") or verdict),
+        recommendation=recommendation,
+        no_action=recommendation == "WAIT",
         user_action=str(out.get("user_action") or ""),
         user_override=str(out.get("user_override") or ""),
         outcome_horizon=str(out.get("outcome_horizon") or "24h"),
@@ -139,6 +152,28 @@ def recommendation_row_from_oracle_enrichment(
 
 def appendix_write_path() -> Path:
     return ensure_under(_APPENDIX_PATH, _DATA_BASE)
+
+
+def load_appendix_rows_with_outcomes() -> list[dict[str, Any]]:
+    """Read appendix JSONL at line-20 path; return each row including actual_outcome and label."""
+    path = appendix_write_path()
+    if not path.is_file():
+        return []
+    rows: list[dict[str, Any]] = []
+    with path.open(encoding="utf-8") as fh:
+        for line in fh:
+            stripped = line.strip()
+            if not stripped:
+                continue
+            row = json.loads(stripped)
+            rows.append(
+                {
+                    **row,
+                    "actual_outcome": row.get("actual_outcome", ""),
+                    "label": row.get("label", ""),
+                }
+            )
+    return rows
 
 
 def _parse_event_time(raw: str) -> datetime:
@@ -254,6 +289,8 @@ async def resolve_appendix_outcome_from_ohlcv(
     if close_after is None:
         updated["actual_outcome"] = ""
         updated["label"] = ""
+        updated["candle_source"] = ""
+        updated["candle_interval"] = ""
         return updated
 
     price_at = await _price_at_event(
@@ -265,9 +302,17 @@ async def resolve_appendix_outcome_from_ohlcv(
     price_at_f = float(price_at or 0)
 
     updated["actual_outcome"] = str(close_after)
+    updated["candle_source"] = "query_ohlcv"
+    updated["candle_interval"] = "1h"
     updated["label"] = _label_from_recommendation_close(
         str(updated.get("recommendation") or ""),
         price_at_f,
         close_after,
     )
+    if updated["label"] == "incorrect":
+        updated["failure_reason"] = (
+            f"score_verdict_accuracy|event_close={price_at_f}|horizon_close={close_after}"
+        )
+    else:
+        updated["failure_reason"] = ""
     return updated
