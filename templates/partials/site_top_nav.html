@@ -194,14 +194,21 @@
         <div class="bd-lang-visible">{% include 'partials/lang_switcher.html' %}</div>
         {% if header_authenticated and header_user %}
         <div class="bd-account-menu">
-          <button type="button" class="bd-account-trigger" id="bdAccountTrigger" data-bd-account-open="1" aria-expanded="false" aria-haspopup="true">
+          <button
+            type="button"
+            class="bd-account-trigger"
+            id="bdAccountTrigger"
+            aria-expanded="false"
+            aria-haspopup="menu"
+            aria-controls="bdAccountMenu"
+          >
             <span id="bdAccountAvatar" aria-hidden="true">{% if header_user.avatar_url %}<img src="{{ header_user.avatar_url }}" alt="">{% else %}{{ header_user.initial }}{% endif %}</span>
             <span class="bd-account-name">{{ header_user.display }}</span>
             <span class="bd-tier-badge">{{ header_user.tier_label }}</span>
           </button>
-          <div class="bd-account-panel" hidden>
-            <a href="/profile">{{ t('nav.profile') if t is defined else 'Profile' }}</a>
-            <button type="button" id="bdHeaderLogout">{{ t('nav.logout') if t is defined else 'Log out' }}</button>
+          <div class="bd-account-panel" id="bdAccountMenu" role="menu" hidden aria-label="Account">
+            <a href="/profile" role="menuitem">{{ t('nav.profile') if t is defined else 'Profile' }}</a>
+            <button type="button" id="bdHeaderLogout" role="menuitem">{{ t('nav.logout') if t is defined else 'Log out' }}</button>
           </div>
         </div>
         {% else %}
@@ -213,3 +220,4 @@
     </div>
   </div>
 </nav>
+<script defer src="/static/js/bd_header_account.js"></script>
