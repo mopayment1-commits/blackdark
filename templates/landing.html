@@ -865,7 +865,7 @@
                     <h3>BLACKDARK Oracle</h3>
                     <div class="live-indicator" id="oracleFreshnessChip" title="Data freshness">
                         <span class="live-dot"></span>
-                        <span id="oracleFreshnessLabel">Freshness unknown</span>
+                        <span id="oracleFreshnessLabel"></span>
                     </div>
                 </div>
                 <div class="oracle-input" style="flex-wrap:wrap;gap:.5rem">
@@ -1220,9 +1220,25 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             }
             return `MODEL STATE: ${action} — ${data.symbol || symbol}.`;
         }
+        function landingOracleIsLive(data) {
+            if (!data) return false;
+            const factors = (data.oqs_why && data.oqs_why.top_3_factors)
+                || (data.explanation && data.explanation.top_3_factors)
+                || data.top_3_factors
+                || [];
+            if (!factors.length) return false;
+            const fresh = data.data_freshness || {};
+            const state = String(fresh.state || fresh.status || '').toLowerCase();
+            if (state === 'unknown') return false;
+            const ageKnown = fresh.freshness_ms != null || fresh.age_sec != null || fresh.age_seconds != null
+                || state === 'fresh' || state === 'ok' || state === 'live' || state === 'stale';
+            if (!ageKnown) return false;
+            return !!(data.decision_sentence || data.oracle || data.decision_action || data.verdict);
+        }
         function renderLandingCertificate(certEl, cert, data) {
-            if (!(cert.certificate_hash || data.prediction_id)) {
+            if (!landingOracleIsLive(data) || !(cert.certificate_hash || data.prediction_id)) {
                 certEl.style.display = 'none';
+                certEl.innerHTML = '';
                 return;
             }
             certEl.style.display = 'block';
@@ -1335,7 +1351,11 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             const knownFresh = state === 'fresh' || state === 'ok' || state === 'live';
             freshChip.textContent = stale
                 ? (fresh.label || 'Stale — not live')
-                : (fresh.label || (knownFresh ? 'Live' : 'Freshness unknown'));
+                : (fresh.label || (knownFresh ? 'Live' : ''));
+            if (!freshChip.textContent) {
+                if (wrap) wrap.style.display = 'none';
+                return;
+            }
             if (!wrap) return;
             wrap.style.display = '';
             wrap.title = fresh.state ? `Freshness: ${fresh.state}` : 'Data freshness';
@@ -1459,8 +1479,19 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 const latencyMs = Math.round(performance.now() - t0);
                 if (!data) {
                     oracleEl.textContent = i18nT('oracle.error');
-                    verdictEl.textContent = 'WAIT';
-                    verdictEl.className = 'result-verdict verdict-wait';
+                    verdictEl.textContent = '';
+                    verdictEl.className = 'result-verdict';
+                    symbolEl.textContent = '';
+                    scoreEl.textContent = '';
+                    const freshChip = document.getElementById('oracleFreshnessLabel');
+                    const freshWrap = document.getElementById('oracleFreshnessChip');
+                    if (freshChip) freshChip.textContent = '';
+                    if (freshWrap) freshWrap.style.display = 'none';
+                    const certElDown = document.getElementById('landingCert');
+                    if (certElDown) {
+                        certElDown.style.display = 'none';
+                        certElDown.innerHTML = '';
+                    }
                     return;
                 }
                 if (!response.ok) {
@@ -1483,13 +1514,14 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 paintLandingProMeta(proMeta, data, mode);
                 paintLandingUpgrade(upgradeEl, data);
                 const certEl = document.getElementById('landingCert');
-                const cert = data.decision_certificate || {};
+                const live = landingOracleIsLive(data);
+                const cert = live ? (data.decision_certificate || {}) : {};
                 renderLandingCertificate(certEl, cert, data);
                 renderLandingWhy(oracleEl, data, cert, latencyMs);
                 const followAction = data.decision_action || data.verdict || action || 'WAIT';
                 wireDisciplineMirror(document.getElementById('landingDiscipline'), data, symbol, followAction);
                 paintLandingCompliance(data);
-                updateShareLinks(data);
+                updateShareLinks(live ? data : null);
                 syncLandingTrustPulseFromOracle(data, symbol);
             } catch (error) { console.debug(error); oracleEl.textContent = ''; }
         }
@@ -1824,7 +1856,8 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                     const knownFresh = state === 'fresh' || state === 'ok' || state === 'live';
                     fl.textContent = stale
                         ? (fresh.label || 'Stale — not live')
-                        : (fresh.label || (knownFresh ? 'Live' : 'Freshness unknown'));
+                        : (fresh.label || (knownFresh ? 'Live' : ''));
+                    if (!fl.textContent) fl.textContent = '';
                 }
             }
             _lpRenderProof(p);

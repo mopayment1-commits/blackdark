@@ -2939,9 +2939,57 @@ def _queue_oracle_quick_tasks(background_tasks: BackgroundTasks, asset: str, pay
     )
 
 
+def _quick_oracle_factors(payload: dict) -> list:
+    why = payload.get("oqs_why") if isinstance(payload.get("oqs_why"), dict) else {}
+    factors = why.get("top_3_factors") or []
+    if factors:
+        return list(factors)
+    expl = payload.get("explanation")
+    if isinstance(expl, dict):
+        factors = expl.get("top_3_factors") or []
+        if factors:
+            return list(factors)
+    raw = payload.get("top_3_factors")
+    return list(raw) if isinstance(raw, list) and raw else []
+
+
+def _quick_freshness_known(payload: dict) -> bool:
+    fresh = payload.get("data_freshness") if isinstance(payload.get("data_freshness"), dict) else {}
+    state = str(fresh.get("state") or fresh.get("status") or "").lower()
+    if state == "unknown":
+        return False
+    if (
+        fresh.get("freshness_ms") is not None
+        or fresh.get("age_sec") is not None
+        or fresh.get("age_seconds") is not None
+    ):
+        return True
+    return state in {"fresh", "ok", "live", "stale"}
+
+
+def _quick_decision_valid(payload: dict) -> bool:
+    asset = str(payload.get("symbol") or payload.get("asset") or "").strip()
+    if not asset:
+        return False
+    return bool(
+        payload.get("decision_sentence")
+        or payload.get("oracle")
+        or payload.get("decision_action")
+        or payload.get("verdict")
+    )
+
+
 def _attach_quick_certificate(payload: dict) -> None:
+    payload["decision_certificate"] = None
     try:
         from decision_certificate import build_decision_certificate, compliance_footer_block
+
+        if not _quick_decision_valid(payload):
+            return
+        if not _quick_freshness_known(payload):
+            return
+        if not _quick_oracle_factors(payload):
+            return
 
         payload.setdefault("tier", "free")
         # Enrich quick payload so certificate carries advisory truth + half-life
@@ -2971,13 +3019,15 @@ def _attach_quick_certificate(payload: dict) -> None:
                     f"score {score_i} is inside the dead-zone; no certified edge."
                 )
                 payload["oracle"] = payload["decision_sentence"]
-        payload["decision_certificate"] = build_decision_certificate(payload)
-        payload["compliance_footer"] = compliance_footer_block(
-            surface="single_sentence_oracle_quick",
-            trust_basis="public_accuracy_ledger + quick_rules_engine",
-        )
+        cert = build_decision_certificate(payload)
+        payload["decision_certificate"] = cert
+        if cert:
+            payload["compliance_footer"] = compliance_footer_block(
+                surface="single_sentence_oracle_quick",
+                trust_basis="public_accuracy_ledger + quick_rules_engine",
+            )
     except Exception:
-        pass
+        payload["decision_certificate"] = None
 
 
 def _attach_quick_freshness(payload: dict, asset: str) -> dict:
@@ -3022,8 +3072,8 @@ async def oracle_quick(
     payload["meets_latency_target"] = latency_ms <= 100
 
     _queue_oracle_quick_tasks(background_tasks, asset, payload)
-    _attach_quick_certificate(payload)
     payload = _attach_quick_freshness(payload, asset)
+    _attach_quick_certificate(payload)
     from security_sanitize import sanitize_oracle_payload
 
     clean = sanitize_oracle_payload(payload)
