@@ -184,9 +184,7 @@
             </div>
             <details style="margin-top:1rem">
                 <summary style="cursor:pointer;color:var(--accent);font-weight:600">Operator runbook (launch packaging)</summary>
-                <p id="glass-operator-status" style="margin-top:.65rem;color:var(--muted);font-size:0.85rem">Loading operator gates…</p>
-                <ul id="glass-operator-gates" class="events" style="margin-top:.5rem;display:none"></ul>
-                <ol id="glass-tminus" style="margin:.75rem 0 0 1.2rem;color:var(--muted);font-size:0.85rem;line-height:1.7;display:none"></ol>
+                <p id="glass-operator-status" style="margin-top:.65rem;color:var(--muted);font-size:0.85rem">Loading operator notes…</p>
             </details>
             <p style="margin-top:0.75rem;font-size:0.75rem;color:var(--muted)">
                 Exact launch timing and channel are human. Product machinery + event template are live via <code>/api/glass-box/challenge</code> · operator pack <code>/api/glass-box/operator</code>.
@@ -425,9 +423,6 @@
 
             const warnings = [];
             if (verify.valid === false) warnings.push('audit chain INVALID');
-            if (drift.drift_freeze_active || drift.trading_frozen) {
-                warnings.push('drift / trading freeze active');
-            }
             if (transparency.production_engine === 'ml_model' && drift.drift_envelope_ready === false) {
                 warnings.push('OOD envelope not ready');
             }
@@ -544,8 +539,26 @@
             return oracle?.public_miss_sample || [];
         }
 
+        function dedupeLedgerDisplayRows(rows) {
+            const seen = new Set();
+            const out = [];
+            for (const r of rows) {
+                const sec = String(r.timestamp || '').slice(0, 19);
+                const asset = String(r.asset || '').trim().toUpperCase();
+                if (!asset) {
+                    out.push(r);
+                    continue;
+                }
+                const key = asset + '|' + sec;
+                if (seen.has(key)) continue;
+                seen.add(key);
+                out.push(r);
+            }
+            return out;
+        }
+
         function renderPredictionsTable(oracle, footnote) {
-            const rows = tableRowsFromOracle(oracle);
+            const rows = dedupeLedgerDisplayRows(tableRowsFromOracle(oracle));
             const tbody = document.getElementById('predictions-body');
             const note = document.getElementById('recent-table-note');
             if (note) note.textContent = rows.length ? (footnote || '') : (footnote || '');
@@ -879,46 +892,18 @@
                 const rb = d.operator_runbook || {};
                 const st = document.getElementById('glass-operator-status');
                 if (st) {
-                    st.textContent = (rb.title || 'Operator runbook') +
-                        (rb.machine_ready ? ' · machine ready' : '') +
-                        ' · human fields remain for timing/channel';
-                }
-                const gates = document.getElementById('glass-operator-gates');
-                if (gates) {
-                    const gateRows = (Array.isArray(rb.gates) ? rb.gates : []).filter(g => {
-                        const label = String(g.label || g.id || '').trim();
-                        return label && !/^[\d\.\*\s]+$/.test(label);
-                    });
-                    if (gateRows.length) {
-                        gates.style.display = '';
-                        gates.innerHTML = gateRows.map(g =>
-                            `<li><strong>${esc(g.label || g.id)}</strong> · ${esc(g.status || '—')}` +
-                            (g.check ? ` · <code>${esc(g.check)}</code>` : '') + '</li>'
-                        ).join('');
-                    } else {
-                        gates.innerHTML = '';
-                        gates.style.display = 'none';
-                    }
-                }
-                const tm = document.getElementById('glass-tminus');
-                if (tm) {
-                    const tSteps = (Array.isArray(rb.t_minus_checklist) ? rb.t_minus_checklist : [])
-                        .map(s => String(s || '').trim())
-                        .filter(s => s && !/^[\d\.\*\s]+$/.test(s));
-                    if (tSteps.length) {
-                        tm.style.display = '';
-                        tm.innerHTML = tSteps.map(s => '<li>' + esc(s) + '</li>').join('');
-                    } else {
-                        tm.innerHTML = '';
-                        tm.style.display = 'none';
-                    }
+                    st.textContent =
+                        'Exact launch timing and announcement channel are human operator choices' +
+                        (rb.machine_ready ? ' · product machinery ready' : '') +
+                        ' · sealed certificates and ledger unlock follow the public accuracy workflow';
                 }
             } catch (error) {
                 console.debug(error);
-                const gates = document.getElementById('glass-operator-gates');
-                if (gates) { gates.innerHTML = ''; gates.style.display = 'none'; }
-                const tm = document.getElementById('glass-tminus');
-                if (tm) { tm.innerHTML = ''; tm.style.display = 'none'; }
+                const st = document.getElementById('glass-operator-status');
+                if (st) {
+                    st.textContent =
+                        'Exact launch timing and announcement channel are human operator choices.';
+                }
             }
         }
         document.getElementById('copyGlassBtn')?.addEventListener('click', () => {
