@@ -1095,10 +1095,40 @@
     {% include "partials/eu_optional_analytics_banner.html" %}
     {% include "partials/site_footer.html" %}
     
-    <script src="/static/js/dom_escape.js"></script>
+    <script src="/static/js/dom_escape.js?v=20261007-setAnchorHref"></script>
     <script src="/static/js/public_decision_map.js"></script>
     <script>
-        const { escapeHtml, esc, safeUrl, setAnchorHref, assignLocationHref, openWindow } = window.BDDomSafe;
+        const BDDom = window.BDDomSafe || {};
+        const escapeHtml = BDDom.escapeHtml || function (v) { return String(v ?? ''); };
+        const esc = BDDom.esc || escapeHtml;
+        const safeUrl = BDDom.safeUrl || function () { return ''; };
+        const assignLocationHref = typeof BDDom.assignLocationHref === 'function'
+            ? BDDom.assignLocationHref
+            : function (value) {
+                const raw = String(value ?? '').trim();
+                if (raw && /^https?:\/\//i.test(raw)) window.location.href = raw;
+            };
+        const openWindow = typeof BDDom.openWindow === 'function'
+            ? BDDom.openWindow
+            : function (value) {
+                const raw = String(value ?? '').trim();
+                if (raw && /^https?:\/\//i.test(raw)) window.open(raw, '_blank', 'noopener');
+            };
+        function setAnchorHref(el, value) {
+            if (!el) return;
+            if (typeof BDDom.setAnchorHref === 'function') {
+                BDDom.setAnchorHref(el, value);
+                return;
+            }
+            if (typeof window.setAnchorHref === 'function') {
+                window.setAnchorHref(el, value);
+                return;
+            }
+            const raw = String(value ?? '').trim();
+            if (raw && (/^https?:\/\//i.test(raw) || (raw.startsWith('/') && !raw.startsWith('//')))) {
+                el.href = raw;
+            }
+        }
 
         function currentLang() {
             return (window.BD_I18N && window.BD_I18N.lang) || document.documentElement.lang || 'en';
@@ -1147,6 +1177,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             window.lastOracleResult = result;
             const live = !!(result && landingOracleIsLive(result));
             setLandingOraclePresentationLayout(live ? 'live' : 'degraded');
+            if (!live) return;
             const { url, text } = buildSharePayload(result);
             const full = `${text}\n${url}`;
 
@@ -1156,11 +1187,13 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             const tgBtn = document.getElementById('shareTelegramBtn');
             const rdBtn = document.getElementById('shareRedditBtn');
 
-            if (xBtn) setAnchorHref(xBtn, `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`);
-            if (fbBtn) setAnchorHref(fbBtn, `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(text)}`);
-            if (waBtn) setAnchorHref(waBtn, `https://wa.me/?text=${encodeURIComponent(full)}`);
-            if (tgBtn) setAnchorHref(tgBtn, `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`);
-            if (rdBtn) setAnchorHref(rdBtn, `https://www.reddit.com/submit?url=${encodeURIComponent(url)}&title=${encodeURIComponent(text)}`);
+            try {
+                if (xBtn) setAnchorHref(xBtn, `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`);
+                if (fbBtn) setAnchorHref(fbBtn, `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(text)}`);
+                if (waBtn) setAnchorHref(waBtn, `https://wa.me/?text=${encodeURIComponent(full)}`);
+                if (tgBtn) setAnchorHref(tgBtn, `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`);
+                if (rdBtn) setAnchorHref(rdBtn, `https://www.reddit.com/submit?url=${encodeURIComponent(url)}&title=${encodeURIComponent(text)}`);
+            } catch (shareError) { console.debug(shareError); }
 
             const igBtn = document.getElementById('shareInstagramBtn');
             if (igBtn) {
@@ -1573,6 +1606,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             proMeta.style.display = 'none';
             upgradeEl.style.display = 'none';
             const t0 = performance.now();
+            let oracleDecisionShown = false;
             
             try {
                 const { response, data, networkFailure } = await fetchOraclePayload(symbol, mode, lang);
@@ -1601,6 +1635,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 const live = landingOracleIsLive(data);
                 const action = decideLandingAction(data);
                 oracleEl.textContent = fallbackDecisionSentence(data, symbol, action);
+                oracleDecisionShown = true;
                 const certEl = document.getElementById('landingCert');
                 const cert = live ? (data.decision_certificate || {}) : {};
                 if (live) {
@@ -1616,7 +1651,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                     const followAction = data.decision_action || data.verdict || action || 'WAIT';
                     wireDisciplineMirror(document.getElementById('landingDiscipline'), data, symbol, followAction);
                     paintLandingCompliance(data);
-                    updateShareLinks(data);
+                    try { updateShareLinks(data); } catch (shareError) { console.debug(shareError); }
                 } else {
                     setLandingOraclePresentationLayout('degraded');
                     scoreEl.textContent = '';
@@ -1633,17 +1668,19 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                     wireDisciplineMirror(document.getElementById('landingDiscipline'), data, symbol, action);
                     const comp = document.getElementById('landingCompliance');
                     if (comp) comp.style.display = 'none';
-                    updateShareLinks(null);
+                    try { updateShareLinks(null); } catch (shareError) { console.debug(shareError); }
                 }
                 try {
                     syncLandingTrustPulseFromOracle(data, symbol);
                 } catch (pulseError) { console.debug(pulseError); }
             } catch (error) {
                 console.debug(error);
-                clearLandingOracleChrome();
-                oracleEl.textContent = i18nT('oracle.error');
-                const detail = error && error.message ? String(error.message) : String(error || 'unknown');
-                setLandingOracleFailReason('Exception: ' + detail);
+                if (!oracleDecisionShown) {
+                    clearLandingOracleChrome();
+                    oracleEl.textContent = i18nT('oracle.error');
+                    const detail = error && error.message ? String(error.message) : String(error || 'unknown');
+                    setLandingOracleFailReason('Exception: ' + detail);
+                }
             }
         }
 
