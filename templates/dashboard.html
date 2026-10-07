@@ -1332,8 +1332,11 @@
                 }).join('');
             }
             const title = esc(whyBlock.grasp_line || 'Why (Top 3) — under five seconds');
+            const titleRow = factors.length
+                ? '<div style="font-size:.8rem;color:#22d3ee;margin-bottom:.4rem">' + title + '</div>'
+                : '';
             return '<div style="margin-top:.85rem;padding:.65rem .85rem;border:1px solid rgba(34,211,238,.25);border-radius:10px;background:#1a1a24">'
-                + '<div style="font-size:.8rem;color:#22d3ee;margin-bottom:.4rem">' + title + '</div>' + lines + '</div>';
+                + titleRow + lines + '</div>';
         }
         function buildVetoBlock(mode, conflict) {
             const hot = conflict.veto || conflict.abstain || (conflict.severity && conflict.severity !== 'none');
