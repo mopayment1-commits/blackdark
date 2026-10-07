@@ -1864,35 +1864,69 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             return Boolean(_lpCertHash(p));
         }
 
+        function _lpCertFromPulse(p) {
+            const proof = (p && p.proof) || {};
+            const dc = (p && p.decision_certificate) || {};
+            const hash = _lpCertHash(p);
+            if (!hash) return null;
+            const mapFn = window.BDPublicDecision?.mapPublicDecisionAction;
+            const rawVerdict = dc.decision_action || p.action || p.verdict || '';
+            const verdict = typeof mapFn === 'function' ? mapFn(rawVerdict) : rawVerdict;
+            return {
+                ...dc,
+                certificate_hash: hash,
+                asset: String(dc.asset || p.symbol || 'BTC').trim().toUpperCase() || 'BTC',
+                prediction_id: proof.prediction_id ?? dc.prediction_id ?? null,
+                decision_action: verdict || rawVerdict || 'WAIT',
+                share_text: dc.share_text || proof.share_text || '',
+            };
+        }
+
+        function _lpNoCertificateLine() {
+            return currentLang().startsWith('ar') ? 'لا توجد شهادة بعد.' : 'No certificate yet.';
+        }
+
         function openLandingPulseProof() {
             const p = landingPulse || {};
-            const proof = p.proof || {};
             const drawer = document.getElementById('lpProofDrawer');
             const toast = document.getElementById('lpProofCopyMsg');
             if (toast) toast.hidden = true;
             if (!drawer) return;
-            const hash = _lpCertHash(p);
-            if (!hash) {
-                drawer.hidden = false;
-                drawer.innerHTML =
-                    '<p style="margin:0;color:var(--text-muted)">No Decision Certificate for this pulse yet. ' +
-                    'Use <strong>Get Decision</strong> below to generate signed proof.</p>';
+            const cert = _lpCertFromPulse(p);
+            if (!cert) {
+                drawer.hidden = true;
+                drawer.innerHTML = '';
+                if (toast) {
+                    toast.textContent = _lpNoCertificateLine();
+                    toast.hidden = false;
+                }
                 return;
             }
             drawer.hidden = false;
-            const data = { symbol: p.symbol || 'BTC', prediction_id: proof.prediction_id || cert.prediction_id };
-            renderLandingPulseProofDrawer(drawer, cert, data, p);
+            renderLandingPulseProofDrawer(drawer, cert, p);
         }
 
-        function renderLandingPulseProofDrawer(drawerEl, cert, data, pulse) {
+        function renderLandingPulseProofDrawer(drawerEl, cert, pulse) {
             const proof = (pulse && pulse.proof) || {};
             const ledgerHref = esc(_lpProofLedgerHref(proof));
             const hashLabel = cert.certificate_hash ? String(cert.certificate_hash).slice(0, 16) + '…' : 'pending';
+            const asset = cert.asset || pulse.symbol || 'BTC';
+            const verdict = cert.decision_action || pulse.action || pulse.verdict || 'WAIT';
+            const pid = cert.prediction_id != null && cert.prediction_id !== ''
+                ? String(cert.prediction_id)
+                : '—';
+            const ar = currentLang().startsWith('ar');
+            const lblAsset = ar ? 'الأصل' : 'Asset';
+            const lblVerdict = ar ? 'الحكم' : 'Verdict';
+            const lblId = ar ? 'الرقم' : 'ID';
             const copyBtn = cert.share_text
                 ? '<button type="button" class="btn-secondary" id="lpDrawerCopyCert">Copy certificate text</button>'
                 : '';
             drawerEl.innerHTML =
                 '<p style="margin:0 0 .5rem"><strong>Decision Certificate</strong> · Trust Pulse</p>' +
+                '<p style="margin:0 0 .35rem"><strong>' + esc(lblAsset) + ':</strong> ' + esc(asset) + '</p>' +
+                '<p style="margin:0 0 .35rem"><strong>' + esc(lblVerdict) + ':</strong> ' + esc(verdict) + '</p>' +
+                '<p style="margin:0 0 .5rem"><strong>' + esc(lblId) + ':</strong> ' + esc(pid) + '</p>' +
                 '<p style="margin:0 0 .5rem;color:var(--text-muted)"><code>' + esc(hashLabel) + '</code></p>' +
                 '<div style="display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:.5rem">' +
                 copyBtn +
