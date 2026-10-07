@@ -162,4 +162,9 @@ def _event_highlights(row: dict[str, Any]) -> dict[str, Any]:
             "exported": (payload.get("export") or {}).get("exported"),
             "trained": (payload.get("training") or {}).get("trained"),
         }
+    if event_type == "ensemble_trained":
+        return {
+            "selected": payload.get("selected_kind") or payload.get("selected"),
+            "trained": payload.get("trained"),
+        }
     return {"keys": list(payload.keys())[:5]}

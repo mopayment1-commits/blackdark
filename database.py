@@ -2658,9 +2658,16 @@ async def fetch_live_public_ledger(
                 f"{live_clause} "
                 "ORDER BY timestamp DESC, id DESC LIMIT ?"
             )
+            scored_sql = (
+                "SELECT * FROM oracle_predictions "
+                "WHERE resolved = 1 AND label IS NOT NULL AND price_after_24h IS NOT NULL AND "
+                f"{live_clause} "
+                "ORDER BY timestamp DESC, id DESC LIMIT ?"
+            )
             incorrect_row = await (await db.execute(incorrect_sql)).fetchone()
             partial_row = await (await db.execute(partial_sql)).fetchone()
             miss_rows = await (await db.execute(miss_sql, (miss_sample_limit,))).fetchall()
+            scored_rows = await (await db.execute(scored_sql, (recent_limit,))).fetchall()
 
         logged = _sql_count(total_row)
         resolved = _sql_count(resolved_row)
@@ -2676,6 +2683,7 @@ async def fetch_live_public_ledger(
                 "verified_errors": _sql_count(incorrect_row),
                 "partial_outcomes": _sql_count(partial_row),
                 "miss_sample": [dict(row) for row in miss_rows],
+                "scored_sample": [dict(row) for row in scored_rows],
                 "recent_raw_count": len(recent),
                 "recent_window": recent,
             }
