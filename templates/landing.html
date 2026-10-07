@@ -1132,8 +1132,20 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             return { url, text };
         }
 
+        function setLandingOraclePresentationLayout(mode) {
+            const header = document.querySelector('#oracleResult .result-header');
+            const verdictWrap = document.getElementById('resultVerdict')?.parentElement;
+            const share = document.getElementById('oracleShare');
+            const live = mode === 'live';
+            if (header) header.style.display = live ? '' : 'none';
+            if (verdictWrap) verdictWrap.style.display = live ? '' : 'none';
+            if (share) share.style.display = live ? '' : 'none';
+        }
+
         function updateShareLinks(result) {
             window.lastOracleResult = result;
+            const live = !!(result && landingOracleIsLive(result));
+            setLandingOraclePresentationLayout(live ? 'live' : 'degraded');
             const { url, text } = buildSharePayload(result);
             const full = `${text}\n${url}`;
 
@@ -1465,6 +1477,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
         window.tryOracleFree = tryOracleFree;
 
         function clearLandingOracleChrome() {
+            setLandingOraclePresentationLayout('down');
             const scoreEl = document.getElementById('resultScore');
             const verdictEl = document.getElementById('resultVerdict');
             const symbolEl = document.getElementById('resultSymbol');
@@ -1511,6 +1524,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             localStorage.setItem('bd_ux_mode', mode);
             localStorage.setItem('bd_lang', lang);
             oracleEl.textContent = i18nT('oracle.loading');
+            setLandingOraclePresentationLayout('down');
             proMeta.style.display = 'none';
             upgradeEl.style.display = 'none';
             const t0 = performance.now();
@@ -1549,11 +1563,12 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
 
                 const live = landingOracleIsLive(data);
                 const action = decideLandingAction(data);
-                symbolEl.textContent = data.symbol || symbol;
                 oracleEl.textContent = fallbackDecisionSentence(data, symbol, action);
                 const certEl = document.getElementById('landingCert');
                 const cert = live ? (data.decision_certificate || {}) : {};
                 if (live) {
+                    setLandingOraclePresentationLayout('live');
+                    symbolEl.textContent = data.symbol || symbol;
                     scoreEl.textContent = data.opportunity_score ?? '--';
                     paintLandingVerdict(verdictEl, data, action);
                     paintLandingFreshness(data);
@@ -1566,6 +1581,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                     paintLandingCompliance(data);
                     updateShareLinks(data);
                 } else {
+                    setLandingOraclePresentationLayout('degraded');
                     scoreEl.textContent = '';
                     verdictEl.textContent = '';
                     verdictEl.className = 'result-verdict';
