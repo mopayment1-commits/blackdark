@@ -26,6 +26,18 @@ from database_ddl import table_schema
 logger = logging.getLogger(__name__)
 
 
+def _sql_count(row: Any) -> int:
+    if row is None:
+        return 0
+    val = _row_get(row, 0, "count")
+    if val is None:
+        val = _row_get(row, 0, "n")
+    try:
+        return int(val or 0)
+    except (TypeError, ValueError):
+        return 0
+
+
 def _row_get(row: Any, index: int, name: str) -> Any:
     """Read a column from sqlite tuples or postgres/asyncpg mappings."""
     if row is None:
@@ -2572,17 +2584,17 @@ async def fetch_oracle_audit_stats(
             )
             try:
                 synth_total_row, synth_resolved_row, synth_avg_row = await _fetch_synthetic_audit_rows(db)
-                synth_total = int(synth_total_row[0] or 0)
-                synth_resolved = int(synth_resolved_row[0] or 0)
-                synth_avg = float(synth_avg_row[0] or 0.0)
+                synth_total = _sql_count(synth_total_row)
+                synth_resolved = _sql_count(synth_resolved_row)
+                synth_avg = float(_row_get(synth_avg_row, 0, "avg") or 0.0)
             except Exception:
                 logger.exception("Synthetic audit slice unavailable; live stats still returned")
                 synth_total = synth_resolved = 0
                 synth_avg = 0.0
 
-        total = int(total_row[0] or 0)
-        resolved = int(resolved_row[0] or 0)
-        avg_accuracy = float(avg_row[0] or 0.0)
+        total = _sql_count(total_row)
+        resolved = _sql_count(resolved_row)
+        avg_accuracy = float(_row_get(avg_row, 0, "avg") or 0.0)
         recent = [dict(row) for row in recent_rows]
 
         return _oracle_audit_payload(
@@ -2650,9 +2662,9 @@ async def fetch_live_public_ledger(
             partial_row = await (await db.execute(partial_sql)).fetchone()
             miss_rows = await (await db.execute(miss_sql, (miss_sample_limit,))).fetchall()
 
-        logged = int(total_row[0] or 0)
-        resolved = int(resolved_row[0] or 0)
-        avg_accuracy = float(avg_row[0] or 0.0)
+        logged = _sql_count(total_row)
+        resolved = _sql_count(resolved_row)
+        avg_accuracy = float(_row_get(avg_row, 0, "avg") or 0.0)
         recent = [dict(row) for row in recent_rows]
         base.update(
             {
@@ -2661,8 +2673,8 @@ async def fetch_live_public_ledger(
                 "resolved": resolved,
                 "pending": max(0, logged - resolved),
                 "accuracy_percent": round(avg_accuracy, 2),
-                "verified_errors": int(incorrect_row[0] or 0),
-                "partial_outcomes": int(partial_row[0] or 0),
+                "verified_errors": _sql_count(incorrect_row),
+                "partial_outcomes": _sql_count(partial_row),
                 "miss_sample": [dict(row) for row in miss_rows],
                 "recent_raw_count": len(recent),
                 "recent_window": recent,
@@ -2689,7 +2701,7 @@ async def count_labeled_oracle_predictions(
                 f"{source_clause}"
             )
             row = await (await db.execute(calibration_sql)).fetchone()
-        return int(row["n"] if row else 0)
+        return _sql_count(row)
     except Exception:
         logger.exception("Unable to count labeled oracle predictions")
         return 0
