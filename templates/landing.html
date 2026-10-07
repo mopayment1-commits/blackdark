@@ -1276,12 +1276,6 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             });
         }
         function renderLandingWhy(oracleEl, data, cert, latencyMs) {
-            const whyBlock = data.oqs_why || {};
-            const factors = whyBlock.top_3_factors
-                || (data.explanation && data.explanation.top_3_factors)
-                || data.top_3_factors
-                || [];
-            const scen = (data.scenarios && data.scenarios.scenarios) || {};
             let whyEl = document.getElementById('landingWhy');
             if (!whyEl) {
                 whyEl = document.createElement('div');
@@ -1289,6 +1283,18 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 whyEl.style.cssText = 'margin-top:.75rem;font-size:.85rem;color:var(--text-muted);text-align:left';
                 oracleEl.parentNode.insertBefore(whyEl, oracleEl.nextSibling);
             }
+            if (!landingOracleIsLive(data)) {
+                whyEl.innerHTML = '';
+                whyEl.style.display = 'none';
+                return;
+            }
+            whyEl.style.display = '';
+            const whyBlock = data.oqs_why || {};
+            const factors = whyBlock.top_3_factors
+                || (data.explanation && data.explanation.top_3_factors)
+                || data.top_3_factors
+                || [];
+            const scen = (data.scenarios && data.scenarios.scenarios) || {};
             let scenHtml = '';
             if (scen.bull || scen.base || scen.bear) {
                 const bits = ['bull','base','bear'].map(k => {
@@ -1309,10 +1315,8 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 }).join('') + '</ol>';
             }
             let certLine = '';
-            if (cert.certificate_hash || data.prediction_id) {
-                const hashShort = cert.certificate_hash
-                    ? String(cert.certificate_hash).slice(0, 16) + '…'
-                    : 'pending';
+            if (cert && cert.certificate_hash) {
+                const hashShort = String(cert.certificate_hash).slice(0, 16) + '…';
                 certLine = `<div style="margin-top:.5rem;font-size:.8rem">Certificate <code>${esc(hashShort)}</code> · prediction_id <code>${esc(data.prediction_id || '—')}</code></div>`;
             }
             const whyTitle = factors.length
@@ -1404,6 +1408,12 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             });
         }
         function wireDisciplineMirror(disc, data, symbol, followAction) {
+            if (!disc) return;
+            if (!landingOracleIsLive(data)) {
+                disc.style.display = 'none';
+                disc.innerHTML = '';
+                return;
+            }
             disc.style.display = 'block';
             disc.innerHTML =
                 `<div style="font-size:.85rem;color:var(--text-muted);margin-bottom:.4rem"><strong style="color:var(--text)">Discipline Mirror</strong> (private) — cure for Dashboard Tourism. Did you follow this model state? <a href="/discipline-mirror" style="color:var(--accent)">Open my mirror</a> · <a href="/errors" style="color:var(--accent)">See public misses</a></div>` +
@@ -1454,6 +1464,37 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
         }
         window.tryOracleFree = tryOracleFree;
 
+        function clearLandingOracleChrome() {
+            const scoreEl = document.getElementById('resultScore');
+            const verdictEl = document.getElementById('resultVerdict');
+            const symbolEl = document.getElementById('resultSymbol');
+            if (scoreEl) scoreEl.textContent = '';
+            if (verdictEl) {
+                verdictEl.textContent = '';
+                verdictEl.className = 'result-verdict';
+            }
+            if (symbolEl) symbolEl.textContent = '';
+            const freshChip = document.getElementById('oracleFreshnessLabel');
+            const freshWrap = document.getElementById('oracleFreshnessChip');
+            if (freshChip) freshChip.textContent = '';
+            if (freshWrap) freshWrap.style.display = 'none';
+            const certEl = document.getElementById('landingCert');
+            if (certEl) {
+                certEl.style.display = 'none';
+                certEl.innerHTML = '';
+            }
+            const disc = document.getElementById('landingDiscipline');
+            if (disc) {
+                disc.style.display = 'none';
+                disc.innerHTML = '';
+            }
+            const whyEl = document.getElementById('landingWhy');
+            if (whyEl) {
+                whyEl.innerHTML = '';
+                whyEl.style.display = 'none';
+            }
+        }
+
         async function consultOracle() {
             const symbol = document.getElementById('symbolInput').value.toUpperCase();
             const mode = document.getElementById('landingUxMode').value || 'beginner';
@@ -1496,7 +1537,8 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 }
                 if (!response.ok) {
                     const detail = data.detail || {};
-                    const msg = detail.message || i18nT('ui.quota_exceeded');
+                    const msg = detail.message || i18nT('oracle.error');
+                    clearLandingOracleChrome();
                     oracleEl.textContent = msg;
                     if (detail.upgrade_url || detail.error === 'quota_exceeded') {
                         upgradeEl.style.display = 'block';
@@ -1504,26 +1546,48 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                     }
                     return;
                 }
-                
-                symbolEl.textContent = data.symbol || symbol;
-                scoreEl.textContent = data.opportunity_score ?? '--';
-                const action = decideLandingAction(data);
-                paintLandingVerdict(verdictEl, data, action);
-                oracleEl.textContent = fallbackDecisionSentence(data, symbol, action);
-                paintLandingFreshness(data);
-                paintLandingProMeta(proMeta, data, mode);
-                paintLandingUpgrade(upgradeEl, data);
-                const certEl = document.getElementById('landingCert');
+
                 const live = landingOracleIsLive(data);
+                const action = decideLandingAction(data);
+                symbolEl.textContent = data.symbol || symbol;
+                oracleEl.textContent = fallbackDecisionSentence(data, symbol, action);
+                const certEl = document.getElementById('landingCert');
                 const cert = live ? (data.decision_certificate || {}) : {};
-                renderLandingCertificate(certEl, cert, data);
-                renderLandingWhy(oracleEl, data, cert, latencyMs);
-                const followAction = data.decision_action || data.verdict || action || 'WAIT';
-                wireDisciplineMirror(document.getElementById('landingDiscipline'), data, symbol, followAction);
-                paintLandingCompliance(data);
-                updateShareLinks(live ? data : null);
+                if (live) {
+                    scoreEl.textContent = data.opportunity_score ?? '--';
+                    paintLandingVerdict(verdictEl, data, action);
+                    paintLandingFreshness(data);
+                    paintLandingProMeta(proMeta, data, mode);
+                    paintLandingUpgrade(upgradeEl, data);
+                    renderLandingCertificate(certEl, cert, data);
+                    renderLandingWhy(oracleEl, data, cert, latencyMs);
+                    const followAction = data.decision_action || data.verdict || action || 'WAIT';
+                    wireDisciplineMirror(document.getElementById('landingDiscipline'), data, symbol, followAction);
+                    paintLandingCompliance(data);
+                    updateShareLinks(data);
+                } else {
+                    scoreEl.textContent = '';
+                    verdictEl.textContent = '';
+                    verdictEl.className = 'result-verdict';
+                    const freshChip = document.getElementById('oracleFreshnessLabel');
+                    const freshWrap = document.getElementById('oracleFreshnessChip');
+                    if (freshChip) freshChip.textContent = '';
+                    if (freshWrap) freshWrap.style.display = 'none';
+                    proMeta.style.display = 'none';
+                    upgradeEl.style.display = 'none';
+                    renderLandingCertificate(certEl, {}, data);
+                    renderLandingWhy(oracleEl, data, {}, latencyMs);
+                    wireDisciplineMirror(document.getElementById('landingDiscipline'), data, symbol, action);
+                    const comp = document.getElementById('landingCompliance');
+                    if (comp) comp.style.display = 'none';
+                    updateShareLinks(null);
+                }
                 syncLandingTrustPulseFromOracle(data, symbol);
-            } catch (error) { console.debug(error); oracleEl.textContent = ''; }
+            } catch (error) {
+                console.debug(error);
+                clearLandingOracleChrome();
+                oracleEl.textContent = i18nT('oracle.error');
+            }
         }
 
         async function applyAudience() {
