@@ -165,14 +165,42 @@ def _enrich_public_experience(experience: dict[str, Any]) -> dict[str, Any]:
                 bits.append("training skipped (insufficient samples)")
             human = " · ".join(bits) if bits else "Flywheel cycle recorded"
         elif et == "training_run":
-            human = (
-                f"Training run · trained={h.get('trained')} · "
-                f"accuracy={h.get('accuracy')} · samples={h.get('samples')}"
-            )
+            if h.get("trained"):
+                human = (
+                    f"Training step ran · accuracy={h.get('accuracy')} · samples={h.get('samples')}"
+                )
+            else:
+                human = (
+                    f"Training run skipped · samples={h.get('samples')}"
+                )
+        elif et == "ensemble_trained":
+            human = "Ensemble trained"
+            if h.get("selected"):
+                human += f" · selected={h.get('selected')}"
         else:
             human = et.replace("_", " ").title() if et else "Experience event"
         events.append({**row, "human_line": human})
-    out = {**experience, "recent_events": events}
+    summary = dict(experience.get("summary") or {})
+    visible_training = 0
+    type_counts: dict[str, int] = {}
+    for row in events:
+        et = str(row.get("event_type") or "unknown")
+        type_counts[et] = int(type_counts.get(et) or 0) + 1
+        h = row.get("highlights") or {}
+        if et == "training_run" and h.get("trained"):
+            visible_training += 1
+        elif et == "ensemble_trained":
+            visible_training += 1
+        elif et == "flywheel_cycle" and h.get("trained") is True:
+            visible_training += 1
+    flywheel_n = int(type_counts.get("flywheel_cycle") or 0)
+    parts = [f"visible log: {visible_training} training activity"]
+    if flywheel_n and visible_training < flywheel_n:
+        parts.append(f"flywheel_cycle={flywheel_n}")
+    summary["training_runs_visible"] = visible_training
+    summary["training_runs_note"] = " · ".join(parts) + " (ml_experience_log.jsonl)"
+    summary["event_type_counts_visible"] = type_counts
+    out = {**experience, "summary": summary, "recent_events": events}
     return out
 
 
@@ -219,8 +247,23 @@ async def _build_public_accuracy_payload_uncached(*, recent_limit: int = 20) -> 
 
 
 
-    recent_raw = ledger.get("recent_window") or []
-    public_recent, correct, resolved_rows = _public_recent_predictions(recent_raw, chain_lookup)
+    from oracle_integrity import is_synthetic_prediction
+
+    scored_raw = ledger.get("scored_sample") or ledger.get("miss_sample") or []
+    public_recent = []
+    correct = 0
+    resolved_rows = 0
+    for row in scored_raw:
+        if not row.get("resolved") or is_synthetic_prediction(row):
+            continue
+        resolved_rows += 1
+        label = str(row.get("label") or row.get("outcome") or "")
+        if label == "correct":
+            correct += 1
+        pred_id = row.get("id")
+        chain_meta = chain_lookup.get(str(pred_id) if pred_id is not None else "")
+        public_recent.append(_public_recent_row(row, chain_meta, label))
+    recent_raw = scored_raw
 
     hit_rate = round(correct / resolved_rows * 100, 2) if resolved_rows else 0.0
 
@@ -230,9 +273,14 @@ async def _build_public_accuracy_payload_uncached(*, recent_limit: int = 20) -> 
     live_accuracy = float(ledger.get("accuracy_percent") or 0.0) if ledger.get("query_ok") else 0.0
     verified_errors = int(ledger.get("verified_errors") or 0) if ledger.get("query_ok") else 0
     partial_outcomes = int(ledger.get("partial_outcomes") or 0) if ledger.get("query_ok") else 0
-    miss_sample = [
-        _public_miss_sample_row(row) for row in (ledger.get("miss_sample") or [])
-    ]
+    miss_sample = []
+    for row in ledger.get("miss_sample") or []:
+        pred_id = row.get("id")
+        chain_meta = chain_lookup.get(str(pred_id) if pred_id is not None else "")
+        mapped = _public_miss_sample_row(row)
+        mapped["chain_ref"] = _chain_ref(pred_id, chain_meta)
+        mapped["chain_hash"] = (chain_meta or {}).get("chain_hash")
+        miss_sample.append(mapped)
 
     live_source = str(ledger.get("source") or "oracle_predictions · live rows")
     metrics_footnote = (
@@ -242,13 +290,12 @@ async def _build_public_accuracy_payload_uncached(*, recent_limit: int = 20) -> 
     )
     if public_recent:
         recent_table_footnote = (
-            f"Showing {min(len(public_recent), recent_limit)} resolved row(s) from the live ledger window "
-            f"({len(recent_raw)} logged row(s) scanned)."
+            f"Latest {min(len(public_recent), recent_limit)} resolved scored row(s) from the live ledger "
+            f"({live_source})."
         )
     else:
         recent_table_footnote = (
-            f"No resolved rows in the live ledger window ({len(recent_raw)} logged row(s) scanned, "
-            f"{live_resolved} resolved overall)."
+            f"No scored rows returned in this fetch ({live_resolved} resolved live overall)."
         )
 
     historical_training_archive: dict[str, Any] | None = None

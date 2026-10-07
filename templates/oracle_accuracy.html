@@ -223,14 +223,16 @@
 
     <section class="panel" id="losing">
         <div class="card">
-            <h2>Public Misses · Errors We Own</h2>
+            <h2>Public Misses · live ledger</h2>
             <p style="color:var(--muted);font-size:0.88rem;margin-bottom:.65rem">
-                Public admission of labeled misses — not a separate product. Same Public Accuracy Ledger.
-                Competitors hide losses; we publish them. Alias route: <code>/errors</code>.
+                Same Public Accuracy Ledger as the table below. Alias route: <code>/errors</code>.
             </p>
             <p id="losing-status" style="color:var(--muted);font-size:0.9rem">Loading honest misses…</p>
             <p id="losing-archive-note" style="display:none;color:var(--warning);font-size:0.85rem;margin:.5rem 0"></p>
-            <ul class="events" id="losing-list"><li>Loading...</li></ul>
+            <h3 style="font-size:1rem;margin:1rem 0 0.5rem">Verified errors we own</h3>
+            <ul class="events" id="losing-errors-list"><li>Loading...</li></ul>
+            <h3 style="font-size:1rem;margin:1rem 0 0.5rem">Partial outcomes</h3>
+            <ul class="events" id="losing-partial-list"><li>Loading...</li></ul>
             <div class="cta-row" style="margin-top:1rem;justify-content:flex-start">
                 <button class="btn btn-secondary" type="button" id="copyLosingBtn">Copy share text</button>
                 <a class="btn btn-secondary" href="#glass-box-challenge">Read transparency challenge</a>
@@ -345,12 +347,14 @@
                 no_misses: 'No verified errors or partial outcomes in the live ledger yet.',
                 partial_tag: 'partial outcome',
                 verified_error: 'verified error',
+                missing: 'missing',
             };
             const arMap = {
                 no_scored: 'لا توجد نتائج متحققة بعد في السجل الحي.',
                 no_misses: 'لا توجد أخطاء متحققة أو نتائج جزئية في السجل الحي بعد.',
                 partial_tag: 'نتيجة جزئية',
                 verified_error: 'خطأ متحقق',
+                missing: 'ناقص',
             };
             return (ar ? arMap : en)[key] || key;
         }
@@ -445,7 +449,8 @@
                 (oracle.average_accuracy_percent || 0).toFixed(1) + '%';
             document.getElementById('stat-total').textContent = oracle.total_predictions || 0;
             document.getElementById('stat-labeled').textContent = model.labeled_samples || 0;
-            document.getElementById('stat-training').textContent = exp.total_training_runs || 0;
+            const trainingVisible = exp.training_runs_visible ?? exp.total_training_runs ?? 0;
+            document.getElementById('stat-training').textContent = trainingVisible;
             document.getElementById('stat-exchanges').textContent = moat.exchanges || 0;
             document.getElementById('stat-assets').textContent = moat.assets || 0;
 
@@ -462,7 +467,7 @@
                 if (el) el.textContent = text || '';
             };
             setNote('stat-labeled-note', model.labeled_samples_source || src.training_samples || '');
-            setNote('stat-training-note', src.training_runs || '');
+            setNote('stat-training-note', exp.training_runs_note || src.training_runs || '');
             setNote('stat-exchanges-note', moat.exchanges_source || src.exchanges || '');
             setNote('stat-assets-note', moat.assets_source || src.assets || '');
             const expl = document.getElementById('metrics-explainer');
@@ -521,37 +526,74 @@
                 `<tr><td>${esc(k)}</td><td>${esc(byType[k])}</td></tr>`
             ).join('');
         }
-        function renderPredictionsTable(rows, footnote) {
+        function ledgerField(value, asNumber) {
+            if (value === null || value === undefined || value === '') {
+                return ledgerCopy('missing');
+            }
+            if (asNumber) {
+                const n = Number(value);
+                if (!Number.isFinite(n)) return ledgerCopy('missing');
+                return n.toLocaleString();
+            }
+            return String(value);
+        }
+
+        function tableRowsFromOracle(oracle) {
+            const recent = oracle?.recent_predictions || [];
+            if (recent.length) return recent;
+            return oracle?.public_miss_sample || [];
+        }
+
+        function renderPredictionsTable(oracle, footnote) {
+            const rows = tableRowsFromOracle(oracle);
             const tbody = document.getElementById('predictions-body');
+            const note = document.getElementById('recent-table-note');
+            if (note) note.textContent = rows.length ? (footnote || '') : (footnote || '');
             if (!rows.length) {
                 const hint = ledgerCopy('no_scored');
                 tbody.innerHTML = `<tr><td colspan="8">${esc(hint)}</td></tr>`;
-                const note = document.getElementById('recent-table-note');
-                if (note && footnote) note.textContent = footnote;
                 return;
             }
             tbody.innerHTML = rows.map(r => `
                 <tr>
-                    <td>${esc(r.prediction_id ?? '—')}</td>
-                    <td>${esc((r.timestamp || '').slice(0, 19))}</td>
-                    <td>${esc(r.asset || '—')}</td>
-                    <td>${esc(publicMissDecisionLabel(r))}</td>
-                    <td>${esc(Number(r.price_at_prediction || 0).toLocaleString())}</td>
-                    <td>${esc(Number(r.price_after_24h || 0).toLocaleString())}</td>
-                    <td><span class="pill ${pillClass(r.label)}">${esc(r.label || '—')}</span></td>
-                    <td style="font-size:.75rem;color:var(--muted)">${esc(r.chain_ref || '—')}</td>
+                    <td>${esc(ledgerField(r.prediction_id ?? r.id))}</td>
+                    <td>${esc(r.timestamp ? String(r.timestamp).slice(0, 19) : ledgerCopy('missing'))}</td>
+                    <td>${esc(ledgerField(r.asset))}</td>
+                    <td>${esc(publicMissDecisionLabel(r) || ledgerCopy('missing'))}</td>
+                    <td>${esc(ledgerField(r.price_at_prediction, true))}</td>
+                    <td>${esc(ledgerField(r.price_after_24h, true))}</td>
+                    <td><span class="pill ${pillClass(r.label)}">${esc(r.label || ledgerCopy('missing'))}</span></td>
+                    <td style="font-size:.75rem;color:var(--muted)">${esc(ledgerField(r.chain_ref))}</td>
                 </tr>
             `).join('');
         }
+
+        function mergeLearningEventsBySecond(events) {
+            const buckets = new Map();
+            for (const e of events) {
+                const sec = String(e.timestamp || '').slice(0, 19);
+                if (!buckets.has(sec)) buckets.set(sec, []);
+                buckets.get(sec).push(e);
+            }
+            return Array.from(buckets.entries())
+                .sort((a, b) => b[0].localeCompare(a[0]))
+                .map(([ts, group]) => ({
+                    timestamp: ts,
+                    event_type: group.map(g => g.event_type).filter(Boolean).join(' + '),
+                    human_line: group.map(g => g.human_line).filter(Boolean).join(' · '),
+                }));
+        }
+
         function renderLearningEvents(events) {
             const list = document.getElementById('events-list');
-            if (!events.length) {
+            const merged = mergeLearningEventsBySecond(events || []);
+            if (!merged.length) {
                 list.innerHTML = '<li>Learning log will start after the first flywheel cycle.</li>';
                 return;
             }
-            list.innerHTML = events.map(e =>
+            list.innerHTML = merged.map(e =>
                 `<li><strong>${esc((e.event_type || '').replace(/_/g, ' '))}</strong> · ` +
-                `${esc((e.timestamp || '').slice(0, 19))} · ${esc(e.human_line || '')}</li>`
+                `${esc(e.timestamp || '')} · ${esc(e.human_line || '')}</li>`
             ).join('');
         }
         function applyChainVerify(verify, chainMeta) {
@@ -625,18 +667,23 @@
                 archiveEl.style.display = (archive && archive.note) ? 'block' : 'none';
             }
             const rows = o.public_miss_sample || [];
-            const list = document.getElementById('losing-list');
-            if (!rows.length) {
-                list.innerHTML = `<li>${esc(ledgerCopy('no_misses'))}</li>`;
-            } else {
-                list.innerHTML = rows.map(r => {
-                    const kind = r.outcome_kind === 'verified_error'
-                        ? ledgerCopy('verified_error')
-                        : ledgerCopy('partial_tag');
-                    return `<li><strong>${esc(r.asset||'—')}</strong> · ${esc(publicMissDecisionLabel(r))} · ` +
-                        `<span class="pill ${pillClass(r.label)}">${esc(r.label || '—')}</span> · ${esc(kind)} · ` +
-                        `id ${esc(r.prediction_id??'—')}</li>`;
-                }).join('');
+            const errors = rows.filter(r => String(r.label || '').toLowerCase() === 'incorrect');
+            const partials = rows.filter(r => String(r.label || '').toLowerCase() === 'partial');
+            const errList = document.getElementById('losing-errors-list');
+            const partList = document.getElementById('losing-partial-list');
+            const rowHtml = (r) =>
+                `<li><strong>${esc(ledgerField(r.asset))}</strong> · ${esc(publicMissDecisionLabel(r))} · ` +
+                `<span class="pill ${pillClass(r.label)}">${esc(r.label || ledgerCopy('missing'))}</span> · ` +
+                `id ${esc(ledgerField(r.prediction_id))}</li>`;
+            if (errList) {
+                errList.innerHTML = errors.length
+                    ? errors.map(rowHtml).join('')
+                    : '<li>No verified errors in this live sample window.</li>';
+            }
+            if (partList) {
+                partList.innerHTML = partials.length
+                    ? partials.map(rowHtml).join('')
+                    : '<li>No partial outcomes in this live sample window.</li>';
             }
             lastLosingShare = buildLedgerShareText(o);
         }
@@ -665,7 +712,7 @@
                         moat: { exchanges: 0, assets: 0 },
                         exp: { total_training_runs: 0 },
                     });
-                    renderPredictionsTable([], '');
+                    renderPredictionsTable(emptyOracleStats(), '');
                     applyChainVerify({ valid: false, records: 0, integrity_failure_reason: data.error }, {});
                     return;
                 }
@@ -692,10 +739,7 @@
                 });
                 renderRegimeTable(data.regime_models || {});
                 renderRegistryTable(data.signal_registry || {});
-                renderPredictionsTable(
-                    oracle.recent_predictions || [],
-                    oracle.recent_table_footnote || ''
-                );
+                renderPredictionsTable(oracle, oracle.recent_table_footnote || '');
                 renderLearningEvents((data.learning_experience || {}).recent_events || []);
                 renderPublicMisses(oracle, lastTrainingArchive);
                 const preview = document.getElementById('ledger-share-preview');
@@ -710,7 +754,7 @@
                     moat: { exchanges: 0, assets: 0 },
                     exp: { total_training_runs: 0 },
                 });
-                renderPredictionsTable([], '');
+                renderPredictionsTable(emptyOracleStats(), '');
                 document.getElementById('regime-body').innerHTML =
                     '<tr><td colspan="4">لا توجد أنظمة بعد</td></tr>';
                 document.getElementById('regime-status').textContent = '';
@@ -822,7 +866,10 @@
                 const steps = (d.event_template && d.event_template.steps) || [];
                 const ol = document.getElementById('glass-event-steps');
                 if (ol && steps.length) {
-                    ol.innerHTML = steps.map(s => '<li>' + esc(s) + '</li>').join('');
+                    const clean = steps.map(s => String(s || '').trim()).filter(s => s && !/^[\d\.\*\s]+$/.test(s));
+                    if (clean.length) {
+                        ol.innerHTML = clean.map(s => '<li>' + esc(s) + '</li>').join('');
+                    }
                 }
                 const gx = document.getElementById('glassShareX');
                 const gt = document.getElementById('glassShareTg');
@@ -838,7 +885,10 @@
                 }
                 const gates = document.getElementById('glass-operator-gates');
                 if (gates) {
-                    const gateRows = Array.isArray(rb.gates) ? rb.gates : [];
+                    const gateRows = (Array.isArray(rb.gates) ? rb.gates : []).filter(g => {
+                        const label = String(g.label || g.id || '').trim();
+                        return label && !/^[\d\.\*\s]+$/.test(label);
+                    });
                     if (gateRows.length) {
                         gates.style.display = '';
                         gates.innerHTML = gateRows.map(g =>
@@ -852,7 +902,9 @@
                 }
                 const tm = document.getElementById('glass-tminus');
                 if (tm) {
-                    const tSteps = Array.isArray(rb.t_minus_checklist) ? rb.t_minus_checklist : [];
+                    const tSteps = (Array.isArray(rb.t_minus_checklist) ? rb.t_minus_checklist : [])
+                        .map(s => String(s || '').trim())
+                        .filter(s => s && !/^[\d\.\*\s]+$/.test(s));
                     if (tSteps.length) {
                         tm.style.display = '';
                         tm.innerHTML = tSteps.map(s => '<li>' + esc(s) + '</li>').join('');
