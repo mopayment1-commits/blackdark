@@ -271,14 +271,15 @@ async def ledger_share_kit(request: Request):
     accuracy_pct = None
     total = None
     try:
-        from database import fetch_oracle_audit_stats
+        from database import fetch_live_public_ledger
 
-        stats = await fetch_oracle_audit_stats(limit=5, include_synthetic=False)
-        live = stats.get("live") or {}
-        accuracy_pct = live.get("average_accuracy_percent", stats.get("average_accuracy_percent"))
-        total = live.get("total_predictions", stats.get("total_predictions"))
-        if total is None:
-            total = live.get("resolved_predictions", stats.get("resolved_predictions"))
+        ledger = await fetch_live_public_ledger(recent_limit=5, miss_sample_limit=1)
+        if ledger.get("query_ok"):
+            accuracy_pct = ledger.get("accuracy_percent")
+            total = ledger.get("logged")
+        else:
+            accuracy_pct = None
+            total = None
         try:
             accuracy_pct = float(accuracy_pct) if accuracy_pct is not None else None
         except (TypeError, ValueError):

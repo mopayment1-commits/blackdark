@@ -2570,16 +2570,20 @@ async def fetch_oracle_audit_stats(
                 live_clause,
                 include_synthetic,
             )
-            synth_total_row, synth_resolved_row, synth_avg_row = await _fetch_synthetic_audit_rows(db)
+            try:
+                synth_total_row, synth_resolved_row, synth_avg_row = await _fetch_synthetic_audit_rows(db)
+                synth_total = int(synth_total_row[0] or 0)
+                synth_resolved = int(synth_resolved_row[0] or 0)
+                synth_avg = float(synth_avg_row[0] or 0.0)
+            except Exception:
+                logger.exception("Synthetic audit slice unavailable; live stats still returned")
+                synth_total = synth_resolved = 0
+                synth_avg = 0.0
 
         total = int(total_row[0] or 0)
         resolved = int(resolved_row[0] or 0)
         avg_accuracy = float(avg_row[0] or 0.0)
         recent = [dict(row) for row in recent_rows]
-
-        synth_total = int(synth_total_row[0] or 0)
-        synth_resolved = int(synth_resolved_row[0] or 0)
-        synth_avg = float(synth_avg_row[0] or 0.0)
 
         return _oracle_audit_payload(
             total=total,
@@ -2594,6 +2598,80 @@ async def fetch_oracle_audit_stats(
     except Exception:
         logger.exception("Unable to compute oracle audit stats")
         return empty
+
+
+async def fetch_live_public_ledger(
+    *,
+    recent_limit: int = 20,
+    miss_sample_limit: int = 12,
+) -> dict[str, Any]:
+    """Single-connection live ledger counts + miss sample (public accuracy page source of truth)."""
+    from oracle_integrity import live_source_sql
+
+    source_note = "oracle_predictions · live rows only (excludes historical_seed)"
+    base: dict[str, Any] = {
+        "source": source_note,
+        "logged": 0,
+        "resolved": 0,
+        "pending": 0,
+        "accuracy_percent": 0.0,
+        "verified_errors": 0,
+        "partial_outcomes": 0,
+        "miss_sample": [],
+        "recent_raw_count": 0,
+        "query_ok": False,
+    }
+    try:
+        live_clause = live_source_sql()
+        async with get_connection() as db:
+            total_row, resolved_row, avg_row, recent_rows = await _fetch_audit_core_rows(
+                db,
+                recent_limit,
+                live_clause,
+                False,
+            )
+            incorrect_sql = (
+                "SELECT COUNT(*) FROM oracle_predictions "
+                "WHERE resolved = 1 AND label = 'incorrect' AND "
+                f"{live_clause}"
+            )
+            partial_sql = (
+                "SELECT COUNT(*) FROM oracle_predictions "
+                "WHERE resolved = 1 AND label = 'partial' AND "
+                f"{live_clause}"
+            )
+            miss_sql = (
+                "SELECT * FROM oracle_predictions "
+                "WHERE resolved = 1 AND label IN ('incorrect', 'partial') AND "
+                f"{live_clause} "
+                "ORDER BY timestamp DESC, id DESC LIMIT ?"
+            )
+            incorrect_row = await (await db.execute(incorrect_sql)).fetchone()
+            partial_row = await (await db.execute(partial_sql)).fetchone()
+            miss_rows = await (await db.execute(miss_sql, (miss_sample_limit,))).fetchall()
+
+        logged = int(total_row[0] or 0)
+        resolved = int(resolved_row[0] or 0)
+        avg_accuracy = float(avg_row[0] or 0.0)
+        recent = [dict(row) for row in recent_rows]
+        base.update(
+            {
+                "query_ok": True,
+                "logged": logged,
+                "resolved": resolved,
+                "pending": max(0, logged - resolved),
+                "accuracy_percent": round(avg_accuracy, 2),
+                "verified_errors": int(incorrect_row[0] or 0),
+                "partial_outcomes": int(partial_row[0] or 0),
+                "miss_sample": [dict(row) for row in miss_rows],
+                "recent_raw_count": len(recent),
+                "recent_window": recent,
+            }
+        )
+        return base
+    except Exception:
+        logger.exception("Unable to fetch live public ledger")
+        return base
 
 
 async def count_labeled_oracle_predictions(
