@@ -1828,7 +1828,11 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             if (!why) return;
             why.innerHTML = (factors || []).slice(0, 3).map((f, i) => {
                 const detail = f.detail ? (' — ' + esc(f.detail)) : '';
-                return '<div><strong>' + (i + 1) + '. ' + esc(f.factor || f) + '</strong>' + detail + '</div>';
+                const rawSrc = (f && typeof f === 'object' && f.source) ? String(f.source).trim() : '';
+                const srcBit = rawSrc
+                    ? (' <span style="opacity:.75;font-size:.78rem">· ' + esc(rawSrc) + '</span>')
+                    : '';
+                return '<div><strong>' + (i + 1) + '. ' + esc(f.factor || f) + '</strong>' + detail + srcBit + '</div>';
             }).join('') || '';
         }
 
@@ -1964,7 +1968,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             const hash = _lpCertHash(p);
             const hasCert = Boolean(hash);
             const bits = [
-                '<a class="bd-chip ok" href="/oracle-accuracy">Verified on Ledger</a>',
+                '<a class="bd-chip ok" href="/oracle-accuracy">Verify on Ledger</a>',
             ];
             if (hasCert) {
                 bits.push(
