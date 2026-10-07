@@ -264,7 +264,7 @@ EN: dict[str, str] = {
     KEY_DECISION_ACT: "ACT on {asset} — score {score}.",
     KEY_DECISION_WAIT: "WAIT on {asset} — score {score}.",
     "decision.clear_act": "Clear opportunity on {asset}: score {score}/100.",
-    "decision.clear_wait": "Wait on {asset}: score {score}/100.",
+    "decision.clear_wait": "WAIT on {asset} — score {score}/100. Estimated net after costs ~{net}.",
     "decision.rejected": "Rejected: not executable after real costs.",
     "decision.veto": "Sources contradict — stay flat.",
     "decision.net": "Estimated net after costs ~${net}.",

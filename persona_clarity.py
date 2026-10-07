@@ -52,7 +52,10 @@ def _retail_texts(
         f"الدرجة {score:.0f}/100. "
         + ar_suffix
     )
-    retail_en = f"{'Wait' if action == 'WAIT' else 'Clear opportunity'} on {asset}: score {score:.0f}/100. " + en_suffix
+    if action == "WAIT":
+        retail_en = f"WAIT on {asset} — score {score:.0f}/100. {en_suffix}"
+    else:
+        retail_en = f"Clear opportunity on {asset}: score {score:.0f}/100. {en_suffix}"
     return retail_en, retail_ar
 
 
@@ -82,7 +85,9 @@ def build_persona_clarity(
     veto = bool(conflict.get("veto") or conflict.get("abstain"))
     hl = half.get("expected_half_life_seconds")
     disappear = half.get("disappearance_probability")
-    action = "WAIT" if (reject or veto or verdict == "Do Not Touch") else "ACT"
+    verdict_u = str(verdict).strip().upper()
+    wait_verdict = verdict_u in {"WAIT", "HOLD", "CAUTION", "ABSTAIN", "DO NOT TOUCH", "DO NOT_TOUCH"}
+    action = "WAIT" if (reject or veto or wait_verdict) else "ACT"
 
     retail_en, retail_ar = _retail_texts(
         action=action,
