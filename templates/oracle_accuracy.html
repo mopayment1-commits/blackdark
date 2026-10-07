@@ -185,8 +185,8 @@
             <details style="margin-top:1rem">
                 <summary style="cursor:pointer;color:var(--accent);font-weight:600">Operator runbook (launch packaging)</summary>
                 <p id="glass-operator-status" style="margin-top:.65rem;color:var(--muted);font-size:0.85rem">Loading operator gates…</p>
-                <ul id="glass-operator-gates" class="events" style="margin-top:.5rem"></ul>
-                <ol id="glass-tminus" style="margin:.75rem 0 0 1.2rem;color:var(--muted);font-size:0.85rem;line-height:1.7"></ol>
+                <ul id="glass-operator-gates" class="events" style="margin-top:.5rem;display:none"></ul>
+                <ol id="glass-tminus" style="margin:.75rem 0 0 1.2rem;color:var(--muted);font-size:0.85rem;line-height:1.7;display:none"></ol>
             </details>
             <p style="margin-top:0.75rem;font-size:0.75rem;color:var(--muted)">
                 Exact launch timing and channel are human. Product machinery + event template are live via <code>/api/glass-box/challenge</code> · operator pack <code>/api/glass-box/operator</code>.
@@ -216,7 +216,6 @@
                 <button class="btn btn-secondary" type="button" id="shareLedgerBtn">Copy share text</button>
                 <a class="btn btn-secondary" id="ledgerShareX" href="#" target="_blank" rel="noopener">Share X</a>
                 <a class="btn btn-secondary" id="ledgerShareTg" href="#" target="_blank" rel="noopener">Share TG</a>
-                <button class="btn btn-secondary" type="button" id="nativeShareLedgerBtn">Share…</button>
             </div>
             <p id="ledger-share-preview" style="margin-top:.65rem;font-size:.8rem;color:var(--muted)"></p>
         </div>
@@ -230,6 +229,7 @@
                 Competitors hide losses; we publish them. Alias route: <code>/errors</code>.
             </p>
             <p id="losing-status" style="color:var(--muted);font-size:0.9rem">Loading honest misses…</p>
+            <p id="losing-archive-note" style="display:none;color:var(--warning);font-size:0.85rem;margin:.5rem 0"></p>
             <ul class="events" id="losing-list"><li>Loading...</li></ul>
             <div class="cta-row" style="margin-top:1rem;justify-content:flex-start">
                 <button class="btn btn-secondary" type="button" id="copyLosingBtn">Copy share text</button>
@@ -273,10 +273,10 @@
     <section class="grid" id="stats-grid">
         <div class="stat"><div class="num" id="stat-accuracy">—</div><div class="lbl">Average accuracy %</div><div class="subnote" id="stat-accuracy-note"></div></div>
         <div class="stat"><div class="num" id="stat-total">—</div><div class="lbl">Total predictions (logged)</div><div class="subnote" id="stat-resolved-note"></div></div>
-        <div class="stat"><div class="num" id="stat-labeled">—</div><div class="lbl">Training samples (labeled)</div></div>
-        <div class="stat"><div class="num" id="stat-training">—</div><div class="lbl">Training runs</div></div>
-        <div class="stat"><div class="num" id="stat-exchanges">—</div><div class="lbl">Exchanges in model</div></div>
-        <div class="stat"><div class="num" id="stat-assets">—</div><div class="lbl">Assets tracked</div></div>
+        <div class="stat"><div class="num" id="stat-labeled">—</div><div class="lbl">Training samples (labeled)</div><div class="subnote" id="stat-labeled-note"></div></div>
+        <div class="stat"><div class="num" id="stat-training">—</div><div class="lbl">Training runs</div><div class="subnote" id="stat-training-note"></div></div>
+        <div class="stat"><div class="num" id="stat-exchanges">—</div><div class="lbl">Exchanges in model</div><div class="subnote" id="stat-exchanges-note"></div></div>
+        <div class="stat"><div class="num" id="stat-assets">—</div><div class="lbl">Assets tracked</div><div class="subnote" id="stat-assets-note"></div></div>
     </section>
 
     <p id="metrics-explainer" class="metrics-explainer" aria-live="polite"></p>
@@ -331,8 +331,29 @@
     <script>
         const ORACLE_LEDGER_FETCH_MS = 12000;
         const ORACLE_LEDGER_SECONDARY_MS = 15000;
+        const LEDGER_PUBLIC_URL = 'https://blackdark-production.up.railway.app/oracle-accuracy';
+        const PAGE_LANG = (document.documentElement.getAttribute('lang') || 'en').toLowerCase();
         let ledgerOracleSnapshot = null;
         let lastChainVerify = null;
+        let lastCounterSources = null;
+        let lastTrainingArchive = null;
+
+        function ledgerCopy(key) {
+            const ar = PAGE_LANG.startsWith('ar');
+            const en = {
+                no_scored: 'No verified scored rows in the live ledger yet.',
+                no_misses: 'No verified errors or partial outcomes in the live ledger yet.',
+                partial_tag: 'partial outcome',
+                verified_error: 'verified error',
+            };
+            const arMap = {
+                no_scored: 'لا توجد نتائج متحققة بعد في السجل الحي.',
+                no_misses: 'لا توجد أخطاء متحققة أو نتائج جزئية في السجل الحي بعد.',
+                partial_tag: 'نتيجة جزئية',
+                verified_error: 'خطأ متحقق',
+            };
+            return (ar ? arMap : en)[key] || key;
+        }
         const domSafe = window.BDDomSafe || {};
         const esc = domSafe.esc || domSafe.escapeHtml || ((v) => String(v ?? ''));
         const safeUrl = domSafe.safeUrl || ((v) => String(v ?? ''));
@@ -417,8 +438,9 @@
                 : base;
         }
 
-        function renderAccuracyStats({ oracle, model, moat, exp }) {
+        function renderAccuracyStats({ oracle, model, moat, exp, counterSources, archive }) {
             const resolved = oracle.resolved_predictions ?? 0;
+            const src = counterSources || lastCounterSources || {};
             document.getElementById('stat-accuracy').textContent =
                 (oracle.average_accuracy_percent || 0).toFixed(1) + '%';
             document.getElementById('stat-total').textContent = oracle.total_predictions || 0;
@@ -428,18 +450,27 @@
             document.getElementById('stat-assets').textContent = moat.assets || 0;
 
             const accNote = document.getElementById('stat-accuracy-note');
-            if (accNote) {
-                accNote.textContent = resolved
-                    ? `Over ${resolved} resolved live row(s)`
-                    : 'No resolved live rows yet';
-            }
+            if (accNote) accNote.textContent = src.accuracy || oracle.live_source || '';
             const resNote = document.getElementById('stat-resolved-note');
             if (resNote) {
                 resNote.textContent =
-                    `Resolved: ${resolved} · Pending: ${oracle.pending_predictions ?? 0}`;
+                    `Resolved: ${resolved} · Pending: ${oracle.pending_predictions ?? 0}` +
+                    (src.resolved ? ` · ${src.resolved}` : '');
             }
+            const setNote = (id, text) => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = text || '';
+            };
+            setNote('stat-labeled-note', model.labeled_samples_source || src.training_samples || '');
+            setNote('stat-training-note', src.training_runs || '');
+            setNote('stat-exchanges-note', moat.exchanges_source || src.exchanges || '');
+            setNote('stat-assets-note', moat.assets_source || src.assets || '');
             const expl = document.getElementById('metrics-explainer');
-            if (expl) expl.textContent = oracle.metrics_footnote || '';
+            if (expl) {
+                const bits = [oracle.metrics_footnote || ''].filter(Boolean);
+                if (archive && archive.note) bits.push(archive.note);
+                expl.textContent = bits.join(' ');
+            }
             const tblNote = document.getElementById('recent-table-note');
             if (tblNote) tblNote.textContent = oracle.recent_table_footnote || '';
         }
@@ -474,8 +505,10 @@
             }).join('');
         }
         function renderRegistryTable(reg) {
+            const src = reg.count_source ? ` · Source: ${reg.count_source}` : '';
             document.getElementById('registry-status').textContent =
                 `Labeled lexicon · total=${reg.total ?? 0} · labeled=${reg.labeled ?? 0} · unlabeled=${reg.unlabeled ?? 0}` +
+                src +
                 (reg.public_lexicon_note ? ` · ${reg.public_lexicon_note}` : '');
             const byType = reg.by_type || {};
             const regBody = document.getElementById('registry-body');
@@ -491,8 +524,8 @@
         function renderPredictionsTable(rows, footnote) {
             const tbody = document.getElementById('predictions-body');
             if (!rows.length) {
-                const hint = 'لا توجد نتائج متحققة بعد';
-                tbody.innerHTML = `<tr><td colspan="8">${hint}</td></tr>`;
+                const hint = ledgerCopy('no_scored');
+                tbody.innerHTML = `<tr><td colspan="8">${esc(hint)}</td></tr>`;
                 const note = document.getElementById('recent-table-note');
                 if (note && footnote) note.textContent = footnote;
                 return;
@@ -516,10 +549,10 @@
                 list.innerHTML = '<li>Learning log will start after the first flywheel cycle.</li>';
                 return;
             }
-            list.innerHTML = events.map(e => {
-                const h = e.highlights || {};
-                return `<li><strong>${esc(e.event_type)}</strong> · ${esc(e.timestamp || '')} · ${esc(JSON.stringify(h))}</li>`;
-            }).join('');
+            list.innerHTML = events.map(e =>
+                `<li><strong>${esc((e.event_type || '').replace(/_/g, ' '))}</strong> · ` +
+                `${esc((e.timestamp || '').slice(0, 19))} · ${esc(e.human_line || '')}</li>`
+            ).join('');
         }
         function applyChainVerify(verify, chainMeta) {
             const v = verify || {};
@@ -561,15 +594,51 @@
             applyChainVerify(chain.verify || {}, chain);
         }
 
-        function buildLosingShareText(oracle, losing) {
+        function buildLedgerShareText(oracle) {
             const o = oracle || ledgerOracleSnapshot || {};
-            const total = o.total_predictions ?? 0;
+            const logged = o.total_predictions ?? 0;
+            const resolved = o.resolved_predictions ?? 0;
+            const misses = (o.verified_errors ?? 0) + (o.partial_outcomes ?? 0);
             const acc = Number(o.average_accuracy_percent || 0).toFixed(1);
-            const misses = losing?.total_labeled_misses_in_window ?? 0;
             return (
-                `BLACKDARK Public Accuracy Ledger · ${acc}% · ${total} logged decisions · ` +
-                `${misses} labeled misses in window · full ledger /oracle-accuracy#losing · Not financial advice`
+                `BLACKDARK Public Accuracy Ledger · ${acc}% · ${logged} logged · ${resolved} resolved · ` +
+                `${misses} live misses · Verify: ${LEDGER_PUBLIC_URL} · Not financial advice`
             );
+        }
+
+        function renderPublicMisses(oracle, archive) {
+            const o = oracle || emptyOracleStats();
+            const logged = o.total_predictions ?? 0;
+            const resolved = o.resolved_predictions ?? 0;
+            const verified = o.verified_errors ?? 0;
+            const partial = o.partial_outcomes ?? 0;
+            const acc = Number(o.average_accuracy_percent || 0).toFixed(1);
+            const statusEl = document.getElementById('losing-status');
+            if (statusEl) {
+                statusEl.textContent =
+                    `Live ledger (${o.live_source || 'oracle_predictions'}): logged ${logged} · resolved ${resolved} · ` +
+                    `accuracy ${acc}% · verified errors ${verified} · partial outcomes ${partial}`;
+            }
+            const archiveEl = document.getElementById('losing-archive-note');
+            if (archiveEl) {
+                archiveEl.textContent = (archive && archive.note) ? archive.note : '';
+                archiveEl.style.display = (archive && archive.note) ? 'block' : 'none';
+            }
+            const rows = o.public_miss_sample || [];
+            const list = document.getElementById('losing-list');
+            if (!rows.length) {
+                list.innerHTML = `<li>${esc(ledgerCopy('no_misses'))}</li>`;
+            } else {
+                list.innerHTML = rows.map(r => {
+                    const kind = r.outcome_kind === 'verified_error'
+                        ? ledgerCopy('verified_error')
+                        : ledgerCopy('partial_tag');
+                    return `<li><strong>${esc(r.asset||'—')}</strong> · ${esc(publicMissDecisionLabel(r))} · ` +
+                        `<span class="pill ${pillClass(r.label)}">${esc(r.label || '—')}</span> · ${esc(kind)} · ` +
+                        `id ${esc(r.prediction_id??'—')}</li>`;
+                }).join('');
+            }
+            lastLosingShare = buildLedgerShareText(o);
         }
         function emptyOracleStats() {
             return {
@@ -602,6 +671,8 @@
                 }
                 const oracle = data.oracle || emptyOracleStats();
                 ledgerOracleSnapshot = oracle;
+                lastCounterSources = data.counter_sources || null;
+                lastTrainingArchive = data.historical_training_archive || null;
                 const model = data.model || {};
                 const moat = data.data_moat || {};
                 const exp = (data.learning_experience || {}).summary || {};
@@ -611,7 +682,14 @@
                     transparency.production_engine === 'ml_model' ? 'ML model (OOD-gated)' : 'rules engine';
                 renderEngineHealth(data);
                 renderProofChain(data.proof_chain || {});
-                renderAccuracyStats({ oracle, model, moat, exp });
+                renderAccuracyStats({
+                    oracle,
+                    model,
+                    moat,
+                    exp,
+                    counterSources: lastCounterSources,
+                    archive: lastTrainingArchive,
+                });
                 renderRegimeTable(data.regime_models || {});
                 renderRegistryTable(data.signal_registry || {});
                 renderPredictionsTable(
@@ -619,7 +697,10 @@
                     oracle.recent_table_footnote || ''
                 );
                 renderLearningEvents((data.learning_experience || {}).recent_events || []);
-                if (lastLosingPayload) syncLosingPresentation(lastLosingPayload);
+                renderPublicMisses(oracle, lastTrainingArchive);
+                const preview = document.getElementById('ledger-share-preview');
+                lastLosingShare = buildLedgerShareText(oracle);
+                if (preview) preview.textContent = lastLosingShare;
             } catch (error) {
                 console.debug(error);
                 ledgerOracleSnapshot = emptyOracleStats();
@@ -689,48 +770,22 @@
         }
 
         let lastLosingShare = '';
-        let lastLosingPayload = null;
-
-        function syncLosingPresentation(data) {
-            if (!data) return;
-            const misses = data.total_labeled_misses_in_window ?? 0;
-            const total = ledgerOracleSnapshot?.total_predictions ?? 0;
-            const acc = Number(ledgerOracleSnapshot?.average_accuracy_percent || 0).toFixed(1);
-            document.getElementById('losing-status').textContent =
-                (data.thesis || '') +
-                ` · logged decisions: ${total} · accuracy: ${acc}% · labeled misses in window: ${misses}`;
-            lastLosingShare = buildLosingShareText(ledgerOracleSnapshot, data);
-        }
-
-        async function loadLosing() {
-            try {
-                const data = await fetchJsonWithTimeout('/api/accuracy/monthly-losing-report?limit=12');
-                lastLosingPayload = data;
-                syncLosingPresentation(data);
-                const rows = data.sample || [];
-                const list = document.getElementById('losing-list');
-                list.innerHTML = rows.length
-                    ? rows.map(r => `<li><strong>${esc(r.asset||'—')}</strong> · ${esc(publicMissDecisionLabel(r))} · ${esc(r.label||'')} · id ${esc(r.prediction_id??'—')}</li>`).join('')
-                    : '<li>No labeled misses yet — the ledger will list them here honestly.</li>';
-            } catch (error) {
-                console.debug(error);
-                document.getElementById('losing-status').textContent =
-                    ledgerOracleSnapshot
-                        ? `Labeled misses in window: 0 · logged decisions: ${ledgerOracleSnapshot.total_predictions ?? 0}`
-                        : '';
-                document.getElementById('losing-list').innerHTML =
-                    '<li>No labeled misses yet — the ledger will list them here honestly.</li>';
-            }
-        }
         document.getElementById('copyLosingBtn')?.addEventListener('click', () => {
             if (lastLosingShare) navigator.clipboard.writeText(lastLosingShare);
         });
 
-        let lastLedgerShare = location.origin + '/oracle-accuracy';
+        let lastLedgerShare = LEDGER_PUBLIC_URL;
         async function loadLedgerShareKit() {
             try {
                 const d = await fetchJsonWithTimeout('/api/ledger/share-kit');
-                lastLedgerShare = d.share_text || lastLedgerShare;
+                if (ledgerOracleSnapshot) {
+                    lastLedgerShare = buildLedgerShareText(ledgerOracleSnapshot);
+                } else {
+                    lastLedgerShare = (d.share_text || lastLedgerShare).replace(
+                        /https?:\/\/[^\s]+oracle-accuracy[^\s]*/g,
+                        LEDGER_PUBLIC_URL
+                    );
+                }
                 const preview = document.getElementById('ledger-share-preview');
                 if (preview) preview.textContent = lastLedgerShare;
                 const x = document.getElementById('ledgerShareX');
@@ -740,25 +795,16 @@
             } catch (error) {
                 console.debug(error);
                 const preview = document.getElementById('ledger-share-preview');
-                if (preview && ledgerOracleSnapshot) {
-                    lastLedgerShare = buildLosingShareText(ledgerOracleSnapshot, lastLosingPayload || {});
+                if (preview) {
+                    lastLedgerShare = ledgerOracleSnapshot
+                        ? buildLedgerShareText(ledgerOracleSnapshot)
+                        : LEDGER_PUBLIC_URL;
                     preview.textContent = lastLedgerShare;
-                } else if (preview) {
-                    preview.textContent = location.origin + '/oracle-accuracy';
                 }
             }
         }
         document.getElementById('shareLedgerBtn')?.addEventListener('click', () => {
             navigator.clipboard.writeText(lastLedgerShare);
-        });
-        document.getElementById('nativeShareLedgerBtn')?.addEventListener('click', async () => {
-            if (navigator.share) {
-                try {
-                    await navigator.share({ title: 'BLACKDARK Public Accuracy Ledger', text: lastLedgerShare, url: location.origin + '/oracle-accuracy' });
-                } catch (error) { console.debug(error); }
-            } else {
-                navigator.clipboard.writeText(lastLedgerShare);
-            }
         });
 
         let lastGlassShare = '';
@@ -782,7 +828,7 @@
                 const gt = document.getElementById('glassShareTg');
                 const q = encodeURIComponent(lastGlassShare);
                 if (gx) gx.href = 'https://twitter.com/intent/tweet?text=' + q;
-                if (gt) gt.href = 'https://t.me/share/url?url=' + encodeURIComponent(location.origin + '/oracle-accuracy#glass-box-challenge') + '&text=' + q;
+                if (gt) gt.href = 'https://t.me/share/url?url=' + encodeURIComponent(LEDGER_PUBLIC_URL + '#glass-box-challenge') + '&text=' + q;
                 const rb = d.operator_runbook || {};
                 const st = document.getElementById('glass-operator-status');
                 if (st) {
@@ -793,26 +839,34 @@
                 const gates = document.getElementById('glass-operator-gates');
                 if (gates) {
                     const gateRows = Array.isArray(rb.gates) ? rb.gates : [];
-                    gates.innerHTML = gateRows.length
-                        ? gateRows.map(g =>
+                    if (gateRows.length) {
+                        gates.style.display = '';
+                        gates.innerHTML = gateRows.map(g =>
                             `<li><strong>${esc(g.label || g.id)}</strong> · ${esc(g.status || '—')}` +
                             (g.check ? ` · <code>${esc(g.check)}</code>` : '') + '</li>'
-                        ).join('')
-                        : '<li>No operator gates returned.</li>';
+                        ).join('');
+                    } else {
+                        gates.innerHTML = '';
+                        gates.style.display = 'none';
+                    }
                 }
                 const tm = document.getElementById('glass-tminus');
                 if (tm) {
-                    const steps = Array.isArray(rb.t_minus_checklist) ? rb.t_minus_checklist : [];
-                    tm.innerHTML = steps.length
-                        ? steps.map(s => '<li>' + esc(s) + '</li>').join('')
-                        : '<li>T-minus checklist not published.</li>';
+                    const tSteps = Array.isArray(rb.t_minus_checklist) ? rb.t_minus_checklist : [];
+                    if (tSteps.length) {
+                        tm.style.display = '';
+                        tm.innerHTML = tSteps.map(s => '<li>' + esc(s) + '</li>').join('');
+                    } else {
+                        tm.innerHTML = '';
+                        tm.style.display = 'none';
+                    }
                 }
             } catch (error) {
                 console.debug(error);
                 const gates = document.getElementById('glass-operator-gates');
-                if (gates) gates.innerHTML = '<li>No operator gates returned.</li>';
+                if (gates) { gates.innerHTML = ''; gates.style.display = 'none'; }
                 const tm = document.getElementById('glass-tminus');
-                if (tm) tm.innerHTML = '<li>T-minus checklist not published.</li>';
+                if (tm) { tm.innerHTML = ''; tm.style.display = 'none'; }
             }
         }
         document.getElementById('copyGlassBtn')?.addEventListener('click', () => {
@@ -875,7 +929,6 @@
         scheduleSecondaryLoad(loadGlassBox);
         scheduleSecondaryLoad(loadMevReport);
         scheduleSecondaryLoad(loadLocked);
-        scheduleSecondaryLoad(loadLosing);
 
         setInterval(() => { loadAccuracy().catch(() => {}); }, 60000);
         setInterval(() => { loadLocked().catch(() => {}); }, 120000);
