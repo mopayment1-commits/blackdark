@@ -230,7 +230,6 @@ PUBLIC_API_PREFIXES: tuple[str, ...] = (
         "/api/whale/stealth-advisor",
         "/api/fund/emerging-terminal",
     "/api/auth/oauth/status",
-    "/oracle/",
 )
 
 PUBLIC_API_EXACT: frozenset[str] = frozenset(

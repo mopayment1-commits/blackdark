@@ -123,7 +123,7 @@
         <p id="transparency-note" style="color:var(--muted);font-size:0.9rem;max-width:760px;margin:0.75rem auto 0;"></p>
         <p id="chain-status" style="color:var(--muted);font-size:0.9rem;margin-top:0.5rem"></p>
         <div class="cta-row" style="margin-top:1rem">
-            <button class="btn btn-secondary" id="verifyChainBtn" type="button">Verify Audit Chain</button>
+            <a class="btn btn-secondary" href="#proof-chain" id="verifyChainBtn">Verify Audit Chain</a>
             <a class="btn btn-secondary" href="#losing">Public misses / errors</a>
             <a class="btn btn-secondary" href="#glass-box-challenge">Transparency challenge</a>
             <a class="btn btn-secondary" href="/discipline-mirror">Discipline Mirror</a>
@@ -134,7 +134,7 @@
         </p>
     </section>
 
-    <section class="panel">
+    <section class="panel" id="proof-chain">
         <div class="card">
             <h2>Proof Chain</h2>
             <p id="proof-panel" style="color:var(--muted);font-size:0.9rem">Loading chain…</p>
@@ -169,6 +169,7 @@
             <noscript><p>We challenge every competitor to publish their full accuracy ledger — including misses. Labels are not proof.</p></noscript>
             <p id="glass-challenge" style="margin-top:0.75rem;font-size:0.95rem">BLACKDARK Glass Box Challenge: publish the full ledger — including misses and incorrect model states — with verifiable audit hashes. Verify here.</p>
             <p id="glass-context" style="margin-top:0.65rem;color:var(--muted);font-size:0.88rem"></p>
+            <p id="glass-sealed-status" style="margin-top:0.5rem;color:var(--muted);font-size:0.88rem"></p>
             <ol id="glass-event-steps" style="margin:1rem 0 0 1.2rem;color:var(--muted);font-size:0.88rem;line-height:1.7">
                 <li>Pick one macro/crypto event window</li>
                 <li>Seal timed Decision Certificates before the event</li>
@@ -219,7 +220,7 @@
         </div>
     </section>
 
-    <section class="panel" id="panel-public-misses">
+    <section class="panel" id="losing">
         <div class="card">
             <h2>Public Misses · live ledger</h2>
             <p style="color:var(--muted);font-size:0.88rem;margin-bottom:.65rem">
@@ -397,7 +398,7 @@
             }
             togglePanel('panel-ledger-stats', true);
             togglePanel('panel-latest-table', true);
-            togglePanel('panel-public-misses', true);
+            togglePanel('losing', true);
             const tbody = document.getElementById('predictions-body');
             if (tbody) tbody.innerHTML = `<tr><td colspan="8">${esc(msg)}</td></tr>`;
             const expl = document.getElementById('metrics-explainer');
@@ -444,7 +445,7 @@
 
             togglePanel('panel-ledger-stats', true);
             togglePanel('panel-latest-table', true);
-            togglePanel('panel-public-misses', true);
+            togglePanel('losing', true);
 
             renderAccuracyStats({
                 oracle,
@@ -913,22 +914,6 @@
             }
         }
 
-        async function verifyChain() {
-            const panel = document.getElementById('proof-panel');
-            if (panel) panel.textContent = 'Verifying…';
-            try {
-                const data = await fetchJsonWithTimeout('/api/oracle/audit-chain/verify');
-                applyChainVerify(data, {
-                    total_records: data.records,
-                    tip_hash: lastChainVerify && data.valid ? null : undefined,
-                });
-            } catch (error) {
-                console.debug(error);
-                if (lastChainVerify) applyChainVerify(lastChainVerify, { total_records: lastChainVerify.records });
-            }
-        }
-        document.getElementById('verifyChainBtn').addEventListener('click', verifyChain);
-
         async function loadLocked() {
             try {
                 const data = await fetchJsonWithTimeout('/api/locked-predictions?limit=12');
@@ -991,6 +976,20 @@
                     const parts = [d.hook, d.story].filter(Boolean);
                     ctx.textContent = parts.join(' ');
                 }
+                const lp = d.locked_predictions_status || {};
+                const lpTotal = Number(lp.total ?? 0);
+                const lpLocked = Number(lp.locked ?? 0);
+                const sealedEl = document.getElementById('glass-sealed-status');
+                if (sealedEl) {
+                    if (lpTotal === 0) {
+                        sealedEl.textContent =
+                            'Sealed now: 0 Decision Certificates on the public ledger (none filed yet).';
+                    } else {
+                        sealedEl.textContent =
+                            `Sealed now: ${lpLocked} Decision Certificate(s) locked on the public ledger ` +
+                            `(${lpTotal} total row(s) including revealed).`;
+                    }
+                }
                 const steps = (d.event_template && d.event_template.steps) || [];
                 const ol = document.getElementById('glass-event-steps');
                 if (ol && steps.length) {
@@ -1010,7 +1009,7 @@
                     st.textContent =
                         'Exact launch timing and announcement channel are human operator choices' +
                         (rb.machine_ready ? ' · product machinery ready' : '') +
-                        ' · sealed certificates and ledger unlock follow the public accuracy workflow';
+                        ' · ledger unlock follows the public accuracy workflow after resolution';
                 }
             } catch (error) {
                 console.debug(error);
