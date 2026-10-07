@@ -1283,7 +1283,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 const disc = (data.scenarios && data.scenarios.disclaimer) || '';
                 scenHtml = `<div style="margin-top:.65rem"><strong style="color:var(--text)">Scenarios</strong> · ${bits}<div style="font-size:.75rem;margin-top:.25rem;opacity:.8">${esc(disc)}</div></div>`;
             }
-            let whyList = '<p style="margin-top:.35rem">No factor breakdown on this response.</p>';
+            let whyList = '';
             if (factors.length) {
                 whyList = '<ol style="margin:.35rem 0 0 1.1rem;color:var(--text)">' + factors.slice(0,3).map(f => {
                     const label = f.factor || f.label || f.name || f;
@@ -1324,14 +1324,20 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             const freshChip = document.getElementById('oracleFreshnessLabel');
             const fresh = data.data_freshness || {};
             if (!freshChip) return;
+            const wrap = document.getElementById('oracleFreshnessChip');
             const state = String(fresh.state || fresh.status || '').toLowerCase();
+            if (state === 'unknown') {
+                freshChip.textContent = '';
+                if (wrap) wrap.style.display = 'none';
+                return;
+            }
             const stale = fresh.stale === true || state === 'stale';
             const knownFresh = state === 'fresh' || state === 'ok' || state === 'live';
             freshChip.textContent = stale
                 ? (fresh.label || 'Stale — not live')
                 : (fresh.label || (knownFresh ? 'Live' : 'Freshness unknown'));
-            const wrap = document.getElementById('oracleFreshnessChip');
             if (!wrap) return;
+            wrap.style.display = '';
             wrap.title = fresh.state ? `Freshness: ${fresh.state}` : 'Data freshness';
             wrap.style.opacity = stale ? '0.65' : '1';
         }
@@ -1485,7 +1491,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 paintLandingCompliance(data);
                 updateShareLinks(data);
                 syncLandingTrustPulseFromOracle(data, symbol);
-            } catch (error) { console.debug(error); oracleEl.textContent = i18nT('ui.oracle_unavailable'); }
+            } catch (error) { console.debug(error); oracleEl.textContent = ''; }
         }
 
         async function applyAudience() {
@@ -1811,11 +1817,15 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             const fl = document.getElementById('lpFresh');
             if (fl) {
                 const state = String(fresh.state || fresh.status || '').toLowerCase();
-                const stale = fresh.stale === true || state === 'stale';
-                const knownFresh = state === 'fresh' || state === 'ok' || state === 'live';
-                fl.textContent = stale
-                    ? (fresh.label || 'Stale — not live')
-                    : (fresh.label || (knownFresh ? 'Live' : 'Freshness unknown'));
+                if (state === 'unknown') {
+                    fl.textContent = '';
+                } else {
+                    const stale = fresh.stale === true || state === 'stale';
+                    const knownFresh = state === 'fresh' || state === 'ok' || state === 'live';
+                    fl.textContent = stale
+                        ? (fresh.label || 'Stale — not live')
+                        : (fresh.label || (knownFresh ? 'Live' : 'Freshness unknown'));
+                }
             }
             _lpRenderProof(p);
         }
