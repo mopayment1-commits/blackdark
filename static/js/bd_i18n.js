@@ -48,7 +48,7 @@
       window.location.href = url.toString();
     },
     syncSelect: function () {
-      var el = document.getElementById("bdLangSelect");
+      var el = document.getElementById("bdLangTrigger") || document.getElementById("bdLangSelect");
       if (el) el.value = this.lang;
     },
   };

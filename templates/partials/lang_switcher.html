@@ -53,8 +53,8 @@
   }
 </style>
 <div class="bd-lang-wrap" data-i18n-skip title="Choose language / اختر اللغة">
-  <label for="bdLangSelect">{{ t('lang.label') if t is defined else 'Language' }}</label>
-  <select id="bdLangSelect" class="bd-lang-select" data-bd-change-call="BD_I18N.setLang" data-bd-pass-value="1">
+  <label for="bdLangTrigger">{{ t('lang.label') if t is defined else 'Language' }}</label>
+  <select id="bdLangTrigger" class="bd-lang-select" data-bd-change-call="BD_I18N.setLang" data-bd-pass-value="1">
     {% for loc in _locales %}
     <option value="{{ loc.code }}" {% if loc.code == _lang %}selected{% endif %}>{{ loc.native }}</option>
     {% endfor %}

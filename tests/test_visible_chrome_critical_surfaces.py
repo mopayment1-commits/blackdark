@@ -16,18 +16,19 @@ def test_landing_uses_global_header_with_session_chrome():
     assert "partials/global_header.html" in land
     global_hdr = (ROOT / "templates/partials/global_header.html").read_text(encoding="utf-8")
     assert "bd-global-header" in global_hdr
-    assert "bd-global-links" in global_hdr
-    assert "top_utility.html" in global_hdr
+    assert "site_top_nav.html" in global_hdr
+    assert "site_top_nav.html" in global_hdr
 
 
 def test_top_utility_has_anonymous_chrome_branches():
-    util = (ROOT / "templates/partials/top_utility.html").read_text(encoding="utf-8")
+    util = (ROOT / "templates/partials/site_top_nav.html").read_text(encoding="utf-8")
     assert "lang_switcher.html" in util
     assert "/login" in util
     assert "/login?tab=register" in util
     assert 'id="bdUtilPricing"' in util
     assert "bd-header-util" in util
     assert "header_authenticated" in util
+    assert "bd-account-menu" in util
     assert "bd-tier-badge" in util
     assert "/profile" in util
     assert "bd-header-upgrade" not in util

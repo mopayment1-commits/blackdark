@@ -109,8 +109,39 @@ def is_rtl(lang: str | None) -> bool:
     return locale_meta(lang)["dir"] == "rtl"
 
 
+LOGIN_UI_KEYS: tuple[str, ...] = (
+    "login.tab.login",
+    "login.tab.signup",
+    "login.email",
+    "login.pass_label",
+    "login.password",
+    "login.remember",
+    "login.confirm_password",
+    "login.submit",
+    "login.name",
+    "auth.google",
+    "auth.signup_submit",
+    "auth.divider_email",
+    "nav.login",
+    "nav.signup",
+    "nav.logout",
+    "lang.label",
+)
+
+
+def locale_ui_complete(code: str) -> bool:
+    if code == "en":
+        return True
+    cat = catalogs().get(normalize_lang(code)) or {}
+    for key in LOGIN_UI_KEYS:
+        val = (cat.get(key) or "").strip()
+        if not val or val == key:
+            return False
+    return True
+
+
 def list_locales() -> list[dict[str, str]]:
-    return [dict(v) for v in LOCALES.values()]
+    return [dict(v) for v in LOCALES.values() if locale_ui_complete(v["code"])]
 
 
 # ---------------------------------------------------------------------------
@@ -132,7 +163,8 @@ EN: dict[str, str] = {
     "nav.accuracy": "Accuracy",
     "nav.login": "Login",
     "nav.signup": "Sign up",
-    "nav.logout": "Logout",
+    "nav.profile": "Profile",
+    "nav.logout": "Log out",
     "nav.dashboard": "Dashboard",
     "nav.platform": "Platform",
     "nav.capabilities": "Capabilities",
@@ -241,7 +273,12 @@ EN: dict[str, str] = {
     "login.tab.login": "Login",
     "login.tab.register": "Register",
     "login.email": "Email",
-    "login.pass_label": "Passcode",
+    "login.pass_label": "Password",
+    "login.password": "Password",
+    "login.remember": "Remember me",
+    "login.confirm_password": "Confirm password",
+    "auth.signup_submit": "Sign up",
+    "auth.divider_email": "or continue with email",
     "login.name": "Name",
     "login.pass_hint": "Passcode (8+ chars)",
     "login.submit": "Login",

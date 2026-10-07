@@ -19,6 +19,7 @@ class AuthLoginBody(BaseModel):
     email: str = Field(min_length=5, max_length=254)
     password: str = Field(min_length=1, max_length=128)
     mfa_code: str | None = Field(default=None, max_length=64)
+    remember_me: bool = False
 
 
 class AuthMfaConfirmBody(BaseModel):

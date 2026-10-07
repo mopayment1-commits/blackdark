@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BLACKDARK — Login</title>
+    <title>{{ t('meta.title.login') if t is defined else 'BLACKDARK — Login' }}</title>
     <link rel="stylesheet" href="/static/css/trust-os.css">
     {% if google_signin.state == 'CONFIGURED' %}
     {# SRI غير مُضاف: تقرير 28 Sep يمنع الإغلاق بـ SRI قبل دعم المورد، ولم يُجلب نص Google في هذه الجولة. #}
@@ -126,55 +126,67 @@
 </head>
 <body class="login-page">
     {% include 'partials/global_header.html' %}
+    <!-- bd-global-header .bd-header-util session chrome via partials/global_header.html -->
     <main class="login-main" id="loginMain">
         <div class="login-stack">
             <nav class="auth-tabs" id="authTabs" aria-label="Authentication mode">
-                <a href="/login" class="auth-tab{% if auth_tab != 'register' %} active{% endif %}" id="tabLogin" data-mode="login">Login</a>
-                <a href="/login?tab=register" class="auth-tab{% if auth_tab == 'register' %} active{% endif %}" id="tabRegister" data-mode="register">Sign up</a>
+                <a href="/login" class="auth-tab{% if auth_tab != 'register' %} active{% endif %}" id="tabLogin" data-mode="login">{{ t('login.tab.login') }}</a>
+                <a href="/login?tab=register" class="auth-tab{% if auth_tab == 'register' %} active{% endif %}" id="tabRegister" data-mode="register">{{ t('login.tab.signup') }}</a>
             </nav>
             <div class="card">
                 <div id="googleSigninArea">
                     {% if google_signin.state == 'CONFIGURED' %}
-                    <div id="googleBtnHost" class="google-host" aria-label="Continue with Google"></div>
+                    <div id="googleBtnHost" class="google-host" aria-label="{{ t('auth.google') }}"></div>
                     {% else %}
                     <button type="button" class="btn btn-oauth" id="googleBtnDisabled" disabled>Google sign-in not configured</button>
                     {% endif %}
                 </div>
-                <div class="divider" id="authDivider">or continue with email</div>
+                <div class="divider" id="authDivider">{{ t('auth.divider_email') }}</div>
 
         <div id="registerShell" class="hidden">
-            <h1>Create your free account</h1>
-            <p class="lead">Free — no card required. Start with proof, upgrade when ready.</p>
+            <h1>{{ t('auth.create') }}</h1>
+            <p class="lead">{{ t('login.lead') }}</p>
 
             <form id="registerForm" data-bd-submit-call="doRegister" novalidate>
                 <input type="hidden" id="regPlan" name="regPlan" value="free">
-                <label for="regEmail">Email</label>
-                <input type="email" id="regEmail" autocomplete="email" placeholder="you@email.com">
-                <label for="regPassword">Password (12+ characters)</label>
+                <label for="regName">{{ t('login.name') }}</label>
+                <input type="text" id="regName" autocomplete="name" maxlength="80" placeholder="{{ t('login.name') }}">
+                <label for="regEmail">{{ t('login.email') }}</label>
+                <input type="email" id="regEmail" autocomplete="email" placeholder="you@email.com" required>
+                <label for="regPassword">{{ t('login.password') }}</label>
                 <div class="password-field">
-                    <input type="password" id="regPassword" minlength="12" autocomplete="new-password" placeholder="At least 12 characters">
+                    <input type="password" id="regPassword" minlength="12" autocomplete="new-password" placeholder="At least 12 characters" required>
                     <button type="button" class="password-toggle" id="regPasswordToggle" aria-label="Show password" aria-pressed="false">Show password</button>
+                </div>
+                <label for="regPasswordConfirm">{{ t('login.confirm_password') }}</label>
+                <div class="password-field">
+                    <input type="password" id="regPasswordConfirm" minlength="12" autocomplete="new-password" required>
+                    <button type="button" class="password-toggle" id="regPasswordConfirmToggle" aria-label="Show password" aria-pressed="false">Show password</button>
                 </div>
                 <label class="check">
                     <input type="checkbox" id="regTerms">
                     <span>I agree to the <a href="/terms" target="_blank">Terms</a>, <a href="/privacy" target="_blank">Privacy</a>, and <a href="/disclaimer" target="_blank">Disclaimer</a></span>
                 </label>
-                <button type="submit" class="btn-primary" id="regSubmit">Create account</button>
+                <button type="submit" class="btn-primary" id="regSubmit">{{ t('auth.signup_submit') }}</button>
             </form>
         </div>
 
         <div id="loginShell">
-            <h1>Sign in</h1>
+            <h1>{{ t('login.tab.login') }}</h1>
             <p class="lead">{{ t('login.lead') }}</p>
 
             <form id="loginForm" data-bd-submit-call="doLogin">
                 <label for="loginEmail">{{ t('login.email') }}</label>
                 <input type="email" id="loginEmail" required autocomplete="username" placeholder="you@email.com">
-                <label for="loginPassword">{{ t('login.pass_label') }}</label>
+                <label for="loginPassword">{{ t('login.password') }}</label>
                 <div class="password-field">
                     <input type="password" id="loginPassword" required autocomplete="current-password">
                     <button type="button" class="password-toggle" id="loginPasswordToggle" aria-label="Show password" aria-pressed="false">Show password</button>
                 </div>
+                <label class="check">
+                    <input type="checkbox" id="loginRemember" checked>
+                    <span>{{ t('login.remember') }}</span>
+                </label>
                 <div class="row-links">
                     <button type="button" class="linkish" data-bd-call="showForgot">{{ t('auth.forgot_pass') }}</button>
                     <button type="button" class="linkish" data-bd-call="showForgotUsername">{{ t('auth.forgot_username') }}</button>
@@ -214,9 +226,24 @@
     </main>
     <script type="module">
         let mfaChallenge = null;
+        const PAGE_LANG = {{ lang|default('en')|tojson }};
         const googleConfigured = {{ 'true' if google_signin.state == 'CONFIGURED' else 'false' }};
         const googleClientId = {{ google_signin.client_id|tojson if google_signin.state == 'CONFIGURED' else 'null' }};
         const googleLoginUriBase = {{ google_login_uri_base|tojson }};
+
+        function googleGsiLocale() {
+            const code = String(PAGE_LANG || 'en').toLowerCase();
+            if (code.startsWith('ar')) return 'ar';
+            if (code.startsWith('es')) return 'es';
+            if (code.startsWith('fr')) return 'fr';
+            if (code.startsWith('de')) return 'de';
+            if (code.startsWith('pt')) return 'pt-BR';
+            if (code.startsWith('ja')) return 'ja';
+            if (code.startsWith('ko')) return 'ko';
+            if (code.startsWith('zh-tw')) return 'zh-TW';
+            if (code.startsWith('zh')) return 'zh-CN';
+            return 'en';
+        }
 
         function authTabFromQuery(search) {
             const tab = new URLSearchParams(search || location.search).get('tab');
@@ -349,6 +376,7 @@
             if (el) el.value = plan;
         }
         const POST_AUTH_NEXT_EXACT = new Set([
+            '/',
             '/dashboard',
             '/pricing',
             '/data-room',
@@ -356,7 +384,7 @@
             '/settings',
             '/alerts',
         ]);
-        const POST_AUTH_NEXT_PREFIXES = ['/dashboard', '/data-room', '/account', '/settings', '/alerts'];
+        const POST_AUTH_NEXT_PREFIXES = ['/', '/dashboard', '/data-room', '/account', '/settings', '/alerts'];
 
         function sameOriginRelativePath(raw) {
             if (!raw || typeof raw !== 'string') return null;
@@ -398,7 +426,7 @@
             }
             const safeNext = allowlistedPostAuthNext(urlNext);
             if (safeNext) return safeNext;
-            return '/dashboard';
+            return '/';
         }
         function saveAuth(data) {
             try { localStorage.removeItem('bd_token'); localStorage.removeItem('token'); } catch (_) {}
@@ -409,10 +437,12 @@
         function validateRegisterForm() {
             const email = document.getElementById('regEmail').value.trim();
             const password = document.getElementById('regPassword').value;
+            const confirm = document.getElementById('regPasswordConfirm').value;
             const terms = document.getElementById('regTerms').checked;
             if (!email) { setMsg('Please enter your email address.', false); return false; }
             if (!password) { setMsg('Please enter a password.', false); return false; }
             if (password.length < 12) { setMsg('Password must be at least 12 characters.', false); return false; }
+            if (password !== confirm) { setMsg('Passwords do not match.', false); return false; }
             if (!terms) { setMsg('Please accept the Terms, Privacy, and Disclaimer to continue.', false); return false; }
             return true;
         }
@@ -447,7 +477,8 @@
                     credentials: 'same-origin',
                     body: JSON.stringify({
                         email: document.getElementById('loginEmail').value,
-                        password: document.getElementById('loginPassword').value
+                        password: document.getElementById('loginPassword').value,
+                        remember_me: Boolean(document.getElementById('loginRemember')?.checked),
                     })
                 });
                 if (!res.ok) {
@@ -514,6 +545,7 @@
                     body: JSON.stringify({
                         email: document.getElementById('regEmail').value.trim(),
                         password: document.getElementById('regPassword').value,
+                        name: document.getElementById('regName').value.trim(),
                         accepted_terms: document.getElementById('regTerms').checked,
                         plan: signupPlan()
                     })
@@ -606,29 +638,48 @@
         }
         function initGoogleSignIn() {
             if (!googleConfigured || !googleClientId) return;
+            let rendered = false;
             const boot = () => {
-                if (!window.google?.accounts?.id) return;
-                window.google.accounts.id.initialize({
-                    client_id: googleClientId,
-                    ux_mode: 'redirect',
-                    login_uri: googleLoginUri(),
-                    auto_select: false
-                });
-                const host = document.getElementById('googleBtnHost');
-                if (host) {
-                    window.google.accounts.id.renderButton(host, {
-                        type: 'standard',
-                        theme: 'outline',
-                        size: 'large',
-                        text: 'continue_with',
-                        shape: 'rectangular',
-                        logo_alignment: 'left',
-                        width: Math.min(380, host.offsetWidth || 380)
+                if (!window.google?.accounts?.id) return false;
+                try {
+                    window.google.accounts.id.initialize({
+                        client_id: googleClientId,
+                        ux_mode: 'redirect',
+                        login_uri: googleLoginUri(),
+                        auto_select: false,
+                        locale: googleGsiLocale(),
                     });
+                    const host = document.getElementById('googleBtnHost');
+                    if (host) {
+                        const mode = authTabFromQuery(window.location.search);
+                        window.google.accounts.id.renderButton(host, {
+                            type: 'standard',
+                            theme: 'outline',
+                            size: 'large',
+                            text: mode === 'register' ? 'signup_with' : 'signin_with',
+                            shape: 'rectangular',
+                            logo_alignment: 'left',
+                            locale: googleGsiLocale(),
+                            width: Math.min(380, host.offsetWidth || 380)
+                        });
+                        rendered = host.children.length > 0;
+                    }
+                } catch (error) {
+                    console.debug(error);
+                    setMsg('Google sign-in failed to load: ' + (error.message || 'unknown error'), false);
+                    return false;
                 }
+                return rendered;
             };
-            if (window.google?.accounts?.id) boot();
-            else window.addEventListener('load', boot, { once: true });
+            const tryBoot = () => { if (!boot() && !rendered) return false; return true; };
+            if (window.google?.accounts?.id) tryBoot();
+            else window.addEventListener('load', () => { tryBoot(); }, { once: true });
+            setTimeout(() => {
+                const host = document.getElementById('googleBtnHost');
+                if (host && !host.children.length) {
+                    setMsg('Google sign-in could not load. Check your connection or use email below.', false);
+                }
+            }, 12000);
         }
         Object.assign(window, {
             showRegister, showLogin, showForgot, showForgotUsername,
@@ -645,6 +696,9 @@
         document.getElementById('regPasswordToggle')?.addEventListener('click', () => {
             togglePassword('regPassword', 'regPasswordToggle');
         });
+        document.getElementById('regPasswordConfirmToggle')?.addEventListener('click', () => {
+            togglePassword('regPasswordConfirm', 'regPasswordConfirmToggle');
+        });
         document.querySelector('[data-bd-call="showForgot"]')?.addEventListener('click', showForgot);
         document.querySelector('[data-bd-call="showForgotUsername"]')?.addEventListener('click', showForgotUsername);
         document.querySelectorAll('[data-bd-call="showLogin"]').forEach((el) => {
@@ -657,7 +711,10 @@
         if (authTabFromQuery(location.search) === 'register') showRegister();
         else showLogin();
         if (params.get('reset') === '1') setMsg('Password updated — you can sign in.', true);
-        if (params.get('google_error')) setMsg('Google sign-in failed. Try again or use email.', false);
+        if (params.get('google_error')) {
+            const reason = decodeURIComponent(params.get('google_error') || '').replace(/_/g, ' ');
+            setMsg('Google sign-in failed: ' + (reason || 'unknown error') + '. Try email or try again.', false);
+        }
     </script>
     {% include "partials/site_footer.html" %}
 </body>

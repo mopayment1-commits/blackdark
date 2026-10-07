@@ -1551,7 +1551,7 @@ def _google_post_auth_redirect(plan: str | None, next_path: str | None) -> str:
         return "/data-room?from=signup"
     if next_path and next_path.startswith("/") and not next_path.startswith("//"):
         return next_path
-    return "/dashboard"
+    return "/"
 
 
 # ========== LANDING PAGE (ROOT) ==========

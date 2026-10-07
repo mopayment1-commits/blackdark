@@ -43,13 +43,16 @@ logger = logging.getLogger("BLACKDARK.AuthAPI")
 router = APIRouter(prefix="/api/auth", tags=["auth"], responses=COMMON_ERROR_RESPONSES)
 
 
-def _attach_session_cookie(response: Response, token: str | None) -> None:
+def _attach_session_cookie(response: Response, token: str | None, *, remember: bool = True) -> None:
     if not token:
         return
-    from security_middleware import attach_session_cookie
+    from security_middleware import attach_session_cookie, attach_session_cookie_ephemeral
 
     # Opaque session bearer (secrets.token_urlsafe) — never a password.
-    attach_session_cookie(response, str(token))
+    if remember:
+        attach_session_cookie(response, str(token))
+    else:
+        attach_session_cookie_ephemeral(response, str(token))
 
 
 def _clear_session_cookie(response: Response) -> None:
@@ -155,7 +158,7 @@ async def auth_login(
 
         increment_metric("auth_logins_total")
         resp = JSONResponse(_session_response_body(result))
-        _attach_session_cookie(resp, result.get("token"))
+        _attach_session_cookie(resp, result.get("token"), remember=bool(body.remember_me))
         return resp
     except ValueError as exc:
         raise HTTPException(status_code=401, detail=str(exc)) from exc

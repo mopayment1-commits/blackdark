@@ -29,7 +29,7 @@ def _header_nav(html: str) -> str:
 
 
 def test_header_template_session_branches():
-    util = (ROOT / "templates/partials/top_utility.html").read_text(encoding="utf-8")
+    util = (ROOT / "templates/partials/site_top_nav.html").read_text(encoding="utf-8")
     global_hdr = (ROOT / "templates/partials/global_header.html").read_text(encoding="utf-8")
     footer = (ROOT / "templates/partials/site_footer.html").read_text(encoding="utf-8")
     assert "header_authenticated" in util
@@ -40,9 +40,9 @@ def test_header_template_session_branches():
     assert "/profile" in util
     assert 'href="/dashboard"' not in util
     assert "bd-header-upgrade" not in util
-    assert "bd-global-links" in global_hdr
-    assert "bd-nav-toggle" in global_hdr
-    assert "data-nav-key" in global_hdr
+    assert "bd-global-header" in global_hdr
+    assert "site_top_nav.html" in global_hdr
+    assert 'href="/dashboard?lens=prove"' in util
     assert "lang_switcher" not in footer
     assert "/terms" in footer and "/privacy" in footer
 

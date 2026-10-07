@@ -477,6 +477,21 @@ def cookie_session_kwargs(*, max_age: int | None = None) -> dict:
     }
 
 
+def attach_session_cookie_ephemeral(response: Response, token: str) -> None:
+    """Browser session cookie (no Max-Age) — cleared when the browser session ends."""
+    session_bearer = "".join(ch for ch in str(token) if ch.isalnum() or ch in "-_")
+    if len(session_bearer) < 20:
+        return
+    from secrets_vault import encrypt_secret
+
+    sealed = encrypt_secret(session_bearer)
+    if not sealed:
+        return
+    kwargs = cookie_session_kwargs()
+    kwargs.pop("max_age", None)
+    response.set_cookie(value=sealed, **kwargs)
+
+
 def attach_session_cookie(response: Response, token: str, *, max_age: int | None = None) -> None:
     """Set HttpOnly session cookie from an opaque bearer (never a password).
 
