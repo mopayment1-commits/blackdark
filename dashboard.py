@@ -2836,6 +2836,12 @@ async def _compute_oracle_quick_payload(
         if decision_action == "CONDITIONS MET"
         else _quick_decision_sentence(lang, decision_action, asset, score, action)
     )
+    quote_age = market.get("age_sec")
+    if quote_age is not None:
+        try:
+            quote_age = float(quote_age)
+        except (TypeError, ValueError):
+            quote_age = None
     return _quick_payload(
         asset,
         price,
@@ -2848,6 +2854,9 @@ async def _compute_oracle_quick_payload(
         sentiment,
         ux_mode,
         lang,
+        quote_exchange="binance",
+        quote_symbol=f"{asset}/USDT",
+        quote_age_sec=quote_age,
     )
 
 
@@ -2893,8 +2902,12 @@ def _quick_payload(
     sentiment: str,
     ux_mode: str,
     lang: str,
+    *,
+    quote_exchange: str = "binance",
+    quote_symbol: str | None = None,
+    quote_age_sec: float | None = None,
 ) -> dict:
-    return {
+    out = {
         "symbol": asset,
         "price": price,
         "change_24h": change,
@@ -2911,7 +2924,12 @@ def _quick_payload(
         "ux_mode": ux_mode,
         "lang": lang,
         "viral_cache": "miss",
+        "quote_exchange": quote_exchange,
+        "quote_symbol": quote_symbol or f"{asset}/USDT",
     }
+    if quote_age_sec is not None:
+        out["quote_age_sec"] = quote_age_sec
+    return out
 
 
 def _queue_oracle_quick_tasks(background_tasks: BackgroundTasks, asset: str, payload: dict) -> None:
@@ -3073,6 +3091,7 @@ async def oracle_quick(
 
     _queue_oracle_quick_tasks(background_tasks, asset, payload)
     payload = _attach_quick_freshness(payload, asset)
+    _attach_oqs_why_safe(payload)
     _attach_quick_certificate(payload)
     from security_sanitize import sanitize_oracle_payload
 
