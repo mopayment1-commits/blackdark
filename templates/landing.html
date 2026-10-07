@@ -1912,9 +1912,13 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             const hashLabel = cert.certificate_hash ? String(cert.certificate_hash).slice(0, 16) + '…' : 'pending';
             const asset = cert.asset || pulse.symbol || 'BTC';
             const verdict = cert.decision_action || pulse.action || pulse.verdict || 'WAIT';
-            const pid = cert.prediction_id != null && cert.prediction_id !== ''
+            let pid = cert.prediction_id != null && cert.prediction_id !== ''
                 ? String(cert.prediction_id)
-                : '—';
+                : '';
+            if (!pid && cert.certificate_hash) {
+                pid = String(cert.certificate_hash).slice(0, 10);
+            }
+            if (!pid) pid = '—';
             const ar = currentLang().startsWith('ar');
             const lblAsset = ar ? 'الأصل' : 'Asset';
             const lblVerdict = ar ? 'الحكم' : 'Verdict';
