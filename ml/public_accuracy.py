@@ -151,12 +151,11 @@ def _enrich_public_experience(experience: dict[str, Any]) -> dict[str, Any]:
             resolved = h.get("resolved")
             exported = h.get("exported")
             trained = h.get("trained")
-            bits = []
+            bits = [
+                "Internal flywheel cycle (ml_experience_log.jsonl — not the live public ledger counter)",
+            ]
             if resolved is not None:
-                bits.append(
-                    f"Internal flywheel resolved {resolved} row(s) at 24h "
-                    f"(ml_experience_log.jsonl — not {live_source})"
-                )
+                bits.append(f"internal 24h labeling batch: {resolved}")
             if exported is not None:
                 bits.append(f"exported {exported} labeled row(s) to training parquet")
             if trained is True:
