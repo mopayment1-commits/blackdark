@@ -1,0 +1,263 @@
+{
+  "phase": "0H-1_CORRECTION",
+  "phase_name": "Targeted Correction of Phase 0H-1 Data Governance Integration Discovery",
+  "corrected_at_utc": "2026-09-14T08:09:26Z",
+  "branch": "cursor/temporal-phase-0-clean-reanchor-358c",
+  "source_audit": "TEMPORAL_PHASE_0H1_INDEPENDENT_AUDIT.json",
+  "component_count_before": 12,
+  "component_count_after": 14,
+  "metadata_classifications_before": {
+    "event_time": {
+      "blackdark/data/repository.py (ohlcv/market_events)": "DIRECTLY_AVAILABLE",
+      "blackdark/data/provenance.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "data_sources_registry.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "cap646/data_spine.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "stale_price_guard.py": "DERIVABLE_WITH_EXISTING_EVIDENCE",
+      "data_moat_guard.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "storage_tier_manager.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY"
+    },
+    "observed_time": {
+      "blackdark/data/repository.py (ohlcv/market_events)": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "blackdark/data/provenance.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "data_sources_registry.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "cap646/data_spine.py": "DERIVABLE_WITH_EXISTING_EVIDENCE",
+      "stale_price_guard.py": "DERIVABLE_WITH_EXISTING_EVIDENCE",
+      "data_provenance_score.py": "DERIVABLE_WITH_EXISTING_EVIDENCE",
+      "storage_tier_manager.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY"
+    },
+    "available_at": {
+      "blackdark/data/repository.py (ohlcv/market_events)": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "blackdark/data/response_metadata.py": "DERIVABLE_WITH_EXISTING_EVIDENCE",
+      "data_sources_registry.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "cap646/data_spine.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "stale_price_guard.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "storage_tier_manager.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY"
+    },
+    "ingested_at": {
+      "blackdark/data/repository.py (ohlcv)": "DIRECTLY_AVAILABLE",
+      "blackdark/data/provenance.py": "DIRECTLY_AVAILABLE",
+      "blackdark/data/migrations/002_ingestion_runs.sql": "DIRECTLY_AVAILABLE",
+      "data_sources_registry.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "cap646/data_spine.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "storage_tier_manager.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY"
+    },
+    "effective_at": {
+      "blackdark/data/repository.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "blackdark/data/provenance.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "data_sources_registry.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "cap646/data_spine.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "signal_registry.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY"
+    },
+    "revised_at": {
+      "blackdark/data/models.py DataSource": "DIRECTLY_AVAILABLE",
+      "blackdark/data/repository.py market_events": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "blackdark/data/provenance.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "data_sources_registry.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY"
+    },
+    "source": {
+      "data_sources_registry.py": "DIRECTLY_AVAILABLE",
+      "blackdark/data/models.py DataSource": "DIRECTLY_AVAILABLE",
+      "blackdark/data/repository.py": "DIRECTLY_AVAILABLE",
+      "blackdark/data/provenance.py": "DIRECTLY_AVAILABLE",
+      "cap646/data_spine.py": "DIRECTLY_AVAILABLE"
+    },
+    "source_version": {
+      "blackdark/data/provenance.py": "DIRECTLY_AVAILABLE",
+      "data_sources_registry.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "blackdark/data/repository.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "blackdark/data/models.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY"
+    },
+    "dataset_version": {
+      "blackdark/data/repository.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "blackdark/data/provenance.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "data_sources_registry.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "cap646/data_spine.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "parquet_compactor.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY"
+    },
+    "rights_or_provenance": {
+      "data_sources_registry.py": "DERIVABLE_WITH_EXISTING_EVIDENCE",
+      "blackdark/data/provenance.py": "DIRECTLY_AVAILABLE",
+      "blackdark/data/repository.py market_events": "DIRECTLY_AVAILABLE",
+      "blackdark/data/models.py DataSource": "DERIVABLE_WITH_EXISTING_EVIDENCE",
+      "cap646/data_spine.py": "DERIVABLE_WITH_EXISTING_EVIDENCE"
+    }
+  },
+  "metadata_classifications_after": {
+    "event_time": "DIRECTLY_AVAILABLE",
+    "observed_time": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+    "available_at": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+    "ingested_at": "DERIVABLE_WITH_EXISTING_EVIDENCE",
+    "effective_at": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+    "revised_at": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+    "source": "DIRECTLY_AVAILABLE",
+    "source_version": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+    "dataset_version": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+    "rights_or_provenance": "DERIVABLE_WITH_EXISTING_EVIDENCE"
+  },
+  "metadata_claims_corrected": [
+    {
+      "contract_id": "DG-TMP-HE-002",
+      "field": "ingested_at",
+      "before": "claimed in required_metadata",
+      "after": "removed; query_ohlcv read path does not expose fetched_at"
+    },
+    {
+      "contract_id": "DG-TMP-PIT-001",
+      "field": "ingested_at",
+      "before": "claimed in required_metadata",
+      "after": "removed; query_ohlcv read path does not expose fetched_at"
+    },
+    {
+      "contract_id": "DG-TMP-PIT-002",
+      "field": "event_time",
+      "before": "claimed in required_metadata",
+      "after": "removed; fetch_recent_closes returns prices without timestamps"
+    },
+    {
+      "contract_id": "DG-TMP-TLF-001",
+      "field": "observed_time",
+      "before": "claimed in required_metadata",
+      "after": "removed; NOT_PROVEN_IN_CURRENT_DISCOVERY on contract surface"
+    },
+    {
+      "contract_id": "DG-TMP-SR-001",
+      "field": "rights_or_provenance",
+      "before": "claimed in required_metadata",
+      "after": "removed from required_metadata; provenance lineage derivable but licensing entitlement not proven via env_key alone"
+    },
+    {
+      "contract_id": "DG-TMP-SQ-001",
+      "field": "observed_time",
+      "before": "claimed in required_metadata",
+      "after": "removed; NOT_PROVEN_IN_CURRENT_DISCOVERY on contract surface"
+    },
+    {
+      "contract_id": "DG-TMP-SQ-002",
+      "field": "observed_time",
+      "before": "claimed in required_metadata",
+      "after": "removed; NOT_PROVEN_IN_CURRENT_DISCOVERY on contract surface"
+    },
+    {
+      "contract_id": "DG-TMP-SQ-003",
+      "field": "available_at",
+      "before": "claimed in required_metadata",
+      "after": "removed; NOT_PROVEN_IN_CURRENT_DISCOVERY"
+    },
+    {
+      "contract_id": "DG-TMP-SQ-005",
+      "field": "observed_time",
+      "before": "claimed in required_metadata",
+      "after": "removed; NOT_PROVEN_IN_CURRENT_DISCOVERY on contract surface"
+    },
+    {
+      "contract_id": "DG-TMP-EP-001",
+      "field": "source_version",
+      "before": "claimed in required_metadata",
+      "after": "removed; parser_version not equivalent to upstream source_version"
+    },
+    {
+      "contract_id": "DG-TMP-REP-001",
+      "field": "source_version",
+      "before": "claimed in required_metadata",
+      "after": "removed; parser_version not equivalent to upstream source_version"
+    }
+  ],
+  "semantic_overclaims_removed": [
+    {
+      "field": "event_time",
+      "discovery_classification": "stale_price_guard.py: DERIVABLE_WITH_EXISTING_EVIDENCE",
+      "independent_classification": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "reason": "quote age is not underlying event occurrence time"
+    },
+    {
+      "field": "observed_time",
+      "discovery_classification": "DERIVABLE_WITH_EXISTING_EVIDENCE on multiple components",
+      "independent_classification": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "reason": "age/freshness metrics cannot reconstruct unambiguous absolute observation timestamps"
+    },
+    {
+      "field": "available_at",
+      "discovery_classification": "blackdark/data/response_metadata.py: DERIVABLE_WITH_EXISTING_EVIDENCE",
+      "independent_classification": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "reason": "latest_record_at SLA comparison is not available_at semantics"
+    },
+    {
+      "field": "ingested_at",
+      "discovery_classification": "DIRECTLY_AVAILABLE for provenance parsed_at and ingestion_runs.started_at",
+      "independent_classification": "DERIVABLE_WITH_EXISTING_EVIDENCE",
+      "reason": "parse time and run start are not proven record-level ingestion time"
+    },
+    {
+      "field": "revised_at",
+      "discovery_classification": "blackdark/data/models.py DataSource: DIRECTLY_AVAILABLE",
+      "independent_classification": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "reason": "registry updated_at is not datum/event revision time"
+    },
+    {
+      "field": "source_version",
+      "discovery_classification": "blackdark/data/provenance.py: DIRECTLY_AVAILABLE",
+      "independent_classification": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "reason": "parser_version is parser implementation version, not upstream source version"
+    },
+    {
+      "field": "rights_or_provenance",
+      "discovery_classification": "data_sources_registry.py: DERIVABLE_WITH_EXISTING_EVIDENCE via env_key",
+      "independent_classification": "DERIVABLE_WITH_EXISTING_EVIDENCE",
+      "reason": "env_key does not prove rights/licensing entitlement; provenance only partially evidenced"
+    }
+  ],
+  "runtime_reachability_changes": [
+    {
+      "contract_id": "DG-TMP-SR-002",
+      "before": {
+        "runtime_reachable": false
+      },
+      "after": {
+        "runtime_reachable": true,
+        "runtime_reachability": "RUNTIME_REACHABLE_ENVIRONMENT_GATED"
+      },
+      "evidence": "ensure_data_engine_ready -> seed_data_sources; blackdark/data/api.py admin wiring"
+    }
+  ],
+  "information_transfer_changes": [
+    {
+      "contract_id": "DG-TMP-HE-002",
+      "before": "ohlcv candle rows with open_time, source slug, fetched_at, provenance_hash",
+      "after": "ohlcv candle rows with open_time, OHLCV price/volume fields, source slug, provenance_id",
+      "removed_claims": [
+        "fetched_at",
+        "provenance_hash"
+      ]
+    }
+  ],
+  "available_at_enforcement_sufficiency": {
+    "CURRENT_DG_EVIDENCE_SUFFICIENT_FOR_AVAILABLE_AT_ENFORCEMENT": false,
+    "reason": "No proven available_at field or unambiguous earliest-availability timestamp currently exists in the discovered Data Governance surfaces."
+  },
+  "unaffected_contracts_changed": 0,
+  "remaining_known_0h1_defects": [],
+  "acceptance_assertions": {
+    "DATA_GOVERNANCE_COMPONENT_COUNT": 14,
+    "SUPPORTED_INTEGRATION_CONTRACTS": 23,
+    "HYBRID_METADATA_CLASSIFICATIONS": 0,
+    "SEMANTIC_EQUIVALENCE_OVERCLAIMS_AFTER_CORRECTION": 0,
+    "UNSUPPORTED_METADATA_AVAILABILITY_CLAIMS_AFTER_CORRECTION": 0,
+    "CURRENT_DG_EVIDENCE_SUFFICIENT_FOR_AVAILABLE_AT_ENFORCEMENT": false,
+    "RUNTIME_REACHABLE_UNCONDITIONAL": 12,
+    "RUNTIME_REACHABLE_ENVIRONMENT_GATED": 11,
+    "NOT_RUNTIME_REACHABLE": 0,
+    "FALSE_RUNTIME_REACHABILITY_CLASSIFICATIONS_AFTER_CORRECTION": 0,
+    "UNSUPPORTED_INFORMATION_TRANSFER_CLAIMS_AFTER_CORRECTION": 0,
+    "UNSUPPORTED_REQUIRED_METADATA_CLAIMS_AFTER_CORRECTION": 0,
+    "INVALID_CONTRACT_COMPONENTS": 0,
+    "INVALID_CONTRACT_SYMBOLS": 0,
+    "UNSUPPORTED_CONTRACT_RELATIONSHIPS": 0,
+    "CANONICAL_AUTHORITY_COLLISIONS": 0,
+    "PHASE_0G_MAPPING_CHANGES": 0,
+    "CANONICAL_AUTHORITY_CHANGES": 0,
+    "UNAFFECTED_CONTRACTS_CHANGED": 0,
+    "RUNTIME_SOURCE_FILES_CHANGED": 0,
+    "UNEXPECTED_CHANGED_FILES": 0,
+    "PHASE_0H1_TARGETED_CORRECTION_COMPLETE": true
+  }
+}

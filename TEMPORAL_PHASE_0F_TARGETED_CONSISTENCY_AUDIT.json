@@ -1,0 +1,153 @@
+{
+  "phase": "0F_TARGETED_CONSISTENCY_AUDIT",
+  "phase_name": "Targeted Consistency Audit of Phase 0F Canonical Ownership",
+  "audited_at_utc": "2026-09-14T01:16:00Z",
+  "branch": "cursor/temporal-phase-0-clean-reanchor-358c",
+  "inputs": {
+    "canonical_ownership_registry": "TEMPORAL_CANONICAL_OWNERSHIP_REGISTRY.json",
+    "phase_0f_reconciliation": "TEMPORAL_PHASE_0F_RECONCILIATION.json",
+    "governing_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md"
+  },
+  "check_1_owner_distribution_arithmetic": {
+    "method": "Recomputed from owned_requirement_ids sets in TEMPORAL_CANONICAL_OWNERSHIP_REGISTRY.json",
+    "canonical_owner_count": 30,
+    "canonical_owner_requirement_total": 455,
+    "owner_distribution_sum": 455,
+    "active_requirements_missing_from_ownership": 0,
+    "duplicate_primary_ownership_assignments": 0,
+    "complete_30_owner_distribution": {
+      "CHAMPION_CHALLENGER": 3,
+      "COMPUTATIONAL_ACCELERATION": 14,
+      "CONTAMINATION_REGISTRY": 9,
+      "CONTROLLED_LEARNING": 8,
+      "COUNTERFACTUAL_LAB": 10,
+      "CROSS_CUTTING_GOVERNANCE": 75,
+      "DEPENDENCE_AWARE_SAMPLING": 14,
+      "DETERMINISTIC_REPLAY": 16,
+      "DRIFT": 9,
+      "EVIDENCE_PROVENANCE": 16,
+      "EXPERIENCE_COVERAGE": 17,
+      "FAILURE_SURPRISE_ABSTENTION": 18,
+      "FORWARD_SHADOW": 25,
+      "HISTORICAL_EVENT_STORE": 13,
+      "LEARNING_VALUE": 7,
+      "MARKET_TIME_MACHINE": 11,
+      "OUTCOME_FACTORY": 21,
+      "OUTCOME_QUALITY": 8,
+      "POINT_IN_TIME_RECONSTRUCTION": 18,
+      "PUBLIC_EVIDENCE": 19,
+      "QUALITY_GOVERNANCE": 13,
+      "REGIME_INTELLIGENCE": 17,
+      "REPLAY_FIDELITY": 13,
+      "REPRODUCIBILITY": 14,
+      "RETENTION_POLICY": 12,
+      "SOURCE_QUALITY": 14,
+      "SOURCE_RIGHTS": 11,
+      "TEMPORAL_LEAKAGE_FIREWALL": 11,
+      "USER_BEHAVIORAL_LEARNING": 9,
+      "WALK_FORWARD_VALIDATION": 10
+    },
+    "arithmetic_reconciliation": {
+      "explicitly_listed_partial_distribution_sum": 223,
+      "explicitly_listed_partial_owners": {
+        "CROSS_CUTTING_GOVERNANCE": 75,
+        "FORWARD_SHADOW": 25,
+        "OUTCOME_FACTORY": 21,
+        "FAILURE_SURPRISE_ABSTENTION": 18,
+        "POINT_IN_TIME_RECONSTRUCTION": 18,
+        "EXPERIENCE_COVERAGE": 17,
+        "REGIME_INTELLIGENCE": 17,
+        "DETERMINISTIC_REPLAY": 16,
+        "EVIDENCE_PROVENANCE": 16
+      },
+      "report_summary_remainder_claimed": 234,
+      "report_summary_remainder_actual": 232,
+      "report_summary_total_claimed": 457,
+      "registry_total_actual": 455,
+      "delta_report_vs_registry": 2,
+      "explanation": "The prior Phase 0F report prose used a truncated top-9 owner list (sum=223) and incorrectly labeled the remaining 21 owners as 234. The correct remainder is 232 (455-223=232). The registry owned_requirement_ids sets sum to 455 with zero duplicates and zero missing active requirements. The discrepancy is confined to report-summary arithmetic; the registry counts are internally consistent."
+    },
+    "discrepancy_classification": "REPORT_SUMMARY_ARITHMETIC_ERROR"
+  },
+  "check_2_canonical_truth_flow_ordering": {
+    "governing_spec_authority": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md §2 System Architecture",
+    "governing_truth_flow": [
+      "Raw Historical + Live Feeds",
+      "Canonical Historical/Event Store",
+      "Point-in-Time Reconstruction",
+      "Temporal Leakage Firewall",
+      "Feature/Derived Intelligence Layer",
+      "Deterministic Mass Replay",
+      "Signal / Prediction / Decision",
+      "Automated Outcome Factory",
+      "Evidence Provenance Ledger",
+      "Failure / Surprise / Abstention Corpus",
+      "Regime Intelligence",
+      "Learning Value Prioritization",
+      "Champion / Challenger Evaluation",
+      "Forward Shadow Reality Anchor",
+      "Promotion / Rejection / Recalibration",
+      "Continuous Evidence Accumulation"
+    ],
+    "core_owner_mapping_to_governing_stages": {
+      "HISTORICAL_EVENT_STORE": "Canonical Historical/Event Store",
+      "POINT_IN_TIME_RECONSTRUCTION": "Point-in-Time Reconstruction",
+      "TEMPORAL_LEAKAGE_FIREWALL": "Temporal Leakage Firewall",
+      "DETERMINISTIC_REPLAY": "Deterministic Mass Replay"
+    },
+    "intermediate_feature_derived_intelligence_stage": {
+      "governing_stage": "Feature/Derived Intelligence Layer",
+      "canonical_owner_domain_in_rtm": null,
+      "ownership_delegation_in_registry": "Feature path (Raw → Normalized → Entity/Event → Feature → Signal) is owned under HISTORICAL_EVENT_STORE responsibilities; temporally valid feature consumption at replay boundary is owned under DETERMINISTIC_REPLAY without claiming upstream event-store authority.",
+      "governed_by_requirements": [
+        "TEMP-AR-0014 (architecture sequence includes Feature/Derived Intelligence Layer)",
+        "TEMP-AR-0048 (canonical path Raw → Normalized → Entity/Event → Feature → Signal under HISTORICAL_EVENT_STORE)",
+        "TEMP-AR-0057 (replay decision path includes Feature State under DETERMINISTIC_REPLAY)"
+      ]
+    },
+    "registry_truth_flow_positions_for_core_owners": {
+      "HISTORICAL_EVENT_STORE": 3,
+      "POINT_IN_TIME_RECONSTRUCTION": 4,
+      "TEMPORAL_LEAKAGE_FIREWALL": 5,
+      "DETERMINISTIC_REPLAY": 7
+    },
+    "registry_interposed_owner_between_firewall_and_replay": "REPRODUCIBILITY (index 6; cross-cutting manifest binding, not an authority inversion over the four core truth owners)",
+    "ownership_registry_truth_flow_match": true,
+    "authority_order_inversion_count": 0,
+    "authority_order_inversion_details": [],
+    "missing_required_handoffs": 0,
+    "handoff_verification_for_core_path": [
+      {
+        "source_owner": "HISTORICAL_EVENT_STORE",
+        "destination_owner": "POINT_IN_TIME_RECONSTRUCTION",
+        "present_in_registry": true
+      },
+      {
+        "source_owner": "POINT_IN_TIME_RECONSTRUCTION",
+        "destination_owner": "TEMPORAL_LEAKAGE_FIREWALL",
+        "present_in_registry": true
+      },
+      {
+        "source_owner": "TEMPORAL_LEAKAGE_FIREWALL",
+        "destination_owner": "DETERMINISTIC_REPLAY",
+        "present_in_registry": true
+      }
+    ],
+    "feature_derived_intelligence_handoff_assessment": "No separate canonical owner domain exists in the accepted RTM for Feature/Derived Intelligence Layer. The registry correctly preserves authority by assigning feature-path truth to HISTORICAL_EVENT_STORE and replay-path consumption to DETERMINISTIC_REPLAY while maintaining TLF enforcement between PIT reconstruction and replay access. This is a decomposition of the governed intermediate stage, not an authority inversion.",
+    "report_prose_only_mismatch": true,
+    "ownership_registry_defect": false
+  },
+  "acceptance_assertions": {
+    "CANONICAL_OWNER_COUNT": 30,
+    "CANONICAL_OWNER_REQUIREMENT_TOTAL": 455,
+    "OWNER_DISTRIBUTION_SUM": 455,
+    "ACTIVE_REQUIREMENTS_MISSING_FROM_OWNERSHIP": 0,
+    "DUPLICATE_PRIMARY_OWNERSHIP_ASSIGNMENTS": 0,
+    "OWNERSHIP_REGISTRY_TRUTH_FLOW_MATCH": true,
+    "AUTHORITY_ORDER_INVERSION_COUNT": 0,
+    "MISSING_REQUIRED_HANDOFFS": 0,
+    "UNEXPECTED_CHANGED_FILES": 0
+  },
+  "final_disposition": "PASS",
+  "PHASE_0F_TARGETED_CONSISTENCY_AUDIT_COMPLETE": true
+}

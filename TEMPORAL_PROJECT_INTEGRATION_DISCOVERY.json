@@ -1,0 +1,2477 @@
+{
+  "phase": "0G",
+  "phase_name": "Temporal Project Integration Discovery",
+  "discovered_at_utc": "2026-09-14T07:34:34Z",
+  "branch": "cursor/temporal-phase-0-clean-reanchor-358c",
+  "repository_scope": "current active branch tree only",
+  "inputs": {
+    "atomic_artifact": "TEMPORAL_ATOMIC_REQUIREMENTS.json",
+    "rtm_artifact": "TEMPORAL_REQUIREMENTS_TRACEABILITY_MATRIX.json",
+    "ownership_registry": "TEMPORAL_CANONICAL_OWNERSHIP_REGISTRY.json",
+    "phase_0f_audit": "TEMPORAL_PHASE_0F_TARGETED_CONSISTENCY_AUDIT.json"
+  },
+  "preconditions": {
+    "atomic_requirements_total": 455,
+    "canonical_owner_count": 30,
+    "phase_0f_targeted_audit_disposition": "PASS",
+    "preconditions_pass": true
+  },
+  "candidate_count": 88,
+  "candidates": [
+    {
+      "candidate_id": "CAND-001",
+      "path": "production_guard.py",
+      "object_type": "SERVICE",
+      "symbol_or_component": "evaluate_production_guard",
+      "candidate_owner_domains": [
+        "CROSS_CUTTING_GOVERNANCE",
+        "QUALITY_GOVERNANCE"
+      ],
+      "relationship_type": "SECURITY_OR_POLICY_DEPENDENCY",
+      "evidence_basis": "Cross-product launch guard catalog; imported by startup paths; tests/test_production_guard.py",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-002",
+      "path": "zero_tolerance.py",
+      "object_type": "SERVICE",
+      "symbol_or_component": "apply_zero_tolerance",
+      "candidate_owner_domains": [
+        "CROSS_CUTTING_GOVERNANCE",
+        "QUALITY_GOVERNANCE"
+      ],
+      "relationship_type": "SECURITY_OR_POLICY_DEPENDENCY",
+      "evidence_basis": "Seven-defect institutional law wired to freshness/provenance/oracle surfaces",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-003",
+      "path": "rvm/run.py",
+      "object_type": "PIPELINE",
+      "symbol_or_component": "run_rvm",
+      "candidate_owner_domains": [
+        "CROSS_CUTTING_GOVERNANCE",
+        "QUALITY_GOVERNANCE",
+        "REPRODUCIBILITY"
+      ],
+      "relationship_type": "EVIDENCE_SOURCE",
+      "evidence_basis": "Requirements verification matrix runner; api/routers/rvm.py mounted in dashboard.py",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-004",
+      "path": "startup_orchestrator.py",
+      "object_type": "BACKGROUND_JOB",
+      "symbol_or_component": "run_background_startup",
+      "candidate_owner_domains": [
+        "COMPUTATIONAL_ACCELERATION",
+        "CROSS_CUTTING_GOVERNANCE"
+      ],
+      "relationship_type": "SHARED_INFRASTRUCTURE",
+      "evidence_basis": "Boot orchestration for storage tiers, hot pipeline, retention hooks",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": false,
+      "documentation_reference_only": false,
+      "confidence": "medium",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-010",
+      "path": "data_sources_registry.py",
+      "object_type": "CONFIGURATION",
+      "symbol_or_component": "DataSourceSpec",
+      "candidate_owner_domains": [
+        "SOURCE_RIGHTS"
+      ],
+      "relationship_type": "UPSTREAM_PROVIDER",
+      "evidence_basis": "Source identity/category registry consumed by cap646/data_spine.py imports",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-011",
+      "path": "platform_universe.py",
+      "object_type": "SERVICE",
+      "symbol_or_component": "load_registry",
+      "candidate_owner_domains": [
+        "EXPERIENCE_COVERAGE",
+        "SOURCE_QUALITY",
+        "SOURCE_RIGHTS"
+      ],
+      "relationship_type": "UPSTREAM_PROVIDER",
+      "evidence_basis": "Exchange/asset manifest with ingestion_ready status; provenance scoring input",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-012",
+      "path": "blackdark/data/models.py",
+      "object_type": "SCHEMA_OR_MODEL",
+      "symbol_or_component": "DataSource",
+      "candidate_owner_domains": [
+        "HISTORICAL_EVENT_STORE",
+        "SOURCE_RIGHTS"
+      ],
+      "relationship_type": "UPSTREAM_PROVIDER",
+      "evidence_basis": "Postgres data_sources model with metadata_json; repository.py CRUD",
+      "direct_dependency": null,
+      "runtime_reachable": false,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": "Runtime reachable when DATABASE_URL configured"
+    },
+    {
+      "candidate_id": "CAND-013",
+      "path": "billing/plan_registry.py",
+      "object_type": "CONFIGURATION",
+      "symbol_or_component": "PLAN_DEFINITIONS",
+      "candidate_owner_domains": [
+        "SOURCE_RIGHTS"
+      ],
+      "relationship_type": "SECURITY_OR_POLICY_DEPENDENCY",
+      "evidence_basis": "Entitlement scope ties capability usage rights to subscription plans",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-020",
+      "path": "blackdark/data/response_metadata.py",
+      "object_type": "SERVICE",
+      "symbol_or_component": "resolve_data_state",
+      "candidate_owner_domains": [
+        "SOURCE_QUALITY"
+      ],
+      "relationship_type": "UPSTREAM_PROVIDER",
+      "evidence_basis": "LIVE/MISSING/STALE/UNKNOWN state resolution used by blackdark/data/api.py",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-021",
+      "path": "data_freshness.py",
+      "object_type": "SERVICE",
+      "symbol_or_component": "attach_oracle_freshness",
+      "candidate_owner_domains": [
+        "SOURCE_QUALITY"
+      ],
+      "relationship_type": "UPSTREAM_PROVIDER",
+      "evidence_basis": "Freshness timestamps on oracle outputs; tests/test_brand_coverage_radical_closure.py",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-022",
+      "path": "stale_price_guard.py",
+      "object_type": "SERVICE",
+      "symbol_or_component": "validate_venue_quote",
+      "candidate_owner_domains": [
+        "SOURCE_QUALITY",
+        "TEMPORAL_LEAKAGE_FIREWALL"
+      ],
+      "relationship_type": "SECURITY_OR_POLICY_DEPENDENCY",
+      "evidence_basis": "Imported by cap646/data_spine.py; rejects stale venue quotes",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-023",
+      "path": "blackdark/data/circuit_breaker.py",
+      "object_type": "SERVICE",
+      "symbol_or_component": "is_open",
+      "candidate_owner_domains": [
+        "SOURCE_QUALITY"
+      ],
+      "relationship_type": "SHARED_INFRASTRUCTURE",
+      "evidence_basis": "Upstream failure forces UNKNOWN data state in response_metadata chain",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-030",
+      "path": "blackdark/data/repository.py",
+      "object_type": "REPOSITORY_OR_STORAGE",
+      "symbol_or_component": "insert_market_event",
+      "candidate_owner_domains": [
+        "EVIDENCE_PROVENANCE",
+        "HISTORICAL_EVENT_STORE",
+        "OUTCOME_FACTORY"
+      ],
+      "relationship_type": "POSSIBLE_CANONICAL_IMPLEMENTATION",
+      "evidence_basis": "Canonical ingestion runs, market events, signals, outcomes, evidence CRUD",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-031",
+      "path": "blackdark/data/migrations/006_market_events.sql",
+      "object_type": "SCHEMA_OR_MODEL",
+      "symbol_or_component": "market_events",
+      "candidate_owner_domains": [
+        "HISTORICAL_EVENT_STORE"
+      ],
+      "relationship_type": "POSSIBLE_CANONICAL_IMPLEMENTATION",
+      "evidence_basis": "SQL schema for market_events table aligned with systems_api MarketEventCreate",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-032",
+      "path": "blackdark/data/provenance.py",
+      "object_type": "SERVICE",
+      "symbol_or_component": "record_provenance",
+      "candidate_owner_domains": [
+        "EVIDENCE_PROVENANCE",
+        "HISTORICAL_EVENT_STORE",
+        "REPRODUCIBILITY"
+      ],
+      "relationship_type": "UPSTREAM_PROVIDER",
+      "evidence_basis": "Raw-response lineage per ingestion run; imported by systems_api.py",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-033",
+      "path": "blackdark/canonical/store.py",
+      "object_type": "REPOSITORY_OR_STORAGE",
+      "symbol_or_component": "canonical_records",
+      "candidate_owner_domains": [
+        "HISTORICAL_EVENT_STORE"
+      ],
+      "relationship_type": "POSSIBLE_CANONICAL_IMPLEMENTATION",
+      "evidence_basis": "Normalized entity records per canonical asset path Raw\u2192Feature chain",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-034",
+      "path": "parquet_compactor.py",
+      "object_type": "PIPELINE",
+      "symbol_or_component": "compact_historical_data",
+      "candidate_owner_domains": [
+        "COMPUTATIONAL_ACCELERATION",
+        "HISTORICAL_EVENT_STORE",
+        "MARKET_TIME_MACHINE"
+      ],
+      "relationship_type": "SHARED_INFRASTRUCTURE",
+      "evidence_basis": "NDJSON\u2192Parquet warm-tier persistence; scheduler integration",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": false,
+      "documentation_reference_only": false,
+      "confidence": "medium",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-035",
+      "path": "blackdark/ingestion/coingecko_connector.py",
+      "object_type": "PIPELINE",
+      "symbol_or_component": "run_coingecko_primary_ingest",
+      "candidate_owner_domains": [
+        "HISTORICAL_EVENT_STORE",
+        "SOURCE_RIGHTS"
+      ],
+      "relationship_type": "UPSTREAM_PROVIDER",
+      "evidence_basis": "External feed ingestion into data engine pipeline",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-040",
+      "path": "hot_tier_reader.py",
+      "object_type": "SERVICE",
+      "symbol_or_component": "fetch_recent_closes",
+      "candidate_owner_domains": [
+        "MARKET_TIME_MACHINE",
+        "POINT_IN_TIME_RECONSTRUCTION"
+      ],
+      "relationship_type": "POSSIBLE_CANONICAL_IMPLEMENTATION",
+      "evidence_basis": "As-of recent price reads from Timescale/NDJSON hot tier",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-041",
+      "path": "since_you_left.py",
+      "object_type": "SERVICE",
+      "symbol_or_component": "capture_market_snapshot",
+      "candidate_owner_domains": [
+        "MARKET_TIME_MACHINE",
+        "POINT_IN_TIME_RECONSTRUCTION"
+      ],
+      "relationship_type": "POSSIBLE_CANONICAL_IMPLEMENTATION",
+      "evidence_basis": "Docstring references point-in-time facts; delta reconstruction for user sessions",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-042",
+      "path": "cap646/batch02_dedicated.py",
+      "object_type": "SERVICE",
+      "symbol_or_component": "point_in_time_immutable_metrics",
+      "candidate_owner_domains": [
+        "MARKET_TIME_MACHINE",
+        "POINT_IN_TIME_RECONSTRUCTION"
+      ],
+      "relationship_type": "POSSIBLE_CANONICAL_IMPLEMENTATION",
+      "evidence_basis": "Explicit PIT payload; tests/cap646/test_batch02_dedicated.py",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-043",
+      "path": "ml/market_replay_bootstrap.py",
+      "object_type": "SERVICE",
+      "symbol_or_component": "_feature_vector_from_closes",
+      "candidate_owner_domains": [
+        "DETERMINISTIC_REPLAY",
+        "POINT_IN_TIME_RECONSTRUCTION"
+      ],
+      "relationship_type": "UPSTREAM_PROVIDER",
+      "evidence_basis": "Features from past closes only; tests/test_flywheel_bootstrap.py",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-050",
+      "path": "ml/training_utils.py",
+      "object_type": "PYTHON_MODULE",
+      "symbol_or_component": "temporal_train_test_split",
+      "candidate_owner_domains": [
+        "CONTAMINATION_REGISTRY",
+        "TEMPORAL_LEAKAGE_FIREWALL",
+        "WALK_FORWARD_VALIDATION"
+      ],
+      "relationship_type": "SECURITY_OR_POLICY_DEPENDENCY",
+      "evidence_basis": "LEAKAGE_GUARD_NOTE; excludes label-leaking features; chronological split; imported by ml/train_*.py",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-051",
+      "path": "oracle_integrity.py",
+      "object_type": "SERVICE",
+      "symbol_or_component": "filter_live_predictions",
+      "candidate_owner_domains": [
+        "CONTAMINATION_REGISTRY",
+        "TEMPORAL_LEAKAGE_FIREWALL"
+      ],
+      "relationship_type": "SECURITY_OR_POLICY_DEPENDENCY",
+      "evidence_basis": "Blocks historical_seed synthetic sources from live metrics/training",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-052",
+      "path": "data_moat_guard.py",
+      "object_type": "SERVICE",
+      "symbol_or_component": "validate_prediction_insert",
+      "candidate_owner_domains": [
+        "CONTAMINATION_REGISTRY",
+        "CONTROLLED_LEARNING",
+        "TEMPORAL_LEAKAGE_FIREWALL"
+      ],
+      "relationship_type": "SECURITY_OR_POLICY_DEPENDENCY",
+      "evidence_basis": "Production blocks synthetic seed; tests/test_ml_integrity.py",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-053",
+      "path": "org_tenant.py",
+      "object_type": "SERVICE",
+      "symbol_or_component": "scoped_key",
+      "candidate_owner_domains": [
+        "TEMPORAL_LEAKAGE_FIREWALL"
+      ],
+      "relationship_type": "SECURITY_OR_POLICY_DEPENDENCY",
+      "evidence_basis": "Cross-tenant namespace isolation preventing data leakage",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": false,
+      "documentation_reference_only": false,
+      "confidence": "medium",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-060",
+      "path": "cap978/evidence_room.py",
+      "object_type": "EVIDENCE_ARTIFACT",
+      "symbol_or_component": "build_evidence_room_snapshot",
+      "candidate_owner_domains": [
+        "PUBLIC_EVIDENCE",
+        "REPRODUCIBILITY"
+      ],
+      "relationship_type": "EVIDENCE_SOURCE",
+      "evidence_basis": "SHA256 reproducible DD snapshot; scripts/run_institutional_evidence_room.py",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-061",
+      "path": "rvm/build.py",
+      "object_type": "PIPELINE",
+      "symbol_or_component": "build_rvm_matrix",
+      "candidate_owner_domains": [
+        "QUALITY_GOVERNANCE",
+        "REPRODUCIBILITY"
+      ],
+      "relationship_type": "EVIDENCE_SOURCE",
+      "evidence_basis": "Deterministic requirements verification matrix construction",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-062",
+      "path": "compounding_common.py",
+      "object_type": "DATA_CONTRACT",
+      "symbol_or_component": "row_signature",
+      "candidate_owner_domains": [
+        "EVIDENCE_PROVENANCE",
+        "REPRODUCIBILITY"
+      ],
+      "relationship_type": "SHARED_INFRASTRUCTURE",
+      "evidence_basis": "HMAC-signed learning rows for tamper-evident replay",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-063",
+      "path": "corpus_passport.py",
+      "object_type": "EVIDENCE_ARTIFACT",
+      "symbol_or_component": "build_corpus_passport",
+      "candidate_owner_domains": [
+        "EXPERIENCE_COVERAGE",
+        "REPRODUCIBILITY"
+      ],
+      "relationship_type": "EVIDENCE_SOURCE",
+      "evidence_basis": "Flywheel reproducibility card exposed via API routes",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-070",
+      "path": "contradiction_replay.py",
+      "object_type": "SERVICE",
+      "symbol_or_component": "build_contradiction_replay",
+      "candidate_owner_domains": [
+        "DETERMINISTIC_REPLAY",
+        "FAILURE_SURPRISE_ABSTENTION",
+        "REPLAY_FIDELITY"
+      ],
+      "relationship_type": "POSSIBLE_CANONICAL_IMPLEMENTATION",
+      "evidence_basis": "Decision conflict replay; trust_os_lenses route; tests/test_wow_unique_surfaces.py",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-071",
+      "path": "api/routers/oracle.py",
+      "object_type": "API_ROUTER",
+      "symbol_or_component": "ml_bootstrap_replay",
+      "candidate_owner_domains": [
+        "CONTROLLED_LEARNING",
+        "DETERMINISTIC_REPLAY",
+        "EXPERIENCE_COVERAGE"
+      ],
+      "relationship_type": "DOWNSTREAM_CONSUMER",
+      "evidence_basis": "Admin replay bootstrap endpoint importing ml/market_replay_bootstrap",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": "; merged discovery from CAND-190; merged discovery from CAND-220"
+    },
+    {
+      "candidate_id": "CAND-072",
+      "path": "signal_registry.py",
+      "object_type": "SERVICE",
+      "symbol_or_component": "register_signal",
+      "candidate_owner_domains": [
+        "DETERMINISTIC_REPLAY",
+        "EVIDENCE_PROVENANCE",
+        "REPLAY_FIDELITY"
+      ],
+      "relationship_type": "SHARED_INFRASTRUCTURE",
+      "evidence_basis": "Signal lexicon with asof timestamps and features_hash for replay traceability",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-073",
+      "path": "templates/contradiction_replay.html",
+      "object_type": "UI_SURFACE",
+      "symbol_or_component": "contradiction_replay_page",
+      "candidate_owner_domains": [
+        "DETERMINISTIC_REPLAY",
+        "PUBLIC_EVIDENCE"
+      ],
+      "relationship_type": "UI_CONSUMER",
+      "evidence_basis": "Hero replay surface routed from trust_os_lenses.py",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": false,
+      "documentation_reference_only": false,
+      "confidence": "medium",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-080",
+      "path": "blackdark/data/systems_api.py",
+      "object_type": "API_ROUTER",
+      "symbol_or_component": "evaluate_outcome",
+      "candidate_owner_domains": [
+        "HISTORICAL_EVENT_STORE",
+        "OUTCOME_FACTORY"
+      ],
+      "relationship_type": "POSSIBLE_CANONICAL_IMPLEMENTATION",
+      "evidence_basis": "Canonical outcome evaluation API; imports insert_outcome_evaluation from repository",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-081",
+      "path": "blackdark/data/migrations/014_de_outcome_evaluations.sql",
+      "object_type": "SCHEMA_OR_MODEL",
+      "symbol_or_component": "de_outcome_evaluations",
+      "candidate_owner_domains": [
+        "OUTCOME_FACTORY"
+      ],
+      "relationship_type": "POSSIBLE_CANONICAL_IMPLEMENTATION",
+      "evidence_basis": "Outcome record schema aligned with systems_api outcome endpoints",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-082",
+      "path": "ml/labeling_pipeline.py",
+      "object_type": "PIPELINE",
+      "symbol_or_component": "score_verdict_accuracy",
+      "candidate_owner_domains": [
+        "LEARNING_VALUE",
+        "OUTCOME_FACTORY",
+        "OUTCOME_QUALITY"
+      ],
+      "relationship_type": "POSSIBLE_CANONICAL_IMPLEMENTATION",
+      "evidence_basis": "Outcome labeling at horizons; tests/test_audit_critical_paths.py",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-083",
+      "path": "learning_compounding.py",
+      "object_type": "SERVICE",
+      "symbol_or_component": "record_outcome",
+      "candidate_owner_domains": [
+        "CONTROLLED_LEARNING",
+        "COUNTERFACTUAL_LAB",
+        "OUTCOME_FACTORY"
+      ],
+      "relationship_type": "DOWNSTREAM_CONSUMER",
+      "evidence_basis": "Signed outcome rows in learning_outcomes table",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-084",
+      "path": "oracle_track_record.py",
+      "object_type": "SERVICE",
+      "symbol_or_component": "on_prediction_created",
+      "candidate_owner_domains": [
+        "OUTCOME_FACTORY",
+        "OUTCOME_QUALITY",
+        "PUBLIC_EVIDENCE"
+      ],
+      "relationship_type": "DOWNSTREAM_CONSUMER",
+      "evidence_basis": "Oracle outcome accumulation; tests/test_oracle_track_record.py",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-090",
+      "path": "ml/public_accuracy.py",
+      "object_type": "SERVICE",
+      "symbol_or_component": "build_public_accuracy_payload",
+      "candidate_owner_domains": [
+        "OUTCOME_QUALITY",
+        "PUBLIC_EVIDENCE"
+      ],
+      "relationship_type": "DOWNSTREAM_CONSUMER",
+      "evidence_basis": "Separates live vs synthetic accuracy presentation",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-091",
+      "path": "net_edge_truth.py",
+      "object_type": "SERVICE",
+      "symbol_or_component": "compute_net_edge_truth",
+      "candidate_owner_domains": [
+        "FAILURE_SURPRISE_ABSTENTION",
+        "OUTCOME_QUALITY"
+      ],
+      "relationship_type": "SECURITY_OR_POLICY_DEPENDENCY",
+      "evidence_basis": "Outcome quality via net-edge veto gates",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-100",
+      "path": "cap646/evidence_class.py",
+      "object_type": "SERVICE",
+      "symbol_or_component": "infer_evidence_class",
+      "candidate_owner_domains": [
+        "CHAMPION_CHALLENGER",
+        "CONTAMINATION_REGISTRY",
+        "EVIDENCE_PROVENANCE",
+        "FORWARD_SHADOW"
+      ],
+      "relationship_type": "SHARED_INFRASTRUCTURE",
+      "evidence_basis": "SHADOW_LIVE_FORWARD taxonomy; assert_promotion_allowed gates",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-101",
+      "path": "user_exposure_log.py",
+      "object_type": "REPOSITORY_OR_STORAGE",
+      "symbol_or_component": "record_user_exposure",
+      "candidate_owner_domains": [
+        "FORWARD_SHADOW",
+        "USER_BEHAVIORAL_LEARNING"
+      ],
+      "relationship_type": "POSSIBLE_CANONICAL_IMPLEMENTATION",
+      "evidence_basis": "Immutable forward exposure receipts for user attribution",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-102",
+      "path": "blackdark/data/migrations/012_de_prediction_ledger.sql",
+      "object_type": "SCHEMA_OR_MODEL",
+      "symbol_or_component": "de_prediction_ledger",
+      "candidate_owner_domains": [
+        "DETERMINISTIC_REPLAY",
+        "FORWARD_SHADOW"
+      ],
+      "relationship_type": "POSSIBLE_CANONICAL_IMPLEMENTATION",
+      "evidence_basis": "sealed_payload_hash and unlock_at for forward-sealed predictions",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-103",
+      "path": "api/routers/heroes.py",
+      "object_type": "API_ROUTER",
+      "symbol_or_component": "create_locked",
+      "candidate_owner_domains": [
+        "FORWARD_SHADOW",
+        "PUBLIC_EVIDENCE"
+      ],
+      "relationship_type": "UI_CONSUMER",
+      "evidence_basis": "Forward-sealed prediction surface mounted in dashboard.py",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-110",
+      "path": "blackdark/data/migrations/015_de_evidence_store.sql",
+      "object_type": "SCHEMA_OR_MODEL",
+      "symbol_or_component": "de_evidence_store",
+      "candidate_owner_domains": [
+        "EVIDENCE_PROVENANCE"
+      ],
+      "relationship_type": "POSSIBLE_CANONICAL_IMPLEMENTATION",
+      "evidence_basis": "Immutable evidence payload store schema",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-111",
+      "path": "data_provenance_score.py",
+      "object_type": "SERVICE",
+      "symbol_or_component": "attach_provenance",
+      "candidate_owner_domains": [
+        "EVIDENCE_PROVENANCE",
+        "SOURCE_QUALITY"
+      ],
+      "relationship_type": "UPSTREAM_PROVIDER",
+      "evidence_basis": "Decision-grade provenance scoring attached to oracle outputs",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-112",
+      "path": "audit_registry.py",
+      "object_type": "REPOSITORY_OR_STORAGE",
+      "symbol_or_component": "sign_record",
+      "candidate_owner_domains": [
+        "CROSS_CUTTING_GOVERNANCE",
+        "EVIDENCE_PROVENANCE"
+      ],
+      "relationship_type": "POSSIBLE_CANONICAL_IMPLEMENTATION",
+      "evidence_basis": "HMAC audit chain; tests/test_phase01_audit_registry.py",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-120",
+      "path": "failure_corpus.py",
+      "object_type": "REPOSITORY_OR_STORAGE",
+      "symbol_or_component": "record_failure",
+      "candidate_owner_domains": [
+        "FAILURE_SURPRISE_ABSTENTION"
+      ],
+      "relationship_type": "POSSIBLE_CANONICAL_IMPLEMENTATION",
+      "evidence_basis": "Unified failure registry for vetoes, OOD, provenance downgrades",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-121",
+      "path": "kill_rate_board.py",
+      "object_type": "SERVICE",
+      "symbol_or_component": "build_kill_rate_board",
+      "candidate_owner_domains": [
+        "FAILURE_SURPRISE_ABSTENTION",
+        "PUBLIC_EVIDENCE"
+      ],
+      "relationship_type": "UI_CONSUMER",
+      "evidence_basis": "Truth veto/abstention metrics surface via trust_os_lenses",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-122",
+      "path": "public_miss_feed.py",
+      "object_type": "SERVICE",
+      "symbol_or_component": "build_public_miss_feed",
+      "candidate_owner_domains": [
+        "FAILURE_SURPRISE_ABSTENTION",
+        "PUBLIC_EVIDENCE"
+      ],
+      "relationship_type": "EVIDENCE_SOURCE",
+      "evidence_basis": "Published misses as surprise corpus surface",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-130",
+      "path": "ml/regime_models.py",
+      "object_type": "SERVICE",
+      "symbol_or_component": "load_regime_predictor",
+      "candidate_owner_domains": [
+        "REGIME_INTELLIGENCE"
+      ],
+      "relationship_type": "POSSIBLE_CANONICAL_IMPLEMENTATION",
+      "evidence_basis": "Per-regime model registry; tests/test_regime_models.py",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-131",
+      "path": "ml/regime_router.py",
+      "object_type": "SERVICE",
+      "symbol_or_component": "predict_direction_regime_aware",
+      "candidate_owner_domains": [
+        "CHAMPION_CHALLENGER",
+        "REGIME_INTELLIGENCE"
+      ],
+      "relationship_type": "POSSIBLE_CANONICAL_IMPLEMENTATION",
+      "evidence_basis": "Routes oracle predictions by regime artifact selection",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-132",
+      "path": "weight_aggregator.py",
+      "object_type": "SERVICE",
+      "symbol_or_component": "detect_market_regime",
+      "candidate_owner_domains": [
+        "DRIFT",
+        "REGIME_INTELLIGENCE"
+      ],
+      "relationship_type": "UPSTREAM_PROVIDER",
+      "evidence_basis": "Regime classification for dimension tilting",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-133",
+      "path": "d5_regime_honesty.py",
+      "object_type": "UI_SURFACE",
+      "symbol_or_component": "build_d5_honesty_board",
+      "candidate_owner_domains": [
+        "PUBLIC_EVIDENCE",
+        "REGIME_INTELLIGENCE"
+      ],
+      "relationship_type": "UI_CONSUMER",
+      "evidence_basis": "Regime disclosure trust surface",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": false,
+      "documentation_reference_only": false,
+      "confidence": "medium",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-140",
+      "path": "storage_tier_manager.py",
+      "object_type": "SERVICE",
+      "symbol_or_component": "enforce_market_data_retention",
+      "candidate_owner_domains": [
+        "COMPUTATIONAL_ACCELERATION",
+        "RETENTION_POLICY"
+      ],
+      "relationship_type": "SHARED_INFRASTRUCTURE",
+      "evidence_basis": "Multi-tier retention enforcement; startup_orchestrator hooks",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-141",
+      "path": "gdpr_service.py",
+      "object_type": "SERVICE",
+      "symbol_or_component": "erase_user_data",
+      "candidate_owner_domains": [
+        "RETENTION_POLICY",
+        "SOURCE_RIGHTS"
+      ],
+      "relationship_type": "SECURITY_OR_POLICY_DEPENDENCY",
+      "evidence_basis": "Privacy retention/deletion policy implementation",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-142",
+      "path": "config.py",
+      "object_type": "CONFIGURATION",
+      "symbol_or_component": "HOT_TIER_RETENTION_HOURS",
+      "candidate_owner_domains": [
+        "RETENTION_POLICY"
+      ],
+      "relationship_type": "SHARED_INFRASTRUCTURE",
+      "evidence_basis": "Retention policy constants referenced by storage_tier_manager",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": false,
+      "documentation_reference_only": false,
+      "confidence": "medium",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-150",
+      "path": "flywheel_saturation_guard.py",
+      "object_type": "SERVICE",
+      "symbol_or_component": "crowd_adjusted_rewalk",
+      "candidate_owner_domains": [
+        "DEPENDENCE_AWARE_SAMPLING"
+      ],
+      "relationship_type": "POSSIBLE_CANONICAL_IMPLEMENTATION",
+      "evidence_basis": "Dependence-aware crowd depletion on opportunities",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-151",
+      "path": "signal_compounding.py",
+      "object_type": "SERVICE",
+      "symbol_or_component": "signal_correlate",
+      "candidate_owner_domains": [
+        "DEPENDENCE_AWARE_SAMPLING",
+        "LEARNING_VALUE"
+      ],
+      "relationship_type": "UPSTREAM_PROVIDER",
+      "evidence_basis": "Cross-signal dependence analysis for compounding",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-160",
+      "path": "ml/train_baseline.py",
+      "object_type": "PIPELINE",
+      "symbol_or_component": "train_oracle_direction_model",
+      "candidate_owner_domains": [
+        "CONTROLLED_LEARNING",
+        "WALK_FORWARD_VALIDATION"
+      ],
+      "relationship_type": "TEST_SURFACE",
+      "evidence_basis": "Uses temporal_train_test_split from training_utils; tests/test_ml_integrity.py",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-161",
+      "path": "ml/train_ensemble.py",
+      "object_type": "PIPELINE",
+      "symbol_or_component": "train_ensemble",
+      "candidate_owner_domains": [
+        "CONTROLLED_LEARNING",
+        "WALK_FORWARD_VALIDATION"
+      ],
+      "relationship_type": "TEST_SURFACE",
+      "evidence_basis": "Imports temporal_train_test_split for chronological hold-out",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-170",
+      "path": "api/routers/compounding.py",
+      "object_type": "API_ROUTER",
+      "symbol_or_component": "/api/learning/*",
+      "candidate_owner_domains": [
+        "CONTROLLED_LEARNING",
+        "COUNTERFACTUAL_LAB",
+        "LEARNING_VALUE",
+        "USER_BEHAVIORAL_LEARNING"
+      ],
+      "relationship_type": "DOWNSTREAM_CONSUMER",
+      "evidence_basis": "Learning API mounted in dashboard.py; tests/test_institutional_compounding.py",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-171",
+      "path": "trust_compounding.py",
+      "object_type": "SERVICE",
+      "symbol_or_component": "trust_os_enhanced",
+      "candidate_owner_domains": [
+        "LEARNING_VALUE"
+      ],
+      "relationship_type": "DOWNSTREAM_CONSUMER",
+      "evidence_basis": "Surfaces learning registry outcomes count",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-180",
+      "path": "tests/test_security_trust_data_batch242_261.py",
+      "object_type": "TEST",
+      "symbol_or_component": "build_contradiction_replay_254",
+      "candidate_owner_domains": [
+        "DETERMINISTIC_REPLAY",
+        "REPLAY_FIDELITY"
+      ],
+      "relationship_type": "TEST_SURFACE",
+      "evidence_basis": "Replay fidelity contract test anchor",
+      "direct_dependency": null,
+      "runtime_reachable": false,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-200",
+      "path": "tests/test_ml_integrity.py",
+      "object_type": "TEST",
+      "symbol_or_component": "test_is_synthetic_prediction",
+      "candidate_owner_domains": [
+        "CONTAMINATION_REGISTRY",
+        "TEMPORAL_LEAKAGE_FIREWALL"
+      ],
+      "relationship_type": "TEST_SURFACE",
+      "evidence_basis": "Tests synthetic seed blocking and leakage guard contracts",
+      "direct_dependency": null,
+      "runtime_reachable": false,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-210",
+      "path": "ml/drift_monitor.py",
+      "object_type": "SERVICE",
+      "symbol_or_component": "enforce_drift_actions",
+      "candidate_owner_domains": [
+        "DRIFT",
+        "FAILURE_SURPRISE_ABSTENTION"
+      ],
+      "relationship_type": "POSSIBLE_CANONICAL_IMPLEMENTATION",
+      "evidence_basis": "OOD scoring and fail-closed freeze; tests/test_dec_autonomous_closure.py",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-211",
+      "path": "tests/test_latency_drift_fix.py",
+      "object_type": "TEST",
+      "symbol_or_component": "test_enforce_drift_freezes_on_high_severity",
+      "candidate_owner_domains": [
+        "DRIFT"
+      ],
+      "relationship_type": "TEST_SURFACE",
+      "evidence_basis": "Contract tests for high-severity drift actions",
+      "direct_dependency": null,
+      "runtime_reachable": false,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-230",
+      "path": "sealed_desk_duel.py",
+      "object_type": "SERVICE",
+      "symbol_or_component": "create_duel",
+      "candidate_owner_domains": [
+        "CHAMPION_CHALLENGER"
+      ],
+      "relationship_type": "POSSIBLE_CANONICAL_IMPLEMENTATION",
+      "evidence_basis": "Challenger verdict pattern with promotion-like state transitions",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-240",
+      "path": "database.py",
+      "object_type": "SCHEMA_OR_MODEL",
+      "symbol_or_component": "counterfactual_log",
+      "candidate_owner_domains": [
+        "COUNTERFACTUAL_LAB"
+      ],
+      "relationship_type": "POSSIBLE_CANONICAL_IMPLEMENTATION",
+      "evidence_basis": "counterfactual_log table DDL; learning_compounding.py writes",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-250",
+      "path": "blackdark/data/api.py",
+      "object_type": "API_ROUTER",
+      "symbol_or_component": "get_ohlcv",
+      "candidate_owner_domains": [
+        "HISTORICAL_EVENT_STORE",
+        "MARKET_TIME_MACHINE"
+      ],
+      "relationship_type": "DOWNSTREAM_CONSUMER",
+      "evidence_basis": "Query-as-of time windows on canonical store; mounted in dashboard.py",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-260",
+      "path": "acquirer_evidence_pack.py",
+      "object_type": "EVIDENCE_ARTIFACT",
+      "symbol_or_component": "build_acquirer_evidence_pack",
+      "candidate_owner_domains": [
+        "PUBLIC_EVIDENCE"
+      ],
+      "relationship_type": "EVIDENCE_SOURCE",
+      "evidence_basis": "Whale/admin evidence pack builder",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-261",
+      "path": "trust_os_lenses.py",
+      "object_type": "UI_SURFACE",
+      "symbol_or_component": "lenses_manifest",
+      "candidate_owner_domains": [
+        "MARKET_TIME_MACHINE",
+        "PUBLIC_EVIDENCE"
+      ],
+      "relationship_type": "UI_CONSUMER",
+      "evidence_basis": "Routes /kill-rate, /contradiction-replay, /proof-arena evidence surfaces",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-262",
+      "path": "api/routers/observability.py",
+      "object_type": "API_ROUTER",
+      "symbol_or_component": "/api/due-diligence/evidence-pack",
+      "candidate_owner_domains": [
+        "PUBLIC_EVIDENCE"
+      ],
+      "relationship_type": "EVIDENCE_SOURCE",
+      "evidence_basis": "DD evidence publication endpoint mounted in dashboard.py",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-270",
+      "path": "behavior_data_service.py",
+      "object_type": "SERVICE",
+      "symbol_or_component": "record_behavior_event",
+      "candidate_owner_domains": [
+        "USER_BEHAVIORAL_LEARNING"
+      ],
+      "relationship_type": "POSSIBLE_CANONICAL_IMPLEMENTATION",
+      "evidence_basis": "Oracle usage, funnel, feature adoption behavioral events",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-280",
+      "path": "hot_storage.py",
+      "object_type": "SERVICE",
+      "symbol_or_component": "hot_pipeline",
+      "candidate_owner_domains": [
+        "COMPUTATIONAL_ACCELERATION",
+        "HISTORICAL_EVENT_STORE"
+      ],
+      "relationship_type": "SHARED_INFRASTRUCTURE",
+      "evidence_basis": "Sub-second live reads Tier-0 acceleration",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-281",
+      "path": "cap646/parallel_invoke.py",
+      "object_type": "SERVICE",
+      "symbol_or_component": "invoke_inventory_backend",
+      "candidate_owner_domains": [
+        "COMPUTATIONAL_ACCELERATION"
+      ],
+      "relationship_type": "SHARED_INFRASTRUCTURE",
+      "evidence_basis": "Parallel capability execution without altering truth path",
+      "direct_dependency": null,
+      "runtime_reachable": false,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-282",
+      "path": "live_book_hub.py",
+      "object_type": "SERVICE",
+      "symbol_or_component": "get_live_books_if_fresh",
+      "candidate_owner_domains": [
+        "COMPUTATIONAL_ACCELERATION",
+        "SOURCE_QUALITY"
+      ],
+      "relationship_type": "SHARED_INFRASTRUCTURE",
+      "evidence_basis": "Low-latency price access hub",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-283",
+      "path": "microservices/worker_app.py",
+      "object_type": "BACKGROUND_JOB",
+      "symbol_or_component": "worker_app",
+      "candidate_owner_domains": [
+        "COMPUTATIONAL_ACCELERATION"
+      ],
+      "relationship_type": "SHARED_INFRASTRUCTURE",
+      "evidence_basis": "Offloaded background compute worker",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": false,
+      "documentation_reference_only": false,
+      "confidence": "medium",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-290",
+      "path": "cap646/functional_dod.py",
+      "object_type": "SERVICE",
+      "symbol_or_component": "verify_functional",
+      "candidate_owner_domains": [
+        "QUALITY_GOVERNANCE"
+      ],
+      "relationship_type": "SECURITY_OR_POLICY_DEPENDENCY",
+      "evidence_basis": "Capability definition-of-done quality governance",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-291",
+      "path": "cap646/triple_closure.py",
+      "object_type": "PIPELINE",
+      "symbol_or_component": "triple_institutional_closure",
+      "candidate_owner_domains": [
+        "QUALITY_GOVERNANCE",
+        "REPRODUCIBILITY"
+      ],
+      "relationship_type": "EVIDENCE_SOURCE",
+      "evidence_basis": "Quality closure across cap646/978; tests/cap646/test_triple_closure.py",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-300",
+      "path": "cap646/data_spine.py",
+      "object_type": "SERVICE",
+      "symbol_or_component": "data_spine",
+      "candidate_owner_domains": [
+        "HISTORICAL_EVENT_STORE",
+        "SOURCE_QUALITY",
+        "SOURCE_RIGHTS"
+      ],
+      "relationship_type": "SHARED_INFRASTRUCTURE",
+      "evidence_basis": "Capability data spine importing data_sources_registry, stale_price_guard",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-301",
+      "path": "api/routers/cap646.py",
+      "object_type": "API_ROUTER",
+      "symbol_or_component": "cap646_router",
+      "candidate_owner_domains": [
+        "CROSS_CUTTING_GOVERNANCE"
+      ],
+      "relationship_type": "SHARED_INFRASTRUCTURE",
+      "evidence_basis": "Capability/playbook/explorer API mounted in dashboard.py",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-302",
+      "path": "api/routers/institutional.py",
+      "object_type": "API_ROUTER",
+      "symbol_or_component": "institutional_router",
+      "candidate_owner_domains": [
+        "PUBLIC_EVIDENCE",
+        "SOURCE_RIGHTS"
+      ],
+      "relationship_type": "UI_CONSUMER",
+      "evidence_basis": "B2B/institutional data room routes mounted in dashboard.py",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-303",
+      "path": "cap646/entitlements.py",
+      "object_type": "SERVICE",
+      "symbol_or_component": "tier_features",
+      "candidate_owner_domains": [
+        "CROSS_CUTTING_GOVERNANCE",
+        "SOURCE_RIGHTS"
+      ],
+      "relationship_type": "SECURITY_OR_POLICY_DEPENDENCY",
+      "evidence_basis": "Entitlement checks for capability access",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-304",
+      "path": "observability.py",
+      "object_type": "SERVICE",
+      "symbol_or_component": "observability_status",
+      "candidate_owner_domains": [
+        "CROSS_CUTTING_GOVERNANCE"
+      ],
+      "relationship_type": "SHARED_INFRASTRUCTURE",
+      "evidence_basis": "Observability core consumed by api/routers/observability.py",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-305",
+      "path": "ai_oracle.py",
+      "object_type": "SERVICE",
+      "symbol_or_component": "evaluate_opportunity",
+      "candidate_owner_domains": [
+        "DETERMINISTIC_REPLAY",
+        "EVIDENCE_PROVENANCE",
+        "OUTCOME_FACTORY"
+      ],
+      "relationship_type": "DOWNSTREAM_CONSUMER",
+      "evidence_basis": "Decision truth path consuming signals, provenance, outcomes",
+      "direct_dependency": null,
+      "runtime_reachable": true,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-306",
+      "path": "tests/test_wave_01_systems.py",
+      "object_type": "TEST",
+      "symbol_or_component": "test_systems_index_structure",
+      "candidate_owner_domains": [
+        "EVIDENCE_PROVENANCE",
+        "HISTORICAL_EVENT_STORE",
+        "OUTCOME_FACTORY"
+      ],
+      "relationship_type": "TEST_SURFACE",
+      "evidence_basis": "Integration tests for systems_api decision/outcome/evidence chain",
+      "direct_dependency": null,
+      "runtime_reachable": false,
+      "test_coverage_present": true,
+      "documentation_reference_only": false,
+      "confidence": "high",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-DOC-001",
+      "path": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+      "object_type": "OTHER_RELEVANT_COMPONENT",
+      "symbol_or_component": "governing_spec",
+      "candidate_owner_domains": [
+        "CROSS_CUTTING_GOVERNANCE"
+      ],
+      "relationship_type": "DOCUMENTATION_REFERENCE",
+      "evidence_basis": "Governing temporal specification; not runtime implementation",
+      "direct_dependency": null,
+      "runtime_reachable": false,
+      "test_coverage_present": false,
+      "documentation_reference_only": true,
+      "confidence": "medium",
+      "notes": null
+    },
+    {
+      "candidate_id": "CAND-DOC-002",
+      "path": "TEMPORAL_CANONICAL_OWNERSHIP_REGISTRY.json",
+      "object_type": "EVIDENCE_ARTIFACT",
+      "symbol_or_component": "ownership_registry",
+      "candidate_owner_domains": [
+        "CROSS_CUTTING_GOVERNANCE"
+      ],
+      "relationship_type": "DOCUMENTATION_REFERENCE",
+      "evidence_basis": "Phase 0F ownership contract artifact; not runtime code",
+      "direct_dependency": null,
+      "runtime_reachable": false,
+      "test_coverage_present": false,
+      "documentation_reference_only": true,
+      "confidence": "medium",
+      "notes": null
+    }
+  ],
+  "owner_coverage": [
+    {
+      "owner_id": "CHAMPION_CHALLENGER",
+      "candidate_component_ids": [
+        "CAND-100",
+        "CAND-131",
+        "CAND-230"
+      ],
+      "upstream_candidate_ids": [],
+      "downstream_candidate_ids": [],
+      "shared_infrastructure_ids": [
+        "CAND-100"
+      ],
+      "test_surface_ids": [],
+      "evidence_source_ids": [],
+      "discovery_notes": null
+    },
+    {
+      "owner_id": "COMPUTATIONAL_ACCELERATION",
+      "candidate_component_ids": [
+        "CAND-004",
+        "CAND-034",
+        "CAND-140",
+        "CAND-280",
+        "CAND-281",
+        "CAND-282",
+        "CAND-283"
+      ],
+      "upstream_candidate_ids": [],
+      "downstream_candidate_ids": [],
+      "shared_infrastructure_ids": [
+        "CAND-004",
+        "CAND-034",
+        "CAND-140",
+        "CAND-280",
+        "CAND-281",
+        "CAND-282",
+        "CAND-283"
+      ],
+      "test_surface_ids": [],
+      "evidence_source_ids": [],
+      "discovery_notes": null
+    },
+    {
+      "owner_id": "CONTAMINATION_REGISTRY",
+      "candidate_component_ids": [
+        "CAND-050",
+        "CAND-051",
+        "CAND-052",
+        "CAND-100",
+        "CAND-200"
+      ],
+      "upstream_candidate_ids": [],
+      "downstream_candidate_ids": [],
+      "shared_infrastructure_ids": [
+        "CAND-100"
+      ],
+      "test_surface_ids": [
+        "CAND-200"
+      ],
+      "evidence_source_ids": [],
+      "discovery_notes": null
+    },
+    {
+      "owner_id": "CONTROLLED_LEARNING",
+      "candidate_component_ids": [
+        "CAND-052",
+        "CAND-071",
+        "CAND-083",
+        "CAND-160",
+        "CAND-161",
+        "CAND-170"
+      ],
+      "upstream_candidate_ids": [],
+      "downstream_candidate_ids": [
+        "CAND-071",
+        "CAND-083",
+        "CAND-170"
+      ],
+      "shared_infrastructure_ids": [],
+      "test_surface_ids": [
+        "CAND-160",
+        "CAND-161"
+      ],
+      "evidence_source_ids": [],
+      "discovery_notes": null
+    },
+    {
+      "owner_id": "COUNTERFACTUAL_LAB",
+      "candidate_component_ids": [
+        "CAND-083",
+        "CAND-170",
+        "CAND-240"
+      ],
+      "upstream_candidate_ids": [],
+      "downstream_candidate_ids": [
+        "CAND-083",
+        "CAND-170"
+      ],
+      "shared_infrastructure_ids": [],
+      "test_surface_ids": [],
+      "evidence_source_ids": [],
+      "discovery_notes": null
+    },
+    {
+      "owner_id": "CROSS_CUTTING_GOVERNANCE",
+      "candidate_component_ids": [
+        "CAND-001",
+        "CAND-002",
+        "CAND-003",
+        "CAND-004",
+        "CAND-112",
+        "CAND-301",
+        "CAND-303",
+        "CAND-304"
+      ],
+      "upstream_candidate_ids": [],
+      "downstream_candidate_ids": [],
+      "shared_infrastructure_ids": [
+        "CAND-004",
+        "CAND-301",
+        "CAND-304"
+      ],
+      "test_surface_ids": [],
+      "evidence_source_ids": [
+        "CAND-003"
+      ],
+      "discovery_notes": null
+    },
+    {
+      "owner_id": "DEPENDENCE_AWARE_SAMPLING",
+      "candidate_component_ids": [
+        "CAND-150",
+        "CAND-151"
+      ],
+      "upstream_candidate_ids": [
+        "CAND-151"
+      ],
+      "downstream_candidate_ids": [],
+      "shared_infrastructure_ids": [],
+      "test_surface_ids": [],
+      "evidence_source_ids": [],
+      "discovery_notes": null
+    },
+    {
+      "owner_id": "DETERMINISTIC_REPLAY",
+      "candidate_component_ids": [
+        "CAND-043",
+        "CAND-070",
+        "CAND-071",
+        "CAND-072",
+        "CAND-073",
+        "CAND-102",
+        "CAND-180",
+        "CAND-305"
+      ],
+      "upstream_candidate_ids": [
+        "CAND-043"
+      ],
+      "downstream_candidate_ids": [
+        "CAND-071",
+        "CAND-073",
+        "CAND-305"
+      ],
+      "shared_infrastructure_ids": [
+        "CAND-072"
+      ],
+      "test_surface_ids": [
+        "CAND-180"
+      ],
+      "evidence_source_ids": [],
+      "discovery_notes": null
+    },
+    {
+      "owner_id": "DRIFT",
+      "candidate_component_ids": [
+        "CAND-132",
+        "CAND-210",
+        "CAND-211"
+      ],
+      "upstream_candidate_ids": [
+        "CAND-132"
+      ],
+      "downstream_candidate_ids": [],
+      "shared_infrastructure_ids": [],
+      "test_surface_ids": [
+        "CAND-211"
+      ],
+      "evidence_source_ids": [],
+      "discovery_notes": null
+    },
+    {
+      "owner_id": "EVIDENCE_PROVENANCE",
+      "candidate_component_ids": [
+        "CAND-030",
+        "CAND-032",
+        "CAND-062",
+        "CAND-072",
+        "CAND-100",
+        "CAND-110",
+        "CAND-111",
+        "CAND-112",
+        "CAND-305",
+        "CAND-306"
+      ],
+      "upstream_candidate_ids": [
+        "CAND-032",
+        "CAND-111"
+      ],
+      "downstream_candidate_ids": [
+        "CAND-305"
+      ],
+      "shared_infrastructure_ids": [
+        "CAND-062",
+        "CAND-072",
+        "CAND-100"
+      ],
+      "test_surface_ids": [
+        "CAND-306"
+      ],
+      "evidence_source_ids": [],
+      "discovery_notes": null
+    },
+    {
+      "owner_id": "EXPERIENCE_COVERAGE",
+      "candidate_component_ids": [
+        "CAND-011",
+        "CAND-063",
+        "CAND-071"
+      ],
+      "upstream_candidate_ids": [
+        "CAND-011"
+      ],
+      "downstream_candidate_ids": [
+        "CAND-071"
+      ],
+      "shared_infrastructure_ids": [],
+      "test_surface_ids": [],
+      "evidence_source_ids": [
+        "CAND-063"
+      ],
+      "discovery_notes": null
+    },
+    {
+      "owner_id": "FAILURE_SURPRISE_ABSTENTION",
+      "candidate_component_ids": [
+        "CAND-070",
+        "CAND-091",
+        "CAND-120",
+        "CAND-121",
+        "CAND-122",
+        "CAND-210"
+      ],
+      "upstream_candidate_ids": [],
+      "downstream_candidate_ids": [
+        "CAND-121"
+      ],
+      "shared_infrastructure_ids": [],
+      "test_surface_ids": [],
+      "evidence_source_ids": [
+        "CAND-122"
+      ],
+      "discovery_notes": null
+    },
+    {
+      "owner_id": "FORWARD_SHADOW",
+      "candidate_component_ids": [
+        "CAND-100",
+        "CAND-101",
+        "CAND-102",
+        "CAND-103"
+      ],
+      "upstream_candidate_ids": [],
+      "downstream_candidate_ids": [
+        "CAND-103"
+      ],
+      "shared_infrastructure_ids": [
+        "CAND-100"
+      ],
+      "test_surface_ids": [],
+      "evidence_source_ids": [],
+      "discovery_notes": null
+    },
+    {
+      "owner_id": "HISTORICAL_EVENT_STORE",
+      "candidate_component_ids": [
+        "CAND-012",
+        "CAND-030",
+        "CAND-031",
+        "CAND-032",
+        "CAND-033",
+        "CAND-034",
+        "CAND-035",
+        "CAND-080",
+        "CAND-250",
+        "CAND-280",
+        "CAND-300",
+        "CAND-306"
+      ],
+      "upstream_candidate_ids": [
+        "CAND-012",
+        "CAND-032",
+        "CAND-035"
+      ],
+      "downstream_candidate_ids": [
+        "CAND-250"
+      ],
+      "shared_infrastructure_ids": [
+        "CAND-034",
+        "CAND-280",
+        "CAND-300"
+      ],
+      "test_surface_ids": [
+        "CAND-306"
+      ],
+      "evidence_source_ids": [],
+      "discovery_notes": null
+    },
+    {
+      "owner_id": "LEARNING_VALUE",
+      "candidate_component_ids": [
+        "CAND-082",
+        "CAND-151",
+        "CAND-170",
+        "CAND-171"
+      ],
+      "upstream_candidate_ids": [
+        "CAND-151"
+      ],
+      "downstream_candidate_ids": [
+        "CAND-170",
+        "CAND-171"
+      ],
+      "shared_infrastructure_ids": [],
+      "test_surface_ids": [],
+      "evidence_source_ids": [],
+      "discovery_notes": null
+    },
+    {
+      "owner_id": "MARKET_TIME_MACHINE",
+      "candidate_component_ids": [
+        "CAND-034",
+        "CAND-040",
+        "CAND-041",
+        "CAND-042",
+        "CAND-250",
+        "CAND-261"
+      ],
+      "upstream_candidate_ids": [],
+      "downstream_candidate_ids": [
+        "CAND-250",
+        "CAND-261"
+      ],
+      "shared_infrastructure_ids": [
+        "CAND-034"
+      ],
+      "test_surface_ids": [],
+      "evidence_source_ids": [],
+      "discovery_notes": null
+    },
+    {
+      "owner_id": "OUTCOME_FACTORY",
+      "candidate_component_ids": [
+        "CAND-030",
+        "CAND-080",
+        "CAND-081",
+        "CAND-082",
+        "CAND-083",
+        "CAND-084",
+        "CAND-305",
+        "CAND-306"
+      ],
+      "upstream_candidate_ids": [],
+      "downstream_candidate_ids": [
+        "CAND-083",
+        "CAND-084",
+        "CAND-305"
+      ],
+      "shared_infrastructure_ids": [],
+      "test_surface_ids": [
+        "CAND-306"
+      ],
+      "evidence_source_ids": [],
+      "discovery_notes": null
+    },
+    {
+      "owner_id": "OUTCOME_QUALITY",
+      "candidate_component_ids": [
+        "CAND-082",
+        "CAND-084",
+        "CAND-090",
+        "CAND-091"
+      ],
+      "upstream_candidate_ids": [],
+      "downstream_candidate_ids": [
+        "CAND-084",
+        "CAND-090"
+      ],
+      "shared_infrastructure_ids": [],
+      "test_surface_ids": [],
+      "evidence_source_ids": [],
+      "discovery_notes": null
+    },
+    {
+      "owner_id": "POINT_IN_TIME_RECONSTRUCTION",
+      "candidate_component_ids": [
+        "CAND-040",
+        "CAND-041",
+        "CAND-042",
+        "CAND-043"
+      ],
+      "upstream_candidate_ids": [
+        "CAND-043"
+      ],
+      "downstream_candidate_ids": [],
+      "shared_infrastructure_ids": [],
+      "test_surface_ids": [],
+      "evidence_source_ids": [],
+      "discovery_notes": null
+    },
+    {
+      "owner_id": "PUBLIC_EVIDENCE",
+      "candidate_component_ids": [
+        "CAND-060",
+        "CAND-073",
+        "CAND-084",
+        "CAND-090",
+        "CAND-103",
+        "CAND-121",
+        "CAND-122",
+        "CAND-133",
+        "CAND-260",
+        "CAND-261",
+        "CAND-262",
+        "CAND-302"
+      ],
+      "upstream_candidate_ids": [],
+      "downstream_candidate_ids": [
+        "CAND-073",
+        "CAND-084",
+        "CAND-090",
+        "CAND-103",
+        "CAND-121",
+        "CAND-133",
+        "CAND-261",
+        "CAND-302"
+      ],
+      "shared_infrastructure_ids": [],
+      "test_surface_ids": [],
+      "evidence_source_ids": [
+        "CAND-060",
+        "CAND-122",
+        "CAND-260",
+        "CAND-262"
+      ],
+      "discovery_notes": null
+    },
+    {
+      "owner_id": "QUALITY_GOVERNANCE",
+      "candidate_component_ids": [
+        "CAND-001",
+        "CAND-002",
+        "CAND-003",
+        "CAND-061",
+        "CAND-290",
+        "CAND-291"
+      ],
+      "upstream_candidate_ids": [],
+      "downstream_candidate_ids": [],
+      "shared_infrastructure_ids": [],
+      "test_surface_ids": [],
+      "evidence_source_ids": [
+        "CAND-003",
+        "CAND-061",
+        "CAND-291"
+      ],
+      "discovery_notes": null
+    },
+    {
+      "owner_id": "REGIME_INTELLIGENCE",
+      "candidate_component_ids": [
+        "CAND-130",
+        "CAND-131",
+        "CAND-132",
+        "CAND-133"
+      ],
+      "upstream_candidate_ids": [
+        "CAND-132"
+      ],
+      "downstream_candidate_ids": [
+        "CAND-133"
+      ],
+      "shared_infrastructure_ids": [],
+      "test_surface_ids": [],
+      "evidence_source_ids": [],
+      "discovery_notes": null
+    },
+    {
+      "owner_id": "REPLAY_FIDELITY",
+      "candidate_component_ids": [
+        "CAND-070",
+        "CAND-072",
+        "CAND-180"
+      ],
+      "upstream_candidate_ids": [],
+      "downstream_candidate_ids": [],
+      "shared_infrastructure_ids": [
+        "CAND-072"
+      ],
+      "test_surface_ids": [
+        "CAND-180"
+      ],
+      "evidence_source_ids": [],
+      "discovery_notes": null
+    },
+    {
+      "owner_id": "REPRODUCIBILITY",
+      "candidate_component_ids": [
+        "CAND-003",
+        "CAND-032",
+        "CAND-060",
+        "CAND-061",
+        "CAND-062",
+        "CAND-063",
+        "CAND-291"
+      ],
+      "upstream_candidate_ids": [
+        "CAND-032"
+      ],
+      "downstream_candidate_ids": [],
+      "shared_infrastructure_ids": [
+        "CAND-062"
+      ],
+      "test_surface_ids": [],
+      "evidence_source_ids": [
+        "CAND-003",
+        "CAND-060",
+        "CAND-061",
+        "CAND-063",
+        "CAND-291"
+      ],
+      "discovery_notes": null
+    },
+    {
+      "owner_id": "RETENTION_POLICY",
+      "candidate_component_ids": [
+        "CAND-140",
+        "CAND-141",
+        "CAND-142"
+      ],
+      "upstream_candidate_ids": [],
+      "downstream_candidate_ids": [],
+      "shared_infrastructure_ids": [
+        "CAND-140",
+        "CAND-142"
+      ],
+      "test_surface_ids": [],
+      "evidence_source_ids": [],
+      "discovery_notes": null
+    },
+    {
+      "owner_id": "SOURCE_QUALITY",
+      "candidate_component_ids": [
+        "CAND-011",
+        "CAND-020",
+        "CAND-021",
+        "CAND-022",
+        "CAND-023",
+        "CAND-111",
+        "CAND-282",
+        "CAND-300"
+      ],
+      "upstream_candidate_ids": [
+        "CAND-011",
+        "CAND-020",
+        "CAND-021",
+        "CAND-111"
+      ],
+      "downstream_candidate_ids": [],
+      "shared_infrastructure_ids": [
+        "CAND-023",
+        "CAND-282",
+        "CAND-300"
+      ],
+      "test_surface_ids": [],
+      "evidence_source_ids": [],
+      "discovery_notes": null
+    },
+    {
+      "owner_id": "SOURCE_RIGHTS",
+      "candidate_component_ids": [
+        "CAND-010",
+        "CAND-011",
+        "CAND-012",
+        "CAND-013",
+        "CAND-035",
+        "CAND-141",
+        "CAND-300",
+        "CAND-302",
+        "CAND-303"
+      ],
+      "upstream_candidate_ids": [
+        "CAND-010",
+        "CAND-011",
+        "CAND-012",
+        "CAND-035"
+      ],
+      "downstream_candidate_ids": [
+        "CAND-302"
+      ],
+      "shared_infrastructure_ids": [
+        "CAND-300"
+      ],
+      "test_surface_ids": [],
+      "evidence_source_ids": [],
+      "discovery_notes": null
+    },
+    {
+      "owner_id": "TEMPORAL_LEAKAGE_FIREWALL",
+      "candidate_component_ids": [
+        "CAND-022",
+        "CAND-050",
+        "CAND-051",
+        "CAND-052",
+        "CAND-053",
+        "CAND-200"
+      ],
+      "upstream_candidate_ids": [],
+      "downstream_candidate_ids": [],
+      "shared_infrastructure_ids": [],
+      "test_surface_ids": [
+        "CAND-200"
+      ],
+      "evidence_source_ids": [],
+      "discovery_notes": null
+    },
+    {
+      "owner_id": "USER_BEHAVIORAL_LEARNING",
+      "candidate_component_ids": [
+        "CAND-101",
+        "CAND-170",
+        "CAND-270"
+      ],
+      "upstream_candidate_ids": [],
+      "downstream_candidate_ids": [
+        "CAND-170"
+      ],
+      "shared_infrastructure_ids": [],
+      "test_surface_ids": [],
+      "evidence_source_ids": [],
+      "discovery_notes": null
+    },
+    {
+      "owner_id": "WALK_FORWARD_VALIDATION",
+      "candidate_component_ids": [
+        "CAND-050",
+        "CAND-160",
+        "CAND-161"
+      ],
+      "upstream_candidate_ids": [],
+      "downstream_candidate_ids": [],
+      "shared_infrastructure_ids": [],
+      "test_surface_ids": [
+        "CAND-160",
+        "CAND-161"
+      ],
+      "evidence_source_ids": [],
+      "discovery_notes": null
+    }
+  ],
+  "integration_edges": [
+    {
+      "source_candidate_id": "CAND-080",
+      "destination_candidate_id": "CAND-030",
+      "edge_type": "CALLS",
+      "evidence": "systems_api imports repository.insert_outcome_evaluation"
+    },
+    {
+      "source_candidate_id": "CAND-080",
+      "destination_candidate_id": "CAND-032",
+      "edge_type": "CALLS",
+      "evidence": "systems_api imports hash_payload from provenance"
+    },
+    {
+      "source_candidate_id": "CAND-071",
+      "destination_candidate_id": "CAND-043",
+      "edge_type": "IMPORTS",
+      "evidence": "oracle router imports ml.market_replay_bootstrap"
+    },
+    {
+      "source_candidate_id": "CAND-050",
+      "destination_candidate_id": "CAND-160",
+      "edge_type": "IMPORTS",
+      "evidence": "train_baseline imports temporal_train_test_split"
+    },
+    {
+      "source_candidate_id": "CAND-050",
+      "destination_candidate_id": "CAND-161",
+      "edge_type": "IMPORTS",
+      "evidence": "train_ensemble imports temporal_train_test_split"
+    },
+    {
+      "source_candidate_id": "CAND-300",
+      "destination_candidate_id": "CAND-010",
+      "edge_type": "IMPORTS",
+      "evidence": "data_spine imports data_sources_registry"
+    },
+    {
+      "source_candidate_id": "CAND-300",
+      "destination_candidate_id": "CAND-022",
+      "edge_type": "IMPORTS",
+      "evidence": "data_spine imports stale_price_guard"
+    },
+    {
+      "source_candidate_id": "CAND-083",
+      "destination_candidate_id": "CAND-240",
+      "edge_type": "WRITES",
+      "evidence": "learning_compounding writes counterfactual_log table"
+    },
+    {
+      "source_candidate_id": "CAND-170",
+      "destination_candidate_id": "CAND-083",
+      "edge_type": "ROUTES_TO",
+      "evidence": "compounding router delegates to learning_compounding"
+    },
+    {
+      "source_candidate_id": "CAND-070",
+      "destination_candidate_id": "CAND-305",
+      "edge_type": "CONSUMES",
+      "evidence": "contradiction_replay consumes oracle decision snapshots"
+    },
+    {
+      "source_candidate_id": "CAND-030",
+      "destination_candidate_id": "CAND-110",
+      "edge_type": "WRITES",
+      "evidence": "repository insert_evidence writes de_evidence_store"
+    },
+    {
+      "source_candidate_id": "CAND-306",
+      "destination_candidate_id": "CAND-080",
+      "edge_type": "TESTS",
+      "evidence": "test_wave_01_systems exercises systems_api endpoints"
+    },
+    {
+      "source_candidate_id": "CAND-001",
+      "destination_candidate_id": "CAND-304",
+      "edge_type": "CONFIGURES",
+      "evidence": "production_guard includes observability checks"
+    },
+    {
+      "source_candidate_id": "CAND-250",
+      "destination_candidate_id": "CAND-030",
+      "edge_type": "READS",
+      "evidence": "data api reads via repository query paths"
+    }
+  ],
+  "candidate_distribution_by_object_type": {
+    "API_ROUTER": 8,
+    "BACKGROUND_JOB": 2,
+    "CONFIGURATION": 3,
+    "DATA_CONTRACT": 1,
+    "EVIDENCE_ARTIFACT": 3,
+    "PIPELINE": 8,
+    "PYTHON_MODULE": 1,
+    "REPOSITORY_OR_STORAGE": 5,
+    "SCHEMA_OR_MODEL": 6,
+    "SERVICE": 44,
+    "TEST": 4,
+    "UI_SURFACE": 3
+  },
+  "named_system_discovery_summary": {
+    "Data Governance": [
+      "CAND-030",
+      "CAND-300",
+      "CAND-010",
+      "CAND-032"
+    ],
+    "Decision Truth": [
+      "CAND-112",
+      "CAND-080",
+      "CAND-305"
+    ],
+    "Adaptive Intelligence": [
+      "CAND-170",
+      "CAND-083",
+      "CAND-210",
+      "CAND-130"
+    ],
+    "Capability/Playbook/Explorer": [
+      "CAND-301",
+      "CAND-300",
+      "CAND-100"
+    ],
+    "Universal Command": [
+      "CAND-301",
+      "CAND-103"
+    ],
+    "Six Heroes": [
+      "CAND-103",
+      "CAND-261",
+      "CAND-073"
+    ],
+    "Evidence/Trust views": [
+      "CAND-261",
+      "CAND-100",
+      "CAND-260",
+      "CAND-121"
+    ],
+    "Market Time Machine": [
+      "CAND-040",
+      "CAND-041",
+      "CAND-042",
+      "CAND-250"
+    ],
+    "Entitlements/Security": [
+      "CAND-303",
+      "CAND-013",
+      "CAND-052"
+    ],
+    "Observability": [
+      "CAND-304",
+      "CAND-262"
+    ],
+    "B2B/Data Room": [
+      "CAND-302",
+      "CAND-060",
+      "CAND-262"
+    ],
+    "Ingestion/Data Sources": [
+      "CAND-035",
+      "CAND-010",
+      "CAND-011"
+    ]
+  },
+  "discovery_integrity": {
+    "name_only_mappings": 0,
+    "implementation_status_leakage": 0,
+    "discovery_overrides_canonical_ownership": 0,
+    "duplicate_candidate_records": 0,
+    "unsupported_discovery_edges": 0,
+    "documentation_counted_as_implementation": 0
+  },
+  "PHASE_0G_PROJECT_INTEGRATION_DISCOVERY_COMPLETE": true
+}

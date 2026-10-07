@@ -1,0 +1,1459 @@
+{
+  "phase": "0D",
+  "phase_name": "Independent Audit of Phase 0C Atomic Decomposition",
+  "audited_at_utc": "2026-09-14T00:01:19Z",
+  "branch": "cursor/temporal-phase-0-clean-reanchor-358c",
+  "inputs": {
+    "primary_artifact": "TEMPORAL_PRIMARY_REQUIREMENTS.json",
+    "atomic_artifact": "TEMPORAL_ATOMIC_REQUIREMENTS.json",
+    "reconciliation_artifact": "TEMPORAL_PHASE_0C_RECONCILIATION.json",
+    "governing_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md"
+  },
+  "independently_recomputed_counts": {
+    "PRIMARY_REQUIREMENTS_TOTAL": 152,
+    "ATOMIC_REQUIREMENTS_TOTAL": 456
+  },
+  "audit_metrics": {
+    "PRIMARY_REQUIREMENTS_SOURCE_MISMATCH": 0,
+    "ATOMIC_OMISSIONS": 0,
+    "ATOMIC_ADDITIONS": 1,
+    "ATOMIC_DUPLICATED_OBLIGATIONS": 0,
+    "ATOMIC_IMPROPER_MERGES": 0,
+    "NON_ATOMIC_REQUIREMENTS": 4,
+    "OVER_SPLIT_ATOMICS": 18,
+    "CONDITIONALITY_LOSS": 0,
+    "CONDITIONALITY_STRENGTHENING": 0,
+    "CONDITIONALITY_WEAKENING": 0,
+    "UNJUSTIFIED_AMBIGUITY_FLAGS": 0,
+    "EVIDENCE_CLASS_COLLAPSE": 0,
+    "EVIDENCE_CLASS_PROMOTION_DISTORTION": 0,
+    "EVIDENCE_CLASS_MISSING_OBLIGATIONS": 0,
+    "TEMPORAL_TRUTH_INVARIANT_OMISSIONS": 0,
+    "PROHIBITIONS_IN_SPEC": 45,
+    "PROHIBITIONS_MAPPED": 45,
+    "PROHIBITIONS_UNMAPPED": 0,
+    "PROHIBITIONS_WEAKENED": 0,
+    "PRIMARY_REQUIREMENTS_TOTAL": 152,
+    "ATOMIC_REQUIREMENTS_TOTAL": 456
+  },
+  "audit_1_source_to_primary": {
+    "PRIMARY_REQUIREMENTS_SOURCE_MISMATCH": 0,
+    "mismatches": []
+  },
+  "audit_2_primary_to_atomic": {
+    "ATOMIC_OMISSIONS": 0,
+    "ATOMIC_ADDITIONS": 1,
+    "ATOMIC_DUPLICATED_OBLIGATIONS": 0,
+    "ATOMIC_IMPROPER_MERGES": 0,
+    "omissions": [],
+    "additions": [
+      {
+        "primary_id": "TEMP-PR-0077",
+        "atomic_requirement_id": "TEMP-AR-0239",
+        "added_framing": "Paraphrased parent 'none become production' into 'None of the learning-generated candidates become production'"
+      }
+    ],
+    "duplicated": [],
+    "improper_merges": []
+  },
+  "audit_3_true_atomicity": {
+    "NON_ATOMIC_REQUIREMENTS": 4,
+    "non_atomic_ids": [
+      "TEMP-AR-0085",
+      "TEMP-AR-0213",
+      "TEMP-AR-0229",
+      "TEMP-AR-0431"
+    ],
+    "details": [
+      {
+        "atomic_requirement_id": "TEMP-AR-0085",
+        "reasons": [
+          "may/but compound obligation not split"
+        ],
+        "normative_text": "The system may report millions of evaluation instances, but must distinguish this from an effective independent sample count."
+      },
+      {
+        "atomic_requirement_id": "TEMP-AR-0213",
+        "reasons": [
+          "may/but compound obligation not split"
+        ],
+        "normative_text": "A composite score may be derived for convenience, but material dimensions must remain visible."
+      },
+      {
+        "atomic_requirement_id": "TEMP-AR-0229",
+        "reasons": [
+          "may/but compound obligation not split"
+        ],
+        "normative_text": "An optional composite Experience Coverage Index may summarize the vector, but must not hide weak material dimensions."
+      },
+      {
+        "atomic_requirement_id": "TEMP-AR-0431",
+        "reasons": [
+          "multiple acceptance gates in one atomic"
+        ],
+        "normative_text": "This document's approval does not by itself mean PASS_ENGINEERING, PASS_LIVE, ASSURANCE_READY, PRODUCTION_ALIGNED, or independent verification."
+      }
+    ]
+  },
+  "audit_4_over_splitting": {
+    "OVER_SPLIT_ATOMICS": 18,
+    "over_split_ids": [
+      "TEMP-AR-0066",
+      "TEMP-AR-0067",
+      "TEMP-AR-0068",
+      "TEMP-AR-0069",
+      "TEMP-AR-0070",
+      "TEMP-AR-0071",
+      "TEMP-AR-0151",
+      "TEMP-AR-0152",
+      "TEMP-AR-0153",
+      "TEMP-AR-0409",
+      "TEMP-AR-0410",
+      "TEMP-AR-0411",
+      "TEMP-AR-0412",
+      "TEMP-AR-0413",
+      "TEMP-AR-0414",
+      "TEMP-AR-0415",
+      "TEMP-AR-0416",
+      "TEMP-AR-0417"
+    ]
+  },
+  "audit_5_conditionality": {
+    "CONDITIONALITY_LOSS": 0,
+    "CONDITIONALITY_STRENGTHENING": 0,
+    "CONDITIONALITY_WEAKENING": 0,
+    "loss_details": [],
+    "strengthening_ids": [],
+    "weakening_ids": []
+  },
+  "audit_6_ambiguity_reconciliation": {
+    "phase_0b_ambiguous_primary_clauses": 19,
+    "phase_0c_flagged_atomics_reported": 177,
+    "phase_0c_flagged_atomics_recomputed": 177,
+    "why_19_became_177": "Phase 0B marked 19 primary clauses as ambiguous due to qualified applicability language. Phase 0C split those primaries into multiple atomic children (mean ~9.3 children per ambiguous primary across list/field decompositions). Phase 0C also propagated ambiguity_flag=true to all children of those 19 primaries and to additional atomics whose parent or atomic text retained qualifiers such as 'where applicable', 'where feasible', or 'where justified' even outside the original 19-clause set.",
+    "UNJUSTIFIED_AMBIGUITY_FLAGS": 0,
+    "unjustified_flag_ids": [],
+    "per_parent_reconciliation": [
+      {
+        "parent_primary_requirement_id": "TEMP-PR-0010",
+        "original_ambiguous_clause": "Where applicable, every datum must preserve: event_time, observed_time, available_at, ingested_at, effective_at, revised_at, source, source_version, dataset_version, and rights/provenance.",
+        "atomic_children_flagged": [
+          "TEMP-AR-0016",
+          "TEMP-AR-0017",
+          "TEMP-AR-0018",
+          "TEMP-AR-0019",
+          "TEMP-AR-0020",
+          "TEMP-AR-0021",
+          "TEMP-AR-0022",
+          "TEMP-AR-0023",
+          "TEMP-AR-0024",
+          "TEMP-AR-0025"
+        ],
+        "flagged_count": 10,
+        "children": [
+          {
+            "atomic_requirement_id": "TEMP-AR-0016",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0017",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0018",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0019",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0020",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0021",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0022",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0023",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0024",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0025",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          }
+        ]
+      },
+      {
+        "parent_primary_requirement_id": "TEMP-PR-0016",
+        "original_ambiguous_clause": "Tests should include, where applicable: delayed publications; revised macroeconomic data; late-arriving market/on-chain data; corrected source values; source/event timestamp mismatch; missing historical timestamps; unavailable historical features; historical source latency.",
+        "atomic_children_flagged": [
+          "TEMP-AR-0035",
+          "TEMP-AR-0036",
+          "TEMP-AR-0037",
+          "TEMP-AR-0038",
+          "TEMP-AR-0039",
+          "TEMP-AR-0040",
+          "TEMP-AR-0041",
+          "TEMP-AR-0042"
+        ],
+        "flagged_count": 8,
+        "children": [
+          {
+            "atomic_requirement_id": "TEMP-AR-0035",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0036",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0037",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0038",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0039",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0040",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0041",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0042",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          }
+        ]
+      },
+      {
+        "parent_primary_requirement_id": "TEMP-PR-0023",
+        "original_ambiguous_clause": "Replay should support: multiple assets; multiple venues where applicable; multiple time horizons; multiple historical periods; multiple market regimes; multiple model/rule/config versions; alternative thresholds; alternative source availability scenarios.",
+        "atomic_children_flagged": [
+          "TEMP-AR-0058",
+          "TEMP-AR-0059",
+          "TEMP-AR-0060",
+          "TEMP-AR-0061",
+          "TEMP-AR-0062",
+          "TEMP-AR-0063",
+          "TEMP-AR-0064",
+          "TEMP-AR-0065"
+        ],
+        "flagged_count": 8,
+        "children": [
+          {
+            "atomic_requirement_id": "TEMP-AR-0058",
+            "classification": "INHERITED_AMBIGUITY",
+            "flagging_reason": "Child of Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0059",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0060",
+            "classification": "INHERITED_AMBIGUITY",
+            "flagging_reason": "Child of Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0061",
+            "classification": "INHERITED_AMBIGUITY",
+            "flagging_reason": "Child of Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0062",
+            "classification": "INHERITED_AMBIGUITY",
+            "flagging_reason": "Child of Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0063",
+            "classification": "INHERITED_AMBIGUITY",
+            "flagging_reason": "Child of Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0064",
+            "classification": "INHERITED_AMBIGUITY",
+            "flagging_reason": "Child of Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0065",
+            "classification": "INHERITED_AMBIGUITY",
+            "flagging_reason": "Child of Phase 0B ambiguous primary clause."
+          }
+        ]
+      },
+      {
+        "parent_primary_requirement_id": "TEMP-PR-0024",
+        "original_ambiguous_clause": "Replay must be: reproducible; point-in-time correct; provenance-bound; version-bound; deterministic where feasible; comparable across model versions.",
+        "atomic_children_flagged": [
+          "TEMP-AR-0066",
+          "TEMP-AR-0067",
+          "TEMP-AR-0068",
+          "TEMP-AR-0069",
+          "TEMP-AR-0070",
+          "TEMP-AR-0071"
+        ],
+        "flagged_count": 6,
+        "children": [
+          {
+            "atomic_requirement_id": "TEMP-AR-0066",
+            "classification": "INHERITED_AMBIGUITY",
+            "flagging_reason": "Child of Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0067",
+            "classification": "INHERITED_AMBIGUITY",
+            "flagging_reason": "Child of Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0068",
+            "classification": "INHERITED_AMBIGUITY",
+            "flagging_reason": "Child of Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0069",
+            "classification": "INHERITED_AMBIGUITY",
+            "flagging_reason": "Child of Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0070",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0071",
+            "classification": "INHERITED_AMBIGUITY",
+            "flagging_reason": "Child of Phase 0B ambiguous primary clause."
+          }
+        ]
+      },
+      {
+        "parent_primary_requirement_id": "TEMP-PR-0028",
+        "original_ambiguous_clause": "Record, where practical: case_id, event_family, dependence_cluster.",
+        "atomic_children_flagged": [
+          "TEMP-AR-0082",
+          "TEMP-AR-0083",
+          "TEMP-AR-0084"
+        ],
+        "flagged_count": 3,
+        "children": [
+          {
+            "atomic_requirement_id": "TEMP-AR-0082",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0083",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0084",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          }
+        ]
+      },
+      {
+        "parent_primary_requirement_id": "TEMP-PR-0032",
+        "original_ambiguous_clause": "Apply where relevant: purge; embargo; no future-feature leakage; immutable evaluation windows; model/version freeze; dataset/version freeze; configuration freeze.",
+        "atomic_children_flagged": [
+          "TEMP-AR-0088",
+          "TEMP-AR-0089",
+          "TEMP-AR-0090",
+          "TEMP-AR-0091",
+          "TEMP-AR-0092",
+          "TEMP-AR-0093",
+          "TEMP-AR-0094"
+        ],
+        "flagged_count": 7,
+        "children": [
+          {
+            "atomic_requirement_id": "TEMP-AR-0088",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0089",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0090",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0091",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0092",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0093",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0094",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          }
+        ]
+      },
+      {
+        "parent_primary_requirement_id": "TEMP-PR-0035",
+        "original_ambiguous_clause": "Where applicable, record: target definition; evaluation horizon; outcome timestamp; realized result; benchmark result; confidence; calibration error; directional correctness; magnitude error; regret; favorable excursion; adverse excursion; drawdown; false-positive cost; false-negative cost; abstention quality; market regime; evaluator version.",
+        "atomic_children_flagged": [
+          "TEMP-AR-0097",
+          "TEMP-AR-0098",
+          "TEMP-AR-0099",
+          "TEMP-AR-0100",
+          "TEMP-AR-0101",
+          "TEMP-AR-0102",
+          "TEMP-AR-0103",
+          "TEMP-AR-0104",
+          "TEMP-AR-0105",
+          "TEMP-AR-0106",
+          "TEMP-AR-0107",
+          "TEMP-AR-0108",
+          "TEMP-AR-0109",
+          "TEMP-AR-0110",
+          "TEMP-AR-0111",
+          "TEMP-AR-0112",
+          "TEMP-AR-0113",
+          "TEMP-AR-0114"
+        ],
+        "flagged_count": 18,
+        "children": [
+          {
+            "atomic_requirement_id": "TEMP-AR-0097",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0098",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0099",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0100",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0101",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0102",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0103",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0104",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0105",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0106",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0107",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0108",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0109",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0110",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0111",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0112",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0113",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0114",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          }
+        ]
+      },
+      {
+        "parent_primary_requirement_id": "TEMP-PR-0038",
+        "original_ambiguous_clause": "Each evaluated outcome should carry, where relevant: outcome_quality, label_confidence, data_completeness, evaluation_source, evaluation_method, known_limitations.",
+        "atomic_children_flagged": [
+          "TEMP-AR-0117",
+          "TEMP-AR-0118",
+          "TEMP-AR-0119",
+          "TEMP-AR-0120",
+          "TEMP-AR-0121",
+          "TEMP-AR-0122"
+        ],
+        "flagged_count": 6,
+        "children": [
+          {
+            "atomic_requirement_id": "TEMP-AR-0117",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0118",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0119",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0120",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0121",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0122",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          }
+        ]
+      },
+      {
+        "parent_primary_requirement_id": "TEMP-PR-0041",
+        "original_ambiguous_clause": "Minimum receipt fields where applicable: prediction_id, issued_at, model_version, rule/config_version, dataset_version, code_version, input_snapshot_hash, prediction, confidence, abstention_state, evidence_class=FORWARD_SHADOW.",
+        "atomic_children_flagged": [
+          "TEMP-AR-0125",
+          "TEMP-AR-0126",
+          "TEMP-AR-0127",
+          "TEMP-AR-0128",
+          "TEMP-AR-0129",
+          "TEMP-AR-0130",
+          "TEMP-AR-0131",
+          "TEMP-AR-0132",
+          "TEMP-AR-0133",
+          "TEMP-AR-0134",
+          "TEMP-AR-0135"
+        ],
+        "flagged_count": 11,
+        "children": [
+          {
+            "atomic_requirement_id": "TEMP-AR-0125",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0126",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0127",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0128",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0129",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0130",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0131",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0132",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0133",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0134",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0135",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          }
+        ]
+      },
+      {
+        "parent_primary_requirement_id": "TEMP-PR-0053",
+        "original_ambiguous_clause": "Monitor, where applicable: concept drift; data drift; source drift; latency differences; venue behavior changes; market-structure changes; regime changes; calibration changes; unexpected source conflicts.",
+        "atomic_children_flagged": [
+          "TEMP-AR-0154",
+          "TEMP-AR-0155",
+          "TEMP-AR-0156",
+          "TEMP-AR-0157",
+          "TEMP-AR-0158",
+          "TEMP-AR-0159",
+          "TEMP-AR-0160",
+          "TEMP-AR-0161",
+          "TEMP-AR-0162"
+        ],
+        "flagged_count": 9,
+        "children": [
+          {
+            "atomic_requirement_id": "TEMP-AR-0154",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0155",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0156",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0157",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0158",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0159",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0160",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0161",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0162",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          }
+        ]
+      },
+      {
+        "parent_primary_requirement_id": "TEMP-PR-0059",
+        "original_ambiguous_clause": "Include, where applicable: high-confidence wrong prediction; failure to abstain; unnecessary abstention; missed major event; model disagreement; unexpected regime shift; correlation breakdown; stale source; conflicting sources; missing source; tail event; calibration collapse; prediction instability; source revision; model regression.",
+        "atomic_children_flagged": [
+          "TEMP-AR-0168",
+          "TEMP-AR-0169",
+          "TEMP-AR-0170",
+          "TEMP-AR-0171",
+          "TEMP-AR-0172",
+          "TEMP-AR-0173",
+          "TEMP-AR-0174",
+          "TEMP-AR-0175",
+          "TEMP-AR-0176",
+          "TEMP-AR-0177",
+          "TEMP-AR-0178",
+          "TEMP-AR-0179",
+          "TEMP-AR-0180",
+          "TEMP-AR-0181",
+          "TEMP-AR-0182"
+        ],
+        "flagged_count": 15,
+        "children": [
+          {
+            "atomic_requirement_id": "TEMP-AR-0168",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0169",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0170",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0171",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0172",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0173",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0174",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0175",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0176",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0177",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0178",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0179",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0180",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0181",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0182",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          }
+        ]
+      },
+      {
+        "parent_primary_requirement_id": "TEMP-PR-0086",
+        "original_ambiguous_clause": "Every material public claim should disclose, where applicable: evidence class; date range; sample size; effective independent sample count; regime distribution; asset/universe; evaluation horizon; model version; abstentions; methodology; uncertainty; exclusions; limitations.",
+        "atomic_children_flagged": [
+          "TEMP-AR-0263",
+          "TEMP-AR-0264",
+          "TEMP-AR-0265",
+          "TEMP-AR-0266",
+          "TEMP-AR-0267",
+          "TEMP-AR-0268",
+          "TEMP-AR-0269",
+          "TEMP-AR-0270",
+          "TEMP-AR-0271",
+          "TEMP-AR-0272",
+          "TEMP-AR-0273",
+          "TEMP-AR-0274",
+          "TEMP-AR-0275"
+        ],
+        "flagged_count": 13,
+        "children": [
+          {
+            "atomic_requirement_id": "TEMP-AR-0263",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0264",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0265",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0266",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0267",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0268",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0269",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0270",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0271",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0272",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0273",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0274",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0275",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          }
+        ]
+      },
+      {
+        "parent_primary_requirement_id": "TEMP-PR-0088",
+        "original_ambiguous_clause": "For every material source preserve, where applicable: permitted purpose; historical-use rights; retention rights; derivative-data rights; redistribution rights; model-training rights; provenance; contractual restrictions; expiry/revocation conditions.",
+        "atomic_children_flagged": [
+          "TEMP-AR-0281",
+          "TEMP-AR-0282",
+          "TEMP-AR-0283",
+          "TEMP-AR-0284",
+          "TEMP-AR-0285",
+          "TEMP-AR-0286",
+          "TEMP-AR-0287",
+          "TEMP-AR-0288",
+          "TEMP-AR-0289"
+        ],
+        "flagged_count": 9,
+        "children": [
+          {
+            "atomic_requirement_id": "TEMP-AR-0281",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0282",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0283",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0284",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0285",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0286",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0287",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0288",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0289",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          }
+        ]
+      },
+      {
+        "parent_primary_requirement_id": "TEMP-PR-0091",
+        "original_ambiguous_clause": "Maintain source reliability evidence, including where applicable: freshness; completeness; latency; anomaly rate; disagreement rate; revision frequency; outage history; timestamp integrity; historical coverage; schema stability.",
+        "atomic_children_flagged": [
+          "TEMP-AR-0292",
+          "TEMP-AR-0293",
+          "TEMP-AR-0294",
+          "TEMP-AR-0295",
+          "TEMP-AR-0296",
+          "TEMP-AR-0297",
+          "TEMP-AR-0298",
+          "TEMP-AR-0299",
+          "TEMP-AR-0300",
+          "TEMP-AR-0301"
+        ],
+        "flagged_count": 10,
+        "children": [
+          {
+            "atomic_requirement_id": "TEMP-AR-0292",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0293",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0294",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0295",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0296",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0297",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0298",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0299",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0300",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0301",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          }
+        ]
+      },
+      {
+        "parent_primary_requirement_id": "TEMP-PR-0093",
+        "original_ambiguous_clause": "Monitor, where applicable: feature drift; target drift; calibration drift; source drift; relationship drift; regime transition; structural break.",
+        "atomic_children_flagged": [
+          "TEMP-AR-0306",
+          "TEMP-AR-0307",
+          "TEMP-AR-0308",
+          "TEMP-AR-0309",
+          "TEMP-AR-0310",
+          "TEMP-AR-0311",
+          "TEMP-AR-0312"
+        ],
+        "flagged_count": 7,
+        "children": [
+          {
+            "atomic_requirement_id": "TEMP-AR-0306",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0307",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0308",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0309",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0310",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0311",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0312",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          }
+        ]
+      },
+      {
+        "parent_primary_requirement_id": "TEMP-PR-0098",
+        "original_ambiguous_clause": "For each material replay/evaluation run preserve, where applicable: code SHA; configuration; dataset snapshot; feature version; model version; rule version; evaluator version; random seed; environment; run ID; timestamps; evidence class.",
+        "atomic_children_flagged": [
+          "TEMP-AR-0324",
+          "TEMP-AR-0325",
+          "TEMP-AR-0326",
+          "TEMP-AR-0327",
+          "TEMP-AR-0328",
+          "TEMP-AR-0329",
+          "TEMP-AR-0330",
+          "TEMP-AR-0331",
+          "TEMP-AR-0332",
+          "TEMP-AR-0333",
+          "TEMP-AR-0334",
+          "TEMP-AR-0335"
+        ],
+        "flagged_count": 12,
+        "children": [
+          {
+            "atomic_requirement_id": "TEMP-AR-0324",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0325",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0326",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0327",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0328",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0329",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0330",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0331",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0332",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0333",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0334",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0335",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          }
+        ]
+      },
+      {
+        "parent_primary_requirement_id": "TEMP-PR-0103",
+        "original_ambiguous_clause": "If used later, require: explicit purpose; consent/legal basis where applicable; minimization; retention rules; deletion/rights handling; separation from objective market outcomes; anti-manipulation controls.",
+        "atomic_children_flagged": [
+          "TEMP-AR-0353",
+          "TEMP-AR-0354",
+          "TEMP-AR-0355",
+          "TEMP-AR-0356",
+          "TEMP-AR-0357",
+          "TEMP-AR-0358",
+          "TEMP-AR-0359"
+        ],
+        "flagged_count": 7,
+        "children": [
+          {
+            "atomic_requirement_id": "TEMP-AR-0353",
+            "classification": "INHERITED_AMBIGUITY",
+            "flagging_reason": "Child of Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0354",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0355",
+            "classification": "INHERITED_AMBIGUITY",
+            "flagging_reason": "Child of Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0356",
+            "classification": "INHERITED_AMBIGUITY",
+            "flagging_reason": "Child of Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0357",
+            "classification": "INHERITED_AMBIGUITY",
+            "flagging_reason": "Child of Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0358",
+            "classification": "INHERITED_AMBIGUITY",
+            "flagging_reason": "Child of Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0359",
+            "classification": "INHERITED_AMBIGUITY",
+            "flagging_reason": "Child of Phase 0B ambiguous primary clause."
+          }
+        ]
+      },
+      {
+        "parent_primary_requirement_id": "TEMP-PR-0125",
+        "original_ambiguous_clause": "P2: User-facing Market Time Machine; Public Accuracy / Evidence Ledger; Behavioral personalization where justified.",
+        "atomic_children_flagged": [
+          "TEMP-AR-0399",
+          "TEMP-AR-0400",
+          "TEMP-AR-0401"
+        ],
+        "flagged_count": 3,
+        "children": [
+          {
+            "atomic_requirement_id": "TEMP-AR-0399",
+            "classification": "INHERITED_AMBIGUITY",
+            "flagging_reason": "Child of Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0400",
+            "classification": "INHERITED_AMBIGUITY",
+            "flagging_reason": "Child of Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0401",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          }
+        ]
+      },
+      {
+        "parent_primary_requirement_id": "TEMP-PR-0148",
+        "original_ambiguous_clause": "Possible regimes include, where justified: bull; bear; range-bound; high volatility; low volatility; liquidity stress; liquidation cascade; depeg; market-wide crash; idiosyncratic asset shock; exchange outage; macro shock; news shock; correlation break; structural break.",
+        "atomic_children_flagged": [
+          "TEMP-AR-0438",
+          "TEMP-AR-0439",
+          "TEMP-AR-0440",
+          "TEMP-AR-0441",
+          "TEMP-AR-0442",
+          "TEMP-AR-0443",
+          "TEMP-AR-0444",
+          "TEMP-AR-0445",
+          "TEMP-AR-0446",
+          "TEMP-AR-0447",
+          "TEMP-AR-0448",
+          "TEMP-AR-0449",
+          "TEMP-AR-0450",
+          "TEMP-AR-0451",
+          "TEMP-AR-0452"
+        ],
+        "flagged_count": 15,
+        "children": [
+          {
+            "atomic_requirement_id": "TEMP-AR-0438",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0439",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0440",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0441",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0442",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0443",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0444",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0445",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0446",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0447",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0448",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0449",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0450",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0451",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          },
+          {
+            "atomic_requirement_id": "TEMP-AR-0452",
+            "classification": "DIRECT_AMBIGUITY",
+            "flagging_reason": "Qualified applicability language from Phase 0B ambiguous primary clause."
+          }
+        ]
+      }
+    ]
+  },
+  "audit_7_evidence_class": {
+    "EVIDENCE_CLASS_COLLAPSE": 0,
+    "EVIDENCE_CLASS_PROMOTION_DISTORTION": 0,
+    "EVIDENCE_CLASS_MISSING_OBLIGATIONS": 0,
+    "collapse_ids": [],
+    "promotion_distortion_ids": [],
+    "missing_obligations": []
+  },
+  "audit_8_temporal_truth": {
+    "TEMPORAL_TRUTH_INVARIANT_OMISSIONS": 0,
+    "omissions": [],
+    "available_at_rule_atomics": [
+      "TEMP-AR-0026"
+    ]
+  },
+  "audit_9_prohibitions": {
+    "PROHIBITIONS_IN_SPEC": 45,
+    "PROHIBITIONS_MAPPED": 45,
+    "PROHIBITIONS_UNMAPPED": 0,
+    "PROHIBITIONS_WEAKENED": 0,
+    "unmapped_prohibitions": []
+  },
+  "audit_10_count_independence": {
+    "PRIMARY_REQUIREMENTS_TOTAL": 152,
+    "ATOMIC_REQUIREMENTS_TOTAL": 456,
+    "expected_primary": 152,
+    "expected_atomic": 456,
+    "primary_match": true,
+    "atomic_match": true,
+    "cause_if_mismatch": null
+  },
+  "findings_summary": {
+    "non_atomic_requirements": {
+      "count": 4,
+      "ids": [
+        "TEMP-AR-0085",
+        "TEMP-AR-0213",
+        "TEMP-AR-0229",
+        "TEMP-AR-0431"
+      ],
+      "description": "Four atomics retain compound may/but or multi-gate prohibitions that should have been split into independently testable obligations."
+    },
+    "over_split_atomics": {
+      "count": 18,
+      "ids": [
+        "TEMP-AR-0066",
+        "TEMP-AR-0067",
+        "TEMP-AR-0068",
+        "TEMP-AR-0069",
+        "TEMP-AR-0070",
+        "TEMP-AR-0071",
+        "TEMP-AR-0151",
+        "TEMP-AR-0152",
+        "TEMP-AR-0153",
+        "TEMP-AR-0409",
+        "TEMP-AR-0410",
+        "TEMP-AR-0411",
+        "TEMP-AR-0412",
+        "TEMP-AR-0413",
+        "TEMP-AR-0414",
+        "TEMP-AR-0415",
+        "TEMP-AR-0416",
+        "TEMP-AR-0417"
+      ],
+      "description": "Eighteen atomics use broken preamble fragments (e.g. 'Replay must be; reproducible', 'Hard rules; Replay \u2260 Shadow') or injected reframing preambles ('Accelerate, while preserving evidence-class distinction; ...') that cannot be independently verified without sibling context."
+    },
+    "atomic_additions": {
+      "count": 1,
+      "details": [
+        {
+          "primary_id": "TEMP-PR-0077",
+          "atomic_requirement_id": "TEMP-AR-0239",
+          "added_framing": "Paraphrased parent 'none become production' into 'None of the learning-generated candidates become production'"
+        }
+      ],
+      "description": "One atomic paraphrases parent text with added referent framing beyond the primary requirement wording."
+    },
+    "ambiguity_reconciliation_summary": {
+      "phase_0b_ambiguous_primaries": 19,
+      "phase_0c_flagged_atomics": 177,
+      "direct_ambiguity": 157,
+      "inherited_ambiguity": 20,
+      "unjustified_flags": 0
+    }
+  },
+  "final_audit_disposition": "REQUIRES_0C_CORRECTION",
+  "PHASE_0D_INDEPENDENT_AUDIT_COMPLETE": true
+}

@@ -1,0 +1,294 @@
+{
+  "phase": "0C_CORRECTION",
+  "phase_name": "Targeted Phase 0C Correction per Phase 0D Audit",
+  "corrected_at_utc": "2026-09-14T00:15:44Z",
+  "precondition_head": "da316dad2a66d868b9f1471c095cd94f9ffd70af",
+  "governing_spec_sha256": "e02418fca90e15ddf464875249a5284e1332762f74f28485e7ecc2f002963868",
+  "primary_requirements_sha256": "4f8eed0a171cce41e3bf596ee3dae70eec9158b318389389820d1e56904cad9c",
+  "phase_0d_source_artifact": "TEMPORAL_PHASE_0D_INDEPENDENT_AUDIT.json",
+  "atomic_count_before": 456,
+  "atomic_count_after": 455,
+  "semantic_addition_ids_corrected": [
+    "TEMP-AR-0239"
+  ],
+  "non_atomic_ids_corrected": [
+    "TEMP-AR-0085",
+    "TEMP-AR-0213",
+    "TEMP-AR-0229",
+    "TEMP-AR-0431"
+  ],
+  "over_split_ids_reconciled": [
+    "TEMP-AR-0066",
+    "TEMP-AR-0067",
+    "TEMP-AR-0068",
+    "TEMP-AR-0069",
+    "TEMP-AR-0070",
+    "TEMP-AR-0071",
+    "TEMP-AR-0151",
+    "TEMP-AR-0152",
+    "TEMP-AR-0153",
+    "TEMP-AR-0409",
+    "TEMP-AR-0410",
+    "TEMP-AR-0411",
+    "TEMP-AR-0412",
+    "TEMP-AR-0413",
+    "TEMP-AR-0414",
+    "TEMP-AR-0415",
+    "TEMP-AR-0416",
+    "TEMP-AR-0417"
+  ],
+  "new_atomic_ids_created": [
+    "TEMP-AR-0457",
+    "TEMP-AR-0458",
+    "TEMP-AR-0459",
+    "TEMP-AR-0460",
+    "TEMP-AR-0461",
+    "TEMP-AR-0462",
+    "TEMP-AR-0463"
+  ],
+  "id_change_map": [
+    {
+      "old_id": "TEMP-AR-0239",
+      "disposition": "PRESERVED",
+      "replacement_ids": [
+        "TEMP-AR-0239"
+      ],
+      "parent_primary_requirement_id": "TEMP-PR-0077",
+      "reason": "Removed added referent framing; restored governing-spec clause wording."
+    },
+    {
+      "old_id": "TEMP-AR-0085",
+      "disposition": "SPLIT",
+      "replacement_ids": [
+        "TEMP-AR-0085",
+        "TEMP-AR-0457"
+      ],
+      "parent_primary_requirement_id": "TEMP-PR-0029",
+      "reason": "Split compound may/but or multi-gate prohibition into independently verifiable obligations."
+    },
+    {
+      "old_id": "TEMP-AR-0213",
+      "disposition": "SPLIT",
+      "replacement_ids": [
+        "TEMP-AR-0213",
+        "TEMP-AR-0458"
+      ],
+      "parent_primary_requirement_id": "TEMP-PR-0069",
+      "reason": "Split compound may/but or multi-gate prohibition into independently verifiable obligations."
+    },
+    {
+      "old_id": "TEMP-AR-0229",
+      "disposition": "SPLIT",
+      "replacement_ids": [
+        "TEMP-AR-0229",
+        "TEMP-AR-0459"
+      ],
+      "parent_primary_requirement_id": "TEMP-PR-0072",
+      "reason": "Split compound may/but or multi-gate prohibition into independently verifiable obligations."
+    },
+    {
+      "old_id": "TEMP-AR-0431",
+      "disposition": "SPLIT",
+      "replacement_ids": [
+        "TEMP-AR-0431",
+        "TEMP-AR-0460",
+        "TEMP-AR-0461",
+        "TEMP-AR-0462",
+        "TEMP-AR-0463"
+      ],
+      "parent_primary_requirement_id": "TEMP-PR-0145",
+      "reason": "Split compound may/but or multi-gate prohibition into independently verifiable obligations."
+    },
+    {
+      "old_id": "TEMP-AR-0066",
+      "disposition": "PRESERVED",
+      "replacement_ids": [
+        "TEMP-AR-0066"
+      ],
+      "parent_primary_requirement_id": "TEMP-PR-0024",
+      "reason": "Removed broken non-normative preamble fragment; restored substantive predicate grammar from governing spec."
+    },
+    {
+      "old_id": "TEMP-AR-0067",
+      "disposition": "PRESERVED",
+      "replacement_ids": [
+        "TEMP-AR-0067"
+      ],
+      "parent_primary_requirement_id": "TEMP-PR-0024",
+      "reason": "Removed broken non-normative preamble fragment; restored substantive predicate grammar from governing spec."
+    },
+    {
+      "old_id": "TEMP-AR-0068",
+      "disposition": "PRESERVED",
+      "replacement_ids": [
+        "TEMP-AR-0068"
+      ],
+      "parent_primary_requirement_id": "TEMP-PR-0024",
+      "reason": "Removed broken non-normative preamble fragment; restored substantive predicate grammar from governing spec."
+    },
+    {
+      "old_id": "TEMP-AR-0069",
+      "disposition": "PRESERVED",
+      "replacement_ids": [
+        "TEMP-AR-0069"
+      ],
+      "parent_primary_requirement_id": "TEMP-PR-0024",
+      "reason": "Removed broken non-normative preamble fragment; restored substantive predicate grammar from governing spec."
+    },
+    {
+      "old_id": "TEMP-AR-0070",
+      "disposition": "PRESERVED",
+      "replacement_ids": [
+        "TEMP-AR-0070"
+      ],
+      "parent_primary_requirement_id": "TEMP-PR-0024",
+      "reason": "Removed broken non-normative preamble fragment; restored substantive predicate grammar from governing spec."
+    },
+    {
+      "old_id": "TEMP-AR-0071",
+      "disposition": "PRESERVED",
+      "replacement_ids": [
+        "TEMP-AR-0071"
+      ],
+      "parent_primary_requirement_id": "TEMP-PR-0024",
+      "reason": "Removed broken non-normative preamble fragment; restored substantive predicate grammar from governing spec."
+    },
+    {
+      "old_id": "TEMP-AR-0151",
+      "disposition": "PRESERVED",
+      "replacement_ids": [
+        "TEMP-AR-0151"
+      ],
+      "parent_primary_requirement_id": "TEMP-PR-0052",
+      "reason": "Removed broken non-normative preamble fragment; restored substantive predicate grammar from governing spec."
+    },
+    {
+      "old_id": "TEMP-AR-0152",
+      "disposition": "PRESERVED",
+      "replacement_ids": [
+        "TEMP-AR-0152"
+      ],
+      "parent_primary_requirement_id": "TEMP-PR-0052",
+      "reason": "Removed broken non-normative preamble fragment; restored substantive predicate grammar from governing spec."
+    },
+    {
+      "old_id": "TEMP-AR-0153",
+      "disposition": "PRESERVED",
+      "replacement_ids": [
+        "TEMP-AR-0153"
+      ],
+      "parent_primary_requirement_id": "TEMP-PR-0052",
+      "reason": "Removed broken non-normative preamble fragment; restored substantive predicate grammar from governing spec."
+    },
+    {
+      "old_id": "TEMP-AR-0410",
+      "disposition": "SUPERSEDED",
+      "replacement_ids": [
+        "TEMP-AR-0409"
+      ],
+      "parent_primary_requirement_id": "TEMP-PR-0132",
+      "reason": "Artificial duplicated acceleration preamble removed; substantive acceleration obligations consolidated under canonical ID TEMP-AR-0409."
+    },
+    {
+      "old_id": "TEMP-AR-0411",
+      "disposition": "SUPERSEDED",
+      "replacement_ids": [
+        "TEMP-AR-0409"
+      ],
+      "parent_primary_requirement_id": "TEMP-PR-0132",
+      "reason": "Artificial duplicated acceleration preamble removed; substantive acceleration obligations consolidated under canonical ID TEMP-AR-0409."
+    },
+    {
+      "old_id": "TEMP-AR-0412",
+      "disposition": "SUPERSEDED",
+      "replacement_ids": [
+        "TEMP-AR-0409"
+      ],
+      "parent_primary_requirement_id": "TEMP-PR-0132",
+      "reason": "Artificial duplicated acceleration preamble removed; substantive acceleration obligations consolidated under canonical ID TEMP-AR-0409."
+    },
+    {
+      "old_id": "TEMP-AR-0413",
+      "disposition": "SUPERSEDED",
+      "replacement_ids": [
+        "TEMP-AR-0409"
+      ],
+      "parent_primary_requirement_id": "TEMP-PR-0132",
+      "reason": "Artificial duplicated acceleration preamble removed; substantive acceleration obligations consolidated under canonical ID TEMP-AR-0409."
+    },
+    {
+      "old_id": "TEMP-AR-0414",
+      "disposition": "SUPERSEDED",
+      "replacement_ids": [
+        "TEMP-AR-0409"
+      ],
+      "parent_primary_requirement_id": "TEMP-PR-0132",
+      "reason": "Artificial duplicated acceleration preamble removed; substantive acceleration obligations consolidated under canonical ID TEMP-AR-0409."
+    },
+    {
+      "old_id": "TEMP-AR-0415",
+      "disposition": "SUPERSEDED",
+      "replacement_ids": [
+        "TEMP-AR-0409"
+      ],
+      "parent_primary_requirement_id": "TEMP-PR-0132",
+      "reason": "Artificial duplicated acceleration preamble removed; substantive acceleration obligations consolidated under canonical ID TEMP-AR-0409."
+    },
+    {
+      "old_id": "TEMP-AR-0416",
+      "disposition": "SUPERSEDED",
+      "replacement_ids": [
+        "TEMP-AR-0409"
+      ],
+      "parent_primary_requirement_id": "TEMP-PR-0132",
+      "reason": "Artificial duplicated acceleration preamble removed; substantive acceleration obligations consolidated under canonical ID TEMP-AR-0409."
+    },
+    {
+      "old_id": "TEMP-AR-0417",
+      "disposition": "SUPERSEDED",
+      "replacement_ids": [
+        "TEMP-AR-0409"
+      ],
+      "parent_primary_requirement_id": "TEMP-PR-0132",
+      "reason": "Artificial duplicated acceleration preamble removed; substantive acceleration obligations consolidated under canonical ID TEMP-AR-0409."
+    },
+    {
+      "old_id": "TEMP-AR-0409",
+      "disposition": "PRESERVED",
+      "replacement_ids": [
+        "TEMP-AR-0409"
+      ],
+      "parent_primary_requirement_id": "TEMP-PR-0132",
+      "reason": "Consolidated acceleration targets into single normative clause without duplicated preamble fragments."
+    }
+  ],
+  "unaffected_atomics_changed": 0,
+  "semantic_omissions_after": 0,
+  "semantic_additions_after": 0,
+  "conditionality_distortions_after": 0,
+  "evidence_class_distortions_after": 0,
+  "remaining_known_phase_0d_defects": [],
+  "acceptance_assertions": {
+    "TEMP_AR_0239_SEMANTIC_ADDITION_REMOVED": true,
+    "PROVEN_NON_ATOMIC_IDS_CORRECTED": 4,
+    "NON_ATOMIC_REQUIREMENTS_REMAINING_IN_DEFECT_SET": 0,
+    "PROVEN_OVER_SPLIT_IDS_RECONCILED": 18,
+    "OVER_SPLIT_ATOMICS_REMAINING_IN_DEFECT_SET": 0,
+    "DEFECT_IDS_ACCOUNTED_FOR": 23,
+    "SILENT_ID_DELETIONS": 0,
+    "GLOBAL_RENUMBERING": false,
+    "UNAFFECTED_ATOMICS_CHANGED": 0,
+    "TEMP_AR_0026_UNCHANGED": true,
+    "EVIDENCE_CLASS_DISTORTIONS_INTRODUCED": 0,
+    "CONDITIONALITY_DISTORTIONS_INTRODUCED": 0,
+    "AMBIGUITIES_RESOLVED_BY_ASSUMPTION": 0,
+    "PRIMARY_REQUIREMENTS_TOTAL": 152,
+    "PRIMARY_REQUIREMENTS_UNMAPPED": 0,
+    "ATOMIC_REQUIREMENTS_WITH_INVALID_PARENT": 0,
+    "ATOMIC_REQUIREMENTS_WITHOUT_SOURCE": 0,
+    "SEMANTIC_OMISSIONS_AFTER_CORRECTION": 0,
+    "SEMANTIC_ADDITIONS_AFTER_CORRECTION": 0,
+    "ATOMIC_COUNT_AFTER_CORRECTION": 455,
+    "PHASE_0C_TARGETED_CORRECTION_COMPLETE": true
+  }
+}

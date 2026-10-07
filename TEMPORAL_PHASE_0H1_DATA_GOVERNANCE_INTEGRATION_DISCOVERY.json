@@ -1,0 +1,681 @@
+{
+  "phase": "0H-1",
+  "phase_name": "Data Governance Integration Discovery",
+  "discovered_at_utc": "2026-09-14T07:51:03Z",
+  "branch": "cursor/temporal-phase-0-clean-reanchor-358c",
+  "inputs": {
+    "TEMPORAL_ATOMIC_REQUIREMENTS.json": {
+      "ACTIVE_ATOMIC_REQUIREMENTS": 455
+    },
+    "TEMPORAL_REQUIREMENTS_TRACEABILITY_MATRIX.json": {
+      "referenced": true
+    },
+    "TEMPORAL_CANONICAL_OWNERSHIP_REGISTRY.json": {
+      "CANONICAL_OWNER_COUNT": 30
+    },
+    "TEMPORAL_PROJECT_INTEGRATION_DISCOVERY.json": {
+      "IMPLEMENTATION_RELEVANT_CANDIDATES": 88,
+      "RUNTIME_REACHABLE_CANDIDATES": 82,
+      "VERIFIED_INTEGRATION_EDGES": 14
+    },
+    "TEMPORAL_PHASE_0G_TARGETED_REAUDIT.json": {
+      "final_disposition": "PASS"
+    }
+  },
+  "precondition_result": {
+    "ACTIVE_ATOMIC_REQUIREMENTS": 455,
+    "ACTIVE_ATOMIC_REQUIREMENTS_MATCH": true,
+    "CANONICAL_OWNER_COUNT": 30,
+    "CANONICAL_OWNER_COUNT_MATCH": true,
+    "IMPLEMENTATION_RELEVANT_CANDIDATES": 88,
+    "IMPLEMENTATION_RELEVANT_CANDIDATES_MATCH": true,
+    "RUNTIME_REACHABLE_CANDIDATES": 82,
+    "RUNTIME_REACHABLE_CANDIDATES_MATCH": true,
+    "VERIFIED_INTEGRATION_EDGES": 14,
+    "VERIFIED_INTEGRATION_EDGES_MATCH": true,
+    "PHASE_0G_FINAL_DISPOSITION": "PASS",
+    "preconditions_pass": true
+  },
+  "temporal_owners_evaluated": [
+    "HISTORICAL_EVENT_STORE",
+    "POINT_IN_TIME_RECONSTRUCTION",
+    "TEMPORAL_LEAKAGE_FIREWALL",
+    "SOURCE_RIGHTS",
+    "SOURCE_QUALITY",
+    "RETENTION_POLICY",
+    "EVIDENCE_PROVENANCE",
+    "REPRODUCIBILITY",
+    "CONTAMINATION_REGISTRY",
+    "CROSS_CUTTING_GOVERNANCE"
+  ],
+  "data_governance_components_involved": [
+    "DG-CB-023",
+    "DG-FRESH-022",
+    "DG-HOT-040",
+    "DG-MOAT-050",
+    "DG-MODEL-012",
+    "DG-PROV-032",
+    "DG-PROVSCORE-021",
+    "DG-REG-010",
+    "DG-REPO-030",
+    "DG-RET-034",
+    "DG-RUN-002",
+    "DG-SCHEMA-031",
+    "DG-SPINE-300",
+    "DG-STATE-020"
+  ],
+  "integration_contracts": [
+    {
+      "contract_id": "DG-TMP-HE-001",
+      "temporal_owner": "HISTORICAL_EVENT_STORE",
+      "data_governance_component_id": "DG-REPO-030",
+      "repository_path": "blackdark/data/repository.py",
+      "symbol_or_component": "insert_market_event",
+      "direction": "DATA_GOVERNANCE_TO_TEMPORAL",
+      "relationship_type": "CANONICAL_DATA_PROVIDER",
+      "information_transferred": "market_events rows (event_type, severity, symbol, start_time, end_time, source_links)",
+      "canonical_authority_owner": "DATA_GOVERNANCE",
+      "consumer_authority": "HISTORICAL_EVENT_STORE",
+      "required_metadata": [
+        "event_time",
+        "source"
+      ],
+      "runtime_reachable": true,
+      "evidence_basis": "insert_market_event writes market_events table; systems_api POST routes call it",
+      "verification_surface": "blackdark/data/systems_api.py; blackdark/data/migrations/006_market_events.sql",
+      "notes": "Temporal consumes DG-persisted events; DG retains storage authority"
+    },
+    {
+      "contract_id": "DG-TMP-HE-002",
+      "temporal_owner": "HISTORICAL_EVENT_STORE",
+      "data_governance_component_id": "DG-REPO-030",
+      "repository_path": "blackdark/data/repository.py",
+      "symbol_or_component": "query_ohlcv",
+      "direction": "DATA_GOVERNANCE_TO_TEMPORAL",
+      "relationship_type": "CANONICAL_DATA_PROVIDER",
+      "information_transferred": "ohlcv candle rows with open_time, OHLCV price/volume fields, source slug, provenance_id",
+      "canonical_authority_owner": "DATA_GOVERNANCE",
+      "consumer_authority": "HISTORICAL_EVENT_STORE",
+      "required_metadata": [
+        "event_time",
+        "source"
+      ],
+      "runtime_reachable": true,
+      "evidence_basis": "query_ohlcv joins ohlcv_data to data_sources; exposed via blackdark/data/api.py GET /api/v1/data/ohlcv",
+      "verification_surface": "blackdark/data/api.py; blackdark/data/migrations/003_ohlcv_data.sql",
+      "notes": "Canonical OHLCV historical store consumed for temporal event reconstruction"
+    },
+    {
+      "contract_id": "DG-TMP-HE-003",
+      "temporal_owner": "HISTORICAL_EVENT_STORE",
+      "data_governance_component_id": "DG-SCHEMA-031",
+      "repository_path": "blackdark/data/migrations/006_market_events.sql",
+      "symbol_or_component": "market_events",
+      "direction": "DATA_GOVERNANCE_TO_TEMPORAL",
+      "relationship_type": "CANONICAL_DATA_PROVIDER",
+      "information_transferred": "market_events schema (start_time, end_time, source_links JSONB, created_at)",
+      "canonical_authority_owner": "DATA_GOVERNANCE",
+      "consumer_authority": "HISTORICAL_EVENT_STORE",
+      "required_metadata": [
+        "event_time",
+        "source"
+      ],
+      "runtime_reachable": true,
+      "evidence_basis": "Schema applied via blackdark/data/migrate.py during init_data_engine",
+      "verification_surface": "blackdark/data/migrate.py; startup_orchestrator ensure_data_engine_ready",
+      "notes": "Schema contract for historical market events"
+    },
+    {
+      "contract_id": "DG-TMP-PIT-001",
+      "temporal_owner": "POINT_IN_TIME_RECONSTRUCTION",
+      "data_governance_component_id": "DG-REPO-030",
+      "repository_path": "blackdark/data/repository.py",
+      "symbol_or_component": "query_ohlcv",
+      "direction": "DATA_GOVERNANCE_TO_TEMPORAL",
+      "relationship_type": "VERSION_METADATA_PROVIDER",
+      "information_transferred": "time-bounded OHLCV slices via start_time/end_time filters",
+      "canonical_authority_owner": "DATA_GOVERNANCE",
+      "consumer_authority": "POINT_IN_TIME_RECONSTRUCTION",
+      "required_metadata": [
+        "event_time",
+        "source"
+      ],
+      "runtime_reachable": true,
+      "evidence_basis": "query_ohlcv applies open_time >= start_time and open_time <= end_time clauses",
+      "verification_surface": "blackdark/data/repository.py; blackdark/data/api.py get_ohlcv",
+      "notes": "PIT reconstruction consumes DG time-bounded queries; does not redefine canonical event timestamps"
+    },
+    {
+      "contract_id": "DG-TMP-PIT-002",
+      "temporal_owner": "POINT_IN_TIME_RECONSTRUCTION",
+      "data_governance_component_id": "DG-HOT-040",
+      "repository_path": "hot_tier_reader.py",
+      "symbol_or_component": "fetch_recent_closes",
+      "direction": "DATA_GOVERNANCE_TO_TEMPORAL",
+      "relationship_type": "CANONICAL_DATA_PROVIDER",
+      "information_transferred": "recent price closes from TimescaleDB hot_pricing or NDJSON spool",
+      "canonical_authority_owner": "DATA_GOVERNANCE",
+      "consumer_authority": "POINT_IN_TIME_RECONSTRUCTION",
+      "required_metadata": [],
+      "runtime_reachable": true,
+      "evidence_basis": "hot_tier_reader reads ORDER BY timestamp DESC from hot storage paths",
+      "verification_surface": "hot_tier_reader.py; ml/market_replay_bootstrap.py point-in-time feature commentary",
+      "notes": "Hot-tier read path for near-real-time PIT analytics"
+    },
+    {
+      "contract_id": "DG-TMP-TLF-001",
+      "temporal_owner": "TEMPORAL_LEAKAGE_FIREWALL",
+      "data_governance_component_id": "DG-FRESH-022",
+      "repository_path": "stale_price_guard.py",
+      "symbol_or_component": "validate_venue_quote",
+      "direction": "DATA_GOVERNANCE_TO_TEMPORAL",
+      "relationship_type": "FRESHNESS_PROVIDER",
+      "information_transferred": "quote freshness verdict (fresh/stale), age_ms, rejection reason",
+      "canonical_authority_owner": "DATA_GOVERNANCE",
+      "consumer_authority": "TEMPORAL_LEAKAGE_FIREWALL",
+      "required_metadata": [],
+      "runtime_reachable": true,
+      "evidence_basis": "cap646/data_spine.py imports stale_price_guard; rejects stale quotes before success",
+      "verification_surface": "cap646/data_spine.py freshness_assurance_report; stale_price_guard.py",
+      "notes": "DG freshness gate consumed by temporal leakage enforcement surfaces"
+    },
+    {
+      "contract_id": "DG-TMP-TLF-002",
+      "temporal_owner": "TEMPORAL_LEAKAGE_FIREWALL",
+      "data_governance_component_id": "DG-MOAT-050",
+      "repository_path": "data_moat_guard.py",
+      "symbol_or_component": "validate_prediction_insert",
+      "direction": "DATA_GOVERNANCE_TO_TEMPORAL",
+      "relationship_type": "GOVERNANCE_POLICY_DEPENDENCY",
+      "information_transferred": "synthetic source block policy (SYNTHETIC_SOURCES), live-only labeling gate",
+      "canonical_authority_owner": "DATA_GOVERNANCE",
+      "consumer_authority": "TEMPORAL_LEAKAGE_FIREWALL",
+      "required_metadata": [
+        "source"
+      ],
+      "runtime_reachable": true,
+      "evidence_basis": "database.py calls validate_prediction_insert on oracle prediction inserts",
+      "verification_surface": "database.py; data_moat_guard.py",
+      "notes": "DG contamination boundary policy consumed at prediction write time"
+    },
+    {
+      "contract_id": "DG-TMP-SR-001",
+      "temporal_owner": "SOURCE_RIGHTS",
+      "data_governance_component_id": "DG-REG-010",
+      "repository_path": "data_sources_registry.py",
+      "symbol_or_component": "DataSourceSpec",
+      "direction": "DATA_GOVERNANCE_TO_TEMPORAL",
+      "relationship_type": "RIGHTS_METADATA_PROVIDER",
+      "information_transferred": "source_id, category, fetch_kind, url, interval_seconds, env_key, notes",
+      "canonical_authority_owner": "DATA_GOVERNANCE",
+      "consumer_authority": "SOURCE_RIGHTS",
+      "required_metadata": [
+        "source"
+      ],
+      "runtime_reachable": true,
+      "evidence_basis": "DATA_SOURCES tuple defines 100+ external endpoints; imported by ingestion_scheduler, cap646/data_spine",
+      "verification_surface": "data_sources_registry.py; cap646/data_spine.py ingestion_architecture_report",
+      "notes": "env_key encodes credential/licensing requirement per source"
+    },
+    {
+      "contract_id": "DG-TMP-SR-002",
+      "temporal_owner": "SOURCE_RIGHTS",
+      "data_governance_component_id": "DG-MODEL-012",
+      "repository_path": "blackdark/data/models.py",
+      "symbol_or_component": "DataSource",
+      "direction": "DATA_GOVERNANCE_TO_TEMPORAL",
+      "relationship_type": "RIGHTS_METADATA_PROVIDER",
+      "information_transferred": "Postgres data_sources slug, source_type, base_url, rate_limit_rps, metadata_json",
+      "canonical_authority_owner": "DATA_GOVERNANCE",
+      "consumer_authority": "SOURCE_RIGHTS",
+      "required_metadata": [
+        "source",
+        "revised_at"
+      ],
+      "runtime_reachable": true,
+      "evidence_basis": "DataSource ORM model and repository seed_data_sources persist source identity in Postgres",
+      "verification_surface": "blackdark/data/models.py; blackdark/data/repository.py seed_data_sources",
+      "notes": "Environment-gated via DATABASE_URL and data engine initialization; concrete runtime wiring present",
+      "runtime_reachability": "RUNTIME_REACHABLE_ENVIRONMENT_GATED"
+    },
+    {
+      "contract_id": "DG-TMP-SQ-001",
+      "temporal_owner": "SOURCE_QUALITY",
+      "data_governance_component_id": "DG-FRESH-022",
+      "repository_path": "stale_price_guard.py",
+      "symbol_or_component": "validate_venue_quote",
+      "direction": "DATA_GOVERNANCE_TO_TEMPORAL",
+      "relationship_type": "FRESHNESS_PROVIDER",
+      "information_transferred": "venue quote age_ms and fresh/stale classification",
+      "canonical_authority_owner": "DATA_GOVERNANCE",
+      "consumer_authority": "SOURCE_QUALITY",
+      "required_metadata": [],
+      "runtime_reachable": true,
+      "evidence_basis": "stale_price_guard enforces EXECUTION_MAX_QUOTE_AGE_MS threshold",
+      "verification_surface": "stale_price_guard.py; cap646/data_spine.py",
+      "notes": null
+    },
+    {
+      "contract_id": "DG-TMP-SQ-002",
+      "temporal_owner": "SOURCE_QUALITY",
+      "data_governance_component_id": "DG-PROVSCORE-021",
+      "repository_path": "data_provenance_score.py",
+      "symbol_or_component": "compute_data_provenance_score",
+      "direction": "DATA_GOVERNANCE_TO_TEMPORAL",
+      "relationship_type": "QUALITY_PROVIDER",
+      "information_transferred": "0-100 provenance score, freshness/venue/source diversity components, decision band",
+      "canonical_authority_owner": "DATA_GOVERNANCE",
+      "consumer_authority": "SOURCE_QUALITY",
+      "required_metadata": [
+        "source"
+      ],
+      "runtime_reachable": true,
+      "evidence_basis": "compute_data_provenance_score used by cap646/data_spine and cap646/handlers/data.py",
+      "verification_surface": "data_provenance_score.py; cap646/handlers/data.py",
+      "notes": null
+    },
+    {
+      "contract_id": "DG-TMP-SQ-003",
+      "temporal_owner": "SOURCE_QUALITY",
+      "data_governance_component_id": "DG-STATE-020",
+      "repository_path": "blackdark/data/response_metadata.py",
+      "symbol_or_component": "resolve_data_state",
+      "direction": "DATA_GOVERNANCE_TO_TEMPORAL",
+      "relationship_type": "QUALITY_PROVIDER",
+      "information_transferred": "dataset state LIVE/MISSING/STALE/UNKNOWN with SLA age reasoning",
+      "canonical_authority_owner": "DATA_GOVERNANCE",
+      "consumer_authority": "SOURCE_QUALITY",
+      "required_metadata": [
+        "ingested_at"
+      ],
+      "runtime_reachable": true,
+      "evidence_basis": "resolve_data_state used by blackdark/data/api.py dataset_response on OHLCV/funding queries",
+      "verification_surface": "blackdark/data/response_metadata.py; blackdark/data/api.py",
+      "notes": "resolve_data_state uses latest_record_at for SLA comparison; available_at not proven on this surface"
+    },
+    {
+      "contract_id": "DG-TMP-SQ-004",
+      "temporal_owner": "SOURCE_QUALITY",
+      "data_governance_component_id": "DG-CB-023",
+      "repository_path": "blackdark/data/circuit_breaker.py",
+      "symbol_or_component": "is_open",
+      "direction": "DATA_GOVERNANCE_TO_TEMPORAL",
+      "relationship_type": "QUALITY_PROVIDER",
+      "information_transferred": "upstream circuit-open signal forcing UNKNOWN data state",
+      "canonical_authority_owner": "DATA_GOVERNANCE",
+      "consumer_authority": "SOURCE_QUALITY",
+      "required_metadata": [
+        "source"
+      ],
+      "runtime_reachable": true,
+      "evidence_basis": "circuit_is_open consulted in blackdark/data/api.py get_ohlcv upstream_unknown path",
+      "verification_surface": "blackdark/data/circuit_breaker.py; blackdark/data/api.py",
+      "notes": null
+    },
+    {
+      "contract_id": "DG-TMP-SQ-005",
+      "temporal_owner": "SOURCE_QUALITY",
+      "data_governance_component_id": "DG-SPINE-300",
+      "repository_path": "cap646/data_spine.py",
+      "symbol_or_component": "freshness_assurance_report",
+      "direction": "DATA_GOVERNANCE_TO_TEMPORAL",
+      "relationship_type": "QUALITY_PROVIDER",
+      "information_transferred": "aggregated freshness assurance payload (quote_fresh, quote_age_ms, feed_lag_scan)",
+      "canonical_authority_owner": "DATA_GOVERNANCE",
+      "consumer_authority": "SOURCE_QUALITY",
+      "required_metadata": [
+        "source"
+      ],
+      "runtime_reachable": true,
+      "evidence_basis": "freshness_assurance_report orchestrates stale_price_guard, feed_lag_scanner, live_book_hub",
+      "verification_surface": "cap646/data_spine.py; cap646/handlers/data.py capability 630",
+      "notes": "Shared infrastructure surface composing DG quality modules"
+    },
+    {
+      "contract_id": "DG-TMP-RP-001",
+      "temporal_owner": "RETENTION_POLICY",
+      "data_governance_component_id": "DG-RET-034",
+      "repository_path": "storage_tier_manager.py",
+      "symbol_or_component": "enforce_market_data_retention",
+      "direction": "DATA_GOVERNANCE_TO_TEMPORAL",
+      "relationship_type": "RETENTION_POLICY_PROVIDER",
+      "information_transferred": "hot/warm/archive retention windows, market row purge, compaction schedule",
+      "canonical_authority_owner": "DATA_GOVERNANCE",
+      "consumer_authority": "RETENTION_POLICY",
+      "required_metadata": [
+        "ingested_at"
+      ],
+      "runtime_reachable": true,
+      "evidence_basis": "startup_orchestrator starts storage_tier_manager; enforce_market_data_retention calls prune_old_market_rows",
+      "verification_surface": "storage_tier_manager.py; startup_orchestrator.py",
+      "notes": "DG owns retention execution; Temporal RETENTION_POLICY consumes policy outcomes"
+    },
+    {
+      "contract_id": "DG-TMP-EP-001",
+      "temporal_owner": "EVIDENCE_PROVENANCE",
+      "data_governance_component_id": "DG-PROV-032",
+      "repository_path": "blackdark/data/provenance.py",
+      "symbol_or_component": "record_provenance",
+      "direction": "DATA_GOVERNANCE_TO_TEMPORAL",
+      "relationship_type": "PROVENANCE_PROVIDER",
+      "information_transferred": "raw_response_hash, source_endpoint, parser_version, ingestion_run_id per ingested record",
+      "canonical_authority_owner": "DATA_GOVERNANCE",
+      "consumer_authority": "EVIDENCE_PROVENANCE",
+      "required_metadata": [
+        "source",
+        "ingested_at",
+        "rights_or_provenance"
+      ],
+      "runtime_reachable": true,
+      "evidence_basis": "record_provenance called by binance/coingecko/kraken ingestors; get_provenance_by_record exposed via API",
+      "verification_surface": "blackdark/data/provenance.py; blackdark/data/ingestors/binance.py; blackdark/data/api.py",
+      "notes": "Upstream acquisition provenance authority remains with DG"
+    },
+    {
+      "contract_id": "DG-TMP-EP-002",
+      "temporal_owner": "EVIDENCE_PROVENANCE",
+      "data_governance_component_id": "DG-PROV-032",
+      "repository_path": "blackdark/data/provenance.py",
+      "symbol_or_component": "hash_payload",
+      "direction": "DATA_GOVERNANCE_TO_TEMPORAL",
+      "relationship_type": "PROVENANCE_PROVIDER",
+      "information_transferred": "SHA-256 payload hashes for signals/evidence records",
+      "canonical_authority_owner": "DATA_GOVERNANCE",
+      "consumer_authority": "EVIDENCE_PROVENANCE",
+      "required_metadata": [
+        "rights_or_provenance"
+      ],
+      "runtime_reachable": true,
+      "evidence_basis": "systems_api uses hash_payload for features_hash and evidence_hash on write paths",
+      "verification_surface": "blackdark/data/systems_api.py; blackdark/data/provenance.py",
+      "notes": "Temporal evidence records may reference DG hashes without overwriting acquisition provenance"
+    },
+    {
+      "contract_id": "DG-TMP-REP-001",
+      "temporal_owner": "REPRODUCIBILITY",
+      "data_governance_component_id": "DG-PROV-032",
+      "repository_path": "blackdark/data/provenance.py",
+      "symbol_or_component": "get_provenance_by_record",
+      "direction": "DATA_GOVERNANCE_TO_TEMPORAL",
+      "relationship_type": "PROVENANCE_PROVIDER",
+      "information_transferred": "provenance_id, source slug, ingestion_run_id, run_type, raw_response_hash, parser_version",
+      "canonical_authority_owner": "DATA_GOVERNANCE",
+      "consumer_authority": "REPRODUCIBILITY",
+      "required_metadata": [
+        "source",
+        "ingested_at",
+        "rights_or_provenance"
+      ],
+      "runtime_reachable": true,
+      "evidence_basis": "get_provenance_by_record joins data_provenance, ingestion_runs, data_sources",
+      "verification_surface": "blackdark/data/provenance.py; blackdark/data/migrations/007_data_provenance.sql",
+      "notes": "ingestion_runs.started_at provides run-level ingest timestamp"
+    },
+    {
+      "contract_id": "DG-TMP-REP-002",
+      "temporal_owner": "REPRODUCIBILITY",
+      "data_governance_component_id": "DG-RUN-002",
+      "repository_path": "blackdark/data/migrations/002_ingestion_runs.sql",
+      "symbol_or_component": "ingestion_runs",
+      "direction": "DATA_GOVERNANCE_TO_TEMPORAL",
+      "relationship_type": "VERSION_METADATA_PROVIDER",
+      "information_transferred": "ingestion run id, source_id, run_type, started_at, completed_at, params",
+      "canonical_authority_owner": "DATA_GOVERNANCE",
+      "consumer_authority": "REPRODUCIBILITY",
+      "required_metadata": [
+        "ingested_at",
+        "source"
+      ],
+      "runtime_reachable": true,
+      "evidence_basis": "ingestion_runs referenced by ohlcv_data, data_provenance, de_signal_registry FKs",
+      "verification_surface": "blackdark/data/migrations/002_ingestion_runs.sql; blackdark/data/models.py IngestionRun",
+      "notes": null
+    },
+    {
+      "contract_id": "DG-TMP-CR-001",
+      "temporal_owner": "CONTAMINATION_REGISTRY",
+      "data_governance_component_id": "DG-MOAT-050",
+      "repository_path": "data_moat_guard.py",
+      "symbol_or_component": "validate_prediction_insert",
+      "direction": "DATA_GOVERNANCE_TO_TEMPORAL",
+      "relationship_type": "GOVERNANCE_POLICY_DEPENDENCY",
+      "information_transferred": "synthetic/historical_seed source rejection, features_json requirement for live oracle",
+      "canonical_authority_owner": "DATA_GOVERNANCE",
+      "consumer_authority": "CONTAMINATION_REGISTRY",
+      "required_metadata": [
+        "source"
+      ],
+      "runtime_reachable": true,
+      "evidence_basis": "SYNTHETIC_SOURCES frozenset blocks historical_seed/synthetic/demo_seed in production",
+      "verification_surface": "data_moat_guard.py; database.py validate_prediction_insert call site",
+      "notes": "DG defines contamination source taxonomy consumed by Temporal contamination registry"
+    },
+    {
+      "contract_id": "DG-TMP-CCG-001",
+      "temporal_owner": "CROSS_CUTTING_GOVERNANCE",
+      "data_governance_component_id": "DG-SPINE-300",
+      "repository_path": "cap646/data_spine.py",
+      "symbol_or_component": "ingestion_architecture_report",
+      "direction": "DATA_GOVERNANCE_TO_TEMPORAL",
+      "relationship_type": "GOVERNANCE_POLICY_DEPENDENCY",
+      "information_transferred": "DG pipeline stage manifest (source, normalize, lake, provenance, freshness modules)",
+      "canonical_authority_owner": "DATA_GOVERNANCE",
+      "consumer_authority": "CROSS_CUTTING_GOVERNANCE",
+      "required_metadata": [
+        "source",
+        "rights_or_provenance"
+      ],
+      "runtime_reachable": true,
+      "evidence_basis": "ingestion_architecture_report documents DG module chain and category_intervals",
+      "verification_surface": "cap646/data_spine.py; cap646/handlers/data.py capability 631",
+      "notes": "Cross-cutting governance consumes DG architecture disclosure, not vice versa"
+    },
+    {
+      "contract_id": "DG-TMP-SR-003",
+      "temporal_owner": "SOURCE_RIGHTS",
+      "data_governance_component_id": "DG-SPINE-300",
+      "repository_path": "cap646/data_spine.py",
+      "symbol_or_component": "ingestion_architecture_report",
+      "direction": "DATA_GOVERNANCE_TO_TEMPORAL",
+      "relationship_type": "RIGHTS_METADATA_PROVIDER",
+      "information_transferred": "source registry reference and category_intervals from data_sources_registry import",
+      "canonical_authority_owner": "DATA_GOVERNANCE",
+      "consumer_authority": "SOURCE_RIGHTS",
+      "required_metadata": [
+        "source"
+      ],
+      "runtime_reachable": true,
+      "evidence_basis": "data_spine imports CATEGORY_INTERVALS from data_sources_registry",
+      "verification_surface": "cap646/data_spine.py line 22-23",
+      "notes": "CAND-300 shared infrastructure re-exports source rights metadata"
+    },
+    {
+      "contract_id": "DG-TMP-HE-004",
+      "temporal_owner": "HISTORICAL_EVENT_STORE",
+      "data_governance_component_id": "DG-SPINE-300",
+      "repository_path": "cap646/data_spine.py",
+      "symbol_or_component": "data_quality_pipeline_report",
+      "direction": "DATA_GOVERNANCE_TO_TEMPORAL",
+      "relationship_type": "CANONICAL_DATA_PROVIDER",
+      "information_transferred": "lake_store status, ingest stage state, quarantine rule reference",
+      "canonical_authority_owner": "DATA_GOVERNANCE",
+      "consumer_authority": "HISTORICAL_EVENT_STORE",
+      "required_metadata": [
+        "source",
+        "ingested_at"
+      ],
+      "runtime_reachable": true,
+      "evidence_basis": "data_quality_pipeline_report calls data_lake.lake_status for store health",
+      "verification_surface": "cap646/data_spine.py; data_lake.py",
+      "notes": "Observability surface over DG historical lake, not alternate canonical store"
+    }
+  ],
+  "metadata_contract_matrix": [
+    {
+      "field": "event_time",
+      "classification": "DIRECTLY_AVAILABLE",
+      "repository_evidence": "ohlcv_data.open_time and market_events.start_time/end_time represent when the underlying market interval or event occurred.",
+      "semantic_limitations": "hot_tier_reader.fetch_recent_closes returns price floats without timestamps; quote-age metrics are not event_time."
+    },
+    {
+      "field": "observed_time",
+      "classification": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "repository_evidence": "stale_price_guard.validate_venue_quote and data_provenance_score expose quote_age_ms/freshness_ms (relative latency), not an absolute observation timestamp on contract surfaces.",
+      "semantic_limitations": "Relative quote_age_ms/freshness_ms does not prove an absolute observation timestamp."
+    },
+    {
+      "field": "available_at",
+      "classification": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "repository_evidence": "blackdark/data/response_metadata.resolve_data_state compares latest_record_at to SLA freshness thresholds; no available_at field exists in schemas or APIs.",
+      "semantic_limitations": "latest_record_at plus SLA/freshness does not prove earliest availability to the Temporal PIT process."
+    },
+    {
+      "field": "ingested_at",
+      "classification": "DERIVABLE_WITH_EXISTING_EVIDENCE",
+      "repository_evidence": "ohlcv_data.fetched_at column exists; data_provenance.parsed_at aliased fetched_at in get_provenance_by_record; ingestion_runs.started_at records run start.",
+      "semantic_limitations": "fetched_at, parsed_at, and ingestion-run start may support derivation but do not automatically prove per-record ingestion timestamp."
+    },
+    {
+      "field": "effective_at",
+      "classification": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "repository_evidence": "No effective_at column or equivalent domain-effectiveness timestamp located in inspected DG schemas or services.",
+      "semantic_limitations": null
+    },
+    {
+      "field": "revised_at",
+      "classification": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "repository_evidence": "data_sources.updated_at exists on registry rows (blackdark/data/models.py DataSource) only.",
+      "semantic_limitations": "data_sources.updated_at is registry metadata update time, not event/datum revision time."
+    },
+    {
+      "field": "source",
+      "classification": "DIRECTLY_AVAILABLE",
+      "repository_evidence": "data_sources_registry.DataSourceSpec.source_id; Postgres data_sources.slug; provenance joins expose ds.slug AS source.",
+      "semantic_limitations": "market_events carries source_links JSONB rather than normalized source slug."
+    },
+    {
+      "field": "source_version",
+      "classification": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "repository_evidence": "data_provenance.parser_version and PARSER_VERSION constant record parser implementation version only.",
+      "semantic_limitations": "parser_version is not equivalent to upstream source/data version."
+    },
+    {
+      "field": "dataset_version",
+      "classification": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "repository_evidence": "No dataset_version field, snapshot id, or version table found in inspected DG paths.",
+      "semantic_limitations": "No qualifying dataset-version evidence was proven."
+    },
+    {
+      "field": "rights_or_provenance",
+      "classification": "DERIVABLE_WITH_EXISTING_EVIDENCE",
+      "repository_evidence": "Provenance lineage: raw_response_hash, source_endpoint, source_links JSONB, ingestion_run_id. Rights: DataSourceSpec.env_key indicates credential requirement only.",
+      "semantic_limitations": "Hashes/endpoints/source links may establish provenance lineage; env_key does not prove licensing or data-use entitlement."
+    }
+  ],
+  "phase_0g_data_governance_mapping_validation": [
+    {
+      "candidate_id": "CAND-010",
+      "repository_path": "data_sources_registry.py",
+      "symbol_or_component": "DataSourceSpec",
+      "claimed_temporal_owners": [
+        "SOURCE_RIGHTS"
+      ],
+      "classification": "SUPPORTED_DIRECT",
+      "evidence_basis": "DataSourceSpec defines source_id, category, fetch_kind, url, env_key for 100+ external sources; consumed by cap646/data_spine and ingestion_scheduler",
+      "unsupported_assumptions": []
+    },
+    {
+      "candidate_id": "CAND-030",
+      "repository_path": "blackdark/data/repository.py",
+      "symbol_or_component": "insert_market_event",
+      "claimed_temporal_owners": [
+        "EVIDENCE_PROVENANCE",
+        "HISTORICAL_EVENT_STORE",
+        "OUTCOME_FACTORY"
+      ],
+      "classification": "SUPPORTED_DIRECT",
+      "evidence_basis": "repository provides CRUD for market_events, ohlcv_data, signals, outcomes, evidence; query_ohlcv and insert_market_event verified in source",
+      "unsupported_assumptions": [],
+      "notes": "OUTCOME_FACTORY edge is outside 0H-1 scope; mapping to HISTORICAL_EVENT_STORE and EVIDENCE_PROVENANCE supported"
+    },
+    {
+      "candidate_id": "CAND-032",
+      "repository_path": "blackdark/data/provenance.py",
+      "symbol_or_component": "record_provenance",
+      "claimed_temporal_owners": [
+        "EVIDENCE_PROVENANCE",
+        "HISTORICAL_EVENT_STORE",
+        "REPRODUCIBILITY"
+      ],
+      "classification": "SUPPORTED_DIRECT",
+      "evidence_basis": "record_provenance persists data_provenance rows; ingestors call it; get_provenance_by_record enables lineage retrieval",
+      "unsupported_assumptions": []
+    },
+    {
+      "candidate_id": "CAND-300",
+      "repository_path": "cap646/data_spine.py",
+      "symbol_or_component": "data_spine",
+      "claimed_temporal_owners": [
+        "HISTORICAL_EVENT_STORE",
+        "SOURCE_QUALITY",
+        "SOURCE_RIGHTS"
+      ],
+      "classification": "SUPPORTED_SHARED_INFRASTRUCTURE",
+      "evidence_basis": "data_spine composes DG modules (data_sources_registry, stale_price_guard, data_provenance_score, data_lake) into capability reports; imports verified",
+      "unsupported_assumptions": []
+    }
+  ],
+  "canonical_authority_discipline": {
+    "canonical_authority_collisions": 0,
+    "upstream_provenance_authority_lost": 0,
+    "temporal_derived_state_assigned_to_data_governance": 0,
+    "notes": "DG retains authority for acquisition storage, provenance hashes, source registry, retention execution; Temporal owners consume without reassignment"
+  },
+  "runtime_reachability_summary": {
+    "contracts_total": 23,
+    "runtime_reachable_unconditional_contracts": 12,
+    "runtime_reachable_environment_gated_contracts": 11,
+    "not_runtime_reachable_contracts": 0,
+    "runtime_reachable_contracts": 23,
+    "false_runtime_reachability_claims": 0,
+    "runtime_reachability_by_contract": {
+      "DG-TMP-HE-001": "RUNTIME_REACHABLE_ENVIRONMENT_GATED",
+      "DG-TMP-HE-002": "RUNTIME_REACHABLE_ENVIRONMENT_GATED",
+      "DG-TMP-HE-003": "RUNTIME_REACHABLE_ENVIRONMENT_GATED",
+      "DG-TMP-PIT-001": "RUNTIME_REACHABLE_ENVIRONMENT_GATED",
+      "DG-TMP-PIT-002": "RUNTIME_REACHABLE_UNCONDITIONAL",
+      "DG-TMP-TLF-001": "RUNTIME_REACHABLE_UNCONDITIONAL",
+      "DG-TMP-TLF-002": "RUNTIME_REACHABLE_UNCONDITIONAL",
+      "DG-TMP-SR-001": "RUNTIME_REACHABLE_UNCONDITIONAL",
+      "DG-TMP-SR-002": "RUNTIME_REACHABLE_ENVIRONMENT_GATED",
+      "DG-TMP-SQ-001": "RUNTIME_REACHABLE_UNCONDITIONAL",
+      "DG-TMP-SQ-002": "RUNTIME_REACHABLE_UNCONDITIONAL",
+      "DG-TMP-SQ-003": "RUNTIME_REACHABLE_ENVIRONMENT_GATED",
+      "DG-TMP-SQ-004": "RUNTIME_REACHABLE_ENVIRONMENT_GATED",
+      "DG-TMP-SQ-005": "RUNTIME_REACHABLE_UNCONDITIONAL",
+      "DG-TMP-RP-001": "RUNTIME_REACHABLE_UNCONDITIONAL",
+      "DG-TMP-EP-001": "RUNTIME_REACHABLE_ENVIRONMENT_GATED",
+      "DG-TMP-EP-002": "RUNTIME_REACHABLE_ENVIRONMENT_GATED",
+      "DG-TMP-REP-001": "RUNTIME_REACHABLE_ENVIRONMENT_GATED",
+      "DG-TMP-REP-002": "RUNTIME_REACHABLE_ENVIRONMENT_GATED",
+      "DG-TMP-CR-001": "RUNTIME_REACHABLE_UNCONDITIONAL",
+      "DG-TMP-CCG-001": "RUNTIME_REACHABLE_UNCONDITIONAL",
+      "DG-TMP-SR-003": "RUNTIME_REACHABLE_UNCONDITIONAL",
+      "DG-TMP-HE-004": "RUNTIME_REACHABLE_UNCONDITIONAL"
+    }
+  },
+  "discovery_integrity": {
+    "unsupported_metadata_availability_claims": 0,
+    "implementation_status_leakage": 0,
+    "canonical_ownership_mutations": 0,
+    "runtime_source_files_changed": 0
+  },
+  "PHASE_0H1_DATA_GOVERNANCE_DISCOVERY_COMPLETE": true,
+  "data_governance_component_count": 14,
+  "point_in_time_available_at_enforcement": {
+    "CURRENT_DG_EVIDENCE_SUFFICIENT_FOR_AVAILABLE_AT_ENFORCEMENT": false,
+    "reason": "No proven available_at field or unambiguous earliest-availability timestamp currently exists in the discovered Data Governance surfaces."
+  },
+  "corrected_at_utc": "2026-09-14T08:09:26Z",
+  "correction_source": "TEMPORAL_PHASE_0H1_INDEPENDENT_AUDIT.json"
+}

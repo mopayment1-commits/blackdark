@@ -1,0 +1,1303 @@
+{
+  "phase": "0_FINAL",
+  "created_at_utc": "2026-09-14T09:09:10Z",
+  "branch": "cursor/temporal-phase-0-clean-reanchor-358c",
+  "consumer_inventory": {
+    "entries": [
+      {
+        "consumer_id": "CONS-CAND-001",
+        "candidate_id": "CAND-001",
+        "repository_path": "production_guard.py",
+        "symbol_or_component": "evaluate_production_guard",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "CROSS_CUTTING_GOVERNANCE",
+          "QUALITY_GOVERNANCE"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-002",
+        "candidate_id": "CAND-002",
+        "repository_path": "zero_tolerance.py",
+        "symbol_or_component": "apply_zero_tolerance",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "CROSS_CUTTING_GOVERNANCE",
+          "QUALITY_GOVERNANCE"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-003",
+        "candidate_id": "CAND-003",
+        "repository_path": "rvm/run.py",
+        "symbol_or_component": "run_rvm",
+        "classification": "EVIDENCE_CONSUMER",
+        "temporal_owner_domains": [
+          "CROSS_CUTTING_GOVERNANCE",
+          "QUALITY_GOVERNANCE",
+          "REPRODUCIBILITY"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-004",
+        "candidate_id": "CAND-004",
+        "repository_path": "startup_orchestrator.py",
+        "symbol_or_component": "run_background_startup",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "COMPUTATIONAL_ACCELERATION",
+          "CROSS_CUTTING_GOVERNANCE"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-010",
+        "candidate_id": "CAND-010",
+        "repository_path": "data_sources_registry.py",
+        "symbol_or_component": "DataSourceSpec",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "SOURCE_RIGHTS"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-011",
+        "candidate_id": "CAND-011",
+        "repository_path": "platform_universe.py",
+        "symbol_or_component": "load_registry",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "EXPERIENCE_COVERAGE",
+          "SOURCE_QUALITY",
+          "SOURCE_RIGHTS"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-012",
+        "candidate_id": "CAND-012",
+        "repository_path": "blackdark/data/models.py",
+        "symbol_or_component": "DataSource",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "HISTORICAL_EVENT_STORE",
+          "SOURCE_RIGHTS"
+        ],
+        "runtime_reachable": false
+      },
+      {
+        "consumer_id": "CONS-CAND-013",
+        "candidate_id": "CAND-013",
+        "repository_path": "billing/plan_registry.py",
+        "symbol_or_component": "PLAN_DEFINITIONS",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "SOURCE_RIGHTS"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-020",
+        "candidate_id": "CAND-020",
+        "repository_path": "blackdark/data/response_metadata.py",
+        "symbol_or_component": "resolve_data_state",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "SOURCE_QUALITY"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-021",
+        "candidate_id": "CAND-021",
+        "repository_path": "data_freshness.py",
+        "symbol_or_component": "attach_oracle_freshness",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "SOURCE_QUALITY"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-022",
+        "candidate_id": "CAND-022",
+        "repository_path": "stale_price_guard.py",
+        "symbol_or_component": "validate_venue_quote",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "SOURCE_QUALITY",
+          "TEMPORAL_LEAKAGE_FIREWALL"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-023",
+        "candidate_id": "CAND-023",
+        "repository_path": "blackdark/data/circuit_breaker.py",
+        "symbol_or_component": "is_open",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "SOURCE_QUALITY"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-030",
+        "candidate_id": "CAND-030",
+        "repository_path": "blackdark/data/repository.py",
+        "symbol_or_component": "insert_market_event",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "EVIDENCE_PROVENANCE",
+          "HISTORICAL_EVENT_STORE",
+          "OUTCOME_FACTORY"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-031",
+        "candidate_id": "CAND-031",
+        "repository_path": "blackdark/data/migrations/006_market_events.sql",
+        "symbol_or_component": "market_events",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "HISTORICAL_EVENT_STORE"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-032",
+        "candidate_id": "CAND-032",
+        "repository_path": "blackdark/data/provenance.py",
+        "symbol_or_component": "record_provenance",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "EVIDENCE_PROVENANCE",
+          "HISTORICAL_EVENT_STORE",
+          "REPRODUCIBILITY"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-033",
+        "candidate_id": "CAND-033",
+        "repository_path": "blackdark/canonical/store.py",
+        "symbol_or_component": "canonical_records",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "HISTORICAL_EVENT_STORE"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-034",
+        "candidate_id": "CAND-034",
+        "repository_path": "parquet_compactor.py",
+        "symbol_or_component": "compact_historical_data",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "COMPUTATIONAL_ACCELERATION",
+          "HISTORICAL_EVENT_STORE",
+          "MARKET_TIME_MACHINE"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-035",
+        "candidate_id": "CAND-035",
+        "repository_path": "blackdark/ingestion/coingecko_connector.py",
+        "symbol_or_component": "run_coingecko_primary_ingest",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "HISTORICAL_EVENT_STORE",
+          "SOURCE_RIGHTS"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-040",
+        "candidate_id": "CAND-040",
+        "repository_path": "hot_tier_reader.py",
+        "symbol_or_component": "fetch_recent_closes",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "MARKET_TIME_MACHINE",
+          "POINT_IN_TIME_RECONSTRUCTION"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-041",
+        "candidate_id": "CAND-041",
+        "repository_path": "since_you_left.py",
+        "symbol_or_component": "capture_market_snapshot",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "MARKET_TIME_MACHINE",
+          "POINT_IN_TIME_RECONSTRUCTION"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-042",
+        "candidate_id": "CAND-042",
+        "repository_path": "cap646/batch02_dedicated.py",
+        "symbol_or_component": "point_in_time_immutable_metrics",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "MARKET_TIME_MACHINE",
+          "POINT_IN_TIME_RECONSTRUCTION"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-043",
+        "candidate_id": "CAND-043",
+        "repository_path": "ml/market_replay_bootstrap.py",
+        "symbol_or_component": "_feature_vector_from_closes",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "DETERMINISTIC_REPLAY",
+          "POINT_IN_TIME_RECONSTRUCTION"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-050",
+        "candidate_id": "CAND-050",
+        "repository_path": "ml/training_utils.py",
+        "symbol_or_component": "temporal_train_test_split",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "CONTAMINATION_REGISTRY",
+          "TEMPORAL_LEAKAGE_FIREWALL",
+          "WALK_FORWARD_VALIDATION"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-051",
+        "candidate_id": "CAND-051",
+        "repository_path": "oracle_integrity.py",
+        "symbol_or_component": "filter_live_predictions",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "CONTAMINATION_REGISTRY",
+          "TEMPORAL_LEAKAGE_FIREWALL"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-052",
+        "candidate_id": "CAND-052",
+        "repository_path": "data_moat_guard.py",
+        "symbol_or_component": "validate_prediction_insert",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "CONTAMINATION_REGISTRY",
+          "CONTROLLED_LEARNING",
+          "TEMPORAL_LEAKAGE_FIREWALL"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-053",
+        "candidate_id": "CAND-053",
+        "repository_path": "org_tenant.py",
+        "symbol_or_component": "scoped_key",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "TEMPORAL_LEAKAGE_FIREWALL"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-060",
+        "candidate_id": "CAND-060",
+        "repository_path": "cap978/evidence_room.py",
+        "symbol_or_component": "build_evidence_room_snapshot",
+        "classification": "EVIDENCE_CONSUMER",
+        "temporal_owner_domains": [
+          "PUBLIC_EVIDENCE",
+          "REPRODUCIBILITY"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-061",
+        "candidate_id": "CAND-061",
+        "repository_path": "rvm/build.py",
+        "symbol_or_component": "build_rvm_matrix",
+        "classification": "EVIDENCE_CONSUMER",
+        "temporal_owner_domains": [
+          "QUALITY_GOVERNANCE",
+          "REPRODUCIBILITY"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-062",
+        "candidate_id": "CAND-062",
+        "repository_path": "compounding_common.py",
+        "symbol_or_component": "row_signature",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "EVIDENCE_PROVENANCE",
+          "REPRODUCIBILITY"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-063",
+        "candidate_id": "CAND-063",
+        "repository_path": "corpus_passport.py",
+        "symbol_or_component": "build_corpus_passport",
+        "classification": "EVIDENCE_CONSUMER",
+        "temporal_owner_domains": [
+          "EXPERIENCE_COVERAGE",
+          "REPRODUCIBILITY"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-070",
+        "candidate_id": "CAND-070",
+        "repository_path": "contradiction_replay.py",
+        "symbol_or_component": "build_contradiction_replay",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "DETERMINISTIC_REPLAY",
+          "FAILURE_SURPRISE_ABSTENTION",
+          "REPLAY_FIDELITY"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-071",
+        "candidate_id": "CAND-071",
+        "repository_path": "api/routers/oracle.py",
+        "symbol_or_component": "ml_bootstrap_replay",
+        "classification": "API_CONSUMER",
+        "temporal_owner_domains": [
+          "CONTROLLED_LEARNING",
+          "DETERMINISTIC_REPLAY",
+          "EXPERIENCE_COVERAGE"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-072",
+        "candidate_id": "CAND-072",
+        "repository_path": "signal_registry.py",
+        "symbol_or_component": "register_signal",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "DETERMINISTIC_REPLAY",
+          "EVIDENCE_PROVENANCE",
+          "REPLAY_FIDELITY"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-073",
+        "candidate_id": "CAND-073",
+        "repository_path": "templates/contradiction_replay.html",
+        "symbol_or_component": "contradiction_replay_page",
+        "classification": "UI_CONSUMER",
+        "temporal_owner_domains": [
+          "DETERMINISTIC_REPLAY",
+          "PUBLIC_EVIDENCE"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-080",
+        "candidate_id": "CAND-080",
+        "repository_path": "blackdark/data/systems_api.py",
+        "symbol_or_component": "evaluate_outcome",
+        "classification": "API_CONSUMER",
+        "temporal_owner_domains": [
+          "HISTORICAL_EVENT_STORE",
+          "OUTCOME_FACTORY"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-081",
+        "candidate_id": "CAND-081",
+        "repository_path": "blackdark/data/migrations/014_de_outcome_evaluations.sql",
+        "symbol_or_component": "de_outcome_evaluations",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "OUTCOME_FACTORY"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-082",
+        "candidate_id": "CAND-082",
+        "repository_path": "ml/labeling_pipeline.py",
+        "symbol_or_component": "score_verdict_accuracy",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "LEARNING_VALUE",
+          "OUTCOME_FACTORY",
+          "OUTCOME_QUALITY"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-083",
+        "candidate_id": "CAND-083",
+        "repository_path": "learning_compounding.py",
+        "symbol_or_component": "record_outcome",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "CONTROLLED_LEARNING",
+          "COUNTERFACTUAL_LAB",
+          "OUTCOME_FACTORY"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-084",
+        "candidate_id": "CAND-084",
+        "repository_path": "oracle_track_record.py",
+        "symbol_or_component": "on_prediction_created",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "OUTCOME_FACTORY",
+          "OUTCOME_QUALITY",
+          "PUBLIC_EVIDENCE"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-090",
+        "candidate_id": "CAND-090",
+        "repository_path": "ml/public_accuracy.py",
+        "symbol_or_component": "build_public_accuracy_payload",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "OUTCOME_QUALITY",
+          "PUBLIC_EVIDENCE"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-091",
+        "candidate_id": "CAND-091",
+        "repository_path": "net_edge_truth.py",
+        "symbol_or_component": "compute_net_edge_truth",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "FAILURE_SURPRISE_ABSTENTION",
+          "OUTCOME_QUALITY"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-100",
+        "candidate_id": "CAND-100",
+        "repository_path": "cap646/evidence_class.py",
+        "symbol_or_component": "infer_evidence_class",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "CHAMPION_CHALLENGER",
+          "CONTAMINATION_REGISTRY",
+          "EVIDENCE_PROVENANCE",
+          "FORWARD_SHADOW"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-101",
+        "candidate_id": "CAND-101",
+        "repository_path": "user_exposure_log.py",
+        "symbol_or_component": "record_user_exposure",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "FORWARD_SHADOW",
+          "USER_BEHAVIORAL_LEARNING"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-102",
+        "candidate_id": "CAND-102",
+        "repository_path": "blackdark/data/migrations/012_de_prediction_ledger.sql",
+        "symbol_or_component": "de_prediction_ledger",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "DETERMINISTIC_REPLAY",
+          "FORWARD_SHADOW"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-103",
+        "candidate_id": "CAND-103",
+        "repository_path": "api/routers/heroes.py",
+        "symbol_or_component": "create_locked",
+        "classification": "UI_CONSUMER",
+        "temporal_owner_domains": [
+          "FORWARD_SHADOW",
+          "PUBLIC_EVIDENCE"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-110",
+        "candidate_id": "CAND-110",
+        "repository_path": "blackdark/data/migrations/015_de_evidence_store.sql",
+        "symbol_or_component": "de_evidence_store",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "EVIDENCE_PROVENANCE"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-111",
+        "candidate_id": "CAND-111",
+        "repository_path": "data_provenance_score.py",
+        "symbol_or_component": "attach_provenance",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "EVIDENCE_PROVENANCE",
+          "SOURCE_QUALITY"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-112",
+        "candidate_id": "CAND-112",
+        "repository_path": "audit_registry.py",
+        "symbol_or_component": "sign_record",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "CROSS_CUTTING_GOVERNANCE",
+          "EVIDENCE_PROVENANCE"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-120",
+        "candidate_id": "CAND-120",
+        "repository_path": "failure_corpus.py",
+        "symbol_or_component": "record_failure",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "FAILURE_SURPRISE_ABSTENTION"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-121",
+        "candidate_id": "CAND-121",
+        "repository_path": "kill_rate_board.py",
+        "symbol_or_component": "build_kill_rate_board",
+        "classification": "UI_CONSUMER",
+        "temporal_owner_domains": [
+          "FAILURE_SURPRISE_ABSTENTION",
+          "PUBLIC_EVIDENCE"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-122",
+        "candidate_id": "CAND-122",
+        "repository_path": "public_miss_feed.py",
+        "symbol_or_component": "build_public_miss_feed",
+        "classification": "EVIDENCE_CONSUMER",
+        "temporal_owner_domains": [
+          "FAILURE_SURPRISE_ABSTENTION",
+          "PUBLIC_EVIDENCE"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-130",
+        "candidate_id": "CAND-130",
+        "repository_path": "ml/regime_models.py",
+        "symbol_or_component": "load_regime_predictor",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "REGIME_INTELLIGENCE"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-131",
+        "candidate_id": "CAND-131",
+        "repository_path": "ml/regime_router.py",
+        "symbol_or_component": "predict_direction_regime_aware",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "CHAMPION_CHALLENGER",
+          "REGIME_INTELLIGENCE"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-132",
+        "candidate_id": "CAND-132",
+        "repository_path": "weight_aggregator.py",
+        "symbol_or_component": "detect_market_regime",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "DRIFT",
+          "REGIME_INTELLIGENCE"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-133",
+        "candidate_id": "CAND-133",
+        "repository_path": "d5_regime_honesty.py",
+        "symbol_or_component": "build_d5_honesty_board",
+        "classification": "UI_CONSUMER",
+        "temporal_owner_domains": [
+          "PUBLIC_EVIDENCE",
+          "REGIME_INTELLIGENCE"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-140",
+        "candidate_id": "CAND-140",
+        "repository_path": "storage_tier_manager.py",
+        "symbol_or_component": "enforce_market_data_retention",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "COMPUTATIONAL_ACCELERATION",
+          "RETENTION_POLICY"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-141",
+        "candidate_id": "CAND-141",
+        "repository_path": "gdpr_service.py",
+        "symbol_or_component": "erase_user_data",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "RETENTION_POLICY",
+          "SOURCE_RIGHTS"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-142",
+        "candidate_id": "CAND-142",
+        "repository_path": "config.py",
+        "symbol_or_component": "HOT_TIER_RETENTION_HOURS",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "RETENTION_POLICY"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-150",
+        "candidate_id": "CAND-150",
+        "repository_path": "flywheel_saturation_guard.py",
+        "symbol_or_component": "crowd_adjusted_rewalk",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "DEPENDENCE_AWARE_SAMPLING"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-151",
+        "candidate_id": "CAND-151",
+        "repository_path": "signal_compounding.py",
+        "symbol_or_component": "signal_correlate",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "DEPENDENCE_AWARE_SAMPLING",
+          "LEARNING_VALUE"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-160",
+        "candidate_id": "CAND-160",
+        "repository_path": "ml/train_baseline.py",
+        "symbol_or_component": "train_oracle_direction_model",
+        "classification": "TEST_CONSUMER",
+        "temporal_owner_domains": [
+          "CONTROLLED_LEARNING",
+          "WALK_FORWARD_VALIDATION"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-161",
+        "candidate_id": "CAND-161",
+        "repository_path": "ml/train_ensemble.py",
+        "symbol_or_component": "train_ensemble",
+        "classification": "TEST_CONSUMER",
+        "temporal_owner_domains": [
+          "CONTROLLED_LEARNING",
+          "WALK_FORWARD_VALIDATION"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-170",
+        "candidate_id": "CAND-170",
+        "repository_path": "api/routers/compounding.py",
+        "symbol_or_component": "/api/learning/*",
+        "classification": "API_CONSUMER",
+        "temporal_owner_domains": [
+          "CONTROLLED_LEARNING",
+          "COUNTERFACTUAL_LAB",
+          "LEARNING_VALUE",
+          "USER_BEHAVIORAL_LEARNING"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-171",
+        "candidate_id": "CAND-171",
+        "repository_path": "trust_compounding.py",
+        "symbol_or_component": "trust_os_enhanced",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "LEARNING_VALUE"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-180",
+        "candidate_id": "CAND-180",
+        "repository_path": "tests/test_security_trust_data_batch242_261.py",
+        "symbol_or_component": "build_contradiction_replay_254",
+        "classification": "TEST_CONSUMER",
+        "temporal_owner_domains": [
+          "DETERMINISTIC_REPLAY",
+          "REPLAY_FIDELITY"
+        ],
+        "runtime_reachable": false
+      },
+      {
+        "consumer_id": "CONS-CAND-200",
+        "candidate_id": "CAND-200",
+        "repository_path": "tests/test_ml_integrity.py",
+        "symbol_or_component": "test_is_synthetic_prediction",
+        "classification": "TEST_CONSUMER",
+        "temporal_owner_domains": [
+          "CONTAMINATION_REGISTRY",
+          "TEMPORAL_LEAKAGE_FIREWALL"
+        ],
+        "runtime_reachable": false
+      },
+      {
+        "consumer_id": "CONS-CAND-210",
+        "candidate_id": "CAND-210",
+        "repository_path": "ml/drift_monitor.py",
+        "symbol_or_component": "enforce_drift_actions",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "DRIFT",
+          "FAILURE_SURPRISE_ABSTENTION"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-211",
+        "candidate_id": "CAND-211",
+        "repository_path": "tests/test_latency_drift_fix.py",
+        "symbol_or_component": "test_enforce_drift_freezes_on_high_severity",
+        "classification": "TEST_CONSUMER",
+        "temporal_owner_domains": [
+          "DRIFT"
+        ],
+        "runtime_reachable": false
+      },
+      {
+        "consumer_id": "CONS-CAND-230",
+        "candidate_id": "CAND-230",
+        "repository_path": "sealed_desk_duel.py",
+        "symbol_or_component": "create_duel",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "CHAMPION_CHALLENGER"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-240",
+        "candidate_id": "CAND-240",
+        "repository_path": "database.py",
+        "symbol_or_component": "counterfactual_log",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "COUNTERFACTUAL_LAB"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-250",
+        "candidate_id": "CAND-250",
+        "repository_path": "blackdark/data/api.py",
+        "symbol_or_component": "get_ohlcv",
+        "classification": "API_CONSUMER",
+        "temporal_owner_domains": [
+          "HISTORICAL_EVENT_STORE",
+          "MARKET_TIME_MACHINE"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-260",
+        "candidate_id": "CAND-260",
+        "repository_path": "acquirer_evidence_pack.py",
+        "symbol_or_component": "build_acquirer_evidence_pack",
+        "classification": "EVIDENCE_CONSUMER",
+        "temporal_owner_domains": [
+          "PUBLIC_EVIDENCE"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-261",
+        "candidate_id": "CAND-261",
+        "repository_path": "trust_os_lenses.py",
+        "symbol_or_component": "lenses_manifest",
+        "classification": "UI_CONSUMER",
+        "temporal_owner_domains": [
+          "MARKET_TIME_MACHINE",
+          "PUBLIC_EVIDENCE"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-262",
+        "candidate_id": "CAND-262",
+        "repository_path": "api/routers/observability.py",
+        "symbol_or_component": "/api/due-diligence/evidence-pack",
+        "classification": "EVIDENCE_CONSUMER",
+        "temporal_owner_domains": [
+          "PUBLIC_EVIDENCE"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-270",
+        "candidate_id": "CAND-270",
+        "repository_path": "behavior_data_service.py",
+        "symbol_or_component": "record_behavior_event",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "USER_BEHAVIORAL_LEARNING"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-280",
+        "candidate_id": "CAND-280",
+        "repository_path": "hot_storage.py",
+        "symbol_or_component": "hot_pipeline",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "COMPUTATIONAL_ACCELERATION",
+          "HISTORICAL_EVENT_STORE"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-281",
+        "candidate_id": "CAND-281",
+        "repository_path": "cap646/parallel_invoke.py",
+        "symbol_or_component": "invoke_inventory_backend",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "COMPUTATIONAL_ACCELERATION"
+        ],
+        "runtime_reachable": false
+      },
+      {
+        "consumer_id": "CONS-CAND-282",
+        "candidate_id": "CAND-282",
+        "repository_path": "live_book_hub.py",
+        "symbol_or_component": "get_live_books_if_fresh",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "COMPUTATIONAL_ACCELERATION",
+          "SOURCE_QUALITY"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-283",
+        "candidate_id": "CAND-283",
+        "repository_path": "microservices/worker_app.py",
+        "symbol_or_component": "worker_app",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "COMPUTATIONAL_ACCELERATION"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-290",
+        "candidate_id": "CAND-290",
+        "repository_path": "cap646/functional_dod.py",
+        "symbol_or_component": "verify_functional",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "QUALITY_GOVERNANCE"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-291",
+        "candidate_id": "CAND-291",
+        "repository_path": "cap646/triple_closure.py",
+        "symbol_or_component": "triple_institutional_closure",
+        "classification": "EVIDENCE_CONSUMER",
+        "temporal_owner_domains": [
+          "QUALITY_GOVERNANCE",
+          "REPRODUCIBILITY"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-300",
+        "candidate_id": "CAND-300",
+        "repository_path": "cap646/data_spine.py",
+        "symbol_or_component": "data_spine",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "HISTORICAL_EVENT_STORE",
+          "SOURCE_QUALITY",
+          "SOURCE_RIGHTS"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-301",
+        "candidate_id": "CAND-301",
+        "repository_path": "api/routers/cap646.py",
+        "symbol_or_component": "cap646_router",
+        "classification": "API_CONSUMER",
+        "temporal_owner_domains": [
+          "CROSS_CUTTING_GOVERNANCE"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-302",
+        "candidate_id": "CAND-302",
+        "repository_path": "api/routers/institutional.py",
+        "symbol_or_component": "institutional_router",
+        "classification": "UI_CONSUMER",
+        "temporal_owner_domains": [
+          "PUBLIC_EVIDENCE",
+          "SOURCE_RIGHTS"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-303",
+        "candidate_id": "CAND-303",
+        "repository_path": "cap646/entitlements.py",
+        "symbol_or_component": "tier_features",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "CROSS_CUTTING_GOVERNANCE",
+          "SOURCE_RIGHTS"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-304",
+        "candidate_id": "CAND-304",
+        "repository_path": "observability.py",
+        "symbol_or_component": "observability_status",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "CROSS_CUTTING_GOVERNANCE"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-305",
+        "candidate_id": "CAND-305",
+        "repository_path": "ai_oracle.py",
+        "symbol_or_component": "evaluate_opportunity",
+        "classification": "RUNTIME_CONSUMER",
+        "temporal_owner_domains": [
+          "DETERMINISTIC_REPLAY",
+          "EVIDENCE_PROVENANCE",
+          "OUTCOME_FACTORY"
+        ],
+        "runtime_reachable": true
+      },
+      {
+        "consumer_id": "CONS-CAND-306",
+        "candidate_id": "CAND-306",
+        "repository_path": "tests/test_wave_01_systems.py",
+        "symbol_or_component": "test_systems_index_structure",
+        "classification": "TEST_CONSUMER",
+        "temporal_owner_domains": [
+          "EVIDENCE_PROVENANCE",
+          "HISTORICAL_EVENT_STORE",
+          "OUTCOME_FACTORY"
+        ],
+        "runtime_reachable": false
+      }
+    ],
+    "total": 88,
+    "by_classification": {
+      "RUNTIME_CONSUMER": 63,
+      "EVIDENCE_CONSUMER": 8,
+      "API_CONSUMER": 5,
+      "UI_CONSUMER": 6,
+      "TEST_CONSUMER": 6
+    },
+    "UNSUPPORTED_CONSUMER_ASSIGNMENTS": 0
+  },
+  "test_evidence_inventory": {
+    "entries": [
+      {
+        "surface_id": "TEV-tests_test_wave_01_systems.py",
+        "repository_path": "tests/test_wave_01_systems.py",
+        "classification": "INTEGRATION_TEST_SURFACE",
+        "notes": "systems_api decision/outcome/evidence chain"
+      },
+      {
+        "surface_id": "TEV-tests_test_ml_integrity.py",
+        "repository_path": "tests/test_ml_integrity.py",
+        "classification": "REPLAY_TEST_SURFACE",
+        "notes": "temporal_train_test_split leakage guards"
+      },
+      {
+        "surface_id": "TEV-tests_test_phase01_audit_registry.py",
+        "repository_path": "tests/test_phase01_audit_registry.py",
+        "classification": "PROVENANCE_EVIDENCE_SURFACE",
+        "notes": "audit chain HMAC"
+      },
+      {
+        "surface_id": "TEV-tests_test_dec_autonomous_closure.py",
+        "repository_path": "tests/test_dec_autonomous_closure.py",
+        "classification": "INTEGRATION_TEST_SURFACE",
+        "notes": "dimension conflict abstention"
+      },
+      {
+        "surface_id": "TEV-tests_test_security_trust_data_batch242_",
+        "repository_path": "tests/test_security_trust_data_batch242_261.py",
+        "classification": "INTEGRATION_TEST_SURFACE",
+        "notes": "contradiction replay fidelity"
+      },
+      {
+        "surface_id": "TEV-tests_test_production_guard.py",
+        "repository_path": "tests/test_production_guard.py",
+        "classification": "SECURITY_EVIDENCE_SURFACE",
+        "notes": "production guard checks"
+      },
+      {
+        "surface_id": "TEV-institutional_due_diligence_2026_",
+        "repository_path": "institutional_due_diligence_2026/",
+        "classification": "EXTERNAL_ASSURANCE_SURFACE",
+        "notes": "institutional DD evidence packs"
+      },
+      {
+        "surface_id": "TEV-cap978_evidence_room.py",
+        "repository_path": "cap978/evidence_room.py",
+        "classification": "PROVENANCE_EVIDENCE_SURFACE",
+        "notes": "reproducible evidence room snapshot"
+      },
+      {
+        "surface_id": "TEV-CAND-160",
+        "repository_path": "ml/train_baseline.py",
+        "classification": "INTEGRATION_TEST_SURFACE",
+        "symbol_or_component": "train_oracle_direction_model",
+        "temporal_owner_domains": [
+          "CONTROLLED_LEARNING",
+          "WALK_FORWARD_VALIDATION"
+        ]
+      },
+      {
+        "surface_id": "TEV-CAND-161",
+        "repository_path": "ml/train_ensemble.py",
+        "classification": "INTEGRATION_TEST_SURFACE",
+        "symbol_or_component": "train_ensemble",
+        "temporal_owner_domains": [
+          "CONTROLLED_LEARNING",
+          "WALK_FORWARD_VALIDATION"
+        ]
+      },
+      {
+        "surface_id": "TEV-CAND-180",
+        "repository_path": "tests/test_security_trust_data_batch242_261.py",
+        "classification": "INTEGRATION_TEST_SURFACE",
+        "symbol_or_component": "build_contradiction_replay_254",
+        "temporal_owner_domains": [
+          "DETERMINISTIC_REPLAY",
+          "REPLAY_FIDELITY"
+        ]
+      },
+      {
+        "surface_id": "TEV-CAND-200",
+        "repository_path": "tests/test_ml_integrity.py",
+        "classification": "INTEGRATION_TEST_SURFACE",
+        "symbol_or_component": "test_is_synthetic_prediction",
+        "temporal_owner_domains": [
+          "CONTAMINATION_REGISTRY",
+          "TEMPORAL_LEAKAGE_FIREWALL"
+        ]
+      },
+      {
+        "surface_id": "TEV-CAND-211",
+        "repository_path": "tests/test_latency_drift_fix.py",
+        "classification": "INTEGRATION_TEST_SURFACE",
+        "symbol_or_component": "test_enforce_drift_freezes_on_high_severity",
+        "temporal_owner_domains": [
+          "DRIFT"
+        ]
+      },
+      {
+        "surface_id": "TEV-CAND-306",
+        "repository_path": "tests/test_wave_01_systems.py",
+        "classification": "INTEGRATION_TEST_SURFACE",
+        "symbol_or_component": "test_systems_index_structure",
+        "temporal_owner_domains": [
+          "EVIDENCE_PROVENANCE",
+          "HISTORICAL_EVENT_STORE",
+          "OUTCOME_FACTORY"
+        ]
+      }
+    ],
+    "total": 14,
+    "by_classification": {
+      "INTEGRATION_TEST_SURFACE": 9,
+      "REPLAY_TEST_SURFACE": 1,
+      "PROVENANCE_EVIDENCE_SURFACE": 2,
+      "SECURITY_EVIDENCE_SURFACE": 1,
+      "EXTERNAL_ASSURANCE_SURFACE": 1
+    },
+    "TEST_OR_EVIDENCE_STATUS_OVERCLAIMS": 0,
+    "notes": "Surfaces identified for future Temporal verification; no claim of Temporal acceptance satisfied"
+  },
+  "external_gate_inventory": {
+    "entries_by_category": {
+      "LOCAL_ENGINEERING": [
+        {
+          "atomic_requirement_id": "TEMP-AR-0428",
+          "parent_primary_requirement_id": "TEMP-PR-0143",
+          "verification_method": "SECURITY_TEST",
+          "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+          "normative_text": "No promotion from historical or shadow evidence to production evidence without actual production proof."
+        }
+      ],
+      "LIVE_TIME_PASSAGE_REQUIRED": [
+        {
+          "atomic_requirement_id": "TEMP-AR-0164",
+          "parent_primary_requirement_id": "TEMP-PR-0055",
+          "verification_method": "INTEGRATION_TEST",
+          "phase_allocation": "P3_SHADOW_AND_REGIME",
+          "normative_text": "Forward shadow is the live reality anchor for all historical evidence."
+        },
+        {
+          "atomic_requirement_id": "TEMP-AR-0261",
+          "parent_primary_requirement_id": "TEMP-PR-0084",
+          "verification_method": "SECURITY_TEST",
+          "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+          "normative_text": "It must never imply that the historical output was issued live at that time unless there is genuine forward evidence proving that fact."
+        }
+      ],
+      "PRODUCTION_OPERATION_REQUIRED": [],
+      "EXTERNAL_EMPIRICAL_EVIDENCE_REQUIRED": [],
+      "INDEPENDENT_THIRD_PARTY_ASSURANCE_REQUIRED": [
+        {
+          "atomic_requirement_id": "TEMP-AR-0431",
+          "parent_primary_requirement_id": "TEMP-PR-0145",
+          "verification_method": "EXTERNAL_ASSURANCE",
+          "phase_allocation": "EXTERNAL_OR_LIVE_GATE",
+          "normative_text": "This document's approval does not by itself mean PASS_ENGINEERING"
+        },
+        {
+          "atomic_requirement_id": "TEMP-AR-0432",
+          "parent_primary_requirement_id": "TEMP-PR-0146",
+          "verification_method": "EXTERNAL_ASSURANCE",
+          "phase_allocation": "EXTERNAL_OR_LIVE_GATE",
+          "normative_text": "PASS_ENGINEERING requires its own implementation evidence and gates under the governing standards"
+        },
+        {
+          "atomic_requirement_id": "TEMP-AR-0433",
+          "parent_primary_requirement_id": "TEMP-PR-0146",
+          "verification_method": "EXTERNAL_ASSURANCE",
+          "phase_allocation": "EXTERNAL_OR_LIVE_GATE",
+          "normative_text": "PASS_LIVE requires its own implementation evidence and gates under the governing standards"
+        },
+        {
+          "atomic_requirement_id": "TEMP-AR-0434",
+          "parent_primary_requirement_id": "TEMP-PR-0146",
+          "verification_method": "EXTERNAL_ASSURANCE",
+          "phase_allocation": "EXTERNAL_OR_LIVE_GATE",
+          "normative_text": "ASSURANCE_READY requires its own implementation evidence and gates under the governing standards"
+        },
+        {
+          "atomic_requirement_id": "TEMP-AR-0435",
+          "parent_primary_requirement_id": "TEMP-PR-0146",
+          "verification_method": "EXTERNAL_ASSURANCE",
+          "phase_allocation": "EXTERNAL_OR_LIVE_GATE",
+          "normative_text": "PRODUCTION_ALIGNED requires its own implementation evidence and gates under the governing standards"
+        },
+        {
+          "atomic_requirement_id": "TEMP-AR-0436",
+          "parent_primary_requirement_id": "TEMP-PR-0146",
+          "verification_method": "EXTERNAL_ASSURANCE",
+          "phase_allocation": "EXTERNAL_OR_LIVE_GATE",
+          "normative_text": "independent verification requires its own implementation evidence and gates under the governing standards"
+        },
+        {
+          "atomic_requirement_id": "TEMP-AR-0460",
+          "parent_primary_requirement_id": "TEMP-PR-0145",
+          "verification_method": "EXTERNAL_ASSURANCE",
+          "phase_allocation": "EXTERNAL_OR_LIVE_GATE",
+          "normative_text": "This document's approval does not by itself mean PASS_LIVE"
+        },
+        {
+          "atomic_requirement_id": "TEMP-AR-0461",
+          "parent_primary_requirement_id": "TEMP-PR-0145",
+          "verification_method": "EXTERNAL_ASSURANCE",
+          "phase_allocation": "EXTERNAL_OR_LIVE_GATE",
+          "normative_text": "This document's approval does not by itself mean ASSURANCE_READY"
+        },
+        {
+          "atomic_requirement_id": "TEMP-AR-0462",
+          "parent_primary_requirement_id": "TEMP-PR-0145",
+          "verification_method": "EXTERNAL_ASSURANCE",
+          "phase_allocation": "EXTERNAL_OR_LIVE_GATE",
+          "normative_text": "This document's approval does not by itself mean PRODUCTION_ALIGNED"
+        },
+        {
+          "atomic_requirement_id": "TEMP-AR-0463",
+          "parent_primary_requirement_id": "TEMP-PR-0145",
+          "verification_method": "EXTERNAL_ASSURANCE",
+          "phase_allocation": "EXTERNAL_OR_LIVE_GATE",
+          "normative_text": "This document's approval does not by itself mean independent verification"
+        }
+      ]
+    },
+    "total_external_gate_candidates": 13,
+    "FALSE_EXTERNAL_GATES": 0,
+    "category_counts": {
+      "LOCAL_ENGINEERING": 1,
+      "LIVE_TIME_PASSAGE_REQUIRED": 2,
+      "PRODUCTION_OPERATION_REQUIRED": 0,
+      "EXTERNAL_EMPIRICAL_EVIDENCE_REQUIRED": 0,
+      "INDEPENDENT_THIRD_PARTY_ASSURANCE_REQUIRED": 10
+    }
+  },
+  "PHASE_0_FINAL_INVENTORIES_COMPLETE": true
+}
