@@ -98,5 +98,8 @@
   global.escapeHtml = global.escapeHtml || escapeHtml;
   global.esc = global.esc || escapeHtml;
   global.safeUrl = global.safeUrl || safeUrl;
+  global.setAnchorHref = global.setAnchorHref || setAnchorHref;
+  global.assignLocationHref = global.assignLocationHref || assignLocationHref;
+  global.openWindow = global.openWindow || openWindow;
   global.setText = global.setText || setText;
 })(typeof window !== "undefined" ? window : globalThis);

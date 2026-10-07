@@ -297,6 +297,16 @@ def _record_platform_compounding(
         )
         if decision.get("decision_id") and exposure.get("exposure_id"):
             link_exposure(str(decision["decision_id"]), str(exposure["exposure_id"]))
+        from decision_ledger_appendix import recommendation_row_from_oracle_enrichment
+
+        recommendation_row_from_oracle_enrichment(
+            out,
+            asset=asset,
+            verdict=verdict,
+            decision_id=str(decision.get("decision_id") or ""),
+            user_id=user_id,
+            tier=tier,
+        )
         out["platform_compounding"] = {
             "decision_id": decision.get("decision_id"),
             "exposure_id": exposure.get("exposure_id"),

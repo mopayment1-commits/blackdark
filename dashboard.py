@@ -2836,6 +2836,13 @@ async def _compute_oracle_quick_payload(
         if decision_action == "CONDITIONS MET"
         else _quick_decision_sentence(lang, decision_action, asset, score, action)
     )
+    quote_age = market.get("age_sec")
+    if quote_age is not None:
+        try:
+            quote_age = float(quote_age)
+        except (TypeError, ValueError):
+            quote_age = None
+    price_source = _quick_price_source_label(market)
     return _quick_payload(
         asset,
         price,
@@ -2848,6 +2855,11 @@ async def _compute_oracle_quick_payload(
         sentiment,
         ux_mode,
         lang,
+        quote_exchange="binance",
+        quote_symbol=f"{asset}/USDT",
+        quote_age_sec=quote_age,
+        quote_volume=quote_volume,
+        price_source=price_source,
     )
 
 
@@ -2861,6 +2873,70 @@ def _quick_ws_market(row: dict | None) -> dict | None:
         "quote_volume": 0.0,
         "source": "websocket_live",
     }
+
+
+def _quick_price_source_label(market: dict[str, Any]) -> str:
+    src = str(market.get("source") or "").strip()
+    if src == "websocket_live":
+        return "Binance WebSocket top-of-book"
+    if src:
+        return src
+    return "Binance spot REST"
+
+
+def _attach_quick_real_factors(payload: dict[str, Any]) -> None:
+    """Top-3 factors from quick compute fields only (price / 24h change / volume)."""
+    source = str(payload.get("price_source") or "Binance spot").strip() or "Binance spot"
+    factors: list[dict[str, str]] = []
+
+    price = payload.get("price")
+    if price is not None:
+        try:
+            p = float(price)
+            if p > 0:
+                factors.append(
+                    {
+                        "factor": "Spot reference price",
+                        "detail": f"${p:,.2f}",
+                        "source": source,
+                    }
+                )
+        except (TypeError, ValueError):
+            pass
+
+    change = payload.get("change_24h")
+    if change is not None:
+        try:
+            c = float(change)
+            factors.append(
+                {
+                    "factor": "24h price change",
+                    "detail": f"{c:+.2f}%",
+                    "source": source,
+                }
+            )
+        except (TypeError, ValueError):
+            pass
+
+    quote_volume = payload.get("quote_volume")
+    if quote_volume is not None:
+        try:
+            qv = float(quote_volume)
+            if qv > 0:
+                factors.append(
+                    {
+                        "factor": "24h quote volume",
+                        "detail": f"${qv:,.0f}",
+                        "source": source,
+                    }
+                )
+        except (TypeError, ValueError):
+            pass
+
+    trimmed = factors[:3]
+    if not trimmed:
+        return
+    payload["top_3_factors"] = trimmed
 
 
 def _quick_decision_sentence(
@@ -2893,8 +2969,14 @@ def _quick_payload(
     sentiment: str,
     ux_mode: str,
     lang: str,
+    *,
+    quote_exchange: str = "binance",
+    quote_symbol: str | None = None,
+    quote_age_sec: float | None = None,
+    quote_volume: float | None = None,
+    price_source: str | None = None,
 ) -> dict:
-    return {
+    out = {
         "symbol": asset,
         "price": price,
         "change_24h": change,
@@ -2911,7 +2993,16 @@ def _quick_payload(
         "ux_mode": ux_mode,
         "lang": lang,
         "viral_cache": "miss",
+        "quote_exchange": quote_exchange,
+        "quote_symbol": quote_symbol or f"{asset}/USDT",
     }
+    if quote_age_sec is not None:
+        out["quote_age_sec"] = quote_age_sec
+    if quote_volume is not None:
+        out["quote_volume"] = quote_volume
+    if price_source:
+        out["price_source"] = price_source
+    return out
 
 
 def _queue_oracle_quick_tasks(background_tasks: BackgroundTasks, asset: str, payload: dict) -> None:
@@ -2939,9 +3030,57 @@ def _queue_oracle_quick_tasks(background_tasks: BackgroundTasks, asset: str, pay
     )
 
 
+def _quick_oracle_factors(payload: dict) -> list:
+    why = payload.get("oqs_why") if isinstance(payload.get("oqs_why"), dict) else {}
+    factors = why.get("top_3_factors") or []
+    if factors:
+        return list(factors)
+    expl = payload.get("explanation")
+    if isinstance(expl, dict):
+        factors = expl.get("top_3_factors") or []
+        if factors:
+            return list(factors)
+    raw = payload.get("top_3_factors")
+    return list(raw) if isinstance(raw, list) and raw else []
+
+
+def _quick_freshness_known(payload: dict) -> bool:
+    fresh = payload.get("data_freshness") if isinstance(payload.get("data_freshness"), dict) else {}
+    state = str(fresh.get("state") or fresh.get("status") or "").lower()
+    if state == "unknown":
+        return False
+    if (
+        fresh.get("freshness_ms") is not None
+        or fresh.get("age_sec") is not None
+        or fresh.get("age_seconds") is not None
+    ):
+        return True
+    return state in {"fresh", "ok", "live", "stale"}
+
+
+def _quick_decision_valid(payload: dict) -> bool:
+    asset = str(payload.get("symbol") or payload.get("asset") or "").strip()
+    if not asset:
+        return False
+    return bool(
+        payload.get("decision_sentence")
+        or payload.get("oracle")
+        or payload.get("decision_action")
+        or payload.get("verdict")
+    )
+
+
 def _attach_quick_certificate(payload: dict) -> None:
+    payload["decision_certificate"] = None
     try:
         from decision_certificate import build_decision_certificate, compliance_footer_block
+
+        if not _quick_decision_valid(payload):
+            return
+        if not _quick_freshness_known(payload):
+            return
+        if not _quick_oracle_factors(payload):
+            return
 
         payload.setdefault("tier", "free")
         # Enrich quick payload so certificate carries advisory truth + half-life
@@ -2971,13 +3110,15 @@ def _attach_quick_certificate(payload: dict) -> None:
                     f"score {score_i} is inside the dead-zone; no certified edge."
                 )
                 payload["oracle"] = payload["decision_sentence"]
-        payload["decision_certificate"] = build_decision_certificate(payload)
-        payload["compliance_footer"] = compliance_footer_block(
-            surface="single_sentence_oracle_quick",
-            trust_basis="public_accuracy_ledger + quick_rules_engine",
-        )
+        cert = build_decision_certificate(payload)
+        payload["decision_certificate"] = cert
+        if cert:
+            payload["compliance_footer"] = compliance_footer_block(
+                surface="single_sentence_oracle_quick",
+                trust_basis="public_accuracy_ledger + quick_rules_engine",
+            )
     except Exception:
-        pass
+        payload["decision_certificate"] = None
 
 
 def _attach_quick_freshness(payload: dict, asset: str) -> dict:
@@ -3022,8 +3163,10 @@ async def oracle_quick(
     payload["meets_latency_target"] = latency_ms <= 100
 
     _queue_oracle_quick_tasks(background_tasks, asset, payload)
-    _attach_quick_certificate(payload)
     payload = _attach_quick_freshness(payload, asset)
+    _attach_quick_real_factors(payload)
+    _attach_oqs_why_safe(payload)
+    _attach_quick_certificate(payload)
     from security_sanitize import sanitize_oracle_payload
 
     clean = sanitize_oracle_payload(payload)
