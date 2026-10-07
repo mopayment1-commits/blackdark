@@ -1175,13 +1175,13 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
 
         function updateShareLinks(result) {
             window.lastOracleResult = result;
-            const full = !!(result && landingOracleIsFull(result));
+            const oracleFull = !!(result && landingOracleIsFull(result));
             if (result && landingOracleIsAgeOnly(result)) {
                 setLandingOraclePresentationLayout('partial');
             } else {
-                setLandingOraclePresentationLayout(full ? 'full' : 'down');
+                setLandingOraclePresentationLayout(oracleFull ? 'full' : 'down');
             }
-            if (!full) return;
+            if (!oracleFull) return;
             const { url, text } = buildSharePayload(result);
             const full = `${text}\n${url}`;
 
