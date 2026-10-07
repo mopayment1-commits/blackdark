@@ -2842,6 +2842,7 @@ async def _compute_oracle_quick_payload(
             quote_age = float(quote_age)
         except (TypeError, ValueError):
             quote_age = None
+    price_source = _quick_price_source_label(market)
     return _quick_payload(
         asset,
         price,
@@ -2857,6 +2858,8 @@ async def _compute_oracle_quick_payload(
         quote_exchange="binance",
         quote_symbol=f"{asset}/USDT",
         quote_age_sec=quote_age,
+        quote_volume=quote_volume,
+        price_source=price_source,
     )
 
 
@@ -2870,6 +2873,70 @@ def _quick_ws_market(row: dict | None) -> dict | None:
         "quote_volume": 0.0,
         "source": "websocket_live",
     }
+
+
+def _quick_price_source_label(market: dict[str, Any]) -> str:
+    src = str(market.get("source") or "").strip()
+    if src == "websocket_live":
+        return "Binance WebSocket top-of-book"
+    if src:
+        return src
+    return "Binance spot REST"
+
+
+def _attach_quick_real_factors(payload: dict[str, Any]) -> None:
+    """Top-3 factors from quick compute fields only (price / 24h change / volume)."""
+    source = str(payload.get("price_source") or "Binance spot").strip() or "Binance spot"
+    factors: list[dict[str, str]] = []
+
+    price = payload.get("price")
+    if price is not None:
+        try:
+            p = float(price)
+            if p > 0:
+                factors.append(
+                    {
+                        "factor": "Spot reference price",
+                        "detail": f"${p:,.2f}",
+                        "source": source,
+                    }
+                )
+        except (TypeError, ValueError):
+            pass
+
+    change = payload.get("change_24h")
+    if change is not None:
+        try:
+            c = float(change)
+            factors.append(
+                {
+                    "factor": "24h price change",
+                    "detail": f"{c:+.2f}%",
+                    "source": source,
+                }
+            )
+        except (TypeError, ValueError):
+            pass
+
+    quote_volume = payload.get("quote_volume")
+    if quote_volume is not None:
+        try:
+            qv = float(quote_volume)
+            if qv > 0:
+                factors.append(
+                    {
+                        "factor": "24h quote volume",
+                        "detail": f"${qv:,.0f}",
+                        "source": source,
+                    }
+                )
+        except (TypeError, ValueError):
+            pass
+
+    trimmed = factors[:3]
+    if not trimmed:
+        return
+    payload["top_3_factors"] = trimmed
 
 
 def _quick_decision_sentence(
@@ -2906,6 +2973,8 @@ def _quick_payload(
     quote_exchange: str = "binance",
     quote_symbol: str | None = None,
     quote_age_sec: float | None = None,
+    quote_volume: float | None = None,
+    price_source: str | None = None,
 ) -> dict:
     out = {
         "symbol": asset,
@@ -2929,6 +2998,10 @@ def _quick_payload(
     }
     if quote_age_sec is not None:
         out["quote_age_sec"] = quote_age_sec
+    if quote_volume is not None:
+        out["quote_volume"] = quote_volume
+    if price_source:
+        out["price_source"] = price_source
     return out
 
 
@@ -3091,6 +3164,7 @@ async def oracle_quick(
 
     _queue_oracle_quick_tasks(background_tasks, asset, payload)
     payload = _attach_quick_freshness(payload, asset)
+    _attach_quick_real_factors(payload)
     _attach_oqs_why_safe(payload)
     _attach_quick_certificate(payload)
     from security_sanitize import sanitize_oracle_payload
