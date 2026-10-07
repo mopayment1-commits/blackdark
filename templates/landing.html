@@ -2023,28 +2023,32 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             });
         }
 
-        function copyLandingPulseCertHash() {
-            const hash = _lpCertHash(landingPulse);
+        function copyLandingPulseCertId() {
+            const idPrefix = _lpCertIdPrefix(landingPulse);
             const msg = document.getElementById('lpProofCopyMsg');
-            if (!hash) {
+            if (!idPrefix) {
                 if (msg) {
-                    msg.textContent = 'No certificate hash yet — use Get Decision below.';
+                    msg.textContent = _lpNoCertificateLine();
                     msg.hidden = false;
                 }
                 return;
             }
             const done = () => {
                 if (msg) {
-                    msg.textContent = 'Certificate hash copied.';
+                    msg.textContent = 'Certificate ID copied.';
                     msg.hidden = false;
                 }
             };
             if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(String(hash)).then(done).catch(() => {
-                    openLandingPulseProof();
+                navigator.clipboard.writeText(String(idPrefix)).then(done).catch(() => {
+                    if (msg) {
+                        msg.textContent = 'Could not copy certificate ID.';
+                        msg.hidden = false;
+                    }
                 });
-            } else {
-                openLandingPulseProof();
+            } else if (msg) {
+                msg.textContent = 'Copy not supported in this browser.';
+                msg.hidden = false;
             }
         }
 
@@ -2056,6 +2060,12 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             lpProofClickWired = true;
             box.addEventListener('click', (e) => {
                 if (!e.target.closest('#lpProof')) return;
+                if (e.target.closest('[data-lp-copy-cert-id]')) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    copyLandingPulseCertId();
+                    return;
+                }
                 if (e.target.closest('[data-lp-proof-open]')) {
                     e.preventDefault();
                     e.stopPropagation();
@@ -2082,7 +2092,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 const idPrefix = _lpCertIdPrefix(p);
                 if (idPrefix) {
                     bits.push(
-                        `<button type="button" class="bd-chip bd-chip-btn" data-lp-proof-open="1" title="Decision certificate">cert ${esc(idPrefix)}</button>`
+                        `<button type="button" class="bd-chip bd-chip-btn" data-lp-copy-cert-id="1" title="Copy certificate ID">cert ${esc(idPrefix)}</button>`
                     );
                 }
             } else {
