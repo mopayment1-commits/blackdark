@@ -899,6 +899,7 @@
                     <div class="result-oracle" id="resultOracle">
                         One clear decision — act or wait
                     </div>
+                    <div id="landingOracleFailReason" style="display:none;margin-top:.35rem;font-size:.8rem;color:var(--text-muted)"></div>
                     <div id="landingProMeta" style="display:none;margin-top:.75rem;color:var(--text-muted);font-size:.85rem"></div>
                     <div id="landingCert" style="display:none;margin-top:.75rem;font-size:.82rem;color:var(--text-muted)"></div>
                     <div id="landingDiscipline" style="display:none;margin-top:.75rem"></div>
@@ -1199,6 +1200,18 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             );
         }
 
+        function setLandingOracleFailReason(reason) {
+            const el = document.getElementById('landingOracleFailReason');
+            if (!el) return;
+            if (!reason) {
+                el.textContent = '';
+                el.style.display = 'none';
+                return;
+            }
+            el.textContent = reason;
+            el.style.display = 'block';
+        }
+
         async function fetchOraclePayload(symbol, mode, lang) {
             const preferQuick = mode !== 'pro';
             const primary = preferQuick
@@ -1208,27 +1221,39 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 ? `/oracle/${encodeURIComponent(symbol)}?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`
                 : `/oracle/${encodeURIComponent(symbol)}/quick?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`;
 
+            let networkFailure = false;
+
             async function loadOracle(url) {
-                const response = await fetch(url, { headers: { Accept: 'application/json' } });
-                const rawText = await response.text();
-                let data = null;
                 try {
-                    if (rawText && !rawText.trim().startsWith('<') && !rawText.includes('Internal Server Error')) {
-                        data = JSON.parse(rawText);
-                    }
-                } catch (error) { console.debug(error); }
-                return { response, data };
+                    const response = await fetch(url, { headers: { Accept: 'application/json' } });
+                    const rawText = await response.text();
+                    let data = null;
+                    try {
+                        if (rawText && !rawText.trim().startsWith('<') && !rawText.includes('Internal Server Error')) {
+                            data = JSON.parse(rawText);
+                        }
+                    } catch (error) { console.debug(error); }
+                    return { response, data, networkFailure: false };
+                } catch (error) {
+                    console.debug(error);
+                    networkFailure = true;
+                    return { response: null, data: null, networkFailure: true };
+                }
             }
 
             const first = await loadOracle(primary);
             if (landingOracleHasDecision(first.data)) {
-                return first;
+                return { ...first, networkFailure: false };
             }
             const second = await loadOracle(fallback);
             if (landingOracleHasDecision(second.data)) {
-                return second;
+                return { ...second, networkFailure: false };
             }
-            return first.response.ok ? first : second;
+            const picked = first.response && first.response.ok ? first : second;
+            return {
+                ...picked,
+                networkFailure: networkFailure && !landingOracleHasDecision(picked.data),
+            };
         }
         function decideLandingAction(data) {
             const raw = data.decision_action || data.model_state || data.verdict || data.action || 'WAIT';
@@ -1543,17 +1568,22 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             localStorage.setItem('bd_ux_mode', mode);
             localStorage.setItem('bd_lang', lang);
             oracleEl.textContent = i18nT('oracle.loading');
+            setLandingOracleFailReason('');
             setLandingOraclePresentationLayout('down');
             proMeta.style.display = 'none';
             upgradeEl.style.display = 'none';
             const t0 = performance.now();
             
             try {
-                const { response, data } = await fetchOraclePayload(symbol, mode, lang);
+                const { response, data, networkFailure } = await fetchOraclePayload(symbol, mode, lang);
                 const latencyMs = Math.round(performance.now() - t0);
                 if (!landingOracleHasDecision(data)) {
                     clearLandingOracleChrome();
-                    if (data && !response.ok) {
+                    const failReason = networkFailure
+                        ? 'Network failure.'
+                        : 'Response had no decision.';
+                    setLandingOracleFailReason(failReason);
+                    if (data && response && !response.ok) {
                         const detail = data.detail || {};
                         const msg = detail.message || i18nT('oracle.error');
                         oracleEl.textContent = msg;
@@ -1567,6 +1597,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                     return;
                 }
 
+                setLandingOracleFailReason('');
                 const live = landingOracleIsLive(data);
                 const action = decideLandingAction(data);
                 oracleEl.textContent = fallbackDecisionSentence(data, symbol, action);
@@ -1611,6 +1642,8 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 console.debug(error);
                 clearLandingOracleChrome();
                 oracleEl.textContent = i18nT('oracle.error');
+                const detail = error && error.message ? String(error.message) : String(error || 'unknown');
+                setLandingOracleFailReason('Exception: ' + detail);
             }
         }
 
