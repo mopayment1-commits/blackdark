@@ -8,6 +8,8 @@
     const trigger = document.getElementById("bdAccountTrigger");
     const panel = document.getElementById("bdAccountMenu");
     if (!trigger || !panel) return;
+    if (trigger.dataset.bdAccountMenuBound === "1") return;
+    trigger.dataset.bdAccountMenuBound = "1";
 
     function setOpen(open) {
       panel.hidden = !open;
