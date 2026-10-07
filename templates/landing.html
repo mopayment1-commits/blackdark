@@ -1762,6 +1762,52 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
         let landingPulse = null;
         let landingPulseEs = null;
         let landingPulseSymbol = 'BTC';
+        /** Oracle / seal certificate kept when trust-pulse stream omits hash. */
+        let landingDecisionCert = null;
+
+        function rememberLandingDecisionCert(data, symbol) {
+            const cert = (data && data.decision_certificate) || {};
+            const hash = cert.certificate_hash;
+            if (!hash) return;
+            const sym = String(cert.asset || data.symbol || symbol || landingPulseSymbol || 'BTC')
+                .trim().toUpperCase() || 'BTC';
+            landingDecisionCert = {
+                ...cert,
+                certificate_hash: hash,
+                asset: sym,
+                symbol: sym,
+                prediction_id: data.prediction_id ?? cert.prediction_id ?? null,
+            };
+        }
+
+        function _lpEnrichPulseWithLandingCert(p) {
+            if (!p) return p;
+            const sym = String(p.symbol || landingPulseSymbol || '').trim().toUpperCase();
+            const proof = p.proof || {};
+            const dc = p.decision_certificate || {};
+            let hash = proof.certificate_hash || dc.certificate_hash || '';
+            let mergedCert = dc;
+            let mergedProof = { ...proof };
+            if (!hash && landingDecisionCert && landingDecisionCert.certificate_hash) {
+                const csym = String(landingDecisionCert.symbol || landingDecisionCert.asset || '').toUpperCase();
+                if (sym && csym && sym === csym) {
+                    hash = landingDecisionCert.certificate_hash;
+                    mergedCert = { ...landingDecisionCert, ...dc, certificate_hash: hash };
+                    mergedProof = {
+                        ...mergedProof,
+                        certificate_hash: hash,
+                        prediction_id: mergedProof.prediction_id ?? landingDecisionCert.prediction_id,
+                        share_text: mergedProof.share_text || landingDecisionCert.share_text,
+                    };
+                }
+            }
+            if (!hash) return p;
+            return {
+                ...p,
+                decision_certificate: mergedCert,
+                proof: mergedProof,
+            };
+        }
 
         function _landingPulseFactors(data) {
             const whyBlock = data.oqs_why || {};
@@ -1782,6 +1828,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 hashEl.textContent = '';
                 return;
             }
+            rememberLandingDecisionCert(data, data.symbol);
             hashEl.textContent = String(hash);
             wrap.style.display = 'block';
         }
@@ -1789,23 +1836,28 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
         function syncLandingTrustPulseFromOracle(data, symbol) {
             if (!data) return;
             paintSealCertificateStamp(data);
+            rememberLandingDecisionCert(data, symbol);
             const sym = String(data.symbol || symbol || 'BTC').trim().toUpperCase() || 'BTC';
             landingPulseSymbol = sym;
             const action = decideLandingAction(data);
             const cert = data.decision_certificate || {};
+            const priorProof = (landingPulse && landingPulse.proof) || {};
             const fresh = data.data_freshness || {};
             const pulseView = {
                 symbol: sym,
                 action: action,
+                verdict: action,
                 price: data.price,
                 change_24h: data.change_24h != null ? data.change_24h : data.change_24h_pct,
                 sentence: fallbackDecisionSentence(data, sym, action),
                 why: { factors: _landingPulseFactors(data) },
                 freshness: fresh,
+                decision_certificate: cert.certificate_hash ? cert : (landingPulse && landingPulse.decision_certificate),
                 proof: {
-                    ...(landingPulse && landingPulse.proof ? landingPulse.proof : {}),
-                    certificate_hash: cert.certificate_hash,
-                    prediction_id: data.prediction_id,
+                    ...priorProof,
+                    certificate_hash: cert.certificate_hash || priorProof.certificate_hash,
+                    prediction_id: data.prediction_id ?? priorProof.prediction_id,
+                    share_text: cert.share_text || priorProof.share_text,
                 },
                 ledger: landingPulse && landingPulse.ledger ? landingPulse.ledger : {},
             };
@@ -1855,8 +1907,9 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
         }
 
         function _lpCertHash(p) {
-            const proof = (p && p.proof) || {};
-            const cert = (p && p.decision_certificate) || {};
+            const enriched = _lpEnrichPulseWithLandingCert(p || {});
+            const proof = (enriched && enriched.proof) || {};
+            const cert = (enriched && enriched.decision_certificate) || {};
             return proof.certificate_hash || cert.certificate_hash || '';
         }
 
@@ -1990,11 +2043,6 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                     openLandingPulseProof();
                     return;
                 }
-                if (e.target.closest('[data-lp-copy-hash]')) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    copyLandingPulseCertHash();
-                }
             });
         }
 
@@ -2009,16 +2057,13 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 '<a class="bd-chip ok" href="/oracle-accuracy">Verify on Ledger</a>',
             ];
             if (hasCert) {
-                bits.push(
-                    '<button type="button" class="bd-chip bd-chip-btn ok" data-lp-proof-open="1">Free Proof</button>'
-                );
                 const short = esc(String(hash).slice(0, 10));
                 bits.push(
-                    `<button type="button" class="bd-chip bd-chip-btn" data-lp-copy-hash="1" title="Copy certificate hash">cert ${short}…</button>`
+                    `<button type="button" class="bd-chip bd-chip-btn ok" data-lp-proof-open="1" title="Free Proof">cert ${short}…</button>`
                 );
             } else {
                 bits.push(
-                    '<span class="bd-chip bd-chip-muted">Free Proof — certificate pending</span>'
+                    `<span class="bd-chip bd-chip-muted">${esc(_lpNoCertificateLine())}</span>`
                 );
             }
             box.innerHTML = bits.join('');
@@ -2029,6 +2074,19 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
 
         function renderLandingPulse(p) {
             if (!p) return;
+            p = _lpEnrichPulseWithLandingCert(p);
+            if (_lpCertHash(p)) {
+                const dc = p.decision_certificate || {};
+                const sym = String(p.symbol || landingPulseSymbol || '').toUpperCase();
+                landingDecisionCert = {
+                    ...landingDecisionCert,
+                    ...dc,
+                    certificate_hash: _lpCertHash(p),
+                    symbol: sym,
+                    asset: dc.asset || sym,
+                    prediction_id: (p.proof || {}).prediction_id ?? dc.prediction_id,
+                };
+            }
             landingPulse = p;
             const act = window.BDPublicDecision?.mapPublicDecisionAction(p.action || p.verdict) || p.action || 'WAIT';
             const actionEl = document.getElementById('lpAction');
