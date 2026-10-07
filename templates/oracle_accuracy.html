@@ -141,7 +141,7 @@
         </div>
     </section>
 
-    <section class="panel">
+    <section class="panel" id="panel-regime" style="display:none">
         <div class="card">
             <h2>D5 · Regime-Conditional Models</h2>
             <p id="regime-status" style="color:var(--muted);font-size:0.9rem">Loading regime registry…</p>
@@ -219,7 +219,7 @@
         </div>
     </section>
 
-    <section class="panel" id="losing">
+    <section class="panel" id="panel-public-misses">
         <div class="card">
             <h2>Public Misses · live ledger</h2>
             <p style="color:var(--muted);font-size:0.88rem;margin-bottom:.65rem">
@@ -250,7 +250,7 @@
         </div>
     </section>
 
-    <section class="panel">
+    <section class="panel" id="panel-registry" style="display:none">
         <div class="card">
             <h2>D8 · Feature lexicon (public registry)</h2>
             <p id="registry-status" style="color:var(--muted);font-size:0.9rem">Loading feature lexicon…</p>
@@ -270,7 +270,7 @@
         </div>
     </section>
 
-    <section class="grid" id="stats-grid">
+    <section class="grid" id="panel-ledger-stats" style="display:none">
         <div class="stat"><div class="num" id="stat-accuracy">—</div><div class="lbl">Average accuracy %</div><div class="subnote" id="stat-accuracy-note"></div></div>
         <div class="stat"><div class="num" id="stat-total">—</div><div class="lbl">Total predictions (logged)</div><div class="subnote" id="stat-resolved-note"></div></div>
         <div class="stat"><div class="num" id="stat-labeled">—</div><div class="lbl">Training samples (labeled)</div><div class="subnote" id="stat-labeled-note"></div></div>
@@ -281,7 +281,7 @@
 
     <p id="metrics-explainer" class="metrics-explainer" aria-live="polite"></p>
 
-    <section class="panel">
+    <section class="panel" id="panel-latest-table" style="display:none">
         <div class="card">
             <h2>Latest scored predictions</h2>
             <p id="recent-table-note" style="color:var(--muted);font-size:0.82rem;margin-bottom:0.75rem"></p>
@@ -307,7 +307,7 @@
         </div>
     </section>
 
-    <section class="panel">
+    <section class="panel" id="panel-learning" style="display:none">
         <div class="card">
             <h2>Learning experience log</h2>
             <ul class="events" id="events-list">
@@ -329,7 +329,7 @@
     <script defer src="/static/js/dom_escape.js"></script>
     <script defer src="/static/js/public_decision_map.js"></script>
     <script>
-        const ORACLE_LEDGER_FETCH_MS = 12000;
+        const ORACLE_LEDGER_FETCH_MS = 28000;
         const ORACLE_LEDGER_SECONDARY_MS = 15000;
         const LEDGER_PUBLIC_URL = 'https://blackdark-production.up.railway.app/oracle-accuracy';
         const PAGE_LANG = (document.documentElement.getAttribute('lang') || 'en').toLowerCase();
@@ -337,6 +337,107 @@
         let lastChainVerify = null;
         let lastCounterSources = null;
         let lastTrainingArchive = null;
+        let lastLedgerPayload = null;
+
+        function togglePanel(panelId, visible) {
+            const el = document.getElementById(panelId);
+            if (el) el.style.display = visible ? '' : 'none';
+        }
+
+        function mergeCanonicalOracle(data) {
+            if (!data || data.ok === false) return null;
+            const ll = data.live_ledger;
+            const o = data.oracle;
+            if (!ll || !ll.query_ok || !o) return null;
+            const logged = Number(o.total_predictions ?? ll.logged ?? 0);
+            const hasRows = (o.recent_predictions && o.recent_predictions.length) ||
+                (o.public_miss_sample && o.public_miss_sample.length);
+            if (logged <= 0 && !hasRows) return null;
+            return {
+                ...o,
+                total_predictions: logged,
+                resolved_predictions: Number(o.resolved_predictions ?? ll.resolved ?? 0),
+                pending_predictions: Number(o.pending_predictions ?? ll.pending ?? 0),
+                average_accuracy_percent: Number(o.average_accuracy_percent ?? ll.accuracy_percent ?? 0),
+                verified_errors: Number(o.verified_errors ?? ll.verified_errors ?? 0),
+                partial_outcomes: Number(o.partial_outcomes ?? ll.partial_outcomes ?? 0),
+                live_source: o.live_source || ll.source,
+                public_miss_sample: o.public_miss_sample || [],
+                recent_predictions: o.recent_predictions || [],
+            };
+        }
+
+        function syncShareFromOracle(oracle) {
+            lastLosingShare = buildLedgerShareText(oracle);
+            lastLedgerShare = lastLosingShare;
+            const preview = document.getElementById('ledger-share-preview');
+            if (preview) preview.textContent = lastLosingShare;
+        }
+
+        function applyLedgerPayload(data) {
+            const oracle = mergeCanonicalOracle(data);
+            if (!oracle) return false;
+            lastLedgerPayload = data;
+            ledgerOracleSnapshot = oracle;
+            lastCounterSources = data.counter_sources || null;
+            lastTrainingArchive = data.historical_training_archive || null;
+
+            const model = data.model || {};
+            const moat = data.data_moat || {};
+            const exp = (data.learning_experience || {}).summary || {};
+            const transparency = data.transparency || {};
+
+            const engineLabel = document.getElementById('engine-label');
+            if (engineLabel && transparency.production_engine) {
+                engineLabel.textContent =
+                    transparency.production_engine === 'ml_model' ? 'ML model (OOD-gated)' : 'rules engine';
+            }
+            renderEngineHealth(data);
+            renderProofChain(data.proof_chain || {});
+
+            togglePanel('panel-ledger-stats', true);
+            togglePanel('panel-latest-table', true);
+            togglePanel('panel-public-misses', true);
+
+            renderAccuracyStats({
+                oracle,
+                model,
+                moat,
+                exp,
+                counterSources: lastCounterSources,
+                archive: lastTrainingArchive,
+            });
+            renderPredictionsTable(oracle, oracle.recent_table_footnote || '');
+            renderPublicMisses(oracle, lastTrainingArchive);
+            syncShareFromOracle(oracle);
+
+            const regime = data.regime_models || {};
+            const regimeKeys = Object.keys(regime.regimes || {});
+            if (regimeKeys.length) {
+                togglePanel('panel-regime', true);
+                renderRegimeTable(regime);
+            } else {
+                togglePanel('panel-regime', false);
+            }
+
+            const reg = data.signal_registry || {};
+            const typeKeys = Object.keys(reg.by_type || {});
+            if (typeKeys.length) {
+                togglePanel('panel-registry', true);
+                renderRegistryTable(reg);
+            } else {
+                togglePanel('panel-registry', false);
+            }
+
+            const events = (data.learning_experience || {}).recent_events || [];
+            if (events.length) {
+                togglePanel('panel-learning', true);
+                renderLearningEvents(events);
+            } else {
+                togglePanel('panel-learning', false);
+            }
+            return true;
+        }
 
         function ledgerCopy(key) {
             const ar = PAGE_LANG.startsWith('ar');
@@ -429,7 +530,11 @@
 
             const degraded = warnings.length > 0;
             badge.className = 'badge ' + (degraded ? 'badge-warn' : 'badge-info');
-            badge.textContent = degraded ? 'Engine · attention' : 'Engine · operational';
+            if (transparency.production_engine === 'ml_model') {
+                badge.textContent = degraded ? 'Engine · attention' : 'Engine · operational';
+            } else {
+                badge.textContent = degraded ? 'Engine · attention' : 'Engine · operational';
+            }
             note.style.color = degraded ? 'var(--warning)' : 'var(--muted)';
             const base = transparency.engine_note || '';
             note.textContent = degraded
@@ -550,6 +655,24 @@
                     continue;
                 }
                 const key = asset + '|' + sec;
+                if (seen.has(key)) continue;
+                seen.add(key);
+                out.push(r);
+            }
+            return out;
+        }
+
+        function dedupeByAssetMinute(rows) {
+            const seen = new Set();
+            const out = [];
+            for (const r of rows) {
+                const minute = String(r.timestamp || '').slice(0, 16);
+                const asset = String(r.asset || '').trim().toUpperCase();
+                if (!asset) {
+                    out.push(r);
+                    continue;
+                }
+                const key = asset + '|' + minute;
                 if (seen.has(key)) continue;
                 seen.add(key);
                 out.push(r);
@@ -681,7 +804,9 @@
             }
             const rows = o.public_miss_sample || [];
             const errors = rows.filter(r => String(r.label || '').toLowerCase() === 'incorrect');
-            const partials = rows.filter(r => String(r.label || '').toLowerCase() === 'partial');
+            const partials = dedupeByAssetMinute(
+                rows.filter(r => String(r.label || '').toLowerCase() === 'partial')
+            );
             const errList = document.getElementById('losing-errors-list');
             const partList = document.getElementById('losing-partial-list');
             const rowHtml = (r) =>
@@ -700,16 +825,6 @@
             }
             lastLosingShare = buildLedgerShareText(o);
         }
-        function emptyOracleStats() {
-            return {
-                average_accuracy_percent: 0,
-                total_predictions: 0,
-                resolved_predictions: 0,
-                pending_predictions: 0,
-                recent_predictions: [],
-            };
-        }
-
         async function loadAccuracy() {
             try {
                 const data = await fetchJsonWithTimeout(
@@ -717,69 +832,19 @@
                     {},
                     ORACLE_LEDGER_FETCH_MS
                 );
-                if (data.ok === false && data.error && !data.oracle) {
-                    ledgerOracleSnapshot = emptyOracleStats();
-                    renderAccuracyStats({
-                        oracle: ledgerOracleSnapshot,
-                        model: { labeled_samples: 0 },
-                        moat: { exchanges: 0, assets: 0 },
-                        exp: { total_training_runs: 0 },
-                    });
-                    renderPredictionsTable(emptyOracleStats(), '');
-                    applyChainVerify({ valid: false, records: 0, integrity_failure_reason: data.error }, {});
+                if (data.proof_chain) {
+                    renderProofChain(data.proof_chain);
+                }
+                if (applyLedgerPayload(data)) {
                     return;
                 }
-                const oracle = data.oracle || emptyOracleStats();
-                ledgerOracleSnapshot = oracle;
-                lastCounterSources = data.counter_sources || null;
-                lastTrainingArchive = data.historical_training_archive || null;
-                const model = data.model || {};
-                const moat = data.data_moat || {};
-                const exp = (data.learning_experience || {}).summary || {};
-                const transparency = data.transparency || {};
-
-                document.getElementById('engine-label').textContent =
-                    transparency.production_engine === 'ml_model' ? 'ML model (OOD-gated)' : 'rules engine';
-                renderEngineHealth(data);
-                renderProofChain(data.proof_chain || {});
-                renderAccuracyStats({
-                    oracle,
-                    model,
-                    moat,
-                    exp,
-                    counterSources: lastCounterSources,
-                    archive: lastTrainingArchive,
-                });
-                renderRegimeTable(data.regime_models || {});
-                renderRegistryTable(data.signal_registry || {});
-                renderPredictionsTable(oracle, oracle.recent_table_footnote || '');
-                renderLearningEvents((data.learning_experience || {}).recent_events || []);
-                renderPublicMisses(oracle, lastTrainingArchive);
-                const preview = document.getElementById('ledger-share-preview');
-                lastLosingShare = buildLedgerShareText(oracle);
-                if (preview) preview.textContent = lastLosingShare;
+                if (lastLedgerPayload) {
+                    applyLedgerPayload(lastLedgerPayload);
+                }
             } catch (error) {
                 console.debug(error);
-                ledgerOracleSnapshot = emptyOracleStats();
-                renderAccuracyStats({
-                    oracle: ledgerOracleSnapshot,
-                    model: { labeled_samples: 0 },
-                    moat: { exchanges: 0, assets: 0 },
-                    exp: { total_training_runs: 0 },
-                });
-                renderPredictionsTable(emptyOracleStats(), '');
-                document.getElementById('regime-body').innerHTML =
-                    '<tr><td colspan="4">لا توجد أنظمة بعد</td></tr>';
-                document.getElementById('regime-status').textContent = '';
-                document.getElementById('registry-body').innerHTML =
-                    '<tr><td colspan="2">No registry entries yet — lexicon grows with every Oracle decision.</td></tr>';
-                document.getElementById('registry-status').textContent = '';
-                document.getElementById('events-list').innerHTML =
-                    '<li>Learning log will start after the first flywheel cycle.</li>';
-                const badge = document.getElementById('engine-badge');
-                if (badge) {
-                    badge.className = 'badge badge-warn';
-                    badge.textContent = 'Engine · unknown';
+                if (lastLedgerPayload) {
+                    applyLedgerPayload(lastLedgerPayload);
                 }
             }
         }
@@ -833,31 +898,17 @@
 
         let lastLedgerShare = LEDGER_PUBLIC_URL;
         async function loadLedgerShareKit() {
+            if (ledgerOracleSnapshot) {
+                syncShareFromOracle(ledgerOracleSnapshot);
+            }
             try {
                 const d = await fetchJsonWithTimeout('/api/ledger/share-kit');
-                if (ledgerOracleSnapshot) {
-                    lastLedgerShare = buildLedgerShareText(ledgerOracleSnapshot);
-                } else {
-                    lastLedgerShare = (d.share_text || lastLedgerShare).replace(
-                        /https?:\/\/[^\s]+oracle-accuracy[^\s]*/g,
-                        LEDGER_PUBLIC_URL
-                    );
-                }
-                const preview = document.getElementById('ledger-share-preview');
-                if (preview) preview.textContent = lastLedgerShare;
                 const x = document.getElementById('ledgerShareX');
                 const tg = document.getElementById('ledgerShareTg');
                 if (x && d.share_urls && d.share_urls.x) x.href = safeUrl(d.share_urls.x) || '#';
                 if (tg && d.share_urls && d.share_urls.telegram) tg.href = safeUrl(d.share_urls.telegram) || '#';
             } catch (error) {
                 console.debug(error);
-                const preview = document.getElementById('ledger-share-preview');
-                if (preview) {
-                    lastLedgerShare = ledgerOracleSnapshot
-                        ? buildLedgerShareText(ledgerOracleSnapshot)
-                        : LEDGER_PUBLIC_URL;
-                    preview.textContent = lastLedgerShare;
-                }
             }
         }
         document.getElementById('shareLedgerBtn')?.addEventListener('click', () => {
@@ -934,24 +985,6 @@
             if (lastMevShare) navigator.clipboard.writeText(lastMevShare);
         });
 
-        function failAllLedgerLoads() {
-            const proof = document.getElementById('proof-panel');
-            if (proof && /Loading/i.test(proof.textContent)) {
-                proof.textContent = '—';
-            }
-            const badge = document.getElementById('engine-badge');
-            if (badge && badge.textContent.includes('Checking')) {
-                badge.className = 'badge badge-info';
-                badge.textContent = 'Engine · operational';
-            }
-            ['stat-accuracy', 'stat-total', 'stat-labeled', 'stat-training', 'stat-exchanges', 'stat-assets'].forEach(id => {
-                const el = document.getElementById(id);
-                if (el && (el.textContent === '—' || el.textContent === 'Loading')) {
-                    el.textContent = id === 'stat-accuracy' ? '0.0%' : '0';
-                }
-            });
-        }
-
         function scheduleSecondaryLoad(fn) {
             const run = () => fn().catch(() => {});
             if (typeof requestIdleCallback === 'function') {
@@ -961,8 +994,7 @@
             }
         }
 
-        loadAccuracy().catch(() => failAllLedgerLoads());
-        scheduleSecondaryLoad(loadLedgerShareKit);
+        loadAccuracy().then(() => scheduleSecondaryLoad(loadLedgerShareKit));
         scheduleSecondaryLoad(loadGlassBox);
         scheduleSecondaryLoad(loadMevReport);
         scheduleSecondaryLoad(loadLocked);
