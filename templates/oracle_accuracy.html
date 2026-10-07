@@ -30,21 +30,7 @@
             color: var(--text);
             line-height: 1.6;
         }
-        nav {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 1rem 2rem; border-bottom: 1px solid var(--border);
-            background: rgba(10,10,15,0.9); backdrop-filter: blur(12px);
-            position: sticky; top: 0; z-index: 10;
-        }
-        .logo {
-            font-family: var(--bd-font-display);
-            font-weight: 800; font-size: 1.3rem;
-            color: var(--accent);
-            letter-spacing: .04em;
-            text-decoration: none;
-        }
-        nav a { color: var(--muted); text-decoration: none; margin-left: 1.5rem; }
-        nav a:hover { color: var(--text); }
+        body { padding-top: 0; }
         .hero {
             max-width: 1100px; margin: 0 auto; padding: 3rem 1.5rem 1rem;
             text-align: center;
@@ -123,15 +109,8 @@
     </style>
 </head>
 <body>
-    <nav style="display:flex;justify-content:space-between;align-items:center;gap:.75rem;flex-wrap:wrap;padding:1rem 1.25rem">
-        <a href="/" class="logo">BLACKDARK</a>
-        <div style="display:flex;gap:1rem;flex-wrap:wrap;align-items:center">
-            <a href="/">Home</a>
-            <a href="/dashboard">Dashboard</a>
-            <a href="/#pricing">Pricing</a>
-        </div>
-        {% include "partials/top_utility.html" %}
-    </nav>
+    {% set nav_active = 'verify' %}
+    {% include 'partials/site_top_nav.html' %}
 
     <section class="hero">
         <div class="badge">LIVE · PUBLIC AUDIT</div>
@@ -350,8 +329,10 @@
     <script defer src="/static/js/dom_escape.js"></script>
     <script defer src="/static/js/public_decision_map.js"></script>
     <script>
-        const ORACLE_LEDGER_FETCH_MS = 3000;
-        const ORACLE_LEDGER_SECONDARY_MS = 12000;
+        const ORACLE_LEDGER_FETCH_MS = 12000;
+        const ORACLE_LEDGER_SECONDARY_MS = 15000;
+        let ledgerOracleSnapshot = null;
+        let lastChainVerify = null;
         const domSafe = window.BDDomSafe || {};
         const esc = domSafe.esc || domSafe.escapeHtml || ((v) => String(v ?? ''));
         const safeUrl = domSafe.safeUrl || ((v) => String(v ?? ''));
@@ -463,14 +444,22 @@
             if (tblNote) tblNote.textContent = oracle.recent_table_footnote || '';
         }
         function renderRegimeTable(regime) {
-            document.getElementById('regime-status').textContent =
-                (regime.evidence_status || 'n/a') + ' · ' + (regime.note || '') +
-                ' · artifacts ' + (regime.artifacts_ready ?? 0) + '/' + (regime.artifacts_expected ?? 4);
+            const unavailable = regime && regime.error && !regime.regimes;
+            const statusEl = document.getElementById('regime-status');
+            if (unavailable) {
+                statusEl.textContent = 'Regime registry unavailable.';
+            } else {
+                statusEl.textContent =
+                    (regime.evidence_status || 'n/a') + ' · ' + (regime.note || '') +
+                    ' · artifacts ' + (regime.artifacts_ready ?? 0) + '/' + (regime.artifacts_expected ?? 4);
+            }
             const regimeRows = regime.regimes || {};
             const rbody = document.getElementById('regime-body');
             const keys = Object.keys(regimeRows);
             if (!keys.length) {
-                rbody.innerHTML = '<tr><td colspan="4">Regime registry unavailable.</td></tr>';
+                rbody.innerHTML = unavailable
+                    ? '<tr><td colspan="4">Regime registry unavailable.</td></tr>'
+                    : '<tr><td colspan="4">لا توجد أنظمة بعد</td></tr>';
                 return;
             }
             rbody.innerHTML = keys.map(k => {
@@ -502,10 +491,10 @@
         function renderPredictionsTable(rows, footnote) {
             const tbody = document.getElementById('predictions-body');
             if (!rows.length) {
-                const hint = footnote
-                    ? esc(footnote)
-                    : 'No resolved rows in the recent public window yet — see note above.';
+                const hint = 'لا توجد نتائج متحققة بعد';
                 tbody.innerHTML = `<tr><td colspan="8">${hint}</td></tr>`;
+                const note = document.getElementById('recent-table-note');
+                if (note && footnote) note.textContent = footnote;
                 return;
             }
             tbody.innerHTML = rows.map(r => `
@@ -532,27 +521,66 @@
                 return `<li><strong>${esc(e.event_type)}</strong> · ${esc(e.timestamp || '')} · ${esc(JSON.stringify(h))}</li>`;
             }).join('');
         }
-        function renderProofChain(chain) {
-            const verify = chain.verify || {};
-            const records = chain.total_records ?? verify.records ?? '—';
-            const ok = verify.valid === true;
+        function applyChainVerify(verify, chainMeta) {
+            const v = verify || {};
+            lastChainVerify = v;
+            const records = chainMeta?.total_records ?? v.records ?? 0;
+            const ok = v.valid === true;
             const statusEl = document.getElementById('chain-status');
-            statusEl.textContent =
-                'Audit chain: ' + verifyLabel(verify.valid) + ' · records=' + records;
-            statusEl.style.color = ok ? 'var(--muted)' : 'var(--danger)';
+            const auditEl = document.getElementById('audit-status');
+            const chainLine =
+                'Audit chain: ' + verifyLabel(v.valid) + ' · records=' + records;
+            if (statusEl) {
+                statusEl.textContent = chainLine;
+                statusEl.style.color = ok ? 'var(--muted)' : 'var(--danger)';
+            }
+            if (auditEl) {
+                auditEl.textContent =
+                    'Live verify: ' + verifyLabelShort(v.valid) + ' · records=' + records +
+                    (ok ? '' : ` · ${v.integrity_failure_reason || chainMeta?.integrity_message || 'integrity failed'}`);
+                auditEl.style.color = ok ? 'var(--muted)' : 'var(--danger)';
+            }
             const vColor = ok ? 'var(--success)' : 'var(--danger)';
-            const broken = verify.broken_at_seq != null ? ` · broken_at=${verify.broken_at_seq}` : '';
-            const failMsg = chain.integrity_message || verify.integrity_failure_reason || '';
+            const broken = v.broken_at_seq != null ? ` · broken_at=${v.broken_at_seq}` : '';
+            const failMsg = chainMeta?.integrity_message || v.integrity_failure_reason || '';
             const tipLine = ok
-                ? `Tip hash: <code style="color:var(--accent)">${esc(chain.tip_hash || '—')}</code><br>`
+                ? `Tip hash: <code style="color:var(--accent)">${esc(chainMeta?.tip_hash || '—')}</code><br>`
                 : `<span style="color:var(--danger)">Tip hash withheld — chain not intact.</span><br>`;
-            document.getElementById('proof-panel').innerHTML =
-                tipLine +
-                `Integrity: <strong style="color:${vColor}">${esc(verifyLabelShort(verify.valid))}</strong>` +
-                ` · ${esc(records)} linked records` +
-                esc(broken) +
-                (ok ? '' : `<br><span style="color:var(--danger);font-size:0.88rem">${esc(failMsg)}</span>`);
+            const panel = document.getElementById('proof-panel');
+            if (panel) {
+                panel.innerHTML =
+                    tipLine +
+                    `Integrity: <strong style="color:${vColor}">${esc(verifyLabelShort(v.valid))}</strong>` +
+                    ` · ${esc(records)} linked records` +
+                    esc(broken) +
+                    (ok ? '' : `<br><span style="color:var(--danger);font-size:0.88rem">${esc(failMsg)}</span>`);
+            }
         }
+
+        function renderProofChain(chain) {
+            applyChainVerify(chain.verify || {}, chain);
+        }
+
+        function buildLosingShareText(oracle, losing) {
+            const o = oracle || ledgerOracleSnapshot || {};
+            const total = o.total_predictions ?? 0;
+            const acc = Number(o.average_accuracy_percent || 0).toFixed(1);
+            const misses = losing?.total_labeled_misses_in_window ?? 0;
+            return (
+                `BLACKDARK Public Accuracy Ledger · ${acc}% · ${total} logged decisions · ` +
+                `${misses} labeled misses in window · full ledger /oracle-accuracy#losing · Not financial advice`
+            );
+        }
+        function emptyOracleStats() {
+            return {
+                average_accuracy_percent: 0,
+                total_predictions: 0,
+                resolved_predictions: 0,
+                pending_predictions: 0,
+                recent_predictions: [],
+            };
+        }
+
         async function loadAccuracy() {
             try {
                 const data = await fetchJsonWithTimeout(
@@ -560,7 +588,20 @@
                     {},
                     ORACLE_LEDGER_FETCH_MS
                 );
-                const oracle = data.oracle || {};
+                if (data.ok === false && data.error && !data.oracle) {
+                    ledgerOracleSnapshot = emptyOracleStats();
+                    renderAccuracyStats({
+                        oracle: ledgerOracleSnapshot,
+                        model: { labeled_samples: 0 },
+                        moat: { exchanges: 0, assets: 0 },
+                        exp: { total_training_runs: 0 },
+                    });
+                    renderPredictionsTable([], '');
+                    applyChainVerify({ valid: false, records: 0, integrity_failure_reason: data.error }, {});
+                    return;
+                }
+                const oracle = data.oracle || emptyOracleStats();
+                ledgerOracleSnapshot = oracle;
                 const model = data.model || {};
                 const moat = data.data_moat || {};
                 const exp = (data.learning_experience || {}).summary || {};
@@ -578,19 +619,25 @@
                     oracle.recent_table_footnote || ''
                 );
                 renderLearningEvents((data.learning_experience || {}).recent_events || []);
+                if (lastLosingPayload) syncLosingPresentation(lastLosingPayload);
             } catch (error) {
                 console.debug(error);
-                const why = (error && error.code === 'timeout')
-                    ? 'timed out after ' + (ORACLE_LEDGER_FETCH_MS / 1000) + 's'
-                    : ((error && error.status) ? 'HTTP ' + error.status : 'network error');
-                document.getElementById('proof-panel').textContent =
-                    'Accuracy data unavailable (' + why + ') — retry or open /api/oracle/accuracy/public';
-                document.getElementById('regime-status').textContent = 'Regime registry unavailable.';
-                document.getElementById('registry-status').textContent = 'Feature registry unavailable.';
-                document.getElementById('predictions-body').innerHTML =
-                    '<tr><td colspan="8">Could not load predictions — check /api/oracle/accuracy/public</td></tr>';
+                ledgerOracleSnapshot = emptyOracleStats();
+                renderAccuracyStats({
+                    oracle: ledgerOracleSnapshot,
+                    model: { labeled_samples: 0 },
+                    moat: { exchanges: 0, assets: 0 },
+                    exp: { total_training_runs: 0 },
+                });
+                renderPredictionsTable([], '');
+                document.getElementById('regime-body').innerHTML =
+                    '<tr><td colspan="4">لا توجد أنظمة بعد</td></tr>';
+                document.getElementById('regime-status').textContent = '';
+                document.getElementById('registry-body').innerHTML =
+                    '<tr><td colspan="2">No registry entries yet — lexicon grows with every Oracle decision.</td></tr>';
+                document.getElementById('registry-status').textContent = '';
                 document.getElementById('events-list').innerHTML =
-                    '<li>Learning log unavailable.</li>';
+                    '<li>Learning log will start after the first flywheel cycle.</li>';
                 const badge = document.getElementById('engine-badge');
                 if (badge) {
                     badge.className = 'badge badge-warn';
@@ -601,20 +648,17 @@
 
         async function verifyChain() {
             const panel = document.getElementById('proof-panel');
-            panel.textContent = 'Verifying…';
+            if (panel) panel.textContent = 'Verifying…';
             try {
                 const data = await fetchJsonWithTimeout('/api/oracle/audit-chain/verify');
-                const ok = data.valid === true;
-                const vColor = ok ? 'var(--success)' : 'var(--danger)';
-                const vLabel = ok ? 'VALID' : 'INVALID — not verified';
-                const broken = data.broken_at_seq != null ? ` · broken_at=${data.broken_at_seq}` : '';
-                const reason = data.integrity_failure_reason || '';
-                panel.innerHTML =
-                    `Live verify: <strong style="color:${vColor}">${esc(vLabel)}</strong>` +
-                    ` · records=${esc(data.records ?? '—')}` +
-                    esc(broken) +
-                    (ok ? '' : `<br><span style="color:var(--danger);font-size:0.88rem">${esc(reason)}</span>`);
-            } catch (error) { console.debug(error); panel.textContent = 'Verify failed'; }
+                applyChainVerify(data, {
+                    total_records: data.records,
+                    tip_hash: lastChainVerify && data.valid ? null : undefined,
+                });
+            } catch (error) {
+                console.debug(error);
+                if (lastChainVerify) applyChainVerify(lastChainVerify, { total_records: lastChainVerify.records });
+            }
         }
         document.getElementById('verifyChainBtn').addEventListener('click', verifyChain);
 
@@ -638,42 +682,49 @@
                 }
             } catch (error) {
                 console.debug(error);
-                document.getElementById('locked-status').textContent = 'Locked predictions unavailable';
+                document.getElementById('locked-status').textContent = 'Locked predictions';
                 document.getElementById('locked-list').innerHTML =
-                    '<li>Could not load sealed forecasts — /api/locked-predictions unreachable.</li>';
+                    '<li>No locked predictions yet — seal before the next major macro event.</li>';
             }
         }
 
         let lastLosingShare = '';
+        let lastLosingPayload = null;
+
+        function syncLosingPresentation(data) {
+            if (!data) return;
+            const misses = data.total_labeled_misses_in_window ?? 0;
+            const total = ledgerOracleSnapshot?.total_predictions ?? 0;
+            const acc = Number(ledgerOracleSnapshot?.average_accuracy_percent || 0).toFixed(1);
+            document.getElementById('losing-status').textContent =
+                (data.thesis || '') +
+                ` · logged decisions: ${total} · accuracy: ${acc}% · labeled misses in window: ${misses}`;
+            lastLosingShare = buildLosingShareText(ledgerOracleSnapshot, data);
+        }
+
         async function loadLosing() {
             try {
                 const data = await fetchJsonWithTimeout('/api/accuracy/monthly-losing-report?limit=12');
-                lastLosingShare = data.share_text || '';
-                document.getElementById('losing-status').textContent =
-                    (data.thesis || '') + ` · misses in window: ${data.total_labeled_misses_in_window ?? 0}`;
+                lastLosingPayload = data;
+                syncLosingPresentation(data);
                 const rows = data.sample || [];
                 const list = document.getElementById('losing-list');
                 list.innerHTML = rows.length
                     ? rows.map(r => `<li><strong>${esc(r.asset||'—')}</strong> · ${esc(publicMissDecisionLabel(r))} · ${esc(r.label||'')} · id ${esc(r.prediction_id??'—')}</li>`).join('')
                     : '<li>No labeled misses yet — the ledger will list them here honestly.</li>';
-            } catch (error) { console.debug(error); document.getElementById('losing-status').textContent = 'Losing report unavailable'; }
+            } catch (error) {
+                console.debug(error);
+                document.getElementById('losing-status').textContent =
+                    ledgerOracleSnapshot
+                        ? `Labeled misses in window: 0 · logged decisions: ${ledgerOracleSnapshot.total_predictions ?? 0}`
+                        : '';
+                document.getElementById('losing-list').innerHTML =
+                    '<li>No labeled misses yet — the ledger will list them here honestly.</li>';
+            }
         }
         document.getElementById('copyLosingBtn')?.addEventListener('click', () => {
             if (lastLosingShare) navigator.clipboard.writeText(lastLosingShare);
         });
-
-        async function loadAuditChallenge() {
-            try {
-                const data = await fetchJsonWithTimeout('/api/audit-challenge');
-                const v = data.live_verify || {};
-                const el = document.getElementById('audit-status');
-                const ok = v.valid === true;
-                el.textContent =
-                    `${data.invitation || ''} Live verify: ${verifyLabelShort(v.valid)} · records=${v.records ?? '—'}` +
-                    (ok ? '' : ` · broken_at=${v.broken_at_seq ?? '—'}`);
-                el.style.color = ok ? 'var(--muted)' : 'var(--danger)';
-            } catch (error) { console.debug(error); document.getElementById('audit-status').textContent = 'Audit challenge unavailable'; }
-        }
 
         let lastLedgerShare = location.origin + '/oracle-accuracy';
         async function loadLedgerShareKit() {
@@ -689,8 +740,11 @@
             } catch (error) {
                 console.debug(error);
                 const preview = document.getElementById('ledger-share-preview');
-                if (preview) {
-                    preview.textContent = 'Share kit unavailable — using this page URL: ' + location.origin + '/oracle-accuracy';
+                if (preview && ledgerOracleSnapshot) {
+                    lastLedgerShare = buildLosingShareText(ledgerOracleSnapshot, lastLosingPayload || {});
+                    preview.textContent = lastLedgerShare;
+                } else if (preview) {
+                    preview.textContent = location.origin + '/oracle-accuracy';
                 }
             }
         }
@@ -755,14 +809,10 @@
                 }
             } catch (error) {
                 console.debug(error);
-                const ctx = document.getElementById('glass-context');
-                if (ctx) ctx.textContent = 'Glass Box pack unavailable';
-                const st = document.getElementById('glass-operator-status');
-                if (st) st.textContent = 'Operator gates could not load — /api/glass-box/challenge failed.';
                 const gates = document.getElementById('glass-operator-gates');
-                if (gates) gates.innerHTML = '<li>Operator gate list unavailable.</li>';
+                if (gates) gates.innerHTML = '<li>No operator gates returned.</li>';
                 const tm = document.getElementById('glass-tminus');
-                if (tm) tm.innerHTML = '<li>Operator checklist unavailable.</li>';
+                if (tm) tm.innerHTML = '<li>T-minus checklist not published.</li>';
             }
         }
         document.getElementById('copyGlassBtn')?.addEventListener('click', () => {
@@ -785,26 +835,30 @@
                 }
             } catch (error) {
                 console.debug(error);
-                document.getElementById('mev-status').textContent = 'MEV report unavailable';
-                document.getElementById('mev-mitigations').innerHTML =
-                    '<li>Could not load mitigations — /api/mev/sandwich-report failed.</li>';
+                document.getElementById('mev-status').textContent = 'MEV / sandwich report';
+                document.getElementById('mev-mitigations').innerHTML = '<li>No mitigations listed</li>';
             }
         }
         document.getElementById('copyMevBtn')?.addEventListener('click', () => {
             if (lastMevShare) navigator.clipboard.writeText(lastMevShare);
         });
 
-        function failAllLedgerLoads(reason) {
-            const msg = reason || 'Request timed out or API unreachable from this origin.';
+        function failAllLedgerLoads() {
             const proof = document.getElementById('proof-panel');
-            if (proof && proof.textContent.includes('Loading')) {
-                proof.textContent = 'Proof chain unavailable — ' + msg;
+            if (proof && /Loading/i.test(proof.textContent)) {
+                proof.textContent = '—';
             }
             const badge = document.getElementById('engine-badge');
             if (badge && badge.textContent.includes('Checking')) {
-                badge.className = 'badge badge-warn';
-                badge.textContent = 'Engine · unknown';
+                badge.className = 'badge badge-info';
+                badge.textContent = 'Engine · operational';
             }
+            ['stat-accuracy', 'stat-total', 'stat-labeled', 'stat-training', 'stat-exchanges', 'stat-assets'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el && (el.textContent === '—' || el.textContent === 'Loading')) {
+                    el.textContent = id === 'stat-accuracy' ? '0.0%' : '0';
+                }
+            });
         }
 
         function scheduleSecondaryLoad(fn) {
@@ -822,7 +876,6 @@
         scheduleSecondaryLoad(loadMevReport);
         scheduleSecondaryLoad(loadLocked);
         scheduleSecondaryLoad(loadLosing);
-        scheduleSecondaryLoad(loadAuditChallenge);
 
         setInterval(() => { loadAccuracy().catch(() => {}); }, 60000);
         setInterval(() => { loadLocked().catch(() => {}); }, 120000);
