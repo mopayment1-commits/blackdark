@@ -1189,6 +1189,16 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
         }
 
 
+        function landingOracleHasDecision(data) {
+            if (!data || typeof data !== 'object') return false;
+            return Boolean(
+                data.decision_sentence
+                || data.oracle
+                || data.decision_action
+                || data.verdict
+            );
+        }
+
         async function fetchOraclePayload(symbol, mode, lang) {
             const preferQuick = mode !== 'pro';
             const primary = preferQuick
@@ -1197,19 +1207,28 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             const fallback = preferQuick
                 ? `/oracle/${encodeURIComponent(symbol)}?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`
                 : `/oracle/${encodeURIComponent(symbol)}/quick?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`;
-            let response = await fetch(primary, { headers: { Accept: 'application/json' } });
-            let rawText = await response.text();
-            let data = null;
-            try {
-                data = rawText && !rawText.trim().startsWith('<') && !rawText.includes('Internal Server Error')
-                    ? JSON.parse(rawText) : null;
-            } catch (error) { console.debug(error); data = null; }
-            if (!data || !response.ok) {
-                response = await fetch(fallback, { headers: { Accept: 'application/json' } });
-                rawText = await response.text();
-                try { data = JSON.parse(rawText); } catch (error) { console.debug(error); data = null; }
+
+            async function loadOracle(url) {
+                const response = await fetch(url, { headers: { Accept: 'application/json' } });
+                const rawText = await response.text();
+                let data = null;
+                try {
+                    if (rawText && !rawText.trim().startsWith('<') && !rawText.includes('Internal Server Error')) {
+                        data = JSON.parse(rawText);
+                    }
+                } catch (error) { console.debug(error); }
+                return { response, data };
             }
-            return { response, data };
+
+            const first = await loadOracle(primary);
+            if (landingOracleHasDecision(first.data)) {
+                return first;
+            }
+            const second = await loadOracle(fallback);
+            if (landingOracleHasDecision(second.data)) {
+                return second;
+            }
+            return first.response.ok ? first : second;
         }
         function decideLandingAction(data) {
             const raw = data.decision_action || data.model_state || data.verdict || data.action || 'WAIT';
@@ -1532,31 +1551,18 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             try {
                 const { response, data } = await fetchOraclePayload(symbol, mode, lang);
                 const latencyMs = Math.round(performance.now() - t0);
-                if (!data) {
-                    oracleEl.textContent = i18nT('oracle.error');
-                    verdictEl.textContent = '';
-                    verdictEl.className = 'result-verdict';
-                    symbolEl.textContent = '';
-                    scoreEl.textContent = '';
-                    const freshChip = document.getElementById('oracleFreshnessLabel');
-                    const freshWrap = document.getElementById('oracleFreshnessChip');
-                    if (freshChip) freshChip.textContent = '';
-                    if (freshWrap) freshWrap.style.display = 'none';
-                    const certElDown = document.getElementById('landingCert');
-                    if (certElDown) {
-                        certElDown.style.display = 'none';
-                        certElDown.innerHTML = '';
-                    }
-                    return;
-                }
-                if (!response.ok) {
-                    const detail = data.detail || {};
-                    const msg = detail.message || i18nT('oracle.error');
+                if (!landingOracleHasDecision(data)) {
                     clearLandingOracleChrome();
-                    oracleEl.textContent = msg;
-                    if (detail.upgrade_url || detail.error === 'quota_exceeded') {
-                        upgradeEl.style.display = 'block';
-                        upgradeEl.innerHTML = `<a class="btn-primary" href="${esc(safeUrl(detail.upgrade_url) || '/create-checkout-session?tier=pro')}">Upgrade to Pro</a>`;
+                    if (data && !response.ok) {
+                        const detail = data.detail || {};
+                        const msg = detail.message || i18nT('oracle.error');
+                        oracleEl.textContent = msg;
+                        if (detail.upgrade_url || detail.error === 'quota_exceeded') {
+                            upgradeEl.style.display = 'block';
+                            upgradeEl.innerHTML = `<a class="btn-primary" href="${esc(safeUrl(detail.upgrade_url) || '/create-checkout-session?tier=pro')}">Upgrade to Pro</a>`;
+                        }
+                    } else {
+                        oracleEl.textContent = i18nT('oracle.error');
                     }
                     return;
                 }
@@ -1598,7 +1604,9 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                     if (comp) comp.style.display = 'none';
                     updateShareLinks(null);
                 }
-                syncLandingTrustPulseFromOracle(data, symbol);
+                try {
+                    syncLandingTrustPulseFromOracle(data, symbol);
+                } catch (pulseError) { console.debug(pulseError); }
             } catch (error) {
                 console.debug(error);
                 clearLandingOracleChrome();
