@@ -639,6 +639,13 @@
         .tp-mini-why div:last-child { border-bottom:none; }
         .tp-mini-proof { display:flex; flex-wrap:wrap; gap:.4rem; margin-bottom:.85rem; font-size:.75rem; align-items:center; }
         .tp-mini-proof span, .tp-mini-proof a { /* use .bd-chip via JS when possible */ }
+        .tp-mini-cert-id {
+            font-size: .72rem;
+            color: var(--text-muted, var(--muted));
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            letter-spacing: .02em;
+            user-select: all;
+        }
         .bd-chip-btn {
             cursor: pointer;
             font: inherit;
@@ -1939,6 +1946,18 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             return currentLang().startsWith('ar') ? 'لا توجد شهادة بعد.' : 'No certificate yet.';
         }
 
+        function _lpCertIdPrefix(p) {
+            const cert = _lpCertFromPulse(p);
+            if (!cert) return '';
+            let pid = cert.prediction_id != null && cert.prediction_id !== ''
+                ? String(cert.prediction_id)
+                : '';
+            if (!pid && cert.certificate_hash) {
+                pid = String(cert.certificate_hash).slice(0, 10);
+            }
+            return pid;
+        }
+
         function openLandingPulseProof() {
             const p = landingPulse || {};
             const drawer = document.getElementById('lpProofDrawer');
@@ -2060,6 +2079,10 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 bits.push(
                     '<button type="button" class="bd-chip bd-chip-btn ok" data-lp-proof-open="1">Free Proof</button>'
                 );
+                const idPrefix = _lpCertIdPrefix(p);
+                if (idPrefix) {
+                    bits.push(`<span class="tp-mini-cert-id" title="Certificate ID">${esc(idPrefix)}</span>`);
+                }
             } else {
                 bits.push(
                     `<span class="bd-chip bd-chip-muted">${esc(_lpNoCertificateLine())}</span>`
