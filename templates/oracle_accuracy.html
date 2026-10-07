@@ -367,6 +367,53 @@
             };
         }
 
+        function emptyOracleStats() {
+            return {
+                total_predictions: 0,
+                resolved_predictions: 0,
+                pending_predictions: 0,
+                average_accuracy_percent: 0,
+                verified_errors: 0,
+                partial_outcomes: 0,
+                public_miss_sample: [],
+                recent_predictions: [],
+                live_source: '',
+            };
+        }
+
+        function formatLedgerFetchError(error) {
+            if (!error) return 'unknown error';
+            if (error.code === 'timeout' || error.message === 'timeout') return 'request timed out';
+            if (error.status) return 'HTTP ' + error.status;
+            return error.message || String(error);
+        }
+
+        function renderLedgerFailure(reason) {
+            const msg = 'Live ledger unavailable: ' + reason;
+            const badge = document.getElementById('engine-badge');
+            if (badge) {
+                badge.textContent = 'Engine · unavailable';
+                badge.className = 'badge badge-warn';
+            }
+            togglePanel('panel-ledger-stats', true);
+            togglePanel('panel-latest-table', true);
+            togglePanel('panel-public-misses', true);
+            const tbody = document.getElementById('predictions-body');
+            if (tbody) tbody.innerHTML = `<tr><td colspan="8">${esc(msg)}</td></tr>`;
+            const expl = document.getElementById('metrics-explainer');
+            if (expl) expl.textContent = msg;
+            const statusEl = document.getElementById('losing-status');
+            if (statusEl) statusEl.textContent = msg;
+            const errList = document.getElementById('losing-errors-list');
+            const partList = document.getElementById('losing-partial-list');
+            if (errList) errList.innerHTML = `<li>${esc(msg)}</li>`;
+            if (partList) partList.innerHTML = `<li>${esc(msg)}</li>`;
+            const preview = document.getElementById('ledger-share-preview');
+            if (preview) preview.textContent = msg;
+            lastLosingShare = '';
+            lastLedgerShare = LEDGER_PUBLIC_URL;
+        }
+
         function syncShareFromOracle(oracle) {
             lastLosingShare = buildLedgerShareText(oracle);
             lastLedgerShare = lastLosingShare;
@@ -484,7 +531,6 @@
             }
         }
 
-        function bootOracleAccuracyLedger() {
         function pillClass(label) {
             if (!label) return 'partial';
             if (label === 'correct') return 'correct';
@@ -825,6 +871,21 @@
             }
             lastLosingShare = buildLedgerShareText(o);
         }
+        function ledgerPayloadRejectReason(data) {
+            if (!data) return 'empty response';
+            if (data.ok === false) return data.error || data.message || 'API reported failure';
+            const ll = data.live_ledger;
+            const o = data.oracle;
+            if (!ll) return 'missing live_ledger';
+            if (!ll.query_ok) return ll.error || 'live ledger query failed';
+            if (!o) return 'missing oracle block';
+            const logged = Number(o.total_predictions ?? ll.logged ?? 0);
+            const hasRows = (o.recent_predictions && o.recent_predictions.length) ||
+                (o.public_miss_sample && o.public_miss_sample.length);
+            if (logged <= 0 && !hasRows) return 'no logged predictions in payload';
+            return 'ledger payload incomplete';
+        }
+
         async function loadAccuracy() {
             try {
                 const data = await fetchJsonWithTimeout(
@@ -838,14 +899,17 @@
                 if (applyLedgerPayload(data)) {
                     return;
                 }
-                if (lastLedgerPayload) {
-                    applyLedgerPayload(lastLedgerPayload);
+                const rejectReason = ledgerPayloadRejectReason(data);
+                if (lastLedgerPayload && applyLedgerPayload(lastLedgerPayload)) {
+                    return;
                 }
+                renderLedgerFailure(rejectReason);
             } catch (error) {
                 console.debug(error);
-                if (lastLedgerPayload) {
-                    applyLedgerPayload(lastLedgerPayload);
+                if (lastLedgerPayload && applyLedgerPayload(lastLedgerPayload)) {
+                    return;
                 }
+                renderLedgerFailure(formatLedgerFetchError(error));
             }
         }
 
@@ -994,17 +1058,13 @@
             }
         }
 
-        loadAccuracy().then(() => scheduleSecondaryLoad(loadLedgerShareKit));
-        scheduleSecondaryLoad(loadGlassBox);
-        scheduleSecondaryLoad(loadMevReport);
-        scheduleSecondaryLoad(loadLocked);
-
-        setInterval(() => { loadAccuracy().catch(() => {}); }, 60000);
-        setInterval(() => { loadLocked().catch(() => {}); }, 120000);
-        }
-
         function startLedgerBoot() {
-            bootOracleAccuracyLedger();
+            loadAccuracy().then(() => scheduleSecondaryLoad(loadLedgerShareKit));
+            scheduleSecondaryLoad(loadGlassBox);
+            scheduleSecondaryLoad(loadMevReport);
+            scheduleSecondaryLoad(loadLocked);
+            setInterval(() => { loadAccuracy().catch(() => {}); }, 60000);
+            setInterval(() => { loadLocked().catch(() => {}); }, 120000);
         }
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', startLedgerBoot);
