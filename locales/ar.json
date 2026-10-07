@@ -211,7 +211,7 @@
   "pricing.cta.b2b": "تغذية B2B",
   "pricing.pay_note": "الأسعار بالدولار. بيانات البطاقة عبر Lemon Squeezy / Stripe — لا تُخزَّن لدينا.",
   "pricing.manage": "أدِر خطتك من الملف الشخصي والفواتير.",
-  "login.lead": "سجّل الدخول أو أنشئ حسابًا. البريد وكلمة المرور (Google عند التهيئة). تجربة Decision Pro لـ 7 أيام. الدفع بالدولار عبر Lemon/Stripe — البطاقة لا تلمسنا.",
+  "login.lead": "سجّل الدخول أو أنشئ حسابًا. البريد وكلمة المرور (Google عند التهيئة). تجربة Decision Pro لـ 7 أيام.",
   "login.tab.signup": "إنشاء حساب",
   "auth.forgot_pass": "نسيت كلمة المرور؟",
   "auth.forgot_username": "نسيت اسم المستخدم؟",

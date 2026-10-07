@@ -153,7 +153,7 @@
                 <input type="text" id="regName" autocomplete="name" maxlength="80" placeholder="{{ t('login.name') }}">
                 <label for="regEmail">{{ t('login.email') }}</label>
                 <input type="email" id="regEmail" autocomplete="email" placeholder="you@email.com" required>
-                <label for="regPassword">{{ t('login.password') }}</label>
+                <label for="regPassword">{{ t('login.pass_label') }}</label>
                 <div class="password-field">
                     <input type="password" id="regPassword" minlength="12" autocomplete="new-password" placeholder="At least 12 characters" required>
                     <button type="button" class="password-toggle" id="regPasswordToggle" aria-label="Show password" aria-pressed="false">Show password</button>
@@ -178,7 +178,7 @@
             <form id="loginForm" data-bd-submit-call="doLogin">
                 <label for="loginEmail">{{ t('login.email') }}</label>
                 <input type="email" id="loginEmail" required autocomplete="username" placeholder="you@email.com">
-                <label for="loginPassword">{{ t('login.password') }}</label>
+                <label for="loginPassword">{{ t('login.pass_label') }}</label>
                 <div class="password-field">
                     <input type="password" id="loginPassword" required autocomplete="current-password">
                     <button type="button" class="password-toggle" id="loginPasswordToggle" aria-label="Show password" aria-pressed="false">Show password</button>
