@@ -294,6 +294,20 @@
             margin-bottom: 0.3rem;
         }
         .seal-step span { color: var(--text-muted); font-size: 0.95rem; line-height: 1.55; }
+        .seal-cert-stamp {
+            margin-top: 1.35rem;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border, #2a2a35);
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.25);
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            word-break: break-all;
+        }
+        .seal-cert-stamp code {
+            color: var(--accent);
+            font-size: 0.82rem;
+        }
 
         .hero-stats {
             display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem;
@@ -777,7 +791,7 @@
             <p class="hero-support">{{ t('hero.support') }}</p>
             <div class="hero-cta">
                 <a href="#oracle" class="btn-primary" data-bd-call="tryOracleFree" data-bd-prevent="1">{{ t('hero.cta.try') }}</a>
-                <a href="#seal" class="btn-seal"><span class="btn-seal-play" aria-hidden="true">▶</span> {{ t('hero.cta.seal') }}</a>
+                <a href="#seal" class="btn-seal">See the Seal</a>
             </div>
             <section id="trust-pulse" class="trust-pulse-mini" aria-live="polite" aria-label="Trust Pulse">
                 <div class="tp-mini-inner bd-trust-pulse">
@@ -819,9 +833,11 @@
                 <span>{{ t('seal.s3.body') }}</span>
             </div>
         </div>
+        <div id="sealCertificateStamp" class="seal-cert-stamp" style="display:none" aria-live="polite">
+            Seal · <code id="sealCertificateHash"></code>
+        </div>
         <div class="hero-cta">
             <a href="/oracle-accuracy" class="btn-primary">{{ t('seal.cta.ledger') }}</a>
-            <a href="/dashboard?lens=prove#trust-pulse" class="btn-secondary">{{ t('seal.cta.proof') }}</a>
         </div>
     </section>
 
@@ -1704,6 +1720,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                     try { updateShareLinks(data); } catch (shareError) { console.debug(shareError); }
                 }
                 try {
+                    paintSealCertificateStamp(data);
                     syncLandingTrustPulseFromOracle(data, symbol);
                 } catch (pulseError) { console.debug(pulseError); }
             } catch (error) {
@@ -1821,8 +1838,24 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 || [];
         }
 
+        function paintSealCertificateStamp(data) {
+            const wrap = document.getElementById('sealCertificateStamp');
+            const hashEl = document.getElementById('sealCertificateHash');
+            if (!wrap || !hashEl) return;
+            const cert = (data && data.decision_certificate) || {};
+            const hash = cert.certificate_hash;
+            if (!hash) {
+                wrap.style.display = 'none';
+                hashEl.textContent = '';
+                return;
+            }
+            hashEl.textContent = String(hash);
+            wrap.style.display = 'block';
+        }
+
         function syncLandingTrustPulseFromOracle(data, symbol) {
             if (!data) return;
+            paintSealCertificateStamp(data);
             const sym = String(data.symbol || symbol || 'BTC').trim().toUpperCase() || 'BTC';
             landingPulseSymbol = sym;
             const action = decideLandingAction(data);
