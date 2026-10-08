@@ -103,6 +103,15 @@ def test_routes_and_templates_wire():
     assert Path("docs/TRUST_PULSE.md").is_file()
 
 
+def test_seal_section_drops_duplicate_verify_ledger_cta():
+    land = Path("templates/landing.html").read_text(encoding="utf-8")
+    seal_block = land.split('id="seal"', 1)[1].split("</section>", 1)[0]
+    assert "seal.cta.ledger" not in seal_block
+    assert "seal-steps" in seal_block
+    assert "sealCertificateStamp" in seal_block
+    assert "Verify on Ledger" in land
+
+
 def test_sse_generator_emits_connected():
     import asyncio
 
