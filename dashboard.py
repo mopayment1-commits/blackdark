@@ -3977,6 +3977,24 @@ async def oracle_accuracy_page(request: Request):
     return render_page(request, "oracle_accuracy.html", _footer_ctx())
 
 
+@app.get("/lenses", response_class=HTMLResponse)
+async def trust_os_lenses_menu_page(request: Request):
+    """Public lens names only — no pricing or command-home chrome."""
+    from trust_os_lenses import LENSES
+
+    lens_links = [{"label": str(row["label"]), "href": str(row["entry_path"])} for row in LENSES]
+    return render_page(
+        request,
+        "lenses_menu.html",
+        {
+            "page_title": "Open the lenses",
+            "lens_links": lens_links,
+            "nav_active": "lenses",
+            **_footer_ctx(),
+        },
+    )
+
+
 @app.get("/oracle-accuracy/json-api", response_class=HTMLResponse)
 async def oracle_accuracy_public_json_page(request: Request):
     """Human-readable view of GET /api/oracle/accuracy/public (same live_ledger counters)."""
