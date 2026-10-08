@@ -14,6 +14,7 @@ def test_design_system_css_and_doc():
     assert "--bd-accent: #22d3ee" in css or "#22d3ee" in css
     assert "Syne" in css
     assert "IBM Plex Sans" in css
+    assert '@import url("https://fonts.googleapis.com' not in css
     assert "bdPulseIn" in css
     assert "bdFlipFlash" in css
     assert "bdSharePop" in css
