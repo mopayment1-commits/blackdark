@@ -2039,7 +2039,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 const res = await fetch('/api/trust-pulse?' + q.toString());
                 if (!res.ok) return;
                 renderLandingPulse(await res.json());
-                startLandingPulseStream(sym);
+                scheduleLandingPulseStream(sym);
             } catch (error) { console.debug(error); }
         }
 
@@ -2048,6 +2048,15 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             const mode = document.getElementById('landingUxMode')?.value || 'beginner';
             const lang = currentLang();
             await fetchLandingTrustPulse(symbol, mode, lang);
+        }
+
+        function scheduleLandingPulseStream(symbol) {
+            const start = () => startLandingPulseStream(symbol);
+            if (typeof requestIdleCallback === 'function') {
+                requestIdleCallback(start, { timeout: 2500 });
+            } else {
+                setTimeout(start, 0);
+            }
         }
 
         function startLandingPulseStream(symbol) {
@@ -2083,11 +2092,11 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
         document.getElementById('lpShareBtn')?.addEventListener('click', shareLandingPulseProof);
 
 
-        window.addEventListener('load', async () => {
+        window.addEventListener('load', () => {
             updateShareLinks(null);
             loadLandingAnalytics();
             loadTelegramBotLink();
-            await loadLandingTrustPulse();
+            void loadLandingTrustPulse();
             setTimeout(consultOracle, 500);
             if ('serviceWorker' in navigator) {
                 navigator.serviceWorker.register('/sw.js').catch((error) => { console.debug(error); });

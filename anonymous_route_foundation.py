@@ -60,6 +60,7 @@ INFRASTRUCTURE_EXACT: frozenset[str] = frozenset(
         "/robots.txt",
         "/sitemap.xml",
         "/manifest.json",
+        "/sw.js",
         "/health",
         "/health/live",
         "/health/ready",
