@@ -30,9 +30,15 @@ def _is_production() -> bool:
     return any(t in {"production", "prod"} for t in tokens)
 
 
+def _public_canonical_hosts() -> set[str]:
+    raw = (os.getenv("PUBLIC_CANONICAL_HOSTS") or "blackdark.io,www.blackdark.io").strip()
+    return {h.strip().lower().split(":")[0] for h in raw.split(",") if h.strip()}
+
+
 def _allowed_hosts() -> set[str]:
     raw = (os.getenv("ALLOWED_HOSTS") or "").strip()
     hosts: set[str] = set()
+    hosts.update(_public_canonical_hosts())
     if raw:
         hosts.update(h.strip().lower() for h in raw.split(",") if h.strip())
     base = (os.getenv("APP_BASE_URL") or "").strip()
@@ -65,6 +71,8 @@ def _allowed_hosts() -> set[str]:
 def _cors_origins() -> list[str]:
     raw = (os.getenv("CORS_ALLOWED_ORIGINS") or "").strip()
     origins: list[str] = []
+    for host in sorted(_public_canonical_hosts()):
+        origins.append(f"https://{host}")
     if raw:
         origins.extend(o.strip().rstrip("/") for o in raw.split(",") if o.strip())
     base = (os.getenv("APP_BASE_URL") or "").strip().rstrip("/")
