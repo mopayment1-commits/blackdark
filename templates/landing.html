@@ -807,7 +807,14 @@
                     </select>
                     </label>
                     <input type="hidden" id="landingLang" value="en" aria-label="landingLang">
-                    <input type="text" id="symbolInput" placeholder="BTC / ETH / SOL" value="BTC" aria-label="BTC / ETH / SOL">
+                    <label class="field-label" for="symbolCatalog" style="display:inline-flex;flex-direction:column;gap:.25rem;font-size:.75rem;color:var(--text-muted);text-align:left">Symbol
+                    <select id="symbolCatalog" name="symbolCatalog" data-bd-change-call="syncSymbolFromCatalog" data-bd-pass-value="1" style="background:var(--bg-elevated);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.55rem;min-width:6.5rem">
+                        {% for sym in oracle_symbols|default(['BTC']) %}
+                        <option value="{{ sym }}"{% if sym == 'BTC' %} selected{% endif %}>{{ sym }}</option>
+                        {% endfor %}
+                    </select>
+                    </label>
+                    <input type="text" id="symbolInput" value="BTC" readonly aria-label="Selected symbol" aria-readonly="true" style="max-width:5.5rem;text-align:center">
                     <button data-bd-call="consultOracle">Get Decision</button>
                 </div>
                 <p id="audienceCta" style="color:var(--text-muted);font-size:.85rem;margin:.5rem 0 0">Get one clear CONDITIONS MET / Wait decision — no dashboard tourism.</p>
@@ -1546,6 +1553,17 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                     const detail = error && error.message ? String(error.message) : String(error || 'unknown');
                     setLandingOracleFailReason('Exception: ' + detail);
                 }
+            }
+        }
+
+        function syncSymbolFromCatalog(symbol) {
+            const value = String(symbol || '').toUpperCase().trim();
+            if (!value) return;
+            const input = document.getElementById('symbolInput');
+            const catalog = document.getElementById('symbolCatalog');
+            if (input) input.value = value;
+            if (catalog && catalog.value !== value) {
+                catalog.value = value;
             }
         }
 

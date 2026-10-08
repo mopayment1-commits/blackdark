@@ -250,6 +250,7 @@ PUBLIC_API_EXACT: frozenset[str] = frozenset(
         "/api/docs/public-manifest",
         "/api/public/site-search",
         "/api/public/site-assistant",
+        "/api/public/oracle-symbols",
         "/api/status",
         "/api/site-services",
         "/api/changelog",

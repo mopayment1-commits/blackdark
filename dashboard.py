@@ -1645,6 +1645,13 @@ async def public_site_search(q: str = ""):
     return {"results": search_site(q)}
 
 
+@app.get("/api/public/oracle-symbols")
+async def public_oracle_symbols():
+    from site_oracle_catalog import oracle_catalog_payload
+
+    return oracle_catalog_payload()
+
+
 @app.post("/api/public/site-assistant")
 async def public_site_assistant(body: dict = Body(default=None)):
     from site_public_assistant import (
@@ -1912,7 +1919,7 @@ async def landing_page(request: Request):
 
     lang = resolve_request_lang(request)
     auth_segment = "auth" if getattr(request.state, "header_user", None) else "anon"
-    cache_key = f"v2:{lang}:{auth_segment}"
+    cache_key = f"v3:{lang}:{auth_segment}"
     now = time.time()
     hit = _landing_html_cache.get(cache_key)
     if hit and (now - hit[0]) < _LANDING_HTML_CACHE_TTL:
@@ -1931,6 +1938,9 @@ async def landing_page(request: Request):
         return response
 
     ctx = template_context(request, _footer_ctx())
+    from site_oracle_catalog import primary_oracle_catalog_symbols
+
+    ctx["oracle_symbols"] = list(primary_oracle_catalog_symbols())
     import config as _cfg
     ctx["telegram_bot_username"] = _cfg.TELEGRAM_BOT_USERNAME
     ctx["telegram_bot_url"] = f"https://t.me/{_cfg.TELEGRAM_BOT_USERNAME}" if _cfg.TELEGRAM_BOT_USERNAME else None
