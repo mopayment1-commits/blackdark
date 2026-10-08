@@ -24,6 +24,15 @@ _SYMBOL_RE = re.compile(
 )
 _AR_ETH = re.compile(r"إيث|ايث|ايثريوم|ethereum", re.I)
 _EMAIL_RE = re.compile(r"[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+")
+_SMALL_TALK_RE = re.compile(
+    r"^(hi|hello|hey|howdy|yo|sup|hola|salut|مرحبا|مرحباً|السلام|اهلا|أهلا)\b",
+    re.I,
+)
+_PAGE_SIGNAL_RE = re.compile(
+    r"trust\s*pulse|pulse|oracle|ledger|accuracy|decision|verdict|wait|symbol|"
+    r"btc|eth|سعر|انتظار|قرار|شريط|ledger|seal|ختم",
+    re.I,
+)
 _THREAD_MAX = 8
 
 
@@ -108,6 +117,23 @@ def message_wants_oracle(message: str, thread: list[dict[str, str]] | None) -> b
     return intent in {"price", "why"}
 
 
+def is_small_talk(message: str) -> bool:
+    msg = (message or "").strip()
+    if not msg or len(msg) > 32:
+        return False
+    return bool(_SMALL_TALK_RE.match(msg))
+
+
+def wants_trust_pulse_context(message: str, symbol: str | None, intent: str) -> bool:
+    if symbol or intent in {"price", "why"}:
+        return True
+    if _PAGE_SIGNAL_RE.search(message or ""):
+        return True
+    if re.search(r"what\s+is\s+shown|this\s+page|on\s+this\s+page|visible\s+here", message or "", re.I):
+        return True
+    return False
+
+
 def _format_oracle_line(symbol: str, oracle: dict[str, Any], intent: str) -> str:
     price = oracle.get("price")
     score = oracle.get("opportunity_score") if oracle.get("opportunity_score") is not None else oracle.get("score")
@@ -147,6 +173,17 @@ def reply_site_assistant(
     if _ADVICE_RE.search(msg):
         return {"reply": REFUSAL, "refusal": True}
 
+    if is_small_talk(msg):
+        return {
+            "reply": (
+                "Hi — ask about a symbol (e.g. ETH price) or why the model shows wait on this page. "
+                "Analytical context only — "
+                + REFUSAL
+            ),
+            "refusal": False,
+            "turn": {"symbol": None, "intent": "explain", "topic": _clip(msg, 120)},
+        }
+
     follow = _is_follow_up(msg)
     symbol = resolve_query_symbol(msg, history)
     intent = classify_intent(msg, history, follow)
@@ -182,11 +219,12 @@ def reply_site_assistant(
             f"I could not refresh a live {symbol} oracle snapshot; use the oracle block on this page for that symbol."
         )
 
-    if page_sym and symbol and page_sym != symbol:
+    show_pulse = wants_trust_pulse_context(msg, symbol, intent)
+    if show_pulse and page_sym and symbol and page_sym != symbol:
         parts.append(
             f"The Trust Pulse strip on this page is still showing {page_action or '—'} on {page_sym}, not {symbol}."
         )
-    elif page_sym and (not symbol or page_sym == symbol):
+    elif show_pulse and page_sym and (not symbol or page_sym == symbol):
         if intent == "why" and page_sentence and not oracle_ctx:
             parts.append(f"Visible pulse line: {_clip(str(page_sentence), 200)}")
         elif intent == "explain" and page_action and page_sym:
@@ -213,7 +251,7 @@ def reply_site_assistant(
 
     reply = " ".join(parts) + " Analytical context only — " + REFUSAL
     turn = {
-        "symbol": symbol or page_sym,
+        "symbol": symbol,
         "intent": intent,
         "topic": _clip(msg, 120),
     }

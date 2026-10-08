@@ -59,6 +59,21 @@ def test_resolve_symbol_from_arabic():
     assert resolve_query_symbol("سعر إيثريوم", None) == "ETH"
 
 
+def test_hi_does_not_dump_btc_pulse():
+    ctx = {"trust_pulse": {"action": "WAIT", "symbol": "BTC", "sentence": "WAIT on BTC score 60/100."}}
+    out = reply_site_assistant("hi", ctx)
+    assert "WAIT on BTC" not in out["reply"]
+    assert "Trust Pulse shows WAIT on BTC" not in out["reply"]
+    assert "ETH" in out["reply"] or "symbol" in out["reply"].lower()
+    assert REFUSAL in out["reply"]
+
+
+def test_generic_question_without_btc_mention():
+    ctx = {"trust_pulse": {"action": "WAIT", "symbol": "BTC", "sentence": "WAIT on BTC score 60/100."}}
+    out = reply_site_assistant("thanks", ctx)
+    assert "Trust Pulse shows WAIT on BTC" not in out["reply"]
+
+
 def test_two_questions_do_not_share_identical_reply():
     ctx = {"trust_pulse": {"action": "WAIT", "symbol": "BTC", "sentence": "WAIT on BTC score 60/100."}}
     a = reply_site_assistant("سعر ETH", ctx, oracle_ctx={"symbol": "ETH", "price": 1, "opportunity_score": 50})
