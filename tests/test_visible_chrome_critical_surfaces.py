@@ -88,7 +88,7 @@ def test_profile_has_lang_billing_and_signup_gate():
     assert "create-checkout-session?tier=elite" in profile
     assert "SEE THE EDGE / ELITE $49.99" in profile
     assert "tab=register" in profile
-    assert "billingReady" in profile
+    assert "billingReady" not in profile
 
 
 def test_dashboard_and_accuracy_include_global_header():
@@ -112,5 +112,5 @@ def test_pricing_ladder_visible_on_landing():
     assert "$29" not in land
     assert "3,000" not in land
     assert "pricing.popular" in land
-    assert "billingReadyLine" in land
+    assert "billingReadyLine" not in land
     assert "/login?tab=register" in land

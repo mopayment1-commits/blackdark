@@ -28,3 +28,11 @@ def test_pricing_cards_layout():
     assert "Compare plans" in text
     assert 'id="enterprise"' in text
     assert "Talk to us" in text
+    assert 'href="/login?next=/profile"' in text
+    assert "Billing" in text
+    assert 'href="/refund"' in text
+    assert "Refund Policy" in text
+    lowered = text.lower()
+    for banned in ("lemon", "stripe", "kyc", "checkout url"):
+        assert banned not in lowered
+    assert "billingReadyLine" not in text

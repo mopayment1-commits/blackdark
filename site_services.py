@@ -125,7 +125,7 @@ FAQ_ITEMS: list[dict[str, str]] = [
     },
     {
         "q": "How do refunds work?",
-        "a": "See /refund. Self-serve plans are USD monthly; trials convert unless cancelled. Refunds via Lemon/Stripe for clear billing errors or as required by law.",
+        "a": "See /refund. Self-serve plans are USD monthly; trials convert unless cancelled. Refunds follow the refund policy and applicable law.",
     },
     {
         "q": "How do I contact support or WhatsApp?",

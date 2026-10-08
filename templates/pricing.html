@@ -34,6 +34,8 @@
         input, textarea { padding:.7rem .85rem; border-radius:8px; border:1px solid var(--line); background:#1a1a24; color:var(--fg); }
         label { color:var(--muted); font-size:.85rem; }
         .foot { color:var(--muted); font-size:.85rem; margin-top:1.25rem; line-height:1.55; }
+        .pricing-account-actions { display:flex; flex-wrap:wrap; gap:.65rem; margin-top:1.25rem; }
+        .pricing-account-actions .btn { flex:1 1 auto; min-width:10rem; }
     </style>
 </head>
 <body>
@@ -99,28 +101,14 @@
                 <button type="submit" class="btn primary">Talk to us</button>
                 <p id="institutionalInquiryMsg" style="min-height:1.2rem;margin:0;color:var(--muted);font-size:.85rem"></p>
             </form>
-            <p id="billingReadyLine" class="foot">Checking payment readiness…</p>
-            <p class="foot">Card checkout is hosted (Lemon Squeezy / Stripe). Manage plan in <a href="/profile" style="color:var(--accent)">Profile</a>. <a href="/refund" style="color:var(--accent)">Refund policy</a>.</p>
+            <div class="pricing-account-actions" aria-label="Account and refunds">
+                <a class="btn" href="/login?next=/profile">Profile &amp; Billing</a>
+                <a class="btn" href="/refund">Refund Policy</a>
+            </div>
         </section>
     </main>
     {% include "partials/site_footer.html" %}
     <script>
-        async function loadBillingReadyLine() {
-            const el = document.getElementById('billingReadyLine');
-            if (!el) return;
-            try {
-                const res = await fetch('/api/billing/payments');
-                const d = await res.json();
-                const ops = d.ops_readiness || {};
-                if (ops.launch_ready || d.billing_configured) {
-                    el.textContent = 'USD checkout ready via ' + (d.active_provider || 'hosted provider') + '.';
-                } else {
-                    el.textContent = 'Self-serve checkout wiring in progress — Free signup and Profile billing work today.';
-                }
-            } catch (e) {
-                el.textContent = 'Payment status: Profile → Plan & billing.';
-            }
-        }
         async function wireInstitutionalInquiry() {
             const form = document.getElementById('institutionalInquiryForm');
             if (!form) return;
@@ -143,7 +131,6 @@
             });
         }
         window.addEventListener('load', () => {
-            loadBillingReadyLine();
             wireInstitutionalInquiry();
         });
     </script>

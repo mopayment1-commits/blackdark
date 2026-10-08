@@ -451,7 +451,7 @@ EN: dict[str, str] = {
     "pricing.cta.desk": "Get ELITE",
     "pricing.cta.talk": "Talk to us",
     "pricing.cta.b2b": "B2B Data Feed",
-    "pricing.pay_note": "Prices in USD. Card data is processed by Lemon Squeezy / Stripe hosted checkout — never stored on BLACKDARK.",
+    "pricing.pay_note": "",
     "pricing.manage": "Manage plan anytime from Profile & Billing.",
     "login.lead": "Login or create an account. Email + passcode. 7-day DECIDE / PRO trial on signup.",
     "login.tab.signup": "Sign up",

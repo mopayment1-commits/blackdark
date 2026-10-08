@@ -35,7 +35,7 @@
 {% include 'partials/global_header.html' %}
 <div class="wrap" style="margin-top:1rem">
     <h1>Your profile</h1>
-    <p class="sub">Identity, security, and USD plan — not a social network. Login is always your email. Hosted Lemon/Stripe checkout — card data never touches BLACKDARK.</p>
+    <p class="sub">Identity, security, and plan — not a social network. Login is always your email.</p>
     <div id="gate" class="card">Loading…</div>
     <div id="app" class="grid" style="display:none">
         <aside class="card">
@@ -89,8 +89,7 @@
             </section>
             <section class="card">
                 <h2>Plan & billing (USD)</h2>
-                <p class="hint" id="billingHint">Card data never touches BLACKDARK — Lemon/Stripe hosted checkout.</p>
-                <p class="hint" id="billingReady">Checking payment readiness…</p>
+                <p class="hint" id="billingHint"></p>
                 <div class="msg" id="billingMsg"></div>
                 <a class="btn btn-primary" id="btnNextUpgrade" href="/create-checkout-session?tier=pro">Start 7-Day Trial · DECIDE / PRO $19.99</a>
                 <a class="btn btn-secondary" id="btnDeskUpgrade" href="/create-checkout-session?tier=elite">SEE THE EDGE / ELITE $49.99</a>
@@ -295,28 +294,10 @@
     async function openPortal() {
         const res = await fetch('/api/billing/portal', { method: 'POST', headers: authHeaders(), credentials: 'same-origin' });
         const d = await res.json();
-        if (d.url) assignLocationHref(d.url); else setMsg('billingMsg', d.detail || 'Portal unavailable — complete Lemon/Stripe setup', false);
+        if (d.url) assignLocationHref(d.url); else setMsg('billingMsg', d.detail || 'Billing portal unavailable right now.', false);
     }
-    async function loadBillingReady() {
-        const el = document.getElementById('billingReady');
-        if (!el) return;
-        try {
-            const res = await fetch('/api/billing/payments');
-            const d = await res.json();
-            const ops = d.ops_readiness || {};
-            const provider = d.active_provider || 'none';
-            if (ops.launch_ready || d.billing_configured) {
-                el.textContent = 'Payments ready · USD · provider: ' + provider + ' · hosted checkout (PCI SAQ A).';
-                el.style.color = 'var(--ok)';
-            } else {
-                el.textContent = 'Payments architecture live · provider keys not fully configured yet (Lemon checkout URL / Stripe price IDs may still be legacy). DISCOVER / FREE still works. Contact ops to finish KYC.';
-                el.style.color = 'var(--muted)';
-            }
-        } catch (error) { console.debug(error); el.textContent = 'Could not load payment readiness — try /api/billing/payments'; }
-    }
-    Object.assign(window, { uploadAvatar, resetAvatar, saveProfile, resendVerify, changePassword, enrollMfa, confirmMfa, disableMfa, logoutAll, openPortal, load, loadBillingReady });
+    Object.assign(window, { uploadAvatar, resetAvatar, saveProfile, resendVerify, changePassword, enrollMfa, confirmMfa, disableMfa, logoutAll, openPortal, load });
     await load();
-    await loadBillingReady();
 </script>
 {% include "partials/site_footer.html" %}
 </body>

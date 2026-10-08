@@ -1546,7 +1546,7 @@ LOCALE_OVERLAYS: dict[str, dict[str, str]] = {
         'pricing.cta.desk': 'احصل على Decision Desk',
         'pricing.cta.talk': 'تحدّث إلينا',
         'pricing.cta.b2b': 'تغذية B2B',
-        'pricing.pay_note': 'الأسعار بالدولار. بيانات البطاقة عبر Lemon Squeezy / Stripe — لا تُخزَّن لدينا.',
+        'pricing.pay_note': '',
         'pricing.manage': 'أدِر خطتك من الملف الشخصي والفواتير.',
         'login.lead': 'سجّل الدخول أو أنشئ حسابًا. البريد وكلمة المرور (Google عند التهيئة). تجربة Decision Pro لـ 7 أيام. الدفع بالدولار عبر Lemon/Stripe — البطاقة لا تلمسنا.',
         KEY_LOGIN_TAB_LOGIN: 'دخول',
