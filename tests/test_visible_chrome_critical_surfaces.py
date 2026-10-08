@@ -86,7 +86,9 @@ def test_profile_has_lang_billing_and_signup_gate():
     assert 'lang="{{ lang|default(\'en\') }}"' in profile or 'lang="{{ lang|default(' in profile
     assert "create-checkout-session?tier=pro" in profile
     assert "create-checkout-session?tier=elite" in profile
-    assert "SEE THE EDGE / ELITE $49.99" in profile
+    assert "Plus · $29/mo" in profile
+    assert "Pro · $49/mo" in profile
+    assert "19.99" not in profile
     assert "tab=register" in profile
     assert "billingReady" not in profile
 

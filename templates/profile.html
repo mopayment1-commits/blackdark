@@ -35,7 +35,6 @@
 {% include 'partials/global_header.html' %}
 <div class="wrap" style="margin-top:1rem">
     <h1>Your profile</h1>
-    <p class="sub">Identity, security, and plan — not a social network. Login is always your email.</p>
     <div id="gate" class="card">Loading…</div>
     <div id="app" class="grid" style="display:none">
         <aside class="card">
@@ -87,20 +86,15 @@
                 <div class="msg" id="secMsg"></div>
                 <pre id="mfaEnrollBox" class="hint" style="white-space:pre-wrap;margin-top:.75rem"></pre>
             </section>
-            <section class="card">
-                <h2>Plan & billing (USD)</h2>
-                <p class="hint" id="billingHint"></p>
+            <section class="card" id="planSection" aria-label="Plan">
+                <h2>Plan</h2>
+                <p class="hint" id="planCurrent"></p>
                 <div class="msg" id="billingMsg"></div>
-                <a class="btn btn-primary" id="btnNextUpgrade" href="/create-checkout-session?tier=pro">Start 7-Day Trial · DECIDE / PRO $19.99</a>
-                <a class="btn btn-secondary" id="btnDeskUpgrade" href="/create-checkout-session?tier=elite">SEE THE EDGE / ELITE $49.99</a>
-                <p class="hint" id="upgradeReason">Next step only — depth ladder, not a wall of SKUs.</p>
-                <button class="btn-secondary" data-bd-call="openPortal">Manage billing</button>
-                <a class="btn btn-secondary" id="btnAllPlans" href="/#pricing">Compare all plans</a>
-            </section>
-            <section class="card" id="valueDigestCard">
-                <h2>Subscriber value</h2>
-                <p class="hint">Pro/Whale digest — usage vs plan, not a performance guarantee.</p>
-                <div id="valueDigest" class="hint">Sign in on a paid tier (PRO / ELITE / QUANT) to load your digest.</div>
+                <a class="btn btn-primary" id="btnUpgradePlus" href="/create-checkout-session?tier=pro">Plus · $29/mo</a>
+                <a class="btn btn-secondary" id="btnUpgradePro" href="/create-checkout-session?tier=elite">Pro · $49/mo</a>
+                <a class="btn btn-secondary" id="btnEnterprise" href="/pricing#enterprise">Enterprise</a>
+                <button class="btn-secondary" type="button" data-bd-call="openPortal">Manage billing</button>
+                <a class="btn btn-secondary" href="/pricing">Compare all plans</a>
             </section>
         </main>
     </div>
@@ -118,6 +112,27 @@
         el.textContent = text;
     }
 
+    const PLAN_RANK = { free: 0, pro: 1, elite: 2, whale: 2, desk: 2, quant: 3, institutional: 4, inst: 4 };
+
+    function publicPlanName(tierId) {
+        const t = String(tierId || 'free').toLowerCase();
+        if (t === 'free' || t === 'proof' || t === 'proof_pass') return 'Free';
+        if (t === 'pro' || t === 'decision_pro' || t === 'plus') return 'Plus';
+        if (t === 'elite' || t === 'whale' || t === 'desk' || t === 'decision_desk') return 'Pro';
+        if (t === 'quant' || t === 'institutional' || t === 'inst') return 'Enterprise';
+        return 'Free';
+    }
+
+    function syncPlanActions(tierId) {
+        const rank = PLAN_RANK[String(tierId || 'free').toLowerCase()] ?? 0;
+        const plus = document.getElementById('btnUpgradePlus');
+        const pro = document.getElementById('btnUpgradePro');
+        const ent = document.getElementById('btnEnterprise');
+        if (plus) plus.style.display = rank < 1 ? '' : 'none';
+        if (pro) pro.style.display = rank < 2 ? '' : 'none';
+        if (ent) ent.style.display = rank < 4 ? '' : 'none';
+    }
+
     function fillProfileFields(d) {
         const p = d.profile || {};
         const u = d.user || {};
@@ -130,15 +145,21 @@
         document.getElementById('avatarImg').src = (p.avatar_url || ('/api/auth/avatar/' + u.id + '.svg')) + '?t=' + Date.now();
         document.getElementById('emailLine').textContent = u.email + (p.email_verified ? ' · verified' : ' · verification pending');
         document.getElementById('verifyHint').textContent = p.email_verified ? 'Email verified.' : 'Verify your email to harden account recovery.';
-        const tier = (d.tier && d.tier.label) || u.tier || 'free';
-        const tierId = String((d.tier && d.tier.id) || u.tier || 'free').toLowerCase();
+        const tierId = String((d.tier && (d.tier.tier || d.tier.id)) || u.tier || 'free').toLowerCase();
+        const planLabel = publicPlanName(tierId);
         const mfaPill = d.mfa && d.mfa.enabled ? '<span class="pill">MFA on</span>' : '<span class="pill">MFA off</span>';
-        document.getElementById('planPills').innerHTML = '<span class="pill">' + esc(tier) + '</span>' + mfaPill;
+        document.getElementById('planPills').innerHTML = '<span class="pill">' + esc(planLabel) + '</span>' + mfaPill;
         document.getElementById('mfaHint').textContent = d.mfa && d.mfa.enabled
-            ? 'Authenticator MFA is enabled. Recommended for ELITE and above.'
-            : 'Optional TOTP MFA — strongly recommended for paid tiers.';
-        const subStatus = (d.subscription && d.subscription.status) ? ('Status: ' + d.subscription.status) : 'DISCOVER / FREE until you subscribe.';
-        document.getElementById('billingHint').textContent = 'Plan: ' + tier + '. Currency USD. ' + subStatus;
+            ? 'Authenticator MFA is enabled.'
+            : 'Optional TOTP MFA — recommended for paid accounts.';
+        const sub = d.subscription && d.subscription.status;
+        const planCurrent = document.getElementById('planCurrent');
+        if (planCurrent) {
+            planCurrent.textContent = sub
+                ? ('Current plan: ' + planLabel + ' · ' + sub)
+                : ('Current plan: ' + planLabel + '.');
+        }
+        syncPlanActions(tierId);
         return tierId;
     }
     function showWelcomeMessage() {
@@ -146,8 +167,8 @@
         const welcome = new URLSearchParams(location.search).get('welcome');
         const planQ = new URLSearchParams(location.search).get('plan');
         if (welcome !== '1') return;
-        if (planQ === 'pro') setMsg('profileMsg', 'Welcome — DECIDE / PRO 7-day trial is active. Open unlimited Proof Cards.', true);
-        else if (planQ === 'free') setMsg('profileMsg', 'Welcome to DISCOVER / FREE — open your first Proof Card before any upgrade.', true);
+        if (planQ === 'pro') setMsg('profileMsg', 'Welcome — your Plus trial is active.', true);
+        else if (planQ === 'free') setMsg('profileMsg', 'Welcome — your Free plan is ready.', true);
         else setMsg('profileMsg', 'Welcome — complete your profile and open your first Proof Card.', true);
     }
     async function load() {
@@ -159,59 +180,8 @@
         }
         document.getElementById('gate').style.display = 'none';
         document.getElementById('app').style.display = 'grid';
-        const tierId = fillProfileFields(d);
-        await syncNextUpgrade(tierId);
+        fillProfileFields(d);
         showWelcomeMessage();
-        loadSubscriberValue(tierId);
-    }
-    async function syncNextUpgrade(tierId) {
-        const btn = document.getElementById('btnNextUpgrade');
-        const reason = document.getElementById('upgradeReason');
-        if (!btn) return;
-        try {
-            const res = await fetch('/api/pricing/upgrade-path?tier=' + encodeURIComponent(tierId || 'free'));
-            const up = await res.json();
-            if (!up.has_upgrade) {
-                btn.style.display = 'none';
-                if (reason) reason.textContent = 'You are on the top self-serve depth. Institutional continues via Talk to us only if needed.';
-                return;
-            }
-            btn.style.display = '';
-            btn.textContent = up.cta || up.label || 'Upgrade';
-            setAnchorHref(btn, up.href || '/#pricing');
-            if (reason) reason.textContent = up.reason || 'Next depth on the Option A ladder.';
-        } catch (error) { console.debug(error); setAnchorHref(btn, '/create-checkout-session?tier=pro');
-            btn.textContent = 'Start 7-Day Trial · DECIDE / PRO $19.99'; }
-    }
-    async function loadSubscriberValue(tier) {
-        const el = document.getElementById('valueDigest');
-        if (!el) return;
-        const t = String(tier || 'free').toLowerCase();
-        if (t === 'free') {
-            el.innerHTML = 'DISCOVER / FREE has public Prove + daily limit. Next depth: <a href="/create-checkout-session?tier=pro">DECIDE / PRO $19.99</a> (7-day trial) removes the daily ceiling.';
-            return;
-        }
-        el.textContent = 'Loading value digest…';
-        try {
-            const res = await fetch('/api/subscriber/value', { headers: authHeaders(), credentials: 'same-origin' });
-            const d = await res.json();
-            if (!res.ok) {
-                el.textContent = (d.detail && (d.detail.message || d.detail)) || 'Value digest unavailable';
-                return;
-            }
-            const v = d.value || {};
-            const u = d.usage || {};
-            el.innerHTML =
-                `Oracle calls (30d): <strong style="color:var(--text)">${esc(u.oracle_calls_30d ?? 0)}</strong>` +
-                ` · Risk warnings: <strong style="color:var(--text)">${esc(u.risk_warnings_30d ?? 0)}</strong><br>` +
-                `Estimated research value: <strong style="color:var(--accent)">$${esc(Number(v.estimated_value_usd_month || v.estimated_value_usd || v.value_usd || 0).toFixed(0))}</strong>` +
-                (() => {
-                    if (v.covers_subscription == null) return '';
-                    const cover = v.covers_subscription ? 'yes' : 'not yet';
-                    return ` · Covers plan: <strong style="color:var(--text)">${esc(cover)}</strong>`;
-                })() +
-                `<br><span class="hint">Anti-Hype · Illustrative usage math, not guaranteed ROI · Verify Ledger</span>`;
-        } catch (error) { console.debug(error); el.textContent = 'Value digest unavailable'; }
     }
     async function saveProfile() {
         const res = await fetch('/api/auth/profile', {
