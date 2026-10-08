@@ -112,12 +112,15 @@ async def discipline_answer(
 ):
     from discipline_mirror import record_follow_up
 
-    user_key = str(
-        body.get("user_key")
-        or body.get("email")
-        or (user or {}).get("email")
-        or "anonymous"
-    )
+    session_email = str((user or {}).get("email") or "").strip()
+    if session_email:
+        user_key = session_email
+    else:
+        user_key = str(
+            body.get("user_key")
+            or body.get("email")
+            or "anonymous"
+        )
     return record_follow_up(
         user_key=user_key,
         asset=str(body.get("asset") or "BTC"),
@@ -137,11 +140,15 @@ async def discipline_me(
 ):
     from discipline_mirror import personal_mirror
 
-    resolved = (user_key or "").strip() or str((user or {}).get("email") or "").strip()
+    session_email = str((user or {}).get("email") or "").strip()
+    if session_email:
+        resolved = session_email
+    else:
+        resolved = (user_key or "").strip()
     if not resolved:
         raise HTTPException(
-            status_code=422,
-            detail="user_key required (or authenticate so session email is used)",
+            status_code=401,
+            detail="authentication required for Discipline Mirror",
         )
 
     label_by_id: dict[str, str] = {}
