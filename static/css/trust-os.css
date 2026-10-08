@@ -9,7 +9,7 @@
  * Doc: docs/TRUST_OS_DESIGN_SYSTEM.md
  */
 
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap");
+/* Fonts: no render-blocking @import (CSP blocks fonts.googleapis.com on production). */
 
 :root {
   /* Palette */
@@ -46,8 +46,8 @@
   --danger: var(--bd-danger);
 
   /* Type */
-  --bd-font-display: "Syne", "IBM Plex Sans", sans-serif;
-  --bd-font-body: "IBM Plex Sans", "Segoe UI", sans-serif;
+  --bd-font-display: system-ui, -apple-system, "Segoe UI", sans-serif;
+  --bd-font-body: system-ui, -apple-system, "Segoe UI", sans-serif;
 
   /* Motion */
   --bd-ease-out: cubic-bezier(0.22, 1, 0.36, 1);

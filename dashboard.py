@@ -756,15 +756,24 @@ def _header_user_payload(user: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+_HTML_SHELL_FAST_PATHS = frozenset({"/", "/landing"})
+
+
 @app.middleware("http")
 async def header_session_middleware(request: Request, call_next):
     """Expose validated session user for global header chrome (SSR)."""
+    import asyncio
+
     request.state.header_user = None
+    path = request.url.path or ""
     try:
-        user = await _resolve_html_auth_user(request)
+        if request.method == "GET" and path in _HTML_SHELL_FAST_PATHS:
+            user = await asyncio.wait_for(_resolve_html_auth_user(request), timeout=2.0)
+        else:
+            user = await _resolve_html_auth_user(request)
         if user:
             request.state.header_user = _header_user_payload(user)
-    except Exception:
+    except (asyncio.TimeoutError, Exception):
         request.state.header_user = None
     return await call_next(request)
 
@@ -1904,6 +1913,8 @@ async def landing_page(request: Request):
             secure=_cookie_secure(request),
         )
         response.headers["X-Landing-Cache"] = "HIT"
+        if auth_segment == "anon":
+            response.headers["Cache-Control"] = "public, max-age=60, stale-while-revalidate=120"
         return response
 
     ctx = template_context(request, _footer_ctx())
@@ -1927,6 +1938,8 @@ async def landing_page(request: Request):
         secure=_cookie_secure(request),
     )
     response.headers["X-Landing-Cache"] = "MISS"
+    if auth_segment == "anon":
+        response.headers["Cache-Control"] = "public, max-age=60, stale-while-revalidate=120"
     return response
 
 
