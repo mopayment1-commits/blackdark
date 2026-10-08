@@ -166,15 +166,17 @@
     <section class="panel" id="glass-box-challenge">
         <div class="card">
             <h2>The Glass Box Challenge</h2>
+            <p id="glass-sealed-status" style="margin-top:0.75rem;color:var(--muted);font-size:0.9rem;font-weight:600"></p>
             <noscript><p>We challenge every competitor to publish their full accuracy ledger — including misses. Labels are not proof.</p></noscript>
             <p id="glass-challenge" style="margin-top:0.75rem;font-size:0.95rem">BLACKDARK Glass Box Challenge: publish the full ledger — including misses and incorrect model states — with verifiable audit hashes. Verify here.</p>
             <p id="glass-context" style="margin-top:0.65rem;color:var(--muted);font-size:0.88rem"></p>
-            <p id="glass-sealed-status" style="margin-top:0.5rem;color:var(--muted);font-size:0.88rem"></p>
+            <ul class="events" id="glass-recent-locked" style="display:none;margin-top:0.65rem"></ul>
             <ol id="glass-event-steps" style="margin:1rem 0 0 1.2rem;color:var(--muted);font-size:0.88rem;line-height:1.7">
-                <li>Pick one macro/crypto event window</li>
-                <li>Seal timed Decision Certificates before the event</li>
-                <li>Publish challenge text + this ledger link</li>
-                <li>Unlock hits and misses / incorrect model states live after resolution</li>
+                <li>Pick one macro/crypto event window (date + timezone).</li>
+                <li>Seal ≥3 timed Decision Certificates on /oracle-accuracy#locked before the event.</li>
+                <li>Publish challenge text + ledger link on X/Telegram (human channel choice).</li>
+                <li>After resolution, unlock hits and misses / incorrect model states live on the Public Accuracy Ledger.</li>
+                <li>Invite competitors to publish their full ledgers (including misses).</li>
             </ol>
             <div class="cta-row" style="margin-top:1rem;justify-content:flex-start">
                 <button class="btn btn-secondary" type="button" id="copyGlassBtn">Copy challenge text</button>
@@ -983,18 +985,35 @@
                 if (sealedEl) {
                     if (lpTotal === 0) {
                         sealedEl.textContent =
-                            'Sealed now: 0 Decision Certificates on the public ledger (none filed yet).';
+                            'locked.total: لا يوجد تحدٍّ مختوم الآن — 0';
                     } else {
                         sealedEl.textContent =
-                            `Sealed now: ${lpLocked} Decision Certificate(s) locked on the public ledger ` +
-                            `(${lpTotal} total row(s) including revealed).`;
+                            `locked.total: ${lpTotal} — ${lpLocked} locked row(s) on the public ledger`;
+                    }
+                }
+                const recentList = document.getElementById('glass-recent-locked');
+                const recent = d.recent_locked || [];
+                if (recentList) {
+                    if (lpTotal > 0 && recent.length) {
+                        recentList.style.display = 'block';
+                        recentList.innerHTML = recent.map((r) =>
+                            `<li><strong>${esc(r.event_name || 'event')}</strong> · ${esc(r.asset || '')} · ` +
+                            `${esc(r.status || '')} · seal ${esc(String(r.seal_hash || '').slice(0, 12))}…` +
+                            (r.revealed && r.direction
+                                ? ` · ${esc(r.direction)} — ${esc(String(r.rationale || '').slice(0, 80))}`
+                                : (r.teaser ? ` · ${esc(r.teaser)}` : '')) +
+                            `</li>`
+                        ).join('');
+                    } else {
+                        recentList.style.display = 'none';
+                        recentList.innerHTML = '';
                     }
                 }
                 const steps = (d.event_template && d.event_template.steps) || [];
                 const ol = document.getElementById('glass-event-steps');
                 if (ol && steps.length) {
                     const clean = steps.map(s => String(s || '').trim()).filter(s => s && !/^[\d\.\*\s]+$/.test(s));
-                    if (clean.length) {
+                    if (clean.length >= 5) {
                         ol.innerHTML = clean.map(s => '<li>' + esc(s) + '</li>').join('');
                     }
                 }
