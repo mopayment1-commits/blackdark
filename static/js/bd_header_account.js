@@ -37,6 +37,8 @@
     }
   }
 
+  const LOGOUT_TIMEOUT_MS = 12000;
+
   async function performHeaderLogout() {
     const logoutBtn = document.getElementById("bdHeaderLogout");
     if (logoutBtn) {
@@ -47,24 +49,28 @@
       status.hidden = true;
       status.textContent = "";
     }
+    const failMsg = logoutFailMessage();
     try {
+      const timeoutSignal =
+        typeof AbortSignal !== "undefined" && AbortSignal.timeout
+          ? AbortSignal.timeout(LOGOUT_TIMEOUT_MS)
+          : undefined;
       const res = await fetch("/api/auth/logout", {
         method: "POST",
         credentials: "same-origin",
         headers: { Accept: "application/json" },
+        signal: timeoutSignal,
       });
-      if (!res.ok) {
-        showLogoutFailure(logoutFailMessage());
+      if (res.status !== 200) {
+        showLogoutFailure(failMsg);
         if (logoutBtn) logoutBtn.disabled = false;
         return;
       }
       clearClientSessionHints();
-      const dest = new URL("/", window.location.origin);
-      dest.searchParams.set("signed_out", "1");
-      window.location.assign(dest.toString());
+      window.location.assign("/");
     } catch (error) {
       console.debug(error);
-      showLogoutFailure(logoutFailMessage());
+      showLogoutFailure(failMsg);
       if (logoutBtn) logoutBtn.disabled = false;
     }
   }

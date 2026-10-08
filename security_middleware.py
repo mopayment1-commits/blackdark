@@ -493,15 +493,34 @@ def attach_session_cookie_ephemeral(response: Response, token: str) -> None:
 
 
 def clear_session_cookie(response: Response) -> None:
-    """Invalidate bd_token in the browser jar (match set_cookie flags)."""
+    """Invalidate bd_token in the browser jar (name, path, domain, flags)."""
+    from datetime import datetime, timezone
+
     kwargs = cookie_session_kwargs(max_age=0)
-    response.delete_cookie(
-        kwargs["key"],
-        path=kwargs.get("path") or "/",
-        secure=bool(kwargs.get("secure")),
-        httponly=bool(kwargs.get("httponly", True)),
-        samesite=str(kwargs.get("samesite") or "lax"),
-    )
+    key = kwargs["key"]
+    path = kwargs.get("path") or "/"
+    secure = bool(kwargs.get("secure"))
+    httponly = bool(kwargs.get("httponly", True))
+    samesite = str(kwargs.get("samesite") or "lax")
+    domain = (os.getenv("COOKIE_DOMAIN") or "").strip() or None
+    expires = datetime(1970, 1, 1, tzinfo=timezone.utc)
+
+    def _clear(dom: str | None) -> None:
+        response.set_cookie(
+            key=key,
+            value="",
+            max_age=0,
+            expires=expires,
+            path=path,
+            domain=dom,
+            secure=secure,
+            httponly=httponly,
+            samesite=samesite,
+        )
+
+    _clear(None)
+    if domain:
+        _clear(domain)
 
 
 def attach_session_cookie(response: Response, token: str, *, max_age: int | None = None) -> None:

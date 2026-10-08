@@ -516,10 +516,17 @@ async def auth_oauth_callback(
 async def auth_logout(
     token: str | None = Depends(raw_bearer_or_cookie),
 ):
+    import asyncio
+
     from auth_service import logout_user
 
     if token:
-        await logout_user(str(token))
+        try:
+            await asyncio.wait_for(logout_user(str(token)), timeout=10.0)
+        except asyncio.TimeoutError:
+            logger.warning("logout_user timed out — clearing session cookie anyway")
+        except Exception:
+            logger.debug("logout_user failed", exc_info=True)
     resp = JSONResponse({"success": True})
     _clear_session_cookie(resp)
     return resp
