@@ -146,6 +146,9 @@ def main() -> int:
         urls = []
         print(f"sitemap fetch failed ({exc}); using app paths", file=sys.stderr)
     if args.paths_from_app or not urls:
+        root = Path(__file__).resolve().parents[1]
+        if str(root) not in sys.path:
+            sys.path.insert(0, str(root))
         from fastapi.testclient import TestClient
         from dashboard import app as dash_app
 
