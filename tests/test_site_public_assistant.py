@@ -48,7 +48,7 @@ def test_arabic_followup_why_links_thread():
             "opportunity_score": 72,
         },
     )
-    assert "Continuing" in out["reply"] or "ETH" in out["reply"]
+    assert "ETH" in out["reply"]
     assert "WAIT on BTC score 60/100" not in out["reply"]
     assert out["turn"]["intent"] == "why"
     assert out["turn"]["symbol"] == "ETH"
@@ -64,7 +64,8 @@ def test_hi_does_not_dump_btc_pulse():
     out = reply_site_assistant("hi", ctx)
     assert "WAIT on BTC" not in out["reply"]
     assert "Trust Pulse shows WAIT on BTC" not in out["reply"]
-    assert "ETH" in out["reply"] or "symbol" in out["reply"].lower()
+    assert "Trust Pulse" in out["reply"]
+    assert "symbol" not in out["reply"].lower()
     assert REFUSAL in out["reply"]
 
 
@@ -72,6 +73,28 @@ def test_generic_question_without_btc_mention():
     ctx = {"trust_pulse": {"action": "WAIT", "symbol": "BTC", "sentence": "WAIT on BTC score 60/100."}}
     out = reply_site_assistant("thanks", ctx)
     assert "Trust Pulse shows WAIT on BTC" not in out["reply"]
+
+
+def test_i_need_asks_one_clarifying_question():
+    ctx = {"trust_pulse": {"action": "WAIT", "symbol": "BTC", "sentence": "WAIT on BTC score 60/100."}}
+    out = reply_site_assistant("I NEED", ctx)
+    assert "On your question" not in out["reply"]
+    assert "I explain what is visible" not in out["reply"]
+    assert "أي أصل تريد سعره" in out["reply"]
+    assert REFUSAL in out["reply"]
+
+
+def test_replies_never_use_on_your_question_phrasing():
+    ctx = {"trust_pulse": {"action": "WAIT", "symbol": "BTC", "sentence": "WAIT on BTC."}}
+    samples = ["help", "سعر", "What is shown?", "سعر ETH"]
+    for msg in samples:
+        oracle = (
+            {"symbol": "ETH", "price": 100, "opportunity_score": 50, "decision_action": "WAIT"}
+            if "ETH" in msg
+            else None
+        )
+        out = reply_site_assistant(msg, ctx, oracle_ctx=oracle)
+        assert "On your question" not in out["reply"]
 
 
 def test_two_questions_do_not_share_identical_reply():

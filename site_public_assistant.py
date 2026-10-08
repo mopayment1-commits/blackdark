@@ -34,6 +34,13 @@ _PAGE_SIGNAL_RE = re.compile(
     re.I,
 )
 _THREAD_MAX = 8
+_CLARIFY_ASSET = "أي أصل تريد سعره؟"
+_VAGUE_NEED_RE = re.compile(r"^I\s+NEED\.?$", re.I)
+_PAGE_ASK_RE = re.compile(
+    r"what\s+is\s+shown|shown\b|visible|this\s+page|trust\s*pulse|ledger|accuracy|"
+    r"سعر|لماذا|سبب|انتظار|why\b|wait\b|price\b",
+    re.I,
+)
 
 
 def _clip(text: str, n: int = 400) -> str:
@@ -124,6 +131,27 @@ def is_small_talk(message: str) -> bool:
     return bool(_SMALL_TALK_RE.match(msg))
 
 
+def question_needs_clarification(
+    message: str,
+    symbol: str | None,
+    intent: str,
+    follow_up: bool,
+    thread: list[dict[str, str]],
+) -> bool:
+    msg = (message or "").strip()
+    if intent == "price" and not symbol:
+        return True
+    if _VAGUE_NEED_RE.match(msg):
+        return True
+    if _PAGE_ASK_RE.search(msg):
+        return False
+    if symbol or (follow_up and thread):
+        return False
+    if intent == "explain" and len(msg) <= 32 and not _PAGE_SIGNAL_RE.search(msg):
+        return True
+    return False
+
+
 def wants_trust_pulse_context(message: str, symbol: str | None, intent: str) -> bool:
     if symbol or intent in {"price", "why"}:
         return True
@@ -176,7 +204,7 @@ def reply_site_assistant(
     if is_small_talk(msg):
         return {
             "reply": (
-                "Hi — ask about a symbol (e.g. ETH price) or why the model shows wait on this page. "
+                "Hi — I answer from Trust Pulse and the public ledger on this page. "
                 "Analytical context only — "
                 + REFUSAL
             ),
@@ -188,47 +216,38 @@ def reply_site_assistant(
     symbol = resolve_query_symbol(msg, history)
     intent = classify_intent(msg, history, follow)
 
+    if question_needs_clarification(msg, symbol, intent, follow, history):
+        return {
+            "reply": f"{_CLARIFY_ASSET} Analytical context only — {REFUSAL}",
+            "refusal": False,
+            "turn": {"symbol": symbol, "intent": intent, "topic": _clip(msg, 120)},
+        }
+
     pulse = ctx.get("trust_pulse") or {}
     page_sym = (pulse.get("symbol") or ctx.get("pulse_symbol") or "").strip().upper() or None
     page_action = pulse.get("action") or ctx.get("pulse_action")
     page_sentence = pulse.get("sentence") or ctx.get("pulse_sentence")
 
     parts: list[str] = []
-    user_hook = _clip(msg, 100)
-
-    if follow and history:
-        prior = next((t for t in reversed(history) if t.get("role") == "bot"), None)
-        if prior:
-            parts.append(f"Continuing from your last topic ({prior.get('topic', '')[:80]}).")
-
-    if symbol:
-        if intent == "price":
-            parts.append(f"You asked about {symbol} price ({user_hook}).")
-        elif intent == "why":
-            parts.append(f"You asked why {symbol} is in a wait/hold style state ({user_hook}).")
-        else:
-            parts.append(f"On your question about {symbol}: {_clip(msg, 120)}.")
-    else:
-        parts.append(f"On your question: {_clip(msg, 140)}.")
 
     oracle_sym = (oracle_ctx or {}).get("symbol") or (oracle_ctx or {}).get("asset")
     if oracle_ctx and symbol and str(oracle_sym or symbol).upper() == symbol:
         parts.append(_format_oracle_line(symbol, oracle_ctx, intent))
     elif symbol and intent in {"price", "why"}:
         parts.append(
-            f"I could not refresh a live {symbol} oracle snapshot; use the oracle block on this page for that symbol."
+            f"No live {symbol} oracle snapshot right now — check the oracle block on this page for {symbol}."
         )
 
     show_pulse = wants_trust_pulse_context(msg, symbol, intent)
     if show_pulse and page_sym and symbol and page_sym != symbol:
         parts.append(
-            f"The Trust Pulse strip on this page is still showing {page_action or '—'} on {page_sym}, not {symbol}."
+            f"Trust Pulse on this page still shows {page_action or '—'} on {page_sym}, not {symbol}."
         )
     elif show_pulse and page_sym and (not symbol or page_sym == symbol):
-        if intent == "why" and page_sentence and not oracle_ctx:
-            parts.append(f"Visible pulse line: {_clip(str(page_sentence), 200)}")
-        elif intent == "explain" and page_action and page_sym:
-            parts.append(f"On this page Trust Pulse shows {page_action} on {page_sym}.")
+        if intent == "why" and page_sentence and not (oracle_ctx and symbol):
+            parts.append(_clip(str(page_sentence), 200))
+        elif page_action and page_sym and not parts:
+            parts.append(f"Trust Pulse shows {page_action} on {page_sym}.")
 
     ledger = ctx.get("ledger") or {}
     if ledger and re.search(r"ledger|accuracy|سجل", msg, re.I):
@@ -243,11 +262,11 @@ def reply_site_assistant(
     if seal and re.search(r"seal|hash|ختم", msg, re.I):
         parts.append(f"Seal hash visible: {_clip(str(seal), 32)}.")
 
-    if len(parts) == 1 and not symbol:
-        parts.append(
-            "I explain what is visible here (Trust Pulse, Public Accuracy Ledger, Seal). "
-            "Name a symbol (e.g. ETH) or ask about the wait reason."
-        )
+    if not parts:
+        if page_action and page_sym:
+            parts.append(f"Trust Pulse shows {page_action} on {page_sym}.")
+        else:
+            parts.append(_CLARIFY_ASSET)
 
     reply = " ".join(parts) + " Analytical context only — " + REFUSAL
     turn = {
