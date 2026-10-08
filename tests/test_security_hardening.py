@@ -101,7 +101,8 @@ async def test_b2b_ws_info_hides_demo_key(monkeypatch):
     from dashboard import b2b_ws_info
 
     payload = await b2b_ws_info()
-    assert payload["auth"]["demo_key"] == "contact-sales"
+    assert "demo_key" not in payload["auth"]
+    assert payload["auth"].get("key_on_public_page") is False
 
 
 @pytest.mark.asyncio

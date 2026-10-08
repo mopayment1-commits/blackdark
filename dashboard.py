@@ -4041,10 +4041,9 @@ async def b2b_info():
 
     ws_stats = get_b2b_ws_hub().stats()
     expose_demo = os.getenv("EXPOSE_B2B_DEMO_KEY", "").lower() in {"1", "true", "yes"}
-    return {
+    info: dict[str, Any] = {
         "product": "BLACKDARK Institutional Manipulation Feed",
         "feed_version": config.B2B_FEED_VERSION,
-        "demo_key": config.B2B_DEMO_API_KEY if expose_demo else "contact-sales",
         "demo_endpoint": "/api/b2b/demo",
         "authenticated_endpoint": "/api/b2b/feed",
         "header": "X-API-Key",
@@ -4067,6 +4066,9 @@ async def b2b_info():
             "heartbeat",
         ],
     }
+    if expose_demo:
+        info["demo_key"] = config.B2B_DEMO_API_KEY
+    return info
 
 
 @app.get("/api/b2b/ws/info")
@@ -4074,11 +4076,10 @@ async def b2b_ws_info():
     from b2b_websocket_hub import get_b2b_ws_hub
 
     expose_demo = os.getenv("EXPOSE_B2B_DEMO_KEY", "").lower() in {"1", "true", "yes"}
-    auth: dict[str, Any] = {"query": "api_key"}
+    auth: dict[str, Any] = {"query": "api_key", "key_on_public_page": False}
     if expose_demo:
         auth["demo_key"] = config.B2B_DEMO_API_KEY
-    else:
-        auth["demo_key"] = "contact-sales"
+        auth["key_on_public_page"] = True
     return {
         "endpoint": "/ws/b2b/feed",
         "auth": auth,
@@ -4131,11 +4132,13 @@ async def b2b_websocket_feed(websocket: WebSocket, api_key: str = Query(..., min
 
 @app.get("/b2b", response_class=HTMLResponse)
 async def b2b_page(request: Request):
+    expose_demo = os.getenv("EXPOSE_B2B_DEMO_KEY", "").lower() in {"1", "true", "yes"}
     return templates.TemplateResponse(
         request,
         "b2b.html",
         {
-            "demo_key": (config.B2B_DEMO_API_KEY if os.getenv("EXPOSE_B2B_DEMO_KEY", "").lower() in {"1", "true", "yes"} else "contact-sales"),
+            "demo_key_exposed": expose_demo,
+            "demo_key": config.B2B_DEMO_API_KEY if expose_demo else "",
             "feed_version": config.B2B_FEED_VERSION,
             **_footer_ctx(),
         },

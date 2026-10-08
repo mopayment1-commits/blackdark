@@ -97,10 +97,17 @@
             <h2 style="margin-bottom:0.5rem">Live Demo</h2>
             <p style="color:var(--muted);font-size:0.9rem">No signup required — limited to 15 records.</p>
             <div class="price">Custom<span style="font-size:0.85rem"> / from SEE THE EDGE / ELITE $49.99</span></div>
+            {% if demo_key_exposed %}
             <p style="margin-top:1rem;font-size:0.85rem"><strong>Demo API Key:</strong> <code id="demoKey">{{ demo_key }}</code></p>
             <pre>curl -H "X-API-Key: {{ demo_key }}" {{ request.url.scheme }}://{{ request.url.netloc }}/api/b2b/feed</pre>
-            <button class="btn btn-primary" data-bd-call="runDemo">Fetch Demo Feed</button>
             <button class="btn btn-secondary" data-bd-call="copyKey">Copy Demo Key</button>
+            {% else %}
+            <p style="margin-top:1rem;font-size:0.85rem;color:var(--muted)">
+                No API key on this public page. Use the open demo endpoint or contact institutional sales for a provisioned key.
+            </p>
+            <pre>curl {{ request.url.scheme }}://{{ request.url.netloc }}/api/b2b/demo</pre>
+            {% endif %}
+            <button class="btn btn-primary" data-bd-call="runDemo">Fetch Demo Feed</button>
             <div class="demo-result" id="demoResult">Click "Fetch Demo Feed" to see live CVVD records.</div>
         </div>
     </div>
@@ -146,7 +153,10 @@
                 Tier 2 institutional push — arbitrage, oracle signals, heartbeat (~{{ feed_version }}).
                 Target latency 100–500ms.
             </p>
-            <pre>wss://{{ request.url.netloc }}/ws/b2b/feed?api_key={{ demo_key }}</pre>
+            <pre id="wsEndpointLine">{{ request.url.scheme == 'https' and 'wss' or 'ws' }}://{{ request.url.netloc }}/ws/b2b/feed</pre>
+            <p style="color:var(--muted);font-size:0.82rem;margin-top:0.5rem">
+                Live stream requires a provisioned <code>api_key</code> query parameter — not shown on this public page.
+            </p>
             <button class="btn btn-primary" data-bd-call="connectWs">Connect WebSocket</button>
             <button class="btn btn-secondary" data-bd-call="disconnectWs">Disconnect</button>
             <div class="demo-result ws-log" id="wsLog">Events will appear here when connected.</div>
@@ -180,7 +190,7 @@
 
     <script>
         let ws = null;
-        const demoKey = document.getElementById('demoKey').textContent.trim();
+        const wsApiKey = String({{ (demo_key if demo_key_exposed else '')|tojson }} || '').trim();
         const wsScheme = location.protocol === 'https:' ? 'wss:' : 'ws:';
 
         function setWsStatus(on) {
@@ -198,7 +208,12 @@
 
         function connectWs() {
             if (ws && ws.readyState <= 1) return;
-            const url = `${wsScheme}//${location.host}/ws/b2b/feed?api_key=${encodeURIComponent(demoKey)}`;
+            if (!wsApiKey || wsApiKey.length < 8) {
+                setWsStatus(false);
+                logWs('Disconnected — provision an institutional API key to enable the live stream.');
+                return;
+            }
+            const url = `${wsScheme}//${location.host}/ws/b2b/feed?api_key=${encodeURIComponent(wsApiKey)}`;
             logWs('Connecting…');
             ws = new WebSocket(url);
             ws.onopen = () => { setWsStatus(true); logWs('OPEN'); };
@@ -253,7 +268,9 @@
             } catch (error) { console.debug(error); el.textContent = 'Demo unavailable — restart server and try again.'; }
         }
         function copyKey() {
-            navigator.clipboard.writeText(document.getElementById('demoKey').textContent);
+            const el = document.getElementById('demoKey');
+            if (!el) return;
+            navigator.clipboard.writeText(el.textContent);
         }
 
         function authHeaders() {
