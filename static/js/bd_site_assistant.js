@@ -16,6 +16,28 @@
     return ctx;
   }
 
+  const THREAD_KEY = "bd_ask_ai_thread";
+  const THREAD_MAX = 8;
+
+  function loadThread() {
+    try {
+      const raw = sessionStorage.getItem(THREAD_KEY);
+      const parsed = raw ? JSON.parse(raw) : [];
+      return Array.isArray(parsed) ? parsed : [];
+    } catch (error) {
+      console.debug(error);
+      return [];
+    }
+  }
+
+  function saveThread(turns) {
+    try {
+      sessionStorage.setItem(THREAD_KEY, JSON.stringify(turns.slice(-THREAD_MAX)));
+    } catch (error) {
+      console.debug(error);
+    }
+  }
+
   function appendMsg(box, role, text) {
     const p = document.createElement('p');
     p.className = 'bd-ask-msg bd-ask-' + role;
@@ -89,14 +111,35 @@
       if (!message) return;
       appendMsg(log, 'user', message);
       input.value = '';
+      const thread = loadThread();
       try {
         const res = await fetch('/api/public/site-assistant', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message, page_context: collectPageContext() }),
+          body: JSON.stringify({
+            message,
+            page_context: collectPageContext(),
+            thread,
+          }),
         });
         const data = await res.json();
-        appendMsg(log, 'bot', data.reply || 'Unavailable right now.');
+        const reply = data.reply || 'Unavailable right now.';
+        appendMsg(log, 'bot', reply);
+        const turn = data.turn || {};
+        thread.push({
+          role: 'user',
+          topic: message.slice(0, 200),
+          symbol: turn.symbol || '',
+          intent: turn.intent || '',
+        });
+        thread.push({
+          role: 'bot',
+          topic: reply.slice(0, 280),
+          summary: reply.slice(0, 280),
+          symbol: turn.symbol || '',
+          intent: turn.intent || '',
+        });
+        saveThread(thread);
       } catch (e) {
         appendMsg(log, 'bot', 'Unavailable right now.');
       }

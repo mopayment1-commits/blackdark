@@ -1625,12 +1625,34 @@ async def public_site_search(q: str = ""):
 
 @app.post("/api/public/site-assistant")
 async def public_site_assistant(body: dict = Body(default=None)):
-    from site_public_assistant import reply_site_assistant
+    from site_public_assistant import (
+        message_wants_oracle,
+        reply_site_assistant,
+        resolve_query_symbol,
+        sanitize_assistant_thread,
+    )
 
     payload = body or {}
+    message = str(payload.get("message") or "")
+    page_context = payload.get("page_context") if isinstance(payload.get("page_context"), dict) else {}
+    thread = payload.get("thread") if isinstance(payload.get("thread"), list) else []
+    history = sanitize_assistant_thread(thread)
+
+    oracle_ctx = None
+    sym = resolve_query_symbol(message, history)
+    if sym and message_wants_oracle(message, history):
+        try:
+            asset, pair = _normalize_oracle_symbol(sym)
+            oracle_ctx = await _compute_oracle_quick_payload(asset, pair, "en", "beginner")
+            oracle_ctx = {**oracle_ctx, "symbol": asset}
+        except Exception:
+            oracle_ctx = None
+
     return reply_site_assistant(
-        str(payload.get("message") or ""),
-        payload.get("page_context") if isinstance(payload.get("page_context"), dict) else {},
+        message,
+        page_context,
+        thread=thread,
+        oracle_ctx=oracle_ctx,
     )
 
 
