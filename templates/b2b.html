@@ -346,15 +346,17 @@
                 </p>`;
         }
 
-        async function loadEvidenceSummary() {
+        function loadEvidenceSummary() {
             const el = document.getElementById('evidenceResult');
             el.textContent = 'Loading public summary…';
+            window.setTimeout(async () => {
             try {
                 const res = await fetch('/api/due-diligence/evidence-pack/public-summary');
                 const data = await res.json();
                 renderEvidenceCards(data);
                 el.textContent = JSON.stringify(data, null, 2);
             } catch (error) { console.debug(error); el.textContent = 'Public summary unavailable.'; }
+            }, 0);
         }
 
         async function loadEvidenceFull() {

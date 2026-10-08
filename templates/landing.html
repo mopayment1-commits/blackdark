@@ -1437,6 +1437,9 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             const mode = document.getElementById('landingUxMode').value || 'beginner';
             const lang = (window.BD_I18N && window.BD_I18N.lang) || document.documentElement.lang || 'en';
             const resultDiv = document.getElementById('oracleResult');
+            if (!resultDiv) return;
+            resultDiv.classList.add('active');
+            await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
             const symbolEl = document.getElementById('resultSymbol');
             const scoreEl = document.getElementById('resultScore');
             const verdictEl = document.getElementById('resultVerdict');
@@ -1444,7 +1447,6 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             const proMeta = document.getElementById('landingProMeta');
             const upgradeEl = document.getElementById('landingUpgrade');
             
-            resultDiv.classList.add('active');
             localStorage.setItem('bd_ux_mode', mode);
             localStorage.setItem('bd_lang', lang);
             oracleEl.textContent = i18nT('oracle.loading');
@@ -1942,7 +1944,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 if (e.target.closest('[data-lp-proof-open]')) {
                     e.preventDefault();
                     e.stopPropagation();
-                    openLandingPulseProof();
+                    requestAnimationFrame(() => openLandingPulseProof());
                     return;
                 }
             });
@@ -2079,9 +2081,6 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
         function shareLandingPulseProof() {
             const btn = document.getElementById('lpShareBtn');
             if (!btn) return;
-            btn.classList.remove('bd-motion-share');
-            btn.dataset.reflow = String(btn.offsetWidth);
-            btn.classList.add('bd-motion-share');
             const proof = (landingPulse && landingPulse.proof) || {};
             const text = proof.share_text || 'BLACKDARK Trust Pulse — verify /oracle-accuracy';
             if (navigator.clipboard) navigator.clipboard.writeText(text).catch(() => {});
@@ -2089,7 +2088,14 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 openWindow(proof.share_urls.x);
             }
         }
-        document.getElementById('lpShareBtn')?.addEventListener('click', shareLandingPulseProof);
+        document.getElementById('lpShareBtn')?.addEventListener('click', (ev) => {
+            const btn = ev.currentTarget;
+            if (!(btn instanceof HTMLElement)) return;
+            btn.classList.remove('bd-motion-share');
+            void btn.offsetWidth;
+            btn.classList.add('bd-motion-share');
+            window.setTimeout(() => shareLandingPulseProof(), 0);
+        });
 
 
         window.addEventListener('load', () => {

@@ -69,7 +69,8 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  /* smooth scroll hurts INP on in-page anchors (web.dev ≤200ms). */
+  scroll-behavior: auto;
 }
 
 body.bd-shell {

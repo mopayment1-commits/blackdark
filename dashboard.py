@@ -759,15 +759,28 @@ def _header_user_payload(user: dict[str, Any]) -> dict[str, Any]:
 _HTML_SHELL_FAST_PATHS = frozenset({"/", "/landing"})
 
 
+def _html_shell_fast_path(request: Request) -> bool:
+    if request.method != "GET":
+        return False
+    path = request.url.path or ""
+    if path.startswith(("/api/", "/static/", "/openapi")):
+        return False
+    if path in _HTML_SHELL_FAST_PATHS:
+        return True
+    accept = (request.headers.get("accept") or "").lower()
+    if "text/html" in accept or "*/*" in accept or not accept.strip():
+        return not path.endswith((".json", ".xml", ".txt", ".ico", ".png", ".webp", ".js", ".css"))
+    return False
+
+
 @app.middleware("http")
 async def header_session_middleware(request: Request, call_next):
     """Expose validated session user for global header chrome (SSR)."""
     import asyncio
 
     request.state.header_user = None
-    path = request.url.path or ""
     try:
-        if request.method == "GET" and path in _HTML_SHELL_FAST_PATHS:
+        if _html_shell_fast_path(request):
             user = await asyncio.wait_for(_resolve_html_auth_user(request), timeout=2.0)
         else:
             user = await _resolve_html_auth_user(request)
