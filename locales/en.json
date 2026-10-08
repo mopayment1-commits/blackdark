@@ -12,7 +12,7 @@
   "nav.accuracy": "Accuracy",
   "nav.login": "Login",
   "nav.signup": "Sign up",
-  "nav.logout": "Logout",
+  "nav.logout": "Sign out",
   "nav.dashboard": "Dashboard",
   "nav.platform": "Platform",
   "nav.capabilities": "Capabilities",
@@ -376,5 +376,6 @@
   "pricing.public.use_case": "Use case",
   "pricing.public.talk_to_us": "Talk to us",
   "pricing.public.profile_billing": "Profile & Billing",
-  "pricing.public.refund_policy": "Refund Policy"
+  "pricing.public.refund_policy": "Refund Policy",
+  "nav.logout_failed": "Could not sign out. Try again."
 }

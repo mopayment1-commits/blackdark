@@ -492,6 +492,18 @@ def attach_session_cookie_ephemeral(response: Response, token: str) -> None:
     response.set_cookie(value=sealed, **kwargs)
 
 
+def clear_session_cookie(response: Response) -> None:
+    """Invalidate bd_token in the browser jar (match set_cookie flags)."""
+    kwargs = cookie_session_kwargs(max_age=0)
+    response.delete_cookie(
+        kwargs["key"],
+        path=kwargs.get("path") or "/",
+        secure=bool(kwargs.get("secure")),
+        httponly=bool(kwargs.get("httponly", True)),
+        samesite=str(kwargs.get("samesite") or "lax"),
+    )
+
+
 def attach_session_cookie(response: Response, token: str, *, max_age: int | None = None) -> None:
     """Set HttpOnly session cookie from an opaque bearer (never a password).
 

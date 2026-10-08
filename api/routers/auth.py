@@ -56,7 +56,9 @@ def _attach_session_cookie(response: Response, token: str | None, *, remember: b
 
 
 def _clear_session_cookie(response: Response) -> None:
-    response.delete_cookie("bd_token", path="/")
+    from security_middleware import clear_session_cookie
+
+    clear_session_cookie(response)
 
 
 def _session_response_body(result: dict[str, Any]) -> dict[str, Any]:
