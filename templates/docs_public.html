@@ -54,13 +54,30 @@
         </ul>
 
         <h2>Allowed public prefixes</h2>
+        <p style="font-size:.85rem">Prefix allowlist for anonymous visitors (read/evidence). POST-only hero APIs are listed separately below.</p>
         <div class="card">
             <ul>
-                {% for p in manifest.allowed_prefixes %}
-                <li><code>{{ p }}</code></li>
+                {% for row in manifest.allowed_prefix_rows %}
+                <li>
+                    {% if row.href %}
+                    <a href="{{ row.href }}"><code>{{ row.path }}</code></a>
+                    {% else %}
+                    <code>{{ row.path }}</code>
+                    {% endif %}
+                </li>
                 {% endfor %}
             </ul>
         </div>
+        {% if manifest.post_only_public_prefixes %}
+        <h2>POST-only (not in read list)</h2>
+        <div class="card">
+            <ul>
+                {% for p in manifest.post_only_public_prefixes %}
+                <li><code>{{ p }}</code> — not a GET endpoint</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
 
         <h2>Policy</h2>
         <p>{{ manifest.disclaimer }}</p>
