@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ page_title }}</title>
+    <title>{{ t('pricing.public.title') if t is defined else page_title }}</title>
     <style>
         :root { --bg:#0a0a0f; --fg:#e4e4e7; --muted:#71717a; --line:#2a2a35; --accent:#22d3ee; --success:#22c55e; }
         * { box-sizing:border-box; margin:0; padding:0; }
@@ -41,8 +41,8 @@
 <body>
     {% include 'partials/site_top_nav.html' %}
     <main id="main">
-        <h1>{{ headline }}</h1>
-        <p class="sub">{{ subhead }}</p>
+        <h1>{{ t('pricing.public.headline') if t is defined else headline }}</h1>
+        <p class="sub">{{ t('pricing.public.subhead') if t is defined else subhead }}</p>
 
         <div class="grid" aria-label="Pricing plans">
             {% for tier in tiers %}
@@ -63,11 +63,11 @@
             {% endfor %}
         </div>
 
-        <h2 style="font-size:1.1rem;margin-bottom:.75rem">Compare plans</h2>
-        <table aria-label="Plan comparison">
+        <h2 style="font-size:1.1rem;margin-bottom:.75rem">{{ t('pricing.public.compare') if t is defined else 'Compare plans' }}</h2>
+        <table aria-label="{{ t('pricing.public.compare') if t is defined else 'Plan comparison' }}">
             <thead>
                 <tr>
-                    <th scope="col">Capability</th>
+                    <th scope="col">{{ t('pricing.public.capability') if t is defined else 'Capability' }}</th>
                     <th scope="col">Free</th>
                     <th scope="col">Plus</th>
                     <th scope="col">Pro</th>
@@ -86,24 +86,24 @@
             </tbody>
         </table>
 
-        <section id="enterprise" aria-label="Companies and funds">
-            <h2>For companies and funds</h2>
-            <p class="sub" style="margin-bottom:0">Enterprise is sales-led — Data Room, compliance pack, SSO/MFA, and SLA. Not financial advice.</p>
+        <section id="enterprise" aria-label="{{ t('pricing.public.enterprise_title') if t is defined else 'Companies and funds' }}">
+            <h2>{{ t('pricing.public.enterprise_title') if t is defined else 'For companies and funds' }}</h2>
+            <p class="sub" style="margin-bottom:0">{{ t('pricing.public.enterprise_lead') if t is defined else subhead }}</p>
             <form id="institutionalInquiryForm">
-                <label for="instEmail">Work email</label>
+                <label for="instEmail">{{ t('pricing.public.work_email') if t is defined else 'Work email' }}</label>
                 <input id="instEmail" required type="email" name="email" placeholder="work@fund.com">
-                <label for="instName">Name</label>
+                <label for="instName">{{ t('pricing.public.name') if t is defined else 'Name' }}</label>
                 <input id="instName" type="text" name="name" placeholder="Name">
-                <label for="instCompany">Firm</label>
+                <label for="instCompany">{{ t('pricing.public.firm') if t is defined else 'Firm' }}</label>
                 <input id="instCompany" type="text" name="company" placeholder="Firm">
-                <label for="instMessage">Use case</label>
+                <label for="instMessage">{{ t('pricing.public.use_case') if t is defined else 'Use case' }}</label>
                 <textarea id="instMessage" name="message" rows="3" placeholder="Seats / SLA / integration needs"></textarea>
-                <button type="submit" class="btn primary">Talk to us</button>
+                <button type="submit" class="btn primary">{{ t('pricing.public.talk_to_us') if t is defined else 'Talk to us' }}</button>
                 <p id="institutionalInquiryMsg" style="min-height:1.2rem;margin:0;color:var(--muted);font-size:.85rem"></p>
             </form>
             <div class="pricing-account-actions" aria-label="Account and refunds">
-                <a class="btn" href="/login?next=/profile">Profile &amp; Billing</a>
-                <a class="btn" href="/refund">Refund Policy</a>
+                <a class="btn" href="/login?next=/profile">{{ t('pricing.public.profile_billing') if t is defined else 'Profile & Billing' }}</a>
+                <a class="btn" href="/refund">{{ t('pricing.public.refund_policy') if t is defined else 'Refund Policy' }}</a>
             </div>
         </section>
     </main>

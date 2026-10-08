@@ -130,6 +130,13 @@ def render_page(request: Request, name: str, context: dict[str, Any] | None = No
     return response
 
 
+def render_utility(request: Request, ctx: dict[str, Any] | None = None) -> HTMLResponse:
+    """Utility shell with full i18n (lang, dir, t())."""
+    payload = dict(ctx or {})
+    payload.update(_footer_ctx())
+    return render_page(request, STR_UTILITY_HTML, payload)
+
+
 def _auth_required_next_path(request: Request) -> str:
     path = request.url.path or "/"
     query = str(request.url.query or "")
@@ -188,11 +195,14 @@ def render_dashboard_auth_required(request: Request) -> HTMLResponse:
 
 
 def render_profile_auth_required(request: Request) -> HTMLResponse:
+    from i18n_service import resolve_request_lang, t
+
+    lang = resolve_request_lang(request)
     return render_surface_auth_required(
         request,
         lens="profile",
-        lens_label="Profile & Billing",
-        lens_hint="Sign in to manage identity, security, and your USD plan.",
+        lens_label=t("profile.section.profile", lang),
+        lens_hint=t("auth.gate.profile_hint", lang),
         boundary="profile-auth-required-html",
     )
 
@@ -1675,10 +1685,7 @@ async def verify_email_page(request: Request, token: str = ""):
     from fastapi.responses import RedirectResponse
 
     if not token:
-        return templates.TemplateResponse(
-            request,
-            STR_UTILITY_HTML,
-            {
+        return render_utility(request, {
                 "page": "verify_email",
                 "title": STR_VERIFY_EMAIL,
                 "lead": "Missing verification token. Use the link from your email, or resend from Profile.",
@@ -1687,10 +1694,7 @@ async def verify_email_page(request: Request, token: str = ""):
     # Allowlist token charset; consume here so Location never embeds user input.
     safe = "".join(ch for ch in str(token) if ch.isalnum() or ch in "-_.")
     if len(safe) < 16:
-        return templates.TemplateResponse(
-            request,
-            STR_UTILITY_HTML,
-            {
+        return render_utility(request, {
                 "page": "verify_email",
                 "title": STR_VERIFY_EMAIL,
                 "lead": "Invalid or expired verification link. Resend from Profile.",
@@ -1703,10 +1707,7 @@ async def verify_email_page(request: Request, token: str = ""):
         user_id = await consume_auth_token(safe, "email_verify")
         await mark_email_verified(user_id)
     except ValueError:
-        return templates.TemplateResponse(
-            request,
-            STR_UTILITY_HTML,
-            {
+        return render_utility(request, {
                 "page": "verify_email",
                 "title": STR_VERIFY_EMAIL,
                 "lead": "Invalid or expired verification link. Resend from Profile.",
@@ -2371,10 +2372,7 @@ async def capabilities_page(request: Request):
     from trust_os import trust_os_manifest
 
     manifest = trust_os_manifest()
-    return templates.TemplateResponse(
-        request,
-        STR_UTILITY_HTML,
-        {
+    return render_utility(request, {
             "page": "capabilities",
             "title": "Capabilities — Trust OS",
             "lead": (
@@ -2382,8 +2380,7 @@ async def capabilities_page(request: Request):
                 "Four doors: Decide · Verify · My book · Alerts. Six heroes. No ARENA. "
                 "Don't trust us. Verify us. API: /api/lenses"
             ),
-            "trust_os": manifest,
-            **_footer_ctx(),
+            "trust_os": manifest
         },
     )
 
@@ -2401,10 +2398,7 @@ async def compliance_page(request: Request):
         regulatory = regulatory_compliance_status()
     except Exception:
         regulatory = {"status": "engineering_posture_only"}
-    return templates.TemplateResponse(
-        request,
-        STR_UTILITY_HTML,
-        {
+    return render_utility(request, {
             "page": "compliance",
             "title": "Anti-Hype Compliance",
             "lead": (
@@ -2412,8 +2406,7 @@ async def compliance_page(request: Request):
                 "not SOC 2 / ISO 27001 certification. Don't trust us. Verify us."
             ),
             "trust_os": manifest,
-            "regulatory": regulatory,
-            **_footer_ctx(),
+            "regulatory": regulatory
         },
     )
 
@@ -2421,17 +2414,13 @@ async def compliance_page(request: Request):
 @app.get("/data-room", response_class=HTMLResponse)
 async def data_room_page(request: Request):
     """Committee-facing data room index (HTML)."""
-    return templates.TemplateResponse(
-        request,
-        STR_UTILITY_HTML,
-        {
+    return render_utility(request, {
             "page": "data_room",
             "title": "Data Room",
             "lead": (
                 "Allocator / acquirer diligence index — Prove-it surfaces, evidence pack, "
                 "and honest capacity posture. Canonical docs live under /docs/DATA_ROOM.md."
-            ),
-            **_footer_ctx(),
+            )
         },
     )
 
@@ -2488,15 +2477,11 @@ async def api_viral_readiness():
 async def contact_page(request: Request):
     from site_services import contact_channels
 
-    return templates.TemplateResponse(
-        request,
-        STR_UTILITY_HTML,
-        {
+    return render_utility(request, {
             "page": "contact",
             "title": "Contact",
             "lead": "Reach the team for support, partnerships, and allocator diligence.",
-            "contact": contact_channels(),
-            **_footer_ctx(),
+            "contact": contact_channels()
         },
     )
 
@@ -2505,15 +2490,11 @@ async def contact_page(request: Request):
 async def complaints_page(request: Request):
     from site_services import contact_channels
 
-    return templates.TemplateResponse(
-        request,
-        STR_UTILITY_HTML,
-        {
+    return render_utility(request, {
             "page": "complaints",
             "title": "Complaints",
             "lead": "Escalation path for claim disputes, accuracy, and billing issues.",
-            "contact": contact_channels(),
-            **_footer_ctx(),
+            "contact": contact_channels()
         },
     )
 
@@ -2522,15 +2503,11 @@ async def complaints_page(request: Request):
 async def faq_page(request: Request):
     from site_services import FAQ_ITEMS
 
-    return templates.TemplateResponse(
-        request,
-        STR_UTILITY_HTML,
-        {
+    return render_utility(request, {
             "page": "faq",
             "title": "FAQ",
             "lead": "Straight answers on DISCOVER / FREE, DECIDE / PRO, ELITE, QUANT, INSTITUTIONAL, sharing, and AI Chat.",
-            "faq": FAQ_ITEMS,
-            **_footer_ctx(),
+            "faq": FAQ_ITEMS
         },
     )
 
@@ -2539,15 +2516,11 @@ async def faq_page(request: Request):
 async def how_it_works_page(request: Request):
     from site_services import HOW_IT_WORKS_STEPS
 
-    return templates.TemplateResponse(
-        request,
-        STR_UTILITY_HTML,
-        {
+    return render_utility(request, {
             "page": "how_it_works",
             "title": "How it works",
             "lead": "Decide. Prove it. Verify on the Public Accuracy Ledger.",
-            "steps": HOW_IT_WORKS_STEPS,
-            **_footer_ctx(),
+            "steps": HOW_IT_WORKS_STEPS
         },
     )
 
@@ -2557,15 +2530,11 @@ async def about_page(request: Request):
     from site_services import about_blurb
 
     about = about_blurb()
-    return templates.TemplateResponse(
-        request,
-        STR_UTILITY_HTML,
-        {
+    return render_utility(request, {
             "page": "about",
             "title": about["title"],
             "lead": "Trust OS for crypto decision intelligence — one product, four lenses.",
-            "about": about,
-            **_footer_ctx(),
+            "about": about
         },
     )
 
@@ -2586,16 +2555,12 @@ async def status_page(request: Request):
         guest_trust = dict(payload.get("guest_trust") or {})
     except Exception:
         guest_trust = {}
-    return templates.TemplateResponse(
-        request,
-        STR_UTILITY_HTML,
-        {
+    return render_utility(request, {
             "page": "status",
             "title": "System status",
             "lead": "Public guest trust and engineering posture — no secrets, no contractual SLA unless contracted.",
             "status": status,
-            "guest_trust": guest_trust,
-            **_footer_ctx(),
+            "guest_trust": guest_trust
         },
     )
 
@@ -2604,29 +2569,21 @@ async def status_page(request: Request):
 async def changelog_page(request: Request):
     from site_services import CHANGELOG
 
-    return templates.TemplateResponse(
-        request,
-        STR_UTILITY_HTML,
-        {
+    return render_utility(request, {
             "page": "changelog",
             "title": "Changelog",
             "lead": "What shipped on the Trust OS trust rail.",
-            "changelog": CHANGELOG,
-            **_footer_ctx(),
+            "changelog": CHANGELOG
         },
     )
 
 
 @app.get("/feedback", response_class=HTMLResponse)
 async def feedback_page(request: Request):
-    return templates.TemplateResponse(
-        request,
-        STR_UTILITY_HTML,
-        {
+    return render_utility(request, {
             "page": "feedback",
             "title": "Feedback & suggestions",
-            "lead": "Tell us what to improve. Never include card numbers or passwords.",
-            **_footer_ctx(),
+            "lead": "Tell us what to improve. Never include card numbers or passwords."
         },
     )
 
@@ -2636,15 +2593,11 @@ async def legal_hub_page(request: Request):
     from site_services import legal_hub_manifest
 
     hub = legal_hub_manifest()
-    return templates.TemplateResponse(
-        request,
-        STR_UTILITY_HTML,
-        {
+    return render_utility(request, {
             "page": "legal_hub",
             "title": hub["title"],
             "lead": hub["lead"],
-            "legal_pages": hub["pages"],
-            **_footer_ctx(),
+            "legal_pages": hub["pages"]
         },
     )
 
@@ -4015,8 +3968,7 @@ async def trust_os_lenses_menu_page(request: Request):
         {
             "page_title": "Open the lenses",
             "lens_links": lens_links,
-            "nav_active": "lenses",
-            **_footer_ctx(),
+            "nav_active": "lenses"
         },
     )
 
@@ -4042,8 +3994,7 @@ async def oracle_accuracy_public_json_page(request: Request):
         {
             "page_title": "Public Accuracy API — BLACKDARK",
             "metrics": metrics,
-            "raw_json_url": "/api/oracle/accuracy/public",
-            **_footer_ctx(),
+            "raw_json_url": "/api/oracle/accuracy/public"
         },
     )
 
@@ -4183,8 +4134,7 @@ async def b2b_page(request: Request):
         {
             "demo_key_exposed": expose_demo,
             "demo_key": config.B2B_DEMO_API_KEY if expose_demo else "",
-            "feed_version": config.B2B_FEED_VERSION,
-            **_footer_ctx(),
+            "feed_version": config.B2B_FEED_VERSION
         },
     )
 
@@ -4229,11 +4179,7 @@ def _legal_page(request: Request, page: str):
     content = LEGAL_PAGES.get(page)
     if not content:
         raise HTTPException(status_code=404, detail="Legal page not found")
-    return templates.TemplateResponse(
-        request,
-        "legal.html",
-        {"page": page, **content, **_footer_ctx()},
-    )
+    return render_page(request, "legal.html", {"page": page, **content, **_footer_ctx()})
 
 
 @app.get("/terms", response_class=HTMLResponse, responses=COMMON_ERROR_RESPONSES)
@@ -5398,14 +5344,10 @@ async def checkout_success(request: Request):
 
 @app.get("/cancel", response_class=HTMLResponse)
 async def checkout_cancel(request: Request):
-    return templates.TemplateResponse(
-        request,
-        STR_UTILITY_HTML,
-        {
+    return render_utility(request, {
             "page": "cancel",
             "title": "Checkout cancelled",
-            "lead": "No charge was made. You can restart DECIDE / PRO anytime — or stay on DISCOVER / FREE.",
-            **_footer_ctx(),
+            "lead": "No charge was made. You can restart DECIDE / PRO anytime — or stay on DISCOVER / FREE."
         },
     )
 

@@ -25,10 +25,9 @@ def test_profile_plan_section_public_copy():
     )
     for token in banned:
         assert token not in html
-    assert "Plus" in html
-    assert "$29" in html
-    assert "Pro" in html
-    assert "$49" in html
+    assert "t('profile.plan.plus_cta')" in html
+    assert "t('profile.plan.pro_cta')" in html
+    assert "t('profile.section.plan')" in html
     assert "Enterprise" in html
     assert "publicPlanName" in html
     assert "data-bd-call=\"saveProfile\"" in html

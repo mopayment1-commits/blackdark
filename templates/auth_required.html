@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign in required · BLACKDARK</title>
+    <title>{{ t('auth.gate.title') }} · BLACKDARK</title>
     <link rel="stylesheet" href="/static/css/trust-os.css">
     <style>
         :root { --bg:#0a0a0f; --card:#111118; --border:#2a2a35; --text:#e4e4e7; --muted:#71717a; --accent:#22d3ee; }
@@ -42,17 +42,17 @@
     {% include 'partials/global_header.html' %}
     <div class="gate-wrap">
         <main class="card" role="main">
-            <div class="lens-tag">{{ lens_label }} lens</div>
-            <h1>Account required</h1>
-            <p>This dashboard surface needs a signed-in session. {{ lens_hint }}</p>
+            <div class="lens-tag">{{ lens_label }} {{ t('auth.gate.lens_suffix') }}</div>
+            <h1>{{ t('auth.gate.title') }}</h1>
+            <p>{{ t('auth.gate.body', hint=lens_hint) }}</p>
             {% if lens == 'prove' %}
-            <p><a href="{{ public_prove_href }}">Open public Prove demo</a> on the homepage — no account needed.</p>
+            <p><a href="{{ public_prove_href }}">{{ t('auth.gate.prove_link') }}</a> {{ t('auth.gate.prove_note') }}</p>
             {% endif %}
             <div class="actions">
-                <a class="btn btn-primary" id="gateLoginBtn" href="/login{% if next_path %}?next={{ next_path | urlencode }}{% endif %}">Login</a>
-                <a class="btn btn-secondary" href="/login?tab=register{% if next_path %}&amp;next={{ next_path | urlencode }}{% endif %}">Sign up</a>
+                <a class="btn btn-primary" id="gateLoginBtn" href="/login{% if next_path %}?next={{ next_path | urlencode }}{% endif %}">{{ t('auth.gate.login') }}</a>
+                <a class="btn btn-secondary" href="/login?tab=register{% if next_path %}&amp;next={{ next_path | urlencode }}{% endif %}">{{ t('auth.gate.signup') }}</a>
             </div>
-            <p class="home"><a href="/">← Back to homepage</a></p>
+            <p class="home"><a href="/">{{ t('auth.gate.home') }}</a></p>
         </main>
     </div>
     {% include "partials/site_ask_ai.html" %}
