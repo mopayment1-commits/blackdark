@@ -75,13 +75,22 @@ def test_generic_question_without_btc_mention():
     assert "Trust Pulse shows WAIT on BTC" not in out["reply"]
 
 
-def test_i_need_asks_one_clarifying_question():
+def test_need_and_help_me_ask_page_help_not_asset_price():
     ctx = {"trust_pulse": {"action": "WAIT", "symbol": "BTC", "sentence": "WAIT on BTC score 60/100."}}
-    out = reply_site_assistant("I NEED", ctx)
-    assert "On your question" not in out["reply"]
-    assert "I explain what is visible" not in out["reply"]
-    assert "أي أصل تريد سعره" in out["reply"]
-    assert REFUSAL in out["reply"]
+    for msg in ("NEED", "HELP ME", "I NEED", "help"):
+        out = reply_site_assistant(msg, ctx)
+        assert "What do you need help with on this page?" in out["reply"]
+        assert "أي أصل تريد سعره" not in out["reply"]
+        assert "Which asset" not in out["reply"]
+        assert REFUSAL in out["reply"]
+
+
+def test_price_only_without_symbol_asks_asset_in_message_language():
+    ctx = {"trust_pulse": {"action": "WAIT", "symbol": "BTC", "sentence": "WAIT on BTC."}}
+    ar = reply_site_assistant("سعر", ctx)
+    assert "أي أصل تريد سعره" in ar["reply"]
+    en = reply_site_assistant("price", ctx)
+    assert "Which asset do you want a price for?" in en["reply"]
 
 
 def test_replies_never_use_on_your_question_phrasing():

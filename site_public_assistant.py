@@ -34,13 +34,40 @@ _PAGE_SIGNAL_RE = re.compile(
     re.I,
 )
 _THREAD_MAX = 8
-_CLARIFY_ASSET = "أي أصل تريد سعره؟"
-_VAGUE_NEED_RE = re.compile(r"^I\s+NEED\.?$", re.I)
+_CLARIFY_ASSET_AR = "أي أصل تريد سعره؟"
+_CLARIFY_ASSET_EN = "Which asset do you want a price for?"
+_CLARIFY_PAGE_HELP_EN = "What do you need help with on this page?"
+_CLARIFY_PAGE_HELP_AR = "بماذا تحتاج المساعدة على هذه الصفحة؟"
+_HELP_SEEK_RE = re.compile(r"^(?:i\s+need|need|help\s+me|help)\.?$", re.I)
 _PAGE_ASK_RE = re.compile(
     r"what\s+is\s+shown|shown\b|visible|this\s+page|trust\s*pulse|ledger|accuracy|"
     r"سعر|لماذا|سبب|انتظار|why\b|wait\b|price\b",
     re.I,
 )
+
+
+def _message_lang(message: str) -> str:
+    if re.search(r"[\u0600-\u06FF]", message or ""):
+        return "ar"
+    return "en"
+
+
+def _clarify_asset_line(message: str) -> str:
+    return _CLARIFY_ASSET_AR if _message_lang(message) == "ar" else _CLARIFY_ASSET_EN
+
+
+def _clarify_page_help_line(message: str) -> str:
+    return _CLARIFY_PAGE_HELP_AR if _message_lang(message) == "ar" else _CLARIFY_PAGE_HELP_EN
+
+
+def is_help_seek(message: str) -> bool:
+    msg = (message or "").strip()
+    if not msg or len(msg) > 40:
+        return False
+    compact = re.sub(r"[^\w\s\u0600-\u06FF]", "", msg).strip()
+    if _HELP_SEEK_RE.match(compact):
+        return True
+    return compact.lower() in {"need", "help me", "help", "i need"}
 
 
 def _clip(text: str, n: int = 400) -> str:
@@ -139,9 +166,9 @@ def question_needs_clarification(
     thread: list[dict[str, str]],
 ) -> bool:
     msg = (message or "").strip()
+    if is_help_seek(msg):
+        return False
     if intent == "price" and not symbol:
-        return True
-    if _VAGUE_NEED_RE.match(msg):
         return True
     if _PAGE_ASK_RE.search(msg):
         return False
@@ -216,9 +243,16 @@ def reply_site_assistant(
     symbol = resolve_query_symbol(msg, history)
     intent = classify_intent(msg, history, follow)
 
+    if is_help_seek(msg):
+        return {
+            "reply": f"{_clarify_page_help_line(msg)} Analytical context only — {REFUSAL}",
+            "refusal": False,
+            "turn": {"symbol": None, "intent": "explain", "topic": _clip(msg, 120)},
+        }
+
     if question_needs_clarification(msg, symbol, intent, follow, history):
         return {
-            "reply": f"{_CLARIFY_ASSET} Analytical context only — {REFUSAL}",
+            "reply": f"{_clarify_asset_line(msg)} Analytical context only — {REFUSAL}",
             "refusal": False,
             "turn": {"symbol": symbol, "intent": intent, "topic": _clip(msg, 120)},
         }
@@ -265,8 +299,10 @@ def reply_site_assistant(
     if not parts:
         if page_action and page_sym:
             parts.append(f"Trust Pulse shows {page_action} on {page_sym}.")
+        elif intent == "price" and not symbol:
+            parts.append(_clarify_asset_line(msg))
         else:
-            parts.append(_CLARIFY_ASSET)
+            parts.append(_clarify_page_help_line(msg))
 
     reply = " ".join(parts) + " Analytical context only — " + REFUSAL
     turn = {
