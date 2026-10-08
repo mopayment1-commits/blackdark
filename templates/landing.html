@@ -900,99 +900,6 @@
         </p>
     </section>
     
-    <section class="pricing" id="pricing">
-        <div class="pricing-container">
-            <div class="section-header">
-                <h2>{{ t('pricing.title_os') }}</h2>
-                <p>{{ t('pricing.sub_os') }}</p>
-            </div>
-            
-            <div class="pricing-grid bd-pricing-grid">
-                <div class="pricing-card bd-price-tier">
-                    <h3>{{ t('pricing.proof_pass') }}</h3>
-                    <div class="price">$0<span>/month</span></div>
-                    <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.5rem">{{ t('pricing.proof_promise') }}</p>
-                    <ul>
-                        <li>Trust Pulse + OQS Why</li>
-                        <li>Shareable Decision Certificate</li>
-                        <li>3 certified decisions / day</li>
-                        <li>Public Accuracy Ledger</li>
-                        <li>Free Proof watermark</li>
-                    </ul>
-                    <a href="/login?tab=register&plan=free" class="btn-secondary btn">{{ t('pricing.cta.free_signup') }}</a>
-                </div>
-                
-                <div class="pricing-card bd-price-tier popular">
-                    <div class="bd-popular-badge">{{ t('pricing.popular') }}</div>
-                    <h3>{{ t('pricing.decision_pro') }}</h3>
-                    <div class="price">$29<span>/month USD</span></div>
-                    <p style="color:var(--success);font-size:0.85rem;margin-bottom:0.75rem">{{ t('pricing.trial_note') }}</p>
-                    <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.5rem">{{ t('pricing.pro_promise') }}</p>
-                    <ul>
-                        <li>Unlimited certified Oracle</li>
-                        <li>Since-you-left continuity</li>
-                        <li>Portfolio AI + alerts</li>
-                        <li>AI Chat · no Free watermark</li>
-                        <li>Research Lab + Arbitrage</li>
-                    </ul>
-                    <a href="/login?tab=register&plan=pro" class="btn-primary btn">{{ t('pricing.cta.trial') }}</a>
-                </div>
-                
-                <div class="pricing-card bd-price-tier">
-                    <h3>{{ t('pricing.decision_desk') }}</h3>
-                    <div class="price">$49<span>/month USD</span></div>
-                    <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.5rem">{{ t('pricing.desk_promise') }}</p>
-                    <ul>
-                        <li>Everything in Decision Pro</li>
-                        <li>Whale Signal vs Noise</li>
-                        <li>Stealth advisory views</li>
-                        <li>Evidence Pack + API priority</li>
-                    </ul>
-                    <a href="/login?tab=register&plan=whale" class="btn-primary btn">{{ t('pricing.cta.desk') }}</a>
-                    <a href="/b2b" class="btn-secondary btn" style="margin-top:0.5rem">{{ t('pricing.cta.b2b') }}</a>
-                </div>
-
-                <div class="pricing-card bd-price-tier">
-                    <h3>{{ t('pricing.institutional') }}</h3>
-                    <div class="price" style="font-size:1.55rem">{{ t('pricing.from_open') }}</div>
-                    <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.5rem">{{ t('pricing.inst_promise') }}</p>
-                    <ul>
-                        <li>Data Room + Compliance pack</li>
-                        <li>SSO / enforced MFA</li>
-                        <li>SLA · Integration Addendum</li>
-                    </ul>
-                    <a href="/login?tab=register&plan=institutional" class="btn-primary btn">{{ t('pricing.cta.talk') }}</a>
-                </div>
-            </div>
-            
-            <form id="institutionalInquiryForm" style="max-width:520px;margin:1.5rem auto 0;display:grid;gap:.55rem;text-align:left">
-                <h3 style="margin:0;color:var(--accent);font-family:var(--bd-font-display)">Institutional inquiry (USD wire / invoice)</h3>
-                <label for="instEmail" style="color:var(--text-muted);font-size:.85rem">Work email</label>
-                <input id="instEmail" required type="email" name="email" placeholder="work@fund.com" style="padding:.7rem .85rem;border-radius:8px;border:1px solid var(--border);background:#1a1a24;color:var(--text)">
-                <label for="instName" style="color:var(--text-muted);font-size:.85rem">Name</label>
-                <input id="instName" type="text" name="name" placeholder="Name" style="padding:.7rem .85rem;border-radius:8px;border:1px solid var(--border);background:#1a1a24;color:var(--text)">
-                <label for="instCompany" style="color:var(--text-muted);font-size:.85rem">Firm</label>
-                <input id="instCompany" type="text" name="company" placeholder="Firm" style="padding:.7rem .85rem;border-radius:8px;border:1px solid var(--border);background:#1a1a24;color:var(--text)">
-                <label for="instBudget" style="color:var(--text-muted);font-size:.85rem">Budget band USD</label>
-                <input id="instBudget" type="text" name="budget_usd" placeholder="Budget band USD (e.g. from 3000)" style="padding:.7rem .85rem;border-radius:8px;border:1px solid var(--border);background:#1a1a24;color:var(--text)">
-                <label for="instMessage" style="color:var(--text-muted);font-size:.85rem">Use case</label>
-                <textarea id="instMessage" name="message" rows="3" placeholder="Use case / seats / SLA needs" style="padding:.7rem .85rem;border-radius:8px;border:1px solid var(--border);background:#1a1a24;color:var(--text)"></textarea>
-                <button type="submit" class="btn-primary btn">{{ t('pricing.cta.talk') }}</button>
-                <p id="institutionalInquiryMsg" style="color:var(--text-muted);font-size:.85rem;min-height:1.2rem;margin:0"></p>
-            </form>
-
-            <p id="billingReadyLine" style="text-align:center;color:var(--accent);margin-top:1.25rem;font-size:0.9rem;max-width:720px;margin-left:auto;margin-right:auto">
-                Checking payment readiness…
-            </p>
-            <p style="text-align:center;color:var(--text-muted);margin-top:1rem;font-size:0.85rem;max-width:720px;margin-left:auto;margin-right:auto">
-                {{ t('pricing.pay_note') }}
-                {{ t('pricing.manage') }} <a href="/profile" style="color:var(--accent)">Profile</a>.
-                Not financial advice; we do not guarantee accuracy. Read the <a href="/refund" style="color:var(--accent)">Refund Policy</a>.
-                Catalog: <a href="/api/pricing" style="color:var(--accent)">/api/pricing</a> · Payments: <a href="/api/billing/payments" style="color:var(--accent)">/api/billing/payments</a>
-            </p>
-        </div>
-    </section>
-    
     <section class="waitlist" id="waitlist">
         <h2 style="font-family:var(--bd-font-display);font-size: clamp(1.8rem,4vw,2.5rem); font-weight: 800; margin-bottom: 1rem;">
             Get early access to <span style="color: var(--accent);">Trust OS</span>
@@ -2177,50 +2084,9 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
         document.getElementById('lpShareBtn')?.addEventListener('click', shareLandingPulseProof);
 
 
-        async function loadBillingReadyLine() {
-            const el = document.getElementById('billingReadyLine');
-            if (!el) return;
-            try {
-                const res = await fetch('/api/billing/payments');
-                const d = await res.json();
-                const ops = d.ops_readiness || {};
-                const provider = d.active_provider || 'none';
-                if (ops.launch_ready || d.billing_configured) {
-                    el.textContent = 'USD payments ready · ' + provider + ' hosted checkout · Decision Pro $29 · Decision Desk $49 · Institutional from $3,000 → open';
-                } else {
-                    el.textContent = 'USD payment rails live in product · finish Lemon/Stripe KYC + checkout URLs for live charges. Proof Pass ($0) and Sign up work now. Profile → Plan & billing.';
-                    el.style.color = 'var(--text-muted)';
-                }
-            } catch (error) { console.debug(error); el.textContent = 'Payment status: see /api/billing/payments · Profile & Billing for checkout.';
-                el.style.color = 'var(--text-muted)'; }
-        }
-
-        async function wireInstitutionalInquiry() {
-            const form = document.getElementById('institutionalInquiryForm');
-            if (!form) return;
-            form.addEventListener('submit', async (ev) => {
-                ev.preventDefault();
-                const fd = new FormData(form);
-                const payload = Object.fromEntries(fd.entries());
-                const msg = document.getElementById('institutionalInquiryMsg');
-                try {
-                    const res = await fetch('/api/billing/institutional-inquiry', {
-                        method: 'POST', headers: {'Content-Type':'application/json'},
-                        body: JSON.stringify(payload)
-                    });
-                    const d = await res.json();
-                    msg.textContent = res.ok ? (d.message || 'Received') : (d.detail || 'Failed');
-                    msg.style.color = res.ok ? 'var(--success)' : 'var(--danger)';
-                    if (res.ok) form.reset();
-                } catch (error) { console.debug(error); msg.textContent = 'Inquiry unavailable right now';
-                    msg.style.color = 'var(--danger)'; }
-            });
-        }
         window.addEventListener('load', async () => {
             updateShareLinks(null);
             loadLandingAnalytics();
-            loadBillingReadyLine();
-            wireInstitutionalInquiry();
             loadTelegramBotLink();
             await loadLandingTrustPulse();
             setTimeout(consultOracle, 500);

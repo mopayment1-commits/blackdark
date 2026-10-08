@@ -194,6 +194,7 @@
           </svg>
         </span>
         <div class="bd-lang-visible">{% include 'partials/lang_switcher.html' %}</div>
+        <a class="nav-util-link" href="/pricing" id="bdUtilPricing">{{ t('nav.pricing') if t is defined else 'Pricing' }}</a>
         {% if header_authenticated and header_user %}
         <div class="bd-account-menu">
           <button
@@ -214,7 +215,6 @@
           </div>
         </div>
         {% else %}
-        <a class="nav-util-link" href="/#pricing" id="bdUtilPricing">{{ t('nav.pricing') if t is defined else 'Pricing' }}</a>
         <a class="nav-util-link" href="/login" id="bdUtilLogin">{{ t('nav.login') if t is defined else 'Login' }}</a>
         <a class="nav-util-link nav-util-signup" href="/login?tab=register" id="bdUtilSignup">{{ t('nav.signup') if t is defined else 'Sign up' }}</a>
         {% endif %}

@@ -15,6 +15,8 @@ def test_landing_has_no_feature_division_section():
     assert "lenses.prove.body" not in main
     assert "Verify on Ledger" in html
     assert "Free Proof" in html or "data-lp-proof-open" in html
+    assert "$29" not in main
+    assert "$49" not in main
 
 
 def test_nav_open_lenses_and_util_links():
@@ -24,6 +26,7 @@ def test_nav_open_lenses_and_util_links():
     assert 'href="/lenses"' in html
     assert 'id="bdUtilSignup"' in html
     assert 'id="bdUtilPricing"' in html
+    assert 'href="/pricing"' in html
 
 
 def test_lenses_page_is_name_list_only():

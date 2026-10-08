@@ -72,7 +72,8 @@ def test_authenticated_header_hides_login_shows_account(client):
     header = _header_nav(res.text)
     assert 'id="bdUtilLogin"' not in header
     assert 'id="bdUtilSignup"' not in header
-    assert 'id="bdUtilPricing"' not in header
+    assert 'id="bdUtilPricing"' in header
+    assert 'href="/pricing"' in header
     assert 'id="bdAccountTrigger"' in header
     assert 'id="bdAccountAvatar"' in header
     assert "/profile" in header

@@ -13,18 +13,22 @@ def client():
     return TestClient(app)
 
 
-def test_home_pricing_section_present(client):
+def test_home_has_no_embedded_pricing_section(client):
     res = client.get("/", headers={"Accept": "text/html"})
     assert res.status_code == 200
-    assert 'id="pricing"' in res.text
+    main = res.text.split('<main id="main"', 1)[1].split("</main>", 1)[0]
+    assert 'id="pricing"' not in main
+    assert "$29" not in main
     assert 'id="trust-pulse"' in res.text
-    assert "real-time-prices" in res.text
 
 
-def test_pricing_route_redirects_to_home_anchor(client):
-    res = client.get("/pricing", headers={"Accept": "text/html"}, follow_redirects=False)
-    assert res.status_code == 302
-    assert res.headers.get("location") == "/#pricing"
+def test_pricing_route_renders_public_page(client):
+    res = client.get("/pricing", headers={"Accept": "text/html"})
+    assert res.status_code == 200
+    assert "text/html" in (res.headers.get("content-type") or "")
+    assert "Free" in res.text and "Plus" in res.text and "Pro" in res.text and "Enterprise" in res.text
+    assert "$29" in res.text and "$49" in res.text
+    assert 'href="/pricing"' in res.text
 
 
 def test_refund_public_html_200(client):

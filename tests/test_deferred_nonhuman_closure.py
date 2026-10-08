@@ -110,9 +110,9 @@ def test_footer_ctx_passed_on_key_routes():
     assert "**_footer_ctx()" in src
 
 
-def test_sitemap_has_no_dead_pricing_path():
+def test_pricing_route_is_public_html_page():
     src = (ROOT / "dashboard.py").read_text(encoding="utf-8")
-    assert '"/pricing"' not in src
+    assert '@app.get("/pricing", response_class=HTMLResponse)' in src
 
 
 def test_shape_pulse_uses_previous_factors():

@@ -1606,10 +1606,16 @@ async def login_google_gis_redirect(request: Request):
     return resp
 
 
-@app.get("/pricing")
-async def pricing_page_redirect():
-    """Visitor pricing is the homepage plan cards — not a JSON catalog."""
-    return RedirectResponse(url="/#pricing", status_code=302)
+@app.get("/pricing", response_class=HTMLResponse)
+async def pricing_page(request: Request):
+    """Public pricing — cards, comparison table, and enterprise inquiry only here."""
+    from public_pricing_page import public_pricing_page_context
+
+    return render_page(
+        request,
+        "pricing.html",
+        {**public_pricing_page_context(), "nav_active": "pricing", **_footer_ctx()},
+    )
 
 
 @app.get("/identity-standards", response_class=HTMLResponse)
@@ -1959,6 +1965,8 @@ async def sitemap_xml(request: Request):
         "/d5-honesty",
         "/b2b/committee-one-pager",
         "/docs",
+        "/pricing",
+        "/lenses",
         "/b2b",
         "/discipline-mirror",
         "/capabilities",

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="{{ lang|default('en') }}" dir="{{ dir|default('ltr') }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page_title }}</title>
+    <style>
+        :root { --bg:#0a0a0f; --fg:#e4e4e7; --muted:#71717a; --line:#2a2a35; --accent:#22d3ee; --success:#22c55e; }
+        * { box-sizing:border-box; margin:0; padding:0; }
+        body { font-family:"IBM Plex Sans","Segoe UI",sans-serif; background:radial-gradient(1000px 500px at 10% -10%, #132033 0%, var(--bg) 55%); color:var(--fg); min-height:100vh; }
+        main { max-width:1080px; margin:0 auto; padding:2rem 1.25rem 4rem; }
+        h1 { font-size:clamp(1.75rem,4vw,2.4rem); margin-bottom:.5rem; }
+        .sub { color:var(--muted); max-width:40rem; margin-bottom:2rem; line-height:1.6; }
+        .grid { display:grid; gap:1rem; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); margin-bottom:2.5rem; }
+        .card { border:1px solid var(--line); border-radius:14px; padding:1.25rem; background:rgba(17,17,24,.65); display:flex; flex-direction:column; }
+        .card.pop { border-color:var(--accent); box-shadow:0 0 0 1px rgba(34,211,238,.25); }
+        .card h2 { font-size:1.15rem; margin-bottom:.35rem; }
+        .price { font-size:2rem; font-weight:800; margin:.35rem 0 .75rem; }
+        .price span { font-size:.95rem; color:var(--muted); font-weight:500; }
+        .card ul { list-style:none; margin:0 0 1rem; flex:1; }
+        .card li { color:var(--muted); font-size:.88rem; padding:.35rem 0 .35rem 1rem; position:relative; }
+        .card li::before { content:""; position:absolute; left:0; top:.65rem; width:5px; height:5px; border-radius:50%; background:var(--accent); }
+        .btn { display:inline-block; text-align:center; padding:.65rem 1rem; border-radius:10px; font-weight:700; text-decoration:none; border:1px solid var(--line); color:var(--fg); background:#1a1a24; }
+        .btn.primary { background:linear-gradient(135deg,var(--accent),#06b6d4); color:#041016; border:none; }
+        table { width:100%; border-collapse:collapse; font-size:.88rem; margin-bottom:2.5rem; }
+        th, td { border:1px solid var(--line); padding:.55rem .65rem; text-align:center; }
+        th { background:rgba(17,17,24,.8); color:var(--accent); font-weight:600; }
+        th:first-child, td:first-child { text-align:left; }
+        td.yes { color:var(--success); }
+        td.no { color:var(--muted); }
+        #enterprise { border-top:1px solid var(--line); padding-top:2rem; }
+        #enterprise h2 { margin-bottom:.75rem; }
+        form { max-width:520px; display:grid; gap:.55rem; margin-top:1rem; }
+        input, textarea { padding:.7rem .85rem; border-radius:8px; border:1px solid var(--line); background:#1a1a24; color:var(--fg); }
+        label { color:var(--muted); font-size:.85rem; }
+        .foot { color:var(--muted); font-size:.85rem; margin-top:1.25rem; line-height:1.55; }
+    </style>
+</head>
+<body>
+    {% include 'partials/site_top_nav.html' %}
+    <main id="main">
+        <h1>{{ headline }}</h1>
+        <p class="sub">{{ subhead }}</p>
+
+        <div class="grid" aria-label="Pricing plans">
+            {% for tier in tiers %}
+            <article class="card{% if tier.highlight %} pop{% endif %}">
+                <h2>{{ tier.name }}</h2>
+                {% if tier.price_display %}
+                <div class="price">{{ tier.price_display }}<span>{{ tier.period }}</span></div>
+                {% else %}
+                <div class="price" style="font-size:1.35rem">Custom</div>
+                {% endif %}
+                <ul>
+                    {% for f in tier.features %}
+                    <li>{{ f }}</li>
+                    {% endfor %}
+                </ul>
+                <a class="btn{% if tier.id != 'free' %} primary{% endif %}" href="{{ tier.cta_href }}">{{ tier.cta }}</a>
+            </article>
+            {% endfor %}
+        </div>
+
+        <h2 style="font-size:1.1rem;margin-bottom:.75rem">Compare plans</h2>
+        <table aria-label="Plan comparison">
+            <thead>
+                <tr>
+                    <th scope="col">Capability</th>
+                    <th scope="col">Free</th>
+                    <th scope="col">Plus</th>
+                    <th scope="col">Pro</th>
+                    <th scope="col">Enterprise</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in compare_rows %}
+                <tr>
+                    <th scope="row">{{ row.feature }}</th>
+                    {% for key in ['free','plus','pro','enterprise'] %}
+                    <td class="{{ 'yes' if row[key] else 'no' }}">{{ '✓' if row[key] else '—' }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <section id="enterprise" aria-label="Companies and funds">
+            <h2>For companies and funds</h2>
+            <p class="sub" style="margin-bottom:0">Enterprise is sales-led — Data Room, compliance pack, SSO/MFA, and SLA. Not financial advice.</p>
+            <form id="institutionalInquiryForm">
+                <label for="instEmail">Work email</label>
+                <input id="instEmail" required type="email" name="email" placeholder="work@fund.com">
+                <label for="instName">Name</label>
+                <input id="instName" type="text" name="name" placeholder="Name">
+                <label for="instCompany">Firm</label>
+                <input id="instCompany" type="text" name="company" placeholder="Firm">
+                <label for="instMessage">Use case</label>
+                <textarea id="instMessage" name="message" rows="3" placeholder="Seats / SLA / integration needs"></textarea>
+                <button type="submit" class="btn primary">Talk to us</button>
+                <p id="institutionalInquiryMsg" style="min-height:1.2rem;margin:0;color:var(--muted);font-size:.85rem"></p>
+            </form>
+            <p id="billingReadyLine" class="foot">Checking payment readiness…</p>
+            <p class="foot">Card checkout is hosted (Lemon Squeezy / Stripe). Manage plan in <a href="/profile" style="color:var(--accent)">Profile</a>. <a href="/refund" style="color:var(--accent)">Refund policy</a>.</p>
+        </section>
+    </main>
+    {% include "partials/site_footer.html" %}
+    <script>
+        async function loadBillingReadyLine() {
+            const el = document.getElementById('billingReadyLine');
+            if (!el) return;
+            try {
+                const res = await fetch('/api/billing/payments');
+                const d = await res.json();
+                const ops = d.ops_readiness || {};
+                if (ops.launch_ready || d.billing_configured) {
+                    el.textContent = 'USD checkout ready via ' + (d.active_provider || 'hosted provider') + '.';
+                } else {
+                    el.textContent = 'Self-serve checkout wiring in progress — Free signup and Profile billing work today.';
+                }
+            } catch (e) {
+                el.textContent = 'Payment status: Profile → Plan & billing.';
+            }
+        }
+        async function wireInstitutionalInquiry() {
+            const form = document.getElementById('institutionalInquiryForm');
+            if (!form) return;
+            form.addEventListener('submit', async (ev) => {
+                ev.preventDefault();
+                const fd = new FormData(form);
+                const payload = Object.fromEntries(fd.entries());
+                const msg = document.getElementById('institutionalInquiryMsg');
+                try {
+                    const res = await fetch('/api/billing/institutional-inquiry', {
+                        method: 'POST', headers: {'Content-Type':'application/json'},
+                        body: JSON.stringify(payload)
+                    });
+                    const d = await res.json();
+                    msg.textContent = res.ok ? (d.message || 'Received') : (d.detail || 'Failed');
+                    if (res.ok) form.reset();
+                } catch (e) {
+                    msg.textContent = 'Inquiry unavailable right now.';
+                }
+            });
+        }
+        window.addEventListener('load', () => {
+            loadBillingReadyLine();
+            wireInstitutionalInquiry();
+        });
+    </script>
+</body>
+</html>
