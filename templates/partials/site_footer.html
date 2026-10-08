@@ -27,10 +27,10 @@
 <footer class="bd-site-footer" role="contentinfo">
     {% set f = footer if footer is defined and footer else {} %}
     <div class="bd-foot-brand">{{ f.brand or 'BLACKDARK' }}</div>
-    <p class="bd-foot-tag">{{ f.tagline or 'Trust OS — Decide. Prove it. Share it.' }} · {{ f.story or 'Prove → Operate → Desk → Room' }}</p>
+    <p class="bd-foot-tag">{{ t('footer.tagline') if t is defined else (f.tagline or 'Trust OS — Decide. Prove it. Share it.') }} · {{ t('footer.story') if t is defined else (f.story or 'Prove → Operate → Desk → Room') }}</p>
     <div class="bd-foot-grid">
         <div>
-            <h4>Product</h4>
+            <h4>{{ t('footer.col.product') if t is defined else 'Product' }}</h4>
             <ul>
                 {% for item in f.product or [] %}
                 <li><a href="{{ item.href }}">{{ item.label }}</a></li>
@@ -38,7 +38,7 @@
             </ul>
         </div>
         <div>
-            <h4>Trust</h4>
+            <h4>{{ t('footer.col.trust') if t is defined else 'Trust' }}</h4>
             <ul>
                 {% for item in f.trust or [] %}
                 <li><a href="{{ item.href }}">{{ item.label }}</a></li>
@@ -46,7 +46,7 @@
             </ul>
         </div>
         <div>
-            <h4>Company</h4>
+            <h4>{{ t('footer.col.company') if t is defined else 'Company' }}</h4>
             <ul>
                 {% for item in f.company or [] %}
                 <li><a href="{{ item.href }}">{{ item.label }}</a></li>
@@ -54,7 +54,7 @@
             </ul>
         </div>
         <div>
-            <h4>Legal</h4>
+            <h4>{{ t('footer.col.legal') if t is defined else 'Legal' }}</h4>
             <ul>
                 {% for item in f.legal or [] %}
                 <li><a href="{{ item.href }}">{{ item.label }}</a></li>
@@ -62,16 +62,16 @@
             </ul>
         </div>
     </div>
-    <h4>Follow us</h4>
+    <h4>{{ t('footer.follow') if t is defined else 'Follow us' }}</h4>
     <div class="bd-follow" aria-label="Follow BLACKDARK">
         {% for s in f.follow or [] %}
         <a href="{{ s.href }}" target="_blank" rel="noopener noreferrer">{{ s.label }}</a>
         {% endfor %}
     </div>
     <div class="bd-foot-bottom">
-        <strong style="color:#a1a1aa">Anti-Hype</strong> · {{ f.disclaimer_line or 'Not financial advice. Verify on the Public Accuracy Ledger.' }}
-        · <a href="/oracle-accuracy">Ledger</a>
-        · <a href="/status">Status</a>
+        <strong style="color:#a1a1aa">{{ t('common.anti_hype') if t is defined else 'Anti-Hype' }}</strong> · {{ t('footer.disclaimer') if t is defined else (f.disclaimer_line or 'Not financial advice. Verify on the Public Accuracy Ledger.') }}
+        · <a href="/oracle-accuracy">{{ t('footer.ledger') if t is defined else 'Ledger' }}</a>
+        · <a href="/status">{{ t('footer.status') if t is defined else 'Status' }}</a>
         · © 2026 BLACKDARK
     </div>
 </footer>
