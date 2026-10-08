@@ -33,16 +33,35 @@
     const log = document.getElementById('bdAskAiLog');
     if (!toggle || !panel || !form || !input || !log) return;
 
-    toggle.addEventListener('click', () => {
-      const open = !panel.hidden;
-      panel.hidden = open;
-      toggle.setAttribute('aria-expanded', open ? 'false' : 'true');
-      if (!open) input.focus();
-    });
-    close?.addEventListener('click', () => {
+    function closePanel() {
       panel.hidden = true;
       toggle.setAttribute('aria-expanded', 'false');
+      toggle.focus();
+    }
+
+    function openPanel() {
+      panel.hidden = false;
+      toggle.setAttribute('aria-expanded', 'true');
+      input.focus();
+    }
+
+    toggle.addEventListener('click', () => {
+      if (panel.hidden) openPanel();
+      else closePanel();
     });
+
+    if (close) {
+      close.addEventListener('click', (ev) => {
+        ev.preventDefault();
+        closePanel();
+      });
+      close.addEventListener('keydown', (ev) => {
+        if (ev.key === 'Enter' || ev.key === ' ') {
+          ev.preventDefault();
+          closePanel();
+        }
+      });
+    }
 
     form.addEventListener('submit', async (ev) => {
       ev.preventDefault();

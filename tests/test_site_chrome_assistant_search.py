@@ -26,6 +26,19 @@ def test_nav_has_search_and_ask_ai_fab():
     assert 'id="bdUtilPricing"' in html
 
 
+def test_ask_ai_panel_hidden_rule_and_close_control():
+    from pathlib import Path
+
+    partial = Path("templates/partials/site_ask_ai.html").read_text(encoding="utf-8")
+    assert 'id="bdAskAiClose"' in partial
+    assert "Not financial advice." in partial
+    assert ".bd-ask-ai-panel[hidden]" in partial
+    assert "display: none !important" in partial
+    js = Path("static/js/bd_site_assistant.js").read_text(encoding="utf-8")
+    assert "function closePanel()" in js
+    assert "toggle.focus()" in js
+
+
 def test_site_assistant_refuses_financial_advice():
     from dashboard import app
 
