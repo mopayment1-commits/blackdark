@@ -55,8 +55,33 @@ def test_logout_returns_200_when_revoke_is_slow(monkeypatch):
     elapsed = time.monotonic() - t0
     assert out.status_code == 200, out.text
     assert out.json().get("success") is True
-    assert elapsed < 12.0
+    assert elapsed < 8.0
     assert "bd_token=" in out.headers.get("set-cookie", "").lower()
+
+
+def test_logout_revoked_token_cannot_restore_session():
+    _register()
+    authed = client.get("/")
+    assert 'id="bdAccountTrigger"' in authed.text
+    token_cookie = client.cookies.get("bd_token")
+    assert token_cookie
+
+    out = client.post("/api/auth/logout", headers={"Origin": "https://testserver"})
+    assert out.status_code == 200
+
+    client.cookies.set("bd_token", token_cookie)
+    again = client.get("/")
+    assert 'id="bdUtilLogin"' in again.text
+    assert 'id="bdAccountTrigger"' not in again.text
+
+
+def test_logout_without_session_cookie_still_200():
+    from anonymous_route_foundation import is_anonymous_route_allowed
+
+    assert is_anonymous_route_allowed("POST", "/api/auth/logout") is True
+    res = client.post("/api/auth/logout", headers={"Origin": "https://testserver"})
+    assert res.status_code == 200
+    assert res.json().get("success") is True
 
 
 def test_clear_session_cookie_matches_secure_flags():

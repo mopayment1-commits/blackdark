@@ -512,6 +512,9 @@ async def auth_oauth_callback(
     return resp
 
 
+_LOGOUT_REVOKE_TIMEOUT_SEC = 5.0
+
+
 @router.post("/logout")
 async def auth_logout(
     token: str | None = Depends(raw_bearer_or_cookie),
@@ -519,12 +522,14 @@ async def auth_logout(
     import asyncio
 
     from auth_service import logout_user
+    from security_auth import mark_session_revoked
 
     if token:
+        mark_session_revoked(str(token))
         try:
-            await asyncio.wait_for(logout_user(str(token)), timeout=10.0)
+            await asyncio.wait_for(logout_user(str(token)), timeout=_LOGOUT_REVOKE_TIMEOUT_SEC)
         except asyncio.TimeoutError:
-            logger.warning("logout_user timed out — clearing session cookie anyway")
+            logger.warning("logout_user timed out — session marked revoked; clearing cookie")
         except Exception:
             logger.debug("logout_user failed", exc_info=True)
     resp = JSONResponse({"success": True})

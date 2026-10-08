@@ -452,6 +452,10 @@ def apply_cors(app) -> None:
     )
 
 
+def session_cookie_domain() -> str | None:
+    return (os.getenv("COOKIE_DOMAIN") or "").strip() or None
+
+
 def cookie_session_kwargs(*, max_age: int | None = None) -> dict:
     """HttpOnly Secure SameSite cookie flags for bd_token.
 
@@ -489,6 +493,9 @@ def attach_session_cookie_ephemeral(response: Response, token: str) -> None:
         return
     kwargs = cookie_session_kwargs()
     kwargs.pop("max_age", None)
+    dom = session_cookie_domain()
+    if dom:
+        kwargs["domain"] = dom
     response.set_cookie(value=sealed, **kwargs)
 
 
@@ -502,7 +509,7 @@ def clear_session_cookie(response: Response) -> None:
     secure = bool(kwargs.get("secure"))
     httponly = bool(kwargs.get("httponly", True))
     samesite = str(kwargs.get("samesite") or "lax")
-    domain = (os.getenv("COOKIE_DOMAIN") or "").strip() or None
+    domain = session_cookie_domain()
     expires = datetime(1970, 1, 1, tzinfo=timezone.utc)
 
     def _clear(dom: str | None) -> None:
@@ -538,6 +545,9 @@ def attach_session_cookie(response: Response, token: str, *, max_age: int | None
     if not sealed:
         return
     kwargs = cookie_session_kwargs(max_age=max_age)
+    dom = session_cookie_domain()
+    if dom:
+        kwargs["domain"] = dom
     response.set_cookie(value=sealed, **kwargs)
 
 

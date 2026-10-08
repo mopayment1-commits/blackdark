@@ -37,7 +37,7 @@
     }
   }
 
-  const LOGOUT_TIMEOUT_MS = 12000;
+  const LOGOUT_TIMEOUT_MS = 8000;
 
   async function performHeaderLogout() {
     const logoutBtn = document.getElementById("bdHeaderLogout");
@@ -61,7 +61,21 @@
         headers: { Accept: "application/json" },
         signal: timeoutSignal,
       });
-      if (res.status !== 200) {
+      const bodyText = await res.text();
+      if (res.status !== 200 || !bodyText) {
+        showLogoutFailure(failMsg);
+        if (logoutBtn) logoutBtn.disabled = false;
+        return;
+      }
+      try {
+        const data = JSON.parse(bodyText);
+        if (!data || data.success !== true) {
+          showLogoutFailure(failMsg);
+          if (logoutBtn) logoutBtn.disabled = false;
+          return;
+        }
+      } catch (parseError) {
+        console.debug(parseError);
         showLogoutFailure(failMsg);
         if (logoutBtn) logoutBtn.disabled = false;
         return;
