@@ -6,12 +6,12 @@
 
 | Field | Value |
 |---|---|
-| Support email | MOPAYMENT1@GMAIL.COM |
+| Support email | info@blackdark.io |
 | Support owner | Project owner/operator |
 | Support hours | 10:00 AM – 10:00 PM Cairo Time, daily |
 | Urgent escalation | Same support email with subject prefix **URGENT** |
 
-Urgent issues: email **MOPAYMENT1@GMAIL.COM** with a subject line starting with `URGENT` (for example: `URGENT — billing outage`).
+Urgent issues: email **info@blackdark.io** with a subject line starting with `URGENT` (for example: `URGENT — billing outage`).
 
 ## Tiers
 
@@ -34,7 +34,7 @@ Urgent issues: email **MOPAYMENT1@GMAIL.COM** with a subject line starting with 
 
 Override via environment when needed:
 
-- `SUPPORT_EMAIL` (default: `mopayment1@gmail.com`)
+- `SUPPORT_EMAIL` (default: `info@blackdark.io`)
 - `SUPPORT_OWNER` (default: `Project owner/operator`)
 - `SUPPORT_HOURS` (default: Cairo hours above)
 - `SUPPORT_URGENT_SUBJECT_PREFIX` (default: `URGENT`)

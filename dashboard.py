@@ -1606,6 +1606,24 @@ async def login_google_gis_redirect(request: Request):
     return resp
 
 
+@app.get("/api/public/site-search")
+async def public_site_search(q: str = ""):
+    from site_search_index import search_site
+
+    return {"results": search_site(q)}
+
+
+@app.post("/api/public/site-assistant")
+async def public_site_assistant(body: dict = Body(default=None)):
+    from site_public_assistant import reply_site_assistant
+
+    payload = body or {}
+    return reply_site_assistant(
+        str(payload.get("message") or ""),
+        payload.get("page_context") if isinstance(payload.get("page_context"), dict) else {},
+    )
+
+
 @app.get("/pricing", response_class=HTMLResponse)
 async def pricing_page(request: Request):
     """Public pricing — cards, comparison table, and enterprise inquiry only here."""

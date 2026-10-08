@@ -59,7 +59,7 @@ def contact_channels() -> dict[str, Any]:
     support = cfg["support_email"]
     urgent = cfg["urgent_escalation"]
     complaints = _env("COMPLAINTS_EMAIL", support)
-    sales = _env("SALES_EMAIL", "sales@blackdark.io")
+    sales = _env("SALES_EMAIL", support)
     wa = _env("WHATSAPP_BUSINESS_E164", "")  # e.g. 15551234567
     phone_inst = _env("INSTITUTIONAL_PHONE", "")  # Room only — optional
     wa_url = f"https://wa.me/{wa}" if wa else ""

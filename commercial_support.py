@@ -7,7 +7,7 @@ import re
 from pathlib import Path
 from typing import Any
 
-DEFAULT_SUPPORT_EMAIL = "mopayment1@gmail.com"
+DEFAULT_SUPPORT_EMAIL = "info@blackdark.io"
 DEFAULT_SUPPORT_OWNER = "Project owner/operator"
 DEFAULT_SUPPORT_HOURS = "10:00 AM – 10:00 PM Cairo Time, daily"
 DEFAULT_URGENT_SUBJECT_PREFIX = "URGENT"

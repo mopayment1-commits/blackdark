@@ -1,0 +1,93 @@
+<button type="button" id="bdAskAiToggle" class="bd-ask-ai-fab" aria-expanded="false" aria-controls="bdAskAiPanel">
+  Ask BLACKDARK AI
+</button>
+<div id="bdAskAiPanel" class="bd-ask-ai-panel" hidden role="dialog" aria-label="Ask BLACKDARK AI">
+  <header class="bd-ask-ai-head">
+    <strong>Ask BLACKDARK AI</strong>
+    <button type="button" id="bdAskAiClose" aria-label="Close">×</button>
+  </header>
+  <p class="bd-ask-ai-note">Explains the decision and ledger visible on this page only. Not financial advice.</p>
+  <div id="bdAskAiLog" class="bd-ask-ai-log" aria-live="polite"></div>
+  <form id="bdAskAiForm" class="bd-ask-ai-form">
+    <input id="bdAskAiInput" type="text" placeholder="What does this decision mean?" autocomplete="off" maxlength="500">
+    <button type="submit" class="bd-ask-ai-send">Send</button>
+  </form>
+</div>
+<style>
+  .bd-ask-ai-fab {
+    position: fixed;
+    right: 1.1rem;
+    bottom: 1.1rem;
+    z-index: 10050;
+    border: none;
+    border-radius: 999px;
+    padding: 0.75rem 1.1rem;
+    font-weight: 700;
+    font-size: 0.82rem;
+    cursor: pointer;
+    color: #041016;
+    background: linear-gradient(135deg, #22d3ee, #06b6d4);
+    box-shadow: 0 8px 28px rgba(0,0,0,.45);
+  }
+  .bd-ask-ai-panel {
+    position: fixed;
+    right: 1.1rem;
+    bottom: 4.5rem;
+    width: min(360px, calc(100vw - 2rem));
+    max-height: min(420px, 70vh);
+    z-index: 10051;
+    display: flex;
+    flex-direction: column;
+    background: #111118;
+    border: 1px solid #2a2a35;
+    border-radius: 14px;
+    box-shadow: 0 12px 40px rgba(0,0,0,.55);
+    overflow: hidden;
+  }
+  .bd-ask-ai-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.65rem 0.85rem;
+    border-bottom: 1px solid #2a2a35;
+    color: #e4e4e7;
+  }
+  .bd-ask-ai-head button { background: transparent; border: none; color: #a1a1aa; font-size: 1.25rem; cursor: pointer; }
+  .bd-ask-ai-note { margin: 0; padding: 0.55rem 0.85rem; font-size: 0.72rem; color: #71717a; line-height: 1.45; }
+  .bd-ask-ai-log {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0.5rem 0.85rem;
+    font-size: 0.82rem;
+    line-height: 1.45;
+  }
+  .bd-ask-msg { margin: 0.35rem 0; padding: 0.45rem 0.55rem; border-radius: 8px; }
+  .bd-ask-user { background: rgba(34,211,238,.12); color: #e4e4e7; }
+  .bd-ask-bot { background: rgba(255,255,255,.04); color: #d4d4d8; }
+  .bd-ask-ai-form {
+    display: flex;
+    gap: 0.35rem;
+    padding: 0.55rem 0.65rem 0.65rem;
+    border-top: 1px solid #2a2a35;
+  }
+  .bd-ask-ai-form input {
+    flex: 1;
+    border: 1px solid #2a2a35;
+    border-radius: 8px;
+    background: #0a0a0f;
+    color: #e4e4e7;
+    padding: 0.45rem 0.55rem;
+    font-size: 0.82rem;
+  }
+  .bd-ask-ai-send {
+    border: none;
+    border-radius: 8px;
+    background: #22d3ee;
+    color: #041016;
+    font-weight: 700;
+    padding: 0.45rem 0.65rem;
+    cursor: pointer;
+    font-size: 0.78rem;
+  }
+</style>
+<script src="/static/js/bd_site_assistant.js" defer></script>

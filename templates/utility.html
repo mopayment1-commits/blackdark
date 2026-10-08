@@ -198,7 +198,7 @@
             <p>Product support, suggestions, and partnership inquiries — never send card numbers or passwords.</p>
             <ul class="channel-list">
                 <li><strong style="color:var(--fg)">Support:</strong>
-                    <a href="mailto:{{ contact.support_email if contact else 'mopayment1@gmail.com' }}">{{ contact.support_email if contact else 'mopayment1@gmail.com' }}</a>
+                    <a href="mailto:{{ contact.support_email if contact else 'info@blackdark.io' }}">{{ contact.support_email if contact else 'info@blackdark.io' }}</a>
                 </li>
                 {% if contact and contact.support_owner %}
                 <li><strong style="color:var(--fg)">Support owner:</strong> {{ contact.support_owner }}</li>
@@ -213,10 +213,10 @@
                 </li>
                 {% endif %}
                 <li><strong style="color:var(--fg)">Sales / Room:</strong>
-                    <a href="mailto:{{ contact.sales_email if contact else 'sales@blackdark.io' }}">{{ contact.sales_email if contact else 'sales@blackdark.io' }}</a>
+                    <a href="mailto:{{ contact.sales_email if contact else 'info@blackdark.io' }}">{{ contact.sales_email if contact else 'info@blackdark.io' }}</a>
                 </li>
                 <li><strong style="color:var(--fg)">Complaints:</strong>
-                    <a href="mailto:{{ contact.complaints_email if contact else 'complaints@blackdark.app' }}">{{ contact.complaints_email if contact else 'complaints@blackdark.app' }}</a>
+                    <a href="mailto:{{ contact.complaints_email if contact else 'info@blackdark.io' }}">{{ contact.complaints_email if contact else 'info@blackdark.io' }}</a>
                     · <a href="/complaints">Complaints process</a>
                 </li>
                 {% if contact and contact.whatsapp_url %}
