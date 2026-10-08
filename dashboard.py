@@ -3977,6 +3977,33 @@ async def oracle_accuracy_page(request: Request):
     return render_page(request, "oracle_accuracy.html", _footer_ctx())
 
 
+@app.get("/oracle-accuracy/json-api", response_class=HTMLResponse)
+async def oracle_accuracy_public_json_page(request: Request):
+    """Human-readable view of GET /api/oracle/accuracy/public (same live_ledger counters)."""
+    from ml.public_accuracy import build_public_accuracy_payload
+
+    payload = await build_public_accuracy_payload()
+    ledger = payload.get("live_ledger") or {}
+    metrics = {
+        "logged": ledger.get("logged"),
+        "resolved": ledger.get("resolved"),
+        "pending": ledger.get("pending"),
+        "accuracy_percent": ledger.get("accuracy_percent"),
+        "verified_errors": ledger.get("verified_errors"),
+        "partial_outcomes": ledger.get("partial_outcomes"),
+    }
+    return render_page(
+        request,
+        "oracle_accuracy_json_api.html",
+        {
+            "page_title": "Public Accuracy API — BLACKDARK",
+            "metrics": metrics,
+            "raw_json_url": "/api/oracle/accuracy/public",
+            **_footer_ctx(),
+        },
+    )
+
+
 # ML experience routes → api/routers/oracle.py
 
 @app.get("/api/b2b/feed", responses=COMMON_ERROR_RESPONSES)

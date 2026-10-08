@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="{{ lang|default('en') }}" dir="{{ dir|default('ltr') }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page_title }}</title>
+    <style>
+        :root { --bg:#0a0a0f; --fg:#e4e4e7; --muted:#71717a; --line:#2a2a35; --accent:#22d3ee; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: "IBM Plex Sans", "Segoe UI", sans-serif; background: radial-gradient(1000px 500px at 10% -10%, #132033 0%, var(--bg) 55%); color: var(--fg); min-height: 100vh; }
+        nav { padding: 1rem 1.25rem; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; }
+        a { color: var(--accent); text-decoration: none; }
+        .logo { font-weight: 700; color: var(--fg); }
+        main { max-width: 720px; margin: 0 auto; padding: 2.25rem 1.25rem 4rem; }
+        h1 { font-size: clamp(1.5rem, 4vw, 2rem); margin-bottom: .5rem; }
+        .sub { color: var(--muted); font-size: .9rem; margin-bottom: 1.5rem; line-height: 1.55; }
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: .75rem; margin: 1.25rem 0; }
+        @media (max-width: 520px) { .grid { grid-template-columns: 1fr; } }
+        .metric { border: 1px solid var(--line); border-radius: 10px; padding: 1rem; background: rgba(17,17,24,.65); }
+        .metric dt { font-size: .75rem; color: var(--muted); text-transform: lowercase; margin-bottom: .35rem; }
+        .metric dd { font-size: 1.35rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+        .raw { margin-top: 1.75rem; padding-top: 1.25rem; border-top: 1px solid var(--line); font-size: .9rem; }
+        .back { display: inline-block; margin-top: 1.25rem; color: var(--muted); font-size: .85rem; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a class="logo" href="/">BLACKDARK</a>
+        <div>
+            <a href="/oracle-accuracy">Public Accuracy Ledger</a>
+        </div>
+    </nav>
+    <main>
+        <h1>{{ page_title }}</h1>
+        <p class="sub">Live ledger counters from the same payload as the public JSON endpoint. Analytical tool — not financial advice.</p>
+        <dl class="grid">
+            <div class="metric">
+                <dt>logged</dt>
+                <dd>{{ metrics.logged }}</dd>
+            </div>
+            <div class="metric">
+                <dt>resolved</dt>
+                <dd>{{ metrics.resolved }}</dd>
+            </div>
+            <div class="metric">
+                <dt>pending</dt>
+                <dd>{{ metrics.pending }}</dd>
+            </div>
+            <div class="metric">
+                <dt>accuracy_percent</dt>
+                <dd>{{ metrics.accuracy_percent }}</dd>
+            </div>
+            <div class="metric">
+                <dt>verified_errors</dt>
+                <dd>{{ metrics.verified_errors }}</dd>
+            </div>
+            <div class="metric">
+                <dt>partial_outcomes</dt>
+                <dd>{{ metrics.partial_outcomes }}</dd>
+            </div>
+        </dl>
+        <p class="raw"><a href="{{ raw_json_url }}">Raw JSON</a> → <code>{{ raw_json_url }}</code></p>
+        <a class="back" href="/oracle-accuracy">← Back to ledger</a>
+    </main>
+    {% include "partials/site_footer.html" %}
+</body>
+</html>
