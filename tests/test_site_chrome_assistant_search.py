@@ -36,7 +36,9 @@ def test_ask_ai_panel_hidden_rule_and_close_control():
     assert "display: none !important" in partial
     js = Path("static/js/bd_site_assistant.js").read_text(encoding="utf-8")
     assert "function closePanel()" in js
-    assert "toggle.focus()" in js
+    assert "toggle.focus" in js
+    assert "panel.style.display = 'none'" in js
+    assert "ev.key === 'Enter'" in js
 
 
 def test_site_assistant_refuses_financial_advice():

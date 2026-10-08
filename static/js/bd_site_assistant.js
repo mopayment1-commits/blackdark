@@ -32,17 +32,35 @@
     const input = document.getElementById('bdAskAiInput');
     const log = document.getElementById('bdAskAiLog');
     if (!toggle || !panel || !form || !input || !log) return;
+    if (toggle.dataset.bdAskAiBound === '1') return;
+    toggle.dataset.bdAskAiBound = '1';
+
+    function setPanelOpen(open) {
+      if (open) {
+        panel.hidden = false;
+        panel.removeAttribute('hidden');
+        panel.style.removeProperty('display');
+        panel.setAttribute('aria-hidden', 'false');
+        toggle.setAttribute('aria-expanded', 'true');
+        input.focus();
+      } else {
+        panel.hidden = true;
+        panel.setAttribute('hidden', '');
+        panel.style.display = 'none';
+        panel.setAttribute('aria-hidden', 'true');
+        toggle.setAttribute('aria-expanded', 'false');
+        if (typeof toggle.focus === 'function') {
+          toggle.focus({ preventScroll: true });
+        }
+      }
+    }
 
     function closePanel() {
-      panel.hidden = true;
-      toggle.setAttribute('aria-expanded', 'false');
-      toggle.focus();
+      setPanelOpen(false);
     }
 
     function openPanel() {
-      panel.hidden = false;
-      toggle.setAttribute('aria-expanded', 'true');
-      input.focus();
+      setPanelOpen(true);
     }
 
     toggle.addEventListener('click', () => {
@@ -53,11 +71,13 @@
     if (close) {
       close.addEventListener('click', (ev) => {
         ev.preventDefault();
+        ev.stopPropagation();
         closePanel();
       });
       close.addEventListener('keydown', (ev) => {
         if (ev.key === 'Enter' || ev.key === ' ') {
           ev.preventDefault();
+          ev.stopPropagation();
           closePanel();
         }
       });
