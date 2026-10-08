@@ -131,9 +131,29 @@ def main() -> int:
     )
     parser.add_argument("--max-pages", type=int, default=0, help="0 = all")
     parser.add_argument("--output", default="")
+    parser.add_argument(
+        "--paths-from-app",
+        action="store_true",
+        help="Use dashboard TestClient sitemap paths (when live sitemap fetch fails)",
+    )
     args = parser.parse_args()
 
-    urls = normalize_urls_to_base(args.base, fetch_sitemap_urls(args.base))
+    try:
+        urls = normalize_urls_to_base(args.base, fetch_sitemap_urls(args.base))
+    except Exception as exc:
+        if not args.paths_from_app:
+            raise
+        urls = []
+        print(f"sitemap fetch failed ({exc}); using app paths", file=sys.stderr)
+    if args.paths_from_app or not urls:
+        from fastapi.testclient import TestClient
+        from dashboard import app as dash_app
+
+        xml = TestClient(dash_app).get("/sitemap.xml").text
+        import re
+
+        locs = re.findall(r"<loc>([^<]+)", xml)
+        urls = normalize_urls_to_base(args.base, locs)
     if args.max_pages:
         urls = urls[: args.max_pages]
 
