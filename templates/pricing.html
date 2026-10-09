@@ -51,7 +51,7 @@
                 {% if tier.price_display %}
                 <div class="price">{{ tier.price_display }}<span>{{ tier.period }}</span></div>
                 {% else %}
-                <div class="price" style="font-size:1.35rem">Custom</div>
+                <div class="price" style="font-size:1.35rem">{{ t('pricing.public.custom') if t is defined else 'Custom' }}</div>
                 {% endif %}
                 <ul>
                     {% for f in tier.features %}
@@ -68,10 +68,10 @@
             <thead>
                 <tr>
                     <th scope="col">{{ t('pricing.public.capability') if t is defined else 'Capability' }}</th>
-                    <th scope="col">Free</th>
-                    <th scope="col">Plus</th>
-                    <th scope="col">Pro</th>
-                    <th scope="col">Enterprise</th>
+                    <th scope="col">{{ t('pricing.public.col.free') if t is defined else 'Free' }}</th>
+                    <th scope="col">{{ t('pricing.public.col.plus') if t is defined else 'Plus' }}</th>
+                    <th scope="col">{{ t('pricing.public.col.pro') if t is defined else 'Pro' }}</th>
+                    <th scope="col">{{ t('pricing.public.col.enterprise') if t is defined else 'Enterprise' }}</th>
                 </tr>
             </thead>
             <tbody>

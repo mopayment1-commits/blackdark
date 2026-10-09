@@ -245,8 +245,8 @@
           <circle cx="11" cy="11" r="7"></circle>
           <path d="M20 20l-3-3"></path>
         </svg>
-        <label class="visually-hidden" for="bdNavSearch" style="position:absolute;left:-9999px">Search site</label>
-        <input id="bdNavSearch" type="search" name="q" placeholder="Search" autocomplete="off" aria-controls="bdNavSearchResults">
+        <label class="visually-hidden" for="bdNavSearch" style="position:absolute;left:-9999px">{{ t('nav.search.label') if t is defined else 'Search site' }}</label>
+        <input id="bdNavSearch" type="search" name="q" placeholder="{{ t('nav.search.placeholder') if t is defined else 'Search' }}" autocomplete="off" aria-controls="bdNavSearchResults">
         <div id="bdNavSearchResults" class="bd-nav-search-results" hidden></div>
       </div>
       <nav class="bd-header-util" aria-label="Account and language">

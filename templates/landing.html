@@ -694,7 +694,7 @@
     </style>
 </head>
 <body>
-    <a href="#trust-pulse" class="skip-link" style="position:absolute;left:-9999px" onfocus="this.style.left='1rem';this.style.top='1rem';this.style.zIndex='100';this.style.background='var(--accent)';this.style.color='#0a0a0f';this.style.padding='.5rem .75rem'">Skip to Trust Pulse</a>
+    <a href="#trust-pulse" class="skip-link" style="position:absolute;left:-9999px" onfocus="this.style.left='1rem';this.style.top='1rem';this.style.zIndex='100';this.style.background='var(--accent)';this.style.color='#0a0a0f';this.style.padding='.5rem .75rem'">{{ t('a11y.skip_trust_pulse') }}</a>
     <div class="bg-grid"></div>
     <div class="bg-glow"></div>
 
@@ -731,9 +731,9 @@
             <p class="hero-support">{{ t('hero.support') }}</p>
             <div class="hero-cta">
                 <a href="#oracle" class="btn-primary" data-bd-call="tryOracleFree" data-bd-prevent="1">{{ t('hero.cta.try') }}</a>
-                <a href="#seal" class="btn-seal">See the Seal</a>
+                <a href="#seal" class="btn-seal">{{ t('hero.cta.seal') }}</a>
             </div>
-            <section id="trust-pulse" class="trust-pulse-mini" aria-live="polite" aria-label="Trust Pulse">
+            <section id="trust-pulse" class="trust-pulse-mini" aria-live="polite" aria-label="{{ t('a11y.trust_pulse') }}">
                 <div class="tp-mini-inner bd-trust-pulse">
                     <div class="tp-mini-top">
                         <span class="tp-mini-label">{{ t('pulse.label') }}</span>
@@ -774,7 +774,7 @@
             </div>
         </div>
         <div id="sealCertificateStamp" class="seal-cert-stamp" style="display:none" aria-live="polite">
-            Seal · <code id="sealCertificateHash"></code>
+            {{ t('seal.stamp_prefix') }} <code id="sealCertificateHash"></code>
         </div>
     </section>
 
@@ -984,7 +984,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             if (!result) {
                 return {
                     url,
-                    text: 'BLACKDARK Trust Pulse — one Act/Wait decision you can verify',
+                    text: i18nT('pulse.share_default') || 'BLACKDARK Trust Pulse — one Act/Wait decision you can verify',
                 };
             }
             const price = result.price != null ? `$${Number(result.price).toLocaleString(undefined, { maximumFractionDigits: 2 })}` : '';
@@ -1139,15 +1139,16 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             if (rawAction.includes('ABSTAIN') || rawAction.includes('SELL')) return 'ABSTAIN';
             return 'WAIT';
         }
-        const BD_CONDITIONS_MET_REVIEW = "Analytical state only - the model's stated conditions are currently met. No transaction or investment action is recommended.";
         function fallbackDecisionSentence(data, symbol, action) {
             let sentence = data.decision_sentence || data.conditions_met_review || data.narrative || data.oracle || data.action_line || '';
             if (sentence && !/meditat|consulting the oracle/i.test(sentence)) return sentence;
             if (typeof data.action === 'string' && data.action.length > 12 && !/\bBuy\b/i.test(data.action)) return data.action;
+            const review = i18nT('pulse.conditions_met_review');
+            const sym = data.symbol || symbol;
             if (action === 'CONDITIONS MET') {
-                return `MODEL STATE: CONDITIONS MET — ${data.symbol || symbol}. ${BD_CONDITIONS_MET_REVIEW}`;
+                return i18nT('pulse.model_state_conditions', { symbol: sym, review: review });
             }
-            return `MODEL STATE: ${action} — ${data.symbol || symbol}.`;
+            return i18nT('pulse.model_state', { action: action, symbol: sym });
         }
         function landingOracleFactors(data) {
             if (!data) return [];
@@ -1836,7 +1837,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
         }
 
         function _lpNoCertificateLine() {
-            return currentLang().startsWith('ar') ? 'لا توجد شهادة بعد.' : 'No certificate yet.';
+            return i18nT('pulse.no_cert');
         }
 
         function _lpCertIdPrefix(p) {
@@ -1976,16 +1977,16 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             const hash = _lpCertHash(p);
             const hasCert = Boolean(hash);
             const bits = [
-                '<a class="bd-chip ok" href="/oracle-accuracy">Verify on Ledger</a>',
+                '<a class="bd-chip ok" href="/oracle-accuracy">' + esc(i18nT('pulse.verify_ledger')) + '</a>',
             ];
             if (hasCert) {
                 bits.push(
-                    '<button type="button" class="bd-chip bd-chip-btn ok" data-lp-proof-open="1">Free Proof</button>'
+                    '<button type="button" class="bd-chip bd-chip-btn ok" data-lp-proof-open="1">' + esc(i18nT('pulse.free_proof')) + '</button>'
                 );
                 const idPrefix = _lpCertIdPrefix(p);
                 if (idPrefix) {
                     bits.push(
-                        `<button type="button" class="bd-chip bd-chip-btn" data-lp-copy-cert-id="1" title="Copy certificate ID">cert ${esc(idPrefix)}</button>`
+                        `<button type="button" class="bd-chip bd-chip-btn" data-lp-copy-cert-id="1" title="Copy certificate ID">${esc(i18nT('pulse.cert_prefix'))} ${esc(idPrefix)}</button>`
                     );
                 }
             } else {
@@ -2025,7 +2026,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             const sym = document.getElementById('lpSym');
             if (sym) sym.textContent = `${p.symbol || 'BTC'} ${_lpPriceBit(p)}`;
             const sent = document.getElementById('lpSentence');
-            if (sent) sent.textContent = p.sentence || 'One clear Act / Wait — reviewable.';
+            if (sent) sent.textContent = p.sentence || i18nT('pulse.fallback_sentence');
             _lpRenderWhy((p.why && p.why.factors) || []);
             const fresh = p.freshness || {};
             const dot = document.getElementById('lpDot');
@@ -2039,8 +2040,8 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                     const stale = fresh.stale === true || state === 'stale';
                     const knownFresh = state === 'fresh' || state === 'ok' || state === 'live';
                     fl.textContent = stale
-                        ? (fresh.label || 'Stale — not live')
-                        : (fresh.label || (knownFresh ? 'Live' : ''));
+                        ? (fresh.label || i18nT('pulse.stale'))
+                        : (fresh.label || (knownFresh ? i18nT('pulse.live') : ''));
                     if (!fl.textContent) fl.textContent = '';
                 }
             }

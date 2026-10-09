@@ -1688,12 +1688,18 @@ async def public_site_assistant(body: dict = Body(default=None)):
 @app.get("/pricing", response_class=HTMLResponse)
 async def pricing_page(request: Request):
     """Public pricing — cards, comparison table, and enterprise inquiry only here."""
+    from i18n_service import resolve_request_lang, translator
     from public_pricing_page import public_pricing_page_context
 
+    lang = resolve_request_lang(request)
     return render_page(
         request,
         "pricing.html",
-        {**public_pricing_page_context(), "nav_active": "pricing", **_footer_ctx()},
+        {
+            **public_pricing_page_context(translator(lang)),
+            "nav_active": "pricing",
+            **_footer_ctx(),
+        },
     )
 
 

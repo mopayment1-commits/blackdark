@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="BLACKDARK Public Accuracy Ledger — sealed Glass Box forecasts, monthly misses and incorrect model states, and a verifiable audit hash chain. Verify on-page.">
-    <meta property="og:title" content="BLACKDARK — Public Oracle Accuracy Ledger">
-    <meta property="og:description" content="Full public ledger including misses. Glass Box Challenge ready. Labels are not proof.">
-    <title>BLACKDARK — Oracle Accuracy Live</title>
+    <meta name="description" content="{{ t('brand') }} — {{ t('accuracy.sub') }}">
+    <meta property="og:title" content="BLACKDARK — {{ t('accuracy.title') }}">
+    <meta property="og:description" content="{{ t('accuracy.sub') }}">
+    <title>BLACKDARK — {{ t('accuracy.title') }}</title>
     <script type="application/ld+json">
     {"@context":"https://schema.org","@type":"WebPage","name":"BLACKDARK Public Accuracy Ledger","description":"Public verifiable Oracle accuracy including misses, Glass Box locked forecasts, and audit challenge","url":"/oracle-accuracy"}
     </script>
@@ -113,31 +113,31 @@
     {% include 'partials/site_top_nav.html' %}
 
     <section class="hero">
-        <div class="badge">LIVE · PUBLIC AUDIT</div>
-        <h1>BLACKDARK — Public Oracle Accuracy</h1>
+        <div class="badge">{{ t('ledger.hero.badge') }}</div>
+        <h1>{{ t('ledger.hero.title') }}</h1>
         <p>
-            Every decision is logged, resolved after 24 hours, and feeds the learning model.
-            Live engine: <strong id="engine-label">rules engine</strong>
-            <span id="engine-badge" class="badge badge-info" style="margin:0 0 0 .5rem;vertical-align:middle;font-size:.75rem">Checking…</span>
+            {{ t('ledger.hero.lead') }}
+            <strong id="engine-label">{{ t('ledger.hero.engine_rules') }}</strong>
+            <span id="engine-badge" class="badge badge-info" style="margin:0 0 0 .5rem;vertical-align:middle;font-size:.75rem">{{ t('ledger.hero.engine_checking') }}</span>
         </p>
         <p id="transparency-note" style="color:var(--muted);font-size:0.9rem;max-width:760px;margin:0.75rem auto 0;"></p>
         <p id="chain-status" style="color:var(--muted);font-size:0.9rem;margin-top:0.5rem"></p>
         <div class="cta-row" style="margin-top:1rem">
-            <a class="btn btn-secondary" href="#proof-chain" id="verifyChainBtn">Verify Audit Chain</a>
-            <a class="btn btn-secondary" href="#losing">Public misses / errors</a>
-            <a class="btn btn-secondary" href="#glass-box-challenge">Transparency challenge</a>
-            <a class="btn btn-secondary" href="/discipline-mirror">Discipline Mirror</a>
-            <a class="btn btn-secondary" href="/docs">Developer docs</a>
+            <a class="btn btn-secondary" href="#proof-chain" id="verifyChainBtn">{{ t('ledger.cta.verify_chain') }}</a>
+            <a class="btn btn-secondary" href="#losing">{{ t('ledger.cta.misses') }}</a>
+            <a class="btn btn-secondary" href="#glass-box-challenge">{{ t('ledger.cta.glass') }}</a>
+            <a class="btn btn-secondary" href="/discipline-mirror">{{ t('ledger.cta.mirror') }}</a>
+            <a class="btn btn-secondary" href="/docs">{{ t('ledger.cta.docs') }}</a>
         </div>
         <p style="margin-top:.75rem;color:var(--muted);font-size:.85rem;max-width:760px;margin-left:auto;margin-right:auto">
-            We publish hits <strong style="color:var(--text)">and misses</strong>. Alias: <a href="/errors" style="color:var(--accent)">/errors</a> → this ledger’s losing section.
+            {{ t('ledger.hero.alias') }} <a href="/errors" style="color:var(--accent)">/errors</a>
         </p>
     </section>
 
     <section class="panel" id="proof-chain">
         <div class="card">
-            <h2>Proof Chain</h2>
-            <p id="proof-panel" style="color:var(--muted);font-size:0.9rem">Loading chain…</p>
+            <h2>{{ t('ledger.proof_chain.title') }}</h2>
+            <p id="proof-panel" style="color:var(--muted);font-size:0.9rem">{{ t('ledger.proof_chain.loading') }}</p>
         </div>
     </section>
 
@@ -320,14 +320,12 @@
     </section>
 
     <div class="cta-row">
-        <a class="btn btn-primary" href="/dashboard">Open Dashboard</a>
-        <a class="btn btn-secondary" href="/oracle-accuracy/json-api">JSON API</a>
-        <a class="btn btn-secondary" href="/b2b#evidence">Evidence Pack</a>
+        <a class="btn btn-primary" href="/dashboard">{{ t('ledger.cta.dashboard') }}</a>
+        <a class="btn btn-secondary" href="/oracle-accuracy/json-api">{{ t('ledger.cta.json_api') }}</a>
+        <a class="btn btn-secondary" href="/b2b#evidence">{{ t('ledger.cta.evidence') }}</a>
     </div>
 
-    <footer>
-        BLACKDARK — market-data and analytical technology · public outcome ledger (not exhaustive coverage)
-    </footer>
+    {% include "partials/site_footer.html" %}
 
     <script defer src="/static/js/dom_escape.js"></script>
     <script defer src="/static/js/public_decision_map.js"></script>

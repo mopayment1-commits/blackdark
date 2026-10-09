@@ -27,7 +27,10 @@
     lang: boot.lang,
     catalog: boot.catalog,
     t: function (key, vars) {
-      var s = (this.catalog && this.catalog[key]) || key;
+      var s = this.catalog && this.catalog[key];
+      if (s === undefined || s === null || s === "") {
+        return "";
+      }
       if (vars) {
         Object.keys(vars).forEach(function (k) {
           s = s.replace(new RegExp("\\{" + k + "\\}", "g"), String(vars[k]));
