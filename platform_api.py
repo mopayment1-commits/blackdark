@@ -388,6 +388,20 @@ async def ingestion_coingecko_sync():
     return await run_coingecko_primary_ingest()
 
 
+@router.get("/ingestion/connectors/status")
+async def ingestion_connectors_status():
+    """Infrastructure — silent data connector health (#46, #49, #50)."""
+    from blackdark.ingestion.debank_connector import debank_connector_status
+    from blackdark.ingestion.dexscreener_connector import dexscreener_connector_status
+    from blackdark.ingestion.etherscan_connector import etherscan_connector_status
+
+    return {
+        "debank": debank_connector_status(),
+        "dexscreener": dexscreener_connector_status(),
+        "etherscan": etherscan_connector_status(),
+    }
+
+
 @router.get("/alpha/signal")
 async def alpha_engine_signal(asset: str = Query("BTC")):
     """Alpha Engine (#13) — unified signal from all input sources."""
