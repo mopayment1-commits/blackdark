@@ -479,7 +479,7 @@ def _request_public_origin(request: Request) -> str:
 @router.get("/oauth/{provider}/start", responses=COMMON_ERROR_RESPONSES)
 async def auth_oauth_start(provider: str, request: Request):
     """RFC 6749 authorization redirect — 302 to the provider, never 500 on misconfiguration."""
-    from identity_service import store_oauth_state_async
+    from identity_service import mint_signed_oauth_state, persist_oauth_state_best_effort
     from oauth_service import build_authorize_url
 
     key = (provider or "").strip().lower()
@@ -487,18 +487,14 @@ async def auth_oauth_start(provider: str, request: Request):
         raise HTTPException(status_code=400, detail="Unsupported OAuth provider.")
 
     try:
-        payload = build_authorize_url(key, base_url=_request_public_origin(request))
-        await store_oauth_state_async(key, payload["state"])
+        state = mint_signed_oauth_state(key)
+        payload = build_authorize_url(key, state=state, base_url=_request_public_origin(request))
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     except HTTPException:
         raise
-    except Exception as exc:
-        logger.exception("OAuth start failed for provider=%s", key)
-        raise HTTPException(
-            status_code=503,
-            detail="Google sign-in is temporarily unavailable.",
-        ) from exc
+
+    await persist_oauth_state_best_effort(key, payload["state"])
 
     return RedirectResponse(url=payload["authorize_url"], status_code=302)
 

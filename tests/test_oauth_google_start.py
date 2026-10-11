@@ -36,6 +36,24 @@ def test_google_oauth_start_redirects_302(client, monkeypatch):
     assert "redirect_uri=" in loc
 
 
+def test_google_oauth_start_302_when_oauth_state_db_unavailable(client, monkeypatch):
+    """Redirect must not depend on oauth_states table (production Postgres edge cases)."""
+    monkeypatch.setenv("OAUTH_GOOGLE_CLIENT_ID", "gid-test")
+    monkeypatch.setenv("OAUTH_GOOGLE_CLIENT_SECRET", "gsecret-test")
+    monkeypatch.setenv("APP_BASE_URL", "https://blackdark.io")
+
+    async def _boom(**_kwargs):
+        raise RuntimeError("simulated db down")
+
+    import database
+
+    monkeypatch.setattr(database, "insert_oauth_state", _boom)
+
+    res = client.get("/api/auth/oauth/google/start", follow_redirects=False)
+    assert res.status_code == 302
+    assert "accounts.google.com" in (res.headers.get("location") or "")
+
+
 def test_google_oauth_start_400_when_not_configured(client, monkeypatch):
     monkeypatch.delenv("OAUTH_GOOGLE_CLIENT_ID", raising=False)
     monkeypatch.delenv("OAUTH_GOOGLE_CLIENT_SECRET", raising=False)
