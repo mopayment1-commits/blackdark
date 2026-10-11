@@ -6,8 +6,7 @@
     <title>{{ t('meta.title.login') if t is defined else 'BLACKDARK — Login' }}</title>
     <link rel="stylesheet" href="/static/css/trust-os.css">
     {% if google_signin.state == 'CONFIGURED' %}
-    {# SRI غير مُضاف: تقرير 28 Sep يمنع الإغلاق بـ SRI قبل دعم المورد، ولم يُجلب نص Google في هذه الجولة. #}
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <link rel="preconnect" href="https://accounts.google.com" crossorigin>
     {% endif %}
     <style>
         :root { --bg:#0a0a0f; --card:#111118; --border:#2a2a35; --text:#e4e4e7; --muted:#71717a; --accent:#22d3ee; --danger:#ef4444; --ok:#22c55e; }
@@ -228,22 +227,6 @@
         let mfaChallenge = null;
         const PAGE_LANG = {{ lang|default('en')|tojson }};
         const googleConfigured = {{ 'true' if google_signin.state == 'CONFIGURED' else 'false' }};
-        const googleClientId = {{ google_signin.client_id|tojson if google_signin.state == 'CONFIGURED' else 'null' }};
-        const googleLoginUriBase = {{ google_login_uri_base|tojson }};
-
-        function googleGsiLocale() {
-            const code = String(PAGE_LANG || 'en').toLowerCase();
-            if (code.startsWith('ar')) return 'ar';
-            if (code.startsWith('es')) return 'es';
-            if (code.startsWith('fr')) return 'fr';
-            if (code.startsWith('de')) return 'de';
-            if (code.startsWith('pt')) return 'pt-BR';
-            if (code.startsWith('ja')) return 'ja';
-            if (code.startsWith('ko')) return 'ko';
-            if (code.startsWith('zh-tw')) return 'zh-TW';
-            if (code.startsWith('zh')) return 'zh-CN';
-            return 'en';
-        }
 
         function authTabFromQuery(search) {
             const tab = new URLSearchParams(search || location.search).get('tab');
@@ -624,7 +607,7 @@
                 setSubmitLoading('forgotUserSubmitBtn', false);
             }
         }
-        function googleLoginUri() {
+        function googleOAuthStartUrl() {
             const params = new URLSearchParams(window.location.search);
             const keep = new URLSearchParams();
             if (authTabFromQuery(window.location.search) === 'register') {
@@ -634,52 +617,23 @@
                 if (params.has(key)) keep.set(key, params.get(key));
             }
             const qs = keep.toString();
-            return googleLoginUriBase + (qs ? '?' + qs : '');
+            const base = '/api/auth/oauth/google/start';
+            return base + (qs ? '?' + qs : '');
         }
         function initGoogleSignIn() {
-            if (!googleConfigured || !googleClientId) return;
-            let rendered = false;
-            const boot = () => {
-                if (!window.google?.accounts?.id) return false;
-                try {
-                    window.google.accounts.id.initialize({
-                        client_id: googleClientId,
-                        ux_mode: 'redirect',
-                        login_uri: googleLoginUri(),
-                        auto_select: false,
-                        locale: googleGsiLocale(),
-                    });
-                    const host = document.getElementById('googleBtnHost');
-                    if (host) {
-                        const mode = authTabFromQuery(window.location.search);
-                        window.google.accounts.id.renderButton(host, {
-                            type: 'standard',
-                            theme: 'outline',
-                            size: 'large',
-                            text: mode === 'register' ? 'signup_with' : 'signin_with',
-                            shape: 'rectangular',
-                            logo_alignment: 'left',
-                            locale: googleGsiLocale(),
-                            width: Math.min(380, host.offsetWidth || 380)
-                        });
-                        rendered = host.children.length > 0;
-                    }
-                } catch (error) {
-                    console.debug(error);
-                    setMsg('Google sign-in failed to load: ' + (error.message || 'unknown error'), false);
-                    return false;
-                }
-                return rendered;
-            };
-            const tryBoot = () => { if (!boot() && !rendered) return false; return true; };
-            if (window.google?.accounts?.id) tryBoot();
-            else window.addEventListener('load', () => { tryBoot(); }, { once: true });
-            setTimeout(() => {
-                const host = document.getElementById('googleBtnHost');
-                if (host && !host.children.length) {
-                    setMsg('Google sign-in could not load. Check your connection or use email below.', false);
-                }
-            }, 12000);
+            if (!googleConfigured) return;
+            const host = document.getElementById('googleBtnHost');
+            if (!host) return;
+            const mode = authTabFromQuery(window.location.search);
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'btn btn-oauth';
+            btn.setAttribute('aria-label', mode === 'register' ? 'Sign up with Google' : 'Sign in with Google');
+            btn.textContent = mode === 'register' ? 'Sign up with Google' : 'Sign in with Google';
+            btn.addEventListener('click', () => {
+                window.location.href = googleOAuthStartUrl();
+            });
+            host.replaceChildren(btn);
         }
         Object.assign(window, {
             showRegister, showLogin, showForgot, showForgotUsername,
