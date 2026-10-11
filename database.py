@@ -3819,8 +3819,23 @@ async def consume_auth_token_row(token_hash: str, token_type: str) -> int | None
         return int(data["user_id"])
 
 
+async def _ensure_oauth_states_table(db: Any) -> None:
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS oauth_states (
+            id          INTEGER PRIMARY KEY AUTOINCREMENT,
+            provider    TEXT    NOT NULL,
+            state       TEXT    NOT NULL UNIQUE,
+            expires_at  TEXT    NOT NULL,
+            created_at  TEXT    NOT NULL
+        )
+        """
+    )
+
+
 async def insert_oauth_state(*, provider: str, state: str, expires_at: str) -> None:
     async with get_connection() as db:
+        await _ensure_oauth_states_table(db)
         await db.execute(
             """
             INSERT INTO oauth_states (provider, state, expires_at, created_at)

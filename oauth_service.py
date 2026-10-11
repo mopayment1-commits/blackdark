@@ -88,8 +88,11 @@ async def verify_google_credential(credential: str) -> dict[str, Any]:
     }
 
 
-def _base_url() -> str:
-    return (os.getenv("APP_BASE_URL") or "http://127.0.0.1:8080").rstrip("/")
+def _base_url(override: str | None = None) -> str:
+    raw = (override or os.getenv("APP_BASE_URL") or "").strip().rstrip("/")
+    if not raw or raw == "[REDACTED]":
+        raise ValueError("OAuth is not configured for this site (missing APP_BASE_URL).")
+    return raw
 
 
 def _provider_config(provider: str) -> dict[str, str]:
@@ -115,12 +118,17 @@ def _provider_config(provider: str) -> dict[str, str]:
     raise ValueError(f"Unsupported OAuth provider: {provider}")
 
 
-def build_authorize_url(provider: str, *, state: str | None = None) -> dict[str, str]:
+def build_authorize_url(
+    provider: str,
+    *,
+    state: str | None = None,
+    base_url: str | None = None,
+) -> dict[str, str]:
     cfg = _provider_config(provider)
     if not cfg["client_id"] or not cfg["client_secret"]:
-        raise ValueError(f"OAuth provider {provider} is not configured")
+        raise ValueError(f"OAuth provider {provider} is not configured.")
     state_val = state or secrets.token_urlsafe(24)
-    redirect_uri = f"{_base_url()}/api/auth/oauth/{provider}/callback"
+    redirect_uri = f"{_base_url(base_url)}/api/auth/oauth/{provider.strip().lower()}/callback"
     params = {
         "client_id": cfg["client_id"],
         "redirect_uri": redirect_uri,

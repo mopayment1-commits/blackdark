@@ -715,6 +715,9 @@
             const reason = decodeURIComponent(params.get('google_error') || '').replace(/_/g, ' ');
             setMsg('Google sign-in failed: ' + (reason || 'unknown error') + '. Try email or try again.', false);
         }
+        if (params.get('oauth_msg')) {
+            setMsg(decodeURIComponent(params.get('oauth_msg') || ''), false);
+        }
     </script>
     {% include "partials/site_footer.html" %}
 </body>

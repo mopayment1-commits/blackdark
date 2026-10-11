@@ -465,17 +465,42 @@ async def auth_google_credential(
         raise HTTPException(status_code=502, detail=f"Google sign-in failed: {exc}") from exc
 
 
+def _request_public_origin(request: Request) -> str:
+    configured = (os.getenv("APP_BASE_URL") or "").strip().rstrip("/")
+    if configured:
+        return configured
+    proto = (request.headers.get("x-forwarded-proto") or request.url.scheme or "https").split(",")[0].strip()
+    host = (request.headers.get("x-forwarded-host") or request.headers.get("host") or "").split(",")[0].strip()
+    if host:
+        return f"{proto}://{host}".rstrip("/")
+    return str(request.base_url).rstrip("/")
+
+
 @router.get("/oauth/{provider}/start", responses=COMMON_ERROR_RESPONSES)
-async def auth_oauth_start(provider: str):
+async def auth_oauth_start(provider: str, request: Request):
+    """RFC 6749 authorization redirect — 302 to the provider, never 500 on misconfiguration."""
     from identity_service import store_oauth_state_async
     from oauth_service import build_authorize_url
 
+    key = (provider or "").strip().lower()
+    if key not in {"google", "github"}:
+        raise HTTPException(status_code=400, detail="Unsupported OAuth provider.")
+
     try:
-        payload = build_authorize_url(provider)
-        await store_oauth_state_async(provider, payload["state"])
+        payload = build_authorize_url(key, base_url=_request_public_origin(request))
+        await store_oauth_state_async(key, payload["state"])
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
-    return payload
+    except HTTPException:
+        raise
+    except Exception as exc:
+        logger.exception("OAuth start failed for provider=%s", key)
+        raise HTTPException(
+            status_code=503,
+            detail="Google sign-in is temporarily unavailable.",
+        ) from exc
+
+    return RedirectResponse(url=payload["authorize_url"], status_code=302)
 
 
 @router.get("/oauth/{provider}/callback", responses=COMMON_ERROR_RESPONSES)
