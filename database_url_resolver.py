@@ -178,20 +178,6 @@ def resolve_database_url() -> tuple[str | None, dict[str, Any]]:
     if not candidates:
         return None, meta
 
-    if running_on_railway():
-        for key, url in candidates:
-            host = database_host(url)
-            if _is_railway_internal_host(host):
-                meta.update(
-                    {
-                        "selected_env": key,
-                        "selected_host": host,
-                        "selection": "railway_runtime_internal",
-                    }
-                )
-                dsn, _ = prepare_asyncpg_dsn(url)
-                return dsn, meta
-
     public_pair = next(((k, u) for k, u in candidates if k == "DATABASE_PUBLIC_URL"), None)
 
     for key, url in candidates:
@@ -244,3 +230,39 @@ def resolve_database_url() -> tuple[str | None, dict[str, Any]]:
     meta.update({"selected_env": key, "selected_host": host, "selection": "first_candidate_unresolved"})
     dsn, _ = prepare_asyncpg_dsn(url)
     return dsn, meta
+
+
+def iter_asyncpg_pool_candidates() -> list[tuple[str, str, dict[str, Any]]]:
+    """Ordered (env_key, dsn, pool_kwargs) for asyncpg pool creation fallbacks."""
+    candidates = candidate_database_urls()
+    ordered: list[tuple[str, str]] = []
+    seen_urls: set[str] = set()
+
+    def _add(key: str, url: str) -> None:
+        if url in seen_urls:
+            return
+        seen_urls.add(url)
+        ordered.append((key, url))
+
+    if running_on_railway():
+        for key, url in candidates:
+            if _is_railway_internal_host(database_host(url)):
+                _add(key, url)
+    for key, url in candidates:
+        host = database_host(url)
+        if _is_railway_internal_host(host) and not host_resolves(host):
+            continue
+        if host_resolves(host) or _is_railway_internal_host(host):
+            _add(key, url)
+    for key, url in candidates:
+        _add(key, url)
+
+    out: list[tuple[str, str, dict[str, Any]]] = []
+    seen_dsn: set[str] = set()
+    for key, url in ordered:
+        dsn, pool_kwargs = prepare_asyncpg_dsn(url)
+        if dsn in seen_dsn:
+            continue
+        seen_dsn.add(dsn)
+        out.append((key, dsn, pool_kwargs))
+    return out
