@@ -9,7 +9,9 @@ from __future__ import annotations
 import asyncio
 import logging
 import re
+import socket
 from collections.abc import AsyncIterator
+from urllib.parse import unquote, urlparse
 from contextlib import asynccontextmanager
 from datetime import UTC, datetime
 from typing import Any
@@ -19,6 +21,25 @@ import config
 logger = logging.getLogger("BLACKDARK.Postgres")
 
 _pool: Any = None
+
+
+def _ipv4_asyncpg_connect_kwargs(dsn: str) -> dict[str, Any] | None:
+    """Resolve public proxy hostnames to IPv4 (avoids broken IPv6 routes on some hosts)."""
+    parsed = urlparse(dsn)
+    host = parsed.hostname
+    port = parsed.port or 5432
+    if not host:
+        return None
+    try:
+        ip = socket.getaddrinfo(host, port, socket.AF_INET, socket.SOCK_STREAM)[0][4][0]
+    except OSError:
+        return None
+    kwargs: dict[str, Any] = {"host": ip, "port": port, "database": (parsed.path or "/railway").lstrip("/") or "railway"}
+    if parsed.username:
+        kwargs["user"] = unquote(parsed.username)
+    if parsed.password:
+        kwargs["password"] = unquote(parsed.password)
+    return kwargs
 
 
 def use_postgres() -> bool:
@@ -309,43 +330,58 @@ async def init_pool() -> None:
     retries = int(os.getenv("PG_POOL_INIT_RETRIES", "3"))
     delay = float(os.getenv("PG_POOL_INIT_RETRY_DELAY_SEC", "1.5"))
     last_exc: Exception | None = None
+    pool_common = {
+        "min_size": min_size,
+        "max_size": max_size,
+        "command_timeout": float(os.getenv("PG_COMMAND_TIMEOUT_SEC", "20")),
+        "max_inactive_connection_lifetime": float(os.getenv("PG_MAX_INACTIVE_CONN_LIFETIME", "300")),
+    }
+
     for cand_key, cand_url, cand_extra in pool_candidates:
-        for attempt in range(1, retries + 1):
-            try:
-                _pool = await asyncpg.create_pool(
-                    cand_url,
-                    min_size=min_size,
-                    max_size=max_size,
-                    command_timeout=float(os.getenv("PG_COMMAND_TIMEOUT_SEC", "20")),
-                    max_inactive_connection_lifetime=float(
-                        os.getenv("PG_MAX_INACTIVE_CONN_LIFETIME", "300")
-                    ),
-                    **cand_extra,
-                )
-                _LAST_POOL_ERROR = None
-                meta.update({"selected_env": cand_key, "pool_dsn": "redacted"})
-                _LAST_POOL_META = meta
-                logger.info(
-                    "PostgreSQL pool ready (min=%s max=%s viral=%s env=%s attempt=%s).",
-                    min_size,
-                    max_size,
-                    viral,
-                    cand_key,
-                    attempt,
-                )
-                return
-            except Exception as exc:
-                last_exc = exc
-                _LAST_POOL_ERROR = type(exc).__name__
-                logger.warning(
-                    "PostgreSQL pool init failed (candidate=%s attempt=%s/%s): %s",
-                    cand_key,
-                    attempt,
-                    retries,
-                    type(exc).__name__,
-                )
-                if attempt < retries:
-                    await asyncio.sleep(delay * attempt)
+        connect_plans: list[tuple[str, dict[str, Any]]] = [("dsn", {"dsn": cand_url})]
+        ipv4_kw = _ipv4_asyncpg_connect_kwargs(cand_url)
+        if ipv4_kw:
+            connect_plans.append((f"{cand_key}:ipv4", ipv4_kw))
+
+        for plan_key, connect_kw in connect_plans:
+            for attempt in range(1, retries + 1):
+                try:
+                    if "dsn" in connect_kw:
+                        _pool = await asyncpg.create_pool(
+                            connect_kw["dsn"],
+                            **pool_common,
+                            **cand_extra,
+                        )
+                    else:
+                        _pool = await asyncpg.create_pool(
+                            **connect_kw,
+                            **pool_common,
+                            **cand_extra,
+                        )
+                    _LAST_POOL_ERROR = None
+                    meta.update({"selected_env": plan_key, "pool_dsn": "redacted"})
+                    _LAST_POOL_META = meta
+                    logger.info(
+                        "PostgreSQL pool ready (min=%s max=%s viral=%s plan=%s attempt=%s).",
+                        min_size,
+                        max_size,
+                        viral,
+                        plan_key,
+                        attempt,
+                    )
+                    return
+                except Exception as exc:
+                    last_exc = exc
+                    _LAST_POOL_ERROR = type(exc).__name__
+                    logger.warning(
+                        "PostgreSQL pool init failed (plan=%s attempt=%s/%s): %s",
+                        plan_key,
+                        attempt,
+                        retries,
+                        type(exc).__name__,
+                    )
+                    if attempt < retries:
+                        await asyncio.sleep(delay * attempt)
     assert last_exc is not None  # nosec B101
     raise last_exc
 
