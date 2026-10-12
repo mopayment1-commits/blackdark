@@ -332,6 +332,9 @@
     <script>
         const ORACLE_LEDGER_FETCH_MS = 28000;
         const ORACLE_LEDGER_SECONDARY_MS = 15000;
+        const MONTHLY_LOSING_FETCH_MS = 120000;
+        const MONTHLY_LOSING_SLOW_UI_MS = 8000;
+        let monthlyLosingReportSettled = false;
         const LEDGER_PUBLIC_URL = 'https://blackdark-production.up.railway.app/oracle-accuracy';
         const PAGE_LANG = (document.documentElement.getAttribute('lang') || 'en').toLowerCase();
         let ledgerOracleSnapshot = null;
@@ -843,50 +846,107 @@
         }
 
         function renderPublicMisses(oracle, archive) {
-            const o = oracle || emptyOracleStats();
-            const logged = o.total_predictions ?? 0;
-            const resolved = o.resolved_predictions ?? 0;
-            const verified = o.verified_errors ?? 0;
-            const partial = o.partial_outcomes ?? 0;
-            const acc = Number(o.average_accuracy_percent || 0).toFixed(1);
-            const statusEl = document.getElementById('losing-status');
-            const sampleRows = o.public_miss_sample || [];
-            if (statusEl) {
-                if (verified === 0 && partial === 0 && !sampleRows.length) {
-                    statusEl.textContent = 'No verified errors in this live sample';
-                } else {
-                    statusEl.textContent =
-                        `Live ledger (${o.live_source || 'oracle_predictions'}): logged ${logged} · resolved ${resolved} · ` +
-                        `accuracy ${acc}% · verified errors ${verified} · partial outcomes ${partial}`;
-                }
-            }
             const archiveEl = document.getElementById('losing-archive-note');
             if (archiveEl) {
                 archiveEl.textContent = (archive && archive.note) ? archive.note : '';
                 archiveEl.style.display = (archive && archive.note) ? 'block' : 'none';
             }
-            const rows = sampleRows;
-            const errors = rows.filter(r => String(r.label || '').toLowerCase() === 'incorrect');
-            const partials = dedupeByAssetMinute(
-                rows.filter(r => String(r.label || '').toLowerCase() === 'partial')
+        }
+
+        function monthlyLosingRowsFromReport(data) {
+            const sample = data.sample || [];
+            if (sample.length) return sample;
+            const merged = [];
+            for (const block of (data.months || [])) {
+                for (const row of (block.misses || [])) merged.push(row);
+            }
+            return merged;
+        }
+
+        function renderMonthlyLosingRow(r) {
+            const label = String(r.label || '').toLowerCase();
+            const decision = r.public_decision || r.verdict || publicMissDecisionLabel(r);
+            return (
+                `<li><strong>${esc(ledgerField(r.asset))}</strong> · ${esc(decision)} · ` +
+                `<span class="pill ${pillClass(label)}">${esc(r.label || ledgerCopy('missing'))}</span> · ` +
+                `id ${esc(ledgerField(r.prediction_id))}</li>`
             );
+        }
+
+        function renderMonthlyLosingSlowMessage() {
+            if (monthlyLosingReportSettled) return;
+            const msg = 'Report is taking longer than usual. Refresh or open the Public Accuracy Ledger.';
+            const statusEl = document.getElementById('losing-status');
+            if (statusEl) statusEl.textContent = msg;
             const errList = document.getElementById('losing-errors-list');
             const partList = document.getElementById('losing-partial-list');
-            const rowHtml = (r) =>
-                `<li><strong>${esc(ledgerField(r.asset))}</strong> · ${esc(publicMissDecisionLabel(r))} · ` +
-                `<span class="pill ${pillClass(r.label)}">${esc(r.label || ledgerCopy('missing'))}</span> · ` +
-                `id ${esc(ledgerField(r.prediction_id))}</li>`;
+            if (errList) errList.innerHTML = `<li>${esc(msg)}</li>`;
+            if (partList) partList.innerHTML = `<li>${esc(msg)}</li>`;
+        }
+
+        function renderMonthlyLosingFailure(message) {
+            monthlyLosingReportSettled = true;
+            const msg = message || 'Monthly losing report unavailable. Refresh the page or open the Public Accuracy Ledger.';
+            const statusEl = document.getElementById('losing-status');
+            if (statusEl) statusEl.textContent = msg;
+            const errList = document.getElementById('losing-errors-list');
+            const partList = document.getElementById('losing-partial-list');
+            if (errList) errList.innerHTML = `<li>${esc(msg)}</li>`;
+            if (partList) partList.innerHTML = `<li>${esc(msg)}</li>`;
+        }
+
+        function renderMonthlyLosingReport(data) {
+            monthlyLosingReportSettled = true;
+            const rows = monthlyLosingRowsFromReport(data);
+            const errors = rows.filter((r) => String(r.label || '').toLowerCase() === 'incorrect');
+            const partials = dedupeByAssetMinute(
+                rows.filter((r) => String(r.label || '').toLowerCase() === 'partial')
+            );
+            const statusEl = document.getElementById('losing-status');
+            if (statusEl) {
+                const month = data.month || '—';
+                const inMonth = data.current_month_misses ?? 0;
+                const windowTotal = data.total_labeled_misses_in_window ?? 0;
+                statusEl.textContent =
+                    `${data.title || 'Monthly Losing Trade Report'} · ${month} · ` +
+                    `${inMonth} misses this month · ${windowTotal} labeled misses in window`;
+            }
+            const errList = document.getElementById('losing-errors-list');
+            const partList = document.getElementById('losing-partial-list');
             if (errList) {
                 errList.innerHTML = errors.length
-                    ? errors.map(rowHtml).join('')
-                    : '<li>No verified errors in this live sample window.</li>';
+                    ? errors.map(renderMonthlyLosingRow).join('')
+                    : '<li>No verified errors in this monthly report window.</li>';
             }
             if (partList) {
                 partList.innerHTML = partials.length
-                    ? partials.map(rowHtml).join('')
-                    : '<li>No partial outcomes in this live sample window.</li>';
+                    ? partials.map(renderMonthlyLosingRow).join('')
+                    : '<li>No partial outcomes in this monthly report window.</li>';
             }
-            lastLosingShare = buildLedgerShareText(o);
+            if (data.share_text) lastLosingShare = data.share_text;
+        }
+
+        async function loadMonthlyLosingReport() {
+            monthlyLosingReportSettled = false;
+            const slowTimer = setTimeout(renderMonthlyLosingSlowMessage, MONTHLY_LOSING_SLOW_UI_MS);
+            try {
+                const data = await fetchJsonWithTimeout(
+                    '/api/accuracy/monthly-losing-report?limit=12',
+                    {},
+                    MONTHLY_LOSING_FETCH_MS
+                );
+                if (!data || data.error) {
+                    throw new Error((data && data.message) || (data && data.error) || 'report_unavailable');
+                }
+                renderMonthlyLosingReport(data);
+            } catch (error) {
+                console.debug(error);
+                renderMonthlyLosingFailure(
+                    'Monthly losing report unavailable. Refresh the page or open the Public Accuracy Ledger.'
+                );
+            } finally {
+                clearTimeout(slowTimer);
+            }
         }
         function ledgerPayloadRejectReason(data) {
             if (!data) return 'empty response';
@@ -1104,6 +1164,7 @@
 
         function startLedgerBoot() {
             loadAccuracy().then(() => scheduleSecondaryLoad(loadLedgerShareKit));
+            loadMonthlyLosingReport().catch(() => {});
             scheduleSecondaryLoad(loadGlassBox);
             scheduleSecondaryLoad(loadMevReport);
             scheduleSecondaryLoad(loadLocked);
