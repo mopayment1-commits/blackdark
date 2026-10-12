@@ -47,20 +47,17 @@ async def build_fund_terminal_pack(*, fund_name: str = "Emerging Fund") -> dict[
             "proof_chain": proof,
         }
 
-    async def _accuracy_block() -> dict[str, Any]:
-        try:
-            from ml.public_accuracy import build_public_accuracy_payload
+    _block_timeout = float(os.getenv("FUND_TERMINAL_BLOCK_TIMEOUT_SEC", "4"))
 
-            return await asyncio.wait_for(
-                build_public_accuracy_payload(recent_limit=8),
-                timeout=float(os.getenv("FUND_TERMINAL_ACCURACY_TIMEOUT_SEC", "5")),
-            )
-        except asyncio.TimeoutError:
-            return await asyncio.to_thread(_accuracy_from_chain_only)
-        except Exception as exc:
-            body = await asyncio.to_thread(_accuracy_from_chain_only)
-            body["error"] = str(exc)
-            return body
+    async def _thread_bounded(fn, *, fallback: dict[str, Any]) -> dict[str, Any]:
+        try:
+            return await asyncio.wait_for(asyncio.to_thread(fn), timeout=_block_timeout)
+        except (asyncio.TimeoutError, Exception):
+            return dict(fallback)
+
+    async def _accuracy_block() -> dict[str, Any]:
+        # Full public accuracy payload can block 30–120s on Postgres; DD pack uses chain summary only.
+        return await asyncio.to_thread(_accuracy_from_chain_only)
 
     def _locked_block() -> dict[str, Any]:
         try:
@@ -104,11 +101,11 @@ async def build_fund_terminal_pack(*, fund_name: str = "Emerging Fund") -> dict[
 
     accuracy, locked, registry, net_edge, veto, d5 = await asyncio.gather(
         _accuracy_block(),
-        asyncio.to_thread(_locked_block),
-        asyncio.to_thread(_registry_block),
-        asyncio.to_thread(_net_edge_block),
-        asyncio.to_thread(_veto_block),
-        asyncio.to_thread(_d5_block),
+        _thread_bounded(_locked_block, fallback={}),
+        _thread_bounded(_registry_block, fallback={}),
+        _thread_bounded(_net_edge_block, fallback={}),
+        _thread_bounded(_veto_block, fallback={}),
+        _thread_bounded(_d5_block, fallback={}),
     )
 
     oracle = accuracy.get("oracle") or {}
