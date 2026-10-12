@@ -302,6 +302,9 @@ async def init_pool() -> None:
     default_max = 40 if viral else 20
     max_size = int(os.getenv("PG_POOL_MAX", str(getattr(config, "PG_POOL_MAX", default_max))))
     min_size = int(os.getenv("PG_POOL_MIN", "4" if viral else "2"))
+    if os.getenv("DATABASE_PUBLIC_URL", "").strip():
+        min_size = int(os.getenv("PG_POOL_MIN", "1"))
+        max_size = min(max_size, int(os.getenv("PG_POOL_MAX", "8")))
     min_size = max(1, min(min_size, max_size))
     retries = int(os.getenv("PG_POOL_INIT_RETRIES", "3"))
     delay = float(os.getenv("PG_POOL_INIT_RETRY_DELAY_SEC", "1.5"))

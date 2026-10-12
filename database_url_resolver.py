@@ -227,6 +227,28 @@ def resolve_database_url() -> tuple[str | None, dict[str, Any]]:
     return dsn, meta
 
 
+def expand_asyncpg_pool_targets(key: str, url: str) -> list[tuple[str, str, dict[str, Any]]]:
+    """One env URL may map to several asyncpg SSL strategies (Railway public proxy)."""
+    host = database_host(url)
+    base_kwargs: dict[str, Any] = {"statement_cache_size": 0}
+    if railway_postgres_requires_ssl(url):
+        stripped = strip_url_query_params(url, "sslmode", "ssl")
+        import ssl
+
+        ctx = ssl.create_default_context()
+        ctx.check_hostname = False
+        ctx.verify_mode = ssl.CERT_NONE
+        return [
+            (f"{key}+sslmode", ensure_postgres_ssl_params(url), dict(base_kwargs)),
+            (f"{key}+ssl_true", stripped, {**base_kwargs, "ssl": True}),
+            (f"{key}+ssl_ctx", stripped, {**base_kwargs, "ssl": ctx}),
+        ]
+    if _is_railway_internal_host(host):
+        return [(key, strip_url_query_params(url, "sslmode", "ssl"), dict(base_kwargs))]
+    dsn, pool_kwargs = prepare_asyncpg_dsn(url)
+    return [(key, dsn, pool_kwargs)]
+
+
 def iter_asyncpg_pool_candidates() -> list[tuple[str, str, dict[str, Any]]]:
     """Ordered (env_key, dsn, pool_kwargs) for asyncpg pool creation fallbacks."""
     candidates = candidate_database_urls()
@@ -253,11 +275,12 @@ def iter_asyncpg_pool_candidates() -> list[tuple[str, str, dict[str, Any]]]:
         _add(key, url)
 
     out: list[tuple[str, str, dict[str, Any]]] = []
-    seen_dsn: set[str] = set()
+    seen: set[tuple[str, frozenset[tuple[str, Any]]]] = set()
     for key, url in ordered:
-        dsn, pool_kwargs = prepare_asyncpg_dsn(url)
-        if dsn in seen_dsn:
-            continue
-        seen_dsn.add(dsn)
-        out.append((key, dsn, pool_kwargs))
+        for cand_key, dsn, pool_kwargs in expand_asyncpg_pool_targets(key, url):
+            sig = (dsn, frozenset(pool_kwargs.items()))
+            if sig in seen:
+                continue
+            seen.add(sig)
+            out.append((cand_key, dsn, pool_kwargs))
     return out
