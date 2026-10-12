@@ -36,8 +36,9 @@ def test_landing_html_a11y_and_perf_hooks():
     assert "/static/css/trust-os.css" in html
     assert "We publish the miss" in html
     assert "/static/img/blackdark-sealed-hero-1280.webp" in html
+    assert 'src="/static/img/blackdark-sealed-hero-1280.webp"' in html
     assert "/static/img/blackdark-sealed-hero.jpg" in html
-    assert 'rel="preload"' in html
+    assert 'rel="preload" as="image" href="/static/img/blackdark-sealed-hero-1280.webp"' in html
     assert "blackdark-sealed-hero-1280.webp" in html
 
 
