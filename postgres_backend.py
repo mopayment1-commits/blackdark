@@ -9,7 +9,6 @@ from __future__ import annotations
 import asyncio
 import logging
 import re
-import ssl
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 from datetime import UTC, datetime
@@ -253,11 +252,7 @@ async def init_pool() -> None:
 
     import asyncpg
 
-    from database_url_resolver import (
-        ensure_postgres_ssl_params,
-        railway_postgres_requires_ssl,
-        resolve_database_url,
-    )
+    from database_url_resolver import ensure_postgres_ssl_params, resolve_database_url
 
     url, meta = resolve_database_url()
     if not url:
@@ -296,24 +291,19 @@ async def init_pool() -> None:
     min_size = max(1, min(min_size, max_size))
     retries = int(os.getenv("PG_POOL_INIT_RETRIES", "3"))
     delay = float(os.getenv("PG_POOL_INIT_RETRY_DELAY_SEC", "1.5"))
-    pool_ssl: bool | None = None
-    if railway_postgres_requires_ssl(url) or "sslmode=require" in url:
-        pool_ssl = True
-
     last_exc: Exception | None = None
     for attempt in range(1, retries + 1):
         try:
-            pool_kwargs: dict[str, Any] = {
-                "min_size": min_size,
-                "max_size": max_size,
-                "command_timeout": float(os.getenv("PG_COMMAND_TIMEOUT_SEC", "20")),
-                "max_inactive_connection_lifetime": float(
+            # sslmode in the DSN handles Railway public proxies; private internal hosts stay plain TCP.
+            _pool = await asyncpg.create_pool(
+                url,
+                min_size=min_size,
+                max_size=max_size,
+                command_timeout=float(os.getenv("PG_COMMAND_TIMEOUT_SEC", "20")),
+                max_inactive_connection_lifetime=float(
                     os.getenv("PG_MAX_INACTIVE_CONN_LIFETIME", "300")
                 ),
-            }
-            if pool_ssl is True:
-                pool_kwargs["ssl"] = True
-            _pool = await asyncpg.create_pool(url, **pool_kwargs)
+            )
             _LAST_POOL_ERROR = None
             logger.info(
                 "PostgreSQL pool ready (min=%s max=%s viral=%s env=%s host=%s attempt=%s).",

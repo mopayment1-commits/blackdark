@@ -51,6 +51,18 @@ def test_resolve_skips_unresolved_railway_internal_for_public(monkeypatch):
     assert meta["selection"] == "railway_public_over_unresolved_internal"
 
 
+def test_railway_internal_host_does_not_require_ssl():
+    internal = "postgresql://u:p@postgres.railway.internal:5432/railway"
+    assert resolver.railway_postgres_requires_ssl(internal) is False
+    assert resolver.ensure_postgres_ssl_params(internal) == internal
+
+
+def test_railway_public_proxy_requires_ssl():
+    public = "postgresql://u:p@public.proxy.rlwy.net:12345/railway"
+    assert resolver.railway_postgres_requires_ssl(public) is True
+    assert "sslmode=require" in resolver.ensure_postgres_ssl_params(public)
+
+
 def test_resolve_prefers_resolvable_host(monkeypatch):
     monkeypatch.setenv("DATABASE_URL", "postgresql://bad-host:5432/db")
     monkeypatch.setenv("DATABASE_PUBLIC_URL", "postgresql://good-host:5432/db")

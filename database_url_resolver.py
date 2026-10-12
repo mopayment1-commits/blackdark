@@ -75,10 +75,13 @@ def database_host(url: str) -> str | None:
 
 
 def railway_postgres_requires_ssl(url: str) -> bool:
+    """TLS is required for Railway public proxies, not private *.railway.internal mesh."""
     host = (database_host(url) or "").lower()
+    if _is_railway_internal_host(host):
+        return False
     if host.endswith(".rlwy.net") or host.endswith(".railway.app"):
         return True
-    return _is_railway_internal_host(host)
+    return False
 
 
 def ensure_postgres_ssl_params(url: str) -> str:

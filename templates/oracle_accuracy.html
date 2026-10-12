@@ -859,7 +859,7 @@
             const sampleRows = o.public_miss_sample || [];
             if (statusEl) {
                 if (verified === 0 && partial === 0 && !sampleRows.length) {
-                    statusEl.textContent = 'No verified errors in this live sample.';
+                    statusEl.textContent = 'No verified errors in this live sample';
                 } else {
                     statusEl.textContent =
                         `Live ledger (${o.live_source || 'oracle_predictions'}): logged ${logged} · resolved ${resolved} · ` +
