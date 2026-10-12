@@ -5,7 +5,7 @@ from __future__ import annotations
 import os
 import socket
 from typing import Any
-from urllib.parse import urlparse
+from urllib.parse import urlparse, urlunparse
 
 _CANDIDATE_KEYS: tuple[str, ...] = (
     "DATABASE_URL",
@@ -25,6 +25,30 @@ def _normalize(url: str) -> str:
     return value
 
 
+def _is_railway_internal_host(host: str | None) -> bool:
+    return bool(host) and host.lower().endswith(".railway.internal")
+
+
+def _canonicalize_railway_internal_host(url: str) -> str:
+    """Railway private DNS hostnames must be lowercase (service name)."""
+    parsed = urlparse(url)
+    host = parsed.hostname
+    if not host or not _is_railway_internal_host(host):
+        return url
+    lower = host.lower()
+    port = f":{parsed.port}" if parsed.port else ""
+    userinfo = ""
+    if parsed.username:
+        userinfo = parsed.username
+        if parsed.password:
+            userinfo += f":{parsed.password}"
+        userinfo += "@"
+    netloc = f"{userinfo}{lower}{port}"
+    return urlunparse(
+        (parsed.scheme, netloc, parsed.path, parsed.params, parsed.query, parsed.fragment)
+    )
+
+
 def candidate_database_urls() -> list[tuple[str, str]]:
     """Return (env_key, normalized_url) pairs in priority order."""
     seen: set[str] = set()
@@ -33,7 +57,7 @@ def candidate_database_urls() -> list[tuple[str, str]]:
         raw = os.getenv(key, "").strip()
         if not raw:
             continue
-        url = _normalize(raw)
+        url = _canonicalize_railway_internal_host(_normalize(raw))
         if not url.startswith("postgresql://"):
             continue
         if url in seen:
@@ -79,12 +103,51 @@ def resolve_database_url() -> tuple[str | None, dict[str, Any]]:
     if not candidates:
         return None, meta
 
+    public_pair = next(((k, u) for k, u in candidates if k == "DATABASE_PUBLIC_URL"), None)
+
     for key, url in candidates:
         host = database_host(url)
+        if _is_railway_internal_host(host) and not host_resolves(host):
+            # Railway: do not use unresolved *.railway.internal when a public DSN exists.
+            if public_pair and key == "DATABASE_URL":
+                pub_key, pub_url = public_pair
+                pub_host = database_host(pub_url)
+                meta.update(
+                    {
+                        "selected_env": pub_key,
+                        "selected_host": pub_host,
+                        "selection": "railway_public_over_unresolved_internal",
+                    }
+                )
+                return pub_url, meta
+            continue
         if host_resolves(host):
             meta.update({"selected_env": key, "selected_host": host, "selection": "resolvable"})
             return url, meta
 
+    if public_pair:
+        pub_key, pub_url = public_pair
+        pub_host = database_host(pub_url)
+        meta.update(
+            {
+                "selected_env": pub_key,
+                "selected_host": pub_host,
+                "selection": "railway_public_fallback",
+            }
+        )
+        return pub_url, meta
+
     key, url = candidates[0]
-    meta.update({"selected_env": key, "selected_host": database_host(url), "selection": "first_candidate_unresolved"})
+    host = database_host(url)
+    if _is_railway_internal_host(host):
+        meta.update(
+            {
+                "selected_env": key,
+                "selected_host": host,
+                "selection": "railway_internal_unresolved_no_public",
+            }
+        )
+        return None, meta
+
+    meta.update({"selected_env": key, "selected_host": host, "selection": "first_candidate_unresolved"})
     return url, meta

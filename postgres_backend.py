@@ -257,17 +257,27 @@ async def init_pool() -> None:
 
     url, meta = resolve_database_url()
     if not url:
-        cfg_url = (getattr(config, "DATABASE_URL", None) or "").strip()
-        if cfg_url.startswith(("postgresql://", "postgres://")):
-            from database_url_resolver import _normalize
+        from database_url_resolver import _canonicalize_railway_internal_host, _normalize, database_host
 
-            url = _normalize(cfg_url)
+        pub_raw = os.getenv("DATABASE_PUBLIC_URL", "").strip()
+        if pub_raw:
+            url = _canonicalize_railway_internal_host(_normalize(pub_raw))
             meta = {
                 **meta,
-                "selected_env": "config.DATABASE_URL",
-                "selected_host": None,
-                "selection": "config_fallback",
+                "selected_env": "DATABASE_PUBLIC_URL",
+                "selected_host": database_host(url),
+                "selection": "railway_public_env_fallback",
             }
+        else:
+            cfg_url = (getattr(config, "DATABASE_URL", None) or "").strip()
+            if cfg_url.startswith(("postgresql://", "postgres://")):
+                url = _canonicalize_railway_internal_host(_normalize(cfg_url))
+                meta = {
+                    **meta,
+                    "selected_env": "config.DATABASE_URL",
+                    "selected_host": database_host(url),
+                    "selection": "config_fallback",
+                }
     _LAST_POOL_META = meta
     if not url:
         _LAST_POOL_ERROR = "no_postgres_dsn"

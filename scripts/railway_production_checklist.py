@@ -18,7 +18,11 @@ REQUIRED = [
     ("SERVICE_MODE", "web"),
     ("ENV", "production"),
     ("APP_BASE_URL", PROD_URL),
-    ("DATABASE_URL", "<Railway Postgres plugin URL>"),
+    ("DATABASE_URL", "${{Postgres.DATABASE_URL}} (private *.railway.internal)"),
+    (
+        "DATABASE_PUBLIC_URL",
+        "${{Postgres.DATABASE_PUBLIC_URL}} — required when private DNS does not resolve in web",
+    ),
     ("LEMON_SQUEEZY_CHECKOUT_PRO", "https://blackdark.lemonsqueezy.com/checkout/buy/<checkout-id>"),
     ("PRICE_FEED_WS_ONLY", "false"),
     ("UPTIME_SELF_PROBE_ENABLED", "true"),

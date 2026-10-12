@@ -29,6 +29,27 @@ def test_blackdark_test_database_url_candidate(monkeypatch):
     assert pairs[0][0] == "BLACKDARK_TEST_DATABASE_URL"
 
 
+def test_railway_internal_host_canonicalized(monkeypatch):
+    url = resolver._canonicalize_railway_internal_host(
+        "postgresql://user:pass@MYDB.railway.internal:5432/railway"
+    )
+    assert "@mydb.railway.internal:5432/" in url
+
+
+def test_resolve_skips_unresolved_railway_internal_for_public(monkeypatch):
+    monkeypatch.setenv("DATABASE_URL", "postgresql://u:p@postgres.railway.internal:5432/railway")
+    monkeypatch.setenv("DATABASE_PUBLIC_URL", "postgresql://u:p@public.proxy.rlwy.net:12345/railway")
+
+    def fake_resolves(host, *, timeout=2.0):
+        return host == "public.proxy.rlwy.net"
+
+    monkeypatch.setattr(resolver, "host_resolves", fake_resolves)
+    url, meta = resolver.resolve_database_url()
+    assert url == "postgresql://u:p@public.proxy.rlwy.net:12345/railway"
+    assert meta["selected_env"] == "DATABASE_PUBLIC_URL"
+    assert meta["selection"] == "railway_public_over_unresolved_internal"
+
+
 def test_resolve_prefers_resolvable_host(monkeypatch):
     monkeypatch.setenv("DATABASE_URL", "postgresql://bad-host:5432/db")
     monkeypatch.setenv("DATABASE_PUBLIC_URL", "postgresql://good-host:5432/db")
