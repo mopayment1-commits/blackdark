@@ -3982,6 +3982,32 @@ async def b2b_page(request: Request):
     )
 
 
+@app.get("/b2b/pilot", response_class=HTMLResponse)
+async def b2b_pilot_page(request: Request):
+    return templates.TemplateResponse(request, "b2b_pilot.html", {})
+
+
+def _pilot_request_email_valid(email: str) -> bool:
+    from api.routers.billing import _is_valid_email
+
+    return _is_valid_email(email)
+
+
+@app.post("/api/b2b/pilot-request", responses=COMMON_ERROR_RESPONSES)
+async def b2b_pilot_request(data: dict = Body(default={})):
+    from database import insert_b2b_pilot_request
+
+    email = str(data.get("email") or "").strip().lower()
+    if not email or not _pilot_request_email_valid(email):
+        raise HTTPException(status_code=400, detail="Valid email required")
+    request_id = await insert_b2b_pilot_request(
+        email=email,
+        name=str(data.get("name") or ""),
+        company=str(data.get("company") or ""),
+        message=str(data.get("message") or ""),
+    )
+    return {"ok": True, "id": request_id, "message": "Request received. We will contact you."}
+
 
 @app.post("/api/legal/ack-terms")
 async def api_legal_ack_terms():

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="{{ lang|default('en') }}" dir="{{ dir|default('ltr') }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book a Pilot Call — BLACKDARK B2B</title>
+    <link rel="stylesheet" href="/static/css/trust-os.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #0a0a0f; --card: #111118; --border: #2a2a35;
+            --text: #e4e4e7; --muted: #71717a; --accent: #22d3ee;
+        }
+        body { font-family: var(--bd-font-body); background: var(--bg); color: var(--text); line-height: 1.65; }
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1rem 2rem; border-bottom: 1px solid var(--border);
+            background: rgba(10,10,15,0.9);
+        }
+        nav a { color: var(--muted); text-decoration: none; margin-left: 1.25rem; }
+        nav a:hover { color: var(--text); }
+        .logo { font-weight: 800; color: var(--accent); font-size: 1.25rem; }
+        main { max-width: 520px; margin: 0 auto; padding: 3rem 2rem 4rem; }
+        h1 { font-size: 2rem; margin-bottom: 0.75rem; }
+        .lead { color: var(--muted); margin-bottom: 2rem; font-size: 0.95rem; }
+        label { display: block; font-size: 0.85rem; color: var(--muted); margin-bottom: 0.35rem; }
+        input, textarea {
+            width: 100%; margin-bottom: 1rem; padding: 0.65rem 0.75rem;
+            border-radius: 10px; border: 1px solid var(--border);
+            background: #1a1a24; color: var(--text); font-size: 0.95rem;
+        }
+        textarea { min-height: 120px; resize: vertical; }
+        .btn {
+            display: inline-block; padding: 0.75rem 1.5rem; border-radius: 10px;
+            font-weight: 700; border: none; cursor: pointer;
+            background: linear-gradient(135deg, var(--accent), #06b6d4); color: #0a0a0f;
+        }
+        #pilotFormMsg { min-height: 1.25rem; margin-top: 1rem; color: var(--muted); font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">BLACKDARK B2B</div>
+        <div>
+            <a href="/b2b">← B2B</a>
+            <a href="/">Home</a>
+        </div>
+    </nav>
+    <main>
+        <h1>Book a Pilot Call</h1>
+        <p class="lead">Emerging Fund Terminal and institutional feed — tell us about your fund or desk.</p>
+        <form id="pilotRequestForm" novalidate>
+            <label for="pilotName">Name</label>
+            <input id="pilotName" name="name" type="text" required maxlength="120" autocomplete="name">
+            <label for="pilotEmail">Email</label>
+            <input id="pilotEmail" name="email" type="email" required maxlength="254" autocomplete="email">
+            <label for="pilotCompany">Fund / Company</label>
+            <input id="pilotCompany" name="company" type="text" maxlength="160" autocomplete="organization">
+            <label for="pilotMessage">Message</label>
+            <textarea id="pilotMessage" name="message" maxlength="4000"></textarea>
+            <button type="submit" class="btn">Send request</button>
+            <p id="pilotFormMsg" role="status" aria-live="polite"></p>
+        </form>
+    </main>
+    <script>
+        document.getElementById('pilotRequestForm').addEventListener('submit', async (ev) => {
+            ev.preventDefault();
+            const msg = document.getElementById('pilotFormMsg');
+            const failText = 'Could not send your request. Please try again or email info@blackdark.io.';
+            msg.textContent = '';
+            const payload = {
+                name: document.getElementById('pilotName').value.trim(),
+                email: document.getElementById('pilotEmail').value.trim(),
+                company: document.getElementById('pilotCompany').value.trim(),
+                message: document.getElementById('pilotMessage').value.trim(),
+            };
+            if (!payload.email) {
+                msg.textContent = failText;
+                return;
+            }
+            try {
+                const res = await fetch('/api/b2b/pilot-request', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload),
+                });
+                const data = await res.json().catch(() => ({}));
+                if (res.ok && data.ok) {
+                    msg.textContent = 'Request received. We will contact you.';
+                    ev.target.reset();
+                    return;
+                }
+                msg.textContent = failText;
+            } catch (error) {
+                console.debug(error);
+                msg.textContent = failText;
+            }
+        });
+    </script>
+</body>
+</html>

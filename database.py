@@ -238,6 +238,16 @@ CREATE TABLE IF NOT EXISTS institutional_inquiries (
     status       TEXT    NOT NULL DEFAULT 'new'
 );
 
+CREATE TABLE IF NOT EXISTS b2b_pilot_requests (
+    id           INTEGER PRIMARY KEY AUTOINCREMENT,
+    name         TEXT,
+    email        TEXT    NOT NULL,
+    company      TEXT,
+    message      TEXT,
+    created_at   TEXT    NOT NULL,
+    status       TEXT    NOT NULL DEFAULT 'new'
+);
+
 CREATE TABLE IF NOT EXISTS oracle_predictions (
     id                  INTEGER PRIMARY KEY AUTOINCREMENT,
     timestamp           TEXT    NOT NULL,
@@ -928,6 +938,19 @@ async def _apply_migrations(db: Any) -> None:
             company      TEXT,
             message      TEXT,
             budget_usd   TEXT,
+            created_at   TEXT    NOT NULL,
+            status       TEXT    NOT NULL DEFAULT 'new'
+        )
+        """
+    )
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS b2b_pilot_requests (
+            id           INTEGER PRIMARY KEY AUTOINCREMENT,
+            name         TEXT,
+            email        TEXT    NOT NULL,
+            company      TEXT,
+            message      TEXT,
             created_at   TEXT    NOT NULL,
             status       TEXT    NOT NULL DEFAULT 'new'
         )
@@ -3362,6 +3385,32 @@ async def insert_institutional_inquiry(
                 (company or "")[:160],
                 (message or "")[:4000],
                 (budget_usd or "")[:40],
+                _utcnow_iso(),
+            ),
+        )
+        return int(cursor.lastrowid or 0)
+
+
+async def insert_b2b_pilot_request(
+    *,
+    email: str,
+    name: str = "",
+    company: str = "",
+    message: str = "",
+) -> int:
+    email = email.strip().lower()
+    async with get_connection() as db:
+        cursor = await db.execute(
+            """
+            INSERT INTO b2b_pilot_requests
+                (name, email, company, message, created_at, status)
+            VALUES (?, ?, ?, ?, ?, 'new')
+            """,
+            (
+                (name or "")[:120],
+                email,
+                (company or "")[:160],
+                (message or "")[:4000],
                 _utcnow_iso(),
             ),
         )
