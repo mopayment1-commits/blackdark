@@ -275,6 +275,7 @@ async def init_pool() -> None:
 
     from database_url_resolver import (
         iter_asyncpg_pool_candidates,
+        postgres_plugin_connect_kwargs,
         prepare_asyncpg_dsn,
         resolve_database_url,
     )
@@ -319,6 +320,16 @@ async def init_pool() -> None:
     if not pool_candidates and url:
         pool_candidates = [("resolved", url, pool_extra)]
 
+    plugin_kw = postgres_plugin_connect_kwargs()
+    if plugin_kw:
+        plugin_extra = {"statement_cache_size": 0}
+        from database_url_resolver import railway_postgres_requires_ssl
+
+        host = str(plugin_kw.get("host") or "")
+        if railway_postgres_requires_ssl(f"postgresql://{host}/railway"):
+            plugin_extra["ssl"] = True
+        pool_candidates.insert(0, ("PG*", "", {**plugin_extra, "_connect_kwargs": plugin_kw}))
+
     viral = os.getenv("VIRAL_MODE", "true").lower() in {"1", "true", "yes"}
     default_max = 40 if viral else 20
     max_size = int(os.getenv("PG_POOL_MAX", str(getattr(config, "PG_POOL_MAX", default_max))))
@@ -338,10 +349,18 @@ async def init_pool() -> None:
     }
 
     for cand_key, cand_url, cand_extra in pool_candidates:
-        connect_plans: list[tuple[str, dict[str, Any]]] = [("dsn", {"dsn": cand_url})]
-        ipv4_kw = _ipv4_asyncpg_connect_kwargs(cand_url)
-        if ipv4_kw:
-            connect_plans.append((f"{cand_key}:ipv4", ipv4_kw))
+        cand_extra = dict(cand_extra)
+        plugin_connect = cand_extra.pop("_connect_kwargs", None)
+        connect_plans: list[tuple[str, dict[str, Any]]] = []
+        if plugin_connect:
+            connect_plans.append((f"{cand_key}:plugin", dict(plugin_connect)))
+        if cand_url:
+            connect_plans.append(("dsn", {"dsn": cand_url}))
+            ipv4_kw = _ipv4_asyncpg_connect_kwargs(cand_url)
+            if ipv4_kw:
+                connect_plans.append((f"{cand_key}:ipv4", ipv4_kw))
+        if not connect_plans:
+            continue
 
         for plan_key, connect_kw in connect_plans:
             for attempt in range(1, retries + 1):

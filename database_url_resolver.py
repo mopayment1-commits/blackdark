@@ -249,6 +249,28 @@ def expand_asyncpg_pool_targets(key: str, url: str) -> list[tuple[str, str, dict
     return [(key, dsn, pool_kwargs)]
 
 
+def postgres_plugin_connect_kwargs() -> dict[str, Any] | None:
+    """Railway/Postgres plugins often expose PG* vars (avoids broken URL-encoded DSN passwords)."""
+    host = (os.getenv("PGHOST") or os.getenv("POSTGRES_HOST") or "").strip()
+    user = (os.getenv("PGUSER") or os.getenv("POSTGRES_USER") or "").strip()
+    password = os.getenv("PGPASSWORD") or os.getenv("POSTGRES_PASSWORD")
+    database = (os.getenv("PGDATABASE") or os.getenv("POSTGRES_DB") or "").strip()
+    port_raw = (os.getenv("PGPORT") or os.getenv("POSTGRES_PORT") or "5432").strip()
+    if not (host and user and password and database):
+        return None
+    try:
+        port = int(port_raw)
+    except ValueError:
+        port = 5432
+    return {
+        "host": host,
+        "port": port,
+        "user": user,
+        "password": password,
+        "database": database,
+    }
+
+
 def iter_asyncpg_pool_candidates() -> list[tuple[str, str, dict[str, Any]]]:
     """Ordered (env_key, dsn, pool_kwargs) for asyncpg pool creation fallbacks."""
     candidates = candidate_database_urls()
@@ -260,6 +282,20 @@ def iter_asyncpg_pool_candidates() -> list[tuple[str, str, dict[str, Any]]]:
             return
         seen_urls.add(url)
         ordered.append((key, url))
+
+    plugin_kw = postgres_plugin_connect_kwargs()
+    if plugin_kw:
+        from urllib.parse import quote
+
+        host = str(plugin_kw["host"])
+        user = str(plugin_kw["user"])
+        password = str(plugin_kw["password"])
+        database = str(plugin_kw["database"])
+        port = int(plugin_kw["port"])
+        synthetic = (
+            f"postgresql://{quote(user, safe='')}:{quote(password, safe='')}@{host}:{port}/{database}"
+        )
+        ordered.insert(0, ("PG*", synthetic))
 
     if running_on_railway():
         for key, url in candidates:
