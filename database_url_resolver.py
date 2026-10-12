@@ -110,19 +110,14 @@ def strip_url_query_params(url: str, *params: str) -> str:
 
 
 def prepare_asyncpg_dsn(url: str) -> tuple[str, dict[str, Any]]:
-    """Return (dsn, extra kwargs) for asyncpg.create_pool — avoids double TLS on proxies."""
-    import ssl
-
+    """Return (dsn, extra pool kwargs). Internal mesh = plain TCP; public proxy = sslmode in DSN."""
     host = database_host(url)
+    pool_kwargs: dict[str, Any] = {"statement_cache_size": 0}
     if _is_railway_internal_host(host):
-        return strip_url_query_params(url, "sslmode", "ssl"), {}
+        return strip_url_query_params(url, "sslmode", "ssl"), pool_kwargs
     if railway_postgres_requires_ssl(url):
-        ctx = ssl.create_default_context()
-        ctx.check_hostname = False
-        ctx.verify_mode = ssl.CERT_NONE
-        clean = strip_url_query_params(url, "sslmode", "ssl")
-        return clean, {"ssl": ctx}
-    return ensure_postgres_ssl_params(url), {}
+        return ensure_postgres_ssl_params(url), pool_kwargs
+    return url, pool_kwargs
 
 
 def ensure_postgres_ssl_params(url: str) -> str:
