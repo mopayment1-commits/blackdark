@@ -2619,7 +2619,7 @@ async def feedback_page(request: Request):
         STR_UTILITY_HTML,
         {
             "page": "feedback",
-            "title": "Feedback & suggestions",
+            "title": "Send feedback — suggestions and UX ideas",
             "lead": "Tell us what to improve. Never include card numbers or passwords.",
             **_footer_ctx(),
         },
