@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BLACKDARK — Login</title>
+    <title>{{ t('meta.title.login') }}</title>
     <link rel="stylesheet" href="/static/css/trust-os.css">
     {% if google_signin.state == 'CONFIGURED' %}
     {# SRI غير مُضاف: تقرير 28 Sep يمنع الإغلاق بـ SRI قبل دعم المورد، ولم يُجلب نص Google في هذه الجولة. #}
@@ -77,7 +77,7 @@
             padding: 2rem;
             animation: bdPulseIn .45s var(--bd-ease-out) both;
         }
-        h1 { font-family: var(--bd-font-display); font-size:1.65rem; font-weight:800; margin-bottom:.35rem; color:var(--text); letter-spacing:.02em; line-height:1.25; }
+        h1.auth-page-heading, h2.auth-subheading { font-family: var(--bd-font-display); font-size:1.65rem; font-weight:800; margin-bottom:.35rem; color:var(--text); letter-spacing:.02em; line-height:1.25; }
         .lead { color:var(--muted); font-size:.9rem; margin-bottom:1.25rem; line-height:1.45; }
         label { display:block; font-size:.78rem; color:#a1a1aa; margin-bottom:.35rem; }
         input[type=email], input[type=password], input[type=text] {
@@ -149,9 +149,9 @@
                     {% endif %}
                 </div>
                 <div class="divider" id="authDivider">or continue with email</div>
+                <h1 id="authPageHeading" class="auth-page-heading">{% if auth_tab == 'register' %}Create your free account{% else %}Sign in{% endif %}</h1>
 
         <div id="registerShell" class="hidden">
-            <h1>Create your free account</h1>
             <p class="lead">Free — no card required. Start with proof, upgrade when ready.</p>
 
             <form id="registerForm" data-bd-submit-call="doRegister" novalidate>
@@ -172,7 +172,6 @@
         </div>
 
         <div id="loginShell">
-            <h1>Sign in</h1>
             <p class="lead">{{ t('login.lead') }}</p>
 
             <form id="loginForm" data-bd-submit-call="doLogin">
@@ -192,7 +191,7 @@
         </div>
 
         <form id="mfaForm" class="hidden" data-bd-submit-call="doMfa">
-            <h1>Verify sign-in</h1>
+            <h2 class="auth-subheading">Verify sign-in</h2>
             <label for="mfaCode">Authenticator code</label>
             <input type="text" id="mfaCode" inputmode="numeric" autocomplete="one-time-code" placeholder="6-digit code or recovery" required>
             <button type="submit" class="btn-primary" id="mfaSubmitBtn">Verify MFA</button>
@@ -200,7 +199,7 @@
         </form>
 
         <form id="forgotForm" class="hidden" data-bd-submit-call="doForgot">
-            <h1>Reset password</h1>
+            <h2 class="auth-subheading">Reset password</h2>
             <label for="forgotEmail">Account email</label>
             <input type="email" id="forgotEmail" required>
             <button type="submit" class="btn-primary" id="forgotSubmitBtn">Send reset link</button>
@@ -208,7 +207,7 @@
         </form>
 
         <form id="forgotUserForm" class="hidden" data-bd-submit-call="doForgotUsername">
-            <h1>Username reminder</h1>
+            <h2 class="auth-subheading">Username reminder</h2>
             <p class="lead" style="margin-bottom:.75rem">Login uses your <strong>email</strong>. Enter it to receive a reminder.</p>
             <label for="forgotUserEmail">Email</label>
             <input type="email" id="forgotUserEmail" required>
@@ -242,6 +241,12 @@
             document.getElementById('googleSigninArea')?.classList.toggle('hidden', !visible);
             document.getElementById('authDivider')?.classList.toggle('hidden', !visible);
         }
+        function setAuthPageHeading(text, visible) {
+            const el = document.getElementById('authPageHeading');
+            if (!el) return;
+            if (text) el.textContent = text;
+            el.classList.toggle('hidden', visible === false);
+        }
         function hideAll() {
             ['registerShell','loginShell','mfaForm','forgotForm','forgotUserForm'].forEach(id => {
                 document.getElementById(id).classList.add('hidden');
@@ -254,6 +259,7 @@
             mfaChallenge = null;
             setAuthTab('register');
             setAuthChromeVisible(true);
+            setAuthPageHeading('Create your free account', true);
         }
         function showLogin() {
             hideAll();
@@ -262,18 +268,21 @@
             mfaChallenge = null;
             setAuthTab('login');
             setAuthChromeVisible(true);
+            setAuthPageHeading('Sign in', true);
         }
         function showForgot() {
             hideAll();
             document.getElementById('forgotForm').classList.remove('hidden');
             document.getElementById('msg').textContent = '';
             setAuthChromeVisible(false);
+            setAuthPageHeading('', false);
         }
         function showForgotUsername() {
             hideAll();
             document.getElementById('forgotUserForm').classList.remove('hidden');
             document.getElementById('msg').textContent = '';
             setAuthChromeVisible(false);
+            setAuthPageHeading('', false);
         }
         function setMsg(text, ok) {
             const msg = document.getElementById('msg');
@@ -469,6 +478,7 @@
                     hideAll();
                     document.getElementById('mfaForm').classList.remove('hidden');
                     setAuthChromeVisible(false);
+                    setAuthPageHeading('', false);
                     setMsg('Enter your authenticator code to finish login.', true);
                     setLoginSubmitLoading(false);
                     return;
