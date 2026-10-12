@@ -2488,8 +2488,9 @@ async def contact_page(request: Request):
         STR_UTILITY_HTML,
         {
             "page": "contact",
-            "title": "Contact",
+            "title": "Reach the team for support and partnerships",
             "lead": "Reach the team for support, partnerships, and allocator diligence.",
+            "canonical_url": "https://blackdark.io/contact",
             "contact": contact_channels(),
             **_footer_ctx(),
         },
