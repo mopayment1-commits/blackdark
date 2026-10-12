@@ -163,6 +163,8 @@ PUBLIC_HTML_EXACT: frozenset[str] = frozenset(
         "/trust-debt",
         "/unique-ten",
         "/d5-honesty",
+        "/lenses",
+        "/oracle-accuracy/json-api",
     }
 )
 
@@ -274,6 +276,11 @@ PUBLIC_API_EXACT: frozenset[str] = frozenset(
         "/b2b/committee-one-pager",
         "/api/b2b/demo",
         "/api/b2b/pilot-request",
+        "/api/pricing",
+        "/api/pricing/signup-plans",
+        "/api/pricing/upgrade-path",
+        "/api/billing/payments",
+        "/api/billing/refund-policy",
         "/docs",
         "/docs/public",
     }

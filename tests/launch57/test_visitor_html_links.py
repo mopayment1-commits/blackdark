@@ -23,7 +23,7 @@ def test_home_pricing_section_present(client):
 
 def test_pricing_route_redirects_to_home_anchor(client):
     res = client.get("/pricing", headers={"Accept": "text/html"}, follow_redirects=False)
-    assert res.status_code == 302
+    assert res.status_code == 301
     assert res.headers.get("location") == "/#pricing"
 
 
@@ -44,7 +44,7 @@ def test_identity_standards_public_html_200(client):
 
 def test_profile_anonymous_html_login_gate_not_json(client):
     res = client.get("/profile", headers={"Accept": "text/html"})
-    assert res.status_code == 401
+    assert res.status_code == 200
     assert "text/html" in (res.headers.get("content-type") or "")
     assert "Account required" in res.text or "Profile" in res.text
     assert "Anonymous access denied" not in res.text
@@ -53,7 +53,7 @@ def test_profile_anonymous_html_login_gate_not_json(client):
 
 def test_dashboard_anonymous_html_login_gate_not_json(client):
     res = client.get("/dashboard?lens=operate", headers={"Accept": "text/html"})
-    assert res.status_code == 401
+    assert res.status_code == 200
     assert "text/html" in (res.headers.get("content-type") or "")
     assert "Anonymous access denied" not in res.text
     assert "/login" in res.text

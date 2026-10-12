@@ -123,7 +123,7 @@ EN: dict[str, str] = {
     "meta.title.home": "BLACKDARK — AI Crypto Intelligence Platform",
     "meta.title.dashboard": "BLACKDARK — Intelligence Dashboard",
     "meta.title.login": "BLACKDARK — Sign in or create your free account",
-    "meta.title.accuracy": "BLACKDARK — Public Accuracy Ledger",
+    "meta.title.accuracy": "BLACKDARK — Public Accuracy Ledger — hits and misses",
     "meta.title.landing": "BLACKDARK — Oracle: Get Decision, Certificate, Public Ledger",
     "meta.description.landing": "Get Decision on BLACKDARK Oracle for a clear Act/Wait and Decision Certificate. Sealed forecasts before the event; verify on the Public Accuracy Ledger.",
     # Nav
@@ -714,6 +714,13 @@ def template_context(request: Any, extra: dict[str, Any] | None = None) -> dict[
     }
     if extra:
         ctx.update(extra)
+    if not ctx.get("canonical_url"):
+        try:
+            from site_seo import resolve_public_canonical_url
+
+            ctx["canonical_url"] = resolve_public_canonical_url(request)
+        except Exception:
+            pass
     return ctx
 
 

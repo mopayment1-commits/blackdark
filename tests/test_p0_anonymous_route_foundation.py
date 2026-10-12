@@ -69,17 +69,23 @@ def test_allowlist_is_explicit_not_implicit():
 
 
 def test_no_cookie_private_route_denied(client):
+    html_login_gates = {"/dashboard", "/profile", "/discipline-mirror"}
     private_paths = (
         "/api/user/profile",
         "/api/privacy/export",
         "/api/platform/keys/status",
         "/dashboard",
         "/profile",
+        "/discipline-mirror",
         "/admin/launch",
         "/api/cap646/47",
     )
     for path in private_paths:
-        response = client.get(path)
+        response = client.get(path, headers={"Accept": "text/html"} if path in html_login_gates else {})
+        if path in html_login_gates:
+            assert response.status_code == 200, path
+            assert response.headers.get("X-Blackdark-Auth-Boundary"), path
+            continue
         assert response.status_code in {401, 403, 404, 405, 422}, path
 
 
@@ -128,10 +134,16 @@ def test_accidental_public_routes_zero(client):
         "/openapi.json",
         "/graphql",
     )
+    html_login_gates = {"/dashboard", "/profile", "/discipline-mirror"}
     accidental = []
     for path in private_probe_paths:
-        response = client.get(path)
+        response = client.get(
+            path,
+            headers={"Accept": "text/html"} if path in html_login_gates else {},
+        )
         if response.status_code in {200, 201, 204}:
+            if path in html_login_gates and response.headers.get("X-Blackdark-Auth-Boundary"):
+                continue
             accidental.append(path)
     assert accidental == []
 

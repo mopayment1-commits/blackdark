@@ -6,7 +6,8 @@
     <meta name="description" content="{{ t('brand') }} — {{ t('accuracy.sub') }}">
     <meta property="og:title" content="BLACKDARK — {{ t('accuracy.title') }}">
     <meta property="og:description" content="{{ t('accuracy.sub') }}">
-    <title>BLACKDARK — {{ t('accuracy.title') }}</title>
+    <title>{{ t('meta.title.accuracy') }}</title>
+    {% include "partials/seo_canonical.html" %}
     <script type="application/ld+json">
     {"@context":"https://schema.org","@type":"WebPage","name":"BLACKDARK Public Accuracy Ledger","description":"Public verifiable Oracle accuracy including misses, Glass Box locked forecasts, and audit challenge","url":"/oracle-accuracy"}
     </script>
@@ -319,7 +320,7 @@
 
     <div class="cta-row">
         <a class="btn btn-primary" href="/dashboard">{{ t('ledger.cta.dashboard') }}</a>
-        <a class="btn btn-secondary" href="/oracle-accuracy/json-api">{{ t('ledger.cta.json_api') }}</a>
+        <a class="btn btn-secondary" href="/api/oracle/accuracy/public">{{ t('ledger.cta.json_api') }}</a>
         <a class="btn btn-secondary" href="/b2b#evidence">{{ t('ledger.cta.evidence') }}</a>
     </div>
 

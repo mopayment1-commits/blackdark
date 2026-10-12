@@ -113,6 +113,13 @@ def _cookie_secure(request: Request | None = None) -> bool:
     return xfp == "https"
 
 
+def render_template(request: Request, name: str, context: dict[str, Any] | None = None) -> HTMLResponse:
+    """Jinja response with i18n + canonical context."""
+    from i18n_service import template_context
+
+    return templates.TemplateResponse(request, name, template_context(request, context))
+
+
 def render_page(request: Request, name: str, context: dict[str, Any] | None = None) -> HTMLResponse:
     """Render a Jinja template with full i18n context (lang switcher + t())."""
     from i18n_service import template_context
@@ -143,6 +150,7 @@ def render_surface_auth_required(
     lens_label: str,
     lens_hint: str,
     boundary: str = "surface-auth-required-html",
+    document_title: str | None = None,
 ) -> HTMLResponse:
     """Human login gate for private HTML surfaces — never raw JSON in the browser."""
     response = render_page(
@@ -154,9 +162,11 @@ def render_surface_auth_required(
             "lens_hint": lens_hint,
             "public_prove_href": "/#try-oracle",
             "next_path": _auth_required_next_path(request),
+            "document_title": document_title,
         },
     )
-    response.status_code = 401
+    # 200 HTML login gate — crawlers treat 401 as broken internal links; boundary header remains.
+    response.status_code = 200
     response.headers["X-Blackdark-Auth-Boundary"] = boundary
     return response
 
@@ -184,6 +194,7 @@ def render_dashboard_auth_required(request: Request) -> HTMLResponse:
         lens_label=lens_labels.get(lens, "Prove"),
         lens_hint=lens_hints.get(lens, lens_hints["prove"]),
         boundary="dashboard-auth-required-html",
+        document_title="Sign in to open Trust OS dashboard lenses · BLACKDARK",
     )
 
 
@@ -194,6 +205,7 @@ def render_profile_auth_required(request: Request) -> HTMLResponse:
         lens_label="Profile & Billing",
         lens_hint="Sign in to manage identity, security, and your USD plan.",
         boundary="profile-auth-required-html",
+        document_title="Sign in to manage profile and USD billing · BLACKDARK",
     )
 
 
@@ -784,6 +796,7 @@ async def anonymous_route_enforcement_middleware(request: Request, call_next):
                     lens_label="Discipline Mirror",
                     lens_hint="Your private discipline mirror opens after sign-in.",
                     boundary="discipline-auth-required-html",
+                    document_title="Sign in to open your private Discipline Mirror · BLACKDARK",
                 )
 
     denial = enforce_anonymous_route_boundary(request)
@@ -801,6 +814,7 @@ async def anonymous_route_enforcement_middleware(request: Request, call_next):
                     lens_label="Discipline Mirror",
                     lens_hint="Your private discipline mirror opens after sign-in.",
                     boundary="discipline-auth-required-html",
+                    document_title="Sign in to open your private Discipline Mirror · BLACKDARK",
                 )
         return denial
     return await call_next(request)
@@ -1630,7 +1644,7 @@ async def login_google_gis_redirect(request: Request):
 @app.get("/pricing")
 async def pricing_page_redirect():
     """Visitor pricing is the homepage plan cards — not a JSON catalog."""
-    return RedirectResponse(url="/#pricing", status_code=302)
+    return RedirectResponse(url="/#pricing", status_code=301)
 
 
 @app.get("/identity-standards", response_class=HTMLResponse)
@@ -1643,7 +1657,7 @@ async def identity_standards_page(request: Request):
         {
             **_footer_ctx(),
             "page": "identity_standards",
-            "title": "Identity standards",
+            "title": "Identity standards — accounts, sessions, and access",
             "lead": "How BLACKDARK handles accounts, sessions, and privileged access — public summary for visitors.",
             "identity": identity_architecture(),
         },
@@ -1672,7 +1686,7 @@ async def verify_email_page(request: Request, token: str = ""):
     from fastapi.responses import RedirectResponse
 
     if not token:
-        return templates.TemplateResponse(
+        return render_template(
             request,
             STR_UTILITY_HTML,
             {
@@ -1684,7 +1698,7 @@ async def verify_email_page(request: Request, token: str = ""):
     # Allowlist token charset; consume here so Location never embeds user input.
     safe = "".join(ch for ch in str(token) if ch.isalnum() or ch in "-_.")
     if len(safe) < 16:
-        return templates.TemplateResponse(
+        return render_template(
             request,
             STR_UTILITY_HTML,
             {
@@ -1700,7 +1714,7 @@ async def verify_email_page(request: Request, token: str = ""):
         user_id = await consume_auth_token(safe, "email_verify")
         await mark_email_verified(user_id)
     except ValueError:
-        return templates.TemplateResponse(
+        return render_template(
             request,
             STR_UTILITY_HTML,
             {
@@ -2182,12 +2196,23 @@ async def discipline_mirror_alias():
     return RedirectResponse(url="/discipline-mirror", status_code=307)
 
 
+@app.get("/lenses", response_class=HTMLResponse)
+async def trust_os_lenses_redirect():
+    """Public lenses overview lives on the homepage section."""
+    return RedirectResponse(url="/#lenses", status_code=301)
+
+
+@app.get("/oracle-accuracy/json-api")
+async def oracle_accuracy_json_api_redirect():
+    return RedirectResponse(url="/api/oracle/accuracy/public", status_code=301)
+
+
 @app.get("/errors")
 async def public_errors_alias():
     """Public admission of misses — alias into the Accuracy Ledger losing section."""
     from fastapi.responses import RedirectResponse
 
-    return RedirectResponse(url="/oracle-accuracy#losing", status_code=307)
+    return RedirectResponse(url="/oracle-accuracy#losing", status_code=301)
 
 
 @app.get("/public/accuracy-ledger")
@@ -2205,7 +2230,11 @@ async def public_developer_docs_page(request: Request):
     return render_page(
         request,
         "docs_public.html",
-        {"title": "Developer Docs", "manifest": public_docs_manifest(), **_footer_ctx()},
+        {
+            "title": "Public developer docs — read APIs and manifests",
+            "manifest": public_docs_manifest(),
+            **_footer_ctx(),
+        },
     )
 
 
@@ -2321,18 +2350,18 @@ async def api_trust_pulse_manifest():
 
 @app.get("/admin/launch", response_class=HTMLResponse)
 async def admin_launch_page(request: Request, _admin: dict = Depends(require_admin_dev)):
-    return templates.TemplateResponse(request, "admin_launch.html")
+    return render_template(request, "admin_launch.html")
 
 
 @app.get("/admin/plan", response_class=HTMLResponse)
 @app.get("/plan", response_class=HTMLResponse)
 async def admin_plan_page(request: Request, _admin: dict = Depends(require_admin_dev)):
-    return templates.TemplateResponse(request, "admin_plan.html")
+    return render_template(request, "admin_plan.html")
 
 
 @app.get("/admin/roadmap", response_class=HTMLResponse)
 async def admin_roadmap_page(request: Request, _admin: dict = Depends(require_admin_dev)):
-    return templates.TemplateResponse(request, "admin_roadmap.html")
+    return render_template(request, "admin_roadmap.html")
 
 
 @app.get("/api/plan/audit")
@@ -2366,12 +2395,12 @@ async def capabilities_page(request: Request):
     from trust_os import trust_os_manifest
 
     manifest = trust_os_manifest()
-    return templates.TemplateResponse(
+    return render_template(
         request,
         STR_UTILITY_HTML,
         {
             "page": "capabilities",
-            "title": "Capabilities — Trust OS",
+            "title": "Capabilities — Trust OS lenses and evidence surfaces",
             "lead": (
                 "Four UX lenses — Prove → Operate → Desk → Room — over one Trust OS. "
                 "Four doors: Decide · Verify · My book · Alerts. Six heroes. No ARENA. "
@@ -2396,12 +2425,12 @@ async def compliance_page(request: Request):
         regulatory = regulatory_compliance_status()
     except Exception:
         regulatory = {"status": "engineering_posture_only"}
-    return templates.TemplateResponse(
+    return render_template(
         request,
         STR_UTILITY_HTML,
         {
             "page": "compliance",
-            "title": "Anti-Hype Compliance",
+            "title": "Anti-Hype compliance — engineering posture and denylist",
             "lead": (
                 "Engineering posture and overclaim denylist — not SEC/MiCA licensing, "
                 "not SOC 2 / ISO 27001 certification. Don't trust us. Verify us."
@@ -2416,12 +2445,12 @@ async def compliance_page(request: Request):
 @app.get("/data-room", response_class=HTMLResponse)
 async def data_room_page(request: Request):
     """Committee-facing data room index (HTML)."""
-    return templates.TemplateResponse(
+    return render_template(
         request,
         STR_UTILITY_HTML,
         {
             "page": "data_room",
-            "title": "Data Room",
+            "title": "Data Room — allocator diligence and evidence index",
             "lead": (
                 "Allocator / acquirer diligence index — Prove-it surfaces, evidence pack, "
                 "and honest capacity posture. Canonical docs live under /docs/DATA_ROOM.md."
@@ -2483,14 +2512,13 @@ async def api_viral_readiness():
 async def contact_page(request: Request):
     from site_services import contact_channels
 
-    return templates.TemplateResponse(
+    return render_template(
         request,
         STR_UTILITY_HTML,
         {
             "page": "contact",
             "title": "Reach the team for support and partnerships",
             "lead": "Reach the team for support, partnerships, and allocator diligence.",
-            "canonical_url": "https://blackdark.io/contact",
             "contact": contact_channels(),
             **_footer_ctx(),
         },
@@ -2501,12 +2529,12 @@ async def contact_page(request: Request):
 async def complaints_page(request: Request):
     from site_services import contact_channels
 
-    return templates.TemplateResponse(
+    return render_template(
         request,
         STR_UTILITY_HTML,
         {
             "page": "complaints",
-            "title": "Complaints",
+            "title": "Complaints — billing, accuracy, and support escalation",
             "lead": "Escalation path for claim disputes, accuracy, and billing issues.",
             "contact": contact_channels(),
             **_footer_ctx(),
@@ -2518,12 +2546,12 @@ async def complaints_page(request: Request):
 async def faq_page(request: Request):
     from site_services import FAQ_ITEMS
 
-    return templates.TemplateResponse(
+    return render_template(
         request,
         STR_UTILITY_HTML,
         {
             "page": "faq",
-            "title": "FAQ",
+            "title": "FAQ — plans, Public Accuracy Ledger, and support",
             "lead": "Straight answers on DISCOVER / FREE, DECIDE / PRO, ELITE, QUANT, INSTITUTIONAL, sharing, and AI Chat.",
             "faq": FAQ_ITEMS,
             **_footer_ctx(),
@@ -2535,12 +2563,12 @@ async def faq_page(request: Request):
 async def how_it_works_page(request: Request):
     from site_services import HOW_IT_WORKS_STEPS
 
-    return templates.TemplateResponse(
+    return render_template(
         request,
         STR_UTILITY_HTML,
         {
             "page": "how_it_works",
-            "title": "How it works",
+            "title": "How it works — decide, prove, verify on the ledger",
             "lead": "Decide. Prove it. Verify on the Public Accuracy Ledger.",
             "steps": HOW_IT_WORKS_STEPS,
             **_footer_ctx(),
@@ -2553,12 +2581,12 @@ async def about_page(request: Request):
     from site_services import about_blurb
 
     about = about_blurb()
-    return templates.TemplateResponse(
+    return render_template(
         request,
         STR_UTILITY_HTML,
         {
             "page": "about",
-            "title": about["title"],
+            "title": "About BLACKDARK Trust OS — decision intelligence",
             "lead": "Trust OS for crypto decision intelligence — one product, four lenses.",
             "about": about,
             **_footer_ctx(),
@@ -2582,12 +2610,12 @@ async def status_page(request: Request):
         guest_trust = dict(payload.get("guest_trust") or {})
     except Exception:
         guest_trust = {}
-    return templates.TemplateResponse(
+    return render_template(
         request,
         STR_UTILITY_HTML,
         {
             "page": "status",
-            "title": "System status",
+            "title": "System status — public guest trust and uptime",
             "lead": "Public guest trust and engineering posture — no secrets, no contractual SLA unless contracted.",
             "status": status,
             "guest_trust": guest_trust,
@@ -2600,12 +2628,12 @@ async def status_page(request: Request):
 async def changelog_page(request: Request):
     from site_services import CHANGELOG
 
-    return templates.TemplateResponse(
+    return render_template(
         request,
         STR_UTILITY_HTML,
         {
             "page": "changelog",
-            "title": "Changelog",
+            "title": "Changelog — Trust OS product and trust rail",
             "lead": "What shipped on the Trust OS trust rail.",
             "changelog": CHANGELOG,
             **_footer_ctx(),
@@ -2615,7 +2643,7 @@ async def changelog_page(request: Request):
 
 @app.get("/feedback", response_class=HTMLResponse)
 async def feedback_page(request: Request):
-    return templates.TemplateResponse(
+    return render_template(
         request,
         STR_UTILITY_HTML,
         {
@@ -2632,12 +2660,12 @@ async def legal_hub_page(request: Request):
     from site_services import legal_hub_manifest
 
     hub = legal_hub_manifest()
-    return templates.TemplateResponse(
+    return render_template(
         request,
         STR_UTILITY_HTML,
         {
             "page": "legal_hub",
-            "title": hub["title"],
+            "title": "Legal hub — policies for Trust OS visitors",
             "lead": hub["lead"],
             "legal_pages": hub["pages"],
             **_footer_ctx(),
@@ -2690,7 +2718,7 @@ async def api_feedback(data: dict = Body(...)):
 
 @app.get("/platform/coin/{coin_id}", response_class=HTMLResponse)
 async def platform_coin_page(request: Request, coin_id: str):
-    return templates.TemplateResponse(
+    return render_template(
         request, "coin.html", {"coin_id": coin_id, **_footer_ctx()}
     )
 
@@ -3055,7 +3083,7 @@ async def oracle_quick(
 
 def _reserved_oracle_response(symbol: str, request: Request) -> Any | None:
     if symbol.strip().lower() == "accuracy":
-        return render_page(request, "oracle_accuracy.html", _footer_ctx())
+        return RedirectResponse(url=PATH_ORACLE_ACCURACY, status_code=301)
     blocked = _require_terms_ack_or_403(request)
     if blocked is not None:
         return blocked
@@ -3849,8 +3877,12 @@ async def ingestion_run_once(_admin: dict = Depends(require_admin)):
 
 # Forecast + oracle audit routes → api/routers/oracle.py
 
-@app.get(PATH_ORACLE_ACCURACY, response_class=HTMLResponse)
 @app.get("/oracle/accuracy", response_class=HTMLResponse)
+async def oracle_accuracy_legacy_redirect():
+    return RedirectResponse(url=PATH_ORACLE_ACCURACY, status_code=301)
+
+
+@app.get(PATH_ORACLE_ACCURACY, response_class=HTMLResponse)
 async def oracle_accuracy_page(request: Request):
     # Public ledger must stay visible without an ack wall (hits + misses).
     return render_page(request, "oracle_accuracy.html", _footer_ctx())
@@ -3993,7 +4025,7 @@ async def b2b_websocket_feed(websocket: WebSocket, api_key: str = Query(..., min
 
 @app.get("/b2b", response_class=HTMLResponse)
 async def b2b_page(request: Request):
-    return templates.TemplateResponse(
+    return render_template(
         request,
         "b2b.html",
         {
@@ -4006,7 +4038,7 @@ async def b2b_page(request: Request):
 
 @app.get("/b2b/pilot", response_class=HTMLResponse)
 async def b2b_pilot_page(request: Request):
-    return templates.TemplateResponse(request, "b2b_pilot.html", {})
+    return render_template(request, "b2b_pilot.html", {})
 
 
 def _pilot_request_email_valid(email: str) -> bool:
@@ -4070,7 +4102,7 @@ def _legal_page(request: Request, page: str):
     content = LEGAL_PAGES.get(page)
     if not content:
         raise HTTPException(status_code=404, detail="Legal page not found")
-    return templates.TemplateResponse(
+    return render_template(
         request,
         "legal.html",
         {"page": page, **content, **_footer_ctx()},
@@ -5239,7 +5271,7 @@ async def checkout_success(request: Request):
 
 @app.get("/cancel", response_class=HTMLResponse)
 async def checkout_cancel(request: Request):
-    return templates.TemplateResponse(
+    return render_template(
         request,
         STR_UTILITY_HTML,
         {
