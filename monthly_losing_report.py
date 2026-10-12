@@ -7,8 +7,14 @@ of competitor highlight reels. Deepens Public Accuracy Ledger.
 
 from __future__ import annotations
 
+import copy
+import os
+import time
 from datetime import UTC, datetime
 from typing import Any
+
+_MLR_CACHE: dict[int, tuple[float, dict[str, Any]]] = {}
+_MLR_CACHE_TTL_SEC = float(os.getenv("MONTHLY_LOSING_CACHE_SEC", "60"))
 
 
 def _miss_row(row: dict[str, Any]) -> dict[str, Any]:
@@ -61,7 +67,7 @@ def _month_reports(by_month: dict[str, list[dict[str, Any]]], limit: int) -> lis
     return rows
 
 
-async def build_monthly_losing_report(*, limit: int = 25) -> dict[str, Any]:
+async def _build_monthly_losing_report_uncached(*, limit: int = 25) -> dict[str, Any]:
     from database import fetch_labeled_oracle_predictions
 
     rows = await fetch_labeled_oracle_predictions(limit=800, include_synthetic=False)
@@ -106,3 +112,15 @@ async def build_monthly_losing_report(*, limit: int = 25) -> dict[str, Any]:
             "trust_basis": "public_accuracy_ledger + labeled_flywheel",
         },
     }
+
+
+async def build_monthly_losing_report(*, limit: int = 25) -> dict[str, Any]:
+    key = int(limit)
+    now = time.monotonic()
+    cached = _MLR_CACHE.get(key)
+    if cached and (now - cached[0]) < _MLR_CACHE_TTL_SEC:
+        return copy.deepcopy(cached[1])
+
+    payload = await _build_monthly_losing_report_uncached(limit=limit)
+    _MLR_CACHE[key] = (time.monotonic(), payload)
+    return copy.deepcopy(payload)
