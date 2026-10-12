@@ -279,7 +279,7 @@
           </div>
         </div>
         {% else %}
-        <a class="nav-util-link" href="/login" id="bdUtilLogin">{{ t('nav.login') if t is defined else 'Login' }}</a>
+        <a class="nav-util-link" href="/login" id="bdUtilLogin"><span lang="{{ key_lang('nav.login') if key_lang is defined else lang }}">{{ t('nav.login') if t is defined else 'Login' }}</span></a>
         <a class="nav-util-link nav-util-signup" href="/login?tab=register" id="bdUtilSignup">{{ t('nav.signup') if t is defined else 'Sign up' }}</a>
         {% endif %}
       </nav>

@@ -1043,10 +1043,24 @@ def _effective_translation(code: str, key: str) -> str | None:
     return None
 
 
+def _locale_file_value(code: str, key: str) -> str | None:
+    """Value stored in locales/<code>.json (may match English)."""
+    if normalize_lang(code) == "en":
+        return None
+    raw = _locale_raw_strings(code).get(key)
+    if raw is None:
+        return None
+    text = str(raw).strip()
+    return text if text else None
+
+
 def _resolve_string(key: str, code: str) -> str:
     code = normalize_lang(code)
     if code == "en":
         return EN.get(key) or key
+    filed = _locale_file_value(code, key)
+    if filed is not None:
+        return filed
     val = _effective_translation(code, key)
     if val is not None:
         return val
@@ -1054,13 +1068,17 @@ def _resolve_string(key: str, code: str) -> str:
 
 
 def element_lang_for_key(key: str, page_lang: str | None) -> str:
-    """BCP 47 lang for a rendered string (en when falling back to the English catalog)."""
+    """BCP 47 lang for a rendered string (en when JSON value is empty or English)."""
     code = normalize_lang(page_lang)
     if code == "en":
         return "en"
-    if _effective_translation(code, key) is not None:
-        return code
-    return "en"
+    filed = _locale_file_value(code, key)
+    if filed is None:
+        return "en"
+    en_val = (EN.get(key) or "").strip()
+    if filed == key or (en_val and filed == en_val):
+        return "en"
+    return code
 
 
 def t(key: str, lang: str | None = None, **kwargs: Any) -> str:
