@@ -266,9 +266,37 @@ def locale_ui_complete(code: str) -> bool:
     return True
 
 
+def _locale_json_codes() -> tuple[str, ...]:
+    """Locale codes with an on-disk catalog (locales/<code>.json)."""
+    root = _locales_dir()
+    codes: list[str] = []
+    for path in sorted(root.glob("*.json")):
+        code = path.stem
+        if code in LOCALES:
+            codes.append(code)
+    if "en" not in codes and "en" in LOCALES:
+        codes.insert(0, "en")
+
+    def _sort_key(c: str) -> tuple[int, str]:
+        if c == "en":
+            return (0, "")
+        return (1, str(LOCALES.get(c, {}).get("native") or c))
+
+    return tuple(sorted(set(codes), key=_sort_key))
+
+
 def list_locales() -> list[dict[str, str]]:
-    """Locales exposed in the header switcher (complete public-surface catalogs only)."""
-    return [dict(v) for v in LOCALES.values() if locale_ui_complete(v["code"])]
+    """Locales exposed in the header switcher (every locales/*.json catalog)."""
+    return [dict(LOCALES[code]) for code in _locale_json_codes() if code in LOCALES]
+
+
+def locale_catalog_available(code: str) -> bool:
+    code = normalize_lang(code)
+    if code not in LOCALES:
+        return False
+    if code == "en":
+        return True
+    return (_locales_dir() / f"{code}.json").is_file()
 
 
 # ---------------------------------------------------------------------------
@@ -1020,7 +1048,19 @@ def _resolve_string(key: str, code: str) -> str:
     if code == "en":
         return EN.get(key) or key
     val = _effective_translation(code, key)
-    return val if val is not None else ""
+    if val is not None:
+        return val
+    return EN.get(key) or key
+
+
+def element_lang_for_key(key: str, page_lang: str | None) -> str:
+    """BCP 47 lang for a rendered string (en when falling back to the English catalog)."""
+    code = normalize_lang(page_lang)
+    if code == "en":
+        return "en"
+    if _effective_translation(code, key) is not None:
+        return code
+    return "en"
 
 
 def t(key: str, lang: str | None = None, **kwargs: Any) -> str:
@@ -1044,14 +1084,9 @@ def translator(lang: str | None) -> Callable[..., str]:
 
 
 def catalog_for(lang: str | None) -> dict[str, str]:
-    """Client-visible catalog — only keys valid for this locale (no English bleed-through)."""
+    """Client-visible catalog — translated strings with English fallback per key."""
     code = normalize_lang(lang)
-    out: dict[str, str] = {}
-    for key in EN:
-        text = _resolve_string(key, code)
-        if text:
-            out[key] = text
-    return out
+    return {key: _resolve_string(key, code) for key in EN}
 
 
 def _resolve_request_lang_raw(request: Any) -> str:
@@ -1080,9 +1115,9 @@ def _resolve_request_lang_raw(request: Any) -> str:
 
 
 def resolve_request_lang(request: Any) -> str:
-    """lang query → cookie → Accept-Language → en; incomplete catalogs fall back to en."""
+    """lang query → cookie → Accept-Language → en (any locales/*.json catalog is allowed)."""
     code = _resolve_request_lang_raw(request)
-    if code != DEFAULT_LANG and not locale_ui_complete(code):
+    if not locale_catalog_available(code):
         return DEFAULT_LANG
     return code
 
@@ -1158,6 +1193,7 @@ def template_context(request: Any, extra: dict[str, Any] | None = None) -> dict[
         "locale": meta,
         "locales": list_locales(),
         "t": translator(lang),
+        "key_lang": lambda k, _lang=lang: element_lang_for_key(k, _lang),
         "i18n": catalog_for(lang),
         "i18n_json": json.dumps(catalog_for(lang), ensure_ascii=False),
         "locales_json": json.dumps(list_locales(), ensure_ascii=False),
@@ -1188,5 +1224,5 @@ def i18n_manifest() -> dict[str, Any]:
         "locales": list_locales(),
         "count": len(list_locales()),
         "rtl": [c for c, m in LOCALES.items() if m["dir"] == "rtl"],
-        "note": "25 locales; catalogs in locales/*.json; RTL for ar, he, ur, fa.",
+        "note": f"{len(list_locales())} locales; catalogs in locales/*.json; RTL for ar, he, ur, fa.",
     }

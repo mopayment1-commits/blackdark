@@ -83,7 +83,7 @@ def test_catalogs_cover_all_locales():
 
 
 def test_non_en_locales_translate_critical_keys():
-    from i18n_service import EN, catalog_for
+    from i18n_service import EN, _effective_translation, catalog_for
 
     for code in REQUIRED_LOCALES:
         if code == "en":
@@ -92,6 +92,11 @@ def test_non_en_locales_translate_critical_keys():
         for key in CRITICAL_KEYS:
             en_val = EN[key]
             cur = cat[key]
+            translated = _effective_translation(code, key)
+            if translated is None:
+                assert cur == en_val, f"{code}.{key} should English-fallback"
+                continue
+            assert cur == translated
             if key in ALLOW_IDENTICAL:
                 continue
             assert cur != en_val, f"{code}.{key} still English: {cur!r}"
@@ -130,7 +135,11 @@ async def test_pages_and_api_switch_language():
         en = await client.get("/")
         assert en.status_code == 200
         assert 'lang="en"' in en.text
-        assert "bdLangSelect" in en.text
+        assert 'id="bdLangTrigger"' in en.text
+
+        es = await client.get("/?lang=es")
+        assert es.status_code == 200
+        assert 'lang="es"' in es.text
 
         ar = await client.get("/?lang=ar")
         assert ar.status_code == 200

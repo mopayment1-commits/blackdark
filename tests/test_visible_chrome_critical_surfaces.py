@@ -35,16 +35,15 @@ def test_top_utility_has_anonymous_chrome_branches():
 
 
 def test_lang_switcher_lists_twenty_five_locales():
-    from i18n_service import LOCALES, list_locales, locale_ui_complete
+    from i18n_service import LOCALES, _locale_json_codes, list_locales
 
     sw = (ROOT / "templates/partials/lang_switcher.html").read_text(encoding="utf-8")
     assert 'id="bdLangTrigger"' in sw
     assert "_locales" in sw
     assert len(LOCALES) == 25
     exposed = list_locales()
-    expected = sum(1 for code in LOCALES if locale_ui_complete(code))
-    assert len(exposed) == expected
-    assert len(exposed) >= 20
+    assert len(exposed) == len(_locale_json_codes())
+    assert len(exposed) == 25
 
 
 def test_login_has_register_tab_and_global_header():
