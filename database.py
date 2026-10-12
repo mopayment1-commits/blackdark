@@ -2657,7 +2657,17 @@ async def fetch_live_public_ledger(
         "recent_raw_count": 0,
         "query_ok": False,
     }
-    try:
+    transient_errors = frozenset(
+        {
+            "ConnectionError",
+            "ConnectionResetError",
+            "CannotConnectNowError",
+            "PostgresConnectionError",
+            "InterfaceError",
+        }
+    )
+
+    async def _load() -> dict[str, Any]:
         live_clause = live_source_sql()
         resolved_clause = resolved_true_sql()
         incorrect_pred = miss_label_incorrect_sql()
@@ -2724,6 +2734,21 @@ async def fetch_live_public_ledger(
             except Exception:
                 logger.exception("Live public ledger miss/scored slice unavailable; counts still returned")
         return base
+
+    try:
+        for attempt in range(2):
+            try:
+                return await _load()
+            except Exception as exc:
+                if attempt == 0 and type(exc).__name__ in transient_errors:
+                    try:
+                        from postgres_backend import close_pool
+
+                        await close_pool()
+                    except Exception:
+                        pass
+                    continue
+                raise
     except Exception as exc:
         logger.exception("Unable to fetch live public ledger")
         base["error"] = type(exc).__name__
