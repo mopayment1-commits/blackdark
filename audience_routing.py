@@ -77,23 +77,53 @@ def normalize_audience(value: str | None) -> Audience:
     return "retail"
 
 
+_LENS_ID_BY_AUDIENCE: dict[Audience, str] = {
+    "retail": "prove",
+    "pro": "operate",
+    "whale": "desk",
+    "fund": "room",
+}
+
+_LENS_LABEL_FALLBACK: dict[str, str] = {
+    "prove": "Prove",
+    "operate": "Operate",
+    "desk": "Desk",
+    "room": "Room",
+}
+
+_LENS_PROMISE_FALLBACK: dict[str, str] = {
+    "prove": "Decide… and prove it.",
+    "operate": "Make proof a daily habit.",
+    "desk": "Convince someone else.",
+    "room": "Official decision room.",
+}
+
+
 def audience_entry(value: str | None = None) -> dict[str, Any]:
     key = normalize_audience(value)
     row = dict(_AUDIENCES[key])
+    lens_id = _LENS_ID_BY_AUDIENCE.get(key, "prove")
+    row["lens"] = lens_id
     try:
         from trust_os_lenses import AUDIENCE_TO_LENS, lens_by_id, primary_entries_for_lens
 
-        lens_id = AUDIENCE_TO_LENS.get(key, "prove")
-        lens = lens_by_id(lens_id)
+        lens_id = AUDIENCE_TO_LENS.get(key, lens_id)
         row["lens"] = lens_id
+        lens = lens_by_id(lens_id)
         row["lens_label"] = lens.get("label")
         row["lens_promise"] = lens.get("promise")
         row["primary_entries"] = primary_entries_for_lens(lens_id)
-        row["entry_path"] = lens.get("entry_path") or row.get("entry_path")
+        if lens.get("entry_path"):
+            row["entry_path"] = lens["entry_path"]
+        if lens.get("ux_mode_default"):
+            row["ux_mode_default"] = lens["ux_mode_default"]
     except Exception:
-        row["lens"] = {"retail": "prove", "pro": "operate", "whale": "desk", "fund": "room"}.get(
-            key, "prove"
-        )
+        pass
+    if not row.get("lens_label"):
+        row["lens_label"] = _LENS_LABEL_FALLBACK.get(lens_id, "Prove")
+    if not row.get("lens_promise"):
+        row["lens_promise"] = _LENS_PROMISE_FALLBACK.get(lens_id, "")
+    row.setdefault("cta", row.get("cta") or "")
     return row
 
 

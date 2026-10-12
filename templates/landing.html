@@ -878,7 +878,7 @@
                     </select>
                     </label>
                     <label class="field-label" for="landingUxMode" style="display:inline-flex;flex-direction:column;gap:.25rem;font-size:.75rem;color:var(--text-muted);text-align:left">Experience
-                    <select id="landingUxMode" name="landingUxMode" style="background:var(--bg-elevated);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.55rem">
+                    <select id="landingUxMode" name="landingUxMode" data-bd-change-call="onLandingUxModeChange" style="background:var(--bg-elevated);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.55rem">
                         <option value="beginner" selected>Beginner</option>
                         <option value="pro">Decision Pro</option>
                     </select>
@@ -888,6 +888,7 @@
                     <button data-bd-call="consultOracle">Get Decision</button>
                 </div>
                 <p id="audienceCta" style="color:var(--text-muted);font-size:.85rem;margin:.5rem 0 0">Get one clear CONDITIONS MET / Wait decision — no dashboard tourism.</p>
+                <p id="landingUxHint" style="color:var(--text-muted);font-size:.78rem;margin:.25rem 0 0;display:none" aria-live="polite"></p>
                 <div class="oracle-result" id="oracleResult">
                     <div class="result-header">
                         <div class="result-symbol" id="resultSymbol">BTC</div>
@@ -1211,7 +1212,8 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             return 'WAIT';
         }
         const BD_CONDITIONS_MET_REVIEW = "Analytical state only - the model's stated conditions are currently met. No transaction or investment action is recommended.";
-        function fallbackDecisionSentence(data, symbol, action) {
+        function fallbackDecisionSentence(data, symbol, action, mode) {
+            if (mode === 'pro' && data.decision_sentence_pro) return data.decision_sentence_pro;
             let sentence = data.decision_sentence || data.conditions_met_review || data.narrative || data.oracle || data.action_line || '';
             if (sentence && !/meditat|consulting the oracle/i.test(sentence)) return sentence;
             if (typeof data.action === 'string' && data.action.length > 12 && !/\bBuy\b/i.test(data.action)) return data.action;
@@ -1472,8 +1474,9 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 scoreEl.textContent = data.opportunity_score ?? '--';
                 const action = decideLandingAction(data);
                 paintLandingVerdict(verdictEl, data, action);
-                oracleEl.textContent = fallbackDecisionSentence(data, symbol, action);
+                oracleEl.textContent = fallbackDecisionSentence(data, symbol, action, mode);
                 paintLandingFreshness(data);
+                paintLandingUxHint(mode, data);
                 paintLandingProMeta(proMeta, data, mode);
                 paintLandingUpgrade(upgradeEl, data);
                 const certEl = document.getElementById('landingCert');
@@ -1488,26 +1491,65 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             } catch (error) { console.debug(error); oracleEl.textContent = i18nT('ui.oracle_unavailable'); }
         }
 
+        const LANDING_AUDIENCE_LABEL = { retail: 'Prove', pro: 'Operate', whale: 'Desk', fund: 'Room' };
+
+        function formatAudienceCta(aud, d) {
+            const label = (d && d.lens_label) || LANDING_AUDIENCE_LABEL[aud] || 'Prove';
+            const body = (d && (d.lens_promise || d.cta)) || '';
+            if (body) return label + ' — ' + body;
+            return 'Audience: ' + label;
+        }
+
+        function paintLandingUxHint(mode, data) {
+            const hint = document.getElementById('landingUxHint');
+            if (!hint) return;
+            const resolved = (data && data.ux_mode) ? String(data.ux_mode) : (mode || 'beginner');
+            const label = resolved === 'pro' ? 'Decision Pro' : 'Beginner';
+            hint.textContent = 'Experience: ' + label;
+            hint.style.display = 'block';
+        }
+
+        function onLandingUxModeChange() {
+            const mode = document.getElementById('landingUxMode')?.value || 'beginner';
+            localStorage.setItem('bd_ux_mode', mode);
+            const hint = document.getElementById('landingUxHint');
+            if (hint) {
+                hint.textContent = 'Experience: ' + (mode === 'pro' ? 'Decision Pro' : 'Beginner') + ' — press Get Decision';
+                hint.style.display = 'block';
+            }
+            loadLandingTrustPulse();
+        }
+
         async function applyAudience() {
             const aud = document.getElementById('landingAudience')?.value || 'retail';
             const lensMap = { retail:'prove', pro:'operate', whale:'desk', fund:'room' };
+            const cta = document.getElementById('audienceCta');
             localStorage.setItem('bd_audience', aud);
             localStorage.setItem('bd_lens', lensMap[aud] || 'prove');
+            let d = null;
             try {
-                const res = await fetch('/api/audience/entry?audience=' + encodeURIComponent(aud));
-                const d = await res.json();
-                const cta = document.getElementById('audienceCta');
-                if (cta) {
-                    const promise = d.lens_promise || d.cta || '';
-                    cta.textContent = (d.lens_label ? (d.lens_label + ' — ') : '') + promise;
+                const res = await fetch('/api/audience/entry?audience=' + encodeURIComponent(aud), {
+                    headers: { Accept: 'application/json' },
+                });
+                const raw = await res.text();
+                try {
+                    d = raw && !raw.trim().startsWith('<') ? JSON.parse(raw) : null;
+                } catch (error) { console.debug(error); d = null; }
+                if (!res.ok || !d || typeof d !== 'object') {
+                    if (cta) cta.textContent = formatAudienceCta(aud, null);
+                    return;
                 }
+                if (cta) cta.textContent = formatAudienceCta(aud, d);
                 const mode = document.getElementById('landingUxMode');
                 if (mode && d.ux_mode_default) mode.value = d.ux_mode_default;
-                if ((aud === 'fund' || aud === 'whale' || aud === 'pro') && d.entry_path) {
-                    assignLocationHref(d.entry_path);
-                }
-            } catch (error) { console.debug(error); }
+            } catch (error) {
+                console.debug(error);
+                if (cta) cta.textContent = formatAudienceCta(aud, null);
+            }
         }
+        window.applyAudience = applyAudience;
+        window.consultOracle = consultOracle;
+        window.onLandingUxModeChange = onLandingUxModeChange;
         
         async function joinWaitlist(e) {
             e.preventDefault();
@@ -1921,6 +1963,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             loadBillingReadyLine();
             wireInstitutionalInquiry();
             loadTelegramBotLink();
+            await applyAudience();
             await loadLandingTrustPulse();
             setTimeout(consultOracle, 500);
             if ('serviceWorker' in navigator) {
