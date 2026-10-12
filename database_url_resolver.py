@@ -5,7 +5,7 @@ from __future__ import annotations
 import os
 import socket
 from typing import Any
-from urllib.parse import urlparse, urlunparse
+from urllib.parse import parse_qsl, urlparse, urlencode, urlunparse
 
 _CANDIDATE_KEYS: tuple[str, ...] = (
     "DATABASE_URL",
@@ -74,6 +74,37 @@ def database_host(url: str) -> str | None:
         return None
 
 
+def railway_postgres_requires_ssl(url: str) -> bool:
+    host = (database_host(url) or "").lower()
+    if host.endswith(".rlwy.net") or host.endswith(".railway.app"):
+        return True
+    return _is_railway_internal_host(host)
+
+
+def ensure_postgres_ssl_params(url: str) -> str:
+    """Railway public Postgres proxies require TLS when sslmode is omitted."""
+    parsed = urlparse(url)
+    if parsed.scheme not in ("postgresql", "postgres"):
+        return url
+    query = dict(parse_qsl(parsed.query, keep_blank_values=True))
+    mode = str(query.get("sslmode") or "").lower()
+    if mode == "disable" or not railway_postgres_requires_ssl(url):
+        return url
+    if mode:
+        return url
+    query["sslmode"] = "require"
+    return urlunparse(
+        (
+            parsed.scheme,
+            parsed.netloc,
+            parsed.path,
+            parsed.params,
+            urlencode(query),
+            parsed.fragment,
+        )
+    )
+
+
 def host_resolves(host: str | None, *, timeout: float = 2.0) -> bool:
     if not host:
         return False
@@ -119,11 +150,11 @@ def resolve_database_url() -> tuple[str | None, dict[str, Any]]:
                         "selection": "railway_public_over_unresolved_internal",
                     }
                 )
-                return pub_url, meta
+                return ensure_postgres_ssl_params(pub_url), meta
             continue
         if host_resolves(host):
             meta.update({"selected_env": key, "selected_host": host, "selection": "resolvable"})
-            return url, meta
+            return ensure_postgres_ssl_params(url), meta
 
     if public_pair:
         pub_key, pub_url = public_pair
@@ -135,7 +166,7 @@ def resolve_database_url() -> tuple[str | None, dict[str, Any]]:
                 "selection": "railway_public_fallback",
             }
         )
-        return pub_url, meta
+        return ensure_postgres_ssl_params(pub_url), meta
 
     key, url = candidates[0]
     host = database_host(url)
@@ -150,4 +181,4 @@ def resolve_database_url() -> tuple[str | None, dict[str, Any]]:
         return None, meta
 
     meta.update({"selected_env": key, "selected_host": host, "selection": "first_candidate_unresolved"})
-    return url, meta
+    return ensure_postgres_ssl_params(url), meta

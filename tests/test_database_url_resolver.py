@@ -45,7 +45,8 @@ def test_resolve_skips_unresolved_railway_internal_for_public(monkeypatch):
 
     monkeypatch.setattr(resolver, "host_resolves", fake_resolves)
     url, meta = resolver.resolve_database_url()
-    assert url == "postgresql://u:p@public.proxy.rlwy.net:12345/railway"
+    assert url.startswith("postgresql://u:p@public.proxy.rlwy.net:12345/railway")
+    assert "sslmode=require" in url
     assert meta["selected_env"] == "DATABASE_PUBLIC_URL"
     assert meta["selection"] == "railway_public_over_unresolved_internal"
 

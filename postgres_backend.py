@@ -253,7 +253,7 @@ async def init_pool() -> None:
 
     import asyncpg
 
-    from database_url_resolver import resolve_database_url
+    from database_url_resolver import ensure_postgres_ssl_params, resolve_database_url
 
     url, meta = resolve_database_url()
     if not url:
@@ -278,6 +278,8 @@ async def init_pool() -> None:
                     "selected_host": database_host(url),
                     "selection": "config_fallback",
                 }
+    if url:
+        url = ensure_postgres_ssl_params(url)
     _LAST_POOL_META = meta
     if not url:
         _LAST_POOL_ERROR = "no_postgres_dsn"
@@ -290,6 +292,12 @@ async def init_pool() -> None:
     min_size = max(1, min(min_size, max_size))
     retries = int(os.getenv("PG_POOL_INIT_RETRIES", "3"))
     delay = float(os.getenv("PG_POOL_INIT_RETRY_DELAY_SEC", "1.5"))
+    ssl: bool | str = False
+    if "sslmode=require" in url or "sslmode=verify-full" in url:
+        ssl = True
+    elif "sslmode=prefer" in url:
+        ssl = "prefer"
+
     last_exc: Exception | None = None
     for attempt in range(1, retries + 1):
         try:
@@ -297,6 +305,7 @@ async def init_pool() -> None:
                 url,
                 min_size=min_size,
                 max_size=max_size,
+                ssl=ssl,
                 command_timeout=float(os.getenv("PG_COMMAND_TIMEOUT_SEC", "20")),
                 max_inactive_connection_lifetime=float(os.getenv("PG_MAX_INACTIVE_CONN_LIFETIME", "300")),
             )
