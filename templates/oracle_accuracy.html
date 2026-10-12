@@ -416,14 +416,7 @@
             if (tbody) tbody.innerHTML = `<tr><td colspan="8">${esc(msg)}</td></tr>`;
             const expl = document.getElementById('metrics-explainer');
             if (expl) expl.textContent = msg;
-            if (!skipLosing) {
-                const statusEl = document.getElementById('losing-status');
-                if (statusEl) statusEl.textContent = msg;
-                const errList = document.getElementById('losing-errors-list');
-                const partList = document.getElementById('losing-partial-list');
-                if (errList) errList.innerHTML = `<li>${esc(msg)}</li>`;
-                if (partList) partList.innerHTML = `<li>${esc(msg)}</li>`;
-            }
+            /* #losing lists are owned by loadMonthlyLosingReport — do not overwrite here */
             const preview = document.getElementById('ledger-share-preview');
             if (preview) preview.textContent = msg;
             lastLosingShare = '';
@@ -980,13 +973,13 @@
                 if (lastLedgerPayload && applyLedgerPayload(lastLedgerPayload)) {
                     return;
                 }
-                renderLedgerFailure(rejectReason, { skipLosing: liveLedgerOk });
+                renderLedgerFailure(rejectReason, { skipLosing: true });
             } catch (error) {
                 console.debug(error);
                 if (lastLedgerPayload && applyLedgerPayload(lastLedgerPayload)) {
                     return;
                 }
-                renderLedgerFailure(formatLedgerFetchError(error));
+                renderLedgerFailure(formatLedgerFetchError(error), { skipLosing: true });
             }
         }
 
