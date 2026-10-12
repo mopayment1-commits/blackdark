@@ -263,7 +263,8 @@ def iter_asyncpg_pool_candidates() -> list[tuple[str, str, dict[str, Any]]]:
 
     if running_on_railway():
         for key, url in candidates:
-            if _is_railway_internal_host(database_host(url)):
+            host = database_host(url)
+            if _is_railway_internal_host(host) and host_resolves(host):
                 _add(key, url)
     for key, url in candidates:
         host = database_host(url)
