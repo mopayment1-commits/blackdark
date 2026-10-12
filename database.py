@@ -2663,7 +2663,10 @@ async def fetch_live_public_ledger(
         incorrect_pred = miss_label_incorrect_sql()
         partial_pred = miss_label_partial_sql()
         async with get_connection() as db:
-            await _ensure_oracle_prediction_columns(db)
+            try:
+                await _ensure_oracle_prediction_columns(db)
+            except Exception:
+                logger.exception("Oracle prediction column ensure skipped; continuing live ledger read")
             total_row, resolved_row, avg_row, recent_rows = await _fetch_audit_core_rows(
                 db,
                 recent_limit,
@@ -2721,8 +2724,9 @@ async def fetch_live_public_ledger(
             except Exception:
                 logger.exception("Live public ledger miss/scored slice unavailable; counts still returned")
         return base
-    except Exception:
+    except Exception as exc:
         logger.exception("Unable to fetch live public ledger")
+        base["error"] = type(exc).__name__
         return base
 
 

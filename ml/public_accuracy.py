@@ -367,6 +367,7 @@ async def _build_public_accuracy_payload_uncached(*, recent_limit: int = 20) -> 
         "live_ledger": {
             "source": live_source,
             "query_ok": bool(ledger.get("query_ok")),
+            "error": ledger.get("error"),
             "logged": live_total,
             "resolved": live_resolved,
             "pending": live_pending,
