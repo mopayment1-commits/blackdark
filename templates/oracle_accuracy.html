@@ -405,6 +405,20 @@
             return error.message || String(error);
         }
 
+        function renderLosingLedgerUnavailable(reason) {
+            const base = String(reason || 'unknown error');
+            const msg = base.startsWith('Live ledger unavailable:')
+                ? base
+                : ('Live ledger unavailable: ' + base);
+            const statusEl = document.getElementById('losing-status');
+            if (statusEl) statusEl.textContent = msg;
+            const noData = '<li>No data — ledger request failed.</li>';
+            const errList = document.getElementById('losing-errors-list');
+            const partList = document.getElementById('losing-partial-list');
+            if (errList) errList.innerHTML = noData;
+            if (partList) partList.innerHTML = noData;
+        }
+
         function renderLedgerFailure(reason, opts) {
             const options = opts || {};
             const skipLosing = options.skipLosing === true;
@@ -416,7 +430,9 @@
             if (tbody) tbody.innerHTML = `<tr><td colspan="8">${esc(msg)}</td></tr>`;
             const expl = document.getElementById('metrics-explainer');
             if (expl) expl.textContent = msg;
-            /* #losing lists are owned by loadMonthlyLosingReport — do not overwrite here */
+            if (!skipLosing) {
+                renderLosingLedgerUnavailable(reason);
+            }
             const preview = document.getElementById('ledger-share-preview');
             if (preview) preview.textContent = msg;
             lastLosingShare = '';
@@ -973,13 +989,13 @@
                 if (lastLedgerPayload && applyLedgerPayload(lastLedgerPayload)) {
                     return;
                 }
-                renderLedgerFailure(rejectReason, { skipLosing: true });
+                renderLedgerFailure(rejectReason);
             } catch (error) {
                 console.debug(error);
                 if (lastLedgerPayload && applyLedgerPayload(lastLedgerPayload)) {
                     return;
                 }
-                renderLedgerFailure(formatLedgerFetchError(error), { skipLosing: true });
+                renderLedgerFailure(formatLedgerFetchError(error));
             }
         }
 

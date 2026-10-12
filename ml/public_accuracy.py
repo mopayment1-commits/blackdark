@@ -127,25 +127,116 @@ async def build_public_accuracy_payload(*, recent_limit: int = 20) -> dict[str, 
         ):
             return copy.deepcopy(_PAYLOAD_CACHE)
         payload = await _build_public_accuracy_payload_uncached(recent_limit=recent_limit)
-        _PAYLOAD_CACHE = payload
-        _PAYLOAD_CACHE_KEY = key
-        _PAYLOAD_CACHE_AT = now
+        if (payload.get("live_ledger") or {}).get("query_ok"):
+            _PAYLOAD_CACHE = payload
+            _PAYLOAD_CACHE_KEY = key
+            _PAYLOAD_CACHE_AT = now
         return copy.deepcopy(payload)
 
 
+LIVE_LEDGER_QUERY_TIMEOUT_SEC = float(os.getenv("PUBLIC_ACCURACY_LIVE_LEDGER_TIMEOUT_SEC", "3"))
+PUBLIC_ACCURACY_AUX_TIMEOUT_SEC = float(os.getenv("PUBLIC_ACCURACY_AUX_TIMEOUT_SEC", "4"))
+
+
+async def _await_with_timeout(coro: Any, timeout: float, fallback: Any) -> Any:
+    try:
+        return await asyncio.wait_for(coro, timeout=timeout)
+    except Exception:
+        return fallback
+
+
+async def _fetch_live_ledger_stats(recent_limit: int) -> dict[str, Any]:
+    from database import fetch_oracle_audit_stats
+
+    try:
+        stats = await asyncio.wait_for(
+            fetch_oracle_audit_stats(limit=recent_limit, include_synthetic=False),
+            timeout=LIVE_LEDGER_QUERY_TIMEOUT_SEC,
+        )
+        return {"query_ok": True, "error": None, "stats": stats}
+    except asyncio.TimeoutError:
+        return {
+            "query_ok": False,
+            "error": "live_ledger query timed out",
+            "stats": None,
+        }
+    except Exception as exc:
+        return {"query_ok": False, "error": str(exc), "stats": None}
+
+
+def _miss_counts_and_sample(
+    recent_raw: list[dict[str, Any]],
+    chain_lookup: dict[str, dict[str, Any]],
+) -> tuple[int, int, list[dict[str, Any]]]:
+    verified_errors = 0
+    partial_outcomes = 0
+    miss_sample: list[dict[str, Any]] = []
+    for row in recent_raw:
+        label = str(row.get("label") or row.get("outcome") or "").lower()
+        if label not in {"incorrect", "partial", "miss", "wrong"}:
+            continue
+        if label in {"incorrect", "miss", "wrong"}:
+            verified_errors += 1
+        else:
+            partial_outcomes += 1
+        if len(miss_sample) >= 40:
+            continue
+        pred_id = row.get("id")
+        chain_meta = chain_lookup.get(str(pred_id) if pred_id is not None else "")
+        miss_sample.append(_public_recent_row(row, chain_meta, label))
+    return verified_errors, partial_outcomes, miss_sample
+
+
+def _live_ledger_block(
+    live_result: dict[str, Any],
+    *,
+    recent_raw: list[dict[str, Any]],
+    chain_lookup: dict[str, dict[str, Any]],
+    stats: dict[str, Any] | None,
+) -> dict[str, Any]:
+    if not live_result.get("query_ok") or not stats:
+        return {
+            "query_ok": False,
+            "error": live_result.get("error") or "live ledger query failed",
+            "source": "oracle_predictions",
+        }
+    live = stats.get("live") or {}
+    verified_errors, partial_outcomes, miss_sample = _miss_counts_and_sample(recent_raw, chain_lookup)
+    return {
+        "query_ok": True,
+        "error": None,
+        "source": "oracle_predictions",
+        "logged": int(live.get("total_predictions", stats.get("total_predictions", 0)) or 0),
+        "resolved": int(live.get("resolved_predictions", stats.get("resolved_predictions", 0)) or 0),
+        "pending": int(live.get("pending_predictions", stats.get("pending_predictions", 0)) or 0),
+        "accuracy_percent": float(
+            live.get("average_accuracy_percent", stats.get("average_accuracy_percent", 0)) or 0
+        ),
+        "verified_errors": verified_errors,
+        "partial_outcomes": partial_outcomes,
+        "miss_sample": miss_sample,
+    }
+
+
 async def _build_public_accuracy_payload_uncached(*, recent_limit: int = 20) -> dict[str, Any]:
-    from database import count_labeled_oracle_predictions, fetch_oracle_audit_stats
+    from database import _empty_oracle_audit_stats, fetch_labeled_oracle_predictions
+
+    async def _labeled_sample_count() -> int:
+        rows = await fetch_labeled_oracle_predictions(limit=5000, include_synthetic=False)
+        return len(rows or [])
     from ml.drift_monitor import load_feature_envelope
     from ml.experience_log import public_experience_block
     from ml.train_baseline import model_status
     from ml.training_utils import LEAKAGE_GUARD_NOTE
     from oracle_audit_chain import chain_summary, read_recent_chain_records
 
-    stats, ml_status, labeled_count, experience = await asyncio.gather(
-        fetch_oracle_audit_stats(limit=recent_limit, include_synthetic=False),
-        model_status(),
-        count_labeled_oracle_predictions(include_synthetic=False),
-        asyncio.to_thread(public_experience_block),
+    live_result = await _fetch_live_ledger_stats(recent_limit)
+    stats = live_result["stats"] if live_result.get("query_ok") else _empty_oracle_audit_stats()
+
+    ml_status, labeled_count, experience = await asyncio.gather(
+        _await_with_timeout(model_status(), PUBLIC_ACCURACY_AUX_TIMEOUT_SEC, {}),
+        _await_with_timeout(_labeled_sample_count(), PUBLIC_ACCURACY_AUX_TIMEOUT_SEC, 0),
+        _await_with_timeout(asyncio.to_thread(public_experience_block), PUBLIC_ACCURACY_AUX_TIMEOUT_SEC, {}),
     )
 
     def _chain_and_blocks() -> tuple[Any, ...]:
@@ -161,6 +252,11 @@ async def _build_public_accuracy_payload_uncached(*, recent_limit: int = 20) -> 
             load_feature_envelope(),
         )
 
+    chain_bundle = await _await_with_timeout(
+        asyncio.to_thread(_chain_and_blocks),
+        PUBLIC_ACCURACY_AUX_TIMEOUT_SEC,
+        ({}, [], {}, {}, {}, {}, None),
+    )
     (
         chain_ctx,
         chain_recent_tail,
@@ -169,29 +265,38 @@ async def _build_public_accuracy_payload_uncached(*, recent_limit: int = 20) -> 
         signal_block,
         drift_block,
         envelope,
-    ) = await asyncio.to_thread(_chain_and_blocks)
-    chain_verify = chain_ctx.get("integrity") or {}
-    chain_lookup = _chain_lookup_from_recent(chain_recent_tail)
+    ) = chain_bundle
+    chain_verify = (chain_ctx or {}).get("integrity") or {}
+    chain_lookup = _chain_lookup_from_recent(chain_recent_tail or [])
 
-
-
-    recent_raw = stats.get("recent") or []
+    recent_raw = stats.get("recent") or [] if live_result.get("query_ok") else []
     public_recent, correct, resolved_rows = _public_recent_predictions(recent_raw, chain_lookup)
 
     hit_rate = round(correct / resolved_rows * 100, 2) if resolved_rows else 0.0
 
     live_block = stats.get("live") or {}
+    ledger_ok = bool(live_result.get("query_ok"))
     live_resolved = int(
         live_block.get("resolved_predictions", stats.get("resolved_predictions", 0)) or 0
-    )
-    live_total = int(live_block.get("total_predictions", stats.get("total_predictions", 0)) or 0)
+    ) if ledger_ok else 0
+    live_total = int(
+        live_block.get("total_predictions", stats.get("total_predictions", 0)) or 0
+    ) if ledger_ok else 0
     live_pending = int(
         live_block.get("pending_predictions", stats.get("pending_predictions", 0)) or 0
+    ) if ledger_ok else 0
+    verified_errors, partial_outcomes, public_miss_sample = (
+        _miss_counts_and_sample(recent_raw, chain_lookup) if ledger_ok else (0, 0, [])
     )
-    metrics_footnote = (
-        f"Average accuracy is the cumulative mean over {live_resolved} resolved live prediction(s). "
-        f"Logged total ({live_total}) includes {live_pending} still pending 24h resolution."
-    )
+    if ledger_ok:
+        metrics_footnote = (
+            f"Average accuracy is the cumulative mean over {live_resolved} resolved live prediction(s). "
+            f"Logged total ({live_total}) includes {live_pending} still pending 24h resolution."
+        )
+    else:
+        metrics_footnote = (
+            "Live ledger query did not complete — cumulative metrics withheld until the database responds."
+        )
     if public_recent:
         recent_table_footnote = (
             f"Showing {min(len(public_recent), recent_limit)} most recent resolved rows "
@@ -247,35 +352,41 @@ async def _build_public_accuracy_payload_uncached(*, recent_limit: int = 20) -> 
 
         },
 
+        "live_ledger": _live_ledger_block(
+            live_result,
+            recent_raw=recent_raw,
+            chain_lookup=chain_lookup,
+            stats=stats if ledger_ok else None,
+        ),
         "oracle": {
 
-            "total_predictions": stats.get("live", {}).get("total_predictions", stats.get("total_predictions", 0)),
+            "total_predictions": live_total,
 
-            "resolved_predictions": stats.get("live", {}).get(
+            "resolved_predictions": live_resolved,
 
-                "resolved_predictions", stats.get("resolved_predictions", 0)
+            "pending_predictions": live_pending,
 
+            "average_accuracy_percent": (
+                stats.get("live", {}).get(
+                    "average_accuracy_percent", stats.get("average_accuracy_percent", 0)
+                )
+                if ledger_ok
+                else 0
             ),
 
-            "pending_predictions": stats.get("live", {}).get(
+            "recent_hit_rate_percent": hit_rate if ledger_ok else 0.0,
 
-                "pending_predictions", stats.get("pending_predictions", 0)
+            "recent_predictions": public_recent[:recent_limit] if ledger_ok else [],
 
-            ),
+            "verified_errors": verified_errors,
 
-            "average_accuracy_percent": stats.get("live", {}).get(
+            "partial_outcomes": partial_outcomes,
 
-                "average_accuracy_percent", stats.get("average_accuracy_percent", 0)
-
-            ),
-
-            "recent_hit_rate_percent": hit_rate,
-
-            "recent_predictions": public_recent[:recent_limit],
+            "public_miss_sample": public_miss_sample,
 
             "metrics_scope": "live_only",
 
-            "recent_resolved_shown": len(public_recent[:recent_limit]),
+            "recent_resolved_shown": len(public_recent[:recent_limit]) if ledger_ok else 0,
 
             "recent_window_scanned": len(recent_raw),
 

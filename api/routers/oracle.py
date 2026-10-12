@@ -128,6 +128,11 @@ async def oracle_accuracy_public():
             "resolved_count": 0,
             "recent": [],
             "error": type(exc).__name__,
+            "live_ledger": {
+                "query_ok": False,
+                "error": str(exc),
+                "source": "oracle_predictions",
+            },
         }
     payload["timestamp"] = datetime.now(UTC).isoformat()
     max_age = int(os.getenv("PUBLIC_ACCURACY_HTTP_CACHE_SEC", "15"))

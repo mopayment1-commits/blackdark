@@ -892,7 +892,10 @@ async def institutional_audit_middleware(request: Request, call_next):
             response_status=response.status_code,
             body_bytes=body_bytes,
         )
-        if path.startswith("/api/") and path != "/api/due-diligence/evidence-pack/public-summary":
+        if path.startswith("/api/") and path not in {
+            "/api/due-diligence/evidence-pack/public-summary",
+            "/api/oracle/accuracy/public",
+        }:
             from distribution_compounding import track_api_usage
 
             await track_api_usage(path=path)
