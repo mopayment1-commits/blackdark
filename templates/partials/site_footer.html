@@ -4,7 +4,7 @@
         max-width: 1100px; margin: 2.5rem auto 0; padding: 2rem 1.25rem 2.5rem;
         border-top: 1px solid #2a2a35; color: #71717a; font-size: .78rem; line-height: 1.65;
     }
-    .bd-site-footer .bd-foot-brand { font-size: 1.05rem; font-weight: 800; color: #22d3ee; letter-spacing: .04em; }
+    .bd-site-footer .bd-foot-brand { font-size: 1.05rem; font-weight: 800; color: #22d3ee; letter-spacing: .04em; margin: 0; }
     .bd-site-footer .bd-foot-tag { color: #a1a1aa; margin: .35rem 0 1.1rem; }
     .bd-site-footer .bd-foot-grid {
         display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -45,7 +45,7 @@
         {'label': 'Privacy', 'href': '/privacy'},
     ] %}
     {% set follow_links = f.follow if f.follow else [] %}
-    <p class="bd-foot-brand">{{ f.brand or 'BLACKDARK' }}</p>
+    <h2 class="bd-foot-brand">{{ f.brand or 'BLACKDARK' }}</h2>
     <p class="bd-foot-tag">{{ f.tagline or 'Trust OS — Decide. Prove it. Share it.' }} · {{ f.story or 'Prove → Operate → Desk → Room' }}</p>
     <div class="bd-foot-grid">
         <div>
