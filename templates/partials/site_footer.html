@@ -26,13 +26,32 @@
 </style>
 <footer class="bd-site-footer" role="contentinfo">
     {% set f = footer if footer is defined and footer else {} %}
+    {% set product_links = f.product if f.product else [
+        {'label': 'Oracle', 'href': '/#oracle'},
+        {'label': 'Dashboard', 'href': '/dashboard'},
+        {'label': 'Pricing', 'href': '/pricing'},
+    ] %}
+    {% set trust_links = f.trust if f.trust else [
+        {'label': 'Public Accuracy Ledger', 'href': '/oracle-accuracy'},
+        {'label': 'Discipline Mirror', 'href': '/discipline-mirror'},
+    ] %}
+    {% set company_links = f.company if f.company else [
+        {'label': 'Contact', 'href': '/contact'},
+        {'label': 'About', 'href': '/about'},
+    ] %}
+    {% set legal_links = f.legal if f.legal else [
+        {'label': 'Disclaimer', 'href': '/disclaimer'},
+        {'label': 'Terms', 'href': '/terms'},
+        {'label': 'Privacy', 'href': '/privacy'},
+    ] %}
+    {% set follow_links = f.follow if f.follow else [] %}
     <div class="bd-foot-brand">{{ f.brand or 'BLACKDARK' }}</div>
     <p class="bd-foot-tag">{{ f.tagline or 'Trust OS — Decide. Prove it. Share it.' }} · {{ f.story or 'Prove → Operate → Desk → Room' }}</p>
     <div class="bd-foot-grid">
         <div>
             <h4>Product</h4>
             <ul>
-                {% for item in f.product or [] %}
+                {% for item in product_links %}
                 <li><a href="{{ item.href }}">{{ item.label }}</a></li>
                 {% endfor %}
             </ul>
@@ -40,7 +59,7 @@
         <div>
             <h4>Trust</h4>
             <ul>
-                {% for item in f.trust or [] %}
+                {% for item in trust_links %}
                 <li><a href="{{ item.href }}">{{ item.label }}</a></li>
                 {% endfor %}
             </ul>
@@ -48,7 +67,7 @@
         <div>
             <h4>Company</h4>
             <ul>
-                {% for item in f.company or [] %}
+                {% for item in company_links %}
                 <li><a href="{{ item.href }}">{{ item.label }}</a></li>
                 {% endfor %}
             </ul>
@@ -56,18 +75,20 @@
         <div>
             <h4>Legal</h4>
             <ul>
-                {% for item in f.legal or [] %}
+                {% for item in legal_links %}
                 <li><a href="{{ item.href }}">{{ item.label }}</a></li>
                 {% endfor %}
             </ul>
         </div>
     </div>
+    {% if follow_links %}
     <h4>Follow us</h4>
     <div class="bd-follow" aria-label="Follow BLACKDARK">
-        {% for s in f.follow or [] %}
+        {% for s in follow_links %}
         <a href="{{ s.href }}" target="_blank" rel="noopener noreferrer">{{ s.label }}</a>
         {% endfor %}
     </div>
+    {% endif %}
     <div class="bd-foot-bottom">
         <strong style="color:#a1a1aa">Anti-Hype</strong> · {{ f.disclaimer_line or 'Not financial advice. Verify on the Public Accuracy Ledger.' }}
         · <a href="/oracle-accuracy">Ledger</a>
