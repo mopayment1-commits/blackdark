@@ -1095,6 +1095,19 @@ async def wave_01_data_header_middleware(request: Request, call_next):
         response.headers.setdefault("X-Wave-01", "1.0.0")
     return response
 
+
+@app.middleware("http")
+async def evidence_public_summary_fast_path(request: Request, call_next):
+    """Static public teaser — bypass heavy /api middleware (audit, DB hooks)."""
+    path = request.url.path or ""
+    if request.method == "GET" and path == "/api/due-diligence/evidence-pack/public-summary":
+        from evidence_public_summary import get_cached_evidence_public_summary
+        from fastapi.responses import JSONResponse
+
+        return JSONResponse(get_cached_evidence_public_summary())
+    return await call_next(request)
+
+
 try:
     from graphql_schema import create_graphql_router
 
