@@ -7,9 +7,9 @@ Activated when DATABASE_URL starts with postgresql:// or postgres://
 from __future__ import annotations
 
 import asyncio
-
 import logging
 import re
+import ssl
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 from datetime import UTC, datetime
