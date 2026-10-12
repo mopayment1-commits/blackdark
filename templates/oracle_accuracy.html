@@ -397,11 +397,6 @@
 
         function renderLedgerFailure(reason) {
             const msg = 'Live ledger unavailable: ' + reason;
-            const badge = document.getElementById('engine-badge');
-            if (badge) {
-                badge.textContent = 'Engine · unavailable';
-                badge.className = 'badge badge-warn';
-            }
             togglePanel('panel-ledger-stats', true);
             togglePanel('panel-latest-table', true);
             togglePanel('losing', true);
@@ -428,6 +423,15 @@
             if (preview) preview.textContent = lastLosingShare;
         }
 
+        function applyEngineTransparency(data) {
+            const transparency = (data && data.transparency) || {};
+            const engine = String(transparency.production_engine || '').trim();
+            if (!engine) return;
+            const engineLabel = document.getElementById('engine-label');
+            if (engineLabel) engineLabel.textContent = engine;
+            renderEngineHealth(data);
+        }
+
         function applyLedgerPayload(data) {
             const oracle = mergeCanonicalOracle(data);
             if (!oracle) return false;
@@ -439,14 +443,7 @@
             const model = data.model || {};
             const moat = data.data_moat || {};
             const exp = (data.learning_experience || {}).summary || {};
-            const transparency = data.transparency || {};
-
-            const engineLabel = document.getElementById('engine-label');
-            if (engineLabel && transparency.production_engine) {
-                engineLabel.textContent =
-                    transparency.production_engine === 'ml_model' ? 'ML model (OOD-gated)' : 'rules engine';
-            }
-            renderEngineHealth(data);
+            applyEngineTransparency(data);
             renderProofChain(data.proof_chain || {});
 
             togglePanel('panel-ledger-stats', true);
@@ -582,12 +579,9 @@
             }
 
             const degraded = warnings.length > 0;
+            const engine = String(transparency.production_engine || '').trim() || 'engine';
             badge.className = 'badge ' + (degraded ? 'badge-warn' : 'badge-info');
-            if (transparency.production_engine === 'ml_model') {
-                badge.textContent = degraded ? 'Engine · attention' : 'Engine · operational';
-            } else {
-                badge.textContent = degraded ? 'Engine · attention' : 'Engine · operational';
-            }
+            badge.textContent = degraded ? `${engine} · attention` : `${engine} · active`;
             note.style.color = degraded ? 'var(--warning)' : 'var(--muted)';
             const base = transparency.engine_note || '';
             note.textContent = degraded
@@ -902,6 +896,9 @@
                 );
                 if (data.proof_chain) {
                     renderProofChain(data.proof_chain);
+                }
+                if (data.transparency && data.transparency.production_engine) {
+                    applyEngineTransparency(data);
                 }
                 if (applyLedgerPayload(data)) {
                     return;
