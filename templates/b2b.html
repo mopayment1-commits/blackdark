@@ -48,6 +48,8 @@
         .ws-status { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
         .ws-off { background: #27272a; color: #f4f4f5; }
         .ws-on { background: rgba(34,197,94,0.15); color: var(--success); }
+        .ws-idle { background: #27272a; color: var(--muted); font-weight: 500; }
+        .ws-status:empty { display: none; }
         footer { text-align: center; padding: 2rem; color: var(--muted); font-size: 0.85rem; border-top: 1px solid var(--border); }
     </style>
 </head>
@@ -145,7 +147,7 @@
 
     <div class="demo-box" id="websocket">
         <div class="card">
-            <h2 style="margin-bottom:0.5rem">Live WebSocket Stream <span class="ws-status ws-off" id="wsStatus">disconnected</span></h2>
+            <h2 style="margin-bottom:0.5rem">Live WebSocket Stream <span class="ws-status ws-idle" id="wsStatus" aria-live="polite"></span></h2>
             <p style="color:var(--muted);font-size:0.9rem">
                 Tier 2 institutional push — arbitrage, oracle signals, heartbeat (~{{ feed_version }}).
                 Target latency 100–500ms.
@@ -184,29 +186,94 @@
 
     <script>
         let ws = null;
-        const demoKey = document.getElementById('demoKey').textContent.trim();
+        let wsHadOpen = false;
+        const demoKey = (document.getElementById('demoKey')?.textContent || '').trim();
         const wsScheme = location.protocol === 'https:' ? 'wss:' : 'ws:';
+        const WS_LOG_IDLE = 'Events will appear here when connected.';
 
-        function setWsStatus(on) {
-            const el = document.getElementById('wsStatus');
-            el.textContent = on ? 'connected' : 'disconnected';
-            el.className = 'ws-status ' + (on ? 'ws-on' : 'ws-off');
+        function wsApiKey() {
+            const key = demoKey;
+            if (!key || key === 'contact-sales' || key === 'disabled') return '';
+            return key;
         }
+
+        function setWsStatusState(state) {
+            const el = document.getElementById('wsStatus');
+            if (!el) return;
+            if (state === 'connected') {
+                el.textContent = 'connected';
+                el.className = 'ws-status ws-on';
+                el.hidden = false;
+                return;
+            }
+            if (state === 'disconnected') {
+                el.textContent = 'disconnected';
+                el.className = 'ws-status ws-off';
+                el.hidden = false;
+                return;
+            }
+            if (state === 'connecting') {
+                el.textContent = 'connecting…';
+                el.className = 'ws-status ws-off';
+                el.hidden = false;
+                return;
+            }
+            if (state === 'public_idle') {
+                el.textContent = 'Not available on this page';
+                el.className = 'ws-status ws-idle';
+                el.hidden = false;
+                return;
+            }
+            el.textContent = '';
+            el.className = 'ws-status ws-idle';
+            el.hidden = true;
+        }
+
+        function initWsStatus() {
+            if (!wsApiKey()) {
+                setWsStatusState('public_idle');
+            } else {
+                setWsStatusState('idle');
+            }
+        }
+        initWsStatus();
 
         function logWs(msg) {
             const el = document.getElementById('wsLog');
             const line = `[${new Date().toLocaleTimeString()}] ${msg}`;
-            el.textContent = (el.textContent === 'Events will appear here when connected.' ? '' : el.textContent + '\n') + line;
+            el.textContent = (el.textContent === WS_LOG_IDLE ? '' : el.textContent + '\n') + line;
             el.scrollTop = el.scrollHeight;
         }
 
         function connectWs() {
             if (ws && ws.readyState <= 1) return;
-            const url = `${wsScheme}//${location.host}/ws/b2b/feed?api_key=${encodeURIComponent(demoKey)}`;
+            const apiKey = wsApiKey();
+            if (!apiKey) {
+                logWs('Institutional API key required for the live stream.');
+                setWsStatusState('public_idle');
+                return;
+            }
+            const url = `${wsScheme}//${location.host}/ws/b2b/feed?api_key=${encodeURIComponent(apiKey)}`;
+            wsHadOpen = false;
+            setWsStatusState('connecting');
             logWs('Connecting…');
             ws = new WebSocket(url);
-            ws.onopen = () => { setWsStatus(true); logWs('OPEN'); };
-            ws.onclose = () => { setWsStatus(false); logWs('CLOSED'); ws = null; };
+            ws.onopen = () => {
+                wsHadOpen = true;
+                setWsStatusState('connected');
+                logWs('OPEN');
+            };
+            ws.onclose = () => {
+                logWs('CLOSED');
+                ws = null;
+                if (wsHadOpen) {
+                    setWsStatusState('disconnected');
+                } else if (!wsApiKey()) {
+                    setWsStatusState('public_idle');
+                } else {
+                    setWsStatusState('idle');
+                }
+            };
             ws.onerror = () => logWs('ERROR');
             ws.onmessage = (ev) => {
                 try {
@@ -240,7 +307,16 @@
             return esc(item.title || item.name || item.item || item.label || JSON.stringify(item));
         }
         function disconnectWs() {
-            if (ws) ws.close();
+            if (!ws || ws.readyState > 1) {
+                logWs('Not connected.');
+                if (!wsApiKey()) {
+                    setWsStatusState('public_idle');
+                } else if (!ws) {
+                    setWsStatusState('idle');
+                }
+                return;
+            }
+            ws.close();
         }
 
         async function runDemo() {

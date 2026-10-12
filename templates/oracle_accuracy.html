@@ -144,7 +144,7 @@
     <section class="panel" id="panel-regime" style="display:none">
         <div class="card">
             <h2>D5 · Regime-Conditional Models</h2>
-            <p id="regime-status" style="color:var(--muted);font-size:0.9rem">Loading regime registry…</p>
+            <p id="regime-status" style="color:var(--muted);font-size:0.9rem" aria-live="polite"></p>
             <div style="overflow-x:auto;margin-top:1rem">
                 <table>
                     <thead>
@@ -156,7 +156,7 @@
                         </tr>
                     </thead>
                     <tbody id="regime-body">
-                        <tr><td colspan="4">Loading...</td></tr>
+                        <tr><td colspan="4">—</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -187,7 +187,7 @@
             </div>
             <details style="margin-top:1rem">
                 <summary style="cursor:pointer;color:var(--accent);font-weight:600">Operator runbook (launch packaging)</summary>
-                <p id="glass-operator-status" style="margin-top:.65rem;color:var(--muted);font-size:0.85rem">Loading operator notes…</p>
+                <p id="glass-operator-status" style="margin-top:.65rem;color:var(--muted);font-size:0.85rem" aria-live="polite"></p>
             </details>
             <p style="margin-top:0.75rem;font-size:0.75rem;color:var(--muted)">
                 Exact launch timing and channel are human. Product machinery + event template are live via <code>/api/glass-box/challenge</code> · operator pack <code>/api/glass-box/operator</code>.
@@ -199,8 +199,8 @@
     <section class="panel" id="mev-report">
         <div class="card">
             <h2>Shareable MEV / Sandwich Report</h2>
-            <p id="mev-status" style="color:var(--muted);font-size:0.9rem">Loading risk posture…</p>
-            <ul class="events" id="mev-mitigations"><li>Loading...</li></ul>
+            <p id="mev-status" style="color:var(--muted);font-size:0.9rem" aria-live="polite"></p>
+            <ul class="events" id="mev-mitigations"></ul>
             <div class="cta-row" style="margin-top:1rem;justify-content:flex-start">
                 <button class="btn btn-secondary" type="button" id="copyMevBtn">Copy share text</button>
             </div>
@@ -211,8 +211,8 @@
     <section class="panel" id="locked">
         <div class="card">
             <h2>Locked Predictions · Glass Box</h2>
-            <p id="locked-status" style="color:var(--muted);font-size:0.9rem">Loading sealed forecasts…</p>
-            <ul class="events" id="locked-list"><li>Loading...</li></ul>
+            <p id="locked-status" style="color:var(--muted);font-size:0.9rem" aria-live="polite"></p>
+            <ul class="events" id="locked-list"></ul>
             <div class="cta-row" style="margin-top:1rem;justify-content:flex-start">
                 <button class="btn btn-secondary" type="button" id="shareLedgerBtn">Copy share text</button>
                 <a class="btn btn-secondary" id="ledgerShareX" href="#" target="_blank" rel="noopener">Share X</a>
@@ -228,12 +228,12 @@
             <p style="color:var(--muted);font-size:0.88rem;margin-bottom:.65rem">
                 Same Public Accuracy Ledger as the table below. Alias route: <code>/errors</code>.
             </p>
-            <p id="losing-status" style="color:var(--muted);font-size:0.9rem">Loading honest misses…</p>
+            <p id="losing-status" style="color:var(--muted);font-size:0.9rem" aria-live="polite"></p>
             <p id="losing-archive-note" style="display:none;color:var(--warning);font-size:0.85rem;margin:.5rem 0"></p>
             <h3 style="font-size:1rem;margin:1rem 0 0.5rem">Verified errors we own</h3>
-            <ul class="events" id="losing-errors-list"><li>Loading...</li></ul>
+            <ul class="events" id="losing-errors-list"></ul>
             <h3 style="font-size:1rem;margin:1rem 0 0.5rem">Partial outcomes</h3>
-            <ul class="events" id="losing-partial-list"><li>Loading...</li></ul>
+            <ul class="events" id="losing-partial-list"></ul>
             <div class="cta-row" style="margin-top:1rem;justify-content:flex-start">
                 <button class="btn btn-secondary" type="button" id="copyLosingBtn">Copy share text</button>
                 <a class="btn btn-secondary" href="#glass-box-challenge">Read transparency challenge</a>
@@ -245,7 +245,7 @@
     <section class="panel" id="audit-challenge">
         <div class="card">
             <h2>Audit Challenge — Prove us wrong</h2>
-            <p id="audit-status" style="color:var(--muted);font-size:0.9rem">Loading live verify…</p>
+            <p id="audit-status" style="color:var(--muted);font-size:0.9rem" aria-live="polite"></p>
             <p style="color:var(--muted);font-size:0.88rem;margin-top:.5rem">
                 Find a real break in the hash chain. We publish the full ledger — including misses.
             </p>
@@ -256,7 +256,7 @@
     <section class="panel" id="panel-registry" style="display:none">
         <div class="card">
             <h2>D8 · Feature lexicon (public registry)</h2>
-            <p id="registry-status" style="color:var(--muted);font-size:0.9rem">Loading feature lexicon…</p>
+            <p id="registry-status" style="color:var(--muted);font-size:0.9rem" aria-live="polite"></p>
             <div style="overflow-x:auto;margin-top:1rem">
                 <table>
                     <thead>
@@ -266,7 +266,7 @@
                         </tr>
                     </thead>
                     <tbody id="registry-body">
-                        <tr><td colspan="2">Loading...</td></tr>
+                        <tr><td colspan="2">—</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -303,7 +303,7 @@
                         </tr>
                     </thead>
                     <tbody id="predictions-body">
-                        <tr><td colspan="8">Loading...</td></tr>
+                        <tr><td colspan="8">—</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -313,9 +313,7 @@
     <section class="panel" id="panel-learning" style="display:none">
         <div class="card">
             <h2>Learning experience log</h2>
-            <ul class="events" id="events-list">
-                <li>Loading...</li>
-            </ul>
+            <ul class="events" id="events-list"></ul>
         </div>
     </section>
 
