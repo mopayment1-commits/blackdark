@@ -32,6 +32,8 @@ def _sql_count(row: Any) -> int:
     val = _row_get(row, 0, "count")
     if val is None:
         val = _row_get(row, 0, "n")
+    if val is None:
+        val = _first_cell(row)
     try:
         return int(val or 0)
     except (TypeError, ValueError):
@@ -50,7 +52,7 @@ def _row_get(row: Any, index: int, name: str) -> Any:
             return row[lowered]
     try:
         return row[name]
-    except (KeyError, TypeError):
+    except (KeyError, IndexError, TypeError):
         pass
     try:
         return row[index]
@@ -2457,9 +2459,12 @@ async def _fetch_audit_core_rows(
             LIMIT ?
         """
     else:
+        from oracle_integrity import resolved_true_sql
+
+        resolved_clause = resolved_true_sql()
         total_sql = f"SELECT COUNT(*) FROM oracle_predictions WHERE {live_clause}"  # nosec B608
-        resolved_sql = f"SELECT COUNT(*) FROM oracle_predictions WHERE resolved = 1 AND {live_clause}"  # nosec B608
-        avg_sql = f"SELECT AVG(accuracy_score) FROM oracle_predictions WHERE resolved = 1 AND accuracy_score IS NOT NULL AND {live_clause}"  # nosec B608
+        resolved_sql = f"SELECT COUNT(*) FROM oracle_predictions WHERE {resolved_clause} AND {live_clause}"  # nosec B608
+        avg_sql = f"SELECT AVG(accuracy_score) FROM oracle_predictions WHERE {resolved_clause} AND accuracy_score IS NOT NULL AND {live_clause}"  # nosec B608
         recent_sql = f"SELECT * FROM oracle_predictions WHERE {live_clause} ORDER BY timestamp DESC, id DESC LIMIT ?"  # nosec B608
     total_row = await (await db.execute(total_sql)).fetchone()
     resolved_row = await (await db.execute(resolved_sql)).fetchone()
@@ -2612,13 +2617,32 @@ async def fetch_oracle_audit_stats(
         return empty
 
 
+def _oracle_prediction_row_dict(row: Any) -> dict[str, Any]:
+    if row is None:
+        return {}
+    if isinstance(row, dict):
+        return dict(row)
+    try:
+        return dict(row)
+    except Exception:
+        keys = getattr(row, "keys", None)
+        if callable(keys):
+            return {k: row[k] for k in keys()}
+    return {}
+
+
 async def fetch_live_public_ledger(
     *,
     recent_limit: int = 20,
     miss_sample_limit: int = 12,
 ) -> dict[str, Any]:
     """Single-connection live ledger counts + miss sample (public accuracy page source of truth)."""
-    from oracle_integrity import live_source_sql
+    from oracle_integrity import (
+        live_source_sql,
+        miss_label_incorrect_sql,
+        miss_label_partial_sql,
+        resolved_true_sql,
+    )
 
     source_note = "oracle_predictions · live rows only (excludes historical_seed)"
     base: dict[str, Any] = {
@@ -2635,59 +2659,67 @@ async def fetch_live_public_ledger(
     }
     try:
         live_clause = live_source_sql()
+        resolved_clause = resolved_true_sql()
+        incorrect_pred = miss_label_incorrect_sql()
+        partial_pred = miss_label_partial_sql()
         async with get_connection() as db:
+            await _ensure_oracle_prediction_columns(db)
             total_row, resolved_row, avg_row, recent_rows = await _fetch_audit_core_rows(
                 db,
                 recent_limit,
                 live_clause,
                 False,
             )
-            incorrect_sql = (
-                "SELECT COUNT(*) FROM oracle_predictions "
-                "WHERE resolved = 1 AND label = 'incorrect' AND "
-                f"{live_clause}"
+            logged = _sql_count(total_row)
+            resolved = _sql_count(resolved_row)
+            avg_accuracy = float(_row_get(avg_row, 0, "avg") or 0.0)
+            recent = [_oracle_prediction_row_dict(row) for row in recent_rows]
+            base.update(
+                {
+                    "query_ok": True,
+                    "logged": logged,
+                    "resolved": resolved,
+                    "pending": max(0, logged - resolved),
+                    "accuracy_percent": round(avg_accuracy, 2),
+                    "recent_raw_count": len(recent),
+                    "recent_window": recent,
+                }
             )
-            partial_sql = (
-                "SELECT COUNT(*) FROM oracle_predictions "
-                "WHERE resolved = 1 AND label = 'partial' AND "
-                f"{live_clause}"
-            )
-            miss_sql = (
-                "SELECT * FROM oracle_predictions "
-                "WHERE resolved = 1 AND label IN ('incorrect', 'partial') AND "
-                f"{live_clause} "
-                "ORDER BY timestamp DESC, id DESC LIMIT ?"
-            )
-            scored_sql = (
-                "SELECT * FROM oracle_predictions "
-                "WHERE resolved = 1 AND label IS NOT NULL AND price_after_24h IS NOT NULL AND "
-                f"{live_clause} "
-                "ORDER BY timestamp DESC, id DESC LIMIT ?"
-            )
-            incorrect_row = await (await db.execute(incorrect_sql)).fetchone()
-            partial_row = await (await db.execute(partial_sql)).fetchone()
-            miss_rows = await (await db.execute(miss_sql, (miss_sample_limit,))).fetchall()
-            scored_rows = await (await db.execute(scored_sql, (recent_limit,))).fetchall()
-
-        logged = _sql_count(total_row)
-        resolved = _sql_count(resolved_row)
-        avg_accuracy = float(_row_get(avg_row, 0, "avg") or 0.0)
-        recent = [dict(row) for row in recent_rows]
-        base.update(
-            {
-                "query_ok": True,
-                "logged": logged,
-                "resolved": resolved,
-                "pending": max(0, logged - resolved),
-                "accuracy_percent": round(avg_accuracy, 2),
-                "verified_errors": _sql_count(incorrect_row),
-                "partial_outcomes": _sql_count(partial_row),
-                "miss_sample": [dict(row) for row in miss_rows],
-                "scored_sample": [dict(row) for row in scored_rows],
-                "recent_raw_count": len(recent),
-                "recent_window": recent,
-            }
-        )
+            try:
+                incorrect_sql = (
+                    "SELECT COUNT(*) FROM oracle_predictions "
+                    f"WHERE {resolved_clause} AND {incorrect_pred} AND {live_clause}"
+                )
+                partial_sql = (
+                    "SELECT COUNT(*) FROM oracle_predictions "
+                    f"WHERE {resolved_clause} AND {partial_pred} AND {live_clause}"
+                )
+                miss_sql = (
+                    "SELECT * FROM oracle_predictions "
+                    f"WHERE {resolved_clause} AND ({incorrect_pred} OR {partial_pred}) AND "
+                    f"{live_clause} "
+                    "ORDER BY timestamp DESC, id DESC LIMIT ?"
+                )
+                scored_sql = (
+                    "SELECT * FROM oracle_predictions "
+                    f"WHERE {resolved_clause} AND label IS NOT NULL AND price_after_24h IS NOT NULL AND "
+                    f"{live_clause} "
+                    "ORDER BY timestamp DESC, id DESC LIMIT ?"
+                )
+                incorrect_row = await (await db.execute(incorrect_sql)).fetchone()
+                partial_row = await (await db.execute(partial_sql)).fetchone()
+                miss_rows = await (await db.execute(miss_sql, (miss_sample_limit,))).fetchall()
+                scored_rows = await (await db.execute(scored_sql, (recent_limit,))).fetchall()
+                base.update(
+                    {
+                        "verified_errors": _sql_count(incorrect_row),
+                        "partial_outcomes": _sql_count(partial_row),
+                        "miss_sample": [_oracle_prediction_row_dict(row) for row in miss_rows],
+                        "scored_sample": [_oracle_prediction_row_dict(row) for row in scored_rows],
+                    }
+                )
+            except Exception:
+                logger.exception("Live public ledger miss/scored slice unavailable; counts still returned")
         return base
     except Exception:
         logger.exception("Unable to fetch live public ledger")

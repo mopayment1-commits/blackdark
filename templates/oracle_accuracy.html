@@ -359,7 +359,20 @@
             const logged = Number(o.total_predictions ?? ll.logged ?? 0);
             const hasRows = (o.recent_predictions && o.recent_predictions.length) ||
                 (o.public_miss_sample && o.public_miss_sample.length);
-            if (logged <= 0 && !hasRows) return null;
+            if (logged <= 0 && !hasRows) {
+                return {
+                    ...o,
+                    total_predictions: 0,
+                    resolved_predictions: Number(o.resolved_predictions ?? ll.resolved ?? 0),
+                    pending_predictions: Number(o.pending_predictions ?? ll.pending ?? 0),
+                    average_accuracy_percent: Number(o.average_accuracy_percent ?? ll.accuracy_percent ?? 0),
+                    verified_errors: Number(o.verified_errors ?? ll.verified_errors ?? 0),
+                    partial_outcomes: Number(o.partial_outcomes ?? ll.partial_outcomes ?? 0),
+                    live_source: o.live_source || ll.source,
+                    public_miss_sample: o.public_miss_sample || ll.miss_sample || [],
+                    recent_predictions: o.recent_predictions || [],
+                };
+            }
             return {
                 ...o,
                 total_predictions: logged,
@@ -395,7 +408,9 @@
             return error.message || String(error);
         }
 
-        function renderLedgerFailure(reason) {
+        function renderLedgerFailure(reason, opts) {
+            const options = opts || {};
+            const skipLosing = options.skipLosing === true;
             const msg = 'Live ledger unavailable: ' + reason;
             togglePanel('panel-ledger-stats', true);
             togglePanel('panel-latest-table', true);
@@ -404,12 +419,14 @@
             if (tbody) tbody.innerHTML = `<tr><td colspan="8">${esc(msg)}</td></tr>`;
             const expl = document.getElementById('metrics-explainer');
             if (expl) expl.textContent = msg;
-            const statusEl = document.getElementById('losing-status');
-            if (statusEl) statusEl.textContent = msg;
-            const errList = document.getElementById('losing-errors-list');
-            const partList = document.getElementById('losing-partial-list');
-            if (errList) errList.innerHTML = `<li>${esc(msg)}</li>`;
-            if (partList) partList.innerHTML = `<li>${esc(msg)}</li>`;
+            if (!skipLosing) {
+                const statusEl = document.getElementById('losing-status');
+                if (statusEl) statusEl.textContent = msg;
+                const errList = document.getElementById('losing-errors-list');
+                const partList = document.getElementById('losing-partial-list');
+                if (errList) errList.innerHTML = `<li>${esc(msg)}</li>`;
+                if (partList) partList.innerHTML = `<li>${esc(msg)}</li>`;
+            }
             const preview = document.getElementById('ledger-share-preview');
             if (preview) preview.textContent = msg;
             lastLosingShare = '';
@@ -839,17 +856,22 @@
             const partial = o.partial_outcomes ?? 0;
             const acc = Number(o.average_accuracy_percent || 0).toFixed(1);
             const statusEl = document.getElementById('losing-status');
+            const sampleRows = o.public_miss_sample || [];
             if (statusEl) {
-                statusEl.textContent =
-                    `Live ledger (${o.live_source || 'oracle_predictions'}): logged ${logged} · resolved ${resolved} · ` +
-                    `accuracy ${acc}% · verified errors ${verified} · partial outcomes ${partial}`;
+                if (verified === 0 && partial === 0 && !sampleRows.length) {
+                    statusEl.textContent = 'No verified errors in this live sample.';
+                } else {
+                    statusEl.textContent =
+                        `Live ledger (${o.live_source || 'oracle_predictions'}): logged ${logged} · resolved ${resolved} · ` +
+                        `accuracy ${acc}% · verified errors ${verified} · partial outcomes ${partial}`;
+                }
             }
             const archiveEl = document.getElementById('losing-archive-note');
             if (archiveEl) {
                 archiveEl.textContent = (archive && archive.note) ? archive.note : '';
                 archiveEl.style.display = (archive && archive.note) ? 'block' : 'none';
             }
-            const rows = o.public_miss_sample || [];
+            const rows = sampleRows;
             const errors = rows.filter(r => String(r.label || '').toLowerCase() === 'incorrect');
             const partials = dedupeByAssetMinute(
                 rows.filter(r => String(r.label || '').toLowerCase() === 'partial')
@@ -880,10 +902,6 @@
             if (!ll) return 'missing live_ledger';
             if (!ll.query_ok) return ll.error || 'live ledger query failed';
             if (!o) return 'missing oracle block';
-            const logged = Number(o.total_predictions ?? ll.logged ?? 0);
-            const hasRows = (o.recent_predictions && o.recent_predictions.length) ||
-                (o.public_miss_sample && o.public_miss_sample.length);
-            if (logged <= 0 && !hasRows) return 'no logged predictions in payload';
             return 'ledger payload incomplete';
         }
 
@@ -904,10 +922,11 @@
                     return;
                 }
                 const rejectReason = ledgerPayloadRejectReason(data);
+                const liveLedgerOk = !!(data.live_ledger && data.live_ledger.query_ok);
                 if (lastLedgerPayload && applyLedgerPayload(lastLedgerPayload)) {
                     return;
                 }
-                renderLedgerFailure(rejectReason);
+                renderLedgerFailure(rejectReason, { skipLosing: liveLedgerOk });
             } catch (error) {
                 console.debug(error);
                 if (lastLedgerPayload && applyLedgerPayload(lastLedgerPayload)) {
