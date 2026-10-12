@@ -271,6 +271,7 @@ PUBLIC_API_EXACT: frozenset[str] = frozenset(
         "/api/strategy/priority-chain",
         "/api/strategy/zero-tolerance",
         "/b2b/committee-one-pager",
+        "/api/b2b/demo",
         "/docs",
         "/docs/public",
     }

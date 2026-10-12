@@ -3847,21 +3847,31 @@ async def b2b_feed(x_api_key: str = Header(..., alias="X-API-Key")):
         raise HTTPException(status_code=403, detail=public_error(exc, fallback=STR_INVALID_B2B_API_KEY)) from exc
 
 
+_B2B_DEMO_FEED_CACHE: tuple[float, dict[str, Any]] | None = None
+_B2B_DEMO_FEED_CACHE_TTL_SEC = float(os.getenv("B2B_DEMO_CACHE_SEC", "60"))
+
+
 @app.get("/api/b2b/demo", responses=COMMON_ERROR_RESPONSES)
 async def b2b_demo_feed():
     """Public demo feed — limited records, no key required."""
+    import copy
+    import time
+
     from whale_tracker import InstitutionalDataExporter
+
+    global _B2B_DEMO_FEED_CACHE
+    now = time.monotonic()
+    if _B2B_DEMO_FEED_CACHE and (now - _B2B_DEMO_FEED_CACHE[0]) < _B2B_DEMO_FEED_CACHE_TTL_SEC:
+        return copy.deepcopy(_B2B_DEMO_FEED_CACHE[1])
 
     exporter = InstitutionalDataExporter()
     try:
-        feed = await exporter.export_institutional_feed(
-            provided_key=config.B2B_DEMO_API_KEY,
-            limit=config.B2B_DEMO_EXPORT_LIMIT,
-        )
+        feed = await exporter.export_open_demo_feed(limit=config.B2B_DEMO_EXPORT_LIMIT)
         feed["demo"] = True
         feed["upgrade_url"] = "/b2b"
-        return feed
-    except PermissionError:
+        _B2B_DEMO_FEED_CACHE = (time.monotonic(), feed)
+        return copy.deepcopy(feed)
+    except Exception:
         raise HTTPException(status_code=503, detail="B2B demo not configured") from None
 
 
