@@ -8,11 +8,24 @@ Pricing posture for 10–50M AUM — not Bloomberg-tier.
 
 from __future__ import annotations
 
+import asyncio
+import copy
+import os
+import time
 from typing import Any
+
+_FUND_PACK_CACHE: dict[str, tuple[float, dict[str, Any]]] = {}
+_FUND_PACK_CACHE_TTL_SEC = float(os.getenv("FUND_TERMINAL_CACHE_SEC", "60"))
 
 
 async def build_fund_terminal_pack(*, fund_name: str = "Emerging Fund") -> dict[str, Any]:
     """Assemble export-oriented DD pack for small/emerging funds."""
+    key = (fund_name or "Emerging Fund").strip() or "Emerging Fund"
+    now = time.monotonic()
+    cached = _FUND_PACK_CACHE.get(key)
+    if cached and (now - cached[0]) < _FUND_PACK_CACHE_TTL_SEC:
+        return copy.deepcopy(cached[1])
+
     from decision_certificate import build_decision_certificate, compliance_footer_block
 
     accuracy = {}
@@ -21,47 +34,62 @@ async def build_fund_terminal_pack(*, fund_name: str = "Emerging Fund") -> dict[
     net_edge = {}
     veto = {}
     d5 = {}
-    try:
-        from ml.public_accuracy import build_public_accuracy_payload
+    async def _accuracy_block() -> dict[str, Any]:
+        try:
+            from ml.public_accuracy import build_public_accuracy_payload
 
-        accuracy = await build_public_accuracy_payload(recent_limit=8)
-    except Exception as exc:
-        accuracy = {"error": str(exc)}
+            return await build_public_accuracy_payload(recent_limit=8)
+        except Exception as exc:
+            return {"error": str(exc)}
 
-    try:
-        from locked_predictions import glass_box_status
+    def _locked_block() -> dict[str, Any]:
+        try:
+            from locked_predictions import glass_box_status
 
-        locked = glass_box_status()
-    except Exception:
-        locked = {}
+            return glass_box_status()
+        except Exception:
+            return {}
 
-    try:
-        from signal_registry import registry_stats
+    def _registry_block() -> dict[str, Any]:
+        try:
+            from signal_registry import registry_stats
 
-        registry = registry_stats()
-    except Exception as exc:
-        registry = {"error": str(exc)}
+            return registry_stats()
+        except Exception as exc:
+            return {"error": str(exc)}
 
-    try:
-        from net_edge_truth import net_edge_truth_status
+    def _net_edge_block() -> dict[str, Any]:
+        try:
+            from net_edge_truth import net_edge_truth_status
 
-        net_edge = net_edge_truth_status()
-    except Exception as exc:
-        net_edge = {"error": str(exc)}
+            return net_edge_truth_status()
+        except Exception as exc:
+            return {"error": str(exc)}
 
-    try:
-        from dimension_conflict_guard import dimension_conflict_status
+    def _veto_block() -> dict[str, Any]:
+        try:
+            from dimension_conflict_guard import dimension_conflict_status
 
-        veto = dimension_conflict_status()
-    except Exception as exc:
-        veto = {"error": str(exc)}
+            return dimension_conflict_status()
+        except Exception as exc:
+            return {"error": str(exc)}
 
-    try:
-        from ml.regime_models import regime_model_registry
+    def _d5_block() -> dict[str, Any]:
+        try:
+            from ml.regime_models import regime_model_registry
 
-        d5 = regime_model_registry()
-    except Exception as exc:
-        d5 = {"error": str(exc)}
+            return regime_model_registry()
+        except Exception as exc:
+            return {"error": str(exc)}
+
+    accuracy, locked, registry, net_edge, veto, d5 = await asyncio.gather(
+        _accuracy_block(),
+        asyncio.to_thread(_locked_block),
+        asyncio.to_thread(_registry_block),
+        asyncio.to_thread(_net_edge_block),
+        asyncio.to_thread(_veto_block),
+        asyncio.to_thread(_d5_block),
+    )
 
     oracle = accuracy.get("oracle") or {}
     proof = accuracy.get("proof_chain") or {}
@@ -105,7 +133,7 @@ async def build_fund_terminal_pack(*, fund_name: str = "Emerging Fund") -> dict[
         "access": "whale_or_admin",
     }
 
-    return {
+    payload: dict[str, Any] = {
         "fund_name": fund_name,
         "segment": "emerging_crypto_fund_sub_50m",
         "pricing_posture": {
@@ -159,3 +187,5 @@ async def build_fund_terminal_pack(*, fund_name: str = "Emerging Fund") -> dict[
         ),
         "hero_deepening": ["public_accuracy_ledger", "b2b_evidence"],
     }
+    _FUND_PACK_CACHE[key] = (time.monotonic(), payload)
+    return copy.deepcopy(payload)
