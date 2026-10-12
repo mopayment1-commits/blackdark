@@ -106,6 +106,12 @@
             text-align: center; color: var(--muted); padding: 2rem; font-size: 0.85rem;
             border-top: 1px solid var(--border);
         }
+        html {
+            scroll-padding-top: 5rem;
+        }
+        #proof-chain {
+            scroll-margin-top: 5rem;
+        }
     </style>
 </head>
 <body>
@@ -964,6 +970,16 @@
             navigator.clipboard.writeText(lastLedgerShare);
         });
 
+        document.getElementById('verifyChainBtn')?.addEventListener('click', (event) => {
+            event.preventDefault();
+            const target = document.getElementById('proof-chain');
+            if (!target) return;
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            if (window.location.hash !== '#proof-chain') {
+                history.replaceState(null, '', '#proof-chain');
+            }
+        });
+
         let lastGlassShare = '';
         let lastMevShare = '';
         async function loadGlassBox() {
@@ -982,8 +998,10 @@
                 const sealedEl = document.getElementById('glass-sealed-status');
                 if (sealedEl) {
                     if (lpTotal === 0) {
-                        sealedEl.textContent =
-                            'locked.total: لا يوجد تحدٍّ مختوم الآن — 0';
+                        const docLang = (document.documentElement.lang || 'en').toLowerCase();
+                        sealedEl.textContent = docLang.startsWith('ar')
+                            ? 'locked.total: لا يوجد تحدٍّ مختوم الآن — 0'
+                            : 'locked.total: No sealed challenge right now — 0';
                     } else {
                         sealedEl.textContent =
                             `locked.total: ${lpTotal} — ${lpLocked} locked row(s) on the public ledger`;
