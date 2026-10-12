@@ -84,6 +84,47 @@ def railway_postgres_requires_ssl(url: str) -> bool:
     return False
 
 
+def running_on_railway() -> bool:
+    return bool(
+        os.getenv("RAILWAY_ENVIRONMENT")
+        or os.getenv("RAILWAY_SERVICE_ID")
+        or os.getenv("RAILWAY_PROJECT_ID")
+    )
+
+
+def strip_url_query_params(url: str, *params: str) -> str:
+    parsed = urlparse(url)
+    query = dict(parse_qsl(parsed.query, keep_blank_values=True))
+    for param in params:
+        query.pop(param, None)
+    return urlunparse(
+        (
+            parsed.scheme,
+            parsed.netloc,
+            parsed.path,
+            parsed.params,
+            urlencode(query),
+            parsed.fragment,
+        )
+    )
+
+
+def prepare_asyncpg_dsn(url: str) -> tuple[str, dict[str, Any]]:
+    """Return (dsn, extra kwargs) for asyncpg.create_pool — avoids double TLS on proxies."""
+    import ssl
+
+    host = database_host(url)
+    if _is_railway_internal_host(host):
+        return strip_url_query_params(url, "sslmode", "ssl"), {}
+    if railway_postgres_requires_ssl(url):
+        ctx = ssl.create_default_context()
+        ctx.check_hostname = False
+        ctx.verify_mode = ssl.CERT_NONE
+        clean = strip_url_query_params(url, "sslmode", "ssl")
+        return clean, {"ssl": ctx}
+    return ensure_postgres_ssl_params(url), {}
+
+
 def ensure_postgres_ssl_params(url: str) -> str:
     """Railway public Postgres proxies require TLS when sslmode is omitted."""
     parsed = urlparse(url)
@@ -137,6 +178,20 @@ def resolve_database_url() -> tuple[str | None, dict[str, Any]]:
     if not candidates:
         return None, meta
 
+    if running_on_railway():
+        for key, url in candidates:
+            host = database_host(url)
+            if _is_railway_internal_host(host):
+                meta.update(
+                    {
+                        "selected_env": key,
+                        "selected_host": host,
+                        "selection": "railway_runtime_internal",
+                    }
+                )
+                dsn, _ = prepare_asyncpg_dsn(url)
+                return dsn, meta
+
     public_pair = next(((k, u) for k, u in candidates if k == "DATABASE_PUBLIC_URL"), None)
 
     for key, url in candidates:
@@ -153,11 +208,13 @@ def resolve_database_url() -> tuple[str | None, dict[str, Any]]:
                         "selection": "railway_public_over_unresolved_internal",
                     }
                 )
-                return ensure_postgres_ssl_params(pub_url), meta
+                dsn, _ = prepare_asyncpg_dsn(pub_url)
+                return dsn, meta
             continue
         if host_resolves(host):
             meta.update({"selected_env": key, "selected_host": host, "selection": "resolvable"})
-            return ensure_postgres_ssl_params(url), meta
+            dsn, _ = prepare_asyncpg_dsn(url)
+            return dsn, meta
 
     if public_pair:
         pub_key, pub_url = public_pair
@@ -169,7 +226,8 @@ def resolve_database_url() -> tuple[str | None, dict[str, Any]]:
                 "selection": "railway_public_fallback",
             }
         )
-        return ensure_postgres_ssl_params(pub_url), meta
+        dsn, _ = prepare_asyncpg_dsn(pub_url)
+        return dsn, meta
 
     key, url = candidates[0]
     host = database_host(url)
@@ -184,4 +242,5 @@ def resolve_database_url() -> tuple[str | None, dict[str, Any]]:
         return None, meta
 
     meta.update({"selected_env": key, "selected_host": host, "selection": "first_candidate_unresolved"})
-    return ensure_postgres_ssl_params(url), meta
+    dsn, _ = prepare_asyncpg_dsn(url)
+    return dsn, meta

@@ -252,9 +252,10 @@ async def init_pool() -> None:
 
     import asyncpg
 
-    from database_url_resolver import ensure_postgres_ssl_params, resolve_database_url
+    from database_url_resolver import prepare_asyncpg_dsn, resolve_database_url
 
     url, meta = resolve_database_url()
+    pool_extra: dict[str, Any] = {}
     if not url:
         from database_url_resolver import _canonicalize_railway_internal_host, _normalize, database_host
 
@@ -278,7 +279,7 @@ async def init_pool() -> None:
                     "selection": "config_fallback",
                 }
     if url:
-        url = ensure_postgres_ssl_params(url)
+        url, pool_extra = prepare_asyncpg_dsn(url)
     _LAST_POOL_META = meta
     if not url:
         _LAST_POOL_ERROR = "no_postgres_dsn"
@@ -303,6 +304,7 @@ async def init_pool() -> None:
                 max_inactive_connection_lifetime=float(
                     os.getenv("PG_MAX_INACTIVE_CONN_LIFETIME", "300")
                 ),
+                **pool_extra,
             )
             _LAST_POOL_ERROR = None
             logger.info(
