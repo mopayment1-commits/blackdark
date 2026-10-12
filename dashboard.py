@@ -4056,6 +4056,7 @@ async def oracle_accuracy_public_json_page(request: Request):
         request,
         "oracle_accuracy_json_api.html",
         {
+            **_footer_ctx(),
             "page_title": "Public Accuracy API — BLACKDARK",
             "metrics": metrics,
             "raw_json_url": "/api/oracle/accuracy/public"
