@@ -60,6 +60,9 @@
   --bd-radius: 12px;
   --bd-radius-lg: 16px;
   --bd-max: 1100px;
+
+  /* Sticky top nav (~99px) — in-page anchors must land below the header */
+  --bd-anchor-scroll-margin: 110px;
 }
 
 *,
@@ -71,6 +74,11 @@
 html {
   /* smooth scroll hurts INP on in-page anchors (web.dev ≤200ms). */
   scroll-behavior: auto;
+  scroll-padding-top: var(--bd-anchor-scroll-margin);
+}
+
+[id] {
+  scroll-margin-top: var(--bd-anchor-scroll-margin);
 }
 
 body.bd-shell {
