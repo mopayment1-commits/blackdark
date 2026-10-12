@@ -34,13 +34,33 @@ async def build_fund_terminal_pack(*, fund_name: str = "Emerging Fund") -> dict[
     net_edge = {}
     veto = {}
     d5 = {}
+    def _accuracy_from_chain_only() -> dict[str, Any]:
+        from ml.public_accuracy import _proof_chain_block
+
+        proof = _proof_chain_block()
+        summary = proof.get("summary") or {}
+        return {
+            "oracle": {
+                "average_accuracy_percent": summary.get("recent_hit_rate_percent") or 0.0,
+                "total_predictions": summary.get("total_records") or 0,
+            },
+            "proof_chain": proof,
+        }
+
     async def _accuracy_block() -> dict[str, Any]:
         try:
             from ml.public_accuracy import build_public_accuracy_payload
 
-            return await build_public_accuracy_payload(recent_limit=8)
+            return await asyncio.wait_for(
+                build_public_accuracy_payload(recent_limit=8),
+                timeout=float(os.getenv("FUND_TERMINAL_ACCURACY_TIMEOUT_SEC", "5")),
+            )
+        except asyncio.TimeoutError:
+            return await asyncio.to_thread(_accuracy_from_chain_only)
         except Exception as exc:
-            return {"error": str(exc)}
+            body = await asyncio.to_thread(_accuracy_from_chain_only)
+            body["error"] = str(exc)
+            return body
 
     def _locked_block() -> dict[str, Any]:
         try:
