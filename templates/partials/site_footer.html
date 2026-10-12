@@ -10,7 +10,7 @@
         display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
         gap: 1.25rem 1.5rem; text-align: left; margin-bottom: 1.25rem;
     }
-    .bd-site-footer h4 { color: #e4e4e7; font-size: .78rem; margin-bottom: .45rem; text-transform: uppercase; letter-spacing: .06em; }
+    .bd-site-footer h3 { color: #e4e4e7; font-size: .78rem; margin-bottom: .45rem; text-transform: uppercase; letter-spacing: .06em; font-weight: 700; }
     .bd-site-footer ul { list-style: none; padding: 0; margin: 0; }
     .bd-site-footer li { margin: .28rem 0; }
     .bd-site-footer a { color: #a1a1aa; text-decoration: none; }
@@ -45,11 +45,11 @@
         {'label': 'Privacy', 'href': '/privacy'},
     ] %}
     {% set follow_links = f.follow if f.follow else [] %}
-    <div class="bd-foot-brand">{{ f.brand or 'BLACKDARK' }}</div>
+    <p class="bd-foot-brand">{{ f.brand or 'BLACKDARK' }}</p>
     <p class="bd-foot-tag">{{ f.tagline or 'Trust OS — Decide. Prove it. Share it.' }} · {{ f.story or 'Prove → Operate → Desk → Room' }}</p>
     <div class="bd-foot-grid">
         <div>
-            <h4>Product</h4>
+            <h3>Product</h3>
             <ul>
                 {% for item in product_links %}
                 <li><a href="{{ item.href }}">{{ item.label }}</a></li>
@@ -57,7 +57,7 @@
             </ul>
         </div>
         <div>
-            <h4>Trust</h4>
+            <h3>Trust</h3>
             <ul>
                 {% for item in trust_links %}
                 <li><a href="{{ item.href }}">{{ item.label }}</a></li>
@@ -65,7 +65,7 @@
             </ul>
         </div>
         <div>
-            <h4>Company</h4>
+            <h3>Company</h3>
             <ul>
                 {% for item in company_links %}
                 <li><a href="{{ item.href }}">{{ item.label }}</a></li>
@@ -73,7 +73,7 @@
             </ul>
         </div>
         <div>
-            <h4>Legal</h4>
+            <h3>Legal</h3>
             <ul>
                 {% for item in legal_links %}
                 <li><a href="{{ item.href }}">{{ item.label }}</a></li>
@@ -82,7 +82,7 @@
         </div>
     </div>
     {% if follow_links %}
-    <h4>Follow us</h4>
+    <h3>Follow us</h3>
     <div class="bd-follow" aria-label="Follow BLACKDARK">
         {% for s in follow_links %}
         <a href="{{ s.href }}" target="_blank" rel="noopener noreferrer">{{ s.label }}</a>

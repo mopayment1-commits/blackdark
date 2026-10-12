@@ -284,7 +284,7 @@
             padding: 0.95rem 1rem;
             border-top: 1px solid var(--border);
         }
-        .seal-step strong {
+        .seal-step h3 {
             display: block;
             color: var(--accent);
             font-family: var(--bd-font-display);
@@ -292,6 +292,7 @@
             letter-spacing: 0.06em;
             text-transform: uppercase;
             margin-bottom: 0.3rem;
+            font-weight: 700;
         }
         .seal-step span { color: var(--text-muted); font-size: 0.95rem; line-height: 1.55; }
 
@@ -618,7 +619,7 @@
             text-align: center;
         }
 
-        .oracle-share h4 {
+        .oracle-share h3 {
             color: var(--accent);
             font-size: 0.95rem;
             margin-bottom: 0.35rem;
@@ -773,7 +774,7 @@
         </div>
         <div class="hero-composition">
             <h1 class="hero-brand">BLACKDARK</h1>
-            <p class="hero-headline">{{ t('hero.headline') }}</p>
+            <h2 class="hero-headline">{{ t('hero.headline') }}</h2>
             <p class="hero-support">{{ t('hero.support') }}</p>
             <div class="hero-cta">
                 <a href="#oracle" class="btn-primary" data-bd-call="tryOracleFree" data-bd-prevent="1">{{ t('hero.cta.try') }}</a>
@@ -807,15 +808,15 @@
         <p>{{ t('seal.body') }}</p>
         <div class="seal-steps">
             <div class="seal-step">
-                <strong>{{ t('seal.s1.title') }}</strong>
+                <h3>{{ t('seal.s1.title') }}</h3>
                 <span>{{ t('seal.s1.body') }}</span>
             </div>
             <div class="seal-step">
-                <strong>{{ t('seal.s2.title') }}</strong>
+                <h3>{{ t('seal.s2.title') }}</h3>
                 <span>{{ t('seal.s2.body') }}</span>
             </div>
             <div class="seal-step">
-                <strong>{{ t('seal.s3.title') }}</strong>
+                <h3>{{ t('seal.s3.title') }}</h3>
                 <span>{{ t('seal.s3.body') }}</span>
             </div>
         </div>
@@ -883,8 +884,10 @@
                         <option value="pro">Decision Pro</option>
                     </select>
                     </label>
-                    <input type="hidden" id="landingLang" value="en" aria-label="landingLang">
-                    <input type="text" id="symbolInput" placeholder="BTC / ETH / SOL" value="BTC" aria-label="BTC / ETH / SOL">
+                    <input type="hidden" id="landingLang" value="en">
+                    <label class="field-label" for="symbolInput" style="display:inline-flex;flex-direction:column;gap:.25rem;font-size:.75rem;color:var(--text-muted);text-align:left">BTC / ETH / SOL
+                    <input type="text" id="symbolInput" placeholder="BTC / ETH / SOL" value="BTC">
+                    </label>
                     <button data-bd-call="consultOracle">Get Decision</button>
                 </div>
                 <p id="audienceCta" style="color:var(--text-muted);font-size:.85rem;margin:.5rem 0 0">Get one clear CONDITIONS MET / Wait decision — no dashboard tourism.</p>
@@ -908,7 +911,7 @@
                 </div>
 
                 <div class="oracle-share" id="oracleShare">
-                    <h4>Share Your Signal</h4>
+                    <h3 class="oracle-share-title">Share Your Signal</h3>
                     <p>Spread the oracle verdict — viral growth fuels the dark side</p>
                     <div class="share-buttons">
                         <a href="#" class="share-btn share-x" id="shareXBtn" target="_blank" rel="noopener noreferrer">𝕏 X</a>
@@ -1085,7 +1088,9 @@
             <span>Waitlist: <strong id="landingWaitlist">—</strong></span>
         </div>
         <form class="waitlist-form" data-bd-submit-call="joinWaitlist">
-            <input type="email" id="waitlistEmail" placeholder="Enter your email" required aria-label="Enter your email">
+            <label for="waitlistEmail" style="display:inline-flex;flex-direction:column;gap:.25rem;font-size:.85rem;color:var(--text-muted);text-align:left;flex:1;min-width:12rem">Enter your email
+            <input type="email" id="waitlistEmail" name="waitlistEmail" placeholder="Enter your email" required>
+            </label>
             <button type="submit">Join Waitlist</button>
         </form>
         <p id="waitlistMessage" style="margin-top: 1rem; color: var(--success); display: none;"></p>
