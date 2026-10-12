@@ -511,16 +511,40 @@ async def auth_oauth_callback(
     if not code:
         raise HTTPException(status_code=400, detail="Missing OAuth code")
     from identity_service import validate_oauth_state_async
-    from oauth_service import exchange_code, login_or_link_oauth_user
+    from oauth_service import OAuthProviderStepError, exchange_code, login_or_link_oauth_user
 
+    oauth_fail_step = "state"
     try:
-        await validate_oauth_state_async(provider, state)
+        try:
+            await validate_oauth_state_async(provider, state)
+        except Exception as exc:
+            if isinstance(exc, ValueError):
+                raise
+            oauth_fail_step = "db"
+            raise
+        oauth_fail_step = "token"
         profile = await exchange_code(provider, code)
+        oauth_fail_step = "db"
         result = await login_or_link_oauth_user(profile)
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
+    except OAuthProviderStepError as exc:
+        cause = exc.__cause__ if exc.__cause__ is not None else exc
+        raise HTTPException(
+            status_code=502,
+            detail=(
+                f"OAuth provider failure: {cause} "
+                f"type={type(cause).__name__} step={exc.step}"
+            ),
+        ) from exc
     except Exception as exc:
-        raise HTTPException(status_code=502, detail=f"OAuth provider failure: {exc}") from exc
+        raise HTTPException(
+            status_code=502,
+            detail=(
+                f"OAuth provider failure: {exc} "
+                f"type={type(exc).__name__} step={oauth_fail_step}"
+            ),
+        ) from exc
 
     token = result.get("token")
     base = (os.getenv("APP_BASE_URL") or "").rstrip("/")
