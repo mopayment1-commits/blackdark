@@ -351,6 +351,15 @@
             const thesis = data.product_thesis || data.one_liner_for_ic || data.thesis || 'BLACKDARK Prove-it Trust OS';
             const diffs = (data.differentiators || data.proof_surfaces || []).slice(0, 6);
             const checks = (data.committee_checklist || data.checklist || []).slice(0, 8);
+            const diffItems = diffs.map(d => '<li>' + listItemLabel(d) + '</li>').join('');
+            const committeeBlock = checks.length
+                ? `<div class="card" style="padding:1rem">
+                    <h3 style="margin:0 0 .4rem">Committee checklist</h3>
+                    <ul style="margin:0;padding-left:1.1rem;color:var(--muted)">
+                        ${checks.map(c => '<li>' + listItemLabel(c) + '</li>').join('')}
+                    </ul>
+                </div>`
+                : '';
             cards.style.display = 'grid';
             cards.style.gap = '0.75rem';
             cards.innerHTML = `
@@ -361,15 +370,10 @@
                 <div class="card" style="padding:1rem">
                     <h3 style="margin:0 0 .4rem">Differentiators</h3>
                     <ul style="margin:0;padding-left:1.1rem;color:var(--muted)">
-                        ${(diffs.map(d => '<li>' + listItemLabel(d) + '</li>').join('') || '<li>See JSON below</li>')}
+                        ${diffItems}
                     </ul>
                 </div>
-                <div class="card" style="padding:1rem">
-                    <h3 style="margin:0 0 .4rem">Committee checklist</h3>
-                    <ul style="margin:0;padding-left:1.1rem;color:var(--muted)">
-                        ${(checks.map(c => '<li>' + listItemLabel(c) + '</li>').join('') || '<li>See JSON below</li>')}
-                    </ul>
-                </div>
+                ${committeeBlock}
                 <p style="font-size:.8rem;color:var(--muted);margin:0">
                     Also: <a href="/compliance">/compliance</a> ·
                     <a href="/status">System status</a> ·

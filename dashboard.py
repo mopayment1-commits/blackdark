@@ -640,6 +640,12 @@ async def _shutdown_background_runtime(app: FastAPI) -> None:
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Yield immediately so Railway /health/live passes, then boot in background."""
+    try:
+        from evidence_public_summary import warm_evidence_public_summary_cache
+
+        warm_evidence_public_summary_cache()
+    except Exception:
+        logger.debug("Evidence public-summary cache warm skipped", exc_info=True)
     boot_task = asyncio.create_task(_background_boot(app), name="blackdark-boot")
     try:
         from blackdark.data.db import data_engine_available, init_data_engine
@@ -886,7 +892,7 @@ async def institutional_audit_middleware(request: Request, call_next):
             response_status=response.status_code,
             body_bytes=body_bytes,
         )
-        if path.startswith("/api/"):
+        if path.startswith("/api/") and path != "/api/due-diligence/evidence-pack/public-summary":
             from distribution_compounding import track_api_usage
 
             await track_api_usage(path=path)
