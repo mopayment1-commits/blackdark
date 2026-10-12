@@ -40,6 +40,9 @@
         .btn-primary { background: linear-gradient(135deg, var(--accent), #06b6d4); color: #0a0a0f; }
         .btn-secondary { background: #1a1a24; color: var(--text); border: 1px solid var(--border); }
         .demo-box { max-width: 960px; margin: 0 auto 3rem; padding: 0 2rem; }
+        .evidence-full-msg { margin: 0.75rem 0 0; padding: 0.65rem 0.85rem; border-radius: 8px; font-size: 0.92rem; line-height: 1.45; }
+        .evidence-full-msg--warn { color: #ffb86b; background: rgba(255, 140, 60, 0.12); border: 1px solid rgba(255, 140, 60, 0.35); }
+        .evidence-full-msg--pending { color: var(--muted); background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border); }
         .demo-result { margin-top: 1rem; font-size: 0.82rem; color: var(--muted); max-height: 200px; overflow: auto; }
         .ws-log { max-height: 280px; overflow-y: auto; font-family: ui-monospace, monospace; font-size: 0.75rem; }
         .ws-status { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
@@ -131,6 +134,7 @@
             </p>
             <button class="btn btn-primary" type="button" data-bd-call="loadEvidenceSummary">Load Public Summary</button>
             <button class="btn btn-secondary" type="button" data-bd-call="loadEvidenceFull">Open Full Pack</button>
+            <div id="evidenceFullMsg" class="evidence-full-msg" role="status" aria-live="polite" hidden></div>
             <a class="btn btn-secondary" href="/data-room">Data Room Index</a>
             <a class="btn btn-secondary" href="/login?tab=register&plan=institutional">Institutional inquiry</a>
             <a class="btn btn-secondary" href="/oracle-accuracy">Public Accuracy</a>
@@ -392,25 +396,55 @@
             } catch (error) { console.debug(error); el.textContent = 'Public summary unavailable.'; }
         }
 
+        function setEvidenceFullMsg(text, tone) {
+            const msg = document.getElementById('evidenceFullMsg');
+            if (!msg) return;
+            if (!text) {
+                msg.hidden = true;
+                msg.textContent = '';
+                msg.className = 'evidence-full-msg';
+                return;
+            }
+            msg.hidden = false;
+            msg.textContent = text;
+            msg.className = tone === 'warn'
+                ? 'evidence-full-msg evidence-full-msg--warn'
+                : 'evidence-full-msg evidence-full-msg--pending';
+        }
+
         async function loadEvidenceFull() {
             const el = document.getElementById('evidenceResult');
-            el.textContent = 'Loading full evidence pack…';
+            setEvidenceFullMsg('', null);
+            setEvidenceFullMsg('Checking access…', 'pending');
             try {
                 const res = await fetch('/api/due-diligence/evidence-pack', { headers: authHeaders() });
                 const data = await res.json();
                 if (!res.ok) {
-                    el.textContent = res.status === 401 || res.status === 403
-                        ? 'Decision Desk / Admin login required for the full pack. Upgrade, then retry.'
-                        : (JSON.stringify(data, null, 2) || 'Pack unavailable');
+                    if (res.status === 401 || res.status === 403) {
+                        setEvidenceFullMsg(
+                            'Decision Desk / Admin login required for the full pack. Upgrade, then retry.',
+                            'warn',
+                        );
+                        return;
+                    }
+                    setEvidenceFullMsg('', null);
+                    el.textContent = JSON.stringify(data, null, 2) || 'Pack unavailable';
                     return;
                 }
+                setEvidenceFullMsg('', null);
                 el.textContent = JSON.stringify({
                     product_thesis: data.product_thesis || data.one_liner_for_ic,
                     differentiators: data.differentiators,
                     committee_checklist: data.committee_checklist,
                     sections: Object.keys(data.sections || {}),
                 }, null, 2);
-            } catch (error) { console.debug(error); el.textContent = 'Full pack unavailable — login as Decision Desk/Admin and retry.'; }
+            } catch (error) {
+                console.debug(error);
+                setEvidenceFullMsg(
+                    'Decision Desk / Admin login required for the full pack. Upgrade, then retry.',
+                    'warn',
+                );
+            }
         }
     </script>
     {% include "partials/site_footer.html" %}

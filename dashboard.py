@@ -1097,14 +1097,13 @@ async def wave_01_data_header_middleware(request: Request, call_next):
 
 
 @app.middleware("http")
-async def evidence_public_summary_fast_path(request: Request, call_next):
-    """Static public teaser — bypass heavy /api middleware (audit, DB hooks)."""
-    path = request.url.path or ""
-    if request.method == "GET" and path == "/api/due-diligence/evidence-pack/public-summary":
-        from evidence_public_summary import get_cached_evidence_public_summary
-        from fastapi.responses import JSONResponse
+async def evidence_due_diligence_fast_path(request: Request, call_next):
+    """Evidence-pack routes — bypass heavy /api middleware where safe."""
+    from due_diligence_fast_path import maybe_fast_evidence_due_diligence_response
 
-        return JSONResponse(get_cached_evidence_public_summary())
+    fast = maybe_fast_evidence_due_diligence_response(request)
+    if fast is not None:
+        return fast
     return await call_next(request)
 
 
