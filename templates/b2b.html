@@ -256,16 +256,28 @@
 
         async function runDemo() {
             const el = document.getElementById('demoResult');
+            const failMsg = 'Demo unavailable. The open demo endpoint is not reachable.';
             el.textContent = 'Loading...';
             try {
                 const res = await fetch('/api/b2b/demo');
+                if (!res.ok) {
+                    el.textContent = failMsg;
+                    return;
+                }
                 const d = await res.json();
+                if (!d || d.error || d.detail) {
+                    el.textContent = failMsg;
+                    return;
+                }
                 el.textContent = JSON.stringify({
                     record_count: d.record_count,
                     feed_version: d.feed_version,
                     sample: (d.records || []).slice(0, 3)
                 }, null, 2);
-            } catch (error) { console.debug(error); el.textContent = 'Demo unavailable — restart server and try again.'; }
+            } catch (error) {
+                console.debug(error);
+                el.textContent = failMsg;
+            }
         }
         function copyKey() {
             const el = document.getElementById('demoKey');
