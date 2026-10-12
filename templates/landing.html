@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#22d3ee">
-    <meta name="description" content="{{ t('brand') }} — {{ t('hero.headline') }} {{ t('hero.support') }}">
+    <meta name="description" content="{{ t('meta.description.landing') }}">
     <meta property="og:title" content="BLACKDARK — {{ t('hero.headline') }}">
     <meta property="og:description" content="{{ t('hero.support') }}">
     <meta property="og:type" content="website">
@@ -14,7 +14,7 @@
     <link rel="manifest" href="/manifest.json">
     <link rel="icon" href="/static/icon-192.png" type="image/png" sizes="192x192">
     <link rel="apple-touch-icon" href="/static/icon-192.png">
-    <title>BLACKDARK — {{ t('hero.headline') }}</title>
+    <title>{{ t('meta.title.landing') }}</title>
     <script type="application/ld+json">
     {"@context":"https://schema.org","@type":"WebApplication","name":"BLACKDARK","description":"Trust OS decision intelligence with public accuracy ledger and Decision Certificates","url":"/","applicationCategory":"FinanceApplication"}
     </script>
@@ -900,7 +900,7 @@
                     </label>
                     <button data-bd-call="consultOracle">Get Decision</button>
                 </div>
-                <p id="audienceCta" style="color:var(--text-muted);font-size:.85rem;margin:.5rem 0 0">Get one clear CONDITIONS MET / Wait decision — no dashboard tourism.</p>
+                <p id="audienceCta" style="color:var(--text-muted);font-size:.85rem;margin:.5rem 0 0">{{ t('oracle.cta.retail') }}</p>
                 <p id="landingUxHint" style="color:var(--text-muted);font-size:.78rem;margin:.25rem 0 0;display:none" aria-live="polite"></p>
                 <div class="oracle-result" id="oracleResult">
                     <div class="result-header">

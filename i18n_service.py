@@ -124,6 +124,8 @@ EN: dict[str, str] = {
     "meta.title.dashboard": "BLACKDARK — Intelligence Dashboard",
     "meta.title.login": "BLACKDARK — Login",
     "meta.title.accuracy": "BLACKDARK — Public Accuracy Ledger",
+    "meta.title.landing": "BLACKDARK — Oracle: Get Decision, Certificate, Public Ledger",
+    "meta.description.landing": "Get Decision on BLACKDARK Oracle for a clear Act/Wait and Decision Certificate. Sealed forecasts before the event; verify on the Public Accuracy Ledger.",
     # Nav
     "nav.home": "Home",
     "nav.oracle": "Oracle",
