@@ -57,7 +57,7 @@ def test_landing_assets_exist_and_design_tokens():
     assert "--bd-muted-dim: #a1a1aa" in css or "--bd-muted: #a1a1aa" in css
     assert landing.count("const action =") <= 1
     assert 'for="landingAudience"' in landing
-    assert 'for="symbolInput"' in landing
+    assert 'for="symbol"' in landing
     assert "meta.title.landing" in landing or "meta.description.landing" in landing
     from i18n_service import EN
 
