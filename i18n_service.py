@@ -996,6 +996,16 @@ def _load_json_catalog(code: str) -> dict[str, str] | None:
     return None
 
 
+def _hydrate_en_from_json_file() -> None:
+    """Server t() reads EN; locales/en.json is shipped in Docker — keep them aligned."""
+    overlay = _load_json_catalog("en")
+    if overlay:
+        EN.update(overlay)
+
+
+_hydrate_en_from_json_file()
+
+
 def _build_all() -> dict[str, dict[str, str]]:
     """Assemble locale catalogs from locales/*.json with EN fallback for missing keys."""
     catalogs: dict[str, dict[str, str]] = {"en": dict(EN)}
