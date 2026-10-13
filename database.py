@@ -26,6 +26,20 @@ from database_ddl import table_schema
 logger = logging.getLogger(__name__)
 
 
+def _sql_count(row: Any) -> int:
+    if row is None:
+        return 0
+    val = _row_get(row, 0, "count")
+    if val is None:
+        val = _row_get(row, 0, "n")
+    if val is None:
+        val = _first_cell(row)
+    try:
+        return int(val or 0)
+    except (TypeError, ValueError):
+        return 0
+
+
 def _row_get(row: Any, index: int, name: str) -> Any:
     """Read a column from sqlite tuples or postgres/asyncpg mappings."""
     if row is None:
@@ -38,7 +52,7 @@ def _row_get(row: Any, index: int, name: str) -> Any:
             return row[lowered]
     try:
         return row[name]
-    except (KeyError, TypeError):
+    except (KeyError, IndexError, TypeError):
         pass
     try:
         return row[index]
@@ -2485,9 +2499,12 @@ async def _fetch_audit_core_rows(
             LIMIT ?
         """
     else:
+        from oracle_integrity import resolved_true_sql
+
+        resolved_clause = resolved_true_sql()
         total_sql = f"SELECT COUNT(*) FROM oracle_predictions WHERE {live_clause}"  # nosec B608
-        resolved_sql = f"SELECT COUNT(*) FROM oracle_predictions WHERE resolved = 1 AND {live_clause}"  # nosec B608
-        avg_sql = f"SELECT AVG(accuracy_score) FROM oracle_predictions WHERE resolved = 1 AND accuracy_score IS NOT NULL AND {live_clause}"  # nosec B608
+        resolved_sql = f"SELECT COUNT(*) FROM oracle_predictions WHERE {resolved_clause} AND {live_clause}"  # nosec B608
+        avg_sql = f"SELECT AVG(accuracy_score) FROM oracle_predictions WHERE {resolved_clause} AND accuracy_score IS NOT NULL AND {live_clause}"  # nosec B608
         recent_sql = f"SELECT * FROM oracle_predictions WHERE {live_clause} ORDER BY timestamp DESC, id DESC LIMIT ?"  # nosec B608
     total_row = await (await db.execute(total_sql)).fetchone()
     resolved_row = await (await db.execute(resolved_sql)).fetchone()
@@ -2610,16 +2627,20 @@ async def fetch_oracle_audit_stats(
                 live_clause,
                 include_synthetic,
             )
-            synth_total_row, synth_resolved_row, synth_avg_row = await _fetch_synthetic_audit_rows(db)
+            try:
+                synth_total_row, synth_resolved_row, synth_avg_row = await _fetch_synthetic_audit_rows(db)
+                synth_total = _sql_count(synth_total_row)
+                synth_resolved = _sql_count(synth_resolved_row)
+                synth_avg = float(_row_get(synth_avg_row, 0, "avg") or 0.0)
+            except Exception:
+                logger.exception("Synthetic audit slice unavailable; live stats still returned")
+                synth_total = synth_resolved = 0
+                synth_avg = 0.0
 
-        total = int(total_row[0] or 0)
-        resolved = int(resolved_row[0] or 0)
-        avg_accuracy = float(avg_row[0] or 0.0)
+        total = _sql_count(total_row)
+        resolved = _sql_count(resolved_row)
+        avg_accuracy = float(_row_get(avg_row, 0, "avg") or 0.0)
         recent = [dict(row) for row in recent_rows]
-
-        synth_total = int(synth_total_row[0] or 0)
-        synth_resolved = int(synth_resolved_row[0] or 0)
-        synth_avg = float(synth_avg_row[0] or 0.0)
 
         return _oracle_audit_payload(
             total=total,
@@ -2634,6 +2655,165 @@ async def fetch_oracle_audit_stats(
     except Exception:
         logger.exception("Unable to compute oracle audit stats")
         return empty
+
+
+def _oracle_prediction_row_dict(row: Any) -> dict[str, Any]:
+    if row is None:
+        return {}
+    if isinstance(row, dict):
+        return dict(row)
+    try:
+        return dict(row)
+    except Exception:
+        keys = getattr(row, "keys", None)
+        if callable(keys):
+            return {k: row[k] for k in keys()}
+    return {}
+
+
+async def fetch_live_public_ledger(
+    *,
+    recent_limit: int = 20,
+    miss_sample_limit: int = 12,
+) -> dict[str, Any]:
+    """Single-connection live ledger counts + miss sample (public accuracy page source of truth)."""
+    from oracle_integrity import (
+        live_source_sql,
+        miss_label_incorrect_sql,
+        miss_label_partial_sql,
+        resolved_true_sql,
+    )
+
+    source_note = "oracle_predictions · live rows only (excludes historical_seed)"
+    base: dict[str, Any] = {
+        "source": source_note,
+        "logged": 0,
+        "resolved": 0,
+        "pending": 0,
+        "accuracy_percent": 0.0,
+        "verified_errors": 0,
+        "partial_outcomes": 0,
+        "miss_sample": [],
+        "recent_raw_count": 0,
+        "query_ok": False,
+    }
+    transient_errors = frozenset(
+        {
+            "ConnectionError",
+            "ConnectionResetError",
+            "CannotConnectNowError",
+            "PostgresConnectionError",
+            "InterfaceError",
+        }
+    )
+
+    async def _load() -> dict[str, Any]:
+        live_clause = live_source_sql()
+        resolved_clause = resolved_true_sql()
+        incorrect_pred = miss_label_incorrect_sql()
+        partial_pred = miss_label_partial_sql()
+        async with get_connection() as db:
+            try:
+                await _ensure_oracle_prediction_columns(db)
+            except Exception:
+                logger.exception("Oracle prediction column ensure skipped; continuing live ledger read")
+            total_row, resolved_row, avg_row, recent_rows = await _fetch_audit_core_rows(
+                db,
+                recent_limit,
+                live_clause,
+                False,
+            )
+            logged = _sql_count(total_row)
+            resolved = _sql_count(resolved_row)
+            avg_accuracy = float(_row_get(avg_row, 0, "avg") or 0.0)
+            recent = [_oracle_prediction_row_dict(row) for row in recent_rows]
+            base.update(
+                {
+                    "query_ok": True,
+                    "logged": logged,
+                    "resolved": resolved,
+                    "pending": max(0, logged - resolved),
+                    "accuracy_percent": round(avg_accuracy, 2),
+                    "recent_raw_count": len(recent),
+                    "recent_window": recent,
+                }
+            )
+            try:
+                incorrect_sql = (
+                    "SELECT COUNT(*) FROM oracle_predictions "
+                    f"WHERE {resolved_clause} AND {incorrect_pred} AND {live_clause}"
+                )
+                partial_sql = (
+                    "SELECT COUNT(*) FROM oracle_predictions "
+                    f"WHERE {resolved_clause} AND {partial_pred} AND {live_clause}"
+                )
+                miss_sql = (
+                    "SELECT * FROM oracle_predictions "
+                    f"WHERE {resolved_clause} AND ({incorrect_pred} OR {partial_pred}) AND "
+                    f"{live_clause} "
+                    "ORDER BY timestamp DESC, id DESC LIMIT ?"
+                )
+                scored_sql = (
+                    "SELECT * FROM oracle_predictions "
+                    f"WHERE {resolved_clause} AND label IS NOT NULL AND price_after_24h IS NOT NULL AND "
+                    f"{live_clause} "
+                    "ORDER BY timestamp DESC, id DESC LIMIT ?"
+                )
+                incorrect_row = await (await db.execute(incorrect_sql)).fetchone()
+                partial_row = await (await db.execute(partial_sql)).fetchone()
+                miss_rows = await (await db.execute(miss_sql, (miss_sample_limit,))).fetchall()
+                scored_rows = await (await db.execute(scored_sql, (recent_limit,))).fetchall()
+                base.update(
+                    {
+                        "verified_errors": _sql_count(incorrect_row),
+                        "partial_outcomes": _sql_count(partial_row),
+                        "miss_sample": [_oracle_prediction_row_dict(row) for row in miss_rows],
+                        "scored_sample": [_oracle_prediction_row_dict(row) for row in scored_rows],
+                    }
+                )
+            except Exception:
+                logger.exception("Live public ledger miss/scored slice unavailable; counts still returned")
+        return base
+
+    try:
+        for attempt in range(2):
+            try:
+                return await _load()
+            except Exception as exc:
+                if attempt == 0 and type(exc).__name__ in transient_errors:
+                    try:
+                        from postgres_backend import close_pool
+
+                        await close_pool()
+                    except Exception:
+                        pass
+                    continue
+                raise
+    except Exception as exc:
+        logger.exception("Unable to fetch live public ledger")
+        base["error"] = type(exc).__name__
+        return base
+
+
+async def count_labeled_oracle_predictions(
+    *,
+    include_synthetic: bool = False,
+) -> int:
+    from oracle_integrity import live_source_sql
+
+    try:
+        source_clause = "" if include_synthetic else f"AND {live_source_sql()}"
+        async with get_connection() as db:
+            calibration_sql = (
+                "SELECT COUNT(*) AS n FROM oracle_predictions "
+                "WHERE resolved = 1 AND price_after_24h IS NOT NULL AND label IS NOT NULL "
+                f"{source_clause}"
+            )
+            row = await (await db.execute(calibration_sql)).fetchone()
+        return _sql_count(row)
+    except Exception:
+        logger.exception("Unable to count labeled oracle predictions")
+        return 0
 
 
 async def fetch_labeled_oracle_predictions(
@@ -3766,8 +3946,23 @@ async def consume_auth_token_row(token_hash: str, token_type: str) -> int | None
         return int(data["user_id"])
 
 
+async def _ensure_oauth_states_table(db: Any) -> None:
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS oauth_states (
+            id          INTEGER PRIMARY KEY AUTOINCREMENT,
+            provider    TEXT    NOT NULL,
+            state       TEXT    NOT NULL UNIQUE,
+            expires_at  TEXT    NOT NULL,
+            created_at  TEXT    NOT NULL
+        )
+        """
+    )
+
+
 async def insert_oauth_state(*, provider: str, state: str, expires_at: str) -> None:
     async with get_connection() as db:
+        await _ensure_oauth_states_table(db)
         await db.execute(
             """
             INSERT INTO oauth_states (provider, state, expires_at, created_at)

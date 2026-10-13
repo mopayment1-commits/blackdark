@@ -236,7 +236,7 @@
       <a href="/dashboard?lens=operate"{% if nav_active is defined and nav_active == 'operate' %} class="active" aria-current="page"{% endif %}>{{ t('nav.operate') if t is defined else 'Operate' }}</a>
       <a href="/dashboard?lens=desk"{% if nav_active is defined and nav_active == 'desk' %} class="active" aria-current="page"{% endif %}>{{ t('nav.desk') if t is defined else 'Desk' }}</a>
       <a href="/data-room?lens=room"{% if nav_active is defined and nav_active == 'room' %} class="active" aria-current="page"{% endif %}>{{ t('nav.room') if t is defined else 'Room' }}</a>
-      <a href="/#lenses"{% if nav_active is defined and nav_active == 'lenses' %} class="active" aria-current="page"{% endif %}>{{ t('lenses.cta') if t is defined else 'Open the lenses' }}</a>
+      <a href="/lenses"{% if nav_active is defined and nav_active == 'lenses' %} class="active" aria-current="page"{% endif %}>{{ t('lenses.cta') if t is defined else 'Open the lenses' }}</a>
       <a href="/oracle-accuracy"{% if nav_active is defined and nav_active == 'verify' %} class="active" aria-current="page"{% endif %}>{{ t('nav.verify') if t is defined else 'Verify' }}</a>
     </div>
     <div class="nav-right">

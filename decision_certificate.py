@@ -27,12 +27,47 @@ def _utcnow() -> str:
     return datetime.now(UTC).isoformat()
 
 
-def build_decision_certificate(payload: dict[str, Any]) -> dict[str, Any]:
+def _certificate_factors(payload: dict[str, Any]) -> list[Any]:
+    why = payload.get("oqs_why") if isinstance(payload.get("oqs_why"), dict) else {}
+    factors = why.get("top_3_factors") or []
+    if factors:
+        return list(factors)
+    expl = payload.get("explanation")
+    if isinstance(expl, dict):
+        factors = expl.get("top_3_factors") or []
+        if factors:
+            return list(factors)
+    raw = payload.get("top_3_factors")
+    return list(raw) if isinstance(raw, list) and raw else []
+
+
+def _freshness_unknown_for_certificate(payload: dict[str, Any]) -> bool:
+    fresh = payload.get("data_freshness")
+    if not isinstance(fresh, dict):
+        return True
+    state = str(fresh.get("state") or fresh.get("status") or "").lower()
+    if state == "unknown":
+        return True
+    has_age = (
+        fresh.get("freshness_ms") is not None
+        or fresh.get("age_sec") is not None
+        or fresh.get("age_seconds") is not None
+    )
+    if not has_age and state not in {"fresh", "ok", "live", "stale"}:
+        return True
+    return False
+
+
+def build_decision_certificate(payload: dict[str, Any]) -> dict[str, Any] | None:
     """Build a public-safe Decision Certificate from an Oracle response.
 
     Proof Pass (free) cards carry a removable "Free Proof" watermark.
     Decision Pro / Decision Desk strip it — that is a primary Free→Pro lever.
     """
+    if not _certificate_factors(payload):
+        return None
+    if _freshness_unknown_for_certificate(payload):
+        return None
     tier = str(payload.get("tier") or "free").strip().lower()
     is_free = tier in ("", "free")
     watermark = "Free Proof" if is_free else None

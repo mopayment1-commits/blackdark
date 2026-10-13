@@ -488,8 +488,9 @@ async def create_session(user_id: int, *, revoke_others: bool = True) -> dict[st
 
 async def logout_user(token: str) -> None:
     from database import delete_user_session
-    from security_auth import hash_session_token, is_production_env
+    from security_auth import hash_session_token, is_production_env, mark_session_revoked
 
+    mark_session_revoked(token)
     await delete_user_session(hash_session_token(token))
     # Legacy plaintext session rows — only wipe when explicitly allowed (never prod).
     allow_plain = os.getenv("ALLOW_PLAINTEXT_SESSION_LOOKUP", "").lower() in {
@@ -505,9 +506,11 @@ async def get_user_from_token(token: str | None) -> dict[str, Any] | None:
     if not token:
         return None
     from database import fetch_user_by_session
-    from security_auth import hash_session_token, is_production_env
+    from security_auth import hash_session_token, is_production_env, is_session_revoked
 
     plain = token.strip()
+    if is_session_revoked(plain):
+        return None
     row = await fetch_user_by_session(hash_session_token(plain))
     # Legacy plaintext lookup: opt-in only, never in production.
     if row is None:

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#22d3ee">
-    <meta name="description" content="{{ t('meta.description.landing') }}">
+    <meta name="description" content="{{ t('brand') }} — {{ t('hero.headline') }} {{ t('hero.support') }}">
     <meta property="og:title" content="BLACKDARK — {{ t('hero.headline') }}">
     <meta property="og:description" content="{{ t('hero.support') }}">
     <meta property="og:type" content="website">
@@ -14,36 +14,691 @@
     <link rel="manifest" href="/manifest.json">
     <link rel="icon" href="/static/icon-192.png" type="image/png" sizes="192x192">
     <link rel="apple-touch-icon" href="/static/icon-192.png">
-    <title>{{ t('meta.title.landing') }}</title>
-    {% include "partials/seo_canonical.html" %}
+    <title>BLACKDARK — {{ t('hero.headline') }}</title>
     <script type="application/ld+json">
     {"@context":"https://schema.org","@type":"WebApplication","name":"BLACKDARK","description":"Trust OS decision intelligence with public accuracy ledger and Decision Certificates","url":"/","applicationCategory":"FinanceApplication"}
     </script>
     <link rel="preload" as="image" href="/static/img/blackdark-sealed-hero-1280.webp" type="image/webp" fetchpriority="high">
     <link rel="stylesheet" href="/static/css/trust-os.css">
-        <link rel="stylesheet" href="/static/css/landing.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: var(--bd-font-body);
+            background:
+                radial-gradient(1100px 560px at 18% -12%, rgba(34, 211, 238, 0.1), transparent 55%),
+                radial-gradient(900px 480px at 92% 0%, rgba(6, 182, 212, 0.07), transparent 50%),
+                linear-gradient(180deg, #0c1018 0%, var(--bd-bg) 42%, #07070b 100%);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .bg-grid {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(rgba(34, 211, 238, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(34, 211, 238, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .bg-glow {
+            position: fixed;
+            width: 600px; height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--accent-glow), transparent 70%);
+            top: -200px; right: -200px;
+            pointer-events: none;
+            z-index: 0;
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-30px, 30px); }
+        }
+        
+        nav.landing-nav.site-top-nav { position: fixed; top: 0; }
+
+        .landing-stats {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 2rem auto 0;
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+            background: transparent;
+        }
+
+        .landing-stats strong {
+            color: var(--accent);
+            font-weight: 700;
+        }
+        
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 6.5rem 1.25rem 2rem;
+            overflow: hidden;
+        }
+
+        .hero-bleed {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .hero-bleed picture {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .hero-bleed-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: 58% 42%;
+            display: block;
+            filter: saturate(0.92) contrast(1.05);
+            animation: bdSealDrift 18s ease-in-out infinite alternate;
+        }
+
+        @keyframes bdSealDrift {
+            from { transform: scale(1.02) translate3d(0, 0, 0); }
+            to { transform: scale(1.07) translate3d(-1.2%, 1%, 0); }
+        }
+
+        .hero-bleed-veil {
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(180deg, rgba(7, 8, 12, 0.72) 0%, rgba(7, 8, 12, 0.45) 38%, rgba(7, 8, 12, 0.78) 72%, #07070b 100%),
+                radial-gradient(70% 55% at 70% 42%, rgba(34, 211, 238, 0.12), transparent 62%),
+                radial-gradient(50% 40% at 20% 80%, rgba(6, 182, 212, 0.08), transparent 70%);
+        }
+
+        .hero-composition {
+            position: relative;
+            z-index: 1;
+            width: min(820px, 100%);
+            text-align: center;
+            animation: bdPulseIn 0.65s var(--bd-ease-out) both;
+        }
+
+        .hero-brand {
+            font-family: var(--bd-font-display);
+            font-size: clamp(3.1rem, 9vw, 5.4rem);
+            font-weight: 800;
+            line-height: 0.95;
+            letter-spacing: 0.02em;
+            margin: 0 0 0.85rem;
+            text-shadow:
+                0 1px 0 rgba(255, 255, 255, 0.18),
+                0 10px 40px rgba(0, 0, 0, 0.55),
+                0 0 48px rgba(34, 211, 238, 0.12);
+            color: #f4f4f5;
+            -webkit-text-fill-color: #f4f4f5;
+        }
+
+        .hero-headline {
+            font-family: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+            font-size: clamp(1.45rem, 3.4vw, 2.05rem);
+            font-weight: 500;
+            font-style: italic;
+            color: #d4d4d8;
+            letter-spacing: -0.01em;
+            margin: 0 0 0.75rem;
+            text-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+        }
+
+        .hero-support {
+            font-size: 1.02rem;
+            color: #a1a1aa;
+            max-width: 34rem;
+            margin: 0 auto 1.35rem;
+            line-height: 1.55;
+        }
+
+        .hero-cta {
+            display: flex; gap: 0.85rem; justify-content: center; flex-wrap: wrap;
+            margin-bottom: 1.35rem;
+        }
+
+        .btn-seal {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            background: linear-gradient(180deg, #ffffff 0%, #d4d4d8 100%);
+            color: #0a0a0f;
+            padding: 0.95rem 1.65rem;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1.02rem;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
+            transition: transform 0.25s var(--bd-ease-out), box-shadow 0.25s;
+        }
+        .btn-seal:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 48px rgba(34, 211, 238, 0.22);
+        }
+        .btn-seal-play {
+            width: 1.15rem; height: 1.15rem; border-radius: 999px;
+            border: 1.5px solid currentColor; display: inline-grid; place-items: center;
+            font-size: 0.55rem; line-height: 1;
+        }
+
+        .seal-myth {
+            position: relative;
+            z-index: 1;
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 2.5rem 1.25rem 1rem;
+            text-align: center;
+        }
+        .seal-myth h2 {
+            font-family: var(--bd-font-display);
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            color: var(--text);
+            margin-bottom: 0.65rem;
+            letter-spacing: -0.02em;
+        }
+        .seal-myth > p {
+            color: var(--text-muted);
+            max-width: 36rem;
+            margin: 0 auto 1.25rem;
+            line-height: 1.65;
+        }
+        .seal-steps {
+            display: grid;
+            gap: 0.85rem;
+            text-align: left;
+            margin: 1.25rem 0 1.5rem;
+        }
+        .seal-step {
+            padding: 0.95rem 1rem;
+            border-top: 1px solid var(--border);
+        }
+        .seal-step strong {
+            display: block;
+            color: var(--accent);
+            font-family: var(--bd-font-display);
+            font-size: 0.82rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-bottom: 0.3rem;
+        }
+        .seal-step span { color: var(--text-muted); font-size: 0.95rem; line-height: 1.55; }
+        .seal-cert-stamp {
+            margin-top: 1.35rem;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border, #2a2a35);
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.25);
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            word-break: break-all;
+        }
+        .seal-cert-stamp code {
+            color: var(--accent);
+            font-size: 0.82rem;
+        }
+
+        .hero-stats {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem;
+            margin: 2rem auto 0; padding: 1.25rem 2rem; max-width: 700px;
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px;
+        }
+        .hero-stat { text-align: center; }
+        .hero-stat strong { display: block; font-size: 1.75rem; color: var(--accent); }
+        .hero-stat span { font-size: 0.8rem; color: var(--text-muted); }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), #06b6d4);
+            color: var(--bg); padding: 1rem 2.5rem;
+            border-radius: 12px; font-weight: 700; font-size: 1.1rem;
+            text-decoration: none; border: none; cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 60px rgba(34, 211, 238, 0.4);
+        }
+        
+        .btn-secondary {
+            background: transparent; color: var(--text);
+            padding: 1rem 2.5rem; border-radius: 12px;
+            font-weight: 600; font-size: 1.1rem;
+            text-decoration: none; border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+        .btn-secondary:hover {
+            background: var(--bg-elevated); border-color: var(--accent);
+        }
+        
+        .oracle-demo {
+            margin-top: 4rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 700px; margin-left: auto; margin-right: auto;
+        }
+        
+        .oracle-demo-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .oracle-demo h3 {
+            font-size: 1rem; color: var(--text-muted);
+            font-weight: 500;
+        }
+        
+        .live-indicator {
+            display: flex; align-items: center; gap: 0.5rem;
+            font-size: 0.875rem; color: var(--success);
+        }
+        
+        .live-dot {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: var(--success); animation: pulse 2s infinite;
+        }
+        
+        .oracle-input {
+            display: flex; gap: 0.5rem; margin-bottom: 1.5rem;
+        }
+        
+        .oracle-input input {
+            flex: 1; background: var(--bg);
+            border: 1px solid var(--border); border-radius: 10px;
+            padding: 1rem; color: var(--text); font-size: 1rem;
+            outline: none; transition: border-color 0.3s;
+        }
+        .oracle-input input:focus { border-color: var(--accent); }
+        
+        .oracle-input button {
+            background: var(--accent); color: var(--bg);
+            border: none; border-radius: 10px;
+            padding: 1rem 1.5rem; font-weight: 600;
+            cursor: pointer; transition: all 0.3s;
+        }
+        .oracle-input button:hover {
+            background: #06b6d4; transform: translateY(-2px);
+        }
+        
+        .oracle-result {
+            background: var(--bg); border-radius: 12px;
+            padding: 1.5rem; display: none;
+        }
+        
+        .oracle-result.active { display: block; }
+        
+        .result-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .result-symbol {
+            font-size: 1.5rem; font-weight: 700;
+        }
+        
+        .result-score {
+            font-size: 2rem; font-weight: 900;
+        }
+        
+        .result-verdict {
+            display: inline-block; padding: 0.5rem 1rem;
+            border-radius: 8px; font-weight: 700; font-size: 0.875rem;
+        }
+        
+        .verdict-buy { background: rgba(34, 197, 94, 0.2); color: var(--success); }
+        .verdict-wait { background: rgba(245, 158, 11, 0.2); color: var(--warning); }
+        .verdict-sell { background: rgba(239, 68, 68, 0.2); color: var(--danger); }
+        
+        .result-oracle {
+            color: var(--text-muted); font-size: 0.95rem;
+            margin-top: 0.5rem; line-height: 1.8;
+        }
+        
+        .features {
+            padding: 6rem 2rem;
+            max-width: 1200px; margin: 0 auto;
+        }
+        
+        .section-header {
+            text-align: center; margin-bottom: 4rem;
+        }
+        
+        .section-header h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800; margin-bottom: 1rem;
+        }
+        
+        .section-header p {
+            color: var(--text-muted); font-size: 1.1rem;
+            max-width: 600px; margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+        
+        .feature-icon {
+            width: 48px; height: 48px;
+            background: var(--accent-glow);
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; margin-bottom: 1rem;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.25rem; font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-card p {
+            color: var(--text-muted); font-size: 0.95rem;
+        }
+        
+        .pricing {
+            padding: 6rem 2rem;
+            background: var(--bg-card);
+        }
+        
+        .pricing-container {
+            max-width: 1200px; margin: 0 auto;
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.25rem; margin-top: 3rem;
+        }
+        
+        .pricing-card {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 20px; padding: 2.5rem;
+            position: relative; transition: transform 0.3s;
+        }
+        
+        .pricing-card:hover { transform: translateY(-5px); }
+        
+        .pricing-card.popular {
+            border-color: var(--accent);
+            box-shadow: 0 0 60px rgba(34, 211, 238, 0.1);
+        }
+        
+        .popular-badge, .bd-popular-badge {
+            position: static;
+            display: inline-block;
+            margin: 0 0 0.65rem;
+            background: linear-gradient(135deg, var(--accent), #06b6d4);
+            color: var(--bg); padding: 0.35rem 0.75rem;
+            border-radius: 8px; font-size: 0.72rem;
+            font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+        }
+        
+        .pricing-card h3 {
+            font-size: 1.5rem; font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .pricing-card .price {
+            font-size: 3rem; font-weight: 900;
+            margin: 1rem 0;
+        }
+        
+        .pricing-card .price span {
+            font-size: 1rem; color: var(--text-muted); font-weight: 400;
+        }
+        
+        .pricing-card ul {
+            list-style: none; margin: 2rem 0;
+        }
+        
+        .pricing-card ul li {
+            padding: 0.5rem 0; color: var(--text-muted);
+            display: flex; align-items: center; gap: 0.5rem;
+        }
+        
+        .pricing-card ul li::before {
+            content: "✓"; color: var(--success); font-weight: 700;
+        }
+        
+        .pricing-card .btn {
+            width: 100%; text-align: center; display: block;
+        }
+        
+        .waitlist {
+            padding: 6rem 2rem;
+            max-width: 600px; margin: 0 auto; text-align: center;
+        }
+        
+        .waitlist-form {
+            display: flex; gap: 0.5rem; margin-top: 2rem;
+        }
+        
+        .waitlist-form input {
+            flex: 1; background: var(--bg-card);
+            border: 1px solid var(--border); border-radius: 12px;
+            padding: 1rem 1.5rem; color: var(--text); font-size: 1rem;
+            outline: none;
+        }
+        
+        .waitlist-form button {
+            background: var(--accent); color: var(--bg);
+            border: none; border-radius: 12px;
+            padding: 1rem 2rem; font-weight: 700;
+            cursor: pointer; transition: all 0.3s;
+        }
+        
+        .share-section {
+            padding: 3rem 2rem; text-align: center;
+            background: var(--bg-elevated);
+        }
+        
+        .share-buttons {
+            display: flex; gap: 1rem; justify-content: center;
+            margin-top: 1.5rem; flex-wrap: wrap;
+        }
+        
+        .share-btn {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            padding: 0.75rem 1.5rem; border-radius: 10px;
+            font-weight: 600; text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .share-x {
+            background: #000; color: #fff;
+            border: 1px solid #333;
+        }
+        .share-x:hover { background: #111; }
+        
+        .share-facebook { background: #0b4ea2; color: #fff; }
+        .share-facebook:hover { background: #093f86; }
+        
+        .share-instagram {
+            background: #8a1538;
+            color: #fff;
+        }
+        .share-instagram:hover { background: #6f1130; }
+        
+        .share-whatsapp { background: #0f7a43; color: #fff; }
+        .share-whatsapp:hover { background: #0c6337; }
+        
+        .share-telegram {
+            background: #005f8f; color: #fff;
+        }
+        .share-telegram:hover { background: #004c73; }
+        
+        .share-reddit { background: #b33000; color: #fff; }
+        .share-reddit:hover { background: #912700; }
+        
+        .share-copy {
+            background: var(--bg-card); color: var(--accent);
+            border: 1px solid var(--accent);
+        }
+        .share-copy:hover { background: rgba(34, 211, 238, 0.1); }
+        
+        .share-copy.copied { background: var(--success); color: #fff; border-color: var(--success); }
+
+        .oracle-share {
+            margin-top: 1.25rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .oracle-share h4 {
+            color: var(--accent);
+            font-size: 0.95rem;
+            margin-bottom: 0.35rem;
+        }
+
+        .oracle-share p {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin-bottom: 0.85rem;
+        }
+        
+        /* Site footer styles live in partials/site_footer.html */
+
+        .hero .trust-pulse-mini {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0;
+            width: min(640px, 100%);
+        }
+        .hero .tp-mini-inner {
+            backdrop-filter: blur(14px);
+            background: rgba(10, 10, 15, 0.78);
+            border-color: rgba(34, 211, 238, 0.28);
+            padding: 1.15rem 1.2rem 1.05rem;
+            animation: bdPulseIn 0.75s var(--bd-ease-out) 0.12s both;
+        }
+        .hero .tp-mini-cta .btn-primary,
+        .hero .tp-mini-cta .btn-secondary {
+            padding: 0.55rem 1rem;
+            font-size: 0.88rem;
+        }
+        .hero .tp-mini-foot {
+            font-size: 0.72rem;
+            line-height: 1.45;
+            color: var(--text-muted);
+        }
+        .trust-pulse-mini {
+            max-width: 720px; margin: 0 auto 1.75rem; padding: 0 1.25rem;
+            position: relative; z-index: 2;
+        }
+        .tp-mini-inner { /* styles from .bd-trust-pulse */ }
+        .tp-mini-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:.55rem; }
+        .tp-mini-label { color:var(--accent); font-family:var(--bd-font-display); font-weight:700; font-size:.78rem; letter-spacing:.06em; }
+        .tp-mini-live { display:inline-flex; align-items:center; gap:.35rem; font-size:.75rem; color:var(--text-muted); }
+        .tp-mini-dot { width:.5rem; height:.5rem; border-radius:50%; background:var(--success); box-shadow:0 0 8px rgba(34,197,94,.5); }
+        .tp-mini-dot.stale { background:var(--warning); box-shadow:none; }
+        .tp-mini-action { margin:.2rem 0; }
+        .tp-mini-sym { color:var(--text-muted); font-size:.9rem; margin-bottom:.4rem; }
+        .tp-mini-sentence { color:var(--text); font-size:1rem; margin-bottom:.75rem; }
+        .tp-mini-why { font-size:.85rem; color:var(--text-muted); margin-bottom:.75rem; }
+        .tp-mini-why div { padding:.25rem 0; border-bottom:1px solid var(--border); color:var(--text); }
+        .tp-mini-why div:last-child { border-bottom:none; }
+        .tp-mini-proof { display:flex; flex-wrap:wrap; gap:.4rem; margin-bottom:.85rem; font-size:.75rem; align-items:center; }
+        .tp-mini-proof span, .tp-mini-proof a { /* use .bd-chip via JS when possible */ }
+        .tp-mini-cert-id {
+            font-size: .72rem;
+            color: var(--text-muted, var(--muted));
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            letter-spacing: .02em;
+            user-select: all;
+        }
+        .bd-chip-btn {
+            cursor: pointer;
+            font: inherit;
+            font-size: 0.75rem;
+            color: var(--accent);
+            border-color: rgba(34, 211, 238, 0.35);
+        }
+        .bd-chip-btn:hover, .bd-chip-btn:focus-visible {
+            border-color: var(--accent);
+            color: #e0f2fe;
+            outline: none;
+        }
+        .bd-chip-muted {
+            cursor: default;
+            opacity: 0.92;
+            color: var(--text-muted);
+        }
+        .tp-mini-proof-drawer {
+            margin: 0 0 0.75rem;
+            padding: 0.75rem 0.85rem;
+            border: 1px solid rgba(34, 211, 238, 0.22);
+            border-radius: 10px;
+            background: rgba(10, 10, 15, 0.55);
+            font-size: 0.82rem;
+        }
+        .tp-mini-proof-toast {
+            margin: -0.35rem 0 0.65rem;
+            font-size: 0.72rem;
+            color: var(--success);
+        }
+        .tp-mini-cta { display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:.5rem; }
+        .tp-mini-foot { margin:0; }
+        
+        @media (max-width: 768px) {
+            .hero { padding: 5.5rem 1rem 1.5rem; min-height: auto; }
+            .hero-bleed-img { object-position: 62% 38%; }
+            .hero-cta { flex-direction: column; align-items: stretch; }
+            .btn-seal, .btn-primary, .btn-secondary { text-align: center; justify-content: center; }
+            .oracle-input { flex-direction: column; }
+            .waitlist-form { flex-direction: column; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .hero-bleed-img { animation: none; }
+        }
+    </style>
 </head>
 <body>
-    <a href="#trust-pulse" class="skip-link" style="position:absolute;left:-9999px" onfocus="this.style.left='1rem';this.style.top='1rem';this.style.zIndex='100';this.style.background='var(--accent)';this.style.color='#0a0a0f';this.style.padding='.5rem .75rem'">Skip to Trust Pulse</a>
+    <a href="#trust-pulse" class="skip-link" style="position:absolute;left:-9999px" onfocus="this.style.left='1rem';this.style.top='1rem';this.style.zIndex='100';this.style.background='var(--accent)';this.style.color='#0a0a0f';this.style.padding='.5rem .75rem'">{{ t('a11y.skip_trust_pulse') }}</a>
     <div class="bg-grid"></div>
     <div class="bg-glow"></div>
 
-    <nav aria-label="Primary">
-        <div class="nav-container">
-            <a class="logo" href="/">BLACKDARK</a>
-            <div class="nav-links">
-                <a href="/dashboard?lens=prove">{{ t('nav.prove') }}</a>
-                <a href="/dashboard?lens=operate">{{ t('nav.operate') }}</a>
-                <a href="/dashboard?lens=desk">{{ t('nav.desk') }}</a>
-                <a href="/data-room?lens=room">{{ t('nav.room') }}</a>
-                <a href="/oracle-accuracy">{{ t('nav.verify') }}</a>
-            </div>
-            <div class="nav-right">
-                {% include 'partials/top_utility.html' %}
-                <a href="/dashboard?lens=prove#trust-pulse" class="nav-cta">{{ t('nav.open_proof') }}</a>
-            </div>
-        </div>
-    </nav>
+    {% include 'partials/site_top_nav.html' %}
 
     <main id="main">
     <section class="hero" id="top" aria-label="BLACKDARK sealed hero">
@@ -60,7 +715,7 @@
                 >
                 <img
                     class="hero-bleed-img"
-                    src="/static/img/blackdark-sealed-hero-1280.webp"
+                    src="/static/img/blackdark-sealed-hero.jpg"
                     alt=""
                     width="1280"
                     height="853"
@@ -72,13 +727,13 @@
         </div>
         <div class="hero-composition">
             <h1 class="hero-brand">BLACKDARK</h1>
-            <h2 class="hero-headline">{{ t('hero.headline') }}</h2>
+            <p class="hero-headline">{{ t('hero.headline') }}</p>
             <p class="hero-support">{{ t('hero.support') }}</p>
             <div class="hero-cta">
                 <a href="#oracle" class="btn-primary" data-bd-call="tryOracleFree" data-bd-prevent="1">{{ t('hero.cta.try') }}</a>
-                <a href="#seal" class="btn-seal"><span class="btn-seal-play" aria-hidden="true">▶</span> {{ t('hero.cta.seal') }}</a>
+                <a href="#seal" class="btn-seal">{{ t('hero.cta.seal') }}</a>
             </div>
-            <section id="trust-pulse" class="trust-pulse-mini" aria-live="polite" aria-label="Trust Pulse">
+            <section id="trust-pulse" class="trust-pulse-mini" aria-live="polite" aria-label="{{ t('a11y.trust_pulse') }}">
                 <div class="tp-mini-inner bd-trust-pulse">
                     <div class="tp-mini-top">
                         <span class="tp-mini-label">{{ t('pulse.label') }}</span>
@@ -106,52 +761,21 @@
         <p>{{ t('seal.body') }}</p>
         <div class="seal-steps">
             <div class="seal-step">
-                <h3>{{ t('seal.s1.title') }}</h3>
+                <strong>{{ t('seal.s1.title') }}</strong>
                 <span>{{ t('seal.s1.body') }}</span>
             </div>
             <div class="seal-step">
-                <h3>{{ t('seal.s2.title') }}</h3>
+                <strong>{{ t('seal.s2.title') }}</strong>
                 <span>{{ t('seal.s2.body') }}</span>
             </div>
             <div class="seal-step">
-                <h3>{{ t('seal.s3.title') }}</h3>
+                <strong>{{ t('seal.s3.title') }}</strong>
                 <span>{{ t('seal.s3.body') }}</span>
             </div>
         </div>
-        <div class="hero-cta">
-            <a href="/oracle-accuracy" class="btn-primary">{{ t('seal.cta.ledger') }}</a>
-            <a href="/dashboard?lens=prove#trust-pulse" class="btn-secondary">{{ t('seal.cta.proof') }}</a>
+        <div id="sealCertificateStamp" class="seal-cert-stamp" style="display:none" aria-live="polite">
+            {{ t('seal.stamp_prefix') }} <code id="sealCertificateHash"></code>
         </div>
-    </section>
-
-    <section class="features" id="lenses" aria-label="Feature division">
-        <div class="section-header">
-            <h2>{{ t('lenses.title') }}</h2>
-            <p>{{ t('lenses.sub') }}</p>
-        </div>
-        <div class="features-grid">
-            <div class="feature-card">
-                <h3>{{ t('lenses.prove.title') }}</h3>
-                <p>{{ t('lenses.prove.body') }}</p>
-            </div>
-            <div class="feature-card">
-                <h3>{{ t('lenses.operate.title') }}</h3>
-                <p>{{ t('lenses.operate.body') }}</p>
-            </div>
-            <div class="feature-card">
-                <h3>{{ t('lenses.desk.title') }}</h3>
-                <p>{{ t('lenses.desk.body') }}</p>
-            </div>
-            <div class="feature-card">
-                <h3>{{ t('lenses.room.title') }}</h3>
-                <p>{{ t('lenses.room.body') }}</p>
-            </div>
-        </div>
-        <p style="text-align:center;margin-top:1.5rem">
-            <a href="/dashboard?lens=prove" class="btn-primary">{{ t('lenses.cta') }}</a>
-            <a href="/login?tab=register" class="btn-secondary" style="margin-inline-start:.5rem" aria-label="{{ t('nav.signup') }} — {{ t('lenses.title') }}">{{ t('nav.signup') }}</a>
-            <a href="/#pricing" class="btn-secondary" style="margin-inline-start:.5rem" aria-label="{{ t('nav.pricing') }} — {{ t('lenses.title') }}">{{ t('nav.pricing') }}</a>
-        </p>
     </section>
 
     <section class="features" id="try-oracle" style="padding-top:2rem">
@@ -164,34 +788,36 @@
                     <h3>BLACKDARK Oracle</h3>
                     <div class="live-indicator" id="oracleFreshnessChip" title="Data freshness">
                         <span class="live-dot"></span>
-                        <span id="oracleFreshnessLabel">Freshness unknown</span>
+                        <span id="oracleFreshnessLabel"></span>
                     </div>
                 </div>
                 <div class="oracle-input" style="flex-wrap:wrap;gap:.5rem">
-                    <div class="oracle-field" style="display:inline-flex;flex-direction:column;gap:.25rem;text-align:left">
-                    <label class="field-label" id="landingAudienceLabel" for="landingAudience" style="font-size:.75rem;color:var(--text-muted)">Audience</label>
-                    <select id="landingAudience" name="landingAudience" aria-labelledby="landingAudienceLabel" data-bd-change-call="applyAudience" style="background:var(--bg-elevated);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.55rem">
+                    <label class="field-label" for="landingAudience" style="display:inline-flex;flex-direction:column;gap:.25rem;font-size:.75rem;color:var(--text-muted);text-align:left">Audience
+                    <select id="landingAudience" name="landingAudience" data-bd-change-call="applyAudience" style="background:var(--bg-elevated);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.55rem">
                         <option value="retail" selected>Prove</option>
                         <option value="pro">Operate</option>
                         <option value="whale">Desk</option>
                         <option value="fund">Room</option>
                     </select>
-                    </div>
-                    <div class="oracle-field" style="display:inline-flex;flex-direction:column;gap:.25rem;text-align:left">
-                    <label class="field-label" id="landingUxModeLabel" for="landingUxMode" style="font-size:.75rem;color:var(--text-muted)">Experience</label>
-                    <select id="landingUxMode" name="landingUxMode" aria-labelledby="landingUxModeLabel" data-bd-change-call="onLandingUxModeChange" style="background:var(--bg-elevated);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.55rem">
+                    </label>
+                    <label class="field-label" for="landingUxMode" style="display:inline-flex;flex-direction:column;gap:.25rem;font-size:.75rem;color:var(--text-muted);text-align:left">Experience
+                    <select id="landingUxMode" name="landingUxMode" style="background:var(--bg-elevated);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.55rem">
                         <option value="beginner" selected>Beginner</option>
                         <option value="pro">Decision Pro</option>
                     </select>
-                    </div>
-                    <input type="hidden" id="landingLang" value="en">
-                    <label class="field-label" for="symbolInput" style="display:inline-flex;flex-direction:column;gap:.25rem;font-size:.75rem;color:var(--text-muted);text-align:left">BTC / ETH / SOL
-                    <input type="text" id="symbolInput" placeholder="BTC / ETH / SOL" value="BTC">
                     </label>
+                    <input type="hidden" id="landingLang" value="en" aria-label="landingLang">
+                    <label class="field-label" for="symbolCatalog" style="display:inline-flex;flex-direction:column;gap:.25rem;font-size:.75rem;color:var(--text-muted);text-align:left">Symbol
+                    <select id="symbolCatalog" name="symbolCatalog" data-bd-change-call="syncSymbolFromCatalog" data-bd-pass-value="1" style="background:var(--bg-elevated);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.55rem;min-width:6.5rem">
+                        {% for sym in oracle_symbols|default(['BTC']) %}
+                        <option value="{{ sym }}"{% if sym == 'BTC' %} selected{% endif %}>{{ sym }}</option>
+                        {% endfor %}
+                    </select>
+                    </label>
+                    <input type="text" id="symbolInput" value="BTC" readonly aria-label="Selected symbol" aria-readonly="true" style="max-width:5.5rem;text-align:center">
                     <button data-bd-call="consultOracle">Get Decision</button>
                 </div>
-                <p id="audienceCta" style="color:var(--text-muted);font-size:.85rem;margin:.5rem 0 0">{{ t('oracle.cta.retail') }}</p>
-                <p id="landingUxHint" style="color:var(--text-muted);font-size:.78rem;margin:.25rem 0 0;display:none" aria-live="polite"></p>
+                <p id="audienceCta" style="color:var(--text-muted);font-size:.85rem;margin:.5rem 0 0">Get one clear CONDITIONS MET / Wait decision — no dashboard tourism.</p>
                 <div class="oracle-result" id="oracleResult">
                     <div class="result-header">
                         <div class="result-symbol" id="resultSymbol">BTC</div>
@@ -203,6 +829,7 @@
                     <div class="result-oracle" id="resultOracle">
                         One clear decision — act or wait
                     </div>
+                    <div id="landingOracleFailReason" style="display:none;margin-top:.35rem;font-size:.8rem;color:var(--text-muted)"></div>
                     <div id="landingProMeta" style="display:none;margin-top:.75rem;color:var(--text-muted);font-size:.85rem"></div>
                     <div id="landingCert" style="display:none;margin-top:.75rem;font-size:.82rem;color:var(--text-muted)"></div>
                     <div id="landingDiscipline" style="display:none;margin-top:.75rem"></div>
@@ -211,7 +838,7 @@
                 </div>
 
                 <div class="oracle-share" id="oracleShare">
-                    <h3 class="oracle-share-title">Share Your Signal</h3>
+                    <h4>Share Your Signal</h4>
                     <p>Spread the oracle verdict — viral growth fuels the dark side</p>
                     <div class="share-buttons">
                         <a href="#" class="share-btn share-x" id="shareXBtn" target="_blank" rel="noopener noreferrer">𝕏 X</a>
@@ -280,99 +907,6 @@
         </p>
     </section>
     
-    <section class="pricing" id="pricing">
-        <div class="pricing-container">
-            <div class="section-header">
-                <h2>{{ t('pricing.title_os') }}</h2>
-                <p>{{ t('pricing.sub_os') }}</p>
-            </div>
-            
-            <div class="pricing-grid bd-pricing-grid">
-                <div class="pricing-card bd-price-tier">
-                    <h3>{{ t('pricing.proof_pass') }}</h3>
-                    <div class="price">$0<span>/month</span></div>
-                    <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.5rem">{{ t('pricing.proof_promise') }}</p>
-                    <ul>
-                        <li>Trust Pulse + OQS Why</li>
-                        <li>Shareable Decision Certificate</li>
-                        <li>3 certified decisions / day</li>
-                        <li>Public Accuracy Ledger</li>
-                        <li>Free Proof watermark</li>
-                    </ul>
-                    <a href="/login?tab=register&plan=free" class="btn-secondary btn">{{ t('pricing.cta.free_signup') }}</a>
-                </div>
-                
-                <div class="pricing-card bd-price-tier popular">
-                    <div class="bd-popular-badge">{{ t('pricing.popular') }}</div>
-                    <h3>{{ t('pricing.decision_pro') }}</h3>
-                    <div class="price">$29<span>/month USD</span></div>
-                    <p style="color:var(--success);font-size:0.85rem;margin-bottom:0.75rem">{{ t('pricing.trial_note') }}</p>
-                    <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.5rem">{{ t('pricing.pro_promise') }}</p>
-                    <ul>
-                        <li>Unlimited certified Oracle</li>
-                        <li>Since-you-left continuity</li>
-                        <li>Portfolio AI + alerts</li>
-                        <li>AI Chat · no Free watermark</li>
-                        <li>Research Lab + Arbitrage</li>
-                    </ul>
-                    <a href="/login?tab=register&plan=pro" class="btn-primary btn">{{ t('pricing.cta.trial') }}</a>
-                </div>
-                
-                <div class="pricing-card bd-price-tier">
-                    <h3>{{ t('pricing.decision_desk') }}</h3>
-                    <div class="price">$49<span>/month USD</span></div>
-                    <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.5rem">{{ t('pricing.desk_promise') }}</p>
-                    <ul>
-                        <li>Everything in Decision Pro</li>
-                        <li>Whale Signal vs Noise</li>
-                        <li>Stealth advisory views</li>
-                        <li>Evidence Pack + API priority</li>
-                    </ul>
-                    <a href="/login?tab=register&plan=whale" class="btn-primary btn">{{ t('pricing.cta.desk') }}</a>
-                    <a href="/b2b" class="btn-secondary btn" style="margin-top:0.5rem">{{ t('pricing.cta.b2b') }}</a>
-                </div>
-
-                <div class="pricing-card bd-price-tier">
-                    <h3>{{ t('pricing.institutional') }}</h3>
-                    <div class="price" style="font-size:1.55rem">{{ t('pricing.from_open') }}</div>
-                    <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.5rem">{{ t('pricing.inst_promise') }}</p>
-                    <ul>
-                        <li>Data Room + Compliance pack</li>
-                        <li>SSO / enforced MFA</li>
-                        <li>SLA · Integration Addendum</li>
-                    </ul>
-                    <a href="/login?tab=register&plan=institutional" class="btn-primary btn">{{ t('pricing.cta.talk') }}</a>
-                </div>
-            </div>
-            
-            <form id="institutionalInquiryForm" style="max-width:520px;margin:1.5rem auto 0;display:grid;gap:.55rem;text-align:left">
-                <h3 style="margin:0;color:var(--accent);font-family:var(--bd-font-display)">Institutional inquiry (USD wire / invoice)</h3>
-                <label for="instEmail" style="color:var(--text-muted);font-size:.85rem">Work email</label>
-                <input id="instEmail" required type="email" name="email" placeholder="work@fund.com" style="padding:.7rem .85rem;border-radius:8px;border:1px solid var(--border);background:#1a1a24;color:var(--text)">
-                <label for="instName" style="color:var(--text-muted);font-size:.85rem">Name</label>
-                <input id="instName" type="text" name="name" placeholder="Name" style="padding:.7rem .85rem;border-radius:8px;border:1px solid var(--border);background:#1a1a24;color:var(--text)">
-                <label for="instCompany" style="color:var(--text-muted);font-size:.85rem">Firm</label>
-                <input id="instCompany" type="text" name="company" placeholder="Firm" style="padding:.7rem .85rem;border-radius:8px;border:1px solid var(--border);background:#1a1a24;color:var(--text)">
-                <label for="instBudget" style="color:var(--text-muted);font-size:.85rem">Budget band USD</label>
-                <input id="instBudget" type="text" name="budget_usd" placeholder="Budget band USD (e.g. from 3000)" style="padding:.7rem .85rem;border-radius:8px;border:1px solid var(--border);background:#1a1a24;color:var(--text)">
-                <label for="instMessage" style="color:var(--text-muted);font-size:.85rem">Use case</label>
-                <textarea id="instMessage" name="message" rows="3" placeholder="Use case / seats / SLA needs" style="padding:.7rem .85rem;border-radius:8px;border:1px solid var(--border);background:#1a1a24;color:var(--text)"></textarea>
-                <button type="submit" class="btn-primary btn" aria-label="{{ t('pricing.cta.talk') }} — institutional inquiry form">{{ t('pricing.cta.talk') }}</button>
-                <p id="institutionalInquiryMsg" style="color:var(--text-muted);font-size:.85rem;min-height:1.2rem;margin:0"></p>
-            </form>
-
-            <p id="billingReadyLine" style="text-align:center;color:var(--accent);margin-top:1.25rem;font-size:0.9rem;max-width:720px;margin-left:auto;margin-right:auto">
-                Checking payment readiness…
-            </p>
-            <p style="text-align:center;color:var(--text-muted);margin-top:1rem;font-size:0.85rem;max-width:720px;margin-left:auto;margin-right:auto">
-                {{ t('pricing.pay_note') }}
-                {{ t('pricing.manage') }} <a href="/profile" style="color:var(--accent)">Profile</a>.
-                Not financial advice; we do not guarantee accuracy. Read the <a href="/refund" style="color:var(--accent)">Refund Policy</a>.
-                Catalog: <a href="/api/pricing" style="color:var(--accent)">/api/pricing</a> · Payments: <a href="/api/billing/payments" style="color:var(--accent)">/api/billing/payments</a>
-            </p>
-        </div>
-    </section>
-    
     <section class="waitlist" id="waitlist">
         <h2 style="font-family:var(--bd-font-display);font-size: clamp(1.8rem,4vw,2.5rem); font-weight: 800; margin-bottom: 1rem;">
             Get early access to <span style="color: var(--accent);">Trust OS</span>
@@ -388,20 +922,1211 @@
             <span>Waitlist: <strong id="landingWaitlist">—</strong></span>
         </div>
         <form class="waitlist-form" data-bd-submit-call="joinWaitlist">
-            <label for="waitlistEmail" style="display:inline-flex;flex-direction:column;gap:.25rem;font-size:.85rem;color:var(--text-muted);text-align:left;flex:1;min-width:12rem">Enter your email
-            <input type="email" id="waitlistEmail" name="waitlistEmail" placeholder="Enter your email" required>
-            </label>
+            <input type="email" id="waitlistEmail" placeholder="Enter your email" required aria-label="Enter your email">
             <button type="submit">Join Waitlist</button>
         </form>
         <p id="waitlistMessage" style="margin-top: 1rem; color: var(--success); display: none;"></p>
     </section>
     </main>
     
-    {% include "partials/eu_optional_analytics_banner.html" %}
     {% include "partials/site_footer.html" %}
     
-    <script defer src="/static/js/dom_escape.js"></script>
-    <script defer src="/static/js/public_decision_map.js"></script>
-    <script defer src="/static/js/landing_boot.js"></script>
+    <script src="/static/js/dom_escape.js?v=20261007-setAnchorHref"></script>
+    <script src="/static/js/public_decision_map.js"></script>
+    <script>
+        const BDDom = window.BDDomSafe || {};
+        const escapeHtml = BDDom.escapeHtml || function (v) { return String(v ?? ''); };
+        const esc = BDDom.esc || escapeHtml;
+        const safeUrl = BDDom.safeUrl || function () { return ''; };
+        const assignLocationHref = typeof BDDom.assignLocationHref === 'function'
+            ? BDDom.assignLocationHref
+            : function (value) {
+                const raw = String(value ?? '').trim();
+                if (raw && /^https?:\/\//i.test(raw)) window.location.href = raw;
+            };
+        const openWindow = typeof BDDom.openWindow === 'function'
+            ? BDDom.openWindow
+            : function (value) {
+                const raw = String(value ?? '').trim();
+                if (raw && /^https?:\/\//i.test(raw)) window.open(raw, '_blank', 'noopener');
+            };
+        function setAnchorHref(el, value) {
+            if (!el) return;
+            if (typeof BDDom.setAnchorHref === 'function') {
+                BDDom.setAnchorHref(el, value);
+                return;
+            }
+            if (typeof window.setAnchorHref === 'function') {
+                window.setAnchorHref(el, value);
+                return;
+            }
+            const raw = String(value ?? '').trim();
+            if (raw && (/^https?:\/\//i.test(raw) || (raw.startsWith('/') && !raw.startsWith('//')))) {
+                el.href = raw;
+            }
+        }
+
+        function currentLang() {
+            return (window.BD_I18N && window.BD_I18N.lang) || document.documentElement.lang || 'en';
+        }
+        function i18nT(key, vars) {
+            const i18n = window.BD_I18N;
+            if (i18n && typeof i18n.t === 'function') return i18n.t(key, vars || {});
+            return key;
+        }
+
+function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.getRandomValues(a);return Array.from(a,b=>b.toString(16).padStart(2,'0')).join('').slice(0,len||8);}
+
+        window.lastOracleResult = null;
+
+        function buildSharePayload(result) {
+            const url = window.location.origin + '/';
+            if (!result) {
+                return {
+                    url,
+                    text: i18nT('pulse.share_default') || 'BLACKDARK Trust Pulse — one Act/Wait decision you can verify',
+                };
+            }
+            const price = result.price != null ? `$${Number(result.price).toLocaleString(undefined, { maximumFractionDigits: 2 })}` : '';
+            const publicVerdict = window.BDPublicDecision?.mapPublicDecisionAction(
+                result.decision_action || result.model_state || result.verdict || result.action
+            ) || result.verdict;
+            const text = [
+                `BLACKDARK Oracle: ${publicVerdict} ${result.symbol}${price ? ' @ ' + price : ''}`,
+                `Score: ${result.opportunity_score}/100 · Confidence: ${result.confidence || '—'}%`,
+                (result.narrative || result.oracle || '').slice(0, 160),
+            ].filter(Boolean).join('\n');
+            return { url, text };
+        }
+
+        function setLandingOraclePresentationLayout(mode) {
+            const header = document.querySelector('#oracleResult .result-header');
+            const verdictWrap = document.getElementById('resultVerdict')?.parentElement;
+            const share = document.getElementById('oracleShare');
+            const full = mode === 'full';
+            if (header) header.style.display = full ? '' : 'none';
+            if (verdictWrap) verdictWrap.style.display = full ? '' : 'none';
+            if (share) share.style.display = full ? '' : 'none';
+        }
+
+        function updateShareLinks(result) {
+            window.lastOracleResult = result;
+            const oracleFull = !!(result && landingOracleIsFull(result));
+            if (result && landingOracleIsAgeOnly(result)) {
+                setLandingOraclePresentationLayout('partial');
+            } else {
+                setLandingOraclePresentationLayout(oracleFull ? 'full' : 'down');
+            }
+            if (!oracleFull) return;
+            const { url, text } = buildSharePayload(result);
+            const full = `${text}\n${url}`;
+
+            const xBtn = document.getElementById('shareXBtn');
+            const fbBtn = document.getElementById('shareFacebookBtn');
+            const waBtn = document.getElementById('shareWhatsappBtn');
+            const tgBtn = document.getElementById('shareTelegramBtn');
+            const rdBtn = document.getElementById('shareRedditBtn');
+
+            try {
+                if (xBtn) setAnchorHref(xBtn, `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`);
+                if (fbBtn) setAnchorHref(fbBtn, `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(text)}`);
+                if (waBtn) setAnchorHref(waBtn, `https://wa.me/?text=${encodeURIComponent(full)}`);
+                if (tgBtn) setAnchorHref(tgBtn, `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`);
+                if (rdBtn) setAnchorHref(rdBtn, `https://www.reddit.com/submit?url=${encodeURIComponent(url)}&title=${encodeURIComponent(text)}`);
+            } catch (shareError) { console.debug(shareError); }
+
+            const igBtn = document.getElementById('shareInstagramBtn');
+            if (igBtn) {
+                igBtn.onclick = function(e) {
+                    e.preventDefault();
+                    navigator.clipboard.writeText(full).then(() => {
+                        igBtn.textContent = 'Copied!';
+                        setTimeout(() => { igBtn.textContent = 'Instagram'; }, 2000);
+                    });
+                };
+            }
+
+            const copyBtn = document.getElementById('shareCopyBtn');
+            if (copyBtn) {
+                copyBtn.onclick = function(e) {
+                    e.preventDefault();
+                    navigator.clipboard.writeText(full).then(() => {
+                        copyBtn.textContent = 'Copied!';
+                        copyBtn.classList.add('copied');
+                        setTimeout(() => {
+                            copyBtn.textContent = 'Copy Link';
+                            copyBtn.classList.remove('copied');
+                        }, 2000);
+                    });
+                };
+            }
+        }
+
+
+        function landingOracleHasDecision(data) {
+            if (!data || typeof data !== 'object') return false;
+            return Boolean(
+                data.decision_sentence
+                || data.oracle
+                || data.decision_action
+                || data.verdict
+            );
+        }
+
+        function setLandingOracleFailReason(reason) {
+            const el = document.getElementById('landingOracleFailReason');
+            if (!el) return;
+            if (!reason) {
+                el.textContent = '';
+                el.style.display = 'none';
+                return;
+            }
+            el.textContent = reason;
+            el.style.display = 'block';
+        }
+
+        async function fetchOraclePayload(symbol, mode, lang) {
+            const preferQuick = mode !== 'pro';
+            const primary = preferQuick
+                ? `/oracle/${encodeURIComponent(symbol)}/quick?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`
+                : `/oracle/${encodeURIComponent(symbol)}?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`;
+            const fallback = preferQuick
+                ? `/oracle/${encodeURIComponent(symbol)}?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`
+                : `/oracle/${encodeURIComponent(symbol)}/quick?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`;
+
+            let networkFailure = false;
+
+            async function loadOracle(url) {
+                try {
+                    const response = await fetch(url, { headers: { Accept: 'application/json' } });
+                    const rawText = await response.text();
+                    let data = null;
+                    try {
+                        if (rawText && !rawText.trim().startsWith('<') && !rawText.includes('Internal Server Error')) {
+                            data = JSON.parse(rawText);
+                        }
+                    } catch (error) { console.debug(error); }
+                    return { response, data, networkFailure: false };
+                } catch (error) {
+                    console.debug(error);
+                    networkFailure = true;
+                    return { response: null, data: null, networkFailure: true };
+                }
+            }
+
+            const first = await loadOracle(primary);
+            if (landingOracleHasDecision(first.data)) {
+                return { ...first, networkFailure: false };
+            }
+            const second = await loadOracle(fallback);
+            if (landingOracleHasDecision(second.data)) {
+                return { ...second, networkFailure: false };
+            }
+            const picked = first.response && first.response.ok ? first : second;
+            return {
+                ...picked,
+                networkFailure: networkFailure && !landingOracleHasDecision(picked.data),
+            };
+        }
+        function decideLandingAction(data) {
+            const raw = data.decision_action || data.model_state || data.verdict || data.action || 'WAIT';
+            const mapFn = window.BDPublicDecision?.mapPublicDecisionAction;
+            if (typeof mapFn === 'function') return mapFn(raw);
+            const rawAction = String(raw).toUpperCase();
+            if (rawAction.includes('CONDITION') || rawAction === 'ACT' || rawAction.includes('BUY') || rawAction.includes('BULL')) {
+                return 'CONDITIONS MET';
+            }
+            if (rawAction.includes('ABSTAIN') || rawAction.includes('SELL')) return 'ABSTAIN';
+            return 'WAIT';
+        }
+        function fallbackDecisionSentence(data, symbol, action) {
+            let sentence = data.decision_sentence || data.conditions_met_review || data.narrative || data.oracle || data.action_line || '';
+            if (sentence && !/meditat|consulting the oracle/i.test(sentence)) return sentence;
+            if (typeof data.action === 'string' && data.action.length > 12 && !/\bBuy\b/i.test(data.action)) return data.action;
+            const review = i18nT('pulse.conditions_met_review');
+            const sym = data.symbol || symbol;
+            if (action === 'CONDITIONS MET') {
+                return i18nT('pulse.model_state_conditions', { symbol: sym, review: review });
+            }
+            return i18nT('pulse.model_state', { action: action, symbol: sym });
+        }
+        function landingOracleFactors(data) {
+            if (!data) return [];
+            const whyBlock = data.oqs_why || {};
+            return whyBlock.top_3_factors
+                || (data.explanation && data.explanation.top_3_factors)
+                || data.top_3_factors
+                || [];
+        }
+        function landingOracleFreshnessKnown(data) {
+            if (!data) return false;
+            const fresh = data.data_freshness || {};
+            const state = String(fresh.state || fresh.status || '').toLowerCase();
+            if (state === 'unknown') return false;
+            return fresh.freshness_ms != null || fresh.age_sec != null || fresh.age_seconds != null
+                || state === 'fresh' || state === 'ok' || state === 'live' || state === 'stale';
+        }
+        function landingOracleIsFull(data) {
+            if (!landingOracleHasDecision(data)) return false;
+            if (!landingOracleFreshnessKnown(data)) return false;
+            return landingOracleFactors(data).length > 0;
+        }
+        function landingOracleIsAgeOnly(data) {
+            if (!landingOracleHasDecision(data)) return false;
+            if (!landingOracleFreshnessKnown(data)) return false;
+            return landingOracleFactors(data).length === 0;
+        }
+        function landingOracleIsLive(data) {
+            return landingOracleIsFull(data);
+        }
+        function renderLandingCertificate(certEl, cert, data) {
+            if (!landingOracleIsLive(data) || !(cert.certificate_hash || data.prediction_id)) {
+                certEl.style.display = 'none';
+                certEl.innerHTML = '';
+                return;
+            }
+            certEl.style.display = 'block';
+            const hashLabel = cert.certificate_hash ? String(cert.certificate_hash).slice(0,16)+'…' : 'pending';
+            const copyBtn = cert.share_text ? `<button type="button" class="btn-secondary" id="copyCertBtn">Copy certificate</button>` : '';
+            const txtBtn = cert.export_text ? `<button type="button" class="btn-secondary" id="dlCertTxtBtn">Download TXT</button>` : '';
+            const xHref = safeUrl(cert.share_urls && cert.share_urls.x);
+            const tgHref = safeUrl(cert.share_urls && cert.share_urls.telegram);
+            const xBtn = xHref ? `<a class="btn-secondary" id="certShareX" href="${xHref}" target="_blank" rel="noopener">Share X</a>` : '';
+            const tgBtn = tgHref ? `<a class="btn-secondary" id="certShareTg" href="${tgHref}" target="_blank" rel="noopener">Share TG</a>` : '';
+            certEl.innerHTML =
+                `Decision Certificate · <code>${esc(hashLabel)}</code>` +
+                `<div style="margin-top:.35rem;display:flex;flex-wrap:wrap;gap:.35rem">` +
+                copyBtn +
+                `<button type="button" class="btn-secondary" id="dlCertBtn">Download JSON</button>` +
+                txtBtn + xBtn + tgBtn + `</div>`;
+            document.getElementById('copyCertBtn')?.addEventListener('click', () => {
+                navigator.clipboard.writeText(cert.share_text || '');
+            });
+            document.getElementById('dlCertBtn')?.addEventListener('click', () => {
+                const blob = new Blob([JSON.stringify(cert, null, 2)], {type:'application/json'});
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = `blackdark-certificate-${(data.symbol||'asset').toLowerCase()}.json`;
+                a.click();
+                URL.revokeObjectURL(a.href);
+            });
+            document.getElementById('dlCertTxtBtn')?.addEventListener('click', () => {
+                const blob = new Blob([cert.export_text || ''], {type:'text/plain'});
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = `blackdark-certificate-${(data.symbol||'asset').toLowerCase()}.txt`;
+                a.click();
+                URL.revokeObjectURL(a.href);
+            });
+        }
+        function renderLandingWhy(oracleEl, data, cert, latencyMs) {
+            let whyEl = document.getElementById('landingWhy');
+            if (!whyEl) {
+                whyEl = document.createElement('div');
+                whyEl.id = 'landingWhy';
+                whyEl.style.cssText = 'margin-top:.75rem;font-size:.85rem;color:var(--text-muted);text-align:left';
+                oracleEl.parentNode.insertBefore(whyEl, oracleEl.nextSibling);
+            }
+            if (!landingOracleIsFull(data)) {
+                whyEl.innerHTML = '';
+                whyEl.style.display = 'none';
+                return;
+            }
+            whyEl.style.display = '';
+            const whyBlock = data.oqs_why || {};
+            const factors = whyBlock.top_3_factors
+                || (data.explanation && data.explanation.top_3_factors)
+                || data.top_3_factors
+                || [];
+            const scen = (data.scenarios && data.scenarios.scenarios) || {};
+            let scenHtml = '';
+            if (scen.bull || scen.base || scen.bear) {
+                const bits = ['bull','base','bear'].map(k => {
+                    const s = scen[k] || {};
+                    const pct = s.probability_pct != null ? s.probability_pct+'%' : '—';
+                    return `${esc(s.label||k)} ${esc(pct)}`;
+                }).join(' · ');
+                const disc = (data.scenarios && data.scenarios.disclaimer) || '';
+                scenHtml = `<div style="margin-top:.65rem"><strong style="color:var(--text)">Scenarios</strong> · ${bits}<div style="font-size:.75rem;margin-top:.25rem;opacity:.8">${esc(disc)}</div></div>`;
+            }
+            let whyList = '';
+            if (factors.length) {
+                whyList = '<ol style="margin:.35rem 0 0 1.1rem;color:var(--text)">' + factors.slice(0,3).map(f => {
+                    const label = f.factor || f.label || f.name || f;
+                    const detail = f.detail ? ` — ${esc(f.detail)}` : '';
+                    const src = f.source ? ` <span style="opacity:.7">· ${esc(f.source)}</span>` : '';
+                    return `<li>${esc(label)}${detail}${src}</li>`;
+                }).join('') + '</ol>';
+            }
+            let certLine = '';
+            if (cert && cert.certificate_hash) {
+                const hashShort = String(cert.certificate_hash).slice(0, 16) + '…';
+                certLine = `<div style="margin-top:.5rem;font-size:.8rem">Certificate <code>${esc(hashShort)}</code> · prediction_id <code>${esc(data.prediction_id || '—')}</code></div>`;
+            }
+            const whyTitle = factors.length
+                ? `<div style="font-size:.78rem;color:var(--accent);margin-bottom:.35rem">${esc(whyBlock.grasp_line || 'Why (Top 3) — under five seconds')} · ${esc(latencyMs)}ms</div>`
+                : '';
+            whyEl.innerHTML =
+                whyTitle +
+                whyList +
+                '<details style="margin-top:.65rem;border:1px solid var(--border,#2a2a35);border-radius:10px;padding:.65rem .85rem;background:rgba(0,0,0,.2)">' +
+                '<summary style="cursor:pointer;color:var(--accent);font-weight:600">Evidence drawer · Certificate + scenarios</summary>' +
+                scenHtml + certLine + '</details>';
+        }
+
+
+        function paintLandingVerdict(verdictEl, data, action) {
+            const verdict = data.verdict || action;
+            verdictEl.textContent = action;
+            verdictEl.className = 'result-verdict';
+            const v = String(verdict).toUpperCase();
+            if (action === 'CONDITIONS MET' || v.includes('CONDITION')) verdictEl.classList.add('verdict-wait');
+            else if (v.includes('SELL') || action === 'ABSTAIN') verdictEl.classList.add('verdict-sell');
+            else verdictEl.classList.add('verdict-wait');
+        }
+        function paintLandingFreshness(data) {
+            const freshChip = document.getElementById('oracleFreshnessLabel');
+            const fresh = data.data_freshness || {};
+            if (!freshChip) return;
+            const wrap = document.getElementById('oracleFreshnessChip');
+            const state = String(fresh.state || fresh.status || '').toLowerCase();
+            if (state === 'unknown') {
+                freshChip.textContent = '';
+                if (wrap) wrap.style.display = 'none';
+                return;
+            }
+            const stale = fresh.stale === true || state === 'stale';
+            const knownFresh = state === 'fresh' || state === 'ok' || state === 'live';
+            freshChip.textContent = stale
+                ? (fresh.label || 'Stale — not live')
+                : (fresh.label || (knownFresh ? 'Live' : ''));
+            if (!freshChip.textContent) {
+                if (wrap) wrap.style.display = 'none';
+                return;
+            }
+            if (!wrap) return;
+            wrap.style.display = '';
+            wrap.title = fresh.state ? `Freshness: ${fresh.state}` : 'Data freshness';
+            wrap.style.opacity = stale ? '0.65' : '1';
+        }
+        function paintLandingProMeta(proMeta, data, mode) {
+            if (mode === 'pro') {
+                const truth = data.net_edge_truth || {};
+                const half = data.opportunity_half_life || {};
+                const conflict = data.dimension_conflict || {};
+                let line = `Truth ${esc(truth.truth_score ?? '—')} · Half-life ${esc(half.remaining_seconds ?? '—')}s · Regime ${esc(data.market_regime || '—')}`;
+                if (conflict.veto || conflict.abstain || (conflict.severity && conflict.severity !== 'none')) {
+                    const vetoWord = conflict.veto ? 'WAIT' : 'Abstain';
+                    const sevBit = conflict.severity ? ' (' + esc(conflict.severity) + ')' : '';
+                    line += ` · Contradiction Veto: ${vetoWord}${sevBit}`;
+                }
+                if (data.prediction_id) line += ` · Proof #${esc(data.prediction_id)}`;
+                proMeta.style.display = 'block';
+                proMeta.innerHTML = line + (data.prediction_id
+                    ? ` · <a href="/oracle-accuracy" style="color:var(--accent)">accuracy</a>`
+                    : '');
+                return;
+            }
+            if (data.prediction_id) {
+                proMeta.style.display = 'block';
+                proMeta.innerHTML = `Proof · prediction_id <code>${esc(data.prediction_id)}</code> · <a href="/oracle-accuracy" style="color:var(--accent)">Public accuracy</a>`;
+            }
+        }
+        function paintLandingUpgrade(upgradeEl, data) {
+            if (!data.upgrade_hint) return;
+            const teaser = data.upgrade_hint.teaser || {};
+            const teaserLine = [
+                teaser.truth_score != null ? `Truth teaser ${esc(teaser.truth_score)}` : null,
+                teaser.remaining_seconds != null ? `Half-life ~${esc(teaser.remaining_seconds)}s` : null,
+                teaser.regime ? `Regime ${esc(teaser.regime)}` : null,
+            ].filter(Boolean).join(' · ');
+            upgradeEl.style.display = 'block';
+            upgradeEl.innerHTML =
+                `<div style="color:var(--text-muted);font-size:.85rem;margin-bottom:.5rem">${esc(data.upgrade_hint.message || '')}` +
+                (teaserLine ? `<br>${teaserLine}` : '') +
+                `</div><button type="button" class="btn-secondary" id="switchProBtn">Switch to Pro</button>`;
+            document.getElementById('switchProBtn')?.addEventListener('click', () => {
+                const sel = document.getElementById('landingUxMode');
+                if (sel) sel.value = 'pro';
+                consultOracle();
+            });
+        }
+        function wireDisciplineMirror(disc, data, symbol, followAction) {
+            if (!disc) return;
+            if (!landingOracleIsLive(data)) {
+                disc.style.display = 'none';
+                disc.innerHTML = '';
+                return;
+            }
+            disc.style.display = 'block';
+            disc.innerHTML =
+                `<div style="font-size:.85rem;color:var(--text-muted);margin-bottom:.4rem"><strong style="color:var(--text)">Discipline Mirror</strong> (private) — cure for Dashboard Tourism. Did you follow this model state? <a href="/discipline-mirror" style="color:var(--accent)">Open my mirror</a> · <a href="/errors" style="color:var(--accent)">See public misses</a></div>` +
+                `<button type="button" class="btn-secondary" id="followedYes">Yes, I followed</button> ` +
+                `<button type="button" class="btn-secondary" id="followedNo">No, I overrode</button>` +
+                `<div id="disciplineMsg" style="margin-top:.4rem;font-size:.78rem;color:var(--text-muted)"></div>`;
+            const sendFollow = async (followed) => {
+                const key = localStorage.getItem('bd_user_key') || ('anon_' + _secureRandomId(8));
+                localStorage.setItem('bd_user_key', key);
+                try {
+                    await fetch('/api/discipline-mirror/answer', {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({
+                            user_key: key,
+                            asset: data.symbol || symbol,
+                            system_action: followAction,
+                            followed,
+                            prediction_id: data.prediction_id,
+                            opportunity_score: data.opportunity_score,
+                        }),
+                    });
+                    document.getElementById('disciplineMsg').textContent = 'Saved privately — only you can see your Discipline Mirror.';
+                } catch (error) { console.debug(error); document.getElementById('disciplineMsg').textContent = 'Could not save answer.'; }
+            };
+            document.getElementById('followedYes')?.addEventListener('click', () => sendFollow(true));
+            document.getElementById('followedNo')?.addEventListener('click', () => sendFollow(false));
+        }
+        function paintLandingCompliance(data) {
+            const foot = data.compliance_footer || {};
+            const comp = document.getElementById('landingCompliance');
+            if (!foot.disclaimer || !comp) return;
+            comp.style.display = 'block';
+            comp.innerHTML = `<strong>Anti-Hype</strong> · Source: ${esc(foot.data_source || '—')} · Trust: ${esc(foot.trust_basis || '—')}<br>${esc(foot.disclaimer)}`;
+        }
+
+        function tryOracleFree() {
+            const oracleBlock = document.getElementById('oracle');
+            if (oracleBlock) {
+                oracleBlock.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                if (window.history && window.history.replaceState) {
+                    window.history.replaceState(null, '', '#oracle');
+                } else {
+                    window.location.hash = 'oracle';
+                }
+            }
+            consultOracle();
+        }
+        window.tryOracleFree = tryOracleFree;
+
+        function clearLandingOracleChrome() {
+            setLandingOraclePresentationLayout('down');
+            const scoreEl = document.getElementById('resultScore');
+            const verdictEl = document.getElementById('resultVerdict');
+            const symbolEl = document.getElementById('resultSymbol');
+            if (scoreEl) scoreEl.textContent = '';
+            if (verdictEl) {
+                verdictEl.textContent = '';
+                verdictEl.className = 'result-verdict';
+            }
+            if (symbolEl) symbolEl.textContent = '';
+            const freshChip = document.getElementById('oracleFreshnessLabel');
+            const freshWrap = document.getElementById('oracleFreshnessChip');
+            if (freshChip) freshChip.textContent = '';
+            if (freshWrap) freshWrap.style.display = 'none';
+            const certEl = document.getElementById('landingCert');
+            if (certEl) {
+                certEl.style.display = 'none';
+                certEl.innerHTML = '';
+            }
+            const disc = document.getElementById('landingDiscipline');
+            if (disc) {
+                disc.style.display = 'none';
+                disc.innerHTML = '';
+            }
+            const whyEl = document.getElementById('landingWhy');
+            if (whyEl) {
+                whyEl.innerHTML = '';
+                whyEl.style.display = 'none';
+            }
+        }
+
+        async function consultOracle() {
+            const symbol = document.getElementById('symbolInput').value.toUpperCase();
+            const mode = document.getElementById('landingUxMode').value || 'beginner';
+            const lang = (window.BD_I18N && window.BD_I18N.lang) || document.documentElement.lang || 'en';
+            const resultDiv = document.getElementById('oracleResult');
+            if (!resultDiv) return;
+            resultDiv.classList.add('active');
+            await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+            const symbolEl = document.getElementById('resultSymbol');
+            const scoreEl = document.getElementById('resultScore');
+            const verdictEl = document.getElementById('resultVerdict');
+            const oracleEl = document.getElementById('resultOracle');
+            const proMeta = document.getElementById('landingProMeta');
+            const upgradeEl = document.getElementById('landingUpgrade');
+            
+            localStorage.setItem('bd_ux_mode', mode);
+            localStorage.setItem('bd_lang', lang);
+            oracleEl.textContent = i18nT('oracle.loading');
+            setLandingOracleFailReason('');
+            setLandingOraclePresentationLayout('down');
+            proMeta.style.display = 'none';
+            upgradeEl.style.display = 'none';
+            const t0 = performance.now();
+            let oracleDecisionShown = false;
+            
+            try {
+                const { response, data, networkFailure } = await fetchOraclePayload(symbol, mode, lang);
+                const latencyMs = Math.round(performance.now() - t0);
+                if (!landingOracleHasDecision(data)) {
+                    clearLandingOracleChrome();
+                    const failReason = networkFailure
+                        ? 'Network failure.'
+                        : 'Response had no decision.';
+                    setLandingOracleFailReason(failReason);
+                    if (data && response && !response.ok) {
+                        const detail = data.detail || {};
+                        const msg = detail.message || i18nT('oracle.error');
+                        oracleEl.textContent = msg;
+                        if (detail.upgrade_url || detail.error === 'quota_exceeded') {
+                            upgradeEl.style.display = 'block';
+                            upgradeEl.innerHTML = `<a class="btn-primary" href="${esc(safeUrl(detail.upgrade_url) || '/create-checkout-session?tier=pro')}">Upgrade to Pro</a>`;
+                        }
+                    } else {
+                        oracleEl.textContent = i18nT('oracle.error');
+                    }
+                    return;
+                }
+
+                setLandingOracleFailReason('');
+                const full = landingOracleIsFull(data);
+                const ageOnly = landingOracleIsAgeOnly(data);
+                const action = decideLandingAction(data);
+                oracleEl.textContent = fallbackDecisionSentence(data, symbol, action);
+                oracleDecisionShown = true;
+                const certEl = document.getElementById('landingCert');
+                const cert = full ? (data.decision_certificate || {}) : {};
+                const disc = document.getElementById('landingDiscipline');
+                const comp = document.getElementById('landingCompliance');
+                if (full) {
+                    setLandingOraclePresentationLayout('full');
+                    symbolEl.textContent = data.symbol || symbol;
+                    scoreEl.textContent = data.opportunity_score ?? '--';
+                    paintLandingVerdict(verdictEl, data, action);
+                    paintLandingFreshness(data);
+                    paintLandingProMeta(proMeta, data, mode);
+                    paintLandingUpgrade(upgradeEl, data);
+                    renderLandingCertificate(certEl, cert, data);
+                    renderLandingWhy(oracleEl, data, cert, latencyMs);
+                    const followAction = data.decision_action || data.verdict || action || 'WAIT';
+                    wireDisciplineMirror(disc, data, symbol, followAction);
+                    paintLandingCompliance(data);
+                    try { updateShareLinks(data); } catch (shareError) { console.debug(shareError); }
+                } else if (ageOnly) {
+                    setLandingOraclePresentationLayout('partial');
+                    scoreEl.textContent = '';
+                    verdictEl.textContent = '';
+                    verdictEl.className = 'result-verdict';
+                    paintLandingFreshness(data);
+                    proMeta.style.display = 'none';
+                    upgradeEl.style.display = 'none';
+                    renderLandingCertificate(certEl, {}, data);
+                    renderLandingWhy(oracleEl, data, {}, latencyMs);
+                    if (disc) { disc.style.display = 'none'; disc.innerHTML = ''; }
+                    if (comp) comp.style.display = 'none';
+                    try { updateShareLinks(data); } catch (shareError) { console.debug(shareError); }
+                } else {
+                    setLandingOraclePresentationLayout('partial');
+                    scoreEl.textContent = '';
+                    verdictEl.textContent = '';
+                    verdictEl.className = 'result-verdict';
+                    const freshChip = document.getElementById('oracleFreshnessLabel');
+                    const freshWrap = document.getElementById('oracleFreshnessChip');
+                    if (freshChip) freshChip.textContent = '';
+                    if (freshWrap) freshWrap.style.display = 'none';
+                    proMeta.style.display = 'none';
+                    upgradeEl.style.display = 'none';
+                    renderLandingCertificate(certEl, {}, data);
+                    renderLandingWhy(oracleEl, data, {}, latencyMs);
+                    if (disc) { disc.style.display = 'none'; disc.innerHTML = ''; }
+                    if (comp) comp.style.display = 'none';
+                    try { updateShareLinks(data); } catch (shareError) { console.debug(shareError); }
+                }
+                try {
+                    paintSealCertificateStamp(data);
+                    syncLandingTrustPulseFromOracle(data, symbol);
+                } catch (pulseError) { console.debug(pulseError); }
+            } catch (error) {
+                console.debug(error);
+                if (!oracleDecisionShown) {
+                    clearLandingOracleChrome();
+                    oracleEl.textContent = i18nT('oracle.error');
+                    const detail = error && error.message ? String(error.message) : String(error || 'unknown');
+                    setLandingOracleFailReason('Exception: ' + detail);
+                }
+            }
+        }
+
+        function syncSymbolFromCatalog(symbol) {
+            const value = String(symbol || '').toUpperCase().trim();
+            if (!value) return;
+            const input = document.getElementById('symbolInput');
+            const catalog = document.getElementById('symbolCatalog');
+            if (input) input.value = value;
+            if (catalog && catalog.value !== value) {
+                catalog.value = value;
+            }
+        }
+
+        async function applyAudience() {
+            const aud = document.getElementById('landingAudience')?.value || 'retail';
+            const lensMap = { retail:'prove', pro:'operate', whale:'desk', fund:'room' };
+            localStorage.setItem('bd_audience', aud);
+            localStorage.setItem('bd_lens', lensMap[aud] || 'prove');
+            try {
+                const res = await fetch('/api/audience/entry?audience=' + encodeURIComponent(aud));
+                const d = await res.json();
+                const cta = document.getElementById('audienceCta');
+                if (cta) {
+                    const promise = d.lens_promise || d.cta || '';
+                    cta.textContent = (d.lens_label ? (d.lens_label + ' — ') : '') + promise;
+                }
+                const mode = document.getElementById('landingUxMode');
+                if (mode && d.ux_mode_default) mode.value = d.ux_mode_default;
+                if ((aud === 'fund' || aud === 'whale' || aud === 'pro') && d.entry_path) {
+                    assignLocationHref(d.entry_path);
+                }
+            } catch (error) { console.debug(error); }
+        }
+        
+        async function joinWaitlist(e) {
+            e.preventDefault();
+            const email = document.getElementById('waitlistEmail').value;
+            const msg = document.getElementById('waitlistMessage');
+            
+            try {
+                const response = await fetch('/join-waitlist', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email })
+                });
+                const data = await response.json();
+                if (!response.ok) {
+                    msg.textContent = data.detail || data.message || 'Something went wrong.';
+                    msg.style.color = response.status === 409 ? 'var(--warning)' : 'var(--danger)';
+                } else {
+                    msg.textContent = data.message || `Welcome! You are #${data.position} on the waitlist.`;
+                    msg.style.color = 'var(--success)';
+                    document.getElementById('waitlistEmail').value = '';
+                }
+                msg.style.display = 'block';
+            } catch (error) { console.debug(error); msg.textContent = 'Something went wrong. Try again.';
+                msg.style.color = 'var(--danger)';
+                msg.style.display = 'block'; }
+        }
+        
+        async function loadLandingAnalytics() {
+            try {
+                if (typeof window.bdOptionalAnalyticsAllowed === 'function' && !window.bdOptionalAnalyticsAllowed()) {
+                    return;
+                }
+                await fetch('/api/analytics/view', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ page: 'landing' })
+                });
+                const [analyticsRes, usersRes, telegramRes] = await Promise.all([
+                    fetch('/api/analytics/stats'),
+                    fetch('/api/platform/stats'),
+                    fetch('/api/telegram/free/status'),
+                ]);
+                const analytics = await analyticsRes.json();
+                const users = await usersRes.json();
+                const telegram = await telegramRes.json();
+                // Stats intentionally below first-viewport budget — only fill if strip exists
+                const set = (id, val) => {
+                    const el = document.getElementById(id);
+                    if (el) el.textContent = val;
+                };
+                set('landingViews', (analytics.landing_views || 0).toLocaleString());
+                set('landingUsers', (users.registered_users || 0).toLocaleString());
+                set('landingSubs', (users.paid_subscribers || analytics.subscriber_count || 0).toLocaleString());
+                set('landingTelegram', (telegram.active_subscribers || users.telegram_free_subscribers || 0).toLocaleString());
+                set('landingWaitlist', (analytics.waitlist_count || 0).toLocaleString());
+            } catch (error) { console.debug(error); }
+        }
+
+        async function loadTelegramBotLink() {
+            try {
+                const res = await fetch('/api/telegram/free/status');
+                const data = await res.json();
+                const link = document.getElementById('telegramBotLink');
+                if (!link) return;
+                const username = (data.bot_username || '').replace('@', '');
+                if (username) {
+                    setAnchorHref(link, `https://t.me/${username}`);
+                    link.textContent = `@${username} — Start Free`;
+                }
+            } catch (error) { console.debug(error); }
+        }
+
+        let landingPulse = null;
+        let landingPulseEs = null;
+        let landingPulseSymbol = 'BTC';
+        /** Oracle / seal certificate kept when trust-pulse stream omits hash. */
+        let landingDecisionCert = null;
+
+        function rememberLandingDecisionCert(data, symbol) {
+            const cert = (data && data.decision_certificate) || {};
+            const hash = cert.certificate_hash;
+            if (!hash) return;
+            const sym = String(cert.asset || data.symbol || symbol || landingPulseSymbol || 'BTC')
+                .trim().toUpperCase() || 'BTC';
+            landingDecisionCert = {
+                ...cert,
+                certificate_hash: hash,
+                asset: sym,
+                symbol: sym,
+                prediction_id: data.prediction_id ?? cert.prediction_id ?? null,
+            };
+        }
+
+        function _lpEnrichPulseWithLandingCert(p) {
+            if (!p) return p;
+            const sym = String(p.symbol || landingPulseSymbol || '').trim().toUpperCase();
+            const proof = p.proof || {};
+            const dc = p.decision_certificate || {};
+            let hash = proof.certificate_hash || dc.certificate_hash || '';
+            let mergedCert = dc;
+            let mergedProof = { ...proof };
+            if (!hash && landingDecisionCert && landingDecisionCert.certificate_hash) {
+                const csym = String(landingDecisionCert.symbol || landingDecisionCert.asset || '').toUpperCase();
+                if (sym && csym && sym === csym) {
+                    hash = landingDecisionCert.certificate_hash;
+                    mergedCert = { ...landingDecisionCert, ...dc, certificate_hash: hash };
+                    mergedProof = {
+                        ...mergedProof,
+                        certificate_hash: hash,
+                        prediction_id: mergedProof.prediction_id ?? landingDecisionCert.prediction_id,
+                        share_text: mergedProof.share_text || landingDecisionCert.share_text,
+                    };
+                }
+            }
+            if (!hash) return p;
+            return {
+                ...p,
+                decision_certificate: mergedCert,
+                proof: mergedProof,
+            };
+        }
+
+        function _landingPulseFactors(data) {
+            const whyBlock = data.oqs_why || {};
+            return whyBlock.top_3_factors
+                || (data.explanation && data.explanation.top_3_factors)
+                || data.top_3_factors
+                || [];
+        }
+
+        function paintSealCertificateStamp(data) {
+            const wrap = document.getElementById('sealCertificateStamp');
+            const hashEl = document.getElementById('sealCertificateHash');
+            if (!wrap || !hashEl) return;
+            const cert = (data && data.decision_certificate) || {};
+            const hash = cert.certificate_hash;
+            if (!hash) {
+                wrap.style.display = 'none';
+                hashEl.textContent = '';
+                return;
+            }
+            rememberLandingDecisionCert(data, data.symbol);
+            hashEl.textContent = String(hash);
+            wrap.style.display = 'block';
+        }
+
+        function syncLandingTrustPulseFromOracle(data, symbol) {
+            if (!data) return;
+            paintSealCertificateStamp(data);
+            rememberLandingDecisionCert(data, symbol);
+            const sym = String(data.symbol || symbol || 'BTC').trim().toUpperCase() || 'BTC';
+            landingPulseSymbol = sym;
+            const action = decideLandingAction(data);
+            const cert = data.decision_certificate || {};
+            const priorProof = (landingPulse && landingPulse.proof) || {};
+            const fresh = data.data_freshness || {};
+            const pulseView = {
+                symbol: sym,
+                action: action,
+                verdict: action,
+                price: data.price,
+                change_24h: data.change_24h != null ? data.change_24h : data.change_24h_pct,
+                sentence: fallbackDecisionSentence(data, sym, action),
+                why: { factors: _landingPulseFactors(data) },
+                freshness: fresh,
+                decision_certificate: cert.certificate_hash ? cert : (landingPulse && landingPulse.decision_certificate),
+                proof: {
+                    ...priorProof,
+                    certificate_hash: cert.certificate_hash || priorProof.certificate_hash,
+                    prediction_id: data.prediction_id ?? priorProof.prediction_id,
+                    share_text: cert.share_text || priorProof.share_text,
+                },
+                ledger: landingPulse && landingPulse.ledger ? landingPulse.ledger : {},
+            };
+            renderLandingPulse(pulseView);
+            startLandingPulseStream(sym);
+        }
+
+        function _lpPriceBit(p) {
+            const price = p.price != null
+                ? ('$' + Number(p.price).toLocaleString(undefined, { maximumFractionDigits: 2 }))
+                : '';
+            const ch = p.change_24h;
+            if (ch == null) return price;
+            const sign = ch >= 0 ? '+' : '';
+            return `${price} · ${sign}${Number(ch).toFixed(2)}%`;
+        }
+
+        function _lpRenderWhy(factors) {
+            const why = document.getElementById('lpWhy');
+            if (!why) return;
+            why.innerHTML = (factors || []).slice(0, 3).map((f, i) => {
+                const detail = f.detail ? (' — ' + esc(f.detail)) : '';
+                const rawSrc = (f && typeof f === 'object' && f.source) ? String(f.source).trim() : '';
+                const srcBit = rawSrc
+                    ? (' <span style="opacity:.75;font-size:.78rem">· ' + esc(rawSrc) + '</span>')
+                    : '';
+                return '<div><strong>' + (i + 1) + '. ' + esc(f.factor || f) + '</strong>' + detail + srcBit + '</div>';
+            }).join('') || '';
+        }
+
+        function _lpProofLedgerHref(proof) {
+            const raw = proof.permalink || proof.verify_url || '';
+            if (typeof raw === 'string' && raw.startsWith('http')) {
+                try {
+                    const u = new URL(raw);
+                    return u.pathname + u.search + u.hash;
+                } catch (error) {
+                    console.debug(error);
+                }
+            }
+            const rel = safeUrl(raw) || '/oracle-accuracy';
+            if (proof.certificate_hash && rel.indexOf('cert=') < 0) {
+                const sep = rel.indexOf('?') >= 0 ? '&' : '?';
+                return rel + sep + 'cert=' + encodeURIComponent(String(proof.certificate_hash).slice(0, 16));
+            }
+            return rel;
+        }
+
+        function _lpCertHash(p) {
+            const enriched = _lpEnrichPulseWithLandingCert(p || {});
+            const proof = (enriched && enriched.proof) || {};
+            const cert = (enriched && enriched.decision_certificate) || {};
+            return proof.certificate_hash || cert.certificate_hash || '';
+        }
+
+        function _lpPulseHasCertificate(p) {
+            return Boolean(_lpCertHash(p));
+        }
+
+        function _lpCertFromPulse(p) {
+            const proof = (p && p.proof) || {};
+            const dc = (p && p.decision_certificate) || {};
+            const hash = _lpCertHash(p);
+            if (!hash) return null;
+            const mapFn = window.BDPublicDecision?.mapPublicDecisionAction;
+            const rawVerdict = dc.decision_action || p.action || p.verdict || '';
+            const verdict = typeof mapFn === 'function' ? mapFn(rawVerdict) : rawVerdict;
+            return {
+                ...dc,
+                certificate_hash: hash,
+                asset: String(dc.asset || p.symbol || 'BTC').trim().toUpperCase() || 'BTC',
+                prediction_id: proof.prediction_id ?? dc.prediction_id ?? null,
+                decision_action: verdict || rawVerdict || 'WAIT',
+                share_text: dc.share_text || proof.share_text || '',
+            };
+        }
+
+        function _lpNoCertificateLine() {
+            return i18nT('pulse.no_cert');
+        }
+
+        function _lpCertIdPrefix(p) {
+            const cert = _lpCertFromPulse(p);
+            if (!cert) return '';
+            let pid = cert.prediction_id != null && cert.prediction_id !== ''
+                ? String(cert.prediction_id)
+                : '';
+            if (!pid && cert.certificate_hash) {
+                pid = String(cert.certificate_hash).slice(0, 10);
+            }
+            return pid;
+        }
+
+        function openLandingPulseProof() {
+            const p = landingPulse || {};
+            const drawer = document.getElementById('lpProofDrawer');
+            const toast = document.getElementById('lpProofCopyMsg');
+            if (toast) toast.hidden = true;
+            if (!drawer) return;
+            const cert = _lpCertFromPulse(p);
+            if (!cert) {
+                drawer.hidden = true;
+                drawer.innerHTML = '';
+                if (toast) {
+                    toast.textContent = _lpNoCertificateLine();
+                    toast.hidden = false;
+                }
+                return;
+            }
+            drawer.hidden = false;
+            renderLandingPulseProofDrawer(drawer, cert, p);
+        }
+
+        function renderLandingPulseProofDrawer(drawerEl, cert, pulse) {
+            const proof = (pulse && pulse.proof) || {};
+            const ledgerHref = esc(_lpProofLedgerHref(proof));
+            const hashLabel = cert.certificate_hash ? String(cert.certificate_hash).slice(0, 16) + '…' : 'pending';
+            const asset = cert.asset || pulse.symbol || 'BTC';
+            const verdict = cert.decision_action || pulse.action || pulse.verdict || 'WAIT';
+            let pid = cert.prediction_id != null && cert.prediction_id !== ''
+                ? String(cert.prediction_id)
+                : '';
+            if (!pid && cert.certificate_hash) {
+                pid = String(cert.certificate_hash).slice(0, 10);
+            }
+            if (!pid) pid = '—';
+            const ar = currentLang().startsWith('ar');
+            const lblAsset = ar ? 'الأصل' : 'Asset';
+            const lblVerdict = ar ? 'الحكم' : 'Verdict';
+            const lblId = ar ? 'الرقم' : 'ID';
+            const copyBtn = cert.share_text
+                ? '<button type="button" class="btn-secondary" id="lpDrawerCopyCert">Copy certificate text</button>'
+                : '';
+            drawerEl.innerHTML =
+                '<p style="margin:0 0 .5rem"><strong>Decision Certificate</strong> · Trust Pulse</p>' +
+                '<p style="margin:0 0 .35rem"><strong>' + esc(lblAsset) + ':</strong> ' + esc(asset) + '</p>' +
+                '<p style="margin:0 0 .35rem"><strong>' + esc(lblVerdict) + ':</strong> ' + esc(verdict) + '</p>' +
+                '<p style="margin:0 0 .5rem"><strong>' + esc(lblId) + ':</strong> ' + esc(pid) + '</p>' +
+                '<p style="margin:0 0 .5rem;color:var(--text-muted)"><code>' + esc(hashLabel) + '</code></p>' +
+                '<div style="display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:.5rem">' +
+                copyBtn +
+                '<a class="btn-secondary" href="' + ledgerHref + '">Open proof on ledger</a>' +
+                '<button type="button" class="btn-secondary" id="lpDrawerClose">Close</button>' +
+                '</div>';
+            document.getElementById('lpDrawerCopyCert')?.addEventListener('click', () => {
+                navigator.clipboard.writeText(cert.share_text || '').then(() => {
+                    const msg = document.getElementById('lpProofCopyMsg');
+                    if (msg) {
+                        msg.textContent = 'Certificate text copied.';
+                        msg.hidden = false;
+                    }
+                }).catch(() => {});
+            });
+            document.getElementById('lpDrawerClose')?.addEventListener('click', () => {
+                drawerEl.hidden = true;
+            });
+        }
+
+        function copyLandingPulseCertId() {
+            const idPrefix = _lpCertIdPrefix(landingPulse);
+            const msg = document.getElementById('lpProofCopyMsg');
+            if (!idPrefix) {
+                if (msg) {
+                    msg.textContent = _lpNoCertificateLine();
+                    msg.hidden = false;
+                }
+                return;
+            }
+            const done = () => {
+                if (msg) {
+                    msg.textContent = 'Certificate ID copied.';
+                    msg.hidden = false;
+                }
+            };
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(String(idPrefix)).then(done).catch(() => {
+                    if (msg) {
+                        msg.textContent = 'Could not copy certificate ID.';
+                        msg.hidden = false;
+                    }
+                });
+            } else if (msg) {
+                msg.textContent = 'Copy not supported in this browser.';
+                msg.hidden = false;
+            }
+        }
+
+        let lpProofClickWired = false;
+        function wireLandingPulseProofClicks() {
+            if (lpProofClickWired) return;
+            const box = document.getElementById('lpProof');
+            if (!box) return;
+            lpProofClickWired = true;
+            box.addEventListener('click', (e) => {
+                if (!e.target.closest('#lpProof')) return;
+                if (e.target.closest('[data-lp-copy-cert-id]')) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    copyLandingPulseCertId();
+                    return;
+                }
+                if (e.target.closest('[data-lp-proof-open]')) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    requestAnimationFrame(() => openLandingPulseProof());
+                    return;
+                }
+            });
+        }
+
+        /** Sole writer for #lpProof — ledger + Free Proof drawer + cert hash only (no share/X chips). */
+        function _lpRenderProof(p) {
+            const box = document.getElementById('lpProof');
+            if (!box) return;
+            wireLandingPulseProofClicks();
+            const hash = _lpCertHash(p);
+            const hasCert = Boolean(hash);
+            const bits = [
+                '<a class="bd-chip ok" href="/oracle-accuracy">' + esc(i18nT('pulse.verify_ledger')) + '</a>',
+            ];
+            if (hasCert) {
+                bits.push(
+                    '<button type="button" class="bd-chip bd-chip-btn ok" data-lp-proof-open="1">' + esc(i18nT('pulse.free_proof')) + '</button>'
+                );
+                const idPrefix = _lpCertIdPrefix(p);
+                if (idPrefix) {
+                    bits.push(
+                        `<button type="button" class="bd-chip bd-chip-btn" data-lp-copy-cert-id="1" title="Copy certificate ID">${esc(i18nT('pulse.cert_prefix'))} ${esc(idPrefix)}</button>`
+                    );
+                }
+            } else {
+                bits.push(
+                    `<span class="bd-chip bd-chip-muted">${esc(_lpNoCertificateLine())}</span>`
+                );
+            }
+            box.innerHTML = bits.join('');
+            box.querySelectorAll('a[href*="twitter.com"], a[href*="x.com"]').forEach((node) => node.remove());
+            const drawer = document.getElementById('lpProofDrawer');
+            if (drawer && !hasCert) drawer.hidden = true;
+        }
+
+        function renderLandingPulse(p) {
+            if (!p) return;
+            p = _lpEnrichPulseWithLandingCert(p);
+            if (_lpCertHash(p)) {
+                const dc = p.decision_certificate || {};
+                const sym = String(p.symbol || landingPulseSymbol || '').toUpperCase();
+                landingDecisionCert = {
+                    ...landingDecisionCert,
+                    ...dc,
+                    certificate_hash: _lpCertHash(p),
+                    symbol: sym,
+                    asset: dc.asset || sym,
+                    prediction_id: (p.proof || {}).prediction_id ?? dc.prediction_id,
+                };
+            }
+            landingPulse = p;
+            const act = window.BDPublicDecision?.mapPublicDecisionAction(p.action || p.verdict) || p.action || 'WAIT';
+            const actionEl = document.getElementById('lpAction');
+            if (actionEl) {
+                actionEl.textContent = act;
+                const cssToken = act === 'CONDITIONS MET' ? 'WAIT' : String(act).replace(/\s+/g, '_');
+                actionEl.className = 'tp-mini-action bd-tp-action ' + cssToken;
+            }
+            const sym = document.getElementById('lpSym');
+            if (sym) sym.textContent = `${p.symbol || 'BTC'} ${_lpPriceBit(p)}`;
+            const sent = document.getElementById('lpSentence');
+            if (sent) sent.textContent = p.sentence || i18nT('pulse.fallback_sentence');
+            _lpRenderWhy((p.why && p.why.factors) || []);
+            const fresh = p.freshness || {};
+            const dot = document.getElementById('lpDot');
+            if (dot) dot.className = 'tp-mini-dot' + (fresh.stale ? ' stale' : '');
+            const fl = document.getElementById('lpFresh');
+            if (fl) {
+                const state = String(fresh.state || fresh.status || '').toLowerCase();
+                if (state === 'unknown') {
+                    fl.textContent = '';
+                } else {
+                    const stale = fresh.stale === true || state === 'stale';
+                    const knownFresh = state === 'fresh' || state === 'ok' || state === 'live';
+                    fl.textContent = stale
+                        ? (fresh.label || i18nT('pulse.stale'))
+                        : (fresh.label || (knownFresh ? i18nT('pulse.live') : ''));
+                    if (!fl.textContent) fl.textContent = '';
+                }
+            }
+            _lpRenderProof(p);
+        }
+
+        async function fetchLandingTrustPulse(symbol, mode, lang) {
+            const sym = String(symbol || 'BTC').trim().toUpperCase() || 'BTC';
+            landingPulseSymbol = sym;
+            try {
+                const q = new URLSearchParams({
+                    symbol: sym,
+                    ux_mode: mode || 'beginner',
+                    lang: lang || 'en',
+                });
+                const res = await fetch('/api/trust-pulse?' + q.toString());
+                if (!res.ok) return;
+                renderLandingPulse(await res.json());
+                scheduleLandingPulseStream(sym);
+            } catch (error) { console.debug(error); }
+        }
+
+        async function loadLandingTrustPulse() {
+            const symbol = (document.getElementById('symbolInput')?.value || 'BTC').toUpperCase();
+            const mode = document.getElementById('landingUxMode')?.value || 'beginner';
+            const lang = currentLang();
+            await fetchLandingTrustPulse(symbol, mode, lang);
+        }
+
+        function scheduleLandingPulseStream(symbol) {
+            const start = () => startLandingPulseStream(symbol);
+            if (typeof requestIdleCallback === 'function') {
+                requestIdleCallback(start, { timeout: 2500 });
+            } else {
+                setTimeout(start, 0);
+            }
+        }
+
+        function startLandingPulseStream(symbol) {
+            const sym = String(symbol || landingPulseSymbol || 'BTC').trim().toUpperCase() || 'BTC';
+            landingPulseSymbol = sym;
+            try {
+                if (landingPulseEs) landingPulseEs.close();
+                landingPulseEs = new EventSource('/api/trust-pulse/stream?symbol=' + encodeURIComponent(sym));
+                landingPulseEs.onmessage = (ev) => {
+                    try {
+                        const d = JSON.parse(ev.data);
+                        if (d.pulse && String(d.pulse.symbol || '').toUpperCase() === landingPulseSymbol) {
+                            renderLandingPulse(d.pulse);
+                        }
+                    } catch (error) { console.debug(error); }
+                };
+            } catch (error) { console.debug(error); }
+        }
+
+        function shareLandingPulseProof() {
+            const btn = document.getElementById('lpShareBtn');
+            if (!btn) return;
+            const proof = (landingPulse && landingPulse.proof) || {};
+            const text = proof.share_text || 'BLACKDARK Trust Pulse — verify /oracle-accuracy';
+            if (navigator.clipboard) navigator.clipboard.writeText(text).catch(() => {});
+            if (proof.share_urls && proof.share_urls.x) {
+                openWindow(proof.share_urls.x);
+            }
+        }
+        document.getElementById('lpShareBtn')?.addEventListener('click', (ev) => {
+            const btn = ev.currentTarget;
+            if (!(btn instanceof HTMLElement)) return;
+            btn.classList.remove('bd-motion-share');
+            void btn.offsetWidth;
+            btn.classList.add('bd-motion-share');
+            window.setTimeout(() => shareLandingPulseProof(), 0);
+        });
+
+
+        window.addEventListener('load', () => {
+            updateShareLinks(null);
+            loadLandingAnalytics();
+            loadTelegramBotLink();
+            void loadLandingTrustPulse();
+            setTimeout(consultOracle, 500);
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/sw.js').catch((error) => { console.debug(error); });
+            }
+        });
+    </script>
 </body>
 </html>

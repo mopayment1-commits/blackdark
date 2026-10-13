@@ -27,3 +27,31 @@ def filter_live_predictions(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
 def live_source_sql(*, table_alias: str = "") -> str:
     prefix = f"{table_alias}." if table_alias else ""
     return f"({prefix}source IS NULL OR {prefix}source NOT IN ('historical_seed'))"
+
+
+def resolved_true_sql(*, table_alias: str = "") -> str:
+    """Dialect-safe predicate for resolved oracle_predictions rows."""
+    prefix = f"{table_alias}." if table_alias else ""
+    try:
+        from postgres_backend import use_postgres
+    except Exception:
+        use_postgres = lambda: False  # type: ignore[misc, assignment]
+    if use_postgres():
+        return f"(COALESCE({prefix}resolved::int, 0) = 1)"
+    return f"{prefix}resolved = 1"
+
+
+def miss_label_incorrect_sql(*, table_alias: str = "") -> str:
+    prefix = f"{table_alias}." if table_alias else ""
+    return (
+        f"({prefix}label = 'incorrect' OR "
+        f"({prefix}label IS NULL AND {prefix}outcome IN ('incorrect', 'loss', 'lose')))"
+    )
+
+
+def miss_label_partial_sql(*, table_alias: str = "") -> str:
+    prefix = f"{table_alias}." if table_alias else ""
+    return (
+        f"({prefix}label = 'partial' OR "
+        f"({prefix}label IS NULL AND {prefix}outcome IN ('partial', 'mixed')))"
+    )

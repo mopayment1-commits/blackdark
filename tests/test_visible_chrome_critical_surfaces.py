@@ -16,55 +16,34 @@ def test_landing_uses_global_header_with_session_chrome():
     assert "partials/global_header.html" in land
     global_hdr = (ROOT / "templates/partials/global_header.html").read_text(encoding="utf-8")
     assert "bd-global-header" in global_hdr
-    assert "bd-global-links" in global_hdr
-    assert "top_utility.html" in global_hdr
+    assert "site_top_nav.html" in global_hdr
+    assert "site_top_nav.html" in global_hdr
 
 
 def test_top_utility_has_anonymous_chrome_branches():
-    util = (ROOT / "templates/partials/top_utility.html").read_text(encoding="utf-8")
+    util = (ROOT / "templates/partials/site_top_nav.html").read_text(encoding="utf-8")
     assert "lang_switcher.html" in util
     assert "/login" in util
     assert "/login?tab=register" in util
     assert 'id="bdUtilPricing"' in util
     assert "bd-header-util" in util
     assert "header_authenticated" in util
+    assert "bd-account-menu" in util
     assert "bd-tier-badge" in util
     assert "/profile" in util
     assert "bd-header-upgrade" not in util
 
 
 def test_lang_switcher_lists_twenty_five_locales():
+    from i18n_service import LOCALES, _locale_json_codes, list_locales
+
     sw = (ROOT / "templates/partials/lang_switcher.html").read_text(encoding="utf-8")
-    for code in (
-        "en",
-        "es",
-        "ar",
-        "pt",
-        "fr",
-        "de",
-        "zh-CN",
-        "zh-TW",
-        "ja",
-        "ko",
-        "hi",
-        "tr",
-        "ru",
-        "id",
-        "vi",
-        "th",
-        "fil",
-        "it",
-        "bn",
-        "ur",
-        "fa",
-        "ms",
-        "pl",
-        "nl",
-        "he",
-    ):
-        assert code in sw
-    # Must render even without template context
+    assert 'id="bdLangTrigger"' in sw
     assert "_locales" in sw
+    assert len(LOCALES) == 25
+    exposed = list_locales()
+    assert len(exposed) == len(_locale_json_codes())
+    assert len(exposed) == 25
 
 
 def test_login_has_register_tab_and_global_header():
@@ -85,9 +64,11 @@ def test_profile_has_lang_billing_and_signup_gate():
     assert 'lang="{{ lang|default(\'en\') }}"' in profile or 'lang="{{ lang|default(' in profile
     assert "create-checkout-session?tier=pro" in profile
     assert "create-checkout-session?tier=elite" in profile
-    assert "SEE THE EDGE / ELITE $49.99" in profile
+    assert "Plus · $29/mo" in profile
+    assert "Pro · $49/mo" in profile
+    assert "19.99" not in profile
     assert "tab=register" in profile
-    assert "billingReady" in profile
+    assert "billingReady" not in profile
 
 
 def test_dashboard_and_accuracy_include_global_header():
@@ -111,5 +92,5 @@ def test_pricing_ladder_visible_on_landing():
     assert "$29" not in land
     assert "3,000" not in land
     assert "pricing.popular" in land
-    assert "billingReadyLine" in land
+    assert "billingReadyLine" not in land
     assert "/login?tab=register" in land

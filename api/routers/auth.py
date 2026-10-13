@@ -43,17 +43,22 @@ logger = logging.getLogger("BLACKDARK.AuthAPI")
 router = APIRouter(prefix="/api/auth", tags=["auth"], responses=COMMON_ERROR_RESPONSES)
 
 
-def _attach_session_cookie(response: Response, token: str | None) -> None:
+def _attach_session_cookie(response: Response, token: str | None, *, remember: bool = True) -> None:
     if not token:
         return
-    from security_middleware import attach_session_cookie
+    from security_middleware import attach_session_cookie, attach_session_cookie_ephemeral
 
     # Opaque session bearer (secrets.token_urlsafe) — never a password.
-    attach_session_cookie(response, str(token))
+    if remember:
+        attach_session_cookie(response, str(token))
+    else:
+        attach_session_cookie_ephemeral(response, str(token))
 
 
 def _clear_session_cookie(response: Response) -> None:
-    response.delete_cookie("bd_token", path="/")
+    from security_middleware import clear_session_cookie
+
+    clear_session_cookie(response)
 
 
 def _session_response_body(result: dict[str, Any]) -> dict[str, Any]:
@@ -155,7 +160,7 @@ async def auth_login(
 
         increment_metric("auth_logins_total")
         resp = JSONResponse(_session_response_body(result))
-        _attach_session_cookie(resp, result.get("token"))
+        _attach_session_cookie(resp, result.get("token"), remember=bool(body.remember_me))
         return resp
     except ValueError as exc:
         raise HTTPException(status_code=401, detail=str(exc)) from exc
@@ -460,17 +465,38 @@ async def auth_google_credential(
         raise HTTPException(status_code=502, detail=f"Google sign-in failed: {exc}") from exc
 
 
+def _request_public_origin(request: Request) -> str:
+    configured = (os.getenv("APP_BASE_URL") or "").strip().rstrip("/")
+    if configured:
+        return configured
+    proto = (request.headers.get("x-forwarded-proto") or request.url.scheme or "https").split(",")[0].strip()
+    host = (request.headers.get("x-forwarded-host") or request.headers.get("host") or "").split(",")[0].strip()
+    if host:
+        return f"{proto}://{host}".rstrip("/")
+    return str(request.base_url).rstrip("/")
+
+
 @router.get("/oauth/{provider}/start", responses=COMMON_ERROR_RESPONSES)
-async def auth_oauth_start(provider: str):
-    from identity_service import store_oauth_state_async
+async def auth_oauth_start(provider: str, request: Request):
+    """RFC 6749 authorization redirect — 302 to the provider, never 500 on misconfiguration."""
+    from identity_service import mint_signed_oauth_state, persist_oauth_state_best_effort
     from oauth_service import build_authorize_url
 
+    key = (provider or "").strip().lower()
+    if key not in {"google", "github"}:
+        raise HTTPException(status_code=400, detail="Unsupported OAuth provider.")
+
     try:
-        payload = build_authorize_url(provider)
-        await store_oauth_state_async(provider, payload["state"])
+        state = mint_signed_oauth_state(key)
+        payload = build_authorize_url(key, state=state, base_url=_request_public_origin(request))
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
-    return payload
+    except HTTPException:
+        raise
+
+    await persist_oauth_state_best_effort(key, payload["state"])
+
+    return RedirectResponse(url=payload["authorize_url"], status_code=302)
 
 
 @router.get("/oauth/{provider}/callback", responses=COMMON_ERROR_RESPONSES)
@@ -485,16 +511,40 @@ async def auth_oauth_callback(
     if not code:
         raise HTTPException(status_code=400, detail="Missing OAuth code")
     from identity_service import validate_oauth_state_async
-    from oauth_service import exchange_code, login_or_link_oauth_user
+    from oauth_service import OAuthProviderStepError, exchange_code, login_or_link_oauth_user
 
+    oauth_fail_step = "state"
     try:
-        await validate_oauth_state_async(provider, state)
+        try:
+            await validate_oauth_state_async(provider, state)
+        except Exception as exc:
+            if isinstance(exc, ValueError):
+                raise
+            oauth_fail_step = "db"
+            raise
+        oauth_fail_step = "token"
         profile = await exchange_code(provider, code)
+        oauth_fail_step = "db"
         result = await login_or_link_oauth_user(profile)
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
+    except OAuthProviderStepError as exc:
+        cause = exc.__cause__ if exc.__cause__ is not None else exc
+        raise HTTPException(
+            status_code=502,
+            detail=(
+                f"OAuth provider failure: {cause} "
+                f"type={type(cause).__name__} step={exc.step}"
+            ),
+        ) from exc
     except Exception as exc:
-        raise HTTPException(status_code=502, detail=f"OAuth provider failure: {exc}") from exc
+        raise HTTPException(
+            status_code=502,
+            detail=(
+                f"OAuth provider failure: {exc} "
+                f"type={type(exc).__name__} step={oauth_fail_step}"
+            ),
+        ) from exc
 
     token = result.get("token")
     base = (os.getenv("APP_BASE_URL") or "").rstrip("/")
@@ -507,14 +557,26 @@ async def auth_oauth_callback(
     return resp
 
 
+_LOGOUT_REVOKE_TIMEOUT_SEC = 5.0
+
+
 @router.post("/logout")
 async def auth_logout(
     token: str | None = Depends(raw_bearer_or_cookie),
 ):
+    import asyncio
+
     from auth_service import logout_user
+    from security_auth import mark_session_revoked
 
     if token:
-        await logout_user(str(token))
+        mark_session_revoked(str(token))
+        try:
+            await asyncio.wait_for(logout_user(str(token)), timeout=_LOGOUT_REVOKE_TIMEOUT_SEC)
+        except asyncio.TimeoutError:
+            logger.warning("logout_user timed out — session marked revoked; clearing cookie")
+        except Exception:
+            logger.debug("logout_user failed", exc_info=True)
     resp = JSONResponse({"success": True})
     _clear_session_cookie(resp)
     return resp

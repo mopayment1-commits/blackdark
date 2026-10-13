@@ -59,7 +59,7 @@ def contact_channels() -> dict[str, Any]:
     support = cfg["support_email"]
     urgent = cfg["urgent_escalation"]
     complaints = _env("COMPLAINTS_EMAIL", support)
-    sales = _env("SALES_EMAIL", "sales@blackdark.io")
+    sales = _env("SALES_EMAIL", support)
     wa = _env("WHATSAPP_BUSINESS_E164", "")  # e.g. 15551234567
     phone_inst = _env("INSTITUTIONAL_PHONE", "")  # Room only — optional
     wa_url = f"https://wa.me/{wa}" if wa else ""
@@ -125,7 +125,7 @@ FAQ_ITEMS: list[dict[str, str]] = [
     },
     {
         "q": "How do refunds work?",
-        "a": "See /refund. Self-serve plans are USD monthly; trials convert unless cancelled. Refunds via Lemon/Stripe for clear billing errors or as required by law.",
+        "a": "See /refund. Self-serve plans are USD monthly; trials convert unless cancelled. Refunds follow the refund policy and applicable law.",
     },
     {
         "q": "How do I contact support or WhatsApp?",

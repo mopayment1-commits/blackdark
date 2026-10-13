@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="{{ lang|default('en') }}" dir="{{ dir|default('ltr') }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page_title }}</title>
+    <style>
+        :root { --bg:#0a0a0f; --fg:#e4e4e7; --muted:#71717a; --line:#2a2a35; --accent:#22d3ee; }
+        body { margin:0; font-family:"IBM Plex Sans","Segoe UI",sans-serif; background:var(--bg); color:var(--fg); min-height:100vh; }
+        main { max-width:520px; margin:0 auto; padding:2rem 1.25rem 4rem; }
+        h1 { font-size:1.5rem; margin:0 0 1.25rem; }
+        ul { list-style:none; margin:0; padding:0; display:grid; gap:.65rem; }
+        li a {
+            display:block; padding:.85rem 1rem; border:1px solid var(--line); border-radius:10px;
+            color:var(--fg); text-decoration:none; font-weight:600; font-size:1.05rem;
+        }
+        li a:hover { border-color:var(--accent); color:var(--accent); }
+        .back { display:inline-block; margin-top:1.5rem; color:var(--muted); font-size:.85rem; text-decoration:none; }
+        .back:hover { color:var(--accent); }
+    </style>
+</head>
+<body>
+    {% include 'partials/site_top_nav.html' %}
+    <main id="main">
+        <h1>{{ t('lenses.cta') if t is defined else page_title }}</h1>
+        <ul aria-label="Trust OS lenses">
+            {% for item in lens_links %}
+            <li><a href="{{ item.href }}">{{ item.label }}</a></li>
+            {% endfor %}
+        </ul>
+        <a class="back" href="/">← Home</a>
+    </main>
+    {% include "partials/site_footer.html" %}
+</body>
+</html>

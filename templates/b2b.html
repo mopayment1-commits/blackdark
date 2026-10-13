@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BLACKDARK B2B — institutional data feed and terminal</title>
-    {% include "partials/seo_canonical.html" %}
+    <title>BLACKDARK B2B — Institutional Data Feed</title>
     <link rel="stylesheet" href="/static/css/trust-os.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -41,16 +40,11 @@
         .btn-primary { background: linear-gradient(135deg, var(--accent), #06b6d4); color: #0a0a0f; }
         .btn-secondary { background: #1a1a24; color: var(--text); border: 1px solid var(--border); }
         .demo-box { max-width: 960px; margin: 0 auto 3rem; padding: 0 2rem; }
-        .evidence-full-msg { margin: 0.75rem 0 0; padding: 0.65rem 0.85rem; border-radius: 8px; font-size: 0.92rem; line-height: 1.45; }
-        .evidence-full-msg--warn { color: #ffb86b; background: rgba(255, 140, 60, 0.12); border: 1px solid rgba(255, 140, 60, 0.35); }
-        .evidence-full-msg--pending { color: var(--muted); background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border); }
         .demo-result { margin-top: 1rem; font-size: 0.82rem; color: var(--muted); max-height: 200px; overflow: auto; }
         .ws-log { max-height: 280px; overflow-y: auto; font-family: ui-monospace, monospace; font-size: 0.75rem; }
         .ws-status { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
         .ws-off { background: #27272a; color: #f4f4f5; }
         .ws-on { background: rgba(34,197,94,0.15); color: var(--success); }
-        .ws-idle { background: #27272a; color: var(--muted); font-weight: 500; }
-        .ws-status:empty { display: none; }
         footer { text-align: center; padding: 2rem; color: var(--muted); font-size: 0.85rem; border-top: 1px solid var(--border); }
     </style>
 </head>
@@ -76,7 +70,7 @@
         <a href="#fund-terminal" class="btn btn-primary">Open Fund Terminal</a>
         <a href="/oracle-accuracy" class="btn btn-secondary">Public Accuracy Ledger</a>
         <a href="#demo" class="btn btn-secondary">Live Feed Demo</a>
-        <a href="/b2b/pilot" class="btn btn-secondary">Book Pilot Call</a>
+        <a href="mailto:info@blackdark.io?subject=Emerging%20Fund%20Terminal" class="btn btn-secondary">Book Pilot Call</a>
     </section>
 
     <div class="grid">
@@ -103,10 +97,17 @@
             <h2 style="margin-bottom:0.5rem">Live Demo</h2>
             <p style="color:var(--muted);font-size:0.9rem">No signup required — limited to 15 records.</p>
             <div class="price">Custom<span style="font-size:0.85rem"> / from SEE THE EDGE / ELITE $49.99</span></div>
+            {% if demo_key_exposed %}
             <p style="margin-top:1rem;font-size:0.85rem"><strong>Demo API Key:</strong> <code id="demoKey">{{ demo_key }}</code></p>
             <pre>curl -H "X-API-Key: {{ demo_key }}" {{ request.url.scheme }}://{{ request.url.netloc }}/api/b2b/feed</pre>
-            <button class="btn btn-primary" data-bd-call="runDemo">Fetch Demo Feed</button>
             <button class="btn btn-secondary" data-bd-call="copyKey">Copy Demo Key</button>
+            {% else %}
+            <p style="margin-top:1rem;font-size:0.85rem;color:var(--muted)">
+                No API key on this public page. Use the open demo endpoint or contact institutional sales for a provisioned key.
+            </p>
+            <pre>curl {{ request.url.scheme }}://{{ request.url.netloc }}/api/b2b/demo</pre>
+            {% endif %}
+            <button class="btn btn-primary" data-bd-call="runDemo">Fetch Demo Feed</button>
             <div class="demo-result" id="demoResult">Click "Fetch Demo Feed" to see live CVVD records.</div>
         </div>
     </div>
@@ -137,7 +138,6 @@
             </p>
             <button class="btn btn-primary" type="button" data-bd-call="loadEvidenceSummary">Load Public Summary</button>
             <button class="btn btn-secondary" type="button" data-bd-call="loadEvidenceFull">Open Full Pack</button>
-            <div id="evidenceFullMsg" class="evidence-full-msg" role="status" aria-live="polite" hidden></div>
             <a class="btn btn-secondary" href="/data-room">Data Room Index</a>
             <a class="btn btn-secondary" href="/login?tab=register&plan=institutional">Institutional inquiry</a>
             <a class="btn btn-secondary" href="/oracle-accuracy">Public Accuracy</a>
@@ -148,12 +148,15 @@
 
     <div class="demo-box" id="websocket">
         <div class="card">
-            <h2 style="margin-bottom:0.5rem">Live WebSocket Stream <span class="ws-status ws-idle" id="wsStatus" aria-live="polite"></span></h2>
+            <h2 style="margin-bottom:0.5rem">Live WebSocket Stream <span class="ws-status ws-off" id="wsStatus">disconnected</span></h2>
             <p style="color:var(--muted);font-size:0.9rem">
                 Tier 2 institutional push — arbitrage, oracle signals, heartbeat (~{{ feed_version }}).
                 Target latency 100–500ms.
             </p>
-            <pre>wss://{{ request.url.netloc }}/ws/b2b/feed?api_key={{ demo_key }}</pre>
+            <pre id="wsEndpointLine">{{ request.url.scheme == 'https' and 'wss' or 'ws' }}://{{ request.url.netloc }}/ws/b2b/feed</pre>
+            <p style="color:var(--muted);font-size:0.82rem;margin-top:0.5rem">
+                Live stream requires a provisioned <code>api_key</code> query parameter — not shown on this public page.
+            </p>
             <button class="btn btn-primary" data-bd-call="connectWs">Connect WebSocket</button>
             <button class="btn btn-secondary" data-bd-call="disconnectWs">Disconnect</button>
             <div class="demo-result ws-log" id="wsLog">Events will appear here when connected.</div>
@@ -163,11 +166,13 @@
     <div class="grid">
         <div class="card">
             <h3>Endpoints</h3>
-            <p><code>GET /api/b2b/demo</code> — limited feed subset (requires authentication)</p>
+            <p><code>GET /api/b2b/demo</code> — public demo (no key)</p>
             <p style="margin-top:0.5rem"><code>GET /api/b2b/feed</code> — full feed (X-API-Key)</p>
-            <p style="margin-top:0.5rem"><code>WS /ws/b2b/feed?api_key=...</code> — live stream (institutional API key)</p>
-            <p style="margin-top:0.5rem"><code>GET /api/due-diligence/evidence-pack/public-summary</code> — D6 teaser (public allowlist)</p>
-            <p style="margin-top:0.5rem"><code>GET /api/due-diligence/evidence-pack</code> — full pack (Decision Desk / admin)</p>
+            <p style="margin-top:0.5rem"><code>WS /ws/b2b/feed?api_key=...</code> — live stream</p>
+            <p style="margin-top:0.5rem"><code>GET /api/b2b/ws/info</code> — WebSocket status</p>
+            <p style="margin-top:0.5rem"><code>GET /api/b2b/proposal?client=Fund</code> — sales proposal JSON</p>
+            <p style="margin-top:0.5rem"><code>GET /api/due-diligence/evidence-pack/public-summary</code> — D6 teaser</p>
+            <p style="margin-top:0.5rem"><code>GET /api/due-diligence/evidence-pack</code> — full pack (Decision Desk)</p>
         </div>
         <div class="card">
             <h3>Use Cases</h3>
@@ -185,94 +190,34 @@
 
     <script>
         let ws = null;
-        let wsHadOpen = false;
-        const demoKey = (document.getElementById('demoKey')?.textContent || '').trim();
+        const wsApiKey = String({{ (demo_key if demo_key_exposed else '')|tojson }} || '').trim();
         const wsScheme = location.protocol === 'https:' ? 'wss:' : 'ws:';
-        const WS_LOG_IDLE = 'Events will appear here when connected.';
 
-        function wsApiKey() {
-            const key = demoKey;
-            if (!key || key === 'contact-sales' || key === 'disabled') return '';
-            return key;
-        }
-
-        function setWsStatusState(state) {
+        function setWsStatus(on) {
             const el = document.getElementById('wsStatus');
-            if (!el) return;
-            if (state === 'connected') {
-                el.textContent = 'connected';
-                el.className = 'ws-status ws-on';
-                el.hidden = false;
-                return;
-            }
-            if (state === 'disconnected') {
-                el.textContent = 'disconnected';
-                el.className = 'ws-status ws-off';
-                el.hidden = false;
-                return;
-            }
-            if (state === 'connecting') {
-                el.textContent = 'connecting…';
-                el.className = 'ws-status ws-off';
-                el.hidden = false;
-                return;
-            }
-            if (state === 'public_idle') {
-                el.textContent = 'Not available on this page';
-                el.className = 'ws-status ws-idle';
-                el.hidden = false;
-                return;
-            }
-            el.textContent = '';
-            el.className = 'ws-status ws-idle';
-            el.hidden = true;
+            el.textContent = on ? 'connected' : 'disconnected';
+            el.className = 'ws-status ' + (on ? 'ws-on' : 'ws-off');
         }
-
-        function initWsStatus() {
-            if (!wsApiKey()) {
-                setWsStatusState('public_idle');
-            } else {
-                setWsStatusState('idle');
-            }
-        }
-        initWsStatus();
 
         function logWs(msg) {
             const el = document.getElementById('wsLog');
             const line = `[${new Date().toLocaleTimeString()}] ${msg}`;
-            el.textContent = (el.textContent === WS_LOG_IDLE ? '' : el.textContent + '\n') + line;
+            el.textContent = (el.textContent === 'Events will appear here when connected.' ? '' : el.textContent + '\n') + line;
             el.scrollTop = el.scrollHeight;
         }
 
         function connectWs() {
             if (ws && ws.readyState <= 1) return;
-            const apiKey = wsApiKey();
-            if (!apiKey) {
-                logWs('Institutional API key required for the live stream.');
-                setWsStatusState('public_idle');
+            if (!wsApiKey || wsApiKey.length < 8) {
+                setWsStatus(false);
+                logWs('Disconnected — provision an institutional API key to enable the live stream.');
                 return;
             }
-            const url = `${wsScheme}//${location.host}/ws/b2b/feed?api_key=${encodeURIComponent(apiKey)}`;
-            wsHadOpen = false;
-            setWsStatusState('connecting');
+            const url = `${wsScheme}//${location.host}/ws/b2b/feed?api_key=${encodeURIComponent(wsApiKey)}`;
             logWs('Connecting…');
             ws = new WebSocket(url);
-            ws.onopen = () => {
-                wsHadOpen = true;
-                setWsStatusState('connected');
-                logWs('OPEN');
-            };
-            ws.onclose = () => {
-                logWs('CLOSED');
-                ws = null;
-                if (wsHadOpen) {
-                    setWsStatusState('disconnected');
-                } else if (!wsApiKey()) {
-                    setWsStatusState('public_idle');
-                } else {
-                    setWsStatusState('idle');
-                }
-            };
+            ws.onopen = () => { setWsStatus(true); logWs('OPEN'); };
+            ws.onclose = () => { setWsStatus(false); logWs('CLOSED'); ws = null; };
             ws.onerror = () => logWs('ERROR');
             ws.onmessage = (ev) => {
                 try {
@@ -306,16 +251,7 @@
             return esc(item.title || item.name || item.item || item.label || JSON.stringify(item));
         }
         function disconnectWs() {
-            if (!ws || ws.readyState > 1) {
-                logWs('Not connected.');
-                if (!wsApiKey()) {
-                    setWsStatusState('public_idle');
-                } else if (!ws) {
-                    setWsStatusState('idle');
-                }
-                return;
-            }
-            ws.close();
+            if (ws) ws.close();
         }
 
         async function runDemo() {
@@ -344,7 +280,9 @@
             }
         }
         function copyKey() {
-            navigator.clipboard.writeText(document.getElementById('demoKey').textContent);
+            const el = document.getElementById('demoKey');
+            if (!el) return;
+            navigator.clipboard.writeText(el.textContent);
         }
 
         function authHeaders() {
@@ -430,15 +368,6 @@
             const thesis = data.product_thesis || data.one_liner_for_ic || data.thesis || 'BLACKDARK Prove-it Trust OS';
             const diffs = (data.differentiators || data.proof_surfaces || []).slice(0, 6);
             const checks = (data.committee_checklist || data.checklist || []).slice(0, 8);
-            const diffItems = diffs.map(d => '<li>' + listItemLabel(d) + '</li>').join('');
-            const committeeBlock = checks.length
-                ? `<div class="card" style="padding:1rem">
-                    <h3 style="margin:0 0 .4rem">Committee checklist</h3>
-                    <ul style="margin:0;padding-left:1.1rem;color:var(--muted)">
-                        ${checks.map(c => '<li>' + listItemLabel(c) + '</li>').join('')}
-                    </ul>
-                </div>`
-                : '';
             cards.style.display = 'grid';
             cards.style.gap = '0.75rem';
             cards.innerHTML = `
@@ -449,10 +378,15 @@
                 <div class="card" style="padding:1rem">
                     <h3 style="margin:0 0 .4rem">Differentiators</h3>
                     <ul style="margin:0;padding-left:1.1rem;color:var(--muted)">
-                        ${diffItems}
+                        ${(diffs.map(d => '<li>' + listItemLabel(d) + '</li>').join('') || '<li>See JSON below</li>')}
                     </ul>
                 </div>
-                ${committeeBlock}
+                <div class="card" style="padding:1rem">
+                    <h3 style="margin:0 0 .4rem">Committee checklist</h3>
+                    <ul style="margin:0;padding-left:1.1rem;color:var(--muted)">
+                        ${(checks.map(c => '<li>' + listItemLabel(c) + '</li>').join('') || '<li>See JSON below</li>')}
+                    </ul>
+                </div>
                 <p style="font-size:.8rem;color:var(--muted);margin:0">
                     Also: <a href="/compliance">/compliance</a> ·
                     <a href="/status">System status</a> ·
@@ -460,66 +394,38 @@
                 </p>`;
         }
 
-        async function loadEvidenceSummary() {
+        function loadEvidenceSummary() {
             const el = document.getElementById('evidenceResult');
             el.textContent = 'Loading public summary…';
+            window.setTimeout(async () => {
             try {
                 const res = await fetch('/api/due-diligence/evidence-pack/public-summary');
                 const data = await res.json();
                 renderEvidenceCards(data);
                 el.textContent = JSON.stringify(data, null, 2);
             } catch (error) { console.debug(error); el.textContent = 'Public summary unavailable.'; }
-        }
-
-        function setEvidenceFullMsg(text, tone) {
-            const msg = document.getElementById('evidenceFullMsg');
-            if (!msg) return;
-            if (!text) {
-                msg.hidden = true;
-                msg.textContent = '';
-                msg.className = 'evidence-full-msg';
-                return;
-            }
-            msg.hidden = false;
-            msg.textContent = text;
-            msg.className = tone === 'warn'
-                ? 'evidence-full-msg evidence-full-msg--warn'
-                : 'evidence-full-msg evidence-full-msg--pending';
+            }, 0);
         }
 
         async function loadEvidenceFull() {
             const el = document.getElementById('evidenceResult');
-            setEvidenceFullMsg('', null);
-            setEvidenceFullMsg('Checking access…', 'pending');
+            el.textContent = 'Loading full evidence pack…';
             try {
                 const res = await fetch('/api/due-diligence/evidence-pack', { headers: authHeaders() });
                 const data = await res.json();
                 if (!res.ok) {
-                    if (res.status === 401 || res.status === 403) {
-                        setEvidenceFullMsg(
-                            'Decision Desk / Admin login required for the full pack. Upgrade, then retry.',
-                            'warn',
-                        );
-                        return;
-                    }
-                    setEvidenceFullMsg('', null);
-                    el.textContent = JSON.stringify(data, null, 2) || 'Pack unavailable';
+                    el.textContent = res.status === 401 || res.status === 403
+                        ? 'Decision Desk / Admin login required for the full pack. Upgrade, then retry.'
+                        : (JSON.stringify(data, null, 2) || 'Pack unavailable');
                     return;
                 }
-                setEvidenceFullMsg('', null);
                 el.textContent = JSON.stringify({
                     product_thesis: data.product_thesis || data.one_liner_for_ic,
                     differentiators: data.differentiators,
                     committee_checklist: data.committee_checklist,
                     sections: Object.keys(data.sections || {}),
                 }, null, 2);
-            } catch (error) {
-                console.debug(error);
-                setEvidenceFullMsg(
-                    'Decision Desk / Admin login required for the full pack. Upgrade, then retry.',
-                    'warn',
-                );
-            }
+            } catch (error) { console.debug(error); el.textContent = 'Full pack unavailable — login as Decision Desk/Admin and retry.'; }
         }
     </script>
     {% include "partials/site_footer.html" %}

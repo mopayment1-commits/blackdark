@@ -7,10 +7,11 @@ Activated when DATABASE_URL starts with postgresql:// or postgres://
 from __future__ import annotations
 
 import asyncio
-
 import logging
 import re
+import socket
 from collections.abc import AsyncIterator
+from urllib.parse import unquote, urlparse
 from contextlib import asynccontextmanager
 from datetime import UTC, datetime
 from typing import Any
@@ -20,6 +21,25 @@ import config
 logger = logging.getLogger("BLACKDARK.Postgres")
 
 _pool: Any = None
+
+
+def _ipv4_asyncpg_connect_kwargs(dsn: str) -> dict[str, Any] | None:
+    """Resolve public proxy hostnames to IPv4 (avoids broken IPv6 routes on some hosts)."""
+    parsed = urlparse(dsn)
+    host = parsed.hostname
+    port = parsed.port or 5432
+    if not host:
+        return None
+    try:
+        ip = socket.getaddrinfo(host, port, socket.AF_INET, socket.SOCK_STREAM)[0][4][0]
+    except OSError:
+        return None
+    kwargs: dict[str, Any] = {"host": ip, "port": port, "database": (parsed.path or "/railway").lstrip("/") or "railway"}
+    if parsed.username:
+        kwargs["user"] = unquote(parsed.username)
+    if parsed.password:
+        kwargs["password"] = unquote(parsed.password)
+    return kwargs
 
 
 def use_postgres() -> bool:
@@ -253,67 +273,134 @@ async def init_pool() -> None:
 
     import asyncpg
 
-    from database_url_resolver import resolve_database_url
+    from database_url_resolver import (
+        iter_asyncpg_pool_candidates,
+        postgres_plugin_connect_kwargs,
+        prepare_asyncpg_dsn,
+        resolve_database_url,
+    )
 
     url, meta = resolve_database_url()
+    pool_extra: dict[str, Any] = {}
+    pool_candidates = iter_asyncpg_pool_candidates()
     if not url:
-        cfg_url = (getattr(config, "DATABASE_URL", None) or "").strip()
-        if cfg_url.startswith(("postgresql://", "postgres://")):
-            from database_url_resolver import _normalize
+        from database_url_resolver import _canonicalize_railway_internal_host, _normalize, database_host
 
-            url = _normalize(cfg_url)
+        pub_raw = os.getenv("DATABASE_PUBLIC_URL", "").strip()
+        if pub_raw:
+            url = _canonicalize_railway_internal_host(_normalize(pub_raw))
             meta = {
                 **meta,
-                "selected_env": "config.DATABASE_URL",
-                "selected_host": None,
-                "selection": "config_fallback",
+                "selected_env": "DATABASE_PUBLIC_URL",
+                "selected_host": database_host(url),
+                "selection": "railway_public_env_fallback",
             }
+        else:
+            cfg_url = (getattr(config, "DATABASE_URL", None) or "").strip()
+            if cfg_url.startswith(("postgresql://", "postgres://")):
+                url = _canonicalize_railway_internal_host(_normalize(cfg_url))
+                meta = {
+                    **meta,
+                    "selected_env": "config.DATABASE_URL",
+                    "selected_host": database_host(url),
+                    "selection": "config_fallback",
+                }
+    if url:
+        url, pool_extra = prepare_asyncpg_dsn(url)
+        if not pool_candidates:
+            pool_candidates = [("resolved", url, pool_extra)]
+    elif pool_candidates:
+        key, url, pool_extra = pool_candidates[0]
+        meta.update({"selected_env": key, "selection": "pool_candidate_fallback"})
     _LAST_POOL_META = meta
-    if not url:
+    if not url and not pool_candidates:
         _LAST_POOL_ERROR = "no_postgres_dsn"
         raise RuntimeError("PostgreSQL configured but no DATABASE_URL candidate found")
+
+    if not pool_candidates and url:
+        pool_candidates = [("resolved", url, pool_extra)]
+
+    plugin_kw = postgres_plugin_connect_kwargs()
+    if plugin_kw:
+        plugin_extra = {"statement_cache_size": 0}
+        from database_url_resolver import railway_postgres_requires_ssl
+
+        host = str(plugin_kw.get("host") or "")
+        if railway_postgres_requires_ssl(f"postgresql://{host}/railway"):
+            plugin_extra["ssl"] = True
+        pool_candidates.insert(0, ("PG*", "", {**plugin_extra, "_connect_kwargs": plugin_kw}))
 
     viral = os.getenv("VIRAL_MODE", "true").lower() in {"1", "true", "yes"}
     default_max = 40 if viral else 20
     max_size = int(os.getenv("PG_POOL_MAX", str(getattr(config, "PG_POOL_MAX", default_max))))
     min_size = int(os.getenv("PG_POOL_MIN", "4" if viral else "2"))
+    if os.getenv("DATABASE_PUBLIC_URL", "").strip():
+        min_size = int(os.getenv("PG_POOL_MIN", "1"))
+        max_size = min(max_size, int(os.getenv("PG_POOL_MAX", "8")))
     min_size = max(1, min(min_size, max_size))
     retries = int(os.getenv("PG_POOL_INIT_RETRIES", "3"))
     delay = float(os.getenv("PG_POOL_INIT_RETRY_DELAY_SEC", "1.5"))
     last_exc: Exception | None = None
-    for attempt in range(1, retries + 1):
-        try:
-            _pool = await asyncpg.create_pool(
-                url,
-                min_size=min_size,
-                max_size=max_size,
-                command_timeout=float(os.getenv("PG_COMMAND_TIMEOUT_SEC", "20")),
-                max_inactive_connection_lifetime=float(os.getenv("PG_MAX_INACTIVE_CONN_LIFETIME", "300")),
-            )
-            _LAST_POOL_ERROR = None
-            logger.info(
-                "PostgreSQL pool ready (min=%s max=%s viral=%s env=%s host=%s attempt=%s).",
-                min_size,
-                max_size,
-                viral,
-                meta.get("selected_env"),
-                meta.get("selected_host"),
-                attempt,
-            )
-            return
-        except Exception as exc:
-            last_exc = exc
-            _LAST_POOL_ERROR = type(exc).__name__
-            logger.warning(
-                "PostgreSQL pool init failed (attempt %s/%s env=%s host=%s): %s",
-                attempt,
-                retries,
-                meta.get("selected_env"),
-                meta.get("selected_host"),
-                type(exc).__name__,
-            )
-            if attempt < retries:
-                await asyncio.sleep(delay * attempt)
+    pool_common = {
+        "min_size": min_size,
+        "max_size": max_size,
+        "command_timeout": float(os.getenv("PG_COMMAND_TIMEOUT_SEC", "20")),
+        "max_inactive_connection_lifetime": float(os.getenv("PG_MAX_INACTIVE_CONN_LIFETIME", "300")),
+    }
+
+    for cand_key, cand_url, cand_extra in pool_candidates:
+        cand_extra = dict(cand_extra)
+        plugin_connect = cand_extra.pop("_connect_kwargs", None)
+        connect_plans: list[tuple[str, dict[str, Any]]] = []
+        if plugin_connect:
+            connect_plans.append((f"{cand_key}:plugin", dict(plugin_connect)))
+        if cand_url:
+            connect_plans.append(("dsn", {"dsn": cand_url}))
+            ipv4_kw = _ipv4_asyncpg_connect_kwargs(cand_url)
+            if ipv4_kw:
+                connect_plans.append((f"{cand_key}:ipv4", ipv4_kw))
+        if not connect_plans:
+            continue
+
+        for plan_key, connect_kw in connect_plans:
+            for attempt in range(1, retries + 1):
+                try:
+                    if "dsn" in connect_kw:
+                        _pool = await asyncpg.create_pool(
+                            connect_kw["dsn"],
+                            **pool_common,
+                            **cand_extra,
+                        )
+                    else:
+                        _pool = await asyncpg.create_pool(
+                            **connect_kw,
+                            **pool_common,
+                            **cand_extra,
+                        )
+                    _LAST_POOL_ERROR = None
+                    meta.update({"selected_env": plan_key, "pool_dsn": "redacted"})
+                    _LAST_POOL_META = meta
+                    logger.info(
+                        "PostgreSQL pool ready (min=%s max=%s viral=%s plan=%s attempt=%s).",
+                        min_size,
+                        max_size,
+                        viral,
+                        plan_key,
+                        attempt,
+                    )
+                    return
+                except Exception as exc:
+                    last_exc = exc
+                    _LAST_POOL_ERROR = type(exc).__name__
+                    logger.warning(
+                        "PostgreSQL pool init failed (plan=%s attempt=%s/%s): %s",
+                        plan_key,
+                        attempt,
+                        retries,
+                        type(exc).__name__,
+                    )
+                    if attempt < retries:
+                        await asyncio.sleep(delay * attempt)
     assert last_exc is not None  # nosec B101
     raise last_exc
 

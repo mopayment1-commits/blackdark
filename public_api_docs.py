@@ -18,6 +18,39 @@ from anonymous_route_foundation import (
     path_is_public,
 )
 
+# Anonymous allowlist includes POST hero endpoints; public *read* docs omit them.
+PUBLIC_DOCS_READ_PREFIX_EXCLUDE: frozenset[str] = frozenset(
+    {
+        "/api/whale/stealth-advisor",
+    }
+)
+
+# GET probe on the prefix URL (trailing slash as listed). 200/307 → safe page link in /docs.
+PUBLIC_DOCS_PREFIX_PAGE_LINK_OK: frozenset[str] = frozenset(
+    {
+        "/health/",
+        "/api/trust-os",
+        "/api/launch57/capability-library/",
+        "/api/audit-challenge",
+        "/api/security/status",
+        "/api/security/external-review-readiness",
+        "/api/platform/production-readiness",
+        "/api/oracle/accuracy",
+        "/api/oracle/audit-chain",
+        "/api/oracle/half-life",
+        "/api/oracle/provenance-score",
+        "/api/contradiction-replay",
+        "/api/since-you-left",
+        "/api/due-diligence/evidence-pack/public-summary",
+        "/api/due-diligence/corpus-passport/public",
+        "/api/locked-predictions",
+        "/api/alerts/generosity",
+        "/api/mev/sandwich-report",
+        "/api/fund/emerging-terminal",
+        "/api/auth/oauth/status",
+    }
+)
+
 __all__ = [
     "PUBLIC_PATH_PREFIXES",
     "PUBLIC_PATH_EXACT",
@@ -98,14 +131,44 @@ def filter_openapi_for_public(schema: dict[str, Any]) -> dict[str, Any]:
     return out
 
 
+def _dedupe_prefixes(prefixes: tuple[str, ...] | list[str]) -> list[str]:
+    seen: set[str] = set()
+    out: list[str] = []
+    for prefix in prefixes:
+        if prefix in seen:
+            continue
+        seen.add(prefix)
+        out.append(prefix)
+    return out
+
+
+def public_docs_read_prefixes() -> list[str]:
+    """Prefixes shown under /docs (evidence/read); deduped; excludes POST-only surfaces."""
+    raw = _dedupe_prefixes(ANONYMOUS_ROUTE_ALLOWLIST_PREFIXES)
+    return [p for p in raw if p not in PUBLIC_DOCS_READ_PREFIX_EXCLUDE]
+
+
+def public_docs_prefix_rows() -> list[dict[str, str]]:
+    rows: list[dict[str, str]] = []
+    for path in public_docs_read_prefixes():
+        row: dict[str, str] = {"path": path}
+        if path in PUBLIC_DOCS_PREFIX_PAGE_LINK_OK:
+            row["href"] = path
+        rows.append(row)
+    return rows
+
+
 def public_docs_manifest() -> dict[str, Any]:
+    read_prefixes = public_docs_read_prefixes()
     return {
         "title": "BLACKDARK Public Developer Docs",
         "policy": "evidence_and_read_only",
         "html": "/docs",
         "openapi_json": "/api/docs/public-openapi.json",
         "full_openapi_ops": "/api/docs/openapi.json",
-        "allowed_prefixes": list(ANONYMOUS_ROUTE_ALLOWLIST_PREFIXES),
+        "allowed_prefixes": read_prefixes,
+        "allowed_prefix_rows": public_docs_prefix_rows(),
+        "post_only_public_prefixes": sorted(PUBLIC_DOCS_READ_PREFIX_EXCLUDE),
         "primary_surfaces": [
             {"path": PATH_ORACLE_ACCURACY, "role": "Public Accuracy Ledger including misses"},
             {"path": "/errors", "role": "Alias → ledger misses section"},

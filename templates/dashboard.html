@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#22d3ee">
     <title>{{ t('meta.title.dashboard_room') }}</title>
-    {% include "partials/seo_canonical.html" %}
     <link rel="stylesheet" href="/static/css/trust-os.css">
     <script defer src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js" integrity="sha384-OK7vELvjHdhUFi31JYioPIcRHTROLdcDa6ZsNWgvgLaKj+9JqhU0Ad8g4wz3CXjA" crossorigin="anonymous"></script>
     <style>
@@ -1323,19 +1322,15 @@
             return `<div style="margin-top:.85rem"><div style="font-size:.8rem;color:#71717a;margin-bottom:.4rem">Scenarios (sketch)</div><div class="metrics">${metrics}</div><div style="font-size:.72rem;color:#71717a;margin-top:.35rem">${disc}</div></div>`;
         }
         function buildWhyFactorsHtml(factors, whyBlock) {
-            let lines = '<div class="empty" style="padding:.35rem 0">No factor breakdown on this response</div>';
-            if (factors.length) {
-                lines = factors.slice(0,3).map((f,i) => {
+            if (!factors.length) return '';
+            let lines = factors.slice(0,3).map((f,i) => {
                     const detail = f.detail ? (' — ' + esc(f.detail)) : '';
                     return '<div style="font-size:.85rem;padding:.3rem 0;border-bottom:1px solid #2a2a35"><strong>'
                         + (i+1) + '. ' + esc(f.factor||f) + '</strong>' + detail
                         + '<div style="color:#71717a;font-size:.75rem">' + esc(f.source||'') + '</div></div>';
                 }).join('');
-            }
             const title = esc(whyBlock.grasp_line || 'Why (Top 3) — under five seconds');
-            const titleRow = factors.length
-                ? '<div style="font-size:.8rem;color:#22d3ee;margin-bottom:.4rem">' + title + '</div>'
-                : '';
+            const titleRow = '<div style="font-size:.8rem;color:#22d3ee;margin-bottom:.4rem">' + title + '</div>';
             return '<div style="margin-top:.85rem;padding:.65rem .85rem;border:1px solid rgba(34,211,238,.25);border-radius:10px;background:#1a1a24">'
                 + titleRow + lines + '</div>';
         }

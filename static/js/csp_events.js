@@ -68,7 +68,14 @@
         ? event.target.closest("[data-bd-call]")
         : null;
       if (!el) return;
-      invoke(el, event, "data-bd-call");
+      const run = function () {
+        invoke(el, event, "data-bd-call");
+      };
+      if (el.getAttribute("data-bd-prevent") === "1") {
+        run();
+      } else {
+        requestAnimationFrame(run);
+      }
     },
     false
   );

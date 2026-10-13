@@ -12,7 +12,9 @@ Standards posture:
 from __future__ import annotations
 
 import asyncio
+import base64
 import hashlib
+import hmac
 import os
 import re
 import secrets
@@ -66,6 +68,51 @@ def _utcnow_iso() -> str:
 def hash_token(raw: str) -> str:
     pepper = os.getenv("SESSION_TOKEN_PEPPER", "blackdark-identity").encode("utf-8")
     return hashlib.sha256(pepper + raw.encode("utf-8")).hexdigest()
+
+
+def _oauth_state_pepper() -> bytes:
+    return os.getenv("SESSION_TOKEN_PEPPER", "blackdark-identity").encode("utf-8")
+
+
+_OAUTH_STATE_PREFIX = "bdos1."
+
+
+def mint_signed_oauth_state(provider: str) -> str:
+    """CSRF state for OAuth redirect — verified via HMAC (no DB required)."""
+    key = provider.strip().lower()
+    exp = int((_utcnow() + timedelta(minutes=15)).timestamp())
+    nonce = secrets.token_urlsafe(10)
+    body = f"{key}|{exp}|{nonce}"
+    sig = hmac.new(_oauth_state_pepper(), body.encode("utf-8"), hashlib.sha256).hexdigest()[:24]
+    raw = base64.urlsafe_b64encode(f"{body}|{sig}".encode("utf-8")).decode("ascii").rstrip("=")
+    return f"{_OAUTH_STATE_PREFIX}{raw}"
+
+
+def _verify_signed_oauth_state(provider: str, state: str) -> bool:
+    token = (state or "").strip()
+    if not token.startswith(_OAUTH_STATE_PREFIX):
+        return False
+    padded = token[len(_OAUTH_STATE_PREFIX) :]
+    pad = "=" * (-len(padded) % 4)
+    try:
+        decoded = base64.urlsafe_b64decode((padded + pad).encode("ascii")).decode("utf-8")
+    except Exception:
+        return False
+    parts = decoded.split("|")
+    if len(parts) != 4:
+        return False
+    prov, exp_s, _nonce, sig = parts
+    if prov != provider.strip().lower():
+        return False
+    body = f"{prov}|{exp_s}|{_nonce}"
+    expected = hmac.new(_oauth_state_pepper(), body.encode("utf-8"), hashlib.sha256).hexdigest()[:24]
+    if not hmac.compare_digest(sig, expected):
+        return False
+    try:
+        exp = int(exp_s)
+    except ValueError:
+        return False
+    return int(_utcnow().timestamp()) <= exp
 
 
 def _is_valid_email(email: str) -> bool:
@@ -307,10 +354,19 @@ async def send_password_reset_email(user_id: int, email: str) -> dict[str, Any]:
 
 
 async def store_oauth_state_async(provider: str, state: str) -> None:
+    """Persist OAuth state when the database is available (optional for signed states)."""
     from database import insert_oauth_state
 
     expires = (_utcnow() + timedelta(minutes=15)).isoformat()
     await insert_oauth_state(provider=provider, state=state, expires_at=expires)
+
+
+async def persist_oauth_state_best_effort(provider: str, state: str) -> None:
+    try:
+        await store_oauth_state_async(provider, state)
+    except Exception:
+        # Signed state in the redirect URL is sufficient for CSRF binding.
+        pass
 
 
 async def validate_oauth_state_async(provider: str, state: str | None) -> None:
@@ -318,6 +374,8 @@ async def validate_oauth_state_async(provider: str, state: str | None) -> None:
 
     if not state:
         raise ValueError("Missing OAuth state")
+    if _verify_signed_oauth_state(provider, state):
+        return
     ok = await consume_oauth_state(provider=provider, state=state)
     if not ok:
         raise ValueError("Invalid or expired OAuth state")

@@ -4,13 +4,13 @@
         max-width: 1100px; margin: 2.5rem auto 0; padding: 2rem 1.25rem 2.5rem;
         border-top: 1px solid #2a2a35; color: #71717a; font-size: .78rem; line-height: 1.65;
     }
-    .bd-site-footer .bd-foot-brand { font-size: 1.05rem; font-weight: 800; color: #22d3ee; letter-spacing: .04em; margin: 0; }
+    .bd-site-footer .bd-foot-brand { font-size: 1.05rem; font-weight: 800; color: #22d3ee; letter-spacing: .04em; }
     .bd-site-footer .bd-foot-tag { color: #a1a1aa; margin: .35rem 0 1.1rem; }
     .bd-site-footer .bd-foot-grid {
         display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
         gap: 1.25rem 1.5rem; text-align: left; margin-bottom: 1.25rem;
     }
-    .bd-site-footer h3 { color: #e4e4e7; font-size: .78rem; margin-bottom: .45rem; text-transform: uppercase; letter-spacing: .06em; font-weight: 700; }
+    .bd-site-footer h4 { color: #e4e4e7; font-size: .78rem; margin-bottom: .45rem; text-transform: uppercase; letter-spacing: .06em; }
     .bd-site-footer ul { list-style: none; padding: 0; margin: 0; }
     .bd-site-footer li { margin: .28rem 0; }
     .bd-site-footer a { color: #a1a1aa; text-decoration: none; }
@@ -26,73 +26,54 @@
 </style>
 <footer class="bd-site-footer" role="contentinfo">
     {% set f = footer if footer is defined and footer else {} %}
-    {% set product_links = f.product if f.product else [
-        {'label': 'Oracle', 'href': '/#oracle'},
-        {'label': 'Dashboard', 'href': '/dashboard'},
-        {'label': 'Pricing', 'href': '/pricing'},
-    ] %}
-    {% set trust_links = f.trust if f.trust else [
-        {'label': 'Public Accuracy Ledger', 'href': '/oracle-accuracy'},
-        {'label': 'Discipline Mirror', 'href': '/discipline-mirror'},
-    ] %}
-    {% set company_links = f.company if f.company else [
-        {'label': 'Contact', 'href': '/contact'},
-        {'label': 'About', 'href': '/about'},
-    ] %}
-    {% set legal_links = f.legal if f.legal else [
-        {'label': 'Disclaimer', 'href': '/disclaimer'},
-        {'label': 'Terms', 'href': '/terms'},
-        {'label': 'Privacy', 'href': '/privacy'},
-    ] %}
-    {% set follow_links = f.follow if f.follow else [] %}
-    <h2 class="bd-foot-brand">{{ f.brand or 'BLACKDARK' }}</h2>
-    <p class="bd-foot-tag">{{ f.tagline or 'Trust OS — Decide. Prove it. Share it.' }} · {{ f.story or 'Prove → Operate → Desk → Room' }}</p>
+    <div class="bd-foot-brand">{{ f.brand or 'BLACKDARK' }}</div>
+    <p class="bd-foot-tag">{{ t('footer.tagline') if t is defined else (f.tagline or 'Trust OS — Decide. Prove it. Share it.') }} · {{ t('footer.story') if t is defined else (f.story or 'Prove → Operate → Desk → Room') }}</p>
     <div class="bd-foot-grid">
         <div>
-            <h3>Product</h3>
+            <h4>{{ t('footer.col.product') if t is defined else 'Product' }}</h4>
             <ul>
-                {% for item in product_links %}
+                {% for item in f.product or [] %}
                 <li><a href="{{ item.href }}">{{ item.label }}</a></li>
                 {% endfor %}
             </ul>
         </div>
         <div>
-            <h3>Trust</h3>
+            <h4>{{ t('footer.col.trust') if t is defined else 'Trust' }}</h4>
             <ul>
-                {% for item in trust_links %}
+                {% for item in f.trust or [] %}
                 <li><a href="{{ item.href }}">{{ item.label }}</a></li>
                 {% endfor %}
             </ul>
         </div>
         <div>
-            <h3>Company</h3>
+            <h4>{{ t('footer.col.company') if t is defined else 'Company' }}</h4>
             <ul>
-                {% for item in company_links %}
+                {% for item in f.company or [] %}
                 <li><a href="{{ item.href }}">{{ item.label }}</a></li>
                 {% endfor %}
             </ul>
         </div>
         <div>
-            <h3>Legal</h3>
+            <h4>{{ t('footer.col.legal') if t is defined else 'Legal' }}</h4>
             <ul>
-                {% for item in legal_links %}
+                {% for item in f.legal or [] %}
                 <li><a href="{{ item.href }}">{{ item.label }}</a></li>
                 {% endfor %}
             </ul>
         </div>
     </div>
-    {% if follow_links %}
-    <h3>Follow us</h3>
+    <h4>{{ t('footer.follow') if t is defined else 'Follow us' }}</h4>
     <div class="bd-follow" aria-label="Follow BLACKDARK">
-        {% for s in follow_links %}
+        {% for s in f.follow or [] %}
         <a href="{{ s.href }}" target="_blank" rel="noopener noreferrer">{{ s.label }}</a>
         {% endfor %}
     </div>
-    {% endif %}
     <div class="bd-foot-bottom">
-        <strong style="color:#a1a1aa">Anti-Hype</strong> · {{ f.disclaimer_line or 'Not financial advice. Verify on the Public Accuracy Ledger.' }}
-        · <a href="/oracle-accuracy">Ledger</a>
-        · <a href="/status">Status</a>
+        <strong style="color:#a1a1aa">{{ t('common.anti_hype') if t is defined else 'Anti-Hype' }}</strong> · {{ t('footer.disclaimer') if t is defined else (f.disclaimer_line or 'Not financial advice. Verify on the Public Accuracy Ledger.') }}
+        · <a href="/oracle-accuracy">{{ t('footer.ledger') if t is defined else 'Ledger' }}</a>
+        · <a href="/status">{{ t('footer.status') if t is defined else 'Status' }}</a>
         · © 2026 BLACKDARK
     </div>
 </footer>
+{% include "partials/site_ask_ai.html" %}
+{% include "partials/eu_optional_analytics_banner.html" %}

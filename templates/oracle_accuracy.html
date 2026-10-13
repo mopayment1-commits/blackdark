@@ -6,8 +6,7 @@
     <meta name="description" content="{{ t('brand') }} — {{ t('accuracy.sub') }}">
     <meta property="og:title" content="BLACKDARK — {{ t('accuracy.title') }}">
     <meta property="og:description" content="{{ t('accuracy.sub') }}">
-    <title>{{ t('meta.title.accuracy') }}</title>
-    {% include "partials/seo_canonical.html" %}
+    <title>BLACKDARK — {{ t('accuracy.title') }}</title>
     <script type="application/ld+json">
     {"@context":"https://schema.org","@type":"WebPage","name":"BLACKDARK Public Accuracy Ledger","description":"Public verifiable Oracle accuracy including misses, Glass Box locked forecasts, and audit challenge","url":"/oracle-accuracy"}
     </script>
@@ -145,7 +144,7 @@
     <section class="panel" id="panel-regime" style="display:none">
         <div class="card">
             <h2>D5 · Regime-Conditional Models</h2>
-            <p id="regime-status" style="color:var(--muted);font-size:0.9rem" aria-live="polite"></p>
+            <p id="regime-status" style="color:var(--muted);font-size:0.9rem">Loading regime registry…</p>
             <div style="overflow-x:auto;margin-top:1rem">
                 <table>
                     <thead>
@@ -157,7 +156,7 @@
                         </tr>
                     </thead>
                     <tbody id="regime-body">
-                        <tr><td colspan="4">—</td></tr>
+                        <tr><td colspan="4">Loading...</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -188,7 +187,7 @@
             </div>
             <details style="margin-top:1rem">
                 <summary style="cursor:pointer;color:var(--accent);font-weight:600">Operator runbook (launch packaging)</summary>
-                <p id="glass-operator-status" style="margin-top:.65rem;color:var(--muted);font-size:0.85rem" aria-live="polite"></p>
+                <p id="glass-operator-status" style="margin-top:.65rem;color:var(--muted);font-size:0.85rem">Loading operator notes…</p>
             </details>
             <p style="margin-top:0.75rem;font-size:0.75rem;color:var(--muted)">
                 Exact launch timing and channel are human. Product machinery + event template are live via <code>/api/glass-box/challenge</code> · operator pack <code>/api/glass-box/operator</code>.
@@ -200,8 +199,8 @@
     <section class="panel" id="mev-report">
         <div class="card">
             <h2>Shareable MEV / Sandwich Report</h2>
-            <p id="mev-status" style="color:var(--muted);font-size:0.9rem" aria-live="polite"></p>
-            <ul class="events" id="mev-mitigations"></ul>
+            <p id="mev-status" style="color:var(--muted);font-size:0.9rem">Loading risk posture…</p>
+            <ul class="events" id="mev-mitigations"><li>Loading...</li></ul>
             <div class="cta-row" style="margin-top:1rem;justify-content:flex-start">
                 <button class="btn btn-secondary" type="button" id="copyMevBtn">Copy share text</button>
             </div>
@@ -212,8 +211,8 @@
     <section class="panel" id="locked">
         <div class="card">
             <h2>Locked Predictions · Glass Box</h2>
-            <p id="locked-status" style="color:var(--muted);font-size:0.9rem" aria-live="polite"></p>
-            <ul class="events" id="locked-list"></ul>
+            <p id="locked-status" style="color:var(--muted);font-size:0.9rem">Loading sealed forecasts…</p>
+            <ul class="events" id="locked-list"><li>Loading...</li></ul>
             <div class="cta-row" style="margin-top:1rem;justify-content:flex-start">
                 <button class="btn btn-secondary" type="button" id="shareLedgerBtn">Copy share text</button>
                 <a class="btn btn-secondary" id="ledgerShareX" href="#" target="_blank" rel="noopener">Share X</a>
@@ -229,12 +228,12 @@
             <p style="color:var(--muted);font-size:0.88rem;margin-bottom:.65rem">
                 Same Public Accuracy Ledger as the table below. Alias route: <code>/errors</code>.
             </p>
-            <p id="losing-status" style="color:var(--muted);font-size:0.9rem" aria-live="polite"></p>
+            <p id="losing-status" style="color:var(--muted);font-size:0.9rem">Loading honest misses…</p>
             <p id="losing-archive-note" style="display:none;color:var(--warning);font-size:0.85rem;margin:.5rem 0"></p>
             <h3 style="font-size:1rem;margin:1rem 0 0.5rem">Verified errors we own</h3>
-            <ul class="events" id="losing-errors-list"></ul>
+            <ul class="events" id="losing-errors-list"><li>Loading...</li></ul>
             <h3 style="font-size:1rem;margin:1rem 0 0.5rem">Partial outcomes</h3>
-            <ul class="events" id="losing-partial-list"></ul>
+            <ul class="events" id="losing-partial-list"><li>Loading...</li></ul>
             <div class="cta-row" style="margin-top:1rem;justify-content:flex-start">
                 <button class="btn btn-secondary" type="button" id="copyLosingBtn">Copy share text</button>
                 <a class="btn btn-secondary" href="#glass-box-challenge">Read transparency challenge</a>
@@ -246,7 +245,7 @@
     <section class="panel" id="audit-challenge">
         <div class="card">
             <h2>Audit Challenge — Prove us wrong</h2>
-            <p id="audit-status" style="color:var(--muted);font-size:0.9rem" aria-live="polite"></p>
+            <p id="audit-status" style="color:var(--muted);font-size:0.9rem">Loading live verify…</p>
             <p style="color:var(--muted);font-size:0.88rem;margin-top:.5rem">
                 Find a real break in the hash chain. We publish the full ledger — including misses.
             </p>
@@ -257,7 +256,7 @@
     <section class="panel" id="panel-registry" style="display:none">
         <div class="card">
             <h2>D8 · Feature lexicon (public registry)</h2>
-            <p id="registry-status" style="color:var(--muted);font-size:0.9rem" aria-live="polite"></p>
+            <p id="registry-status" style="color:var(--muted);font-size:0.9rem">Loading feature lexicon…</p>
             <div style="overflow-x:auto;margin-top:1rem">
                 <table>
                     <thead>
@@ -267,7 +266,7 @@
                         </tr>
                     </thead>
                     <tbody id="registry-body">
-                        <tr><td colspan="2">—</td></tr>
+                        <tr><td colspan="2">Loading...</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -304,7 +303,7 @@
                         </tr>
                     </thead>
                     <tbody id="predictions-body">
-                        <tr><td colspan="8">—</td></tr>
+                        <tr><td colspan="8">Loading...</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -314,13 +313,15 @@
     <section class="panel" id="panel-learning" style="display:none">
         <div class="card">
             <h2>Learning experience log</h2>
-            <ul class="events" id="events-list"></ul>
+            <ul class="events" id="events-list">
+                <li>Loading...</li>
+            </ul>
         </div>
     </section>
 
     <div class="cta-row">
         <a class="btn btn-primary" href="/dashboard">{{ t('ledger.cta.dashboard') }}</a>
-        <a class="btn btn-secondary" href="/api/oracle/accuracy/public">{{ t('ledger.cta.json_api') }}</a>
+        <a class="btn btn-secondary" href="/oracle-accuracy/json-api">{{ t('ledger.cta.json_api') }}</a>
         <a class="btn btn-secondary" href="/b2b#evidence">{{ t('ledger.cta.evidence') }}</a>
     </div>
 
@@ -404,20 +405,6 @@
             return error.message || String(error);
         }
 
-        function renderLosingLedgerUnavailable(reason) {
-            const base = String(reason || 'unknown error');
-            const msg = base.startsWith('Live ledger unavailable:')
-                ? base
-                : ('Live ledger unavailable: ' + base);
-            const statusEl = document.getElementById('losing-status');
-            if (statusEl) statusEl.textContent = msg;
-            const noData = '<li>No data — ledger request failed.</li>';
-            const errList = document.getElementById('losing-errors-list');
-            const partList = document.getElementById('losing-partial-list');
-            if (errList) errList.innerHTML = noData;
-            if (partList) partList.innerHTML = noData;
-        }
-
         function renderLedgerFailure(reason, opts) {
             const options = opts || {};
             const skipLosing = options.skipLosing === true;
@@ -429,9 +416,7 @@
             if (tbody) tbody.innerHTML = `<tr><td colspan="8">${esc(msg)}</td></tr>`;
             const expl = document.getElementById('metrics-explainer');
             if (expl) expl.textContent = msg;
-            if (!skipLosing) {
-                renderLosingLedgerUnavailable(reason);
-            }
+            /* #losing lists are owned by loadMonthlyLosingReport — do not overwrite here */
             const preview = document.getElementById('ledger-share-preview');
             if (preview) preview.textContent = msg;
             lastLosingShare = '';
@@ -465,58 +450,49 @@
             const model = data.model || {};
             const moat = data.data_moat || {};
             const exp = (data.learning_experience || {}).summary || {};
+            applyEngineTransparency(data);
+            renderProofChain(data.proof_chain || {});
+
+            togglePanel('panel-ledger-stats', true);
+            togglePanel('panel-latest-table', true);
+            togglePanel('losing', true);
+
+            renderAccuracyStats({
+                oracle,
+                model,
+                moat,
+                exp,
+                counterSources: lastCounterSources,
+                archive: lastTrainingArchive,
+            });
+            renderPredictionsTable(oracle, oracle.recent_table_footnote || '');
+            renderPublicMisses(oracle, lastTrainingArchive);
+            syncShareFromOracle(oracle);
+
             const regime = data.regime_models || {};
-            const reg = data.signal_registry || {};
-            const events = (data.learning_experience || {}).recent_events || [];
-            const proofChain = data.proof_chain || {};
-
-            const paintLedger = () => {
-                applyEngineTransparency(data);
-                renderProofChain(proofChain);
-
-                togglePanel('panel-ledger-stats', true);
-                togglePanel('panel-latest-table', true);
-                togglePanel('losing', true);
-
-                renderAccuracyStats({
-                    oracle,
-                    model,
-                    moat,
-                    exp,
-                    counterSources: lastCounterSources,
-                    archive: lastTrainingArchive,
-                });
-                renderPredictionsTable(oracle, oracle.recent_table_footnote || '');
-                renderPublicMisses(oracle, lastTrainingArchive);
-                syncShareFromOracle(oracle);
-
-                const regimeKeys = Object.keys(regime.regimes || {});
-                if (regimeKeys.length) {
-                    togglePanel('panel-regime', true);
-                    renderRegimeTable(regime);
-                } else {
-                    togglePanel('panel-regime', false);
-                }
-
-                const typeKeys = Object.keys(reg.by_type || {});
-                if (typeKeys.length) {
-                    togglePanel('panel-registry', true);
-                    renderRegistryTable(reg);
-                } else {
-                    togglePanel('panel-registry', false);
-                }
-
-                if (events.length) {
-                    togglePanel('panel-learning', true);
-                    renderLearningEvents(events);
-                } else {
-                    togglePanel('panel-learning', false);
-                }
-            };
-            if (typeof requestAnimationFrame === 'function') {
-                requestAnimationFrame(paintLedger);
+            const regimeKeys = Object.keys(regime.regimes || {});
+            if (regimeKeys.length) {
+                togglePanel('panel-regime', true);
+                renderRegimeTable(regime);
             } else {
-                paintLedger();
+                togglePanel('panel-regime', false);
+            }
+
+            const reg = data.signal_registry || {};
+            const typeKeys = Object.keys(reg.by_type || {});
+            if (typeKeys.length) {
+                togglePanel('panel-registry', true);
+                renderRegistryTable(reg);
+            } else {
+                togglePanel('panel-registry', false);
+            }
+
+            const events = (data.learning_experience || {}).recent_events || [];
+            if (events.length) {
+                togglePanel('panel-learning', true);
+                renderLearningEvents(events);
+            } else {
+                togglePanel('panel-learning', false);
             }
             return true;
         }
@@ -810,35 +786,13 @@
                 `${esc(e.timestamp || '')} · ${esc(e.human_line || '')}</li>`
             ).join('');
         }
-        function applyEmptyChainPanel() {
-            applyChainVerify({ valid: true, records: 0 }, { total_records: 0 });
-        }
-
         function applyChainVerify(verify, chainMeta) {
             const v = verify || {};
             lastChainVerify = v;
-            const records = Number(chainMeta?.total_records ?? v.records ?? 0);
+            const records = chainMeta?.total_records ?? v.records ?? 0;
             const ok = v.valid === true;
             const statusEl = document.getElementById('chain-status');
             const auditEl = document.getElementById('audit-status');
-            const panel = document.getElementById('proof-panel');
-            const emptyMsg = 'No records in the chain yet.';
-
-            if (records === 0 && v.valid !== false) {
-                if (statusEl) {
-                    statusEl.textContent = 'Audit chain: ' + emptyMsg;
-                    statusEl.style.color = 'var(--muted)';
-                }
-                if (auditEl) {
-                    auditEl.textContent = 'Live verify: ' + emptyMsg;
-                    auditEl.style.color = 'var(--muted)';
-                }
-                if (panel) {
-                    panel.textContent = emptyMsg;
-                }
-                return;
-            }
-
             const chainLine =
                 'Audit chain: ' + verifyLabel(v.valid) + ' · records=' + records;
             if (statusEl) {
@@ -857,6 +811,7 @@
             const tipLine = ok
                 ? `Tip hash: <code style="color:var(--accent)">${esc(chainMeta?.tip_hash || '—')}</code><br>`
                 : `<span style="color:var(--danger)">Tip hash withheld — chain not intact.</span><br>`;
+            const panel = document.getElementById('proof-panel');
             if (panel) {
                 panel.innerHTML =
                     tipLine +
@@ -1004,8 +959,8 @@
                     {},
                     ORACLE_LEDGER_FETCH_MS
                 );
-                if (!data.proof_chain) {
-                    applyEmptyChainPanel();
+                if (data.proof_chain) {
+                    renderProofChain(data.proof_chain);
                 }
                 if (data.transparency && data.transparency.production_engine) {
                     applyEngineTransparency(data);
@@ -1014,20 +969,17 @@
                     return;
                 }
                 const rejectReason = ledgerPayloadRejectReason(data);
+                const liveLedgerOk = !!(data.live_ledger && data.live_ledger.query_ok);
                 if (lastLedgerPayload && applyLedgerPayload(lastLedgerPayload)) {
                     return;
                 }
-                if (!data.proof_chain) {
-                    applyEmptyChainPanel();
-                }
-                renderLedgerFailure(rejectReason);
+                renderLedgerFailure(rejectReason, { skipLosing: true });
             } catch (error) {
                 console.debug(error);
-                applyEmptyChainPanel();
                 if (lastLedgerPayload && applyLedgerPayload(lastLedgerPayload)) {
                     return;
                 }
-                renderLedgerFailure(formatLedgerFetchError(error));
+                renderLedgerFailure(formatLedgerFetchError(error), { skipLosing: true });
             }
         }
 
@@ -1089,7 +1041,6 @@
             if (window.location.hash !== '#proof-chain') {
                 history.replaceState(null, '', '#proof-chain');
             }
-            loadAccuracy().catch(() => {});
         });
 
         let lastGlassShare = '';
@@ -1210,7 +1161,7 @@
             scheduleSecondaryLoad(loadGlassBox);
             scheduleSecondaryLoad(loadMevReport);
             scheduleSecondaryLoad(loadLocked);
-            setInterval(() => { loadAccuracy().catch(() => {}); }, 120000);
+            setInterval(() => { loadAccuracy().catch(() => {}); }, 60000);
             setInterval(() => { loadLocked().catch(() => {}); }, 120000);
         }
         if (document.readyState === 'loading') {

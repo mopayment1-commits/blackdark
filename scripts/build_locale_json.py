@@ -93,14 +93,13 @@ def translate_value(text: str, target: str, cache: dict[tuple[str, str], str]) -
             except Exception:
                 translated = part
         out.append(translated or part)
-        time.sleep(0.04)
     result = "".join(out)
     cache[ck] = result
     return result
 
 
 def seed_catalogs() -> dict[str, dict[str, str]]:
-    from i18n_service import EN, _TRANSLATIONS  # noqa: PLC2701
+    from i18n_service import EN, _TRANSLATIONS, _load_json_catalog  # noqa: PLC2701
     from i18n_locales import LOCALE_OVERLAYS  # noqa: PLC2701
 
     catalogs: dict[str, dict[str, str]] = {"en": dict(EN)}
@@ -115,21 +114,33 @@ def seed_catalogs() -> dict[str, dict[str, str]]:
     for code in TRANSLATE_TARGETS:
         if code == "en":
             continue
+        existing = _load_json_catalog(code) or {}
         cat = dict(EN)
         cat.update(merged.get(code, {}))
+        cat.update(existing)
         catalogs[code] = cat
     return catalogs
 
 
 def main() -> None:
+    import sys
+
+    only = [c.strip() for c in sys.argv[1:] if c.strip()]
     LOCALES_DIR.mkdir(exist_ok=True)
     catalogs = seed_catalogs()
     cache: dict[tuple[str, str], str] = {}
 
     for code, target in TRANSLATE_TARGETS.items():
+        if only and code not in only:
+            continue
         cat = catalogs[code]
         if code != "en" and target:
-            pending = [k for k, en_val in catalogs["en"].items() if cat.get(k, en_val) == en_val and k not in ALLOW_IDENTICAL]
+            pending = [
+                k
+                for k, en_val in catalogs["en"].items()
+                if cat.get(k, en_val) == en_val and k not in ALLOW_IDENTICAL
+            ]
+            print(f"{code}: translating {len(pending)} keys…", flush=True)
             for i, key in enumerate(pending):
                 en_val = catalogs["en"][key]
                 cat[key] = translate_value(en_val, target, cache)
