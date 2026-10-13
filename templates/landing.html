@@ -152,8 +152,8 @@
                 0 1px 0 rgba(255, 255, 255, 0.18),
                 0 10px 40px rgba(0, 0, 0, 0.55),
                 0 0 48px rgba(34, 211, 238, 0.12);
-            color: #f4f4f5;
-            -webkit-text-fill-color: #f4f4f5;
+            color: var(--accent);
+            -webkit-text-fill-color: var(--accent);
         }
 
         .hero-headline {
@@ -216,7 +216,7 @@
         .seal-myth h2 {
             font-family: var(--bd-font-display);
             font-size: clamp(1.5rem, 3vw, 2rem);
-            color: var(--text);
+            color: var(--accent);
             margin-bottom: 0.65rem;
             letter-spacing: -0.02em;
         }
@@ -405,6 +405,12 @@
         .section-header h2 {
             font-size: clamp(2rem, 4vw, 3rem);
             font-weight: 800; margin-bottom: 1rem;
+        }
+
+        #try-oracle .section-header h2,
+        #features .section-header h2,
+        .waitlist > h2 {
+            color: var(--accent);
         }
         
         .section-header p {
@@ -963,7 +969,7 @@
     
     <section class="waitlist" id="waitlist">
         <h2 style="font-family:var(--bd-font-display);font-size: clamp(1.8rem,4vw,2.5rem); font-weight: 800; margin-bottom: 1rem;">
-            Get early access to <span style="color: var(--accent);">Trust OS</span>
+            Get early access to Trust OS
         </h2>
         <p style="color: var(--text-muted); font-size: 1.05rem; max-width: 520px; margin: 0 auto;">
             Join the waitlist for launch updates. No fake seat counters — just a clear path to Prove.
