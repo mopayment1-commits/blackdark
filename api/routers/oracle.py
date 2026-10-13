@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import os
 from datetime import UTC, datetime
 
@@ -234,14 +235,19 @@ async def api_oracle_track_record_backfill():
 async def api_oracle_audit_chain(limit: int = 20):
     from oracle_audit_chain import chain_summary
 
-    return chain_summary(limit=limit)
+    timeout = float(os.getenv("ORACLE_AUDIT_CHAIN_API_TIMEOUT_SEC", "4.5"))
+    return await asyncio.wait_for(
+        asyncio.to_thread(chain_summary, limit=limit),
+        timeout=timeout,
+    )
 
 
 @router.get("/api/oracle/audit-chain/verify")
 async def api_oracle_audit_chain_verify():
     from oracle_audit_chain import verify_chain
 
-    return verify_chain()
+    timeout = float(os.getenv("ORACLE_AUDIT_CHAIN_VERIFY_TIMEOUT_SEC", "4.5"))
+    return await asyncio.wait_for(asyncio.to_thread(verify_chain), timeout=timeout)
 
 
 @router.get("/api/oracle/net-edge-truth")
