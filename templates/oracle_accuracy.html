@@ -843,6 +843,18 @@
             applyChainVerify(chain.verify || {}, chain);
         }
 
+        function scrollToProofChainSection() {
+            const section = document.getElementById('proof-chain');
+            const focusEl = section?.querySelector('.card h2') || section;
+            if (!focusEl) return;
+            const headerOffset = 120;
+            const top = focusEl.getBoundingClientRect().top + window.scrollY - headerOffset;
+            window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+            if (window.location.hash !== '#proof-chain') {
+                history.replaceState(null, '', '#proof-chain');
+            }
+        }
+
         async function refreshProofChainPanel(showLoading) {
             if (showLoading) setProofPanelLoading('Verifying audit chain…');
             try {
@@ -1093,16 +1105,11 @@
 
         document.getElementById('verifyChainBtn')?.addEventListener('click', (event) => {
             event.preventDefault();
-            const target = document.getElementById('proof-chain');
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                if (window.location.hash !== '#proof-chain') {
-                    history.replaceState(null, '', '#proof-chain');
-                }
-            }
+            event.stopPropagation();
+            scrollToProofChainSection();
             refreshProofChainPanel(true);
             loadAccuracy().catch((err) => console.debug(err));
-        });
+        }, true);
 
         let lastGlassShare = '';
         let lastMevShare = '';
