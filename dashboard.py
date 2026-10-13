@@ -1950,10 +1950,9 @@ async def landing_page(request: Request):
         return response
 
     ctx = template_context(request, _footer_ctx())
-    from site_oracle_catalog import primary_oracle_catalog_symbols
-
-    ctx["oracle_symbols"] = list(primary_oracle_catalog_symbols())
     import config as _cfg
+
+    ctx["oracle_symbols"] = _cfg.tracked_asset_list()
     ctx["telegram_bot_username"] = _cfg.TELEGRAM_BOT_USERNAME
     ctx["telegram_bot_url"] = f"https://t.me/{_cfg.TELEGRAM_BOT_USERNAME}" if _cfg.TELEGRAM_BOT_USERNAME else None
     html = templates.get_template("landing.html").render({"request": request, **ctx})

@@ -30,7 +30,7 @@ def test_landing_html_a11y_and_perf_hooks():
     assert 'class="skip-link"' in html or 'Skip to Trust Pulse' in html
     assert 'for="landingAudience"' in html
     assert 'for="landingUxMode"' in html
-    assert 'for="symbolInput"' in html
+    assert 'for="symbol"' in html
     assert 'for="waitlistEmail"' in html
     assert 'for="bdLangSelect"' in html
     assert "/static/css/trust-os.css" in html

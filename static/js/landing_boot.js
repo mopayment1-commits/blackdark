@@ -349,7 +349,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
         window.tryOracleFree = tryOracleFree;
 
         async function consultOracle() {
-            const symbol = document.getElementById('symbolInput').value.toUpperCase();
+            const symbol = (document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase();
             const mode = document.getElementById('landingUxMode').value || 'beginner';
             const lang = (window.BD_I18N && window.BD_I18N.lang) || document.documentElement.lang || 'en';
             const resultDiv = document.getElementById('oracleResult');
@@ -804,7 +804,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
         }
 
         async function loadLandingTrustPulse() {
-            const symbol = (document.getElementById('symbolInput')?.value || 'BTC').toUpperCase();
+            const symbol = (document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase();
             const mode = document.getElementById('landingUxMode')?.value || 'beginner';
             const lang = currentLang();
             await fetchLandingTrustPulse(symbol, mode, lang);
