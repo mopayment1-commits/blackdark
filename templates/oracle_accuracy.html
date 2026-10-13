@@ -806,7 +806,7 @@
         function applyChainVerify(verify, chainMeta) {
             const v = verify || {};
             lastChainVerify = v;
-            const records = chainMeta?.total_records ?? v.records ?? 0;
+            const records = v.records ?? chainMeta?.total_records ?? 0;
             const ok = v.valid === true;
             const statusEl = document.getElementById('chain-status');
             const auditEl = document.getElementById('audit-status');
@@ -877,7 +877,7 @@
                 const tip = recent.length ? recent[recent.length - 1] : {};
                 renderProofChain({
                     verify: verify || {},
-                    total_records: (summary && summary.total_records) ?? verify?.records ?? 0,
+                    total_records: verify?.records ?? (summary && summary.total_records) ?? 0,
                     tip_hash: verify && verify.valid === true ? tip.chain_hash : null,
                     integrity_message: (summary && summary.integrity && summary.integrity.integrity_failure_reason) ||
                         verify?.integrity_failure_reason,
