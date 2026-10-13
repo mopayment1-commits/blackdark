@@ -131,8 +131,92 @@ async def build_public_accuracy_metrics_only() -> dict[str, Any]:
     }
 
 
+def _trim_public_payload_for_wire(payload: dict[str, Any]) -> dict[str, Any]:
+    """Drop bulky nested lists on the hot /api/oracle/accuracy/public path."""
+    out = copy.deepcopy(payload)
+    exp = out.get("learning_experience")
+    if isinstance(exp, dict) and isinstance(exp.get("recent_events"), list):
+        exp["recent_events"] = list(exp["recent_events"])[:8]
+    proof = out.get("proof_chain")
+    if isinstance(proof, dict):
+        summary = proof.get("summary")
+        if isinstance(summary, dict) and isinstance(summary.get("recent_records"), list):
+            summary["recent_records"] = list(summary["recent_records"])[:8]
+    return out
+
+
+async def _fetch_live_ledger_timed(*, recent_limit: int, miss_sample_limit: int) -> dict[str, Any]:
+    from database import fetch_live_public_ledger
+
+    timeout = float(os.getenv("PUBLIC_ACCURACY_LEDGER_TIMEOUT_SEC", "8"))
+    try:
+        return await asyncio.wait_for(
+            fetch_live_public_ledger(
+                recent_limit=recent_limit,
+                miss_sample_limit=miss_sample_limit,
+            ),
+            timeout=timeout,
+        )
+    except asyncio.TimeoutError:
+        return {
+            "query_ok": False,
+            "error": "ledger_query_timeout",
+            "source": "oracle_predictions",
+        }
+    except Exception as exc:
+        return {
+            "query_ok": False,
+            "error": type(exc).__name__,
+            "source": "oracle_predictions",
+        }
+
+
+async def _minimal_public_accuracy_payload() -> dict[str, Any]:
+    """Fast fallback when the full build exceeds the server budget."""
+    from oracle_audit_chain import chain_summary, verify_chain
+
+    ledger = await _fetch_live_ledger_timed(recent_limit=0, miss_sample_limit=0)
+    chain_ctx = await asyncio.to_thread(chain_summary, limit=8)
+    verify = verify_chain()
+    live_total = int(ledger.get("logged") or 0) if ledger.get("query_ok") else 0
+    live_resolved = int(ledger.get("resolved") or 0) if ledger.get("query_ok") else 0
+    live_pending = int(ledger.get("pending") or 0) if ledger.get("query_ok") else 0
+    live_accuracy = float(ledger.get("accuracy_percent") or 0.0) if ledger.get("query_ok") else 0.0
+    return {
+        "ok": ledger.get("query_ok", False),
+        "live_only": True,
+        "degraded": True,
+        "degraded_reason": "full_payload_build_timeout",
+        "live_ledger": {
+            "source": ledger.get("source") or "oracle_predictions",
+            "query_ok": bool(ledger.get("query_ok")),
+            "error": ledger.get("error"),
+            "logged": live_total,
+            "resolved": live_resolved,
+            "pending": live_pending,
+            "accuracy_percent": live_accuracy,
+            "verified_errors": int(ledger.get("verified_errors") or 0) if ledger.get("query_ok") else 0,
+            "partial_outcomes": int(ledger.get("partial_outcomes") or 0) if ledger.get("query_ok") else 0,
+            "miss_sample": [],
+        },
+        "oracle": {
+            "total_predictions": live_total,
+            "resolved_predictions": live_resolved,
+            "pending_predictions": live_pending,
+            "average_accuracy_percent": live_accuracy,
+            "verified_errors": int(ledger.get("verified_errors") or 0) if ledger.get("query_ok") else 0,
+            "partial_outcomes": int(ledger.get("partial_outcomes") or 0) if ledger.get("query_ok") else 0,
+            "recent_predictions": [],
+            "metrics_scope": "live_only",
+        },
+        "proof_chain": _proof_chain_block_from_summary(chain_ctx, verify),
+    }
+
+
 async def build_public_accuracy_payload(*, recent_limit: int = 20) -> dict[str, Any]:
+    recent_limit = int(os.getenv("PUBLIC_ACCURACY_RECENT_LIMIT", str(recent_limit)))
     ttl = float(os.getenv("PUBLIC_ACCURACY_CACHE_SEC", "25"))
+    build_timeout = float(os.getenv("PUBLIC_ACCURACY_BUILD_TIMEOUT_SEC", "18"))
     key = _public_accuracy_cache_key(recent_limit)
     now = time.monotonic()
     global _PAYLOAD_CACHE, _PAYLOAD_CACHE_KEY, _PAYLOAD_CACHE_AT
@@ -141,7 +225,7 @@ async def build_public_accuracy_payload(*, recent_limit: int = 20) -> dict[str, 
         and _PAYLOAD_CACHE_KEY == key
         and (now - _PAYLOAD_CACHE_AT) < ttl
     ):
-        return copy.deepcopy(_PAYLOAD_CACHE)
+        return _trim_public_payload_for_wire(_PAYLOAD_CACHE)
     async with _PAYLOAD_LOCK:
         now = time.monotonic()
         if (
@@ -149,12 +233,23 @@ async def build_public_accuracy_payload(*, recent_limit: int = 20) -> dict[str, 
             and _PAYLOAD_CACHE_KEY == key
             and (now - _PAYLOAD_CACHE_AT) < ttl
         ):
-            return copy.deepcopy(_PAYLOAD_CACHE)
-        payload = await _build_public_accuracy_payload_uncached(recent_limit=recent_limit)
+            return _trim_public_payload_for_wire(_PAYLOAD_CACHE)
+        try:
+            payload = await asyncio.wait_for(
+                _build_public_accuracy_payload_uncached(recent_limit=recent_limit),
+                timeout=build_timeout,
+            )
+        except asyncio.TimeoutError:
+            if _PAYLOAD_CACHE is not None:
+                stale = copy.deepcopy(_PAYLOAD_CACHE)
+                stale["stale"] = True
+                stale["degraded_reason"] = "served_stale_after_build_timeout"
+                return _trim_public_payload_for_wire(stale)
+            payload = await _minimal_public_accuracy_payload()
         _PAYLOAD_CACHE = payload
         _PAYLOAD_CACHE_KEY = key
-        _PAYLOAD_CACHE_AT = now
-        return copy.deepcopy(payload)
+        _PAYLOAD_CACHE_AT = time.monotonic()
+        return _trim_public_payload_for_wire(payload)
 
 
 def _public_miss_sample_row(row: dict[str, Any]) -> dict[str, Any]:
@@ -228,15 +323,18 @@ def _enrich_public_experience(experience: dict[str, Any]) -> dict[str, Any]:
 
 
 async def _build_public_accuracy_payload_uncached(*, recent_limit: int = 20) -> dict[str, Any]:
-    from database import count_labeled_oracle_predictions, fetch_live_public_ledger
+    from database import count_labeled_oracle_predictions
     from ml.drift_monitor import load_feature_envelope
     from ml.experience_log import public_experience_block
     from ml.train_baseline import model_status
     from ml.training_utils import LEAKAGE_GUARD_NOTE
     from oracle_audit_chain import chain_summary, read_recent_chain_records
 
+    miss_limit = int(os.getenv("PUBLIC_ACCURACY_MISS_SAMPLE_LIMIT", "8"))
+    chain_tail = int(os.getenv("PUBLIC_ACCURACY_CHAIN_TAIL", "48"))
+
     ledger, ml_status, labeled_count, experience = await asyncio.gather(
-        fetch_live_public_ledger(recent_limit=recent_limit, miss_sample_limit=12),
+        _fetch_live_ledger_timed(recent_limit=recent_limit, miss_sample_limit=miss_limit),
         model_status(),
         count_labeled_oracle_predictions(include_synthetic=False),
         asyncio.to_thread(public_experience_block),
@@ -245,7 +343,7 @@ async def _build_public_accuracy_payload_uncached(*, recent_limit: int = 20) -> 
 
     def _chain_and_blocks() -> tuple[Any, ...]:
         chain_ctx = chain_summary(limit=8)
-        chain_recent_tail = read_recent_chain_records(200)
+        chain_recent_tail = read_recent_chain_records(chain_tail)
         return (
             chain_ctx,
             chain_recent_tail,
@@ -600,7 +698,8 @@ def _chain_lookup() -> dict[str, dict[str, Any]]:
     try:
         from oracle_audit_chain import read_recent_chain_records
 
-        return _chain_lookup_from_recent(read_recent_chain_records(200))
+        tail = int(os.getenv("PUBLIC_ACCURACY_CHAIN_TAIL", "48"))
+        return _chain_lookup_from_recent(read_recent_chain_records(tail))
     except Exception:
         return {}
 

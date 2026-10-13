@@ -330,7 +330,7 @@
     <script defer src="/static/js/dom_escape.js"></script>
     <script defer src="/static/js/public_decision_map.js"></script>
     <script>
-        const ORACLE_LEDGER_FETCH_MS = 28000;
+        const ORACLE_LEDGER_FETCH_MS = 45000;
         const ORACLE_LEDGER_SECONDARY_MS = 15000;
         const MONTHLY_LOSING_FETCH_MS = 120000;
         const MONTHLY_LOSING_SLOW_UI_MS = 8000;
@@ -405,10 +405,27 @@
             return error.message || String(error);
         }
 
+        function renderProofPanelFailure(reason) {
+            const panel = document.getElementById('proof-panel');
+            if (!panel) return;
+            const text = String(reason || 'Proof chain could not be loaded.');
+            panel.innerHTML =
+                `<span style="color:var(--danger)">` +
+                `${esc(text)} · ` +
+                `Use <strong>Verify Audit Chain</strong> to retry, or refresh the page.` +
+                `</span>`;
+        }
+
+        function setProofPanelLoading(label) {
+            const panel = document.getElementById('proof-panel');
+            if (panel) panel.textContent = label || 'Loading chain…';
+        }
+
         function renderLedgerFailure(reason, opts) {
             const options = opts || {};
             const skipLosing = options.skipLosing === true;
             const msg = 'Live ledger unavailable: ' + reason;
+            renderProofPanelFailure('Live accuracy feed failed: ' + reason);
             togglePanel('panel-ledger-stats', true);
             togglePanel('panel-latest-table', true);
             togglePanel('losing', true);
@@ -826,6 +843,41 @@
             applyChainVerify(chain.verify || {}, chain);
         }
 
+        async function refreshProofChainPanel(showLoading) {
+            if (showLoading) setProofPanelLoading('Verifying audit chain…');
+            try {
+                const verify = await fetchJsonWithTimeout(
+                    '/api/oracle/audit-chain/verify',
+                    {},
+                    ORACLE_LEDGER_SECONDARY_MS
+                );
+                let summary = null;
+                try {
+                    summary = await fetchJsonWithTimeout(
+                        '/api/oracle/audit-chain?limit=8',
+                        {},
+                        ORACLE_LEDGER_SECONDARY_MS
+                    );
+                } catch (summaryErr) {
+                    console.debug(summaryErr);
+                }
+                const recent = (summary && summary.recent_records) || [];
+                const tip = recent.length ? recent[recent.length - 1] : {};
+                renderProofChain({
+                    verify: verify || {},
+                    total_records: (summary && summary.total_records) ?? verify?.records ?? 0,
+                    tip_hash: verify && verify.valid === true ? tip.chain_hash : null,
+                    integrity_message: (summary && summary.integrity && summary.integrity.integrity_failure_reason) ||
+                        verify?.integrity_failure_reason,
+                });
+            } catch (error) {
+                console.debug(error);
+                renderProofPanelFailure(
+                    'Audit chain verify failed: ' + formatLedgerFetchError(error)
+                );
+            }
+        }
+
         function buildLedgerShareText(oracle) {
             const o = oracle || ledgerOracleSnapshot || {};
             const logged = o.total_predictions ?? 0;
@@ -953,6 +1005,7 @@
         }
 
         async function loadAccuracy() {
+            setProofPanelLoading('Loading chain…');
             try {
                 const data = await fetchJsonWithTimeout(
                     '/api/oracle/accuracy/public',
@@ -979,7 +1032,12 @@
                 if (lastLedgerPayload && applyLedgerPayload(lastLedgerPayload)) {
                     return;
                 }
-                renderLedgerFailure(formatLedgerFetchError(error), { skipLosing: true });
+                const fetchErr = formatLedgerFetchError(error);
+                renderProofPanelFailure(
+                    'Could not load /api/oracle/accuracy/public (' + fetchErr + '). ' +
+                    'Ledger counters may be stale until the request succeeds.'
+                );
+                renderLedgerFailure(fetchErr, { skipLosing: true });
             }
         }
 
@@ -1036,11 +1094,14 @@
         document.getElementById('verifyChainBtn')?.addEventListener('click', (event) => {
             event.preventDefault();
             const target = document.getElementById('proof-chain');
-            if (!target) return;
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            if (window.location.hash !== '#proof-chain') {
-                history.replaceState(null, '', '#proof-chain');
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                if (window.location.hash !== '#proof-chain') {
+                    history.replaceState(null, '', '#proof-chain');
+                }
             }
+            refreshProofChainPanel(true);
+            loadAccuracy().catch((err) => console.debug(err));
         });
 
         let lastGlassShare = '';

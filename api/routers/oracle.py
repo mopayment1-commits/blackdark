@@ -135,7 +135,7 @@ async def oracle_accuracy_public():
             },
         }
     payload["timestamp"] = datetime.now(UTC).isoformat()
-    max_age = int(os.getenv("PUBLIC_ACCURACY_HTTP_CACHE_SEC", "15"))
+    max_age = int(os.getenv("PUBLIC_ACCURACY_HTTP_CACHE_SEC", "30"))
     return JSONResponse(
         payload,
         headers={"Cache-Control": f"public, max-age={max_age}"},
