@@ -992,24 +992,24 @@
                     {},
                     ORACLE_LEDGER_FETCH_MS
                 );
-                if (data.proof_chain) {
-                    renderProofChain(data.proof_chain);
-                }
                 if (data.transparency && data.transparency.production_engine) {
                     applyEngineTransparency(data);
                 }
                 if (applyLedgerPayload(data)) {
+                    refreshProofChainPanel(false).catch((err) => console.debug(err));
                     return;
                 }
                 const rejectReason = ledgerPayloadRejectReason(data);
                 const liveLedgerOk = !!(data.live_ledger && data.live_ledger.query_ok);
                 if (lastLedgerPayload && applyLedgerPayload(lastLedgerPayload)) {
+                    refreshProofChainPanel(false).catch((err) => console.debug(err));
                     return;
                 }
                 renderLedgerFailure(rejectReason, { skipLosing: true });
             } catch (error) {
                 console.debug(error);
                 if (lastLedgerPayload && applyLedgerPayload(lastLedgerPayload)) {
+                    refreshProofChainPanel(false).catch((err) => console.debug(err));
                     return;
                 }
                 const fetchErr = formatLedgerFetchError(error);
@@ -1193,7 +1193,6 @@
 
         function startLedgerBoot() {
             loadAccuracy().then(() => scheduleSecondaryLoad(loadLedgerShareKit));
-            scheduleSecondaryLoad(() => refreshProofChainPanel(false));
             scheduleSecondaryLoad(loadGlassBox);
             scheduleSecondaryLoad(loadMevReport);
             scheduleSecondaryLoad(loadLocked);
