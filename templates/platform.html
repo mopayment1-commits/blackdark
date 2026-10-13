@@ -820,11 +820,19 @@ Object.assign(window, {
     goCoinPath, pickSymbol,
 });
 initChart();
-await Promise.all([
-    loadChart(), loadRankings(), loadCexDex(), loadDerivCompare(), loadMarketplace(),
-    loadGrids(), loadRules(), loadPlatformKeys(), loadCoindesk(), loadMacro(),
-    loadUnlocks(), loadLiquidations(), loadFootprint(),
-]);
+await Promise.all([loadChart(), loadRankings()]);
+function loadPlatformDeferred() {
+    return Promise.all([
+        loadCexDex(), loadDerivCompare(), loadMarketplace(),
+        loadGrids(), loadRules(), loadPlatformKeys(), loadCoindesk(), loadMacro(),
+        loadUnlocks(), loadLiquidations(), loadFootprint(),
+    ]);
+}
+if (typeof requestIdleCallback === 'function') {
+    requestIdleCallback(() => { loadPlatformDeferred().catch((e) => console.debug(e)); }, { timeout: 4000 });
+} else {
+    setTimeout(() => { loadPlatformDeferred().catch((e) => console.debug(e)); }, 0);
+}
 setInterval(loadRankings, 60000);
 setInterval(loadCexDex, 30000);
 </script>

@@ -538,7 +538,7 @@ EN: dict[str, str] = {
     "hero.headline": "We publish the miss.",
     "hero.support": "Sealed forecasts before the event. Public proof after.",
     "hero.cta.try": STR_TRY_ORACLE_FREE,
-    "hero.cta.seal": "Watch the Seal",
+    "hero.cta.seal": "See the Seal",
     "pulse.label": "TRUST PULSE",
     "pulse.live": "Live",
     "pulse.loading": "Loading today’s decision…",

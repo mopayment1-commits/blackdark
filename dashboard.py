@@ -207,7 +207,7 @@ def render_profile_auth_required(request: Request) -> HTMLResponse:
     )
 
 
-_HTML_AUTH_GATE_EXACT: frozenset[str] = frozenset({"/profile", "/dashboard", "/discipline-mirror"})
+_HTML_AUTH_GATE_EXACT: frozenset[str] = frozenset({"/profile", "/dashboard"})
 
 
 def anonymous_denial_should_be_html(request: Request) -> bool:
@@ -2252,12 +2252,10 @@ async def discipline_mirror_alias():
     return RedirectResponse(url="/discipline-mirror", status_code=307)
 
 
-@app.get("/errors")
-async def public_errors_alias():
-    """Public admission of misses — alias into the Accuracy Ledger losing section."""
-    from fastapi.responses import RedirectResponse
-
-    return RedirectResponse(url="/oracle-accuracy#losing", status_code=307)
+@app.get("/errors", response_class=HTMLResponse)
+async def public_errors_alias(request: Request):
+    """Public misses surface — same ledger HTML as /oracle-accuracy (no redirect hop)."""
+    return render_page(request, "oracle_accuracy.html", _footer_ctx())
 
 
 @app.get("/public/accuracy-ledger")
@@ -2607,24 +2605,13 @@ async def about_page(request: Request):
 async def status_page(request: Request):
     from site_services import public_status_report
 
-    status = public_status_report()
-    guest_trust: dict[str, Any] = {}
-    try:
-        from launch57.trust_batch2 import guest_trust_surface
-
-        payload = guest_trust_surface(
-            symbol="BTC",
-            params={"symbol": "BTC", "user_key": "anonymous"},
-        )
-        guest_trust = dict(payload.get("guest_trust") or {})
-    except Exception:
-        guest_trust = {}
+    status = public_status_report(fast=True)
     return render_utility(request, {
             "page": "status",
             "title": "System status",
             "lead": "Public guest trust and engineering posture — no secrets, no contractual SLA unless contracted.",
             "status": status,
-            "guest_trust": guest_trust
+            "guest_trust": {},
         },
     )
 
@@ -4040,18 +4027,9 @@ async def trust_os_lenses_menu_page(request: Request):
 @app.get("/oracle-accuracy/json-api", response_class=HTMLResponse)
 async def oracle_accuracy_public_json_page(request: Request):
     """Human-readable view of GET /api/oracle/accuracy/public (same live_ledger counters)."""
-    from ml.public_accuracy import build_public_accuracy_payload
+    from ml.public_accuracy import build_public_accuracy_metrics_only
 
-    payload = await build_public_accuracy_payload()
-    ledger = payload.get("live_ledger") or {}
-    metrics = {
-        "logged": ledger.get("logged"),
-        "resolved": ledger.get("resolved"),
-        "pending": ledger.get("pending"),
-        "accuracy_percent": ledger.get("accuracy_percent"),
-        "verified_errors": ledger.get("verified_errors"),
-        "partial_outcomes": ledger.get("partial_outcomes"),
-    }
+    metrics = await build_public_accuracy_metrics_only()
     return render_page(
         request,
         "oracle_accuracy_json_api.html",

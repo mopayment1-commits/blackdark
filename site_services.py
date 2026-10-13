@@ -388,9 +388,13 @@ def _overall_status(components: list[dict[str, Any]]) -> str:
     return overall
 
 
-def public_status_report() -> dict[str, Any]:
+def public_status_report(*, fast: bool = False) -> dict[str, Any]:
     """Aggregate non-secret readiness for /status — never expose keys."""
-    viral = _viral_status()
+    viral = (
+        {"status": "reported", "summary": "See /health/viral for capacity detail."}
+        if fast
+        else _viral_status()
+    )
     billing = _billing_status()
     db_engine = _database_engine()
 

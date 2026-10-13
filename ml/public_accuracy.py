@@ -107,6 +107,30 @@ def _public_recent_predictions(
     return public_recent, correct, resolved_rows
 
 
+async def build_public_accuracy_metrics_only() -> dict[str, Any]:
+    """Counters only — for /oracle-accuracy/json-api HTML (avoids full public payload build)."""
+    from database import fetch_live_public_ledger
+
+    timeout = float(os.getenv("PUBLIC_ACCURACY_METRICS_TIMEOUT_SEC", "3"))
+    ledger: dict[str, Any] = {"query_ok": False}
+    try:
+        ledger = await asyncio.wait_for(
+            fetch_live_public_ledger(recent_limit=0, miss_sample_limit=0),
+            timeout=timeout,
+        )
+    except Exception:
+        pass
+    ok = bool(ledger.get("query_ok"))
+    return {
+        "logged": ledger.get("logged") if ok else None,
+        "resolved": ledger.get("resolved") if ok else None,
+        "pending": ledger.get("pending") if ok else None,
+        "accuracy_percent": ledger.get("accuracy_percent") if ok else None,
+        "verified_errors": ledger.get("verified_errors") if ok else None,
+        "partial_outcomes": ledger.get("partial_outcomes") if ok else None,
+    }
+
+
 async def build_public_accuracy_payload(*, recent_limit: int = 20) -> dict[str, Any]:
     ttl = float(os.getenv("PUBLIC_ACCURACY_CACHE_SEC", "25"))
     key = _public_accuracy_cache_key(recent_limit)
