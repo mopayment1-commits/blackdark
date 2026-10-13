@@ -3053,10 +3053,11 @@ async def oracle_quick(
 
     t0 = time.perf_counter()
     asset, pair = _normalize_oracle_symbol(symbol)
+    quick_cache_headers = {"Cache-Control": "private, max-age=8"}
     cached = quick_cache_get(asset, lang, ux_mode)
     if cached is not None:
         cached["latency_ms"] = round((time.perf_counter() - t0) * 1000, 1)
-        return JSONResponse(cached)
+        return JSONResponse(cached, headers=quick_cache_headers)
 
     try:
         payload = await run_oracle_bounded(
@@ -3078,7 +3079,7 @@ async def oracle_quick(
 
     clean = sanitize_oracle_payload(payload)
     quick_cache_set(asset, lang, ux_mode, clean)
-    return JSONResponse(clean)
+    return JSONResponse(clean, headers=quick_cache_headers)
 
 
 def _reserved_oracle_response(symbol: str, request: Request) -> Any | None:

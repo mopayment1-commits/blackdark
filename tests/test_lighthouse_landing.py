@@ -34,6 +34,8 @@ def test_landing_html_a11y_and_perf_hooks():
     assert 'for="waitlistEmail"' in html
     assert 'for="bdLangSelect"' in html
     assert "/static/css/trust-os.css" in html
+    assert "/static/css/landing.css" in html
+    assert 'defer src="/static/js/landing_boot.js"' in html
     assert "We publish the miss" in html
     assert "/static/img/blackdark-sealed-hero-1280.webp" in html
     assert 'src="/static/img/blackdark-sealed-hero-1280.webp"' in html
@@ -71,6 +73,8 @@ def test_static_landing_assets_served():
     client = TestClient(app)
     for path in (
         "/static/css/trust-os.css",
+        "/static/css/landing.css",
+        "/static/js/landing_boot.js",
         "/static/img/blackdark-sealed-hero-1280.webp",
         "/static/img/blackdark-sealed-hero.webp",
         "/static/img/blackdark-sealed-hero.jpg",

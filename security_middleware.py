@@ -161,7 +161,7 @@ def _inject_html_csp_nonce(html: str, nonce: str) -> str:
 
     out = re.sub(r"<script\b[^>]*>", _add_nonce, html, flags=re.I)
     out = re.sub(r"<style\b[^>]*>", _add_style_nonce, out, flags=re.I)
-    binder = f'<script nonce="{nonce}" src="/static/js/csp_events.js"></script>'
+    binder = f'<script defer nonce="{nonce}" src="/static/js/csp_events.js"></script>'
     if "csp_events.js" not in out:
         lower = out.lower()
         idx = lower.rfind("</body>")

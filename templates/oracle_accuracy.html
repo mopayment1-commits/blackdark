@@ -465,49 +465,58 @@
             const model = data.model || {};
             const moat = data.data_moat || {};
             const exp = (data.learning_experience || {}).summary || {};
-            applyEngineTransparency(data);
-            renderProofChain(data.proof_chain || {});
-
-            togglePanel('panel-ledger-stats', true);
-            togglePanel('panel-latest-table', true);
-            togglePanel('losing', true);
-
-            renderAccuracyStats({
-                oracle,
-                model,
-                moat,
-                exp,
-                counterSources: lastCounterSources,
-                archive: lastTrainingArchive,
-            });
-            renderPredictionsTable(oracle, oracle.recent_table_footnote || '');
-            renderPublicMisses(oracle, lastTrainingArchive);
-            syncShareFromOracle(oracle);
-
             const regime = data.regime_models || {};
-            const regimeKeys = Object.keys(regime.regimes || {});
-            if (regimeKeys.length) {
-                togglePanel('panel-regime', true);
-                renderRegimeTable(regime);
-            } else {
-                togglePanel('panel-regime', false);
-            }
-
             const reg = data.signal_registry || {};
-            const typeKeys = Object.keys(reg.by_type || {});
-            if (typeKeys.length) {
-                togglePanel('panel-registry', true);
-                renderRegistryTable(reg);
-            } else {
-                togglePanel('panel-registry', false);
-            }
-
             const events = (data.learning_experience || {}).recent_events || [];
-            if (events.length) {
-                togglePanel('panel-learning', true);
-                renderLearningEvents(events);
+            const proofChain = data.proof_chain || {};
+
+            const paintLedger = () => {
+                applyEngineTransparency(data);
+                renderProofChain(proofChain);
+
+                togglePanel('panel-ledger-stats', true);
+                togglePanel('panel-latest-table', true);
+                togglePanel('losing', true);
+
+                renderAccuracyStats({
+                    oracle,
+                    model,
+                    moat,
+                    exp,
+                    counterSources: lastCounterSources,
+                    archive: lastTrainingArchive,
+                });
+                renderPredictionsTable(oracle, oracle.recent_table_footnote || '');
+                renderPublicMisses(oracle, lastTrainingArchive);
+                syncShareFromOracle(oracle);
+
+                const regimeKeys = Object.keys(regime.regimes || {});
+                if (regimeKeys.length) {
+                    togglePanel('panel-regime', true);
+                    renderRegimeTable(regime);
+                } else {
+                    togglePanel('panel-regime', false);
+                }
+
+                const typeKeys = Object.keys(reg.by_type || {});
+                if (typeKeys.length) {
+                    togglePanel('panel-registry', true);
+                    renderRegistryTable(reg);
+                } else {
+                    togglePanel('panel-registry', false);
+                }
+
+                if (events.length) {
+                    togglePanel('panel-learning', true);
+                    renderLearningEvents(events);
+                } else {
+                    togglePanel('panel-learning', false);
+                }
+            };
+            if (typeof requestAnimationFrame === 'function') {
+                requestAnimationFrame(paintLedger);
             } else {
-                togglePanel('panel-learning', false);
+                paintLedger();
             }
             return true;
         }
@@ -974,9 +983,6 @@
                     {},
                     ORACLE_LEDGER_FETCH_MS
                 );
-                if (data.proof_chain) {
-                    renderProofChain(data.proof_chain);
-                }
                 if (data.transparency && data.transparency.production_engine) {
                     applyEngineTransparency(data);
                 }
@@ -1176,7 +1182,7 @@
             scheduleSecondaryLoad(loadGlassBox);
             scheduleSecondaryLoad(loadMevReport);
             scheduleSecondaryLoad(loadLocked);
-            setInterval(() => { loadAccuracy().catch(() => {}); }, 60000);
+            setInterval(() => { loadAccuracy().catch(() => {}); }, 120000);
             setInterval(() => { loadLocked().catch(() => {}); }, 120000);
         }
         if (document.readyState === 'loading') {
