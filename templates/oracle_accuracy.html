@@ -124,6 +124,7 @@
         <p id="chain-status" style="color:var(--muted);font-size:0.9rem;margin-top:0.5rem"></p>
         <div class="cta-row" style="margin-top:1rem">
             <a class="btn btn-secondary" href="#proof-chain" id="verifyChainBtn">{{ t('ledger.cta.verify_chain') }}</a>
+            <a class="btn btn-secondary" href="#audit-challenge">Audit Challenge</a>
             <a class="btn btn-secondary" href="#losing">{{ t('ledger.cta.misses') }}</a>
             <a class="btn btn-secondary" href="#glass-box-challenge">{{ t('ledger.cta.glass') }}</a>
             <a class="btn btn-secondary" href="#mev-report">MEV Report</a>
@@ -883,9 +884,13 @@
                 });
             } catch (error) {
                 console.debug(error);
-                renderProofPanelFailure(
-                    'Audit chain verify failed: ' + formatLedgerFetchError(error)
-                );
+                const verifyErr = formatLedgerFetchError(error);
+                renderProofPanelFailure('Audit chain verify failed: ' + verifyErr);
+                const auditEl = document.getElementById('audit-status');
+                if (auditEl) {
+                    auditEl.textContent = 'Live verify unavailable: ' + verifyErr;
+                    auditEl.style.color = 'var(--danger)';
+                }
             }
         }
 
@@ -1188,6 +1193,7 @@
 
         function startLedgerBoot() {
             loadAccuracy().then(() => scheduleSecondaryLoad(loadLedgerShareKit));
+            scheduleSecondaryLoad(() => refreshProofChainPanel(false));
             scheduleSecondaryLoad(loadGlassBox);
             scheduleSecondaryLoad(loadMevReport);
             scheduleSecondaryLoad(loadLocked);

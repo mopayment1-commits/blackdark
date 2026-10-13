@@ -244,6 +244,14 @@ async def build_public_accuracy_payload(*, recent_limit: int = 20) -> dict[str, 
                 stale = copy.deepcopy(_PAYLOAD_CACHE)
                 stale["stale"] = True
                 stale["degraded_reason"] = "served_stale_after_build_timeout"
+                try:
+                    from oracle_audit_chain import chain_summary, verify_chain
+
+                    verify = await asyncio.to_thread(verify_chain)
+                    chain_ctx = await asyncio.to_thread(chain_summary, limit=8)
+                    stale["proof_chain"] = _proof_chain_block_from_summary(chain_ctx, verify)
+                except Exception:
+                    pass
                 return _trim_public_payload_for_wire(stale)
             payload = await _minimal_public_accuracy_payload()
         _PAYLOAD_CACHE = payload
