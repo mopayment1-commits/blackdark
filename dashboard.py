@@ -2089,7 +2089,13 @@ async def sitemap_xml(request: Request):
 # ========== DASHBOARD ==========
 @app.get("/dashboard", response_class=HTMLResponse)
 async def dashboard_page(request: Request):
-    return render_page(request, "dashboard.html", _footer_ctx())
+    import config as _cfg
+
+    ctx = {
+        **_footer_ctx(),
+        "oracle_symbols": _cfg.tracked_asset_list(),
+    }
+    return render_page(request, "dashboard.html", ctx)
 
 
 @app.get("/discipline-mirror", response_class=HTMLResponse)

@@ -34,7 +34,23 @@
         .intent-btn:hover, .intent-btn.active { border-color: #22d3ee; color: #22d3ee; }
         .intent-hint { margin-top: .55rem; font-size: .78rem; color: #71717a; min-height: 1.2em; }
         .search-row { display: flex; gap: .6rem; justify-content: center; flex-wrap: wrap; margin: 1rem 0; }
-        .search-row input { width: min(280px,100%); padding: .75rem 1rem; background: #1a1a24; border: 1px solid #2a2a35; border-radius: 10px; color: #e4e4e7; font-size: 1rem; }
+        .search-row input,
+        .search-row select#symbol {
+            width: min(280px,100%);
+            padding: .75rem 2rem .75rem 1rem;
+            background: #1a1a24;
+            border: 1px solid #2a2a35;
+            border-radius: 10px;
+            color: #e4e4e7;
+            font-size: 1rem;
+        }
+        .search-row select#symbol {
+            appearance: none;
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%2322d3ee' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right .85rem center;
+        }
         .btn { padding: .75rem 1.25rem; border: none; border-radius: 10px; background: linear-gradient(135deg,#22d3ee,#06b6d4); color: #041016; font-weight: 700; cursor: pointer; }
         .btn.secondary { background: #1a1a24; color: #e4e4e7; border: 1px solid #2a2a35; }
         .picks { display: flex; gap: .45rem; justify-content: center; flex-wrap: wrap; margin-bottom: .75rem; }
@@ -225,7 +241,11 @@
         </div>
         <div class="search-row hide-in-room" id="decide">
             <label for="symbol" class="sr-only">Symbol</label>
-            <input id="symbol" type="text" value="BTC" placeholder="Symbol" data-bd-keydown-call="askOracle" data-bd-keys="enter">
+            <select id="symbol" data-bd-change-call="setSymbol" data-bd-pass-value="1" aria-label="Symbol">
+                {% for sym in oracle_symbols|default(['BTC']) %}
+                <option value="{{ sym }}"{% if sym == 'BTC' %} selected{% endif %}>{{ sym }}</option>
+                {% endfor %}
+            </select>
             <button class="btn" data-bd-call="askOracle" id="askBtn">Get Decision</button>
         </div>
         <div id="oracle" class="hide-in-room" style="height:0;overflow:hidden" aria-hidden="true"></div>
