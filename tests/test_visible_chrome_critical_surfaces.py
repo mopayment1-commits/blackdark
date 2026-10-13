@@ -84,10 +84,11 @@ def test_pricing_ladder_visible_on_landing():
     assert "pricing.see_edge_elite" in land
     assert "pricing.execute_quant" in land
     assert "pricing.scale_institutional" in land
-    assert "$19.99" in land
-    assert "$49.99" in land
-    assert "$129.99" in land
-    assert "pricing.from_open" in land or "From $999" in land
+    assert "$19.99" not in land
+    assert "$49.99" not in land
+    assert "$129.99" not in land
+    assert "pricing.from_open" not in land
+    assert 'class="price"' not in land
     assert "Decision Desk" not in land
     assert "$29" not in land
     assert "3,000" not in land

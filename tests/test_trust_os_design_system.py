@@ -52,12 +52,13 @@ def test_landing_rejects_inter_purple_and_keeps_pricing_canon():
     assert "#a78bfa" not in land
     assert "#f472b6" not in land
     assert "pricing.decide_pro" in land
-    assert "$19.99" in land
+    assert "$19.99" not in land
     assert "pricing.see_edge_elite" in land
-    assert "$49.99" in land
+    assert "$49.99" not in land
     assert "pricing.execute_quant" in land
-    assert "$129.99" in land
-    assert "pricing.cta.talk" in land or "pricing.from_open" in land or "institutionalInquiryForm" in land
+    assert "$129.99" not in land
+    assert "pricing.cta.talk" in land
+    assert 'id="pricing"' in land
     assert 'id="trust-pulse"' in land
     assert "fake seat" in land.lower() or "No fake seat" in land
     assert "🎁" not in land
