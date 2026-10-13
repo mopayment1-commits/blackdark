@@ -131,6 +131,22 @@ def _record_labeled_predictions(
     return created, resolved
 
 
+async def maybe_backfill_empty_oracle_chain(*, limit: int = 5000) -> dict[str, Any] | None:
+    """When the JSONL chain is empty but oracle_predictions exist, run one backfill."""
+    verify = verify_chain()
+    if int(verify.get("records") or 0) > 0:
+        return None
+    from database import count_oracle_predictions
+
+    db_total = await count_oracle_predictions()
+    if db_total <= 0:
+        return None
+    result = await backfill_from_database(limit=limit)
+    result["trigger"] = "empty_chain_with_db_predictions"
+    result["oracle_predictions_in_db"] = db_total
+    return result
+
+
 async def backfill_from_database(*, limit: int = 5000) -> dict[str, Any]:
     """One-time sync: export existing oracle_predictions into hash chain."""
     from database import fetch_labeled_oracle_predictions, fetch_unresolved_oracle_predictions

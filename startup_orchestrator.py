@@ -463,12 +463,31 @@ async def _start_monitoring_alerting(state: RuntimeState) -> None:
         logger.exception("Monitoring alerting loop failed to start")
 
 
+async def _maybe_backfill_empty_oracle_chain() -> None:
+    if not _env_flag("ORACLE_CHAIN_AUTO_BACKFILL", "true"):
+        return
+    try:
+        from oracle_track_record import maybe_backfill_empty_oracle_chain
+
+        result = await maybe_backfill_empty_oracle_chain()
+        if result:
+            logger.info(
+                "Oracle audit chain auto-backfill | records=%s created=%s resolved=%s",
+                result.get("chain_records"),
+                result.get("backfilled_created"),
+                result.get("backfilled_resolved"),
+            )
+    except Exception:
+        logger.exception("Oracle audit chain auto-backfill failed")
+
+
 async def run_background_startup(state: RuntimeState) -> None:
     """Start all non-critical services after HTTP is already live."""
     _load_platform_keys()
     _maybe_activate_universe()
     _load_exchange_keys()
     _configure_stripe()
+    await _maybe_backfill_empty_oracle_chain()
     _start_aggregator(state)
     await _start_core_streams(state)
     await _start_fee_and_gas()

@@ -810,13 +810,35 @@
                 `${esc(e.timestamp || '')} · ${esc(e.human_line || '')}</li>`
             ).join('');
         }
+        function applyEmptyChainPanel() {
+            applyChainVerify({ valid: true, records: 0 }, { total_records: 0 });
+        }
+
         function applyChainVerify(verify, chainMeta) {
             const v = verify || {};
             lastChainVerify = v;
-            const records = chainMeta?.total_records ?? v.records ?? 0;
+            const records = Number(chainMeta?.total_records ?? v.records ?? 0);
             const ok = v.valid === true;
             const statusEl = document.getElementById('chain-status');
             const auditEl = document.getElementById('audit-status');
+            const panel = document.getElementById('proof-panel');
+            const emptyMsg = 'No records in the chain yet.';
+
+            if (records === 0 && v.valid !== false) {
+                if (statusEl) {
+                    statusEl.textContent = 'Audit chain: ' + emptyMsg;
+                    statusEl.style.color = 'var(--muted)';
+                }
+                if (auditEl) {
+                    auditEl.textContent = 'Live verify: ' + emptyMsg;
+                    auditEl.style.color = 'var(--muted)';
+                }
+                if (panel) {
+                    panel.textContent = emptyMsg;
+                }
+                return;
+            }
+
             const chainLine =
                 'Audit chain: ' + verifyLabel(v.valid) + ' · records=' + records;
             if (statusEl) {
@@ -835,7 +857,6 @@
             const tipLine = ok
                 ? `Tip hash: <code style="color:var(--accent)">${esc(chainMeta?.tip_hash || '—')}</code><br>`
                 : `<span style="color:var(--danger)">Tip hash withheld — chain not intact.</span><br>`;
-            const panel = document.getElementById('proof-panel');
             if (panel) {
                 panel.innerHTML =
                     tipLine +
@@ -983,6 +1004,9 @@
                     {},
                     ORACLE_LEDGER_FETCH_MS
                 );
+                if (!data.proof_chain) {
+                    applyEmptyChainPanel();
+                }
                 if (data.transparency && data.transparency.production_engine) {
                     applyEngineTransparency(data);
                 }
@@ -990,13 +1014,16 @@
                     return;
                 }
                 const rejectReason = ledgerPayloadRejectReason(data);
-                const liveLedgerOk = !!(data.live_ledger && data.live_ledger.query_ok);
                 if (lastLedgerPayload && applyLedgerPayload(lastLedgerPayload)) {
                     return;
+                }
+                if (!data.proof_chain) {
+                    applyEmptyChainPanel();
                 }
                 renderLedgerFailure(rejectReason);
             } catch (error) {
                 console.debug(error);
+                applyEmptyChainPanel();
                 if (lastLedgerPayload && applyLedgerPayload(lastLedgerPayload)) {
                     return;
                 }
@@ -1062,6 +1089,7 @@
             if (window.location.hash !== '#proof-chain') {
                 history.replaceState(null, '', '#proof-chain');
             }
+            loadAccuracy().catch(() => {});
         });
 
         let lastGlassShare = '';

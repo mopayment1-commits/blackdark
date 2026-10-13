@@ -2315,8 +2315,22 @@ async def insert_oracle_prediction(
                 kind=kind,
             )
         except Exception:
-            logger.debug("Track record append skipped on insert", exc_info=True)
+            logger.exception(
+                "Track record append failed on insert prediction_id=%s asset=%s",
+                row_id,
+                asset,
+            )
     return row_id
+
+
+async def count_oracle_predictions() -> int:
+    try:
+        async with get_connection() as db:
+            row = await (await db.execute("SELECT COUNT(*) FROM oracle_predictions")).fetchone()
+        return int(row[0] if row else 0)
+    except Exception:
+        logger.exception("Unable to count oracle predictions")
+        return 0
 
 
 async def fetch_unresolved_oracle_predictions(limit: int = 100) -> list[dict[str, Any]]:
@@ -2418,7 +2432,10 @@ async def resolve_oracle_prediction(
                 direction_label=direction_label,
             )
         except Exception:
-            logger.debug("Track record append skipped on resolve", exc_info=True)
+            logger.exception(
+                "Track record append failed on resolve prediction_id=%s",
+                prediction_id,
+            )
 
 
 def _empty_oracle_audit_stats() -> dict[str, Any]:
