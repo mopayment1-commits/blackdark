@@ -283,6 +283,7 @@ PUBLIC_API_EXACT: frozenset[str] = frozenset(
         "/api/b2b/demo",
         "/docs",
         "/docs/public",
+        "/api/oracle/audit-chain/bootstrap-from-db",
     }
 )
 

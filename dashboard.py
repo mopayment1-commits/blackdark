@@ -579,6 +579,12 @@ async def _background_boot(app: FastAPI) -> None:
     else:
         await _start_background_runtime(app)
     try:
+        from startup_orchestrator import _maybe_backfill_empty_oracle_chain
+
+        await _maybe_backfill_empty_oracle_chain()
+    except Exception:
+        logger.exception("Oracle audit chain auto-backfill failed during web boot")
+    try:
         from bigquery_export import bigquery_configured, bigquery_live_ready
         from startup_orchestrator import _maybe_run_bigquery_export_bootstrap
 
