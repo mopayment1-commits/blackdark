@@ -167,6 +167,7 @@ PUBLIC_HTML_EXACT: frozenset[str] = frozenset(
         "/unique-ten",
         "/d5-honesty",
         "/discipline-mirror",
+        "/trust-pulse/proof",
     }
 )
 
