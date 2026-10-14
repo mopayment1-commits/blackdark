@@ -316,7 +316,7 @@
             <a class="btn secondary" href="/coverage-honesty" style="text-decoration:none;display:inline-flex;align-items:center">Coverage Honesty</a>
             <button class="btn secondary" type="button" id="antiHypeBtn" data-bd-call="toggleAntiHype" data-bd-sync="1" aria-pressed="false">Anti-Hype</button>
             <button class="btn secondary section-operate-plus" type="button" data-bd-call="openMyBookEntry">My book</button>
-            <button class="btn secondary section-desk-only desk-tools-nav" type="button" data-bd-call="openDeskTools" data-bd-sync="1">Desk tools</button>
+            <button class="btn secondary desk-tools-nav" type="button" id="deskToolsBtn" data-bd-call="openDeskTools" data-bd-sync="1" aria-expanded="false" aria-controls="deskToolsModal">Desk tools</button>
             <a class="btn secondary section-desk-only" href="/corpus-passport" style="text-decoration:none;display:inline-flex;align-items:center">Corpus Passport</a>
         </div>
         <div class="picks hide-in-room">
@@ -501,21 +501,22 @@
             <h2 id="deskToolsTitle">Desk tools</h2>
             <p class="sub-hint">Open the Decision Desk lens and jump to a tool.</p>
             <div class="desk-tools-list" role="menu">
-                <button type="button" role="menuitem" data-bd-call="openDeskToolSection" data-bd-args='["stealth"]' data-bd-sync="1">
+                <button type="button" role="menuitem" data-desk-section="stealth">
                     Stealth Execution Advisor<small>Size-aware execution slices</small>
                 </button>
-                <button type="button" role="menuitem" data-bd-call="openDeskToolSection" data-bd-args='["whales"]' data-bd-sync="1">
+                <button type="button" role="menuitem" data-desk-section="whales">
                     Signal vs Noise<small>Whale flow labels</small>
                 </button>
-                <button type="button" role="menuitem" data-bd-call="openDeskToolSection" data-bd-args='["half-life-clock"]' data-bd-sync="1">
+                <button type="button" role="menuitem" data-desk-section="half-life-clock">
                     Half-Life Clock<small>Desk timing grounded</small>
                 </button>
-                <button type="button" role="menuitem" data-bd-call="openDeskToolSection" data-bd-args='["mev"]' data-bd-sync="1">
+                <button type="button" role="menuitem" data-desk-section="mev">
                     MEV Protection<small>Execution risk report</small>
                 </button>
             </div>
             <div class="operate-gate-actions">
-                <button class="btn secondary" type="button" data-bd-call="closeDeskToolsMenu" data-bd-sync="1">Close</button>
+                <a class="btn" href="/dashboard?lens=desk#stealth" style="text-decoration:none;display:inline-flex;align-items:center">Open Desk lens</a>
+                <button class="btn secondary" type="button" data-desk-close>Close</button>
             </div>
         </div>
     </div>
@@ -577,12 +578,38 @@
 
         function openDeskTools() {
             const modal = document.getElementById('deskToolsModal');
+            const btn = document.getElementById('deskToolsBtn');
+            if (btn) btn.setAttribute('aria-expanded', 'true');
             if (modal) modal.hidden = false;
         }
 
         function closeDeskToolsMenu() {
             const modal = document.getElementById('deskToolsModal');
+            const btn = document.getElementById('deskToolsBtn');
+            if (btn) btn.setAttribute('aria-expanded', 'false');
             if (modal) modal.hidden = true;
+        }
+
+        function bindDeskToolsUi() {
+            const openBtn = document.getElementById('deskToolsBtn');
+            if (openBtn && openBtn.dataset.bound !== '1') {
+                openBtn.dataset.bound = '1';
+                openBtn.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    openDeskTools();
+                });
+            }
+            const modal = document.getElementById('deskToolsModal');
+            if (!modal || modal.dataset.bound === '1') return;
+            modal.dataset.bound = '1';
+            modal.querySelectorAll('[data-desk-section]').forEach((item) => {
+                item.addEventListener('click', () => openDeskToolSection(item.getAttribute('data-desk-section')));
+            });
+            const closeBtn = modal.querySelector('[data-desk-close]');
+            if (closeBtn) closeBtn.addEventListener('click', () => closeDeskToolsMenu());
+            modal.addEventListener('click', (event) => {
+                if (event.target === modal) closeDeskToolsMenu();
+            });
         }
 
         async function openDeskToolSection(sectionId) {
@@ -2897,10 +2924,15 @@
             }
         }
 
+        window.openDeskTools = openDeskTools;
+        window.closeDeskToolsMenu = closeDeskToolsMenu;
+        window.openDeskToolSection = openDeskToolSection;
+
         function boot() {
             loadAuth();
             applyLang();
             bindLensBar();
+            bindDeskToolsUi();
             applyAudienceFromQuery();
             scheduleCommandHome();
             startTrustPulseStream();
