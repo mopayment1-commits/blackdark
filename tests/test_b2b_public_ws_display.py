@@ -22,3 +22,6 @@ def test_b2b_page_ws_line_has_no_api_key_query(monkeypatch):
     assert "api_key" not in ws_line
     assert "Load Public Summary" in page.text
     assert "disconnected" in page.text.lower() or 'id="wsStatus">disconnected' in page.text
+    assert 'id="wsDisconnectBtn"' in page.text
+    assert "wsIdleNoticeShown" in page.text
+    assert "syncWsControls" in page.text

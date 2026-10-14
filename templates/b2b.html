@@ -43,7 +43,7 @@
         .demo-result { margin-top: 1rem; font-size: 0.82rem; color: var(--muted); max-height: 200px; overflow: auto; }
         .ws-log { max-height: 280px; overflow-y: auto; font-family: ui-monospace, monospace; font-size: 0.75rem; }
         .ws-status { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
-        .ws-off { background: #27272a; color: #f4f4f5; }
+        .ws-off { background: rgba(239,68,68,0.18); color: #fef2f2; border: 1px solid rgba(248,113,113,0.55); }
         .ws-on { background: rgba(34,197,94,0.15); color: var(--success); }
         footer { text-align: center; padding: 2rem; color: var(--muted); font-size: 0.85rem; border-top: 1px solid var(--border); }
     </style>
@@ -160,8 +160,8 @@
             <p style="color:var(--muted);font-size:0.82rem;margin-top:0.5rem">
                 Live stream requires a provisioned <code>api_key</code> query parameter — not shown on this public page.
             </p>
-            <button class="btn btn-primary" data-bd-call="connectWs">Connect WebSocket</button>
-            <button class="btn btn-secondary" data-bd-call="disconnectWs">Disconnect</button>
+            <button class="btn btn-primary" data-bd-call="connectWs" id="wsConnectBtn">Connect WebSocket</button>
+            <button class="btn btn-secondary" data-bd-call="disconnectWs" id="wsDisconnectBtn" type="button" hidden>Disconnect</button>
             <div class="demo-result ws-log" id="wsLog">Events will appear here when connected.</div>
         </div>
     </div>
@@ -193,13 +193,23 @@
 
     <script>
         let ws = null;
+        let wsUserDisconnect = false;
+        let wsIdleNoticeShown = false;
         const wsApiKey = String({{ (demo_key if demo_key_exposed else '')|tojson }} || '').trim();
         const wsScheme = location.protocol === 'https:' ? 'wss:' : 'ws:';
+
+        function syncWsControls() {
+            const disconnectBtn = document.getElementById('wsDisconnectBtn');
+            if (!disconnectBtn) return;
+            const live = ws && (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING);
+            disconnectBtn.hidden = !live;
+        }
 
         function setWsStatus(on) {
             const el = document.getElementById('wsStatus');
             el.textContent = on ? 'connected' : 'disconnected';
             el.className = 'ws-status ' + (on ? 'ws-on' : 'ws-off');
+            syncWsControls();
         }
 
         function logWs(msg) {
@@ -213,14 +223,24 @@
             if (ws && ws.readyState <= 1) return;
             if (!wsApiKey || wsApiKey.length < 8) {
                 setWsStatus(false);
-                logWs('Disconnected — provision an institutional API key to enable the live stream.');
+                if (!wsIdleNoticeShown) {
+                    logWs('Disconnected — provision an institutional API key to enable the live stream.');
+                    wsIdleNoticeShown = true;
+                }
                 return;
             }
             const url = `${wsScheme}//${location.host}/ws/b2b/feed?api_key=${encodeURIComponent(wsApiKey)}`;
             logWs('Connecting…');
             ws = new WebSocket(url);
+            syncWsControls();
             ws.onopen = () => { setWsStatus(true); logWs('OPEN'); };
-            ws.onclose = () => { setWsStatus(false); logWs('CLOSED'); ws = null; };
+            ws.onclose = () => {
+                setWsStatus(false);
+                if (!wsUserDisconnect) logWs('CLOSED');
+                wsUserDisconnect = false;
+                ws = null;
+                syncWsControls();
+            };
             ws.onerror = () => logWs('ERROR');
             ws.onmessage = (ev) => {
                 try {
@@ -254,7 +274,16 @@
             return esc(item.title || item.name || item.item || item.label || JSON.stringify(item));
         }
         function disconnectWs() {
-            if (ws) ws.close();
+            if (!ws) {
+                syncWsControls();
+                return;
+            }
+            wsUserDisconnect = true;
+            try { ws.close(); } catch (error) { console.debug(error); }
+            ws = null;
+            setWsStatus(false);
+            logWs('Disconnected by user.');
+            syncWsControls();
         }
 
         async function runDemo() {
@@ -491,8 +520,12 @@
         });
 
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', bootB2bDeepLinks);
+            document.addEventListener('DOMContentLoaded', () => {
+                syncWsControls();
+                bootB2bDeepLinks();
+            });
         } else {
+            syncWsControls();
             bootB2bDeepLinks();
         }
         window.addEventListener('hashchange', bootB2bDeepLinks);
