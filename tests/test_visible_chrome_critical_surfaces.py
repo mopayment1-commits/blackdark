@@ -83,7 +83,8 @@ def test_dashboard_prove_lens_upgrade_pro_routes_to_pricing():
     assert "Upgrade Pro" in dash
     assert "currentLens === 'prove'" in dash
     assert "goNavUrl('/pricing')" in dash
-    assert "body.lens-prove .section-operate-plus { opacity:.55; }" in dash
+    assert "btn-upgrade-cta" in dash
+    assert "body.lens-prove .section-operate-plus .btn-upgrade-cta" in dash
 
 
 def test_pricing_ladder_not_embedded_on_landing():

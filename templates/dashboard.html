@@ -105,7 +105,26 @@
         .section-desk-only, .section-operate-plus { transition: opacity .25s ease; }
         body.lens-prove .section-desk-only { display:none; }
         body.lens-prove .hide-on-prove { display:none; }
-        body.lens-prove .section-operate-plus { opacity:.55; }
+        body.lens-prove .section-operate-plus {
+            border-color: #1c1c26;
+            background: rgba(17, 17, 24, 0.72);
+        }
+        body.lens-prove .section-operate-plus > h2 { color: rgba(34, 211, 238, 0.58); }
+        body.lens-prove .section-operate-plus > .sub,
+        body.lens-prove .section-operate-plus .arb-card,
+        body.lens-prove .section-operate-plus .empty:not(:has(.btn-upgrade-cta)),
+        body.lens-prove .section-operate-plus .toolbar .btn.secondary {
+            opacity: 0.62;
+        }
+        body.lens-prove .section-operate-plus .btn-upgrade-cta {
+            background: linear-gradient(135deg, #22d3ee, #06b6d4);
+            color: #041016;
+            box-shadow: 0 10px 28px rgba(34, 211, 238, 0.35);
+        }
+        body.lens-prove .section-operate-plus .btn-upgrade-cta:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 14px 36px rgba(34, 211, 238, 0.45);
+        }
         body.lens-operate .section-desk-only { display:none; }
         body.lens-room .hide-in-room { display:none; }
         .proof-pulse { animation: proofIn .55s ease; }
@@ -381,7 +400,7 @@
             <p class="sub">Operate+ · explains the current decision context — does not replace the Oracle or guarantee outcomes</p>
             <div id="chatGate" class="empty" style="display:none">
                 AI Chat is on DECIDE / PRO and paid tiers above.
-                <button class="btn" style="margin-top:.65rem" type="button" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">Start DECIDE / PRO</button>
+                <button class="btn btn-primary btn-upgrade-cta" style="margin-top:.65rem" type="button" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">Start DECIDE / PRO</button>
                 <div style="margin-top:.5rem;font-size:.75rem"><a href="/faq">FAQ</a> · <a href="/how-it-works">How it works</a></div>
             </div>
             <div id="chatPanel" style="display:none">
@@ -1642,7 +1661,7 @@
                 if (res.status === 401 || res.status === 403) {
                     const detail = d.detail || {};
                     el.innerHTML = `<div class="empty">${esc(detail.message || 'Decision Pro required for daily report')}
-                        <div style="margin-top:.65rem"><button class="btn" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">Upgrade Pro</button></div></div>`;
+                        <div style="margin-top:.65rem"><button class="btn btn-primary btn-upgrade-cta" type="button" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">Upgrade Pro</button></div></div>`;
                     return;
                 }
                 if (!res.ok) throw new Error('fail');
@@ -1677,7 +1696,7 @@
                 if (res.status === 401 || res.status === 403) {
                     const detail = d.detail || {};
                     el.innerHTML = `<div class="empty">${esc(detail.message || 'Pro/Whale required for subscriber value')}
-                        <div style="margin-top:.65rem"><button class="btn" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">Upgrade Pro</button></div></div>`;
+                        <div style="margin-top:.65rem"><button class="btn btn-primary btn-upgrade-cta" type="button" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">Upgrade Pro</button></div></div>`;
                     return;
                 }
                 if (!res.ok) throw new Error('fail');
@@ -1767,7 +1786,7 @@
                     const detail = data.detail || {};
                     stats.textContent = detail.message || 'Pro required';
                     el.innerHTML = `<div class="empty">${esc(detail.message || 'Upgrade required for arbitrage')}
-                        <div style="margin-top:.75rem"><button class="btn" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">Upgrade Pro</button></div></div>`;
+                        <div style="margin-top:.75rem"><button class="btn btn-primary btn-upgrade-cta" type="button" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">Upgrade Pro</button></div></div>`;
                     return;
                 }
                 const c = data.counts || {};
