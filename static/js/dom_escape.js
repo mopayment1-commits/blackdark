@@ -35,6 +35,7 @@
 
   /** External href hosts present in landing.html / dashboard.html @ e7ec0cd4 (share + t.me bot). */
   const SHARE_NAV_HOSTS = new Set([
+    "x.com", // X share intents
     "twitter.com", // landing.html — share X intent
     "www.facebook.com", // landing.html — share Facebook
     "wa.me", // landing.html — share WhatsApp

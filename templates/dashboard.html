@@ -260,7 +260,7 @@
             <div class="tp-cont" id="tpContinuity"></div>
             <div class="tp-cta">
                 <button class="btn" type="button" data-bd-call="openFullProof">Open full proof</button>
-                <button class="btn secondary" type="button" id="tpShareBtn" data-bd-call="shareTrustPulse" hidden>Share Proof</button>
+                <button class="btn secondary" type="button" id="tpShareBtn" data-bd-call="shareTrustPulse" data-bd-sync="1" hidden>Share Proof</button>
             </div>
             <div class="tp-foot" id="tpFoot"><strong>Anti-Hype</strong> · Not financial advice · AI cannot guarantee returns</div>
         </section>
@@ -1606,25 +1606,68 @@
             if (fresh) fresh.textContent = 'Launch-57 command home';
         }
 
+        function flashShareProofButton(label, resetMs) {
+            const btn = document.getElementById('tpShareBtn');
+            if (!btn) return;
+            const prev = btn.dataset.shareLabel || btn.textContent || 'Share Proof';
+            if (!btn.dataset.shareLabel) btn.dataset.shareLabel = prev;
+            btn.textContent = label;
+            btn.classList.remove('bd-motion-share');
+            btn.dataset.reflow = String(btn.offsetWidth);
+            btn.classList.add('bd-motion-share');
+            window.clearTimeout(flashShareProofButton._t);
+            flashShareProofButton._t = window.setTimeout(() => {
+                btn.textContent = btn.dataset.shareLabel || 'Share Proof';
+            }, resetMs || 2200);
+        }
+
+        function copyTextWithFallback(text) {
+            const value = String(text || '').trim();
+            if (!value) return false;
+            try {
+                const ta = document.createElement('textarea');
+                ta.value = value;
+                ta.setAttribute('readonly', '');
+                ta.style.position = 'fixed';
+                ta.style.left = '-9999px';
+                document.body.appendChild(ta);
+                ta.select();
+                const ok = document.execCommand('copy');
+                document.body.removeChild(ta);
+                if (ok) return true;
+            } catch (error) { console.debug(error); }
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                try {
+                    navigator.clipboard.writeText(value);
+                    return true;
+                } catch (error) { console.debug(error); }
+            }
+            return false;
+        }
+
         async function shareTrustPulse() {
             const btn = document.getElementById('tpShareBtn');
             if (btn && btn.hidden) return;
             const p = lastPulse || {};
             if (!p.launch57_oracle_bound || p.action === 'UNAVAILABLE') return;
-            if (Number((p.proof || {}).launch_item_id) !== 44) {
-                try { await prefetchShareProof(p); } catch (error) { console.debug(error); }
-            }
+
             const bundle = buildTrustPulseShareBundle(p);
-            const proof = (lastPulse && lastPulse.proof) || {};
+            const proof = (p.proof || {});
             const text = (proof.share_text || bundle.text || '').trim();
             const shareUrls = proof.share_urls || bundle.share_urls || {};
             const url = proof.permalink || shareUrls.x || shareUrls.twitter || bundle.permalink || null;
-            if (!text && !url && !shareUrls.telegram) return;
+            if (!text && !url && !shareUrls.telegram) {
+                flashShareProofButton('Nothing to share', 1800);
+                return;
+            }
 
-            if (btn) {
-                btn.classList.remove('bd-motion-share');
-                btn.dataset.reflow = String(btn.offsetWidth);
-                btn.classList.add('bd-motion-share');
+            if (Number(proof.launch_item_id) !== 44) {
+                void prefetchShareProof(p);
+            }
+
+            if (text && copyTextWithFallback(text)) {
+                flashShareProofButton('Copied!');
+                return;
             }
 
             if (navigator.share) {
@@ -1634,37 +1677,33 @@
                         text: text || undefined,
                         url: url || 'https://blackdark.io/oracle-accuracy',
                     });
+                    flashShareProofButton('Shared!');
                     return;
-                } catch (error) { console.debug(error); }
+                } catch (error) {
+                    if (error && error.name === 'AbortError') return;
+                    console.debug(error);
+                }
             }
 
             const xUrl = shareUrls.x || shareUrls.twitter;
             const tgUrl = shareUrls.telegram;
-            if (xUrl) {
-                openNavUrl(xUrl);
-                return;
-            }
-            if (tgUrl) {
-                openNavUrl(tgUrl);
-                return;
-            }
-            if (url) {
-                openNavUrl(url);
-                return;
+            const navTarget = xUrl || tgUrl || url;
+            if (navTarget) {
+                const safe = (window.BDDomSafe && window.BDDomSafe.allowedNavigationUrl)
+                    ? window.BDDomSafe.allowedNavigationUrl(navTarget)
+                    : navTarget;
+                if (safe) {
+                    if (safe.startsWith('/')) goNavUrl(safe);
+                    else if (window.BDDomSafe && window.BDDomSafe.openWindow) openNavUrl(safe);
+                    else window.open(safe, '_blank', 'noopener');
+                    flashShareProofButton('Opened share');
+                    return;
+                }
             }
 
-            if (text && navigator.clipboard && navigator.clipboard.writeText) {
-                try {
-                    await navigator.clipboard.writeText(text);
-                    if (btn) {
-                        const prev = btn.textContent;
-                        btn.textContent = 'Copied!';
-                        setTimeout(() => { btn.textContent = prev || 'Share Proof'; }, 2200);
-                    }
-                    return;
-                } catch (error) { console.debug(error); }
-            }
+            flashShareProofButton('Copy blocked', 2400);
         }
+        window.shareTrustPulse = shareTrustPulse;
 
         function setSymbol(s) {
             document.getElementById('symbol').value = s;

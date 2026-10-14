@@ -126,8 +126,14 @@ def test_dashboard_share_proof_builds_clipboard_fallback():
     dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
     assert "buildTrustPulseShareBundle" in dash
     assert "syncTrustPulseShareState" in dash
-    assert "clipboard.writeText" in dash.split("async function shareTrustPulse()", 1)[1].split("function setSymbol", 1)[0]
+    share_block = dash.split("async function shareTrustPulse()", 1)[1].split("window.shareTrustPulse", 1)[0]
+    assert "copyTextWithFallback" in share_block
+    assert "flashShareProofButton" in share_block
     assert "Copied!" in dash
+    assert 'id="tpShareBtn"' in dash and 'data-bd-sync="1"' in dash
+    assert "window.shareTrustPulse = shareTrustPulse" in dash
+    csp = (ROOT / "static/js/csp_events.js").read_text(encoding="utf-8")
+    assert "data-bd-sync" in csp
 
 
 def test_pricing_ladder_not_embedded_on_landing():
