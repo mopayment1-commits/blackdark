@@ -212,6 +212,8 @@ def test_dashboard_live_chart_refresh_and_interval_wired():
     chart_sec = dash.split("<h2>Live Chart</h2>", 1)[1].split("</section>", 1)[0]
     assert 'data-bd-change-call="loadChart"' in chart_sec
     assert 'id="chartRefreshBtn"' in chart_sec
+    assert 'data-bd-call="loadChart"' in chart_sec
+    assert "data-bd-args=\"[true]\"" in chart_sec
     assert "bindLiveChartRefresh" in dash
     assert "addEventListener('click'" in dash.split("bindLiveChartRefresh", 1)[1].split("function bindInboxRefresh", 1)[0]
     assert "else boot();\n        bindLiveChartRefresh();" in dash
@@ -271,7 +273,9 @@ def test_dashboard_markdown_on_prove_lens_shows_upgrade_not_raw_api_link():
     assert 'data-bd-call="openDailyReportMarkdown"' in digest
     assert 'href="/api/reports/daily/markdown"' not in digest
     assert "function syncDailyReportMarkdownBtn()" in dash
-    assert "userTierId === 'free'" in dash.split("syncDailyReportMarkdownBtn", 1)[1][:400]
+    assert "userTierId === 'free'" in dash.split("syncDailyReportMarkdownBtn", 1)[1][:500]
+    assert "d.tier.tier" in dash.split("async function loadAuth", 1)[1][:1200]
+    assert "#dailyReportMarkdownBtn" in dash
     assert "function openDailyReportMarkdown()" in dash
     assert "operatePlusBlockedOnProveLens()" in dash.split("openDailyReportMarkdown", 1)[1][:800]
     assert "Upgrade to Pro" in dash.split("openDailyReportMarkdown", 1)[1][:800]

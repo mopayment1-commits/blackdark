@@ -148,7 +148,7 @@
         body.lens-prove .section-operate-plus > .sub,
         body.lens-prove .section-operate-plus .arb-card,
         body.lens-prove .section-operate-plus .empty:not(:has(.btn-upgrade-cta)),
-        body.lens-prove .section-operate-plus .toolbar .btn.secondary {
+        body.lens-prove .section-operate-plus .toolbar .btn.secondary:not(#dailyReportMarkdownBtn) {
             opacity: 0.62;
         }
         body.lens-prove .section-operate-plus .btn-upgrade-cta {
@@ -372,7 +372,7 @@
             <div class="toolbar">
                 <label for="chartIv" class="sr-only">Chart interval</label>
                 <select id="chartIv" data-bd-change-call="loadChart" aria-label="Chart interval"><option value="15m">15m</option><option value="1h" selected>1h</option><option value="4h">4h</option></select>
-                <button class="btn secondary" type="button" id="chartRefreshBtn">Refresh</button>
+                <button class="btn secondary" type="button" id="chartRefreshBtn" data-bd-call="loadChart" data-bd-args="[true]">Refresh</button>
             </div>
             <div id="chart"></div>
             <p class="sub" id="l57ChartNote" style="margin-top:.5rem">Launch-57 OHLCV (#23) — chart hidden if bars unavailable.</p>
@@ -562,7 +562,9 @@
         function syncDailyReportMarkdownBtn() {
             const btn = document.getElementById('dailyReportMarkdownBtn');
             if (!btn) return;
-            btn.style.display = userTierId === 'free' ? 'none' : '';
+            const isFree = userTierId === 'free';
+            btn.style.display = isFree ? 'none' : 'inline-flex';
+            btn.style.opacity = isFree ? '' : '1';
         }
 
         function escapeHtml(value) {
@@ -626,8 +628,7 @@
             btn.dataset.bound = '1';
             btn.addEventListener('click', (event) => {
                 event.preventDefault();
-                const fn = window.loadChart || loadChart;
-                if (typeof fn === 'function') void fn(true);
+                if (typeof loadChart === 'function') void loadChart(true);
             });
         }
 
@@ -891,7 +892,7 @@
                     return;
                 }
                 if (d.authenticated) {
-                    userTierId = (d.user && d.user.tier) || (d.tier && d.tier.id) || 'free';
+                    userTierId = String((d.user && d.user.tier) || (d.tier && (d.tier.tier || d.tier.id)) || 'free').toLowerCase();
                     if (tierEl) tierEl.textContent = String(d.tier?.label || d.user?.tier || 'FREE').toUpperCase();
                     if (authLink) {
                         authLink.textContent = 'Logout';
@@ -2881,6 +2882,7 @@
             }
             document.body.classList.remove('lens-prove','lens-operate','lens-desk','lens-room');
             document.body.classList.add('lens-' + currentLens);
+            syncDailyReportMarkdownBtn();
             document.querySelectorAll('.lens-btn').forEach(b => {
                 b.classList.toggle('active', b.dataset.lens === currentLens);
             });
