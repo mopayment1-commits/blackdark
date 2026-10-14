@@ -4283,6 +4283,13 @@ def _b2b_pilot_call_href() -> str | None:
     return "/b2b/pilot"
 
 
+def _b2b_elite_cta_href(request: Request) -> str:
+    """Signed-in users go to checkout; guests go to elite registration."""
+    if getattr(request.state, "header_user", None):
+        return "/create-checkout-session?tier=elite"
+    return "/login?tab=register&plan=elite"
+
+
 @app.get("/b2b", response_class=HTMLResponse)
 async def b2b_page(request: Request):
     expose_demo = os.getenv("EXPOSE_B2B_DEMO_KEY", "").lower() in {"1", "true", "yes"}
@@ -4298,6 +4305,7 @@ async def b2b_page(request: Request):
             "pilot_call_external": bool(
                 pilot_call_href and pilot_call_href.startswith(("http://", "https://"))
             ),
+            "elite_cta_href": _b2b_elite_cta_href(request),
         },
     )
 

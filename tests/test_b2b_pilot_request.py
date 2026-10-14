@@ -33,6 +33,20 @@ def test_b2b_page_pilot_link_not_mailto(client):
     assert "mailto:info@blackdark.io" not in html or html.count("mailto:info@blackdark.io") == 0
 
 
+def test_b2b_elite_cta_anonymous_registers(client):
+    html = client.get("/b2b").text
+    assert 'href="/login?tab=register&amp;plan=elite">SEE THE EDGE / ELITE</a>' in html
+
+
+def test_b2b_elite_cta_authenticated_checkout(client, monkeypatch):
+    async def _fake_user(_request):
+        return {"email": "elite@example.com", "name": "Elite", "tier": "free"}
+
+    monkeypatch.setattr("dashboard._resolve_html_auth_user", _fake_user)
+    html = client.get("/b2b").text
+    assert 'href="/create-checkout-session?tier=elite">SEE THE EDGE / ELITE</a>' in html
+
+
 def test_pilot_page_renders_form(client):
     res = client.get("/b2b/pilot")
     assert res.status_code == 200
