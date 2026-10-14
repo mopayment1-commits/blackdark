@@ -187,6 +187,18 @@ def test_dashboard_desk_tools_opens_menu_on_prove_lens():
     assert "/dashboard#portfolio" not in desk_menu
 
 
+def test_dashboard_stealth_and_mev_asset_dropdowns():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    stealth = dash.split('id="stealth"', 1)[1].split("</section>", 1)[0]
+    mev = dash.split('id="mev"', 1)[1].split("</section>", 1)[0]
+    assert '<select id="stealthAsset"' in stealth
+    assert "oracle_symbols" in stealth
+    assert '<select id="mevAsset"' in mev
+    assert "oracle_symbols" in mev
+    assert 'loadCommandHome(true)' in dash.split("loadHalfLifeClock", 1)[1][:500]
+    assert "window.loadHalfLifeClock = loadHalfLifeClock" in dash
+
+
 def test_dashboard_portfolio_ai_symbol_is_dropdown():
     dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
     portfolio = dash.split('id="portfolio"', 1)[1].split("</section>", 1)[0]

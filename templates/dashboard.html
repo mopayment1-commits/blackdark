@@ -451,7 +451,12 @@
             <h2>Stealth Execution Advisor</h2>
             <p class="sub">Whale audience · advisory slice labels (SLICE_* / LIMIT_CLIP_ADVISORY) — not live TWAP/VWAP/SOR</p>
             <div class="toolbar">
-                <input id="stealthAsset" type="text" value="ETH" style="width:90px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7" aria-label="stealthAsset">
+                <label for="stealthAsset" class="sr-only">Asset</label>
+                <select id="stealthAsset" aria-label="stealthAsset" style="width:100px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7">
+                    {% for sym in oracle_symbols|default(['BTC', 'ETH', 'SOL', 'BNB', 'XRP']) %}
+                    <option value="{{ sym }}"{% if sym == 'ETH' %} selected{% endif %}>{{ sym }}</option>
+                    {% endfor %}
+                </select>
                 <input id="stealthNotional" type="number" value="250000" style="width:140px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7" aria-label="stealthNotional">
                 <label for="stealthSide" class="sub" style="margin:0">Side</label>
                 <select id="stealthSide" aria-label="stealthSide"><option value="buy">Buy</option><option value="sell">Sell</option></select>
@@ -464,7 +469,12 @@
             <h2>MEV / Sandwich Report</h2>
             <p class="sub">Shareable risk posture — prove the drag, don’t hype private mempool alpha</p>
             <div class="toolbar">
-                <input id="mevAsset" type="text" value="ETH" style="width:90px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7" aria-label="mevAsset">
+                <label for="mevAsset" class="sr-only">Asset</label>
+                <select id="mevAsset" aria-label="mevAsset" style="width:100px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7">
+                    {% for sym in oracle_symbols|default(['BTC', 'ETH', 'SOL', 'BNB', 'XRP']) %}
+                    <option value="{{ sym }}"{% if sym == 'ETH' %} selected{% endif %}>{{ sym }}</option>
+                    {% endfor %}
+                </select>
                 <input id="mevNotional" type="number" value="10000" style="width:140px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7" aria-label="mevNotional">
                 <button class="btn secondary" data-bd-call="loadMevReport">Build report</button>
                 <button class="btn secondary" data-bd-call="copyMevShare">Copy share text</button>
@@ -2515,10 +2525,11 @@
             const svg = document.getElementById('halfLifeSvg');
             const line = document.getElementById('halfLifeLine');
             if (!svg || !line) return;
+            line.textContent = 'Refreshing clock…';
             try {
-                let data = lastCommandHome;
-                if (!data && commandHomeInflight) data = await commandHomeInflight;
-                if (!data) data = await loadCommandHome(false);
+                commandHomeInflight = null;
+                commandHomeInflightKey = '';
+                const data = await loadCommandHome(true);
                 if (!data) throw new Error('launch57_command_home_required');
                 const d = commandHomeToHalfLifeHeat(data);
                 const bandColor = /^#[0-9a-fA-F]{3,8}$/.test(String(d.band?.color || '')) ? d.band.color : '#22d3ee';
@@ -2921,6 +2932,7 @@
         window.openDeskTools = openDeskTools;
         window.closeDeskToolsMenu = closeDeskToolsMenu;
         window.openDeskToolSection = openDeskToolSection;
+        window.loadHalfLifeClock = loadHalfLifeClock;
 
         function boot() {
             loadAuth();
