@@ -2380,6 +2380,11 @@
             } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Continuity unavailable</div>'; }
         }
 
+        function isDedicatedHalfLifePage() {
+            const p = (location.pathname || '').replace(/\/$/, '') || '/';
+            return p === '/half-life';
+        }
+
         function commandHomeToHalfLifeHeat(data) {
             const home = (data && data.six_heroes_command_home) || {};
             const oracle = home.oracle || {};
@@ -2403,7 +2408,9 @@
                 band: { label, color },
                 half_life: { remaining_seconds: remaining },
                 sweep_degrees: angle,
-                desk_line: `Launch-57 command home · ${freshness} · ${action} — desk timing grounded (no legacy oracle fetch).`,
+                desk_line: isDedicatedHalfLifePage()
+                    ? ''
+                    : `Launch-57 command home · ${freshness} · ${action} — desk timing grounded (no legacy oracle fetch).`,
             };
         }
 
@@ -2450,10 +2457,13 @@
                 const strong = document.createElement('strong');
                 strong.style.color = bandColor;
                 strong.textContent = label;
-                const desk = document.createElement('div');
-                desk.style.marginTop = '.35rem';
-                desk.textContent = String(d.desk_line || '');
-                line.append(strong, desk);
+                line.append(strong);
+                if (d.desk_line) {
+                    const desk = document.createElement('div');
+                    desk.style.marginTop = '.35rem';
+                    desk.textContent = String(d.desk_line);
+                    line.append(desk);
+                }
             } catch (error) { console.debug(error); line.textContent = 'Half-Life clock unavailable'; }
         }
 

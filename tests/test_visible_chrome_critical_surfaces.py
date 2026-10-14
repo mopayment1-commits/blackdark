@@ -125,6 +125,14 @@ def test_dashboard_prove_lens_my_book_operate_gate_not_raw_billing_json():
     assert "create-checkout-session?tier=" not in dash.split("async function upgradeTier", 1)[1].split("let lastPulse", 1)[0]
 
 
+def test_half_life_page_omits_launch57_desk_line():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    assert "isDedicatedHalfLifePage" in dash
+    assert "desk timing grounded (no legacy oracle fetch)" in dash
+    block = dash.split("function commandHomeToHalfLifeHeat", 1)[1].split("async function loadHalfLifeClock", 1)[0]
+    assert "isDedicatedHalfLifePage()" in block
+
+
 def test_dashboard_prove_lens_single_primary_entry_rail_under_trust_pulse():
     dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
     assert 'id="entryRail"' in dash
