@@ -80,6 +80,10 @@ async def build_public_miss_feed(*, limit: int = 40) -> dict[str, Any]:
         "share_text": share,
         "share_urls": {
             "x": f"https://twitter.com/intent/tweet?text={quote(share)}",
+            "telegram": (
+                f"https://t.me/share/url?url={quote('https://blackdark.io/miss-feed')}"
+                f"&text={quote(share)}"
+            ),
             "whatsapp": f"https://wa.me/?text={quote(share)}",
         },
         "page": "/miss-feed",

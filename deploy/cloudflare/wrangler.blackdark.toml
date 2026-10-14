@@ -1,0 +1,11 @@
+name = "blackdark-origin-proxy"
+main = "worker-origin-proxy.js"
+compatibility_date = "2024-06-01"
+
+[vars]
+ORIGIN = "blackdark-production.up.railway.app"
+
+# After `wrangler login`, deploy with:
+#   npx wrangler deploy -c deploy/cloudflare/wrangler.blackdark.toml
+# Routes must be attached in Cloudflare dashboard if not using zones API:
+#   blackdark.io/*  and  www.blackdark.io/*

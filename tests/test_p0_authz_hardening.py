@@ -132,4 +132,5 @@ def test_b2b_page_masks_demo_key_by_default(monkeypatch):
     monkeypatch.setattr(config, "B2B_DEMO_API_KEY", "should-not-leak", raising=False)
     src = open("dashboard.py", encoding="utf-8").read()
     assert "EXPOSE_B2B_DEMO_KEY" in src
-    assert 'else "contact-sales"' in src
+    assert "demo_key_exposed" in src
+    assert "contact-sales" not in open("templates/b2b.html", encoding="utf-8").read()

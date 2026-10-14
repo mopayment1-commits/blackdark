@@ -8,7 +8,9 @@ RTL: Arabic, Hebrew, Urdu, Persian/Farsi.
 from __future__ import annotations
 
 import json
+import re
 from collections.abc import Callable
+from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
@@ -109,8 +111,192 @@ def is_rtl(lang: str | None) -> bool:
     return locale_meta(lang)["dir"] == "rtl"
 
 
+LOGIN_UI_KEYS: tuple[str, ...] = (
+    "login.tab.login",
+    "login.tab.signup",
+    "login.email",
+    "login.pass_label",
+    "login.password",
+    "login.remember",
+    "login.confirm_password",
+    "login.submit",
+    "login.name",
+    "auth.google",
+    "auth.signup_submit",
+    "auth.divider_email",
+    "nav.login",
+    "nav.signup",
+    "nav.logout",
+    "nav.profile",
+    "lang.label",
+)
+
+# Keys that may match English (brand SKUs, tier names, universal acronyms).
+ALLOW_IDENTICAL: frozenset[str] = frozenset(
+    {
+        "brand",
+        "action.ACT",
+        "action.WAIT",
+        "pricing.pro",
+        "pricing.public.col.pro",
+        "pricing.public.col.plus",
+        "pricing.public.tier.pro.name",
+        "pricing.public.tier.plus.name",
+        "pricing.whale",
+        "pricing.decision_pro",
+        "pricing.decision_desk",
+        "stats.telegram",
+        "footer.status",
+        "login.name",
+        "pricing.public.name",
+        "pulse.live",
+        "ledger.cta.json_api",
+        "footer.col.product",
+        "footer.link.dashboard",
+        "common.anti_hype",
+        "oracle.mode.pro",
+        "oracle.audience.pro",
+        "oracle.audience.whale",
+        "oracle.audience.fund",
+        "oracle.audience.retail",
+    }
+)
+
+_TEMPLATE_I18N_KEY_RE = re.compile(r"\{\{\s*t\('([^']+)'\)")
+
+_EXTRA_PUBLIC_SURFACE_KEYS: tuple[str, ...] = (
+    "a11y.skip_trust_pulse",
+    "a11y.trust_pulse",
+    "pulse.stale",
+    "pulse.verify_ledger",
+    "pulse.free_proof",
+    "pulse.no_cert",
+    "pulse.cert_prefix",
+    "pulse.fallback_sentence",
+    "pulse.share_default",
+    "pulse.conditions_met_review",
+    "pulse.model_state",
+    "pulse.model_state_conditions",
+    "seal.stamp_prefix",
+    "footer.col.product",
+    "footer.col.trust",
+    "footer.col.company",
+    "footer.col.legal",
+    "footer.follow",
+    "footer.tagline",
+    "footer.story",
+    "footer.ledger",
+    "footer.status",
+    "footer.disclaimer",
+    "footer.link.trust_pulse",
+    "footer.link.decide",
+    "footer.link.verify",
+    "footer.link.dashboard",
+    "footer.link.pricing",
+    "footer.link.profile",
+    "footer.link.chat",
+    "ledger.hero.badge",
+    "ledger.hero.title",
+    "ledger.hero.engine_rules",
+    "ledger.hero.engine_checking",
+    "ledger.hero.lead",
+    "ledger.hero.alias",
+    "ledger.cta.verify_chain",
+    "ledger.cta.misses",
+    "ledger.cta.glass",
+    "ledger.cta.mirror",
+    "ledger.cta.docs",
+    "ledger.proof_chain.title",
+    "ledger.proof_chain.loading",
+    "ledger.footer",
+    "ledger.cta.dashboard",
+    "ledger.cta.json_api",
+    "ledger.cta.evidence",
+)
+
+
+@lru_cache(maxsize=1)
+def public_surface_keys() -> tuple[str, ...]:
+    root = Path(__file__).resolve().parent
+    found: set[str] = set(_EXTRA_PUBLIC_SURFACE_KEYS)
+    for rel in (
+        "templates/landing.html",
+        "templates/login.html",
+        "templates/pricing.html",
+        "templates/partials/site_top_nav.html",
+        "templates/partials/lang_switcher.html",
+        "templates/partials/site_footer.html",
+        "templates/oracle_accuracy.html",
+    ):
+        path = root / rel
+        if path.is_file():
+            found |= set(_TEMPLATE_I18N_KEY_RE.findall(path.read_text(encoding="utf-8")))
+    return tuple(sorted(k for k in found if k in EN))
+
+
+def _locale_raw_strings(code: str) -> dict[str, str]:
+    """Locale file only — no English merge."""
+    code = normalize_lang(code)
+    if code == "en":
+        return dict(EN)
+    loaded = _load_json_catalog(code)
+    return dict(loaded) if loaded else {}
+
+
+def _translation_valid(code: str, key: str, value: str | None) -> bool:
+    if not value or not str(value).strip() or value == key:
+        return False
+    if code == "en":
+        return key in EN
+    en_val = EN.get(key)
+    if en_val is None:
+        return False
+    if key in ALLOW_IDENTICAL:
+        return True
+    return value != en_val
+
+
+def locale_ui_complete(code: str) -> bool:
+    code = normalize_lang(code)
+    if code == "en":
+        return True
+    for key in public_surface_keys():
+        if _effective_translation(code, key) is None:
+            return False
+    return True
+
+
+def _locale_json_codes() -> tuple[str, ...]:
+    """Locale codes with an on-disk catalog (locales/<code>.json)."""
+    root = _locales_dir()
+    codes: list[str] = []
+    for path in sorted(root.glob("*.json")):
+        code = path.stem
+        if code in LOCALES:
+            codes.append(code)
+    if "en" not in codes and "en" in LOCALES:
+        codes.insert(0, "en")
+
+    def _sort_key(c: str) -> tuple[int, str]:
+        if c == "en":
+            return (0, "")
+        return (1, str(LOCALES.get(c, {}).get("native") or c))
+
+    return tuple(sorted(set(codes), key=_sort_key))
+
+
 def list_locales() -> list[dict[str, str]]:
-    return [dict(v) for v in LOCALES.values()]
+    """Locales exposed in the header switcher (every locales/*.json catalog)."""
+    return [dict(LOCALES[code]) for code in _locale_json_codes() if code in LOCALES]
+
+
+def locale_catalog_available(code: str) -> bool:
+    code = normalize_lang(code)
+    if code not in LOCALES:
+        return False
+    if code == "en":
+        return True
+    return (_locales_dir() / f"{code}.json").is_file()
 
 
 # ---------------------------------------------------------------------------
@@ -132,7 +318,9 @@ EN: dict[str, str] = {
     "nav.accuracy": "Accuracy",
     "nav.login": "Login",
     "nav.signup": "Sign up",
-    "nav.logout": "Logout",
+    "nav.profile": "Profile",
+    "nav.logout": "Sign out",
+    "nav.logout_failed": "Could not sign out. Try again.",
     "nav.dashboard": "Dashboard",
     "nav.platform": "Platform",
     "nav.capabilities": "Capabilities",
@@ -142,6 +330,8 @@ EN: dict[str, str] = {
     "nav.stealth": "Stealth",
     "nav.try_oracle": STR_TRY_ORACLE_FREE,
     "nav.verify_accuracy": "Verify Accuracy",
+    "nav.search.label": "Search site",
+    "nav.search.placeholder": "Search",
     "lang.label": "Language",
     "lang.choose": "Choose language",
     # Launch / hero
@@ -242,6 +432,11 @@ EN: dict[str, str] = {
     "login.tab.register": "Register",
     "login.email": "Email",
     "login.pass_label": "Passcode",
+    "login.password": "Passcode",
+    "login.remember": "Remember me",
+    "login.confirm_password": "Confirm password",
+    "auth.signup_submit": "Sign up",
+    "auth.divider_email": "or continue with email",
     "login.name": "Name",
     "login.pass_hint": "Passcode (8+ chars)",
     "login.submit": "Login",
@@ -343,7 +538,7 @@ EN: dict[str, str] = {
     "hero.headline": "We publish the miss.",
     "hero.support": "Sealed forecasts before the event. Public proof after.",
     "hero.cta.try": STR_TRY_ORACLE_FREE,
-    "hero.cta.seal": "Watch the Seal",
+    "hero.cta.seal": "See the Seal",
     "pulse.label": "TRUST PULSE",
     "pulse.live": "Live",
     "pulse.loading": "Loading today’s decision…",
@@ -414,9 +609,9 @@ EN: dict[str, str] = {
     "pricing.cta.desk": "Get ELITE",
     "pricing.cta.talk": "Talk to us",
     "pricing.cta.b2b": "B2B Data Feed",
-    "pricing.pay_note": "Prices in USD. Card data is processed by Lemon Squeezy / Stripe hosted checkout — never stored on BLACKDARK.",
+    "pricing.pay_note": "",
     "pricing.manage": "Manage plan anytime from Profile & Billing.",
-    "login.lead": "Login or create an account. Email + passcode. 7-day DECIDE / PRO trial on signup. USD billing via hosted Lemon/Stripe — card data never touches us.",
+    "login.lead": "Login or create an account. Email + passcode. 7-day DECIDE / PRO trial on signup.",
     "login.tab.signup": "Sign up",
     "auth.forgot_pass": "Forgot passcode?",
     "auth.forgot_username": "Forgot username?",
@@ -425,6 +620,144 @@ EN: dict[str, str] = {
     "auth.or_email": "or email",
     "auth.create": "Create account",
     "auth.accept_terms": "I accept the Terms, Privacy, and Risk Disclaimer. Not financial advice.",
+    "profile.meta_title": "BLACKDARK — Profile",
+    "profile.title": "Your profile",
+    "profile.loading": "Loading…",
+    "profile.gate_prefix": "Please",
+    "profile.gate_login": "log in",
+    "profile.gate_or": "or",
+    "profile.gate_register": "create an account",
+    "profile.gate_suffix": "to manage profile and billing.",
+    "profile.avatar_alt": "Avatar",
+    "profile.upload_label": "Upload avatar (JPEG/PNG/WebP ≤ 2MB)",
+    "profile.upload_btn": "Upload",
+    "profile.initials_btn": "Use initials",
+    "profile.section.profile": "Profile",
+    "profile.section.security": "Security",
+    "profile.section.plan": "Plan",
+    "profile.display_name": "Display name",
+    "profile.username": "Public username (@handle for Proof Cards)",
+    "profile.ui_lang": "UI language",
+    "profile.ux_mode": "UX mode",
+    "profile.ux_mode.beginner": "Beginner",
+    "profile.ux_mode.pro": "Advanced",
+    "profile.timezone": "Timezone",
+    "profile.telegram": "Telegram chat ID (alerts)",
+    "profile.save": "Save profile",
+    "profile.resend_verify": "Resend verification email",
+    "profile.current_password": "Current password (blank if OAuth-only / setting first password)",
+    "profile.new_password": "New password (10+)",
+    "profile.update_password": "Update password",
+    "profile.mfa_enable": "Enable MFA (TOTP)",
+    "profile.mfa_confirm_label": "Confirm MFA code",
+    "profile.mfa_confirm_placeholder": "Confirm MFA code to enable",
+    "profile.mfa_confirm_btn": "Confirm MFA",
+    "profile.mfa_disable_label": "Disable MFA code",
+    "profile.mfa_disable_placeholder": "Code to disable MFA",
+    "profile.mfa_disable_btn": "Disable MFA",
+    "profile.logout_all": "Log out all sessions",
+    "profile.plan.plus_cta": "Plus · $29/mo",
+    "profile.plan.pro_cta": "Pro · $49/mo",
+    "profile.plan.enterprise_cta": "Enterprise",
+    "profile.manage_billing": "Manage billing",
+    "profile.compare_plans": "Compare all plans",
+    "profile.plan.free": "Free",
+    "profile.plan.plus": "Plus",
+    "profile.plan.pro": "Pro",
+    "profile.plan.enterprise": "Enterprise",
+    "profile.email_verified": "verified",
+    "profile.email_pending": "verification pending",
+    "profile.verify_ok": "Email verified.",
+    "profile.verify_pending": "Verify your email to harden account recovery.",
+    "profile.mfa_on_pill": "MFA on",
+    "profile.mfa_off_pill": "MFA off",
+    "profile.mfa_on_hint": "Authenticator MFA is enabled.",
+    "profile.mfa_off_hint": "Optional TOTP MFA — recommended for paid accounts.",
+    "profile.current_plan": "Current plan: {plan}.",
+    "profile.current_plan_status": "Current plan: {plan} · {status}",
+    "profile.msg.email_verified": "Email verified.",
+    "profile.msg.welcome_plus": "Welcome — your Plus trial is active.",
+    "profile.msg.welcome_free": "Welcome — your Free plan is ready.",
+    "profile.msg.welcome_default": "Welcome — complete your profile.",
+    "profile.msg.saved": "Saved.",
+    "profile.msg.save_failed": "Save failed",
+    "profile.msg.choose_file": "Choose a file first",
+    "profile.msg.avatar_updated": "Avatar updated",
+    "profile.msg.upload_failed": "Upload failed",
+    "profile.msg.initials_avatar": "Using initials avatar",
+    "profile.msg.failed": "Failed",
+    "profile.msg.password_updated": "Password updated — other sessions revoked.",
+    "profile.msg.sent": "Sent",
+    "profile.msg.mfa_enabled": "MFA enabled",
+    "profile.msg.mfa_disabled": "MFA disabled",
+    "profile.msg.enroll_failed": "Enroll failed",
+    "profile.msg.mfa_scan_prefix": "Scan/provision secret:",
+    "profile.msg.portal_unavailable": "Billing portal unavailable right now.",
+    "auth.gate.title": "Account required",
+    "auth.gate.body": "This surface needs a signed-in session. {hint}",
+    "auth.gate.profile_hint": "Sign in to manage identity, security, and your plan.",
+    "auth.gate.login": "Login",
+    "auth.gate.signup": "Sign up",
+    "auth.gate.home": "← Back to homepage",
+    "auth.gate.prove_link": "Open public Prove demo",
+    "auth.gate.prove_note": "on the homepage — no account needed.",
+    "auth.gate.lens_suffix": "lens",
+    "pricing.public.title": "Pricing — BLACKDARK",
+    "pricing.public.headline": "One Trust OS. Four depths.",
+    "pricing.public.subhead": "Reviewable decisions and shareable proof — not mystery scores. Not financial advice.",
+    "pricing.public.compare": "Compare plans",
+    "pricing.public.capability": "Capability",
+    "pricing.public.enterprise_title": "For companies and funds",
+    "pricing.public.enterprise_lead": "Enterprise is sales-led — Data Room, compliance pack, SSO/MFA, and SLA. Not financial advice.",
+    "pricing.public.work_email": "Work email",
+    "pricing.public.name": "Name",
+    "pricing.public.firm": "Firm",
+    "pricing.public.use_case": "Use case",
+    "pricing.public.talk_to_us": "Talk to us",
+    "pricing.public.profile_billing": "Profile & Billing",
+    "pricing.public.refund_policy": "Refund Policy",
+    "pricing.public.custom": "Custom",
+    "pricing.public.col.free": "Free",
+    "pricing.public.col.plus": "Plus",
+    "pricing.public.col.pro": "Pro",
+    "pricing.public.col.enterprise": "Enterprise",
+    "pricing.public.tier.free.name": "Free",
+    "pricing.public.tier.free.f1": "Trust Pulse + Act/Wait with Why",
+    "pricing.public.tier.free.f2": "Public Accuracy Ledger (hits and misses)",
+    "pricing.public.tier.free.f3": "Shareable Decision Certificate",
+    "pricing.public.tier.free.f4": "Limited daily Oracle decisions",
+    "pricing.public.tier.free.f5": "Free Proof watermark",
+    "pricing.public.tier.free.cta": "Start free",
+    "pricing.public.tier.plus.name": "Plus",
+    "pricing.public.tier.plus.f1": "Everything in Free",
+    "pricing.public.tier.plus.f2": "Higher daily decision ceiling",
+    "pricing.public.tier.plus.f3": "Since-you-left continuity",
+    "pricing.public.tier.plus.f4": "Portfolio AI + alerts",
+    "pricing.public.tier.plus.f5": "AI Chat without Free watermark",
+    "pricing.public.tier.plus.cta": "Start 7-day trial",
+    "pricing.public.tier.pro.name": "Pro",
+    "pricing.public.tier.pro.f1": "Everything in Plus",
+    "pricing.public.tier.pro.f2": "Whale Signal vs Noise",
+    "pricing.public.tier.pro.f3": "Stealth advisory views",
+    "pricing.public.tier.pro.f4": "Evidence Pack + API priority",
+    "pricing.public.tier.pro.f5": "Arbitrage scanner depth",
+    "pricing.public.tier.pro.cta": "Upgrade to Pro",
+    "pricing.public.tier.enterprise.name": "Enterprise",
+    "pricing.public.tier.enterprise.f1": "Data Room + compliance pack",
+    "pricing.public.tier.enterprise.f2": "SSO / enforced MFA",
+    "pricing.public.tier.enterprise.f3": "SLA + integration addendum",
+    "pricing.public.tier.enterprise.f4": "Dedicated onboarding",
+    "pricing.public.tier.enterprise.cta": "Talk to us",
+    "pricing.public.compare.r1": "Trust Pulse + Verify on Ledger",
+    "pricing.public.compare.r2": "Decision Certificate / Free Proof",
+    "pricing.public.compare.r3": "Public Accuracy Ledger",
+    "pricing.public.compare.r4": "Unlimited certified Oracle",
+    "pricing.public.compare.r5": "Portfolio AI + alerts",
+    "pricing.public.compare.r6": "Stealth + Evidence Pack",
+    "pricing.public.compare.r7": "Data Room + SSO / SLA",
+    "pricing.public.inquiry.received": "Received",
+    "pricing.public.inquiry.failed": "Failed",
+    "pricing.public.inquiry.unavailable": "Inquiry unavailable right now.",
     # Dashboard / landing runtime UI (client-side via BD_I18N)
     "meta.title.dashboard_room": "BLACKDARK — Trust OS Decision Room",
     "ui.score": "Score",
@@ -485,6 +818,62 @@ EN: dict[str, str] = {
     "ui.asset": "Asset",
     "ui.oi": "OI",
     "ui.funding": "Funding",
+    "a11y.skip_trust_pulse": "Skip to Trust Pulse",
+    "a11y.trust_pulse": "Trust Pulse",
+    "pulse.stale": "Stale — not live",
+    "pulse.verify_ledger": "Verify on Ledger",
+    "pulse.free_proof": "Free Proof",
+    "pulse.no_cert": "No certificate yet.",
+    "pulse.cert_prefix": "cert",
+    "pulse.fallback_sentence": "One clear Act / Wait — reviewable.",
+    "pulse.share_default": "BLACKDARK Trust Pulse — one Act/Wait decision you can verify",
+    "pulse.conditions_met_review": (
+        "Analytical state only - the model's stated conditions are currently met. "
+        "No transaction or investment action is recommended."
+    ),
+    "pulse.model_state": "MODEL STATE: {action} — {symbol}.",
+    "pulse.model_state_conditions": "MODEL STATE: CONDITIONS MET — {symbol}. {review}",
+    "seal.stamp_prefix": "Seal ·",
+    "footer.col.product": "Product",
+    "footer.col.trust": "Trust",
+    "footer.col.company": "Company",
+    "footer.col.legal": "Legal",
+    "footer.follow": "Follow us",
+    "footer.tagline": "Trust OS — Decide. Prove it. Share it.",
+    "footer.story": "Prove → Operate → Desk → Room",
+    "footer.ledger": "Ledger",
+    "footer.status": "Status",
+    "footer.disclaimer": (
+        "Four-layer legal shield active. Not financial advice. AI cannot guarantee returns. "
+        "Verify on the Public Accuracy Ledger."
+    ),
+    "footer.link.trust_pulse": "Trust Pulse",
+    "footer.link.decide": "Decide",
+    "footer.link.verify": "Verify",
+    "footer.link.dashboard": "Dashboard",
+    "footer.link.pricing": "Pricing",
+    "footer.link.profile": "Profile & Billing",
+    "footer.link.chat": "AI Chat",
+    "ledger.hero.badge": "LIVE · PUBLIC AUDIT",
+    "ledger.hero.title": "BLACKDARK — Public Oracle Accuracy",
+    "ledger.hero.engine_rules": "rules engine",
+    "ledger.hero.engine_checking": "Checking…",
+    "ledger.hero.lead": (
+        "Every decision is logged, resolved after 24 hours, and feeds the learning model. "
+        "Live engine:"
+    ),
+    "ledger.hero.alias": "We publish hits and misses. Alias:",
+    "ledger.cta.verify_chain": "Verify Audit Chain",
+    "ledger.cta.misses": "Public misses / errors",
+    "ledger.cta.glass": "Transparency challenge",
+    "ledger.cta.mirror": "Discipline Mirror",
+    "ledger.cta.docs": "Developer docs",
+    "ledger.proof_chain.title": "Proof Chain",
+    "ledger.proof_chain.loading": "Loading chain…",
+    "ledger.footer": "BLACKDARK — market-data and analytical technology · public outcome ledger (not exhaustive coverage)",
+    "ledger.cta.dashboard": "Open Dashboard",
+    "ledger.cta.json_api": "JSON API",
+    "ledger.cta.evidence": "Evidence Pack",
 }
 
 
@@ -570,6 +959,30 @@ def _locales_dir() -> Path:
     return Path(__file__).resolve().parent / "locales"
 
 
+def _overrides_dir() -> Path:
+    return _locales_dir() / "overrides"
+
+
+_LOCALE_OVERRIDES: dict[str, dict[str, str]] | None = None
+
+
+def _locale_override_strings(code: str) -> dict[str, str]:
+    global _LOCALE_OVERRIDES
+    if _LOCALE_OVERRIDES is None:
+        merged: dict[str, dict[str, str]] = {}
+        odir = _overrides_dir()
+        if odir.is_dir():
+            for path in odir.glob("*.json"):
+                try:
+                    data = json.loads(path.read_text(encoding="utf-8"))
+                    if isinstance(data, dict):
+                        merged[path.stem] = {str(k): str(v) for k, v in data.items()}
+                except Exception:
+                    continue
+        _LOCALE_OVERRIDES = merged
+    return _LOCALE_OVERRIDES.get(normalize_lang(code), {})
+
+
 def _load_json_catalog(code: str) -> dict[str, str] | None:
     path = _locales_dir() / f"{code}.json"
     if not path.is_file():
@@ -581,6 +994,16 @@ def _load_json_catalog(code: str) -> dict[str, str] | None:
     except Exception:
         return None
     return None
+
+
+def _hydrate_en_from_json_file() -> None:
+    """Server t() reads EN; locales/en.json is shipped in Docker — keep them aligned."""
+    overlay = _load_json_catalog("en")
+    if overlay:
+        EN.update(overlay)
+
+
+_hydrate_en_from_json_file()
 
 
 def _build_all() -> dict[str, dict[str, str]]:
@@ -617,10 +1040,60 @@ def catalogs() -> dict[str, dict[str, str]]:
     return _CATALOGS
 
 
+def _effective_translation(code: str, key: str) -> str | None:
+    code = normalize_lang(code)
+    if code == "en":
+        return EN.get(key) or key
+    override_val = _locale_override_strings(code).get(key)
+    if _translation_valid(code, key, override_val):
+        return str(override_val)
+    raw_val = _locale_raw_strings(code).get(key)
+    if _translation_valid(code, key, raw_val):
+        return str(raw_val)
+    return None
+
+
+def _locale_file_value(code: str, key: str) -> str | None:
+    """Value stored in locales/<code>.json (may match English)."""
+    if normalize_lang(code) == "en":
+        return None
+    raw = _locale_raw_strings(code).get(key)
+    if raw is None:
+        return None
+    text = str(raw).strip()
+    return text if text else None
+
+
+def _resolve_string(key: str, code: str) -> str:
+    code = normalize_lang(code)
+    if code == "en":
+        return EN.get(key) or key
+    filed = _locale_file_value(code, key)
+    if filed is not None:
+        return filed
+    val = _effective_translation(code, key)
+    if val is not None:
+        return val
+    return EN.get(key) or key
+
+
+def element_lang_for_key(key: str, page_lang: str | None) -> str:
+    """BCP 47 lang for a rendered string (en when JSON value is empty or English)."""
+    code = normalize_lang(page_lang)
+    if code == "en":
+        return "en"
+    filed = _locale_file_value(code, key)
+    if filed is None:
+        return "en"
+    en_val = (EN.get(key) or "").strip()
+    if filed == key or (en_val and filed == en_val):
+        return "en"
+    return code
+
+
 def t(key: str, lang: str | None = None, **kwargs: Any) -> str:
     code = normalize_lang(lang)
-    cat = catalogs().get(code) or EN
-    text = cat.get(key) or EN.get(key) or key
+    text = _resolve_string(key, code)
     if kwargs:
         try:
             return text.format(**kwargs)
@@ -639,12 +1112,12 @@ def translator(lang: str | None) -> Callable[..., str]:
 
 
 def catalog_for(lang: str | None) -> dict[str, str]:
+    """Client-visible catalog — translated strings with English fallback per key."""
     code = normalize_lang(lang)
-    return dict(catalogs().get(code) or EN)
+    return {key: _resolve_string(key, code) for key in EN}
 
 
-def resolve_request_lang(request: Any) -> str:
-    """lang query → cookie bd_lang → Accept-Language → en."""
+def _resolve_request_lang_raw(request: Any) -> str:
     try:
         q = request.query_params.get("lang")
         if q:
@@ -669,6 +1142,14 @@ def resolve_request_lang(request: Any) -> str:
     return DEFAULT_LANG
 
 
+def resolve_request_lang(request: Any) -> str:
+    """lang query → cookie → Accept-Language → en (any locales/*.json catalog is allowed)."""
+    code = _resolve_request_lang_raw(request)
+    if not locale_catalog_available(code):
+        return DEFAULT_LANG
+    return code
+
+
 def resolve_nav_active(request: Any) -> str | None:
     """Active product tab for global header (Prove / Operate / Desk / Room / Verify)."""
     try:
@@ -687,6 +1168,43 @@ def resolve_nav_active(request: Any) -> str | None:
     return None
 
 
+_FOOTER_LINK_BY_HREF: dict[str, str] = {
+    "/#trust-pulse": "footer.link.trust_pulse",
+    "/login?next=/dashboard%3Flens%3Dprove": "footer.link.decide",
+    "/oracle-accuracy": "footer.link.verify",
+    "/login?next=/dashboard": "footer.link.dashboard",
+    "/#pricing": "footer.link.pricing",
+    "/login?next=/profile": "footer.link.profile",
+    "/login?next=/dashboard%3Flens%3Doperate": "footer.link.chat",
+}
+
+
+def localize_footer_manifest(lang: str | None, raw: dict[str, Any]) -> dict[str, Any]:
+    tr = translator(lang)
+    out = dict(raw)
+    for field, key in (
+        ("tagline", "footer.tagline"),
+        ("story", "footer.story"),
+        ("disclaimer_line", "footer.disclaimer"),
+    ):
+        text = tr(key)
+        if text:
+            out[field] = text
+    for section in ("product", "trust", "company", "legal"):
+        items = []
+        for item in out.get(section) or []:
+            row = dict(item)
+            href = str(row.get("href") or "")
+            key = _FOOTER_LINK_BY_HREF.get(href)
+            if key:
+                label = tr(key)
+                if label:
+                    row["label"] = label
+            items.append(row)
+        out[section] = items
+    return out
+
+
 def template_context(request: Any, extra: dict[str, Any] | None = None) -> dict[str, Any]:
     lang = resolve_request_lang(request)
     meta = locale_meta(lang)
@@ -703,6 +1221,7 @@ def template_context(request: Any, extra: dict[str, Any] | None = None) -> dict[
         "locale": meta,
         "locales": list_locales(),
         "t": translator(lang),
+        "key_lang": lambda k, _lang=lang: element_lang_for_key(k, _lang),
         "i18n": catalog_for(lang),
         "i18n_json": json.dumps(catalog_for(lang), ensure_ascii=False),
         "locales_json": json.dumps(list_locales(), ensure_ascii=False),
@@ -712,6 +1231,8 @@ def template_context(request: Any, extra: dict[str, Any] | None = None) -> dict[
     }
     if extra:
         ctx.update(extra)
+    if ctx.get("footer"):
+        ctx["footer"] = localize_footer_manifest(lang, ctx["footer"])
     return ctx
 
 
@@ -729,7 +1250,7 @@ def i18n_manifest() -> dict[str, Any]:
     return {
         "default": DEFAULT_LANG,
         "locales": list_locales(),
-        "count": len(LOCALES),
+        "count": len(list_locales()),
         "rtl": [c for c, m in LOCALES.items() if m["dir"] == "rtl"],
-        "note": "25 locales; catalogs in locales/*.json; RTL for ar, he, ur, fa.",
+        "note": f"{len(list_locales())} locales; catalogs in locales/*.json; RTL for ar, he, ur, fa.",
     }

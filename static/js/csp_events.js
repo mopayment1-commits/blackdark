@@ -7,6 +7,7 @@
  *   data-bd-call="fnName"              → window.fnName()
  *   data-bd-args='["a",1,true]'        → JSON args (optional)
  *   data-bd-prevent="1"                → preventDefault + return false semantics
+ *   data-bd-sync="1"                   → invoke on click synchronously (clipboard / Web Share)
  *   data-bd-keydown-call="fnName"      → call on Enter (or Enter/Space if data-bd-keys="enter space")
  *   data-bd-change-call="fnName"       → change handler; passes element value as first arg if data-bd-pass-value="1"
  *   data-bd-submit-call="fnName"       → submit; passes event as first arg
@@ -68,7 +69,14 @@
         ? event.target.closest("[data-bd-call]")
         : null;
       if (!el) return;
-      invoke(el, event, "data-bd-call");
+      const run = function () {
+        invoke(el, event, "data-bd-call");
+      };
+      if (el.getAttribute("data-bd-prevent") === "1" || el.getAttribute("data-bd-sync") === "1") {
+        run();
+      } else {
+        requestAnimationFrame(run);
+      }
     },
     false
   );

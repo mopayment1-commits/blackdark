@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
+import asyncio
 import os
 from datetime import UTC, datetime
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Request
 from fastapi.responses import JSONResponse
 
 from market_context import fetch_binance_ticker, normalize_oracle_symbol
@@ -128,9 +129,14 @@ async def oracle_accuracy_public():
             "resolved_count": 0,
             "recent": [],
             "error": type(exc).__name__,
+            "live_ledger": {
+                "query_ok": False,
+                "error": str(exc),
+                "source": "oracle_predictions",
+            },
         }
     payload["timestamp"] = datetime.now(UTC).isoformat()
-    max_age = int(os.getenv("PUBLIC_ACCURACY_HTTP_CACHE_SEC", "15"))
+    max_age = int(os.getenv("PUBLIC_ACCURACY_HTTP_CACHE_SEC", "30"))
     return JSONResponse(
         payload,
         headers={"Cache-Control": f"public, max-age={max_age}"},
@@ -219,24 +225,38 @@ async def api_oracle_track_record():
 
 
 @router.post("/api/oracle/track-record/backfill")
-async def api_oracle_track_record_backfill():
+async def api_oracle_track_record_backfill(_admin: dict = Depends(require_admin)):
     from oracle_track_record import backfill_from_database
 
-    return await backfill_from_database()
+    limit = int(os.getenv("ORACLE_CHAIN_BACKFILL_LIMIT", "50000"))
+    return await backfill_from_database(limit=limit)
+
+
+@router.post("/api/oracle/audit-chain/bootstrap-from-db")
+async def api_oracle_audit_chain_bootstrap_from_db(request: Request):
+    """Empty-chain only: sync oracle_predictions → JSONL (X-Oracle-Chain-Bootstrap-Token)."""
+    from oracle_chain_bootstrap import bootstrap_chain_from_database_if_empty
+
+    return await bootstrap_chain_from_database_if_empty(request)
 
 
 @router.get("/api/oracle/audit-chain")
 async def api_oracle_audit_chain(limit: int = 20):
     from oracle_audit_chain import chain_summary
 
-    return chain_summary(limit=limit)
+    timeout = float(os.getenv("ORACLE_AUDIT_CHAIN_API_TIMEOUT_SEC", "4.5"))
+    return await asyncio.wait_for(
+        asyncio.to_thread(chain_summary, limit=limit),
+        timeout=timeout,
+    )
 
 
 @router.get("/api/oracle/audit-chain/verify")
 async def api_oracle_audit_chain_verify():
     from oracle_audit_chain import verify_chain
 
-    return verify_chain()
+    timeout = float(os.getenv("ORACLE_AUDIT_CHAIN_VERIFY_TIMEOUT_SEC", "4.5"))
+    return await asyncio.wait_for(asyncio.to_thread(verify_chain), timeout=timeout)
 
 
 @router.get("/api/oracle/net-edge-truth")

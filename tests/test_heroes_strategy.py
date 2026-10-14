@@ -12,6 +12,12 @@ def test_audience_routing():
     retail = audience_entry("retail")
     assert retail["first_screen"] == "single_sentence_oracle"
     assert "single_sentence_oracle" in retail["heroes"]
+    assert retail.get("lens_label")
+    assert retail.get("lens_promise") or retail.get("cta")
+    for key in ("retail", "pro", "whale", "fund"):
+        row = audience_entry(key)
+        assert row.get("lens_label")
+        assert row.get("lens_promise") or row.get("cta")
     whale = audience_entry("whale")
     assert whale["first_screen"] == "stealth_execution_advisor"
     assert "#stealth" in whale["entry_path"]

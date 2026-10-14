@@ -39,11 +39,12 @@
         }
         .btn-primary { background: linear-gradient(135deg, var(--accent), #06b6d4); color: #0a0a0f; }
         .btn-secondary { background: #1a1a24; color: var(--text); border: 1px solid var(--border); }
+        #wsDisconnectBtn[hidden] { display: none !important; }
         .demo-box { max-width: 960px; margin: 0 auto 3rem; padding: 0 2rem; }
         .demo-result { margin-top: 1rem; font-size: 0.82rem; color: var(--muted); max-height: 200px; overflow: auto; }
         .ws-log { max-height: 280px; overflow-y: auto; font-family: ui-monospace, monospace; font-size: 0.75rem; }
         .ws-status { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
-        .ws-off { background: #27272a; color: #f4f4f5; }
+        .ws-off { background: rgba(239,68,68,0.18); color: #fef2f2; border: 1px solid rgba(248,113,113,0.55); }
         .ws-on { background: rgba(34,197,94,0.15); color: var(--success); }
         footer { text-align: center; padding: 2rem; color: var(--muted); font-size: 0.85rem; border-top: 1px solid var(--border); }
     </style>
@@ -70,7 +71,9 @@
         <a href="#fund-terminal" class="btn btn-primary">Open Fund Terminal</a>
         <a href="/oracle-accuracy" class="btn btn-secondary">Public Accuracy Ledger</a>
         <a href="#demo" class="btn btn-secondary">Live Feed Demo</a>
-        <a href="mailto:sales@blackdark.io?subject=Emerging%20Fund%20Terminal" class="btn btn-secondary">Book Pilot Call</a>
+        {% if pilot_call_href %}
+        <a href="{{ pilot_call_href }}" class="btn btn-secondary"{% if pilot_call_external %} target="_blank" rel="noopener noreferrer"{% endif %}>Book Pilot Call</a>
+        {% endif %}
     </section>
 
     <div class="grid">
@@ -97,10 +100,17 @@
             <h2 style="margin-bottom:0.5rem">Live Demo</h2>
             <p style="color:var(--muted);font-size:0.9rem">No signup required — limited to 15 records.</p>
             <div class="price">Custom<span style="font-size:0.85rem"> / from SEE THE EDGE / ELITE $49.99</span></div>
+            {% if demo_key_exposed %}
             <p style="margin-top:1rem;font-size:0.85rem"><strong>Demo API Key:</strong> <code id="demoKey">{{ demo_key }}</code></p>
             <pre>curl -H "X-API-Key: {{ demo_key }}" {{ request.url.scheme }}://{{ request.url.netloc }}/api/b2b/feed</pre>
-            <button class="btn btn-primary" data-bd-call="runDemo">Fetch Demo Feed</button>
             <button class="btn btn-secondary" data-bd-call="copyKey">Copy Demo Key</button>
+            {% else %}
+            <p style="margin-top:1rem;font-size:0.85rem;color:var(--muted)">
+                No API key on this public page. Use the open demo endpoint or contact institutional sales for a provisioned key.
+            </p>
+            <pre>curl {{ request.url.scheme }}://{{ request.url.netloc }}/api/b2b/demo</pre>
+            {% endif %}
+            <button class="btn btn-primary" data-bd-call="runDemo">Fetch Demo Feed</button>
             <div class="demo-result" id="demoResult">Click "Fetch Demo Feed" to see live CVVD records.</div>
         </div>
     </div>
@@ -117,8 +127,8 @@
             <button class="btn btn-secondary" type="button" data-bd-call="downloadFundTerminal">Download DD JSON</button>
             <a class="btn btn-secondary" href="/oracle-accuracy">Public Accuracy Ledger</a>
             <a class="btn btn-secondary" href="/oracle-accuracy#losing">Monthly Losing Report</a>
-            <a class="btn btn-secondary" href="/login?tab=register&plan=elite">SEE THE EDGE / ELITE</a>
-            <pre class="demo-result" id="fundTerminalResult" style="max-height:320px">Click “Load Fund DD Pack” for allocator-ready summary.</pre>
+            <a class="btn btn-secondary" href="{{ elite_cta_href }}">SEE THE EDGE / ELITE</a>
+            <div class="demo-result" id="fundTerminalResult" style="max-height:320px;overflow:auto">Click “Load Fund DD Pack” for allocator-ready summary.</div>
         </div>
     </div>
 
@@ -132,9 +142,10 @@
             <button class="btn btn-primary" type="button" data-bd-call="loadEvidenceSummary">Load Public Summary</button>
             <button class="btn btn-secondary" type="button" data-bd-call="loadEvidenceFull">Open Full Pack</button>
             <a class="btn btn-secondary" href="/data-room">Data Room Index</a>
-            <a class="btn btn-secondary" href="/login?tab=register&plan=institutional">Institutional inquiry</a>
+            <a class="btn btn-secondary" href="{{ institutional_cta_href }}">Institutional inquiry</a>
             <a class="btn btn-secondary" href="/oracle-accuracy">Public Accuracy</a>
             <div id="evidenceCards" style="display:none;margin-top:1rem"></div>
+            <p id="evidenceFullMsg" hidden style="margin-top:0.75rem;font-size:0.88rem;color:var(--muted)"></p>
             <pre class="demo-result" id="evidenceResult" style="max-height:320px">Click “Load Public Summary” to preview the pack thesis.</pre>
         </div>
     </div>
@@ -146,9 +157,15 @@
                 Tier 2 institutional push — arbitrage, oracle signals, heartbeat (~{{ feed_version }}).
                 Target latency 100–500ms.
             </p>
-            <pre>wss://{{ request.url.netloc }}/ws/b2b/feed?api_key={{ demo_key }}</pre>
-            <button class="btn btn-primary" data-bd-call="connectWs">Connect WebSocket</button>
-            <button class="btn btn-secondary" data-bd-call="disconnectWs">Disconnect</button>
+            <pre id="wsEndpointLine">{{ request.url.scheme == 'https' and 'wss' or 'ws' }}://{{ request.url.netloc }}/ws/b2b/feed</pre>
+            <p style="color:var(--muted);font-size:0.82rem;margin-top:0.5rem">
+                Live stream requires a provisioned <code>api_key</code> query parameter — not shown on this public page.
+            </p>
+            <p style="color:var(--muted);font-size:0.82rem;margin-top:0.5rem" lang="ar" dir="rtl">
+                المفتاح API المؤسسي يُعطى بعد التعاقد مع فريق المبيعات. للمستخدم العادي، استخدم الـ API العام <code>/api/b2b/demo</code>.
+            </p>
+            <button class="btn btn-primary" data-bd-call="connectWs" id="wsConnectBtn">Connect WebSocket</button>
+            <button class="btn btn-secondary" data-bd-call="disconnectWs" id="wsDisconnectBtn" type="button" hidden>Disconnect</button>
             <div class="demo-result ws-log" id="wsLog">Events will appear here when connected.</div>
         </div>
     </div>
@@ -180,13 +197,24 @@
 
     <script>
         let ws = null;
-        const demoKey = document.getElementById('demoKey').textContent.trim();
+        let wsUserDisconnect = false;
+        let wsIdleNoticeShown = false;
+        const wsApiKey = String({{ (demo_key if demo_key_exposed else '')|tojson }} || '').trim();
         const wsScheme = location.protocol === 'https:' ? 'wss:' : 'ws:';
+
+        function syncWsControls() {
+            const disconnectBtn = document.getElementById('wsDisconnectBtn');
+            if (!disconnectBtn) return;
+            const live = ws && (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING);
+            disconnectBtn.hidden = !live;
+            disconnectBtn.style.display = live ? '' : 'none';
+        }
 
         function setWsStatus(on) {
             const el = document.getElementById('wsStatus');
             el.textContent = on ? 'connected' : 'disconnected';
             el.className = 'ws-status ' + (on ? 'ws-on' : 'ws-off');
+            syncWsControls();
         }
 
         function logWs(msg) {
@@ -198,11 +226,26 @@
 
         function connectWs() {
             if (ws && ws.readyState <= 1) return;
-            const url = `${wsScheme}//${location.host}/ws/b2b/feed?api_key=${encodeURIComponent(demoKey)}`;
+            if (!wsApiKey || wsApiKey.length < 8) {
+                setWsStatus(false);
+                if (!wsIdleNoticeShown) {
+                    logWs('Disconnected — provision an institutional API key to enable the live stream.');
+                    wsIdleNoticeShown = true;
+                }
+                return;
+            }
+            const url = `${wsScheme}//${location.host}/ws/b2b/feed?api_key=${encodeURIComponent(wsApiKey)}`;
             logWs('Connecting…');
             ws = new WebSocket(url);
+            syncWsControls();
             ws.onopen = () => { setWsStatus(true); logWs('OPEN'); };
-            ws.onclose = () => { setWsStatus(false); logWs('CLOSED'); ws = null; };
+            ws.onclose = () => {
+                setWsStatus(false);
+                if (!wsUserDisconnect) logWs('CLOSED');
+                wsUserDisconnect = false;
+                ws = null;
+                syncWsControls();
+            };
             ws.onerror = () => logWs('ERROR');
             ws.onmessage = (ev) => {
                 try {
@@ -236,24 +279,47 @@
             return esc(item.title || item.name || item.item || item.label || JSON.stringify(item));
         }
         function disconnectWs() {
-            if (ws) ws.close();
+            if (!ws) {
+                syncWsControls();
+                return;
+            }
+            wsUserDisconnect = true;
+            try { ws.close(); } catch (error) { console.debug(error); }
+            ws = null;
+            setWsStatus(false);
+            logWs('Disconnected by user.');
+            syncWsControls();
         }
 
         async function runDemo() {
             const el = document.getElementById('demoResult');
+            const failMsg = 'Demo unavailable. The open demo endpoint is not reachable.';
             el.textContent = 'Loading...';
             try {
                 const res = await fetch('/api/b2b/demo');
+                if (!res.ok) {
+                    el.textContent = failMsg;
+                    return;
+                }
                 const d = await res.json();
+                if (!d || d.error || d.detail) {
+                    el.textContent = failMsg;
+                    return;
+                }
                 el.textContent = JSON.stringify({
                     record_count: d.record_count,
                     feed_version: d.feed_version,
                     sample: (d.records || []).slice(0, 3)
                 }, null, 2);
-            } catch (error) { console.debug(error); el.textContent = 'Demo unavailable — restart server and try again.'; }
+            } catch (error) {
+                console.debug(error);
+                el.textContent = failMsg;
+            }
         }
         function copyKey() {
-            navigator.clipboard.writeText(document.getElementById('demoKey').textContent);
+            const el = document.getElementById('demoKey');
+            if (!el) return;
+            navigator.clipboard.writeText(el.textContent);
         }
 
         function authHeaders() {
@@ -265,6 +331,49 @@
             return headers;
         }
 
+        function proofChainValidLabel(valid) {
+            if (valid === true) return 'Yes';
+            if (valid === false) return 'No';
+            return '—';
+        }
+
+        function renderFundTerminalSummary(data) {
+            const pp = data.pricing_posture || {};
+            const dd = data.dd_export || {};
+            const compliance = data.compliance || {};
+            const checklist = (data.allocator_checklist || [])
+                .map((item) => '<li>' + esc(item) + '</li>')
+                .join('');
+            const steps = (data.onboarding_steps || [])
+                .map((item) => '<li>' + esc(item) + '</li>')
+                .join('');
+            const acc = dd.public_accuracy_percent;
+            const accText = acc === null || acc === undefined ? '—' : esc(String(acc)) + '%';
+            const total = dd.total_predictions;
+            const totalText = total === null || total === undefined ? '—' : esc(String(total));
+            const disclaimer = compliance.disclaimer || compliance.regulator_note || '';
+            return (
+                '<div style="font-size:.88rem;line-height:1.55;color:var(--text)">' +
+                '<p style="margin:0 0 .65rem"><strong>Segment</strong><br><span style="color:var(--muted)">' +
+                esc(data.segment || '—') + '</span></p>' +
+                '<p style="margin:0 0 .65rem"><strong>Pricing posture</strong><br><span style="color:var(--muted)">' +
+                'Target AUM: ' + esc(pp.target_aum_usd || '—') + '<br>' +
+                esc(pp.note || '') + '</span></p>' +
+                '<p style="margin:0 0 .65rem"><strong>Public accuracy</strong><br><span style="color:var(--muted)">' +
+                'Accuracy: ' + accText + ' · Total predictions: ' + totalText + '</span></p>' +
+                '<p style="margin:0 0 .65rem"><strong>Proof chain valid</strong><br><span style="color:var(--muted)">' +
+                esc(proofChainValidLabel(dd.proof_chain_valid)) + '</span></p>' +
+                '<p style="margin:0 0 .35rem"><strong>Allocator checklist</strong></p>' +
+                '<ul style="margin:0 0 .65rem 1.1rem;color:var(--muted)">' +
+                (checklist || '<li>—</li>') + '</ul>' +
+                '<p style="margin:0 0 .35rem"><strong>Onboarding steps</strong></p>' +
+                '<ul style="margin:0 0 .65rem 1.1rem;color:var(--muted)">' +
+                (steps || '<li>—</li>') + '</ul>' +
+                '<p style="margin:0"><strong>Compliance</strong><br><span style="color:var(--muted)">' +
+                esc(disclaimer) + '</span></p></div>'
+            );
+        }
+
         async function loadFundTerminal() {
             const el = document.getElementById('fundTerminalResult');
             el.textContent = 'Loading Emerging Fund Terminal…';
@@ -272,14 +381,7 @@
                 const res = await fetch('/api/fund/emerging-terminal?fund_name=Emerging%20Fund');
                 const data = await res.json();
                 window._lastFundPack = data;
-                el.textContent = JSON.stringify({
-                    segment: data.segment,
-                    pricing_posture: data.pricing_posture,
-                    dd_export: data.dd_export,
-                    allocator_checklist: data.allocator_checklist,
-                    onboarding_steps: data.onboarding_steps,
-                    compliance: data.compliance,
-                }, null, 2);
+                el.innerHTML = renderFundTerminalSummary(data);
             } catch (error) { console.debug(error); el.textContent = 'Fund terminal unavailable.'; }
         }
 
@@ -331,36 +433,109 @@
 
         async function loadEvidenceSummary() {
             const el = document.getElementById('evidenceResult');
+            const fullMsg = document.getElementById('evidenceFullMsg');
+            if (fullMsg) { fullMsg.hidden = true; fullMsg.textContent = ''; }
             el.textContent = 'Loading public summary…';
             try {
-                const res = await fetch('/api/due-diligence/evidence-pack/public-summary');
-                const data = await res.json();
+                const res = await fetch('/api/due-diligence/evidence-pack/public-summary', {
+                    credentials: 'same-origin',
+                    headers: { Accept: 'application/json' },
+                });
+                const data = await res.json().catch(() => null);
+                if (!res.ok || !data) {
+                    el.textContent = (data && (data.detail || data.message))
+                        ? String(data.detail || data.message)
+                        : 'Public summary unavailable.';
+                    return;
+                }
                 renderEvidenceCards(data);
                 el.textContent = JSON.stringify(data, null, 2);
-            } catch (error) { console.debug(error); el.textContent = 'Public summary unavailable.'; }
+            } catch (error) {
+                console.debug(error);
+                el.textContent = 'Public summary unavailable.';
+            }
         }
 
         async function loadEvidenceFull() {
             const el = document.getElementById('evidenceResult');
+            const fullMsg = document.getElementById('evidenceFullMsg');
+            if (fullMsg) { fullMsg.hidden = true; fullMsg.textContent = ''; }
             el.textContent = 'Loading full evidence pack…';
             try {
-                const res = await fetch('/api/due-diligence/evidence-pack', { headers: authHeaders() });
-                const data = await res.json();
+                const res = await fetch('/api/due-diligence/evidence-pack', {
+                    credentials: 'same-origin',
+                    headers: { ...authHeaders(), Accept: 'application/json' },
+                });
+                const data = await res.json().catch(() => ({}));
                 if (!res.ok) {
-                    el.textContent = res.status === 401 || res.status === 403
-                        ? 'Decision Desk / Admin login required for the full pack. Upgrade, then retry.'
-                        : (JSON.stringify(data, null, 2) || 'Pack unavailable');
+                    const detail = data.detail || data.message || data.error;
+                    const detailText = typeof detail === 'object' ? JSON.stringify(detail) : String(detail || '');
+                    if (res.status === 401) {
+                        const login = '/login?tab=register&plan=institutional&next=' + encodeURIComponent('/b2b#evidence');
+                        if (fullMsg) {
+                            fullMsg.hidden = false;
+                            fullMsg.innerHTML = 'Decision Desk / Admin sign-in required for the full pack. '
+                                + '<a href="' + esc(login) + '">Sign in or register</a> · '
+                                + '<a href="/data-room">Data Room</a>';
+                        }
+                        el.textContent = detailText || 'Authentication required for the full evidence pack.';
+                        return;
+                    }
+                    if (res.status === 403) {
+                        if (fullMsg) {
+                            fullMsg.hidden = false;
+                            fullMsg.innerHTML = 'Whale tier or admin required. '
+                                + '<a href="{{ institutional_cta_href }}">Institutional inquiry</a> · '
+                                + '<a href="/data-room">Data Room</a>';
+                        }
+                        el.textContent = detailText || 'Whale tier or admin required for the full pack.';
+                        return;
+                    }
+                    el.textContent = detailText || JSON.stringify(data, null, 2) || 'Pack unavailable';
                     return;
                 }
+                renderEvidenceCards(data);
                 el.textContent = JSON.stringify({
                     product_thesis: data.product_thesis || data.one_liner_for_ic,
                     differentiators: data.differentiators,
                     committee_checklist: data.committee_checklist,
                     sections: Object.keys(data.sections || {}),
                 }, null, 2);
-            } catch (error) { console.debug(error); el.textContent = 'Full pack unavailable — login as Decision Desk/Admin and retry.'; }
+            } catch (error) {
+                console.debug(error);
+                el.textContent = 'Full pack unavailable — sign in as Decision Desk/Admin and retry.';
+            }
         }
+
+        function bootB2bDeepLinks() {
+            const hash = (location.hash || '').replace(/^#/, '').toLowerCase();
+            if (hash === 'fund-terminal') void loadFundTerminal();
+            if (hash === 'evidence') loadEvidenceSummary();
+        }
+
+        Object.assign(window, {
+            runDemo,
+            copyKey,
+            connectWs,
+            disconnectWs,
+            loadFundTerminal,
+            downloadFundTerminal,
+            loadEvidenceSummary,
+            loadEvidenceFull,
+        });
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                syncWsControls();
+                bootB2bDeepLinks();
+            });
+        } else {
+            syncWsControls();
+            bootB2bDeepLinks();
+        }
+        window.addEventListener('hashchange', bootB2bDeepLinks);
     </script>
+    <script defer src="/static/js/csp_events.js"></script>
     {% include "partials/site_footer.html" %}
 </body>
 </html>

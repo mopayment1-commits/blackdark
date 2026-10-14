@@ -107,8 +107,116 @@ def _public_recent_predictions(
     return public_recent, correct, resolved_rows
 
 
+async def build_public_accuracy_metrics_only() -> dict[str, Any]:
+    """Counters only — for /oracle-accuracy/json-api HTML (avoids full public payload build)."""
+    from database import fetch_live_public_ledger
+
+    timeout = float(os.getenv("PUBLIC_ACCURACY_METRICS_TIMEOUT_SEC", "3"))
+    ledger: dict[str, Any] = {"query_ok": False}
+    try:
+        ledger = await asyncio.wait_for(
+            fetch_live_public_ledger(recent_limit=0, miss_sample_limit=0),
+            timeout=timeout,
+        )
+    except Exception:
+        pass
+    ok = bool(ledger.get("query_ok"))
+    return {
+        "logged": ledger.get("logged") if ok else None,
+        "resolved": ledger.get("resolved") if ok else None,
+        "pending": ledger.get("pending") if ok else None,
+        "accuracy_percent": ledger.get("accuracy_percent") if ok else None,
+        "verified_errors": ledger.get("verified_errors") if ok else None,
+        "partial_outcomes": ledger.get("partial_outcomes") if ok else None,
+    }
+
+
+def _trim_public_payload_for_wire(payload: dict[str, Any]) -> dict[str, Any]:
+    """Drop bulky nested lists on the hot /api/oracle/accuracy/public path."""
+    out = copy.deepcopy(payload)
+    exp = out.get("learning_experience")
+    if isinstance(exp, dict) and isinstance(exp.get("recent_events"), list):
+        exp["recent_events"] = list(exp["recent_events"])[:8]
+    proof = out.get("proof_chain")
+    if isinstance(proof, dict):
+        summary = proof.get("summary")
+        if isinstance(summary, dict) and isinstance(summary.get("recent_records"), list):
+            summary["recent_records"] = list(summary["recent_records"])[:8]
+    return out
+
+
+async def _fetch_live_ledger_timed(*, recent_limit: int, miss_sample_limit: int) -> dict[str, Any]:
+    from database import fetch_live_public_ledger
+
+    timeout = float(os.getenv("PUBLIC_ACCURACY_LEDGER_TIMEOUT_SEC", "8"))
+    try:
+        return await asyncio.wait_for(
+            fetch_live_public_ledger(
+                recent_limit=recent_limit,
+                miss_sample_limit=miss_sample_limit,
+            ),
+            timeout=timeout,
+        )
+    except asyncio.TimeoutError:
+        return {
+            "query_ok": False,
+            "error": "ledger_query_timeout",
+            "source": "oracle_predictions",
+        }
+    except Exception as exc:
+        return {
+            "query_ok": False,
+            "error": type(exc).__name__,
+            "source": "oracle_predictions",
+        }
+
+
+async def _minimal_public_accuracy_payload() -> dict[str, Any]:
+    """Fast fallback when the full build exceeds the server budget."""
+    from oracle_audit_chain import chain_summary, verify_chain
+
+    ledger = await _fetch_live_ledger_timed(recent_limit=0, miss_sample_limit=0)
+    chain_ctx = await asyncio.to_thread(chain_summary, limit=8)
+    verify = verify_chain()
+    live_total = int(ledger.get("logged") or 0) if ledger.get("query_ok") else 0
+    live_resolved = int(ledger.get("resolved") or 0) if ledger.get("query_ok") else 0
+    live_pending = int(ledger.get("pending") or 0) if ledger.get("query_ok") else 0
+    live_accuracy = float(ledger.get("accuracy_percent") or 0.0) if ledger.get("query_ok") else 0.0
+    return {
+        "ok": ledger.get("query_ok", False),
+        "live_only": True,
+        "degraded": True,
+        "degraded_reason": "full_payload_build_timeout",
+        "live_ledger": {
+            "source": ledger.get("source") or "oracle_predictions",
+            "query_ok": bool(ledger.get("query_ok")),
+            "error": ledger.get("error"),
+            "logged": live_total,
+            "resolved": live_resolved,
+            "pending": live_pending,
+            "accuracy_percent": live_accuracy,
+            "verified_errors": int(ledger.get("verified_errors") or 0) if ledger.get("query_ok") else 0,
+            "partial_outcomes": int(ledger.get("partial_outcomes") or 0) if ledger.get("query_ok") else 0,
+            "miss_sample": [],
+        },
+        "oracle": {
+            "total_predictions": live_total,
+            "resolved_predictions": live_resolved,
+            "pending_predictions": live_pending,
+            "average_accuracy_percent": live_accuracy,
+            "verified_errors": int(ledger.get("verified_errors") or 0) if ledger.get("query_ok") else 0,
+            "partial_outcomes": int(ledger.get("partial_outcomes") or 0) if ledger.get("query_ok") else 0,
+            "recent_predictions": [],
+            "metrics_scope": "live_only",
+        },
+        "proof_chain": _proof_chain_block_from_summary(chain_ctx, verify),
+    }
+
+
 async def build_public_accuracy_payload(*, recent_limit: int = 20) -> dict[str, Any]:
+    recent_limit = int(os.getenv("PUBLIC_ACCURACY_RECENT_LIMIT", str(recent_limit)))
     ttl = float(os.getenv("PUBLIC_ACCURACY_CACHE_SEC", "25"))
+    build_timeout = float(os.getenv("PUBLIC_ACCURACY_BUILD_TIMEOUT_SEC", "18"))
     key = _public_accuracy_cache_key(recent_limit)
     now = time.monotonic()
     global _PAYLOAD_CACHE, _PAYLOAD_CACHE_KEY, _PAYLOAD_CACHE_AT
@@ -117,7 +225,7 @@ async def build_public_accuracy_payload(*, recent_limit: int = 20) -> dict[str, 
         and _PAYLOAD_CACHE_KEY == key
         and (now - _PAYLOAD_CACHE_AT) < ttl
     ):
-        return copy.deepcopy(_PAYLOAD_CACHE)
+        return _trim_public_payload_for_wire(_PAYLOAD_CACHE)
     async with _PAYLOAD_LOCK:
         now = time.monotonic()
         if (
@@ -125,32 +233,125 @@ async def build_public_accuracy_payload(*, recent_limit: int = 20) -> dict[str, 
             and _PAYLOAD_CACHE_KEY == key
             and (now - _PAYLOAD_CACHE_AT) < ttl
         ):
-            return copy.deepcopy(_PAYLOAD_CACHE)
-        payload = await _build_public_accuracy_payload_uncached(recent_limit=recent_limit)
+            return _trim_public_payload_for_wire(_PAYLOAD_CACHE)
+        try:
+            payload = await asyncio.wait_for(
+                _build_public_accuracy_payload_uncached(recent_limit=recent_limit),
+                timeout=build_timeout,
+            )
+        except asyncio.TimeoutError:
+            if _PAYLOAD_CACHE is not None:
+                stale = copy.deepcopy(_PAYLOAD_CACHE)
+                stale["stale"] = True
+                stale["degraded_reason"] = "served_stale_after_build_timeout"
+                try:
+                    from oracle_audit_chain import chain_summary, verify_chain
+
+                    verify = await asyncio.to_thread(verify_chain)
+                    chain_ctx = await asyncio.to_thread(chain_summary, limit=8)
+                    stale["proof_chain"] = _proof_chain_block_from_summary(chain_ctx, verify)
+                except Exception:
+                    pass
+                return _trim_public_payload_for_wire(stale)
+            payload = await _minimal_public_accuracy_payload()
         _PAYLOAD_CACHE = payload
         _PAYLOAD_CACHE_KEY = key
-        _PAYLOAD_CACHE_AT = now
-        return copy.deepcopy(payload)
+        _PAYLOAD_CACHE_AT = time.monotonic()
+        return _trim_public_payload_for_wire(payload)
+
+
+def _public_miss_sample_row(row: dict[str, Any]) -> dict[str, Any]:
+    label = str(row.get("label") or "").lower()
+    base = _public_recent_row(row, None, label)
+    base["outcome_kind"] = "verified_error" if label == "incorrect" else "partial"
+    return base
+
+
+def _enrich_public_experience(experience: dict[str, Any]) -> dict[str, Any]:
+    live_source = "oracle_predictions · live public ledger"
+    events = []
+    for row in experience.get("recent_events") or []:
+        h = row.get("highlights") or {}
+        et = str(row.get("event_type") or "")
+        human = ""
+        if et == "flywheel_cycle":
+            resolved = h.get("resolved")
+            exported = h.get("exported")
+            trained = h.get("trained")
+            bits = [
+                "Internal flywheel cycle (ml_experience_log.jsonl — not the live public ledger counter)",
+            ]
+            if resolved is not None:
+                bits.append(f"internal 24h labeling batch: {resolved}")
+            if exported is not None:
+                bits.append(f"exported {exported} labeled row(s) to training parquet")
+            if trained is True:
+                bits.append("training step ran")
+            elif trained is False:
+                bits.append("training skipped (insufficient samples)")
+            human = " · ".join(bits) if bits else "Flywheel cycle recorded"
+        elif et == "training_run":
+            if h.get("trained"):
+                human = (
+                    f"Training step ran · accuracy={h.get('accuracy')} · samples={h.get('samples')}"
+                )
+            else:
+                human = (
+                    f"Training run skipped · samples={h.get('samples')}"
+                )
+        elif et == "ensemble_trained":
+            human = "Ensemble trained"
+            if h.get("selected"):
+                human += f" · selected={h.get('selected')}"
+        else:
+            human = et.replace("_", " ").title() if et else "Experience event"
+        events.append({**row, "human_line": human})
+    summary = dict(experience.get("summary") or {})
+    visible_training = 0
+    type_counts: dict[str, int] = {}
+    for row in events:
+        et = str(row.get("event_type") or "unknown")
+        type_counts[et] = int(type_counts.get(et) or 0) + 1
+        h = row.get("highlights") or {}
+        if et == "training_run" and h.get("trained"):
+            visible_training += 1
+        elif et == "ensemble_trained":
+            visible_training += 1
+        elif et == "flywheel_cycle" and h.get("trained") is True:
+            visible_training += 1
+    flywheel_n = int(type_counts.get("flywheel_cycle") or 0)
+    parts = [f"visible log: {visible_training} training activity"]
+    if flywheel_n and visible_training < flywheel_n:
+        parts.append(f"flywheel_cycle={flywheel_n}")
+    summary["training_runs_visible"] = visible_training
+    summary["training_runs_note"] = " · ".join(parts) + " (ml_experience_log.jsonl)"
+    summary["event_type_counts_visible"] = type_counts
+    out = {**experience, "summary": summary, "recent_events": events}
+    return out
 
 
 async def _build_public_accuracy_payload_uncached(*, recent_limit: int = 20) -> dict[str, Any]:
-    from database import count_labeled_oracle_predictions, fetch_oracle_audit_stats
+    from database import count_labeled_oracle_predictions
     from ml.drift_monitor import load_feature_envelope
     from ml.experience_log import public_experience_block
     from ml.train_baseline import model_status
     from ml.training_utils import LEAKAGE_GUARD_NOTE
     from oracle_audit_chain import chain_summary, read_recent_chain_records
 
-    stats, ml_status, labeled_count, experience = await asyncio.gather(
-        fetch_oracle_audit_stats(limit=recent_limit, include_synthetic=False),
+    miss_limit = int(os.getenv("PUBLIC_ACCURACY_MISS_SAMPLE_LIMIT", "8"))
+    chain_tail = int(os.getenv("PUBLIC_ACCURACY_CHAIN_TAIL", "48"))
+
+    ledger, ml_status, labeled_count, experience = await asyncio.gather(
+        _fetch_live_ledger_timed(recent_limit=recent_limit, miss_sample_limit=miss_limit),
         model_status(),
         count_labeled_oracle_predictions(include_synthetic=False),
         asyncio.to_thread(public_experience_block),
     )
+    experience = _enrich_public_experience(experience)
 
     def _chain_and_blocks() -> tuple[Any, ...]:
         chain_ctx = chain_summary(limit=8)
-        chain_recent_tail = read_recent_chain_records(200)
+        chain_recent_tail = read_recent_chain_records(chain_tail)
         return (
             chain_ctx,
             chain_recent_tail,
@@ -175,39 +376,85 @@ async def _build_public_accuracy_payload_uncached(*, recent_limit: int = 20) -> 
 
 
 
-    recent_raw = stats.get("recent") or []
-    public_recent, correct, resolved_rows = _public_recent_predictions(recent_raw, chain_lookup)
+    from oracle_integrity import is_synthetic_prediction
+
+    scored_raw = ledger.get("scored_sample") or ledger.get("miss_sample") or []
+    public_recent = []
+    correct = 0
+    resolved_rows = 0
+    for row in scored_raw:
+        if not row.get("resolved") or is_synthetic_prediction(row):
+            continue
+        resolved_rows += 1
+        label = str(row.get("label") or row.get("outcome") or "")
+        if label == "correct":
+            correct += 1
+        pred_id = row.get("id")
+        chain_meta = chain_lookup.get(str(pred_id) if pred_id is not None else "")
+        public_recent.append(_public_recent_row(row, chain_meta, label))
+    recent_raw = scored_raw
 
     hit_rate = round(correct / resolved_rows * 100, 2) if resolved_rows else 0.0
 
-    live_block = stats.get("live") or {}
-    live_resolved = int(
-        live_block.get("resolved_predictions", stats.get("resolved_predictions", 0)) or 0
-    )
-    live_total = int(live_block.get("total_predictions", stats.get("total_predictions", 0)) or 0)
-    live_pending = int(
-        live_block.get("pending_predictions", stats.get("pending_predictions", 0)) or 0
-    )
+    live_total = int(ledger.get("logged") or 0) if ledger.get("query_ok") else 0
+    live_resolved = int(ledger.get("resolved") or 0) if ledger.get("query_ok") else 0
+    live_pending = int(ledger.get("pending") or 0) if ledger.get("query_ok") else 0
+    live_accuracy = float(ledger.get("accuracy_percent") or 0.0) if ledger.get("query_ok") else 0.0
+    verified_errors = int(ledger.get("verified_errors") or 0) if ledger.get("query_ok") else 0
+    partial_outcomes = int(ledger.get("partial_outcomes") or 0) if ledger.get("query_ok") else 0
+    miss_sample = []
+    for row in ledger.get("miss_sample") or []:
+        pred_id = row.get("id")
+        chain_meta = chain_lookup.get(str(pred_id) if pred_id is not None else "")
+        mapped = _public_miss_sample_row(row)
+        mapped["chain_ref"] = _chain_ref(pred_id, chain_meta)
+        mapped["chain_hash"] = (chain_meta or {}).get("chain_hash")
+        miss_sample.append(mapped)
+
+    live_source = str(ledger.get("source") or "oracle_predictions · live rows")
     metrics_footnote = (
-        f"Average accuracy is the cumulative mean over {live_resolved} resolved live prediction(s). "
-        f"Logged total ({live_total}) includes {live_pending} still pending 24h resolution."
+        f"Live ledger only ({live_source}). "
+        f"Accuracy is the mean over {live_resolved} resolved row(s); "
+        f"{live_pending} still pending 24h resolution."
     )
     if public_recent:
         recent_table_footnote = (
-            f"Showing {min(len(public_recent), recent_limit)} most recent resolved rows "
-            f"from the last {len(recent_raw)} logged prediction(s) in this window."
+            f"Latest {min(len(public_recent), recent_limit)} resolved scored row(s) from the live ledger "
+            f"({live_source})."
         )
     else:
         recent_table_footnote = (
-            f"No resolved rows in the last {len(recent_raw)} logged prediction(s) "
-            f"(window limit {recent_limit}). Cumulative stats above still use all {live_resolved} resolved live rows."
+            f"No scored rows returned in this fetch ({live_resolved} resolved live overall)."
         )
 
+    historical_training_archive: dict[str, Any] | None = None
+    if ledger.get("query_ok") and live_total == 0 and int(labeled_count or 0) > 0:
+        historical_training_archive = {
+            "labeled_training_rows": int(labeled_count),
+            "note": (
+                f"Archival ML training labels ({int(labeled_count)} rows in oracle_predictions) — "
+                "not shown as the live public ledger on this page (0 logged live rows)."
+            ),
+        }
 
+    counter_sources = {
+        "accuracy": live_source,
+        "logged": live_source,
+        "resolved": live_source,
+        "misses": live_source,
+        "training_samples": (
+            "oracle_predictions resolved+labeled rows counted for ML flywheel export "
+            "(not the live ledger headline when scopes differ)"
+        ),
+        "training_runs": "data/ml_experience_log.jsonl · training_run events",
+        "exchanges": "config.INGESTION_READY_EXCHANGES",
+        "assets": "config.UNIVERSE_ASSETS",
+        "signal_registry": "signal_registry.py in-memory lexicon counts",
+    }
 
     production_engine = "ml_model" if ml_status.get("latest_model_loaded") else "rules_engine"
 
-    synthetic_block = stats.get("synthetic") or {}
+    synthetic_block: dict[str, Any] = {}
 
 
 
@@ -247,27 +494,42 @@ async def _build_public_accuracy_payload_uncached(*, recent_limit: int = 20) -> 
 
         },
 
+        "live_ledger": {
+            "source": live_source,
+            "query_ok": bool(ledger.get("query_ok")),
+            "error": ledger.get("error"),
+            "logged": live_total,
+            "resolved": live_resolved,
+            "pending": live_pending,
+            "accuracy_percent": live_accuracy,
+            "verified_errors": verified_errors,
+            "partial_outcomes": partial_outcomes,
+            "miss_sample": miss_sample,
+        },
+
+        "historical_training_archive": historical_training_archive,
+
+        "counter_sources": counter_sources,
+
         "oracle": {
 
-            "total_predictions": stats.get("live", {}).get("total_predictions", stats.get("total_predictions", 0)),
+            "total_predictions": live_total,
 
-            "resolved_predictions": stats.get("live", {}).get(
+            "resolved_predictions": live_resolved,
 
-                "resolved_predictions", stats.get("resolved_predictions", 0)
+            "pending_predictions": live_pending,
 
-            ),
+            "average_accuracy_percent": live_accuracy,
 
-            "pending_predictions": stats.get("live", {}).get(
+            "verified_errors": verified_errors,
 
-                "pending_predictions", stats.get("pending_predictions", 0)
+            "partial_outcomes": partial_outcomes,
 
-            ),
+            "labeled_misses_live": verified_errors + partial_outcomes,
 
-            "average_accuracy_percent": stats.get("live", {}).get(
+            "public_miss_sample": miss_sample,
 
-                "average_accuracy_percent", stats.get("average_accuracy_percent", 0)
-
-            ),
+            "live_source": live_source,
 
             "recent_hit_rate_percent": hit_rate,
 
@@ -311,6 +573,8 @@ async def _build_public_accuracy_payload_uncached(*, recent_limit: int = 20) -> 
 
             "labeled_samples": int(labeled_count),
 
+            "labeled_samples_source": counter_sources["training_samples"],
+
             "min_samples_required": ml_status.get("min_samples_required"),
 
             "latest_model_loaded": ml_status.get("latest_model_loaded"),
@@ -339,13 +603,20 @@ async def _build_public_accuracy_payload_uncached(*, recent_limit: int = 20) -> 
 
             "assets": len(config.UNIVERSE_ASSETS),
 
+            "exchanges_source": counter_sources["exchanges"],
+
+            "assets_source": counter_sources["assets"],
+
         },
 
         "proof_chain": _proof_chain_block_from_summary(chain_ctx, chain_verify),
 
         "regime_models": regime_block,
 
-        "signal_registry": signal_block,
+        "signal_registry": {
+            **signal_block,
+            "count_source": counter_sources["signal_registry"],
+        },
 
         "drift": drift_block,
 
@@ -435,7 +706,8 @@ def _chain_lookup() -> dict[str, dict[str, Any]]:
     try:
         from oracle_audit_chain import read_recent_chain_records
 
-        return _chain_lookup_from_recent(read_recent_chain_records(200))
+        tail = int(os.getenv("PUBLIC_ACCURACY_CHAIN_TAIL", "48"))
+        return _chain_lookup_from_recent(read_recent_chain_records(tail))
     except Exception:
         return {}
 

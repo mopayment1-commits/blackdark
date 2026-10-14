@@ -13,6 +13,15 @@ from typing import Any
 from urllib.parse import urlencode
 
 
+class OAuthProviderStepError(Exception):
+    """Wraps provider HTTP/IO failures with a diagnostic step (token | userinfo)."""
+
+    def __init__(self, step: str, cause: BaseException) -> None:
+        self.step = step
+        super().__init__(str(cause))
+        self.__cause__ = cause
+
+
 def oauth_providers_configured() -> dict[str, bool]:
     return {
         "google": bool(
@@ -88,8 +97,11 @@ async def verify_google_credential(credential: str) -> dict[str, Any]:
     }
 
 
-def _base_url() -> str:
-    return (os.getenv("APP_BASE_URL") or "http://127.0.0.1:8080").rstrip("/")
+def _base_url(override: str | None = None) -> str:
+    raw = (override or os.getenv("APP_BASE_URL") or "").strip().rstrip("/")
+    if not raw or raw == "[REDACTED]":
+        raise ValueError("OAuth is not configured for this site (missing APP_BASE_URL).")
+    return raw
 
 
 def _provider_config(provider: str) -> dict[str, str]:
@@ -115,12 +127,17 @@ def _provider_config(provider: str) -> dict[str, str]:
     raise ValueError(f"Unsupported OAuth provider: {provider}")
 
 
-def build_authorize_url(provider: str, *, state: str | None = None) -> dict[str, str]:
+def build_authorize_url(
+    provider: str,
+    *,
+    state: str | None = None,
+    base_url: str | None = None,
+) -> dict[str, str]:
     cfg = _provider_config(provider)
     if not cfg["client_id"] or not cfg["client_secret"]:
-        raise ValueError(f"OAuth provider {provider} is not configured")
+        raise ValueError(f"OAuth provider {provider} is not configured.")
     state_val = state or secrets.token_urlsafe(24)
-    redirect_uri = f"{_base_url()}/api/auth/oauth/{provider}/callback"
+    redirect_uri = f"{_base_url(base_url)}/api/auth/oauth/{provider.strip().lower()}/callback"
     params = {
         "client_id": cfg["client_id"],
         "redirect_uri": redirect_uri,
@@ -183,9 +200,15 @@ async def exchange_code(provider: str, code: str) -> dict[str, Any]:
         raise ValueError(f"OAuth provider {provider} is not configured")
     redirect_uri = f"{_base_url()}/api/auth/oauth/{provider}/callback"
     async with httpx.AsyncClient(timeout=20.0) as client:
-        access = await _oauth_token(client, cfg, code, redirect_uri)
+        try:
+            access = await _oauth_token(client, cfg, code, redirect_uri)
+        except Exception as exc:
+            raise OAuthProviderStepError("token", exc) from exc
         headers = {"Authorization": f"Bearer {access}", "Accept": "application/json"}
-        info = await _oauth_userinfo(client, cfg, headers)
+        try:
+            info = await _oauth_userinfo(client, cfg, headers)
+        except Exception as exc:
+            raise OAuthProviderStepError("userinfo", exc) from exc
         email = (info.get("email") or "").strip().lower()
         name = (info.get("name") or info.get("login") or "").strip()
         subject = str(info.get("sub") or info.get("id") or "")

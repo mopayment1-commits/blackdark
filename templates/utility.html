@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }} · BLACKDARK</title>
+    {% include "partials/seo_canonical.html" %}
     <link rel="stylesheet" href="/static/css/trust-os.css">
     <style>
         :root { --bg:#0a0a0f; --fg:#e4e4e7; --muted:#71717a; --line:#2a2a35; --accent:#22d3ee; }
@@ -15,6 +16,7 @@
         .logo { font-family: var(--bd-font-display); font-weight: 800; letter-spacing: .04em; color: var(--accent); }
         main { max-width: 820px; margin: 0 auto; padding: 2.5rem 1.25rem 2rem; animation: bdPulseIn .45s var(--bd-ease-out) both; }
         h1 { font-family: var(--bd-font-display); font-size: clamp(1.8rem, 4vw, 2.4rem); margin-bottom: .75rem; letter-spacing: -.02em; }
+        main.page-data-room > h1 { color: var(--accent); }
         h2 { font-size: 1.05rem; color: var(--accent); margin: 1.25rem 0 .5rem; }
         h3 { font-size: .95rem; color: var(--fg); margin: 0 0 .35rem; }
         p, li { color: var(--muted); line-height: 1.65; margin-bottom: .85rem; }
@@ -55,7 +57,7 @@
 <body>
     <a href="#main" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden" class="skip-link" onfocus="this.style.left='1rem';this.style.top='1rem';this.style.width='auto';this.style.height='auto';this.style.padding='.5rem';this.style.background='#22d3ee';this.style.color='#0a0a0f';this.style.zIndex='99'">Skip to content</a>
     <nav aria-label="Primary"><div class="nav-inner"><a class="logo" href="/">BLACKDARK</a><div><a href="/login?next=/dashboard">Dashboard</a> · <a href="/faq">FAQ</a> · <a href="/oracle-accuracy">Accuracy</a> · <a href="/contact">Contact</a></div></div></nav>
-    <main id="main" role="main" tabindex="-1">
+    <main id="main" role="main" tabindex="-1"{% if page == 'data_room' %} class="page-data-room"{% endif %}>
         <h1>{{ title }}</h1>
         <p>{{ lead }}</p>
         {% if page == 'capabilities' %}
@@ -163,6 +165,17 @@
             {% if regulatory %}
             <h2>Regulatory guard snapshot</h2>
             <p class="deny">Status fields are engineering signals only — see <a href="/status">system status</a> for the public HTML surface.</p>
+            <ul class="deny" style="margin-top:.5rem">
+                <li><strong style="color:var(--fg)">Engine enabled</strong> — {{ regulatory.enabled }}</li>
+                <li><strong style="color:var(--fg)">Classification</strong> — {{ regulatory.classification or '—' }}</li>
+                {% if regulatory.public_verdicts %}
+                <li><strong style="color:var(--fg)">Public verdict labels</strong> — bullish {{ regulatory.public_verdicts.bullish }}, bearish {{ regulatory.public_verdicts.bearish }}, neutral {{ regulatory.public_verdicts.neutral }}, risk {{ regulatory.public_verdicts.elevated_risk }}</li>
+                {% endif %}
+                {% if regulatory.policy %}
+                <li>{{ regulatory.policy }}</li>
+                {% endif %}
+            </ul>
+            <p class="deny" style="font-size:.85rem;margin-top:.5rem">{{ regulatory.disclaimer or '' }}</p>
             {% endif %}
             <p>
                 <a href="/oracle-accuracy">Public Accuracy Ledger</a> ·
@@ -198,7 +211,7 @@
             <p>Product support, suggestions, and partnership inquiries — never send card numbers or passwords.</p>
             <ul class="channel-list">
                 <li><strong style="color:var(--fg)">Support:</strong>
-                    <a href="mailto:{{ contact.support_email if contact else 'mopayment1@gmail.com' }}">{{ contact.support_email if contact else 'mopayment1@gmail.com' }}</a>
+                    <a href="mailto:{{ contact.support_email if contact else 'info@blackdark.io' }}">{{ contact.support_email if contact else 'info@blackdark.io' }}</a>
                 </li>
                 {% if contact and contact.support_owner %}
                 <li><strong style="color:var(--fg)">Support owner:</strong> {{ contact.support_owner }}</li>
@@ -213,10 +226,10 @@
                 </li>
                 {% endif %}
                 <li><strong style="color:var(--fg)">Sales / Room:</strong>
-                    <a href="mailto:{{ contact.sales_email if contact else 'sales@blackdark.io' }}">{{ contact.sales_email if contact else 'sales@blackdark.io' }}</a>
+                    <a href="mailto:{{ contact.sales_email if contact else 'info@blackdark.io' }}">{{ contact.sales_email if contact else 'info@blackdark.io' }}</a>
                 </li>
                 <li><strong style="color:var(--fg)">Complaints:</strong>
-                    <a href="mailto:{{ contact.complaints_email if contact else 'complaints@blackdark.app' }}">{{ contact.complaints_email if contact else 'complaints@blackdark.app' }}</a>
+                    <a href="mailto:{{ contact.complaints_email if contact else 'info@blackdark.io' }}">{{ contact.complaints_email if contact else 'info@blackdark.io' }}</a>
                     · <a href="/complaints">Complaints process</a>
                 </li>
                 {% if contact and contact.whatsapp_url %}

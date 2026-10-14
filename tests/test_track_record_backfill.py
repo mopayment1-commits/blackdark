@@ -8,6 +8,41 @@ import oracle_audit_chain as chain
 
 
 @pytest.mark.asyncio
+async def test_maybe_backfill_skips_when_chain_has_records(monkeypatch):
+    path = chain.isolated_chain_path_for_tests("maybe_skip_nonempty")
+    path.unlink(missing_ok=True)
+    monkeypatch.setattr(chain, "CHAIN_PATH", path)
+    chain.append_prediction_record({"asset": "BTC", "verdict": "bullish"})
+
+    from oracle_track_record import maybe_backfill_empty_oracle_chain
+
+    assert await maybe_backfill_empty_oracle_chain(limit=10) is None
+    path.unlink(missing_ok=True)
+
+
+@pytest.mark.asyncio
+async def test_maybe_backfill_runs_when_chain_empty_and_db_has_rows(monkeypatch):
+    path = chain.isolated_chain_path_for_tests("maybe_backfill_empty")
+    path.unlink(missing_ok=True)
+    monkeypatch.setattr(chain, "CHAIN_PATH", path)
+
+    from oracle_track_record import maybe_backfill_empty_oracle_chain
+
+    with (
+        patch("database.count_oracle_predictions", new_callable=AsyncMock, return_value=3),
+        patch(
+            "oracle_track_record.backfill_from_database",
+            new_callable=AsyncMock,
+            return_value={"backfilled_created": 2, "backfilled_resolved": 1, "chain_records": 2},
+        ),
+    ):
+        result = await maybe_backfill_empty_oracle_chain(limit=10)
+    assert result is not None
+    assert result["trigger"] == "empty_chain_with_db_predictions"
+    assert result["oracle_predictions_in_db"] == 3
+
+
+@pytest.mark.asyncio
 async def test_backfill_from_database_mock(tmp_path, monkeypatch):
     """Backfill must succeed on an isolated intact chain (not ambient disk state)."""
     path = chain.isolated_chain_path_for_tests("track_record_backfill")

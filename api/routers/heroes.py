@@ -112,12 +112,15 @@ async def discipline_answer(
 ):
     from discipline_mirror import record_follow_up
 
-    user_key = str(
-        body.get("user_key")
-        or body.get("email")
-        or (user or {}).get("email")
-        or "anonymous"
-    )
+    session_email = str((user or {}).get("email") or "").strip()
+    if session_email:
+        user_key = session_email
+    else:
+        user_key = str(
+            body.get("user_key")
+            or body.get("email")
+            or "anonymous"
+        )
     return record_follow_up(
         user_key=user_key,
         asset=str(body.get("asset") or "BTC"),
@@ -137,11 +140,15 @@ async def discipline_me(
 ):
     from discipline_mirror import personal_mirror
 
-    resolved = (user_key or "").strip() or str((user or {}).get("email") or "").strip()
+    session_email = str((user or {}).get("email") or "").strip()
+    if session_email:
+        resolved = session_email
+    else:
+        resolved = (user_key or "").strip()
     if not resolved:
         raise HTTPException(
-            status_code=422,
-            detail="user_key required (or authenticate so session email is used)",
+            status_code=401,
+            detail="authentication required for Discipline Mirror",
         )
 
     label_by_id: dict[str, str] = {}
@@ -271,14 +278,15 @@ async def ledger_share_kit(request: Request):
     accuracy_pct = None
     total = None
     try:
-        from database import fetch_oracle_audit_stats
+        from database import fetch_live_public_ledger
 
-        stats = await fetch_oracle_audit_stats(limit=5, include_synthetic=False)
-        live = stats.get("live") or {}
-        accuracy_pct = live.get("average_accuracy_percent", stats.get("average_accuracy_percent"))
-        total = live.get("total_predictions", stats.get("total_predictions"))
-        if total is None:
-            total = live.get("resolved_predictions", stats.get("resolved_predictions"))
+        ledger = await fetch_live_public_ledger(recent_limit=5, miss_sample_limit=1)
+        if ledger.get("query_ok"):
+            accuracy_pct = ledger.get("accuracy_percent")
+            total = ledger.get("logged")
+        else:
+            accuracy_pct = None
+            total = None
         try:
             accuracy_pct = float(accuracy_pct) if accuracy_pct is not None else None
         except (TypeError, ValueError):

@@ -38,7 +38,7 @@ ORACLE_CONCURRENCY = int(os.getenv("VIRAL_ORACLE_CONCURRENCY", "32"))
 ORACLE_RL_PER_MIN = int(os.getenv("VIRAL_ORACLE_RL_PER_MIN", "60"))
 AUTH_RL_PER_MIN = int(os.getenv("VIRAL_AUTH_RL_PER_MIN", "30"))
 API_RL_PER_MIN = int(os.getenv("VIRAL_API_RL_PER_MIN", "120"))
-QUICK_CACHE_TTL_SEC = float(os.getenv("VIRAL_QUICK_CACHE_TTL_SEC", "2.0"))
+QUICK_CACHE_TTL_SEC = float(os.getenv("VIRAL_QUICK_CACHE_TTL_SEC", "8.0"))
 SHED_RETRY_AFTER_SEC = int(os.getenv("VIRAL_SHED_RETRY_AFTER_SEC", "2"))
 
 _inflight = 0
@@ -254,6 +254,9 @@ def check_rate_limit(key: str, *, limit: int, window_sec: int = 60, prefix: str 
 def _path_class(path: str, method: str = "GET") -> str | None:
     if path.startswith(("/health", "/static")) or path == "/favicon.ico":
         return None  # never rate-limit probes/static
+    # Hot read-only integrity probe — must not queue behind oracle RL/inflight/redis sync.
+    if path == "/api/oracle/audit-chain/verify":
+        return None
     if path.startswith("/api/audit/export"):
         return "audit_export"
     mutating = method.upper() in {"POST", "PUT", "PATCH", "DELETE"}
@@ -434,7 +437,7 @@ async def viral_protection_middleware(request: Request, call_next):
     if kind is None:
         return await call_next(request)
 
-    accepted, inflight_token = begin_inflight()
+    accepted, inflight_token = await asyncio.to_thread(begin_inflight)
     if not accepted:
         return JSONResponse(
             {
@@ -450,7 +453,13 @@ async def viral_protection_middleware(request: Request, call_next):
     try:
         limit, window = _limits_for(kind)
         client = _client_key(request)
-        check_rate_limit(f"{kind}:{client}", limit=limit, window_sec=window, prefix=kind)
+        await asyncio.to_thread(
+            check_rate_limit,
+            f"{kind}:{client}",
+            limit=limit,
+            window_sec=window,
+            prefix=kind,
+        )
         response = await call_next(request)
         if path in {"/", "/dashboard", "/oracle-accuracy", "/compliance", "/capabilities"}:
             # Landing shell is mostly static per locale; 15s forced re-render
@@ -472,7 +481,7 @@ async def viral_protection_middleware(request: Request, call_next):
             headers=dict(exc.headers or {}),
         )
     finally:
-        end_inflight(inflight_token)
+        await asyncio.to_thread(end_inflight, inflight_token)
 
 
 def viral_health_payload() -> dict[str, Any]:

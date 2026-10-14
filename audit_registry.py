@@ -504,6 +504,11 @@ async def log_api_request(
     # Avoid recursive noise from high-volume export polling
     if path.startswith("/api/audit/export"):
         return
+    if path in {
+        "/api/due-diligence/evidence-pack/public-summary",
+        "/api/oracle/accuracy/public",
+    }:
+        return
 
     try:
         actor = await resolve_actor_from_request(request)

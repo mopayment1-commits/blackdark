@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BLACKDARK — {{ title }}</title>
+    <title>{{ document_title or ('BLACKDARK — ' + title) }}</title>
+    {% include "partials/seo_canonical.html" %}
     <link rel="stylesheet" href="/static/css/trust-os.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }

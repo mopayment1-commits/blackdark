@@ -23,10 +23,10 @@ def test_arabic_changes_hero_and_lenses_and_nav():
     # Body headline must not stay English (meta may still mention brand EN in rare cases)
     assert 'class="hero-headline">ننشر الخطأ.</p>' in ar or ">ننشر الخطأ.</p>" in ar
     assert 'class="hero-headline">We publish the miss.</p>' not in ar
-    assert "تقسيم المميزات" in ar
+    assert "تقسيم المميزات" not in ar
     assert "تسجيل الدخول" in ar
     assert "إنشاء حساب" in ar
-    assert 'id="lenses"' in ar
+    assert 'href="/lenses"' in ar
 
 
 def test_french_changes_hero():

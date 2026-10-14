@@ -44,6 +44,7 @@ COPY microservices/ microservices/
 COPY dbt_blackdark/ dbt_blackdark/
 COPY templates/ templates/
 COPY static/ static/
+COPY locales/ locales/
 RUN mkdir -p data/models
 COPY data/operational_manifest.json data/
 COPY data/institutional_assurance/signed_capacity.json data/institutional_assurance/

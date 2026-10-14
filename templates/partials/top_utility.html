@@ -67,9 +67,9 @@
 <div class="bd-fixed-chrome" data-chrome="auth-lang-pay" aria-label="Language, account, and pricing">
   <div class="bd-top-utility">
     {% include 'partials/lang_switcher.html' %}
-    <a class="bd-util-link bd-util-pricing" href="/#pricing">{{ t('nav.pricing') if t is defined else 'Pricing' }}</a>
+    <a class="bd-util-link bd-util-pricing" href="/#pricing" aria-label="{{ (t('nav.pricing') if t is defined else 'Pricing') }} — header">{{ t('nav.pricing') if t is defined else 'Pricing' }}</a>
     <a class="bd-util-link" href="/login" id="bdUtilLogin">{{ t('nav.login') if t is defined else 'Login' }}</a>
-    <a class="bd-util-link bd-util-signup" href="/login?tab=register" id="bdUtilSignup">{{ t('nav.signup') if t is defined else 'Sign up' }}</a>
+    <a class="bd-util-link bd-util-signup" href="/login?tab=register" id="bdUtilSignup" aria-label="{{ (t('nav.signup') if t is defined else 'Sign up') }} — header">{{ t('nav.signup') if t is defined else 'Sign up' }}</a>
   </div>
   <div class="bd-chrome-hint">Language · Login · Pay</div>
 </div>

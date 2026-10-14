@@ -16,7 +16,14 @@ def flash_crash_protection_status_49(*, symbol: str = "BTC") -> dict[str, Any]:
     try:
         from obi_predictor import forecast_flash_crash
 
-        forecast = forecast_flash_crash(symbol=symbol)
+        sym = symbol.upper()
+        forecast = forecast_flash_crash(
+            asset=sym,
+            exchange="binance",
+            symbol=f"{sym}/USDT",
+            current_obi=0.0,
+            history=[],
+        )
     except Exception as exc:
         forecast = {"ok": False, "error": str(exc)}
 

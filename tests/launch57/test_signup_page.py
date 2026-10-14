@@ -76,7 +76,8 @@ def test_google_signin_configured_when_client_id_set(client, monkeypatch):
     res = client.get("/login?tab=register", headers={"Accept": "text/html"})
     assert res.status_code == 200
     assert "googleBtnHost" in res.text
-    assert "accounts.google.com/gsi/client" in res.text
+    assert "/api/auth/oauth/google/start" in res.text
+    assert "accounts.google.com/gsi/client" not in res.text
     assert "Google sign-in not configured" not in res.text
 
     status = client.get("/api/auth/oauth/status").json()
@@ -148,15 +149,15 @@ def test_non_json_api_errors_handled_gracefully():
     assert 'href="/login">Sign in</a>' in html
 
 
-def test_google_signin_uses_redirect_mode_not_popup_only():
-    """Fails if GIS reverts to popup-only (callback fetch) without redirect login_uri."""
+def test_google_signin_navigates_oauth_start_not_gis_transform():
+    """Login Google button must use RFC 6749 start, not GIS redirect transform."""
     html = Path("templates/login.html").read_text(encoding="utf-8")
-    dashboard = Path("dashboard.py").read_text(encoding="utf-8")
-    assert "ux_mode: 'redirect'" in html
-    assert "login_uri" in html
-    assert "googleLoginUri" in html
-    assert '@app.post("/login")' in dashboard
-    assert "/api/auth/oauth/google/credential" not in html
+    assert "ux_mode: 'redirect'" not in html
+    assert "login_uri:" not in html
+    assert "googleOAuthStartUrl" in html
+    assert "/api/auth/oauth/google/start" in html
+    assert "renderButton" not in html
+    assert "accounts.google.com/gsi/client" not in html
 
 
 def test_google_gis_redirect_post_login_route(client, monkeypatch):

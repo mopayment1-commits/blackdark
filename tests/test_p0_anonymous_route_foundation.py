@@ -69,6 +69,7 @@ def test_allowlist_is_explicit_not_implicit():
 
 
 def test_no_cookie_private_route_denied(client):
+    html_login_gates = {"/dashboard", "/profile"}
     private_paths = (
         "/api/user/profile",
         "/api/privacy/export",
@@ -79,7 +80,11 @@ def test_no_cookie_private_route_denied(client):
         "/api/cap646/47",
     )
     for path in private_paths:
-        response = client.get(path)
+        response = client.get(path, headers={"Accept": "text/html"} if path in html_login_gates else {})
+        if path in html_login_gates:
+            assert response.status_code == 401, path
+            assert response.headers.get("X-Blackdark-Auth-Boundary"), path
+            continue
         assert response.status_code in {401, 403, 404, 405, 422}, path
 
 
@@ -92,6 +97,7 @@ def test_no_cookie_public_allowlist_ok(client):
         "/login",
         "/register",
         "/oracle-accuracy",
+        "/discipline-mirror",
         "/api/docs/public-manifest",
     )
     for path in public_paths:
@@ -128,10 +134,16 @@ def test_accidental_public_routes_zero(client):
         "/openapi.json",
         "/graphql",
     )
+    html_login_gates = {"/dashboard", "/profile"}
     accidental = []
     for path in private_probe_paths:
-        response = client.get(path)
+        response = client.get(
+            path,
+            headers={"Accept": "text/html"} if path in html_login_gates else {},
+        )
         if response.status_code in {200, 201, 204}:
+            if path in html_login_gates:
+                continue
             accidental.append(path)
     assert accidental == []
 

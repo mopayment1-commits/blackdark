@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="{{ lang|default('en') }}" dir="{{ dir|default('ltr') }}" id="htmlRoot">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#22d3ee">
+    <title>BLACKDARK — Trust Pulse proof{% if proof_symbol %} — {{ proof_symbol }}{% endif %}</title>
+    {% include "partials/seo_canonical.html" %}
+    <link rel="stylesheet" href="/static/css/trust-os.css">
+    <style>
+        body { font-family: var(--bd-font-body); background: radial-gradient(1200px 600px at 80% -10%, #12202a 0%, #0a0a0f 55%); color: #e4e4e7; min-height: 100vh; line-height: 1.5; }
+        main { max-width: 720px; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; }
+        .proof-card {
+            background: linear-gradient(165deg, rgba(18,32,42,.95) 0%, #111118 55%);
+            border: 1px solid rgba(34,211,238,.28);
+            border-radius: 14px;
+            padding: 1.35rem 1.25rem;
+            margin-top: 1rem;
+        }
+        .proof-top { display: flex; flex-wrap: wrap; align-items: center; gap: .65rem; margin-bottom: .85rem; }
+        .proof-label { color: #22d3ee; font-size: .82rem; letter-spacing: .06em; font-weight: 700; }
+        .proof-action {
+            font-size: 1.85rem; font-weight: 900; letter-spacing: .02em;
+        }
+        .proof-action.ACT { color: #22c55e; }
+        .proof-action.WAIT { color: #f59e0b; }
+        .proof-action.ABSTAIN { color: #a1a1aa; }
+        .proof-meta { color: #a1a1aa; font-size: .95rem; }
+        .proof-sentence { font-size: 1.05rem; margin: 1rem 0; color: #e4e4e7; }
+        .cert-block {
+            margin-top: 1.1rem; padding: .9rem 1rem;
+            border: 1px solid #2a2a35; border-radius: 10px; background: #1a1a24;
+            font-size: .88rem; color: #a1a1aa;
+        }
+        .cert-block code { color: #22d3ee; word-break: break-all; }
+        .proof-cta { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.25rem; }
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: .75rem 1.25rem; border-radius: 10px; font-weight: 700; text-decoration: none; border: none; cursor: pointer;
+            background: linear-gradient(135deg,#22d3ee,#06b6d4); color: #041016;
+        }
+        .btn.secondary { background: #1a1a24; color: #e4e4e7; border: 1px solid #2a2a35; }
+        .foot { margin-top: 1.25rem; font-size: .72rem; color: #71717a; border-top: 1px solid #2a2a35; padding-top: .75rem; }
+        .err { color: #fca5a5; margin-top: 1rem; }
+    </style>
+</head>
+<body>
+    {% include 'partials/global_header.html' %}
+    <main id="main">
+        <h1 style="font-family:var(--bd-font-display);font-size:clamp(1.35rem,3vw,1.75rem);letter-spacing:.03em">Trust Pulse — full proof</h1>
+        <p style="color:#71717a;font-size:.9rem;margin-top:.35rem">Readable decision surface — not raw JSON.</p>
+
+        {% if proof_error %}
+        <p class="err">{{ proof_error }}</p>
+        {% else %}
+        <article class="proof-card" aria-label="Trust Pulse proof">
+            <div class="proof-top">
+                <span class="proof-label">TRUST PULSE</span>
+                <span class="proof-action {{ proof_action }}">{{ proof_action }}</span>
+            </div>
+            <p class="proof-meta">
+                <strong style="color:#e4e4e7">{{ proof_symbol }}</strong>
+                {% if proof_price is not none %}
+                · ${{ "%.2f"|format(proof_price) if proof_price >= 1 else "%.4f"|format(proof_price) }}
+                {% endif %}
+                {% if proof_change is not none %}
+                · <span>{{ "%+.2f"|format(proof_change) }}% 24h</span>
+                {% endif %}
+            </p>
+            <p class="proof-sentence">{{ proof_sentence }}</p>
+
+            {% if certificate and certificate.certificate_hash %}
+            <div class="cert-block">
+                <strong style="color:#e4e4e7;display:block;margin-bottom:.35rem">Decision certificate</strong>
+                <div>Hash: <code>{{ certificate.certificate_hash }}</code></div>
+                {% if certificate.share_text %}
+                <p style="margin-top:.65rem;color:#d4d4d8">{{ certificate.share_text }}</p>
+                {% endif %}
+            </div>
+            {% else %}
+            <div class="cert-block">No certificate hash on this quick decision yet — verify outcomes on the public ledger.</div>
+            {% endif %}
+
+            <div class="proof-cta">
+                <a class="btn" href="{{ ledger_href }}">Verify on Ledger</a>
+                <a class="btn secondary" href="{{ dashboard_back_href }}">Back to Dashboard</a>
+            </div>
+            <p class="foot"><strong>Anti-Hype</strong> · Not financial advice · Research-only model state</p>
+        </article>
+        {% endif %}
+    </main>
+    {% include 'partials/site_footer.html' %}
+</body>
+</html>

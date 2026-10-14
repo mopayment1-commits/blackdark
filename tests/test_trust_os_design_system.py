@@ -14,6 +14,7 @@ def test_design_system_css_and_doc():
     assert "--bd-accent: #22d3ee" in css or "#22d3ee" in css
     assert "Syne" in css
     assert "IBM Plex Sans" in css
+    assert '@import url("https://fonts.googleapis.com' not in css
     assert "bdPulseIn" in css
     assert "bdFlipFlash" in css
     assert "bdSharePop" in css
@@ -45,18 +46,19 @@ def test_templates_link_design_system():
         assert "/static/css/trust-os.css" in src, path
 
 
-def test_landing_rejects_inter_purple_and_keeps_pricing_canon():
+def test_landing_rejects_inter_purple_and_keeps_pricing_off_homepage():
     land = (ROOT / "templates/landing.html").read_text(encoding="utf-8")
     assert "fonts.googleapis.com/css2?family=Inter" not in land
     assert "#a78bfa" not in land
     assert "#f472b6" not in land
-    assert "pricing.decide_pro" in land
-    assert "$19.99" in land
-    assert "pricing.see_edge_elite" in land
-    assert "$49.99" in land
-    assert "pricing.execute_quant" in land
-    assert "$129.99" in land
-    assert "pricing.cta.talk" in land or "pricing.from_open" in land or "institutionalInquiryForm" in land
+    assert "pricing.decide_pro" not in land
+    assert "$19.99" not in land
+    assert "pricing.see_edge_elite" not in land
+    assert "$49.99" not in land
+    assert "pricing.execute_quant" not in land
+    assert "$129.99" not in land
+    assert "pricing.cta.talk" not in land
+    assert 'id="pricing"' not in land
     assert 'id="trust-pulse"' in land
     assert "fake seat" in land.lower() or "No fake seat" in land
     assert "🎁" not in land

@@ -84,6 +84,40 @@ def hash_session_token(token: str) -> str:
     return hashlib.sha256(f"{_session_token_pepper()}:{token}".encode()).hexdigest()
 
 
+_revoked_session_hashes: dict[str, float] = {}
+_REVOKED_SESSION_TTL_SEC = 60 * 60 * 24 * int(os.getenv("AUTH_SESSION_DAYS", "30"))
+
+
+def _prune_revoked_sessions(now: float | None = None) -> None:
+    ts = now if now is not None else time.time()
+    stale = [h for h, exp in _revoked_session_hashes.items() if exp <= ts]
+    for h in stale:
+        _revoked_session_hashes.pop(h, None)
+
+
+def mark_session_revoked(token: str) -> None:
+    """OWASP — block reuse immediately (before DB delete completes)."""
+    plain = (token or "").strip()
+    if not plain:
+        return
+    now = time.time()
+    _prune_revoked_sessions(now)
+    _revoked_session_hashes[hash_session_token(plain)] = now + _REVOKED_SESSION_TTL_SEC
+
+
+def is_session_revoked(token: str) -> bool:
+    plain = (token or "").strip()
+    if not plain:
+        return False
+    exp = _revoked_session_hashes.get(hash_session_token(plain))
+    if exp is None:
+        return False
+    if exp <= time.time():
+        _revoked_session_hashes.pop(hash_session_token(plain), None)
+        return False
+    return True
+
+
 def _memory_login_rate_limit(key: str) -> None:
     global _rate_limit_backend
     _rate_limit_backend = "memory"

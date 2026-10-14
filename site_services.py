@@ -59,7 +59,7 @@ def contact_channels() -> dict[str, Any]:
     support = cfg["support_email"]
     urgent = cfg["urgent_escalation"]
     complaints = _env("COMPLAINTS_EMAIL", support)
-    sales = _env("SALES_EMAIL", "sales@blackdark.io")
+    sales = _env("SALES_EMAIL", support)
     wa = _env("WHATSAPP_BUSINESS_E164", "")  # e.g. 15551234567
     phone_inst = _env("INSTITUTIONAL_PHONE", "")  # Room only — optional
     wa_url = f"https://wa.me/{wa}" if wa else ""
@@ -125,7 +125,7 @@ FAQ_ITEMS: list[dict[str, str]] = [
     },
     {
         "q": "How do refunds work?",
-        "a": "See /refund. Self-serve plans are USD monthly; trials convert unless cancelled. Refunds via Lemon/Stripe for clear billing errors or as required by law.",
+        "a": "See /refund. Self-serve plans are USD monthly; trials convert unless cancelled. Refunds follow the refund policy and applicable law.",
     },
     {
         "q": "How do I contact support or WhatsApp?",
@@ -191,36 +191,22 @@ def footer_manifest() -> dict[str, Any]:
         "tagline": "Trust OS — Decide. Prove it. Share it.",
         "story": "Prove → Operate → Desk → Room",
         "product": [
-            {"label": "Trust Pulse", "href": "/#trust-pulse"},
-            {"label": "Decide", "href": "/login?next=/dashboard%3Flens%3Dprove"},
-            {"label": "Verify", "href": "/oracle-accuracy"},
-            {"label": "Dashboard", "href": "/login?next=/dashboard"},
-            {"label": "Pricing", "href": "/#pricing"},
-            {"label": "Profile & Billing", "href": "/login?next=/profile"},
-            {"label": "AI Chat", "href": "/login?next=/dashboard%3Flens%3Doperate"},
+            {"label": "Oracle", "href": "/#oracle"},
+            {"label": "Dashboard", "href": "/dashboard"},
+            {"label": "Pricing", "href": "/pricing"},
         ],
         "trust": [
-            {"label": "How it works", "href": "/how-it-works"},
-            {"label": "Capabilities", "href": "/capabilities"},
-            {"label": "FAQ", "href": "/faq"},
-            {"label": "Status", "href": "/status"},
-            {"label": "Changelog", "href": "/changelog"},
-            {"label": "Compliance", "href": "/compliance"},
+            {"label": "Public Accuracy Ledger", "href": "/oracle-accuracy"},
+            {"label": "Discipline Mirror", "href": "/discipline-mirror"},
         ],
         "company": [
-            {"label": "About", "href": "/about"},
             {"label": "Contact", "href": "/contact"},
-            {"label": "Feedback", "href": "/feedback"},
-            {"label": "Complaints", "href": "/complaints"},
-            {"label": "Data Room", "href": "/data-room"},
+            {"label": "About", "href": "/about"},
         ],
         "legal": [
-            {"label": "Legal hub", "href": "/legal"},
+            {"label": "Disclaimer", "href": "/disclaimer"},
             {"label": "Terms", "href": "/terms"},
             {"label": "Privacy", "href": "/privacy"},
-            {"label": "Cookies", "href": "/cookies"},
-            {"label": "Refund", "href": "/refund"},
-            {"label": "Disclaimer", "href": "/disclaimer"},
         ],
         "follow": brand_social(),
         "contact": contact,
@@ -402,9 +388,13 @@ def _overall_status(components: list[dict[str, Any]]) -> str:
     return overall
 
 
-def public_status_report() -> dict[str, Any]:
+def public_status_report(*, fast: bool = False) -> dict[str, Any]:
     """Aggregate non-secret readiness for /status — never expose keys."""
-    viral = _viral_status()
+    viral = (
+        {"status": "reported", "summary": "See /health/viral for capacity detail."}
+        if fast
+        else _viral_status()
+    )
     billing = _billing_status()
     db_engine = _database_engine()
 

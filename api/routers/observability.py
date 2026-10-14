@@ -58,25 +58,9 @@ async def acquirer_evidence_pack_api(_whale: dict = Depends(require_whale)):
 @router.get("/api/due-diligence/evidence-pack/public-summary")
 async def acquirer_evidence_public_summary():
     """Redacted public teaser — no proprietary internals."""
-    return {
-        "product_thesis": (
-            "Decision Intelligence + Proven Predictive Accuracy + "
-            "Proprietary Labeled Market Corpus"
-        ),
-        "differentiators": ["D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8"],
-        "public_endpoints": {
-            "accuracy": "/api/oracle/accuracy/public",
-            "accuracy_page": "/oracle-accuracy",
-            "persona_demo": "/api/oracle/persona-clarity/demo",
-            "half_life": "/api/oracle/half-life",
-            "net_edge": "/api/oracle/net-edge-truth",
-            "kill_rate": "/api/public/kill-rate",
-            "committee_teaser": "/b2b/committee-one-pager",
-        },
-        "full_pack": "/api/due-diligence/evidence-pack",
-        "access": "whale_or_admin",
-        "constitution": "docs/PRODUCT_CONSTITUTION_AR.md",
-    }
+    from evidence_public_summary import get_cached_evidence_public_summary
+
+    return get_cached_evidence_public_summary()
 
 
 @router.get("/api/due-diligence/committee-one-pager")

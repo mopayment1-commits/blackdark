@@ -9,16 +9,36 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-PROD_URL = os.getenv("APP_BASE_URL", "https://blackdark-production.up.railway.app").rstrip("/")
+PROD_URL = os.getenv("APP_BASE_URL", "https://blackdark.io").rstrip("/")
+RAILWAY_ORIGIN = os.getenv(
+    "RAILWAY_PUBLIC_ORIGIN", "https://blackdark-production.up.railway.app"
+).rstrip("/")
 
 REQUIRED = [
     ("SERVICE_MODE", "web"),
     ("ENV", "production"),
     ("APP_BASE_URL", PROD_URL),
-    ("DATABASE_URL", "<Railway Postgres plugin URL>"),
+    ("DATABASE_URL", "${{Postgres.DATABASE_URL}} (private *.railway.internal)"),
+    (
+        "DATABASE_PUBLIC_URL",
+        "${{Postgres.DATABASE_PUBLIC_URL}} — required when private DNS does not resolve in web",
+    ),
     ("LEMON_SQUEEZY_CHECKOUT_PRO", "https://blackdark.lemonsqueezy.com/checkout/buy/<checkout-id>"),
     ("PRICE_FEED_WS_ONLY", "false"),
     ("UPTIME_SELF_PROBE_ENABLED", "true"),
+]
+
+DOMAIN = [
+    ("PUBLIC_CANONICAL_HOSTS", "blackdark.io,www.blackdark.io"),
+    (
+        "ALLOWED_HOSTS",
+        "blackdark.io,www.blackdark.io,blackdark-production.up.railway.app",
+    ),
+    (
+        "CORS_ALLOWED_ORIGINS",
+        "https://blackdark.io,https://www.blackdark.io,"
+        + RAILWAY_ORIGIN,
+    ),
 ]
 
 RECOMMENDED = [
@@ -41,6 +61,11 @@ def main() -> int:
     for key, val in REQUIRED:
         # Placeholder strings only — never live env values.
         print(f"  {key}={val}")
+
+    print("\nCUSTOM DOMAIN (required for blackdark.io logout/API):\n")
+    for key, val in DOMAIN:
+        print(f"  {key}={val}")
+    print("  See deploy/dns/blackdark-io-railway.md + scripts/verify_custom_domain_logout.py")
 
     print("\nRECOMMENDED:\n")
     for key, val in RECOMMENDED:

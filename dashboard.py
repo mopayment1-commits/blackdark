@@ -130,6 +130,13 @@ def render_page(request: Request, name: str, context: dict[str, Any] | None = No
     return response
 
 
+def render_utility(request: Request, ctx: dict[str, Any] | None = None) -> HTMLResponse:
+    """Utility shell with full i18n (lang, dir, t())."""
+    payload = dict(ctx or {})
+    payload.update(_footer_ctx())
+    return render_page(request, STR_UTILITY_HTML, payload)
+
+
 def _auth_required_next_path(request: Request) -> str:
     path = request.url.path or "/"
     query = str(request.url.query or "")
@@ -188,16 +195,19 @@ def render_dashboard_auth_required(request: Request) -> HTMLResponse:
 
 
 def render_profile_auth_required(request: Request) -> HTMLResponse:
+    from i18n_service import resolve_request_lang, t
+
+    lang = resolve_request_lang(request)
     return render_surface_auth_required(
         request,
         lens="profile",
-        lens_label="Profile & Billing",
-        lens_hint="Sign in to manage identity, security, and your USD plan.",
+        lens_label=t("profile.section.profile", lang),
+        lens_hint=t("auth.gate.profile_hint", lang),
         boundary="profile-auth-required-html",
     )
 
 
-_HTML_AUTH_GATE_EXACT: frozenset[str] = frozenset({"/profile", "/dashboard", "/discipline-mirror"})
+_HTML_AUTH_GATE_EXACT: frozenset[str] = frozenset({"/profile", "/dashboard"})
 
 
 def anonymous_denial_should_be_html(request: Request) -> bool:
@@ -569,6 +579,12 @@ async def _background_boot(app: FastAPI) -> None:
     else:
         await _start_background_runtime(app)
     try:
+        from startup_orchestrator import _maybe_backfill_empty_oracle_chain
+
+        await _maybe_backfill_empty_oracle_chain()
+    except Exception:
+        logger.exception("Oracle audit chain auto-backfill failed during web boot")
+    try:
         from bigquery_export import bigquery_configured, bigquery_live_ready
         from startup_orchestrator import _maybe_run_bigquery_export_bootstrap
 
@@ -746,15 +762,37 @@ def _header_user_payload(user: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+_HTML_SHELL_FAST_PATHS = frozenset({"/", "/landing"})
+
+
+def _html_shell_fast_path(request: Request) -> bool:
+    if request.method != "GET":
+        return False
+    path = request.url.path or ""
+    if path.startswith(("/api/", "/static/", "/openapi")):
+        return False
+    if path in _HTML_SHELL_FAST_PATHS:
+        return True
+    accept = (request.headers.get("accept") or "").lower()
+    if "text/html" in accept or "*/*" in accept or not accept.strip():
+        return not path.endswith((".json", ".xml", ".txt", ".ico", ".png", ".webp", ".js", ".css"))
+    return False
+
+
 @app.middleware("http")
 async def header_session_middleware(request: Request, call_next):
     """Expose validated session user for global header chrome (SSR)."""
+    import asyncio
+
     request.state.header_user = None
     try:
-        user = await _resolve_html_auth_user(request)
+        if _html_shell_fast_path(request):
+            user = await asyncio.wait_for(_resolve_html_auth_user(request), timeout=2.0)
+        else:
+            user = await _resolve_html_auth_user(request)
         if user:
             request.state.header_user = _header_user_payload(user)
-    except Exception:
+    except (asyncio.TimeoutError, Exception):
         request.state.header_user = None
     return await call_next(request)
 
@@ -1551,7 +1589,7 @@ def _google_post_auth_redirect(plan: str | None, next_path: str | None) -> str:
         return "/data-room?from=signup"
     if next_path and next_path.startswith("/") and not next_path.startswith("//"):
         return next_path
-    return "/dashboard"
+    return "/"
 
 
 # ========== LANDING PAGE (ROOT) ==========
@@ -1606,10 +1644,69 @@ async def login_google_gis_redirect(request: Request):
     return resp
 
 
-@app.get("/pricing")
-async def pricing_page_redirect():
-    """Visitor pricing is the homepage plan cards — not a JSON catalog."""
-    return RedirectResponse(url="/#pricing", status_code=302)
+@app.get("/api/public/site-search")
+async def public_site_search(q: str = ""):
+    from site_search_index import search_site
+
+    return {"results": search_site(q)}
+
+
+@app.get("/api/public/oracle-symbols")
+async def public_oracle_symbols():
+    from site_oracle_catalog import oracle_catalog_payload
+
+    return oracle_catalog_payload()
+
+
+@app.post("/api/public/site-assistant")
+async def public_site_assistant(body: dict = Body(default=None)):
+    from site_public_assistant import (
+        message_wants_oracle,
+        reply_site_assistant,
+        resolve_query_symbol,
+        sanitize_assistant_thread,
+    )
+
+    payload = body or {}
+    message = str(payload.get("message") or "")
+    page_context = payload.get("page_context") if isinstance(payload.get("page_context"), dict) else {}
+    thread = payload.get("thread") if isinstance(payload.get("thread"), list) else []
+    history = sanitize_assistant_thread(thread)
+
+    oracle_ctx = None
+    sym = resolve_query_symbol(message, history)
+    if sym and message_wants_oracle(message, history):
+        try:
+            asset, pair = _normalize_oracle_symbol(sym)
+            oracle_ctx = await _compute_oracle_quick_payload(asset, pair, "en", "beginner")
+            oracle_ctx = {**oracle_ctx, "symbol": asset}
+        except Exception:
+            oracle_ctx = None
+
+    return reply_site_assistant(
+        message,
+        page_context,
+        thread=thread,
+        oracle_ctx=oracle_ctx,
+    )
+
+
+@app.get("/pricing", response_class=HTMLResponse)
+async def pricing_page(request: Request):
+    """Public pricing — cards, comparison table, and enterprise inquiry only here."""
+    from i18n_service import resolve_request_lang, translator
+    from public_pricing_page import public_pricing_page_context
+
+    lang = resolve_request_lang(request)
+    return render_page(
+        request,
+        "pricing.html",
+        {
+            **public_pricing_page_context(translator(lang)),
+            "nav_active": "pricing",
+            **_footer_ctx(),
+        },
+    )
 
 
 @app.get("/identity-standards", response_class=HTMLResponse)
@@ -1651,10 +1748,7 @@ async def verify_email_page(request: Request, token: str = ""):
     from fastapi.responses import RedirectResponse
 
     if not token:
-        return templates.TemplateResponse(
-            request,
-            STR_UTILITY_HTML,
-            {
+        return render_utility(request, {
                 "page": "verify_email",
                 "title": STR_VERIFY_EMAIL,
                 "lead": "Missing verification token. Use the link from your email, or resend from Profile.",
@@ -1663,10 +1757,7 @@ async def verify_email_page(request: Request, token: str = ""):
     # Allowlist token charset; consume here so Location never embeds user input.
     safe = "".join(ch for ch in str(token) if ch.isalnum() or ch in "-_.")
     if len(safe) < 16:
-        return templates.TemplateResponse(
-            request,
-            STR_UTILITY_HTML,
-            {
+        return render_utility(request, {
                 "page": "verify_email",
                 "title": STR_VERIFY_EMAIL,
                 "lead": "Invalid or expired verification link. Resend from Profile.",
@@ -1679,10 +1770,7 @@ async def verify_email_page(request: Request, token: str = ""):
         user_id = await consume_auth_token(safe, "email_verify")
         await mark_email_verified(user_id)
     except ValueError:
-        return templates.TemplateResponse(
-            request,
-            STR_UTILITY_HTML,
-            {
+        return render_utility(request, {
                 "page": "verify_email",
                 "title": STR_VERIFY_EMAIL,
                 "lead": "Invalid or expired verification link. Resend from Profile.",
@@ -1843,7 +1931,7 @@ async def landing_page(request: Request):
 
     lang = resolve_request_lang(request)
     auth_segment = "auth" if getattr(request.state, "header_user", None) else "anon"
-    cache_key = f"v2:{lang}:{auth_segment}"
+    cache_key = f"v6:{lang}:{auth_segment}"
     now = time.time()
     hit = _landing_html_cache.get(cache_key)
     if hit and (now - hit[0]) < _LANDING_HTML_CACHE_TTL:
@@ -1857,10 +1945,14 @@ async def landing_page(request: Request):
             secure=_cookie_secure(request),
         )
         response.headers["X-Landing-Cache"] = "HIT"
+        if auth_segment == "anon":
+            response.headers["Cache-Control"] = "public, max-age=60, stale-while-revalidate=120"
         return response
 
     ctx = template_context(request, _footer_ctx())
     import config as _cfg
+
+    ctx["oracle_symbols"] = _cfg.tracked_asset_list()
     ctx["telegram_bot_username"] = _cfg.TELEGRAM_BOT_USERNAME
     ctx["telegram_bot_url"] = f"https://t.me/{_cfg.TELEGRAM_BOT_USERNAME}" if _cfg.TELEGRAM_BOT_USERNAME else None
     html = templates.get_template("landing.html").render({"request": request, **ctx})
@@ -1880,6 +1972,8 @@ async def landing_page(request: Request):
         secure=_cookie_secure(request),
     )
     response.headers["X-Landing-Cache"] = "MISS"
+    if auth_segment == "anon":
+        response.headers["Cache-Control"] = "public, max-age=60, stale-while-revalidate=120"
     return response
 
 
@@ -1959,6 +2053,8 @@ async def sitemap_xml(request: Request):
         "/d5-honesty",
         "/b2b/committee-one-pager",
         "/docs",
+        "/pricing",
+        "/lenses",
         "/b2b",
         "/discipline-mirror",
         "/capabilities",
@@ -1992,13 +2088,92 @@ async def sitemap_xml(request: Request):
 # ========== DASHBOARD ==========
 @app.get("/dashboard", response_class=HTMLResponse)
 async def dashboard_page(request: Request):
-    return render_page(request, "dashboard.html", _footer_ctx())
+    import config as _cfg
+
+    ctx = {
+        **_footer_ctx(),
+        "oracle_symbols": _cfg.tracked_asset_list(),
+    }
+    return render_page(request, "dashboard.html", ctx)
 
 
 @app.get("/discipline-mirror", response_class=HTMLResponse)
 async def discipline_mirror_page(request: Request):
     """Private Discipline Mirror UI — never public ledger."""
     return render_page(request, "discipline.html", _footer_ctx())
+
+
+def _trust_pulse_proof_display_action(payload: dict[str, Any]) -> str:
+    raw = str(payload.get("decision_action") or payload.get("verdict") or "WAIT").upper()
+    if "CONDITION" in raw or raw in {"ACT", "BUY", "BULLISH"}:
+        return "ACT"
+    if "ABSTAIN" in raw or "DONT" in raw or raw == "I_DONT_KNOW":
+        return "ABSTAIN"
+    return "WAIT"
+
+
+async def _trust_pulse_proof_payload(
+    symbol: str,
+    lang: str,
+    ux_mode: str,
+) -> tuple[dict[str, Any] | None, str | None]:
+    from viral_capacity import run_oracle_bounded
+
+    asset, pair = _normalize_oracle_symbol(symbol)
+    try:
+        payload = await run_oracle_bounded(
+            lambda: _compute_oracle_quick_payload(asset, pair, lang, ux_mode)
+        )
+    except HTTPException as exc:
+        detail = exc.detail
+        if isinstance(detail, dict):
+            msg = detail.get("message") or detail.get("error") or str(detail)
+        else:
+            msg = str(detail) if detail else "Proof unavailable"
+        return None, msg
+    except Exception:
+        logger.exception("trust_pulse_proof quick failed")
+        return None, "Proof unavailable"
+
+    payload = _attach_quick_freshness(payload, asset)
+    _attach_quick_real_factors(payload)
+    _attach_oqs_why_safe(payload)
+    _attach_quick_certificate(payload)
+    from security_sanitize import sanitize_oracle_payload
+
+    return sanitize_oracle_payload(payload), None
+
+
+@app.get("/trust-pulse/proof", response_class=HTMLResponse)
+async def trust_pulse_proof_page(
+    request: Request,
+    symbol: str = "BTC",
+    ux_mode: str = "beginner",
+    lang: str | None = None,
+):
+    """Human-readable Trust Pulse proof — same oracle quick data, not a JSON blob."""
+    from i18n_service import resolve_request_lang
+
+    resolved_lang = (lang or resolve_request_lang(request) or "en").strip() or "en"
+    mode = (ux_mode or "beginner").strip() or "beginner"
+    asset, _pair = _normalize_oracle_symbol(symbol)
+    payload, proof_error = await _trust_pulse_proof_payload(asset, resolved_lang, mode)
+    cert = (payload or {}).get("decision_certificate") if payload else None
+    ctx = {
+        **_footer_ctx(),
+        "proof_symbol": asset,
+        "proof_action": _trust_pulse_proof_display_action(payload or {}),
+        "proof_sentence": (payload or {}).get("decision_sentence")
+        or (payload or {}).get("oracle")
+        or "",
+        "proof_price": (payload or {}).get("price"),
+        "proof_change": (payload or {}).get("change_24h"),
+        "certificate": cert if isinstance(cert, dict) else None,
+        "proof_error": proof_error,
+        "dashboard_back_href": "/dashboard?lens=prove",
+        "ledger_href": "/oracle-accuracy",
+    }
+    return render_page(request, "trust_pulse_proof.html", ctx)
 
 
 @app.get("/kill-rate", response_class=HTMLResponse)
@@ -2161,12 +2336,10 @@ async def discipline_mirror_alias():
     return RedirectResponse(url="/discipline-mirror", status_code=307)
 
 
-@app.get("/errors")
-async def public_errors_alias():
-    """Public admission of misses — alias into the Accuracy Ledger losing section."""
-    from fastapi.responses import RedirectResponse
-
-    return RedirectResponse(url="/oracle-accuracy#losing", status_code=307)
+@app.get("/errors", response_class=HTMLResponse)
+async def public_errors_alias(request: Request):
+    """Public misses surface — same ledger HTML as /oracle-accuracy (no redirect hop)."""
+    return render_page(request, "oracle_accuracy.html", _footer_ctx())
 
 
 @app.get("/public/accuracy-ledger")
@@ -2184,7 +2357,11 @@ async def public_developer_docs_page(request: Request):
     return render_page(
         request,
         "docs_public.html",
-        {"title": "Developer Docs", "manifest": public_docs_manifest(), **_footer_ctx()},
+        {
+            "title": "Developer Docs",
+            "manifest": public_docs_manifest(include_post_only_public_prefixes=True),
+            **_footer_ctx(),
+        },
     )
 
 
@@ -2345,10 +2522,7 @@ async def capabilities_page(request: Request):
     from trust_os import trust_os_manifest
 
     manifest = trust_os_manifest()
-    return templates.TemplateResponse(
-        request,
-        STR_UTILITY_HTML,
-        {
+    return render_utility(request, {
             "page": "capabilities",
             "title": "Capabilities — Trust OS",
             "lead": (
@@ -2356,8 +2530,7 @@ async def capabilities_page(request: Request):
                 "Four doors: Decide · Verify · My book · Alerts. Six heroes. No ARENA. "
                 "Don't trust us. Verify us. API: /api/lenses"
             ),
-            "trust_os": manifest,
-            **_footer_ctx(),
+            "trust_os": manifest
         },
     )
 
@@ -2375,10 +2548,7 @@ async def compliance_page(request: Request):
         regulatory = regulatory_compliance_status()
     except Exception:
         regulatory = {"status": "engineering_posture_only"}
-    return templates.TemplateResponse(
-        request,
-        STR_UTILITY_HTML,
-        {
+    return render_utility(request, {
             "page": "compliance",
             "title": "Anti-Hype Compliance",
             "lead": (
@@ -2386,8 +2556,7 @@ async def compliance_page(request: Request):
                 "not SOC 2 / ISO 27001 certification. Don't trust us. Verify us."
             ),
             "trust_os": manifest,
-            "regulatory": regulatory,
-            **_footer_ctx(),
+            "regulatory": regulatory
         },
     )
 
@@ -2395,17 +2564,13 @@ async def compliance_page(request: Request):
 @app.get("/data-room", response_class=HTMLResponse)
 async def data_room_page(request: Request):
     """Committee-facing data room index (HTML)."""
-    return templates.TemplateResponse(
-        request,
-        STR_UTILITY_HTML,
-        {
+    return render_utility(request, {
             "page": "data_room",
             "title": "Data Room",
             "lead": (
                 "Allocator / acquirer diligence index — Prove-it surfaces, evidence pack, "
                 "and honest capacity posture. Canonical docs live under /docs/DATA_ROOM.md."
-            ),
-            **_footer_ctx(),
+            )
         },
     )
 
@@ -2462,15 +2627,11 @@ async def api_viral_readiness():
 async def contact_page(request: Request):
     from site_services import contact_channels
 
-    return templates.TemplateResponse(
-        request,
-        STR_UTILITY_HTML,
-        {
+    return render_utility(request, {
             "page": "contact",
             "title": "Contact",
             "lead": "Reach the team for support, partnerships, and allocator diligence.",
-            "contact": contact_channels(),
-            **_footer_ctx(),
+            "contact": contact_channels()
         },
     )
 
@@ -2479,15 +2640,11 @@ async def contact_page(request: Request):
 async def complaints_page(request: Request):
     from site_services import contact_channels
 
-    return templates.TemplateResponse(
-        request,
-        STR_UTILITY_HTML,
-        {
+    return render_utility(request, {
             "page": "complaints",
             "title": "Complaints",
             "lead": "Escalation path for claim disputes, accuracy, and billing issues.",
-            "contact": contact_channels(),
-            **_footer_ctx(),
+            "contact": contact_channels()
         },
     )
 
@@ -2496,15 +2653,11 @@ async def complaints_page(request: Request):
 async def faq_page(request: Request):
     from site_services import FAQ_ITEMS
 
-    return templates.TemplateResponse(
-        request,
-        STR_UTILITY_HTML,
-        {
+    return render_utility(request, {
             "page": "faq",
             "title": "FAQ",
             "lead": "Straight answers on DISCOVER / FREE, DECIDE / PRO, ELITE, QUANT, INSTITUTIONAL, sharing, and AI Chat.",
-            "faq": FAQ_ITEMS,
-            **_footer_ctx(),
+            "faq": FAQ_ITEMS
         },
     )
 
@@ -2513,15 +2666,11 @@ async def faq_page(request: Request):
 async def how_it_works_page(request: Request):
     from site_services import HOW_IT_WORKS_STEPS
 
-    return templates.TemplateResponse(
-        request,
-        STR_UTILITY_HTML,
-        {
+    return render_utility(request, {
             "page": "how_it_works",
             "title": "How it works",
             "lead": "Decide. Prove it. Verify on the Public Accuracy Ledger.",
-            "steps": HOW_IT_WORKS_STEPS,
-            **_footer_ctx(),
+            "steps": HOW_IT_WORKS_STEPS
         },
     )
 
@@ -2531,15 +2680,11 @@ async def about_page(request: Request):
     from site_services import about_blurb
 
     about = about_blurb()
-    return templates.TemplateResponse(
-        request,
-        STR_UTILITY_HTML,
-        {
+    return render_utility(request, {
             "page": "about",
             "title": about["title"],
             "lead": "Trust OS for crypto decision intelligence — one product, four lenses.",
-            "about": about,
-            **_footer_ctx(),
+            "about": about
         },
     )
 
@@ -2548,28 +2693,13 @@ async def about_page(request: Request):
 async def status_page(request: Request):
     from site_services import public_status_report
 
-    status = public_status_report()
-    guest_trust: dict[str, Any] = {}
-    try:
-        from launch57.trust_batch2 import guest_trust_surface
-
-        payload = guest_trust_surface(
-            symbol="BTC",
-            params={"symbol": "BTC", "user_key": "anonymous"},
-        )
-        guest_trust = dict(payload.get("guest_trust") or {})
-    except Exception:
-        guest_trust = {}
-    return templates.TemplateResponse(
-        request,
-        STR_UTILITY_HTML,
-        {
+    status = public_status_report(fast=True)
+    return render_utility(request, {
             "page": "status",
             "title": "System status",
             "lead": "Public guest trust and engineering posture — no secrets, no contractual SLA unless contracted.",
             "status": status,
-            "guest_trust": guest_trust,
-            **_footer_ctx(),
+            "guest_trust": {},
         },
     )
 
@@ -2578,29 +2708,21 @@ async def status_page(request: Request):
 async def changelog_page(request: Request):
     from site_services import CHANGELOG
 
-    return templates.TemplateResponse(
-        request,
-        STR_UTILITY_HTML,
-        {
+    return render_utility(request, {
             "page": "changelog",
             "title": "Changelog",
             "lead": "What shipped on the Trust OS trust rail.",
-            "changelog": CHANGELOG,
-            **_footer_ctx(),
+            "changelog": CHANGELOG
         },
     )
 
 
 @app.get("/feedback", response_class=HTMLResponse)
 async def feedback_page(request: Request):
-    return templates.TemplateResponse(
-        request,
-        STR_UTILITY_HTML,
-        {
+    return render_utility(request, {
             "page": "feedback",
             "title": "Feedback & suggestions",
-            "lead": "Tell us what to improve. Never include card numbers or passwords.",
-            **_footer_ctx(),
+            "lead": "Tell us what to improve. Never include card numbers or passwords."
         },
     )
 
@@ -2610,15 +2732,11 @@ async def legal_hub_page(request: Request):
     from site_services import legal_hub_manifest
 
     hub = legal_hub_manifest()
-    return templates.TemplateResponse(
-        request,
-        STR_UTILITY_HTML,
-        {
+    return render_utility(request, {
             "page": "legal_hub",
             "title": hub["title"],
             "lead": hub["lead"],
-            "legal_pages": hub["pages"],
-            **_footer_ctx(),
+            "legal_pages": hub["pages"]
         },
     )
 
@@ -2836,6 +2954,13 @@ async def _compute_oracle_quick_payload(
         if decision_action == "CONDITIONS MET"
         else _quick_decision_sentence(lang, decision_action, asset, score, action)
     )
+    quote_age = market.get("age_sec")
+    if quote_age is not None:
+        try:
+            quote_age = float(quote_age)
+        except (TypeError, ValueError):
+            quote_age = None
+    price_source = _quick_price_source_label(market)
     return _quick_payload(
         asset,
         price,
@@ -2848,6 +2973,11 @@ async def _compute_oracle_quick_payload(
         sentiment,
         ux_mode,
         lang,
+        quote_exchange="binance",
+        quote_symbol=f"{asset}/USDT",
+        quote_age_sec=quote_age,
+        quote_volume=quote_volume,
+        price_source=price_source,
     )
 
 
@@ -2861,6 +2991,70 @@ def _quick_ws_market(row: dict | None) -> dict | None:
         "quote_volume": 0.0,
         "source": "websocket_live",
     }
+
+
+def _quick_price_source_label(market: dict[str, Any]) -> str:
+    src = str(market.get("source") or "").strip()
+    if src == "websocket_live":
+        return "Binance WebSocket top-of-book"
+    if src:
+        return src
+    return "Binance spot REST"
+
+
+def _attach_quick_real_factors(payload: dict[str, Any]) -> None:
+    """Top-3 factors from quick compute fields only (price / 24h change / volume)."""
+    source = str(payload.get("price_source") or "Binance spot").strip() or "Binance spot"
+    factors: list[dict[str, str]] = []
+
+    price = payload.get("price")
+    if price is not None:
+        try:
+            p = float(price)
+            if p > 0:
+                factors.append(
+                    {
+                        "factor": "Spot reference price",
+                        "detail": f"${p:,.2f}",
+                        "source": source,
+                    }
+                )
+        except (TypeError, ValueError):
+            pass
+
+    change = payload.get("change_24h")
+    if change is not None:
+        try:
+            c = float(change)
+            factors.append(
+                {
+                    "factor": "24h price change",
+                    "detail": f"{c:+.2f}%",
+                    "source": source,
+                }
+            )
+        except (TypeError, ValueError):
+            pass
+
+    quote_volume = payload.get("quote_volume")
+    if quote_volume is not None:
+        try:
+            qv = float(quote_volume)
+            if qv > 0:
+                factors.append(
+                    {
+                        "factor": "24h quote volume",
+                        "detail": f"${qv:,.0f}",
+                        "source": source,
+                    }
+                )
+        except (TypeError, ValueError):
+            pass
+
+    trimmed = factors[:3]
+    if not trimmed:
+        return
+    payload["top_3_factors"] = trimmed
 
 
 def _quick_decision_sentence(
@@ -2893,8 +3087,14 @@ def _quick_payload(
     sentiment: str,
     ux_mode: str,
     lang: str,
+    *,
+    quote_exchange: str = "binance",
+    quote_symbol: str | None = None,
+    quote_age_sec: float | None = None,
+    quote_volume: float | None = None,
+    price_source: str | None = None,
 ) -> dict:
-    return {
+    out = {
         "symbol": asset,
         "price": price,
         "change_24h": change,
@@ -2911,7 +3111,16 @@ def _quick_payload(
         "ux_mode": ux_mode,
         "lang": lang,
         "viral_cache": "miss",
+        "quote_exchange": quote_exchange,
+        "quote_symbol": quote_symbol or f"{asset}/USDT",
     }
+    if quote_age_sec is not None:
+        out["quote_age_sec"] = quote_age_sec
+    if quote_volume is not None:
+        out["quote_volume"] = quote_volume
+    if price_source:
+        out["price_source"] = price_source
+    return out
 
 
 def _queue_oracle_quick_tasks(background_tasks: BackgroundTasks, asset: str, payload: dict) -> None:
@@ -2939,9 +3148,57 @@ def _queue_oracle_quick_tasks(background_tasks: BackgroundTasks, asset: str, pay
     )
 
 
+def _quick_oracle_factors(payload: dict) -> list:
+    why = payload.get("oqs_why") if isinstance(payload.get("oqs_why"), dict) else {}
+    factors = why.get("top_3_factors") or []
+    if factors:
+        return list(factors)
+    expl = payload.get("explanation")
+    if isinstance(expl, dict):
+        factors = expl.get("top_3_factors") or []
+        if factors:
+            return list(factors)
+    raw = payload.get("top_3_factors")
+    return list(raw) if isinstance(raw, list) and raw else []
+
+
+def _quick_freshness_known(payload: dict) -> bool:
+    fresh = payload.get("data_freshness") if isinstance(payload.get("data_freshness"), dict) else {}
+    state = str(fresh.get("state") or fresh.get("status") or "").lower()
+    if state == "unknown":
+        return False
+    if (
+        fresh.get("freshness_ms") is not None
+        or fresh.get("age_sec") is not None
+        or fresh.get("age_seconds") is not None
+    ):
+        return True
+    return state in {"fresh", "ok", "live", "stale"}
+
+
+def _quick_decision_valid(payload: dict) -> bool:
+    asset = str(payload.get("symbol") or payload.get("asset") or "").strip()
+    if not asset:
+        return False
+    return bool(
+        payload.get("decision_sentence")
+        or payload.get("oracle")
+        or payload.get("decision_action")
+        or payload.get("verdict")
+    )
+
+
 def _attach_quick_certificate(payload: dict) -> None:
+    payload["decision_certificate"] = None
     try:
         from decision_certificate import build_decision_certificate, compliance_footer_block
+
+        if not _quick_decision_valid(payload):
+            return
+        if not _quick_freshness_known(payload):
+            return
+        if not _quick_oracle_factors(payload):
+            return
 
         payload.setdefault("tier", "free")
         # Enrich quick payload so certificate carries advisory truth + half-life
@@ -2971,20 +3228,31 @@ def _attach_quick_certificate(payload: dict) -> None:
                     f"score {score_i} is inside the dead-zone; no certified edge."
                 )
                 payload["oracle"] = payload["decision_sentence"]
-        payload["decision_certificate"] = build_decision_certificate(payload)
-        payload["compliance_footer"] = compliance_footer_block(
-            surface="single_sentence_oracle_quick",
-            trust_basis="public_accuracy_ledger + quick_rules_engine",
-        )
+        cert = build_decision_certificate(payload)
+        payload["decision_certificate"] = cert
+        if cert:
+            payload["compliance_footer"] = compliance_footer_block(
+                surface="single_sentence_oracle_quick",
+                trust_basis="public_accuracy_ledger + quick_rules_engine",
+            )
     except Exception:
-        pass
+        payload["decision_certificate"] = None
 
 
 def _attach_quick_freshness(payload: dict, asset: str) -> dict:
     try:
-        from data_freshness import attach_oracle_freshness
+        from data_freshness import attach_oracle_freshness, freshness_chip
 
-        return attach_oracle_freshness({**payload, "asset": asset})
+        enriched = attach_oracle_freshness({**payload, "asset": asset})
+        df = enriched.get("data_freshness") if isinstance(enriched.get("data_freshness"), dict) else {}
+        if str(df.get("state") or "").lower() == "unknown" and enriched.get("price") is not None:
+            age = enriched.get("quote_age_sec")
+            try:
+                age_f = float(age) if age is not None else 0.0
+            except (TypeError, ValueError):
+                age_f = 0.0
+            enriched["data_freshness"] = freshness_chip(age_sec=age_f)
+        return enriched
     except Exception:
         return payload
 
@@ -3022,8 +3290,10 @@ async def oracle_quick(
     payload["meets_latency_target"] = latency_ms <= 100
 
     _queue_oracle_quick_tasks(background_tasks, asset, payload)
-    _attach_quick_certificate(payload)
     payload = _attach_quick_freshness(payload, asset)
+    _attach_quick_real_factors(payload)
+    _attach_oqs_why_safe(payload)
+    _attach_quick_certificate(payload)
     from security_sanitize import sanitize_oracle_payload
 
     clean = sanitize_oracle_payload(payload)
@@ -3834,6 +4104,41 @@ async def oracle_accuracy_page(request: Request):
     return render_page(request, "oracle_accuracy.html", _footer_ctx())
 
 
+@app.get("/lenses", response_class=HTMLResponse)
+async def trust_os_lenses_menu_page(request: Request):
+    """Public lens names only — no pricing or command-home chrome."""
+    from trust_os_lenses import LENSES
+
+    lens_links = [{"label": str(row["label"]), "href": str(row["entry_path"])} for row in LENSES]
+    return render_page(
+        request,
+        "lenses_menu.html",
+        {
+            "page_title": "Open the lenses",
+            "lens_links": lens_links,
+            "nav_active": "lenses"
+        },
+    )
+
+
+@app.get("/oracle-accuracy/json-api", response_class=HTMLResponse)
+async def oracle_accuracy_public_json_page(request: Request):
+    """Human-readable view of GET /api/oracle/accuracy/public (same live_ledger counters)."""
+    from ml.public_accuracy import build_public_accuracy_metrics_only
+
+    metrics = await build_public_accuracy_metrics_only()
+    return render_page(
+        request,
+        "oracle_accuracy_json_api.html",
+        {
+            **_footer_ctx(),
+            "page_title": "Public Accuracy API — BLACKDARK",
+            "metrics": metrics,
+            "raw_json_url": "/api/oracle/accuracy/public"
+        },
+    )
+
+
 # ML experience routes → api/routers/oracle.py
 
 @app.get("/api/b2b/feed", responses=COMMON_ERROR_RESPONSES)
@@ -3847,21 +4152,31 @@ async def b2b_feed(x_api_key: str = Header(..., alias="X-API-Key")):
         raise HTTPException(status_code=403, detail=public_error(exc, fallback=STR_INVALID_B2B_API_KEY)) from exc
 
 
+_B2B_DEMO_FEED_CACHE: tuple[float, dict[str, Any]] | None = None
+_B2B_DEMO_FEED_CACHE_TTL_SEC = float(os.getenv("B2B_DEMO_CACHE_SEC", "60"))
+
+
 @app.get("/api/b2b/demo", responses=COMMON_ERROR_RESPONSES)
 async def b2b_demo_feed():
     """Public demo feed — limited records, no key required."""
+    import copy
+    import time
+
     from whale_tracker import InstitutionalDataExporter
+
+    global _B2B_DEMO_FEED_CACHE
+    now = time.monotonic()
+    if _B2B_DEMO_FEED_CACHE and (now - _B2B_DEMO_FEED_CACHE[0]) < _B2B_DEMO_FEED_CACHE_TTL_SEC:
+        return copy.deepcopy(_B2B_DEMO_FEED_CACHE[1])
 
     exporter = InstitutionalDataExporter()
     try:
-        feed = await exporter.export_institutional_feed(
-            provided_key=config.B2B_DEMO_API_KEY,
-            limit=config.B2B_DEMO_EXPORT_LIMIT,
-        )
+        feed = await exporter.export_open_demo_feed(limit=config.B2B_DEMO_EXPORT_LIMIT)
         feed["demo"] = True
         feed["upgrade_url"] = "/b2b"
-        return feed
-    except PermissionError:
+        _B2B_DEMO_FEED_CACHE = (time.monotonic(), feed)
+        return copy.deepcopy(feed)
+    except Exception:
         raise HTTPException(status_code=503, detail="B2B demo not configured") from None
 
 
@@ -3871,10 +4186,9 @@ async def b2b_info():
 
     ws_stats = get_b2b_ws_hub().stats()
     expose_demo = os.getenv("EXPOSE_B2B_DEMO_KEY", "").lower() in {"1", "true", "yes"}
-    return {
+    info: dict[str, Any] = {
         "product": "BLACKDARK Institutional Manipulation Feed",
         "feed_version": config.B2B_FEED_VERSION,
-        "demo_key": config.B2B_DEMO_API_KEY if expose_demo else "contact-sales",
         "demo_endpoint": "/api/b2b/demo",
         "authenticated_endpoint": "/api/b2b/feed",
         "header": "X-API-Key",
@@ -3897,6 +4211,9 @@ async def b2b_info():
             "heartbeat",
         ],
     }
+    if expose_demo:
+        info["demo_key"] = config.B2B_DEMO_API_KEY
+    return info
 
 
 @app.get("/api/b2b/ws/info")
@@ -3904,11 +4221,10 @@ async def b2b_ws_info():
     from b2b_websocket_hub import get_b2b_ws_hub
 
     expose_demo = os.getenv("EXPOSE_B2B_DEMO_KEY", "").lower() in {"1", "true", "yes"}
-    auth: dict[str, Any] = {"query": "api_key"}
+    auth: dict[str, Any] = {"query": "api_key", "key_on_public_page": False}
     if expose_demo:
         auth["demo_key"] = config.B2B_DEMO_API_KEY
-    else:
-        auth["demo_key"] = "contact-sales"
+        auth["key_on_public_page"] = True
     return {
         "endpoint": "/ws/b2b/feed",
         "auth": auth,
@@ -3959,17 +4275,68 @@ async def b2b_websocket_feed(websocket: WebSocket, api_key: str = Query(..., min
             await hub.unregister(client)
 
 
+def _b2b_pilot_call_href() -> str | None:
+    """Calendly/Cal.com URL from env, else internal pilot request form."""
+    raw = (os.getenv("B2B_PILOT_BOOKING_URL") or "").strip()
+    if raw:
+        return raw if raw.startswith(("http://", "https://")) else None
+    return "/b2b/pilot"
+
+
+def _b2b_elite_cta_href(request: Request) -> str:
+    """Signed-in users go to checkout; guests go to elite registration."""
+    if getattr(request.state, "header_user", None):
+        return "/create-checkout-session?tier=elite"
+    return "/login?tab=register&plan=elite"
+
+
+def _b2b_institutional_cta_href(request: Request) -> str:
+    """Signed-in users go to data-room / institutional path; guests register."""
+    if getattr(request.state, "header_user", None):
+        return "/data-room?from=signup"
+    return "/login?tab=register&plan=institutional"
+
+
 @app.get("/b2b", response_class=HTMLResponse)
 async def b2b_page(request: Request):
+    expose_demo = os.getenv("EXPOSE_B2B_DEMO_KEY", "").lower() in {"1", "true", "yes"}
+    pilot_call_href = _b2b_pilot_call_href()
     return templates.TemplateResponse(
         request,
         "b2b.html",
         {
-            "demo_key": (config.B2B_DEMO_API_KEY if os.getenv("EXPOSE_B2B_DEMO_KEY", "").lower() in {"1", "true", "yes"} else "contact-sales"),
+            "demo_key_exposed": expose_demo,
+            "demo_key": config.B2B_DEMO_API_KEY if expose_demo else "",
             "feed_version": config.B2B_FEED_VERSION,
-            **_footer_ctx(),
+            "pilot_call_href": pilot_call_href,
+            "pilot_call_external": bool(
+                pilot_call_href and pilot_call_href.startswith(("http://", "https://"))
+            ),
+            "elite_cta_href": _b2b_elite_cta_href(request),
+            "institutional_cta_href": _b2b_institutional_cta_href(request),
         },
     )
+
+
+@app.get("/b2b/pilot", response_class=HTMLResponse)
+async def b2b_pilot_page(request: Request):
+    return render_page(request, "b2b_pilot.html", {})
+
+
+@app.post("/api/b2b/pilot-request")
+async def b2b_pilot_request(data: dict = Body(...)):
+    email = str(data.get("email") or "").strip().lower()
+    if not email or "@" not in email:
+        raise HTTPException(status_code=400, detail="Valid email required")
+    from database import insert_b2b_pilot_request
+
+    row_id = await insert_b2b_pilot_request(
+        email=email,
+        name=str(data.get("name") or "").strip(),
+        company=str(data.get("company") or "").strip(),
+        message=str(data.get("message") or "").strip(),
+    )
+    return {"ok": True, "id": row_id}
 
 
 
@@ -4012,11 +4379,7 @@ def _legal_page(request: Request, page: str):
     content = LEGAL_PAGES.get(page)
     if not content:
         raise HTTPException(status_code=404, detail="Legal page not found")
-    return templates.TemplateResponse(
-        request,
-        "legal.html",
-        {"page": page, **content, **_footer_ctx()},
-    )
+    return render_page(request, "legal.html", {"page": page, **content, **_footer_ctx()})
 
 
 @app.get("/terms", response_class=HTMLResponse, responses=COMMON_ERROR_RESPONSES)
@@ -5181,14 +5544,10 @@ async def checkout_success(request: Request):
 
 @app.get("/cancel", response_class=HTMLResponse)
 async def checkout_cancel(request: Request):
-    return templates.TemplateResponse(
-        request,
-        STR_UTILITY_HTML,
-        {
+    return render_utility(request, {
             "page": "cancel",
             "title": "Checkout cancelled",
-            "lead": "No charge was made. You can restart DECIDE / PRO anytime — or stay on DISCOVER / FREE.",
-            **_footer_ctx(),
+            "lead": "No charge was made. You can restart DECIDE / PRO anytime — or stay on DISCOVER / FREE."
         },
     )
 

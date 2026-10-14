@@ -6,6 +6,7 @@ STR_JULY_24_2026 = 'July 24, 2026'
 LEGAL_PAGES: dict[str, dict[str, str]] = {
     "terms": {
         "title": "Terms of Service",
+        "document_title": "BLACKDARK — Terms of Service for Trust OS subscribers",
         "title_ar": "شروط الاستخدام",
         "updated": STR_JULY_24_2026,
         "html": """
@@ -35,6 +36,7 @@ LEGAL_PAGES: dict[str, dict[str, str]] = {
     },
     "privacy": {
         "title": "Privacy Policy",
+        "document_title": "BLACKDARK — Privacy Policy for account and usage data",
         "title_ar": "سياسة الخصوصية",
         "updated": STR_JULY_24_2026,
         "html": """
@@ -56,6 +58,7 @@ LEGAL_PAGES: dict[str, dict[str, str]] = {
     },
     "disclaimer": {
         "title": "Risk Disclaimer",
+        "document_title": "BLACKDARK — Risk disclaimer for decision intelligence",
         "title_ar": "إخلاء المسؤولية",
         "updated": STR_JULY_24_2026,
         "html": """
@@ -75,6 +78,7 @@ LEGAL_PAGES: dict[str, dict[str, str]] = {
     },
     "refund": {
         "title": "Refund Policy",
+        "document_title": "BLACKDARK — Refund policy for USD subscriptions",
         "title_ar": "سياسة الاسترداد",
         "updated": "August 8, 2026",
         "html": """
@@ -94,6 +98,7 @@ LEGAL_PAGES: dict[str, dict[str, str]] = {
     },
     "cookies": {
         "title": "Cookies & Local Storage",
+        "document_title": "BLACKDARK — Cookies and local storage on Trust OS",
         "title_ar": "ملفات تعريف الارتباط",
         "updated": "August 8, 2026",
         "html": """
@@ -114,6 +119,7 @@ LEGAL_PAGES: dict[str, dict[str, str]] = {
     },
     "sla": {
         "title": "Service Level Agreement",
+        "document_title": "BLACKDARK — Service level agreement for paid tiers",
         "title_ar": "اتفاقية مستوى الخدمة",
         "updated": "1 January 2025",
         "html": """
@@ -138,6 +144,7 @@ LEGAL_PAGES: dict[str, dict[str, str]] = {
     },
     "msa": {
         "title": "Master Service Agreement",
+        "document_title": "BLACKDARK — Master service agreement for institutional clients",
         "title_ar": "اتفاقية الخدمات الرئيسية",
         "updated": "22 August 2026",
         "html": """

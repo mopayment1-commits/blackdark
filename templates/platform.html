@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#22d3ee">
-    <title>BLACKDARK — Platform Hub</title>
+    <title>BLACKDARK — Platform hub — Trust OS infrastructure</title>
+    {% include "partials/seo_canonical.html" %}
     <link rel="stylesheet" href="/static/css/trust-os.css">
     <script defer src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js" integrity="sha384-OK7vELvjHdhUFi31JYioPIcRHTROLdcDa6ZsNWgvgLaKj+9JqhU0Ad8g4wz3CXjA" crossorigin="anonymous"></script>
     <style>
@@ -819,11 +820,19 @@ Object.assign(window, {
     goCoinPath, pickSymbol,
 });
 initChart();
-await Promise.all([
-    loadChart(), loadRankings(), loadCexDex(), loadDerivCompare(), loadMarketplace(),
-    loadGrids(), loadRules(), loadPlatformKeys(), loadCoindesk(), loadMacro(),
-    loadUnlocks(), loadLiquidations(), loadFootprint(),
-]);
+await Promise.all([loadChart(), loadRankings()]);
+function loadPlatformDeferred() {
+    return Promise.all([
+        loadCexDex(), loadDerivCompare(), loadMarketplace(),
+        loadGrids(), loadRules(), loadPlatformKeys(), loadCoindesk(), loadMacro(),
+        loadUnlocks(), loadLiquidations(), loadFootprint(),
+    ]);
+}
+if (typeof requestIdleCallback === 'function') {
+    requestIdleCallback(() => { loadPlatformDeferred().catch((e) => console.debug(e)); }, { timeout: 4000 });
+} else {
+    setTimeout(() => { loadPlatformDeferred().catch((e) => console.debug(e)); }, 0);
+}
 setInterval(loadRankings, 60000);
 setInterval(loadCexDex, 30000);
 </script>

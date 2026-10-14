@@ -439,6 +439,51 @@ def _pulse_base_result(
     }
 
 
+def _freshness_status_to_data_state(status: str | None) -> str:
+    raw = str(status or "").lower()
+    if raw in {"live", "warm"}:
+        return "fresh"
+    if raw == "stale":
+        return "stale"
+    return "unknown"
+
+
+def _attach_pulse_data_freshness(result: dict[str, Any], freshness: dict[str, Any]) -> None:
+    """Expose canonical data_freshness chip for clients (state=fresh + age_sec when live)."""
+    fr = result.get("freshness") if isinstance(result.get("freshness"), dict) else freshness
+    age = fr.get("age_seconds")
+    stale = bool(fr.get("stale"))
+    status = str(fr.get("status") or "").lower()
+    if age is None:
+        result["data_freshness"] = {"state": "unknown", "age_sec": None, "stale": True}
+        return
+    age_f = round(float(age), 1)
+    if stale or status == "stale":
+        label = f"Stale · {age_f:.1f}s ago"
+        result["data_freshness"] = {
+            "state": "stale",
+            "age_sec": age_f,
+            "stale": True,
+            "label": label,
+        }
+        result["freshness"] = {**fr, "label": label}
+        return
+    label = f"Live · {age_f:.1f}s ago"
+    result["data_freshness"] = {
+        "state": "fresh",
+        "age_sec": age_f,
+        "stale": False,
+        "label": label,
+    }
+    result["freshness"] = {
+        **fr,
+        "label": label,
+        "stale": False,
+        "status": "live",
+        "state": "LIVE",
+    }
+
+
 def _zero_tolerance_input(
     result: dict[str, Any],
     payload: dict[str, Any],
@@ -455,7 +500,7 @@ def _zero_tolerance_input(
             "invalidation": payload.get("invalidation") or result.get("veto_reason"),
         },
         "data_freshness": {
-            "state": freshness.get("status"),
+            "state": _freshness_status_to_data_state(freshness.get("status")),
             "stale": freshness.get("stale"),
             "age_sec": freshness.get("age_seconds"),
         },
@@ -537,6 +582,7 @@ def _shape_pulse(
         continuity_out=_visible_continuity(tier, continuity),
     )
     _apply_pulse_zero_tolerance(result, payload, why, factors, freshness)
+    _attach_pulse_data_freshness(result, freshness)
     if public_layer:
         from supplemental_public_compliance import (
             CONDITIONS_MET_REVIEW_LINE,

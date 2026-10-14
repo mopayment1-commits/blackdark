@@ -60,6 +60,7 @@ INFRASTRUCTURE_EXACT: frozenset[str] = frozenset(
         "/robots.txt",
         "/sitemap.xml",
         "/manifest.json",
+        "/sw.js",
         "/health",
         "/health/live",
         "/health/ready",
@@ -90,6 +91,7 @@ AUTH_FLOW_EXACT: frozenset[str] = frozenset(
         "/api/auth/resend-verification",
         "/api/auth/forgot-username",
         "/api/auth/mfa/complete",
+        "/api/auth/logout",
         "/api/auth/oauth/status",
         "/api/i18n/locales",
         "/api/i18n/catalog",
@@ -127,6 +129,7 @@ PUBLIC_HTML_EXACT: frozenset[str] = frozenset(
         "/refund",
         "/identity-standards",
         "/b2b",
+        "/b2b/pilot",
         "/sla",
         "/platform",
         "/institutional",
@@ -136,6 +139,8 @@ PUBLIC_HTML_EXACT: frozenset[str] = frozenset(
         "/trust",
         "/errors",
         PATH_ORACLE_ACCURACY,
+        "/oracle-accuracy/json-api",
+        "/lenses",
         "/kill-rate",
         "/contradiction-replay",
         "/proof-arena",
@@ -162,6 +167,8 @@ PUBLIC_HTML_EXACT: frozenset[str] = frozenset(
         "/trust-debt",
         "/unique-ten",
         "/d5-honesty",
+        "/discipline-mirror",
+        "/trust-pulse/proof",
     }
 )
 
@@ -230,7 +237,6 @@ PUBLIC_API_PREFIXES: tuple[str, ...] = (
         "/api/whale/stealth-advisor",
         "/api/fund/emerging-terminal",
     "/api/auth/oauth/status",
-    "/oracle/",
 )
 
 PUBLIC_API_EXACT: frozenset[str] = frozenset(
@@ -245,6 +251,9 @@ PUBLIC_API_EXACT: frozenset[str] = frozenset(
         "/api/viral/readiness",
         "/api/docs/public-openapi.json",
         "/api/docs/public-manifest",
+        "/api/public/site-search",
+        "/api/public/site-assistant",
+        "/api/public/oracle-symbols",
         "/api/status",
         "/api/site-services",
         "/api/changelog",
@@ -255,6 +264,8 @@ PUBLIC_API_EXACT: frozenset[str] = frozenset(
         "/compliance",
         "/data-room",
         PATH_ORACLE_ACCURACY,
+        "/oracle-accuracy/json-api",
+        "/lenses",
         "/kill-rate",
         "/contradiction-replay",
         "/proof-arena",
@@ -271,8 +282,11 @@ PUBLIC_API_EXACT: frozenset[str] = frozenset(
         "/api/strategy/priority-chain",
         "/api/strategy/zero-tolerance",
         "/b2b/committee-one-pager",
+        "/api/b2b/demo",
+        "/api/b2b/pilot-request",
         "/docs",
         "/docs/public",
+        "/api/oracle/audit-chain/bootstrap-from-db",
     }
 )
 

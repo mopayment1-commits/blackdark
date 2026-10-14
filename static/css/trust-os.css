@@ -9,7 +9,7 @@
  * Doc: docs/TRUST_OS_DESIGN_SYSTEM.md
  */
 
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap");
+/* Fonts: Syne + IBM Plex Sans (brand); no render-blocking @import — CSP blocks fonts.googleapis.com. */
 
 :root {
   /* Palette */
@@ -46,8 +46,8 @@
   --danger: var(--bd-danger);
 
   /* Type */
-  --bd-font-display: "Syne", "IBM Plex Sans", sans-serif;
-  --bd-font-body: "IBM Plex Sans", "Segoe UI", sans-serif;
+  --bd-font-display: system-ui, -apple-system, "Segoe UI", sans-serif;
+  --bd-font-body: system-ui, -apple-system, "Segoe UI", sans-serif;
 
   /* Motion */
   --bd-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
@@ -60,6 +60,9 @@
   --bd-radius: 12px;
   --bd-radius-lg: 16px;
   --bd-max: 1100px;
+
+  /* Sticky top nav (~99px) — in-page anchors must land below the header */
+  --bd-anchor-scroll-margin: 110px;
 }
 
 *,
@@ -69,7 +72,13 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  /* smooth scroll hurts INP on in-page anchors (web.dev ≤200ms). */
+  scroll-behavior: auto;
+  scroll-padding-top: var(--bd-anchor-scroll-margin);
+}
+
+[id] {
+  scroll-margin-top: var(--bd-anchor-scroll-margin);
 }
 
 body.bd-shell {

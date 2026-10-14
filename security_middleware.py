@@ -30,9 +30,15 @@ def _is_production() -> bool:
     return any(t in {"production", "prod"} for t in tokens)
 
 
+def _public_canonical_hosts() -> set[str]:
+    raw = (os.getenv("PUBLIC_CANONICAL_HOSTS") or "blackdark.io,www.blackdark.io").strip()
+    return {h.strip().lower().split(":")[0] for h in raw.split(",") if h.strip()}
+
+
 def _allowed_hosts() -> set[str]:
     raw = (os.getenv("ALLOWED_HOSTS") or "").strip()
     hosts: set[str] = set()
+    hosts.update(_public_canonical_hosts())
     if raw:
         hosts.update(h.strip().lower() for h in raw.split(",") if h.strip())
     base = (os.getenv("APP_BASE_URL") or "").strip()
@@ -65,6 +71,8 @@ def _allowed_hosts() -> set[str]:
 def _cors_origins() -> list[str]:
     raw = (os.getenv("CORS_ALLOWED_ORIGINS") or "").strip()
     origins: list[str] = []
+    for host in sorted(_public_canonical_hosts()):
+        origins.append(f"https://{host}")
     if raw:
         origins.extend(o.strip().rstrip("/") for o in raw.split(",") if o.strip())
     base = (os.getenv("APP_BASE_URL") or "").strip().rstrip("/")
@@ -161,7 +169,7 @@ def _inject_html_csp_nonce(html: str, nonce: str) -> str:
 
     out = re.sub(r"<script\b[^>]*>", _add_nonce, html, flags=re.I)
     out = re.sub(r"<style\b[^>]*>", _add_style_nonce, out, flags=re.I)
-    binder = f'<script nonce="{nonce}" src="/static/js/csp_events.js"></script>'
+    binder = f'<script defer nonce="{nonce}" src="/static/js/csp_events.js"></script>'
     if "csp_events.js" not in out:
         lower = out.lower()
         idx = lower.rfind("</body>")
@@ -452,6 +460,10 @@ def apply_cors(app) -> None:
     )
 
 
+def session_cookie_domain() -> str | None:
+    return (os.getenv("COOKIE_DOMAIN") or "").strip() or None
+
+
 def cookie_session_kwargs(*, max_age: int | None = None) -> dict:
     """HttpOnly Secure SameSite cookie flags for bd_token.
 
@@ -477,6 +489,55 @@ def cookie_session_kwargs(*, max_age: int | None = None) -> dict:
     }
 
 
+def attach_session_cookie_ephemeral(response: Response, token: str) -> None:
+    """Browser session cookie (no Max-Age) — cleared when the browser session ends."""
+    session_bearer = "".join(ch for ch in str(token) if ch.isalnum() or ch in "-_")
+    if len(session_bearer) < 20:
+        return
+    from secrets_vault import encrypt_secret
+
+    sealed = encrypt_secret(session_bearer)
+    if not sealed:
+        return
+    kwargs = cookie_session_kwargs()
+    kwargs.pop("max_age", None)
+    dom = session_cookie_domain()
+    if dom:
+        kwargs["domain"] = dom
+    response.set_cookie(value=sealed, **kwargs)
+
+
+def clear_session_cookie(response: Response) -> None:
+    """Invalidate bd_token in the browser jar (name, path, domain, flags)."""
+    from datetime import datetime, timezone
+
+    kwargs = cookie_session_kwargs(max_age=0)
+    key = kwargs["key"]
+    path = kwargs.get("path") or "/"
+    secure = bool(kwargs.get("secure"))
+    httponly = bool(kwargs.get("httponly", True))
+    samesite = str(kwargs.get("samesite") or "lax")
+    domain = session_cookie_domain()
+    expires = datetime(1970, 1, 1, tzinfo=timezone.utc)
+
+    def _clear(dom: str | None) -> None:
+        response.set_cookie(
+            key=key,
+            value="",
+            max_age=0,
+            expires=expires,
+            path=path,
+            domain=dom,
+            secure=secure,
+            httponly=httponly,
+            samesite=samesite,
+        )
+
+    _clear(None)
+    if domain:
+        _clear(domain)
+
+
 def attach_session_cookie(response: Response, token: str, *, max_age: int | None = None) -> None:
     """Set HttpOnly session cookie from an opaque bearer (never a password).
 
@@ -492,6 +553,9 @@ def attach_session_cookie(response: Response, token: str, *, max_age: int | None
     if not sealed:
         return
     kwargs = cookie_session_kwargs(max_age=max_age)
+    dom = session_cookie_domain()
+    if dom:
+        kwargs["domain"] = dom
     response.set_cookie(value=sealed, **kwargs)
 
 
