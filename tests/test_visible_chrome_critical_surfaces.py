@@ -112,6 +112,15 @@ def test_dashboard_prove_lens_my_book_operate_gate_not_raw_billing_json():
     assert "create-checkout-session?tier=" not in dash.split("async function upgradeTier", 1)[1].split("let lastPulse", 1)[0]
 
 
+def test_dashboard_prove_lens_single_primary_entry_rail_under_trust_pulse():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    assert 'id="entryRail"' in dash
+    assert "tp-entry-rail" in dash
+    assert dash.count('id="entryRail"') == 1
+    assert "body.lens-prove #intentWrap { display: none; }" in dash
+    assert "if (currentLens === 'prove') return;" in dash.split("function renderLaunch57Intents", 1)[1].split("function readLastPulseVisit", 1)[0]
+
+
 def test_dashboard_prove_lens_single_verify_entry_rail_only():
     dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
     tp_cta = dash.split('class="tp-cta"', 1)[1].split("</div>", 1)[0]
