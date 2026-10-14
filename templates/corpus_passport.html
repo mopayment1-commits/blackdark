@@ -16,6 +16,13 @@ h1{margin:.4rem 0 0;font-size:28px;color:var(--fg)}
 ul{line-height:1.55;color:var(--fg)}.foot{font-size:11px;color:var(--muted);margin-top:22px}
 .btn{display:inline-block;margin:10px 8px 0 0;padding:10px 14px;background:#1a1a24;color:var(--fg);text-decoration:none;font-family:inherit;font-size:13px;border:1px solid var(--line);border-radius:8px;font-weight:600}
 .btn:hover{border-color:var(--accent);color:var(--accent)}
+button.btn{cursor:pointer}
+.passport-request{margin-top:1rem;padding:1.1rem 1.15rem;border:1px solid var(--line);border-radius:12px;background:rgba(17,17,24,.92)}
+.passport-request[hidden]{display:none!important}
+.passport-request h2{font-size:1.05rem;margin:0 0 .35rem;color:var(--accent)}
+.passport-request label{display:block;margin:.55rem 0 .25rem;font-size:.82rem;color:var(--muted)}
+.passport-request input,.passport-request textarea{width:100%;padding:.55rem .65rem;border-radius:8px;border:1px solid var(--line);background:#0d1118;color:var(--fg);font:inherit}
+.passport-request .req-status{min-height:1.2rem;margin:.65rem 0 0;font-size:.82rem;color:var(--muted)}
 @media print{.noprint{display:none}body{background:#fff;color:#111}.passport{border:2px solid #111;background:#fff}}
 </style></head>
 <body>
@@ -32,11 +39,28 @@ ul{line-height:1.55;color:var(--fg)}.foot{font-size:11px;color:var(--muted);marg
 <p class="foot" id="disc"></p>
 </div>
 <p class="noprint">
-<a class="btn" href="/contact">Request corpus passport PDF</a>
+<button type="button" class="btn" id="requestCorpusPdfBtn">Request corpus passport PDF</button>
+<button type="button" class="btn" id="printCorpusPassportBtn">Print / Save teaser PDF</button>
 <a class="btn" href="/b2b/committee-one-pager">Committee One-Pager</a>
 <a class="btn" href="/data-room">Data Room</a>
 <a class="btn" href="/kill-rate">Kill-Rate</a>
 </p>
+<div id="corpusPassportRequest" class="passport-request noprint" hidden>
+<h2>Request full Corpus Passport PDF</h2>
+<p style="margin:0 0 .65rem;font-size:.88rem;color:var(--muted);line-height:1.45">Desk / Institutional sessions can download instantly. Otherwise submit your work email and we will send the diligence PDF.</p>
+<form id="corpusPassportRequestForm">
+<label for="corpusReqEmail">Work email</label>
+<input id="corpusReqEmail" name="email" type="email" required placeholder="work@fund.com" autocomplete="email">
+<label for="corpusReqName">Name</label>
+<input id="corpusReqName" name="name" type="text" placeholder="Your name" autocomplete="name">
+<label for="corpusReqCompany">Firm</label>
+<input id="corpusReqCompany" name="company" type="text" placeholder="Fund or acquirer">
+<label for="corpusReqMessage">Notes</label>
+<textarea id="corpusReqMessage" name="message" rows="3">Corpus Passport PDF request — /corpus-passport</textarea>
+<button type="submit" class="btn">Submit PDF request</button>
+<p class="req-status" id="corpusReqStatus" role="status" aria-live="polite"></p>
+</form>
+</div>
 </main>
 <script src="/static/js/dom_escape.js"></script>
 <script type="module">
@@ -53,5 +77,61 @@ async function load(){
   document.getElementById('stamps').innerHTML=(d.stamps||[]).map(s=>`<li>${esc(s)}</li>`).join('');
   document.getElementById('disc').textContent=d.disclaimer||'';
 }
-await load();</script>
+async function downloadCorpusPassportPdf(){
+  const res=await fetch('/api/due-diligence/corpus-passport.pdf',{credentials:'include'});
+  if(!res.ok) return false;
+  const blob=await res.blob();
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download='blackdark-corpus-passport.pdf';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+  return true;
+}
+function openCorpusPassportRequestForm(){
+  const panel=document.getElementById('corpusPassportRequest');
+  if(panel){panel.hidden=false;panel.scrollIntoView({behavior:'smooth',block:'nearest'});}
+  const email=document.getElementById('corpusReqEmail');
+  if(email) email.focus();
+}
+async function requestCorpusPassportPdf(){
+  const btn=document.getElementById('requestCorpusPdfBtn');
+  const prev=btn?btn.textContent:'';
+  if(btn){btn.disabled=true;btn.textContent='Preparing PDF…';}
+  try{
+    if(await downloadCorpusPassportPdf()) return;
+  }catch (error) { console.debug(error); }
+  finally{if(btn){btn.disabled=false;btn.textContent=prev||'Request corpus passport PDF';}}
+  openCorpusPassportRequestForm();
+}
+function wireCorpusPassportActions(){
+  document.getElementById('requestCorpusPdfBtn')?.addEventListener('click',requestCorpusPassportPdf);
+  document.getElementById('printCorpusPassportBtn')?.addEventListener('click',()=>window.print());
+  const form=document.getElementById('corpusPassportRequestForm');
+  const status=document.getElementById('corpusReqStatus');
+  if(!form) return;
+  form.addEventListener('submit',async(ev)=>{
+    ev.preventDefault();
+    const payload=Object.fromEntries(new FormData(form).entries());
+    if(status) status.textContent='Sending request…';
+    try{
+      const res=await fetch('/api/billing/institutional-inquiry',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+      const d=await res.json().catch(()=>({}));
+      if(status) status.textContent=res.ok?(d.message||'Request received — we will follow up with the PDF.'):(d.detail||'Request failed — try again.');
+      if(res.ok) form.reset();
+      if(res.ok){
+        const msg=document.getElementById('corpusReqMessage');
+        if(msg) msg.value='Corpus Passport PDF request — /corpus-passport';
+      }
+    }catch (error){
+      console.debug(error);
+      if(status) status.textContent='Request unavailable right now — use Print / Save teaser PDF.';
+    }
+  });
+}
+await load();
+wireCorpusPassportActions();</script>
 </body></html>

@@ -191,6 +191,11 @@ def test_corpus_passport_uses_dark_site_chrome():
     assert "box-shadow:8px 8px 0 #111" not in html
     assert 'id="stamp"' in html and "BLACKDARK Corpus Passport" in html
     assert "Request corpus passport PDF" in html
+    assert 'id="requestCorpusPdfBtn"' in html
+    assert "requestCorpusPassportPdf" in html
+    assert "/api/due-diligence/corpus-passport.pdf" in html
+    assert 'id="corpusPassportRequestForm"' in html
+    assert 'href="/contact"' not in html
 
 
 def test_dashboard_anti_hype_toggle_has_visible_banner_and_metric_hook():
