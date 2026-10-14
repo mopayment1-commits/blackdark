@@ -71,6 +71,8 @@ jobs:
             tests/test_database_url_resolver.py \
             tests/test_flash_crash_protection.py \
             tests/test_b2b_pilot_request.py \
+            tests/test_emerging_fund_terminal_cache.py \
+            tests/test_sonar_b2b_launch_coverage.py \
             tests/test_service_bus_distributed.py \
             tests/test_production_guard.py \
             tests/test_xss_sink_hardening.py \
