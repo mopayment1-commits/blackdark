@@ -391,7 +391,7 @@
         <section id="arbitrage" class="hide-on-prove hide-in-room">
             <h2>Arbitrage Engine</h2>
             <p class="sub" id="arbStats">Scanning…</p>
-            <button class="btn secondary" data-bd-call="loadArbitrage" data-bd-args="[true]">Live Scan</button>
+            <button class="btn secondary" type="button" data-bd-call="loadArbitrage" data-bd-args="[true]">Live Scan</button>
             <div id="arbList" style="margin-top:.75rem"><div class="loading">Loading…</div></div>
         </section>
 
@@ -2357,6 +2357,11 @@
         async function loadArbitrage(refresh) {
             const el = document.getElementById('arbList');
             const stats = document.getElementById('arbStats');
+            if (!el) return;
+            if (refresh) {
+                el.innerHTML = '<div class="loading">Scanning…</div>';
+                if (stats) stats.textContent = 'Live scan in progress…';
+            }
             try {
                 const url = refresh ? '/api/arbitrage/scan' : '/api/arbitrage/opportunities?live=true';
                 const res = await fetch(url, refresh ? { method: 'POST', headers: authHeaders() } : { headers: authHeaders() });
@@ -2956,6 +2961,7 @@
         window.openDeskToolSection = openDeskToolSection;
         window.loadHalfLifeClock = loadHalfLifeClock;
         window.closeTelegramTestDialog = closeTelegramTestDialog;
+        window.loadArbitrage = loadArbitrage;
 
         function boot() {
             loadAuth();

@@ -187,6 +187,17 @@ def test_dashboard_desk_tools_opens_menu_on_prove_lens():
     assert "/dashboard#portfolio" not in desk_menu
 
 
+def test_dashboard_arbitrage_live_scan_is_button():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    arb = dash.split('id="arbitrage"', 1)[1].split("</section>", 1)[0]
+    assert 'data-bd-call="loadArbitrage"' in arb
+    assert "Live Scan" in arb
+    assert 'type="button"' in arb
+    assert "window.loadArbitrage = loadArbitrage" in dash
+    body = dash.split("async function loadArbitrage", 1)[1].split("async function", 1)[0]
+    assert "Live scan in progress" in body
+
+
 def test_dashboard_telegram_test_uses_styled_dialog_not_alert():
     dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
     assert 'id="telegramTestModal"' in dash
