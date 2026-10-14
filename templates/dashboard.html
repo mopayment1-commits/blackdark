@@ -2344,11 +2344,27 @@
         let dashEs = null;
         let lastWhaleStreamAt = 0;
 
+        function normalizeMarketOiPayload(data) {
+            if (!data || typeof data !== 'object') return [];
+            const raw = data.assets || data.items || data.data || data.rows;
+            return Array.isArray(raw) ? raw : [];
+        }
+
+        function mapOiDisplayRow(row) {
+            const sym = String(row.asset || row.symbol || '').trim();
+            const asset = sym.replace(/USDT$/i, '') || sym || '—';
+            const openInterestUsd = Number(row.open_interest_usd ?? row.oi_usd ?? row.open_interest_value ?? 0);
+            let fundingPct = row.funding_rate_pct;
+            if (fundingPct == null && row.funding_rate != null) fundingPct = Number(row.funding_rate) * 100;
+            return { asset, open_interest_usd: openInterestUsd, funding_rate_pct: Number(fundingPct ?? 0) };
+        }
+
         function renderSnapshotOI(assets) {
             const el = document.getElementById('oi');
             if (!el || !assets.length) return;
+            const rows = assets.map(mapOiDisplayRow);
             el.innerHTML = '<table><thead><tr><th>Asset</th><th>OI</th><th>Funding</th></tr></thead><tbody>' +
-                assets.slice(0,6).map(r => `<tr data-bd-call="setSymbol" data-bd-args="[&quot;${esc(r.asset)}&quot;]" style="cursor:pointer">
+                rows.slice(0,6).map(r => `<tr data-bd-call="setSymbol" data-bd-args="[&quot;${esc(r.asset)}&quot;]" style="cursor:pointer">
                     <td>${esc(r.asset)}</td><td>$${fmt(r.open_interest_usd,0)}</td><td>${fmt(r.funding_rate_pct,4)}%</td></tr>`).join('') + '</tbody></table>';
         }
         function renderSnapshotArb(arbitrage) {
@@ -2395,15 +2411,26 @@
 
         async function loadOI() {
             const el = document.getElementById('oi');
+            if (!el) return;
             try {
-                const res = await fetch('/api/market/open-interest');
-                const data = await res.json();
-                const rows = data.assets || [];
-                if (!rows.length) { el.innerHTML = '<div class="empty">No OI data</div>'; return; }
-                el.innerHTML = '<table><thead><tr><th>Asset</th><th>OI</th><th>Funding</th></tr></thead><tbody>' +
-                    rows.slice(0,6).map(r => `<tr data-bd-call="setSymbol" data-bd-args="[&quot;${esc(r.asset)}&quot;]" style="cursor:pointer">
-                        <td>${esc(r.asset)}</td><td>$${fmt(r.open_interest_usd,0)}</td><td>${fmt(r.funding_rate_pct,4)}%</td></tr>`).join('') + '</tbody></table>';
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Unavailable</div>'; }
+                let rows = [];
+                for (const path of ['/api/market/oi', '/api/market/open-interest']) {
+                    const res = await fetch(path, { credentials: 'same-origin' });
+                    if (!res.ok) continue;
+                    const data = await res.json();
+                    rows = normalizeMarketOiPayload(data).map(mapOiDisplayRow).filter(r => r.asset && r.asset !== '—');
+                    if (rows.length) break;
+                }
+                if (!rows.length) {
+                    if (el.querySelector('table')) return;
+                    el.innerHTML = '<div class="empty">No OI data</div>';
+                    return;
+                }
+                renderSnapshotOI(rows);
+            } catch (error) {
+                console.debug(error);
+                if (!el.querySelector('table')) el.innerHTML = '<div class="empty">Unavailable</div>';
+            }
         }
 
         async function loadArbitrage(refresh) {
