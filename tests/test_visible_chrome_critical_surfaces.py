@@ -200,12 +200,13 @@ def test_dashboard_live_chart_refresh_and_interval_wired():
     dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
     chart_sec = dash.split("<h2>Live Chart</h2>", 1)[1].split("</section>", 1)[0]
     assert 'data-bd-change-call="loadChart"' in chart_sec
-    assert 'data-bd-call="loadChart"' in chart_sec
-    assert 'data-bd-args="[true]"' in chart_sec
+    assert 'id="chartRefreshBtn"' in chart_sec
+    assert "bindLiveChartRefresh" in dash
     assert "window.loadChart = loadChart" in dash
     body = dash.split("async function loadChart", 1)[1].split("async function", 1)[0]
     assert "if (!series) initChart();" in body
     assert "forceRefresh" in body
+    assert "Refreshing chart" in body
 
 
 def test_dashboard_arbitrage_live_scan_is_button():

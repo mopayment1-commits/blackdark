@@ -372,7 +372,7 @@
             <div class="toolbar">
                 <label for="chartIv" class="sr-only">Chart interval</label>
                 <select id="chartIv" data-bd-change-call="loadChart" aria-label="Chart interval"><option value="15m">15m</option><option value="1h" selected>1h</option><option value="4h">4h</option></select>
-                <button class="btn secondary" type="button" data-bd-call="loadChart" data-bd-args="[true]">Refresh</button>
+                <button class="btn secondary" type="button" id="chartRefreshBtn">Refresh</button>
             </div>
             <div id="chart"></div>
             <p class="sub" id="l57ChartNote" style="margin-top:.5rem">Launch-57 OHLCV (#23) — chart hidden if bars unavailable.</p>
@@ -612,6 +612,13 @@
         function closeDeskToolsMenu() {
             const menu = document.getElementById('deskToolsMenu');
             if (menu) menu.open = false;
+        }
+
+        function bindLiveChartRefresh() {
+            const btn = document.getElementById('chartRefreshBtn');
+            if (!btn || btn.dataset.bound === '1') return;
+            btn.dataset.bound = '1';
+            btn.addEventListener('click', () => { void loadChart(true); });
         }
 
         function bindDeskToolsUi() {
@@ -2186,11 +2193,21 @@
         }
 
         async function loadChart(forceRefresh) {
+            const note = document.getElementById('l57ChartNote');
+            if (forceRefresh && note) note.textContent = 'Refreshing chart…';
             if (!series) initChart();
-            if (!series) return;
+            if (!series && forceRefresh) {
+                for (let i = 0; i < 40 && !series; i++) {
+                    await new Promise((resolve) => setTimeout(resolve, 50));
+                    initChart();
+                }
+            }
+            if (!series) {
+                if (forceRefresh && note) note.textContent = 'Chart library still loading — try Refresh again.';
+                return;
+            }
             const sym = (document.getElementById('symbol').value || 'BTC').toUpperCase();
             const iv = document.getElementById('chartIv').value;
-            const note = document.getElementById('l57ChartNote');
             try {
                 const qs = new URLSearchParams({ symbol: sym, interval: iv, limit: '100' });
                 if (forceRefresh) qs.set('_', String(Date.now()));
@@ -2978,6 +2995,7 @@
             applyLang();
             bindLensBar();
             bindDeskToolsUi();
+            bindLiveChartRefresh();
             applyAudienceFromQuery();
             scheduleCommandHome();
             startTrustPulseStream();
