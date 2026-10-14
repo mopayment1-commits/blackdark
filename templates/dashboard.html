@@ -493,7 +493,19 @@
             return key;
         }
 
+        function openTrustPulseProofPage() {
+            const sym = (currentLens === 'prove' ? trustPulseSymbolValue() : (document.getElementById('symbol')?.value || lastPulse?.symbol || 'BTC'))
+                .trim().toUpperCase() || 'BTC';
+            const mode = document.getElementById('uxMode')?.value || 'beginner';
+            const lang = currentLang();
+            const qs = new URLSearchParams({ symbol: sym, ux_mode: mode, lang });
+            goNavUrl('/trust-pulse/proof?' + qs.toString());
+        }
         function openFullProof() {
+            if (currentLens === 'prove') {
+                openTrustPulseProofPage();
+                return;
+            }
             scrollToId('decide');
             if (lastVisibleTrust.certificate || (lastPulse && lastPulse.proof && lastPulse.proof.certificate_hash)) {
                 openDecisionCertificate();
@@ -502,14 +514,12 @@
         }
         function openDecisionCertificate() {
             const cert = lastVisibleTrust.certificate || window._lastCertJson;
-            if (!cert) return;
-            window._lastCertJson = cert;
-            window._lastCertShare = cert.share_text || '';
-            window._lastCertTxt = cert.export_text || '';
-            const blob = new Blob([JSON.stringify(cert, null, 2)], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            window.open(url, '_blank', 'noopener');
-            setTimeout(() => URL.revokeObjectURL(url), 60000);
+            if (cert) {
+                window._lastCertJson = cert;
+                window._lastCertShare = cert.share_text || '';
+                window._lastCertTxt = cert.export_text || '';
+            }
+            openTrustPulseProofPage();
         }
         function clearVisibleTrust() {
             lastVisibleTrust = { certificate: null, ledger: null, netEdge: null };

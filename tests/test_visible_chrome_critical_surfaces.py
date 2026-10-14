@@ -96,6 +96,13 @@ def test_dashboard_prove_trust_pulse_symbol_quick_oracle():
     assert "/oracle/${encodeURIComponent(symbol)}/quick" in dash
 
 
+def test_dashboard_open_full_proof_routes_to_readable_page():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    assert "openTrustPulseProofPage" in dash
+    assert "/trust-pulse/proof" in dash
+    assert "JSON.stringify(cert" not in dash.split("function openDecisionCertificate", 1)[1].split("function clearVisibleTrust", 1)[0]
+
+
 def test_pricing_ladder_not_embedded_on_landing():
     land = _landing()
     assert 'id="pricing"' not in land

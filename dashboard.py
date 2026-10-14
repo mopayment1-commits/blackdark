@@ -2103,6 +2103,79 @@ async def discipline_mirror_page(request: Request):
     return render_page(request, "discipline.html", _footer_ctx())
 
 
+def _trust_pulse_proof_display_action(payload: dict[str, Any]) -> str:
+    raw = str(payload.get("decision_action") or payload.get("verdict") or "WAIT").upper()
+    if "CONDITION" in raw or raw in {"ACT", "BUY", "BULLISH"}:
+        return "ACT"
+    if "ABSTAIN" in raw or "DONT" in raw or raw == "I_DONT_KNOW":
+        return "ABSTAIN"
+    return "WAIT"
+
+
+async def _trust_pulse_proof_payload(
+    symbol: str,
+    lang: str,
+    ux_mode: str,
+) -> tuple[dict[str, Any] | None, str | None]:
+    from viral_capacity import run_oracle_bounded
+
+    asset, pair = _normalize_oracle_symbol(symbol)
+    try:
+        payload = await run_oracle_bounded(
+            lambda: _compute_oracle_quick_payload(asset, pair, lang, ux_mode)
+        )
+    except HTTPException as exc:
+        detail = exc.detail
+        if isinstance(detail, dict):
+            msg = detail.get("message") or detail.get("error") or str(detail)
+        else:
+            msg = str(detail) if detail else "Proof unavailable"
+        return None, msg
+    except Exception:
+        logger.exception("trust_pulse_proof quick failed")
+        return None, "Proof unavailable"
+
+    payload = _attach_quick_freshness(payload, asset)
+    _attach_quick_real_factors(payload)
+    _attach_oqs_why_safe(payload)
+    _attach_quick_certificate(payload)
+    from security_sanitize import sanitize_oracle_payload
+
+    return sanitize_oracle_payload(payload), None
+
+
+@app.get("/trust-pulse/proof", response_class=HTMLResponse)
+async def trust_pulse_proof_page(
+    request: Request,
+    symbol: str = "BTC",
+    ux_mode: str = "beginner",
+    lang: str | None = None,
+):
+    """Human-readable Trust Pulse proof — same oracle quick data, not a JSON blob."""
+    from i18n_service import resolve_request_lang
+
+    resolved_lang = (lang or resolve_request_lang(request) or "en").strip() or "en"
+    mode = (ux_mode or "beginner").strip() or "beginner"
+    asset, _pair = _normalize_oracle_symbol(symbol)
+    payload, proof_error = await _trust_pulse_proof_payload(asset, resolved_lang, mode)
+    cert = (payload or {}).get("decision_certificate") if payload else None
+    ctx = {
+        **_footer_ctx(),
+        "proof_symbol": asset,
+        "proof_action": _trust_pulse_proof_display_action(payload or {}),
+        "proof_sentence": (payload or {}).get("decision_sentence")
+        or (payload or {}).get("oracle")
+        or "",
+        "proof_price": (payload or {}).get("price"),
+        "proof_change": (payload or {}).get("change_24h"),
+        "certificate": cert if isinstance(cert, dict) else None,
+        "proof_error": proof_error,
+        "dashboard_back_href": "/dashboard?lens=prove",
+        "ledger_href": "/oracle-accuracy",
+    }
+    return render_page(request, "trust_pulse_proof.html", ctx)
+
+
 @app.get("/kill-rate", response_class=HTMLResponse)
 async def kill_rate_page(request: Request):
     return render_page(request, "kill_rate.html", _footer_ctx())
