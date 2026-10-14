@@ -184,6 +184,15 @@ def test_dashboard_desk_tools_opens_menu_on_prove_lens():
     assert "DESK_TOOL_SECTIONS" in dash
 
 
+def test_committee_one_pager_uses_dark_site_chrome():
+    html = (ROOT / "templates/committee_one_pager.html").read_text(encoding="utf-8")
+    assert "/static/css/trust-os.css" in html
+    assert "background:#f7f4ee" not in html
+    assert 'id="thesis"' in html and "Committee One-Pager" in html
+    assert "Public kill-rate" in html
+    assert 'id="checks"' in html
+
+
 def test_corpus_passport_uses_dark_site_chrome():
     html = (ROOT / "templates/corpus_passport.html").read_text(encoding="utf-8")
     assert "/static/css/trust-os.css" in html
