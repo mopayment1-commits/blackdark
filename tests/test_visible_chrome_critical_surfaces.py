@@ -78,12 +78,16 @@ def test_dashboard_and_accuracy_include_global_header():
     assert "global_header.html" in acc
 
 
-def test_pricing_ladder_visible_on_landing():
+def test_pricing_ladder_not_embedded_on_landing():
     land = _landing()
-    assert "pricing.decide_pro" in land
-    assert "pricing.see_edge_elite" in land
-    assert "pricing.execute_quant" in land
-    assert "pricing.scale_institutional" in land
+    assert 'id="pricing"' not in land
+    assert "pricing.title_os" not in land
+    assert "pricing.decide_pro" not in land
+    assert "pricing.see_edge_elite" not in land
+    assert "pricing.execute_quant" not in land
+    assert "pricing.scale_institutional" not in land
+    assert "pricing.popular" not in land
+    assert "feat.note" not in land
     assert "$19.99" not in land
     assert "$49.99" not in land
     assert "$129.99" not in land
@@ -92,6 +96,5 @@ def test_pricing_ladder_visible_on_landing():
     assert "Decision Desk" not in land
     assert "$29" not in land
     assert "3,000" not in land
-    assert "pricing.popular" in land
     assert "billingReadyLine" not in land
     assert "/login?tab=register" in land
