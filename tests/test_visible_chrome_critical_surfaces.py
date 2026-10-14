@@ -184,6 +184,18 @@ def test_dashboard_desk_tools_opens_menu_on_prove_lens():
     assert "DESK_TOOL_SECTIONS" in dash
 
 
+def test_header_prove_and_operate_lens_hrefs_distinct():
+    nav = (ROOT / "templates/partials/site_top_nav.html").read_text(encoding="utf-8")
+    assert 'data-nav-key="prove"' in nav
+    assert 'href="/dashboard?lens=prove"' in nav
+    assert 'data-nav-key="operate"' in nav
+    assert 'href="/dashboard?lens=operate"' in nav
+    assert "bd_global_nav.js" in nav
+    js = (ROOT / "static/js/bd_global_nav.js").read_text(encoding="utf-8")
+    assert 'operate: "/dashboard?lens=operate"' in js
+    assert "syncGlobalNavActive" in js
+
+
 def test_committee_one_pager_uses_dark_site_chrome():
     html = (ROOT / "templates/committee_one_pager.html").read_text(encoding="utf-8")
     assert "/static/css/trust-os.css" in html
