@@ -73,6 +73,15 @@ jobs:
             tests/test_b2b_pilot_request.py \
             tests/test_emerging_fund_terminal_cache.py \
             tests/test_sonar_b2b_launch_coverage.py \
+            tests/test_p0_anonymous_route_foundation.py \
+            tests/test_oracle_accuracy_json_api_page.py \
+            tests/test_decision_ledger_appendix_phase_a.py \
+            tests/test_landing_lenses_nav.py \
+            tests/test_public_oracle_catalog.py \
+            tests/test_live_public_ledger.py \
+            tests/test_b2b_websocket_lifecycle.py \
+            tests/launch57/test_anonymous_visitor.py \
+            tests/launch57/test_spec02_anonymous_visitor_public_intelligence.py \
             tests/test_service_bus_distributed.py \
             tests/test_production_guard.py \
             tests/test_xss_sink_hardening.py \
