@@ -370,8 +370,8 @@
             <h2>Live Chart</h2>
             <div class="toolbar">
                 <label for="chartIv" class="sr-only">Chart interval</label>
-                <select id="chartIv" data-bd-change-call="loadChart"><option value="15m">15m</option><option value="1h" selected>1h</option><option value="4h">4h</option></select>
-                <button class="btn secondary" data-bd-call="loadChart">Refresh</button>
+                <select id="chartIv" data-bd-change-call="loadChart" aria-label="Chart interval"><option value="15m">15m</option><option value="1h" selected>1h</option><option value="4h">4h</option></select>
+                <button class="btn secondary" type="button" data-bd-call="loadChart" data-bd-args="[true]">Refresh</button>
             </div>
             <div id="chart"></div>
             <p class="sub" id="l57ChartNote" style="margin-top:.5rem">Launch-57 OHLCV (#23) — chart hidden if bars unavailable.</p>
@@ -2179,13 +2179,15 @@
             return spine;
         }
 
-        async function loadChart() {
+        async function loadChart(forceRefresh) {
+            if (!series) initChart();
             if (!series) return;
             const sym = (document.getElementById('symbol').value || 'BTC').toUpperCase();
             const iv = document.getElementById('chartIv').value;
             const note = document.getElementById('l57ChartNote');
             try {
                 const qs = new URLSearchParams({ symbol: sym, interval: iv, limit: '100' });
+                if (forceRefresh) qs.set('_', String(Date.now()));
                 const res = await fetch(LAUNCH57_OHLCV + '?' + qs.toString());
                 const payload = await res.json();
                 if (!res.ok || !payload.success) {
@@ -2962,6 +2964,8 @@
         window.loadHalfLifeClock = loadHalfLifeClock;
         window.closeTelegramTestDialog = closeTelegramTestDialog;
         window.loadArbitrage = loadArbitrage;
+        window.loadChart = loadChart;
+        window.setSymbol = setSymbol;
 
         function boot() {
             loadAuth();
