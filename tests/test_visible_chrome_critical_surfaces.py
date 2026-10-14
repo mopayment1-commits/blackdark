@@ -105,7 +105,10 @@ def test_dashboard_open_full_proof_routes_to_readable_page():
 
 def test_dashboard_prove_lens_my_book_operate_gate_not_raw_billing_json():
     dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
-    assert "يتطلب اشتراك Operate" in dash
+    assert "Requires Operate subscription" in dash
+    assert "View pricing" in dash
+    assert "يتطلب اشتراك Operate" not in dash
+    assert "عرض الأسعار" not in dash
     assert "showOperateGate" in dash
     assert "openMyBookEntry" in dash
     assert "lockedId === 'my_book'" in dash

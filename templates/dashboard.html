@@ -462,10 +462,10 @@
 
     <div id="operateGateModal" class="operate-gate-modal" hidden role="dialog" aria-modal="true" aria-labelledby="operateGateTitle">
         <div class="operate-gate-card">
-            <p id="operateGateTitle">يتطلب اشتراك Operate</p>
+            <p id="operateGateTitle">Requires Operate subscription</p>
             <div class="operate-gate-actions">
-                <a class="btn" href="/pricing" style="text-decoration:none;display:inline-flex;align-items:center">عرض الأسعار</a>
-                <button class="btn secondary" type="button" data-bd-call="closeOperateGate">إغلاق</button>
+                <a class="btn" href="/pricing" style="text-decoration:none;display:inline-flex;align-items:center">View pricing</a>
+                <button class="btn secondary" type="button" data-bd-call="closeOperateGate">Close</button>
             </div>
         </div>
     </div>
@@ -507,11 +507,11 @@
             if (window.BDDomSafe && window.BDDomSafe.assignLocationHref) window.BDDomSafe.assignLocationHref(href);
         }
 
-        const OPERATE_GATE_MSG = 'يتطلب اشتراك Operate';
+        const OPERATE_GATE_MSG = 'Requires Operate subscription';
 
         function operateGateInlineHtml() {
             return `<div class="operate-gate-inline"><p>${esc(OPERATE_GATE_MSG)}</p>`
-                + `<a class="btn" href="/pricing" style="text-decoration:none;display:inline-flex;align-items:center">عرض الأسعار</a></div>`;
+                + `<a class="btn" href="/pricing" style="text-decoration:none;display:inline-flex;align-items:center">View pricing</a></div>`;
         }
 
         function showOperateGate() {
