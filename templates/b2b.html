@@ -39,6 +39,7 @@
         }
         .btn-primary { background: linear-gradient(135deg, var(--accent), #06b6d4); color: #0a0a0f; }
         .btn-secondary { background: #1a1a24; color: var(--text); border: 1px solid var(--border); }
+        #wsDisconnectBtn[hidden] { display: none !important; }
         .demo-box { max-width: 960px; margin: 0 auto 3rem; padding: 0 2rem; }
         .demo-result { margin-top: 1rem; font-size: 0.82rem; color: var(--muted); max-height: 200px; overflow: auto; }
         .ws-log { max-height: 280px; overflow-y: auto; font-family: ui-monospace, monospace; font-size: 0.75rem; }
@@ -203,6 +204,7 @@
             if (!disconnectBtn) return;
             const live = ws && (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING);
             disconnectBtn.hidden = !live;
+            disconnectBtn.style.display = live ? '' : 'none';
         }
 
         function setWsStatus(on) {
