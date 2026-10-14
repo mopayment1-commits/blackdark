@@ -618,7 +618,11 @@
             const btn = document.getElementById('chartRefreshBtn');
             if (!btn || btn.dataset.bound === '1') return;
             btn.dataset.bound = '1';
-            btn.addEventListener('click', () => { void loadChart(true); });
+            btn.addEventListener('click', (event) => {
+                event.preventDefault();
+                const fn = window.loadChart || loadChart;
+                if (typeof fn === 'function') void fn(true);
+            });
         }
 
         function bindInboxRefresh() {
@@ -3027,6 +3031,7 @@
         }
         if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
         else boot();
+        bindLiveChartRefresh();
         // Only reset scroll when no deep-link target
         if (!location.hash && !(new URLSearchParams(location.search).get('audience') || '').toLowerCase().includes('whale')) {
             window.scrollTo(0, 0);

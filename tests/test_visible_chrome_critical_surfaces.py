@@ -213,6 +213,8 @@ def test_dashboard_live_chart_refresh_and_interval_wired():
     assert 'data-bd-change-call="loadChart"' in chart_sec
     assert 'id="chartRefreshBtn"' in chart_sec
     assert "bindLiveChartRefresh" in dash
+    assert "addEventListener('click'" in dash.split("bindLiveChartRefresh", 1)[1].split("function bindInboxRefresh", 1)[0]
+    assert "else boot();\n        bindLiveChartRefresh();" in dash
     assert "window.loadChart = loadChart" in dash
     body = dash.split("async function loadChart", 1)[1].split("async function", 1)[0]
     assert "if (!series) initChart();" in body
