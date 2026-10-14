@@ -182,6 +182,9 @@ def test_dashboard_desk_tools_opens_menu_on_prove_lens():
     assert 'class="desk-tools-details desk-tools-nav"' in dash
     assert "async function openDeskToolSection" in dash
     assert "DESK_TOOL_SECTIONS" in dash
+    desk_menu = dash.split('aria-label="Desk tools"', 1)[1].split("</details>", 1)[0]
+    assert 'href="/dashboard?lens=desk#stealth">Open Desk lens' in desk_menu
+    assert "/dashboard#portfolio" not in desk_menu
 
 
 def test_header_prove_and_operate_lens_hrefs_distinct():
