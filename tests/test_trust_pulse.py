@@ -61,6 +61,10 @@ def test_shape_pulse_includes_proof_and_ledger():
     assert pulse["proof"]["watermark"] == "Free Proof"
     assert pulse["ledger"]["href"] == "/oracle-accuracy"
     assert pulse["why"]["factors"]
+    df = pulse.get("data_freshness") or {}
+    assert df.get("state") == "fresh"
+    assert df.get("age_sec") is not None
+    assert str(pulse.get("freshness", {}).get("label", "")).startswith("Live ·")
 
 
 def test_continuity_pro_vs_free():

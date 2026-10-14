@@ -1034,10 +1034,16 @@
                     source: f.source || '',
                 };
             });
-            const freshnessState = String(data.freshness_state || data.freshness?.state || 'UNKNOWN').toUpperCase();
-            const presentedAsLive = data.presented_as_live === true && data.decision_live_blocked !== true;
-            const stale = freshnessState === 'STALE'
-                || freshnessState === 'UNKNOWN'
+            const df = data.data_freshness || {};
+            const dfState = String(df.state || '').toLowerCase();
+            const freshnessState = (dfState === 'fresh' || dfState === 'ok')
+                ? 'LIVE'
+                : String(data.freshness_state || data.freshness?.state || dfState || 'UNKNOWN').toUpperCase();
+            const presentedAsLive = (dfState === 'fresh' || dfState === 'ok') && df.stale !== true
+                || (data.presented_as_live === true && data.decision_live_blocked !== true);
+            const stale = df.stale === true
+                || freshnessState === 'STALE'
+                || (freshnessState === 'UNKNOWN' && dfState !== 'fresh' && dfState !== 'ok')
                 || data.decision_live_blocked === true
                 || !presentedAsLive;
             let action = mapOracleQuickAction(data);
@@ -1062,7 +1068,8 @@
                     state: freshnessState,
                     stale,
                     presented_as_live: presentedAsLive && !stale,
-                    label: freshnessUiLabel(freshnessState, presentedAsLive && !stale, data.delayed_label),
+                    label: df.label
+                        || freshnessUiLabel(freshnessState, presentedAsLive && !stale, data.delayed_label),
                 },
                 why: {
                     grasp_line: whyBlock.grasp_line || 'Why (under 5 seconds)',

@@ -3237,9 +3237,18 @@ def _attach_quick_certificate(payload: dict) -> None:
 
 def _attach_quick_freshness(payload: dict, asset: str) -> dict:
     try:
-        from data_freshness import attach_oracle_freshness
+        from data_freshness import attach_oracle_freshness, freshness_chip
 
-        return attach_oracle_freshness({**payload, "asset": asset})
+        enriched = attach_oracle_freshness({**payload, "asset": asset})
+        df = enriched.get("data_freshness") if isinstance(enriched.get("data_freshness"), dict) else {}
+        if str(df.get("state") or "").lower() == "unknown" and enriched.get("price") is not None:
+            age = enriched.get("quote_age_sec")
+            try:
+                age_f = float(age) if age is not None else 0.0
+            except (TypeError, ValueError):
+                age_f = 0.0
+            enriched["data_freshness"] = freshness_chip(age_sec=age_f)
+        return enriched
     except Exception:
         return payload
 
