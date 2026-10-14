@@ -419,7 +419,12 @@
             <h2>Portfolio AI</h2>
             <p class="sub">Risk in plain language — Hero #4 · private holdings stay in-browser</p>
             <div class="toolbar">
-                <input id="pfSym" type="text" placeholder="BTC" style="width:90px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7" aria-label="BTC">
+                <label for="pfSym" class="sr-only">Symbol</label>
+                <select id="pfSym" aria-label="Symbol" style="width:100px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7">
+                    {% for sym in oracle_symbols|default(['BTC', 'ETH', 'SOL', 'BNB', 'XRP']) %}
+                    <option value="{{ sym }}"{% if sym == 'BTC' %} selected{% endif %}>{{ sym }}</option>
+                    {% endfor %}
+                </select>
                 <input id="pfAmt" type="number" placeholder="Amount" style="width:120px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7" aria-label="Amount">
                 <button class="btn secondary" type="button" data-bd-call="addPortfolioAsset">Add</button>
                 <button class="btn" type="button" data-bd-call="analyzePortfolio">Analyze</button>
@@ -2637,7 +2642,8 @@
             const amount = Number(document.getElementById('pfAmt').value || 0);
             if (!symbol || amount <= 0) return;
             portfolioAssets.push({ symbol, amount });
-            document.getElementById('pfSym').value = '';
+            const pfSym = document.getElementById('pfSym');
+            if (pfSym) pfSym.selectedIndex = 0;
             document.getElementById('pfAmt').value = '';
             renderPortfolioList();
         }

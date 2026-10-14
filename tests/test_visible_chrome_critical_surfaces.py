@@ -187,6 +187,14 @@ def test_dashboard_desk_tools_opens_menu_on_prove_lens():
     assert "/dashboard#portfolio" not in desk_menu
 
 
+def test_dashboard_portfolio_ai_symbol_is_dropdown():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    portfolio = dash.split('id="portfolio"', 1)[1].split("</section>", 1)[0]
+    assert '<select id="pfSym"' in portfolio
+    assert 'oracle_symbols' in portfolio
+    assert 'type="text"' not in portfolio.split("pfSym", 1)[1].split("pfAmt", 1)[0]
+
+
 def test_dashboard_markdown_on_prove_lens_shows_upgrade_not_raw_api_link():
     dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
     digest = dash.split('id="operate-digest"', 1)[1].split("</section>", 1)[0]
