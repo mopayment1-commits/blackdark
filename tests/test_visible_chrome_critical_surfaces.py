@@ -125,6 +125,16 @@ def test_dashboard_prove_lens_my_book_operate_gate_not_raw_billing_json():
     assert "create-checkout-session?tier=" not in dash.split("async function upgradeTier", 1)[1].split("let lastPulse", 1)[0]
 
 
+def test_miss_feed_share_honesty_button_stable_handler():
+    html = (ROOT / "templates/miss_feed.html").read_text(encoding="utf-8")
+    share_line = next(line for line in html.splitlines() if 'id="share"' in line)
+    assert 'type="button"' in share_line
+    assert "shareMissFeedHonesty" in html
+    assert "flashMissFeedShare" in html
+    assert "Copied!" in html
+    assert "share_urls?.x" not in html or "getElementById('share').href" not in html
+
+
 def test_half_life_page_omits_launch57_desk_line():
     dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
     assert "isDedicatedHalfLifePage" in dash
