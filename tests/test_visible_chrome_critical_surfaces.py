@@ -169,6 +169,24 @@ def test_dashboard_prove_lens_single_verify_entry_rail_only():
     assert "id === 'verify'" in dash
 
 
+def test_dashboard_desk_tools_opens_menu_on_prove_lens():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    assert 'data-bd-call="openDeskTools"' in dash
+    assert 'id="deskToolsModal"' in dash
+    assert "body.lens-prove .toolbar .desk-tools-nav" in dash
+    assert "async function openDeskToolSection" in dash
+    assert "DESK_TOOL_SECTIONS" in dash
+
+
+def test_corpus_passport_uses_dark_site_chrome():
+    html = (ROOT / "templates/corpus_passport.html").read_text(encoding="utf-8")
+    assert "/static/css/trust-os.css" in html
+    assert "background:#f4f1ea" not in html
+    assert "box-shadow:8px 8px 0 #111" not in html
+    assert 'id="stamp"' in html and "BLACKDARK Corpus Passport" in html
+    assert "Request corpus passport PDF" in html
+
+
 def test_dashboard_anti_hype_toggle_has_visible_banner_and_metric_hook():
     dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
     assert 'id="antiHypeBanner"' in dash
