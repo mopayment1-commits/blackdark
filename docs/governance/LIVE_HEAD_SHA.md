@@ -3,7 +3,7 @@
 | Field | Value |
 |-------|-------|
 | **Previous SHA** | `f7baded430fdb7f8e6d4f35bde16d72fe1e6f4a5` |
-| **Current live HEAD SHA** | `98a06d75` *(full: run `git rev-parse HEAD` on branch)* |
+| **Current live HEAD SHA** | `198beee0ba6a1bea17da2d8496a55f0ddc10620e` |
 | **Branch** | `cursor/launch57-phase8-launch-coherence-358c` |
 | **Updated (UTC)** | 2026-10-14 |
 
