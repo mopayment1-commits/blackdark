@@ -467,6 +467,36 @@ def build_abstention_reject_disclosure(
     }
 
 
+def extract_visible_abstain_reasons(abstention_disclosure: dict[str, Any]) -> list[str]:
+    """Launch #48 — normalized visible reason lines for Trust Pulse (no oracle fallback)."""
+    reasons: list[str] = []
+    seen: set[str] = set()
+
+    def _add(value: Any) -> None:
+        text = str(value or "").strip()
+        if text and text not in seen:
+            seen.add(text)
+            reasons.append(text)
+
+    for code in abstention_disclosure.get("reason_codes") or []:
+        _add(code)
+    for cause in abstention_disclosure.get("dominant_rejection_causes") or []:
+        _add(cause)
+    for item in abstention_disclosure.get("what_would_be_needed_to_reconsider") or []:
+        _add(item)
+    categories = abstention_disclosure.get("rejection_reason_categories") or {}
+    if isinstance(categories, dict):
+        for key, val in categories.items():
+            if val:
+                _add(f"{key}: {val}")
+    summary = abstention_disclosure.get("summary")
+    if summary:
+        _add(summary)
+    for row in abstention_disclosure.get("visible_reasons") or []:
+        _add(row)
+    return reasons
+
+
 def build_approved_public_trust_surfaces() -> list[dict[str, Any]]:
     """Launch #46 — approved Launch-57 public trust surfaces only (spec §3)."""
     from launch57.anonymous_visitor_common import build_approved_public_trust_surfaces as _build

@@ -180,6 +180,127 @@ async def launch57_unified_exchange(symbol: str = Query("BTC")):
     return await unified_exchange_connector(symbol=asset, params={"symbol": asset})
 
 
+@router.get("/api/launch57/market-regime")
+async def launch57_market_regime(request: Request, symbol: str = Query("BTC")):
+    """Launch #7 — Market Regime / Compass."""
+    _require_launch57_auth(request, 7)
+    from launch57.decision_batch1 import market_regime_compass
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await market_regime_compass(symbol=asset, params={"symbol": asset})
+
+
+@router.get("/api/launch57/beginner-mode")
+async def launch57_beginner_mode(
+    request: Request,
+    symbol: str = Query("BTC"),
+    verdict: str = Query("Neutral"),
+    risk_score: float = Query(5.0),
+):
+    """Launch #8 — Beginner Decision Mode."""
+    _require_launch57_auth(request, 8)
+    from launch57.decision_batch1 import beginner_decision_mode
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await beginner_decision_mode(
+        symbol=asset,
+        params={"symbol": asset, "verdict": verdict, "risk_score": risk_score},
+    )
+
+
+@router.get("/api/launch57/cross-signal-confirmation")
+async def launch57_cross_signal_confirmation(request: Request, symbol: str = Query("BTC")):
+    """Launch #9 — Cross-Signal Confirmation."""
+    _require_launch57_auth(request, 9)
+    from launch57.decision_batch1 import cross_signal_confirmation
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await cross_signal_confirmation(symbol=asset, params={"symbol": asset})
+
+
+@router.get("/api/launch57/contradiction-detection")
+async def launch57_contradiction_detection(request: Request, symbol: str = Query("BTC")):
+    """Launch #10 — Contradiction Detection."""
+    _require_launch57_auth(request, 10)
+    from launch57.decision_batch1 import contradiction_detection
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await contradiction_detection(symbol=asset, params={"symbol": asset})
+
+
+@router.get("/api/launch57/actionability-score")
+async def launch57_actionability_score(request: Request, symbol: str = Query("BTC")):
+    """Launch #11 — Smart Money Actionability Score."""
+    _require_launch57_auth(request, 11)
+    from launch57.decision_batch1 import smart_money_actionability_score
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await smart_money_actionability_score(symbol=asset, params={"symbol": asset})
+
+
+@router.get("/api/launch57/conviction-engine")
+async def launch57_conviction_engine(
+    request: Request,
+    symbol: str = Query("BTC"),
+    opportunity_level: float = Query(7.5),
+):
+    """Launch #12 — Smart Money Conviction Engine."""
+    _require_launch57_auth(request, 12)
+    from launch57.decision_batch2 import smart_money_conviction_engine
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    return await smart_money_conviction_engine(
+        symbol=asset,
+        params={"symbol": asset, "opportunity_level": opportunity_level},
+    )
+
+
+@router.get("/api/launch57/risk-disclosure")
+async def launch57_risk_disclosure(
+    request: Request,
+    symbol: str = Query("BTC"),
+    decision_action: str = Query("WAIT"),
+    decision_truth_state: str = Query("UNAVAILABLE"),
+):
+    """Launch #47 — one-click risk disclosure on visible decision."""
+    _require_launch57_auth(request, 47)
+    from launch57.trust_batch2 import one_click_risk_disclosure
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    action = str(decision_action or "WAIT").upper()
+    return await one_click_risk_disclosure(
+        symbol=asset,
+        params={
+            "symbol": asset,
+            "decision_action": action,
+            "decision_truth_state": decision_truth_state,
+        },
+    )
+
+
+@router.get("/api/launch57/abstain-reasons")
+async def launch57_abstain_reasons(
+    request: Request,
+    symbol: str = Query("BTC"),
+    decision_action: str = Query("WAIT"),
+    decision_truth_state: str = Query("ABSTAINED"),
+):
+    """Launch #48 — abstain/reject reasons visible (WAIT/ABSTAIN — no judgment without reason)."""
+    _require_launch57_auth(request, 48)
+    from launch57.trust_batch2 import abstain_reject_reasons_visible
+
+    asset = str(symbol or "BTC").upper().replace("/USDT", "")
+    action = str(decision_action or "WAIT").upper()
+    return await abstain_reject_reasons_visible(
+        symbol=asset,
+        params={
+            "symbol": asset,
+            "decision_action": action,
+            "decision_truth_state": decision_truth_state,
+        },
+    )
+
+
 @router.get("/api/launch57/decision-certificate")
 async def launch57_decision_certificate(
     request: Request,
