@@ -171,13 +171,15 @@ def test_dashboard_prove_lens_single_verify_entry_rail_only():
 
 def test_dashboard_desk_tools_opens_menu_on_prove_lens():
     dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
-    assert 'id="deskToolsBtn"' in dash
-    assert 'data-bd-call="openDeskTools"' in dash
-    assert 'id="deskToolsModal"' in dash
+    assert 'id="deskToolsMenu"' in dash
+    assert "desk-tools-details" in dash
+    assert "desk-tools-dropmenu" in dash
+    assert '/dashboard?lens=desk#stealth' in dash
     assert "function bindDeskToolsUi()" in dash
     assert "window.openDeskTools = openDeskTools" in dash
-    desk_btn_line = [ln for ln in dash.splitlines() if "deskToolsBtn" in ln][0]
-    assert "section-desk-only" not in desk_btn_line
+    toolbar = dash.split('class="toolbar hide-in-room"', 1)[1].split("</div>", 1)[0]
+    assert "Desk tools" in toolbar
+    assert 'class="desk-tools-details desk-tools-nav"' in dash
     assert "async function openDeskToolSection" in dash
     assert "DESK_TOOL_SECTIONS" in dash
 

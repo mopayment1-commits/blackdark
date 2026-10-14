@@ -123,17 +123,23 @@
             color: #a1a1aa; font-size: .88rem; text-align: center;
         }
         .operate-gate-inline p { margin: 0 0 .65rem; color: #e4e4e7; }
-        body.lens-prove .toolbar .desk-tools-nav { display: inline-flex !important; }
-        .desk-tools-card { max-width: 26rem; text-align: left; }
-        .desk-tools-card h2 { margin: 0 0 .35rem; font-size: 1.05rem; color: #22d3ee; }
-        .desk-tools-card .sub-hint { margin: 0 0 .85rem; font-size: .82rem; color: #71717a; line-height: 1.45; }
-        .desk-tools-list { display: flex; flex-direction: column; gap: .45rem; margin-bottom: .85rem; }
-        .desk-tools-list button {
-            width: 100%; text-align: left; padding: .65rem .85rem; border-radius: 10px;
-            border: 1px solid #2a2a35; background: #1a1a24; color: #e4e4e7; font-size: .88rem; font-weight: 600; cursor: pointer;
+        body.lens-prove .toolbar .desk-tools-nav { display: inline-block !important; vertical-align: middle; }
+        .desk-tools-details { position: relative; display: inline-block; }
+        .desk-tools-details > summary { list-style: none; cursor: pointer; }
+        .desk-tools-details > summary::-webkit-details-marker { display: none; }
+        .desk-tools-dropmenu {
+            position: absolute; top: calc(100% + .35rem); left: 50%; transform: translateX(-50%);
+            z-index: 1100; min-width: 15rem; padding: .45rem;
+            border: 1px solid #2a2a35; border-radius: 10px; background: #111118;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, .5);
         }
-        .desk-tools-list button:hover { border-color: #22d3ee; color: #22d3ee; }
-        .desk-tools-list button small { display: block; font-size: .72rem; font-weight: 400; color: #71717a; margin-top: .15rem; }
+        .desk-tools-dropmenu a {
+            display: block; padding: .6rem .7rem; border-radius: 8px;
+            color: #e4e4e7; text-decoration: none; font-size: .86rem; font-weight: 600; white-space: nowrap;
+        }
+        .desk-tools-dropmenu a small { display: block; font-size: .72rem; font-weight: 400; color: #71717a; margin-top: .12rem; white-space: normal; }
+        .desk-tools-dropmenu a:hover { background: #1a1a24; color: #22d3ee; }
+        .desk-tools-details[open] > summary { border-color: #22d3ee; color: #22d3ee; }
         body.lens-prove .section-operate-plus {
             border-color: #1c1c26;
             background: rgba(17, 17, 24, 0.72);
@@ -316,7 +322,16 @@
             <a class="btn secondary" href="/coverage-honesty" style="text-decoration:none;display:inline-flex;align-items:center">Coverage Honesty</a>
             <button class="btn secondary" type="button" id="antiHypeBtn" data-bd-call="toggleAntiHype" data-bd-sync="1" aria-pressed="false">Anti-Hype</button>
             <button class="btn secondary section-operate-plus" type="button" data-bd-call="openMyBookEntry">My book</button>
-            <button class="btn secondary desk-tools-nav" type="button" id="deskToolsBtn" data-bd-call="openDeskTools" data-bd-sync="1" aria-expanded="false" aria-controls="deskToolsModal">Desk tools</button>
+            <details class="desk-tools-details desk-tools-nav" id="deskToolsMenu">
+                <summary class="btn secondary" aria-haspopup="menu">Desk tools</summary>
+                <div class="desk-tools-dropmenu" role="menu" aria-label="Desk tools">
+                    <a role="menuitem" href="/dashboard?lens=desk#stealth">Stealth Execution Advisor<small>Size-aware execution slices</small></a>
+                    <a role="menuitem" href="/dashboard?lens=desk#whales">Signal vs Noise<small>Whale flow labels</small></a>
+                    <a role="menuitem" href="/dashboard?lens=desk#half-life-clock">Half-Life Clock<small>Desk timing grounded</small></a>
+                    <a role="menuitem" href="/dashboard?lens=desk#mev">MEV Protection<small>Execution risk report</small></a>
+                    <a role="menuitem" href="/dashboard?lens=desk">Open Desk lens</a>
+                </div>
+            </details>
             <a class="btn secondary section-desk-only" href="/corpus-passport" style="text-decoration:none;display:inline-flex;align-items:center">Corpus Passport</a>
         </div>
         <div class="picks hide-in-room">
@@ -496,31 +511,6 @@
         </div>
     </div>
 
-    <div id="deskToolsModal" class="operate-gate-modal" hidden role="dialog" aria-modal="true" aria-labelledby="deskToolsTitle">
-        <div class="operate-gate-card desk-tools-card">
-            <h2 id="deskToolsTitle">Desk tools</h2>
-            <p class="sub-hint">Open the Decision Desk lens and jump to a tool.</p>
-            <div class="desk-tools-list" role="menu">
-                <button type="button" role="menuitem" data-desk-section="stealth">
-                    Stealth Execution Advisor<small>Size-aware execution slices</small>
-                </button>
-                <button type="button" role="menuitem" data-desk-section="whales">
-                    Signal vs Noise<small>Whale flow labels</small>
-                </button>
-                <button type="button" role="menuitem" data-desk-section="half-life-clock">
-                    Half-Life Clock<small>Desk timing grounded</small>
-                </button>
-                <button type="button" role="menuitem" data-desk-section="mev">
-                    MEV Protection<small>Execution risk report</small>
-                </button>
-            </div>
-            <div class="operate-gate-actions">
-                <a class="btn" href="/dashboard?lens=desk#stealth" style="text-decoration:none;display:inline-flex;align-items:center">Open Desk lens</a>
-                <button class="btn secondary" type="button" data-desk-close>Close</button>
-            </div>
-        </div>
-    </div>
-
     <script src="/static/js/dom_escape.js"></script>
     <script>
         const fmt = (n, d=2) => n == null ? '—' : Number(n).toLocaleString(undefined, { maximumFractionDigits: d });
@@ -577,38 +567,23 @@
         }
 
         function openDeskTools() {
-            const modal = document.getElementById('deskToolsModal');
-            const btn = document.getElementById('deskToolsBtn');
-            if (btn) btn.setAttribute('aria-expanded', 'true');
-            if (modal) modal.hidden = false;
+            const menu = document.getElementById('deskToolsMenu');
+            if (menu) menu.open = true;
         }
 
         function closeDeskToolsMenu() {
-            const modal = document.getElementById('deskToolsModal');
-            const btn = document.getElementById('deskToolsBtn');
-            if (btn) btn.setAttribute('aria-expanded', 'false');
-            if (modal) modal.hidden = true;
+            const menu = document.getElementById('deskToolsMenu');
+            if (menu) menu.open = false;
         }
 
         function bindDeskToolsUi() {
-            const openBtn = document.getElementById('deskToolsBtn');
-            if (openBtn && openBtn.dataset.bound !== '1') {
-                openBtn.dataset.bound = '1';
-                openBtn.addEventListener('click', (event) => {
-                    event.preventDefault();
-                    openDeskTools();
-                });
-            }
-            const modal = document.getElementById('deskToolsModal');
-            if (!modal || modal.dataset.bound === '1') return;
-            modal.dataset.bound = '1';
-            modal.querySelectorAll('[data-desk-section]').forEach((item) => {
-                item.addEventListener('click', () => openDeskToolSection(item.getAttribute('data-desk-section')));
-            });
-            const closeBtn = modal.querySelector('[data-desk-close]');
-            if (closeBtn) closeBtn.addEventListener('click', () => closeDeskToolsMenu());
-            modal.addEventListener('click', (event) => {
-                if (event.target === modal) closeDeskToolsMenu();
+            const menu = document.getElementById('deskToolsMenu');
+            if (!menu || menu.dataset.bound === '1') return;
+            menu.dataset.bound = '1';
+            document.addEventListener('click', (event) => {
+                if (!menu.open) return;
+                if (menu.contains(event.target)) return;
+                menu.open = false;
             });
         }
 
