@@ -87,6 +87,17 @@ def test_dashboard_prove_lens_upgrade_pro_routes_to_pricing():
     assert "body.lens-prove .section-operate-plus .btn-upgrade-cta" in dash
 
 
+def test_dashboard_alerts_refresh_inbox_button_wired():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    alerts = dash.split('id="alerts"', 1)[1].split("</section>", 1)[0]
+    assert 'id="inboxRefreshBtn"' in alerts
+    assert "bindInboxRefresh" in dash
+    assert "window.loadInbox = loadInbox" in dash
+    body = dash.split("async function loadInbox", 1)[1].split("async function", 1)[0]
+    assert "forceRefresh" in body
+    assert "Refreshing inbox" in body
+
+
 def test_dashboard_operate_lens_shows_trust_pulse_symbol_dropdown():
     dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
     assert "body.lens-operate .tp-symbol-wrap" in dash

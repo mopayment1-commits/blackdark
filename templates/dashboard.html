@@ -488,7 +488,7 @@
             <p class="sub" id="tgStatus">In-app inbox: no TradingView-style 15-alerts / 3-min hard cap · only Truth + Half-Life survivors fire</p>
             <div id="alertsGenerosity" class="sub" style="margin-bottom:.75rem"></div>
             <div class="toolbar">
-                <button class="btn secondary" data-bd-call="loadInbox">Refresh Inbox</button>
+                <button class="btn secondary" type="button" id="inboxRefreshBtn">Refresh Inbox</button>
                 <button class="btn secondary" data-bd-call="testTelegram">Test Telegram</button>
             </div>
             <div id="inbox" style="margin-top:.75rem"><div class="loading">…</div></div>
@@ -619,6 +619,13 @@
             if (!btn || btn.dataset.bound === '1') return;
             btn.dataset.bound = '1';
             btn.addEventListener('click', () => { void loadChart(true); });
+        }
+
+        function bindInboxRefresh() {
+            const btn = document.getElementById('inboxRefreshBtn');
+            if (!btn || btn.dataset.bound === '1') return;
+            btn.dataset.bound = '1';
+            btn.addEventListener('click', () => { void loadInbox(true); });
         }
 
         function bindDeskToolsUi() {
@@ -2412,9 +2419,11 @@
             } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Scan failed</div>'; }
         }
 
-        async function loadInbox() {
+        async function loadInbox(forceRefresh) {
             const el = document.getElementById('inbox');
             const status = document.getElementById('tgStatus');
+            if (!el) return;
+            if (forceRefresh) el.innerHTML = '<div class="loading">Refreshing inbox…</div>';
             try {
                 const res = await fetch('/api/alerts/inbox?limit=12', { headers: authHeaders() });
                 const data = await res.json();
@@ -2989,6 +2998,7 @@
         window.loadArbitrage = loadArbitrage;
         window.loadChart = loadChart;
         window.setSymbol = setSymbol;
+        window.loadInbox = loadInbox;
 
         function boot() {
             loadAuth();
@@ -2996,6 +3006,7 @@
             bindLensBar();
             bindDeskToolsUi();
             bindLiveChartRefresh();
+            bindInboxRefresh();
             applyAudienceFromQuery();
             scheduleCommandHome();
             startTrustPulseStream();
