@@ -267,8 +267,11 @@ def test_dashboard_portfolio_ai_symbol_is_dropdown():
 def test_dashboard_markdown_on_prove_lens_shows_upgrade_not_raw_api_link():
     dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
     digest = dash.split('id="operate-digest"', 1)[1].split("</section>", 1)[0]
+    assert 'id="dailyReportMarkdownBtn"' in digest
     assert 'data-bd-call="openDailyReportMarkdown"' in digest
     assert 'href="/api/reports/daily/markdown"' not in digest
+    assert "function syncDailyReportMarkdownBtn()" in dash
+    assert "userTierId === 'free'" in dash.split("syncDailyReportMarkdownBtn", 1)[1][:400]
     assert "function openDailyReportMarkdown()" in dash
     assert "operatePlusBlockedOnProveLens()" in dash.split("openDailyReportMarkdown", 1)[1][:800]
     assert "Upgrade to Pro" in dash.split("openDailyReportMarkdown", 1)[1][:800]

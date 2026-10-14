@@ -410,7 +410,7 @@
             <div class="toolbar" style="margin-bottom:.65rem">
                 <button class="btn secondary" type="button" data-bd-call="loadDailyReport">Refresh daily report</button>
                 <button class="btn secondary" type="button" data-bd-call="loadSubscriberValue">Refresh value</button>
-                <button class="btn secondary" type="button" data-bd-call="openDailyReportMarkdown">Markdown</button>
+                <button id="dailyReportMarkdownBtn" class="btn secondary" type="button" data-bd-call="openDailyReportMarkdown">Markdown</button>
             </div>
             <div id="dailyReportBox" class="arb-card"><div class="empty" style="padding:.25rem 0">Pro/Whale — load daily report</div></div>
             <div id="subscriberValueBox" class="arb-card" style="margin-top:.65rem"><div class="empty" style="padding:.25rem 0">Pro/Whale — subscriber value</div></div>
@@ -557,6 +557,12 @@
             const allowed = userTierId === 'pro' || userTierId === 'whale';
             gate.style.display = allowed ? 'none' : 'block';
             panel.style.display = allowed ? 'block' : 'none';
+        }
+
+        function syncDailyReportMarkdownBtn() {
+            const btn = document.getElementById('dailyReportMarkdownBtn');
+            if (!btn) return;
+            btn.style.display = userTierId === 'free' ? 'none' : '';
         }
 
         function escapeHtml(value) {
@@ -875,6 +881,7 @@
             const tierEl = document.getElementById('userTier');
             const authLink = document.getElementById('authLink');
             syncChatGate();
+            syncDailyReportMarkdownBtn();
             try {
                 const res = await fetch('/api/auth/me', { headers: authHeaders(), credentials: 'same-origin' });
                 const d = await res.json();
@@ -905,6 +912,7 @@
                     }
                     applyUpgradeButton();
                     syncChatGate();
+                    syncDailyReportMarkdownBtn();
                 }
             } catch (error) { console.debug(error); }
         }
