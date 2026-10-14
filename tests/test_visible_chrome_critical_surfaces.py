@@ -109,6 +109,8 @@ def test_dashboard_prove_lens_my_book_operate_gate_not_raw_billing_json():
     assert "showOperateGate" in dash
     assert "openMyBookEntry" in dash
     assert "lockedId === 'my_book'" in dash
+    assert "lockedId === 'alerts'" in dash
+    assert "openAlertsEntry" in dash
     assert "create-checkout-session?tier=" not in dash.split("async function upgradeTier", 1)[1].split("let lastPulse", 1)[0]
 
 

@@ -525,16 +525,25 @@
             if (modal) modal.hidden = true;
         }
 
-        function myBookBlockedOnProveLens() {
+        function operatePlusBlockedOnProveLens() {
             return currentLens === 'prove';
         }
 
         function openMyBookEntry() {
-            if (myBookBlockedOnProveLens()) {
+            if (operatePlusBlockedOnProveLens()) {
                 showOperateGate();
                 return;
             }
             scrollToId('portfolio');
+        }
+
+        function openAlertsEntry() {
+            if (operatePlusBlockedOnProveLens()) {
+                showOperateGate();
+                return;
+            }
+            scrollToId('alerts');
+            loadInbox();
         }
         function openNavUrl(url) {
             if (window.BDDomSafe && window.BDDomSafe.openWindow) window.BDDomSafe.openWindow(url);
@@ -1436,11 +1445,11 @@
                     if (action === 'navigate' && path) { location.assign(path); return; }
                     if (action === 'launch57_decide') { scrollToId('trust-pulse'); loadCommandHome(true); return; }
                     if (action === 'portfolio') {
-                        if (myBookBlockedOnProveLens()) { showOperateGate(); return; }
+                        if (operatePlusBlockedOnProveLens()) { showOperateGate(); return; }
                         scrollToId('portfolio');
                         return;
                     }
-                    if (action === 'alerts') { scrollToId('alerts'); loadInbox(); return; }
+                    if (action === 'alerts') { openAlertsEntry(); return; }
                 });
             });
             if (hint && !hint.textContent) hint.textContent = 'Launch-57 only — Decide · Verify · My book · Alerts.';
@@ -2468,7 +2477,7 @@
         }
         async function analyzePortfolio() {
             const el = document.getElementById('portfolioResult');
-            if (myBookBlockedOnProveLens()) {
+            if (operatePlusBlockedOnProveLens()) {
                 el.innerHTML = operateGateInlineHtml();
                 showOperateGate();
                 return;
@@ -2641,7 +2650,7 @@
                 btn.addEventListener('click', () => {
                     if (btn.classList.contains('locked')) {
                         const lockedId = btn.dataset.entry;
-                        if (lockedId === 'my_book') {
+                        if (lockedId === 'my_book' || lockedId === 'alerts') {
                             showOperateGate();
                             return;
                         }
@@ -2658,11 +2667,11 @@
                     }
                     if (id === 'decide' || action === 'oracle') { scrollToId('decide'); askOracle(); return; }
                     if (id === 'my_book' || action === 'portfolio') {
-                        if (myBookBlockedOnProveLens()) { showOperateGate(); return; }
+                        if (operatePlusBlockedOnProveLens()) { showOperateGate(); return; }
                         scrollToId('portfolio');
                         return;
                     }
-                    if (id === 'alerts' || action === 'alerts') { scrollToId('alerts'); loadInbox(); return; }
+                    if (id === 'alerts' || action === 'alerts') { openAlertsEntry(); return; }
                     if (path.includes('#')) scrollToId(path.split('#')[1]);
                 });
             });
