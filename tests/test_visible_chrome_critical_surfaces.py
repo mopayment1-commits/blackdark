@@ -187,6 +187,17 @@ def test_dashboard_desk_tools_opens_menu_on_prove_lens():
     assert "/dashboard#portfolio" not in desk_menu
 
 
+def test_dashboard_telegram_test_uses_styled_dialog_not_alert():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    assert 'id="telegramTestModal"' in dash
+    assert "operate-gate-modal" in dash.split("telegramTestModal", 1)[1][:200]
+    assert "function showTelegramTestDialog" in dash
+    assert "closeTelegramTestDialog" in dash
+    tg = dash.split("async function testTelegram", 1)[1].split("async function", 1)[0]
+    assert "alert(" not in tg
+    assert "showTelegramTestDialog" in tg
+
+
 def test_dashboard_stealth_and_mev_asset_dropdowns():
     dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
     stealth = dash.split('id="stealth"', 1)[1].split("</section>", 1)[0]

@@ -526,6 +526,15 @@
         </div>
     </div>
 
+    <div id="telegramTestModal" class="operate-gate-modal" hidden role="dialog" aria-modal="true" aria-labelledby="telegramTestMessage">
+        <div class="operate-gate-card">
+            <p id="telegramTestMessage"></p>
+            <div class="operate-gate-actions">
+                <button class="btn" type="button" data-bd-call="closeTelegramTestDialog">OK</button>
+            </div>
+        </div>
+    </div>
+
     <script src="/static/js/dom_escape.js"></script>
     <script>
         const fmt = (n, d=2) => n == null ? '—' : Number(n).toLocaleString(undefined, { maximumFractionDigits: d });
@@ -578,6 +587,19 @@
 
         function closeOperateGate() {
             const modal = document.getElementById('operateGateModal');
+            if (modal) modal.hidden = true;
+        }
+
+        function showTelegramTestDialog(message) {
+            const modal = document.getElementById('telegramTestModal');
+            const msg = document.getElementById('telegramTestMessage');
+            if (!modal || !msg) return;
+            msg.textContent = String(message || '');
+            modal.hidden = false;
+        }
+
+        function closeTelegramTestDialog() {
+            const modal = document.getElementById('telegramTestModal');
             if (modal) modal.hidden = true;
         }
 
@@ -2730,8 +2752,8 @@
             try {
                 const res = await fetch('/api/alerts/telegram/test', { method: 'POST', headers: authHeaders() });
                 const d = await res.json();
-                alert(d.message || (d.success ? 'Sent!' : 'Failed'));
-            } catch (error) { console.debug(error); alert('Test failed — configure bot first'); }
+                showTelegramTestDialog(d.message || (d.success ? 'Sent!' : 'Failed'));
+            } catch (error) { console.debug(error); showTelegramTestDialog('Test failed — configure bot first'); }
         }
 
         async function loadAlertsGenerosity() {
@@ -2933,6 +2955,7 @@
         window.closeDeskToolsMenu = closeDeskToolsMenu;
         window.openDeskToolSection = openDeskToolSection;
         window.loadHalfLifeClock = loadHalfLifeClock;
+        window.closeTelegramTestDialog = closeTelegramTestDialog;
 
         function boot() {
             loadAuth();
