@@ -169,6 +169,17 @@ def test_dashboard_prove_lens_single_verify_entry_rail_only():
     assert "id === 'verify'" in dash
 
 
+def test_dashboard_anti_hype_toggle_has_visible_banner_and_metric_hook():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    assert 'id="antiHypeBanner"' in dash
+    assert "body.anti-hype-on .anti-hype-banner" in dash
+    assert "tp-hype-metric" in dash
+    assert "banner.hidden = !on" in dash
+    assert 'id="antiHypeBtn"' in dash and 'data-bd-sync="1"' in dash
+    toggle_block = dash.split("async function toggleAntiHype()", 1)[1].split("async function loadSinceYouLeft", 1)[0]
+    assert "applyAntiHypeClass();" in toggle_block.split("await fetch", 1)[0]
+
+
 def test_dashboard_share_proof_builds_clipboard_fallback():
     dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
     assert "buildTrustPulseShareBundle" in dash

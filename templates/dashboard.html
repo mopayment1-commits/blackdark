@@ -204,6 +204,18 @@
             border:1px solid rgba(245,158,11,.55); background:rgba(120,53,15,.92); color:#fffbeb; font-size:.88rem;
         }
         .tp-flip.show { display:block; animation: pulseIn .45s ease; }
+        .anti-hype-banner {
+            display: none; margin-bottom: .75rem; padding: .65rem .85rem; border-radius: 10px;
+            border: 1px solid rgba(52,211,153,.55); background: rgba(6,78,59,.38); color: #d1fae5; font-size: .86rem; line-height: 1.45;
+        }
+        body.anti-hype-on .anti-hype-banner { display: block; }
+        body.anti-hype-on #antiHypeBtn {
+            border-color: #34d399; color: #34d399; background: rgba(6,78,59,.28);
+        }
+        body.anti-hype-on #trust-pulse { border-color: rgba(52,211,153,.4); box-shadow: 0 0 0 1px rgba(52,211,153,.12); }
+        body.anti-hype-on .tp-hype-metric { display: none !important; }
+        body.anti-hype-on .tp-cont { display: none !important; }
+        body.anti-hype-on .tp-proof { border: 1px dashed rgba(52,211,153,.35); border-radius: 8px; padding: .45rem .55rem; margin-top: .35rem; }
         .tp-cont { font-size:.8rem; color:#a1a1aa; margin:.5rem 0 .25rem; min-height:1.1em; }
         .tp-foot { margin-top:.85rem; font-size:.72rem; color:#71717a; border-top:1px solid #2a2a35; padding-top:.65rem; }
         body.lens-room #trust-pulse { opacity:.92; }
@@ -251,6 +263,9 @@
                 <span class="tp-live"><span class="tp-dot" id="tpDot"></span><span id="tpFresh">Connecting…</span></span>
             </div>
             <output id="tpFlip" class="tp-flip"></output>
+            <div id="antiHypeBanner" class="anti-hype-banner" role="status" aria-live="polite" hidden>
+                <strong>Anti-Hype ON</strong> — Market price and 24h change hidden. Sentence, factors, and ledger proof stay visible.
+            </div>
             <div class="tp-action WAIT" id="tpAction">—</div>
             <div class="tp-sym" id="tpSym">Loading decision…</div>
             <div class="tp-sentence" id="tpSentence">One clear Act / Wait with a reviewable why.</div>
@@ -288,7 +303,7 @@
             <a class="btn secondary" href="/since-you-left" style="text-decoration:none;display:inline-flex;align-items:center">Since You Left</a>
             <a class="btn secondary" href="/miss-feed" style="text-decoration:none;display:inline-flex;align-items:center">Miss Feed</a>
             <a class="btn secondary" href="/coverage-honesty" style="text-decoration:none;display:inline-flex;align-items:center">Coverage Honesty</a>
-            <button class="btn secondary" type="button" id="antiHypeBtn" data-bd-call="toggleAntiHype">Anti-Hype</button>
+            <button class="btn secondary" type="button" id="antiHypeBtn" data-bd-call="toggleAntiHype" data-bd-sync="1" aria-pressed="false">Anti-Hype</button>
             <button class="btn secondary section-operate-plus" type="button" data-bd-call="openMyBookEntry">My book</button>
             <a class="btn secondary section-desk-only" href="#stealth" style="text-decoration:none;display:inline-flex;align-items:center">Desk tools</a>
             <a class="btn secondary section-desk-only" href="/corpus-passport" style="text-decoration:none;display:inline-flex;align-items:center">Corpus Passport</a>
@@ -1632,7 +1647,10 @@
             const price = fmtPrice(p.price);
             const ch = p.change_24h;
             const chS = changeSpan(ch);
-            document.getElementById('tpSym').innerHTML = `${escapeHtml(p.symbol || 'BTC')} ${price}${chS}`;
+            const metricHtml = (price || chS)
+                ? ` <span class="tp-hype-metric">${price}${chS}</span>`
+                : '';
+            document.getElementById('tpSym').innerHTML = `${escapeHtml(p.symbol || 'BTC')}${metricHtml}`;
             document.getElementById('tpSentence').textContent = p.sentence || 'One clear decision — research only.';
             document.getElementById('tpWhyTitle').textContent = (p.why && p.why.grasp_line) || 'Why (under 5 seconds)';
             const factors = (p.why && p.why.factors) || [];
@@ -2345,12 +2363,18 @@
             const on = antiHypeOn();
             document.body.classList.toggle('anti-hype-on', on);
             const btn = document.getElementById('antiHypeBtn');
-            if (btn) btn.textContent = on ? 'Anti-Hype ON' : 'Anti-Hype';
+            if (btn) {
+                btn.textContent = on ? 'Anti-Hype ON' : 'Anti-Hype';
+                btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+            }
+            const banner = document.getElementById('antiHypeBanner');
+            if (banner) banner.hidden = !on;
         }
         async function toggleAntiHype() {
             const next = !antiHypeOn();
             localStorage.setItem('bd_anti_hype', next ? '1' : '0');
             document.cookie = 'bd_anti_hype=' + (next ? '1' : '0') + '; path=/; max-age=31536000; SameSite=Lax';
+            applyAntiHypeClass();
             try {
                 const k = localStorage.getItem('bd_user_key') || 'anon';
                 await fetch('/api/anti-hype/mode', {
@@ -2359,7 +2383,6 @@
                     body: JSON.stringify({enabled: next, user_key: k}),
                 });
             } catch (error) { console.debug(error); }
-            applyAntiHypeClass();
         }
         async function loadSinceYouLeft() {
             const el = document.getElementById('sinceYouLeftBox');
