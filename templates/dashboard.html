@@ -105,6 +105,22 @@
         .section-desk-only, .section-operate-plus { transition: opacity .25s ease; }
         body.lens-prove .section-desk-only { display:none; }
         body.lens-prove .hide-on-prove { display:none; }
+        .operate-gate-modal {
+            position: fixed; inset: 0; z-index: 1200; display: flex; align-items: center; justify-content: center;
+            background: rgba(4, 6, 10, 0.72); padding: 1rem;
+        }
+        .operate-gate-modal[hidden] { display: none !important; }
+        .operate-gate-card {
+            max-width: 22rem; width: 100%; padding: 1.25rem 1.35rem; border-radius: 14px;
+            border: 1px solid #2a2a35; background: #111118; text-align: center; box-shadow: 0 24px 48px rgba(0,0,0,.45);
+        }
+        .operate-gate-card p { margin: 0 0 1rem; font-size: 1.05rem; color: #e4e4e7; line-height: 1.45; }
+        .operate-gate-actions { display: flex; gap: .5rem; justify-content: center; flex-wrap: wrap; }
+        .operate-gate-inline {
+            padding: .85rem 1rem; border: 1px solid #2a2a35; border-radius: 10px; background: rgba(17,17,24,.9);
+            color: #a1a1aa; font-size: .88rem; text-align: center;
+        }
+        .operate-gate-inline p { margin: 0 0 .65rem; color: #e4e4e7; }
         body.lens-prove .section-operate-plus {
             border-color: #1c1c26;
             background: rgba(17, 17, 24, 0.72);
@@ -244,7 +260,6 @@
             <div class="tp-cont" id="tpContinuity"></div>
             <div class="tp-cta">
                 <button class="btn" type="button" data-bd-call="openFullProof">Open full proof</button>
-                <a class="btn secondary" href="/oracle-accuracy" style="text-decoration:none;display:inline-flex;align-items:center">Verify Ledger</a>
                 <button class="btn secondary" type="button" id="tpShareBtn" data-bd-call="shareTrustPulse" hidden>Share Proof</button>
             </div>
             <div class="tp-foot" id="tpFoot"><strong>Anti-Hype</strong> · Not financial advice · AI cannot guarantee returns</div>
@@ -268,12 +283,11 @@
                 <option value="beginner" selected>Beginner</option>
                 <option value="pro">Pro</option>
             </select>
-            <a class="btn secondary" href="/oracle-accuracy" style="text-decoration:none;display:inline-flex;align-items:center">Verify Ledger</a>
             <a class="btn secondary" href="/since-you-left" style="text-decoration:none;display:inline-flex;align-items:center">Since You Left</a>
             <a class="btn secondary" href="/miss-feed" style="text-decoration:none;display:inline-flex;align-items:center">Miss Feed</a>
             <a class="btn secondary" href="/coverage-honesty" style="text-decoration:none;display:inline-flex;align-items:center">Coverage Honesty</a>
             <button class="btn secondary" type="button" id="antiHypeBtn" data-bd-call="toggleAntiHype">Anti-Hype</button>
-            <a class="btn secondary section-operate-plus" href="#portfolio" style="text-decoration:none;display:inline-flex;align-items:center">My book</a>
+            <button class="btn secondary section-operate-plus" type="button" data-bd-call="openMyBookEntry">My book</button>
             <a class="btn secondary section-desk-only" href="#stealth" style="text-decoration:none;display:inline-flex;align-items:center">Desk tools</a>
             <a class="btn secondary section-desk-only" href="/corpus-passport" style="text-decoration:none;display:inline-flex;align-items:center">Corpus Passport</a>
         </div>
@@ -444,6 +458,16 @@
     </main>
     {% include "partials/site_footer.html" %}
 
+    <div id="operateGateModal" class="operate-gate-modal" hidden role="dialog" aria-modal="true" aria-labelledby="operateGateTitle">
+        <div class="operate-gate-card">
+            <p id="operateGateTitle">يتطلب اشتراك Operate</p>
+            <div class="operate-gate-actions">
+                <a class="btn" href="/pricing" style="text-decoration:none;display:inline-flex;align-items:center">عرض الأسعار</a>
+                <button class="btn secondary" type="button" data-bd-call="closeOperateGate">إغلاق</button>
+            </div>
+        </div>
+    </div>
+
     <script src="/static/js/dom_escape.js"></script>
     <script>
         const fmt = (n, d=2) => n == null ? '—' : Number(n).toLocaleString(undefined, { maximumFractionDigits: d });
@@ -479,6 +503,36 @@
 
         function goNavUrl(href) {
             if (window.BDDomSafe && window.BDDomSafe.assignLocationHref) window.BDDomSafe.assignLocationHref(href);
+        }
+
+        const OPERATE_GATE_MSG = 'يتطلب اشتراك Operate';
+
+        function operateGateInlineHtml() {
+            return `<div class="operate-gate-inline"><p>${esc(OPERATE_GATE_MSG)}</p>`
+                + `<a class="btn" href="/pricing" style="text-decoration:none;display:inline-flex;align-items:center">عرض الأسعار</a></div>`;
+        }
+
+        function showOperateGate() {
+            const modal = document.getElementById('operateGateModal');
+            if (!modal) return;
+            modal.hidden = false;
+        }
+
+        function closeOperateGate() {
+            const modal = document.getElementById('operateGateModal');
+            if (modal) modal.hidden = true;
+        }
+
+        function myBookBlockedOnProveLens() {
+            return currentLens === 'prove';
+        }
+
+        function openMyBookEntry() {
+            if (myBookBlockedOnProveLens()) {
+                showOperateGate();
+                return;
+            }
+            scrollToId('portfolio');
         }
         function openNavUrl(url) {
             if (window.BDDomSafe && window.BDDomSafe.openWindow) window.BDDomSafe.openWindow(url);
@@ -686,10 +740,15 @@
                     method: 'POST', headers: { ...authHeaders(), 'Content-Type': 'application/json' },
                     body: JSON.stringify({ tier: target }),
                 });
-                const d = await res.json();
+                const d = await res.json().catch(() => ({}));
                 if (d.url) { goNavUrl(d.url); return; }
+                const detail = String(d.detail || '');
+                if (!res.ok && (detail.includes('Billing not configured') || res.status === 503)) {
+                    showOperateGate();
+                    return;
+                }
             } catch (error) { console.debug(error); }
-            goNavUrl('/create-checkout-session?tier=' + target);
+            goNavUrl('/pricing');
         }
 
         let lastPulse = null;
@@ -1193,7 +1252,7 @@
                 return body;
             } catch (error) {
                 console.debug(error);
-                setShareProofButton(false);
+                syncTrustPulseShareState(pulse);
                 return null;
             }
         }
@@ -1355,7 +1414,10 @@
             if (!grid) return;
             const home = (data && data.six_heroes_command_home) || {};
             if (q) q.textContent = home.question || i18nT('dash.intent.question');
-            const intents = LAUNCH57_PRIMARY_INTENTS;
+            const intents = LAUNCH57_PRIMARY_INTENTS.filter(it => {
+                if (currentLens === 'prove' && it.id === 'verify') return false;
+                return true;
+            });
             grid.innerHTML = intents.map(it =>
                 `<button type="button" class="intent-btn" data-id="${esc(it.id)}" data-action="${esc(it.action||'')}" data-path="${esc(it.path||'')}">${esc(it.label)}</button>`
             ).join('');
@@ -1370,7 +1432,11 @@
                     if (hint) hint.textContent = row.hint || '';
                     if (action === 'navigate' && path) { location.assign(path); return; }
                     if (action === 'launch57_decide') { scrollToId('trust-pulse'); loadCommandHome(true); return; }
-                    if (action === 'portfolio') { scrollToId('portfolio'); return; }
+                    if (action === 'portfolio') {
+                        if (myBookBlockedOnProveLens()) { showOperateGate(); return; }
+                        scrollToId('portfolio');
+                        return;
+                    }
                     if (action === 'alerts') { scrollToId('alerts'); loadInbox(); return; }
                 });
             });
@@ -2360,6 +2426,11 @@
         }
         async function analyzePortfolio() {
             const el = document.getElementById('portfolioResult');
+            if (myBookBlockedOnProveLens()) {
+                el.innerHTML = operateGateInlineHtml();
+                showOperateGate();
+                return;
+            }
             if (!portfolioAssets.length) { el.innerHTML = '<div class="empty">Add at least one holding</div>'; return; }
             el.innerHTML = '<div class="loading">' + esc(i18nT('oracle.analyzing')) + '</div>';
             try {
@@ -2368,7 +2439,17 @@
                     headers: { 'Content-Type': 'application/json', ...authHeaders() },
                     body: JSON.stringify(portfolioAssets),
                 });
-                const d = await res.json();
+                const d = await res.json().catch(() => ({}));
+                if (!res.ok) {
+                    const detail = String(d.detail || '');
+                    if (res.status === 403 || detail.includes('Billing not configured')) {
+                        el.innerHTML = operateGateInlineHtml();
+                        showOperateGate();
+                        return;
+                    }
+                    el.innerHTML = '<div class="empty">Portfolio analysis unavailable</div>';
+                    return;
+                }
                 const foot = d.compliance_footer || {};
                 const risk = (d.risk_level || '').toUpperCase();
                 const riskColor = riskColorFor(risk);
@@ -2517,6 +2598,11 @@
             rail.querySelectorAll('.entry-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
                     if (btn.classList.contains('locked')) {
+                        const lockedId = btn.dataset.entry;
+                        if (lockedId === 'my_book') {
+                            showOperateGate();
+                            return;
+                        }
                         applyLens('operate');
                         upgradeTier('pro');
                         return;
@@ -2529,7 +2615,11 @@
                         return;
                     }
                     if (id === 'decide' || action === 'oracle') { scrollToId('decide'); askOracle(); return; }
-                    if (id === 'my_book' || action === 'portfolio') { scrollToId('portfolio'); return; }
+                    if (id === 'my_book' || action === 'portfolio') {
+                        if (myBookBlockedOnProveLens()) { showOperateGate(); return; }
+                        scrollToId('portfolio');
+                        return;
+                    }
                     if (id === 'alerts' || action === 'alerts') { scrollToId('alerts'); loadInbox(); return; }
                     if (path.includes('#')) scrollToId(path.split('#')[1]);
                 });

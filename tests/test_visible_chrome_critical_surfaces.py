@@ -103,6 +103,25 @@ def test_dashboard_open_full_proof_routes_to_readable_page():
     assert "JSON.stringify(cert" not in dash.split("function openDecisionCertificate", 1)[1].split("function clearVisibleTrust", 1)[0]
 
 
+def test_dashboard_prove_lens_my_book_operate_gate_not_raw_billing_json():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    assert "يتطلب اشتراك Operate" in dash
+    assert "showOperateGate" in dash
+    assert "openMyBookEntry" in dash
+    assert "lockedId === 'my_book'" in dash
+    assert "create-checkout-session?tier=" not in dash.split("async function upgradeTier", 1)[1].split("let lastPulse", 1)[0]
+
+
+def test_dashboard_prove_lens_single_verify_entry_rail_only():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    tp_cta = dash.split('class="tp-cta"', 1)[1].split("</div>", 1)[0]
+    toolbar = dash.split('class="toolbar hide-in-room"', 1)[1].split("</div>", 1)[0]
+    assert "oracle-accuracy" not in tp_cta
+    assert "oracle-accuracy" not in toolbar
+    assert "it.id === 'verify'" in dash
+    assert "id === 'verify'" in dash
+
+
 def test_dashboard_share_proof_builds_clipboard_fallback():
     dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
     assert "buildTrustPulseShareBundle" in dash
