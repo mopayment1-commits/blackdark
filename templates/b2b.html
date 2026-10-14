@@ -427,6 +427,30 @@
                 }, null, 2);
             } catch (error) { console.debug(error); el.textContent = 'Full pack unavailable — login as Decision Desk/Admin and retry.'; }
         }
+
+        function bootB2bDeepLinks() {
+            const hash = (location.hash || '').replace(/^#/, '').toLowerCase();
+            if (hash === 'fund-terminal') void loadFundTerminal();
+            if (hash === 'evidence') loadEvidenceSummary();
+        }
+
+        Object.assign(window, {
+            runDemo,
+            copyKey,
+            connectWs,
+            disconnectWs,
+            loadFundTerminal,
+            downloadFundTerminal,
+            loadEvidenceSummary,
+            loadEvidenceFull,
+        });
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', bootB2bDeepLinks);
+        } else {
+            bootB2bDeepLinks();
+        }
+        window.addEventListener('hashchange', bootB2bDeepLinks);
     </script>
     {% include "partials/site_footer.html" %}
 </body>
