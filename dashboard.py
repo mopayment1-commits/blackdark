@@ -2357,7 +2357,11 @@ async def public_developer_docs_page(request: Request):
     return render_page(
         request,
         "docs_public.html",
-        {"title": "Developer Docs", "manifest": public_docs_manifest(), **_footer_ctx()},
+        {
+            "title": "Developer Docs",
+            "manifest": public_docs_manifest(include_post_only_public_prefixes=True),
+            **_footer_ctx(),
+        },
     )
 
 
