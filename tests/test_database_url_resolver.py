@@ -65,6 +65,16 @@ def test_railway_public_proxy_requires_ssl():
     assert kwargs.get("statement_cache_size") == 0
 
 
+def test_expand_asyncpg_pool_targets_railway_public_ssl():
+    public = "postgresql://u:p@public.proxy.rlwy.net:12345/railway"
+    targets = resolver.expand_asyncpg_pool_targets("DATABASE_PUBLIC_URL", public)
+    assert len(targets) == 2
+    keys = [t[0] for t in targets]
+    assert "DATABASE_PUBLIC_URL+sslmode" in keys
+    assert "DATABASE_PUBLIC_URL+ssl_true" in keys
+    assert not any("+ssl_ctx" in k for k in keys)
+
+
 def test_resolve_prefers_resolvable_host(monkeypatch):
     monkeypatch.setenv("DATABASE_URL", "postgresql://bad-host:5432/db")
     monkeypatch.setenv("DATABASE_PUBLIC_URL", "postgresql://good-host:5432/db")

@@ -143,8 +143,10 @@ async def _call_entrypoint(fn: Any, *, params: dict[str, Any], binding: BackendB
             "total_slippage_bps": float(params.get("total_slippage_bps") or 8.0),
             "quote_amount": float(params.get("quote_amount") or 1000.0),
         }
-        kind = str(params.get("opportunity_kind") or "spot_futures")
-        evaluated = await evaluate_opportunity(opp, kind=kind)
+        from ai_oracle import OpportunityKind
+
+        kind = OpportunityKind(str(params.get("opportunity_kind") or "spot_futures"))
+        evaluated = await evaluate_opportunity(opp, kind)
         if hasattr(evaluated, "model_dump"):
             payload = evaluated.model_dump()
         elif isinstance(evaluated, dict):

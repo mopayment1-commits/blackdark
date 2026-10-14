@@ -287,8 +287,10 @@ async def run_soft_launch_closure(
 def write_soft_launch_readiness(path: Path | None = None) -> Path:
     import asyncio
 
+    from path_safety import ensure_under
+
     snap = asyncio.run(run_soft_launch_closure(include_platform_e2e=False))
-    out = path or _READINESS_ARTIFACT
+    out = _READINESS_ARTIFACT if path is None else ensure_under(Path(path).resolve(), _ROOT)
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(snap, ensure_ascii=False, indent=2), encoding="utf-8")
     return out

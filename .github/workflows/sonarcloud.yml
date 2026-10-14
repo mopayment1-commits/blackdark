@@ -68,6 +68,9 @@ jobs:
             tests/test_security_hardening.py \
             tests/test_postgres_backend.py \
             tests/test_postgres_migration_integrity.py \
+            tests/test_database_url_resolver.py \
+            tests/test_flash_crash_protection.py \
+            tests/test_b2b_pilot_request.py \
             tests/test_service_bus_distributed.py \
             tests/test_production_guard.py \
             tests/test_xss_sink_hardening.py \
