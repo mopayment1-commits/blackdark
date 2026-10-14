@@ -409,7 +409,7 @@
             <div class="toolbar" style="margin-bottom:.65rem">
                 <button class="btn secondary" type="button" data-bd-call="loadDailyReport">Refresh daily report</button>
                 <button class="btn secondary" type="button" data-bd-call="loadSubscriberValue">Refresh value</button>
-                <a class="btn secondary" href="/api/reports/daily/markdown" style="text-decoration:none;display:inline-flex;align-items:center">Markdown</a>
+                <button class="btn secondary" type="button" data-bd-call="openDailyReportMarkdown">Markdown</button>
             </div>
             <div id="dailyReportBox" class="arb-card"><div class="empty" style="padding:.25rem 0">Pro/Whale — load daily report</div></div>
             <div id="subscriberValueBox" class="arb-card" style="margin-top:.65rem"><div class="empty" style="padding:.25rem 0">Pro/Whale — subscriber value</div></div>
@@ -615,6 +615,19 @@
             }
             scrollToId('alerts');
             loadInbox();
+        }
+
+        function openDailyReportMarkdown() {
+            if (operatePlusBlockedOnProveLens()) {
+                const el = document.getElementById('dailyReportBox');
+                if (el) {
+                    el.innerHTML = `<div class="empty">${esc('Decision Pro required for daily report Markdown')}
+                        <div style="margin-top:.65rem"><button class="btn btn-primary btn-upgrade-cta" type="button" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">Upgrade to Pro</button></div></div>`;
+                }
+                scrollToId('operate-digest');
+                return;
+            }
+            goNavUrl('/api/reports/daily/markdown');
         }
         function openNavUrl(url) {
             if (window.BDDomSafe && window.BDDomSafe.openWindow) window.BDDomSafe.openWindow(url);

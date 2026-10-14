@@ -187,6 +187,16 @@ def test_dashboard_desk_tools_opens_menu_on_prove_lens():
     assert "/dashboard#portfolio" not in desk_menu
 
 
+def test_dashboard_markdown_on_prove_lens_shows_upgrade_not_raw_api_link():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    digest = dash.split('id="operate-digest"', 1)[1].split("</section>", 1)[0]
+    assert 'data-bd-call="openDailyReportMarkdown"' in digest
+    assert 'href="/api/reports/daily/markdown"' not in digest
+    assert "function openDailyReportMarkdown()" in dash
+    assert "operatePlusBlockedOnProveLens()" in dash.split("openDailyReportMarkdown", 1)[1][:800]
+    assert "Upgrade to Pro" in dash.split("openDailyReportMarkdown", 1)[1][:800]
+
+
 def test_header_prove_and_operate_lens_hrefs_distinct():
     nav = (ROOT / "templates/partials/site_top_nav.html").read_text(encoding="utf-8")
     assert 'data-nav-key="prove"' in nav
