@@ -177,7 +177,8 @@
         #trust-pulse.flipped { animation: bdFlipFlash 1.1s var(--bd-ease-out); border-color: rgba(245,158,11,.55); }
         .tp-top { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.5rem; margin-bottom:.75rem; }
         .tp-symbol-wrap { display: none; align-items: center; gap: 0.35rem; }
-        body.lens-prove .tp-symbol-wrap { display: inline-flex; }
+        body.lens-prove .tp-symbol-wrap,
+        body.lens-operate .tp-symbol-wrap { display: inline-flex; }
         .tp-symbol-select {
             min-width: 5.5rem;
             padding: 0.35rem 1.75rem 0.35rem 0.65rem;
@@ -1505,6 +1506,11 @@
             const sel = document.getElementById('tpSymbol');
             if (sel) sel.value = v;
             if (currentLens === 'prove') loadTrustPulseQuick(true);
+            else if (currentLens === 'operate') {
+                const mainSym = document.getElementById('symbol');
+                if (mainSym) mainSym.value = v;
+                loadCommandHome(true);
+            }
         }
 
         async function loadCommandHome(force) {

@@ -87,6 +87,15 @@ def test_dashboard_prove_lens_upgrade_pro_routes_to_pricing():
     assert "body.lens-prove .section-operate-plus .btn-upgrade-cta" in dash
 
 
+def test_dashboard_operate_lens_shows_trust_pulse_symbol_dropdown():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    assert "body.lens-operate .tp-symbol-wrap" in dash
+    assert 'id="tpSymbol"' in dash
+    handler = dash.split("function onTrustPulseSymbolChange", 1)[1].split("async function loadCommandHome", 1)[0]
+    assert "currentLens === 'operate'" in handler
+    assert "loadCommandHome(true)" in handler
+
+
 def test_dashboard_prove_trust_pulse_symbol_quick_oracle():
     dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
     assert 'id="tpSymbol"' in dash
