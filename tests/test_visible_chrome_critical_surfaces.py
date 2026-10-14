@@ -78,6 +78,14 @@ def test_dashboard_and_accuracy_include_global_header():
     assert "global_header.html" in acc
 
 
+def test_dashboard_prove_lens_upgrade_pro_routes_to_pricing():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    assert "Upgrade Pro" in dash
+    assert "currentLens === 'prove'" in dash
+    assert "goNavUrl('/pricing')" in dash
+    assert "body.lens-prove .section-operate-plus { opacity:.55; }" in dash
+
+
 def test_pricing_ladder_not_embedded_on_landing():
     land = _landing()
     assert 'id="pricing"' not in land

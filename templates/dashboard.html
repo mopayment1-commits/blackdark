@@ -617,6 +617,10 @@
         }
 
         async function upgradeTier(tier) {
+            if (currentLens === 'prove') {
+                goNavUrl('/pricing');
+                return;
+            }
             const target = tier || (nextUpgrade && nextUpgrade.checkout_tier) || 'pro';
             if (!target) {
                 goNavUrl((nextUpgrade && nextUpgrade.href) || '/data-room');
