@@ -125,6 +125,13 @@ def test_dashboard_prove_lens_my_book_operate_gate_not_raw_billing_json():
     assert "create-checkout-session?tier=" not in dash.split("async function upgradeTier", 1)[1].split("let lastPulse", 1)[0]
 
 
+def test_coverage_honesty_logo_uses_site_accent_cyan():
+    html = (ROOT / "templates/coverage_honesty.html").read_text(encoding="utf-8")
+    logo_line = next(line for line in html.splitlines() if ".logo{" in line.replace(" ", ""))
+    assert "color:#22d3ee" in logo_line.replace(" ", "")
+    assert "color:var(--ok)" not in logo_line
+
+
 def test_miss_feed_share_honesty_button_stable_handler():
     html = (ROOT / "templates/miss_feed.html").read_text(encoding="utf-8")
     share_line = next(line for line in html.splitlines() if 'id="share"' in line)
