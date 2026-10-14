@@ -103,6 +103,14 @@ def test_dashboard_open_full_proof_routes_to_readable_page():
     assert "JSON.stringify(cert" not in dash.split("function openDecisionCertificate", 1)[1].split("function clearVisibleTrust", 1)[0]
 
 
+def test_dashboard_share_proof_builds_clipboard_fallback():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    assert "buildTrustPulseShareBundle" in dash
+    assert "syncTrustPulseShareState" in dash
+    assert "clipboard.writeText" in dash.split("async function shareTrustPulse()", 1)[1].split("function setSymbol", 1)[0]
+    assert "Copied!" in dash
+
+
 def test_pricing_ladder_not_embedded_on_landing():
     land = _landing()
     assert 'id="pricing"' not in land

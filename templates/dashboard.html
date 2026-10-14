@@ -1015,6 +1015,49 @@
             if (btn) btn.hidden = !visible;
         }
 
+        function buildTrustPulseShareBundle(pulse) {
+            const p = pulse || lastPulse || {};
+            const cert = lastVisibleTrust.certificate || {};
+            const proof = p.proof || {};
+            const hash = proof.certificate_hash || cert.certificate_hash || '';
+            const sym = (p.symbol || 'BTC').toUpperCase();
+            const act = String(p.action || 'WAIT').toUpperCase();
+            const sentence = (p.sentence || '').trim();
+            let text = (cert.share_text || proof.share_text || '').trim();
+            if (!text) {
+                const lines = [
+                    `BLACKDARK Trust Pulse — ${sym} · ${act}`,
+                    hash ? `cert ${hash}` : null,
+                    sentence || null,
+                    'Verify: https://blackdark.io/oracle-accuracy',
+                ].filter(Boolean);
+                text = lines.join('\n');
+            }
+            const shareUrls = { ...(cert.share_urls || {}), ...(proof.share_urls || {}) };
+            const permalink = proof.permalink || cert.permalink || shareUrls.x || shareUrls.twitter || null;
+            return { text, share_urls: shareUrls, permalink, certificate_hash: hash };
+        }
+
+        function syncTrustPulseShareState(pulse) {
+            const p = pulse || {};
+            const shareable = p.launch57_oracle_bound && p.action !== 'UNAVAILABLE';
+            if (!shareable) {
+                setShareProofButton(false);
+                return;
+            }
+            const bundle = buildTrustPulseShareBundle(p);
+            if (lastPulse) {
+                lastPulse.proof = {
+                    ...(lastPulse.proof || {}),
+                    share_text: bundle.text,
+                    share_urls: bundle.share_urls,
+                    permalink: bundle.permalink,
+                    certificate_hash: bundle.certificate_hash || lastPulse.proof?.certificate_hash,
+                };
+            }
+            setShareProofButton(true);
+        }
+
         async function prefetchCostAutopsy(pulse, oracle) {
             const opp = oracle && oracle.opportunity;
             if (!opp || typeof opp !== 'object') return null;
@@ -1123,12 +1166,12 @@
                 });
                 const res = await fetch(LAUNCH57_SHARE_PROOF + '?' + qs.toString(), { headers: authHeaders() });
                 if (!res.ok) {
-                    setShareProofButton(false);
+                    syncTrustPulseShareState(pulse);
                     return null;
                 }
                 const body = await res.json();
                 if (Number(body.launch_item_id) !== 44 || !body.success) {
-                    setShareProofButton(false);
+                    syncTrustPulseShareState(pulse);
                     return null;
                 }
                 const cert = body.certificate || {};
@@ -1179,15 +1222,19 @@
                         throw new Error(msg);
                     }
                     const pulse = oracleQuickToPulse(data, sym);
-                    renderTrustPulse(pulse);
-                    if (pulse.launch57_oracle_bound && pulse.proof && pulse.proof.certificate_hash) {
-                        prefetchShareProof(pulse);
-                    } else {
-                        setShareProofButton(false);
-                    }
                     if (data.decision_certificate) {
                         lastVisibleTrust.certificate = data.decision_certificate;
+                        pulse.proof = {
+                            ...(pulse.proof || {}),
+                            certificate_hash: pulse.proof?.certificate_hash || data.decision_certificate.certificate_hash,
+                            share_text: data.decision_certificate.share_text,
+                            share_urls: data.decision_certificate.share_urls,
+                            permalink: data.decision_certificate.permalink,
+                        };
                     }
+                    renderTrustPulse(pulse);
+                    syncTrustPulseShareState(pulse);
+                    void prefetchShareProof(pulse);
                     return data;
                 } catch (error) {
                     console.debug(error);
@@ -1498,27 +1545,59 @@
             if (btn && btn.hidden) return;
             const p = lastPulse || {};
             if (!p.launch57_oracle_bound || p.action === 'UNAVAILABLE') return;
-            let proof = p.proof || {};
-            if (Number(proof.launch_item_id) !== 44) {
-                const prefetched = await prefetchShareProof(p);
-                if (!prefetched) return;
-                proof = (lastPulse && lastPulse.proof) || {};
+            if (Number((p.proof || {}).launch_item_id) !== 44) {
+                try { await prefetchShareProof(p); } catch (error) { console.debug(error); }
             }
+            const bundle = buildTrustPulseShareBundle(p);
+            const proof = (lastPulse && lastPulse.proof) || {};
+            const text = (proof.share_text || bundle.text || '').trim();
+            const shareUrls = proof.share_urls || bundle.share_urls || {};
+            const url = proof.permalink || shareUrls.x || shareUrls.twitter || bundle.permalink || null;
+            if (!text && !url && !shareUrls.telegram) return;
+
             if (btn) {
                 btn.classList.remove('bd-motion-share');
                 btn.dataset.reflow = String(btn.offsetWidth);
                 btn.classList.add('bd-motion-share');
             }
-            const text = proof.share_text;
-            const url = proof.permalink || (proof.share_urls && proof.share_urls.x) || null;
-            if (!text && !url) return;
+
             if (navigator.share) {
-                navigator.share({ title: 'BLACKDARK Trust Pulse', text: text || '', url: url || undefined }).catch(() => {});
+                try {
+                    await navigator.share({
+                        title: 'BLACKDARK Trust Pulse',
+                        text: text || undefined,
+                        url: url || 'https://blackdark.io/oracle-accuracy',
+                    });
+                    return;
+                } catch (error) { console.debug(error); }
+            }
+
+            const xUrl = shareUrls.x || shareUrls.twitter;
+            const tgUrl = shareUrls.telegram;
+            if (xUrl) {
+                openNavUrl(xUrl);
                 return;
             }
-            if (text && navigator.clipboard) navigator.clipboard.writeText(text).catch(() => {});
-            if (url) openNavUrl(url);
-            else if (text) alert('Proof text copied');
+            if (tgUrl) {
+                openNavUrl(tgUrl);
+                return;
+            }
+            if (url) {
+                openNavUrl(url);
+                return;
+            }
+
+            if (text && navigator.clipboard && navigator.clipboard.writeText) {
+                try {
+                    await navigator.clipboard.writeText(text);
+                    if (btn) {
+                        const prev = btn.textContent;
+                        btn.textContent = 'Copied!';
+                        setTimeout(() => { btn.textContent = prev || 'Share Proof'; }, 2200);
+                    }
+                    return;
+                } catch (error) { console.debug(error); }
+            }
         }
 
         function setSymbol(s) {
