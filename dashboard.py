@@ -4275,18 +4275,52 @@ async def b2b_websocket_feed(websocket: WebSocket, api_key: str = Query(..., min
             await hub.unregister(client)
 
 
+def _b2b_pilot_call_href() -> str | None:
+    """Calendly/Cal.com URL from env, else internal pilot request form."""
+    raw = (os.getenv("B2B_PILOT_BOOKING_URL") or "").strip()
+    if raw:
+        return raw if raw.startswith(("http://", "https://")) else None
+    return "/b2b/pilot"
+
+
 @app.get("/b2b", response_class=HTMLResponse)
 async def b2b_page(request: Request):
     expose_demo = os.getenv("EXPOSE_B2B_DEMO_KEY", "").lower() in {"1", "true", "yes"}
+    pilot_call_href = _b2b_pilot_call_href()
     return templates.TemplateResponse(
         request,
         "b2b.html",
         {
             "demo_key_exposed": expose_demo,
             "demo_key": config.B2B_DEMO_API_KEY if expose_demo else "",
-            "feed_version": config.B2B_FEED_VERSION
+            "feed_version": config.B2B_FEED_VERSION,
+            "pilot_call_href": pilot_call_href,
+            "pilot_call_external": bool(
+                pilot_call_href and pilot_call_href.startswith(("http://", "https://"))
+            ),
         },
     )
+
+
+@app.get("/b2b/pilot", response_class=HTMLResponse)
+async def b2b_pilot_page(request: Request):
+    return render_page(request, "b2b_pilot.html", {})
+
+
+@app.post("/api/b2b/pilot-request")
+async def b2b_pilot_request(data: dict = Body(...)):
+    email = str(data.get("email") or "").strip().lower()
+    if not email or "@" not in email:
+        raise HTTPException(status_code=400, detail="Valid email required")
+    from database import insert_b2b_pilot_request
+
+    row_id = await insert_b2b_pilot_request(
+        email=email,
+        name=str(data.get("name") or "").strip(),
+        company=str(data.get("company") or "").strip(),
+        message=str(data.get("message") or "").strip(),
+    )
+    return {"ok": True, "id": row_id}
 
 
 
