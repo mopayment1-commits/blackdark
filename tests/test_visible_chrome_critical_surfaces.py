@@ -92,8 +92,16 @@ def test_dashboard_prove_trust_pulse_symbol_quick_oracle():
     assert 'id="tpSymbol"' in dash
     assert "onTrustPulseSymbolChange" in dash
     assert "loadTrustPulseQuick" in dash
+    assert "fetchOracleQuick" in dash
+    assert "renderOracleQuickDecision" in dash
+    assert "renderOracleBoxFromQuick" in dash
     assert "oracleQuickUrl" in dash
     assert "/oracle/${encodeURIComponent(symbol)}/quick" in dash
+    quick_render = dash.split("function renderOracleQuickDecision", 1)[1].split("function mapOracleQuickAction", 1)[0]
+    assert "mode === 'pro'" in quick_render
+    assert "buildWhyFactorsHtml" in quick_render
+    assert "buildCertBlock" in quick_render
+    assert dash.split("function onUxModeChange", 1)[1].split("function syncProveSymbolSelects", 1)[0].count("currentLens === 'prove'") >= 1
 
 
 def test_dashboard_open_full_proof_routes_to_readable_page():

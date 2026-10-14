@@ -590,8 +590,41 @@
             lastVisibleTrust = { certificate: null, ledger: null, netEdge: null };
         }
         function onUxModeChange() {
+            if (currentLens === 'prove') {
+                void refreshProveOracleFromQuick(true);
+                return;
+            }
             askOracle();
             loadTrustPulse(true);
+        }
+
+        function syncProveSymbolSelects(sym) {
+            const v = (sym || trustPulseSymbolValue()).trim().toUpperCase() || 'BTC';
+            const tp = document.getElementById('tpSymbol');
+            const main = document.getElementById('symbol');
+            if (tp) tp.value = v;
+            if (main) main.value = v;
+            return v;
+        }
+
+        async function fetchOracleQuick(sym, { force = false } = {}) {
+            const symbol = syncProveSymbolSelects(sym);
+            const mode = document.getElementById('uxMode')?.value || 'beginner';
+            const lang = currentLang();
+            const qs = new URLSearchParams({ ux_mode: mode, lang });
+            if (force) qs.set('_', String(Date.now()));
+            const url = `/oracle/${encodeURIComponent(symbol)}/quick?${qs.toString()}`;
+            const res = await fetch(url, { headers: { ...authHeaders(), Accept: 'application/json' } });
+            const data = await res.json().catch(() => ({}));
+            if (!res.ok) {
+                const msg = (data && data.detail && data.detail.message) || data.message || data.detail || 'Oracle quick unavailable';
+                throw new Error(typeof msg === 'string' ? msg : 'Oracle quick unavailable');
+            }
+            return data;
+        }
+
+        async function refreshProveOracleFromQuick(force) {
+            return loadTrustPulseQuick(force);
         }
         function copyLastCertShare() {
             if (navigator.clipboard && window._lastCertShare) {
@@ -808,6 +841,34 @@
             const lang = currentLang();
             const qs = new URLSearchParams({ ux_mode: mode, lang });
             return `/oracle/${encodeURIComponent(symbol)}/quick?${qs.toString()}`;
+        }
+
+        function renderOracleBoxFromQuick(data) {
+            const el = document.getElementById('oracleContent');
+            const box = document.getElementById('oracleBox');
+            if (!el || !box || currentLens !== 'prove' || !data) return;
+            const mode = document.getElementById('uxMode')?.value || 'beginner';
+            const lang = currentLang();
+            const sym = data.symbol || data.asset || trustPulseSymbolValue();
+            box.classList.add('show');
+            renderOracleQuickDecision(el, data, { sym, mode, lang });
+        }
+
+        function renderOracleQuickDecision(el, d, { sym, mode, lang }) {
+            const sentence = d.decision_sentence || d.conditions_met_review || d.narrative || d.oracle || '';
+            const action = d.decision_action || d.verdict || d.action || 'WAIT';
+            let html = `
+                <div class="verdict ${esc(vc(action))}">${esc(action)}</div>
+                <div class="narrative">${esc(sentence)}</div>`;
+            if (mode === 'pro') {
+                const whyBlock = d.oqs_why || {};
+                const factors = whyBlock.top_3_factors || d.top_3_factors || [];
+                html += buildWhyFactorsHtml(factors, whyBlock);
+                html += buildCertBlock(d.decision_certificate || {}, d.prediction_id, safeShareUrl);
+            }
+            const fresh = String(d.freshness_state || (d.freshness && d.freshness.state) || '').toUpperCase() || '—';
+            html += `<div style="margin-top:.55rem;font-size:.72rem;color:#71717a">Live · /oracle/${esc(sym)}/quick · ${esc(fresh)} · ${esc(d.ux_mode || mode)} · ${esc(d.lang || lang)}</div>`;
+            el.innerHTML = html;
         }
 
         function mapOracleQuickAction(data) {
@@ -1284,13 +1345,7 @@
             trustPulseQuickInflightKey = inflightKey;
             trustPulseQuickInflight = (async () => {
                 try {
-                    const url = oracleQuickUrl(sym) + (force ? '&_=' + Date.now() : '');
-                    const res = await fetch(url, { headers: { ...authHeaders(), Accept: 'application/json' } });
-                    const data = await res.json().catch(() => ({}));
-                    if (!res.ok) {
-                        const msg = (data && data.detail && data.detail.message) || data.message || 'Oracle quick unavailable';
-                        throw new Error(msg);
-                    }
+                    const data = await fetchOracleQuick(sym, { force });
                     const pulse = oracleQuickToPulse(data, sym);
                     if (data.decision_certificate) {
                         lastVisibleTrust.certificate = data.decision_certificate;
@@ -1303,6 +1358,7 @@
                         };
                     }
                     renderTrustPulse(pulse);
+                    renderOracleBoxFromQuick(data);
                     syncTrustPulseShareState(pulse);
                     void prefetchShareProof(pulse);
                     return data;
@@ -1835,7 +1891,7 @@
             const sentence = d.decision_sentence || d.narrative || d.oracle || '';
             const action = d.decision_action || '';
             const factorBlock = buildFactorDrawer(d);
-            const proBlock = mode === 'pro' ? buildProMetrics(d, factorBlock) : factorBlock;
+            const proBlock = mode === 'pro' ? buildProMetrics(d, factorBlock) : '';
             const conf = d.confidence != null ? d.confidence + '%' : '—';
             el.innerHTML = `
                 <div class="verdict ${esc(vc(d.verdict))}">${esc(action || d.verdict)}</div>
@@ -1850,10 +1906,10 @@
                 </div>
                 ${proBlock}
                 ${buildVetoBlock(mode, d.dimension_conflict || {})}
-                ${buildProofBlock(d)}
+                ${mode === 'pro' ? buildProofBlock(d) : ''}
                 ${buildUpgradeBlock(d)}
                 ${buildComplianceBlock(d)}
-                ${buildCertBlock(d.decision_certificate || {}, d.prediction_id, safeShareUrl)}
+                ${mode === 'pro' ? buildCertBlock(d.decision_certificate || {}, d.prediction_id, safeShareUrl) : ''}
                 <div style="margin-top:.65rem;font-size:.8rem"><a href="/discipline-mirror" style="color:var(--accent,#22d3ee)">Open private Discipline Mirror</a></div>`;
         }
 
@@ -1875,9 +1931,24 @@
             }
             el.innerHTML = '<div class="loading">' + esc(i18nT('oracle.analyzing')) + '</div>';
             try {
-                const data = await loadCommandHome(true);
-                if (!data) throw new Error('fail');
-                renderLaunch57Decision(el, data, { sym, mode, lang });
+                if (currentLens === 'prove') {
+                    syncProveSymbolSelects(sym);
+                    const data = await fetchOracleQuick(sym, { force: true });
+                    if (!data) throw new Error('fail');
+                    const pulse = oracleQuickToPulse(data, sym);
+                    if (data.decision_certificate) {
+                        lastVisibleTrust.certificate = data.decision_certificate;
+                    }
+                    lastPulse = pulse;
+                    renderTrustPulse(pulse);
+                    renderOracleBoxFromQuick(data);
+                    syncTrustPulseShareState(pulse);
+                    void prefetchShareProof(pulse);
+                } else {
+                    const data = await loadCommandHome(true);
+                    if (!data) throw new Error('fail');
+                    renderLaunch57Decision(el, data, { sym, mode, lang });
+                }
             } catch (error) {
                 console.debug(error);
                 const empty = document.createElement('div');
