@@ -47,6 +47,26 @@ def test_b2b_elite_cta_authenticated_checkout(client, monkeypatch):
     assert 'href="/create-checkout-session?tier=elite">SEE THE EDGE / ELITE</a>' in html
 
 
+def test_b2b_institutional_cta_anonymous_registers(client):
+    html = client.get("/b2b").text
+    assert 'href="/login?tab=register&amp;plan=institutional">Institutional inquiry</a>' in html
+
+
+def test_b2b_institutional_cta_authenticated_data_room(client, monkeypatch):
+    async def _fake_user(_request):
+        return {"email": "desk@example.com", "name": "Desk", "tier": "pro"}
+
+    monkeypatch.setattr("dashboard._resolve_html_auth_user", _fake_user)
+    html = client.get("/b2b").text
+    assert 'href="/data-room?from=signup">Institutional inquiry</a>' in html
+
+
+def test_b2b_page_includes_csp_events_binder(client):
+    html = client.get("/b2b").text
+    assert 'src="/static/js/csp_events.js"' in html
+    assert 'id="evidenceFullMsg"' in html
+
+
 def test_pilot_page_renders_form(client):
     res = client.get("/b2b/pilot")
     assert res.status_code == 200

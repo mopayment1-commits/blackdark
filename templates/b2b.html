@@ -141,9 +141,10 @@
             <button class="btn btn-primary" type="button" data-bd-call="loadEvidenceSummary">Load Public Summary</button>
             <button class="btn btn-secondary" type="button" data-bd-call="loadEvidenceFull">Open Full Pack</button>
             <a class="btn btn-secondary" href="/data-room">Data Room Index</a>
-            <a class="btn btn-secondary" href="/login?tab=register&plan=institutional">Institutional inquiry</a>
+            <a class="btn btn-secondary" href="{{ institutional_cta_href }}">Institutional inquiry</a>
             <a class="btn btn-secondary" href="/oracle-accuracy">Public Accuracy</a>
             <div id="evidenceCards" style="display:none;margin-top:1rem"></div>
+            <p id="evidenceFullMsg" hidden style="margin-top:0.75rem;font-size:0.88rem;color:var(--muted)"></p>
             <pre class="demo-result" id="evidenceResult" style="max-height:320px">Click “Load Public Summary” to preview the pack thesis.</pre>
         </div>
     </div>
@@ -396,38 +397,80 @@
                 </p>`;
         }
 
-        function loadEvidenceSummary() {
+        async function loadEvidenceSummary() {
             const el = document.getElementById('evidenceResult');
+            const fullMsg = document.getElementById('evidenceFullMsg');
+            if (fullMsg) { fullMsg.hidden = true; fullMsg.textContent = ''; }
             el.textContent = 'Loading public summary…';
-            window.setTimeout(async () => {
             try {
-                const res = await fetch('/api/due-diligence/evidence-pack/public-summary');
-                const data = await res.json();
+                const res = await fetch('/api/due-diligence/evidence-pack/public-summary', {
+                    credentials: 'same-origin',
+                    headers: { Accept: 'application/json' },
+                });
+                const data = await res.json().catch(() => null);
+                if (!res.ok || !data) {
+                    el.textContent = (data && (data.detail || data.message))
+                        ? String(data.detail || data.message)
+                        : 'Public summary unavailable.';
+                    return;
+                }
                 renderEvidenceCards(data);
                 el.textContent = JSON.stringify(data, null, 2);
-            } catch (error) { console.debug(error); el.textContent = 'Public summary unavailable.'; }
-            }, 0);
+            } catch (error) {
+                console.debug(error);
+                el.textContent = 'Public summary unavailable.';
+            }
         }
 
         async function loadEvidenceFull() {
             const el = document.getElementById('evidenceResult');
+            const fullMsg = document.getElementById('evidenceFullMsg');
+            if (fullMsg) { fullMsg.hidden = true; fullMsg.textContent = ''; }
             el.textContent = 'Loading full evidence pack…';
             try {
-                const res = await fetch('/api/due-diligence/evidence-pack', { headers: authHeaders() });
-                const data = await res.json();
+                const res = await fetch('/api/due-diligence/evidence-pack', {
+                    credentials: 'same-origin',
+                    headers: { ...authHeaders(), Accept: 'application/json' },
+                });
+                const data = await res.json().catch(() => ({}));
                 if (!res.ok) {
-                    el.textContent = res.status === 401 || res.status === 403
-                        ? 'Decision Desk / Admin login required for the full pack. Upgrade, then retry.'
-                        : (JSON.stringify(data, null, 2) || 'Pack unavailable');
+                    const detail = data.detail || data.message || data.error;
+                    const detailText = typeof detail === 'object' ? JSON.stringify(detail) : String(detail || '');
+                    if (res.status === 401) {
+                        const login = '/login?tab=register&plan=institutional&next=' + encodeURIComponent('/b2b#evidence');
+                        if (fullMsg) {
+                            fullMsg.hidden = false;
+                            fullMsg.innerHTML = 'Decision Desk / Admin sign-in required for the full pack. '
+                                + '<a href="' + esc(login) + '">Sign in or register</a> · '
+                                + '<a href="/data-room">Data Room</a>';
+                        }
+                        el.textContent = detailText || 'Authentication required for the full evidence pack.';
+                        return;
+                    }
+                    if (res.status === 403) {
+                        if (fullMsg) {
+                            fullMsg.hidden = false;
+                            fullMsg.innerHTML = 'Whale tier or admin required. '
+                                + '<a href="{{ institutional_cta_href }}">Institutional inquiry</a> · '
+                                + '<a href="/data-room">Data Room</a>';
+                        }
+                        el.textContent = detailText || 'Whale tier or admin required for the full pack.';
+                        return;
+                    }
+                    el.textContent = detailText || JSON.stringify(data, null, 2) || 'Pack unavailable';
                     return;
                 }
+                renderEvidenceCards(data);
                 el.textContent = JSON.stringify({
                     product_thesis: data.product_thesis || data.one_liner_for_ic,
                     differentiators: data.differentiators,
                     committee_checklist: data.committee_checklist,
                     sections: Object.keys(data.sections || {}),
                 }, null, 2);
-            } catch (error) { console.debug(error); el.textContent = 'Full pack unavailable — login as Decision Desk/Admin and retry.'; }
+            } catch (error) {
+                console.debug(error);
+                el.textContent = 'Full pack unavailable — sign in as Decision Desk/Admin and retry.';
+            }
         }
 
         function bootB2bDeepLinks() {
@@ -454,6 +497,7 @@
         }
         window.addEventListener('hashchange', bootB2bDeepLinks);
     </script>
+    <script defer src="/static/js/csp_events.js"></script>
     {% include "partials/site_footer.html" %}
 </body>
 </html>

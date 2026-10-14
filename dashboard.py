@@ -4290,6 +4290,13 @@ def _b2b_elite_cta_href(request: Request) -> str:
     return "/login?tab=register&plan=elite"
 
 
+def _b2b_institutional_cta_href(request: Request) -> str:
+    """Signed-in users go to data-room / institutional path; guests register."""
+    if getattr(request.state, "header_user", None):
+        return "/data-room?from=signup"
+    return "/login?tab=register&plan=institutional"
+
+
 @app.get("/b2b", response_class=HTMLResponse)
 async def b2b_page(request: Request):
     expose_demo = os.getenv("EXPOSE_B2B_DEMO_KEY", "").lower() in {"1", "true", "yes"}
@@ -4306,6 +4313,7 @@ async def b2b_page(request: Request):
                 pilot_call_href and pilot_call_href.startswith(("http://", "https://"))
             ),
             "elite_cta_href": _b2b_elite_cta_href(request),
+            "institutional_cta_href": _b2b_institutional_cta_href(request),
         },
     )
 

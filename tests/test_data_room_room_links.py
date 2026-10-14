@@ -25,6 +25,8 @@ def test_b2b_room_hash_sections_load_api_data():
     assign = b2b.split("Object.assign(window", 1)[1][:500]
     assert "loadFundTerminal" in assign
     assert "loadEvidenceSummary" in assign
+    assert "evidenceFullMsg" in b2b
+    assert "csp_events.js" in b2b
     deep = b2b.split("function bootB2bDeepLinks", 1)[1][:350]
     assert "fund-terminal" in deep
     assert "evidence" in deep
