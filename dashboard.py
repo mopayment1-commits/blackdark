@@ -2475,6 +2475,18 @@ async def api_trust_pulse_manifest():
     return trust_pulse_manifest()
 
 
+@app.get("/admin", response_class=HTMLResponse)
+async def admin_owner_dashboard_page(request: Request, _admin: dict = Depends(require_admin_dev)):
+    return templates.TemplateResponse(request, "admin_dashboard.html")
+
+
+@app.get("/api/admin/owner-metrics")
+async def api_admin_owner_metrics(_admin: dict = Depends(require_admin_dev)):
+    from owner_admin_dashboard import fetch_owner_dashboard_metrics
+
+    return await fetch_owner_dashboard_metrics()
+
+
 @app.get("/admin/launch", response_class=HTMLResponse)
 async def admin_launch_page(request: Request, _admin: dict = Depends(require_admin_dev)):
     return templates.TemplateResponse(request, "admin_launch.html")

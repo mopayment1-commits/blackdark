@@ -309,6 +309,7 @@ ADMIN_PATH_PREFIXES: tuple[str, ...] = (
 
 ADMIN_PATH_EXACT: frozenset[str] = frozenset(
     {
+        "/admin",
         "/admin/launch",
         "/admin/plan",
         "/admin/roadmap",
