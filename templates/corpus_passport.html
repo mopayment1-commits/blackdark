@@ -2,17 +2,34 @@
 <html lang="{{ lang|default('en') }}" dir="{{ dir|default('ltr') }}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>BLACKDARK — Corpus passport — diligence export</title>
     {% include "partials/seo_canonical.html" %}
+<link rel="stylesheet" href="/static/css/trust-os.css">
 <style>
-body{font-family:Georgia,'Times New Roman',serif;color:#111;max-width:740px;margin:28px auto;padding:0 16px;background:#f4f1ea}
-.passport{border:2px solid #111;padding:28px;background:#fff;box-shadow:8px 8px 0 #111}
-.kicker{text-transform:uppercase;letter-spacing:.1em;font-size:12px;color:#555}
-h1{margin:.4rem 0 0;font-size:28px}
-.stamp{font-size:42px;font-weight:700;color:#0f766e;margin:18px 0 8px}
-ul{line-height:1.55}.foot{font-size:11px;color:#666;margin-top:22px}
-.btn{display:inline-block;margin:10px 8px 0 0;padding:10px 14px;background:#111;color:#fff;text-decoration:none;font-family:system-ui,sans-serif;font-size:13px}
-@media print{.noprint{display:none}}
+:root{--bg:#070a0f;--fg:#f2efe6;--muted:#959188;--line:#243040;--accent:#22d3ee}
+body{margin:0;color:var(--fg);font-family:"IBM Plex Sans",sans-serif;background:linear-gradient(165deg,#070a0f,#101820);min-height:100vh}
+nav{display:flex;justify-content:space-between;padding:1rem 1.5rem;border-bottom:1px solid var(--line)}
+nav a{color:var(--muted);text-decoration:none;margin-left:1rem}.logo{font-family:Syne,sans-serif;font-weight:800;color:var(--accent);text-decoration:none}
+main{max-width:740px;margin:0 auto;padding:2.2rem 1.2rem 4rem}
+.passport{border:1px solid var(--line);padding:28px;background:rgba(17,17,24,.92);border-radius:14px}
+.kicker{text-transform:uppercase;letter-spacing:.1em;font-size:12px;color:var(--muted)}
+h1{margin:.4rem 0 0;font-size:28px;color:var(--fg)}
+.stamp{font-size:42px;font-weight:700;color:var(--accent);margin:18px 0 8px}
+ul{line-height:1.55;color:var(--fg)}.foot{font-size:11px;color:var(--muted);margin-top:22px}
+.btn{display:inline-block;margin:10px 8px 0 0;padding:10px 14px;background:#1a1a24;color:var(--fg);text-decoration:none;font-family:inherit;font-size:13px;border:1px solid var(--line);border-radius:8px;font-weight:600}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+button.btn{cursor:pointer}
+.passport-request{margin-top:1rem;padding:1.1rem 1.15rem;border:1px solid var(--line);border-radius:12px;background:rgba(17,17,24,.92)}
+.passport-request[hidden]{display:none!important}
+.passport-request h2{font-size:1.05rem;margin:0 0 .35rem;color:var(--accent)}
+.passport-request label{display:block;margin:.55rem 0 .25rem;font-size:.82rem;color:var(--muted)}
+.passport-request input,.passport-request textarea{width:100%;padding:.55rem .65rem;border-radius:8px;border:1px solid var(--line);background:#0d1118;color:var(--fg);font:inherit}
+.passport-request .req-status{min-height:1.2rem;margin:.65rem 0 0;font-size:.82rem;color:var(--muted)}
+@media print{.noprint{display:none}body{background:#fff;color:#111}.passport{border:2px solid #111;background:#fff}}
 </style></head>
 <body>
+<nav><a class="logo" href="/">BLACKDARK</a><div>
+<a href="/kill-rate">Kill-Rate</a><a href="/oracle-accuracy">Ledger</a><a href="/data-room">Data Room</a>
+</div></nav>
+<main>
 <div class="passport" data-evidence id="box">
 <p class="kicker">Acquirer · Data Room · Corpus Passport</p>
 <h1>BLACKDARK Corpus Passport</h1>
@@ -22,11 +39,29 @@ ul{line-height:1.55}.foot{font-size:11px;color:#666;margin-top:22px}
 <p class="foot" id="disc"></p>
 </div>
 <p class="noprint">
-<a class="btn" href="/contact">Request corpus passport PDF</a>
+<button type="button" class="btn" id="requestCorpusPdfBtn">Request corpus passport PDF</button>
+<button type="button" class="btn" id="printCorpusPassportBtn">Print / Save teaser PDF</button>
 <a class="btn" href="/b2b/committee-one-pager">Committee One-Pager</a>
 <a class="btn" href="/data-room">Data Room</a>
 <a class="btn" href="/kill-rate">Kill-Rate</a>
 </p>
+<div id="corpusPassportRequest" class="passport-request noprint" hidden>
+<h2>Request full Corpus Passport PDF</h2>
+<p style="margin:0 0 .65rem;font-size:.88rem;color:var(--muted);line-height:1.45">Desk / Institutional sessions can download instantly. Otherwise submit your work email and we will send the diligence PDF.</p>
+<form id="corpusPassportRequestForm">
+<label for="corpusReqEmail">Work email</label>
+<input id="corpusReqEmail" name="email" type="email" required placeholder="work@fund.com" autocomplete="email">
+<label for="corpusReqName">Name</label>
+<input id="corpusReqName" name="name" type="text" placeholder="Your name" autocomplete="name">
+<label for="corpusReqCompany">Firm</label>
+<input id="corpusReqCompany" name="company" type="text" placeholder="Fund or acquirer">
+<label for="corpusReqMessage">Notes</label>
+<textarea id="corpusReqMessage" name="message" rows="3">Corpus Passport PDF request — /corpus-passport</textarea>
+<button type="submit" class="btn">Submit PDF request</button>
+<p class="req-status" id="corpusReqStatus" role="status" aria-live="polite"></p>
+</form>
+</div>
+</main>
 <script src="/static/js/dom_escape.js"></script>
 <script type="module">
 const { esc } = window.BDDomSafe;
@@ -42,5 +77,61 @@ async function load(){
   document.getElementById('stamps').innerHTML=(d.stamps||[]).map(s=>`<li>${esc(s)}</li>`).join('');
   document.getElementById('disc').textContent=d.disclaimer||'';
 }
-await load();</script>
+async function downloadCorpusPassportPdf(){
+  const res=await fetch('/api/due-diligence/corpus-passport.pdf',{credentials:'include'});
+  if(!res.ok) return false;
+  const blob=await res.blob();
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download='blackdark-corpus-passport.pdf';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+  return true;
+}
+function openCorpusPassportRequestForm(){
+  const panel=document.getElementById('corpusPassportRequest');
+  if(panel){panel.hidden=false;panel.scrollIntoView({behavior:'smooth',block:'nearest'});}
+  const email=document.getElementById('corpusReqEmail');
+  if(email) email.focus();
+}
+async function requestCorpusPassportPdf(){
+  const btn=document.getElementById('requestCorpusPdfBtn');
+  const prev=btn?btn.textContent:'';
+  if(btn){btn.disabled=true;btn.textContent='Preparing PDF…';}
+  try{
+    if(await downloadCorpusPassportPdf()) return;
+  }catch (error) { console.debug(error); }
+  finally{if(btn){btn.disabled=false;btn.textContent=prev||'Request corpus passport PDF';}}
+  openCorpusPassportRequestForm();
+}
+function wireCorpusPassportActions(){
+  document.getElementById('requestCorpusPdfBtn')?.addEventListener('click',requestCorpusPassportPdf);
+  document.getElementById('printCorpusPassportBtn')?.addEventListener('click',()=>window.print());
+  const form=document.getElementById('corpusPassportRequestForm');
+  const status=document.getElementById('corpusReqStatus');
+  if(!form) return;
+  form.addEventListener('submit',async(ev)=>{
+    ev.preventDefault();
+    const payload=Object.fromEntries(new FormData(form).entries());
+    if(status) status.textContent='Sending request…';
+    try{
+      const res=await fetch('/api/billing/institutional-inquiry',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+      const d=await res.json().catch(()=>({}));
+      if(status) status.textContent=res.ok?(d.message||'Request received — we will follow up with the PDF.'):(d.detail||'Request failed — try again.');
+      if(res.ok) form.reset();
+      if(res.ok){
+        const msg=document.getElementById('corpusReqMessage');
+        if(msg) msg.value='Corpus Passport PDF request — /corpus-passport';
+      }
+    }catch (error){
+      console.debug(error);
+      if(status) status.textContent='Request unavailable right now — use Print / Save teaser PDF.';
+    }
+  });
+}
+await load();
+wireCorpusPassportActions();</script>
 </body></html>

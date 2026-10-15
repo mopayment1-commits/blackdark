@@ -20,6 +20,13 @@ def test_stealth_advisor_excluded_from_read_list():
     assert "/api/whale/stealth-advisor" in PUBLIC_DOCS_READ_PREFIX_EXCLUDE
 
 
+def test_post_only_stealth_line_only_on_docs_page_manifest():
+    api_manifest = public_docs_manifest()
+    assert "post_only_public_prefixes" not in api_manifest
+    docs_manifest = public_docs_manifest(include_post_only_public_prefixes=True)
+    assert docs_manifest["post_only_public_prefixes"] == ["/api/whale/stealth-advisor"]
+
+
 def test_prefix_rows_no_href_for_oracle_slash_prefix():
     manifest = public_docs_manifest()
     rows = {r["path"]: r for r in manifest["allowed_prefix_rows"]}

@@ -349,7 +349,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
         window.tryOracleFree = tryOracleFree;
 
         async function consultOracle() {
-            const symbol = document.getElementById('symbolInput').value.toUpperCase();
+            const symbol = (document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase();
             const mode = document.getElementById('landingUxMode').value || 'beginner';
             const lang = (window.BD_I18N && window.BD_I18N.lang) || document.documentElement.lang || 'en';
             const resultDiv = document.getElementById('oracleResult');
@@ -804,7 +804,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
         }
 
         async function loadLandingTrustPulse() {
-            const symbol = (document.getElementById('symbolInput')?.value || 'BTC').toUpperCase();
+            const symbol = (document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase();
             const mode = document.getElementById('landingUxMode')?.value || 'beginner';
             const lang = currentLang();
             await fetchLandingTrustPulse(symbol, mode, lang);
@@ -852,7 +852,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 const ops = d.ops_readiness || {};
                 const provider = d.active_provider || 'none';
                 if (ops.launch_ready || d.billing_configured) {
-                    el.textContent = 'USD payments ready · ' + provider + ' hosted checkout · Decision Pro $29 · Decision Desk $49 · Institutional from $3,000 → open';
+                    el.textContent = 'USD payments ready · ' + provider + ' hosted checkout · DECIDE / PRO · SEE THE EDGE / ELITE · SCALE THE EDGE / INSTITUTIONAL → open';
                 } else {
                     el.textContent = 'USD payment rails live in product · finish Lemon/Stripe KYC + checkout URLs for live charges. Proof Pass ($0) and Sign up work now. Profile → Plan & billing.';
                     el.style.color = 'var(--text-muted)';

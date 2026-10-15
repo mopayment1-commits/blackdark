@@ -165,6 +165,17 @@
             {% if regulatory %}
             <h2>Regulatory guard snapshot</h2>
             <p class="deny">Status fields are engineering signals only — see <a href="/status">system status</a> for the public HTML surface.</p>
+            <ul class="deny" style="margin-top:.5rem">
+                <li><strong style="color:var(--fg)">Engine enabled</strong> — {{ regulatory.enabled }}</li>
+                <li><strong style="color:var(--fg)">Classification</strong> — {{ regulatory.classification or '—' }}</li>
+                {% if regulatory.public_verdicts %}
+                <li><strong style="color:var(--fg)">Public verdict labels</strong> — bullish {{ regulatory.public_verdicts.bullish }}, bearish {{ regulatory.public_verdicts.bearish }}, neutral {{ regulatory.public_verdicts.neutral }}, risk {{ regulatory.public_verdicts.elevated_risk }}</li>
+                {% endif %}
+                {% if regulatory.policy %}
+                <li>{{ regulatory.policy }}</li>
+                {% endif %}
+            </ul>
+            <p class="deny" style="font-size:.85rem;margin-top:.5rem">{{ regulatory.disclaimer or '' }}</p>
             {% endif %}
             <p>
                 <a href="/oracle-accuracy">Public Accuracy Ledger</a> ·

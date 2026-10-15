@@ -30,7 +30,7 @@ def test_landing_html_a11y_and_perf_hooks():
     assert 'class="skip-link"' in html or 'Skip to Trust Pulse' in html
     assert 'for="landingAudience"' in html
     assert 'for="landingUxMode"' in html
-    assert 'for="symbolInput"' in html
+    assert 'for="symbol"' in html
     assert 'for="waitlistEmail"' in html
     assert 'for="bdLangSelect"' in html
     assert "/static/css/trust-os.css" in html
@@ -57,7 +57,7 @@ def test_landing_assets_exist_and_design_tokens():
     assert "--bd-muted-dim: #a1a1aa" in css or "--bd-muted: #a1a1aa" in css
     assert landing.count("const action =") <= 1
     assert 'for="landingAudience"' in landing
-    assert 'for="symbolInput"' in landing
+    assert 'for="symbol"' in landing
     assert "meta.title.landing" in landing or "meta.description.landing" in landing
     from i18n_service import EN
 

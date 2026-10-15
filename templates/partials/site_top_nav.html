@@ -232,10 +232,10 @@
   <div class="nav-container">
     <a class="logo" href="/">BLACKDARK</a>
     <div class="nav-links">
-      <a href="/dashboard?lens=prove"{% if nav_active is defined and nav_active == 'prove' %} class="active" aria-current="page"{% endif %}>{{ t('nav.prove') if t is defined else 'Prove' }}</a>
-      <a href="/dashboard?lens=operate"{% if nav_active is defined and nav_active == 'operate' %} class="active" aria-current="page"{% endif %}>{{ t('nav.operate') if t is defined else 'Operate' }}</a>
-      <a href="/dashboard?lens=desk"{% if nav_active is defined and nav_active == 'desk' %} class="active" aria-current="page"{% endif %}>{{ t('nav.desk') if t is defined else 'Desk' }}</a>
-      <a href="/data-room?lens=room"{% if nav_active is defined and nav_active == 'room' %} class="active" aria-current="page"{% endif %}>{{ t('nav.room') if t is defined else 'Room' }}</a>
+      <a href="/dashboard?lens=prove" data-nav-key="prove"{% if nav_active is defined and nav_active == 'prove' %} class="active" aria-current="page"{% endif %}>{{ t('nav.prove') if t is defined else 'Prove' }}</a>
+      <a href="/dashboard?lens=operate" data-nav-key="operate"{% if nav_active is defined and nav_active == 'operate' %} class="active" aria-current="page"{% endif %}>{{ t('nav.operate') if t is defined else 'Operate' }}</a>
+      <a href="/dashboard?lens=desk" data-nav-key="desk"{% if nav_active is defined and nav_active == 'desk' %} class="active" aria-current="page"{% endif %}>{{ t('nav.desk') if t is defined else 'Desk' }}</a>
+      <a href="/data-room?lens=room" data-nav-key="room"{% if nav_active is defined and nav_active == 'room' %} class="active" aria-current="page"{% endif %}>{{ t('nav.room') if t is defined else 'Room' }}</a>
       <a href="/lenses"{% if nav_active is defined and nav_active == 'lenses' %} class="active" aria-current="page"{% endif %}>{{ t('lenses.cta') if t is defined else 'Open the lenses' }}</a>
       <a href="/oracle-accuracy"{% if nav_active is defined and nav_active == 'verify' %} class="active" aria-current="page"{% endif %}>{{ t('nav.verify') if t is defined else 'Verify' }}</a>
     </div>
@@ -286,5 +286,6 @@
     </div>
   </div>
 </nav>
+<script defer src="/static/js/bd_global_nav.js"></script>
 <script defer src="/static/js/bd_header_account.js"></script>
 <script defer src="/static/js/bd_site_search.js"></script>

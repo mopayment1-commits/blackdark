@@ -31,6 +31,16 @@ def test_pricing_route_renders_public_page(client):
     assert 'href="/pricing"' in res.text
 
 
+def test_trust_pulse_proof_readable_html(client):
+    res = client.get("/trust-pulse/proof?symbol=BTC", headers={"Accept": "text/html"})
+    assert res.status_code == 200
+    assert "text/html" in (res.headers.get("content-type") or "")
+    assert "Anonymous access denied" not in res.text
+    assert "Verify on Ledger" in res.text
+    assert "Trust Pulse" in res.text
+    assert "BTC" in res.text
+
+
 def test_refund_public_html_200(client):
     res = client.get("/refund", headers={"Accept": "text/html"})
     assert res.status_code == 200

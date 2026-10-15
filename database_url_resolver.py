@@ -233,15 +233,9 @@ def expand_asyncpg_pool_targets(key: str, url: str) -> list[tuple[str, str, dict
     base_kwargs: dict[str, Any] = {"statement_cache_size": 0}
     if railway_postgres_requires_ssl(url):
         stripped = strip_url_query_params(url, "sslmode", "ssl")
-        import ssl
-
-        ctx = ssl.create_default_context()
-        ctx.check_hostname = False
-        ctx.verify_mode = ssl.CERT_NONE
         return [
             (f"{key}+sslmode", ensure_postgres_ssl_params(url), dict(base_kwargs)),
             (f"{key}+ssl_true", stripped, {**base_kwargs, "ssl": True}),
-            (f"{key}+ssl_ctx", stripped, {**base_kwargs, "ssl": ctx}),
         ]
     if _is_railway_internal_host(host):
         return [(key, strip_url_query_params(url, "sslmode", "ssl"), dict(base_kwargs))]

@@ -6,7 +6,7 @@ import asyncio
 import os
 from datetime import UTC, datetime
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Request
 from fastapi.responses import JSONResponse
 
 from market_context import fetch_binance_ticker, normalize_oracle_symbol
@@ -225,10 +225,19 @@ async def api_oracle_track_record():
 
 
 @router.post("/api/oracle/track-record/backfill")
-async def api_oracle_track_record_backfill():
+async def api_oracle_track_record_backfill(_admin: dict = Depends(require_admin)):
     from oracle_track_record import backfill_from_database
 
-    return await backfill_from_database()
+    limit = int(os.getenv("ORACLE_CHAIN_BACKFILL_LIMIT", "50000"))
+    return await backfill_from_database(limit=limit)
+
+
+@router.post("/api/oracle/audit-chain/bootstrap-from-db")
+async def api_oracle_audit_chain_bootstrap_from_db(request: Request):
+    """Empty-chain only: sync oracle_predictions → JSONL (X-Oracle-Chain-Bootstrap-Token)."""
+    from oracle_chain_bootstrap import bootstrap_chain_from_database_if_empty
+
+    return await bootstrap_chain_from_database_if_empty(request)
 
 
 @router.get("/api/oracle/audit-chain")

@@ -579,6 +579,12 @@ async def _background_boot(app: FastAPI) -> None:
     else:
         await _start_background_runtime(app)
     try:
+        from startup_orchestrator import _maybe_backfill_empty_oracle_chain
+
+        await _maybe_backfill_empty_oracle_chain()
+    except Exception:
+        logger.exception("Oracle audit chain auto-backfill failed during web boot")
+    try:
         from bigquery_export import bigquery_configured, bigquery_live_ready
         from startup_orchestrator import _maybe_run_bigquery_export_bootstrap
 
@@ -1925,7 +1931,7 @@ async def landing_page(request: Request):
 
     lang = resolve_request_lang(request)
     auth_segment = "auth" if getattr(request.state, "header_user", None) else "anon"
-    cache_key = f"v3:{lang}:{auth_segment}"
+    cache_key = f"v6:{lang}:{auth_segment}"
     now = time.time()
     hit = _landing_html_cache.get(cache_key)
     if hit and (now - hit[0]) < _LANDING_HTML_CACHE_TTL:
@@ -1944,10 +1950,9 @@ async def landing_page(request: Request):
         return response
 
     ctx = template_context(request, _footer_ctx())
-    from site_oracle_catalog import primary_oracle_catalog_symbols
-
-    ctx["oracle_symbols"] = list(primary_oracle_catalog_symbols())
     import config as _cfg
+
+    ctx["oracle_symbols"] = _cfg.tracked_asset_list()
     ctx["telegram_bot_username"] = _cfg.TELEGRAM_BOT_USERNAME
     ctx["telegram_bot_url"] = f"https://t.me/{_cfg.TELEGRAM_BOT_USERNAME}" if _cfg.TELEGRAM_BOT_USERNAME else None
     html = templates.get_template("landing.html").render({"request": request, **ctx})
@@ -2083,13 +2088,92 @@ async def sitemap_xml(request: Request):
 # ========== DASHBOARD ==========
 @app.get("/dashboard", response_class=HTMLResponse)
 async def dashboard_page(request: Request):
-    return render_page(request, "dashboard.html", _footer_ctx())
+    import config as _cfg
+
+    ctx = {
+        **_footer_ctx(),
+        "oracle_symbols": _cfg.tracked_asset_list(),
+    }
+    return render_page(request, "dashboard.html", ctx)
 
 
 @app.get("/discipline-mirror", response_class=HTMLResponse)
 async def discipline_mirror_page(request: Request):
     """Private Discipline Mirror UI — never public ledger."""
     return render_page(request, "discipline.html", _footer_ctx())
+
+
+def _trust_pulse_proof_display_action(payload: dict[str, Any]) -> str:
+    raw = str(payload.get("decision_action") or payload.get("verdict") or "WAIT").upper()
+    if "CONDITION" in raw or raw in {"ACT", "BUY", "BULLISH"}:
+        return "ACT"
+    if "ABSTAIN" in raw or "DONT" in raw or raw == "I_DONT_KNOW":
+        return "ABSTAIN"
+    return "WAIT"
+
+
+async def _trust_pulse_proof_payload(
+    symbol: str,
+    lang: str,
+    ux_mode: str,
+) -> tuple[dict[str, Any] | None, str | None]:
+    from viral_capacity import run_oracle_bounded
+
+    asset, pair = _normalize_oracle_symbol(symbol)
+    try:
+        payload = await run_oracle_bounded(
+            lambda: _compute_oracle_quick_payload(asset, pair, lang, ux_mode)
+        )
+    except HTTPException as exc:
+        detail = exc.detail
+        if isinstance(detail, dict):
+            msg = detail.get("message") or detail.get("error") or str(detail)
+        else:
+            msg = str(detail) if detail else "Proof unavailable"
+        return None, msg
+    except Exception:
+        logger.exception("trust_pulse_proof quick failed")
+        return None, "Proof unavailable"
+
+    payload = _attach_quick_freshness(payload, asset)
+    _attach_quick_real_factors(payload)
+    _attach_oqs_why_safe(payload)
+    _attach_quick_certificate(payload)
+    from security_sanitize import sanitize_oracle_payload
+
+    return sanitize_oracle_payload(payload), None
+
+
+@app.get("/trust-pulse/proof", response_class=HTMLResponse)
+async def trust_pulse_proof_page(
+    request: Request,
+    symbol: str = "BTC",
+    ux_mode: str = "beginner",
+    lang: str | None = None,
+):
+    """Human-readable Trust Pulse proof — same oracle quick data, not a JSON blob."""
+    from i18n_service import resolve_request_lang
+
+    resolved_lang = (lang or resolve_request_lang(request) or "en").strip() or "en"
+    mode = (ux_mode or "beginner").strip() or "beginner"
+    asset, _pair = _normalize_oracle_symbol(symbol)
+    payload, proof_error = await _trust_pulse_proof_payload(asset, resolved_lang, mode)
+    cert = (payload or {}).get("decision_certificate") if payload else None
+    ctx = {
+        **_footer_ctx(),
+        "proof_symbol": asset,
+        "proof_action": _trust_pulse_proof_display_action(payload or {}),
+        "proof_sentence": (payload or {}).get("decision_sentence")
+        or (payload or {}).get("oracle")
+        or "",
+        "proof_price": (payload or {}).get("price"),
+        "proof_change": (payload or {}).get("change_24h"),
+        "certificate": cert if isinstance(cert, dict) else None,
+        "proof_error": proof_error,
+        "dashboard_back_href": "/dashboard?lens=prove",
+        "ledger_href": "/oracle-accuracy",
+    }
+    return render_page(request, "trust_pulse_proof.html", ctx)
 
 
 @app.get("/kill-rate", response_class=HTMLResponse)
@@ -2273,7 +2357,11 @@ async def public_developer_docs_page(request: Request):
     return render_page(
         request,
         "docs_public.html",
-        {"title": "Developer Docs", "manifest": public_docs_manifest(), **_footer_ctx()},
+        {
+            "title": "Developer Docs",
+            "manifest": public_docs_manifest(include_post_only_public_prefixes=True),
+            **_footer_ctx(),
+        },
     )
 
 
@@ -3153,9 +3241,18 @@ def _attach_quick_certificate(payload: dict) -> None:
 
 def _attach_quick_freshness(payload: dict, asset: str) -> dict:
     try:
-        from data_freshness import attach_oracle_freshness
+        from data_freshness import attach_oracle_freshness, freshness_chip
 
-        return attach_oracle_freshness({**payload, "asset": asset})
+        enriched = attach_oracle_freshness({**payload, "asset": asset})
+        df = enriched.get("data_freshness") if isinstance(enriched.get("data_freshness"), dict) else {}
+        if str(df.get("state") or "").lower() == "unknown" and enriched.get("price") is not None:
+            age = enriched.get("quote_age_sec")
+            try:
+                age_f = float(age) if age is not None else 0.0
+            except (TypeError, ValueError):
+                age_f = 0.0
+            enriched["data_freshness"] = freshness_chip(age_sec=age_f)
+        return enriched
     except Exception:
         return payload
 
@@ -4178,18 +4275,68 @@ async def b2b_websocket_feed(websocket: WebSocket, api_key: str = Query(..., min
             await hub.unregister(client)
 
 
+def _b2b_pilot_call_href() -> str | None:
+    """Calendly/Cal.com URL from env, else internal pilot request form."""
+    raw = (os.getenv("B2B_PILOT_BOOKING_URL") or "").strip()
+    if raw:
+        return raw if raw.startswith(("http://", "https://")) else None
+    return "/b2b/pilot"
+
+
+def _b2b_elite_cta_href(request: Request) -> str:
+    """Signed-in users go to checkout; guests go to elite registration."""
+    if getattr(request.state, "header_user", None):
+        return "/create-checkout-session?tier=elite"
+    return "/login?tab=register&plan=elite"
+
+
+def _b2b_institutional_cta_href(request: Request) -> str:
+    """Signed-in users go to data-room / institutional path; guests register."""
+    if getattr(request.state, "header_user", None):
+        return "/data-room?from=signup"
+    return "/login?tab=register&plan=institutional"
+
+
 @app.get("/b2b", response_class=HTMLResponse)
 async def b2b_page(request: Request):
     expose_demo = os.getenv("EXPOSE_B2B_DEMO_KEY", "").lower() in {"1", "true", "yes"}
+    pilot_call_href = _b2b_pilot_call_href()
     return templates.TemplateResponse(
         request,
         "b2b.html",
         {
             "demo_key_exposed": expose_demo,
             "demo_key": config.B2B_DEMO_API_KEY if expose_demo else "",
-            "feed_version": config.B2B_FEED_VERSION
+            "feed_version": config.B2B_FEED_VERSION,
+            "pilot_call_href": pilot_call_href,
+            "pilot_call_external": bool(
+                pilot_call_href and pilot_call_href.startswith(("http://", "https://"))
+            ),
+            "elite_cta_href": _b2b_elite_cta_href(request),
+            "institutional_cta_href": _b2b_institutional_cta_href(request),
         },
     )
+
+
+@app.get("/b2b/pilot", response_class=HTMLResponse)
+async def b2b_pilot_page(request: Request):
+    return render_page(request, "b2b_pilot.html", {})
+
+
+@app.post("/api/b2b/pilot-request")
+async def b2b_pilot_request(data: dict = Body(...)):
+    email = str(data.get("email") or "").strip().lower()
+    if not email or "@" not in email:
+        raise HTTPException(status_code=400, detail="Valid email required")
+    from database import insert_b2b_pilot_request
+
+    row_id = await insert_b2b_pilot_request(
+        email=email,
+        name=str(data.get("name") or "").strip(),
+        company=str(data.get("company") or "").strip(),
+        message=str(data.get("message") or "").strip(),
+    )
+    return {"ok": True, "id": row_id}
 
 
 

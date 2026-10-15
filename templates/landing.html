@@ -152,8 +152,8 @@
                 0 1px 0 rgba(255, 255, 255, 0.18),
                 0 10px 40px rgba(0, 0, 0, 0.55),
                 0 0 48px rgba(34, 211, 238, 0.12);
-            color: #f4f4f5;
-            -webkit-text-fill-color: #f4f4f5;
+            color: var(--accent);
+            -webkit-text-fill-color: var(--accent);
         }
 
         .hero-headline {
@@ -216,7 +216,7 @@
         .seal-myth h2 {
             font-family: var(--bd-font-display);
             font-size: clamp(1.5rem, 3vw, 2rem);
-            color: var(--text);
+            color: var(--accent);
             margin-bottom: 0.65rem;
             letter-spacing: -0.02em;
         }
@@ -311,6 +311,21 @@
             font-size: 1rem; color: var(--text-muted);
             font-weight: 500;
         }
+
+        select#symbol.oracle-symbol-select {
+            appearance: none;
+            cursor: pointer;
+            background-color: var(--bg-elevated);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: .55rem 2rem .55rem .75rem;
+            min-width: 6.5rem;
+            font-size: 1rem;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%2322d3ee' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right .75rem center;
+        }
         
         .live-indicator {
             display: flex; align-items: center; gap: 0.5rem;
@@ -391,6 +406,12 @@
             font-size: clamp(2rem, 4vw, 3rem);
             font-weight: 800; margin-bottom: 1rem;
         }
+
+        #try-oracle .section-header h2,
+        #features .section-header h2,
+        .waitlist > h2 {
+            color: var(--accent);
+        }
         
         .section-header p {
             color: var(--text-muted); font-size: 1.1rem;
@@ -431,76 +452,6 @@
         
         .feature-card p {
             color: var(--text-muted); font-size: 0.95rem;
-        }
-        
-        .pricing {
-            padding: 6rem 2rem;
-            background: var(--bg-card);
-        }
-        
-        .pricing-container {
-            max-width: 1200px; margin: 0 auto;
-        }
-        
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 1.25rem; margin-top: 3rem;
-        }
-        
-        .pricing-card {
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: 20px; padding: 2.5rem;
-            position: relative; transition: transform 0.3s;
-        }
-        
-        .pricing-card:hover { transform: translateY(-5px); }
-        
-        .pricing-card.popular {
-            border-color: var(--accent);
-            box-shadow: 0 0 60px rgba(34, 211, 238, 0.1);
-        }
-        
-        .popular-badge, .bd-popular-badge {
-            position: static;
-            display: inline-block;
-            margin: 0 0 0.65rem;
-            background: linear-gradient(135deg, var(--accent), #06b6d4);
-            color: var(--bg); padding: 0.35rem 0.75rem;
-            border-radius: 8px; font-size: 0.72rem;
-            font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
-        }
-        
-        .pricing-card h3 {
-            font-size: 1.5rem; font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-        
-        .pricing-card .price {
-            font-size: 3rem; font-weight: 900;
-            margin: 1rem 0;
-        }
-        
-        .pricing-card .price span {
-            font-size: 1rem; color: var(--text-muted); font-weight: 400;
-        }
-        
-        .pricing-card ul {
-            list-style: none; margin: 2rem 0;
-        }
-        
-        .pricing-card ul li {
-            padding: 0.5rem 0; color: var(--text-muted);
-            display: flex; align-items: center; gap: 0.5rem;
-        }
-        
-        .pricing-card ul li::before {
-            content: "✓"; color: var(--success); font-weight: 700;
-        }
-        
-        .pricing-card .btn {
-            width: 100%; text-align: center; display: block;
         }
         
         .waitlist {
@@ -807,14 +758,13 @@
                     </select>
                     </label>
                     <input type="hidden" id="landingLang" value="en" aria-label="landingLang">
-                    <label class="field-label" for="symbolCatalog" style="display:inline-flex;flex-direction:column;gap:.25rem;font-size:.75rem;color:var(--text-muted);text-align:left">Symbol
-                    <select id="symbolCatalog" name="symbolCatalog" data-bd-change-call="syncSymbolFromCatalog" data-bd-pass-value="1" style="background:var(--bg-elevated);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.55rem;min-width:6.5rem">
+                    <label class="field-label" for="symbol" style="display:inline-flex;flex-direction:column;gap:.25rem;font-size:.75rem;color:var(--text-muted);text-align:left">Symbol
+                    <select id="symbol" name="symbol" class="oracle-symbol-select" aria-label="Symbol">
                         {% for sym in oracle_symbols|default(['BTC']) %}
                         <option value="{{ sym }}"{% if sym == 'BTC' %} selected{% endif %}>{{ sym }}</option>
                         {% endfor %}
                     </select>
                     </label>
-                    <input type="text" id="symbolInput" value="BTC" readonly aria-label="Selected symbol" aria-readonly="true" style="max-width:5.5rem;text-align:center">
                     <button data-bd-call="consultOracle">Get Decision</button>
                 </div>
                 <p id="audienceCta" style="color:var(--text-muted);font-size:.85rem;margin:.5rem 0 0">Get one clear CONDITIONS MET / Wait decision — no dashboard tourism.</p>
@@ -902,14 +852,13 @@
             </div>
         </div>
         <p style="text-align:center;color:var(--text-muted);margin-top:2rem;font-size:0.9rem">
-            {{ t('feat.note') }}
             <a href="/data-room" style="color:var(--accent)">{{ t('lenses.room.title') }} →</a>
         </p>
     </section>
-    
+
     <section class="waitlist" id="waitlist">
         <h2 style="font-family:var(--bd-font-display);font-size: clamp(1.8rem,4vw,2.5rem); font-weight: 800; margin-bottom: 1rem;">
-            Get early access to <span style="color: var(--accent);">Trust OS</span>
+            Get early access to Trust OS
         </h2>
         <p style="color: var(--text-muted); font-size: 1.05rem; max-width: 520px; margin: 0 auto;">
             Join the waitlist for launch updates. No fake seat counters — just a clear path to Prove.
@@ -1440,8 +1389,19 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             }
         }
 
+        function landingSymbolValue() {
+            return (document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
+        }
+
+        function setSymbol(symbol) {
+            const value = String(symbol || '').trim().toUpperCase();
+            if (!value) return;
+            const sel = document.getElementById('symbol');
+            if (sel) sel.value = value;
+        }
+
         async function consultOracle() {
-            const symbol = document.getElementById('symbolInput').value.toUpperCase();
+            const symbol = landingSymbolValue();
             const mode = document.getElementById('landingUxMode').value || 'beginner';
             const lang = (window.BD_I18N && window.BD_I18N.lang) || document.documentElement.lang || 'en';
             const resultDiv = document.getElementById('oracleResult');
@@ -1558,14 +1518,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
         }
 
         function syncSymbolFromCatalog(symbol) {
-            const value = String(symbol || '').toUpperCase().trim();
-            if (!value) return;
-            const input = document.getElementById('symbolInput');
-            const catalog = document.getElementById('symbolCatalog');
-            if (input) input.value = value;
-            if (catalog && catalog.value !== value) {
-                catalog.value = value;
-            }
+            setSymbol(symbol);
         }
 
         async function applyAudience() {
@@ -2065,7 +2018,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
         }
 
         async function loadLandingTrustPulse() {
-            const symbol = (document.getElementById('symbolInput')?.value || 'BTC').toUpperCase();
+            const symbol = landingSymbolValue();
             const mode = document.getElementById('landingUxMode')?.value || 'beginner';
             const lang = currentLang();
             await fetchLandingTrustPulse(symbol, mode, lang);

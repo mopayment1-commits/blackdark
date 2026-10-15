@@ -67,7 +67,7 @@ def freshness_chip(
         ms = float(age_sec) * 1000.0
     if ms is None:
         return {
-            "label": "",
+            "label": "age unknown",
             "state": "unknown",
             "freshness_ms": None,
             "age_sec": None,

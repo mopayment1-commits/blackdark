@@ -73,6 +73,18 @@
             border-radius: 14px; padding: 1.25rem;
         }
         .card h2 { font-size: 1.15rem; margin-bottom: 1rem; }
+        #proof-chain .card h2,
+        #panel-regime .card h2,
+        #glass-box-challenge .card h2,
+        #mev-report .card h2,
+        #locked .card h2,
+        #losing .card h2,
+        #audit-challenge .card h2,
+        #panel-registry .card h2,
+        #panel-latest-table .card h2,
+        #panel-learning .card h2 {
+            color: var(--accent);
+        }
         table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
         th, td { padding: 0.65rem 0.5rem; border-bottom: 1px solid var(--border); text-align: left; }
         th { color: var(--muted); font-weight: 600; }
@@ -124,8 +136,11 @@
         <p id="chain-status" style="color:var(--muted);font-size:0.9rem;margin-top:0.5rem"></p>
         <div class="cta-row" style="margin-top:1rem">
             <a class="btn btn-secondary" href="#proof-chain" id="verifyChainBtn">{{ t('ledger.cta.verify_chain') }}</a>
+            <a class="btn btn-secondary" href="#audit-challenge">Audit Challenge</a>
             <a class="btn btn-secondary" href="#losing">{{ t('ledger.cta.misses') }}</a>
             <a class="btn btn-secondary" href="#glass-box-challenge">{{ t('ledger.cta.glass') }}</a>
+            <a class="btn btn-secondary" href="#mev-report">MEV Report</a>
+            <a class="btn btn-secondary" href="#locked">Locked Predictions</a>
             <a class="btn btn-secondary" href="/discipline-mirror">{{ t('ledger.cta.mirror') }}</a>
             <a class="btn btn-secondary" href="/docs">{{ t('ledger.cta.docs') }}</a>
         </div>
@@ -332,9 +347,6 @@
     <script>
         const ORACLE_LEDGER_FETCH_MS = 45000;
         const ORACLE_LEDGER_SECONDARY_MS = 15000;
-        const MONTHLY_LOSING_FETCH_MS = 120000;
-        const MONTHLY_LOSING_SLOW_UI_MS = 8000;
-        let monthlyLosingReportSettled = false;
         const LEDGER_PUBLIC_URL = 'https://blackdark-production.up.railway.app/oracle-accuracy';
         const PAGE_LANG = (document.documentElement.getAttribute('lang') || 'en').toLowerCase();
         let ledgerOracleSnapshot = null;
@@ -379,7 +391,7 @@
                 verified_errors: Number(o.verified_errors ?? ll.verified_errors ?? 0),
                 partial_outcomes: Number(o.partial_outcomes ?? ll.partial_outcomes ?? 0),
                 live_source: o.live_source || ll.source,
-                public_miss_sample: o.public_miss_sample || [],
+                public_miss_sample: o.public_miss_sample || ll.miss_sample || [],
                 recent_predictions: o.recent_predictions || [],
             };
         }
@@ -433,7 +445,7 @@
             if (tbody) tbody.innerHTML = `<tr><td colspan="8">${esc(msg)}</td></tr>`;
             const expl = document.getElementById('metrics-explainer');
             if (expl) expl.textContent = msg;
-            /* #losing lists are owned by loadMonthlyLosingReport — do not overwrite here */
+            /* #losing lists are owned by renderPublicMisses — do not overwrite here */
             const preview = document.getElementById('ledger-share-preview');
             if (preview) preview.textContent = msg;
             lastLosingShare = '';
@@ -483,7 +495,7 @@
                 archive: lastTrainingArchive,
             });
             renderPredictionsTable(oracle, oracle.recent_table_footnote || '');
-            renderPublicMisses(oracle, lastTrainingArchive);
+            renderPublicMisses(oracle, lastTrainingArchive, data.live_ledger);
             syncShareFromOracle(oracle);
 
             const regime = data.regime_models || {};
@@ -806,7 +818,7 @@
         function applyChainVerify(verify, chainMeta) {
             const v = verify || {};
             lastChainVerify = v;
-            const records = chainMeta?.total_records ?? v.records ?? 0;
+            const records = v.records ?? chainMeta?.total_records ?? 0;
             const ok = v.valid === true;
             const statusEl = document.getElementById('chain-status');
             const auditEl = document.getElementById('audit-status');
@@ -877,16 +889,20 @@
                 const tip = recent.length ? recent[recent.length - 1] : {};
                 renderProofChain({
                     verify: verify || {},
-                    total_records: (summary && summary.total_records) ?? verify?.records ?? 0,
+                    total_records: verify?.records ?? (summary && summary.total_records) ?? 0,
                     tip_hash: verify && verify.valid === true ? tip.chain_hash : null,
                     integrity_message: (summary && summary.integrity && summary.integrity.integrity_failure_reason) ||
                         verify?.integrity_failure_reason,
                 });
             } catch (error) {
                 console.debug(error);
-                renderProofPanelFailure(
-                    'Audit chain verify failed: ' + formatLedgerFetchError(error)
-                );
+                const verifyErr = formatLedgerFetchError(error);
+                renderProofPanelFailure('Audit chain verify failed: ' + verifyErr);
+                const auditEl = document.getElementById('audit-status');
+                if (auditEl) {
+                    auditEl.textContent = 'Live verify unavailable: ' + verifyErr;
+                    auditEl.style.color = 'var(--danger)';
+                }
             }
         }
 
@@ -902,22 +918,61 @@
             );
         }
 
-        function renderPublicMisses(oracle, archive) {
+        function liveMissRow(r) {
+            return {
+                prediction_id: r.prediction_id ?? r.id,
+                asset: r.asset,
+                verdict: r.verdict,
+                public_decision: r.public_decision || r.verdict,
+                label: r.label,
+                timestamp: r.timestamp,
+            };
+        }
+
+        function sortMissesNewestFirst(rows) {
+            return rows.slice().sort((a, b) =>
+                String(b.timestamp || '').localeCompare(String(a.timestamp || ''))
+            );
+        }
+
+        function renderPublicMisses(oracle, archive, liveLedger) {
             const archiveEl = document.getElementById('losing-archive-note');
             if (archiveEl) {
                 archiveEl.textContent = (archive && archive.note) ? archive.note : '';
                 archiveEl.style.display = (archive && archive.note) ? 'block' : 'none';
             }
-        }
-
-        function monthlyLosingRowsFromReport(data) {
-            const sample = data.sample || [];
-            if (sample.length) return sample;
-            const merged = [];
-            for (const block of (data.months || [])) {
-                for (const row of (block.misses || [])) merged.push(row);
+            const o = oracle || emptyOracleStats();
+            const ll = liveLedger || {};
+            const verified = Number(o.verified_errors ?? ll.verified_errors ?? 0);
+            const partialTotal = Number(o.partial_outcomes ?? ll.partial_outcomes ?? 0);
+            const source = String(o.live_source || ll.source || 'oracle_predictions').trim();
+            const raw = sortMissesNewestFirst(
+                (o.public_miss_sample || ll.miss_sample || []).map(liveMissRow)
+            );
+            const errors = raw.filter((r) => String(r.label || '').toLowerCase() === 'incorrect');
+            const partials = dedupeByAssetMinute(
+                raw.filter((r) => String(r.label || '').toLowerCase() === 'partial')
+            );
+            const statusEl = document.getElementById('losing-status');
+            if (statusEl) {
+                statusEl.textContent =
+                    `Live ledger · ${source} · ${verified.toLocaleString()} verified errors · ` +
+                    `${partialTotal.toLocaleString()} partial outcomes · ` +
+                    `showing ${errors.length} verified + ${partials.length} partial from latest miss sample`;
             }
-            return merged;
+            const errList = document.getElementById('losing-errors-list');
+            const partList = document.getElementById('losing-partial-list');
+            if (errList) {
+                errList.innerHTML = errors.length
+                    ? errors.map(renderMonthlyLosingRow).join('')
+                    : '<li>No verified errors in the latest live miss sample.</li>';
+            }
+            if (partList) {
+                partList.innerHTML = partials.length
+                    ? partials.map(renderMonthlyLosingRow).join('')
+                    : '<li>No partial outcomes in the latest live miss sample.</li>';
+            }
+            lastLosingShare = buildLedgerShareText(o);
         }
 
         function renderMonthlyLosingRow(r) {
@@ -930,81 +985,6 @@
             );
         }
 
-        function renderMonthlyLosingSlowMessage() {
-            if (monthlyLosingReportSettled) return;
-            const msg = 'Report is taking longer than usual. Refresh or open the Public Accuracy Ledger.';
-            const statusEl = document.getElementById('losing-status');
-            if (statusEl) statusEl.textContent = msg;
-            const errList = document.getElementById('losing-errors-list');
-            const partList = document.getElementById('losing-partial-list');
-            if (errList) errList.innerHTML = `<li>${esc(msg)}</li>`;
-            if (partList) partList.innerHTML = `<li>${esc(msg)}</li>`;
-        }
-
-        function renderMonthlyLosingFailure(message) {
-            monthlyLosingReportSettled = true;
-            const msg = message || 'Monthly losing report unavailable. Refresh the page or open the Public Accuracy Ledger.';
-            const statusEl = document.getElementById('losing-status');
-            if (statusEl) statusEl.textContent = msg;
-            const errList = document.getElementById('losing-errors-list');
-            const partList = document.getElementById('losing-partial-list');
-            if (errList) errList.innerHTML = `<li>${esc(msg)}</li>`;
-            if (partList) partList.innerHTML = `<li>${esc(msg)}</li>`;
-        }
-
-        function renderMonthlyLosingReport(data) {
-            monthlyLosingReportSettled = true;
-            const rows = monthlyLosingRowsFromReport(data);
-            const errors = rows.filter((r) => String(r.label || '').toLowerCase() === 'incorrect');
-            const partials = dedupeByAssetMinute(
-                rows.filter((r) => String(r.label || '').toLowerCase() === 'partial')
-            );
-            const statusEl = document.getElementById('losing-status');
-            if (statusEl) {
-                const month = data.month || '—';
-                const inMonth = data.current_month_misses ?? 0;
-                const windowTotal = data.total_labeled_misses_in_window ?? 0;
-                statusEl.textContent =
-                    `${data.title || 'Monthly Losing Trade Report'} · ${month} · ` +
-                    `${inMonth} misses this month · ${windowTotal} labeled misses in window`;
-            }
-            const errList = document.getElementById('losing-errors-list');
-            const partList = document.getElementById('losing-partial-list');
-            if (errList) {
-                errList.innerHTML = errors.length
-                    ? errors.map(renderMonthlyLosingRow).join('')
-                    : '<li>No verified errors in this monthly report window.</li>';
-            }
-            if (partList) {
-                partList.innerHTML = partials.length
-                    ? partials.map(renderMonthlyLosingRow).join('')
-                    : '<li>No partial outcomes in this monthly report window.</li>';
-            }
-            if (data.share_text) lastLosingShare = data.share_text;
-        }
-
-        async function loadMonthlyLosingReport() {
-            monthlyLosingReportSettled = false;
-            const slowTimer = setTimeout(renderMonthlyLosingSlowMessage, MONTHLY_LOSING_SLOW_UI_MS);
-            try {
-                const data = await fetchJsonWithTimeout(
-                    '/api/accuracy/monthly-losing-report?limit=12',
-                    {},
-                    MONTHLY_LOSING_FETCH_MS
-                );
-                if (!data || data.error) {
-                    throw new Error((data && data.message) || (data && data.error) || 'report_unavailable');
-                }
-                renderMonthlyLosingReport(data);
-            } catch (error) {
-                console.debug(error);
-                renderMonthlyLosingFailure(
-                    'Monthly losing report unavailable. Refresh the page or open the Public Accuracy Ledger.'
-                );
-            } finally {
-                clearTimeout(slowTimer);
-            }
-        }
         function ledgerPayloadRejectReason(data) {
             if (!data) return 'empty response';
             if (data.ok === false) return data.error || data.message || 'API reported failure';
@@ -1024,24 +1004,24 @@
                     {},
                     ORACLE_LEDGER_FETCH_MS
                 );
-                if (data.proof_chain) {
-                    renderProofChain(data.proof_chain);
-                }
                 if (data.transparency && data.transparency.production_engine) {
                     applyEngineTransparency(data);
                 }
                 if (applyLedgerPayload(data)) {
+                    refreshProofChainPanel(false).catch((err) => console.debug(err));
                     return;
                 }
                 const rejectReason = ledgerPayloadRejectReason(data);
                 const liveLedgerOk = !!(data.live_ledger && data.live_ledger.query_ok);
                 if (lastLedgerPayload && applyLedgerPayload(lastLedgerPayload)) {
+                    refreshProofChainPanel(false).catch((err) => console.debug(err));
                     return;
                 }
                 renderLedgerFailure(rejectReason, { skipLosing: true });
             } catch (error) {
                 console.debug(error);
                 if (lastLedgerPayload && applyLedgerPayload(lastLedgerPayload)) {
+                    refreshProofChainPanel(false).catch((err) => console.debug(err));
                     return;
                 }
                 const fetchErr = formatLedgerFetchError(error);
@@ -1225,7 +1205,6 @@
 
         function startLedgerBoot() {
             loadAccuracy().then(() => scheduleSecondaryLoad(loadLedgerShareKit));
-            loadMonthlyLosingReport().catch(() => {});
             scheduleSecondaryLoad(loadGlassBox);
             scheduleSecondaryLoad(loadMevReport);
             scheduleSecondaryLoad(loadLocked);

@@ -129,6 +129,7 @@ PUBLIC_HTML_EXACT: frozenset[str] = frozenset(
         "/refund",
         "/identity-standards",
         "/b2b",
+        "/b2b/pilot",
         "/sla",
         "/platform",
         "/institutional",
@@ -167,6 +168,7 @@ PUBLIC_HTML_EXACT: frozenset[str] = frozenset(
         "/unique-ten",
         "/d5-honesty",
         "/discipline-mirror",
+        "/trust-pulse/proof",
     }
 )
 
@@ -281,8 +283,10 @@ PUBLIC_API_EXACT: frozenset[str] = frozenset(
         "/api/strategy/zero-tolerance",
         "/b2b/committee-one-pager",
         "/api/b2b/demo",
+        "/api/b2b/pilot-request",
         "/docs",
         "/docs/public",
+        "/api/oracle/audit-chain/bootstrap-from-db",
     }
 )
 

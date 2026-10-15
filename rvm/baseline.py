@@ -219,9 +219,12 @@ def build_baseline() -> dict[str, Any]:
 
 
 def write_baseline() -> dict[str, Any]:
+    from path_safety import ensure_under
+
     data = build_baseline()
-    _BASELINE_OUT.parent.mkdir(parents=True, exist_ok=True)
-    _BASELINE_OUT.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    out = ensure_under(_BASELINE_OUT, _ROOT)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     return data
 
 

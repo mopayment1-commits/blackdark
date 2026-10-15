@@ -17,12 +17,14 @@ def test_public_oracle_symbols_matches_universe_registry():
 
 
 def test_landing_has_symbol_catalog_select():
+    import config
     from dashboard import app
 
     html = TestClient(app).get("/").text
-    assert 'id="symbolCatalog"' in html
-    assert 'id="symbolInput"' in html
-    assert "readonly" in html.split('id="symbolInput"', 1)[1][:200]
+    assert 'id="symbol"' in html
+    assert 'class="oracle-symbol-select"' in html
+    assert 'id="symbolInput"' not in html
+    assert 'id="symbolCatalog"' not in html
     assert 'BTC / ETH / SOL' not in html
     assert html.count('<option value="BTC"') >= 1
-    assert html.count("<option value=") >= 50
+    assert html.count("<option value=") >= len(config.UNIVERSE_ASSETS) - 5

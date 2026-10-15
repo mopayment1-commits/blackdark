@@ -158,9 +158,9 @@ def public_docs_prefix_rows() -> list[dict[str, str]]:
     return rows
 
 
-def public_docs_manifest() -> dict[str, Any]:
+def public_docs_manifest(*, include_post_only_public_prefixes: bool = False) -> dict[str, Any]:
     read_prefixes = public_docs_read_prefixes()
-    return {
+    out: dict[str, Any] = {
         "title": "BLACKDARK Public Developer Docs",
         "policy": "evidence_and_read_only",
         "html": "/docs",
@@ -168,7 +168,6 @@ def public_docs_manifest() -> dict[str, Any]:
         "full_openapi_ops": "/api/docs/openapi.json",
         "allowed_prefixes": read_prefixes,
         "allowed_prefix_rows": public_docs_prefix_rows(),
-        "post_only_public_prefixes": sorted(PUBLIC_DOCS_READ_PREFIX_EXCLUDE),
         "primary_surfaces": [
             {"path": PATH_ORACLE_ACCURACY, "role": "Public Accuracy Ledger including misses"},
             {"path": "/errors", "role": "Alias → ledger misses section"},
@@ -181,3 +180,6 @@ def public_docs_manifest() -> dict[str, Any]:
             "Engineering posture ≠ ISO 27001 certificate."
         ),
     }
+    if include_post_only_public_prefixes:
+        out["post_only_public_prefixes"] = sorted(PUBLIC_DOCS_READ_PREFIX_EXCLUDE)
+    return out

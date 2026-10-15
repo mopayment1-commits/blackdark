@@ -77,6 +77,12 @@ async def market_open_interest():
     }
 
 
+@router.get("/oi")
+async def market_oi():
+    """Short alias for dashboard Open Interest (same payload as /open-interest)."""
+    return await market_open_interest()
+
+
 @router.get("/sectors")
 async def market_sectors():
     try:
