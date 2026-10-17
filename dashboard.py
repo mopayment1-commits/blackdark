@@ -969,6 +969,13 @@ except ImportError:
     pass
 
 try:
+    from api.routers.owner_admin import router as owner_admin_router
+
+    app.include_router(owner_admin_router)
+except ImportError:
+    pass
+
+try:
     from api.routers.arbitrage import router as arbitrage_router
 
     app.include_router(arbitrage_router)
@@ -2473,18 +2480,6 @@ async def api_trust_pulse_manifest():
     from trust_pulse import trust_pulse_manifest
 
     return trust_pulse_manifest()
-
-
-@app.get("/admin", response_class=HTMLResponse)
-async def admin_owner_dashboard_page(request: Request, _admin: dict = Depends(require_admin_dev)):
-    return templates.TemplateResponse(request, "admin_dashboard.html")
-
-
-@app.get("/api/admin/owner-metrics")
-async def api_admin_owner_metrics(_admin: dict = Depends(require_admin_dev)):
-    from owner_admin_dashboard import fetch_owner_dashboard_metrics
-
-    return await fetch_owner_dashboard_metrics()
 
 
 @app.get("/admin/launch", response_class=HTMLResponse)

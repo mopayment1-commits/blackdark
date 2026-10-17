@@ -27,6 +27,12 @@ def test_admin_root_classified_as_admin():
     assert not path_is_public("/api/admin/owner-metrics")
 
 
+def test_admin_routes_registered_on_app():
+    paths = set(app.openapi().get("paths") or {})
+    assert "/admin" in paths
+    assert "/api/admin/owner-metrics" in paths
+
+
 def test_owner_metrics_requires_admin(client):
     assert client.get("/admin").status_code in {401, 403}
     assert client.get("/api/admin/owner-metrics").status_code in {401, 403}
