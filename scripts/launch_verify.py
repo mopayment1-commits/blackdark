@@ -43,7 +43,7 @@ def _probe_group(items: list[tuple[str, str]]) -> int:
 
 
 def _probe_admin_gates(base: str) -> None:
-    for path in ("/admin/launch", "/admin/plan", "/admin/roadmap"):
+    for path in ("/admin", "/admin/launch", "/admin/plan", "/admin/roadmap"):
         try:
             with safe_urlopen(assert_safe_http_url(f"{base}{path}"), timeout=8) as resp:
                 print(f"  [WARN] {path} publicly reachable — got {resp.status}")
