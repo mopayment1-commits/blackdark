@@ -37,6 +37,9 @@
         }
         .hero h1 { font-size: 2.2rem; margin-bottom: 0.75rem; }
         .hero p { color: var(--muted); max-width: 760px; margin: 0 auto 2rem; }
+        .hero { min-height: 17rem; }
+        .stat .subnote { min-height: 2.4rem; }
+        .hero .cta-row { min-height: 2.75rem; }
         .badge {
             display: inline-block; padding: 0.35rem 0.9rem; border-radius: 999px;
             background: rgba(34,211,238,0.12); color: var(--accent);
@@ -54,16 +57,29 @@
         .metrics-explainer {
             max-width: 1100px; margin: -0.5rem auto 1.25rem; padding: 0 1.5rem;
             color: var(--muted); font-size: 0.82rem; line-height: 1.5;
+            min-height: 2.5rem;
         }
+        #transparency-note { min-height: 3.5rem; }
+        #chain-status { min-height: 1.35rem; }
+        #engine-label { display: inline-block; min-width: 7rem; }
+        .badge { min-height: 1.5rem; line-height: 1.4; }
+        #proof-panel { min-height: 3.25rem; }
+        #engine-badge { display: inline-block; min-width: 6rem; }
         .grid {
             max-width: 1100px; margin: 0 auto; padding: 1rem 1.5rem 3rem;
             display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem;
         }
+        #panel-ledger-stats { min-height: 240px; content-visibility: auto; contain-intrinsic-size: 240px; }
+        #panel-latest-table { min-height: 320px; }
         .stat {
             background: var(--card); border: 1px solid var(--border);
             border-radius: 14px; padding: 1.25rem;
         }
-        .stat .num { font-size: 2rem; font-weight: 800; color: var(--accent); }
+        .stat .num {
+            font-size: 2rem; font-weight: 800; color: var(--accent);
+            min-height: 2.4rem; font-variant-numeric: tabular-nums;
+        }
+        #predictions-body { min-height: 4rem; }
         .stat .lbl { color: var(--muted); font-size: 0.9rem; margin-top: 0.25rem; }
         .panel {
             max-width: 1100px; margin: 0 auto 2rem; padding: 0 1.5rem;
@@ -288,7 +304,7 @@
         </div>
     </section>
 
-    <section class="grid" id="panel-ledger-stats" style="display:none">
+    <section class="grid" id="panel-ledger-stats" aria-busy="true">
         <div class="stat"><div class="num" id="stat-accuracy">—</div><div class="lbl">Average accuracy %</div><div class="subnote" id="stat-accuracy-note"></div></div>
         <div class="stat"><div class="num" id="stat-total">—</div><div class="lbl">Total predictions (logged)</div><div class="subnote" id="stat-resolved-note"></div></div>
         <div class="stat"><div class="num" id="stat-labeled">—</div><div class="lbl">Training samples (labeled)</div><div class="subnote" id="stat-labeled-note"></div></div>
@@ -299,7 +315,7 @@
 
     <p id="metrics-explainer" class="metrics-explainer" aria-live="polite"></p>
 
-    <section class="panel" id="panel-latest-table" style="display:none">
+    <section class="panel" id="panel-latest-table" aria-busy="true">
         <div class="card">
             <h2>Latest scored predictions</h2>
             <p id="recent-table-note" style="color:var(--muted);font-size:0.82rem;margin-bottom:0.75rem"></p>
