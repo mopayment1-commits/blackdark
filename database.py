@@ -1282,6 +1282,10 @@ async def _apply_migrations(db: Any) -> None:
 
     await ensure_miss_bounty_schema_on_db(db)
 
+    from sealed_market_store import ensure_sealed_market_schema_on_db
+
+    await ensure_sealed_market_schema_on_db(db)
+
     from blackdark.canonical.store import ensure_canonical_schema
 
     await ensure_canonical_schema(db)
@@ -2338,6 +2342,18 @@ async def insert_oracle_prediction(
                 row_id,
                 asset,
             )
+        try:
+            from sealed_prediction_market import on_oracle_prediction_sealed
+
+            await on_oracle_prediction_sealed(
+                row_id,
+                asset=asset,
+                verdict=verdict,
+                price_at_prediction=price_at_prediction,
+                timestamp=ts,
+            )
+        except Exception:
+            logger.exception("Sealed market create failed prediction_id=%s", row_id)
     return row_id
 
 
@@ -2454,6 +2470,12 @@ async def resolve_oracle_prediction(
                 "Track record append failed on resolve prediction_id=%s",
                 prediction_id,
             )
+    try:
+        from sealed_prediction_market import on_oracle_prediction_resolved_market
+
+        await on_oracle_prediction_resolved_market(prediction_id, label=label)
+    except Exception:
+        logger.exception("Sealed market settlement hook failed prediction_id=%s", prediction_id)
 
 
 def _empty_oracle_audit_stats() -> dict[str, Any]:

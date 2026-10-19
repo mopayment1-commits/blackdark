@@ -999,6 +999,13 @@ except ImportError:
     pass
 
 try:
+    from api.routers.sealed_markets import router as sealed_markets_router
+
+    app.include_router(sealed_markets_router)
+except ImportError:
+    pass
+
+try:
     from api.routers.market import router as market_router
 
     app.include_router(market_router)
@@ -4175,6 +4182,20 @@ async def oracle_accuracy_page(request: Request):
 @app.get("/miss-bounty-log", response_class=HTMLResponse)
 async def miss_bounty_log_page(request: Request):
     return render_page(request, "miss_bounty_log.html", _footer_ctx())
+
+
+@app.get("/sealed-markets", response_class=HTMLResponse)
+async def sealed_markets_page(request: Request):
+    return render_page(request, "sealed_markets.html", _footer_ctx())
+
+
+@app.get("/oracle-decision/{prediction_id}", response_class=HTMLResponse)
+async def oracle_decision_market_page(request: Request, prediction_id: int):
+    return render_page(
+        request,
+        "oracle_decision_market.html",
+        {**_footer_ctx(), "prediction_id": prediction_id},
+    )
 
 
 @app.get("/lenses", response_class=HTMLResponse)

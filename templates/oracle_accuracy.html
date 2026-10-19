@@ -175,6 +175,7 @@
             <a class="btn btn-secondary" href="#audit-challenge">Audit Challenge</a>
             <a class="btn btn-secondary" href="#losing">{{ t('ledger.cta.misses') }}</a>
             <a class="btn btn-secondary" href="/miss-bounty-log">Miss Bounty Log</a>
+            <a class="btn btn-secondary" href="/sealed-markets">Sealed Markets</a>
             <a class="btn btn-secondary" href="#glass-box-challenge">{{ t('ledger.cta.glass') }}</a>
             <a class="btn btn-secondary" href="#mev-report">MEV Report</a>
             <a class="btn btn-secondary" href="#locked">Locked Predictions</a>
@@ -257,6 +258,16 @@
                 <button class="btn btn-secondary" type="button" id="copyMevBtn">Copy share text</button>
             </div>
             <p id="mev-compliance" style="margin-top:0.65rem;font-size:0.72rem;color:var(--muted)"></p>
+        </div>
+    </section>
+
+    <section class="panel" id="sealed-markets-panel">
+        <div class="card">
+            <h2>Sealed Prediction Markets</h2>
+            <p class="muted" style="font-size:0.88rem">Oracle Act/Wait decisions sealed before the 24h outcome — stake on correctness (max 50 USDT, 5% fee on losing pool).</p>
+            <p id="sealed-markets-status" class="muted">Loading…</p>
+            <ul class="events" id="sealed-markets-list"><li>Loading…</li></ul>
+            <a class="btn btn-secondary" href="/sealed-markets" style="margin-top:0.75rem;display:inline-block">All sealed markets</a>
         </div>
     </section>
 
@@ -1249,8 +1260,34 @@
             }
         }
 
+        async function loadSealedMarkets() {
+            const st = document.getElementById('sealed-markets-status');
+            const list = document.getElementById('sealed-markets-list');
+            try {
+                const d = await fetchJsonWithTimeout('/api/sealed-markets/public', {}, ORACLE_LEDGER_SECONDARY_MS);
+                const active = d.active || [];
+                const settled = (d.settled || []).slice(0, 6);
+                if (st) st.textContent = `${active.length} active · ${settled.length} recent settled`;
+                const rows = [...active, ...settled];
+                if (!list) return;
+                if (!rows.length) {
+                    list.innerHTML = '<li>No sealed markets yet — created with each new Oracle decision.</li>';
+                    return;
+                }
+                list.innerHTML = rows.map(m =>
+                    `<li><strong>${esc(m.asset)}</strong> · ${esc(m.decision_action)} · pool ${esc(m.total_pool_usdt)} USDT · ` +
+                    `${esc(m.participant_count)} bettors · <code>${esc(String(m.certificate_hash || '').slice(0,12))}…</code> · ` +
+                    `<a href="/oracle-decision/${esc(m.prediction_id)}">view</a></li>`
+                ).join('');
+            } catch (e) {
+                if (st) st.textContent = 'Sealed markets unavailable';
+                if (list) list.innerHTML = '<li>—</li>';
+            }
+        }
+
         function startLedgerBoot() {
             loadAccuracy().then(() => scheduleSecondaryLoad(loadLedgerShareKit));
+            scheduleSecondaryLoad(loadSealedMarkets);
             scheduleSecondaryLoad(loadGlassBox);
             scheduleSecondaryLoad(loadMevReport);
             scheduleSecondaryLoad(loadLocked);

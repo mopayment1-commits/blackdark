@@ -149,6 +149,7 @@ PUBLIC_HTML_EXACT: frozenset[str] = frozenset(
         "/corpus-passport",
         "/miss-feed",
         "/miss-bounty-log",
+        "/sealed-markets",
         "/coverage-honesty",
         "/priority-chain",
         "/zero-tolerance",
@@ -175,6 +176,7 @@ PUBLIC_HTML_EXACT: frozenset[str] = frozenset(
 
 PUBLIC_HTML_PREFIXES: tuple[str, ...] = (
     "/oracle/",
+    "/oracle-decision/",
 )
 
 # Launch-57 anonymous public API — explicit paths only (SPEC_02 §22; no broad prefix).
@@ -221,6 +223,7 @@ PUBLIC_API_PREFIXES: tuple[str, ...] = (
     "/api/oracle/accuracy",
     "/api/oracle/miss-bounty/public-log",
     "/api/oracle/miss-bounty/eligibility",
+    "/api/sealed-markets/",
     "/api/oracle/audit-chain",
     "/api/oracle/half-life",
     "/api/public/",
@@ -277,6 +280,7 @@ PUBLIC_API_EXACT: frozenset[str] = frozenset(
         "/corpus-passport",
         "/miss-feed",
         "/miss-bounty-log",
+        "/sealed-markets",
         "/coverage-honesty",
         "/priority-chain",
         "/zero-tolerance",
