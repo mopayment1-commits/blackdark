@@ -296,6 +296,11 @@
             <div class="tp-cta">
                 <button class="btn" type="button" data-bd-call="openFullProof">Open full proof</button>
                 <button class="btn secondary" type="button" id="tpShareBtn" data-bd-call="shareTrustPulse" data-bd-sync="1" hidden>Share Proof</button>
+                <button class="btn secondary" type="button" id="tpArbBtn" style="display:none">View Arb Opportunities</button>
+            </div>
+            <div id="tpArbPanel" hidden style="margin:.75rem 0;font-size:.85rem;border-top:1px solid #2a2a35;padding-top:.65rem">
+                <p style="color:#71717a;margin-bottom:.35rem">Cross-exchange spreads — display only (max 5). Not execution.</p>
+                <ul id="tpArbList" style="list-style:none;padding:0;margin:0"></ul>
             </div>
             <div class="tp-foot" id="tpFoot"><strong>Anti-Hype</strong> · Not financial advice · AI cannot guarantee returns</div>
             <div class="entry-rail hide-in-room tp-entry-rail" id="entryRail" aria-label="Primary entries"></div>
@@ -914,9 +919,57 @@
                     applyUpgradeButton();
                     syncChatGate();
                     syncDailyReportMarkdownBtn();
+                    syncTrustPulseArbButton();
                 }
             } catch (error) { console.debug(error); }
         }
+
+        function isPaidSubscriberTier(tier) {
+            const t = String(tier || 'free').toLowerCase();
+            return ['pro', 'elite', 'quant', 'institutional', 'whale'].includes(t);
+        }
+
+        function syncTrustPulseArbButton() {
+            const btn = document.getElementById('tpArbBtn');
+            if (!btn) return;
+            btn.style.display = isPaidSubscriberTier(userTierId) ? '' : 'none';
+        }
+
+        async function toggleTrustPulseArbPanel() {
+            const panel = document.getElementById('tpArbPanel');
+            const list = document.getElementById('tpArbList');
+            const sym = trustPulseSymbolValue() || 'BTC';
+            if (!panel || !list) return;
+            panel.hidden = !panel.hidden;
+            if (panel.hidden) return;
+            list.innerHTML = '<li>Loading…</li>';
+            try {
+                const res = await fetch('/api/oracle/arb-opportunities/' + encodeURIComponent(sym), {
+                    credentials: 'same-origin',
+                    headers: authHeaders(),
+                });
+                const d = await res.json();
+                if (!res.ok) {
+                    const msg = (d.detail && d.detail.message) || d.detail || 'Unavailable';
+                    list.innerHTML = '<li>' + esc(String(msg)) + '</li>';
+                    return;
+                }
+                const rows = d.opportunities || [];
+                list.innerHTML = rows.length
+                    ? rows.map((o) => (
+                        '<li style="margin:.4rem 0"><strong>' + esc(o.exchange_1) + '</strong> vs <strong>' + esc(o.exchange_2) + '</strong> · ' +
+                        esc(o.price_diff_percent) + '% · ' +
+                        '<a href="' + esc(o.link_exchange_1) + '" target="_blank" rel="noopener">' + esc(o.exchange_1) + '</a> · ' +
+                        '<a href="' + esc(o.link_exchange_2) + '" target="_blank" rel="noopener">' + esc(o.exchange_2) + '</a></li>'
+                    )).join('')
+                    : '<li>No cross-exchange spreads for ' + esc(sym) + ' right now.</li>';
+            } catch (error) {
+                console.debug(error);
+                list.innerHTML = '<li>Could not load arb opportunities.</li>';
+            }
+        }
+
+        document.getElementById('tpArbBtn')?.addEventListener('click', () => { toggleTrustPulseArbPanel(); });
 
         async function upgradeTier(tier) {
             if (currentLens === 'prove') {

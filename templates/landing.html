@@ -706,6 +706,11 @@
                     <div class="tp-mini-cta">
                         <a href="/dashboard?lens=prove#trust-pulse" class="btn-primary" style="padding:.55rem 1.1rem;font-size:.9rem">{{ t('pulse.open_full') }}</a>
                         <button type="button" class="btn-secondary" style="padding:.55rem 1.1rem;font-size:.9rem;cursor:pointer" id="lpShareBtn">{{ t('pulse.share') }}</button>
+                        <button type="button" class="btn-secondary" style="padding:.55rem 1.1rem;font-size:.9rem;cursor:pointer;display:none" id="lpArbBtn">View Arb Opportunities</button>
+                    </div>
+                    <div id="lpArbPanel" hidden style="margin-top:.75rem;text-align:left;font-size:.82rem;border-top:1px solid var(--border);padding-top:.65rem">
+                        <p style="color:var(--muted);margin-bottom:.35rem">Cross-exchange spreads (display only · max 5)</p>
+                        <ul id="lpArbList" style="list-style:none;padding:0;margin:0"></ul>
                     </div>
                     <p class="tp-mini-foot bd-anti-hype">{{ t('pulse.foot') }}</p>
                 </div>
@@ -2063,6 +2068,56 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 openWindow(proof.share_urls.x);
             }
         }
+        function landingPaidTier(tier) {
+            const t = String(tier || 'free').toLowerCase();
+            return ['pro', 'elite', 'quant', 'institutional', 'whale'].includes(t);
+        }
+
+        async function syncLandingArbButton() {
+            const btn = document.getElementById('lpArbBtn');
+            if (!btn) return;
+            try {
+                const res = await fetch('/api/auth/me', { credentials: 'same-origin' });
+                const d = await res.json();
+                const tier = (d.user && d.user.tier) || (d.tier && (d.tier.tier || d.tier.id)) || 'free';
+                btn.style.display = (d.authenticated && landingPaidTier(tier)) ? '' : 'none';
+            } catch (error) {
+                btn.style.display = 'none';
+            }
+        }
+
+        async function toggleLandingArbPanel() {
+            const panel = document.getElementById('lpArbPanel');
+            const list = document.getElementById('lpArbList');
+            const sym = landingPulseSymbol || landingSymbolValue() || 'BTC';
+            if (!panel || !list) return;
+            panel.hidden = !panel.hidden;
+            if (panel.hidden) return;
+            list.innerHTML = '<li>Loading…</li>';
+            try {
+                const res = await fetch('/api/oracle/arb-opportunities/' + encodeURIComponent(sym), { credentials: 'same-origin' });
+                const d = await res.json();
+                if (!res.ok) {
+                    const msg = (d.detail && d.detail.message) || d.detail || 'Upgrade required';
+                    list.innerHTML = '<li>' + String(msg) + '</li>';
+                    return;
+                }
+                const rows = d.opportunities || [];
+                list.innerHTML = rows.length
+                    ? rows.map((o) => (
+                        '<li style="margin:.35rem 0"><strong>' + o.exchange_1 + '</strong> vs <strong>' + o.exchange_2 + '</strong> · ' +
+                        o.price_diff_percent + '% · ' +
+                        '<a href="' + o.link_exchange_1 + '" target="_blank" rel="noopener">' + o.exchange_1 + '</a> · ' +
+                        '<a href="' + o.link_exchange_2 + '" target="_blank" rel="noopener">' + o.exchange_2 + '</a></li>'
+                    )).join('')
+                    : '<li>No spreads for ' + sym + ' right now.</li>';
+            } catch (error) {
+                list.innerHTML = '<li>Could not load arb opportunities.</li>';
+            }
+        }
+
+        document.getElementById('lpArbBtn')?.addEventListener('click', () => { toggleLandingArbPanel(); });
+
         document.getElementById('lpShareBtn')?.addEventListener('click', (ev) => {
             const btn = ev.currentTarget;
             if (!(btn instanceof HTMLElement)) return;
@@ -2077,6 +2132,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             updateShareLinks(null);
             loadLandingAnalytics();
             loadTelegramBotLink();
+            void syncLandingArbButton();
             void loadLandingTrustPulse();
             setTimeout(consultOracle, 500);
             if ('serviceWorker' in navigator) {
