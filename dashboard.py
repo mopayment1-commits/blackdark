@@ -968,12 +968,9 @@ try:
 except ImportError:
     pass
 
-try:
-    from api.routers.owner_admin import router as owner_admin_router
+from api.routers.owner_admin import router as owner_admin_router
 
-    app.include_router(owner_admin_router)
-except ImportError:
-    pass
+app.include_router(owner_admin_router)
 
 try:
     from api.routers.arbitrage import router as arbitrage_router
@@ -5274,6 +5271,17 @@ async def health():
     }
 
 
+def _build_release_label() -> str:
+    build_file = BASE_DIR / "BUILD.txt"
+    try:
+        for line in build_file.read_text(encoding="utf-8").splitlines():
+            if line.strip().startswith("RELEASE="):
+                return line.split("=", 1)[1].strip()
+    except OSError:
+        pass
+    return "unknown"
+
+
 @app.get("/api/build-info", responses=COMMON_ERROR_RESPONSES)
 async def build_info():
     """Verify which commit Railway is actually running."""
@@ -5289,9 +5297,11 @@ async def build_info():
         logger.warning("cap646 router import failed detail=%s", sanitize_log_value(exc))
         cap646_import_error = "cap646_import_unavailable"
         cap646_routes = 0
+    schema_paths = set(app.openapi().get("paths") or {})
+    owner_admin_registered = "/admin" in schema_paths and "/api/admin/owner-metrics" in schema_paths
     return {
         "ui_language": "en",
-        "release": "2026-07-27-launch-phase-v8",
+        "release": _build_release_label(),
         "git_commit": os.getenv("RAILWAY_GIT_COMMIT_SHA") or os.getenv("GIT_COMMIT"),
         "git_branch": os.getenv("RAILWAY_GIT_BRANCH"),
         "git_message": os.getenv("RAILWAY_GIT_COMMIT_MESSAGE"),
@@ -5302,6 +5312,8 @@ async def build_info():
         "cap646_router_import_ok": cap646_import_ok,
         "cap646_router_routes": cap646_routes,
         "cap646_import_error": cap646_import_error,
+        "owner_admin_registered": owner_admin_registered,
+        "owner_admin_paths": [p for p in ("/admin", "/api/admin/owner-metrics") if p in schema_paths],
     }
 
 @app.post("/portfolio/analyze", responses=COMMON_ERROR_RESPONSES)
