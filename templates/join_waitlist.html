@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Join waitlist · BLACKDARK</title>
+    <title>{{ t('waitlist.page.title') }} · BLACKDARK</title>
     {% include "partials/seo_canonical.html" %}
     <link rel="stylesheet" href="/static/css/trust-os.css">
     <style>
@@ -18,25 +18,33 @@
         button { padding: .75rem 1rem; border-radius: 10px; border: none; background: var(--accent); color: #0a0a0f; font-weight: 700; cursor: pointer; }
         #waitlistMessage { min-height: 1.5rem; margin-top: .5rem; font-size: .9rem; }
         a { color: var(--accent); }
+        .join-top { max-width: 520px; margin: 0 auto; padding: 1rem 1.25rem 0; display: flex; justify-content: flex-end; }
     </style>
 </head>
 <body>
+    <div class="join-top">{% include 'partials/lang_switcher.html' %}</div>
     <main>
-        <h1>Join the waitlist</h1>
-        <p>Launch updates for Trust OS — no fake seat counters. Counts on the homepage load from live <code>/api/analytics/stats</code>.</p>
+        <h1>{{ t('waitlist.page.h1') }}</h1>
+        <p>{{ t('waitlist.page.body') }}</p>
         <form id="waitlistForm">
-            <input type="email" id="waitlistEmail" placeholder="Email" required autocomplete="email" aria-label="Email">
-            <button type="submit">Join</button>
+            <input type="email" id="waitlistEmail" placeholder="{{ t('waitlist.email_placeholder') }}" required autocomplete="email" aria-label="{{ t('waitlist.email_aria') }}">
+            <button type="submit">{{ t('waitlist.page.submit') }}</button>
         </form>
         <p id="waitlistMessage" aria-live="polite"></p>
-        <p style="margin-top:2rem;font-size:.85rem"><a href="/">← Back to homepage</a></p>
+        <p style="margin-top:2rem;font-size:.85rem"><a href="/">{{ t('waitlist.page.back') }}</a></p>
     </main>
+    <script src="/static/js/bd_i18n.js" defer></script>
     <script>
+        function i18nT(key, vars) {
+            const i18n = window.BD_I18N;
+            if (!i18n || typeof i18n.t !== 'function') return '';
+            return i18n.t(key, vars);
+        }
         document.getElementById('waitlistForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const msg = document.getElementById('waitlistMessage');
             const email = document.getElementById('waitlistEmail').value.trim();
-            msg.textContent = 'Submitting…';
+            msg.textContent = i18nT('waitlist.msg.submitting');
             msg.style.color = 'var(--muted)';
             try {
                 const res = await fetch('/join-waitlist', {
@@ -46,15 +54,15 @@
                 });
                 const data = await res.json().catch(() => ({}));
                 if (!res.ok) {
-                    msg.textContent = data.detail || data.message || 'Could not join — try again.';
+                    msg.textContent = data.detail || data.message || i18nT('waitlist.msg.error');
                     msg.style.color = 'var(--bad)';
                     return;
                 }
-                msg.textContent = data.message || `You are #${data.position} on the waitlist.`;
+                msg.textContent = data.message || i18nT('waitlist.msg.welcome', { position: data.position });
                 msg.style.color = 'var(--ok)';
                 document.getElementById('waitlistEmail').value = '';
             } catch (err) {
-                msg.textContent = 'Network error — try again.';
+                msg.textContent = i18nT('waitlist.msg.network');
                 msg.style.color = 'var(--bad)';
             }
         });
