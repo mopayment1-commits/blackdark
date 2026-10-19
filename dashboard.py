@@ -992,6 +992,13 @@ except ImportError:
     pass
 
 try:
+    from api.routers.miss_bounty import router as miss_bounty_router
+
+    app.include_router(miss_bounty_router)
+except ImportError:
+    pass
+
+try:
     from api.routers.market import router as market_router
 
     app.include_router(market_router)
@@ -4163,6 +4170,11 @@ async def ingestion_run_once(_admin: dict = Depends(require_admin)):
 async def oracle_accuracy_page(request: Request):
     # Public ledger must stay visible without an ack wall (hits + misses).
     return render_page(request, "oracle_accuracy.html", _footer_ctx())
+
+
+@app.get("/miss-bounty-log", response_class=HTMLResponse)
+async def miss_bounty_log_page(request: Request):
+    return render_page(request, "miss_bounty_log.html", _footer_ctx())
 
 
 @app.get("/lenses", response_class=HTMLResponse)

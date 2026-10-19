@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="{{ lang|default('en') }}" dir="{{ dir|default('ltr') }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLACKDARK — Miss Bounty Log</title>
+    <link rel="stylesheet" href="/static/css/trust-os.css">
+    <style>
+        body { font-family: var(--bd-font-body); background: #0a0a0f; color: #e4e4e7; line-height: 1.6; }
+        .wrap { max-width: 960px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+        h1 { font-size: 1.75rem; margin-bottom: 0.5rem; }
+        .muted { color: #71717a; font-size: 0.9rem; }
+        table { width: 100%; border-collapse: collapse; margin-top: 1.5rem; font-size: 0.88rem; }
+        th, td { padding: 0.65rem 0.5rem; border-bottom: 1px solid #2a2a35; text-align: left; }
+        th { color: #71717a; }
+        .pill { display: inline-block; padding: 0.12rem 0.5rem; border-radius: 999px; font-size: 0.72rem; font-weight: 700; }
+        .pill.approved { background: rgba(34,197,94,0.15); color: #22c55e; }
+        .pill.rejected, .pill.auto_rejected { background: rgba(239,68,68,0.12); color: #ef4444; }
+        a { color: #22d3ee; }
+    </style>
+</head>
+<body>
+    {% set nav_active = 'verify' %}
+    {% include 'partials/site_top_nav.html' %}
+    <div class="wrap">
+        <h1>Verified Miss Bounty Log</h1>
+        <p class="muted">
+            Public record of accepted and rejected bounty claims. Reward: <strong>20% off one subscription month</strong>
+            (not cash or USDT). No personal data is published.
+        </p>
+        <p class="muted"><a href="/oracle-accuracy">← Public Accuracy Ledger</a></p>
+        <p id="status" class="muted">Loading…</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Ref</th>
+                    <th>Asset</th>
+                    <th>Decision ID</th>
+                    <th>Status</th>
+                    <th>Decided</th>
+                    <th>Note</th>
+                </tr>
+            </thead>
+            <tbody id="log-body"><tr><td colspan="6">Loading…</td></tr></tbody>
+        </table>
+    </div>
+    {% include "partials/site_footer.html" %}
+    <script>
+        function esc(s) {
+            return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        }
+        async function loadLog() {
+            const st = document.getElementById('status');
+            const body = document.getElementById('log-body');
+            try {
+                const res = await fetch('/api/oracle/miss-bounty/public-log');
+                const data = await res.json();
+                const rows = data.claims || [];
+                st.textContent = rows.length ? `${rows.length} published outcomes` : 'No published claims yet.';
+                if (!rows.length) {
+                    body.innerHTML = '<tr><td colspan="6">No claims yet.</td></tr>';
+                    return;
+                }
+                body.innerHTML = rows.map(r => (
+                    `<tr>
+                        <td><code>${esc(r.public_ref)}</code></td>
+                        <td>${esc(r.asset || '—')}</td>
+                        <td>${esc(r.prediction_id)}</td>
+                        <td><span class="pill ${esc(r.status)}">${esc(r.status)}</span></td>
+                        <td>${esc((r.decided_at || '').slice(0, 19))}</td>
+                        <td>${esc(r.outcome_note || '')}</td>
+                    </tr>`
+                )).join('');
+            } catch (e) {
+                st.textContent = 'Could not load log.';
+                body.innerHTML = '<tr><td colspan="6">Error loading log.</td></tr>';
+            }
+        }
+        loadLog();
+    </script>
+</body>
+</html>

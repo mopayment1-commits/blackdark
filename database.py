@@ -1278,6 +1278,10 @@ async def _apply_migrations(db: Any) -> None:
 
     await _ensure_compounding_tables(db)
 
+    from miss_bounty_store import ensure_miss_bounty_schema_on_db
+
+    await ensure_miss_bounty_schema_on_db(db)
+
     from blackdark.canonical.store import ensure_canonical_schema
 
     await ensure_canonical_schema(db)
@@ -2669,6 +2673,24 @@ def _oracle_prediction_row_dict(row: Any) -> dict[str, Any]:
         if callable(keys):
             return {k: row[k] for k in keys()}
     return {}
+
+
+async def fetch_oracle_prediction_public_row(prediction_id: int) -> dict[str, Any] | None:
+    """Single live ledger row for bounty eligibility (excludes historical_seed)."""
+    from oracle_integrity import live_source_sql
+
+    if prediction_id <= 0:
+        return None
+    live_clause = live_source_sql()
+    sql = f"SELECT * FROM oracle_predictions WHERE id = ? AND {live_clause}"  # nosec B608
+    async with get_connection() as db:
+        try:
+            await _ensure_oracle_prediction_columns(db)
+        except Exception:
+            pass
+        row = await (await db.execute(sql, (int(prediction_id),))).fetchone()
+    data = _oracle_prediction_row_dict(row)
+    return data or None
 
 
 async def fetch_live_public_ledger(
