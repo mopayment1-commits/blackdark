@@ -540,6 +540,13 @@ async def auth_oauth_callback(
             ),
         ) from exc
     except Exception as exc:
+        from postgres_backend import _is_pg_connect_error
+
+        if oauth_fail_step == "db" and _is_pg_connect_error(exc):
+            raise HTTPException(
+                status_code=503,
+                detail="Sign-in database is temporarily unreachable. Please try again in a moment.",
+            ) from exc
         raise HTTPException(
             status_code=502,
             detail=(

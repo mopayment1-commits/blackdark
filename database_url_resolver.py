@@ -158,7 +158,7 @@ def host_resolves(host: str | None, *, timeout: float = 2.0) -> bool:
         socket.setdefaulttimeout(prev)
 
 
-def resolve_database_url() -> tuple[str | None, dict[str, Any]]:
+def resolve_database_url(*, prefer_public: bool = False) -> tuple[str | None, dict[str, Any]]:
     """Pick the first DSN whose hostname resolves; fall back to first candidate."""
     candidates = candidate_database_urls()
     meta: dict[str, Any] = {
@@ -174,6 +174,19 @@ def resolve_database_url() -> tuple[str | None, dict[str, Any]]:
         return None, meta
 
     public_pair = next(((k, u) for k, u in candidates if k == "DATABASE_PUBLIC_URL"), None)
+
+    if prefer_public and public_pair:
+        pub_key, pub_url = public_pair
+        pub_host = database_host(pub_url)
+        meta.update(
+            {
+                "selected_env": pub_key,
+                "selected_host": pub_host,
+                "selection": "railway_public_preferred",
+            }
+        )
+        dsn, _ = prepare_asyncpg_dsn(pub_url)
+        return dsn, meta
 
     for key, url in candidates:
         host = database_host(url)
@@ -213,14 +226,15 @@ def resolve_database_url() -> tuple[str | None, dict[str, Any]]:
     key, url = candidates[0]
     host = database_host(url)
     if _is_railway_internal_host(host):
-        meta.update(
-            {
-                "selected_env": key,
-                "selected_host": host,
-                "selection": "railway_internal_unresolved_no_public",
-            }
-        )
-        return None, meta
+        if not host_resolves(host):
+            meta.update(
+                {
+                    "selected_env": key,
+                    "selected_host": host,
+                    "selection": "railway_internal_unresolved_no_public",
+                }
+            )
+            return None, meta
 
     meta.update({"selected_env": key, "selected_host": host, "selection": "first_candidate_unresolved"})
     dsn, _ = prepare_asyncpg_dsn(url)

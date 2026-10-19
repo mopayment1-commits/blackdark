@@ -75,6 +75,19 @@ def test_expand_asyncpg_pool_targets_railway_public_ssl():
     assert not any("+ssl_ctx" in k for k in keys)
 
 
+def test_resolve_prefer_public_flag(monkeypatch):
+    monkeypatch.setenv("DATABASE_URL", "postgresql://u:p@postgres.railway.internal:5432/railway")
+    monkeypatch.setenv("DATABASE_PUBLIC_URL", "postgresql://u:p@public.proxy.rlwy.net:12345/railway")
+
+    def fake_resolves(host, *, timeout=2.0):
+        return True
+
+    monkeypatch.setattr(resolver, "host_resolves", fake_resolves)
+    url, meta = resolver.resolve_database_url(prefer_public=True)
+    assert "public.proxy.rlwy.net" in url
+    assert meta["selection"] == "railway_public_preferred"
+
+
 def test_resolve_prefers_resolvable_host(monkeypatch):
     monkeypatch.setenv("DATABASE_URL", "postgresql://bad-host:5432/db")
     monkeypatch.setenv("DATABASE_PUBLIC_URL", "postgresql://good-host:5432/db")
