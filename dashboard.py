@@ -5330,8 +5330,8 @@ async def portfolio_analyze(
 
 @app.get("/join-waitlist", response_class=HTMLResponse)
 async def join_waitlist_page(request: Request):
-    """Visitor waitlist lives on the homepage — never a bare POST endpoint."""
-    return RedirectResponse(url="/#waitlist", status_code=302)
+    """Dedicated waitlist surface (stable CLS) — POST still hits /join-waitlist JSON API."""
+    return render_page(request, "join_waitlist.html")
 
 
 @app.get("/trust", response_class=HTMLResponse)

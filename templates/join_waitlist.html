@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="{{ lang|default('en') }}" dir="{{ dir|default('ltr') }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join waitlist · BLACKDARK</title>
+    {% include "partials/seo_canonical.html" %}
+    <link rel="stylesheet" href="/static/css/trust-os.css">
+    <style>
+        :root { --bg:#0a0a0f; --fg:#e4e4e7; --muted:#71717a; --line:#2a2a35; --accent:#22d3ee; --ok:#22c55e; --bad:#ef4444; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: var(--bd-font-body); background: var(--bg); color: var(--fg); min-height: 100vh; }
+        main { max-width: 520px; margin: 0 auto; padding: 3rem 1.25rem; text-align: center; }
+        h1 { font-family: var(--bd-font-display); font-size: clamp(1.6rem, 4vw, 2rem); margin-bottom: .75rem; }
+        p { color: var(--muted); line-height: 1.6; margin-bottom: 1.25rem; }
+        form { display: flex; flex-direction: column; gap: .75rem; margin-top: 1rem; }
+        input { padding: .75rem 1rem; border-radius: 10px; border: 1px solid var(--line); background: #111118; color: var(--fg); font: inherit; }
+        button { padding: .75rem 1rem; border-radius: 10px; border: none; background: var(--accent); color: #0a0a0f; font-weight: 700; cursor: pointer; }
+        #waitlistMessage { min-height: 1.5rem; margin-top: .5rem; font-size: .9rem; }
+        a { color: var(--accent); }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Join the waitlist</h1>
+        <p>Launch updates for Trust OS — no fake seat counters. Counts on the homepage load from live <code>/api/analytics/stats</code>.</p>
+        <form id="waitlistForm">
+            <input type="email" id="waitlistEmail" placeholder="Email" required autocomplete="email" aria-label="Email">
+            <button type="submit">Join</button>
+        </form>
+        <p id="waitlistMessage" aria-live="polite"></p>
+        <p style="margin-top:2rem;font-size:.85rem"><a href="/">← Back to homepage</a></p>
+    </main>
+    <script>
+        document.getElementById('waitlistForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const msg = document.getElementById('waitlistMessage');
+            const email = document.getElementById('waitlistEmail').value.trim();
+            msg.textContent = 'Submitting…';
+            msg.style.color = 'var(--muted)';
+            try {
+                const res = await fetch('/join-waitlist', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email }),
+                });
+                const data = await res.json().catch(() => ({}));
+                if (!res.ok) {
+                    msg.textContent = data.detail || data.message || 'Could not join — try again.';
+                    msg.style.color = 'var(--bad)';
+                    return;
+                }
+                msg.textContent = data.message || `You are #${data.position} on the waitlist.`;
+                msg.style.color = 'var(--ok)';
+                document.getElementById('waitlistEmail').value = '';
+            } catch (err) {
+                msg.textContent = 'Network error — try again.';
+                msg.style.color = 'var(--bad)';
+            }
+        });
+    </script>
+</body>
+</html>
