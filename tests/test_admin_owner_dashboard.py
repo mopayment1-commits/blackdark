@@ -31,6 +31,9 @@ def test_admin_routes_registered_on_app():
     paths = set(app.openapi().get("paths") or {})
     assert "/admin" in paths
     assert "/api/admin/owner-metrics" in paths
+    assert "/api/admin/site-health" in paths
+    assert "/api/admin/users" in paths
+    assert "/api/admin/audit-logs" in paths
 
 
 def test_owner_metrics_requires_admin(client):

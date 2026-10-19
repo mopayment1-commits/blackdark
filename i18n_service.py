@@ -238,6 +238,9 @@ def public_surface_keys() -> tuple[str, ...]:
         "templates/partials/site_footer.html",
         "templates/oracle_accuracy.html",
         "templates/join_waitlist.html",
+        "templates/docs_public.html",
+        "templates/discipline.html",
+        "templates/utility.html",
     ):
         path = root / rel
         if path.is_file():
@@ -566,6 +569,56 @@ EN: dict[str, str] = {
     "dts.a11y.chart_alt": "Chart data summary: {summary}",
     "upgrade.pro_hint": "Switch to Pro to unlock Net-Edge Truth Score and Opportunity Half-Life.",
     "compliance.lead": "Engineering posture and overclaim denylist — not a license or SOC2 certificate.",
+    "docs.title": "Public Developer Docs",
+    "docs.lead": "Evidence and read APIs only. Analytical tool — not financial advice. Secrets and live execution writes are not exposed here.",
+    "docs.btn.ledger": "Public Accuracy Ledger",
+    "docs.btn.misses": "Public misses",
+    "docs.btn.capabilities": "Capabilities",
+    "docs.btn.status": "System status",
+    "docs.integrators": "Machine-readable OpenAPI/JSON exports are available to signed-in integrators — request access via contact.",
+    "docs.h2.primary": "Primary prove-it surfaces",
+    "docs.h2.prefixes": "Allowed public prefixes",
+    "docs.prefixes.lead": "Prefix allowlist for anonymous visitors (read/evidence). POST-only hero APIs are listed separately below.",
+    "docs.h2.post_only": "POST-only (not in read list)",
+    "docs.post_only.line": "— not a GET endpoint",
+    "docs.h2.policy": "Policy",
+    "docs.architecture": "Architecture index: ARCHITECTURE.md · Canon: four value layers · six heroes · no FalconAI 16-platform valuation.",
+    "docs.anti_hype": "Anti-Hype · Not financial advice · Verify claims on the Public Accuracy Ledger.",
+    "discipline.title": "Discipline Mirror",
+    "discipline.sub": "Private habit surface — not the public ledger.",
+    "discipline.nav.oracle": "Oracle",
+    "discipline.h2.current_decision": "Current Oracle decision",
+    "discipline.loading_decision": "Loading today’s decision…",
+    "discipline.follow_question": "Did you follow this model state?",
+    "discipline.btn.yes_followed": "Yes — I followed",
+    "discipline.btn.no_overrode": "No — I overrode",
+    "discipline.oracle_unavailable": "Oracle decision unavailable — try again from Dashboard.",
+    "discipline.oracle_unavailable_short": "Oracle decision unavailable.",
+    "discipline.system_state": "{symbol} · system state: {action}",
+    "discipline.model_state_fallback": "Model state: {action} on {symbol}.",
+    "discipline.answer_recorded": "Answer recorded for this Oracle decision.",
+    "discipline.loading_mirror": "Loading private mirror…",
+    "discipline.mirror_signin": "Mirror unavailable — sign in required.",
+    "discipline.mirror_unavailable": "Mirror unavailable",
+    "discipline.metric.answers": "Answers",
+    "discipline.metric.followed": "followed",
+    "discipline.metric.overridden": "overridden",
+    "discipline.metric.follow_rate": "Follow rate",
+    "discipline.msg.summary": "Answers: {total} · followed {followed} · overridden {overridden}",
+    "discipline.no_answers": "No answers yet.",
+    "discipline.row.system": "system",
+    "discipline.row.followed": "followed",
+    "discipline.row.overrode": "overrode",
+    "discipline.saving": "Saving…",
+    "discipline.save_failed": "Could not save answer.",
+    "discipline.saved_private": "Saved privately — only you can see your Discipline Mirror.",
+    "discipline.compliance": "Anti-Hype · Private coaching metrics · Not financial advice · Not shown on the public ledger.",
+    "discipline.open_dashboard": "Open Dashboard",
+    "utility.skip_content": "Skip to content",
+    "utility.nav.dashboard": "Dashboard",
+    "utility.nav.faq": "FAQ",
+    "utility.nav.accuracy": "Accuracy",
+    "utility.nav.contact": "Contact",
     # Sealed Trust OS landing (binding 2026-08-08)
     "nav.prove": "Prove",
     "nav.operate": "Operate",
@@ -1155,6 +1208,39 @@ def catalog_for(lang: str | None) -> dict[str, str]:
     return {key: _resolve_string(key, code) for key in EN}
 
 
+_CLIENT_CATALOG_EXTRA: frozenset[str] = frozenset(
+    {
+        "pulse.share_default",
+        "pulse.conditions_met_review",
+        "pulse.model_state",
+        "pulse.model_state_conditions",
+        "waitlist.msg.welcome",
+        "waitlist.msg.generic",
+        "waitlist.msg.submitting",
+        "waitlist.msg.error",
+        "waitlist.msg.network",
+    }
+)
+
+
+def catalog_for_client(lang: str | None) -> dict[str, str]:
+    """JSON boot catalog — omit English-fallback keys on non-en pages (prevents HTML bleed)."""
+    code = normalize_lang(lang)
+    keys = set(public_surface_keys()) | _CLIENT_CATALOG_EXTRA
+    if code == "en":
+        return {k: _resolve_string(k, code) for k in keys if k in EN}
+    out: dict[str, str] = {}
+    for key in keys:
+        if key not in EN:
+            continue
+        eff = _effective_translation(code, key)
+        if eff is not None:
+            out[key] = eff
+        elif key in ALLOW_IDENTICAL:
+            out[key] = EN[key]
+    return out
+
+
 def _resolve_request_lang_raw(request: Any) -> str:
     try:
         q = request.query_params.get("lang")
@@ -1260,8 +1346,8 @@ def template_context(request: Any, extra: dict[str, Any] | None = None) -> dict[
         "locales": list_locales(),
         "t": translator(lang),
         "key_lang": lambda k, _lang=lang: element_lang_for_key(k, _lang),
-        "i18n": catalog_for(lang),
-        "i18n_json": json.dumps(catalog_for(lang), ensure_ascii=False),
+        "i18n": catalog_for_client(lang),
+        "i18n_json": json.dumps(catalog_for_client(lang), ensure_ascii=False),
         "locales_json": json.dumps(list_locales(), ensure_ascii=False),
         "header_user": header_user,
         "header_authenticated": bool(header_user),

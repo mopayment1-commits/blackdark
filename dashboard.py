@@ -752,10 +752,12 @@ def _header_user_payload(user: dict[str, Any]) -> dict[str, Any]:
     tier_meta = TIER_FEATURES.get(tier) or TIER_FEATURES["free"]
     tier_label = str(tier_meta.get("label") or tier).upper()
     show_upgrade = tier not in {"elite", "whale", "quant", "institutional"}
+    avatar_url = str(user.get("avatar_url") or "").strip()
     return {
         "display": display,
         "initial": initial,
         "email": email,
+        "avatar_url": avatar_url or None,
         "tier": tier,
         "tier_label": tier_label,
         "show_upgrade": show_upgrade,
@@ -787,12 +789,15 @@ async def header_session_middleware(request: Request, call_next):
     request.state.header_user = None
     try:
         if _html_shell_fast_path(request):
-            user = await asyncio.wait_for(_resolve_html_auth_user(request), timeout=2.0)
+            try:
+                user = await asyncio.wait_for(_resolve_html_auth_user(request), timeout=5.0)
+            except asyncio.TimeoutError:
+                user = await _resolve_html_auth_user(request)
         else:
             user = await _resolve_html_auth_user(request)
         if user:
             request.state.header_user = _header_user_payload(user)
-    except (asyncio.TimeoutError, Exception):
+    except Exception:
         request.state.header_user = None
     return await call_next(request)
 
