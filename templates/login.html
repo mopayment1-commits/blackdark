@@ -6,7 +6,9 @@
     <title>{{ t('meta.title.login') if t is defined else 'BLACKDARK — Login' }}</title>
     <link rel="stylesheet" href="/static/css/trust-os.css">
     {% if google_signin.state == 'CONFIGURED' %}
+    <link rel="dns-prefetch" href="https://accounts.google.com">
     <link rel="preconnect" href="https://accounts.google.com" crossorigin>
+    <link rel="preconnect" href="https://oauth2.googleapis.com" crossorigin>
     {% endif %}
     <style>
         :root { --bg:#0a0a0f; --card:#111118; --border:#2a2a35; --text:#e4e4e7; --muted:#71717a; --accent:#22d3ee; --danger:#ef4444; --ok:#22c55e; }
@@ -101,10 +103,16 @@
         }
         @keyframes loginSpin { to { transform: rotate(360deg); } }
         .btn-secondary { background:#1a1a24; color:var(--text); border:1px solid var(--border); }
-        .btn-oauth { background:#fff; color:#111; border:1px solid #ddd; display:flex; align-items:center; justify-content:center; gap:.5rem; min-height:48px; }
+        .btn-oauth { background:#fff; color:#111; border:1px solid #ddd; display:flex; align-items:center; justify-content:center; gap:.5rem; min-height:48px; text-decoration:none; font-size:.92rem; }
         .btn-oauth:disabled { opacity:.55; cursor:not-allowed; background:#2a2a35; color:#a1a1aa; border-color:var(--border); }
-        .google-host { display:flex; justify-content:center; margin-bottom:.65rem; min-height:48px; }
+        .btn-oauth.is-navigating { opacity:.88; pointer-events:none; }
+        .btn-oauth .google-btn-spinner {
+            width:.95rem; height:.95rem; border:2px solid rgba(17,17,17,.2);
+            border-top-color:#111; border-radius:50%; animation: loginSpin .7s linear infinite;
+        }
+        .google-host { display:flex; flex-direction:column; justify-content:center; margin-bottom:.65rem; min-height:48px; gap:.35rem; }
         .google-host > div { width:100% !important; }
+        .google-slow-hint { font-size:.78rem; margin:0; }
         .msg { font-size:.85rem; min-height:1.2rem; margin-top:.35rem; }
         .msg.error { color:var(--danger); }
         .msg.ok { color:var(--ok); }
@@ -135,7 +143,36 @@
             <div class="card">
                 <div id="googleSigninArea">
                     {% if google_signin.state == 'CONFIGURED' %}
-                    <div id="googleBtnHost" class="google-host" aria-label="{{ t('auth.google') }}"></div>
+                    <div id="googleBtnHost" class="google-host">
+                        <a id="googleSignInBtn" class="btn btn-oauth" href="{{ google_oauth_start_href }}" data-oauth-base="/api/auth/oauth/google/start">
+                            <span class="google-btn-label">{{ t('auth.google') }}</span>
+                        </a>
+                        <p id="googleSlowMsg" class="msg error google-slow-hint" hidden role="status">{{ t('auth.google_slow') }}</p>
+                    </div>
+                    <script>
+                    (function () {
+                        var btn = document.getElementById('googleSignInBtn');
+                        if (!btn) return;
+                        try { performance.mark('google-signin-btn-visible'); } catch (_) {}
+                        btn.addEventListener('click', function () {
+                            btn.setAttribute('aria-busy', 'true');
+                            btn.classList.add('is-navigating');
+                            var label = btn.querySelector('.google-btn-label');
+                            if (label && label.dataset.redirecting) {
+                                label.textContent = label.dataset.redirecting;
+                            }
+                            var spin = document.createElement('span');
+                            spin.className = 'google-btn-spinner';
+                            spin.setAttribute('aria-hidden', 'true');
+                            btn.insertBefore(spin, btn.firstChild);
+                        });
+                        setTimeout(function () {
+                            if (document.getElementById('googleSignInBtn')) return;
+                            var m = document.getElementById('googleSlowMsg');
+                            if (m) m.hidden = false;
+                        }, 3000);
+                    })();
+                    </script>
                     {% else %}
                     <button type="button" class="btn btn-oauth" id="googleBtnDisabled" disabled>Google sign-in not configured</button>
                     {% endif %}
@@ -256,6 +293,7 @@
             mfaChallenge = null;
             setAuthTab('register');
             setAuthChromeVisible(true);
+            syncGoogleOAuthUi();
         }
         function showLogin() {
             hideAll();
@@ -264,6 +302,7 @@
             mfaChallenge = null;
             setAuthTab('login');
             setAuthChromeVisible(true);
+            syncGoogleOAuthUi();
         }
         function showForgot() {
             hideAll();
@@ -620,20 +659,23 @@
             const base = '/api/auth/oauth/google/start';
             return base + (qs ? '?' + qs : '');
         }
-        function initGoogleSignIn() {
+        function i18nT(key) {
+            if (window.BD_I18N && typeof window.BD_I18N.t === 'function') {
+                return window.BD_I18N.t(key);
+            }
+            return key;
+        }
+        function syncGoogleOAuthUi() {
             if (!googleConfigured) return;
-            const host = document.getElementById('googleBtnHost');
-            if (!host) return;
-            const mode = authTabFromQuery(window.location.search);
-            const btn = document.createElement('button');
-            btn.type = 'button';
-            btn.className = 'btn btn-oauth';
-            btn.setAttribute('aria-label', mode === 'register' ? 'Sign up with Google' : 'Sign in with Google');
-            btn.textContent = mode === 'register' ? 'Sign up with Google' : 'Sign in with Google';
-            btn.addEventListener('click', () => {
-                window.location.href = googleOAuthStartUrl();
-            });
-            host.replaceChildren(btn);
+            const btn = document.getElementById('googleSignInBtn');
+            if (!btn) return;
+            const label = btn.querySelector('.google-btn-label');
+            if (label) {
+                label.textContent = i18nT('auth.google');
+                label.dataset.redirecting = i18nT('auth.google_redirecting');
+            }
+            btn.href = googleOAuthStartUrl();
+            btn.setAttribute('aria-label', i18nT('auth.google'));
         }
         Object.assign(window, {
             showRegister, showLogin, showForgot, showForgotUsername,
@@ -660,7 +702,7 @@
         });
         try { localStorage.removeItem('bd_token'); localStorage.removeItem('token'); } catch (_) {}
         syncPlanFromUrl();
-        initGoogleSignIn();
+        syncGoogleOAuthUi();
         const params = new URLSearchParams(location.search);
         if (authTabFromQuery(location.search) === 'register') showRegister();
         else showLogin();

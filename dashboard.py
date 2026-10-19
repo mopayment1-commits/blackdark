@@ -1588,6 +1588,22 @@ def _login_auth_tab(request: Request) -> str:
     return "register" if tab == "register" else "login"
 
 
+def _google_oauth_start_href(request: Request) -> str:
+    """Login page Google button target — preserves tab/plan/next query params."""
+    from urllib.parse import urlencode
+
+    keep: dict[str, str] = {}
+    if _login_auth_tab(request) == "register":
+        keep["tab"] = "register"
+    for key in ("plan", "next"):
+        val = (request.query_params.get(key) or "").strip()
+        if val:
+            keep[key] = val
+    qs = urlencode(keep)
+    base = "/api/auth/oauth/google/start"
+    return f"{base}?{qs}" if qs else base
+
+
 def _google_post_auth_redirect(plan: str | None, next_path: str | None) -> str:
     from pricing_catalog import normalize_signup_plan
 
@@ -1614,6 +1630,7 @@ async def login_page(request: Request):
             "auth_tab": _login_auth_tab(request),
             "google_signin": google_signin_status(),
             "google_login_uri_base": _google_login_uri_base(request),
+            "google_oauth_start_href": _google_oauth_start_href(request),
         },
     )
 

@@ -494,7 +494,9 @@ async def auth_oauth_start(provider: str, request: Request):
     except HTTPException:
         raise
 
-    await persist_oauth_state_best_effort(key, payload["state"])
+    import asyncio
+
+    asyncio.create_task(persist_oauth_state_best_effort(key, payload["state"]))
 
     return RedirectResponse(url=payload["authorize_url"], status_code=302)
 

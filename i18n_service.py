@@ -726,6 +726,8 @@ EN: dict[str, str] = {
     "auth.forgot_pass": "Forgot passcode?",
     "auth.forgot_username": "Forgot username?",
     "auth.google": "Continue with Google",
+    "auth.google_slow": "Google sign-in is taking longer than usual. Use email below or try again.",
+    "auth.google_redirecting": "Opening Google…",
     "auth.github": "Continue with GitHub",
     "auth.or_email": "or email",
     "auth.create": "Create account",
