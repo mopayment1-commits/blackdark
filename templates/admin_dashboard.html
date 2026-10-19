@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="{{ lang|default('en') }}" dir="{{ dir|default('ltr') }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLACKDARK — Owner Admin</title>
+    {% include "partials/seo_canonical.html" %}
+    <style>
+        :root { --bg:#0a0a0f; --card:#111118; --border:#2a2a35; --text:#e4e4e7; --muted:#71717a; --accent:#22d3ee; --ok:#22c55e; --warn:#f59e0b; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: "IBM Plex Sans", system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+        nav { padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: .75rem; justify-content: space-between; align-items: center; }
+        .logo { color: var(--accent); font-weight: 800; text-decoration: none; }
+        main { max-width: 1100px; margin: 0 auto; padding: 1.5rem; }
+        h1 { margin-bottom: .35rem; }
+        .sub { color: var(--muted); margin-bottom: 1.25rem; font-size: .92rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: .75rem; margin-bottom: 1rem; }
+        .section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.1rem; margin-bottom: 1rem; }
+        .section h2 { font-size: 1rem; color: var(--accent); margin-bottom: .75rem; }
+        .stat { background: rgba(0,0,0,.25); border: 1px solid var(--border); border-radius: 10px; padding: .85rem; }
+        .stat .label { font-size: .78rem; color: var(--muted); }
+        .stat strong { display: block; font-size: 1.45rem; color: var(--text); margin-top: .2rem; }
+        .stat .na { color: var(--warn); font-size: 1.1rem; }
+        .meta { font-size: .8rem; color: var(--muted); margin-top: 1rem; }
+        .plan-list { font-size: .85rem; color: var(--muted); margin-top: .5rem; }
+        a { color: var(--accent); }
+        .err { color: var(--warn); padding: 1rem; border: 1px solid var(--warn); border-radius: 8px; }
+    </style>
+    <script src="/static/js/dom_safe.js"></script>
+</head>
+<body>
+    <nav>
+        <a class="logo" href="/">BLACKDARK</a>
+        <div>
+            <a href="/admin/launch">Launch</a> ·
+            <a href="/admin/plan">Plan</a> ·
+            <a href="/admin/roadmap">Roadmap</a> ·
+            <a href="/api/admin/owner-metrics">JSON</a>
+        </div>
+    </nav>
+    <main>
+        <h1>لوحة المالك</h1>
+        <p class="sub">Owner dashboard — database-backed metrics only (DualEntry · Baremetrics · NetSuite lenses). <span id="generated"></span></p>
+        <div id="error" class="err" hidden></div>
+
+        <section class="section" id="sec-users">
+            <h2>1. المستخدمون</h2>
+            <div class="grid" id="users-grid"></div>
+        </section>
+        <section class="section" id="sec-subscribers">
+            <h2>2. المشتركون</h2>
+            <div class="grid" id="subscribers-grid"></div>
+        </section>
+        <section class="section" id="sec-revenue">
+            <h2>3. الإيرادات</h2>
+            <div class="grid" id="revenue-grid"></div>
+            <div class="plan-list" id="revenue-plans"></div>
+        </section>
+        <section class="section" id="sec-visitors">
+            <h2>4. الزوار</h2>
+            <div class="grid" id="visitors-grid"></div>
+        </section>
+        <section class="section" id="sec-emails">
+            <h2>5. الإيميلات</h2>
+            <div class="grid" id="emails-grid"></div>
+        </section>
+        <section class="section" id="sec-subs">
+            <h2>6. الاشتراكات</h2>
+            <div class="grid" id="subscriptions-grid"></div>
+        </section>
+
+        <p class="meta" id="sources"></p>
+    </main>
+    <script type="module">
+        const esc = (globalThis.esc || globalThis.escapeHtml || ((v) => String(v ?? '')));
+
+        function money(cents) {
+            if (cents === null || cents === undefined) return null;
+            const n = Number(cents);
+            if (Number.isNaN(n)) return '—';
+            return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n / 100);
+        }
+
+        function statBox(label, value, isMoney = false) {
+            const box = document.createElement('div');
+            box.className = 'stat';
+            const lab = document.createElement('div');
+            lab.className = 'label';
+            lab.textContent = label;
+            box.appendChild(lab);
+            const strong = document.createElement('strong');
+            if (value === null || value === undefined) {
+                strong.className = 'na';
+                strong.textContent = '—';
+                strong.title = 'Not stored in database';
+            } else if (isMoney) {
+                strong.textContent = money(value) ?? '—';
+            } else {
+                strong.textContent = String(value);
+            }
+            box.appendChild(strong);
+            return box;
+        }
+
+        function fillGrid(el, pairs) {
+            el.replaceChildren();
+            for (const [label, value, isMoney] of pairs) {
+                el.appendChild(statBox(label, value, isMoney));
+            }
+        }
+
+        async function load() {
+            const errEl = document.getElementById('error');
+            try {
+                const res = await fetch('/api/admin/owner-metrics');
+                if (!res.ok) {
+                    errEl.hidden = false;
+                    errEl.textContent = `Failed to load metrics (${res.status}). Admin auth required.`;
+                    return;
+                }
+                const d = await res.json();
+                document.getElementById('generated').textContent = d.generated_at ? `Updated ${d.generated_at}` : '';
+
+                fillGrid(document.getElementById('users-grid'), [
+                    ['إجمالي', d.users?.total],
+                    ['نشط (30 يوم)', d.users?.active_30d],
+                    ['جديد اليوم', d.users?.new_today],
+                    ['جديد الأسبوع', d.users?.new_week],
+                ]);
+                fillGrid(document.getElementById('subscribers-grid'), [
+                    ['إجمالي', d.subscribers?.total_accounts],
+                    ['مدفوع', d.subscribers?.paid],
+                    ['مجاني', d.subscribers?.free],
+                    ['ملغى', d.subscribers?.canceled],
+                ]);
+                fillGrid(document.getElementById('revenue-grid'), [
+                    ['MRR', d.revenue?.mrr_cents, true],
+                    ['ARR', d.revenue?.arr_cents, true],
+                    ['إجمالي محصّل', d.revenue?.total_collected_cents, true],
+                    ['محصّل 30 يوم', d.revenue?.collected_last_30d_cents, true],
+                    ['ARPU (30 يوم)', d.revenue?.arpu_cents_last_30d, true],
+                    ['NRR', d.revenue?.nrr_pct],
+                    ['GRR', d.revenue?.grr_pct],
+                    ['Churn', d.revenue?.churn_pct],
+                    ['CAC', d.revenue?.cac],
+                    ['LTV', d.revenue?.ltv_cents, true],
+                ]);
+                const plansEl = document.getElementById('revenue-plans');
+                const byPlan = d.revenue?.active_paid_by_plan || {};
+                const keys = Object.keys(byPlan);
+                if (!keys.length) {
+                    plansEl.textContent = 'حسب الخطة: لا حسابات مدفوعة نشطة في قاعدة البيانات.';
+                } else {
+                    plansEl.replaceChildren();
+                    plansEl.appendChild(document.createTextNode('حسب الخطة (نشط): '));
+                    keys.sort().forEach((k, i) => {
+                        if (i) plansEl.appendChild(document.createTextNode(' · '));
+                        const span = document.createElement('span');
+                        span.textContent = `${esc(k)}=${byPlan[k]}`;
+                        plansEl.appendChild(span);
+                    });
+                }
+                fillGrid(document.getElementById('visitors-grid'), [
+                    ['اليوم', d.visitors?.today],
+                    ['الأسبوع', d.visitors?.week],
+                    ['الشهر', d.visitors?.month],
+                ]);
+                fillGrid(document.getElementById('emails-grid'), [
+                    ['مرسلة (سجل)', d.emails?.sent],
+                    ['مفتوحة', d.emails?.opened],
+                    ['فاشلة', d.emails?.failed],
+                ]);
+                fillGrid(document.getElementById('subscriptions-grid'), [
+                    ['جديدة اليوم', d.subscriptions?.new_today],
+                    ['جديدة الأسبوع', d.subscriptions?.new_week],
+                    ['ملغاة (أسبوع)', d.subscriptions?.canceled_week],
+                    ['متأخرة', d.subscriptions?.past_due],
+                    ['ترقيات (أسبوع)', d.subscriptions?.upgrades_week],
+                    ['تسجيلات (أسبوع)', d.subscriptions?.signups_week],
+                ]);
+                const src = document.getElementById('sources');
+                const list = (d.data_sources || []).join(', ');
+                src.textContent = list ? `Sources: ${list}` : '';
+            } catch (e) {
+                errEl.hidden = false;
+                errEl.textContent = String(e?.message || e);
+            }
+        }
+        load();
+    </script>
+</body>
+</html>

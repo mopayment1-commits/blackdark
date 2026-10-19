@@ -82,7 +82,13 @@
         .landing-stats strong {
             color: var(--accent);
             font-weight: 700;
+            display: inline-block;
+            min-width: 2.5ch;
+            font-variant-numeric: tabular-nums;
         }
+        .tp-mini-why { min-height: 3.25rem; }
+        .tp-mini-proof { min-height: 1.1rem; }
+        .tp-mini-sentence { min-height: 2.8rem; }
         
         .hero {
             position: relative;
@@ -871,6 +877,7 @@
             <span>Waitlist: <strong id="landingWaitlist">—</strong></span>
         </div>
         <form class="waitlist-form" data-bd-submit-call="joinWaitlist">
+            <label for="waitlistEmail" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Enter your email</label>
             <input type="email" id="waitlistEmail" placeholder="Enter your email" required aria-label="Enter your email">
             <button type="submit">Join Waitlist</button>
         </form>

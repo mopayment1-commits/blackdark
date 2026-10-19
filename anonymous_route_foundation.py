@@ -287,6 +287,10 @@ PUBLIC_API_EXACT: frozenset[str] = frozenset(
         "/docs",
         "/docs/public",
         "/api/oracle/audit-chain/bootstrap-from-db",
+        "/api/analytics/stats",
+        "/api/platform/stats",
+        "/api/trust-pulse",
+        "/api/telegram/free/status",
     }
 )
 
@@ -309,6 +313,7 @@ ADMIN_PATH_PREFIXES: tuple[str, ...] = (
 
 ADMIN_PATH_EXACT: frozenset[str] = frozenset(
     {
+        "/admin",
         "/admin/launch",
         "/admin/plan",
         "/admin/roadmap",
