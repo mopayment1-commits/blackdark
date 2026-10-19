@@ -50,6 +50,16 @@ ALLOW_IDENTICAL = frozenset(
         "oracle.audience.whale",
         "oracle.audience.fund",
         "oracle.audience.retail",
+        "lenses.prove.title",
+        "lenses.operate.title",
+        "lenses.desk.title",
+        "lenses.room.title",
+        "oracle.mode.decision_pro",
+        "oracle.share.facebook",
+        "oracle.share.instagram",
+        "oracle.share.whatsapp",
+        "oracle.share.telegram",
+        "oracle.share.reddit",
     }
 )
 

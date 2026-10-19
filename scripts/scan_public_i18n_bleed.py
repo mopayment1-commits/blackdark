@@ -19,9 +19,15 @@ FORBIDDEN = (
     "Open the lenses",
     "Compare plans",
     "For companies and funds",
+    "Get Decision",
+    "Share Your Signal",
+    "Get early access to Trust OS",
+    "Join Waitlist",
+    "Telegram Free Alerts",
+    "Enter your email",
 )
 
-PAGES = ("/", "/pricing", "/login", "/oracle-accuracy")
+PAGES = ("/", "/pricing", "/login", "/oracle-accuracy", "/join-waitlist")
 
 
 def main() -> int:
