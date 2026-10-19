@@ -12,8 +12,52 @@ ROOT = Path(__file__).resolve().parent.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from deep_translator import MyMemoryTranslator
+
 from i18n_service import EN, LOCALES
-from scripts.build_locale_json import ALLOW_IDENTICAL, TRANSLATE_TARGETS, translate_value
+from scripts.build_locale_json import ALLOW_IDENTICAL
+
+MYMEMORY_TARGETS: dict[str, str] = {
+    "es": "spanish",
+    "ar": "arabic",
+    "pt": "portuguese brazil",
+    "fr": "french",
+    "de": "german",
+    "zh-CN": "chinese simplified",
+    "zh-TW": "chinese traditional",
+    "ja": "japanese",
+    "ko": "korean",
+    "hi": "hindi",
+    "tr": "turkish",
+    "ru": "russian",
+    "id": "indonesian",
+    "vi": "vietnamese",
+    "th": "thai",
+    "fil": "tagalog",
+    "it": "italian",
+    "bn": "bengali",
+    "ur": "urdu",
+    "fa": "persian",
+    "ms": "malay",
+    "pl": "polish",
+    "nl": "dutch",
+    "he": "hebrew",
+}
+
+
+def translate_value_mm(text: str, target: str, cache: dict[tuple[str, str], str]) -> str:
+    if not text or not text.strip():
+        return text
+    ck = (target, text)
+    if ck in cache:
+        return cache[ck]
+    try:
+        out = MyMemoryTranslator(source="english", target=target).translate(text)
+    except Exception:
+        out = text
+    cache[ck] = out or text
+    return cache[ck]
+
 
 PREFIXES = (
     "docs.",
@@ -62,7 +106,7 @@ def main() -> None:
         cat = json.loads(path.read_text(encoding="utf-8"))
         for k in EN:
             cat.setdefault(k, EN[k])
-        target = TRANSLATE_TARGETS.get(code)
+        target = MYMEMORY_TARGETS.get(code)
         pending = [
             k
             for k in EN
@@ -73,8 +117,8 @@ def main() -> None:
         if target and pending:
             print(f"{code}: {len(pending)} keys", flush=True)
             for key in pending:
-                cat[key] = translate_value(EN[key], target, cache)
-                time.sleep(0.05)
+                cat[key] = translate_value_mm(EN[key], target, cache)
+                time.sleep(0.08)
         path.write_text(json.dumps(cat, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         print(f"wrote {code}", flush=True)
 
