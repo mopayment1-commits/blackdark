@@ -15,11 +15,41 @@ if str(ROOT) not in sys.path:
 from i18n_service import EN, LOCALES
 from scripts.build_locale_json import ALLOW_IDENTICAL, TRANSLATE_TARGETS, translate_value
 
-PREFIXES = ("docs.", "discipline.", "utility.")
+PREFIXES = (
+    "docs.",
+    "discipline.",
+    "utility.",
+    "oracle.factor.",
+    "oracle.source.",
+    "oracle.share.copied",
+    "trust.",
+    "ui.why_",
+    "ui.pending",
+    "ui.copied",
+    "ui.copy_",
+    "ui.download_",
+    "ui.certificate_",
+    "ui.prediction_id",
+    "ui.scenarios_title",
+    "ui.verdict",
+    "ui.id",
+    "pulse.drawer.",
+    "pulse.msg.",
+    "pulse.chip.",
+)
+
+
+def _key_matches(key: str) -> bool:
+    for prefix in PREFIXES:
+        if prefix.endswith("."):
+            if key.startswith(prefix):
+                return True
+        elif key == prefix or key.startswith(prefix):
+            return True
+    return False
 
 
 def main() -> None:
-    keys = [k for k in EN if any(k.startswith(p) for p in PREFIXES)]
     locales_dir = ROOT / "locales"
     cache: dict[tuple[str, str], str] = {}
     for code in LOCALES:
@@ -35,8 +65,10 @@ def main() -> None:
         target = TRANSLATE_TARGETS.get(code)
         pending = [
             k
-            for k in keys
-            if cat.get(k, EN[k]) == EN[k] and k not in ALLOW_IDENTICAL
+            for k in EN
+            if _key_matches(k)
+            and cat.get(k, EN[k]) == EN[k]
+            and k not in ALLOW_IDENTICAL
         ]
         if target and pending:
             print(f"{code}: {len(pending)} keys", flush=True)

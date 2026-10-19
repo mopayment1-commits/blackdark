@@ -417,6 +417,25 @@ EN: dict[str, str] = {
     "oracle.share.whatsapp": "WhatsApp",
     "oracle.share.telegram": "Telegram",
     "oracle.share.reddit": "Reddit",
+    "oracle.share.copied": "Copied!",
+    "oracle.factor.spot_reference_price": "Spot reference price",
+    "oracle.factor.change_24h": "24h price change",
+    "oracle.factor.quote_volume_24h": "24h quote volume",
+    "oracle.source.binance_ws": "Binance WebSocket top-of-book",
+    "oracle.source.binance_rest": "Binance spot REST",
+    "oracle.source.binance_spot": "Binance spot",
+    "oracle.source.live_market": "live market",
+    "oracle.source.model": "model",
+    "oracle.source.oracle": "oracle",
+    "oracle.source.context": "context",
+    "trust.factor.opportunity_score": "Opportunity score {score}",
+    "trust.factor.score_pending": "Score pending",
+    "trust.factor.detail.composite": "Composite Trust OS score from live market context",
+    "trust.factor.move_24h": "24h move {change}",
+    "trust.factor.detail.move": "Short-horizon price change on the watched pair",
+    "trust.factor.regime": "Regime {regime}",
+    "trust.factor.detail.regime": "Regime label from unified context",
+    "trust.grasp.top_reasons": "Top reasons — under five seconds",
     "action.ACT": "ACT",
     "action.WAIT": "WAIT",
     # Features
@@ -859,6 +878,17 @@ EN: dict[str, str] = {
     "ui.could_not_analyze": "Could not analyze {symbol}",
     "ui.scenarios": "Scenarios (sketch)",
     "ui.why_top3": "Why (Top 3) — under five seconds",
+    "ui.why_unavailable": "Factor breakdown unavailable on this response — score still shown.",
+    "ui.pending": "pending",
+    "ui.copied": "Copied!",
+    "ui.copy_certificate": "Copy certificate",
+    "ui.copy_certificate_text": "Copy certificate text",
+    "ui.download_txt": "Download TXT",
+    "ui.download_json": "Download JSON",
+    "ui.certificate_label": "Certificate",
+    "ui.prediction_id": "prediction_id",
+    "ui.scenarios_title": "Scenarios",
+    "ui.copy_cert_id_title": "Copy certificate ID",
     "ui.veto": "Contradiction Veto",
     "ui.do_not_touch": "WAIT / Do Not Touch",
     "ui.abstain": "Abstain",
@@ -907,6 +937,8 @@ EN: dict[str, str] = {
     "ui.discipline_fail": "Could not save answer.",
     "ui.quota_exceeded": "Daily quota exceeded — upgrade",
     "ui.asset": "Asset",
+    "ui.verdict": "Verdict",
+    "ui.id": "ID",
     "ui.oi": "OI",
     "ui.funding": "Funding",
     "a11y.skip_trust_pulse": "Skip to Trust Pulse",
@@ -924,6 +956,18 @@ EN: dict[str, str] = {
     ),
     "pulse.model_state": "MODEL STATE: {action} — {symbol}.",
     "pulse.model_state_conditions": "MODEL STATE: CONDITIONS MET — {symbol}. {review}",
+    "pulse.drawer.title": "Decision Certificate · Trust Pulse",
+    "pulse.drawer.open_ledger": "Open proof on ledger",
+    "pulse.drawer.close": "Close",
+    "pulse.msg.cert_text_copied": "Certificate text copied.",
+    "pulse.msg.cert_id_copied": "Certificate ID copied.",
+    "pulse.msg.cert_hash_copied": "Certificate hash copied.",
+    "pulse.msg.copy_cert_id_failed": "Could not copy certificate ID.",
+    "pulse.msg.copy_unsupported": "Copy not supported in this browser.",
+    "pulse.msg.no_cert_hash": "No certificate hash yet — use Get Decision below.",
+    "pulse.msg.no_cert_pulse": "No Decision Certificate for this pulse yet. Use Get Decision below to generate signed proof.",
+    "pulse.chip.copy_hash_title": "Copy certificate hash",
+    "pulse.chip.free_pending": "Free Proof — certificate pending",
     "seal.stamp_prefix": "Seal ·",
     "footer.col.product": "Product",
     "footer.col.trust": "Trust",
@@ -1223,10 +1267,24 @@ _CLIENT_CATALOG_EXTRA: frozenset[str] = frozenset(
 )
 
 
+_CLIENT_CATALOG_PREFIXES: tuple[str, ...] = (
+    "ui.",
+    "oracle.factor.",
+    "oracle.source.",
+    "oracle.share.",
+    "trust.factor.",
+    "trust.grasp.",
+    "pulse.drawer.",
+    "pulse.msg.",
+    "pulse.chip.",
+)
+
+
 def catalog_for_client(lang: str | None) -> dict[str, str]:
     """JSON boot catalog — omit English-fallback keys on non-en pages (prevents HTML bleed)."""
     code = normalize_lang(lang)
     keys = set(public_surface_keys()) | _CLIENT_CATALOG_EXTRA
+    keys |= {k for k in EN if any(k.startswith(p) for p in _CLIENT_CATALOG_PREFIXES)}
     if code == "en":
         return {k: _resolve_string(k, code) for k in keys if k in EN}
     out: dict[str, str] = {}

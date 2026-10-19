@@ -3005,15 +3005,33 @@ def _quick_ws_market(row: dict | None) -> dict | None:
 def _quick_price_source_label(market: dict[str, Any]) -> str:
     src = str(market.get("source") or "").strip()
     if src == "websocket_live":
-        return "Binance WebSocket top-of-book"
+        return "binance_ws"
     if src:
         return src
-    return "Binance spot REST"
+    return "binance_rest"
+
+
+def _localized_price_source(source: str, lang: str) -> str:
+    from i18n_service import t
+
+    raw = (source or "").strip()
+    low = raw.lower()
+    if raw in {"binance_ws", "websocket_live"} or "websocket" in low:
+        return t("oracle.source.binance_ws", lang)
+    if raw in {"binance_rest"} or ("rest" in low and "binance" in low):
+        return t("oracle.source.binance_rest", lang)
+    if raw in {"Binance spot", "binance spot"}:
+        return t("oracle.source.binance_spot", lang)
+    return t("oracle.source.binance_spot", lang)
 
 
 def _attach_quick_real_factors(payload: dict[str, Any]) -> None:
     """Top-3 factors from quick compute fields only (price / 24h change / volume)."""
-    source = str(payload.get("price_source") or "Binance spot").strip() or "Binance spot"
+    from i18n_service import t
+
+    lang = str(payload.get("lang") or "en")
+    source_key = str(payload.get("price_source") or "binance_rest").strip() or "binance_rest"
+    source = _localized_price_source(source_key, lang)
     factors: list[dict[str, str]] = []
 
     price = payload.get("price")
@@ -3023,7 +3041,8 @@ def _attach_quick_real_factors(payload: dict[str, Any]) -> None:
             if p > 0:
                 factors.append(
                     {
-                        "factor": "Spot reference price",
+                        "factor_key": "oracle.factor.spot_reference_price",
+                        "factor": t("oracle.factor.spot_reference_price", lang),
                         "detail": f"${p:,.2f}",
                         "source": source,
                     }
@@ -3037,7 +3056,8 @@ def _attach_quick_real_factors(payload: dict[str, Any]) -> None:
             c = float(change)
             factors.append(
                 {
-                    "factor": "24h price change",
+                    "factor_key": "oracle.factor.change_24h",
+                    "factor": t("oracle.factor.change_24h", lang),
                     "detail": f"{c:+.2f}%",
                     "source": source,
                 }
@@ -3052,7 +3072,8 @@ def _attach_quick_real_factors(payload: dict[str, Any]) -> None:
             if qv > 0:
                 factors.append(
                     {
-                        "factor": "24h quote volume",
+                        "factor_key": "oracle.factor.quote_volume_24h",
+                        "factor": t("oracle.factor.quote_volume_24h", lang),
                         "detail": f"${qv:,.0f}",
                         "source": source,
                     }
@@ -3541,11 +3562,25 @@ def _attach_oracle_scenarios_safe(payload: dict[str, Any]) -> None:
         logger.debug("Oracle scenarios attach failed", exc_info=True)
 
 
+def _localize_oqs_why_grasp(payload: dict[str, Any]) -> None:
+    from i18n_service import t
+
+    lang = str(payload.get("lang") or "en")
+    why = payload.get("oqs_why")
+    if not isinstance(why, dict):
+        return
+    factors = why.get("top_3_factors") or []
+    why["grasp_line"] = (
+        t("ui.why_top3", lang) if factors else t("ui.why_unavailable", lang)
+    )
+
+
 def _attach_oqs_why_safe(payload: dict[str, Any]) -> None:
     try:
         from heroes_quality import build_oqs_why_block
 
         payload["oqs_why"] = build_oqs_why_block(payload)
+        _localize_oqs_why_grasp(payload)
         _copy_oqs_factors_to_explanation(payload)
     except Exception:
         logger.debug("OQS why block attach failed", exc_info=True)

@@ -240,25 +240,32 @@ def _enrich_trust_pulse_payload(payload: dict[str, Any], *, ux_mode: str, lang: 
 
 
 def _trust_pulse_synth_factors(payload: dict[str, Any]) -> list[dict[str, str]]:
+    from i18n_service import t
+
+    lang = str(payload.get("lang") or "en")
     change = float(payload.get("change_24h") or 0)
     score = payload.get("opportunity_score")
     regime = payload.get("market_regime") or "unknown"
     whale = payload.get("whale_alert")
     return [
         {
-            "factor": f"Opportunity score {score}" if score is not None else "Score pending",
-            "detail": "Composite Trust OS score from live market context",
-            "source": "oracle",
+            "factor": (
+                t("trust.factor.opportunity_score", lang, score=score)
+                if score is not None
+                else t("trust.factor.score_pending", lang)
+            ),
+            "detail": t("trust.factor.detail.composite", lang),
+            "source": t("oracle.source.oracle", lang),
         },
         {
-            "factor": f"24h move {change:+.2f}%",
-            "detail": "Short-horizon price change on the watched pair",
-            "source": "live market",
+            "factor": t("trust.factor.move_24h", lang, change=f"{change:+.2f}"),
+            "detail": t("trust.factor.detail.move", lang),
+            "source": t("oracle.source.live_market", lang),
         },
         {
-            "factor": f"Regime {regime}",
-            "detail": str(whale)[:120] if whale else "Regime label from unified context",
-            "source": "context",
+            "factor": t("trust.factor.regime", lang, regime=regime),
+            "detail": str(whale)[:120] if whale else t("trust.factor.detail.regime", lang),
+            "source": t("oracle.source.context", lang),
         },
     ]
 
@@ -275,8 +282,11 @@ def _attach_trust_pulse_why(payload: dict[str, Any]) -> None:
     factors = (payload.get("oqs_why") or {}).get("top_3_factors") or []
     if not factors:
         synth = _trust_pulse_synth_factors(payload)
+        from i18n_service import t
+
+        lang = str(payload.get("lang") or "en")
         payload["oqs_why"] = {
-            "grasp_line": "Top reasons — under five seconds",
+            "grasp_line": t("trust.grasp.top_reasons", lang),
             "top_3_factors": synth,
             "ready": True,
             "synthetic_fallback": True,
@@ -396,7 +406,10 @@ def _pulse_base_result(
         ),
         "sentence": _pulse_sentence(payload),
         "why": {
-            "grasp_line": why.get("grasp_line") or "Top reasons — under five seconds",
+            "grasp_line": why.get("grasp_line")
+            or __import__("i18n_service").t(
+                "trust.grasp.top_reasons", str(payload.get("lang") or "en")
+            ),
             "factors": factors,
         },
         "score": payload.get("opportunity_score"),

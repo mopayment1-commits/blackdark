@@ -996,8 +996,8 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 igBtn.onclick = function(e) {
                     e.preventDefault();
                     navigator.clipboard.writeText(full).then(() => {
-                        igBtn.textContent = 'Copied!';
-                        setTimeout(() => { igBtn.textContent = 'Instagram'; }, 2000);
+                        igBtn.textContent = i18nT('oracle.share.copied');
+                        setTimeout(() => { igBtn.textContent = i18nT('oracle.share.instagram'); }, 2000);
                     });
                 };
             }
@@ -1007,10 +1007,10 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 copyBtn.onclick = function(e) {
                     e.preventDefault();
                     navigator.clipboard.writeText(full).then(() => {
-                        copyBtn.textContent = 'Copied!';
+                        copyBtn.textContent = i18nT('oracle.share.copied');
                         copyBtn.classList.add('copied');
                         setTimeout(() => {
-                            copyBtn.textContent = 'Copy Link';
+                            copyBtn.textContent = i18nT('oracle.share.copy');
                             copyBtn.classList.remove('copied');
                         }, 2000);
                     });
@@ -1142,18 +1142,18 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 return;
             }
             certEl.style.display = 'block';
-            const hashLabel = cert.certificate_hash ? String(cert.certificate_hash).slice(0,16)+'…' : 'pending';
-            const copyBtn = cert.share_text ? `<button type="button" class="btn-secondary" id="copyCertBtn">Copy certificate</button>` : '';
-            const txtBtn = cert.export_text ? `<button type="button" class="btn-secondary" id="dlCertTxtBtn">Download TXT</button>` : '';
+            const hashLabel = cert.certificate_hash ? String(cert.certificate_hash).slice(0,16)+'…' : i18nT('ui.pending');
+            const copyBtn = cert.share_text ? `<button type="button" class="btn-secondary" id="copyCertBtn">${esc(i18nT('ui.copy_certificate'))}</button>` : '';
+            const txtBtn = cert.export_text ? `<button type="button" class="btn-secondary" id="dlCertTxtBtn">${esc(i18nT('ui.download_txt'))}</button>` : '';
             const xHref = safeUrl(cert.share_urls && cert.share_urls.x);
             const tgHref = safeUrl(cert.share_urls && cert.share_urls.telegram);
-            const xBtn = xHref ? `<a class="btn-secondary" id="certShareX" href="${xHref}" target="_blank" rel="noopener">Share X</a>` : '';
-            const tgBtn = tgHref ? `<a class="btn-secondary" id="certShareTg" href="${tgHref}" target="_blank" rel="noopener">Share TG</a>` : '';
+            const xBtn = xHref ? `<a class="btn-secondary" id="certShareX" href="${xHref}" target="_blank" rel="noopener">${esc(i18nT('ui.share_x'))}</a>` : '';
+            const tgBtn = tgHref ? `<a class="btn-secondary" id="certShareTg" href="${tgHref}" target="_blank" rel="noopener">${esc(i18nT('ui.share_tg'))}</a>` : '';
             certEl.innerHTML =
-                `Decision Certificate · <code>${esc(hashLabel)}</code>` +
+                `${esc(i18nT('ui.decision_certificate'))} · <code>${esc(hashLabel)}</code>` +
                 `<div style="margin-top:.35rem;display:flex;flex-wrap:wrap;gap:.35rem">` +
                 copyBtn +
-                `<button type="button" class="btn-secondary" id="dlCertBtn">Download JSON</button>` +
+                `<button type="button" class="btn-secondary" id="dlCertBtn">${esc(i18nT('ui.download_json'))}</button>` +
                 txtBtn + xBtn + tgBtn + `</div>`;
             document.getElementById('copyCertBtn')?.addEventListener('click', () => {
                 navigator.clipboard.writeText(cert.share_text || '');
@@ -1203,7 +1203,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                     return `${esc(s.label||k)} ${esc(pct)}`;
                 }).join(' · ');
                 const disc = (data.scenarios && data.scenarios.disclaimer) || '';
-                scenHtml = `<div style="margin-top:.65rem"><strong style="color:var(--text)">Scenarios</strong> · ${bits}<div style="font-size:.75rem;margin-top:.25rem;opacity:.8">${esc(disc)}</div></div>`;
+                scenHtml = `<div style="margin-top:.65rem"><strong style="color:var(--text)">${esc(i18nT('ui.scenarios_title'))}</strong> · ${bits}<div style="font-size:.75rem;margin-top:.25rem;opacity:.8">${esc(disc)}</div></div>`;
             }
             let whyList = '';
             if (factors.length) {
@@ -1217,16 +1217,16 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             let certLine = '';
             if (cert && cert.certificate_hash) {
                 const hashShort = String(cert.certificate_hash).slice(0, 16) + '…';
-                certLine = `<div style="margin-top:.5rem;font-size:.8rem">Certificate <code>${esc(hashShort)}</code> · prediction_id <code>${esc(data.prediction_id || '—')}</code></div>`;
+                certLine = `<div style="margin-top:.5rem;font-size:.8rem">${esc(i18nT('ui.certificate_label'))} <code>${esc(hashShort)}</code> · ${esc(i18nT('ui.prediction_id'))} <code>${esc(data.prediction_id || '—')}</code></div>`;
             }
             const whyTitle = factors.length
-                ? `<div style="font-size:.78rem;color:var(--accent);margin-bottom:.35rem">${esc(whyBlock.grasp_line || 'Why (Top 3) — under five seconds')} · ${esc(latencyMs)}ms</div>`
+                ? `<div style="font-size:.78rem;color:var(--accent);margin-bottom:.35rem">${esc(whyBlock.grasp_line || i18nT('ui.why_top3'))} · ${esc(latencyMs)}ms</div>`
                 : '';
             whyEl.innerHTML =
                 whyTitle +
                 whyList +
                 '<details style="margin-top:.65rem;border:1px solid var(--border,#2a2a35);border-radius:10px;padding:.65rem .85rem;background:rgba(0,0,0,.2)">' +
-                '<summary style="cursor:pointer;color:var(--accent);font-weight:600">Evidence drawer · Certificate + scenarios</summary>' +
+                '<summary style="cursor:pointer;color:var(--accent);font-weight:600">' + esc(i18nT('ui.evidence_drawer')) + '</summary>' +
                 scenHtml + certLine + '</details>';
         }
 
@@ -1835,7 +1835,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
         function renderLandingPulseProofDrawer(drawerEl, cert, pulse) {
             const proof = (pulse && pulse.proof) || {};
             const ledgerHref = esc(_lpProofLedgerHref(proof));
-            const hashLabel = cert.certificate_hash ? String(cert.certificate_hash).slice(0, 16) + '…' : 'pending';
+            const hashLabel = cert.certificate_hash ? String(cert.certificate_hash).slice(0, 16) + '…' : i18nT('ui.pending');
             const asset = cert.asset || pulse.symbol || 'BTC';
             const verdict = cert.decision_action || pulse.action || pulse.verdict || 'WAIT';
             let pid = cert.prediction_id != null && cert.prediction_id !== ''
@@ -1845,29 +1845,25 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 pid = String(cert.certificate_hash).slice(0, 10);
             }
             if (!pid) pid = '—';
-            const ar = currentLang().startsWith('ar');
-            const lblAsset = ar ? 'الأصل' : 'Asset';
-            const lblVerdict = ar ? 'الحكم' : 'Verdict';
-            const lblId = ar ? 'الرقم' : 'ID';
             const copyBtn = cert.share_text
-                ? '<button type="button" class="btn-secondary" id="lpDrawerCopyCert">Copy certificate text</button>'
+                ? '<button type="button" class="btn-secondary" id="lpDrawerCopyCert">' + esc(i18nT('ui.copy_certificate_text')) + '</button>'
                 : '';
             drawerEl.innerHTML =
-                '<p style="margin:0 0 .5rem"><strong>Decision Certificate</strong> · Trust Pulse</p>' +
-                '<p style="margin:0 0 .35rem"><strong>' + esc(lblAsset) + ':</strong> ' + esc(asset) + '</p>' +
-                '<p style="margin:0 0 .35rem"><strong>' + esc(lblVerdict) + ':</strong> ' + esc(verdict) + '</p>' +
-                '<p style="margin:0 0 .5rem"><strong>' + esc(lblId) + ':</strong> ' + esc(pid) + '</p>' +
+                '<p style="margin:0 0 .5rem"><strong>' + esc(i18nT('pulse.drawer.title')) + '</strong></p>' +
+                '<p style="margin:0 0 .35rem"><strong>' + esc(i18nT('ui.asset')) + ':</strong> ' + esc(asset) + '</p>' +
+                '<p style="margin:0 0 .35rem"><strong>' + esc(i18nT('ui.verdict')) + ':</strong> ' + esc(verdict) + '</p>' +
+                '<p style="margin:0 0 .5rem"><strong>' + esc(i18nT('ui.id')) + ':</strong> ' + esc(pid) + '</p>' +
                 '<p style="margin:0 0 .5rem;color:var(--text-muted)"><code>' + esc(hashLabel) + '</code></p>' +
                 '<div style="display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:.5rem">' +
                 copyBtn +
-                '<a class="btn-secondary" href="' + ledgerHref + '">Open proof on ledger</a>' +
-                '<button type="button" class="btn-secondary" id="lpDrawerClose">Close</button>' +
+                '<a class="btn-secondary" href="' + ledgerHref + '">' + esc(i18nT('pulse.drawer.open_ledger')) + '</a>' +
+                '<button type="button" class="btn-secondary" id="lpDrawerClose">' + esc(i18nT('pulse.drawer.close')) + '</button>' +
                 '</div>';
             document.getElementById('lpDrawerCopyCert')?.addEventListener('click', () => {
                 navigator.clipboard.writeText(cert.share_text || '').then(() => {
                     const msg = document.getElementById('lpProofCopyMsg');
                     if (msg) {
-                        msg.textContent = 'Certificate text copied.';
+                        msg.textContent = i18nT('pulse.msg.cert_text_copied');
                         msg.hidden = false;
                     }
                 }).catch(() => {});
@@ -1889,19 +1885,19 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             }
             const done = () => {
                 if (msg) {
-                    msg.textContent = 'Certificate ID copied.';
+                    msg.textContent = i18nT('pulse.msg.cert_id_copied');
                     msg.hidden = false;
                 }
             };
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(String(idPrefix)).then(done).catch(() => {
                     if (msg) {
-                        msg.textContent = 'Could not copy certificate ID.';
+                        msg.textContent = i18nT('pulse.msg.copy_cert_id_failed');
                         msg.hidden = false;
                     }
                 });
             } else if (msg) {
-                msg.textContent = 'Copy not supported in this browser.';
+                msg.textContent = i18nT('pulse.msg.copy_unsupported');
                 msg.hidden = false;
             }
         }
@@ -1946,7 +1942,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 const idPrefix = _lpCertIdPrefix(p);
                 if (idPrefix) {
                     bits.push(
-                        `<button type="button" class="bd-chip bd-chip-btn" data-lp-copy-cert-id="1" title="Copy certificate ID">${esc(i18nT('pulse.cert_prefix'))} ${esc(idPrefix)}</button>`
+                        `<button type="button" class="bd-chip bd-chip-btn" data-lp-copy-cert-id="1" title="${esc(i18nT('ui.copy_cert_id_title'))}">${esc(i18nT('pulse.cert_prefix'))} ${esc(idPrefix)}</button>`
                     );
                 }
             } else {
