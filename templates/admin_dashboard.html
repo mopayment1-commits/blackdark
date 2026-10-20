@@ -1,324 +1,352 @@
 <!DOCTYPE html>
-<html lang="{{ lang|default('en') }}" dir="{{ dir|default('ltr') }}">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BLACKDARK — Owner Admin</title>
+    <title>BLACKDARK — مراقبة الموقع</title>
     {% include "partials/seo_canonical.html" %}
     <style>
-        :root { --bg:#0a0a0f; --card:#111118; --border:#2a2a35; --text:#e4e4e7; --muted:#71717a; --accent:#22d3ee; --ok:#22c55e; --warn:#f59e0b; }
+        :root {
+            --bg: #07070c;
+            --card: #101018;
+            --border: #2a2a38;
+            --text: #f4f4f5;
+            --muted: #8b8b9a;
+            --accent: #22d3ee;
+            --ok: #4ade80;
+            --warn: #fbbf24;
+            --bad: #f87171;
+        }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: "IBM Plex Sans", system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
-        nav { padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: .75rem; justify-content: space-between; align-items: center; }
-        .logo { color: var(--accent); font-weight: 800; text-decoration: none; }
-        main { max-width: 1100px; margin: 0 auto; padding: 1.5rem; }
-        h1 { margin-bottom: .35rem; }
-        .sub { color: var(--muted); margin-bottom: 1.25rem; font-size: .92rem; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: .75rem; margin-bottom: 1rem; }
-        .section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.1rem; margin-bottom: 1rem; }
+        body {
+            font-family: "IBM Plex Sans Arabic", "IBM Plex Sans", system-ui, sans-serif;
+            background: radial-gradient(1200px 600px at 10% -10%, rgba(34,211,238,.08), transparent), var(--bg);
+            color: var(--text);
+            line-height: 1.55;
+            min-height: 100vh;
+        }
+        nav {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            flex-wrap: wrap;
+            gap: .75rem;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0,0,0,.35);
+            backdrop-filter: blur(8px);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .logo { color: var(--accent); font-weight: 800; text-decoration: none; letter-spacing: .04em; }
+        .nav-meta { font-size: .82rem; color: var(--muted); }
+        .nav-actions { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; }
+        .btn {
+            padding: .45rem .85rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text);
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: .85rem;
+        }
+        .btn-primary { border-color: var(--accent); color: var(--accent); background: rgba(34,211,238,.1); }
+        .btn-danger { border-color: var(--bad); color: var(--bad); }
+        main { max-width: 1280px; margin: 0 auto; padding: 1.25rem 1.5rem 2.5rem; }
+        h1 { font-size: 1.65rem; margin-bottom: .25rem; }
+        .sub { color: var(--muted); margin-bottom: 1.25rem; font-size: .9rem; }
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: .85rem;
+            margin-bottom: 1.25rem;
+        }
+        .kpi {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1rem 1.1rem;
+            box-shadow: 0 8px 24px rgba(0,0,0,.25);
+        }
+        .kpi .label { font-size: .78rem; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+        .kpi strong { display: block; font-size: 2rem; font-weight: 800; margin-top: .15rem; line-height: 1.1; }
+        .kpi .hint { font-size: .72rem; color: var(--muted); margin-top: .25rem; }
+        .section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1rem 1.15rem;
+            margin-bottom: 1rem;
+        }
         .section h2 { font-size: 1rem; color: var(--accent); margin-bottom: .75rem; }
-        .stat { background: rgba(0,0,0,.25); border: 1px solid var(--border); border-radius: 10px; padding: .85rem; }
-        .stat .label { font-size: .78rem; color: var(--muted); }
-        .stat strong { display: block; font-size: 1.45rem; color: var(--text); margin-top: .2rem; }
-        .stat .na { color: var(--warn); font-size: 1.1rem; }
-        .meta { font-size: .8rem; color: var(--muted); margin-top: 1rem; }
-        .plan-list { font-size: .85rem; color: var(--muted); margin-top: .5rem; }
-        a { color: var(--accent); }
-        .err { color: var(--warn); padding: 1rem; border: 1px solid var(--warn); border-radius: 8px; }
-        .health-row { display:flex; flex-wrap:wrap; gap:.5rem; font-size:.85rem; }
-        .pill { padding:.35rem .65rem; border-radius:999px; border:1px solid var(--border); }
+        .two-col { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1rem; }
+        table { width: 100%; border-collapse: collapse; font-size: .82rem; }
+        th, td { text-align: right; padding: .5rem .4rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+        th { color: var(--muted); font-weight: 600; }
+        .pill { display: inline-block; padding: .2rem .55rem; border-radius: 999px; font-size: .72rem; border: 1px solid var(--border); }
         .pill.ok { border-color: var(--ok); color: var(--ok); }
-        .pill.bad { border-color: var(--warn); color: var(--warn); }
-        table { width:100%; border-collapse:collapse; font-size:.82rem; }
-        th, td { text-align:left; padding:.45rem .35rem; border-bottom:1px solid var(--border); }
-        input, select, button { font: inherit; }
-        .toolbar { display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:.75rem; align-items:center; }
-        .toolbar input { flex:1; min-width:12rem; padding:.45rem .55rem; border-radius:8px; border:1px solid var(--border); background:#0a0a0f; color:var(--text); }
-        .toolbar button { padding:.45rem .75rem; border-radius:8px; border:1px solid var(--accent); background:rgba(34,211,238,.12); color:var(--accent); cursor:pointer; font-weight:600; }
-        .audit { max-height:280px; overflow:auto; font-family: ui-monospace, monospace; font-size:.75rem; }
+        .pill.warn { border-color: var(--warn); color: var(--warn); }
+        .pill.bad { border-color: var(--bad); color: var(--bad); }
+        .err { color: var(--bad); padding: 1rem; border: 1px solid var(--bad); border-radius: 10px; margin-bottom: 1rem; }
+        .refresh-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--ok); margin-inline-start: .35rem; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
+        .level-bars { display: flex; flex-direction: column; gap: .45rem; }
+        .level-row { display: grid; grid-template-columns: 6rem 1fr 2.5rem; gap: .5rem; align-items: center; font-size: .82rem; }
+        .bar-track { height: 8px; background: #1a1a24; border-radius: 999px; overflow: hidden; }
+        .bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), #818cf8); border-radius: 999px; }
+        a { color: var(--accent); }
     </style>
     <script src="/static/js/dom_safe.js"></script>
 </head>
 <body>
     <nav>
-        <a class="logo" href="/">BLACKDARK</a>
         <div>
-            <a href="/admin/launch">Launch</a> ·
-            <a href="/admin/plan">Plan</a> ·
-            <a href="/admin/roadmap">Roadmap</a> ·
-            <a href="/api/admin/owner-metrics">JSON</a>
+            <a class="logo" href="/">BLACKDARK</a>
+            <div class="nav-meta" id="adminIdentity">{% if admin_email %}{{ admin_email }}{% else %}Admin{% endif %}</div>
+        </div>
+        <div class="nav-actions">
+            <span class="nav-meta" id="generated">—</span>
+            <span class="refresh-dot" title="تحديث تلقائي كل 30 ثانية"></span>
+            <a class="btn" href="/oracle-accuracy" target="_blank" rel="noopener">Ledger</a>
+            <a class="btn" href="/miss-bounty-log" target="_blank" rel="noopener">Miss Bounty</a>
+            <button type="button" class="btn btn-danger" id="logoutBtn">تسجيل الخروج</button>
         </div>
     </nav>
     <main>
-        <h1>لوحة المالك</h1>
-        <p class="sub">Owner dashboard — database-backed metrics only (DualEntry · Baremetrics · NetSuite lenses). <span id="generated"></span></p>
+        <h1>لوحة مراقبة الموقع</h1>
+        <p class="sub">مقاييس حية من قاعدة البيانات — للمالك فقط. التحديث التلقائي كل 30 ثانية.</p>
         <div id="error" class="err" hidden></div>
 
-        <section class="section" id="sec-health">
-            <h2>0. حالة الموقع</h2>
-            <p class="sub" style="margin-bottom:.65rem">آخر فحص: <span id="health-checked">—</span></p>
-            <div class="health-row" id="health-surfaces"></div>
+        <div class="kpi-grid" id="kpi-top"></div>
+
+        <section class="section">
+            <h2>الزوار والمستخدمون</h2>
+            <div class="kpi-grid" id="kpi-visitors-users"></div>
         </section>
 
-        <section class="section" id="sec-user-admin">
-            <h2>إدارة المستخدمين</h2>
-            <div class="toolbar">
-                <input type="search" id="userSearch" placeholder="بحث بالاسم أو الإيميل" autocomplete="off" />
-                <button type="button" id="userSearchBtn">بحث</button>
-            </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Email</th>
-                        <th>Name</th>
-                        <th>Plan</th>
-                        <th>Status</th>
-                        <th>Last login</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="userAdminBody"></tbody>
-            </table>
+        <section class="section">
+            <h2>الاشتراكات (Free · DECIDE/Pro · مدفوع آخر)</h2>
+            <div class="kpi-grid" id="kpi-plans"></div>
+            <div class="level-bars" id="level-bars" style="margin-top:.75rem"></div>
         </section>
 
-        <section class="section" id="sec-audit">
-            <h2>سجل التدقيق</h2>
-            <div class="audit" id="auditLog"></div>
-        </section>
+        <div class="two-col">
+            <section class="section">
+                <h2>Oracle · Sealed Markets · Miss Bounty</h2>
+                <div class="kpi-grid" id="kpi-ops"></div>
+            </section>
+            <section class="section">
+                <h2>Public Accuracy Ledger</h2>
+                <div class="kpi-grid" id="kpi-ledger"></div>
+            </section>
+        </div>
 
-        <section class="section" id="sec-users">
-            <h2>1. المستخدمون</h2>
-            <div class="grid" id="users-grid"></div>
-        </section>
-        <section class="section" id="sec-subscribers">
-            <h2>2. المشتركون</h2>
-            <div class="grid" id="subscribers-grid"></div>
-        </section>
-        <section class="section" id="sec-revenue">
-            <h2>3. الإيرادات</h2>
-            <div class="grid" id="revenue-grid"></div>
-            <div class="plan-list" id="revenue-plans"></div>
-        </section>
-        <section class="section" id="sec-visitors">
-            <h2>4. الزوار</h2>
-            <div class="grid" id="visitors-grid"></div>
-        </section>
-        <section class="section" id="sec-emails">
-            <h2>5. الإيميلات</h2>
-            <div class="grid" id="emails-grid"></div>
-        </section>
-        <section class="section" id="sec-subs">
-            <h2>6. الاشتراكات</h2>
-            <div class="grid" id="subscriptions-grid"></div>
-        </section>
-
-        <p class="meta" id="sources"></p>
+        <div class="two-col">
+            <section class="section">
+                <h2>آخر 10 قرارات Oracle</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Asset</th>
+                            <th>Verdict</th>
+                            <th>Label</th>
+                            <th>الحالة</th>
+                            <th>الوقت</th>
+                        </tr>
+                    </thead>
+                    <tbody id="oracleRecentBody"></tbody>
+                </table>
+            </section>
+            <section class="section">
+                <h2>آخر 10 أخطاء (سجل التدقيق)</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>الوقت</th>
+                            <th>Action</th>
+                            <th>Outcome</th>
+                            <th>Path</th>
+                        </tr>
+                    </thead>
+                    <tbody id="errorsRecentBody"></tbody>
+                </table>
+            </section>
+        </div>
     </main>
     <script type="module">
         const esc = (globalThis.esc || globalThis.escapeHtml || ((v) => String(v ?? '')));
 
-        function money(cents) {
-            if (cents === null || cents === undefined) return null;
-            const n = Number(cents);
-            if (Number.isNaN(n)) return '—';
-            return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n / 100);
-        }
-
-        function statBox(label, value, isMoney = false) {
-            const box = document.createElement('div');
-            box.className = 'stat';
+        function kpi(label, value, hint = '') {
+            const el = document.createElement('div');
+            el.className = 'kpi';
             const lab = document.createElement('div');
             lab.className = 'label';
             lab.textContent = label;
-            box.appendChild(lab);
             const strong = document.createElement('strong');
-            if (value === null || value === undefined) {
-                strong.className = 'na';
-                strong.textContent = '—';
-                strong.title = 'Not stored in database';
-            } else if (isMoney) {
-                strong.textContent = money(value) ?? '—';
+            strong.textContent = value === null || value === undefined ? '—' : String(value);
+            el.append(lab, strong);
+            if (hint) {
+                const h = document.createElement('div');
+                h.className = 'hint';
+                h.textContent = hint;
+                el.appendChild(h);
+            }
+            return el;
+        }
+
+        function fillGrid(el, items) {
+            el.replaceChildren();
+            for (const [label, value, hint] of items) {
+                el.appendChild(kpi(label, value, hint));
+            }
+        }
+
+        function statusPill(resolved, label) {
+            const span = document.createElement('span');
+            if (!resolved) {
+                span.className = 'pill warn';
+                span.textContent = 'معلّق';
+            } else if (label === 'incorrect') {
+                span.className = 'pill bad';
+                span.textContent = 'خطأ';
             } else {
-                strong.textContent = String(value);
+                span.className = 'pill ok';
+                span.textContent = 'محلول';
             }
-            box.appendChild(strong);
-            return box;
+            return span;
         }
 
-        function fillGrid(el, pairs) {
-            el.replaceChildren();
-            for (const [label, value, isMoney] of pairs) {
-                el.appendChild(statBox(label, value, isMoney));
-            }
-        }
-
-        async function loadHealth() {
-            const res = await fetch('/api/admin/site-health');
-            if (!res.ok) return;
-            const h = await res.json();
-            document.getElementById('health-checked').textContent = h.checked_at || '—';
-            const wrap = document.getElementById('health-surfaces');
+        function renderLevels(levels) {
+            const wrap = document.getElementById('level-bars');
             wrap.replaceChildren();
-            for (const p of h.surfaces || []) {
-                const pill = document.createElement('span');
-                pill.className = 'pill ' + (p.ok ? 'ok' : 'bad');
-                pill.textContent = `${p.path} ${p.status ?? '—'} ${p.ms != null ? p.ms + 'ms' : ''}`;
-                wrap.appendChild(pill);
+            const entries = Object.entries(levels || {}).sort((a, b) => b[1] - a[1]);
+            const max = entries.length ? Math.max(...entries.map((e) => e[1])) : 1;
+            for (const [tier, count] of entries) {
+                const row = document.createElement('div');
+                row.className = 'level-row';
+                const name = document.createElement('span');
+                name.textContent = tier === 'pro' ? 'DECIDE/Pro' : tier;
+                const track = document.createElement('div');
+                track.className = 'bar-track';
+                const fill = document.createElement('div');
+                fill.className = 'bar-fill';
+                fill.style.width = `${Math.round((count / max) * 100)}%`;
+                track.appendChild(fill);
+                const num = document.createElement('span');
+                num.textContent = String(count);
+                row.append(name, track, num);
+                wrap.appendChild(row);
             }
         }
 
-        const PLAN_OPTS = ['free', 'pro', 'elite', 'quant', 'institutional'];
-        const STATUS_OPTS = ['active', 'suspended', 'canceled', 'past_due', 'trialing'];
-
-        async function loadUsers(q = '') {
-            const res = await fetch('/api/admin/users?' + new URLSearchParams({ q, limit: '50' }));
-            if (!res.ok) return;
-            const data = await res.json();
-            const body = document.getElementById('userAdminBody');
-            body.replaceChildren();
-            for (const u of data.users || []) {
-                const tr = document.createElement('tr');
-                const cells = [u.id, u.email, u.name || '—', u.plan, u.subscription_status, u.last_login_at || '—'];
-                for (const c of cells) {
-                    const td = document.createElement('td');
-                    td.textContent = String(c ?? '');
-                    tr.appendChild(td);
-                }
-                const tdAct = document.createElement('td');
-                const planSel = document.createElement('select');
-                for (const p of PLAN_OPTS) {
-                    const o = document.createElement('option');
-                    o.value = p;
-                    o.textContent = p;
-                    if (p === u.plan) o.selected = true;
-                    planSel.appendChild(o);
-                }
-                const stSel = document.createElement('select');
-                for (const s of STATUS_OPTS) {
-                    const o = document.createElement('option');
-                    o.value = s;
-                    o.textContent = s;
-                    if (s === u.subscription_status) o.selected = true;
-                    stSel.appendChild(o);
-                }
-                const btn = document.createElement('button');
-                btn.type = 'button';
-                btn.textContent = 'Save';
-                btn.addEventListener('click', async () => {
-                    btn.disabled = true;
-                    await fetch(`/api/admin/users/${u.id}`, {
-                        method: 'PATCH',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ plan: planSel.value, subscription_status: stSel.value }),
-                    });
-                    btn.disabled = false;
-                    await loadAudit();
-                });
-                tdAct.append(planSel, document.createTextNode(' '), stSel, document.createTextNode(' '), btn);
-                tr.appendChild(tdAct);
-                body.appendChild(tr);
-            }
-        }
-
-        async function loadAudit() {
-            const res = await fetch('/api/admin/audit-logs?limit=80');
-            if (!res.ok) return;
-            const data = await res.json();
-            const el = document.getElementById('auditLog');
-            el.replaceChildren();
-            for (const row of data.logs || []) {
-                const line = document.createElement('div');
-                line.textContent = `${row.timestamp || ''} · ${row.actor || ''} · ${row.action || ''} · ${row.outcome || ''}`;
-                el.appendChild(line);
-            }
-        }
-
-        document.getElementById('userSearchBtn')?.addEventListener('click', () => {
-            loadUsers(document.getElementById('userSearch')?.value || '');
-        });
-
-        async function load() {
+        async function loadMetrics() {
             const errEl = document.getElementById('error');
             try {
-                await loadHealth();
-                await loadUsers('');
-                await loadAudit();
-                const res = await fetch('/api/admin/owner-metrics');
-                if (!res.ok) {
+                const res = await fetch('/api/admin/owner-metrics', { credentials: 'same-origin' });
+                if (res.status === 401 || res.status === 403) {
                     errEl.hidden = false;
-                    errEl.textContent = `Failed to load metrics (${res.status}). Admin auth required.`;
+                    errEl.textContent = 'يلزم تسجيل الدخول بحساب الأدمن. افتح /login ثم /admin.';
                     return;
                 }
-                const d = await res.json();
-                document.getElementById('generated').textContent = d.generated_at ? `Updated ${d.generated_at}` : '';
-
-                fillGrid(document.getElementById('users-grid'), [
-                    ['إجمالي', d.users?.total],
-                    ['نشط (30 يوم)', d.users?.active_30d],
-                    ['جديد اليوم', d.users?.new_today],
-                    ['جديد الأسبوع', d.users?.new_week],
-                ]);
-                fillGrid(document.getElementById('subscribers-grid'), [
-                    ['إجمالي', d.subscribers?.total_accounts],
-                    ['مدفوع', d.subscribers?.paid],
-                    ['مجاني', d.subscribers?.free],
-                    ['ملغى', d.subscribers?.canceled],
-                ]);
-                fillGrid(document.getElementById('revenue-grid'), [
-                    ['MRR', d.revenue?.mrr_cents, true],
-                    ['ARR', d.revenue?.arr_cents, true],
-                    ['إجمالي محصّل', d.revenue?.total_collected_cents, true],
-                    ['محصّل 30 يوم', d.revenue?.collected_last_30d_cents, true],
-                    ['ARPU (30 يوم)', d.revenue?.arpu_cents_last_30d, true],
-                    ['NRR', d.revenue?.nrr_pct],
-                    ['GRR', d.revenue?.grr_pct],
-                    ['Churn', d.revenue?.churn_pct],
-                    ['CAC', d.revenue?.cac],
-                    ['LTV', d.revenue?.ltv_cents, true],
-                ]);
-                const plansEl = document.getElementById('revenue-plans');
-                const byPlan = d.revenue?.active_paid_by_plan || {};
-                const keys = Object.keys(byPlan);
-                if (!keys.length) {
-                    plansEl.textContent = 'حسب الخطة: لا حسابات مدفوعة نشطة في قاعدة البيانات.';
-                } else {
-                    plansEl.replaceChildren();
-                    plansEl.appendChild(document.createTextNode('حسب الخطة (نشط): '));
-                    keys.sort().forEach((k, i) => {
-                        if (i) plansEl.appendChild(document.createTextNode(' · '));
-                        const span = document.createElement('span');
-                        span.textContent = `${esc(k)}=${byPlan[k]}`;
-                        plansEl.appendChild(span);
-                    });
+                if (!res.ok) {
+                    errEl.hidden = false;
+                    errEl.textContent = `تعذّر تحميل المقاييس (${res.status})`;
+                    return;
                 }
-                fillGrid(document.getElementById('visitors-grid'), [
-                    ['اليوم', d.visitors?.today],
-                    ['الأسبوع', d.visitors?.week],
-                    ['الشهر', d.visitors?.month],
+                errEl.hidden = true;
+                const d = await res.json();
+                document.getElementById('generated').textContent = d.generated_at ? `آخر تحديث ${d.generated_at}` : '—';
+
+                const ops = d.operations || {};
+                const ledger = ops.ledger || {};
+                const tiers = d.subscriptions_by_tier || {};
+
+                fillGrid(document.getElementById('kpi-top'), [
+                    ['زوار اليوم', d.visitors?.today],
+                    ['مستخدمون مسجّلون', d.users?.total],
+                    ['نشطون (30 يوم)', d.users?.active_30d],
+                    ['قرارات Oracle اليوم', ops.oracle_decisions_today],
+                    ['Miss Bounty معلّقة', ops.miss_bounty_pending],
                 ]);
-                fillGrid(document.getElementById('emails-grid'), [
-                    ['مرسلة (سجل)', d.emails?.sent],
-                    ['مفتوحة', d.emails?.opened],
-                    ['فاشلة', d.emails?.failed],
+
+                fillGrid(document.getElementById('kpi-visitors-users'), [
+                    ['زوار الأسبوع', d.visitors?.week],
+                    ['زوار الشهر', d.visitors?.month],
+                    ['مستخدمون جدد اليوم', d.users?.new_today],
+                    ['مستخدمون جدد الأسبوع', d.users?.new_week],
                 ]);
-                fillGrid(document.getElementById('subscriptions-grid'), [
-                    ['جديدة اليوم', d.subscriptions?.new_today],
-                    ['جديدة الأسبوع', d.subscriptions?.new_week],
-                    ['ملغاة (أسبوع)', d.subscriptions?.canceled_week],
-                    ['متأخرة', d.subscriptions?.past_due],
-                    ['ترقيات (أسبوع)', d.subscriptions?.upgrades_week],
-                    ['تسجيلات (أسبوع)', d.subscriptions?.signups_week],
+
+                fillGrid(document.getElementById('kpi-plans'), [
+                    ['Free', tiers.free],
+                    ['DECIDE / Pro', tiers.pro_decide],
+                    ['مدفوع (Elite+)', tiers.other_paid],
+                    ['إجمالي مدفوع', d.subscribers?.paid],
                 ]);
-                const src = document.getElementById('sources');
-                const list = (d.data_sources || []).join(', ');
-                src.textContent = list ? `Sources: ${list}` : '';
+                renderLevels(d.user_levels || {});
+
+                fillGrid(document.getElementById('kpi-ops'), [
+                    ['أسواق Sealed مفتوحة', ops.sealed_markets_open],
+                    ['رهانات نشطة', ops.sealed_bets_active],
+                    ['Oracle اليوم', ops.oracle_decisions_today],
+                    ['Bounty معلّقة', ops.miss_bounty_pending],
+                ]);
+
+                fillGrid(document.getElementById('kpi-ledger'), [
+                    ['مسجّلة', ledger.logged],
+                    ['محلولة', ledger.resolved],
+                    ['معلّقة', ledger.pending],
+                    ['دقة %', ledger.accuracy_percent],
+                ]);
+
+                const ob = document.getElementById('oracleRecentBody');
+                ob.replaceChildren();
+                for (const row of ops.recent_oracle_decisions || []) {
+                    const tr = document.createElement('tr');
+                    for (const key of ['id', 'asset', 'verdict', 'label']) {
+                        const td = document.createElement('td');
+                        td.textContent = String(row[key] ?? '—');
+                        tr.appendChild(td);
+                    }
+                    const tdSt = document.createElement('td');
+                    tdSt.appendChild(statusPill(row.resolved, row.label));
+                    tr.appendChild(tdSt);
+                    const tdTs = document.createElement('td');
+                    tdTs.textContent = String(row.timestamp ?? '—');
+                    tr.appendChild(tdTs);
+                    ob.appendChild(tr);
+                }
+
+                const eb = document.getElementById('errorsRecentBody');
+                eb.replaceChildren();
+                for (const row of ops.recent_errors || []) {
+                    const tr = document.createElement('tr');
+                    const cells = [row.timestamp, row.action, row.outcome, row.path || row.detail];
+                    for (const c of cells) {
+                        const td = document.createElement('td');
+                        td.textContent = String(c ?? '—');
+                        tr.appendChild(td);
+                    }
+                    eb.appendChild(tr);
+                }
             } catch (e) {
                 errEl.hidden = false;
                 errEl.textContent = String(e?.message || e);
             }
         }
-        load();
+
+        document.getElementById('logoutBtn')?.addEventListener('click', async () => {
+            try {
+                await fetch('/api/auth/logout', { method: 'POST', credentials: 'same-origin' });
+            } catch (_) { /* ignore */ }
+            window.location.href = '/login';
+        });
+
+        loadMetrics();
+        setInterval(loadMetrics, 30000);
     </script>
 </body>
 </html>

@@ -50,6 +50,11 @@ def test_owner_metrics_shape_with_admin_key(client, monkeypatch):
     body = res.json()
     for key in ("users", "subscribers", "revenue", "visitors", "emails", "subscriptions"):
         assert key in body
+    assert "operations" in body
+    assert "ledger" in body["operations"]
+    assert "recent_oracle_decisions" in body["operations"]
+    assert "subscriptions_by_tier" in body
+    assert "user_levels" in body
     assert "total" in body["users"]
     assert "mrr_cents" in body["revenue"]
     assert body["emails"]["opened"] is None
@@ -62,5 +67,6 @@ def test_admin_dashboard_html_with_admin_key(client, monkeypatch):
     headers = {"X-Admin-Key": "test-admin-key-please-rotate"}
     res = client.get("/admin", headers=headers)
     assert res.status_code == 200
-    assert "لوحة المالك" in res.text
+    assert "لوحة مراقبة الموقع" in res.text
+    assert "logoutBtn" in res.text
     assert "/api/admin/owner-metrics" in res.text

@@ -22,9 +22,13 @@ router = APIRouter(tags=["owner-admin"], responses=COMMON_ERROR_RESPONSES)
 @router.get("/admin", response_class=HTMLResponse)
 async def admin_owner_dashboard_page(
     request: Request,
-    _admin: dict = Depends(require_admin_dev),
+    admin: dict = Depends(require_admin_dev),
 ):
-    return templates.TemplateResponse(request, "admin_dashboard.html")
+    return templates.TemplateResponse(
+        request,
+        "admin_dashboard.html",
+        {"admin_email": admin.get("email") or ""},
+    )
 
 
 @router.get("/api/admin/owner-metrics")
