@@ -706,10 +706,10 @@
                     <div class="tp-mini-cta">
                         <a href="/dashboard?lens=prove#trust-pulse" class="btn-primary" style="padding:.55rem 1.1rem;font-size:.9rem">{{ t('pulse.open_full') }}</a>
                         <button type="button" class="btn-secondary" style="padding:.55rem 1.1rem;font-size:.9rem;cursor:pointer" id="lpShareBtn">{{ t('pulse.share') }}</button>
-                        <button type="button" class="btn-secondary" style="padding:.55rem 1.1rem;font-size:.9rem;cursor:pointer;display:none" id="lpArbBtn">View Arb Opportunities</button>
+                        <button type="button" class="btn-secondary" style="padding:.55rem 1.1rem;font-size:.9rem;cursor:pointer;display:none" id="lpArbBtn">{{ t('arb.btn') }}</button>
                     </div>
                     <div id="lpArbPanel" hidden style="margin-top:.75rem;text-align:left;font-size:.82rem;border-top:1px solid var(--border);padding-top:.65rem">
-                        <p style="color:var(--muted);margin-bottom:.35rem">Cross-exchange spreads (display only · max 5)</p>
+                        <p style="color:var(--muted);margin-bottom:.35rem">{{ t('arb.panel.lead') }}</p>
                         <ul id="lpArbList" style="list-style:none;padding:0;margin:0"></ul>
                     </div>
                     <p class="tp-mini-foot bd-anti-hype">{{ t('pulse.foot') }}</p>
@@ -2093,7 +2093,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             if (!panel || !list) return;
             panel.hidden = !panel.hidden;
             if (panel.hidden) return;
-            list.innerHTML = '<li>Loading…</li>';
+            list.innerHTML = '<li>' + (window.BD_I18N && BD_I18N.t('arb.loading') || '…') + '</li>';
             try {
                 const res = await fetch('/api/oracle/arb-opportunities/' + encodeURIComponent(sym), { credentials: 'same-origin' });
                 const d = await res.json();
@@ -2110,7 +2110,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                         '<a href="' + o.link_exchange_1 + '" target="_blank" rel="noopener">' + o.exchange_1 + '</a> · ' +
                         '<a href="' + o.link_exchange_2 + '" target="_blank" rel="noopener">' + o.exchange_2 + '</a></li>'
                     )).join('')
-                    : '<li>No spreads for ' + sym + ' right now.</li>';
+                    : '<li>' + (window.BD_I18N && BD_I18N.t('arb.none_symbol', { symbol: sym }) || sym) + '</li>';
             } catch (error) {
                 list.innerHTML = '<li>Could not load arb opportunities.</li>';
             }

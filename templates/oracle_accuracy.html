@@ -172,13 +172,13 @@
         <p id="chain-status" style="color:var(--muted);font-size:0.9rem;margin-top:0.5rem"></p>
         <div class="cta-row" style="margin-top:1rem">
             <a class="btn btn-secondary" href="#proof-chain" id="verifyChainBtn">{{ t('ledger.cta.verify_chain') }}</a>
-            <a class="btn btn-secondary" href="#audit-challenge">Audit Challenge</a>
+            <a class="btn btn-secondary" href="#audit-challenge">{{ t('ledger.cta.audit_challenge') }}</a>
             <a class="btn btn-secondary" href="#losing">{{ t('ledger.cta.misses') }}</a>
-            <a class="btn btn-secondary" href="/miss-bounty-log">Miss Bounty Log</a>
-            <a class="btn btn-secondary" href="/sealed-markets">Sealed Markets</a>
+            <a class="btn btn-secondary" href="/miss-bounty-log">{{ t('ledger.cta.bounty_log') }}</a>
+            <a class="btn btn-secondary" href="/sealed-markets">{{ t('ledger.cta.sealed_markets') }}</a>
             <a class="btn btn-secondary" href="#glass-box-challenge">{{ t('ledger.cta.glass') }}</a>
-            <a class="btn btn-secondary" href="#mev-report">MEV Report</a>
-            <a class="btn btn-secondary" href="#locked">Locked Predictions</a>
+            <a class="btn btn-secondary" href="#mev-report">{{ t('ledger.cta.mev_report') }}</a>
+            <a class="btn btn-secondary" href="#locked">{{ t('ledger.cta.locked_predictions') }}</a>
             <a class="btn btn-secondary" href="/discipline-mirror">{{ t('ledger.cta.mirror') }}</a>
             <a class="btn btn-secondary" href="/docs">{{ t('ledger.cta.docs') }}</a>
         </div>
@@ -251,7 +251,7 @@
 
     <section class="panel" id="mev-report">
         <div class="card">
-            <h2>Shareable MEV / Sandwich Report</h2>
+            <h2>{{ t('ledger.panel.mev_title') }}</h2>
             <p id="mev-status" style="color:var(--muted);font-size:0.9rem">Loading risk posture…</p>
             <ul class="events" id="mev-mitigations"><li>Loading...</li></ul>
             <div class="cta-row" style="margin-top:1rem;justify-content:flex-start">
@@ -263,17 +263,17 @@
 
     <section class="panel" id="sealed-markets-panel">
         <div class="card">
-            <h2>Sealed Prediction Markets</h2>
-            <p class="muted" style="font-size:0.88rem">Oracle Act/Wait decisions sealed before the 24h outcome — stake on correctness (max 50 USDT, 5% fee on losing pool).</p>
-            <p id="sealed-markets-status" class="muted">Loading…</p>
-            <ul class="events" id="sealed-markets-list"><li>Loading…</li></ul>
-            <a class="btn btn-secondary" href="/sealed-markets" style="margin-top:0.75rem;display:inline-block">All sealed markets</a>
+            <h2>{{ t('ledger.panel.sealed_title') }}</h2>
+            <p class="muted" style="font-size:0.88rem">{{ t('ledger.panel.sealed_lead') }}</p>
+            <p id="sealed-markets-status" class="muted">{{ t('sealed.loading') }}</p>
+            <ul class="events" id="sealed-markets-list"><li>{{ t('sealed.loading') }}</li></ul>
+            <a class="btn btn-secondary" href="/sealed-markets" style="margin-top:0.75rem;display:inline-block">{{ t('ledger.panel.sealed_all') }}</a>
         </div>
     </section>
 
     <section class="panel" id="locked">
         <div class="card">
-            <h2>Locked Predictions · Glass Box</h2>
+            <h2>{{ t('ledger.panel.locked_title') }}</h2>
             <p id="locked-status" style="color:var(--muted);font-size:0.9rem">Loading sealed forecasts…</p>
             <ul class="events" id="locked-list"><li>Loading...</li></ul>
             <div class="cta-row" style="margin-top:1rem;justify-content:flex-start">
@@ -287,36 +287,32 @@
 
     <section class="panel" id="losing">
         <div class="card">
-            <h2>Public Misses · live ledger</h2>
+            <h2>{{ t('ledger.panel.misses_title') }}</h2>
             <p style="color:var(--muted);font-size:0.88rem;margin-bottom:.65rem">
-                Same Public Accuracy Ledger as the table below. Alias route: <code>/errors</code>.
+                {{ t('ledger.panel.misses_lead') }} <code>/errors</code>.
             </p>
             <p id="losing-status" style="color:var(--muted);font-size:0.9rem">Loading honest misses…</p>
             <p id="losing-archive-note" style="display:none;color:var(--warning);font-size:0.85rem;margin:.5rem 0"></p>
-            <h3 style="font-size:1rem;margin:1rem 0 0.5rem">Verified errors we own</h3>
+            <h3 style="font-size:1rem;margin:1rem 0 0.5rem">{{ t('ledger.panel.verified_errors') }}</h3>
             <ul class="events" id="losing-errors-list"><li>Loading...</li></ul>
-            <h3 style="font-size:1rem;margin:1rem 0 0.5rem">Partial outcomes</h3>
+            <h3 style="font-size:1rem;margin:1rem 0 0.5rem">{{ t('ledger.panel.partial_outcomes') }}</h3>
             <ul class="events" id="losing-partial-list"><li>Loading...</li></ul>
             <div class="cta-row" style="margin-top:1rem;justify-content:flex-start">
                 <button class="btn btn-secondary" type="button" id="copyLosingBtn">Copy share text</button>
-                <a class="btn btn-secondary" href="/miss-bounty-log">Miss Bounty Log</a>
-                <a class="btn btn-secondary" href="#glass-box-challenge">Read transparency challenge</a>
+                <a class="btn btn-secondary" href="/miss-bounty-log">{{ t('ledger.cta.bounty_log') }}</a>
+                <a class="btn btn-secondary" href="#glass-box-challenge">{{ t('ledger.panel.transparency_link') }}</a>
             </div>
-            <p style="margin-top:0.75rem;font-size:0.82rem;color:var(--muted)">
-                <strong>Verified Miss Bounty:</strong> paid subscribers may claim 20% off one month when a verified miss meets the rules (manual review, max 3 approvals/day site-wide).
-            </p>
-            <p style="margin-top:0.65rem;font-size:0.72rem;color:var(--muted)"><strong>Anti-Hype</strong> · Not financial advice. Past misses do not predict future results.</p>
+            <p style="margin-top:0.75rem;font-size:0.82rem;color:var(--muted)">{{ t('bounty.rules_banner') }}</p>
+            <p style="margin-top:0.65rem;font-size:0.72rem;color:var(--muted)">{{ t('ledger.panel.anti_hype_misses') }}</p>
         </div>
     </section>
 
     <section class="panel" id="audit-challenge">
         <div class="card">
-            <h2>Audit Challenge — Prove us wrong</h2>
+            <h2>{{ t('ledger.panel.audit_title') }}</h2>
             <p id="audit-status" style="color:var(--muted);font-size:0.9rem">Loading live verify…</p>
-            <p style="color:var(--muted);font-size:0.88rem;margin-top:.5rem">
-                Find a real break in the hash chain. We publish the full ledger — including misses.
-            </p>
-            <p style="margin-top:0.65rem;font-size:0.72rem;color:var(--muted)"><strong>Anti-Hype</strong> · Not financial advice. Verify the chain yourself — trust is optional.</p>
+            <p style="color:var(--muted);font-size:0.88rem;margin-top:.5rem">{{ t('ledger.panel.audit_lead') }}</p>
+            <p style="margin-top:0.65rem;font-size:0.72rem;color:var(--muted)">{{ t('ledger.panel.anti_hype_audit') }}</p>
         </div>
     </section>
 
@@ -578,7 +574,15 @@
             return true;
         }
 
+        function i18nT(key, vars) {
+            const i18n = window.BD_I18N;
+            if (!i18n || typeof i18n.t !== 'function') return '';
+            return i18n.t(key, vars);
+        }
+
         function ledgerCopy(key) {
+            const fromCat = i18nT('ledger.js.' + key);
+            if (fromCat) return fromCat;
             const ar = PAGE_LANG.startsWith('ar');
             const en = {
                 no_scored: 'No verified scored rows in the live ledger yet.',
@@ -1017,12 +1021,12 @@
             if (errList) {
                 errList.innerHTML = errors.length
                     ? errors.map(renderMonthlyLosingRow).join('')
-                    : '<li>No verified errors in the latest live miss sample.</li>';
+                    : '<li>' + esc(i18nT('ledger.js.no_verified_sample')) + '</li>';
             }
             if (partList) {
                 partList.innerHTML = partials.length
                     ? partials.map(renderMonthlyLosingRow).join('')
-                    : '<li>No partial outcomes in the latest live miss sample.</li>';
+                    : '<li>' + esc(i18nT('ledger.js.no_partial_sample')) + '</li>';
             }
             attachMissBountyButtons().catch((err) => console.debug(err));
             lastLosingShare = buildLedgerShareText(o);
@@ -1033,7 +1037,7 @@
             const decision = r.public_decision || r.verdict || publicMissDecisionLabel(r);
             const pid = ledgerField(r.prediction_id);
             const bountyBtn = label === 'incorrect'
-                ? `<button type="button" class="btn-bounty disabled" data-bounty-pred="${esc(pid)}" data-bounty-asset="${esc(ledgerField(r.asset))}">Claim Miss Bounty</button>`
+                ? `<button type="button" class="btn-bounty disabled" data-bounty-pred="${esc(pid)}" data-bounty-asset="${esc(ledgerField(r.asset))}">${esc(i18nT('bounty.claim_btn') || 'Claim Miss Bounty')}</button>`
                 : '';
             return (
                 `<li><strong>${esc(ledgerField(r.asset))}</strong> · ${esc(decision)} · ` +
@@ -1267,11 +1271,16 @@
                 const d = await fetchJsonWithTimeout('/api/sealed-markets/public', {}, ORACLE_LEDGER_SECONDARY_MS);
                 const active = d.active || [];
                 const settled = (d.settled || []).slice(0, 6);
-                if (st) st.textContent = `${active.length} active · ${settled.length} recent settled`;
+                if (st) {
+                    st.textContent = i18nT('sealed.panel.status', {
+                        active: active.length,
+                        settled: settled.length,
+                    }) || `${active.length} active · ${settled.length} recent settled`;
+                }
                 const rows = [...active, ...settled];
                 if (!list) return;
                 if (!rows.length) {
-                    list.innerHTML = '<li>No sealed markets yet — created with each new Oracle decision.</li>';
+                    list.innerHTML = '<li>' + esc(i18nT('sealed.panel.empty')) + '</li>';
                     return;
                 }
                 list.innerHTML = rows.map(m =>
@@ -1280,7 +1289,7 @@
                     `<a href="/oracle-decision/${esc(m.prediction_id)}">view</a></li>`
                 ).join('');
             } catch (e) {
-                if (st) st.textContent = 'Sealed markets unavailable';
+                if (st) st.textContent = i18nT('sealed.panel.unavailable');
                 if (list) list.innerHTML = '<li>—</li>';
             }
         }
@@ -1313,7 +1322,7 @@
         document.getElementById('mb-cancel')?.addEventListener('click', () => mbModal?.classList.remove('open'));
         document.getElementById('mb-submit')?.addEventListener('click', async () => {
             const msg = document.getElementById('mb-msg');
-            msg.textContent = 'Submitting…';
+            msg.textContent = i18nT('bounty.modal.submitting');
             try {
                 const res = await fetch('/api/oracle/miss-bounty/claims', {
                     method: 'POST',
@@ -1329,13 +1338,13 @@
                 });
                 const data = await res.json().catch(() => ({}));
                 if (!res.ok) {
-                    msg.textContent = data.detail || 'Claim failed';
+                    msg.textContent = data.detail || i18nT('bounty.modal.failed');
                     return;
                 }
                 msg.style.color = 'var(--success)';
                 msg.textContent = data.message || `Status: ${data.status}`;
             } catch (e) {
-                msg.textContent = 'Network error';
+                msg.textContent = i18nT('bounty.modal.network_error');
             }
         });
 
@@ -1349,7 +1358,7 @@
                     const eligible = !!data.eligible;
                     btn.disabled = !eligible;
                     btn.classList.toggle('disabled', !eligible);
-                    btn.title = (data.reasons || []).join(' · ') || (eligible ? 'Claim 20% off one month' : '');
+                    btn.title = (data.reasons || []).join(' · ') || (eligible ? i18nT('bounty.claim_tooltip') : '');
                 } catch (e) {
                     btn.disabled = true;
                     btn.classList.add('disabled');
@@ -1368,23 +1377,23 @@
     </script>
     <div id="miss-bounty-modal" role="dialog" aria-modal="true" aria-labelledby="mb-title">
         <div class="sheet">
-            <h2 id="mb-title" style="font-size:1.1rem;margin-bottom:0.35rem">Claim Miss Bounty</h2>
-            <p style="font-size:0.82rem;color:var(--muted)">20% off one subscription month · not cash/USDT · manual review within 48h</p>
+            <h2 id="mb-title" style="font-size:1.1rem;margin-bottom:0.35rem">{{ t('bounty.modal.title') }}</h2>
+            <p style="font-size:0.82rem;color:var(--muted)">{{ t('bounty.modal.sub') }}</p>
             <p id="mb-pred" style="font-size:0.85rem;margin-top:0.5rem"></p>
-            <label for="mb-decision-link">Decision link</label>
+            <label for="mb-decision-link">{{ t('bounty.modal.decision_link') }}</label>
             <input id="mb-decision-link" type="url" readonly>
-            <label for="mb-src-a">Source A URL (close price)</label>
+            <label for="mb-src-a">{{ t('bounty.modal.source_a_url') }}</label>
             <input id="mb-src-a" type="url" placeholder="https://…">
-            <label for="mb-close-a">Source A closing price</label>
+            <label for="mb-close-a">{{ t('bounty.modal.source_a_close') }}</label>
             <input id="mb-close-a" type="number" step="any" min="0">
-            <label for="mb-src-b">Source B URL (different domain)</label>
+            <label for="mb-src-b">{{ t('bounty.modal.source_b_url') }}</label>
             <input id="mb-src-b" type="url" placeholder="https://…">
-            <label for="mb-close-b">Source B closing price</label>
+            <label for="mb-close-b">{{ t('bounty.modal.source_b_close') }}</label>
             <input id="mb-close-b" type="number" step="any" min="0">
             <p id="mb-msg" style="font-size:0.82rem;margin-top:0.75rem;color:var(--warning)"></p>
             <div class="cta-row" style="justify-content:flex-end;margin:1rem 0 0">
-                <button type="button" class="btn btn-secondary" id="mb-cancel">Cancel</button>
-                <button type="button" class="btn btn-primary" id="mb-submit">Submit claim</button>
+                <button type="button" class="btn btn-secondary" id="mb-cancel">{{ t('bounty.modal.cancel') }}</button>
+                <button type="button" class="btn btn-primary" id="mb-submit">{{ t('bounty.modal.submit') }}</button>
             </div>
         </div>
     </div>

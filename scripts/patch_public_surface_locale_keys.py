@@ -80,6 +80,18 @@ PREFIXES = (
     "pulse.drawer.",
     "pulse.msg.",
     "pulse.chip.",
+    "bounty.",
+    "sealed.",
+    "arb.",
+    "ledger.panel.",
+    "ledger.js.",
+    "ledger.cta.bounty",
+    "ledger.cta.sealed",
+    "ledger.cta.audit",
+    "ledger.cta.mev",
+    "ledger.cta.locked",
+    "meta.title.bounty",
+    "meta.title.sealed",
 )
 
 

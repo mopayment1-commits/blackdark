@@ -257,6 +257,8 @@
     </style>
 </head>
 <body>
+    <script type="application/json" id="bd-i18n-boot">{"lang": {{ lang|tojson }}, "catalog": {{ i18n|tojson }}}</script>
+    <script src="/static/js/bd_i18n.js" defer></script>
     {% include 'partials/global_header.html' %}
 
     <main id="top">
@@ -296,10 +298,10 @@
             <div class="tp-cta">
                 <button class="btn" type="button" data-bd-call="openFullProof">Open full proof</button>
                 <button class="btn secondary" type="button" id="tpShareBtn" data-bd-call="shareTrustPulse" data-bd-sync="1" hidden>Share Proof</button>
-                <button class="btn secondary" type="button" id="tpArbBtn" style="display:none">View Arb Opportunities</button>
+                <button class="btn secondary" type="button" id="tpArbBtn" style="display:none">{{ t('arb.btn') }}</button>
             </div>
             <div id="tpArbPanel" hidden style="margin:.75rem 0;font-size:.85rem;border-top:1px solid #2a2a35;padding-top:.65rem">
-                <p style="color:#71717a;margin-bottom:.35rem">Cross-exchange spreads — display only (max 5). Not execution.</p>
+                <p style="color:#71717a;margin-bottom:.35rem">{{ t('arb.panel.lead_dashboard') }}</p>
                 <ul id="tpArbList" style="list-style:none;padding:0;margin:0"></ul>
             </div>
             <div class="tp-foot" id="tpFoot"><strong>Anti-Hype</strong> · Not financial advice · AI cannot guarantee returns</div>
@@ -942,7 +944,7 @@
             if (!panel || !list) return;
             panel.hidden = !panel.hidden;
             if (panel.hidden) return;
-            list.innerHTML = '<li>Loading…</li>';
+            list.innerHTML = '<li>' + esc(i18nT('arb.loading')) + '</li>';
             try {
                 const res = await fetch('/api/oracle/arb-opportunities/' + encodeURIComponent(sym), {
                     credentials: 'same-origin',
@@ -962,10 +964,10 @@
                         '<a href="' + esc(o.link_exchange_1) + '" target="_blank" rel="noopener">' + esc(o.exchange_1) + '</a> · ' +
                         '<a href="' + esc(o.link_exchange_2) + '" target="_blank" rel="noopener">' + esc(o.exchange_2) + '</a></li>'
                     )).join('')
-                    : '<li>No cross-exchange spreads for ' + esc(sym) + ' right now.</li>';
+                    : '<li>' + esc(i18nT('arb.none_symbol', { symbol: sym })) + '</li>';
             } catch (error) {
                 console.debug(error);
-                list.innerHTML = '<li>Could not load arb opportunities.</li>';
+                list.innerHTML = '<li>' + esc(i18nT('arb.load_fail')) + '</li>';
             }
         }
 
