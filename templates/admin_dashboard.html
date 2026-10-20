@@ -98,6 +98,44 @@
         .bar-track { height: 8px; background: #1a1a24; border-radius: 999px; overflow: hidden; }
         .bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), #818cf8); border-radius: 999px; }
         a { color: var(--accent); }
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.65);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            padding: 1rem;
+        }
+        .modal-backdrop[hidden] { display: none !important; }
+        .modal {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            max-width: 520px;
+            width: 100%;
+            padding: 1.25rem 1.35rem;
+            box-shadow: 0 16px 48px rgba(0,0,0,.45);
+        }
+        .modal h2 { font-size: 1.1rem; margin-bottom: .35rem; color: var(--text); }
+        .modal .hint { font-size: .82rem; color: var(--muted); margin-bottom: 1rem; }
+        .modal label { display: block; font-size: .8rem; color: var(--muted); margin-bottom: .35rem; }
+        .modal input, .modal textarea {
+            width: 100%;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: #0c0c14;
+            color: var(--text);
+            padding: .55rem .65rem;
+            font-family: inherit;
+            font-size: .9rem;
+            margin-bottom: .85rem;
+        }
+        .modal textarea { min-height: 140px; resize: vertical; }
+        .modal-actions { display: flex; gap: .5rem; justify-content: flex-start; flex-wrap: wrap; margin-top: .25rem; }
+        .modal-result { margin-top: .75rem; font-size: .88rem; color: var(--ok); }
+        .modal-result.err { color: var(--bad); }
     </style>
     <script src="/static/js/dom_safe.js"></script>
 </head>
@@ -112,6 +150,7 @@
             <span class="refresh-dot" title="تحديث تلقائي كل 30 ثانية"></span>
             <a class="btn" href="/oracle-accuracy" target="_blank" rel="noopener">Ledger</a>
             <a class="btn" href="/miss-bounty-log" target="_blank" rel="noopener">Miss Bounty</a>
+            <button type="button" class="btn btn-primary" id="newsletterBtn">Send Newsletter</button>
             <button type="button" class="btn btn-danger" id="logoutBtn">تسجيل الخروج</button>
         </div>
     </nav>
@@ -177,6 +216,25 @@
             </section>
         </div>
     </main>
+
+    <div class="modal-backdrop" id="newsletterModal" hidden>
+        <div class="modal" role="dialog" aria-labelledby="newsletterTitle" aria-modal="true">
+            <h2 id="newsletterTitle">Send Newsletter</h2>
+            <p class="hint" id="newsletterHint">يُرسل إلى كل الإيميلات المسجّلة في Join Waitlist.</p>
+            <form id="newsletterForm">
+                <label for="newsletterSubject">العنوان</label>
+                <input type="text" id="newsletterSubject" name="subject" maxlength="200" required autocomplete="off">
+                <label for="newsletterMessage">الرسالة</label>
+                <textarea id="newsletterMessage" name="message" maxlength="20000" required></textarea>
+                <div class="modal-actions">
+                    <button type="submit" class="btn btn-primary" id="newsletterSendBtn">Send</button>
+                    <button type="button" class="btn" id="newsletterCancelBtn">إلغاء</button>
+                </div>
+                <p class="modal-result" id="newsletterResult" hidden></p>
+            </form>
+        </div>
+    </div>
+
     <script type="module">
         const esc = (globalThis.esc || globalThis.escapeHtml || ((v) => String(v ?? '')));
 
@@ -343,6 +401,84 @@
                 await fetch('/api/auth/logout', { method: 'POST', credentials: 'same-origin' });
             } catch (_) { /* ignore */ }
             window.location.href = '/login';
+        });
+
+        const newsletterModal = document.getElementById('newsletterModal');
+        const newsletterHint = document.getElementById('newsletterHint');
+        const newsletterResult = document.getElementById('newsletterResult');
+        const newsletterSendBtn = document.getElementById('newsletterSendBtn');
+
+        async function refreshWaitlistHint() {
+            try {
+                const res = await fetch('/api/admin/waitlist/summary', { credentials: 'same-origin' });
+                if (!res.ok) return;
+                const data = await res.json();
+                const n = data.count ?? 0;
+                newsletterHint.textContent = `يُرسل إلى ${n.toLocaleString()} إيميل في Join Waitlist.`;
+            } catch (_) { /* ignore */ }
+        }
+
+        function openNewsletterModal() {
+            newsletterResult.hidden = true;
+            newsletterResult.classList.remove('err');
+            newsletterModal.hidden = false;
+            refreshWaitlistHint();
+            document.getElementById('newsletterSubject')?.focus();
+        }
+
+        function closeNewsletterModal() {
+            newsletterModal.hidden = true;
+        }
+
+        document.getElementById('newsletterBtn')?.addEventListener('click', openNewsletterModal);
+        document.getElementById('newsletterCancelBtn')?.addEventListener('click', closeNewsletterModal);
+        newsletterModal?.addEventListener('click', (e) => {
+            if (e.target === newsletterModal) closeNewsletterModal();
+        });
+
+        document.getElementById('newsletterForm')?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            newsletterResult.hidden = true;
+            newsletterResult.classList.remove('err');
+            const subject = document.getElementById('newsletterSubject')?.value?.trim() || '';
+            const message = document.getElementById('newsletterMessage')?.value?.trim() || '';
+            if (!subject || !message) {
+                newsletterResult.hidden = false;
+                newsletterResult.classList.add('err');
+                newsletterResult.textContent = 'العنوان والرسالة مطلوبان.';
+                return;
+            }
+            newsletterSendBtn.disabled = true;
+            newsletterSendBtn.textContent = 'جارٍ الإرسال…';
+            try {
+                const res = await fetch('/api/admin/waitlist/newsletter', {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ subject, message }),
+                });
+                const data = await res.json().catch(() => ({}));
+                if (!res.ok) {
+                    newsletterResult.hidden = false;
+                    newsletterResult.classList.add('err');
+                    newsletterResult.textContent = data.detail || `فشل الإرسال (${res.status})`;
+                    return;
+                }
+                const sent = data.sent ?? 0;
+                const total = data.total ?? sent;
+                const failed = data.failed ?? 0;
+                newsletterResult.hidden = false;
+                newsletterResult.textContent = failed
+                    ? `تم الإرسال إلى ${sent} من ${total} (فشل ${failed}).`
+                    : `تم الإرسال بنجاح إلى ${sent} مستلم.`;
+            } catch (err) {
+                newsletterResult.hidden = false;
+                newsletterResult.classList.add('err');
+                newsletterResult.textContent = String(err?.message || err);
+            } finally {
+                newsletterSendBtn.disabled = false;
+                newsletterSendBtn.textContent = 'Send';
+            }
         });
 
         loadMetrics();

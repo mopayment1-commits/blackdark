@@ -2179,6 +2179,16 @@ async def fetch_latest_macro_market_log() -> dict[str, Any] | None:
         return None
 
 
+def _is_waitlist_duplicate_error(exc: BaseException) -> bool:
+    if isinstance(exc, aiosqlite.IntegrityError):
+        return True
+    name = type(exc).__name__.lower()
+    if "unique" in name or "integrity" in name:
+        return True
+    msg = str(exc).lower()
+    return "unique" in msg or "duplicate" in msg
+
+
 async def insert_waitlist_signup(email: str, name: str = "") -> dict[str, Any]:
     """Register an email on the pre-launch waitlist."""
     normalized_email = email.strip().lower()
@@ -2192,8 +2202,29 @@ async def insert_waitlist_signup(email: str, name: str = "") -> dict[str, Any]:
                 (normalized_email, name.strip(), _utcnow_iso()),
             )
             return {"success": True, "position": int(cursor.lastrowid or 0)}
-        except aiosqlite.IntegrityError:
-            return {"success": False, "duplicate": True}
+        except Exception as exc:
+            if _is_waitlist_duplicate_error(exc):
+                return {"success": False, "duplicate": True}
+            raise
+
+
+async def fetch_waitlist_emails() -> list[str]:
+    """All waitlist emails (normalized), oldest signup first."""
+    try:
+        async with get_connection() as db:
+            rows = await db.execute(
+                "SELECT email FROM waitlist ORDER BY joined_at ASC, id ASC"
+            )
+            result = await rows.fetchall()
+        emails: list[str] = []
+        for row in result:
+            raw = _row_get(row, 0, "email")
+            if raw:
+                emails.append(str(raw).strip().lower())
+        return emails
+    except Exception:
+        logger.exception("Unable to read waitlist emails")
+        return []
 
 
 async def insert_subscription(
@@ -3251,7 +3282,7 @@ async def db_count_waitlist() -> int:
         async with get_connection() as db:
             rows = await db.execute("SELECT COUNT(*) AS c FROM waitlist")
             row = await rows.fetchone()
-        return int(row[0]) if row else 0
+        return _sql_count(row)
     except Exception:
         return 0
 
@@ -3263,7 +3294,7 @@ async def db_count_subscribers() -> int:
                 "SELECT COUNT(*) AS c FROM subscriptions WHERE status = 'active'"
             )
             row = await rows.fetchone()
-        return int(row[0]) if row else 0
+        return _sql_count(row)
     except Exception:
         return 0
 

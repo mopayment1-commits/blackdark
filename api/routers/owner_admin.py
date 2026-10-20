@@ -113,6 +113,56 @@ async def api_admin_audit_logs(
     return {"logs": rows}
 
 
+@router.get("/api/admin/waitlist/summary")
+async def api_admin_waitlist_summary(_admin: dict = Depends(require_admin_dev)):
+    from waitlist_newsletter_service import waitlist_newsletter_summary
+
+    return await waitlist_newsletter_summary()
+
+
+class WaitlistNewsletterBody(BaseModel):
+    subject: str = Field(..., min_length=1, max_length=200)
+    message: str = Field(..., min_length=1, max_length=20000)
+
+
+@router.post("/api/admin/waitlist/newsletter")
+async def api_admin_waitlist_newsletter(
+    body: WaitlistNewsletterBody,
+    request: Request,
+    admin: dict = Depends(require_admin_dev),
+):
+    from admin_console import payload_hash_obj
+    from audit_registry import record_audit_log
+    from waitlist_newsletter_service import send_waitlist_newsletter
+
+    try:
+        result = await send_waitlist_newsletter(body.subject, body.message)
+    except ValueError as exc:
+        code = str(exc)
+        if code in {"subject_required", "message_required"}:
+            raise HTTPException(status_code=400, detail=code) from exc
+        raise
+
+    actor = str(admin.get("email") or "admin@system")
+    await record_audit_log(
+        actor=actor,
+        action="admin.waitlist_newsletter",
+        payload_hash=payload_hash_obj(
+            {"subject": body.subject[:80], "total": result.get("total"), "sent": result.get("sent")}
+        ),
+        outcome="ok" if int(result.get("failed") or 0) == 0 else "partial",
+        request_method=request.method,
+        request_path=str(request.url.path),
+        metadata={
+            "total": result.get("total"),
+            "sent": result.get("sent"),
+            "failed": result.get("failed"),
+            "delivery": result.get("delivery"),
+        },
+    )
+    return {"ok": True, **result}
+
+
 class ProvisionOwnerAdminBody(BaseModel):
     email: str = Field(..., max_length=320)
     password: str | None = Field(default=None, min_length=12, max_length=256)
