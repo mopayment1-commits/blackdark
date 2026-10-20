@@ -402,6 +402,7 @@ EN: dict[str, str] = {
     "nav.login": "Login",
     "nav.signup": "Sign up",
     "nav.profile": "Profile",
+    "nav.account_menu": "Account menu",
     "nav.logout": "Sign out",
     "nav.logout_failed": "Could not sign out. Try again.",
     "nav.dashboard": "Dashboard",

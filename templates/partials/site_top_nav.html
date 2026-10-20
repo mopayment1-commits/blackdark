@@ -144,22 +144,49 @@
   }
   .bd-lang-visible { display: inline-flex; }
   .bd-account-menu { position: relative; }
+  .bd-account-chip {
+    display: inline-flex;
+    align-items: stretch;
+    border-radius: 999px;
+    border: 1px solid var(--border, #2a2a35);
+    background: rgba(20, 20, 28, 0.75);
+    max-width: 15rem;
+  }
+  .bd-account-chip:hover { border-color: var(--accent, #22d3ee); }
   .bd-account-trigger {
     display: inline-flex;
     align-items: center;
     gap: 0.45rem;
     padding: 0.25rem 0.55rem 0.25rem 0.3rem;
-    border-radius: 999px;
-    border: 1px solid var(--border, #2a2a35);
-    background: rgba(20, 20, 28, 0.75);
+    border-radius: 999px 0 0 999px;
+    border: none;
+    background: transparent;
     color: var(--text, #e4e4e7);
     cursor: pointer;
     font: inherit;
     font-size: 0.82rem;
     font-weight: 600;
-    max-width: 14rem;
+    max-width: 12rem;
+    text-decoration: none;
+    flex: 1;
+    min-width: 0;
   }
-  .bd-account-trigger:hover { border-color: var(--accent, #22d3ee); }
+  .bd-account-trigger:hover { color: var(--accent, #22d3ee); }
+  .bd-account-menu-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.85rem;
+    border: none;
+    border-left: 1px solid var(--border, #2a2a35);
+    border-radius: 0 999px 999px 0;
+    background: transparent;
+    color: var(--text-muted, #a1a1aa);
+    cursor: pointer;
+    font-size: 0.72rem;
+    padding: 0;
+  }
+  .bd-account-menu-btn:hover { color: var(--accent, #22d3ee); }
   #bdAccountAvatar {
     width: 1.65rem;
     height: 1.65rem;
@@ -261,19 +288,29 @@
         <a class="nav-util-link" href="/pricing" id="bdUtilPricing">{{ t('nav.pricing') if t is defined else 'Pricing' }}</a>
         {% if header_authenticated and header_user %}
         <div class="bd-account-menu">
-          <button
-            type="button"
-            class="bd-account-trigger"
-            id="bdAccountTrigger"
-            aria-expanded="false"
-            aria-haspopup="menu"
-            aria-controls="bdAccountMenu"
-          >
-            <span id="bdAccountAvatar" aria-hidden="true">{% if header_user.avatar_url %}<img src="{{ header_user.avatar_url }}" alt="">{% else %}{{ header_user.initial }}{% endif %}</span>
-            <span class="bd-account-name">{{ header_user.display }}</span>
-            <span class="bd-tier-badge">{{ header_user.tier_label }}</span>
-          </button>
+          <div class="bd-account-chip">
+            <a
+              href="/profile"
+              class="bd-account-trigger"
+              id="bdAccountProfileLink"
+              title="{{ t('nav.profile') if t is defined else 'Profile' }}"
+            >
+              <span id="bdAccountAvatar" aria-hidden="true">{% if header_user.avatar_url %}<img src="{{ header_user.avatar_url }}" alt="">{% else %}{{ header_user.initial }}{% endif %}</span>
+              <span class="bd-account-name">{{ header_user.display }}</span>
+              <span class="bd-tier-badge">{{ header_user.tier_label }}</span>
+            </a>
+            <button
+              type="button"
+              class="bd-account-menu-btn"
+              id="bdAccountTrigger"
+              aria-expanded="false"
+              aria-haspopup="menu"
+              aria-controls="bdAccountMenu"
+              aria-label="{{ t('nav.account_menu') if t is defined else 'Account menu' }}"
+            >▾</button>
+          </div>
           <div class="bd-account-panel" id="bdAccountMenu" role="menu" hidden aria-label="Account">
+            <a href="/" role="menuitem">{{ t('nav.home') if t is defined else 'Home' }}</a>
             <a href="/profile" role="menuitem">{{ t('nav.profile') if t is defined else 'Profile' }}</a>
             <button type="button" id="bdHeaderLogout" role="menuitem" data-logout-fail="{{ t('nav.logout_failed') if t is defined else 'Could not sign out. Try again.' }}">{{ t('nav.logout') if t is defined else 'Log out' }}</button>
             <span id="bdLogoutStatus" class="bd-logout-status" role="status" aria-live="polite" hidden></span>

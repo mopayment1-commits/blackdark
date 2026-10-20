@@ -558,7 +558,7 @@ async def auth_oauth_callback(
     token = result.get("token")
     base = (os.getenv("APP_BASE_URL") or "").rstrip("/")
     if base and token:
-        resp = RedirectResponse(url=f"{base}/dashboard?oauth=1", status_code=302)
+        resp = RedirectResponse(url=f"{base}/profile?oauth=1", status_code=302)
         _attach_session_cookie(resp, str(token))
         return resp
     resp = JSONResponse(result)

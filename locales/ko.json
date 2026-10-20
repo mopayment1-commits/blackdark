@@ -786,5 +786,6 @@
   "social.link.facebook": "Facebook",
   "social.link.telegram": "Telegram",
   "social.link.linkedin": "LinkedIn",
-  "social.join_telegram_alerts": "Telegram 알림 참가"
+  "social.join_telegram_alerts": "Telegram 알림 참가",
+  "nav.account_menu": "Account menu"
 }

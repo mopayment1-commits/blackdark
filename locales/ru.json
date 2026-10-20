@@ -786,5 +786,6 @@
   "social.link.facebook": "Facebook",
   "social.link.telegram": "Telegram",
   "social.link.linkedin": "LinkedIn",
-  "social.join_telegram_alerts": "Подписаться на оповещения Telegram"
+  "social.join_telegram_alerts": "Подписаться на оповещения Telegram",
+  "nav.account_menu": "Account menu"
 }
