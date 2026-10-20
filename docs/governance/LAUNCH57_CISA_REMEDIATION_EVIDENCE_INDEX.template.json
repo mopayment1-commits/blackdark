@@ -1,0 +1,28 @@
+{
+  "program": "LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION",
+  "baseline_sha": "e73f398d4048723bd10670beab14a0d18ceb19ef",
+  "remediation_sha": "",
+  "inventory_reference": "Launch-57 Problem Inventory FINDING-01..19",
+  "normative_framework": "docs/governance/LAUNCH57_CISA_SECURE_BY_DEMAND_REMEDIATION_PROGRAM.md",
+  "findings": {
+    "FINDING-01": { "status": "OPEN", "priority": "P2", "work_packages": ["L57-P6-WP1", "L57-P6-WP2"], "evidence": [] },
+    "FINDING-02": { "status": "OPEN", "priority": "P1", "work_packages": ["L57-P4-WP1", "L57-P4-WP5"], "evidence": [] },
+    "FINDING-03": { "status": "OPEN", "priority": "P1", "work_packages": ["L57-P3-WP1", "L57-P3-WP2", "L57-P3-WP3"], "evidence": [] },
+    "FINDING-04": { "status": "OPEN", "priority": "P1", "work_packages": ["L57-P3-WP4", "L57-P3-WP6"], "evidence": [] },
+    "FINDING-05": { "status": "OPEN", "priority": "P1", "work_packages": ["L57-P3-WP5"], "evidence": [] },
+    "FINDING-06": { "status": "OPEN", "priority": "P1", "work_packages": ["L57-P5-WP2", "L57-P5-WP3"], "evidence": [] },
+    "FINDING-07": { "status": "OPEN", "priority": "P1", "work_packages": ["L57-P5-WP1", "L57-P5-WP4"], "evidence": [] },
+    "FINDING-08": { "status": "OPEN", "priority": "P0", "work_packages": ["L57-P2-WP1", "L57-P2-WP2", "L57-P2-WP5"], "evidence": [] },
+    "FINDING-09": { "status": "OPEN", "priority": "P0", "work_packages": ["L57-P2-WP3", "L57-P2-WP4"], "evidence": [] },
+    "FINDING-10": { "status": "OPEN", "priority": "P1", "work_packages": ["L57-P4-WP2"], "evidence": [] },
+    "FINDING-11": { "status": "OPEN", "priority": "P1", "work_packages": ["L57-P4-WP3"], "evidence": [] },
+    "FINDING-12": { "status": "OPEN", "priority": "P1", "work_packages": ["L57-P4-WP4"], "evidence": [] },
+    "FINDING-13": { "status": "OPEN", "priority": "P0", "work_packages": ["L57-P1-WP1", "L57-P1-WP2"], "evidence": [] },
+    "FINDING-14": { "status": "OPEN", "priority": "P0", "work_packages": ["L57-P1-WP3"], "evidence": [] },
+    "FINDING-15": { "status": "OPEN", "priority": "P0", "work_packages": ["L57-P1-WP4", "L57-P1-WP5"], "evidence": [] },
+    "FINDING-16": { "status": "OPEN", "priority": "P2", "work_packages": ["L57-P7-WP1", "L57-P3-WP6"], "evidence": [] },
+    "FINDING-17": { "status": "OPEN", "priority": "P2", "work_packages": ["L57-P7-WP2"], "evidence": [] },
+    "FINDING-18": { "status": "OPEN", "priority": "P2", "work_packages": ["L57-P7-WP3"], "evidence": [] },
+    "FINDING-19": { "status": "OPEN", "priority": "P2", "work_packages": ["L57-P7-WP4", "L57-P7-WP5"], "evidence": [] }
+  }
+}
