@@ -150,9 +150,17 @@ async def auth_login(
     ip = (request.headers.get("x-forwarded-for") or "").split(",")[0].strip()
     if not ip and request.client:
         ip = request.client.host or "unknown"
+    from security_threat_response import assert_ip_not_blocked
+
+    assert_ip_not_blocked(request)
     check_login_rate_limit(f"ip:{ip}")
     try:
-        result = await login_user(body.email, body.password, mfa_code=body.mfa_code)
+        result = await login_user(
+            body.email,
+            body.password,
+            mfa_code=body.mfa_code,
+            request=request,
+        )
         if result.get("mfa_required"):
             return result
         background_tasks.add_task(record_behavior, "auth_login", user=result.get("user"))
@@ -343,6 +351,16 @@ async def auth_change_password(
         validate_password(body.new_password, email=str(row["email"]))
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
+    from security_store import append_password_history, password_reused_recently
+
+    if await password_reused_recently(int(user["id"]), body.new_password):
+        raise HTTPException(
+            status_code=400,
+            detail="Password was used recently. Choose a different password.",
+        )
+    old_hash = str(row.get("password_hash") or "")
+    if old_hash:
+        await append_password_history(int(user["id"]), old_hash)
     await update_user_profile_fields(
         int(user["id"]),
         {"password_hash": hash_password(body.new_password), "password_is_set": 1},

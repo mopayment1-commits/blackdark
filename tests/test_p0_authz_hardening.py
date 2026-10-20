@@ -35,7 +35,7 @@ async def test_loopback_never_grants_admin_outside_key(monkeypatch):
     from security_auth import require_admin, require_admin_dev
 
     with pytest.raises(HTTPException) as exc:
-        await require_admin(user=None, x_admin_key=None, x_admin_totp=None)
+        await require_admin(_request(), user=None, x_admin_key=None, x_admin_totp=None)
     assert exc.value.status_code == 403
 
     with pytest.raises(HTTPException) as exc2:
@@ -55,6 +55,7 @@ async def test_admin_key_still_works_with_mfa_disabled(monkeypatch):
     from security_auth import require_admin
 
     user = await require_admin(
+        _request(),
         user=None,
         x_admin_key="test-admin-key-please-rotate",
         x_admin_totp=None,
@@ -71,6 +72,7 @@ async def test_admin_mfa_enforced_on_require_admin(monkeypatch):
 
     with pytest.raises(HTTPException) as exc:
         await require_admin(
+            _request(),
             user=None,
             x_admin_key="test-admin-key-please-rotate",
             x_admin_totp="000000",
@@ -81,6 +83,7 @@ async def test_admin_mfa_enforced_on_require_admin(monkeypatch):
 
     code = pyotp.TOTP("JBSWY3DPEHPK3PXP").now()
     user = await require_admin(
+        _request(),
         user=None,
         x_admin_key="test-admin-key-please-rotate",
         x_admin_totp=code,

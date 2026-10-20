@@ -17,8 +17,10 @@ from fastapi import Cookie, Depends, Header, HTTPException, Request
 logger = logging.getLogger("BLACKDARK.Security")
 
 _login_attempts: dict[str, list[float]] = defaultdict(list)
-_LOGIN_WINDOW_SEC = 300
-_LOGIN_MAX_ATTEMPTS = 10
+_LOGIN_WINDOW_SEC = int(os.getenv("LOGIN_RATE_WINDOW_SEC", "900"))
+_LOGIN_MAX_ATTEMPTS = int(os.getenv("LOGIN_RATE_MAX_ATTEMPTS", "5"))
+_API_RATE_WINDOW_SEC = 60
+_API_RATE_MAX = int(os.getenv("SECURITY_API_RATE_PER_MIN", "120"))
 _LOGIN_RL_PREFIX = "bd:login_rl:"
 _rate_limit_backend = "memory"
 _redis_sync = None
@@ -125,7 +127,10 @@ def _memory_login_rate_limit(key: str) -> None:
     window = _login_attempts[key]
     _login_attempts[key] = [t for t in window if now - t < _LOGIN_WINDOW_SEC]
     if len(_login_attempts[key]) >= _LOGIN_MAX_ATTEMPTS:
-        raise HTTPException(status_code=429, detail="Too many login attempts. Try again in 5 minutes.")
+        raise HTTPException(
+            status_code=429,
+            detail=f"Too many attempts. Try again in {_LOGIN_WINDOW_SEC // 60} minutes.",
+        )
     _login_attempts[key].append(now)
 
 
@@ -174,7 +179,7 @@ def check_login_rate_limit(key: str) -> None:
             if count > _LOGIN_MAX_ATTEMPTS:
                 raise HTTPException(
                     status_code=429,
-                    detail="Too many login attempts. Try again in 5 minutes.",
+                    detail=f"Too many attempts. Try again in {_LOGIN_WINDOW_SEC // 60} minutes.",
                 )
             return
         except HTTPException:
@@ -185,7 +190,41 @@ def check_login_rate_limit(key: str) -> None:
 
 
 def record_login_failure(key: str) -> None:
-    check_login_rate_limit(key)
+    """Legacy hook — failure bursts are tracked in security_threat_response."""
+    _ = key
+
+
+_api_attempts: dict[str, list[float]] = defaultdict(list)
+_API_RL_PREFIX = "bd:api_rl:"
+
+
+def _memory_api_rate_limit(key: str) -> None:
+    now = time.time()
+    window = _api_attempts[key]
+    _api_attempts[key] = [t for t in window if now - t < _API_RATE_WINDOW_SEC]
+    if len(_api_attempts[key]) >= _API_RATE_MAX:
+        raise HTTPException(status_code=429, detail="API rate limit exceeded.")
+    _api_attempts[key].append(now)
+
+
+def check_api_rate_limit(ip: str) -> None:
+    """Per-IP cap on /api traffic (abuse protection)."""
+    key = ip.strip().lower() or "unknown"
+    redis_key = f"{_API_RL_PREFIX}{key}"
+    client = _redis_client_sync()
+    if client is not None:
+        try:
+            count = int(client.incr(redis_key))
+            if count == 1:
+                client.expire(redis_key, _API_RATE_WINDOW_SEC)
+            if count > _API_RATE_MAX:
+                raise HTTPException(status_code=429, detail="API rate limit exceeded.")
+            return
+        except HTTPException:
+            raise
+        except Exception:
+            logger.warning("Redis API rate limit failed — memory fallback", exc_info=True)
+    _memory_api_rate_limit(key)
 
 
 def admin_emails() -> set[str]:
@@ -266,6 +305,7 @@ def require_whale(
 
 
 async def require_admin(
+    request: Request,
     user: Annotated[dict | None, Depends(optional_user_from_request)],
     x_admin_key: Annotated[str | None, Header(alias="X-Admin-Key")] = None,
     x_admin_totp: Annotated[str | None, Header(alias="X-Admin-TOTP")] = None,
@@ -294,7 +334,33 @@ async def require_admin(
         user = dict(user)
         user["is_admin"] = True
         admin_user = user
+        from admin_mfa import mfa_policy_enabled
+        from database import fetch_user_by_id
+
+        if mfa_policy_enabled():
+            row = await fetch_user_by_id(int(user["id"]))
+            if row and not bool(int(row.get("mfa_enabled") or 0)):
+                from security_threat_response import record_admin_access_denied, schedule_security_task
+
+                schedule_security_task(
+                    record_admin_access_denied(
+                        request,
+                        detail="Admin session without enrolled MFA",
+                    )
+                )
+                raise HTTPException(
+                    status_code=403,
+                    detail={
+                        "error": "admin_mfa_enroll_required",
+                        "message": "Admin accounts must enroll MFA at /settings/security",
+                    },
+                )
     if admin_user is None:
+        from security_threat_response import record_admin_access_denied, schedule_security_task
+
+        schedule_security_task(
+            record_admin_access_denied(request, detail="Missing admin credentials")
+        )
         raise HTTPException(
             status_code=403,
             detail="Admin authentication required (X-Admin-Key or admin email)",
@@ -318,8 +384,12 @@ async def require_admin_dev(
     x_admin_totp: Annotated[str | None, Header(alias="X-Admin-TOTP")] = None,
 ) -> dict:
     """Same as require_admin — loopback peer trust removed (proxy-safe)."""
-    _ = request  # retained for FastAPI signature compatibility with call sites
-    return await require_admin(user=user, x_admin_key=x_admin_key, x_admin_totp=x_admin_totp)
+    return await require_admin(
+        request,
+        user=user,
+        x_admin_key=x_admin_key,
+        x_admin_totp=x_admin_totp,
+    )
 
 
 def require_pro_or_above(

@@ -284,9 +284,11 @@ def security_headers_for(request: Request) -> dict[str, str]:
             "font-src 'self' data:; "
             "connect-src 'self' https://accounts.google.com https://accounts.google.com/gsi/; "
             "frame-src 'self' https://accounts.google.com/gsi/; "
+            "object-src 'none'; "
             "frame-ancestors 'none'; "
             "base-uri 'self'; "
-            "form-action 'self'"
+            "form-action 'self'; "
+            "upgrade-insecure-requests"
         )
     else:
         csp = (
@@ -314,7 +316,9 @@ def security_headers_for(request: Request) -> dict[str, str]:
         "Content-Security-Policy": csp,
     }
     if _is_production() or (_effective_scheme(request) == "https"):
-        headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
+        headers["Strict-Transport-Security"] = (
+            "max-age=31536000; includeSubDomains; preload"
+        )
     return headers
 
 
@@ -395,6 +399,36 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
 
         # TrustedHost in production — never apply to liveness/readiness probes.
         path = _request_url_path(request)
+
+        try:
+            from security_threat_response import assert_ip_not_blocked, client_ip
+
+            assert_ip_not_blocked(request)
+            ip = client_ip(request)
+            if path.startswith("/api/"):
+                from security_auth import check_api_rate_limit
+
+                check_api_rate_limit(ip)
+            if request.method == "POST" and path in {
+                "/api/auth/login",
+                "/api/auth/register",
+                "/join-waitlist",
+            }:
+                from security_auth import check_login_rate_limit
+
+                check_login_rate_limit(f"ip:{ip}")
+        except Exception as exc:
+            from fastapi import HTTPException
+
+            if isinstance(exc, HTTPException):
+                return apply_security_headers_to_response(
+                    request,
+                    JSONResponse(
+                        exc.detail if isinstance(exc.detail, dict) else {"detail": exc.detail},
+                        status_code=exc.status_code,
+                    ),
+                )
+            raise
         if (
             path not in HEALTH_PROBE_PATHS
             and _is_production()
@@ -418,8 +452,32 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
                     ),
                 )
 
-        # CSRF: cookie present + mutating → require Origin/Referer match
+        # CSRF: synchronizer token + origin check for browser sessions
         if request.method not in SAFE_METHODS:
+            from security_csrf import csrf_required_for_request, csrf_token_from_request, validate_csrf_token
+
+            if csrf_required_for_request(request):
+                token = csrf_token_from_request(request) or request.cookies.get("bd_csrf")
+                cookie = request.cookies.get("bd_token")
+                auth = request.headers.get("authorization") or ""
+                admin_key = request.headers.get("x-admin-key") or ""
+                from security_auth import verify_admin_key
+
+                machine_auth = (auth.startswith("Bearer ") and not cookie) or verify_admin_key(
+                    admin_key
+                )
+                if not validate_csrf_token(token) and cookie:
+                    if not machine_auth:
+                        return apply_security_headers_to_response(
+                            request,
+                            JSONResponse(
+                                {
+                                    "error": "csrf_rejected",
+                                    "message": "Missing or invalid CSRF token.",
+                                },
+                                status_code=403,
+                            ),
+                        )
             cookie = request.cookies.get("bd_token")
             auth = request.headers.get("authorization") or ""
             if cookie and not auth.startswith("Bearer ") and not _request_origin_ok(request):
@@ -437,6 +495,12 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
         response = await call_next(request)
         if nonce:
             response = await _maybe_rewrite_html_with_nonce(response, nonce)
+        try:
+            from security_csrf import attach_csrf_cookie
+
+            attach_csrf_cookie(response, request)
+        except Exception:
+            pass
         return apply_security_headers_to_response(request, response)
 
 

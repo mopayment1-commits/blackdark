@@ -1045,6 +1045,9 @@ async def _apply_migrations(db: Any) -> None:
     )
 
     await _ensure_user_profile_columns(db)
+    from security_store import ensure_security_tables
+
+    await ensure_security_tables(db)
     await db.execute(
         "CREATE UNIQUE INDEX IF NOT EXISTS idx_users_username ON users (username) WHERE username IS NOT NULL AND username != ''"
     )
@@ -4221,13 +4224,14 @@ async def fetch_user_by_session(token: str) -> dict[str, Any] | None:
 
 
 async def insert_user_session(user_id: int, token: str, expires_at: str) -> int:
+    now = _utcnow_iso()
     async with get_connection() as db:
         cursor = await db.execute(
             """
-            INSERT INTO user_sessions (user_id, token, expires_at, created_at)
-            VALUES (?, ?, ?, ?)
+            INSERT INTO user_sessions (user_id, token, expires_at, created_at, last_activity_at)
+            VALUES (?, ?, ?, ?, ?)
             """,
-            (user_id, token, expires_at, _utcnow_iso()),
+            (user_id, token, expires_at, now, now),
         )
         return int(cursor.lastrowid or 0)
 
