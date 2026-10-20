@@ -136,3 +136,33 @@ async def fetch_display_arb_opportunities(symbol: str, *, limit: int = MAX_OPPOR
         "display_only": True,
         "disclaimer": "Research display only — no auto-trade or execution on BLACKDARK.",
     }
+
+
+_LEDGER_ARB_ASSETS = ("BTC", "ETH", "SOL", "BNB", "XRP")
+
+
+async def fetch_public_ledger_arb_opportunities(
+    *,
+    per_asset: int = 2,
+    total_limit: int = 8,
+) -> dict[str, Any]:
+    """Aggregate read-only spreads for the public /oracle-accuracy ledger."""
+    per_asset = max(1, min(int(per_asset), MAX_OPPORTUNITIES))
+    total_limit = max(1, min(int(total_limit), 12))
+    combined: list[dict[str, Any]] = []
+    for asset in _LEDGER_ARB_ASSETS:
+        try:
+            blob = await fetch_display_arb_opportunities(asset, limit=per_asset)
+        except Exception:
+            logger.debug("public ledger arb slice failed asset=%s", asset, exc_info=True)
+            continue
+        for row in blob.get("opportunities") or []:
+            combined.append({**row, "asset": asset, "symbol": f"{asset}/USDT"})
+    combined.sort(key=lambda r: float(r.get("price_diff_percent") or 0), reverse=True)
+    opportunities = combined[:total_limit]
+    return {
+        "opportunities": opportunities,
+        "count": len(opportunities),
+        "display_only": True,
+        "disclaimer": "Research display only — no auto-trade or execution on BLACKDARK.",
+    }

@@ -27,6 +27,21 @@ def test_arb_endpoint_requires_auth(client):
     assert res.status_code == 401
 
 
+def test_arb_public_endpoint_no_auth(client):
+    res = client.get("/api/oracle/arb-opportunities/public")
+    assert res.status_code == 200
+    body = res.json()
+    assert "opportunities" in body
+    assert isinstance(body["opportunities"], list)
+
+
+def test_oracle_accuracy_has_arb_section(client):
+    res = client.get("/oracle-accuracy")
+    assert res.status_code == 200
+    assert "arb-opportunities-panel" in res.text
+    assert "Arb Opportunities" in res.text
+
+
 def test_landing_has_arb_button_markup(client):
     html = client.get("/").text
     assert "lpArbBtn" in html

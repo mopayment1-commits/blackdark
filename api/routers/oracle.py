@@ -117,6 +117,14 @@ async def ml_predict(asset: str, price: float | None = None):
     return await predict_direction(asset, price=price)
 
 
+@router.get("/api/oracle/arb-opportunities/public")
+async def oracle_arb_opportunities_public():
+    """Public ledger slice — display-only cross-exchange spreads (no auth)."""
+    from oracle_arb_display import fetch_public_ledger_arb_opportunities
+
+    return await fetch_public_ledger_arb_opportunities()
+
+
 @router.get("/api/oracle/arb-opportunities/{symbol}")
 async def oracle_arb_opportunities(
     symbol: str,

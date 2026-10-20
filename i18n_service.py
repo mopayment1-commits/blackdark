@@ -1100,6 +1100,12 @@ EN: dict[str, str] = {
         "(max 50 USDT, 5% fee on losing pool)."
     ),
     "ledger.panel.sealed_all": "All sealed markets",
+    "ledger.panel.arb_title": "Arb Opportunities",
+    "ledger.panel.arb_lead": "Cross-exchange spreads from the latest scan — display only, not execution.",
+    "ledger.panel.arb_empty": "No arb opportunities right now.",
+    "ledger.panel.arb_loading": "Loading arb opportunities…",
+    "ledger.panel.arb_unavailable": "Arb scan unavailable — try again shortly.",
+    "ledger.panel.arb_status": "{count} opportunities shown (display only)",
     "ledger.panel.locked_title": "Locked Predictions · Glass Box",
     "ledger.panel.mev_title": "Shareable MEV / Sandwich Report",
     "ledger.panel.misses_title": "Public Misses · live ledger",

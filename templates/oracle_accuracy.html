@@ -93,6 +93,7 @@
         #panel-regime .card h2,
         #glass-box-challenge .card h2,
         #mev-report .card h2,
+        #arb-opportunities-panel .card h2,
         #locked .card h2,
         #losing .card h2,
         #audit-challenge .card h2,
@@ -268,6 +269,15 @@
             <p id="sealed-markets-status" class="muted">{{ t('sealed.loading') }}</p>
             <ul class="events" id="sealed-markets-list"><li>{{ t('sealed.loading') }}</li></ul>
             <a class="btn btn-secondary" href="/sealed-markets" style="margin-top:0.75rem;display:inline-block">{{ t('ledger.panel.sealed_all') }}</a>
+        </div>
+    </section>
+
+    <section class="panel" id="arb-opportunities-panel">
+        <div class="card">
+            <h2>{{ t('ledger.panel.arb_title') }}</h2>
+            <p class="muted" style="font-size:0.88rem">{{ t('ledger.panel.arb_lead') }}</p>
+            <p id="arb-opportunities-status" class="muted">{{ t('ledger.panel.arb_loading') }}</p>
+            <ul class="events" id="arb-opportunities-list"><li>{{ t('ledger.panel.arb_loading') }}</li></ul>
         </div>
     </section>
 
@@ -1264,6 +1274,47 @@
             }
         }
 
+        async function loadArbOpportunities() {
+            const st = document.getElementById('arb-opportunities-status');
+            const list = document.getElementById('arb-opportunities-list');
+            const emptyMsg = i18nT('ledger.panel.arb_empty') || 'No arb opportunities right now.';
+            try {
+                const d = await fetchJsonWithTimeout(
+                    '/api/oracle/arb-opportunities/public',
+                    {},
+                    ORACLE_LEDGER_SECONDARY_MS,
+                );
+                const rows = d.opportunities || [];
+                if (st) {
+                    st.textContent = rows.length
+                        ? (i18nT('ledger.panel.arb_status', { count: rows.length })
+                            || `${rows.length} opportunities shown (display only)`)
+                        : '';
+                }
+                if (!list) return;
+                if (!rows.length) {
+                    list.innerHTML = '<li>' + esc(emptyMsg) + '</li>';
+                    return;
+                }
+                list.innerHTML = rows.map((r) => {
+                    const pct = Number(r.price_diff_percent || 0).toFixed(3);
+                    const ex1 = esc(r.exchange_1 || '—');
+                    const ex2 = esc(r.exchange_2 || '—');
+                    const asset = esc(r.asset || '');
+                    const link1 = safeUrl(r.link_exchange_1) || '#';
+                    const link2 = safeUrl(r.link_exchange_2) || '#';
+                    return (
+                        `<li><strong>${asset}</strong> · <a href="${esc(link1)}" target="_blank" rel="noopener">${ex1}</a> → ` +
+                        `<a href="${esc(link2)}" target="_blank" rel="noopener">${ex2}</a> · ` +
+                        `<span style="color:var(--success)">${pct}%</span> · display only</li>`
+                    );
+                }).join('');
+            } catch (e) {
+                if (st) st.textContent = i18nT('ledger.panel.arb_unavailable') || 'Arb scan unavailable';
+                if (list) list.innerHTML = '<li>' + esc(emptyMsg) + '</li>';
+            }
+        }
+
         async function loadSealedMarkets() {
             const st = document.getElementById('sealed-markets-status');
             const list = document.getElementById('sealed-markets-list');
@@ -1297,6 +1348,7 @@
         function startLedgerBoot() {
             loadAccuracy().then(() => scheduleSecondaryLoad(loadLedgerShareKit));
             scheduleSecondaryLoad(loadSealedMarkets);
+            scheduleSecondaryLoad(loadArbOpportunities);
             scheduleSecondaryLoad(loadGlassBox);
             scheduleSecondaryLoad(loadMevReport);
             scheduleSecondaryLoad(loadLocked);
