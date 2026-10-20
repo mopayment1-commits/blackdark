@@ -780,5 +780,11 @@
   "about.explore": "Explore",
   "nav.about": "About",
   "footer.link.about": "About",
-  "footer.link.contact": "Contact"
+  "footer.link.contact": "Contact",
+  "social.link.x": "X",
+  "social.link.reddit": "Reddit",
+  "social.link.facebook": "Facebook",
+  "social.link.telegram": "تيليجرام",
+  "social.link.linkedin": "LinkedIn",
+  "social.join_telegram_alerts": "انضم لتنبيهات تيليجرام"
 }

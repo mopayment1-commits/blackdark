@@ -780,5 +780,11 @@
   "about.explore": "অন্বেষণ",
   "nav.about": "সম্পর্কে",
   "footer.link.about": "সম্পর্কে",
-  "footer.link.contact": "যোগাযোগ"
+  "footer.link.contact": "যোগাযোগ",
+  "social.link.x": "X",
+  "social.link.reddit": "Reddit",
+  "social.link.facebook": "Facebook",
+  "social.link.telegram": "Telegram",
+  "social.link.linkedin": "LinkedIn",
+  "social.join_telegram_alerts": "Telegram অ্যালার্টে যোগ দিন"
 }

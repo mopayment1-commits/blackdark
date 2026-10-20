@@ -780,5 +780,11 @@
   "about.explore": "Khám phá",
   "nav.about": "Giới thiệu",
   "footer.link.about": "Giới thiệu",
-  "footer.link.contact": "Liên hệ"
+  "footer.link.contact": "Liên hệ",
+  "social.link.x": "X",
+  "social.link.reddit": "Reddit",
+  "social.link.facebook": "Facebook",
+  "social.link.telegram": "Telegram",
+  "social.link.linkedin": "LinkedIn",
+  "social.join_telegram_alerts": "Tham gia cảnh báo Telegram"
 }

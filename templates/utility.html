@@ -334,12 +334,7 @@
                 <strong>{{ t('common.anti_hype') if t is defined else 'Anti-Hype' }}</strong> —
                 {{ t('about.disclaimer') if t is defined else '' }}
             </p>
-            <h2>{{ t('about.follow') if t is defined else 'Follow us' }}</h2>
-            <p>
-                {% for s in (about.follow if about else []) %}
-                <a href="{{ s.href }}" target="_blank" rel="noopener" style="margin-right:.75rem">{{ s.label }}</a>
-                {% endfor %}
-            </p>
+            {% include 'partials/site_follow_social.html' %}
             <p>
                 <span style="color:var(--muted);font-size:.85rem">{{ t('about.explore') if t is defined else 'Explore' }}:</span>
                 <a href="/capabilities">{{ t('nav.capabilities') if t is defined else 'Capabilities' }}</a> ·

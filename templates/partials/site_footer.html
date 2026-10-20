@@ -15,13 +15,6 @@
     .bd-site-footer li { margin: .28rem 0; }
     .bd-site-footer a { color: #a1a1aa; text-decoration: none; }
     .bd-site-footer a:hover { color: #22d3ee; }
-    .bd-site-footer .bd-follow { display: flex; flex-wrap: wrap; gap: .55rem; margin: .75rem 0 1rem; }
-    .bd-site-footer .bd-follow a {
-        display: inline-flex; align-items: center; justify-content: center;
-        min-width: 2.4rem; padding: .4rem .7rem; border: 1px solid #2a2a35; border-radius: 10px;
-        background: rgba(17,17,24,.75); color: #e4e4e7; font-weight: 600; font-size: .78rem;
-    }
-    .bd-site-footer .bd-follow a:hover { border-color: #22d3ee; color: #22d3ee; }
     .bd-site-footer .bd-foot-bottom { border-top: 1px solid #2a2a35; padding-top: 1rem; margin-top: .5rem; }
 </style>
 <footer class="bd-site-footer" role="contentinfo">
@@ -62,12 +55,7 @@
             </ul>
         </div>
     </div>
-    <h4>{{ t('footer.follow') if t is defined else 'Follow us' }}</h4>
-    <div class="bd-follow" aria-label="Follow BLACKDARK">
-        {% for s in f.follow or [] %}
-        <a href="{{ s.href }}" target="_blank" rel="noopener noreferrer">{{ s.label }}</a>
-        {% endfor %}
-    </div>
+    {% include 'partials/site_follow_social.html' %}
     <div class="bd-foot-bottom">
         <strong style="color:#a1a1aa">{{ t('common.anti_hype') if t is defined else 'Anti-Hype' }}</strong> · {{ t('footer.disclaimer') if t is defined else (f.disclaimer_line or 'Not financial advice. Verify on the Public Accuracy Ledger.') }}
         · <a href="/oracle-accuracy">{{ t('footer.ledger') if t is defined else 'Ledger' }}</a>

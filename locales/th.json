@@ -780,5 +780,11 @@
   "about.explore": "สำรวจ",
   "nav.about": "เกี่ยวกับ",
   "footer.link.about": "เกี่ยวกับ",
-  "footer.link.contact": "ติดต่อ"
+  "footer.link.contact": "ติดต่อ",
+  "social.link.x": "X",
+  "social.link.reddit": "Reddit",
+  "social.link.facebook": "Facebook",
+  "social.link.telegram": "Telegram",
+  "social.link.linkedin": "LinkedIn",
+  "social.join_telegram_alerts": "เข้าร่วมการแจ้งเตือน Telegram"
 }

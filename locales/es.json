@@ -780,5 +780,11 @@
   "about.explore": "Explorar",
   "nav.about": "Acerca de",
   "footer.link.about": "Acerca de",
-  "footer.link.contact": "Contacto"
+  "footer.link.contact": "Contacto",
+  "social.link.x": "X",
+  "social.link.reddit": "Reddit",
+  "social.link.facebook": "Facebook",
+  "social.link.telegram": "Telegram",
+  "social.link.linkedin": "LinkedIn",
+  "social.join_telegram_alerts": "Unirse a alertas de Telegram"
 }

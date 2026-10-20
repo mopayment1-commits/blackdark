@@ -780,5 +780,11 @@
   "about.explore": "Tuklasin",
   "nav.about": "Tungkol",
   "footer.link.about": "Tungkol",
-  "footer.link.contact": "Makipag-ugnayan"
+  "footer.link.contact": "Makipag-ugnayan",
+  "social.link.x": "X",
+  "social.link.reddit": "Reddit",
+  "social.link.facebook": "Facebook",
+  "social.link.telegram": "Telegram",
+  "social.link.linkedin": "LinkedIn",
+  "social.join_telegram_alerts": "Sumali sa Telegram Alerts"
 }

@@ -1,0 +1,45 @@
+{# Follow us — social row + Join Telegram Alerts. Uses `footer` manifest (localized). #}
+<style>
+    .bd-social-follow { margin: 0.75rem 0 1rem; }
+    .bd-social-follow .bd-social-heading {
+        color: #e4e4e7; font-size: 0.78rem; margin-bottom: 0.45rem;
+        text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700;
+    }
+    .bd-social-follow.landing-variant .bd-social-heading {
+        font-size: clamp(1.1rem, 2.5vw, 1.35rem); text-transform: none; letter-spacing: -0.02em;
+        font-family: var(--bd-font-display, system-ui, sans-serif); margin-bottom: 0.75rem;
+    }
+    .bd-social-follow .bd-follow-row {
+        display: flex; flex-wrap: wrap; gap: 0.55rem; align-items: center; margin-bottom: 0.85rem;
+    }
+    .bd-social-follow .bd-follow-row a {
+        display: inline-flex; align-items: center; justify-content: center;
+        min-width: 2.4rem; padding: 0.45rem 0.85rem; border: 1px solid #2a2a35; border-radius: 10px;
+        background: rgba(17, 17, 24, 0.75); color: #e4e4e7; font-weight: 600; font-size: 0.82rem;
+        text-decoration: none; transition: border-color 0.2s, color 0.2s;
+    }
+    .bd-social-follow .bd-follow-row a:hover { border-color: #22d3ee; color: #22d3ee; }
+    .bd-social-follow .bd-telegram-alerts-cta {
+        display: inline-flex; align-items: center; justify-content: center;
+        padding: 0.65rem 1.15rem; border-radius: 10px; font-weight: 700; font-size: 0.88rem;
+        text-decoration: none; color: #041016;
+        background: linear-gradient(135deg, #22d3ee, #06b6d4);
+        box-shadow: 0 4px 18px rgba(34, 211, 238, 0.25);
+    }
+    .bd-social-follow .bd-telegram-alerts-cta:hover { filter: brightness(1.06); color: #041016; }
+    .bd-social-follow.landing-variant { text-align: center; max-width: 640px; margin: 0 auto 2rem; padding: 0 1rem; }
+    .bd-social-follow.landing-variant .bd-follow-row { justify-content: center; }
+</style>
+{% set f = footer if footer is defined and footer else {} %}
+{% set alerts_url = f.telegram_alerts_url or 'https://t.me/BLACKDARKAI_oncall_bot' %}
+<div class="bd-social-follow{% if social_variant is defined and social_variant == 'landing' %} landing-variant{% endif %}">
+    <h4 class="bd-social-heading">{{ t('footer.follow') if t is defined else 'Follow us' }}</h4>
+    <div class="bd-follow-row" aria-label="Follow BLACKDARK">
+        {% for s in f.follow or [] %}
+        <a href="{{ s.href }}" target="_blank" rel="noopener noreferrer">{{ s.label }}</a>
+        {% endfor %}
+    </div>
+    <a class="bd-telegram-alerts-cta" href="{{ alerts_url }}" target="_blank" rel="noopener noreferrer">
+        {{ t('social.join_telegram_alerts') if t is defined else 'Join Telegram Alerts' }}
+    </a>
+</div>

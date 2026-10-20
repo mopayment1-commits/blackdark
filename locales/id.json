@@ -780,5 +780,11 @@
   "about.explore": "Jelajahi",
   "nav.about": "Tentang",
   "footer.link.about": "Tentang",
-  "footer.link.contact": "Kontak"
+  "footer.link.contact": "Kontak",
+  "social.link.x": "X",
+  "social.link.reddit": "Reddit",
+  "social.link.facebook": "Facebook",
+  "social.link.telegram": "Telegram",
+  "social.link.linkedin": "LinkedIn",
+  "social.join_telegram_alerts": "Gabung peringatan Telegram"
 }

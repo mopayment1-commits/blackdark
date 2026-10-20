@@ -47,7 +47,7 @@ LANGPAIR: dict[str, str] = {
 
 def _feature_key(key: str) -> bool:
     if key.startswith(
-        ("bounty.", "sealed.", "arb.", "ledger.panel.", "ledger.js.", "about.")
+        ("bounty.", "sealed.", "arb.", "ledger.panel.", "ledger.js.", "about.", "social.")
     ):
         return True
     return key in {

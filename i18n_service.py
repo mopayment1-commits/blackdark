@@ -228,6 +228,12 @@ _EXTRA_PUBLIC_SURFACE_KEYS: tuple[str, ...] = (
     "about.follow",
     "about.explore",
     "nav.about",
+    "social.link.x",
+    "social.link.reddit",
+    "social.link.facebook",
+    "social.link.telegram",
+    "social.link.linkedin",
+    "social.join_telegram_alerts",
     "ledger.hero.badge",
     "ledger.hero.title",
     "ledger.hero.engine_rules",
@@ -1056,6 +1062,12 @@ EN: dict[str, str] = {
     "footer.link.chat": "AI Chat",
     "footer.link.about": "About",
     "footer.link.contact": "Contact",
+    "social.link.x": "X",
+    "social.link.reddit": "Reddit",
+    "social.link.facebook": "Facebook",
+    "social.link.telegram": "Telegram",
+    "social.link.linkedin": "LinkedIn",
+    "social.join_telegram_alerts": "Join Telegram Alerts",
     "ledger.hero.badge": "LIVE · PUBLIC AUDIT",
     "ledger.hero.title": "BLACKDARK — Public Oracle Accuracy",
     "ledger.hero.engine_rules": "rules engine",
@@ -1533,6 +1545,15 @@ def resolve_nav_active(request: Any) -> str | None:
     return None
 
 
+_SOCIAL_LABEL_BY_ID: dict[str, str] = {
+    "x": "social.link.x",
+    "reddit": "social.link.reddit",
+    "facebook": "social.link.facebook",
+    "telegram": "social.link.telegram",
+    "linkedin": "social.link.linkedin",
+}
+
+
 _FOOTER_LINK_BY_HREF: dict[str, str] = {
     "/about": "footer.link.about",
     "/contact": "footer.link.contact",
@@ -1569,6 +1590,20 @@ def localize_footer_manifest(lang: str | None, raw: dict[str, Any]) -> dict[str,
                     row["label"] = label
             items.append(row)
         out[section] = items
+    follow_items = []
+    for item in out.get("follow") or []:
+        row = dict(item)
+        sid = str(row.get("id") or "")
+        key = _SOCIAL_LABEL_BY_ID.get(sid)
+        if key:
+            label = tr(key)
+            if label:
+                row["label"] = label
+        follow_items.append(row)
+    out["follow"] = follow_items
+    alerts = str(out.get("telegram_alerts_url") or "").strip()
+    if alerts:
+        out["telegram_alerts_url"] = alerts
     return out
 
 

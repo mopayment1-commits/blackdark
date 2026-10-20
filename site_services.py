@@ -27,18 +27,52 @@ def _utcnow() -> str:
     return datetime.now(UTC).isoformat()
 
 
+def telegram_alerts_bot_url() -> str:
+    """Notification bot — Join Telegram Alerts CTA."""
+    return _env("BRAND_TELEGRAM_ALERTS_BOT", "https://t.me/BLACKDARKAI_oncall_bot")
+
+
+def telegram_community_urls() -> dict[str, str]:
+    """Telegram bot, group, and channel (env overrides)."""
+    return {
+        "bot": telegram_alerts_bot_url(),
+        "chat_group": _env(
+            "BRAND_TELEGRAM_CHAT_GROUP",
+            "https://t.me/+klz-XoXG6BI1OTE8",
+        ),
+        "channel": _env("BRAND_SOCIAL_TELEGRAM_CHANNEL", "https://t.me/BLACKDARKAPP"),
+    }
+
+
 def brand_social() -> list[dict[str, str]]:
     """Official brand profiles (Follow us) — configure via env."""
+    tg = telegram_community_urls()
     items = [
         {
             "id": "x",
             "label": "X",
-            "href": _env("BRAND_SOCIAL_X", "https://x.com/blackdark"),
+            "href": _env("BRAND_SOCIAL_X", "https://x.com/BLACKDARKio"),
+        },
+        {
+            "id": "reddit",
+            "label": "Reddit",
+            "href": _env(
+                "BRAND_SOCIAL_REDDIT",
+                "https://www.reddit.com/user/Mopayment",
+            ),
+        },
+        {
+            "id": "facebook",
+            "label": "Facebook",
+            "href": _env(
+                "BRAND_SOCIAL_FACEBOOK",
+                "https://www.facebook.com/share/19vLBQzveA/?mibextid=wwXIfr",
+            ),
         },
         {
             "id": "telegram",
             "label": "Telegram",
-            "href": _env("BRAND_SOCIAL_TELEGRAM", "https://t.me/blackdark"),
+            "href": _env("BRAND_SOCIAL_TELEGRAM", tg["channel"]),
         },
         {
             "id": "linkedin",
@@ -209,6 +243,8 @@ def footer_manifest() -> dict[str, Any]:
             {"label": "Privacy", "href": "/privacy"},
         ],
         "follow": brand_social(),
+        "telegram_alerts_url": telegram_alerts_bot_url(),
+        "telegram_community": telegram_community_urls(),
         "contact": contact,
         "disclaimer_line": "Four-layer legal shield active. Not financial advice. AI cannot guarantee returns. Verify on the Public Accuracy Ledger.",
     }

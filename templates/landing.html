@@ -823,7 +823,7 @@
                 </p>
                 <div class="hero-cta" style="margin-bottom:0">
                     <a id="telegramBotLink" href="{{ telegram_bot_url or 'https://t.me/BLACKDARKAI_oncall_bot' }}" class="btn-primary" target="_blank" rel="noopener">
-                        {% if telegram_bot_username %}@{{ telegram_bot_username }} — {{ t('tg.start_free_suffix') }}{% else %}{{ t('tg.open') }}{% endif %}
+                        {{ t('social.join_telegram_alerts') }}
                     </a>
                     <a href="/oracle-accuracy" class="btn-secondary">{{ t('tg.accuracy') }}</a>
                 </div>
@@ -887,6 +887,11 @@
             <button type="submit">{{ t('waitlist.submit') }}</button>
         </form>
         <p id="waitlistMessage" style="margin-top: 1rem; color: var(--success); display: none;"></p>
+    </section>
+
+    <section class="follow-us" id="follow-us" aria-labelledby="follow-us-heading" style="padding: 2.5rem 1rem 1rem; border-top: 1px solid var(--border, #2a2a35);">
+        {% set social_variant = 'landing' %}
+        {% include 'partials/site_follow_social.html' %}
     </section>
     </main>
     

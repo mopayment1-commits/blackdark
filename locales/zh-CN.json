@@ -780,5 +780,11 @@
   "about.explore": "探索",
   "nav.about": "关于",
   "footer.link.about": "关于",
-  "footer.link.contact": "联系"
+  "footer.link.contact": "联系",
+  "social.link.x": "X",
+  "social.link.reddit": "Reddit",
+  "social.link.facebook": "Facebook",
+  "social.link.telegram": "Telegram",
+  "social.link.linkedin": "LinkedIn",
+  "social.join_telegram_alerts": "加入 Telegram 提醒"
 }

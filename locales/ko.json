@@ -780,5 +780,11 @@
   "about.explore": "탐색",
   "nav.about": "소개",
   "footer.link.about": "소개",
-  "footer.link.contact": "문의"
+  "footer.link.contact": "문의",
+  "social.link.x": "X",
+  "social.link.reddit": "Reddit",
+  "social.link.facebook": "Facebook",
+  "social.link.telegram": "Telegram",
+  "social.link.linkedin": "LinkedIn",
+  "social.join_telegram_alerts": "Telegram 알림 참가"
 }
