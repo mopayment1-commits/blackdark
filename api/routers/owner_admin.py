@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import secrets
 from pathlib import Path
 from typing import Any
 
@@ -110,3 +111,44 @@ async def api_admin_audit_logs(
 
     rows = await fetch_audit_logs(actor=actor, action=action, limit=min(max(limit, 1), 500))
     return {"logs": rows}
+
+
+class ProvisionOwnerAdminBody(BaseModel):
+    email: str = Field(..., max_length=320)
+    password: str | None = Field(default=None, min_length=12, max_length=256)
+    create: bool = True
+
+
+@router.post("/api/internal/owner-admin/provision")
+async def internal_provision_owner_admin(request: Request, body: ProvisionOwnerAdminBody):
+    """Reset owner admin password on the live DB (bootstrap token — same as audit-chain bootstrap)."""
+    from oracle_chain_bootstrap import _verify_bootstrap_token
+    from security_auth import admin_emails
+
+    _verify_bootstrap_token(request)
+    email = body.email.strip().lower()
+    password = body.password or f"Blackdark-Owner-{secrets.token_urlsafe(14)}"
+    if len(password) < 12:
+        raise HTTPException(status_code=400, detail="password_too_short")
+
+    from owner_admin_provision import provision_owner_admin
+
+    try:
+        result = await provision_owner_admin(email, password, create_if_missing=body.create)
+    except ValueError as exc:
+        if str(exc) == "user_not_found":
+            raise HTTPException(status_code=404, detail="user_not_found") from exc
+        raise
+    admins = admin_emails()
+    return {
+        "ok": True,
+        **result,
+        "password": password,
+        "admin_emails_configured": bool(admins),
+        "admin_email_in_admin_emails": email in admins,
+        "railway_hint": (
+            f"Set ADMIN_EMAILS={email} (and optional ADMIN_API_KEY) on the web service, then redeploy."
+            if email not in admins
+            else None
+        ),
+    }

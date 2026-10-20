@@ -295,6 +295,7 @@ PUBLIC_API_EXACT: frozenset[str] = frozenset(
         "/docs",
         "/docs/public",
         "/api/oracle/audit-chain/bootstrap-from-db",
+        "/api/internal/owner-admin/provision",
         "/api/analytics/stats",
         "/api/platform/stats",
         "/api/trust-pulse",
