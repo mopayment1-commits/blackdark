@@ -205,6 +205,29 @@ _EXTRA_PUBLIC_SURFACE_KEYS: tuple[str, ...] = (
     "footer.link.pricing",
     "footer.link.profile",
     "footer.link.chat",
+    "footer.link.about",
+    "footer.link.contact",
+    "meta.title.about",
+    "about.title",
+    "about.lead",
+    "about.p1",
+    "about.p2",
+    "about.capabilities.title",
+    "about.capability.1",
+    "about.capability.2",
+    "about.capability.3",
+    "about.capability.4",
+    "about.capability.5",
+    "about.capability.6",
+    "about.capability.7",
+    "about.capability.8",
+    "about.capability.9",
+    "about.capability.10",
+    "about.capability.11",
+    "about.disclaimer",
+    "about.follow",
+    "about.explore",
+    "nav.about",
     "ledger.hero.badge",
     "ledger.hero.title",
     "ledger.hero.engine_rules",
@@ -328,11 +351,47 @@ EN: dict[str, str] = {
     "meta.title.dashboard": "BLACKDARK — Intelligence Dashboard",
     "meta.title.login": "BLACKDARK — Login",
     "meta.title.accuracy": "BLACKDARK — Public Accuracy Ledger",
+    "meta.title.about": "BLACKDARK — About",
+    # About page
+    "about.title": "About BlackDark",
+    "about.lead": (
+        "Institutional-grade market intelligence built for clarity, not noise — "
+        "one clear Act or Wait decision backed by transparent evidence."
+    ),
+    "about.p1": (
+        "BlackDark is an institutional-grade market intelligence platform built for clarity, not noise. "
+        "It delivers one clear Act or Wait decision on major crypto assets, backed by transparent evidence "
+        "and a public accuracy ledger that publishes both hits and misses."
+    ),
+    "about.p2": (
+        "Unlike traditional dashboards that overwhelm users with endless charts, BlackDark focuses on a single, "
+        "actionable signal supported by three key factors, a sealed decision certificate, and verifiable outcomes "
+        "after 24 hours. Every decision is logged, resolved, and made public so users can verify performance themselves."
+    ),
+    "about.capabilities.title": "Core Capabilities",
+    "about.capability.1": "Single-sentence Oracle decisions with live freshness and factor breakdown",
+    "about.capability.2": "Public Accuracy Ledger with hash-chained proof of hits and misses",
+    "about.capability.3": "Trust Pulse for real-time Act/Wait signals under five seconds",
+    "about.capability.4": "Sealed Prediction Markets with timed certificates and public resolution",
+    "about.capability.5": "Verified Miss Bounty for reported model errors with subscription credit",
+    "about.capability.6": "Arb Opportunities for cross-venue price discrepancies (paid users)",
+    "about.capability.7": "Discipline Mirror for private follow-vs-override tracking",
+    "about.capability.8": "Decision Certificates with shareable proof",
+    "about.capability.9": "Glass Box Challenge for public verification",
+    "about.capability.10": "Multi-language support across 25 languages",
+    "about.capability.11": "Institutional-grade data provenance and audit trail",
+    "about.disclaimer": (
+        "BlackDark is an analytical research tool. It is not financial advice. All outcomes, including misses, "
+        "are published on the Public Accuracy Ledger for independent verification."
+    ),
+    "about.follow": "Follow us",
+    "about.explore": "Explore",
     # Nav
     "nav.home": "Home",
     "nav.oracle": "Oracle",
     "nav.features": "Features",
     "nav.pricing": "Pricing",
+    "nav.about": "About",
     "nav.accuracy": "Accuracy",
     "nav.login": "Login",
     "nav.signup": "Sign up",
@@ -995,6 +1054,8 @@ EN: dict[str, str] = {
     "footer.link.pricing": "Pricing",
     "footer.link.profile": "Profile & Billing",
     "footer.link.chat": "AI Chat",
+    "footer.link.about": "About",
+    "footer.link.contact": "Contact",
     "ledger.hero.badge": "LIVE · PUBLIC AUDIT",
     "ledger.hero.title": "BLACKDARK — Public Oracle Accuracy",
     "ledger.hero.engine_rules": "rules engine",
@@ -1456,6 +1517,8 @@ def resolve_nav_active(request: Any) -> str | None:
     """Active product tab for global header (Prove / Operate / Desk / Room / Verify)."""
     try:
         path = getattr(getattr(request, "url", None), "path", "") or ""
+        if path.startswith("/about"):
+            return "about"
         if path.startswith("/oracle-accuracy"):
             return "verify"
         if path.startswith("/data-room"):
@@ -1471,6 +1534,8 @@ def resolve_nav_active(request: Any) -> str | None:
 
 
 _FOOTER_LINK_BY_HREF: dict[str, str] = {
+    "/about": "footer.link.about",
+    "/contact": "footer.link.contact",
     "/#trust-pulse": "footer.link.trust_pulse",
     "/login?next=/dashboard%3Flens%3Dprove": "footer.link.decide",
     "/oracle-accuracy": "footer.link.verify",

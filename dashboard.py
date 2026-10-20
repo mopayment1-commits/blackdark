@@ -2717,14 +2717,17 @@ async def how_it_works_page(request: Request):
 
 @app.get("/about", response_class=HTMLResponse)
 async def about_page(request: Request):
+    from i18n_service import resolve_request_lang, translator
     from site_services import about_blurb
 
+    lang = resolve_request_lang(request)
+    tr = translator(lang)
     about = about_blurb()
     return render_utility(request, {
             "page": "about",
-            "title": about["title"],
-            "lead": "Trust OS for crypto decision intelligence — one product, four lenses.",
-            "about": about
+            "title": tr("about.title"),
+            "lead": tr("about.lead"),
+            "about": about,
         },
     )
 

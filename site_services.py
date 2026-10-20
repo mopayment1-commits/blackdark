@@ -238,19 +238,31 @@ def site_services_manifest() -> dict[str, Any]:
 
 
 def about_blurb() -> dict[str, Any]:
+    capabilities = [
+        "Single-sentence Oracle decisions with live freshness and factor breakdown",
+        "Public Accuracy Ledger with hash-chained proof of hits and misses",
+        "Trust Pulse for real-time Act/Wait signals under five seconds",
+        "Sealed Prediction Markets with timed certificates and public resolution",
+        "Verified Miss Bounty for reported model errors with subscription credit",
+        "Arb Opportunities for cross-venue price discrepancies (paid users)",
+        "Discipline Mirror for private follow-vs-override tracking",
+        "Decision Certificates with shareable proof",
+        "Glass Box Challenge for public verification",
+        "Multi-language support across 25 languages",
+        "Institutional-grade data provenance and audit trail",
+    ]
     return {
-        "title": "About BLACKDARK",
+        "title": "About BlackDark",
         "lead": (
-            "BLACKDARK is a Trust OS for crypto decision intelligence: "
-            "one clear decision, a reviewable why, and a shareable proof — "
-            "verified on a public accuracy ledger."
+            "Institutional-grade market intelligence built for clarity, not noise — "
+            "one clear Act or Wait decision backed by transparent evidence."
         ),
-        "difference": (
-            "Competitors sell charts, data feeds, or opaque scores. "
-            "We sell a reviewable decision + Proof Card as the free viral wedge, "
-            "and depth of trust as the paid product."
+        "capabilities": capabilities,
+        "disclaimer": (
+            "BlackDark is an analytical research tool. It is not financial advice. "
+            "All outcomes, including misses, are published on the Public Accuracy Ledger "
+            "for independent verification."
         ),
-        "lenses": "Prove → Operate → Desk → Room",
         "follow": brand_social(),
     }
 

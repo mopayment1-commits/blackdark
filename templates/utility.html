@@ -52,14 +52,31 @@
         .legal-grid a:hover { border-color:var(--accent); color:var(--accent); }
         .changelog-row { border-bottom:1px solid var(--line); padding:1rem 0; }
         .changelog-row .date { font-size:.75rem; color:var(--accent); }
+        .about-page .about-lead { font-size: 1.05rem; color: var(--fg); line-height: 1.6; margin-bottom: 1.25rem; }
+        .about-page .about-body p { margin-bottom: 1rem; }
+        .about-page .about-capabilities ul { list-style: none; margin: 0.5rem 0 1.25rem; padding: 0; }
+        .about-page .about-capabilities li {
+            position: relative; padding: 0.55rem 0 0.55rem 1.35rem; margin: 0;
+            border-bottom: 1px solid rgba(42, 42, 53, 0.65); color: var(--muted); line-height: 1.55;
+        }
+        .about-page .about-capabilities li::before {
+            content: ""; position: absolute; left: 0; top: 0.95rem; width: 6px; height: 6px;
+            border-radius: 50%; background: var(--accent); box-shadow: 0 0 8px rgba(34,211,238,.45);
+        }
+        .about-page .about-disclaimer {
+            margin-top: 1.5rem; padding: 1rem 1.1rem; border-radius: 12px;
+            border: 1px solid rgba(34, 211, 238, 0.25); background: rgba(17, 17, 24, 0.75);
+            font-size: 0.88rem; color: var(--muted);
+        }
+        .about-page .about-disclaimer strong { color: var(--fg); font-weight: 600; }
     </style>
 </head>
 <body>
     <a href="#main" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden" class="skip-link" onfocus="this.style.left='1rem';this.style.top='1rem';this.style.width='auto';this.style.height='auto';this.style.padding='.5rem';this.style.background='#22d3ee';this.style.color='#0a0a0f';this.style.zIndex='99'">{{ t('utility.skip_content') }}</a>
     {% include 'partials/global_header.html' %}
-    <main id="main" role="main" tabindex="-1"{% if page == 'data_room' %} class="page-data-room"{% endif %}>
+    <main id="main" role="main" tabindex="-1"{% if page == 'data_room' %} class="page-data-room"{% elif page == 'about' %} class="about-page"{% endif %}>
         <h1>{{ title }}</h1>
-        <p>{{ lead }}</p>
+        {% if page != 'about' %}<p>{{ lead }}</p>{% endif %}
         {% if page == 'capabilities' %}
         <div class="card">
             <p><strong style="color:var(--fg)">Don't trust us. Verify us.</strong> One product · four value layers · six heroes.</p>
@@ -299,21 +316,36 @@
             </p>
         </div>
         {% elif page == 'about' %}
-        <div class="card">
-            {% if about %}
-            <p><strong style="color:var(--fg)">{{ about.lead }}</strong></p>
-            <h2>What makes us different</h2>
-            <p>{{ about.difference }}</p>
-            <h2>Story</h2>
-            <p>{{ about.lenses }}</p>
-            {% endif %}
-            <h2>Follow us</h2>
+        <div class="card about-page">
+            <p class="about-lead">{{ t('about.lead') if t is defined else lead }}</p>
+            <div class="about-body">
+                <p>{{ t('about.p1') if t is defined else '' }}</p>
+                <p>{{ t('about.p2') if t is defined else '' }}</p>
+            </div>
+            <section class="about-capabilities" aria-labelledby="about-cap-heading">
+                <h2 id="about-cap-heading">{{ t('about.capabilities.title') if t is defined else 'Core Capabilities' }}</h2>
+                <ul>
+                    {% for i in range(1, 12) %}
+                    <li>{{ t('about.capability.' ~ i) if t is defined else '' }}</li>
+                    {% endfor %}
+                </ul>
+            </section>
+            <p class="about-disclaimer" role="note">
+                <strong>{{ t('common.anti_hype') if t is defined else 'Anti-Hype' }}</strong> —
+                {{ t('about.disclaimer') if t is defined else '' }}
+            </p>
+            <h2>{{ t('about.follow') if t is defined else 'Follow us' }}</h2>
             <p>
                 {% for s in (about.follow if about else []) %}
                 <a href="{{ s.href }}" target="_blank" rel="noopener" style="margin-right:.75rem">{{ s.label }}</a>
                 {% endfor %}
             </p>
-            <p><a href="/capabilities">Capabilities</a> · <a href="/data-room">Data Room</a> · <a href="/changelog">Changelog</a></p>
+            <p>
+                <span style="color:var(--muted);font-size:.85rem">{{ t('about.explore') if t is defined else 'Explore' }}:</span>
+                <a href="/capabilities">{{ t('nav.capabilities') if t is defined else 'Capabilities' }}</a> ·
+                <a href="/data-room">{{ t('nav.room') if t is defined else 'Room' }}</a> ·
+                <a href="/oracle-accuracy">{{ t('nav.verify') if t is defined else 'Verify' }}</a>
+            </p>
         </div>
         {% elif page == 'status' %}
         <div class="card">
