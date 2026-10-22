@@ -79,7 +79,7 @@ def brand_social() -> list[dict[str, str]]:
             "label": "LinkedIn",
             "href": _env(
                 "BRAND_SOCIAL_LINKEDIN",
-                "https://www.linkedin.com/company/blackdark",
+                "https://www.linkedin.com/in/blackdarkio",
             ),
         },
     ]
