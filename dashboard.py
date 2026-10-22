@@ -3528,6 +3528,12 @@ async def _compute_oracle_quick_payload(
         }
     except Exception:
         pass
+    try:
+        from central_data_mesh import attach_mesh_to_oracle_payload
+
+        await attach_mesh_to_oracle_payload(out, asset)
+    except Exception:
+        pass
     return out
 
 
