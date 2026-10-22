@@ -16,8 +16,9 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    gap: 1rem;
-    flex-wrap: nowrap;
+    gap: 0.65rem 1rem;
+    flex-wrap: wrap;
+    row-gap: 0.35rem;
   }
   .site-top-nav .logo {
     font-family: var(--bd-font-display, system-ui, sans-serif);
@@ -31,9 +32,11 @@
   }
   .site-top-nav .nav-links {
     display: flex;
-    gap: 1.1rem;
-    flex-wrap: nowrap;
+    gap: 0.55rem 0.85rem;
+    flex-wrap: wrap;
     align-items: center;
+    flex: 1 1 12rem;
+    min-width: 0;
   }
   .site-top-nav .nav-links a {
     color: var(--text-muted, #a1a1aa);
@@ -48,9 +51,12 @@
   .site-top-nav .nav-right {
     display: inline-flex;
     align-items: center;
-    gap: 0.75rem;
-    flex-wrap: nowrap;
+    gap: 0.4rem 0.55rem;
+    flex-wrap: wrap;
+    flex: 0 1 auto;
+    min-width: 0;
     margin-inline-start: auto;
+    justify-content: flex-end;
     overflow: visible;
   }
   .bd-nav-search-wrap {
@@ -138,9 +144,11 @@
   .bd-header-util {
     display: inline-flex;
     align-items: center;
-    gap: 0.55rem;
+    gap: 0.4rem 0.5rem;
     flex-wrap: wrap;
     justify-content: flex-end;
+    flex: 0 1 auto;
+    min-width: 0;
   }
   .bd-lang-visible { display: inline-flex; }
   .bd-account-menu { position: relative; }
@@ -247,6 +255,12 @@
     max-width: 14rem;
     line-height: 1.35;
   }
+  @media (min-width: 769px) and (max-width: 1320px) {
+    .site-top-nav .nav-links a { font-size: 0.84rem; }
+    .site-top-nav .bd-nav-search-wrap input { width: min(8.25rem, 18vw); }
+    .site-top-nav .bd-lang-select { max-width: 7.25rem; font-size: 0.8rem; }
+    .site-top-nav .nav-util-link { font-size: 0.82rem; }
+  }
   @media (max-width: 768px) {
     .site-top-nav .nav-container { flex-wrap: wrap; gap: 0.5rem; }
     .site-top-nav .nav-links { display: none; }
@@ -265,6 +279,10 @@
     line-height: 1;
   }
   .bd-theme-toggle:hover { color: var(--accent, #22d3ee); border-color: var(--accent, #22d3ee); }
+  #bdThemeToggle[hidden],
+  .bd-theme-toggle[hidden] {
+    display: none !important;
+  }
 </style>
 <script src="/static/js/bd_oracle_workspace.js" defer></script>
 <nav class="landing-nav site-top-nav" aria-label="Primary">
@@ -294,7 +312,7 @@
         <div id="bdNavSearchResults" class="bd-nav-search-results" hidden></div>
       </div>
       <nav class="bd-header-util" aria-label="Account and language">
-        <button type="button" id="bdThemeToggle" class="nav-util-link bd-theme-toggle" aria-label="Toggle light/dark theme" title="Theme">☾</button>
+        <button type="button" id="bdThemeToggle" class="nav-util-link bd-theme-toggle" hidden aria-label="Toggle light/dark theme" title="Theme">☾</button>
         <span class="nav-globe-icon" aria-hidden="true">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
             <circle cx="12" cy="12" r="9"></circle>

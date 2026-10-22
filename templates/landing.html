@@ -61,7 +61,17 @@
             50% { transform: translate(-30px, 30px); }
         }
         
-        nav.landing-nav.site-top-nav { position: fixed; top: 0; }
+        nav.landing-nav.site-top-nav { position: fixed; top: 0; left: 0; right: 0; }
+        /* Keep util row (lang · pricing · login) on-screen when primary links wrap */
+        nav.landing-nav.site-top-nav .nav-right {
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            max-width: 100%;
+        }
+        nav.landing-nav.site-top-nav .bd-header-util {
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
 
         .landing-stats {
             position: relative;
