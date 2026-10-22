@@ -13,7 +13,10 @@ def test_landing_uses_light_boot_entry_and_main_chunk():
     assert Path("static/js/landing_boot_main.js").is_file()
     entry = Path("static/js/landing_boot.js").read_text(encoding="utf-8")
     assert "landing_boot_main.js" in entry
+    assert "bd_live_refresh.js" not in entry
     assert len(entry) < 8000
+    main = Path("static/js/landing_boot_main.js").read_text(encoding="utf-8")
+    assert "ensureLiveRefreshModule" in main
 
 
 def test_landing_nav_lazy_scripts():

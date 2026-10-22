@@ -19,10 +19,10 @@
     {"@context":"https://schema.org","@type":"WebApplication","name":"BLACKDARK","description":"Trust OS decision intelligence with public accuracy ledger and Decision Certificates","url":"https://blackdark.io/","applicationCategory":"BusinessApplication","operatingSystem":"Web","browserRequirements":"Requires JavaScript. Requires HTML5.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
     </script>
     <link rel="preload" as="image" href="/static/img/blackdark-sealed-hero-1280.webp" type="image/webp" fetchpriority="high">
-    <link rel="preload" href="/static/css/trust-os.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/static/css/trust-os.css"></noscript>
-    <link rel="preload" href="/static/css/landing.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/static/css/landing.css"></noscript>
+    <link rel="preload" href="/static/css/trust-os.css" as="style">
+    <link rel="preload" href="/static/css/landing.css" as="style">
+    <script src="/static/js/landing_css_async.js"></script>
+    <noscript><link rel="stylesheet" href="/static/css/trust-os.css"><link rel="stylesheet" href="/static/css/landing.css"></noscript>
     <style>
         :root {
           --bd-bg: #0a0a0f;
@@ -48,6 +48,25 @@
           --bd-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        .skip-link {
+            position: absolute;
+            left: -9999px;
+            top: auto;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+        .skip-link:focus {
+            left: 1rem;
+            top: 1rem;
+            width: auto;
+            height: auto;
+            overflow: visible;
+            z-index: 100;
+            background: var(--accent);
+            color: #0a0a0f;
+            padding: 0.5rem 0.75rem;
+        }
         
         body {
             font-family: var(--bd-font-body);
@@ -180,7 +199,10 @@
             z-index: 1;
             width: min(820px, 100%);
             text-align: center;
-            animation: bdPulseIn 0.65s var(--bd-ease-out) both;
+            /* LCP: no opacity-0 fill-mode; trust-os.css loads async */
+            animation: none;
+            opacity: 1;
+            transform: none;
         }
 
         .hero-brand {
@@ -603,7 +625,9 @@
             background: rgba(10, 10, 15, 0.78);
             border-color: rgba(34, 211, 238, 0.28);
             padding: 1.15rem 1.2rem 1.05rem;
-            animation: bdPulseIn 0.75s var(--bd-ease-out) 0.12s both;
+            animation: none;
+            opacity: 1;
+            transform: none;
         }
         .hero .tp-mini-cta .btn-primary,
         .hero .tp-mini-cta .btn-secondary {
@@ -741,7 +765,7 @@
     </style>
 </head>
 <body class="landing-page">
-    <a href="#trust-pulse" class="skip-link" style="position:absolute;left:-9999px" onfocus="this.style.left='1rem';this.style.top='1rem';this.style.zIndex='100';this.style.background='var(--accent)';this.style.color='#0a0a0f';this.style.padding='.5rem .75rem'">{{ t('a11y.skip_trust_pulse') }}</a>
+    <a href="#trust-pulse" class="skip-link">{{ t('a11y.skip_trust_pulse') }}</a>
     <div class="bg-grid"></div>
     <div class="bg-glow"></div>
 

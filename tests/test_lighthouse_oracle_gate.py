@@ -32,11 +32,11 @@ def test_lang_select_accessible_name():
     sw = Path("templates/partials/lang_switcher.html").read_text(encoding="utf-8")
     assert 'for="bdLangTrigger"' in sw
     assert "bd-lang-sr-only" in sw
-    assert 'aria-label=' in sw
+    assert 'id="bdLangTrigger"' in sw
 
 
 def test_social_heading_is_h3():
     html = Path("templates/partials/site_follow_social.html").read_text(encoding="utf-8")
     assert 'class="bd-social-heading"' in html and "<h3" in html
-    assert 'id="follow-us-heading"' in html
+    assert "social_heading_id" in html
     assert "<h4 class=\"bd-social-heading\"" not in html

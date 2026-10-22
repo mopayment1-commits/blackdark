@@ -748,6 +748,27 @@ async def _payload_after_flip_persistence(
     return payload, "decision_changed"
 
 
+def degraded_trust_pulse_payload(symbol: str = DEFAULT_SYMBOL) -> dict[str, Any]:
+    """Stable 200 response when live oracle/pulse compute fails (Lighthouse / anonymous)."""
+    sym = (symbol or DEFAULT_SYMBOL).strip().upper() or DEFAULT_SYMBOL
+    snap = latest_trust_pulse_snapshot(sym, max_age_sec=86400.0)
+    if snap:
+        return snap
+    return {
+        "product": "BLACKDARK Trust OS",
+        "surface": "trust_pulse",
+        "event": "pulse",
+        "symbol": sym,
+        "action": "WAIT",
+        "verdict": "WAIT",
+        "sentence": "Trust Pulse is warming up — refresh in a moment.",
+        "freshness": {"state": "stale", "stale": True, "label": "Warming up"},
+        "why": {"factors": []},
+        "proof": {},
+        "degraded": True,
+    }
+
+
 def latest_trust_pulse_snapshot(
     symbol: str = DEFAULT_SYMBOL,
     *,

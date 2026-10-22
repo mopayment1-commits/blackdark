@@ -37,6 +37,8 @@ def test_landing_html_a11y_and_perf_hooks():
     assert "/static/css/landing.css" in html
     assert 'defer src="/static/js/landing_boot.js"' in html
     assert 'rel="preload"' in html and "trust-os.css" in html
+    assert "landing_css_async.js" in html
+    assert "onload=" not in html.split("<head", 1)[1].split("</head>", 1)[0]
     assert 'id="landing-pulse-ssr"' in html or "landing_pulse_view" in html or 'id="lpAction"' in html
     assert "We publish the miss" in html
     assert "/static/img/blackdark-sealed-hero-1280.webp" in html
@@ -56,7 +58,10 @@ def test_landing_assets_exist_and_design_tokens():
     assert hero_webp.stat().st_size < 120_000
     assert hero_jpg.is_file()
     assert hero_jpg.stat().st_size < 200_000
-    assert "--bd-muted-dim: #a1a1aa" in css or "--bd-muted: #a1a1aa" in css
+    assert "--bd-muted-dim: #c8c8d0" in css or "--bd-muted: #c8c8d0" in css
+    assert ".hero-composition" in landing
+    hero_block = landing.split(".hero-composition", 1)[1]
+    assert "animation: none" in hero_block[:400]
     boot = (root / "static" / "js" / "landing_boot_main.js").read_text(encoding="utf-8")
     assert boot.count("const action =") <= 4
     assert 'for="landingAudience"' in landing

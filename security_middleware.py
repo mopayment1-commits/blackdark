@@ -172,11 +172,9 @@ def _inject_html_csp_nonce(html: str, nonce: str, csrf_token: str | None = None)
     out = re.sub(r"<style\b[^>]*>", _add_style_nonce, out, flags=re.I)
     tt_bootstrap = (
         f'<script nonce="{nonce}">'
-        "(function(){try{if(window.trustedTypes&&trustedTypes.createPolicy"
-        "&&!trustedTypes.defaultPolicy){trustedTypes.createPolicy('default',"
-        "{createHTML:function(s){return s},createScript:function(s){return s},"
-        "createScriptURL:function(s){return s}});}}catch(e){}})();"
-        "</script>"
+        "(function(){try{var t=window.trustedTypes;if(t&&t.createPolicy&&!t.defaultPolicy){"
+        "t.createPolicy('default',{createHTML:function(s){return s},createScript:function(s){return s},"
+        "createScriptURL:function(s){return s}});}}catch(e){}})();</script>"
     )
     if csrf_token and 'name="bd-csrf-token"' not in out:
         esc = html_module.escape(csrf_token, quote=True)
