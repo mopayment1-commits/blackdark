@@ -359,7 +359,9 @@ def security_headers_for(request: Request) -> dict[str, str]:
         "Content-Security-Policy": csp,
     }
     if _is_production() or (_effective_scheme(request) == "https"):
-        headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
+        headers["Strict-Transport-Security"] = (
+            "max-age=31536000; includeSubDomains; preload"
+        )
     return headers
 
 

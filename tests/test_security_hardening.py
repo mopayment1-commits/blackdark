@@ -38,6 +38,7 @@ def test_security_headers_helper():
     assert "Strict-Transport-Security" in headers
     assert "max-age=31536000" in headers["Strict-Transport-Security"]
     assert "includeSubDomains" in headers["Strict-Transport-Security"]
+    assert "preload" in headers["Strict-Transport-Security"]
     assert headers.get("Cross-Origin-Embedder-Policy") == "credentialless"
     assert headers.get("X-XSS-Protection") == "0"
 

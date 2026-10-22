@@ -38,6 +38,8 @@ PUBLIC_CANONICAL_HOSTS=blackdark.io,www.blackdark.io
 
 4. Redeploy web service after env change.
 
+5. **CAA** (SSL Labs): add Let's Encrypt CAA records — see `deploy/dns/caa-blackdark-io.md`.
+
 ## Verify (must pass before “done”)
 
 ```bash

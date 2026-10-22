@@ -81,6 +81,7 @@ def test_security_headers_include_hsts_and_csp():
     hsts = headers["Strict-Transport-Security"]
     assert "max-age=31536000" in hsts
     assert "includeSubDomains" in hsts
+    assert "preload" in hsts
     csp = headers["Content-Security-Policy"]
     assert "default-src 'none'" in csp
     assert "object-src 'none'" in csp
