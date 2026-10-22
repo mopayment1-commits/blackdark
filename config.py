@@ -247,6 +247,7 @@ LIQUIDITY_MIN_24H_VOLUME_USD = float(os.getenv("LIQUIDITY_MIN_24H_VOLUME_USD", "
 LIQUIDITY_MAX_DYNAMIC_EXCHANGES = int(os.getenv("LIQUIDITY_MAX_DYNAMIC_EXCHANGES", "100"))
 LIQUIDITY_MAX_DYNAMIC_ASSETS = int(os.getenv("LIQUIDITY_MAX_DYNAMIC_ASSETS", "100"))
 LIQUIDITY_DISCOVERY_TIMEOUT_SECONDS = int(os.getenv("LIQUIDITY_DISCOVERY_TIMEOUT_SECONDS", "30"))
+# CoinMarketCap Basic (pro-api) — commercial use allowed on Basic; set in Railway secrets.
 COINMARKETCAP_API_KEY = os.getenv("COINMARKETCAP_API_KEY", "")
 COINMARKETCAP_ENABLED = bool(COINMARKETCAP_API_KEY)
 COINMARKETCAP_LISTINGS_URL = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest"

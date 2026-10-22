@@ -175,6 +175,10 @@ async def _compute_oracle_payload(
     if market is None:
         raise ValueError(f"Symbol {asset} not found")
 
+    from coinmarketcap_api import enrich_market_with_cmc_metadata
+
+    market = await enrich_market_with_cmc_metadata(market, asset)
+
     price = float(market["price"])
     volume = float(market["volume"])
     quote_volume = float(market.get("quote_volume") or volume * price)
@@ -190,6 +194,9 @@ async def _compute_oracle_payload(
         change,
         whale_alert=await _fetch_trust_pulse_whale(asset, pair, price),
         unified=await _fetch_trust_pulse_unified(asset, price, quote_volume, change),
+        market_cap_usd=float(market.get("market_cap_usd") or 0) or None,
+        cmc_rank=int(market["cmc_rank"]) if market.get("cmc_rank") is not None else None,
+        price_source=str(market.get("source") or ""),
     )
     payload = _enrich_trust_pulse_payload(payload, ux_mode=ux_mode, lang=lang)
     _attach_trust_pulse_why(payload)

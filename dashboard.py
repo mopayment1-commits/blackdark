@@ -2967,9 +2967,17 @@ async def _compute_oracle_quick_payload(
 
     market = await fetch_public_spot_market(pair)
     if market is None:
+        from coinmarketcap_api import fetch_spot_ticker
+
+        market = await fetch_spot_ticker(asset)
+    if market is None:
         market = await _fetch_binance_ticker(pair)
     if market is None:
         raise HTTPException(status_code=404, detail=f"Symbol {asset} not found.")
+
+    from coinmarketcap_api import enrich_market_with_cmc_metadata
+
+    market = await enrich_market_with_cmc_metadata(market, asset)
 
     price = market["price"]
     quote_volume = market["quote_volume"] or (market["volume"] * price)
@@ -3029,6 +3037,15 @@ async def _compute_oracle_quick_payload(
         }
     if market.get("price_blend"):
         out["price_blend"] = market.get("price_blend")
+    if market.get("market_cap_usd"):
+        try:
+            out["market_cap_usd"] = float(market["market_cap_usd"])
+        except (TypeError, ValueError):
+            pass
+    if market.get("cmc_rank") is not None:
+        out["cmc_rank"] = market.get("cmc_rank")
+    if market.get("source") == "coinmarketcap":
+        out["price_source"] = "coinmarketcap"
     return out
 
 
@@ -3052,6 +3069,8 @@ def _quick_price_source_label(market: dict[str, Any]) -> str:
         return "binance_ws"
     if src.startswith("binance_rest:") or src.startswith("binance:"):
         return "binance_rest"
+    if src == "coinmarketcap":
+        return "coinmarketcap"
     if src:
         return src
     return "binance_rest"

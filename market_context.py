@@ -504,6 +504,12 @@ async def fetch_binance_ticker(pair: str) -> dict | None:
             row = await _primary_rest_ticker(pair, session)
             if row is not None:
                 return enrich_ticker_freshness(row, fetched_at=fetched_at)
+            from coinmarketcap_api import fetch_spot_ticker
+
+            cmc = await fetch_spot_ticker(asset, session=session)
+            if cmc is not None:
+                _log_price_fallback(asset, "coinmarketcap")
+                return enrich_ticker_freshness(cmc, fetched_at=fetched_at)
             row = await _fallback_rest_ticker(asset, session)
             if row is not None:
                 return enrich_ticker_freshness(row, fetched_at=fetched_at)
@@ -1005,6 +1011,9 @@ def build_full_oracle_response(
     *,
     whale_alert: str | None = None,
     unified: dict[str, Any] | None = None,
+    market_cap_usd: float | None = None,
+    cmc_rank: int | None = None,
+    price_source: str | None = None,
 ) -> dict:
     score = _oracle_response_score(asset, quote_volume, change, unified)
     verdict, oracle_text = _oracle_response_verdict(asset, price, score, unified)
@@ -1067,6 +1076,12 @@ def build_full_oracle_response(
         "timestamp": now.isoformat(),
         "disclaimer": "Not financial advice. Do your own research (DYOR).",
     }
+    if market_cap_usd is not None and market_cap_usd > 0:
+        payload["market_cap_usd"] = market_cap_usd
+    if cmc_rank is not None:
+        payload["cmc_rank"] = cmc_rank
+    if price_source:
+        payload["price_source"] = price_source
     _attach_unified_oracle_fields(payload, unified)
     return payload
 
