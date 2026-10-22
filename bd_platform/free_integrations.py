@@ -268,10 +268,28 @@ async def wallet_balance(address: str) -> dict[str, Any]:
             "note": "Free Tracely portfolio (DeBank/Zerion alternative)",
         }
 
+    if (address or "").strip().startswith("0x"):
+        try:
+            from etherscan_public_api import fetch_eth_balance_wei
+
+            eth = await fetch_eth_balance_wei(address)
+            if eth:
+                return {
+                    "available": True,
+                    "source": "etherscan_free",
+                    "address": address,
+                    "balance_eth": eth.get("balance_eth"),
+                    "balance_wei": eth.get("balance_wei"),
+                    "tier": "etherscan_free",
+                    "note": "Native ETH balance via Etherscan free API (fallback)",
+                }
+        except Exception:
+            logger.debug("etherscan wallet fallback failed", exc_info=True)
+
     return {
         "available": False,
         "address": address,
-        "reason": "Wallet lookup failed — set ZERION_API_KEY or DEBANK_API_KEY for enhanced coverage",
+        "reason": "Wallet lookup failed — set ZERION_API_KEY, DEBANK_API_KEY, or ETHERSCAN_API_KEY",
     }
 
 

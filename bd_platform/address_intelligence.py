@@ -129,6 +129,22 @@ async def search_address(address: str, *, chain: str = "ethereum") -> dict[str, 
         arkham = {"ok": False, "data_state": "MISSING"}
 
     total_usd = _extract_total_usd(balance if isinstance(balance, dict) else {})
+    etherscan_fallback: dict[str, Any] | None = None
+    if chain.lower() == "ethereum" and (
+        not (isinstance(balance, dict) and balance.get("available"))
+        or total_usd <= 0
+    ):
+        try:
+            from etherscan_public_api import fetch_address_onchain_fallback
+
+            etherscan_fallback = await fetch_address_onchain_fallback(
+                addr,
+                include_transactions=True,
+                tx_limit=5,
+            )
+        except Exception:
+            etherscan_fallback = None
+
     if total_usd > 0:
         _append_snapshot(addr, chain, total_usd=total_usd, source=balance.get("source", "search"))
 
@@ -153,8 +169,12 @@ async def search_address(address: str, *, chain: str = "ethereum") -> dict[str, 
         "labels": labels,
         "clusters": clusters,
         "arkham_entity": arkham if arkham.get("ok") else None,
-        "sources": ["tracely", "debank", "zerion", "eth-labels", "arkham"],
-        "data_state": "LIVE" if balance.get("available") else "PARTIAL",
+        "etherscan_fallback": etherscan_fallback if etherscan_fallback and etherscan_fallback.get("ok") else None,
+        "sources": ["tracely", "debank", "zerion", "eth-labels", "arkham", "etherscan"],
+        "data_state": "LIVE"
+        if (isinstance(balance, dict) and balance.get("available"))
+        or (etherscan_fallback and etherscan_fallback.get("ok"))
+        else "PARTIAL",
         "latency_ms": round((time.perf_counter() - t0) * 1000, 1),
         "sla_met": (time.perf_counter() - t0) <= 2.0,
         "timestamp": _utcnow(),

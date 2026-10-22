@@ -254,6 +254,11 @@ COINMARKETCAP_ENABLED = bool(COINMARKETCAP_API_KEY)
 CHANGENOW_API_KEY = os.getenv("CHANGENOW_API_KEY", "").strip()
 CHANGENOW_PARTNER_FEE_PERCENT = float(os.getenv("CHANGENOW_PARTNER_FEE_PERCENT", "0.4"))
 CHANGENOW_REFERRAL_LINK = os.getenv("CHANGENOW_REFERRAL_LINK", "").strip()
+# Etherscan free API — 5 req/s, 100k req/day (requires free API key).
+ETHERSCAN_API_KEY = os.getenv("ETHERSCAN_API_KEY", "").strip()
+ETHERSCAN_DAILY_LIMIT = int(os.getenv("ETHERSCAN_DAILY_LIMIT", "100000"))
+ETHERSCAN_RPS_LIMIT = int(os.getenv("ETHERSCAN_RPS_LIMIT", "5"))
+ETHERSCAN_CACHE_TTL_SEC = float(os.getenv("ETHERSCAN_CACHE_TTL_SEC", "90"))
 COINMARKETCAP_LISTINGS_URL = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest"
 COINMARKETCAP_EXCHANGES_URL = "https://pro-api.coinmarketcap.com/v1/exchange/listings/latest"
 OPERATIONAL_MANIFEST_PATH = DATA_DIR / "operational_manifest.json"
