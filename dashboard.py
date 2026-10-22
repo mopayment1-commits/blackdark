@@ -1724,6 +1724,22 @@ async def public_fred_context():
     return row
 
 
+@app.get("/api/public/wallet/balance")
+async def public_wallet_balance(address: str, chain: str = "ethereum"):
+    from wallet_balance_public import fetch_readonly_wallet_balance
+
+    row = await fetch_readonly_wallet_balance(address, chain=chain)
+    if not row.get("ok"):
+        raise HTTPException(status_code=404, detail=row)
+    return row
+
+
+@app.get("/wallet-balance", response_class=HTMLResponse)
+async def wallet_balance_page(request: Request):
+    ctx = {**_footer_ctx()}
+    return render_page(request, "wallet_balance.html", ctx)
+
+
 @app.get("/api/public/price-alerts")
 async def public_price_alerts_list(client_id: str = Query(..., min_length=16, max_length=64)):
     from price_alerts_public import evaluate_alerts

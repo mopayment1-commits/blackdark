@@ -1134,6 +1134,7 @@ EN: dict[str, str] = {
     "ledger.panel.fred_row": "{title}: {value} ({date})",
     "ledger.panel.fred_cpi_row": "CPI YoY: {yoy}% (index {value}, {date})",
     "nav.swap": "Swap",
+    "nav.wallet_balance": "Balance",
     "swap.page_title": "Non-custodial swap",
     "swap.lead": (
         "Swap via ChangeNOW partner API (revenue share — no subscription). "

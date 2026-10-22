@@ -162,6 +162,7 @@ PUBLIC_HTML_EXACT: frozenset[str] = frozenset(
         "/visibility-cost",
         "/il-simulator",
         "/swap",
+        "/wallet-balance",
         "/market-intelligence",
         "/intelligence-ledger",
         "/address-intelligence",
