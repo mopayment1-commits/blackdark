@@ -114,6 +114,57 @@
         .pill.correct { background: rgba(34,197,94,0.15); color: var(--success); }
         .pill.partial { background: rgba(245,158,11,0.15); color: var(--warning); }
         .pill.incorrect { background: rgba(239,68,68,0.15); color: var(--danger); }
+        .misses-honesty-banner {
+            border: 1px solid rgba(239, 68, 68, 0.35);
+            background: rgba(239, 68, 68, 0.06);
+            color: var(--text);
+            border-radius: 10px;
+            padding: 0.75rem 1rem;
+            font-size: 0.92rem;
+            font-weight: 600;
+            line-height: 1.45;
+            margin-bottom: 1.1rem;
+        }
+        .misses-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 0.75rem;
+            margin: 0 0 1.25rem;
+        }
+        .misses-stat {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 0.85rem 1rem;
+            background: rgba(17, 17, 24, 0.85);
+        }
+        .misses-stat--errors { border-color: rgba(239, 68, 68, 0.45); }
+        .misses-stat-num {
+            display: block;
+            font-size: 1.75rem;
+            font-weight: 800;
+            font-variant-numeric: tabular-nums;
+            color: var(--danger);
+            line-height: 1.15;
+        }
+        .misses-stat--partial .misses-stat-num { color: var(--warning); }
+        .misses-stat--rate .misses-stat-num { color: var(--accent); font-size: 1.45rem; }
+        .misses-stat-lbl {
+            display: block;
+            margin-top: 0.35rem;
+            font-size: 0.78rem;
+            color: var(--muted);
+            line-height: 1.35;
+        }
+        .misses-recent-wrap { margin-top: 0.5rem; }
+        .misses-recent-wrap h3 {
+            font-size: 1rem;
+            margin: 0 0 0.65rem;
+            color: var(--text);
+        }
+        #misses-recent-table { font-size: 0.86rem; }
+        #misses-recent-table th { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.03em; }
+        .misses-detail-lists { margin-top: 1rem; border-top: 1px solid var(--border); padding-top: 0.75rem; }
+        .misses-detail-lists h3 { font-size: 0.9rem; color: var(--muted); }
         .cta-row {
             display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
             margin: 2rem 0 3rem;
@@ -329,16 +380,54 @@
 
     <section class="panel" id="losing">
         <div class="card">
+            <div class="misses-honesty-banner" role="note" id="misses-honesty-banner">
+                {{ t('ledger.panel.misses_banner') }}
+            </div>
             <h2>{{ t('ledger.panel.misses_title') }}</h2>
             <p style="color:var(--muted);font-size:0.88rem;margin-bottom:.65rem">
                 {{ t('ledger.panel.misses_lead') }} <code>/errors</code>.
             </p>
+            <div class="misses-summary" aria-label="{{ t('ledger.panel.misses_summary_aria') }}">
+                <div class="misses-stat misses-stat--errors">
+                    <span class="misses-stat-num" id="misses-verified-count">—</span>
+                    <span class="misses-stat-lbl">{{ t('ledger.panel.misses_verified_label') }}</span>
+                </div>
+                <div class="misses-stat misses-stat--partial">
+                    <span class="misses-stat-num" id="misses-partial-count">—</span>
+                    <span class="misses-stat-lbl">{{ t('ledger.panel.misses_partial_label') }}</span>
+                </div>
+                <div class="misses-stat misses-stat--rate">
+                    <span class="misses-stat-num" id="misses-rate-pct">—</span>
+                    <span class="misses-stat-lbl">{{ t('ledger.panel.misses_rate_label') }}</span>
+                </div>
+            </div>
             <p id="losing-status" style="color:var(--muted);font-size:0.9rem">Loading honest misses…</p>
             <p id="losing-archive-note" style="display:none;color:var(--warning);font-size:0.85rem;margin:.5rem 0"></p>
-            <h3 style="font-size:1rem;margin:1rem 0 0.5rem">{{ t('ledger.panel.verified_errors') }}</h3>
-            <ul class="events" id="losing-errors-list"><li>Loading...</li></ul>
-            <h3 style="font-size:1rem;margin:1rem 0 0.5rem">{{ t('ledger.panel.partial_outcomes') }}</h3>
-            <ul class="events" id="losing-partial-list"><li>Loading...</li></ul>
+            <div class="misses-recent-wrap">
+                <h3>{{ t('ledger.panel.misses_recent_title') }}</h3>
+                <div style="overflow-x:auto">
+                    <table id="misses-recent-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">{{ t('ledger.panel.misses_col_asset') }}</th>
+                                <th scope="col">{{ t('ledger.panel.misses_col_verdict') }}</th>
+                                <th scope="col">{{ t('ledger.panel.misses_col_outcome') }}</th>
+                                <th scope="col">{{ t('ledger.panel.misses_col_time') }}</th>
+                                <th scope="col">{{ t('ledger.panel.misses_col_action') }}</th>
+                            </tr>
+                        </thead>
+                        <tbody id="misses-recent-body">
+                            <tr><td colspan="5">Loading…</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="misses-detail-lists" aria-hidden="true">
+                <h3>{{ t('ledger.panel.verified_errors') }}</h3>
+                <ul class="events" id="losing-errors-list"><li>Loading...</li></ul>
+                <h3>{{ t('ledger.panel.partial_outcomes') }}</h3>
+                <ul class="events" id="losing-partial-list"><li>Loading...</li></ul>
+            </div>
             <div class="cta-row" style="margin-top:1rem;justify-content:flex-start">
                 <button class="btn btn-secondary" type="button" id="copyLosingBtn">Copy share text</button>
                 <a class="btn btn-secondary" href="/miss-bounty-log">{{ t('ledger.cta.bounty_log') }}</a>
@@ -1051,12 +1140,36 @@
             const partials = dedupeByAssetMinute(
                 raw.filter((r) => String(r.label || '').toLowerCase() === 'partial')
             );
+            const resolved = Number(o.resolved_predictions ?? ll.resolved_predictions ?? 0);
+            const missTotal = verified + partialTotal;
+            let missRate = null;
+            if (resolved > 0) {
+                missRate = (missTotal / resolved) * 100;
+            }
+            const verifiedEl = document.getElementById('misses-verified-count');
+            const partialEl = document.getElementById('misses-partial-count');
+            const rateEl = document.getElementById('misses-rate-pct');
+            if (verifiedEl) verifiedEl.textContent = verified.toLocaleString();
+            if (partialEl) partialEl.textContent = partialTotal.toLocaleString();
+            if (rateEl) {
+                rateEl.textContent = missRate !== null
+                    ? `${missRate.toFixed(1)}%`
+                    : '—';
+            }
+            const recentRows = sortMissesNewestFirst(errors.concat(partials)).slice(0, 20);
+            const recentBody = document.getElementById('misses-recent-body');
+            if (recentBody) {
+                recentBody.innerHTML = recentRows.length
+                    ? recentRows.map(renderMissesRecentTableRow).join('')
+                    : `<tr><td colspan="5">${esc(i18nT('ledger.js.no_verified_sample'))}</td></tr>`;
+            }
             const statusEl = document.getElementById('losing-status');
             if (statusEl) {
+                const rateNote = missRate !== null ? ` · ${missRate.toFixed(1)}% of ${resolved.toLocaleString()} resolved` : '';
                 statusEl.textContent =
                     `Live ledger · ${source} · ${verified.toLocaleString()} verified errors · ` +
-                    `${partialTotal.toLocaleString()} partial outcomes · ` +
-                    `showing ${errors.length} verified + ${partials.length} partial from latest miss sample`;
+                    `${partialTotal.toLocaleString()} partial outcomes${rateNote} · ` +
+                    `showing ${recentRows.length} newest in table`;
             }
             const errList = document.getElementById('losing-errors-list');
             const partList = document.getElementById('losing-partial-list');
@@ -1086,6 +1199,31 @@
                 `<span class="pill ${pillClass(label)}">${esc(r.label || ledgerCopy('missing'))}</span> · ` +
                 `id ${esc(pid)}${bountyBtn}</li>`
             );
+        }
+
+        function formatMissOutcomeLabel(label) {
+            const key = String(label || '').toLowerCase();
+            if (key === 'incorrect') return 'miss';
+            if (key === 'partial') return 'partial';
+            if (key === 'correct') return 'correct';
+            return label || ledgerCopy('missing');
+        }
+
+        function renderMissesRecentTableRow(r) {
+            const label = String(r.label || '').toLowerCase();
+            const decision = r.public_decision || r.verdict || publicMissDecisionLabel(r);
+            const pid = ledgerField(r.prediction_id);
+            const ts = r.timestamp ? String(r.timestamp).slice(0, 19).replace('T', ' ') : ledgerCopy('missing');
+            const bountyBtn = label === 'incorrect'
+                ? `<button type="button" class="btn-bounty disabled" data-bounty-pred="${esc(pid)}" data-bounty-asset="${esc(ledgerField(r.asset))}">${esc(i18nT('bounty.claim_btn') || 'Claim Miss Bounty')}</button>`
+                : '<span style="color:var(--muted);font-size:0.78rem">—</span>';
+            return `<tr>
+                <td><strong>${esc(ledgerField(r.asset))}</strong></td>
+                <td>${esc(decision)}</td>
+                <td><span class="pill ${pillClass(label)}">${esc(formatMissOutcomeLabel(r.label))}</span></td>
+                <td style="font-variant-numeric:tabular-nums;color:var(--muted)">${esc(ts)}</td>
+                <td>${bountyBtn}</td>
+            </tr>`;
         }
 
         function ledgerPayloadRejectReason(data) {
