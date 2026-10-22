@@ -268,6 +268,11 @@ async def _fetch_kraken_ticker(
     *,
     session: aiohttp.ClientSession | None = None,
 ) -> dict[str, Any] | None:
+    from kraken_public_api import fetch_spot_for_asset
+
+    row = await fetch_spot_for_asset(asset)
+    if row is not None:
+        return row
     pair = _KRAKEN_PAIRS.get(asset.upper(), f"{asset.upper()}USD")
     payload = await _rest_get(
         "https://api.kraken.com/0/public/Ticker",
@@ -291,7 +296,7 @@ async def _fetch_kraken_ticker(
             "price": price,
             "change_24h": change,
             "volume": volume,
-            "quote_volume": 0.0,
+            "quote_volume": volume * price,
             "source": "kraken",
         }
     except (KeyError, TypeError, ValueError, StopIteration):
@@ -521,6 +526,12 @@ async def fetch_binance_ticker(pair: str) -> dict | None:
             if cb is not None:
                 _log_price_fallback(asset, "coinbase_exchange")
                 return enrich_ticker_freshness(cb, fetched_at=fetched_at)
+            from kraken_public_api import fetch_public_spot_market as fetch_kraken_spot_market
+
+            kr = await fetch_kraken_spot_market(pair)
+            if kr is not None:
+                _log_price_fallback(asset, "kraken_public")
+                return enrich_ticker_freshness(kr, fetched_at=fetched_at)
             row = await _fallback_rest_ticker(asset, session)
             if row is not None:
                 return enrich_ticker_freshness(row, fetched_at=fetched_at)
