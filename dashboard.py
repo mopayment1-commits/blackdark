@@ -3478,6 +3478,24 @@ async def _compute_oracle_quick_payload(
                 }
         except Exception:
             pass
+    try:
+        from thegraph_public_api import usage_stats as thegraph_usage_stats
+
+        tg = thegraph_usage_stats()
+        out["the_graph_onchain"] = {
+            "configured": tg.get("configured"),
+            "plan": tg.get("plan"),
+            "monthly_limit": tg.get("monthly_limit"),
+            "queries_this_month": tg.get("queries_this_month"),
+            "remaining_this_month": tg.get("remaining_this_month"),
+            "rps_limit": tg.get("rps_limit"),
+            "chains": tg.get("chains"),
+            "attribution": "Indexed on-chain (Uniswap V3) via The Graph when enriching addresses",
+            "public_usage_route": "/api/public/onchain/thegraph/usage",
+            "public_address_route": "/api/public/onchain/thegraph/address",
+        }
+    except Exception:
+        pass
     return out
 
 

@@ -54,10 +54,10 @@ _SUBGRAPHS: dict[str, dict[str, str]] = {
     },
 }
 
-_RECENT_SWAPS_QUERY = """
-query RecentSwaps($address: Bytes!) {
+_ADDRESS_DEFI_QUERY = """
+query AddressDeFi($address: Bytes!, $swapFirst: Int!, $poolFirst: Int!) {
   swaps(
-    first: 5
+    first: $swapFirst
     orderBy: timestamp
     orderDirection: desc
     where: { or: [{ origin: $address }, { recipient: $address }] }
@@ -68,6 +68,18 @@ query RecentSwaps($address: Bytes!) {
     token0 { symbol }
     token1 { symbol }
     transaction { id }
+  }
+  pools(
+    first: $poolFirst
+    orderBy: totalValueLockedUSD
+    orderDirection: desc
+    where: { or: [{ token0: $address }, { token1: $address }] }
+  ) {
+    id
+    totalValueLockedUSD
+    volumeUSD
+    token0 { symbol }
+    token1 { symbol }
   }
 }
 """
@@ -192,31 +204,7 @@ async def _post_graphql(
         return None
 
 
-async def fetch_recent_dex_swaps(
-    address: str,
-    *,
-    chain: str = "ethereum",
-    limit: int = 5,
-) -> list[dict[str, Any]]:
-    if not _valid_address(address):
-        return []
-    ch = _norm_chain(chain)
-    subgraphs = _SUBGRAPHS.get(ch)
-    if not subgraphs:
-        return []
-    sid = subgraphs.get("uniswap_v3")
-    if not sid:
-        return []
-    addr = address.lower()
-    lim = max(1, min(int(limit), 10))
-    cache_key = f"swaps:{ch}:{addr}:{lim}"
-    cached = _cache_get(cache_key)
-    if cached is not None:
-        return cached
-    data = await _post_graphql(sid, _RECENT_SWAPS_QUERY, variables={"address": addr})
-    if not data:
-        return []
-    swaps_raw = (data.get("data") or {}).get("swaps")
+def _parse_swaps(swaps_raw: list | None, lim: int) -> list[dict[str, Any]]:
     if not isinstance(swaps_raw, list):
         return []
     rows: list[dict[str, Any]] = []
@@ -236,8 +224,77 @@ async def fetch_recent_dex_swaps(
                 "transaction_hash": tx.get("id"),
             }
         )
-    _cache_set(cache_key, rows)
     return rows
+
+
+def _parse_pools(pools_raw: list | None, lim: int) -> list[dict[str, Any]]:
+    if not isinstance(pools_raw, list):
+        return []
+    rows: list[dict[str, Any]] = []
+    for pool in pools_raw[:lim]:
+        if not isinstance(pool, dict):
+            continue
+        t0 = pool.get("token0") if isinstance(pool.get("token0"), dict) else {}
+        t1 = pool.get("token1") if isinstance(pool.get("token1"), dict) else {}
+        rows.append(
+            {
+                "id": pool.get("id"),
+                "pair": f"{t0.get('symbol') or '?'}/{t1.get('symbol') or '?'}",
+                "tvl_usd": pool.get("totalValueLockedUSD"),
+                "volume_usd": pool.get("volumeUSD"),
+            }
+        )
+    return rows
+
+
+async def fetch_address_defi_indexed(
+    address: str,
+    *,
+    chain: str = "ethereum",
+    swap_limit: int = 5,
+    pool_limit: int = 3,
+) -> dict[str, Any]:
+    """Single GraphQL round-trip: recent Uniswap V3 swaps + top pools for token/contract address."""
+    if not _valid_address(address):
+        return {"swaps": [], "liquidity_pools": []}
+    ch = _norm_chain(chain)
+    subgraphs = _SUBGRAPHS.get(ch)
+    if not subgraphs:
+        return {"swaps": [], "liquidity_pools": []}
+    sid = subgraphs.get("uniswap_v3")
+    if not sid:
+        return {"swaps": [], "liquidity_pools": []}
+    addr = address.lower()
+    swap_lim = max(1, min(int(swap_limit), 10))
+    pool_lim = max(0, min(int(pool_limit), 5))
+    cache_key = f"defi:{ch}:{addr}:{swap_lim}:{pool_lim}"
+    cached = _cache_get(cache_key)
+    if cached is not None:
+        return cached
+    data = await _post_graphql(
+        sid,
+        _ADDRESS_DEFI_QUERY,
+        variables={"address": addr, "swapFirst": swap_lim, "poolFirst": pool_lim or 1},
+    )
+    if not data:
+        return {"swaps": [], "liquidity_pools": []}
+    payload = data.get("data") or {}
+    parsed = {
+        "swaps": _parse_swaps(payload.get("swaps"), swap_lim),
+        "liquidity_pools": _parse_pools(payload.get("pools"), pool_lim) if pool_lim else [],
+    }
+    _cache_set(cache_key, parsed)
+    return parsed
+
+
+async def fetch_recent_dex_swaps(
+    address: str,
+    *,
+    chain: str = "ethereum",
+    limit: int = 5,
+) -> list[dict[str, Any]]:
+    row = await fetch_address_defi_indexed(address, chain=chain, swap_limit=limit, pool_limit=0)
+    return row.get("swaps") or []
 
 
 async def fetch_address_onchain_enrichment(
@@ -255,7 +312,14 @@ async def fetch_address_onchain_enrichment(
     ch = _norm_chain(chain)
     if ch not in _SUBGRAPHS:
         return {"ok": False, "error": "unsupported_chain", "chain": ch, "usage": stats}
-    swaps = await fetch_recent_dex_swaps(address, chain=ch, limit=swap_limit)
+    indexed = await fetch_address_defi_indexed(
+        address,
+        chain=ch,
+        swap_limit=swap_limit,
+        pool_limit=3,
+    )
+    swaps = indexed.get("swaps") or []
+    pools = indexed.get("liquidity_pools") or []
     return {
         "ok": True,
         "source": "the_graph",
@@ -263,6 +327,8 @@ async def fetch_address_onchain_enrichment(
         "chain": ch,
         "recent_dex_swaps": swaps,
         "swap_count": len(swaps),
+        "liquidity_pools": pools,
+        "pool_count": len(pools),
         "usage": usage_stats(),
     }
 

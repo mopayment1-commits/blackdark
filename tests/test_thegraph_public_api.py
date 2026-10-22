@@ -3,6 +3,7 @@
 import pytest
 
 from thegraph_public_api import (
+    fetch_address_defi_indexed,
     fetch_address_onchain_enrichment,
     fetch_recent_dex_swaps,
     maybe_enrich_explorer_row,
@@ -41,7 +42,8 @@ async def test_fetch_recent_dex_swaps(monkeypatch):
                         "token1": {"symbol": "USDC"},
                         "transaction": {"id": "0x" + "a" * 64},
                     }
-                ]
+                ],
+                "pools": [],
             }
         }
 
@@ -52,15 +54,39 @@ async def test_fetch_recent_dex_swaps(monkeypatch):
 
 
 @pytest.mark.asyncio
-async def test_fetch_address_onchain_enrichment(monkeypatch):
-    async def fake_swaps(address, *, chain="ethereum", limit=5):
-        return [{"id": "1"}]
+async def test_fetch_address_defi_indexed_pools(monkeypatch):
+    async def fake_post(subgraph_id, query, variables=None):
+        return {
+            "data": {
+                "swaps": [],
+                "pools": [
+                    {
+                        "id": "0xpool",
+                        "totalValueLockedUSD": "1000000",
+                        "volumeUSD": "50000",
+                        "token0": {"symbol": "WETH"},
+                        "token1": {"symbol": "USDC"},
+                    }
+                ],
+            }
+        }
 
-    monkeypatch.setattr("thegraph_public_api.fetch_recent_dex_swaps", fake_swaps)
+    monkeypatch.setattr("thegraph_public_api._post_graphql", fake_post)
+    row = await fetch_address_defi_indexed("0x" + "2" * 40, chain="ethereum", pool_limit=3)
+    assert row["liquidity_pools"][0]["pair"] == "WETH/USDC"
+
+
+@pytest.mark.asyncio
+async def test_fetch_address_onchain_enrichment(monkeypatch):
+    async def fake_indexed(address, *, chain="ethereum", swap_limit=5, pool_limit=3):
+        return {"swaps": [{"id": "1"}], "liquidity_pools": [{"id": "p1"}]}
+
+    monkeypatch.setattr("thegraph_public_api.fetch_address_defi_indexed", fake_indexed)
     out = await fetch_address_onchain_enrichment("0x" + "e" * 40, chain="ethereum")
     assert out["ok"] is True
     assert out["source"] == "the_graph"
     assert out["swap_count"] == 1
+    assert out["pool_count"] == 1
 
 
 @pytest.mark.asyncio
