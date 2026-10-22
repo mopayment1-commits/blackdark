@@ -1705,6 +1705,24 @@ async def public_btc_mempool_fees():
     return await fetch_btc_mempool_context()
 
 
+@app.get("/api/public/market/coinpaprika/usage")
+async def public_coinpaprika_usage():
+    from coinpaprika_public_api import usage_stats
+
+    return usage_stats()
+
+
+@app.get("/api/public/market/coinpaprika/ticker")
+async def public_coinpaprika_ticker(symbol: str = "BTC"):
+    from coinpaprika_public_api import fetch_public_spot_market
+
+    asset = symbol.upper().strip()
+    row = await fetch_public_spot_market(f"{asset}USDT")
+    if row is None:
+        raise HTTPException(status_code=404, detail="Ticker not found")
+    return row
+
+
 @app.get("/api/public/defi-context")
 async def public_defi_context(symbol: str = "ETH"):
     from defillama_public_api import fetch_defi_context_for_asset
@@ -3173,6 +3191,10 @@ async def _compute_oracle_quick_payload(
 
     market = await fetch_public_spot_market(pair)
     if market is None:
+        from coinpaprika_public_api import fetch_public_spot_market as fetch_coinpaprika_spot_market
+
+        market = await fetch_coinpaprika_spot_market(pair)
+    if market is None:
         from coinmarketcap_api import fetch_spot_ticker
 
         market = await fetch_spot_ticker(asset)
@@ -3266,6 +3288,12 @@ async def _compute_oracle_quick_payload(
     if str(market.get("source") or "").startswith("kraken"):
         out["price_source"] = "kraken"
         out["quote_exchange"] = "kraken"
+    if str(market.get("source") or "") == "coinpaprika":
+        out["price_source"] = "coinpaprika"
+        out["quote_exchange"] = "coinpaprika"
+    if market.get("price_history_daily"):
+        out["price_history_daily"] = market.get("price_history_daily")
+        out["price_history_source"] = market.get("price_history_source") or "coinpaprika"
     try:
         from defillama_public_api import fetch_defi_context_for_asset
 
@@ -3326,6 +3354,8 @@ def _quick_price_source_label(market: dict[str, Any]) -> str:
         return "coinbase"
     if src.startswith("kraken"):
         return "kraken"
+    if src == "coinpaprika":
+        return "coinpaprika"
     if src:
         return src
     return "binance_rest"

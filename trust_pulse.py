@@ -186,6 +186,9 @@ async def _compute_oracle_payload(
     price_ts = market.get("timestamp") or market.get("close_time")
     fetched_at = time.time()
 
+    price_src = str(market.get("source") or "")
+    if price_src == "coinpaprika":
+        price_src = "coinpaprika"
     payload = build_full_oracle_response(
         asset,
         price,
@@ -196,8 +199,11 @@ async def _compute_oracle_payload(
         unified=await _fetch_trust_pulse_unified(asset, price, quote_volume, change),
         market_cap_usd=float(market.get("market_cap_usd") or 0) or None,
         cmc_rank=int(market["cmc_rank"]) if market.get("cmc_rank") is not None else None,
-        price_source=str(market.get("source") or ""),
+        price_source=price_src,
     )
+    if market.get("price_history_daily"):
+        payload["price_history_daily"] = market.get("price_history_daily")
+        payload["price_history_source"] = market.get("price_history_source") or "coinpaprika"
     if asset.upper() == "BTC":
         try:
             from mempool_public_api import fetch_btc_mempool_context
@@ -212,6 +218,13 @@ async def _compute_oracle_payload(
         except Exception:
             pass
     payload = _enrich_trust_pulse_payload(payload, ux_mode=ux_mode, lang=lang)
+    if market.get("source") == "coinpaprika":
+        payload["price_source"] = "coinpaprika"
+        payload["quote_exchange"] = "coinpaprika"
+        payload["data_source"] = "CoinPaprika Public API | Unified Multi-Modal AI Engine"
+        if market.get("price_history_daily"):
+            payload["price_history_daily"] = market.get("price_history_daily")
+            payload["price_history_source"] = market.get("price_history_source") or "coinpaprika"
     _attach_trust_pulse_why(payload)
     await _persist_trust_pulse_payload(payload, persist=persist)
     _attach_trust_pulse_certificate(payload, tier=tier)

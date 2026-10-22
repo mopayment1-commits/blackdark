@@ -268,6 +268,9 @@ THE_GRAPH_API_KEY = os.getenv("THE_GRAPH_API_KEY", "").strip()
 THE_GRAPH_MONTHLY_LIMIT = int(os.getenv("THE_GRAPH_MONTHLY_LIMIT", "100000"))
 THE_GRAPH_RPS_LIMIT = int(os.getenv("THE_GRAPH_RPS_LIMIT", "5"))
 THE_GRAPH_CACHE_TTL_SEC = float(os.getenv("THE_GRAPH_CACHE_TTL_SEC", "120"))
+# CoinPaprika public API — no key; conservative client-side RPS + cache.
+COINPAPRIKA_RPS_LIMIT = int(os.getenv("COINPAPRIKA_RPS_LIMIT", "8"))
+COINPAPRIKA_CACHE_TTL_SEC = float(os.getenv("COINPAPRIKA_CACHE_TTL_SEC", "90"))
 COINMARKETCAP_LISTINGS_URL = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest"
 COINMARKETCAP_EXCHANGES_URL = "https://pro-api.coinmarketcap.com/v1/exchange/listings/latest"
 OPERATIONAL_MANIFEST_PATH = DATA_DIR / "operational_manifest.json"

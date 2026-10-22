@@ -495,6 +495,13 @@ async def fetch_binance_ticker(pair: str) -> dict | None:
     from binance_public_api import fetch_public_spot_market
 
     row = await fetch_public_spot_market(pair)
+    if row is None:
+        from coinpaprika_public_api import fetch_public_spot_market as fetch_coinpaprika_spot_market
+
+        paprika = await fetch_coinpaprika_spot_market(pair)
+        if paprika is not None:
+            _log_price_fallback(asset, "coinpaprika")
+            row = paprika
     if row is not None:
         ws_row = await _ws_ticker_if_enabled(asset)
         if ws_row is not None:
