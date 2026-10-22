@@ -5456,7 +5456,10 @@ async def join_waitlist(data: dict, background_tasks: BackgroundTasks):
 
     result = await insert_waitlist_signup(email, name)
     if result.get("duplicate"):
-        raise HTTPException(status_code=409, detail="Email already registered")
+        raise HTTPException(
+            status_code=409,
+            detail="This email is already on the waitlist.",
+        )
 
     position = result.get("position", 0)
     background_tasks.add_task(

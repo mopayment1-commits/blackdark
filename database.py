@@ -29,9 +29,11 @@ logger = logging.getLogger(__name__)
 def _sql_count(row: Any) -> int:
     if row is None:
         return 0
-    val = _row_get(row, 0, "count")
-    if val is None:
-        val = _row_get(row, 0, "n")
+    val = None
+    for key in ("count", "c", "n", "cnt"):
+        val = _row_get(row, 0, key)
+        if val is not None:
+            break
     if val is None:
         val = _first_cell(row)
     try:
@@ -2185,6 +2187,13 @@ async def fetch_latest_macro_market_log() -> dict[str, Any] | None:
 def _is_waitlist_duplicate_error(exc: BaseException) -> bool:
     if isinstance(exc, aiosqlite.IntegrityError):
         return True
+    try:
+        import asyncpg
+
+        if isinstance(exc, asyncpg.UniqueViolationError):
+            return True
+    except ImportError:
+        pass
     name = type(exc).__name__.lower()
     if "unique" in name or "integrity" in name:
         return True
@@ -2195,20 +2204,76 @@ def _is_waitlist_duplicate_error(exc: BaseException) -> bool:
 async def insert_waitlist_signup(email: str, name: str = "") -> dict[str, Any]:
     """Register an email on the pre-launch waitlist."""
     normalized_email = email.strip().lower()
+    joined_at = _utcnow_iso()
     async with get_connection() as db:
         try:
             cursor = await db.execute(
                 """
                 INSERT INTO waitlist (email, name, joined_at)
                 VALUES (?, ?, ?)
+                ON CONFLICT(email) DO NOTHING
                 """,
-                (normalized_email, name.strip(), _utcnow_iso()),
+                (normalized_email, name.strip(), joined_at),
             )
-            return {"success": True, "position": int(cursor.lastrowid or 0)}
+            row = await cursor.fetchone()
+            if row is not None:
+                new_id = _row_get(row, 0, "id")
+                if new_id is None:
+                    new_id = _first_cell(row)
+                if new_id is not None:
+                    return {"success": True, "position": int(new_id)}
+            if int(getattr(cursor, "rowcount", 0) or 0) == 0:
+                return {"success": False, "duplicate": True}
+            position = int(getattr(cursor, "lastrowid", 0) or 0)
+            if position > 0:
+                return {"success": True, "position": position}
+            return {"success": False, "duplicate": True}
         except Exception as exc:
             if _is_waitlist_duplicate_error(exc):
                 return {"success": False, "duplicate": True}
             raise
+
+
+async def fetch_waitlist_entries(limit: int = 5000, offset: int = 0) -> list[dict[str, Any]]:
+    """Waitlist rows for admin (oldest first)."""
+    lim = max(1, min(int(limit), 10000))
+    off = max(0, int(offset))
+    try:
+        async with get_connection() as db:
+            rows = await db.execute(
+                """
+                SELECT id, email, name, joined_at
+                FROM waitlist
+                ORDER BY joined_at ASC, id ASC
+                LIMIT ? OFFSET ?
+                """,
+                (lim, off),
+            )
+            result = await rows.fetchall()
+        out: list[dict[str, Any]] = []
+        for row in result:
+            if isinstance(row, dict):
+                out.append(
+                    {
+                        "id": row.get("id"),
+                        "email": row.get("email"),
+                        "name": row.get("name") or "",
+                        "joined_at": row.get("joined_at"),
+                    }
+                )
+            else:
+                out.append(
+                    {
+                        "id": _row_get(row, 0, "id"),
+                        "email": _row_get(row, 1, "email"),
+                        "name": _row_get(row, 2, "name") or "",
+                        "joined_at": _row_get(row, 3, "joined_at"),
+                    }
+                )
+        return out
+    except Exception:
+        logger.exception("Unable to read waitlist entries")
+        return []
 
 
 async def fetch_waitlist_emails() -> list[str]:
@@ -3283,10 +3348,11 @@ async def fetch_execution_logs(limit: int = 20) -> list[dict[str, Any]]:
 async def db_count_waitlist() -> int:
     try:
         async with get_connection() as db:
-            rows = await db.execute("SELECT COUNT(*) AS c FROM waitlist")
+            rows = await db.execute("SELECT COUNT(*) AS count FROM waitlist")
             row = await rows.fetchone()
         return _sql_count(row)
     except Exception:
+        logger.exception("Unable to count waitlist rows")
         return 0
 
 
@@ -3303,26 +3369,29 @@ async def db_count_subscribers() -> int:
 
 
 async def fetch_platform_analytics() -> dict[str, Any]:
+    waitlist_count = await db_count_waitlist()
+    subscriber_count = await db_count_subscribers()
+    defaults: dict[str, Any] = {
+        "page_views": 0,
+        "dashboard_views": 0,
+        "landing_views": 0,
+        "voice_commands": 0,
+        "waitlist_count": waitlist_count,
+        "subscriber_count": subscriber_count,
+    }
     try:
         async with get_connection() as db:
             rows = await db.execute("SELECT * FROM platform_analytics WHERE id = 1")
             result = await rows.fetchone()
         if not result:
-            return {
-                "page_views": 0,
-                "dashboard_views": 0,
-                "landing_views": 0,
-                "voice_commands": 0,
-                "waitlist_count": 0,
-                "subscriber_count": 0,
-            }
+            return defaults
         data = dict(result)
-        data["waitlist_count"] = await db_count_waitlist()
-        data["subscriber_count"] = await db_count_subscribers()
+        data["waitlist_count"] = waitlist_count
+        data["subscriber_count"] = subscriber_count
         return data
     except Exception:
         logger.exception("Unable to read platform analytics")
-        return {}
+        return defaults
 
 
 async def increment_platform_metric(metric: str) -> dict[str, Any]:

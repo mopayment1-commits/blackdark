@@ -163,6 +163,28 @@
         <div class="kpi-grid" id="kpi-top"></div>
 
         <section class="section">
+            <div style="display:flex;flex-wrap:wrap;gap:.75rem;justify-content:space-between;align-items:center;margin-bottom:.75rem">
+                <h2 style="margin:0">Join Waitlist — الإيميلات المسجّلة</h2>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+                    <a class="btn" href="/api/admin/waitlist/export.csv" id="waitlistExportBtn" download="waitlist.csv">تصدير CSV</a>
+                    <button type="button" class="btn" id="waitlistRefreshBtn">تحديث القائمة</button>
+                </div>
+            </div>
+            <p class="hint" id="waitlistTableHint" style="margin-bottom:.65rem">—</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Email</th>
+                        <th>Name</th>
+                        <th>Joined at</th>
+                    </tr>
+                </thead>
+                <tbody id="waitlistTableBody"></tbody>
+            </table>
+        </section>
+
+        <section class="section">
             <h2>الزوار والمستخدمون</h2>
             <div class="kpi-grid" id="kpi-visitors-users"></div>
         </section>
@@ -419,6 +441,44 @@
             } catch (_) { /* ignore */ }
         }
 
+        async function loadWaitlistTable() {
+            const hint = document.getElementById('waitlistTableHint');
+            const body = document.getElementById('waitlistTableBody');
+            if (!body) return;
+            try {
+                const res = await fetch('/api/admin/waitlist/entries?limit=500', { credentials: 'same-origin' });
+                if (!res.ok) {
+                    if (hint) hint.textContent = `تعذّر تحميل القائمة (${res.status})`;
+                    return;
+                }
+                const data = await res.json();
+                const total = data.count ?? 0;
+                const rows = data.entries || [];
+                if (hint) {
+                    hint.textContent = total
+                        ? `إجمالي ${total.toLocaleString()} — يُعرض ${rows.length.toLocaleString()} صفاً`
+                        : 'لا يوجد مسجّلون بعد.';
+                }
+                body.replaceChildren();
+                for (const row of rows) {
+                    const tr = document.createElement('tr');
+                    for (const key of ['id', 'email', 'name', 'joined_at']) {
+                        const td = document.createElement('td');
+                        td.textContent = String(row[key] ?? '—');
+                        tr.appendChild(td);
+                    }
+                    body.appendChild(tr);
+                }
+            } catch (e) {
+                if (hint) hint.textContent = String(e?.message || e);
+            }
+        }
+
+        document.getElementById('waitlistRefreshBtn')?.addEventListener('click', () => {
+            loadWaitlistTable();
+            refreshWaitlistHint();
+        });
+
         function openNewsletterModal() {
             newsletterResult.hidden = true;
             newsletterResult.classList.remove('err');
@@ -483,6 +543,7 @@
         });
 
         loadMetrics();
+        loadWaitlistTable();
         setInterval(loadMetrics, 30000);
     </script>
 </body>

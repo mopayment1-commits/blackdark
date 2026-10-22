@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Any
 
 from fastapi import APIRouter, Depends, HTTPException, Request
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, Response
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel, Field
 
@@ -118,6 +118,48 @@ async def api_admin_waitlist_summary(_admin: dict = Depends(require_admin_dev)):
     from waitlist_newsletter_service import waitlist_newsletter_summary
 
     return await waitlist_newsletter_summary()
+
+
+@router.get("/api/admin/waitlist/entries")
+async def api_admin_waitlist_entries(
+    limit: int = 500,
+    offset: int = 0,
+    _admin: dict = Depends(require_admin_dev),
+):
+    from database import db_count_waitlist, fetch_waitlist_entries
+
+    lim = min(max(limit, 1), 5000)
+    off = max(offset, 0)
+    rows = await fetch_waitlist_entries(limit=lim, offset=off)
+    return {"count": await db_count_waitlist(), "entries": rows, "limit": lim, "offset": off}
+
+
+@router.get("/api/admin/waitlist/export.csv")
+async def api_admin_waitlist_export_csv(_admin: dict = Depends(require_admin_dev)):
+    import csv
+    import io
+
+    from database import fetch_waitlist_entries
+
+    rows = await fetch_waitlist_entries(limit=10000, offset=0)
+    buf = io.StringIO()
+    writer = csv.writer(buf)
+    writer.writerow(["id", "email", "name", "joined_at"])
+    for row in rows:
+        writer.writerow(
+            [
+                row.get("id"),
+                row.get("email") or "",
+                row.get("name") or "",
+                row.get("joined_at") or "",
+            ]
+        )
+    body = buf.getvalue()
+    return Response(
+        content=body,
+        media_type="text/csv; charset=utf-8",
+        headers={"Content-Disposition": 'attachment; filename="waitlist.csv"'},
+    )
 
 
 class WaitlistNewsletterBody(BaseModel):
