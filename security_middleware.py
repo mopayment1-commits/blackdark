@@ -7,6 +7,7 @@ Honest scope: application-layer hardening. Not a WAF, SOC2 cert, or pentest repo
 from __future__ import annotations
 
 import gzip
+import html as html_module
 import os
 from urllib.parse import urlparse
 
@@ -151,7 +152,7 @@ def _ensure_request_csp_nonce(request: Request) -> str | None:
     return nonce
 
 
-def _inject_html_csp_nonce(html: str, nonce: str) -> str:
+def _inject_html_csp_nonce(html: str, nonce: str, csrf_token: str | None = None) -> str:
     """Attach nonce to <script> and <style> tags; ensure csp_events binder is present."""
     import re
 
@@ -177,6 +178,20 @@ def _inject_html_csp_nonce(html: str, nonce: str) -> str:
         "createScriptURL:function(s){return s}});}}catch(e){}})();"
         "</script>"
     )
+    if csrf_token and 'name="bd-csrf-token"' not in out:
+        esc = html_module.escape(csrf_token, quote=True)
+        csrf_meta = f'<meta name="bd-csrf-token" content="{esc}">'
+        lower_head = out.lower()
+        head_idx = lower_head.find("<head")
+        if head_idx >= 0:
+            head_end = lower_head.find(">", head_idx)
+            if head_end >= 0:
+                insert_at = head_end + 1
+                out = out[:insert_at] + csrf_meta + out[insert_at:]
+            else:
+                out = csrf_meta + out
+        else:
+            out = csrf_meta + out
     if "trustedTypes.createPolicy" not in out:
         lower_head = out.lower()
         head_end = lower_head.find(">", lower_head.find("<head"))
@@ -260,7 +275,11 @@ def _rebuild_html_response(response: Response, content: bytes, *, gzip_out: bool
     )
 
 
-async def _maybe_rewrite_html_with_nonce(response: Response, nonce: str) -> Response:
+async def _maybe_rewrite_html_with_nonce(
+    response: Response,
+    nonce: str,
+    csrf_token: str | None = None,
+) -> Response:
     ct = (response.headers.get("content-type") or "").lower()
     if "text/html" not in ct:
         return response
@@ -273,7 +292,7 @@ async def _maybe_rewrite_html_with_nonce(response: Response, nonce: str) -> Resp
         text = plain.decode("utf-8")
     except Exception:
         return _rebuild_html_response(response, raw, gzip_out=raw.startswith(b"\x1f\x8b"))
-    rewritten = _inject_html_csp_nonce(text, nonce)
+    rewritten = _inject_html_csp_nonce(text, nonce, csrf_token)
     return _rebuild_html_response(response, rewritten.encode("utf-8"), gzip_out=was_gzip)
 
 
@@ -291,8 +310,8 @@ def security_headers_for(request: Request) -> dict[str, str]:
         csp = os.getenv("CONTENT_SECURITY_POLICY", "")
     elif nonce_mode and nonce:
         csp = (
-            "default-src 'self'; "
-            f"script-src 'nonce-{nonce}' 'strict-dynamic' https://accounts.google.com "
+            "default-src 'none'; "
+            f"script-src 'self' 'nonce-{nonce}' 'strict-dynamic' https://accounts.google.com "
             "https://accounts.google.com/gsi/client; "
             f"style-src 'self' 'nonce-{nonce}' https://accounts.google.com/gsi/style; "
             "style-src-attr 'unsafe-inline'; "
@@ -300,6 +319,8 @@ def security_headers_for(request: Request) -> dict[str, str]:
             "font-src 'self' data:; "
             "connect-src 'self' https://accounts.google.com https://accounts.google.com/gsi/; "
             "frame-src 'self' https://accounts.google.com/gsi/; "
+            "worker-src 'self'; "
+            "manifest-src 'self'; "
             "object-src 'none'; "
             "frame-ancestors 'none'; "
             "base-uri 'self'; "
@@ -310,7 +331,7 @@ def security_headers_for(request: Request) -> dict[str, str]:
         )
     else:
         csp = (
-            "default-src 'self'; "
+            "default-src 'none'; "
             "script-src 'self' 'unsafe-inline' https://accounts.google.com "
             "https://accounts.google.com/gsi/client; "
             "style-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/style; "
@@ -319,6 +340,9 @@ def security_headers_for(request: Request) -> dict[str, str]:
             "font-src 'self' data:; "
             "connect-src 'self' https://accounts.google.com https://accounts.google.com/gsi/; "
             "frame-src 'self' https://accounts.google.com/gsi/; "
+            "worker-src 'self'; "
+            "manifest-src 'self'; "
+            "object-src 'none'; "
             "frame-ancestors 'none'; "
             "base-uri 'self'; "
             "form-action 'self'"
@@ -330,13 +354,12 @@ def security_headers_for(request: Request) -> dict[str, str]:
         "Permissions-Policy": "geolocation=(), microphone=(), camera=(), payment=()",
         "Cross-Origin-Opener-Policy": _coop_for_path(_request_url_path(request)),
         "Cross-Origin-Resource-Policy": "same-site",
+        "Cross-Origin-Embedder-Policy": "credentialless",
         "X-XSS-Protection": "0",
         "Content-Security-Policy": csp,
     }
     if _is_production() or (_effective_scheme(request) == "https"):
-        headers["Strict-Transport-Security"] = (
-            "max-age=31536000; includeSubDomains; preload"
-        )
+        headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
     return headers
 
 
@@ -414,6 +437,12 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next) -> Response:
         # Mint CSP nonce early so template render / HTML rewrite can use it.
         nonce = _ensure_request_csp_nonce(request)
+        try:
+            from security_csrf import csrf_token_for_request
+
+            csrf_token_for_request(request)
+        except Exception:
+            pass
 
         # TrustedHost in production — never apply to liveness/readiness probes.
         path = _request_url_path(request)
@@ -511,8 +540,13 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
                 )
 
         response = await call_next(request)
+        csrf_token = getattr(request.state, "bd_csrf_token", None)
         if nonce:
-            response = await _maybe_rewrite_html_with_nonce(response, nonce)
+            response = await _maybe_rewrite_html_with_nonce(
+                response,
+                nonce,
+                str(csrf_token) if csrf_token else None,
+            )
         try:
             from security_csrf import attach_csrf_cookie
 

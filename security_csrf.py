@@ -38,17 +38,29 @@ def validate_csrf_token(token: str | None) -> bool:
     return hmac.compare_digest(expected, sig)
 
 
-def attach_csrf_cookie(response: Response, request: Request) -> None:
-    if request.cookies.get(_COOKIE) and validate_csrf_token(request.cookies.get(_COOKIE)):
-        return
+def csrf_token_for_request(request: Request) -> str:
+    """Synchronizer token for this request (stored on ``request.state`` for HTML meta)."""
+    cached = getattr(request.state, "bd_csrf_token", None)
+    if isinstance(cached, str) and validate_csrf_token(cached):
+        return cached
+    existing = request.cookies.get(_COOKIE)
+    if existing and validate_csrf_token(existing):
+        request.state.bd_csrf_token = existing
+        return existing
     token = mint_csrf_token()
+    request.state.bd_csrf_token = token
+    return token
+
+
+def attach_csrf_cookie(response: Response, request: Request) -> None:
+    token = csrf_token_for_request(request)
     secure = os.getenv("COOKIE_SECURE", "").lower() in {"1", "true", "yes"} or (
         (os.getenv("APP_BASE_URL") or "").startswith("https")
     )
     response.set_cookie(
         key=_COOKIE,
         value=token,
-        httponly=False,
+        httponly=True,
         samesite="lax",
         secure=secure,
         path="/",

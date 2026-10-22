@@ -78,5 +78,11 @@ def test_security_headers_include_hsts_and_csp():
     }
     headers = security_headers_for(Request(scope))
     assert "Strict-Transport-Security" in headers
-    assert "preload" in headers["Strict-Transport-Security"]
-    assert "object-src 'none'" in headers["Content-Security-Policy"]
+    hsts = headers["Strict-Transport-Security"]
+    assert "max-age=31536000" in hsts
+    assert "includeSubDomains" in hsts
+    csp = headers["Content-Security-Policy"]
+    assert "default-src 'none'" in csp
+    assert "object-src 'none'" in csp
+    assert headers.get("Cross-Origin-Embedder-Policy") == "credentialless"
+    assert headers.get("X-XSS-Protection") == "0"

@@ -32,9 +32,14 @@ def test_security_headers_helper():
     csp = headers["Content-Security-Policy"]
     assert "nonce-" in csp
     assert "strict-dynamic" in csp
+    assert "default-src 'none'" in csp
     script_src = csp.split("script-src")[1].split(";")[0]
     assert "'unsafe-inline'" not in script_src
     assert "Strict-Transport-Security" in headers
+    assert "max-age=31536000" in headers["Strict-Transport-Security"]
+    assert "includeSubDomains" in headers["Strict-Transport-Security"]
+    assert headers.get("Cross-Origin-Embedder-Policy") == "credentialless"
+    assert headers.get("X-XSS-Protection") == "0"
 
 
 def test_security_posture_honesty():
@@ -144,6 +149,44 @@ async def test_logout_clears_without_user_token_field():
     src = inspect.getsource(auth_router.auth_logout)
     assert "raw_bearer_or_cookie" in src or "token" in src
     assert 'user.get("token")' not in src
+
+
+def test_csrf_cookie_is_httponly():
+    from starlette.requests import Request
+    from starlette.responses import Response
+
+    from security_csrf import attach_csrf_cookie, csrf_token_for_request
+
+    scope = {
+        "type": "http",
+        "asgi": {"version": "3.0"},
+        "http_version": "1.1",
+        "method": "GET",
+        "scheme": "https",
+        "path": "/",
+        "raw_path": b"/",
+        "query_string": b"",
+        "headers": [],
+        "client": ("127.0.0.1", 123),
+        "server": ("test", 443),
+    }
+    req = Request(scope)
+    token = csrf_token_for_request(req)
+    resp = Response()
+    attach_csrf_cookie(resp, req)
+    raw = resp.headers.get("set-cookie") or ""
+    assert "bd_csrf=" in raw
+    assert "httponly" in raw.lower()
+    assert token in raw
+
+
+def test_html_rewrite_injects_csrf_meta():
+    from security_middleware import _inject_html_csp_nonce
+
+    html = "<html><head><title>x</title></head><body></body></html>"
+    out = _inject_html_csp_nonce(html, "abc123", "tok.test.sig")
+    assert 'name="bd-csrf-token"' in out
+    assert "tok.test.sig" in out
 
 
 def test_csp_nonce_mode_emits_nonce_without_unsafe_inline(monkeypatch):
