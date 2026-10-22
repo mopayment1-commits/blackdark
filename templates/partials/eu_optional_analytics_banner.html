@@ -1,20 +1,6 @@
-<div id="bd-eu-optional-analytics-banner" class="bd-eu-consent-banner" hidden role="dialog" aria-labelledby="bd-eu-consent-title" aria-live="polite">
-  <div class="bd-eu-consent-inner">
-    <p id="bd-eu-consent-title" class="bd-eu-consent-title">Optional analytics (EU/EEA)</p>
-    <p id="bd-eu-consent-body" class="bd-eu-consent-body"></p>
-    <div class="bd-eu-consent-actions">
-      <button type="button" id="bd-eu-consent-accept" class="bd-eu-btn">ACCEPT OPTIONAL</button>
-      <button type="button" id="bd-eu-consent-reject" class="bd-eu-btn bd-eu-btn-muted">REJECT OPTIONAL</button>
-      <button type="button" id="bd-eu-consent-manage" class="bd-eu-btn bd-eu-btn-muted">MANAGE PREFERENCES</button>
-      <button type="button" id="bd-eu-consent-close" class="bd-eu-btn bd-eu-btn-ghost" aria-label="Close banner">×</button>
-    </div>
-    <p class="bd-eu-consent-links">
-      <a href="/cookies" class="bd-eu-cookie-privacy-link">COOKIE &amp; PRIVACY INFORMATION</a>
-    </p>
-    <p class="bd-eu-consent-note">Closing this banner does not enable optional analytics.</p>
-  </div>
-</div>
+<div class="bd-eu-consent-root">
 <style>
+@scope (.bd-eu-consent-root) {
   .bd-eu-consent-banner {
     position: fixed;
     bottom: 0;
@@ -46,5 +32,23 @@
   .bd-eu-consent-links { margin: .45rem 0 0; font-size: .72rem; }
   .bd-eu-cookie-privacy-link { color: #22d3ee; text-decoration: underline; font-weight: 600; }
   .bd-eu-consent-note { margin: .5rem 0 0; font-size: .7rem; color: #71717a; }
+}
 </style>
+<div id="bd-eu-optional-analytics-banner" class="bd-eu-consent-banner" hidden role="dialog" aria-labelledby="bd-eu-consent-title" aria-live="polite">
+  <div class="bd-eu-consent-inner">
+    <p id="bd-eu-consent-title" class="bd-eu-consent-title">Optional analytics (EU/EEA)</p>
+    <p id="bd-eu-consent-body" class="bd-eu-consent-body"></p>
+    <div class="bd-eu-consent-actions">
+      <button type="button" id="bd-eu-consent-accept" class="bd-eu-btn">ACCEPT OPTIONAL</button>
+      <button type="button" id="bd-eu-consent-reject" class="bd-eu-btn bd-eu-btn-muted">REJECT OPTIONAL</button>
+      <button type="button" id="bd-eu-consent-manage" class="bd-eu-btn bd-eu-btn-muted">MANAGE PREFERENCES</button>
+      <button type="button" id="bd-eu-consent-close" class="bd-eu-btn bd-eu-btn-ghost" aria-label="Close banner">×</button>
+    </div>
+    <p class="bd-eu-consent-links">
+      <a href="/cookies" class="bd-eu-cookie-privacy-link">COOKIE &amp; PRIVACY INFORMATION</a>
+    </p>
+    <p class="bd-eu-consent-note">Closing this banner does not enable optional analytics.</p>
+  </div>
+</div>
 <script src="/static/js/optional_analytics_consent.js" defer></script>
+</div>

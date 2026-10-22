@@ -1,5 +1,7 @@
 {# Unified Trust OS footer — expects `footer` from site_services.footer_manifest() #}
+<div class="bd-site-footer-root">
 <style>
+@scope (.bd-site-footer-root) {
     .bd-site-footer {
         max-width: 1100px; margin: 2.5rem auto 0; padding: 2rem 1.25rem 2.5rem;
         border-top: 1px solid #2a2a35; color: #71717a; font-size: .78rem; line-height: 1.65;
@@ -16,8 +18,9 @@
     .bd-site-footer a { color: #a1a1aa; text-decoration: none; }
     .bd-site-footer a:hover { color: #22d3ee; }
     .bd-site-footer .bd-foot-bottom { border-top: 1px solid #2a2a35; padding-top: 1rem; margin-top: .5rem; }
+}
 </style>
-<footer class="bd-site-footer" role="contentinfo">
+<footer class="bd-site-footer">
     {% set f = footer if footer is defined and footer else {} %}
     <div class="bd-foot-brand">{{ f.brand or 'BLACKDARK' }}</div>
     <p class="bd-foot-tag">{{ t('footer.tagline') if t is defined else (f.tagline or 'Trust OS — Decide. Prove it. Share it.') }} · {{ t('footer.story') if t is defined else (f.story or 'Prove → Operate → Desk → Room') }}</p>
@@ -63,5 +66,6 @@
         · © 2026 BLACKDARK
     </div>
 </footer>
+</div>
 {% include "partials/site_ask_ai.html" %}
 {% include "partials/eu_optional_analytics_banner.html" %}

@@ -1,5 +1,7 @@
 {# Public site top nav — same row as landing: logo · lenses · globe · lang · Login · Sign up · Pricing #}
+<div class="bd-site-top-nav-root">
 <style>
+@scope (.bd-site-top-nav-root) {
   nav.landing-nav.site-top-nav {
     position: sticky;
     top: 0;
@@ -293,6 +295,7 @@
   .bd-theme-toggle[hidden] {
     display: none !important;
   }
+}
 </style>
 <script src="/static/js/bd_session_hint.js" defer></script>
 <script src="/static/js/bd_oracle_fetch_gate.js" defer></script>
@@ -381,3 +384,4 @@
 <script defer src="/static/js/bd_header_account.js"></script>
 <script defer src="/static/js/bd_site_search.js"></script>
 {% endif %}
+</div>

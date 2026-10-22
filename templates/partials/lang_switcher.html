@@ -3,7 +3,9 @@
    Executable JS lives in /static/js/bd_i18n.js (Sonar-analyzable). Boot via JSON. #}
 {% set _locales = locales if locales is defined and locales else [{"code":"en","native":"English"}] %}
 {% set _lang = lang if lang is defined and lang else 'en' %}
+<div class="bd-lang-switcher-root">
 <style>
+@scope (.bd-lang-switcher-root) {
   .bd-lang-wrap {
     position: relative;
     display: inline-flex;
@@ -43,6 +45,7 @@
     .bd-lang-select { max-width: 7.5rem; font-size: .75rem; }
     .bd-lang-wrap { padding: .15rem .25rem; }
   }
+}
 </style>
 <div class="bd-lang-wrap" data-i18n-skip title="Choose language / اختر اللغة">
   <label for="bdLangTrigger" class="bd-lang-sr-only">{{ t('lang.choose') if t is defined else (t('lang.label') if t is defined else 'Choose language') }}</label>
@@ -54,3 +57,4 @@
 </div>
 <script type="application/json" id="bd-i18n-boot">{"lang": {{ _lang|tojson }}, "catalog": {% if i18n is defined %}{{ i18n|tojson }}{% else %}{}{% endif %}}</script>
 <script src="/static/js/bd_i18n.js" defer></script>
+</div>

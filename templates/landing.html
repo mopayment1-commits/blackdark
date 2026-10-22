@@ -854,7 +854,7 @@
                         <a href="#" class="share-btn share-whatsapp" id="shareWhatsappBtn" target="_blank" rel="noopener noreferrer">{{ t('oracle.share.whatsapp') }}</a>
                         <a href="#" class="share-btn share-telegram" id="shareTelegramBtn" target="_blank" rel="noopener noreferrer">{{ t('oracle.share.telegram') }}</a>
                         <a href="#" class="share-btn share-reddit" id="shareRedditBtn" target="_blank" rel="noopener noreferrer">{{ t('oracle.share.reddit') }}</a>
-                        <a href="#" class="share-btn share-copy" id="shareCopyBtn" href="#">{{ t('oracle.share.copy') }}</a>
+                        <a href="#" class="share-btn share-copy" id="shareCopyBtn">{{ t('oracle.share.copy') }}</a>
                     </div>
                 </div>
             </div>
@@ -920,7 +920,7 @@
         <p style="color: var(--text-muted); font-size: 1.05rem; max-width: 520px; margin: 0 auto;">
             {{ t('waitlist.sub') }}
         </p>
-        <div class="landing-stats" id="landingStats" aria-label="{{ t('waitlist.stats_aria') }}" style="margin:1.25rem auto 0;border:none">
+        <div class="landing-stats" id="landingStats" role="group" aria-label="{{ t('waitlist.stats_aria') }}" style="margin:1.25rem auto 0;border:none">
             <span>{{ t('stats.visitors') }}: <strong id="landingViews">—</strong></span>
             <span>{{ t('stats.users') }}: <strong id="landingUsers">—</strong></span>
             <span>{{ t('stats.subscribers') }}: <strong id="landingSubs">—</strong></span>

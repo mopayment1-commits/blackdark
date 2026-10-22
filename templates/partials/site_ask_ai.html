@@ -1,19 +1,6 @@
-<button type="button" id="bdAskAiToggle" class="bd-ask-ai-fab" aria-expanded="false" aria-controls="bdAskAiPanel">
-  Ask BLACKDARK AI
-</button>
-<div id="bdAskAiPanel" class="bd-ask-ai-panel" hidden role="dialog" aria-label="Ask BLACKDARK AI">
-  <header class="bd-ask-ai-head">
-    <strong>Ask BLACKDARK AI</strong>
-    <button type="button" id="bdAskAiClose" aria-label="Close">×</button>
-  </header>
-  <p class="bd-ask-ai-note">Explains the decision and ledger visible on this page only. Not financial advice.</p>
-  <div id="bdAskAiLog" class="bd-ask-ai-log" aria-live="polite"></div>
-  <form id="bdAskAiForm" class="bd-ask-ai-form">
-    <input id="bdAskAiInput" type="text" placeholder="What does this decision mean?" autocomplete="off" maxlength="500">
-    <button type="submit" class="bd-ask-ai-send">Send</button>
-  </form>
-</div>
+<div class="bd-ask-ai-root">
 <style>
+@scope (.bd-ask-ai-root) {
   .bd-ask-ai-fab {
     position: fixed;
     right: 1.1rem;
@@ -92,5 +79,22 @@
     cursor: pointer;
     font-size: 0.78rem;
   }
+}
 </style>
+<button type="button" id="bdAskAiToggle" class="bd-ask-ai-fab" aria-expanded="false" aria-controls="bdAskAiPanel">
+  Ask BLACKDARK AI
+</button>
+<div id="bdAskAiPanel" class="bd-ask-ai-panel" hidden role="dialog" aria-label="Ask BLACKDARK AI">
+  <header class="bd-ask-ai-head">
+    <strong>Ask BLACKDARK AI</strong>
+    <button type="button" id="bdAskAiClose" aria-label="Close">×</button>
+  </header>
+  <p class="bd-ask-ai-note">Explains the decision and ledger visible on this page only. Not financial advice.</p>
+  <div id="bdAskAiLog" class="bd-ask-ai-log" aria-live="polite"></div>
+  <form id="bdAskAiForm" class="bd-ask-ai-form">
+    <input id="bdAskAiInput" type="text" placeholder="What does this decision mean?" autocomplete="off" maxlength="500">
+    <button type="submit" class="bd-ask-ai-send">Send</button>
+  </form>
+</div>
 <script src="/static/js/bd_site_assistant.js" defer></script>
+</div>
