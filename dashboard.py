@@ -3112,6 +3112,10 @@ async def _compute_oracle_quick_payload(
 
         market = await fetch_spot_ticker(asset)
     if market is None:
+        from coinbase_public_api import fetch_public_spot_market as fetch_coinbase_spot_market
+
+        market = await fetch_coinbase_spot_market(pair)
+    if market is None:
         market = await _fetch_binance_ticker(pair)
     if market is None:
         raise HTTPException(status_code=404, detail=f"Symbol {asset} not found.")
@@ -3187,6 +3191,9 @@ async def _compute_oracle_quick_payload(
         out["cmc_rank"] = market.get("cmc_rank")
     if market.get("source") == "coinmarketcap":
         out["price_source"] = "coinmarketcap"
+    if str(market.get("source") or "").startswith("coinbase"):
+        out["price_source"] = "coinbase"
+        out["quote_exchange"] = "coinbase"
     try:
         from defillama_public_api import fetch_defi_context_for_asset
 
@@ -3229,6 +3236,8 @@ def _quick_price_source_label(market: dict[str, Any]) -> str:
         return "binance_rest"
     if src == "coinmarketcap":
         return "coinmarketcap"
+    if src.startswith("coinbase"):
+        return "coinbase"
     if src:
         return src
     return "binance_rest"
@@ -3245,6 +3254,8 @@ def _localized_price_source(source: str, lang: str) -> str:
         return t("oracle.source.binance_rest", lang)
     if raw in {"Binance spot", "binance spot"}:
         return t("oracle.source.binance_spot", lang)
+    if raw == "coinbase" or "coinbase" in low:
+        return t("oracle.source.coinbase", lang)
     return t("oracle.source.binance_spot", lang)
 
 

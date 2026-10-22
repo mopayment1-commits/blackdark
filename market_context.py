@@ -239,6 +239,11 @@ async def _fetch_coinbase_ticker(
     *,
     session: aiohttp.ClientSession | None = None,
 ) -> dict[str, Any] | None:
+    from coinbase_public_api import fetch_spot_for_asset
+
+    row = await fetch_spot_for_asset(asset)
+    if row is not None:
+        return row
     url = f"https://api.coinbase.com/v2/prices/{asset.upper()}-USD/spot"
     payload = await _rest_get(url, session=session)
     if not isinstance(payload, dict):
@@ -252,7 +257,7 @@ async def _fetch_coinbase_ticker(
             "change_24h": 0.0,
             "volume": 0.0,
             "quote_volume": 0.0,
-            "source": "coinbase",
+            "source": "coinbase_v2_spot",
         }
     except (KeyError, TypeError, ValueError):
         return None
@@ -510,6 +515,12 @@ async def fetch_binance_ticker(pair: str) -> dict | None:
             if cmc is not None:
                 _log_price_fallback(asset, "coinmarketcap")
                 return enrich_ticker_freshness(cmc, fetched_at=fetched_at)
+            from coinbase_public_api import fetch_public_spot_market as fetch_coinbase_spot_market
+
+            cb = await fetch_coinbase_spot_market(pair)
+            if cb is not None:
+                _log_price_fallback(asset, "coinbase_exchange")
+                return enrich_ticker_freshness(cb, fetched_at=fetched_at)
             row = await _fallback_rest_ticker(asset, session)
             if row is not None:
                 return enrich_ticker_freshness(row, fetched_at=fetched_at)

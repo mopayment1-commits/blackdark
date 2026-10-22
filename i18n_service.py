@@ -494,6 +494,7 @@ EN: dict[str, str] = {
     "oracle.source.binance_ws": "Binance WebSocket top-of-book",
     "oracle.source.binance_rest": "Binance spot REST",
     "oracle.source.binance_spot": "Binance spot",
+    "oracle.source.coinbase": "Coinbase Exchange (public)",
     "oracle.source.live_market": "live market",
     "oracle.source.model": "model",
     "oracle.source.oracle": "oracle",
