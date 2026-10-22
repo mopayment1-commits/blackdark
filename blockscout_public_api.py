@@ -289,7 +289,7 @@ async def fetch_explorer_fallback(
     txs: list[dict[str, Any]] = []
     if include_transactions:
         txs = await fetch_address_transactions(address, chain=ch, limit=tx_limit)
-    return {
+    row = {
         "ok": bool(bal or txs),
         "source": "blockscout",
         "attribution": f"Data: Blockscout ({ch})",
@@ -299,3 +299,8 @@ async def fetch_explorer_fallback(
         "usage": usage_stats(),
         "no_api_key": True,
     }
+    if not row["ok"]:
+        return row
+    from thegraph_public_api import maybe_enrich_explorer_row
+
+    return await maybe_enrich_explorer_row(row, address, chain=ch)

@@ -263,6 +263,11 @@ ETHERSCAN_CACHE_TTL_SEC = float(os.getenv("ETHERSCAN_CACHE_TTL_SEC", "90"))
 BLOCKSCOUT_DAILY_LIMIT = int(os.getenv("BLOCKSCOUT_DAILY_LIMIT", "50000"))
 BLOCKSCOUT_RPS_LIMIT = int(os.getenv("BLOCKSCOUT_RPS_LIMIT", "5"))
 BLOCKSCOUT_CACHE_TTL_SEC = float(os.getenv("BLOCKSCOUT_CACHE_TTL_SEC", "90"))
+# The Graph Studio gateway — free tier ~100k queries/month (API key required).
+THE_GRAPH_API_KEY = os.getenv("THE_GRAPH_API_KEY", "").strip()
+THE_GRAPH_MONTHLY_LIMIT = int(os.getenv("THE_GRAPH_MONTHLY_LIMIT", "100000"))
+THE_GRAPH_RPS_LIMIT = int(os.getenv("THE_GRAPH_RPS_LIMIT", "5"))
+THE_GRAPH_CACHE_TTL_SEC = float(os.getenv("THE_GRAPH_CACHE_TTL_SEC", "120"))
 COINMARKETCAP_LISTINGS_URL = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest"
 COINMARKETCAP_EXCHANGES_URL = "https://pro-api.coinmarketcap.com/v1/exchange/listings/latest"
 OPERATIONAL_MANIFEST_PATH = DATA_DIR / "operational_manifest.json"

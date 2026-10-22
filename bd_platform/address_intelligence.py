@@ -175,6 +175,18 @@ async def search_address(address: str, *, chain: str = "ethereum") -> dict[str, 
                 )
             except Exception:
                 pass
+        if (
+            (not explorer_fallback or not explorer_fallback.get("ok"))
+            and chain_l in {"ethereum", "polygon", "arbitrum"}
+        ):
+            try:
+                from thegraph_public_api import fetch_address_onchain_enrichment
+
+                tg = await fetch_address_onchain_enrichment(addr, chain=chain_l)
+                if tg.get("ok"):
+                    explorer_fallback = tg
+            except Exception:
+                pass
 
     if total_usd > 0:
         _append_snapshot(addr, chain, total_usd=total_usd, source=balance.get("source", "search"))
@@ -211,7 +223,28 @@ async def search_address(address: str, *, chain: str = "ethereum") -> dict[str, 
         and explorer_fallback.get("ok")
         and explorer_fallback.get("source") == "blockscout"
         else None,
-        "sources": ["tracely", "debank", "zerion", "eth-labels", "arkham", "etherscan", "blockscout"],
+        "thegraph_fallback": (
+            explorer_fallback.get("thegraph_enrichment")
+            if explorer_fallback
+            and explorer_fallback.get("thegraph_enrichment", {}).get("ok")
+            else (
+                explorer_fallback
+                if explorer_fallback
+                and explorer_fallback.get("ok")
+                and explorer_fallback.get("source") == "the_graph"
+                else None
+            )
+        ),
+        "sources": [
+            "tracely",
+            "debank",
+            "zerion",
+            "eth-labels",
+            "arkham",
+            "etherscan",
+            "blockscout",
+            "the_graph",
+        ],
         "data_state": "LIVE"
         if (isinstance(balance, dict) and balance.get("available"))
         or (explorer_fallback and explorer_fallback.get("ok"))

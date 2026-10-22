@@ -1844,6 +1844,27 @@ async def public_blockscout_transaction(tx_hash: str, chain: str = "ethereum"):
     return row
 
 
+@app.get("/api/public/onchain/thegraph/usage")
+async def public_thegraph_usage():
+    from thegraph_public_api import usage_stats
+
+    return usage_stats()
+
+
+@app.get("/api/public/onchain/thegraph/address")
+async def public_thegraph_address(address: str, chain: str = "ethereum", swap_limit: int = 5):
+    from thegraph_public_api import fetch_address_onchain_enrichment
+
+    row = await fetch_address_onchain_enrichment(
+        address,
+        chain=chain,
+        swap_limit=max(1, min(int(swap_limit or 5), 10)),
+    )
+    if not row.get("ok"):
+        raise HTTPException(status_code=503, detail=row)
+    return row
+
+
 @app.get("/api/public/onchain/etherscan/usage")
 async def public_etherscan_usage():
     from etherscan_public_api import usage_stats

@@ -289,7 +289,9 @@ async def fetch_address_onchain_fallback(
         if include_transactions and bal is not None:
             txs = await fetch_normal_transactions(address, limit=tx_limit)
         if bal or txs:
-            return {
+            from thegraph_public_api import maybe_enrich_explorer_row
+
+            row = {
                 "ok": True,
                 "source": "etherscan_free",
                 "attribution": "Data: Etherscan",
@@ -297,6 +299,7 @@ async def fetch_address_onchain_fallback(
                 "recent_transactions": txs,
                 "usage": usage_stats(),
             }
+            return await maybe_enrich_explorer_row(row, address, chain="ethereum")
 
     bs = await fetch_explorer_fallback(
         address,
@@ -307,7 +310,9 @@ async def fetch_address_onchain_fallback(
     if bs.get("ok"):
         if etherscan_attempted or stats["configured"]:
             bs["fallback_after"] = "etherscan"
-        return bs
+        from thegraph_public_api import maybe_enrich_explorer_row
+
+        return await maybe_enrich_explorer_row(bs, address, chain="ethereum")
 
     if not stats["configured"]:
         return {
