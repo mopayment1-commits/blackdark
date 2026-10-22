@@ -271,6 +271,11 @@ THE_GRAPH_CACHE_TTL_SEC = float(os.getenv("THE_GRAPH_CACHE_TTL_SEC", "120"))
 # CoinPaprika public API — no key; conservative client-side RPS + cache.
 COINPAPRIKA_RPS_LIMIT = int(os.getenv("COINPAPRIKA_RPS_LIMIT", "8"))
 COINPAPRIKA_CACHE_TTL_SEC = float(os.getenv("COINPAPRIKA_CACHE_TTL_SEC", "90"))
+# FRED macro API — free key from fred.stlouisfed.org (120 req/min plan).
+FRED_API_KEY = os.getenv("FRED_API_KEY", "").strip()
+FRED_DAILY_LIMIT = int(os.getenv("FRED_DAILY_LIMIT", "10000"))
+FRED_RPS_LIMIT = int(os.getenv("FRED_RPS_LIMIT", "5"))
+FRED_CACHE_TTL_SEC = float(os.getenv("FRED_CACHE_TTL_SEC", "3600"))
 COINMARKETCAP_LISTINGS_URL = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest"
 COINMARKETCAP_EXCHANGES_URL = "https://pro-api.coinmarketcap.com/v1/exchange/listings/latest"
 OPERATIONAL_MANIFEST_PATH = DATA_DIR / "operational_manifest.json"

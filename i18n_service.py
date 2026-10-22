@@ -1127,6 +1127,12 @@ EN: dict[str, str] = {
     "ledger.panel.btc_fees_unavailable": "Bitcoin fee data unavailable — try again shortly.",
     "ledger.panel.btc_fees_status": "Block height {height} · fastest {fast} sat/vB",
     "ledger.panel.btc_fees_row": "{label}: {value} sat/vB",
+    "ledger.panel.fred_title": "U.S. macro context (FRED)",
+    "ledger.panel.fred_lead": "Inflation, policy rate, GDP, and 10Y yield from the Federal Reserve — requires server FRED_API_KEY.",
+    "ledger.panel.fred_loading": "Loading macro indicators…",
+    "ledger.panel.fred_unavailable": "Macro data unavailable — FRED key not configured or quota exceeded.",
+    "ledger.panel.fred_row": "{title}: {value} ({date})",
+    "ledger.panel.fred_cpi_row": "CPI YoY: {yoy}% (index {value}, {date})",
     "nav.swap": "Swap",
     "swap.page_title": "Non-custodial swap",
     "swap.lead": (

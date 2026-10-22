@@ -1705,6 +1705,25 @@ async def public_btc_mempool_fees():
     return await fetch_btc_mempool_context()
 
 
+@app.get("/api/public/macro/fred/usage")
+async def public_fred_usage():
+    from fred_public_api import usage_stats
+
+    return usage_stats()
+
+
+@app.get("/api/public/macro/fred/context")
+async def public_fred_context():
+    from fred_public_api import fetch_macro_context
+
+    row = await fetch_macro_context()
+    if not row.get("ok") and row.get("error") == "not_configured":
+        raise HTTPException(status_code=503, detail=row)
+    if not row.get("ok"):
+        raise HTTPException(status_code=503, detail=row)
+    return row
+
+
 @app.get("/api/public/market/coinpaprika/usage")
 async def public_coinpaprika_usage():
     from coinpaprika_public_api import usage_stats
@@ -3308,6 +3327,18 @@ async def _compute_oracle_quick_payload(
                 "top_chains": (defi.get("top_chains") or [])[:3],
                 "fees_leaders_24h": (defi.get("fees_leaders_24h") or [])[:3],
                 "top_yields": (defi.get("top_yields") or [])[:3],
+            }
+    except Exception:
+        pass
+    try:
+        from fred_public_api import fetch_macro_context
+
+        macro = await fetch_macro_context()
+        if macro.get("fetched_ok"):
+            out["fred_macro_context"] = {
+                "source": macro.get("source"),
+                "attribution": macro.get("attribution"),
+                "indicators": macro.get("indicators"),
             }
     except Exception:
         pass

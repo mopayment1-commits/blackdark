@@ -284,6 +284,16 @@
         </div>
     </section>
 
+    <section class="panel" id="fred-macro-panel">
+        <div class="card">
+            <h2>{{ t('ledger.panel.fred_title') }}</h2>
+            <p class="muted" style="font-size:0.88rem">{{ t('ledger.panel.fred_lead') }}</p>
+            <p id="fred-macro-status" class="muted">{{ t('ledger.panel.fred_loading') }}</p>
+            <ul class="events" id="fred-macro-summary"><li>{{ t('ledger.panel.fred_loading') }}</li></ul>
+            <p id="fred-macro-attribution" style="margin-top:0.65rem;font-size:0.72rem;color:var(--muted)"></p>
+        </div>
+    </section>
+
     <section class="panel" id="defi-context-panel">
         <div class="card">
             <h2>{{ t('ledger.panel.defi_title') }}</h2>
@@ -1345,6 +1355,72 @@
             return '$' + x.toLocaleString(undefined, { maximumFractionDigits: 0 });
         }
 
+        async function loadFredMacro() {
+            const st = document.getElementById('fred-macro-status');
+            const list = document.getElementById('fred-macro-summary');
+            const foot = document.getElementById('fred-macro-attribution');
+            try {
+                const d = await fetchJsonWithTimeout(
+                    '/api/public/macro/fred/context',
+                    {},
+                    ORACLE_LEDGER_SECONDARY_MS,
+                );
+                const ind = d.indicators || {};
+                if (foot) foot.textContent = d.attribution || '';
+                const lines = [];
+                const ff = ind.fed_funds_rate;
+                if (ff && ff.value != null) {
+                    lines.push(
+                        i18nT('ledger.panel.fred_row', {
+                            title: ff.title || 'Fed funds',
+                            value: ff.value + '%',
+                            date: ff.date || '—',
+                        }) || `Fed funds: ${ff.value}% (${ff.date})`,
+                    );
+                }
+                const cpi = ind.cpi;
+                if (cpi && cpi.yoy_change_pct != null) {
+                    lines.push(
+                        i18nT('ledger.panel.fred_cpi_row', {
+                            yoy: cpi.yoy_change_pct,
+                            value: cpi.value,
+                            date: cpi.date || '—',
+                        }) || `CPI YoY: ${cpi.yoy_change_pct}%`,
+                    );
+                }
+                const gdp = ind.gdp;
+                if (gdp && gdp.value != null) {
+                    lines.push(
+                        i18nT('ledger.panel.fred_row', {
+                            title: gdp.title || 'GDP',
+                            value: fmtDefiUsd(gdp.value * 1e9),
+                            date: gdp.date || '—',
+                        }) || `GDP: ${gdp.value}`,
+                    );
+                }
+                const t10 = ind.treasury_10y;
+                if (t10 && t10.value != null) {
+                    lines.push(
+                        i18nT('ledger.panel.fred_row', {
+                            title: t10.title || '10Y Treasury',
+                            value: t10.value + '%',
+                            date: t10.date || '—',
+                        }) || `10Y: ${t10.value}%`,
+                    );
+                }
+                if (st) st.textContent = lines.length ? 'FRED · live macro snapshot' : i18nT('ledger.panel.fred_unavailable');
+                if (!list) return;
+                if (!lines.length) {
+                    list.innerHTML = '<li>' + esc(i18nT('ledger.panel.fred_unavailable')) + '</li>';
+                    return;
+                }
+                list.innerHTML = lines.map((line) => '<li>' + esc(line) + '</li>').join('');
+            } catch (e) {
+                if (st) st.textContent = i18nT('ledger.panel.fred_unavailable');
+                if (list) list.innerHTML = '<li>—</li>';
+            }
+        }
+
         async function loadDefiContext() {
             const st = document.getElementById('defi-context-status');
             const list = document.getElementById('defi-context-summary');
@@ -1485,6 +1561,7 @@
             loadAccuracy().then(() => scheduleSecondaryLoad(loadLedgerShareKit));
             scheduleSecondaryLoad(loadSealedMarkets);
             scheduleSecondaryLoad(loadBtcMempoolFees);
+            scheduleSecondaryLoad(loadFredMacro);
             scheduleSecondaryLoad(loadDefiContext);
             scheduleSecondaryLoad(loadArbOpportunities);
             scheduleSecondaryLoad(loadGlassBox);

@@ -204,6 +204,18 @@ async def _compute_oracle_payload(
     if market.get("price_history_daily"):
         payload["price_history_daily"] = market.get("price_history_daily")
         payload["price_history_source"] = market.get("price_history_source") or "coinpaprika"
+    try:
+        from fred_public_api import fetch_macro_context
+
+        macro = await fetch_macro_context()
+        if macro.get("fetched_ok"):
+            payload["fred_macro_context"] = {
+                "source": macro.get("source"),
+                "attribution": macro.get("attribution"),
+                "indicators": macro.get("indicators"),
+            }
+    except Exception:
+        pass
     if asset.upper() == "BTC":
         try:
             from mempool_public_api import fetch_btc_mempool_context
@@ -219,11 +231,14 @@ async def _compute_oracle_payload(
                 }
         except Exception:
             pass
+    fred_snapshot = payload.get("fred_macro_context")
     payload = _enrich_trust_pulse_payload(payload, ux_mode=ux_mode, lang=lang)
     if asset.upper() == "BTC" and payload.get("btc_mempool_fees"):
         fees = dict(payload["btc_mempool_fees"])
         fees.setdefault("no_api_key", True)
         payload["btc_mempool_fees"] = fees
+    if fred_snapshot:
+        payload["fred_macro_context"] = fred_snapshot
     if market.get("source") == "coinpaprika":
         payload["price_source"] = "coinpaprika"
         payload["quote_exchange"] = "coinpaprika"
