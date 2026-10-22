@@ -72,7 +72,7 @@
     left: 0.55rem;
     width: 15px;
     height: 15px;
-    color: #a1a1aa;
+    color: #c8c8d0;
     pointer-events: none;
   }
   .bd-nav-search-wrap input {
@@ -325,7 +325,7 @@
           <path d="M20 20l-3-3"></path>
         </svg>
         <label class="visually-hidden" for="bdNavSearch" style="position:absolute;left:-9999px">{{ t('nav.search.label') if t is defined else 'Search site' }}</label>
-        <input id="bdNavSearch" type="search" name="q" placeholder="{{ t('nav.search.placeholder') if t is defined else 'Search' }}" autocomplete="off" aria-controls="bdNavSearchResults">
+        <input id="bdNavSearch" type="search" name="q" placeholder="{{ t('nav.search.placeholder') if t is defined else 'Search' }}" autocomplete="off" aria-label="{{ t('nav.search.placeholder') if t is defined else 'Search' }}">
         <div id="bdNavSearchResults" class="bd-nav-search-results" hidden></div>
       </div>
       <nav class="bd-header-util" aria-label="Account and language">
@@ -356,7 +356,7 @@
               class="bd-account-menu-btn"
               id="bdAccountTrigger"
               aria-expanded="false"
-              aria-haspopup="menu"
+              aria-haspopup="true"
               aria-controls="bdAccountMenu"
               aria-label="{{ t('nav.account_menu') if t is defined else 'Account menu' }}"
             >▾</button>
@@ -365,8 +365,8 @@
             <a href="/" role="menuitem">{{ t('nav.home') if t is defined else 'Home' }}</a>
             <a href="/profile" role="menuitem">{{ t('nav.profile') if t is defined else 'Profile' }}</a>
             <button type="button" id="bdHeaderLogout" role="menuitem" data-logout-fail="{{ t('nav.logout_failed') if t is defined else 'Could not sign out. Try again.' }}">{{ t('nav.logout') if t is defined else 'Log out' }}</button>
-            <span id="bdLogoutStatus" class="bd-logout-status" role="status" aria-live="polite" hidden></span>
           </div>
+          <span id="bdLogoutStatus" class="bd-logout-status" role="status" hidden></span>
         </div>
         {% else %}
         <a class="nav-util-link" href="/login" id="bdUtilLogin"><span lang="{{ key_lang('nav.login') if key_lang is defined else lang }}">{{ t('nav.login') if t is defined else 'Login' }}</span></a>

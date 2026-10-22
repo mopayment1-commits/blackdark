@@ -7,7 +7,7 @@
         border-top: 1px solid #2a2a35; color: #c8c8d0; font-size: .78rem; line-height: 1.65;
     }
     .bd-site-footer .bd-foot-brand { font-size: 1.05rem; font-weight: 800; color: #22d3ee; letter-spacing: .04em; }
-    .bd-site-footer .bd-foot-tag { color: #a1a1aa; margin: .35rem 0 1.1rem; }
+    .bd-site-footer .bd-foot-tag { color: #c8c8d0; margin: .35rem 0 1.1rem; }
     .bd-site-footer .bd-foot-grid {
         display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
         gap: 1.25rem 1.5rem; text-align: left; margin-bottom: 1.25rem;
@@ -16,8 +16,14 @@
     .bd-site-footer ul { list-style: none; padding: 0; margin: 0; }
     .bd-site-footer li { margin: .28rem 0; }
     .bd-site-footer a { color: #e4e4e7; text-decoration: none; }
+    .bd-site-footer .bd-foot-bottom a {
+        text-decoration: underline;
+        text-underline-offset: 2px;
+        text-decoration-thickness: 1px;
+    }
     .bd-site-footer a:hover { color: #22d3ee; }
     .bd-site-footer .bd-foot-bottom { border-top: 1px solid #2a2a35; padding-top: 1rem; margin-top: .5rem; }
+    .bd-site-footer .bd-foot-anti-hype { color: #c8c8d0; }
 }
 </style>
 <footer class="bd-site-footer">
@@ -61,7 +67,7 @@
     {% set social_heading_id = 'footer-follow-heading' %}
     {% include 'partials/site_follow_social.html' %}
     <div class="bd-foot-bottom">
-        <strong style="color:#a1a1aa">{{ t('common.anti_hype') if t is defined else 'Anti-Hype' }}</strong> · {{ t('footer.disclaimer') if t is defined else (f.disclaimer_line or 'Not financial advice. Verify on the Public Accuracy Ledger.') }}
+        <strong class="bd-foot-anti-hype">{{ t('common.anti_hype') if t is defined else 'Anti-Hype' }}</strong> · {{ t('footer.disclaimer') if t is defined else (f.disclaimer_line or 'Not financial advice. Verify on the Public Accuracy Ledger.') }}
         · <a href="/oracle-accuracy">{{ t('footer.ledger') if t is defined else 'Ledger' }}</a>
         · <a href="/status">{{ t('footer.status') if t is defined else 'Status' }}</a>
         · © 2026 BLACKDARK

@@ -14,7 +14,7 @@
   }
 }
 </style>
-<div id="bdDecisionToast" class="bd-decision-toast" role="status" aria-live="polite" hidden></div>
+<div id="bdDecisionToast" class="bd-decision-toast" role="status" hidden></div>
 
 <section id="watchlist" class="bd-workspace-section section-desk-only hide-in-room" aria-label="Watchlist">
   <h3 class="bd-workspace-heading">Watchlist</h3>
@@ -49,9 +49,9 @@
   </div>
 </div>
 
-<div id="bdShareDecisionModal" class="bd-modal-backdrop" hidden role="dialog" aria-modal="true">
+<div id="bdShareDecisionModal" class="bd-modal-backdrop" hidden role="dialog" aria-modal="true" aria-labelledby="bdShareDecisionTitle">
   <div class="bd-modal-card">
-    <h3>Share decision</h3>
+    <h3 id="bdShareDecisionTitle">Share decision</h3>
     <label for="bdShareDecisionText" class="bd-visually-hidden">Decision text to copy</label>
     <textarea id="bdShareDecisionText" rows="5" readonly style="width:100%;margin:.65rem 0;font-size:.85rem"></textarea>
     <button type="button" class="btn secondary" id="bdShareDecisionCopy">Copy</button>
