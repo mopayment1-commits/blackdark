@@ -609,6 +609,7 @@
     </div>
 
     <script src="/static/js/dom_escape.js"></script>
+    <script src="/static/js/bd_live_refresh.js"></script>
     <script>
         const fmt = (n, d=2) => n == null ? '—' : Number(n).toLocaleString(undefined, { maximumFractionDigits: d });
         const vc = v => (v || 'WAIT').toUpperCase();
@@ -1626,7 +1627,7 @@
             if (trustPulseQuickInflight && trustPulseQuickInflightKey === inflightKey) {
                 return trustPulseQuickInflight;
             }
-            setTrustPulseLoading(true);
+            if (!lastPulse) setTrustPulseLoading(true);
             trustPulseQuickInflightKey = inflightKey;
             trustPulseQuickInflight = (async () => {
                 try {
@@ -1688,8 +1689,10 @@
             const sel = document.getElementById('tpSymbol');
             if (sel) sel.value = v;
             void loadTrustPulseChart(v);
-            if (currentLens === 'prove') loadTrustPulseQuick(true);
-            else if (currentLens === 'operate') {
+            if (currentLens === 'prove') {
+                loadTrustPulseQuick(true);
+                bindTrustPulseLiveStream();
+            } else if (currentLens === 'operate') {
                 const mainSym = document.getElementById('symbol');
                 if (mainSym) mainSym.value = v;
                 loadCommandHome(true);
@@ -1705,7 +1708,7 @@
             const proveLens = currentLens === 'prove';
             if (proveLens) {
                 void loadTrustPulseQuick(force);
-            } else {
+            } else if (!lastPulse) {
                 setTrustPulseLoading(true);
             }
             commandHomeInflightKey = inflightKey;
@@ -1824,6 +1827,33 @@
         function readLastPulseVisit() {
             try { return JSON.parse(localStorage.getItem(TP_STORE) || 'null'); } catch (error) { console.debug(error); return null; }
         }
+        function hydrateTrustPulseFromStore() {
+            const v = readLastPulseVisit();
+            if (!v || !v.symbol) return false;
+            const sym = String(v.symbol).trim().toUpperCase();
+            const sel = document.getElementById('tpSymbol');
+            if (sel && sym) sel.value = sym;
+            renderTrustPulse({
+                symbol: sym,
+                action: (v.action || 'WAIT').toUpperCase(),
+                sentence: 'Updating live decision…',
+                why: {
+                    grasp_line: 'Why (under 5 seconds)',
+                    factors: (v.factors || []).slice(0, 5),
+                },
+                freshness: {
+                    state: 'NEAR_LIVE',
+                    stale: false,
+                    presented_as_live: true,
+                    label: 'Updating…',
+                },
+                proof: { certificate_hash: v.certificate_hash || null },
+                ledger: { label: 'Verify Ledger', href: '/oracle-accuracy' },
+                launch57_oracle_bound: true,
+            });
+            return true;
+        }
+        let trustPulseStreamKey = 'dashboard-trust-pulse';
         function savePulseVisit(p) {
             if (!p) return;
             try {
@@ -1980,11 +2010,39 @@
             return loadCommandHome(force);
         }
 
+        function bindTrustPulseLiveStream() {
+            if (!window.BDLiveRefresh) return;
+            window.BDLiveRefresh.stopStream(trustPulseStreamKey);
+            const policy = window.BDLiveRefresh.getPolicy();
+            if (!policy || !policy.live_stream_enabled) return;
+            const sym = trustPulseSymbolValue();
+            window.BDLiveRefresh.startTrustPulseStream(sym, (d) => {
+                const pulse = d && (d.pulse || d);
+                if (!pulse) return;
+                if (String(pulse.symbol || '').toUpperCase() !== sym) return;
+                renderTrustPulse(pulse, { fromStream: true });
+            }, { key: trustPulseStreamKey });
+        }
+
         function startTrustPulseStream() {
-            if (launch57PollTimer) clearInterval(launch57PollTimer);
-            launch57PollTimer = setInterval(() => loadCommandHome(false), 60000);
-            const fresh = document.getElementById('tpFresh');
-            if (fresh) fresh.textContent = 'Launch-57 command home';
+            if (launch57PollTimer) {
+                clearInterval(launch57PollTimer);
+                launch57PollTimer = null;
+            }
+            const bootPoll = (policy) => {
+                const ms = (policy && policy.poll_interval_ms) || 45000;
+                const tick = () => {
+                    if (currentLens === 'prove') void loadTrustPulseQuick(false);
+                    else void loadCommandHome(false);
+                };
+                launch57PollTimer = setInterval(tick, ms);
+                bindTrustPulseLiveStream();
+            };
+            if (window.BDLiveRefresh) {
+                void window.BDLiveRefresh.ensurePolicy().then(bootPoll);
+            } else {
+                bootPoll(null);
+            }
         }
 
         function flashShareProofButton(label, resetMs) {
@@ -3373,6 +3431,7 @@
 
         function boot() {
             initOracleWorkspace();
+            hydrateTrustPulseFromStore();
             loadAuth();
             applyLang();
             bindLensBar();

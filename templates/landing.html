@@ -901,6 +901,7 @@
     <script src="/static/js/csrf_fetch.js"></script>
     <script src="/static/js/dom_escape.js?v=20261007-setAnchorHref"></script>
     <script src="/static/js/public_decision_map.js"></script>
+    <script src="/static/js/bd_live_refresh.js"></script>
     <script>
         const BDDom = window.BDDomSafe || {};
         const escapeHtml = BDDom.escapeHtml || function (v) { return String(v ?? ''); };
@@ -1419,7 +1420,8 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             if (sel) sel.value = value;
         }
 
-        async function consultOracle() {
+        async function consultOracle(opts) {
+            const silent = !!(opts && opts.silent);
             const symbol = landingSymbolValue();
             const mode = document.getElementById('landingUxMode').value || 'beginner';
             const lang = (window.BD_I18N && window.BD_I18N.lang) || document.documentElement.lang || 'en';
@@ -1436,7 +1438,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             
             localStorage.setItem('bd_ux_mode', mode);
             localStorage.setItem('bd_lang', lang);
-            oracleEl.textContent = i18nT('oracle.loading');
+            if (!silent) oracleEl.textContent = i18nT('oracle.loading');
             setLandingOracleFailReason('');
             setLandingOraclePresentationLayout('down');
             proMeta.style.display = 'none';
@@ -2056,9 +2058,33 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             }
         }
 
+        let landingPulsePollTimer = null;
+        let landingOraclePollTimer = null;
+
         function startLandingPulseStream(symbol) {
             const sym = String(symbol || landingPulseSymbol || 'BTC').trim().toUpperCase() || 'BTC';
             landingPulseSymbol = sym;
+            const policy = window.BDLiveRefresh && window.BDLiveRefresh.getPolicy();
+            if (policy && !policy.live_stream_enabled) {
+                if (landingPulseEs) {
+                    try { landingPulseEs.close(); } catch (error) { console.debug(error); }
+                    landingPulseEs = null;
+                }
+                return;
+            }
+            if (window.BDLiveRefresh) {
+                if (landingPulseEs) {
+                    try { landingPulseEs.close(); } catch (error) { console.debug(error); }
+                    landingPulseEs = null;
+                }
+                landingPulseEs = window.BDLiveRefresh.startTrustPulseStream(sym, (d) => {
+                    const pulse = d && (d.pulse || d);
+                    if (pulse && String(pulse.symbol || '').toUpperCase() === landingPulseSymbol) {
+                        renderLandingPulse(pulse);
+                    }
+                }, { key: 'landing-trust-pulse' });
+                return;
+            }
             try {
                 if (landingPulseEs) landingPulseEs.close();
                 landingPulseEs = new EventSource('/api/trust-pulse/stream?symbol=' + encodeURIComponent(sym));
@@ -2071,6 +2097,24 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                     } catch (error) { console.debug(error); }
                 };
             } catch (error) { console.debug(error); }
+        }
+
+        function startLandingLiveRefresh(policy) {
+            const ms = (policy && policy.poll_interval_ms) || 45000;
+            if (landingPulsePollTimer) clearInterval(landingPulsePollTimer);
+            landingPulsePollTimer = setInterval(() => {
+                if (document.hidden) return;
+                const symbol = landingPulseSymbol || landingSymbolValue();
+                const mode = document.getElementById('landingUxMode')?.value || 'beginner';
+                const lang = currentLang();
+                void fetchLandingTrustPulse(symbol, mode, lang);
+            }, ms);
+            if (landingOraclePollTimer) clearInterval(landingOraclePollTimer);
+            landingOraclePollTimer = setInterval(() => {
+                if (document.hidden) return;
+                void consultOracle({ silent: true });
+            }, ms);
+            startLandingPulseStream(landingPulseSymbol || landingSymbolValue());
         }
 
         function shareLandingPulseProof() {
@@ -2168,7 +2212,12 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             loadLandingAnalytics();
             loadTelegramBotLink();
             void syncLandingArbButton();
-            void loadLandingTrustPulse();
+            void loadLandingTrustPulse().then(() => {
+                if (window.BDLiveRefresh) {
+                    return window.BDLiveRefresh.ensurePolicy().then((p) => startLandingLiveRefresh(p));
+                }
+                startLandingLiveRefresh(null);
+            });
             setTimeout(consultOracle, 500);
             if ('serviceWorker' in navigator) {
                 navigator.serviceWorker.register('/sw.js').catch((error) => { console.debug(error); });

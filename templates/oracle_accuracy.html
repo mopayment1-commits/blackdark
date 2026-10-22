@@ -523,6 +523,7 @@
 
     <script defer src="/static/js/dom_escape.js"></script>
     <script defer src="/static/js/public_decision_map.js"></script>
+    <script src="/static/js/bd_live_refresh.js"></script>
     <script>
         const ORACLE_LEDGER_FETCH_MS = 45000;
         const ORACLE_LEDGER_SECONDARY_MS = 15000;
@@ -1705,8 +1706,25 @@
             scheduleSecondaryLoad(loadGlassBox);
             scheduleSecondaryLoad(loadMevReport);
             scheduleSecondaryLoad(loadLocked);
-            setInterval(() => { loadAccuracy().catch(() => {}); }, 60000);
-            setInterval(() => { loadLocked().catch(() => {}); }, 120000);
+            const scheduleLedgerPoll = (policy) => {
+                const ms = (policy && policy.poll_interval_ms) || ORACLE_LEDGER_FETCH_MS;
+                if (window.BDLiveRefresh) {
+                    window.BDLiveRefresh.startInterval('ledger-accuracy', () => {
+                        loadAccuracy().catch(() => {});
+                    }, ms);
+                    window.BDLiveRefresh.startInterval('ledger-locked', () => {
+                        loadLocked().catch(() => {});
+                    }, Math.max(ms * 2, 60000));
+                } else {
+                    setInterval(() => { loadAccuracy().catch(() => {}); }, ms);
+                    setInterval(() => { loadLocked().catch(() => {}); }, Math.max(ms * 2, 60000));
+                }
+            };
+            if (window.BDLiveRefresh) {
+                void window.BDLiveRefresh.ensurePolicy().then(scheduleLedgerPoll);
+            } else {
+                scheduleLedgerPoll(null);
+            }
         }
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', startLedgerBoot);

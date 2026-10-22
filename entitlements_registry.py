@@ -26,6 +26,7 @@ ENTITLEMENT_FEATURE_KEYS: Final[tuple[str, ...]] = (
     "advanced_alerts",
     "saved_language",
     "oracle_btc_eth_only",
+    "live_poll_interval_sec",
 )
 
 # Keys with int limits (0 = disabled, UNLIMITED = no cap).
@@ -35,6 +36,7 @@ _LIMIT_KEYS: Final[frozenset[str]] = frozenset(
         "alerts_limit",
         "history_limit",
         "compare_limit",
+        "live_poll_interval_sec",
     }
 )
 
@@ -50,6 +52,7 @@ _BOOL_KEYS: Final[frozenset[str]] = frozenset(
         "advanced_alerts",
         "saved_language",
         "oracle_btc_eth_only",
+        "live_stream_enabled",
     }
 )
 
@@ -69,6 +72,8 @@ _PLAN_ENTITLEMENTS: dict[str, dict[str, int | bool]] = {
         "advanced_alerts": False,
         "saved_language": True,
         "oracle_btc_eth_only": True,
+        "live_poll_interval_sec": 45,
+        "live_stream_enabled": False,
     },
     "pro": {
         "watchlist_limit": 5,
@@ -85,6 +90,8 @@ _PLAN_ENTITLEMENTS: dict[str, dict[str, int | bool]] = {
         "advanced_alerts": False,
         "saved_language": True,
         "oracle_btc_eth_only": False,
+        "live_poll_interval_sec": 12,
+        "live_stream_enabled": True,
     },
     "elite": {
         "watchlist_limit": 20,
@@ -101,6 +108,8 @@ _PLAN_ENTITLEMENTS: dict[str, dict[str, int | bool]] = {
         "advanced_alerts": False,
         "saved_language": True,
         "oracle_btc_eth_only": False,
+        "live_poll_interval_sec": 10,
+        "live_stream_enabled": True,
     },
     "quant": {
         "watchlist_limit": UNLIMITED,
@@ -117,6 +126,8 @@ _PLAN_ENTITLEMENTS: dict[str, dict[str, int | bool]] = {
         "advanced_alerts": True,
         "saved_language": True,
         "oracle_btc_eth_only": False,
+        "live_poll_interval_sec": 8,
+        "live_stream_enabled": True,
     },
     "institutional": {
         "watchlist_limit": UNLIMITED,
@@ -133,6 +144,8 @@ _PLAN_ENTITLEMENTS: dict[str, dict[str, int | bool]] = {
         "advanced_alerts": True,
         "saved_language": True,
         "oracle_btc_eth_only": False,
+        "live_poll_interval_sec": 5,
+        "live_stream_enabled": True,
     },
 }
 

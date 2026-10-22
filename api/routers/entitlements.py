@@ -17,6 +17,14 @@ async def entitlements_catalog():
     return entitlement_catalog()
 
 
+@router.get("/refresh-policy")
+async def live_refresh_policy(user: dict | None = Depends(optional_user)):
+    from live_refresh_policy import resolve_live_refresh_policy
+
+    uid = int(user["id"]) if user else None
+    return await resolve_live_refresh_policy(uid)
+
+
 @router.get("/me")
 async def entitlements_me(user: dict | None = Depends(optional_user)):
     if not user:
