@@ -652,6 +652,9 @@ async def auth_me(user: dict | None = Depends(optional_user)):
     except Exception:
         pass
     mfa = await mfa_status_for_user(int(user["id"]))
+    from entitlements_service import async_resolve_entitlements
+
+    entitlements_bundle = await async_resolve_entitlements(int(user["id"]))
     profile_out = dict(profile)
     profile_out["initials"] = avatar_initials(
         str(profile.get("name") or ""), str(profile.get("email") or user["email"])
@@ -663,6 +666,7 @@ async def auth_me(user: dict | None = Depends(optional_user)):
         "user": user,
         "profile": profile_out,
         "tier": tier_payload(user, sub),
+        "entitlements": entitlements_bundle,
         "subscription": sub,
         "stripe_configured": bool(os.getenv("STRIPE_SECRET_KEY")),
         "retention_hint": retention_hint,

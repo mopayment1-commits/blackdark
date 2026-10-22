@@ -16,7 +16,23 @@
   };
 
   const MAX_DECISIONS = 50;
-  const DEFAULT_SYMBOLS = ['BTC', 'ETH', 'SOL'];
+  const DEFAULT_SYMBOLS = ['BTC', 'ETH'];
+  const FREE_DEFAULT_SYMBOLS = ['BTC', 'ETH'];
+
+  const DEFAULT_ENTITLEMENTS = {
+    watchlist_limit: 0,
+    alerts_limit: 0,
+    history_limit: 0,
+    compare_limit: 0,
+    offline: false,
+    share_decision: false,
+    theme: false,
+    charts: false,
+    saved_language: true,
+  };
+
+  let entitlements = { ...DEFAULT_ENTITLEMENTS };
+  let entitlementsLoaded = false;
 
   function readJson(key, fallback) {
     try {
@@ -82,20 +98,51 @@
     applyLang: null,
   };
 
+  function limitVal(key) {
+    const n = Number(entitlements[key]);
+    if (!Number.isFinite(n)) return 0;
+    return n;
+  }
+
+  function unlimited(key) {
+    return limitVal(key) < 0;
+  }
+
+  function boolEnt(key) {
+    return !!entitlements[key];
+  }
+
+  function watchlistCap() {
+    const lim = limitVal('watchlist_limit');
+    return lim < 0 ? 9999 : lim;
+  }
+
+  function historyCap() {
+    const lim = limitVal('history_limit');
+    if (lim < 0) return MAX_DECISIONS;
+    return lim > 0 ? lim : 0;
+  }
+
   function getWatchlist() {
+    const cap = watchlistCap();
+    if (cap === 0) return FREE_DEFAULT_SYMBOLS.slice();
     const list = readJson(KEYS.watchlist, null);
-    if (Array.isArray(list) && list.length) return list.map(normSym).filter(Boolean);
-    return DEFAULT_SYMBOLS.slice();
+    if (Array.isArray(list) && list.length) {
+      return list.map(normSym).filter(Boolean).slice(0, cap);
+    }
+    return (cap >= DEFAULT_SYMBOLS.length ? DEFAULT_SYMBOLS : DEFAULT_SYMBOLS.slice(0, cap)).slice();
   }
 
   function setWatchlist(symbols) {
+    const cap = watchlistCap();
     const uniq = [];
     symbols.forEach((s) => {
       const v = normSym(s);
       if (v && !uniq.includes(v)) uniq.push(v);
     });
-    writeJson(KEYS.watchlist, uniq);
-    return uniq;
+    const trimmed = cap > 0 ? uniq.slice(0, cap) : FREE_DEFAULT_SYMBOLS.slice();
+    writeJson(KEYS.watchlist, trimmed);
+    return trimmed;
   }
 
   function toggleWatchSymbol(sym) {
@@ -103,7 +150,18 @@
     const list = getWatchlist();
     const i = list.indexOf(v);
     if (i >= 0) list.splice(i, 1);
-    else list.push(v);
+    else {
+      const cap = watchlistCap();
+      if (cap === 0) {
+        showDecisionToast('Watchlist requires Beginner or above');
+        return list;
+      }
+      if (list.length >= cap) {
+        showDecisionToast(`Watchlist limit (${cap}) reached`);
+        return list;
+      }
+      list.push(v);
+    }
     return setWatchlist(list);
   }
 
@@ -142,13 +200,20 @@
       const age = Date.now() - Date.parse(log[0].at || '');
       if (Number.isFinite(age) && age < 60000) return entry;
     }
+    const cap = historyCap();
+    if (cap === 0) return entry;
     log.unshift(entry);
-    writeJson(KEYS.decisions, log.slice(0, MAX_DECISIONS));
+    const maxRows = cap < 0 ? MAX_DECISIONS : cap;
+    writeJson(KEYS.decisions, log.slice(0, maxRows));
     return entry;
   }
 
   function getDecisionLog() {
-    return readJson(KEYS.decisions, []);
+    const cap = historyCap();
+    const log = readJson(KEYS.decisions, []);
+    if (cap === 0) return [];
+    if (cap < 0) return log;
+    return log.slice(0, cap);
   }
 
   function alertDedupKey(symbol, action) {
@@ -156,6 +221,8 @@
   }
 
   function maybeAlertDecisionChange(symbol, action) {
+    const alertCap = limitVal('alerts_limit');
+    if (alertCap === 0) return;
     const sym = normSym(symbol);
     const lastMap = readJson(KEYS.watchActions, {});
     const prev = lastMap[sym];
@@ -206,6 +273,7 @@
   }
 
   function getOfflinePayload(sym) {
+    if (!boolEnt('offline')) return null;
     const row = getLastDecision(sym);
     if (!row || !row.data) return null;
     const payload = Object.assign({}, row.data);
@@ -231,6 +299,10 @@
   }
 
   function toggleTheme() {
+    if (!boolEnt('theme')) {
+      showDecisionToast('Theme toggle requires Pro or above');
+      return;
+    }
     const cur = document.documentElement.dataset.bdTheme === 'light' ? 'light' : 'dark';
     applyTheme(cur === 'light' ? 'dark' : 'light');
   }
@@ -354,6 +426,11 @@
   }
 
   function openCompareModal() {
+    const cmp = limitVal('compare_limit');
+    if (cmp === 0) {
+      showDecisionToast('Compare requires Beginner or above');
+      return;
+    }
     const modal = document.getElementById('bdCompareModal');
     if (!modal) return;
     modal.hidden = false;
@@ -370,9 +447,11 @@
     if (!box) return;
     const picks = [];
     document.querySelectorAll('.bd-compare-pick:checked').forEach((el) => picks.push(normSym(el.value)));
-    const unique = picks.slice(0, 3);
+    const cmp = limitVal('compare_limit');
+    const maxPick = cmp < 0 ? 5 : Math.max(2, cmp);
+    const unique = picks.slice(0, maxPick);
     if (unique.length < 2) {
-      box.innerHTML = '<p class="empty">Select 2–3 symbols.</p>';
+      box.innerHTML = `<p class="empty">Select 2–${maxPick} symbols.</p>`;
       return;
     }
     box.innerHTML = '<p class="loading">Loading…</p>';
@@ -436,6 +515,10 @@
   }
 
   async function shareDecision(sym, data) {
+    if (!boolEnt('share_decision')) {
+      showDecisionToast('Share decision requires Pro or above');
+      return;
+    }
     const payload = data || getLastDecision(sym)?.data;
     if (!payload) return;
     const text = buildShareText(sym, payload);
@@ -512,6 +595,38 @@
     btn.addEventListener('click', toggleTheme);
   }
 
+  function applyEntitlementsUi() {
+    const themeBtn = document.getElementById('bdThemeToggle');
+    if (themeBtn) themeBtn.hidden = !boolEnt('theme');
+    document.querySelectorAll('[data-bd-share-decision]').forEach((el) => {
+      el.hidden = !boolEnt('share_decision');
+    });
+    document.querySelectorAll('[data-bd-call="openCompare"]').forEach((el) => {
+      el.hidden = limitVal('compare_limit') === 0;
+    });
+    const wlAdd = document.getElementById('bdWatchlistAddBtn');
+    const wlInput = document.getElementById('bdWatchlistInput');
+    const hideWl = watchlistCap() === 0;
+    if (wlAdd) wlAdd.hidden = hideWl;
+    if (wlInput) wlInput.hidden = hideWl;
+  }
+
+  async function refreshEntitlements() {
+    try {
+      const res = await fetch('/api/entitlements/me', { credentials: 'same-origin' });
+      if (!res.ok) return;
+      const data = await res.json();
+      const bundle = (data && data.entitlements) || {};
+      entitlements = Object.assign({}, DEFAULT_ENTITLEMENTS, bundle.features || bundle);
+      entitlementsLoaded = true;
+      applyEntitlementsUi();
+      renderWatchlist();
+      renderMyDecisions();
+    } catch (e) {
+      /* anonymous / offline */
+    }
+  }
+
   let _inited = false;
 
   function init(options) {
@@ -529,8 +644,10 @@
     bindCompareUi();
     bindShareDecision();
     bindNavShortcuts();
-    renderWatchlist();
-    renderMyDecisions();
+    void refreshEntitlements().then(() => {
+      renderWatchlist();
+      renderMyDecisions();
+    });
     document.addEventListener('bd-i18n-ready', bindLangPersistence);
   }
 
@@ -552,5 +669,7 @@
     persistLang,
     openCompareModal,
     scrollToSection,
+    refreshEntitlements,
+    getEntitlements: () => ({ ...entitlements }),
   };
 })(typeof window !== 'undefined' ? window : globalThis);

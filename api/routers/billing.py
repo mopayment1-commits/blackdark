@@ -63,6 +63,9 @@ async def billing_status(user: dict | None = Depends(optional_user)):
             return {"authenticated": False, **base}
         sub = await fetch_active_subscription_for_email(user["email"])
         entitlements = await resolve_entitlements_for_user(int(user["id"]))
+        from entitlements_service import async_resolve_entitlements
+
+        feature_bundle = await async_resolve_entitlements(int(user["id"]))
         customer_id = await fetch_user_stripe_customer_id(user["email"])
         return {
             "authenticated": True,
@@ -70,7 +73,8 @@ async def billing_status(user: dict | None = Depends(optional_user)):
             "stripe_customer_id": customer_id,
             "subscription": sub,
             "entitlements": entitlements,
-            "tier": entitlements.get("effective_plan") or user.get("tier"),
+            "features": feature_bundle,
+            "tier": feature_bundle.get("effective_plan") or entitlements.get("effective_plan") or user.get("tier"),
             "has_billing_portal": bool(customer_id) or bool(lemon_squeezy_portal_url()),
         }
     except Exception:
