@@ -33,7 +33,7 @@
 {% set f = footer if footer is defined and footer else {} %}
 {% set alerts_url = f.telegram_alerts_url or 'https://t.me/BLACKDARKAI_oncall_bot' %}
 <div class="bd-social-follow{% if social_variant is defined and social_variant == 'landing' %} landing-variant{% endif %}">
-    <h4 class="bd-social-heading">{{ t('footer.follow') if t is defined else 'Follow us' }}</h4>
+    <h3 class="bd-social-heading">{{ t('footer.follow') if t is defined else 'Follow us' }}</h3>
     <div class="bd-follow-row" aria-label="Follow BLACKDARK">
         {% for s in f.follow or [] %}
         <a href="{{ s.href }}" target="_blank" rel="noopener noreferrer">{{ s.label }}</a>

@@ -658,6 +658,13 @@
         @media (prefers-reduced-motion: reduce) {
             .hero-bleed-img { animation: none; }
         }
+        .landing-inline-link {
+            color: var(--accent);
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            text-decoration-thickness: 1px;
+        }
+        .landing-inline-link:hover { color: var(--accent); }
     </style>
 </head>
 <body>
@@ -1077,7 +1084,10 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
 
             async function loadOracle(url) {
                 try {
-                    const response = await fetch(url, { headers: { Accept: 'application/json' } });
+                    const fetchOracle = (window.BDOracleFetchGate && window.BDOracleFetchGate.fetch)
+                        ? window.BDOracleFetchGate.fetch.bind(window.BDOracleFetchGate)
+                        : fetch;
+                    const response = await fetchOracle(url, { headers: { Accept: 'application/json' } });
                     const rawText = await response.text();
                     let data = null;
                     try {
@@ -1094,10 +1104,16 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             }
 
             const first = await loadOracle(primary);
+            if (first.response && first.response.status === 429) {
+                return { ...first, networkFailure: false };
+            }
             if (landingOracleHasDecision(first.data)) {
                 return { ...first, networkFailure: false };
             }
             const second = await loadOracle(fallback);
+            if (second.response && second.response.status === 429) {
+                return { ...second, networkFailure: false };
+            }
             if (landingOracleHasDecision(second.data)) {
                 return { ...second, networkFailure: false };
             }
@@ -1302,13 +1318,13 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 if (data.prediction_id) line += ` · Proof #${esc(data.prediction_id)}`;
                 proMeta.style.display = 'block';
                 proMeta.innerHTML = line + (data.prediction_id
-                    ? ` · <a href="/oracle-accuracy" style="color:var(--accent)">accuracy</a>`
+                    ? ` · <a href="/oracle-accuracy" class="landing-inline-link">accuracy</a>`
                     : '');
                 return;
             }
             if (data.prediction_id) {
                 proMeta.style.display = 'block';
-                proMeta.innerHTML = `Proof · prediction_id <code>${esc(data.prediction_id)}</code> · <a href="/oracle-accuracy" style="color:var(--accent)">Public accuracy</a>`;
+                proMeta.innerHTML = `Proof · prediction_id <code>${esc(data.prediction_id)}</code> · <a href="/oracle-accuracy" class="landing-inline-link">Public accuracy</a>`;
             }
         }
         function paintLandingUpgrade(upgradeEl, data) {
@@ -1339,7 +1355,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             }
             disc.style.display = 'block';
             disc.innerHTML =
-                `<div style="font-size:.85rem;color:var(--text-muted);margin-bottom:.4rem"><strong style="color:var(--text)">Discipline Mirror</strong> (private) — cure for Dashboard Tourism. Did you follow this model state? <a href="/discipline-mirror" style="color:var(--accent)">Open my mirror</a> · <a href="/errors" style="color:var(--accent)">See public misses</a></div>` +
+                `<div style="font-size:.85rem;color:var(--text-muted);margin-bottom:.4rem"><strong style="color:var(--text)">Discipline Mirror</strong> (private) — cure for Dashboard Tourism. Did you follow this model state? <a href="/discipline-mirror" class="landing-inline-link">Open my mirror</a> · <a href="/errors" class="landing-inline-link">See public misses</a></div>` +
                 `<button type="button" class="btn-secondary" id="followedYes">Yes, I followed</button> ` +
                 `<button type="button" class="btn-secondary" id="followedNo">No, I overrode</button>` +
                 `<div id="disciplineMsg" style="margin-top:.4rem;font-size:.78rem;color:var(--text-muted)"></div>`;
@@ -1430,8 +1446,13 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             if (sel) sel.value = value;
         }
 
+        let consultOracleInflight = null;
+        let landingOracleBootComplete = false;
+
         async function consultOracle(opts) {
             const silent = !!(opts && opts.silent);
+            if (!landingOracleBootComplete && silent) return;
+            if (consultOracleInflight) return consultOracleInflight;
             const symbol = landingSymbolValue();
             const mode = document.getElementById('landingUxMode').value || 'beginner';
             const lang = (window.BD_I18N && window.BD_I18N.lang) || document.documentElement.lang || 'en';
@@ -1455,7 +1476,8 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             upgradeEl.style.display = 'none';
             const t0 = performance.now();
             let oracleDecisionShown = false;
-            
+
+            consultOracleInflight = (async () => {
             try {
                 const { response, data, networkFailure } = await fetchOraclePayload(symbol, mode, lang);
                 const latencyMs = Math.round(performance.now() - t0);
@@ -1553,6 +1575,13 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                     const detail = error && error.message ? String(error.message) : String(error || 'unknown');
                     setLandingOracleFailReason('Exception: ' + detail);
                 }
+            }
+            })();
+            try {
+                return await consultOracleInflight;
+            } finally {
+                consultOracleInflight = null;
+                landingOracleBootComplete = true;
             }
         }
 
@@ -2121,7 +2150,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             }, ms);
             if (landingOraclePollTimer) clearInterval(landingOraclePollTimer);
             landingOraclePollTimer = setInterval(() => {
-                if (document.hidden) return;
+                if (document.hidden || !landingOracleBootComplete) return;
                 void consultOracle({ silent: true });
             }, ms);
             startLandingPulseStream(landingPulseSymbol || landingSymbolValue());
@@ -2145,6 +2174,10 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
         async function syncLandingArbButton() {
             const btn = document.getElementById('lpArbBtn');
             if (!btn) return;
+            if (window.BDSessionHint && !window.BDSessionHint.likelyAuthenticated()) {
+                btn.style.display = 'none';
+                return;
+            }
             try {
                 const res = await fetch('/api/auth/me', { credentials: 'same-origin' });
                 const d = await res.json();
@@ -2223,12 +2256,16 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             loadTelegramBotLink();
             void syncLandingArbButton();
             void loadLandingTrustPulse().then(() => {
-                if (window.BDLiveRefresh) {
-                    return window.BDLiveRefresh.ensurePolicy().then((p) => startLandingLiveRefresh(p));
-                }
-                startLandingLiveRefresh(null);
+                const afterBoot = () => {
+                    if (window.BDLiveRefresh) {
+                        return window.BDLiveRefresh.ensurePolicy().then((p) => startLandingLiveRefresh(p));
+                    }
+                    startLandingLiveRefresh(null);
+                };
+                setTimeout(() => {
+                    void consultOracle().finally(() => { void afterBoot(); });
+                }, 500);
             });
-            setTimeout(consultOracle, 500);
             if ('serviceWorker' in navigator) {
                 navigator.serviceWorker.register('/sw.js').catch((error) => { console.debug(error); });
             }

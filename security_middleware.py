@@ -169,6 +169,22 @@ def _inject_html_csp_nonce(html: str, nonce: str) -> str:
 
     out = re.sub(r"<script\b[^>]*>", _add_nonce, html, flags=re.I)
     out = re.sub(r"<style\b[^>]*>", _add_style_nonce, out, flags=re.I)
+    tt_bootstrap = (
+        f'<script nonce="{nonce}">'
+        "(function(){try{if(window.trustedTypes&&trustedTypes.createPolicy"
+        "&&!trustedTypes.defaultPolicy){trustedTypes.createPolicy('default',"
+        "{createHTML:function(s){return s},createScript:function(s){return s},"
+        "createScriptURL:function(s){return s}});}}catch(e){}})();"
+        "</script>"
+    )
+    if "trustedTypes.createPolicy" not in out:
+        lower_head = out.lower()
+        head_end = lower_head.find(">", lower_head.find("<head"))
+        if head_end >= 0:
+            insert_at = head_end + 1
+            out = out[:insert_at] + tt_bootstrap + out[insert_at:]
+        else:
+            out = tt_bootstrap + out
     binder = f'<script defer nonce="{nonce}" src="/static/js/csp_events.js"></script>'
     if "csp_events.js" not in out:
         lower = out.lower()
@@ -288,6 +304,8 @@ def security_headers_for(request: Request) -> dict[str, str]:
             "frame-ancestors 'none'; "
             "base-uri 'self'; "
             "form-action 'self'; "
+            "require-trusted-types-for 'script'; "
+            "trusted-types default; "
             "upgrade-insecure-requests"
         )
     else:

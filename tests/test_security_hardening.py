@@ -157,6 +157,8 @@ def test_csp_nonce_mode_emits_nonce_without_unsafe_inline(monkeypatch):
     csp = headers["Content-Security-Policy"]
     assert "strict-dynamic" in csp
     assert "nonce-" in csp
+    assert "require-trusted-types-for" in csp
+    assert "trusted-types default" in csp
     assert "'unsafe-inline'" not in csp.split("script-src")[1].split(";")[0]
     assert getattr(req.state, "csp_nonce", None)
 

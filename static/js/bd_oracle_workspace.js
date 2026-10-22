@@ -348,7 +348,7 @@
     if (status) status.textContent = '…';
     try {
       if (typeof hooks.fetchQuick !== 'function') throw new Error('no fetch');
-      const data = await hooks.fetchQuick(symbol);
+      const data = await hooks.fetchQuick(symbol, { watchlistRefresh: true });
       onOracleSuccess(symbol, data);
       const action = mapAction(data);
       const sc = scoreFrom(data);
@@ -366,9 +366,10 @@
     }
   }
 
-  async function renderWatchlist() {
+  async function renderWatchlist(options) {
     const listEl = document.getElementById('bdWatchlistRows');
     if (!listEl) return;
+    const network = !!(options && options.network);
     const symbols = getWatchlist();
     listEl.innerHTML = symbols
       .map((sym) => {
@@ -388,8 +389,10 @@
         renderWatchlist();
       });
     });
-    for (const sym of symbols) {
-      await refreshWatchlistRow(sym);
+    if (network) {
+      for (const sym of symbols) {
+        await refreshWatchlistRow(sym);
+      }
     }
   }
 
@@ -422,6 +425,7 @@
       if (!list.includes(v)) setWatchlist(list.concat([v]));
       if (input) input.value = '';
       renderWatchlist();
+      void refreshWatchlistRow(v);
     });
   }
 

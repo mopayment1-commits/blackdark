@@ -835,7 +835,10 @@
             if (force) qs.set('_', String(Date.now()));
             const url = `/oracle/${encodeURIComponent(symbol)}/quick?${qs.toString()}`;
             try {
-                const res = await fetch(url, { headers: { ...authHeaders(), Accept: 'application/json' } });
+                const fetchOracle = (window.BDOracleFetchGate && window.BDOracleFetchGate.fetch)
+                    ? window.BDOracleFetchGate.fetch.bind(window.BDOracleFetchGate)
+                    : fetch;
+                const res = await fetchOracle(url, { headers: { ...authHeaders(), Accept: 'application/json' } });
                 const data = await res.json().catch(() => ({}));
                 if (!res.ok) {
                     const msg = (data && data.detail && data.detail.message) || data.message || data.detail || 'Oracle quick unavailable';
@@ -964,6 +967,11 @@
             const authLink = document.getElementById('authLink');
             syncChatGate();
             syncDailyReportMarkdownBtn();
+            if (window.BDSessionHint && !window.BDSessionHint.likelyAuthenticated()) {
+                nextUpgrade = { has_upgrade: true, checkout_tier: 'pro', href: '/login?tab=register&plan=pro', cta: 'Start 7-Day Trial' };
+                applyUpgradeButton();
+                return;
+            }
             try {
                 const res = await fetch('/api/auth/me', { headers: authHeaders(), credentials: 'same-origin' });
                 const d = await res.json();
