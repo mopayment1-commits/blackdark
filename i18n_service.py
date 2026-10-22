@@ -1121,6 +1121,12 @@ EN: dict[str, str] = {
     "ledger.panel.defi_chain_row": "Chain {name}: {tvl} TVL",
     "ledger.panel.defi_fee_row": "Fees 24h · {name}: {fees}",
     "ledger.panel.defi_yield_row": "Yield · {project} ({symbol}): {apy}% APY",
+    "ledger.panel.btc_fees_title": "Bitcoin network fees (mempool.space)",
+    "ledger.panel.btc_fees_lead": "Public recommended sat/vB fees and block tip — no API key. Context for on-chain cost, not a fee quote.",
+    "ledger.panel.btc_fees_loading": "Loading Bitcoin fee data…",
+    "ledger.panel.btc_fees_unavailable": "Bitcoin fee data unavailable — try again shortly.",
+    "ledger.panel.btc_fees_status": "Block height {height} · fastest {fast} sat/vB",
+    "ledger.panel.btc_fees_row": "{label}: {value} sat/vB",
     "nav.swap": "Swap",
     "swap.page_title": "Non-custodial swap",
     "swap.lead": (

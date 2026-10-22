@@ -1698,6 +1698,13 @@ async def public_oracle_symbols():
     return oracle_catalog_payload()
 
 
+@app.get("/api/public/btc/mempool-fees")
+async def public_btc_mempool_fees():
+    from mempool_public_api import fetch_btc_mempool_context
+
+    return await fetch_btc_mempool_context()
+
+
 @app.get("/api/public/defi-context")
 async def public_defi_context(symbol: str = "ETH"):
     from defillama_public_api import fetch_defi_context_for_asset
@@ -3218,6 +3225,20 @@ async def _compute_oracle_quick_payload(
             }
     except Exception:
         pass
+    if asset.upper() == "BTC":
+        try:
+            from mempool_public_api import fetch_btc_mempool_context
+
+            btc_fees = await fetch_btc_mempool_context()
+            if btc_fees.get("fetched_ok"):
+                out["btc_mempool_fees"] = {
+                    "source": btc_fees.get("source"),
+                    "attribution": btc_fees.get("attribution"),
+                    "recommended_fees": btc_fees.get("recommended_fees"),
+                    "block_tip_height": btc_fees.get("block_tip_height"),
+                }
+        except Exception:
+            pass
     return out
 
 

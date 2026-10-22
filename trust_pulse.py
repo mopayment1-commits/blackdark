@@ -198,6 +198,19 @@ async def _compute_oracle_payload(
         cmc_rank=int(market["cmc_rank"]) if market.get("cmc_rank") is not None else None,
         price_source=str(market.get("source") or ""),
     )
+    if asset.upper() == "BTC":
+        try:
+            from mempool_public_api import fetch_btc_mempool_context
+
+            btc_ctx = await fetch_btc_mempool_context()
+            if btc_ctx.get("fetched_ok"):
+                payload["btc_mempool_fees"] = {
+                    "recommended_fees": btc_ctx.get("recommended_fees"),
+                    "block_tip_height": btc_ctx.get("block_tip_height"),
+                    "source": btc_ctx.get("source"),
+                }
+        except Exception:
+            pass
     payload = _enrich_trust_pulse_payload(payload, ux_mode=ux_mode, lang=lang)
     _attach_trust_pulse_why(payload)
     await _persist_trust_pulse_payload(payload, persist=persist)

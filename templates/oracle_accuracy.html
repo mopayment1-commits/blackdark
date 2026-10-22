@@ -93,6 +93,7 @@
         #panel-regime .card h2,
         #glass-box-challenge .card h2,
         #mev-report .card h2,
+        #btc-mempool-fees-panel .card h2,
         #defi-context-panel .card h2,
         #arb-opportunities-panel .card h2,
         #locked .card h2,
@@ -270,6 +271,16 @@
             <p id="sealed-markets-status" class="muted">{{ t('sealed.loading') }}</p>
             <ul class="events" id="sealed-markets-list"><li>{{ t('sealed.loading') }}</li></ul>
             <a class="btn btn-secondary" href="/sealed-markets" style="margin-top:0.75rem;display:inline-block">{{ t('ledger.panel.sealed_all') }}</a>
+        </div>
+    </section>
+
+    <section class="panel" id="btc-mempool-fees-panel">
+        <div class="card">
+            <h2>{{ t('ledger.panel.btc_fees_title') }}</h2>
+            <p class="muted" style="font-size:0.88rem">{{ t('ledger.panel.btc_fees_lead') }}</p>
+            <p id="btc-mempool-status" class="muted">{{ t('ledger.panel.btc_fees_loading') }}</p>
+            <ul class="events" id="btc-mempool-summary"><li>{{ t('ledger.panel.btc_fees_loading') }}</li></ul>
+            <p id="btc-mempool-attribution" style="margin-top:0.65rem;font-size:0.72rem;color:var(--muted)"></p>
         </div>
     </section>
 
@@ -1285,6 +1296,46 @@
             }
         }
 
+        async function loadBtcMempoolFees() {
+            const st = document.getElementById('btc-mempool-status');
+            const list = document.getElementById('btc-mempool-summary');
+            const foot = document.getElementById('btc-mempool-attribution');
+            try {
+                const d = await fetchJsonWithTimeout(
+                    '/api/public/btc/mempool-fees',
+                    {},
+                    ORACLE_LEDGER_SECONDARY_MS,
+                );
+                const fees = d.recommended_fees || {};
+                const height = d.block_tip_height != null ? d.block_tip_height : '—';
+                const fast = fees.fastest_sat_vb != null ? fees.fastest_sat_vb : '—';
+                if (st) {
+                    st.textContent = i18nT('ledger.panel.btc_fees_status', { height, fast })
+                        || ('Block height ' + height + ' · fastest ' + fast + ' sat/vB');
+                }
+                if (foot) foot.textContent = d.attribution || '';
+                if (!list) return;
+                const rows = [
+                    ['Fastest', fees.fastest_sat_vb],
+                    ['~30 min', fees.half_hour_sat_vb],
+                    ['~1 hour', fees.hour_sat_vb],
+                    ['Economy', fees.economy_sat_vb],
+                    ['Minimum', fees.minimum_sat_vb],
+                ].filter((r) => r[1] != null);
+                if (!rows.length) {
+                    list.innerHTML = '<li>' + esc(i18nT('ledger.panel.btc_fees_unavailable')) + '</li>';
+                    return;
+                }
+                list.innerHTML = rows.map(([label, value]) => {
+                    const line = i18nT('ledger.panel.btc_fees_row', { label, value }) || (label + ': ' + value + ' sat/vB');
+                    return '<li>' + esc(line) + '</li>';
+                }).join('');
+            } catch (e) {
+                if (st) st.textContent = i18nT('ledger.panel.btc_fees_unavailable');
+                if (list) list.innerHTML = '<li>—</li>';
+            }
+        }
+
         function fmtDefiUsd(value) {
             const x = Number(value);
             if (!Number.isFinite(x)) return '—';
@@ -1433,6 +1484,7 @@
         function startLedgerBoot() {
             loadAccuracy().then(() => scheduleSecondaryLoad(loadLedgerShareKit));
             scheduleSecondaryLoad(loadSealedMarkets);
+            scheduleSecondaryLoad(loadBtcMempoolFees);
             scheduleSecondaryLoad(loadDefiContext);
             scheduleSecondaryLoad(loadArbOpportunities);
             scheduleSecondaryLoad(loadGlassBox);
