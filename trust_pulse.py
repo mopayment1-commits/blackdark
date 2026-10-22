@@ -214,10 +214,16 @@ async def _compute_oracle_payload(
                     "recommended_fees": btc_ctx.get("recommended_fees"),
                     "block_tip_height": btc_ctx.get("block_tip_height"),
                     "source": btc_ctx.get("source"),
+                    "attribution": btc_ctx.get("attribution"),
+                    "no_api_key": btc_ctx.get("no_api_key", True),
                 }
         except Exception:
             pass
     payload = _enrich_trust_pulse_payload(payload, ux_mode=ux_mode, lang=lang)
+    if asset.upper() == "BTC" and payload.get("btc_mempool_fees"):
+        fees = dict(payload["btc_mempool_fees"])
+        fees.setdefault("no_api_key", True)
+        payload["btc_mempool_fees"] = fees
     if market.get("source") == "coinpaprika":
         payload["price_source"] = "coinpaprika"
         payload["quote_exchange"] = "coinpaprika"

@@ -3320,6 +3320,7 @@ async def _compute_oracle_quick_payload(
                 out["btc_mempool_fees"] = {
                     "source": btc_fees.get("source"),
                     "attribution": btc_fees.get("attribution"),
+                    "no_api_key": btc_fees.get("no_api_key", True),
                     "recommended_fees": btc_fees.get("recommended_fees"),
                     "block_tip_height": btc_fees.get("block_tip_height"),
                 }

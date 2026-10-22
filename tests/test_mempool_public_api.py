@@ -98,4 +98,6 @@ async def test_oracle_quick_btc_includes_fees(monkeypatch):
     client = TestClient(app)
     res = client.get("/oracle/BTC/quick?lang=en")
     assert res.status_code == 200
-    assert res.json().get("btc_mempool_fees", {}).get("recommended_fees")
+    fees = res.json().get("btc_mempool_fees", {})
+    assert fees.get("recommended_fees")
+    assert fees.get("no_api_key") is True
