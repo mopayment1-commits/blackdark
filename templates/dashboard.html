@@ -255,6 +255,31 @@
             0% { background-position: 100% 0; }
             100% { background-position: -100% 0; }
         }
+        .bd-decision-toast {
+            position: fixed; top: 4.5rem; left: 50%; transform: translateX(-50%) translateY(-8px);
+            z-index: 2000; max-width: min(92vw, 28rem); padding: .65rem 1rem; border-radius: 10px;
+            background: #1e3a5f; border: 1px solid #22d3ee; color: #e4e4e7; font-size: .88rem;
+            box-shadow: 0 12px 40px rgba(0,0,0,.45); opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s;
+        }
+        .bd-decision-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+        .bd-workspace-section { margin-bottom: 1rem; }
+        .bd-watchlist-rows, .bd-decisions-list { list-style: none; padding: 0; margin: 0; font-size: .88rem; }
+        .bd-watchlist-rows .wl-row { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; padding: .45rem 0; border-bottom: 1px solid #2a2a35; }
+        .bd-watchlist-rows .wl-status { color: #a1a1aa; flex: 1; }
+        .bd-watchlist-rows .wl-remove { border: none; background: transparent; color: #71717a; cursor: pointer; font-size: 1.1rem; }
+        .bd-modal-backdrop { position: fixed; inset: 0; z-index: 1500; background: rgba(4,6,10,.75); display: flex; align-items: center; justify-content: center; padding: 1rem; }
+        .bd-modal-backdrop[hidden] { display: none !important; }
+        .bd-modal-card { background: #111118; border: 1px solid #2a2a35; border-radius: 14px; padding: 1.1rem; max-width: 36rem; width: 100%; max-height: 90vh; overflow: auto; }
+        .bd-compare-picks { display: flex; flex-wrap: wrap; gap: .65rem; margin: .65rem 0; font-size: .85rem; }
+        .bd-compare-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: .65rem; margin: .75rem 0; }
+        .bd-compare-card { background: #1a1a24; border: 1px solid #2a2a35; border-radius: 10px; padding: .75rem; }
+        .verdict-lite { font-size: 1.35rem; font-weight: 800; color: #22d3ee; }
+        .wl-offline-tag { font-size: .72rem; color: #f59e0b; margin-bottom: .35rem; }
+        body.bd-theme-light { background: #f4f4f5; color: #18181b; }
+        body.bd-theme-light nav { background: rgba(255,255,255,.92) !important; border-color: #e4e4e7 !important; }
+        body.bd-theme-light section, body.bd-theme-light .bd-modal-card { background: #fff; border-color: #e4e4e7; color: #18181b; }
+        body.bd-theme-light .sub, body.bd-theme-light .wl-status { color: #52525b; }
+        body.bd-theme-light a { color: #0891b2; }
     </style>
 </head>
 <body>
@@ -304,6 +329,7 @@
                 <button class="btn" type="button" data-bd-call="openFullProof">Open full proof</button>
                 <a class="btn secondary" href="/swap" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center">{{ t('nav.swap') if t is defined else 'Swap' }}</a>
                 <button class="btn secondary" type="button" id="tpShareBtn" data-bd-call="shareTrustPulse" data-bd-sync="1" hidden>Share Proof</button>
+                <button class="btn secondary" type="button" data-bd-share-decision>Share Decision</button>
                 <button class="btn secondary" type="button" id="tpArbBtn" style="display:none">{{ t('arb.btn') }}</button>
             </div>
             <div id="tpArbPanel" hidden style="margin:.75rem 0;font-size:.85rem;border-top:1px solid #2a2a35;padding-top:.65rem">
@@ -313,6 +339,8 @@
             <div class="tp-foot" id="tpFoot"><strong>Anti-Hype</strong> · Not financial advice · AI cannot guarantee returns</div>
             <div class="entry-rail hide-in-room tp-entry-rail" id="entryRail" aria-label="Primary entries"></div>
         </section>
+
+        {% include 'partials/oracle_workspace.html' %}
 
         <div class="lens-bar hide-in-room" id="lensBar" aria-label="Trust OS lenses">
             <button type="button" class="lens-btn active" data-lens="prove">Prove</button>
@@ -805,13 +833,21 @@
             const qs = new URLSearchParams({ ux_mode: mode, lang });
             if (force) qs.set('_', String(Date.now()));
             const url = `/oracle/${encodeURIComponent(symbol)}/quick?${qs.toString()}`;
-            const res = await fetch(url, { headers: { ...authHeaders(), Accept: 'application/json' } });
-            const data = await res.json().catch(() => ({}));
-            if (!res.ok) {
-                const msg = (data && data.detail && data.detail.message) || data.message || data.detail || 'Oracle quick unavailable';
-                throw new Error(typeof msg === 'string' ? msg : 'Oracle quick unavailable');
+            try {
+                const res = await fetch(url, { headers: { ...authHeaders(), Accept: 'application/json' } });
+                const data = await res.json().catch(() => ({}));
+                if (!res.ok) {
+                    const msg = (data && data.detail && data.detail.message) || data.message || data.detail || 'Oracle quick unavailable';
+                    throw new Error(typeof msg === 'string' ? msg : 'Oracle quick unavailable');
+                }
+                if (window.BDOracleWorkspace) window.BDOracleWorkspace.onOracleSuccess(symbol, data);
+                return data;
+            } catch (error) {
+                const ws = window.BDOracleWorkspace;
+                const offline = ws && ws.getOfflinePayload(symbol);
+                if (offline) return offline;
+                throw error;
             }
-            return data;
         }
 
         async function refreshProveOracleFromQuick(force) {
@@ -1108,7 +1144,8 @@
                 html += buildCertBlock(d.decision_certificate || {}, d.prediction_id, safeShareUrl);
             }
             const fresh = String(d.freshness_state || (d.freshness && d.freshness.state) || '').toUpperCase() || '—';
-            html += `<div style="margin-top:.55rem;font-size:.72rem;color:#71717a">Live · /oracle/${esc(sym)}/quick · ${esc(fresh)} · ${esc(d.ux_mode || mode)} · ${esc(d.lang || lang)}</div>`;
+            const liveLabel = d._offline ? 'Offline · last known' : 'Live';
+            html += `<div style="margin-top:.55rem;font-size:.72rem;color:#71717a">${esc(liveLabel)} · /oracle/${esc(sym)}/quick · ${esc(fresh)} · ${esc(d.ux_mode || mode)} · ${esc(d.lang || lang)}</div>`;
             el.innerHTML = html;
         }
 
@@ -1612,6 +1649,17 @@
                     return data;
                 } catch (error) {
                     console.debug(error);
+                    const ws = window.BDOracleWorkspace;
+                    const offline = ws && ws.getOfflinePayload(sym);
+                    if (offline) {
+                        const pulse = oracleQuickToPulse(offline, sym);
+                        renderTrustPulse(pulse);
+                        renderOracleBoxFromQuick(offline);
+                        const freshEl = document.getElementById('tpFresh');
+                        if (freshEl) freshEl.textContent = 'Offline · last known';
+                        setShareProofButton(false);
+                        return offline;
+                    }
                     const freshEl = document.getElementById('tpFresh');
                     const sentenceEl = document.getElementById('tpSentence');
                     if (freshEl) freshEl.textContent = 'Unavailable';
@@ -2218,10 +2266,20 @@
                 }
             } catch (error) {
                 console.debug(error);
-                const empty = document.createElement('div');
-                empty.className = 'empty';
-                empty.textContent = i18nT('ui.could_not_analyze', { symbol: sym });
-                el.replaceChildren(empty);
+                const ws = window.BDOracleWorkspace;
+                const offline = ws && ws.getOfflinePayload(sym);
+                if (offline && currentLens === 'prove') {
+                    const pulse = oracleQuickToPulse(offline, sym);
+                    renderTrustPulse(pulse);
+                    renderOracleBoxFromQuick(offline);
+                } else if (offline) {
+                    renderOracleQuickDecision(el, offline, { sym, mode, lang });
+                } else {
+                    const empty = document.createElement('div');
+                    empty.className = 'empty';
+                    empty.textContent = i18nT('ui.could_not_analyze', { symbol: sym });
+                    el.replaceChildren(empty);
+                }
             } finally {
                 if (askBtn) {
                     askBtn.disabled = false;
@@ -3309,7 +3367,12 @@
         window.setSymbol = setSymbol;
         window.loadInbox = loadInbox;
 
+        window.openCompare = function () {
+            window.BDOracleWorkspace?.openCompareModal();
+        };
+
         function boot() {
+            initOracleWorkspace();
             loadAuth();
             applyLang();
             bindLensBar();
@@ -3323,10 +3386,20 @@
             const defer = () => runDeferredBoot();
             if (typeof requestIdleCallback === 'function') requestIdleCallback(defer, { timeout: 1500 });
             else setTimeout(defer, 0);
-            if (location.hash === '#trust-pulse') {
-                setTimeout(() => scrollToId('trust-pulse'), 80);
+            if (location.hash && location.hash.length > 1) {
+                const id = location.hash.slice(1);
+                setTimeout(() => scrollToId(id), 80);
             }
         }
+        function initOracleWorkspace() {
+            if (!window.BDOracleWorkspace) return;
+            window.BDOracleWorkspace.init({
+                fetchQuick: (sym) => fetchOracleQuick(sym, { force: false }),
+                getLang: currentLang,
+                getUxMode: () => document.getElementById('uxMode')?.value || 'beginner',
+            });
+        }
+
         if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
         else boot();
         bindLiveChartRefresh();

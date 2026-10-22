@@ -1,0 +1,42 @@
+<div id="bdDecisionToast" class="bd-decision-toast" role="status" aria-live="polite" hidden></div>
+
+<section id="watchlist" class="bd-workspace-section section-desk-only hide-in-room" aria-label="Watchlist">
+  <h2>Watchlist</h2>
+  <p class="sub">Track symbols locally — latest Oracle quick decision per row (stored on this device).</p>
+  <div class="toolbar" style="flex-wrap:wrap;gap:.5rem;margin-bottom:.65rem">
+    <input id="bdWatchlistInput" type="text" maxlength="12" placeholder="e.g. BTC" aria-label="Add symbol"
+      style="width:6rem;padding:.45rem .55rem;border-radius:8px;border:1px solid #2a2a35;background:#1a1a24;color:#e4e4e7">
+    <button type="button" class="btn secondary" id="bdWatchlistAddBtn">Add</button>
+    <button type="button" class="btn secondary" data-bd-call="openCompare">Compare</button>
+  </div>
+  <ul id="bdWatchlistRows" class="bd-watchlist-rows"></ul>
+</section>
+
+<section id="my-decisions" class="bd-workspace-section section-desk-only hide-in-room" aria-label="My Decisions">
+  <h2>My Decisions</h2>
+  <p class="sub">Last 50 Oracle decisions on this device (symbol, action, score, time, cert hash).</p>
+  <ul id="bdMyDecisionsList" class="bd-decisions-list"></ul>
+</section>
+
+<div id="bdCompareModal" class="bd-modal-backdrop" hidden role="dialog" aria-modal="true" aria-labelledby="bdCompareTitle">
+  <div class="bd-modal-card">
+    <h3 id="bdCompareTitle">Compare assets</h3>
+    <p class="sub">Pick 2–3 symbols — same Oracle quick data.</p>
+    <div class="bd-compare-picks">
+      {% for sym in oracle_symbols|default(['BTC', 'ETH', 'SOL', 'BNB', 'XRP']) %}
+      <label><input type="checkbox" class="bd-compare-pick" value="{{ sym }}"> {{ sym }}</label>
+      {% endfor %}
+    </div>
+    <div id="bdCompareBody"></div>
+    <button type="button" class="btn secondary" id="bdCompareClose">Close</button>
+  </div>
+</div>
+
+<div id="bdShareDecisionModal" class="bd-modal-backdrop" hidden role="dialog" aria-modal="true">
+  <div class="bd-modal-card">
+    <h3>Share decision</h3>
+    <textarea id="bdShareDecisionText" rows="5" readonly style="width:100%;margin:.65rem 0;font-size:.85rem"></textarea>
+    <button type="button" class="btn secondary" id="bdShareDecisionCopy">Copy</button>
+    <button type="button" class="btn secondary" id="bdShareDecisionClose">Close</button>
+  </div>
+</div>

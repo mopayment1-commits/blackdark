@@ -715,6 +715,7 @@
                     <p class="tp-mini-foot bd-anti-hype">{{ t('pulse.foot') }}</p>
                 </div>
             </section>
+            {% include 'partials/oracle_workspace.html' %}
         </div>
     </section>
 
@@ -1461,6 +1462,13 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                             upgradeEl.innerHTML = `<a class="btn-primary" href="${esc(safeUrl(detail.upgrade_url) || '/create-checkout-session?tier=pro')}">Upgrade to Pro</a>`;
                         }
                     } else {
+                        const offline = window.BDOracleWorkspace && window.BDOracleWorkspace.getOfflinePayload(symbol);
+                        if (offline) {
+                            const action = decideLandingAction(offline);
+                            oracleEl.textContent = fallbackDecisionSentence(offline, symbol, action) + ' (Offline · last known)';
+                            oracleDecisionShown = true;
+                            return;
+                        }
                         oracleEl.textContent = i18nT('oracle.error');
                     }
                     return;
@@ -1472,6 +1480,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 const action = decideLandingAction(data);
                 oracleEl.textContent = fallbackDecisionSentence(data, symbol, action);
                 oracleDecisionShown = true;
+                if (window.BDOracleWorkspace) window.BDOracleWorkspace.onOracleSuccess(symbol, data);
                 const certEl = document.getElementById('landingCert');
                 const cert = full ? (data.decision_certificate || {}) : {};
                 const disc = document.getElementById('landingDiscipline');
@@ -2134,7 +2143,27 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
         });
 
 
+        window.openCompare = function () {
+            window.BDOracleWorkspace?.openCompareModal();
+        };
+
         window.addEventListener('load', () => {
+            if (window.BDOracleWorkspace) {
+                window.BDOracleWorkspace.init({
+                    fetchQuick: async (sym) => {
+                        const mode = document.getElementById('landingUxMode')?.value || 'beginner';
+                        const lang = currentLang();
+                        const { data } = await fetchOraclePayload(sym, mode, lang);
+                        if (!landingOracleHasDecision(data)) {
+                            const offline = window.BDOracleWorkspace.getOfflinePayload(sym);
+                            if (offline) return offline;
+                            throw new Error('no decision');
+                        }
+                        return data;
+                    },
+                    getLang: currentLang,
+                });
+            }
             updateShareLinks(null);
             loadLandingAnalytics();
             loadTelegramBotLink();

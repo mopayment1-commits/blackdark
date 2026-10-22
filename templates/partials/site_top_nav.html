@@ -254,7 +254,19 @@
     .site-top-nav .bd-lang-select { max-width: 6.5rem; font-size: 0.78rem; }
     .site-top-nav .nav-util-link { font-size: 0.78rem; }
   }
+  .bd-theme-toggle {
+    border: 1px solid var(--border, #2a2a35);
+    background: transparent;
+    color: var(--text-muted, #a1a1aa);
+    border-radius: 8px;
+    padding: 0.35rem 0.55rem;
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 1;
+  }
+  .bd-theme-toggle:hover { color: var(--accent, #22d3ee); border-color: var(--accent, #22d3ee); }
 </style>
+<script src="/static/js/bd_oracle_workspace.js" defer></script>
 <nav class="landing-nav site-top-nav" aria-label="Primary">
   <div class="nav-container">
     <a class="logo" href="/">BLACKDARK</a>
@@ -267,6 +279,8 @@
       <a href="/oracle-accuracy"{% if nav_active is defined and nav_active == 'verify' %} class="active" aria-current="page"{% endif %}>{{ t('nav.verify') if t is defined else 'Verify' }}</a>
       <a href="/swap"{% if nav_active is defined and nav_active == 'swap' %} class="active" aria-current="page"{% endif %}>{{ t('nav.swap') if t is defined else 'Swap' }}</a>
       <a href="/wallet-balance"{% if nav_active is defined and nav_active == 'wallet' %} class="active" aria-current="page"{% endif %}>{{ t('nav.wallet_balance') if t is defined else 'Balance' }}</a>
+      <a href="/dashboard#watchlist" data-bd-scroll="watchlist">Watchlist</a>
+      <a href="/dashboard#my-decisions" data-bd-scroll="my-decisions">My Decisions</a>
       <a href="/about"{% if nav_active is defined and nav_active == 'about' %} class="active" aria-current="page"{% endif %}>{{ t('nav.about') if t is defined else 'About' }}</a>
     </div>
     <div class="nav-right">
@@ -280,6 +294,7 @@
         <div id="bdNavSearchResults" class="bd-nav-search-results" hidden></div>
       </div>
       <nav class="bd-header-util" aria-label="Account and language">
+        <button type="button" id="bdThemeToggle" class="nav-util-link bd-theme-toggle" aria-label="Toggle light/dark theme" title="Theme">☾</button>
         <span class="nav-globe-icon" aria-hidden="true">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
             <circle cx="12" cy="12" r="9"></circle>
