@@ -20,7 +20,7 @@ def test_watchlist_does_not_network_refresh_on_render():
 
 def test_landing_consult_oracle_boot_guard():
     landing = Path("templates/landing.html").read_text(encoding="utf-8")
-    boot = Path("static/js/landing_boot.js").read_text(encoding="utf-8")
+    boot = Path("static/js/landing_boot_main.js").read_text(encoding="utf-8")
     assert "landingOracleBootComplete" in boot
     assert "BDOracleFetchGate" in boot
     assert "BDSessionHint" in boot

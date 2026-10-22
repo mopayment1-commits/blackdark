@@ -698,6 +698,7 @@
     <div class="bg-grid"></div>
     <div class="bg-glow"></div>
 
+    {% set landing_lazy_scripts = true %}
     {% include 'partials/site_top_nav.html' %}
 
     <main id="main">
@@ -942,10 +943,6 @@
     
     {% include "partials/site_footer.html" %}
     
-    <script defer src="/static/js/csrf_fetch.js"></script>
-    <script defer src="/static/js/dom_escape.js?v=20261007-setAnchorHref"></script>
-    <script defer src="/static/js/public_decision_map.js"></script>
-    <script defer src="/static/js/bd_live_refresh.js"></script>
     {% if landing_pulse_ssr is defined and landing_pulse_ssr %}
     <script type="application/json" id="landing-pulse-ssr">{{ landing_pulse_ssr|tojson }}</script>
     {% endif %}

@@ -57,7 +57,7 @@ def test_landing_assets_exist_and_design_tokens():
     assert hero_jpg.is_file()
     assert hero_jpg.stat().st_size < 200_000
     assert "--bd-muted-dim: #a1a1aa" in css or "--bd-muted: #a1a1aa" in css
-    boot = (root / "static" / "js" / "landing_boot.js").read_text(encoding="utf-8")
+    boot = (root / "static" / "js" / "landing_boot_main.js").read_text(encoding="utf-8")
     assert boot.count("const action =") <= 4
     assert 'for="landingAudience"' in landing
     assert 'for="symbol"' in landing
@@ -80,6 +80,8 @@ def test_static_landing_assets_served():
         "/static/css/trust-os.css",
         "/static/css/landing.css",
         "/static/js/landing_boot.js",
+        "/static/js/landing_boot_main.js",
+        "/static/js/bd_lazy_script.js",
         "/static/img/blackdark-sealed-hero-1280.webp",
         "/static/img/blackdark-sealed-hero.webp",
         "/static/img/blackdark-sealed-hero.jpg",

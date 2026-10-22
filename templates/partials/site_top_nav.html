@@ -296,7 +296,9 @@
 </style>
 <script src="/static/js/bd_session_hint.js" defer></script>
 <script src="/static/js/bd_oracle_fetch_gate.js" defer></script>
+{% if not (landing_lazy_scripts is defined and landing_lazy_scripts) %}
 <script src="/static/js/bd_oracle_workspace.js" defer></script>
+{% endif %}
 <nav class="landing-nav site-top-nav" aria-label="Primary">
   <div class="nav-container">
     <a class="logo" href="/">BLACKDARK</a>
@@ -371,6 +373,11 @@
     </div>
   </div>
 </nav>
+{% if landing_lazy_scripts is defined and landing_lazy_scripts %}
+<script defer src="/static/js/bd_lazy_script.js"></script>
+<script defer src="/static/js/landing_nav_lazy.js"></script>
+{% else %}
 <script defer src="/static/js/bd_global_nav.js"></script>
 <script defer src="/static/js/bd_header_account.js"></script>
 <script defer src="/static/js/bd_site_search.js"></script>
+{% endif %}
