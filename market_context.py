@@ -443,10 +443,15 @@ async def _primary_rest_ticker(
     pair: str,
     session: aiohttp.ClientSession,
 ) -> dict[str, Any] | None:
-    for host in ("api.binance.com", "data-api.binance.vision", "api.binance.us"):
-        row = await _fetch_binance_host_ticker(pair, host, session=session)
-        if row is not None:
-            return row
+    from binance_public_api import fetch_ticker_24hr
+
+    row = await fetch_ticker_24hr(pair, session=session)
+    if row is not None:
+        return row
+    for host in _BINANCE_REST_HOSTS:
+        legacy = await _fetch_binance_host_ticker(pair, host, session=session)
+        if legacy is not None:
+            return legacy
     return None
 
 
@@ -473,21 +478,39 @@ async def _fallback_rest_ticker(
 
 
 async def fetch_binance_ticker(pair: str) -> dict | None:
-    """Live spot ticker — WS when fresh, else multi-source REST (Railway/cloud safe)."""
+    """Live spot — Binance public REST first, optional WS mid blend, then multi-source fallback."""
     asset = pair.replace("USDT", "").upper()
     fetched_at = datetime.now(UTC)
+
+    from binance_public_api import fetch_public_spot_market
+
+    row = await fetch_public_spot_market(pair)
+    if row is not None:
+        ws_row = await _ws_ticker_if_enabled(asset)
+        if ws_row is not None:
+            mid = ws_row.get("mid") or ws_row.get("price")
+            try:
+                mid_f = float(mid)
+                if mid_f > 0:
+                    row = dict(row)
+                    row["price"] = mid_f
+                    row["price_blend"] = "binance_ws_mid"
+            except (TypeError, ValueError):
+                pass
+        return enrich_ticker_freshness(row, fetched_at=fetched_at)
+
+    if not config.PRICE_FEED_WS_ONLY:
+        async with aiohttp.ClientSession(timeout=_HTTP_TIMEOUT, headers=_HTTP_HEADERS) as session:
+            row = await _primary_rest_ticker(pair, session)
+            if row is not None:
+                return enrich_ticker_freshness(row, fetched_at=fetched_at)
+            row = await _fallback_rest_ticker(asset, session)
+            if row is not None:
+                return enrich_ticker_freshness(row, fetched_at=fetched_at)
 
     ws_row = await _ws_ticker_if_enabled(asset)
     if ws_row is not None:
         return enrich_ticker_freshness(ws_row, fetched_at=fetched_at)
-
-    async with aiohttp.ClientSession(timeout=_HTTP_TIMEOUT, headers=_HTTP_HEADERS) as session:
-        row = await _primary_rest_ticker(pair, session)
-        if row is not None:
-            return enrich_ticker_freshness(row, fetched_at=fetched_at)
-        row = await _fallback_rest_ticker(asset, session)
-        if row is not None:
-            return enrich_ticker_freshness(row, fetched_at=fetched_at)
 
     logger.warning("All price sources failed | asset=%s", _safe_asset_label(asset).replace("\r", " ").replace("\n", " "))
     return None

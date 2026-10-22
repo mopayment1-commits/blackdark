@@ -2963,12 +2963,9 @@ async def _compute_oracle_quick_payload(
     lang: str,
     ux_mode: str,
 ) -> dict:
-    from live_book_hub import get_best_price
+    from binance_public_api import fetch_public_spot_market
 
-    from live_book_hub import get_best_price, is_quote_fresh
-
-    row = get_best_price("binance", f"{asset}/USDT")
-    market = _quick_ws_market(row) if row and is_quote_fresh("binance", f"{asset}/USDT") else None
+    market = await fetch_public_spot_market(pair)
     if market is None:
         market = await _fetch_binance_ticker(pair)
     if market is None:
@@ -3004,7 +3001,7 @@ async def _compute_oracle_quick_payload(
         except (TypeError, ValueError):
             quote_age = None
     price_source = _quick_price_source_label(market)
-    return _quick_payload(
+    out = _quick_payload(
         asset,
         price,
         change,
@@ -3022,6 +3019,17 @@ async def _compute_oracle_quick_payload(
         quote_volume=quote_volume,
         price_source=price_source,
     )
+    ob = market.get("order_book")
+    if isinstance(ob, dict):
+        out["order_book"] = {
+            "best_bid": ob.get("best_bid"),
+            "best_ask": ob.get("best_ask"),
+            "spread_bps": ob.get("spread_bps"),
+            "source": ob.get("source"),
+        }
+    if market.get("price_blend"):
+        out["price_blend"] = market.get("price_blend")
+    return out
 
 
 def _quick_ws_market(row: dict | None) -> dict | None:
@@ -3038,8 +3046,12 @@ def _quick_ws_market(row: dict | None) -> dict | None:
 
 def _quick_price_source_label(market: dict[str, Any]) -> str:
     src = str(market.get("source") or "").strip()
+    if market.get("price_blend") == "binance_ws_mid":
+        return "binance_ws"
     if src == "websocket_live":
         return "binance_ws"
+    if src.startswith("binance_rest:") or src.startswith("binance:"):
+        return "binance_rest"
     if src:
         return src
     return "binance_rest"
