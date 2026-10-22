@@ -496,6 +496,15 @@
             <div id="mevResult" class="empty">Generate a shareable MEV report</div>
         </section>
 
+        <section id="financial-news" class="section-desk-only hide-in-room">
+            <h2>Market headlines</h2>
+            <p class="sub">U.S. Fed, SEC &amp; CFTC press RSS — titles link to the publisher (not investment advice).</p>
+            <ul id="financialNewsList" style="list-style:none;padding:0;margin:0;font-size:.88rem;line-height:1.45">
+                <li class="loading">Loading headlines…</li>
+            </ul>
+            <p id="financialNewsFoot" class="sub" style="margin-top:.5rem;font-size:.72rem"></p>
+        </section>
+
         <section id="alerts" class="section-operate-plus hide-in-room">
             <h2 id="alertsTitle">Alerts</h2>
             <p class="sub" id="tgStatus">In-app inbox: no TradingView-style 15-alerts / 3-min hard cap · only Truth + Half-Life survivors fire</p>
@@ -2655,6 +2664,34 @@
             });
         }
 
+        async function loadFinancialNews() {
+            const list = document.getElementById('financialNewsList');
+            const foot = document.getElementById('financialNewsFoot');
+            if (!list) return;
+            try {
+                const res = await fetch('/api/public/news/headlines?limit=8');
+                const data = await res.json();
+                const rows = data.headlines || [];
+                if (!rows.length) {
+                    list.innerHTML = '<li class="empty">No headlines available right now.</li>';
+                    if (foot) foot.textContent = data.license_note || '';
+                    return;
+                }
+                list.innerHTML = rows.map((row) => {
+                    const title = esc(row.title || '');
+                    const src = esc(row.source || '');
+                    const url = row.url ? esc(row.url) : '';
+                    const inner = url
+                        ? `<a href="${url}" target="_blank" rel="noopener noreferrer">${title}</a>`
+                        : title;
+                    return `<li style="margin-bottom:.45rem"><span style="color:#71717a;font-size:.75rem">${src}</span> · ${inner}</li>`;
+                }).join('');
+                if (foot) foot.textContent = data.attribution ? (data.attribution + ' — ' + (data.license_note || '')) : (data.license_note || '');
+            } catch (e) {
+                list.innerHTML = '<li class="empty">Headlines unavailable.</li>';
+            }
+        }
+
         async function loadPriceAlerts() {
             const cid = priceAlertClientId();
             try {
@@ -3245,6 +3282,7 @@
             loadInbox();
             bindPriceAlertsUi();
             void loadPriceAlerts();
+            void loadFinancialNews();
             setInterval(loadMarket, 60000);
             setInterval(loadInbox, 90000);
             setInterval(() => { void loadPriceAlerts(); }, 60000);

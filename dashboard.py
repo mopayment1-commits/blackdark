@@ -1773,6 +1773,13 @@ async def public_price_alerts_delete(alert_id: str, client_id: str = Query(..., 
     return row
 
 
+@app.get("/api/public/news/headlines")
+async def public_financial_news_headlines(limit: int = 8):
+    from financial_news_public import fetch_financial_headlines
+
+    return await fetch_financial_headlines(limit=max(1, min(int(limit or 8), 20)))
+
+
 @app.get("/api/public/market/chart-bars")
 async def public_market_chart_bars(
     symbol: str = "BTC",

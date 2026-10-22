@@ -277,6 +277,20 @@ FRED_API_KEY = os.getenv("FRED_API_KEY", "").strip()
 FRED_DAILY_LIMIT = int(os.getenv("FRED_DAILY_LIMIT", "10000"))
 FRED_RPS_LIMIT = int(os.getenv("FRED_RPS_LIMIT", "5"))
 FRED_CACHE_TTL_SEC = float(os.getenv("FRED_CACHE_TTL_SEC", "3600"))
+# Financial headlines RSS — U.S. agency feeds (public information; link-out only).
+FINANCIAL_NEWS_RSS_FEEDS = [
+    feed.strip()
+    for feed in os.getenv(
+        "FINANCIAL_NEWS_RSS_FEEDS",
+        "https://www.federalreserve.gov/feeds/press_all.xml,"
+        "https://www.sec.gov/news/pressreleases.rss,"
+        "https://www.cftc.gov/PressRoom/PressReleases/RSS/index.xml",
+    ).split(",")
+    if feed.strip()
+]
+FINANCIAL_NEWS_CACHE_TTL_SEC = float(os.getenv("FINANCIAL_NEWS_CACHE_TTL_SEC", "300"))
+FINANCIAL_NEWS_RPS_LIMIT = int(os.getenv("FINANCIAL_NEWS_RPS_LIMIT", "4"))
+FINANCIAL_NEWS_PER_FEED_LIMIT = int(os.getenv("FINANCIAL_NEWS_PER_FEED_LIMIT", "5"))
 COINMARKETCAP_LISTINGS_URL = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest"
 COINMARKETCAP_EXCHANGES_URL = "https://pro-api.coinmarketcap.com/v1/exchange/listings/latest"
 OPERATIONAL_MANIFEST_PATH = DATA_DIR / "operational_manifest.json"
