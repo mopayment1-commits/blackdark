@@ -285,11 +285,30 @@ async def wallet_balance(address: str) -> dict[str, Any]:
                 }
         except Exception:
             logger.debug("etherscan wallet fallback failed", exc_info=True)
+        try:
+            from blockscout_public_api import fetch_address_summary
+
+            bs = await fetch_address_summary(address, chain="ethereum")
+            if bs:
+                row = {
+                    "available": True,
+                    "source": "blockscout",
+                    "address": address,
+                    "balance_native": bs.get("balance_native"),
+                    "balance_wei": bs.get("balance_wei"),
+                    "tier": "blockscout_free",
+                    "note": "Native balance via Blockscout (fallback after Etherscan)",
+                }
+                if bs.get("native_usd_estimate"):
+                    row["total_usd"] = bs.get("native_usd_estimate")
+                return row
+        except Exception:
+            logger.debug("blockscout wallet fallback failed", exc_info=True)
 
     return {
         "available": False,
         "address": address,
-        "reason": "Wallet lookup failed — set ZERION_API_KEY, DEBANK_API_KEY, or ETHERSCAN_API_KEY",
+        "reason": "Wallet lookup failed — set ZERION_API_KEY, DEBANK_API_KEY, or use explorer fallbacks",
     }
 
 

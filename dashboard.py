@@ -1807,6 +1807,43 @@ async def public_swap_status(exchange_id: str):
     return row
 
 
+@app.get("/api/public/onchain/blockscout/usage")
+async def public_blockscout_usage():
+    from blockscout_public_api import usage_stats
+
+    return usage_stats()
+
+
+@app.get("/api/public/onchain/blockscout/address")
+async def public_blockscout_address(
+    address: str,
+    chain: str = "ethereum",
+    include_txs: bool = True,
+    tx_limit: int = 5,
+):
+    from blockscout_public_api import fetch_explorer_fallback
+
+    row = await fetch_explorer_fallback(
+        address,
+        chain=chain,
+        include_transactions=include_txs,
+        tx_limit=max(1, min(int(tx_limit or 5), 10)),
+    )
+    if not row.get("ok"):
+        raise HTTPException(status_code=503, detail=row)
+    return row
+
+
+@app.get("/api/public/onchain/blockscout/transaction/{tx_hash}")
+async def public_blockscout_transaction(tx_hash: str, chain: str = "ethereum"):
+    from blockscout_public_api import fetch_transaction_by_hash
+
+    row = await fetch_transaction_by_hash(tx_hash, chain=chain)
+    if row is None:
+        raise HTTPException(status_code=404, detail="Transaction not found or quota exceeded")
+    return row
+
+
 @app.get("/api/public/onchain/etherscan/usage")
 async def public_etherscan_usage():
     from etherscan_public_api import usage_stats

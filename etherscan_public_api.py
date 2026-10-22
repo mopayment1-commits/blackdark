@@ -278,20 +278,55 @@ async def fetch_address_onchain_fallback(
     tx_limit: int = 5,
 ) -> dict[str, Any]:
     """Bundle used when primary wallet aggregators are unavailable."""
+    from blockscout_public_api import fetch_explorer_fallback
+
     stats = usage_stats()
+    etherscan_attempted = False
+    if stats["configured"] and stats["remaining_today"] > 0:
+        etherscan_attempted = True
+        bal = await fetch_eth_balance_wei(address)
+        txs: list[dict[str, Any]] = []
+        if include_transactions and bal is not None:
+            txs = await fetch_normal_transactions(address, limit=tx_limit)
+        if bal or txs:
+            return {
+                "ok": True,
+                "source": "etherscan_free",
+                "attribution": "Data: Etherscan",
+                "balance": bal,
+                "recent_transactions": txs,
+                "usage": usage_stats(),
+            }
+
+    bs = await fetch_explorer_fallback(
+        address,
+        chain="ethereum",
+        include_transactions=include_transactions,
+        tx_limit=tx_limit,
+    )
+    if bs.get("ok"):
+        if etherscan_attempted or stats["configured"]:
+            bs["fallback_after"] = "etherscan"
+        return bs
+
     if not stats["configured"]:
-        return {"ok": False, "error": "not_configured", "usage": stats}
+        return {
+            "ok": False,
+            "error": "not_configured",
+            "usage": stats,
+            "blockscout_usage": bs.get("usage"),
+        }
     if stats["remaining_today"] <= 0:
-        return {"ok": False, "error": "daily_limit_exceeded", "usage": stats}
-    bal = await fetch_eth_balance_wei(address)
-    txs: list[dict[str, Any]] = []
-    if include_transactions and bal is not None:
-        txs = await fetch_normal_transactions(address, limit=tx_limit)
+        return {
+            "ok": False,
+            "error": "daily_limit_exceeded",
+            "usage": stats,
+            "blockscout_usage": bs.get("usage"),
+        }
     return {
-        "ok": bool(bal or txs),
+        "ok": False,
         "source": "etherscan_free",
-        "attribution": "Data: Etherscan",
-        "balance": bal,
-        "recent_transactions": txs,
+        "error": "explorer_unavailable",
         "usage": usage_stats(),
+        "blockscout_usage": bs.get("usage"),
     }
