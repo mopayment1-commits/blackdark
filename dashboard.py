@@ -1724,6 +1724,39 @@ async def public_fred_context():
     return row
 
 
+@app.get("/api/public/price-alerts")
+async def public_price_alerts_list(client_id: str = Query(..., min_length=16, max_length=64)):
+    from price_alerts_public import evaluate_alerts
+
+    return await evaluate_alerts(client_id)
+
+
+@app.post("/api/public/price-alerts")
+async def public_price_alerts_create(body: dict = Body(default=None)):
+    from price_alerts_public import create_alert
+
+    payload = body if isinstance(body, dict) else {}
+    row = await create_alert(
+        client_id=str(payload.get("client_id") or ""),
+        symbol=str(payload.get("symbol") or "BTC"),
+        direction=str(payload.get("direction") or "above"),
+        target_price=float(payload.get("target_price") or 0),
+    )
+    if not row.get("ok"):
+        raise HTTPException(status_code=400, detail=row)
+    return row
+
+
+@app.delete("/api/public/price-alerts/{alert_id}")
+async def public_price_alerts_delete(alert_id: str, client_id: str = Query(..., min_length=16, max_length=64)):
+    from price_alerts_public import delete_alert
+
+    row = delete_alert(client_id, alert_id)
+    if not row.get("ok"):
+        raise HTTPException(status_code=404, detail=row)
+    return row
+
+
 @app.get("/api/public/market/chart-bars")
 async def public_market_chart_bars(
     symbol: str = "BTC",

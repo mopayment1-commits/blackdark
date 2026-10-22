@@ -500,6 +500,28 @@
             <h2 id="alertsTitle">Alerts</h2>
             <p class="sub" id="tgStatus">In-app inbox: no TradingView-style 15-alerts / 3-min hard cap · only Truth + Half-Life survivors fire</p>
             <div id="alertsGenerosity" class="sub" style="margin-bottom:.75rem"></div>
+            <div class="arb-card" id="priceAlertsPanel" style="margin-bottom:1rem;padding:.85rem;border:1px solid #2a2a35;border-radius:10px;background:#14141c">
+                <h3 style="font-size:1rem;margin:0 0 .35rem">Simple price alerts</h3>
+                <p class="sub" style="margin:0 0 .65rem;font-size:.8rem">Above/below spot (Binance public feed). Stored on this device ID — non-custodial, no auto-trading.</p>
+                <div class="toolbar" style="flex-wrap:wrap;gap:.5rem;margin-bottom:.5rem">
+                    <label for="paSymbol" class="sr-only">Alert symbol</label>
+                    <select id="paSymbol" aria-label="Alert symbol" style="min-width:5rem">
+                        {% for sym in oracle_symbols|default(['BTC', 'ETH', 'SOL']) %}
+                        <option value="{{ sym }}">{{ sym }}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="paDirection" class="sr-only">Direction</label>
+                    <select id="paDirection" aria-label="Direction">
+                        <option value="above">Price above</option>
+                        <option value="below">Price below</option>
+                    </select>
+                    <label for="paTarget" class="sr-only">Target price</label>
+                    <input id="paTarget" type="number" step="any" min="0" placeholder="Target USD" style="width:8rem;padding:.45rem .55rem;border-radius:8px;border:1px solid #2a2a35;background:#1a1a24;color:#e4e4e7">
+                    <button type="button" class="btn secondary" id="paAddBtn">Add alert</button>
+                    <button type="button" class="btn secondary" id="paRefreshBtn">Check prices</button>
+                </div>
+                <ul id="priceAlertsList" style="list-style:none;padding:0;margin:0;font-size:.88rem"><li class="empty">No price alerts yet.</li></ul>
+            </div>
             <div class="toolbar">
                 <button class="btn secondary" type="button" id="inboxRefreshBtn">Refresh Inbox</button>
                 <button class="btn secondary" data-bd-call="testTelegram">Test Telegram</button>
@@ -2598,6 +2620,103 @@
             } catch (error) { console.debug(error); }
         }
 
+        const PA_CLIENT_KEY = 'bd_price_alert_client';
+
+        function priceAlertClientId() {
+            let id = localStorage.getItem(PA_CLIENT_KEY);
+            if (!id) {
+                id = (typeof crypto !== 'undefined' && crypto.randomUUID)
+                    ? crypto.randomUUID()
+                    : ('pa-' + Date.now() + '-' + Math.random().toString(16).slice(2));
+                localStorage.setItem(PA_CLIENT_KEY, id);
+            }
+            return id;
+        }
+
+        function renderPriceAlertsList(data) {
+            const list = document.getElementById('priceAlertsList');
+            if (!list) return;
+            const rows = data.alerts || [];
+            if (!rows.length) {
+                list.innerHTML = '<li class="empty">No price alerts yet.</li>';
+                return;
+            }
+            list.innerHTML = rows.map((a) => {
+                const cur = a.current_price != null ? (' · now $' + fmt(a.current_price, a.current_price < 1 ? 4 : 2)) : '';
+                const dir = a.direction === 'below' ? 'below' : 'above';
+                const fired = a.triggered ? ' · <strong style="color:#22c55e">triggered</strong>' : (a.condition_met ? ' · <strong style="color:#fbbf24">condition met</strong>' : '');
+                return `<li style="padding:.45rem 0;border-bottom:1px solid #2a2a35;display:flex;justify-content:space-between;gap:.5rem;align-items:flex-start">
+                    <span>${esc(a.symbol)} ${esc(dir)} $${esc(fmt(a.target_price, a.target_price < 1 ? 4 : 2))}${cur}${fired}</span>
+                    <button type="button" class="btn secondary" style="padding:.25rem .5rem;font-size:.72rem" data-pa-del="${esc(a.id)}">Remove</button>
+                </li>`;
+            }).join('');
+            list.querySelectorAll('[data-pa-del]').forEach((btn) => {
+                btn.addEventListener('click', () => deletePriceAlert(btn.getAttribute('data-pa-del')));
+            });
+        }
+
+        async function loadPriceAlerts() {
+            const cid = priceAlertClientId();
+            try {
+                const res = await fetch('/api/public/price-alerts?client_id=' + encodeURIComponent(cid));
+                const data = await res.json();
+                if (!res.ok) throw new Error('load_failed');
+                renderPriceAlertsList(data);
+            } catch (e) {
+                console.debug(e);
+                const list = document.getElementById('priceAlertsList');
+                if (list) list.innerHTML = '<li class="empty">Price alerts unavailable.</li>';
+            }
+        }
+
+        async function addPriceAlert() {
+            const sym = document.getElementById('paSymbol')?.value || 'BTC';
+            const direction = document.getElementById('paDirection')?.value || 'above';
+            const target = parseFloat(document.getElementById('paTarget')?.value || '0', 10);
+            if (!target || target <= 0) return;
+            const cid = priceAlertClientId();
+            try {
+                const res = await fetch('/api/public/price-alerts', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        client_id: cid,
+                        symbol: sym,
+                        direction,
+                        target_price: target,
+                    }),
+                });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.detail || 'create_failed');
+                document.getElementById('paTarget').value = '';
+                await loadPriceAlerts();
+            } catch (e) { console.debug(e); }
+        }
+
+        async function deletePriceAlert(id) {
+            if (!id) return;
+            const cid = priceAlertClientId();
+            try {
+                await fetch('/api/public/price-alerts/' + encodeURIComponent(id) + '?client_id=' + encodeURIComponent(cid), {
+                    method: 'DELETE',
+                });
+                await loadPriceAlerts();
+            } catch (e) { console.debug(e); }
+        }
+
+        function bindPriceAlertsUi() {
+            const add = document.getElementById('paAddBtn');
+            const ref = document.getElementById('paRefreshBtn');
+            if (add && add.dataset.bound !== '1') {
+                add.dataset.bound = '1';
+                add.addEventListener('click', () => { void addPriceAlert(); });
+            }
+            if (ref && ref.dataset.bound !== '1') {
+                ref.dataset.bound = '1';
+                ref.addEventListener('click', () => { void loadPriceAlerts(); });
+            }
+        }
+
         async function loadWhales(refresh) {
             const el = document.getElementById('whaleList');
             const foot = document.getElementById('whaleCompliance');
@@ -3124,8 +3243,11 @@
             loadTgStatus();
             loadAlertsGenerosity();
             loadInbox();
+            bindPriceAlertsUi();
+            void loadPriceAlerts();
             setInterval(loadMarket, 60000);
             setInterval(loadInbox, 90000);
+            setInterval(() => { void loadPriceAlerts(); }, 60000);
         }
 
         function scheduleCommandHome() {
