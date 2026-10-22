@@ -748,6 +748,24 @@ async def _payload_after_flip_persistence(
     return payload, "decision_changed"
 
 
+def latest_trust_pulse_snapshot(
+    symbol: str = DEFAULT_SYMBOL,
+    *,
+    max_age_sec: float = 300.0,
+) -> dict[str, Any] | None:
+    """Return cached pulse for SSR / first paint without recomputing oracle."""
+    sym = (symbol or DEFAULT_SYMBOL).strip().upper() or DEFAULT_SYMBOL
+    with _LOCK:
+        entry = dict(_PULSE_CACHE.get(sym) or {})
+    payload = entry.get("payload")
+    if not isinstance(payload, dict):
+        return None
+    fetched = float(entry.get("fetched_at") or 0)
+    if fetched and (time.time() - fetched) > max_age_sec:
+        return None
+    return dict(payload)
+
+
 def _store_pulse_cache(sym: str, payload: dict[str, Any]) -> None:
     action = _norm_action(payload.get("decision_action") or payload.get("verdict") or payload.get("action"))
     with _LOCK:

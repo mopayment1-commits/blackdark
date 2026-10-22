@@ -1,7 +1,15 @@
+<style>
+  .bd-workspace-section .bd-workspace-heading {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0 0 0.35rem;
+    color: var(--text, #e4e4e7);
+  }
+</style>
 <div id="bdDecisionToast" class="bd-decision-toast" role="status" aria-live="polite" hidden></div>
 
 <section id="watchlist" class="bd-workspace-section section-desk-only hide-in-room" aria-label="Watchlist">
-  <h2>Watchlist</h2>
+  <h3 class="bd-workspace-heading">Watchlist</h3>
   <p class="sub">Track symbols locally — latest Oracle quick decision per row (stored on this device).</p>
   <div class="toolbar" style="flex-wrap:wrap;gap:.5rem;margin-bottom:.65rem">
     <input id="bdWatchlistInput" type="text" maxlength="12" placeholder="e.g. BTC" aria-label="Add symbol"
@@ -13,7 +21,7 @@
 </section>
 
 <section id="my-decisions" class="bd-workspace-section section-desk-only hide-in-room" aria-label="My Decisions">
-  <h2>My Decisions</h2>
+  <h3 class="bd-workspace-heading">My Decisions</h3>
   <p class="sub">Last 50 Oracle decisions on this device (symbol, action, score, time, cert hash).</p>
   <ul id="bdMyDecisionsList" class="bd-decisions-list"></ul>
 </section>

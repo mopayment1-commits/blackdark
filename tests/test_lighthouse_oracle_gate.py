@@ -20,10 +20,12 @@ def test_watchlist_does_not_network_refresh_on_render():
 
 def test_landing_consult_oracle_boot_guard():
     landing = Path("templates/landing.html").read_text(encoding="utf-8")
-    assert "landingOracleBootComplete" in landing
-    assert "BDOracleFetchGate" in landing
-    assert "BDSessionHint" in landing
+    boot = Path("static/js/landing_boot.js").read_text(encoding="utf-8")
+    assert "landingOracleBootComplete" in boot
+    assert "BDOracleFetchGate" in boot
+    assert "BDSessionHint" in boot
     assert "landing-inline-link" in landing
+    assert 'defer src="/static/js/landing_boot.js"' in landing
 
 
 def test_lang_select_accessible_name():
@@ -35,5 +37,6 @@ def test_lang_select_accessible_name():
 
 def test_social_heading_is_h3():
     html = Path("templates/partials/site_follow_social.html").read_text(encoding="utf-8")
-    assert '<h3 class="bd-social-heading">' in html
+    assert 'class="bd-social-heading"' in html and "<h3" in html
+    assert 'id="follow-us-heading"' in html
     assert "<h4 class=\"bd-social-heading\"" not in html

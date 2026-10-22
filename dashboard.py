@@ -2333,6 +2333,62 @@ _landing_html_cache: dict[str, tuple[float, str]] = {}
 _LANDING_HTML_CACHE_TTL = float(os.getenv("LANDING_HTML_CACHE_TTL_SEC", "45"))
 
 
+def _landing_pulse_view_from_payload(pulse: dict[str, Any]) -> dict[str, str]:
+    from supplemental_public_compliance import map_public_decision_action
+
+    sym = str(pulse.get("symbol") or "BTC").strip().upper() or "BTC"
+    act = map_public_decision_action(
+        str(pulse.get("action") or pulse.get("verdict") or pulse.get("decision_action") or "WAIT")
+    )
+    css = "WAIT" if act == "CONDITIONS MET" else act.replace(" ", "_")
+    price = pulse.get("price")
+    price_bit = ""
+    if price is not None:
+        try:
+            price_bit = f" · ${float(price):,.2f}"
+        except (TypeError, ValueError):
+            price_bit = ""
+    sentence = (
+        pulse.get("sentence")
+        or pulse.get("decision_sentence")
+        or pulse.get("narrative")
+        or ""
+    )
+    return {
+        "action": act,
+        "action_class": css,
+        "symbol_line": f"{sym}{price_bit}",
+        "sentence": str(sentence).strip(),
+    }
+
+
+async def _warm_landing_pulse_cache(lang: str) -> None:
+    import asyncio
+
+    from trust_pulse import build_trust_pulse
+
+    try:
+        await asyncio.wait_for(
+            build_trust_pulse("BTC", tier="free", ux_mode="beginner", lang=lang),
+            timeout=12.0,
+        )
+    except Exception:
+        logger.debug("landing pulse warm skipped", exc_info=True)
+
+
+async def _landing_pulse_ssr_payload(lang: str) -> tuple[dict[str, Any] | None, dict[str, str] | None]:
+    from trust_pulse import latest_trust_pulse_snapshot
+
+    pulse = latest_trust_pulse_snapshot("BTC")
+    if pulse:
+        return pulse, _landing_pulse_view_from_payload(pulse)
+    try:
+        asyncio.get_running_loop().create_task(_warm_landing_pulse_cache(lang))
+    except RuntimeError:
+        pass
+    return None, None
+
+
 @app.get("/", response_class=HTMLResponse)
 async def landing_page(request: Request):
     import time
@@ -2341,7 +2397,7 @@ async def landing_page(request: Request):
 
     lang = resolve_request_lang(request)
     auth_segment = "auth" if getattr(request.state, "header_user", None) else "anon"
-    cache_key = f"v6:{lang}:{auth_segment}"
+    cache_key = f"v7:{lang}:{auth_segment}"
     now = time.time()
     hit = _landing_html_cache.get(cache_key)
     if hit and (now - hit[0]) < _LANDING_HTML_CACHE_TTL:
@@ -2360,6 +2416,10 @@ async def landing_page(request: Request):
         return response
 
     ctx = template_context(request, _footer_ctx())
+    pulse_raw, pulse_view = await _landing_pulse_ssr_payload(lang)
+    if pulse_raw:
+        ctx["landing_pulse_ssr"] = pulse_raw
+        ctx["landing_pulse_view"] = pulse_view
     import config as _cfg
 
     ctx["oracle_symbols"] = _cfg.tracked_asset_list()
@@ -6218,3 +6278,4 @@ if __name__ == "__main__":
     host = os.environ.get("HOST", "127.0.0.1")
     uvicorn.run(app, host=host, port=port)
 
+                                       
