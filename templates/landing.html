@@ -16,7 +16,7 @@
     <link rel="apple-touch-icon" href="/static/icon-192.png">
     <title>BLACKDARK — {{ t('hero.headline') }}</title>
     <script type="application/ld+json">
-    {"@context":"https://schema.org","@type":"WebApplication","name":"BLACKDARK","description":"Trust OS decision intelligence with public accuracy ledger and Decision Certificates","url":"/","applicationCategory":"FinanceApplication"}
+    {"@context":"https://schema.org","@type":"WebApplication","name":"BLACKDARK","description":"Trust OS decision intelligence with public accuracy ledger and Decision Certificates","url":"https://blackdark.io/","applicationCategory":"BusinessApplication","operatingSystem":"Web","browserRequirements":"Requires JavaScript. Requires HTML5.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
     </script>
     <link rel="preload" as="image" href="/static/img/blackdark-sealed-hero-1280.webp" type="image/webp" fetchpriority="high">
     <link rel="preload" href="/static/css/trust-os.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -32,8 +32,8 @@
           --bd-border: #2a2a35;
           --bd-text: #f4f4f5;
           --bd-text-secondary: #e4e4e7;
-          --bd-muted: #a1a1aa;
-          --bd-muted-dim: #a1a1aa;
+          --bd-muted: #c8c8d0;
+          --bd-muted-dim: #c8c8d0;
           --bd-accent: #22d3ee;
           --bd-accent-glow: rgba(34, 211, 238, 0.14);
           --bg: var(--bd-bg);
@@ -211,7 +211,7 @@
 
         .hero-support {
             font-size: 1.02rem;
-            color: #a1a1aa;
+            color: #c8c8d0;
             max-width: 34rem;
             margin: 0 auto 1.35rem;
             line-height: 1.55;
@@ -722,7 +722,18 @@
         body.landing-page .bd-site-footer-root .bd-foot-tag { color: #c8c8d0; }
         body.landing-page .bd-ask-ai-note,
         body.landing-page .bd-eu-consent-note { color: #c8c8d0; }
-        body.landing-page .bd-nav-search-wrap svg { color: #a1a1aa; }
+        body.landing-page .bd-nav-search-wrap svg { color: #c8c8d0; }
+        body.landing-page .bd-foot-bottom a {
+            color: #e4e4e7;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            text-decoration-thickness: 1px;
+        }
+        body.landing-page .bd-foot-bottom strong { color: #c8c8d0; }
+        body.landing-page .bd-site-footer .bd-foot-tag { color: #c8c8d0; }
+        body.landing-page .bd-eu-btn-ghost { color: #c8c8d0; }
+        body.landing-page .bd-ask-ai-head button { color: #c8c8d0; }
+        body.landing-page .bd-util-link { color: #d8d8de; text-decoration: underline; text-underline-offset: 2px; }
         .bd-visually-hidden {
             position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
             overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
@@ -782,7 +793,7 @@
                     <p class="tp-mini-sentence" id="lpSentence">{{ _lp.sentence if _lp else t('pulse.sentence') }}</p>
                     <div class="tp-mini-why" id="lpWhy"></div>
                     <div class="tp-mini-proof" id="lpProof"></div>
-                    <p class="tp-mini-proof-toast" id="lpProofCopyMsg" role="status" aria-live="polite" hidden></p>
+                    <p class="tp-mini-proof-toast" id="lpProofCopyMsg" role="status" hidden></p>
                     <div class="tp-mini-proof-drawer" id="lpProofDrawer" hidden></div>
                     <div class="tp-mini-cta">
                         <a href="/dashboard?lens=prove#trust-pulse" class="btn-primary" style="padding:.55rem 1.1rem;font-size:.9rem">{{ t('pulse.open_full') }}</a>
@@ -817,7 +828,7 @@
                 <span>{{ t('seal.s3.body') }}</span>
             </div>
         </div>
-        <div id="sealCertificateStamp" class="seal-cert-stamp" style="display:none" aria-live="polite">
+        <div id="sealCertificateStamp" class="seal-cert-stamp" style="display:none" role="status">
             {{ t('seal.stamp_prefix') }} <code id="sealCertificateHash"></code>
         </div>
     </section>
@@ -852,7 +863,7 @@
                     </label>
                     <input type="hidden" id="landingLang" name="landingLang" value="{{ lang|default('en') }}">
                     <label class="field-label" for="symbol" style="display:inline-flex;flex-direction:column;gap:.25rem;font-size:.75rem;color:var(--text-muted);text-align:left">{{ t('oracle.field.symbol') }}
-                    <select id="symbol" name="symbol" class="oracle-symbol-select" aria-label="{{ t('oracle.field.symbol') }}">
+                    <select id="symbol" name="symbol" class="oracle-symbol-select">
                         {% for sym in oracle_symbols|default(['BTC']) %}
                         <option value="{{ sym }}"{% if sym == 'BTC' %} selected{% endif %}>{{ sym }}</option>
                         {% endfor %}
