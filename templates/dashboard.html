@@ -7,6 +7,7 @@
     <title>{{ t('meta.title.dashboard_room') }}</title>
     <link rel="stylesheet" href="/static/css/trust-os.css">
     <script defer src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js" integrity="sha384-OK7vELvjHdhUFi31JYioPIcRHTROLdcDa6ZsNWgvgLaKj+9JqhU0Ad8g4wz3CXjA" crossorigin="anonymous"></script>
+    <script defer src="/static/js/bd_lightweight_chart.js"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         .sr-only { position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0; }
@@ -292,6 +293,10 @@
             <div class="tp-why">
                 <h3 id="tpWhyTitle">Why (under 5 seconds)</h3>
                 <div id="tpFactors"><div class="empty" style="padding:.25rem 0">Loading factors…</div></div>
+            </div>
+            <div id="tpPriceChartWrap" style="margin-top:.85rem" aria-label="Trust Pulse price chart">
+                <div id="tpPriceChart" style="height:220px;width:100%;border-radius:10px;border:1px solid #2a2a35;background:#111118"></div>
+                <p class="sub" id="tpChartNote" style="margin-top:.35rem;font-size:.72rem;color:#71717a">TradingView Lightweight Charts · loading…</p>
             </div>
             <div class="tp-proof" id="tpProof"></div>
             <div class="tp-cont" id="tpContinuity"></div>
@@ -1590,10 +1595,19 @@
             return trustPulseQuickInflight;
         }
 
+        async function loadTrustPulseChart(forceSym) {
+            const el = document.getElementById('tpPriceChart');
+            const note = document.getElementById('tpChartNote');
+            if (!el || typeof bdMountPriceChart !== 'function') return;
+            const sym = (forceSym || trustPulseSymbolValue()).trim().toUpperCase() || 'BTC';
+            await bdMountPriceChart(el, { symbol: sym, interval: '1h', limit: 120, noteEl: note });
+        }
+
         function onTrustPulseSymbolChange(sym) {
             const v = (sym || document.getElementById('tpSymbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
             const sel = document.getElementById('tpSymbol');
             if (sel) sel.value = v;
+            void loadTrustPulseChart(v);
             if (currentLens === 'prove') loadTrustPulseQuick(true);
             else if (currentLens === 'operate') {
                 const mainSym = document.getElementById('symbol');
@@ -2297,24 +2311,52 @@
                 if (forceRefresh) qs.set('_', String(Date.now()));
                 const res = await fetch(LAUNCH57_OHLCV + '?' + qs.toString());
                 const payload = await res.json();
-                if (!res.ok || !payload.success) {
-                    series.setData([]);
-                    if (note) note.textContent = 'Launch-57 OHLCV unavailable — chart hidden (no legacy fallback).';
+                if (res.ok && payload.success && (payload.bars || []).length) {
+                    const bars = payload.bars || [];
+                    series.setData(bars.map(b => ({
+                        time: Math.floor((b.open_time_ms || 0) / 1000),
+                        open: +b.open,
+                        high: +b.high,
+                        low: +b.low,
+                        close: +b.close,
+                    })));
+                    chart.timeScale().fitContent();
+                    if (note) note.textContent = `Launch-57 OHLCV (#23) · ${bars.length} bars · ${esc(payload.interval || iv)}`;
                     return;
                 }
-                const bars = payload.bars || [];
-                series.setData(bars.map(b => ({
-                    time: Math.floor((b.open_time_ms || 0) / 1000),
-                    open: +b.open,
-                    high: +b.high,
-                    low: +b.low,
-                    close: +b.close,
-                })));
-                chart.timeScale().fitContent();
-                if (note) note.textContent = `Launch-57 OHLCV (#23) · ${bars.length} bars · ${esc(payload.interval || iv)}`;
+                const pubQs = new URLSearchParams({ symbol: sym, interval: iv, limit: '120' });
+                if (forceRefresh) pubQs.set('_', String(Date.now()));
+                const pubRes = await fetch('/api/public/market/chart-bars?' + pubQs.toString());
+                const pubBody = await pubRes.json();
+                if (pubRes.ok && pubBody.ok && (pubBody.bars || []).length) {
+                    series.setData((pubBody.bars || []).map(b => ({
+                        time: Math.floor((b.open_time_ms || 0) / 1000),
+                        open: +b.open,
+                        high: +b.high,
+                        low: +b.low,
+                        close: +b.close,
+                    })));
+                    chart.timeScale().fitContent();
+                    if (note) note.textContent = `TradingView Lightweight Charts · ${esc(pubBody.source || 'binance')} · ${pubBody.bars.length} bars`;
+                    return;
+                }
+                const kRes = await fetch('/api/market/klines?' + new URLSearchParams({ symbol: sym + 'USDT', interval: iv, limit: '120' }));
+                const kPayload = await kRes.json();
+                const rows = kPayload.klines || [];
+                if (kRes.ok && rows.length) {
+                    series.setData(rows.map(k => ({
+                        time: Math.floor(k[0] / 1000),
+                        open: +k[1], high: +k[2], low: +k[3], close: +k[4],
+                    })));
+                    chart.timeScale().fitContent();
+                    if (note) note.textContent = `TradingView Lightweight Charts · ${esc(kPayload.source || 'binance')} · ${rows.length} bars`;
+                    return;
+                }
+                series.setData([]);
+                if (note) note.textContent = 'Chart unavailable — no OHLCV from Binance or fallback.';
             } catch (error) {
                 console.debug(error);
-                if (note) note.textContent = 'Launch-57 OHLCV unavailable — chart hidden (no legacy fallback).';
+                if (note) note.textContent = 'Chart unavailable — no OHLCV from Binance or fallback.';
             }
         }
 
@@ -3065,6 +3107,7 @@
             initChart();
             loadLaunch57DataSpine();
             loadChart();
+            void loadTrustPulseChart();
             loadMarket();
             loadOI();
             if (currentLens === 'desk') {

@@ -1724,6 +1724,78 @@ async def public_fred_context():
     return row
 
 
+@app.get("/api/public/market/chart-bars")
+async def public_market_chart_bars(
+    symbol: str = "BTC",
+    interval: str = "1h",
+    limit: int = 120,
+):
+    """OHLCV bars for TradingView Lightweight Charts (Binance public REST, optional fallback)."""
+    from datetime import datetime
+
+    from market_context import _ALLOWED_KLINE_INTERVALS, fetch_binance_klines_bars, normalize_oracle_symbol
+
+    asset, pair = normalize_oracle_symbol(symbol)
+    iv = interval if interval in _ALLOWED_KLINE_INTERVALS else "1h"
+    lim = max(10, min(int(limit or 120), 500))
+    bars, host = await fetch_binance_klines_bars(pair, interval=iv, limit=lim)
+    if bars:
+        return {
+            "ok": True,
+            "symbol": asset,
+            "pair": pair,
+            "interval": iv,
+            "bars": bars,
+            "source": f"binance_rest:{host}",
+            "library": "TradingView Lightweight Charts",
+        }
+    try:
+        from coinpaprika_public_api import fetch_ohlcv_latest
+
+        ohlcv = await fetch_ohlcv_latest(asset)
+        fb: list[dict[str, Any]] = []
+        for candle in ohlcv or []:
+            if not isinstance(candle, dict):
+                continue
+            raw_t = candle.get("time_close") or candle.get("time_open")
+            ts_ms = 0
+            if raw_t:
+                try:
+                    ts_ms = int(
+                        datetime.fromisoformat(str(raw_t).replace("Z", "+00:00")).timestamp() * 1000
+                    )
+                except (TypeError, ValueError):
+                    ts_ms = 0
+            if not ts_ms:
+                continue
+            try:
+                fb.append(
+                    {
+                        "open_time_ms": ts_ms,
+                        "open": float(candle.get("open") or 0),
+                        "high": float(candle.get("high") or 0),
+                        "low": float(candle.get("low") or 0),
+                        "close": float(candle.get("close") or 0),
+                        "volume": float(candle.get("volume") or 0),
+                    }
+                )
+            except (TypeError, ValueError):
+                continue
+        if fb:
+            return {
+                "ok": True,
+                "symbol": asset,
+                "pair": pair,
+                "interval": "1d",
+                "bars": fb,
+                "source": "coinpaprika_ohlcv",
+                "library": "TradingView Lightweight Charts",
+            }
+    except Exception:
+        pass
+    raise HTTPException(status_code=503, detail={"ok": False, "error": "chart_bars_unavailable"})
+
+
 @app.get("/api/public/market/coinpaprika/usage")
 async def public_coinpaprika_usage():
     from coinpaprika_public_api import usage_stats
