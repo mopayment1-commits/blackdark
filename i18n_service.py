@@ -1119,6 +1119,20 @@ EN: dict[str, str] = {
     "ledger.panel.defi_chain_row": "Chain {name}: {tvl} TVL",
     "ledger.panel.defi_fee_row": "Fees 24h · {name}: {fees}",
     "ledger.panel.defi_yield_row": "Yield · {project} ({symbol}): {apy}% APY",
+    "nav.swap": "Swap",
+    "swap.page_title": "Non-custodial swap",
+    "swap.lead": (
+        "Swap via ChangeNOW partner API (revenue share — no subscription). "
+        "You deposit directly to ChangeNOW; BLACKDARK never holds your funds."
+    ),
+    "swap.non_custodial": "Non-custodial",
+    "swap.fee_note": "Partner commission on completed swaps. Not financial advice.",
+    "swap.from": "From",
+    "swap.to": "To",
+    "swap.amount": "Amount to send",
+    "swap.payout_address": "Your payout wallet address",
+    "swap.estimate": "Get estimate",
+    "swap.create": "Create swap (get deposit address)",
     "ledger.panel.locked_title": "Locked Predictions · Glass Box",
     "ledger.panel.mev_title": "Shareable MEV / Sandwich Report",
     "ledger.panel.misses_title": "Public Misses · live ledger",

@@ -250,6 +250,10 @@ LIQUIDITY_DISCOVERY_TIMEOUT_SECONDS = int(os.getenv("LIQUIDITY_DISCOVERY_TIMEOUT
 # CoinMarketCap Basic (pro-api) — commercial use allowed on Basic; set in Railway secrets.
 COINMARKETCAP_API_KEY = os.getenv("COINMARKETCAP_API_KEY", "")
 COINMARKETCAP_ENABLED = bool(COINMARKETCAP_API_KEY)
+# ChangeNOW partner API — free integration; revenue share (default ~0.4% partner fee).
+CHANGENOW_API_KEY = os.getenv("CHANGENOW_API_KEY", "").strip()
+CHANGENOW_PARTNER_FEE_PERCENT = float(os.getenv("CHANGENOW_PARTNER_FEE_PERCENT", "0.4"))
+CHANGENOW_REFERRAL_LINK = os.getenv("CHANGENOW_REFERRAL_LINK", "").strip()
 COINMARKETCAP_LISTINGS_URL = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest"
 COINMARKETCAP_EXCHANGES_URL = "https://pro-api.coinmarketcap.com/v1/exchange/listings/latest"
 OPERATIONAL_MANIFEST_PATH = DATA_DIR / "operational_manifest.json"

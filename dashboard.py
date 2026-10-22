@@ -1708,6 +1708,98 @@ async def public_defi_context(symbol: str = "ETH"):
     return await fetch_defi_context_for_asset(asset)
 
 
+@app.get("/api/public/swap/meta")
+async def public_swap_meta():
+    from changenow_api import swap_meta
+
+    return swap_meta()
+
+
+@app.get("/api/public/swap/currencies")
+async def public_swap_currencies(limit: int = 300):
+    from changenow_api import fetch_currencies, swap_meta
+
+    lim = max(10, min(int(limit or 300), 500))
+    return {"currencies": await fetch_currencies(lim), **swap_meta()}
+
+
+@app.get("/api/public/swap/min-amount")
+async def public_swap_min_amount(
+    from_currency: str,
+    to_currency: str,
+    from_network: str = "",
+    to_network: str = "",
+):
+    from changenow_api import fetch_min_amount
+
+    row = await fetch_min_amount(
+        from_currency,
+        to_currency,
+        from_network=from_network or None,
+        to_network=to_network or None,
+    )
+    if row is None:
+        raise HTTPException(status_code=404, detail="Pair not available")
+    return row
+
+
+@app.get("/api/public/swap/estimate")
+async def public_swap_estimate(
+    from_currency: str,
+    to_currency: str,
+    from_amount: float,
+    from_network: str = "",
+    to_network: str = "",
+):
+    from changenow_api import fetch_estimate
+
+    row = await fetch_estimate(
+        from_currency,
+        to_currency,
+        from_amount,
+        from_network=from_network or None,
+        to_network=to_network or None,
+    )
+    if row is None:
+        raise HTTPException(status_code=404, detail="Estimate unavailable")
+    return row
+
+
+@app.post("/api/public/swap/exchange")
+async def public_swap_exchange(body: dict = Body(default=None)):
+    from changenow_api import create_exchange
+
+    payload = body or {}
+    try:
+        amount = float(payload.get("from_amount") or payload.get("amount") or 0)
+    except (TypeError, ValueError):
+        raise HTTPException(status_code=400, detail="invalid_amount")
+    status, data = await create_exchange(
+        from_currency=str(payload.get("from_currency") or payload.get("from") or ""),
+        to_currency=str(payload.get("to_currency") or payload.get("to") or ""),
+        from_amount=amount,
+        payout_address=str(payload.get("payout_address") or payload.get("address") or ""),
+        from_network=str(payload.get("from_network") or "") or None,
+        to_network=str(payload.get("to_network") or "") or None,
+        refund_address=str(payload.get("refund_address") or "") or None,
+        payout_extra_id=str(payload.get("payout_extra_id") or payload.get("extra_id") or "") or None,
+        refund_extra_id=str(payload.get("refund_extra_id") or "") or None,
+    )
+    if status != 200:
+        raise HTTPException(status_code=status, detail=data or {"error": "swap_failed"})
+    return data
+
+
+@app.get("/api/public/swap/status/{exchange_id}")
+async def public_swap_status(exchange_id: str):
+    from changenow_api import fetch_transaction_status
+
+    row = await fetch_transaction_status(exchange_id)
+    if row is None:
+        raise HTTPException(status_code=404, detail="Transaction not found")
+    return row
+
+
 @app.post("/api/public/site-assistant")
 async def public_site_assistant(body: dict = Body(default=None)):
     from site_public_assistant import (
@@ -2314,6 +2406,14 @@ async def visibility_cost_page(request: Request):
 @app.get("/il-simulator", response_class=HTMLResponse)
 async def il_simulator_page(request: Request):
     return render_page(request, "il_simulator.html", _footer_ctx())
+
+
+@app.get("/swap", response_class=HTMLResponse)
+async def swap_page(request: Request):
+    from changenow_api import swap_meta
+
+    ctx = {**_footer_ctx(), "swap_meta": swap_meta()}
+    return render_page(request, "swap.html", ctx)
 
 
 @app.get("/market-intelligence", response_class=HTMLResponse)
