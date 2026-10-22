@@ -93,6 +93,7 @@
         #panel-regime .card h2,
         #glass-box-challenge .card h2,
         #mev-report .card h2,
+        #defi-context-panel .card h2,
         #arb-opportunities-panel .card h2,
         #locked .card h2,
         #losing .card h2,
@@ -269,6 +270,16 @@
             <p id="sealed-markets-status" class="muted">{{ t('sealed.loading') }}</p>
             <ul class="events" id="sealed-markets-list"><li>{{ t('sealed.loading') }}</li></ul>
             <a class="btn btn-secondary" href="/sealed-markets" style="margin-top:0.75rem;display:inline-block">{{ t('ledger.panel.sealed_all') }}</a>
+        </div>
+    </section>
+
+    <section class="panel" id="defi-context-panel">
+        <div class="card">
+            <h2>{{ t('ledger.panel.defi_title') }}</h2>
+            <p class="muted" style="font-size:0.88rem">{{ t('ledger.panel.defi_lead') }}</p>
+            <p id="defi-context-status" class="muted">{{ t('ledger.panel.defi_loading') }}</p>
+            <ul class="events" id="defi-context-summary"><li>{{ t('ledger.panel.defi_loading') }}</li></ul>
+            <p id="defi-context-attribution" style="margin-top:0.65rem;font-size:0.72rem;color:var(--muted)"></p>
         </div>
     </section>
 
@@ -1274,6 +1285,80 @@
             }
         }
 
+        function fmtDefiUsd(value) {
+            const x = Number(value);
+            if (!Number.isFinite(x)) return '—';
+            if (x >= 1e12) return '$' + (x / 1e12).toFixed(2) + 'T';
+            if (x >= 1e9) return '$' + (x / 1e9).toFixed(2) + 'B';
+            if (x >= 1e6) return '$' + (x / 1e6).toFixed(2) + 'M';
+            return '$' + x.toLocaleString(undefined, { maximumFractionDigits: 0 });
+        }
+
+        async function loadDefiContext() {
+            const st = document.getElementById('defi-context-status');
+            const list = document.getElementById('defi-context-summary');
+            const foot = document.getElementById('defi-context-attribution');
+            const params = new URLSearchParams(window.location.search || '');
+            const sym = (params.get('asset') || params.get('symbol') || 'ETH').toUpperCase();
+            try {
+                const d = await fetchJsonWithTimeout(
+                    '/api/public/defi-context?symbol=' + encodeURIComponent(sym),
+                    {},
+                    ORACLE_LEDGER_SECONDARY_MS,
+                );
+                if (st) {
+                    st.textContent = i18nT('ledger.panel.defi_status', {
+                        symbol: sym,
+                        total: fmtDefiUsd(d.total_defi_tvl_usd),
+                    }) || (sym + ' · total DeFi TVL ' + fmtDefiUsd(d.total_defi_tvl_usd));
+                }
+                if (foot) foot.textContent = d.attribution || '';
+                if (!list) return;
+                const lines = [];
+                if (d.chain && d.chain_tvl_usd != null) {
+                    lines.push(
+                        i18nT('ledger.panel.defi_chain_tvl', {
+                            chain: d.chain,
+                            tvl: fmtDefiUsd(d.chain_tvl_usd),
+                        }) || (d.chain + ' chain TVL ' + fmtDefiUsd(d.chain_tvl_usd)),
+                    );
+                }
+                (d.top_chains || []).slice(0, 3).forEach((c) => {
+                    lines.push(
+                        i18nT('ledger.panel.defi_chain_row', {
+                            name: c.name || '—',
+                            tvl: fmtDefiUsd(c.tvl_usd),
+                        }) || ('Chain ' + (c.name || '—') + ': ' + fmtDefiUsd(c.tvl_usd) + ' TVL'),
+                    );
+                });
+                (d.fees_leaders_24h || []).slice(0, 3).forEach((f) => {
+                    lines.push(
+                        i18nT('ledger.panel.defi_fee_row', {
+                            name: f.name || '—',
+                            fees: fmtDefiUsd(f.fees_24h_usd),
+                        }) || ('Fees 24h · ' + (f.name || '—') + ': ' + fmtDefiUsd(f.fees_24h_usd)),
+                    );
+                });
+                (d.top_yields || []).slice(0, 3).forEach((y) => {
+                    lines.push(
+                        i18nT('ledger.panel.defi_yield_row', {
+                            project: y.project || '—',
+                            symbol: y.symbol || '',
+                            apy: Number(y.apy || 0).toFixed(2),
+                        }) || ('Yield · ' + (y.project || '—') + ' (' + (y.symbol || '') + '): ' + Number(y.apy || 0).toFixed(2) + '% APY'),
+                    );
+                });
+                if (!lines.length) {
+                    list.innerHTML = '<li>' + esc(i18nT('ledger.panel.defi_empty') || 'No DeFi highlights') + '</li>';
+                    return;
+                }
+                list.innerHTML = lines.map((t) => '<li>' + t + '</li>').join('');
+            } catch (e) {
+                if (st) st.textContent = i18nT('ledger.panel.defi_unavailable') || 'DeFi context unavailable';
+                if (list) list.innerHTML = '<li>' + esc(i18nT('ledger.panel.defi_empty') || '—') + '</li>';
+            }
+        }
+
         async function loadArbOpportunities() {
             const st = document.getElementById('arb-opportunities-status');
             const list = document.getElementById('arb-opportunities-list');
@@ -1348,6 +1433,7 @@
         function startLedgerBoot() {
             loadAccuracy().then(() => scheduleSecondaryLoad(loadLedgerShareKit));
             scheduleSecondaryLoad(loadSealedMarkets);
+            scheduleSecondaryLoad(loadDefiContext);
             scheduleSecondaryLoad(loadArbOpportunities);
             scheduleSecondaryLoad(loadGlassBox);
             scheduleSecondaryLoad(loadMevReport);

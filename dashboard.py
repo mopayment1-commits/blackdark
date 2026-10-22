@@ -1698,6 +1698,16 @@ async def public_oracle_symbols():
     return oracle_catalog_payload()
 
 
+@app.get("/api/public/defi-context")
+async def public_defi_context(symbol: str = "ETH"):
+    from defillama_public_api import fetch_defi_context_for_asset
+
+    asset = str(symbol or "ETH").upper().strip()[:24]
+    if not asset:
+        asset = "ETH"
+    return await fetch_defi_context_for_asset(asset)
+
+
 @app.post("/api/public/site-assistant")
 async def public_site_assistant(body: dict = Body(default=None)):
     from site_public_assistant import (
@@ -3046,6 +3056,23 @@ async def _compute_oracle_quick_payload(
         out["cmc_rank"] = market.get("cmc_rank")
     if market.get("source") == "coinmarketcap":
         out["price_source"] = "coinmarketcap"
+    try:
+        from defillama_public_api import fetch_defi_context_for_asset
+
+        defi = await fetch_defi_context_for_asset(asset)
+        if defi.get("fetched_ok"):
+            out["defi_context"] = {
+                "source": defi.get("source"),
+                "attribution": defi.get("attribution"),
+                "total_defi_tvl_usd": defi.get("total_defi_tvl_usd"),
+                "chain": defi.get("chain"),
+                "chain_tvl_usd": defi.get("chain_tvl_usd"),
+                "top_chains": (defi.get("top_chains") or [])[:3],
+                "fees_leaders_24h": (defi.get("fees_leaders_24h") or [])[:3],
+                "top_yields": (defi.get("top_yields") or [])[:3],
+            }
+    except Exception:
+        pass
     return out
 
 
