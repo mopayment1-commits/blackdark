@@ -1,6 +1,10 @@
 <div class="bd-ask-ai-root">
 <style>
 @scope (.bd-ask-ai-root) {
+  .bd-visually-hidden {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+  }
   .bd-ask-ai-fab {
     position: fixed;
     right: 1.1rem;
@@ -43,7 +47,7 @@
     color: #e4e4e7;
   }
   .bd-ask-ai-head button { background: transparent; border: none; color: #a1a1aa; font-size: 1.25rem; cursor: pointer; }
-  .bd-ask-ai-note { margin: 0; padding: 0.55rem 0.85rem; font-size: 0.72rem; color: #71717a; line-height: 1.45; }
+  .bd-ask-ai-note { margin: 0; padding: 0.55rem 0.85rem; font-size: 0.72rem; color: #c8c8d0; line-height: 1.45; }
   .bd-ask-ai-log {
     flex: 1;
     overflow-y: auto;
@@ -92,6 +96,7 @@
   <p class="bd-ask-ai-note">Explains the decision and ledger visible on this page only. Not financial advice.</p>
   <div id="bdAskAiLog" class="bd-ask-ai-log" aria-live="polite"></div>
   <form id="bdAskAiForm" class="bd-ask-ai-form">
+    <label for="bdAskAiInput" class="bd-visually-hidden">Question for BLACKDARK AI about this page</label>
     <input id="bdAskAiInput" type="text" placeholder="What does this decision mean?" autocomplete="off" maxlength="500">
     <button type="submit" class="bd-ask-ai-send">Send</button>
   </form>

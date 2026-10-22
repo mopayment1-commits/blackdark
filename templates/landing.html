@@ -278,14 +278,15 @@
             padding: 0.95rem 1rem;
             border-top: 1px solid var(--border);
         }
-        .seal-step strong {
+        .seal-step-title {
             display: block;
             color: var(--accent);
             font-family: var(--bd-font-display);
             font-size: 0.82rem;
+            font-weight: 700;
             letter-spacing: 0.06em;
             text-transform: uppercase;
-            margin-bottom: 0.3rem;
+            margin: 0 0 0.3rem;
         }
         .seal-step span { color: var(--text-muted); font-size: 0.95rem; line-height: 1.55; }
         .seal-cert-stamp {
@@ -691,9 +692,44 @@
             text-decoration-thickness: 1px;
         }
         .landing-inline-link:hover { color: var(--accent); }
+
+        /* WebAIM / WCAG AA contrast on landing dark surfaces */
+        body.landing-page {
+            --text-muted: #c8c8d0;
+            --bd-muted-dim: #c8c8d0;
+        }
+        body.landing-page .field-label { color: #d8d8de !important; }
+        body.landing-page .oracle-demo h3 { color: #d0d0d8; font-weight: 600; }
+        body.landing-page .hero-support { color: #c8c8d0; }
+        body.landing-page .seal-step span,
+        body.landing-page .seal-cert-stamp,
+        body.landing-page .tp-mini-live,
+        body.landing-page .tp-mini-sym,
+        body.landing-page .tp-mini-why,
+        body.landing-page .hero .tp-mini-foot,
+        body.landing-page .oracle-share p,
+        body.landing-page .landing-stats,
+        body.landing-page #audienceCta,
+        body.landing-page .section-header p,
+        body.landing-page .feature-card p,
+        body.landing-page .waitlist > p { color: #c8c8d0; }
+        body.landing-page .nav-links a { color: #c8c8d0; }
+        body.landing-page .nav-links a:hover,
+        body.landing-page .nav-links a.active { color: #f4f4f5; }
+        body.landing-page .nav-util-link { color: #d8d8de; }
+        body.landing-page .bd-site-footer-root .bd-site-footer { color: #c8c8d0; }
+        body.landing-page .bd-site-footer-root .bd-site-footer a { color: #e4e4e7; }
+        body.landing-page .bd-site-footer-root .bd-foot-tag { color: #c8c8d0; }
+        body.landing-page .bd-ask-ai-note,
+        body.landing-page .bd-eu-consent-note { color: #c8c8d0; }
+        body.landing-page .bd-nav-search-wrap svg { color: #a1a1aa; }
+        .bd-visually-hidden {
+            position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+            overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+        }
     </style>
 </head>
-<body>
+<body class="landing-page">
     <a href="#trust-pulse" class="skip-link" style="position:absolute;left:-9999px" onfocus="this.style.left='1rem';this.style.top='1rem';this.style.zIndex='100';this.style.background='var(--accent)';this.style.color='#0a0a0f';this.style.padding='.5rem .75rem'">{{ t('a11y.skip_trust_pulse') }}</a>
     <div class="bg-grid"></div>
     <div class="bg-glow"></div>
@@ -769,15 +805,15 @@
         <p>{{ t('seal.body') }}</p>
         <div class="seal-steps">
             <div class="seal-step">
-                <strong>{{ t('seal.s1.title') }}</strong>
+                <h3 class="seal-step-title">{{ t('seal.s1.title') }}</h3>
                 <span>{{ t('seal.s1.body') }}</span>
             </div>
             <div class="seal-step">
-                <strong>{{ t('seal.s2.title') }}</strong>
+                <h3 class="seal-step-title">{{ t('seal.s2.title') }}</h3>
                 <span>{{ t('seal.s2.body') }}</span>
             </div>
             <div class="seal-step">
-                <strong>{{ t('seal.s3.title') }}</strong>
+                <h3 class="seal-step-title">{{ t('seal.s3.title') }}</h3>
                 <span>{{ t('seal.s3.body') }}</span>
             </div>
         </div>
@@ -937,6 +973,7 @@
 
     <section class="follow-us" id="follow-us" aria-labelledby="follow-us-heading" style="padding: 2.5rem 1rem 1rem; border-top: 1px solid var(--border, #2a2a35);">
         {% set social_variant = 'landing' %}
+        {% set social_heading_id = 'follow-us-heading' %}
         {% include 'partials/site_follow_social.html' %}
     </section>
     </main>

@@ -1,6 +1,11 @@
 <div class="bd-oracle-workspace-root">
 <style>
 @scope (.bd-oracle-workspace-root) {
+  .bd-visually-hidden {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+  }
+  .bd-workspace-section .sub { color: #c8c8d0; }
   .bd-workspace-section .bd-workspace-heading {
     font-size: 1.15rem;
     font-weight: 700;
@@ -15,7 +20,8 @@
   <h3 class="bd-workspace-heading">Watchlist</h3>
   <p class="sub">Track symbols locally — latest Oracle quick decision per row (stored on this device).</p>
   <div class="toolbar" style="flex-wrap:wrap;gap:.5rem;margin-bottom:.65rem">
-    <input id="bdWatchlistInput" type="text" maxlength="12" placeholder="e.g. BTC" aria-label="Add symbol"
+    <label for="bdWatchlistInput" class="bd-visually-hidden">Add symbol to watchlist</label>
+    <input id="bdWatchlistInput" type="text" maxlength="12" placeholder="e.g. BTC"
       style="width:6rem;padding:.45rem .55rem;border-radius:8px;border:1px solid #2a2a35;background:#1a1a24;color:#e4e4e7">
     <button type="button" class="btn secondary" id="bdWatchlistAddBtn">Add</button>
     <button type="button" class="btn secondary" data-bd-call="openCompare">Compare</button>
@@ -46,6 +52,7 @@
 <div id="bdShareDecisionModal" class="bd-modal-backdrop" hidden role="dialog" aria-modal="true">
   <div class="bd-modal-card">
     <h3>Share decision</h3>
+    <label for="bdShareDecisionText" class="bd-visually-hidden">Decision text to copy</label>
     <textarea id="bdShareDecisionText" rows="5" readonly style="width:100%;margin:.65rem 0;font-size:.85rem"></textarea>
     <button type="button" class="btn secondary" id="bdShareDecisionCopy">Copy</button>
     <button type="button" class="btn secondary" id="bdShareDecisionClose">Close</button>

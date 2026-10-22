@@ -4,7 +4,7 @@
 @scope (.bd-site-footer-root) {
     .bd-site-footer {
         max-width: 1100px; margin: 2.5rem auto 0; padding: 2rem 1.25rem 2.5rem;
-        border-top: 1px solid #2a2a35; color: #71717a; font-size: .78rem; line-height: 1.65;
+        border-top: 1px solid #2a2a35; color: #c8c8d0; font-size: .78rem; line-height: 1.65;
     }
     .bd-site-footer .bd-foot-brand { font-size: 1.05rem; font-weight: 800; color: #22d3ee; letter-spacing: .04em; }
     .bd-site-footer .bd-foot-tag { color: #a1a1aa; margin: .35rem 0 1.1rem; }
@@ -15,7 +15,7 @@
     .bd-site-footer h4 { color: #e4e4e7; font-size: .78rem; margin-bottom: .45rem; text-transform: uppercase; letter-spacing: .06em; }
     .bd-site-footer ul { list-style: none; padding: 0; margin: 0; }
     .bd-site-footer li { margin: .28rem 0; }
-    .bd-site-footer a { color: #a1a1aa; text-decoration: none; }
+    .bd-site-footer a { color: #e4e4e7; text-decoration: none; }
     .bd-site-footer a:hover { color: #22d3ee; }
     .bd-site-footer .bd-foot-bottom { border-top: 1px solid #2a2a35; padding-top: 1rem; margin-top: .5rem; }
 }
@@ -58,6 +58,7 @@
             </ul>
         </div>
     </div>
+    {% set social_heading_id = 'footer-follow-heading' %}
     {% include 'partials/site_follow_social.html' %}
     <div class="bd-foot-bottom">
         <strong style="color:#a1a1aa">{{ t('common.anti_hype') if t is defined else 'Anti-Hype' }}</strong> · {{ t('footer.disclaimer') if t is defined else (f.disclaimer_line or 'Not financial advice. Verify on the Public Accuracy Ledger.') }}
