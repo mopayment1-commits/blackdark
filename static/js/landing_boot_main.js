@@ -1213,15 +1213,15 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
         function startLandingPulseStream(symbol) {
             const sym = String(symbol || landingPulseSymbol || 'BTC').trim().toUpperCase() || 'BTC';
             landingPulseSymbol = sym;
-            const policy = window.BDLiveRefresh && window.BDLiveRefresh.getPolicy();
-            if (policy && !policy.live_stream_enabled) {
-                if (landingPulseEs) {
-                    try { landingPulseEs.close(); } catch (error) { console.debug(error); }
-                    landingPulseEs = null;
+            const attach = (policy) => {
+                if (!policy || !policy.live_stream_enabled) {
+                    if (landingPulseEs) {
+                        try { landingPulseEs.close(); } catch (error) { console.debug(error); }
+                        landingPulseEs = null;
+                    }
+                    return;
                 }
-                return;
-            }
-            if (window.BDLiveRefresh) {
+                if (!window.BDLiveRefresh) return;
                 if (landingPulseEs) {
                     try { landingPulseEs.close(); } catch (error) { console.debug(error); }
                     landingPulseEs = null;
@@ -1232,20 +1232,10 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                         renderLandingPulse(pulse);
                     }
                 }, { key: 'landing-trust-pulse' });
-                return;
-            }
-            try {
-                if (landingPulseEs) landingPulseEs.close();
-                landingPulseEs = new EventSource('/api/trust-pulse/stream?symbol=' + encodeURIComponent(sym));
-                landingPulseEs.onmessage = (ev) => {
-                    try {
-                        const d = JSON.parse(ev.data);
-                        if (d.pulse && String(d.pulse.symbol || '').toUpperCase() === landingPulseSymbol) {
-                            renderLandingPulse(d.pulse);
-                        }
-                    } catch (error) { console.debug(error); }
-                };
-            } catch (error) { console.debug(error); }
+            };
+            void ensureLiveRefreshModule()
+                .then((mod) => (mod ? mod.ensurePolicy() : Promise.resolve(null)))
+                .then((policy) => attach(policy || (window.BDLiveRefresh && window.BDLiveRefresh.getPolicy())));
         }
 
         function startLandingLiveRefresh(policy) {
@@ -1344,12 +1334,20 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             window.BDOracleWorkspace?.openCompareModal();
         };
 
+        function ensureLiveRefreshModule() {
+            if (window.BDLiveRefresh) return Promise.resolve(window.BDLiveRefresh);
+            const lazy = window.BDLazyScript;
+            if (!lazy) return Promise.resolve(null);
+            return lazy.load('/static/js/bd_live_refresh.js').then(() => window.BDLiveRefresh || null);
+        }
+
         function afterLandingOracleBoot() {
-            if (window.BDLiveRefresh) {
-                return window.BDLiveRefresh.ensurePolicy().then((p) => startLandingLiveRefresh(p));
-            }
-            startLandingLiveRefresh(null);
-            return Promise.resolve();
+            return ensureLiveRefreshModule().then((mod) => {
+                if (mod) {
+                    return mod.ensurePolicy().then((p) => startLandingLiveRefresh(p));
+                }
+                startLandingLiveRefresh(null);
+            });
         }
 
         function scheduleDeferredOracleBoot(hadPulseSSR) {
@@ -1370,8 +1368,9 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                     }
                 }, { rootMargin: '160px', threshold: 0.01 });
                 io.observe(oracleEl);
+            } else {
+                scheduleNonCriticalLandingWork(bootOracle);
             }
-            scheduleNonCriticalLandingWork(bootOracle);
             if (!hadPulseSSR) {
                 scheduleNonCriticalLandingWork(() => {
                     void loadLandingTrustPulse();
@@ -1413,10 +1412,10 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             scheduleDeferredOracleBoot(hadPulseSSR);
         }
 
-        if (document.readyState === 'complete') {
-            landingBootMainOnLoad();
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', landingBootMainOnLoad, { once: true });
         } else {
-            window.addEventListener('load', landingBootMainOnLoad, { once: true });
+            landingBootMainOnLoad();
         }
 
         window.__landing_consultOracle = consultOracle;

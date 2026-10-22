@@ -648,10 +648,17 @@
     bindCompareUi();
     bindShareDecision();
     bindNavShortcuts();
-    void refreshEntitlements().then(() => {
-      renderWatchlist();
-      renderMyDecisions();
-    });
+    const runEntitlements = () => {
+      void refreshEntitlements().then(() => {
+        renderWatchlist();
+        renderMyDecisions();
+      });
+    };
+    if (typeof requestIdleCallback === 'function') {
+      requestIdleCallback(runEntitlements, { timeout: 6000 });
+    } else {
+      setTimeout(runEntitlements, 2500);
+    }
     document.addEventListener('bd-i18n-ready', bindLangPersistence);
   }
 

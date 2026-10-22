@@ -17,7 +17,6 @@
         .load("/static/js/dom_escape.js?v=20261007-setAnchorHref")
         .then(function () { return lazy.load("/static/js/public_decision_map.js"); })
         .then(function () { return lazy.load("/static/js/csrf_fetch.js"); })
-        .then(function () { return lazy.load("/static/js/bd_live_refresh.js"); })
         .then(function () { return lazy.load("/static/js/landing_boot_main.js"); });
     }
     return mainPromise;

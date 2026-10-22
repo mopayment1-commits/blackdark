@@ -2924,6 +2924,15 @@ async def api_trust_pulse(
         raise HTTPException(
             status_code=404, detail="Trust Pulse unavailable for this symbol"
         ) from exc
+    except Exception:
+        import logging
+
+        from trust_pulse import degraded_trust_pulse_payload
+
+        logging.getLogger("BLACKDARK.TrustPulse").exception(
+            "trust-pulse API degraded for symbol=%s", symbol
+        )
+        return degraded_trust_pulse_payload(symbol)
 
 
 @app.get("/api/trust-pulse/stream")
@@ -6278,4 +6287,3 @@ if __name__ == "__main__":
     host = os.environ.get("HOST", "127.0.0.1")
     uvicorn.run(app, host=host, port=port)
 
-                                       
