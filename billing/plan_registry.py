@@ -24,10 +24,12 @@ PLAN_ALIASES: dict[str, str] = {
     "proof": "free",
     "proof_pass": "free",
     "decision_pro": "pro",
+    "beginner": "pro",
     "whale": "elite",
-    "desk": "elite",
-    "decision_desk": "elite",
+    "desk": "quant",
+    "decision_desk": "quant",
     "inst": "institutional",
+    "institution": "institutional",
     "trust_os_institutional": "institutional",
 }
 
@@ -41,10 +43,10 @@ PLAN_RANK: dict[str, int] = {
 
 PLAN_DISPLAY: dict[str, str] = {
     "free": "FREE",
-    "pro": "PRO",
-    "elite": "ELITE",
-    "quant": "QUANT",
-    "institutional": "INSTITUTIONAL",
+    "pro": "BEGINNER",
+    "elite": "PRO",
+    "quant": "DESK",
+    "institutional": "INSTITUTION",
 }
 
 # Display SSOT (Launch-57): user-facing prices only. Billing cents may lag — see price_cents + billing_note.
@@ -118,6 +120,10 @@ PLAN_DEFINITIONS: dict[str, dict[str, Any]] = {
         "popular": False,
     },
 }
+
+from site_pricing_tiers import apply_public_pricing_to_plan_definitions
+
+apply_public_pricing_to_plan_definitions(PLAN_DEFINITIONS)
 
 SELF_SERVE_PLANS: tuple[str, ...] = ("pro", "elite", "quant")
 

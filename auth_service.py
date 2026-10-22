@@ -36,7 +36,7 @@ def normalize_tier(tier: str | None) -> str:
 
 TIER_FEATURES: dict[str, dict[str, Any]] = {
     "free": {
-        "label": "FREE",
+        "label": "FREE",  # marketing: Free
         "oracle_daily_limit": 3,
         "export_monthly_limit": 0,
         "api_monthly_limit": 0,
@@ -58,7 +58,7 @@ TIER_FEATURES: dict[str, dict[str, Any]] = {
         "product_name": STR_TRUST_OS,
     },
     "pro": {
-        "label": "PRO",
+        "label": "BEGINNER",
         "oracle_daily_limit": None,
         "export_monthly_limit": 50,
         "api_monthly_limit": 0,
@@ -84,7 +84,7 @@ TIER_FEATURES: dict[str, dict[str, Any]] = {
         "product_name": STR_TRUST_OS,
     },
     "elite": {
-        "label": "ELITE",
+        "label": "PRO",
         "oracle_daily_limit": None,
         "export_monthly_limit": 200,
         "api_monthly_limit": 10000,
@@ -110,7 +110,7 @@ TIER_FEATURES: dict[str, dict[str, Any]] = {
         "product_name": STR_TRUST_OS,
     },
     "whale": {  # legacy alias — same as elite
-        "label": "ELITE",
+        "label": "PRO",
         "oracle_daily_limit": None,
         "export_monthly_limit": 200,
         "api_monthly_limit": 10000,
@@ -136,7 +136,7 @@ TIER_FEATURES: dict[str, dict[str, Any]] = {
         "product_name": STR_TRUST_OS,
     },
     "quant": {
-        "label": "QUANT",
+        "label": "DESK",
         "oracle_daily_limit": None,
         "export_monthly_limit": None,
         "api_monthly_limit": 100000,
@@ -158,7 +158,7 @@ TIER_FEATURES: dict[str, dict[str, Any]] = {
         "product_name": STR_TRUST_OS,
     },
     "institutional": {
-        "label": "INSTITUTIONAL",
+        "label": "INSTITUTION",
         "oracle_daily_limit": None,
         "export_monthly_limit": None,
         "api_monthly_limit": None,

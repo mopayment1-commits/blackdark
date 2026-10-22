@@ -1,9 +1,8 @@
 """
 BLACKDARK Trust OS — Pricing catalog (binding).
 
-Official tiers: FREE · PRO · ELITE · QUANT · INSTITUTIONAL
-DISCOVER/FREE $0 · DECIDE/PRO $19.99/mo · SEE THE EDGE/ELITE $49.99/mo ·
-EXECUTE THE EDGE/QUANT $129.99/mo · SCALE THE EDGE/INSTITUTIONAL from $999/mo
+Official tiers (marketing): Free · Beginner · Pro · Desk · Institution
+$0 · $9.99/mo · $29/mo · $79/mo · custom (internal IDs: free/pro/elite/quant/institutional)
 7-day trial on all paid self-serve tiers.
 """
 
@@ -71,55 +70,24 @@ def _tier_card(plan_id: str) -> dict[str, Any]:
         card["popular"] = True
     if p.get("billing_note"):
         card["billing_note"] = p["billing_note"]
+    from site_pricing_tiers import spec_by_plan_id
+
+    spec = spec_by_plan_id(plan_id)
+    if spec:
+        card.update(
+            {
+                "cta": spec["cta"],
+                "cta_href": spec["cta_href"],
+                "signup_plan": spec["plan_id"],
+                "promise": spec["feature_fallbacks"][0] if spec.get("feature_fallbacks") else p.get("name"),
+            }
+        )
+        if spec.get("highlight"):
+            card["popular"] = True
     if plan_id == "free":
-        card.update(
-            {
-                "cta": "Start free",
-                "cta_href": "/login?tab=register&plan=free",
-                "signup_plan": "free",
-                "promise": "Public Prove surface + daily decision limit — honest $0 entry.",
-                "limits": {"oracle_daily_limit": 3, "certificate_watermark": "Free Proof"},
-            }
-        )
-    elif plan_id == "pro":
-        card.update(
-            {
-                "cta": "Start 7-Day Trial",
-                "cta_href": "/login?tab=register&plan=pro",
-                "signup_plan": "pro",
-                "promise": "Daily verified habit — unlimited certified decisions after trial.",
-            }
-        )
-    elif plan_id == "elite":
-        card.update(
-            {
-                "popular": True,
-                "cta": "Start 7-Day Trial",
-                "cta_href": "/login?tab=register&plan=elite",
-                "signup_plan": "elite",
-                "promise": "MOST POPULAR — Net-Edge, Wallet/Token DD, AI copilot, smart-money desk depth.",
-            }
-        )
-    elif plan_id == "quant":
-        card.update(
-            {
-                "cta": "Start 7-Day Trial",
-                "cta_href": "/login?tab=register&plan=quant",
-                "signup_plan": "quant",
-                "promise": "Quant depth — backtesting, API scale, systematic workflows.",
-            }
-        )
-    else:
-        card.update(
-            {
-                "price_usd_month_from": p.get("price_usd_month_from", 999),
-                "price_note": p.get("price_note", "Talk to us — not self-serve checkout."),
-                "cta": "Talk to us",
-                "cta_href": "/login?tab=register&plan=institutional",
-                "signup_plan": "institutional",
-                "promise": "Room lens — Data Room, SLA, integration addendum. Sales-led only.",
-            }
-        )
+        card["limits"] = {"oracle_daily_limit": 3, "certificate_watermark": "Free Proof"}
+    if plan_id == "institutional":
+        card["price_note"] = p.get("price_note", "Talk to us — not self-serve checkout.")
     return card
 
 
@@ -248,8 +216,8 @@ def pricing_catalog() -> dict[str, Any]:
         "surface": "trust_os_pricing",
         "currency": "USD",
         "option": PRICING_OPTION,
-        "canon": "FREE · PRO · ELITE · QUANT · INSTITUTIONAL — binding commercial ladder",
-        "binding": "billing/plan_registry.py · docs/PRICING_TRUST_OS.md",
+        "canon": "Free · Beginner · Pro · Desk · Institution — site_pricing_tiers.py SSOT",
+        "binding": "site_pricing_tiers.py · billing/plan_registry.py",
         "story": PRICING_STORY,
         "value_equation": VALUE_EQUATION,
         "unique_by_tier": UNIQUE_BY_TIER,
