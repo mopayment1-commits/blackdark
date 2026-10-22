@@ -3479,6 +3479,24 @@ async def _compute_oracle_quick_payload(
         except Exception:
             pass
     try:
+        from blockscout_public_api import usage_stats as blockscout_usage_stats
+
+        bs = blockscout_usage_stats()
+        out["blockscout_onchain"] = {
+            "api_key_configured": bs.get("api_key_configured"),
+            "gateway": bs.get("gateway"),
+            "daily_limit": bs.get("daily_limit"),
+            "calls_today": bs.get("calls_today"),
+            "remaining_today": bs.get("remaining_today"),
+            "portal_credits_remaining": bs.get("portal_credits_remaining"),
+            "chains": bs.get("chains"),
+            "attribution": "Multi-chain explorer fallback after Etherscan",
+            "public_usage_route": "/api/public/onchain/blockscout/usage",
+            "public_address_route": "/api/public/onchain/blockscout/address",
+        }
+    except Exception:
+        pass
+    try:
         from thegraph_public_api import usage_stats as thegraph_usage_stats
 
         tg = thegraph_usage_stats()

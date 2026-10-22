@@ -259,7 +259,8 @@ ETHERSCAN_API_KEY = os.getenv("ETHERSCAN_API_KEY", "").strip()
 ETHERSCAN_DAILY_LIMIT = int(os.getenv("ETHERSCAN_DAILY_LIMIT", "100000"))
 ETHERSCAN_RPS_LIMIT = int(os.getenv("ETHERSCAN_RPS_LIMIT", "5"))
 ETHERSCAN_CACHE_TTL_SEC = float(os.getenv("ETHERSCAN_CACHE_TTL_SEC", "90"))
-# Blockscout public API v2 — no key; conservative local rate limits.
+# Blockscout API v2 — free key from dev.blockscout.com (multi-chain gateway); public instances as fallback.
+BLOCKSCOUT_API_KEY = os.getenv("BLOCKSCOUT_API_KEY", "").strip()
 BLOCKSCOUT_DAILY_LIMIT = int(os.getenv("BLOCKSCOUT_DAILY_LIMIT", "50000"))
 BLOCKSCOUT_RPS_LIMIT = int(os.getenv("BLOCKSCOUT_RPS_LIMIT", "5"))
 BLOCKSCOUT_CACHE_TTL_SEC = float(os.getenv("BLOCKSCOUT_CACHE_TTL_SEC", "90"))

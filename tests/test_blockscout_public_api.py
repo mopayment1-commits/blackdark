@@ -1,8 +1,9 @@
-"""Blockscout public API (multi-chain, no key)."""
+"""Blockscout API (multi-chain gateway + public fallback)."""
 
 import pytest
 
 from blockscout_public_api import (
+    _api_v2_root,
     fetch_address_summary,
     fetch_explorer_fallback,
     supported_chains,
@@ -23,9 +24,16 @@ def test_supported_chains():
     assert "polygon" in supported_chains()
 
 
+def test_gateway_root_with_api_key(monkeypatch):
+    monkeypatch.setattr("blockscout_public_api.BLOCKSCOUT_API_KEY", "proapi_test")
+    assert _api_v2_root("ethereum") == "https://api.blockscout.com/1/api/v2"
+    monkeypatch.setattr("blockscout_public_api.BLOCKSCOUT_API_KEY", "")
+    assert _api_v2_root("ethereum") == "https://eth.blockscout.com/api/v2"
+
+
 @pytest.mark.asyncio
 async def test_fetch_address_summary(monkeypatch):
-    async def fake_get(base, path):
+    async def fake_get(chain, path):
         if "/addresses/" in path:
             return {
                 "coin_balance": "1000000000000000000",

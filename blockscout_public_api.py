@@ -1,7 +1,9 @@
 """
-Blockscout public REST API v2 (no API key) — multi-chain address & transactions.
+Blockscout REST API v2 — multi-chain address & transactions.
 
-Rate-limited client; use as fallback after Etherscan on supported EVM chains.
+Uses the Blockscout gateway (dev.blockscout.com API key) when configured;
+falls back to public per-chain instances without a key. Rate-limited client;
+use as fallback after Etherscan on supported EVM chains.
 """
 
 from __future__ import annotations
@@ -18,6 +20,7 @@ from typing import Any
 import aiohttp
 
 from config import (
+    BLOCKSCOUT_API_KEY,
     BLOCKSCOUT_CACHE_TTL_SEC,
     BLOCKSCOUT_DAILY_LIMIT,
     BLOCKSCOUT_RPS_LIMIT,
@@ -27,7 +30,7 @@ from config import (
 logger = logging.getLogger("BLACKDARK.Blockscout")
 
 _TIMEOUT = aiohttp.ClientTimeout(total=14)
-_HEADERS = {
+_HEADERS_BASE = {
     "User-Agent": "BLACKDARK/1.0 (+https://blackdark.io)",
     "Accept": "application/json",
 }
@@ -35,10 +38,11 @@ _HEADERS = {
 _USAGE_PATH = DATA_DIR / "blockscout_api_usage.json"
 _CACHE: dict[str, tuple[float, Any]] = {}
 _RPS_TIMES: deque[float] = deque(maxlen=BLOCKSCOUT_RPS_LIMIT * 2)
+_CREDITS_REMAINING: int | None = None
 
 _EVM_ADDR_RE = re.compile(r"^0x[a-fA-F0-9]{40}$")
 
-# Public Blockscout instances (free REST v2).
+# Public Blockscout instances (no API key).
 _CHAIN_BASES: dict[str, str] = {
     "ethereum": "https://eth.blockscout.com",
     "polygon": "https://polygon.blockscout.com",
@@ -46,6 +50,16 @@ _CHAIN_BASES: dict[str, str] = {
     "optimism": "https://optimism.blockscout.com",
     "base": "https://base.blockscout.com",
     "bsc": "https://bsc.blockscout.com",
+}
+
+# Numeric chain IDs for https://api.blockscout.com/{chain_id}/api/v2
+_CHAIN_IDS: dict[str, str] = {
+    "ethereum": "1",
+    "polygon": "137",
+    "arbitrum": "42161",
+    "optimism": "10",
+    "base": "8453",
+    "bsc": "56",
 }
 
 
@@ -80,19 +94,29 @@ def usage_stats() -> dict[str, Any]:
     row = _load_usage()
     day = _utc_day()
     count = int(row.get("count") or 0) if row.get("day") == day else 0
+    local_remaining = max(0, BLOCKSCOUT_DAILY_LIMIT - count)
+    portal_credits = _CREDITS_REMAINING
     return {
         "configured": True,
-        "no_api_key": True,
+        "api_key_configured": bool(BLOCKSCOUT_API_KEY),
+        "no_api_key": not bool(BLOCKSCOUT_API_KEY),
+        "gateway": "api.blockscout.com" if BLOCKSCOUT_API_KEY else "public_instances",
         "day_utc": day,
         "calls_today": count,
         "daily_limit": BLOCKSCOUT_DAILY_LIMIT,
         "rps_limit": BLOCKSCOUT_RPS_LIMIT,
-        "remaining_today": max(0, BLOCKSCOUT_DAILY_LIMIT - count),
+        "remaining_today": local_remaining,
+        "portal_credits_remaining": portal_credits,
         "chains": list(_CHAIN_BASES.keys()),
+        "plan": "dev_portal_free" if BLOCKSCOUT_API_KEY else "public_no_key",
     }
 
 
 def _try_consume_quota() -> bool:
+    global _CREDITS_REMAINING
+    if BLOCKSCOUT_API_KEY and _CREDITS_REMAINING is not None and _CREDITS_REMAINING <= 0:
+        logger.warning("Blockscout portal credits exhausted (header)")
+        return False
     now = time.time()
     while _RPS_TIMES and now - _RPS_TIMES[0] > 1.0:
         _RPS_TIMES.popleft()
@@ -137,21 +161,52 @@ def _norm_chain(chain: str) -> str:
     return c
 
 
-def _base_for_chain(chain: str) -> str | None:
-    return _CHAIN_BASES.get(_norm_chain(chain))
+def _api_v2_root(chain: str) -> str | None:
+    ch = _norm_chain(chain)
+    if BLOCKSCOUT_API_KEY:
+        cid = _CHAIN_IDS.get(ch)
+        if not cid:
+            return None
+        return f"https://api.blockscout.com/{cid}/api/v2"
+    base = _CHAIN_BASES.get(ch)
+    if not base:
+        return None
+    return f"{base}/api/v2"
 
 
 def _valid_address(address: str) -> bool:
     return bool(_EVM_ADDR_RE.match((address or "").strip()))
 
 
-async def _get_json(base: str, path: str) -> Any | None:
+def _request_headers() -> dict[str, str]:
+    headers = dict(_HEADERS_BASE)
+    if BLOCKSCOUT_API_KEY:
+        headers["Authorization"] = f"Bearer {BLOCKSCOUT_API_KEY}"
+    return headers
+
+
+def _note_portal_headers(resp: aiohttp.ClientResponse) -> None:
+    global _CREDITS_REMAINING
+    raw = resp.headers.get("x-credits-remaining")
+    if raw is None:
+        return
+    try:
+        _CREDITS_REMAINING = int(raw)
+    except (TypeError, ValueError):
+        pass
+
+
+async def _get_json(chain: str, path: str) -> Any | None:
     if not _try_consume_quota():
         return None
-    url = f"{base.rstrip('/')}{path}"
+    root = _api_v2_root(chain)
+    if not root:
+        return None
+    url = f"{root.rstrip('/')}{path}"
     try:
-        async with aiohttp.ClientSession(timeout=_TIMEOUT, headers=_HEADERS) as session:
+        async with aiohttp.ClientSession(timeout=_TIMEOUT, headers=_request_headers()) as session:
             async with session.get(url) as resp:
+                _note_portal_headers(resp)
                 if resp.status != 200:
                     logger.debug("Blockscout HTTP %s %s", resp.status, path)
                     return None
@@ -163,15 +218,15 @@ async def _get_json(base: str, path: str) -> Any | None:
 async def fetch_address_summary(address: str, *, chain: str = "ethereum") -> dict[str, Any] | None:
     if not _valid_address(address):
         return None
-    base = _base_for_chain(chain)
-    if not base:
+    ch = _norm_chain(chain)
+    if ch not in _CHAIN_BASES:
         return None
     addr = address.lower()
-    cache_key = f"addr:{_norm_chain(chain)}:{addr}"
+    cache_key = f"addr:{ch}:{addr}"
     cached = _cache_get(cache_key)
     if cached is not None:
         return cached
-    data = await _get_json(base, f"/api/v2/addresses/{addr}")
+    data = await _get_json(ch, f"/addresses/{addr}")
     if not isinstance(data, dict):
         return None
     try:
@@ -181,7 +236,7 @@ async def fetch_address_summary(address: str, *, chain: str = "ethereum") -> dic
     native = wei / 1e18
     row: dict[str, Any] = {
         "address": addr,
-        "chain": _norm_chain(chain),
+        "chain": ch,
         "balance_wei": wei,
         "balance_native": round(native, 8),
         "ens_domain_name": data.get("ens_domain_name"),
@@ -206,16 +261,16 @@ async def fetch_address_transactions(
 ) -> list[dict[str, Any]]:
     if not _valid_address(address):
         return []
-    base = _base_for_chain(chain)
-    if not base:
+    ch = _norm_chain(chain)
+    if ch not in _CHAIN_BASES:
         return []
     lim = max(1, min(int(limit), 20))
     addr = address.lower()
-    cache_key = f"txs:{_norm_chain(chain)}:{addr}:{lim}"
+    cache_key = f"txs:{ch}:{addr}:{lim}"
     cached = _cache_get(cache_key)
     if cached is not None:
         return cached
-    data = await _get_json(base, f"/api/v2/addresses/{addr}/transactions")
+    data = await _get_json(ch, f"/addresses/{addr}/transactions")
     if not isinstance(data, dict):
         return []
     items = data.get("items")
@@ -246,14 +301,14 @@ async def fetch_transaction_by_hash(tx_hash: str, *, chain: str = "ethereum") ->
     h = (tx_hash or "").strip().lower()
     if not h.startswith("0x") or len(h) != 66:
         return None
-    base = _base_for_chain(chain)
-    if not base:
+    ch = _norm_chain(chain)
+    if ch not in _CHAIN_BASES:
         return None
-    cache_key = f"tx:{_norm_chain(chain)}:{h}"
+    cache_key = f"tx:{ch}:{h}"
     cached = _cache_get(cache_key)
     if cached is not None:
         return cached
-    data = await _get_json(base, f"/api/v2/transactions/{h}")
+    data = await _get_json(ch, f"/transactions/{h}")
     if not isinstance(data, dict):
         return None
     from_obj = data.get("from") if isinstance(data.get("from"), dict) else {}
@@ -266,7 +321,7 @@ async def fetch_transaction_by_hash(tx_hash: str, *, chain: str = "ethereum") ->
         "block_number": data.get("block_number"),
         "result": data.get("result"),
         "source": "blockscout",
-        "chain": _norm_chain(chain),
+        "chain": ch,
     }
     _cache_set(cache_key, row)
     return row
@@ -282,6 +337,8 @@ async def fetch_explorer_fallback(
     stats = usage_stats()
     if stats["remaining_today"] <= 0:
         return {"ok": False, "error": "daily_limit_exceeded", "usage": stats}
+    if stats.get("portal_credits_remaining") == 0:
+        return {"ok": False, "error": "portal_credits_exhausted", "usage": stats}
     ch = _norm_chain(chain)
     if ch not in _CHAIN_BASES:
         return {"ok": False, "error": "unsupported_chain", "chain": ch, "usage": stats}
@@ -297,7 +354,8 @@ async def fetch_explorer_fallback(
         "balance": bal,
         "recent_transactions": txs,
         "usage": usage_stats(),
-        "no_api_key": True,
+        "no_api_key": not bool(BLOCKSCOUT_API_KEY),
+        "gateway": stats.get("gateway"),
     }
     if not row["ok"]:
         return row
