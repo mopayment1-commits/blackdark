@@ -627,24 +627,76 @@
             align-items: stretch;
             text-align: left;
         }
-        .hero .tp-mini-action { text-align: center; }
-        .hero .tp-mini-proof .bd-chip { margin: 0; }
-        .hero .tp-mini-proof {
-            width: 100%;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.4rem;
-            align-items: center;
-            justify-content: flex-start;
+        .hero .tp-mini-top {
+            margin-bottom: 0.45rem;
         }
-        .hero .tp-mini-cta {
-            width: 100%;
-            clear: both;
+        .hero .tp-mini-fresh-wrap {
+            margin: 0 0 0.65rem;
+        }
+        .hero .tp-mini-live-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.32rem 0.7rem;
+            font-size: 0.75rem;
+            color: #c8c8d0;
+            border-color: rgba(34, 211, 238, 0.28);
+            background: rgba(17, 17, 24, 0.85);
+        }
+        .hero .tp-mini-live-chip .tp-mini-dot {
+            flex-shrink: 0;
+        }
+        .hero .tp-mini-action {
+            text-align: center;
+            margin: 0 0 0.35rem;
+        }
+        .hero .tp-mini-sym {
+            text-align: center;
+            font-size: 0.95rem;
+            color: #e4e4e7;
+            margin-bottom: 0.55rem;
+        }
+        .hero .tp-mini-sentence {
+            text-align: center;
+            margin-bottom: 0.75rem;
+        }
+        .hero .tp-mini-why {
+            margin-bottom: 0.85rem;
+        }
+        .hero .tp-mini-why div {
+            display: block;
+        }
+        .hero .tp-mini-actions {
             display: flex;
             flex-direction: column;
             align-items: stretch;
-            gap: 0.5rem;
-            margin-top: 0.15rem;
+            gap: 0.45rem;
+            width: 100%;
+        }
+        .hero .tp-mini-proof {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 0.45rem;
+            margin: 0;
+        }
+        .hero .tp-mini-proof .bd-chip,
+        .hero .tp-mini-proof a.bd-chip,
+        .hero .tp-mini-proof button.bd-chip {
+            margin: 0;
+            width: 100%;
+            justify-content: center;
+            box-sizing: border-box;
+            min-height: 2.35rem;
+        }
+        .hero .tp-mini-cta {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 0.45rem;
+            margin: 0;
         }
         .hero .tp-mini-cta .btn-primary,
         .hero .tp-mini-cta .btn-secondary {
@@ -653,6 +705,8 @@
             font-size: 0.9rem;
             margin: 0;
             box-sizing: border-box;
+            display: inline-flex;
+            justify-content: center;
         }
         .hero .tp-mini-foot {
             font-size: 0.72rem;
@@ -848,13 +902,10 @@
             align-items: center;
             gap: 0.5rem;
         }
-        body.landing-page .landing-workspace-anchor .landing-room-cta {
+        body.landing-page .landing-workspace-anchor a.btn.secondary {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 0.6rem 1.15rem;
-            font-size: 0.9rem;
-            width: auto;
             text-decoration: none;
         }
         body.landing-page .bd-site-footer-root .bd-site-footer { color: #c8c8d0; }
@@ -914,20 +965,29 @@
                 <div class="tp-mini-inner bd-trust-pulse">
                     <div class="tp-mini-top">
                         <span class="tp-mini-label">{{ t('pulse.label') }}</span>
-                        <span class="tp-mini-live"><span class="tp-mini-dot" id="lpDot"></span><span id="lpFresh">{{ t('pulse.live') }}</span></span>
                     </div>
                     {% set _lp = landing_pulse_view if landing_pulse_view is defined and landing_pulse_view else none %}
+                    {% set _pulse_raw = landing_pulse_ssr if landing_pulse_ssr is defined and landing_pulse_ssr else {} %}
+                    {% set _fresh = (_pulse_raw.get('freshness') or _pulse_raw.get('data_freshness') or {}) if _pulse_raw else {} %}
+                    <div class="tp-mini-fresh-wrap">
+                        <span class="bd-chip ok tp-mini-live-chip" role="status" aria-live="polite">
+                            <span class="tp-mini-dot" id="lpDot"></span>
+                            <span id="lpFresh">{{ _fresh.get('label') if _fresh and _fresh.get('label') else t('pulse.live') }}</span>
+                        </span>
+                    </div>
                     <div class="tp-mini-action bd-tp-action {{ _lp.action_class if _lp else 'WAIT' }}" id="lpAction">{{ _lp.action if _lp else '—' }}</div>
                     <div class="tp-mini-sym" id="lpSym">{{ _lp.symbol_line if _lp else t('pulse.loading') }}</div>
                     <p class="tp-mini-sentence" id="lpSentence">{{ _lp.sentence if _lp else t('pulse.sentence') }}</p>
                     <div class="tp-mini-why" id="lpWhy"></div>
-                    <div class="tp-mini-proof" id="lpProof" aria-label="{{ t('a11y.trust_pulse') }} proof chips"></div>
-                    <p class="tp-mini-proof-toast" id="lpProofCopyMsg" role="status" aria-live="polite" hidden></p>
-                    <div class="tp-mini-proof-drawer" id="lpProofDrawer" hidden></div>
-                    <div class="tp-mini-cta" aria-label="Trust Pulse actions">
-                        <a href="/dashboard?lens=prove#trust-pulse" class="btn-primary">{{ t('pulse.open_full') }}</a>
-                        <button type="button" class="btn-secondary" style="cursor:pointer" id="lpShareBtn">{{ t('pulse.share') }}</button>
-                        <button type="button" class="btn-secondary" style="cursor:pointer;display:none" id="lpArbBtn">{{ t('arb.btn') }}</button>
+                    <div class="tp-mini-actions" aria-label="Trust Pulse proof and actions">
+                        <div class="tp-mini-proof" id="lpProof" aria-label="{{ t('a11y.trust_pulse') }} proof chips"></div>
+                        <p class="tp-mini-proof-toast" id="lpProofCopyMsg" role="status" aria-live="polite" hidden></p>
+                        <div class="tp-mini-proof-drawer" id="lpProofDrawer" hidden></div>
+                        <div class="tp-mini-cta" aria-label="Trust Pulse actions">
+                            <a href="/dashboard?lens=prove#trust-pulse" class="btn-primary" style="padding:.55rem 1.1rem;font-size:.9rem">{{ t('pulse.open_full') }}</a>
+                            <button type="button" class="btn-secondary" style="padding:.55rem 1.1rem;font-size:.9rem;cursor:pointer" id="lpShareBtn">{{ t('pulse.share') }}</button>
+                            <button type="button" class="btn-secondary" style="padding:.55rem 1.1rem;font-size:.9rem;cursor:pointer;display:none" id="lpArbBtn">{{ t('arb.btn') }}</button>
+                        </div>
                     </div>
                     <div id="lpArbPanel" hidden style="margin-top:.75rem;text-align:left;font-size:.82rem;border-top:1px solid var(--border);padding-top:.65rem">
                         <p style="color:var(--muted);margin-bottom:.35rem">{{ t('arb.panel.lead') }}</p>
@@ -966,7 +1026,7 @@
                 <section id="room" class="bd-workspace-section landing-room-section" aria-label="{{ t('nav.room') }}">
                     <h3 class="bd-workspace-heading">{{ t('nav.room') }}</h3>
                     <p class="sub">{{ t('lenses.room.body') }}</p>
-                    <a href="/data-room?lens=room" class="btn-primary landing-room-cta">{{ t('nav.room') }} →</a>
+                    <a href="/data-room?lens=room" class="btn secondary">{{ t('pricing.cta.talk') }}</a>
                 </section>
                 {% include 'partials/oracle_workspace.html' %}
             </section>
