@@ -247,8 +247,50 @@ LIQUIDITY_MIN_24H_VOLUME_USD = float(os.getenv("LIQUIDITY_MIN_24H_VOLUME_USD", "
 LIQUIDITY_MAX_DYNAMIC_EXCHANGES = int(os.getenv("LIQUIDITY_MAX_DYNAMIC_EXCHANGES", "100"))
 LIQUIDITY_MAX_DYNAMIC_ASSETS = int(os.getenv("LIQUIDITY_MAX_DYNAMIC_ASSETS", "100"))
 LIQUIDITY_DISCOVERY_TIMEOUT_SECONDS = int(os.getenv("LIQUIDITY_DISCOVERY_TIMEOUT_SECONDS", "30"))
+# CoinMarketCap Basic (pro-api) — commercial use allowed on Basic; set in Railway secrets.
 COINMARKETCAP_API_KEY = os.getenv("COINMARKETCAP_API_KEY", "")
 COINMARKETCAP_ENABLED = bool(COINMARKETCAP_API_KEY)
+# ChangeNOW partner API — free integration; revenue share (default ~0.4% partner fee).
+CHANGENOW_API_KEY = os.getenv("CHANGENOW_API_KEY", "").strip()
+CHANGENOW_PARTNER_FEE_PERCENT = float(os.getenv("CHANGENOW_PARTNER_FEE_PERCENT", "0.4"))
+CHANGENOW_REFERRAL_LINK = os.getenv("CHANGENOW_REFERRAL_LINK", "").strip()
+# Etherscan free API — 5 req/s, 100k req/day (requires free API key).
+ETHERSCAN_API_KEY = os.getenv("ETHERSCAN_API_KEY", "").strip()
+ETHERSCAN_DAILY_LIMIT = int(os.getenv("ETHERSCAN_DAILY_LIMIT", "100000"))
+ETHERSCAN_RPS_LIMIT = int(os.getenv("ETHERSCAN_RPS_LIMIT", "5"))
+ETHERSCAN_CACHE_TTL_SEC = float(os.getenv("ETHERSCAN_CACHE_TTL_SEC", "90"))
+# Blockscout API v2 — free key from dev.blockscout.com (multi-chain gateway); public instances as fallback.
+BLOCKSCOUT_API_KEY = os.getenv("BLOCKSCOUT_API_KEY", "").strip()
+BLOCKSCOUT_DAILY_LIMIT = int(os.getenv("BLOCKSCOUT_DAILY_LIMIT", "50000"))
+BLOCKSCOUT_RPS_LIMIT = int(os.getenv("BLOCKSCOUT_RPS_LIMIT", "5"))
+BLOCKSCOUT_CACHE_TTL_SEC = float(os.getenv("BLOCKSCOUT_CACHE_TTL_SEC", "90"))
+# The Graph Studio gateway — free tier ~100k queries/month (API key required).
+THE_GRAPH_API_KEY = os.getenv("THE_GRAPH_API_KEY", "").strip()
+THE_GRAPH_MONTHLY_LIMIT = int(os.getenv("THE_GRAPH_MONTHLY_LIMIT", "100000"))
+THE_GRAPH_RPS_LIMIT = int(os.getenv("THE_GRAPH_RPS_LIMIT", "5"))
+THE_GRAPH_CACHE_TTL_SEC = float(os.getenv("THE_GRAPH_CACHE_TTL_SEC", "120"))
+# CoinPaprika public API — no key; conservative client-side RPS + cache.
+COINPAPRIKA_RPS_LIMIT = int(os.getenv("COINPAPRIKA_RPS_LIMIT", "8"))
+COINPAPRIKA_CACHE_TTL_SEC = float(os.getenv("COINPAPRIKA_CACHE_TTL_SEC", "90"))
+# FRED macro API — free key from fred.stlouisfed.org (120 req/min plan).
+FRED_API_KEY = os.getenv("FRED_API_KEY", "").strip()
+FRED_DAILY_LIMIT = int(os.getenv("FRED_DAILY_LIMIT", "10000"))
+FRED_RPS_LIMIT = int(os.getenv("FRED_RPS_LIMIT", "5"))
+FRED_CACHE_TTL_SEC = float(os.getenv("FRED_CACHE_TTL_SEC", "3600"))
+# Financial headlines RSS — U.S. agency feeds (public information; link-out only).
+FINANCIAL_NEWS_RSS_FEEDS = [
+    feed.strip()
+    for feed in os.getenv(
+        "FINANCIAL_NEWS_RSS_FEEDS",
+        "https://www.federalreserve.gov/feeds/press_all.xml,"
+        "https://www.sec.gov/news/pressreleases.rss,"
+        "https://www.cftc.gov/PressRoom/PressReleases/RSS/index.xml",
+    ).split(",")
+    if feed.strip()
+]
+FINANCIAL_NEWS_CACHE_TTL_SEC = float(os.getenv("FINANCIAL_NEWS_CACHE_TTL_SEC", "300"))
+FINANCIAL_NEWS_RPS_LIMIT = int(os.getenv("FINANCIAL_NEWS_RPS_LIMIT", "4"))
+FINANCIAL_NEWS_PER_FEED_LIMIT = int(os.getenv("FINANCIAL_NEWS_PER_FEED_LIMIT", "5"))
 COINMARKETCAP_LISTINGS_URL = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest"
 COINMARKETCAP_EXCHANGES_URL = "https://pro-api.coinmarketcap.com/v1/exchange/listings/latest"
 OPERATIONAL_MANIFEST_PATH = DATA_DIR / "operational_manifest.json"

@@ -158,6 +158,19 @@ def test_google_signin_navigates_oauth_start_not_gis_transform():
     assert "/api/auth/oauth/google/start" in html
     assert "renderButton" not in html
     assert "accounts.google.com/gsi/client" not in html
+    assert 'id="googleSignInBtn"' in html
+    assert "google-signin-btn-visible" in html
+
+
+def test_login_google_button_server_rendered(client, monkeypatch):
+    monkeypatch.setenv("OAUTH_GOOGLE_CLIENT_ID", "gid-test.apps.googleusercontent.com")
+    res = client.get("/login")
+    assert res.status_code == 200
+    assert 'id="googleSignInBtn"' in res.text
+    assert 'href="/api/auth/oauth/google/start"' in res.text
+    assert "googleBtnHost" in res.text
+    before_module = res.text.split('type="module"', 1)[0]
+    assert 'id="googleSignInBtn"' in before_module
 
 
 def test_google_gis_redirect_post_login_route(client, monkeypatch):

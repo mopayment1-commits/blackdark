@@ -111,6 +111,14 @@
       toggle();
     });
 
+    const profileLink = document.getElementById("bdAccountProfileLink");
+    if (profileLink) {
+      profileLink.addEventListener("click", function (ev) {
+        ev.stopPropagation();
+        setOpen(false);
+      });
+    }
+
     trigger.addEventListener("keydown", function (ev) {
       if (ev.key === "Enter" || ev.key === " ") {
         ev.preventDefault();

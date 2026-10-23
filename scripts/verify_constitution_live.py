@@ -52,6 +52,7 @@ def _constitution_probes() -> list[tuple[str, str, None, int | set[int]]]:
         ("GET", "/api/audience/entry?audience=whale", None, {200}),
         ("GET", "/oracle/BTC?ux_mode=beginner&lang=en", None, {200, 403, 404, 502, 503}),
         ("GET", "/oracle/BTC?ux_mode=pro&lang=en", None, {200, 403, 404, 502, 503}),
+        ("GET", "/admin", None, {401, 403}),
         ("GET", "/admin/plan", None, {200}),
         ("GET", "/admin/roadmap", None, {200}),
         ("GET", "/api/plan/audit", None, {200}),

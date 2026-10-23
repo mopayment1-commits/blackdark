@@ -27,25 +27,59 @@ def _utcnow() -> str:
     return datetime.now(UTC).isoformat()
 
 
+def telegram_alerts_bot_url() -> str:
+    """Notification bot — Join Telegram Alerts CTA."""
+    return _env("BRAND_TELEGRAM_ALERTS_BOT", "https://t.me/BLACKDARKAI_oncall_bot")
+
+
+def telegram_community_urls() -> dict[str, str]:
+    """Telegram bot, group, and channel (env overrides)."""
+    return {
+        "bot": telegram_alerts_bot_url(),
+        "chat_group": _env(
+            "BRAND_TELEGRAM_CHAT_GROUP",
+            "https://t.me/+klz-XoXG6BI1OTE8",
+        ),
+        "channel": _env("BRAND_SOCIAL_TELEGRAM_CHANNEL", "https://t.me/BLACKDARKAPP"),
+    }
+
+
 def brand_social() -> list[dict[str, str]]:
     """Official brand profiles (Follow us) — configure via env."""
+    tg = telegram_community_urls()
     items = [
         {
             "id": "x",
             "label": "X",
-            "href": _env("BRAND_SOCIAL_X", "https://x.com/blackdark"),
+            "href": _env("BRAND_SOCIAL_X", "https://x.com/BLACKDARKio"),
+        },
+        {
+            "id": "reddit",
+            "label": "Reddit",
+            "href": _env(
+                "BRAND_SOCIAL_REDDIT",
+                "https://www.reddit.com/user/Mopayment",
+            ),
+        },
+        {
+            "id": "facebook",
+            "label": "Facebook",
+            "href": _env(
+                "BRAND_SOCIAL_FACEBOOK",
+                "https://www.facebook.com/share/19vLBQzveA/?mibextid=wwXIfr",
+            ),
         },
         {
             "id": "telegram",
             "label": "Telegram",
-            "href": _env("BRAND_SOCIAL_TELEGRAM", "https://t.me/blackdark"),
+            "href": _env("BRAND_SOCIAL_TELEGRAM", tg["channel"]),
         },
         {
             "id": "linkedin",
             "label": "LinkedIn",
             "href": _env(
                 "BRAND_SOCIAL_LINKEDIN",
-                "https://www.linkedin.com/company/blackdark",
+                "https://www.linkedin.com/in/blackdarkio",
             ),
         },
     ]
@@ -92,24 +126,24 @@ FAQ_ITEMS: list[dict[str, str]] = [
         "a": "No. We sell reviewable decisions and proof — not guaranteed returns. Hits and misses are published on the Ledger.",
     },
     {
-        "q": "What is DISCOVER / FREE ($0)?",
-        "a": "Public Prove surface: Trust Pulse + Why + shareable Decision Certificate, with a daily certified decision limit and Free Proof watermark.",
+        "q": "What is Free ($0)?",
+        "a": "Trust Pulse, Public Accuracy Ledger, one Oracle decision (BTC/ETH), one decision certificate, and saved language — on-device where applicable.",
     },
     {
-        "q": "What do I get with DECIDE / PRO ($19.99/mo or $199/yr)?",
-        "a": "Operate lens: daily habit depth — unlimited Oracle (no Free daily ceiling), Portfolio AI, alerts, no Free watermark, plus AI Chat. 7-day trial available.",
+        "q": "What do I get with Beginner ($9.99/mo)?",
+        "a": "Everything in Free plus Watchlist (5 symbols), one decision alert, decision log (20), compare two assets, and offline last-known decisions.",
     },
     {
-        "q": "What is SEE THE EDGE / ELITE ($49.99/mo or $499/yr)?",
-        "a": "Desk lens: packaging to convince someone else — Signal-to-Noise, Stealth views, Evidence pack, API priority.",
+        "q": "What is Pro ($29/mo)?",
+        "a": "Everything in Beginner plus 20-symbol Watchlist, unlimited alerts, full decision log, compare five assets, charts, share decision, and dark/light theme.",
     },
     {
-        "q": "What is EXECUTE THE EDGE / QUANT ($129.99/mo or $1,299/yr)?",
-        "a": "Quant depth: backtesting suite, higher API scale, and systematic workflow tools for serious desks.",
+        "q": "What is Desk ($79/mo)?",
+        "a": "Everything in Pro plus all symbols on Watchlist, advanced alerts, read API, certificate export, and priority support.",
     },
     {
-        "q": "How do funds engage (SCALE THE EDGE / INSTITUTIONAL)?",
-        "a": "Room lens from $999/mo — Data Room and Integration Addendum. Talk to us; not self-serve checkout.",
+        "q": "How do funds engage (Institution)?",
+        "a": "Full API, custom reports, SLA, and extended historical data. Talk to us — not self-serve checkout.",
     },
     {
         "q": "What can I share on social / WhatsApp?",
@@ -209,6 +243,8 @@ def footer_manifest() -> dict[str, Any]:
             {"label": "Privacy", "href": "/privacy"},
         ],
         "follow": brand_social(),
+        "telegram_alerts_url": telegram_alerts_bot_url(),
+        "telegram_community": telegram_community_urls(),
         "contact": contact,
         "disclaimer_line": "Four-layer legal shield active. Not financial advice. AI cannot guarantee returns. Verify on the Public Accuracy Ledger.",
     }
@@ -238,19 +274,31 @@ def site_services_manifest() -> dict[str, Any]:
 
 
 def about_blurb() -> dict[str, Any]:
+    capabilities = [
+        "Single-sentence Oracle decisions with live freshness and factor breakdown",
+        "Public Accuracy Ledger with hash-chained proof of hits and misses",
+        "Trust Pulse for real-time Act/Wait signals under five seconds",
+        "Sealed Prediction Markets with timed certificates and public resolution",
+        "Verified Miss Bounty for reported model errors with subscription credit",
+        "Arb Opportunities for cross-venue price discrepancies (paid users)",
+        "Discipline Mirror for private follow-vs-override tracking",
+        "Decision Certificates with shareable proof",
+        "Glass Box Challenge for public verification",
+        "Multi-language support across 25 languages",
+        "Institutional-grade data provenance and audit trail",
+    ]
     return {
-        "title": "About BLACKDARK",
+        "title": "About BlackDark",
         "lead": (
-            "BLACKDARK is a Trust OS for crypto decision intelligence: "
-            "one clear decision, a reviewable why, and a shareable proof — "
-            "verified on a public accuracy ledger."
+            "Institutional-grade market intelligence built for clarity, not noise — "
+            "one clear Act or Wait decision backed by transparent evidence."
         ),
-        "difference": (
-            "Competitors sell charts, data feeds, or opaque scores. "
-            "We sell a reviewable decision + Proof Card as the free viral wedge, "
-            "and depth of trust as the paid product."
+        "capabilities": capabilities,
+        "disclaimer": (
+            "BlackDark is an analytical research tool. It is not financial advice. "
+            "All outcomes, including misses, are published on the Public Accuracy Ledger "
+            "for independent verification."
         ),
-        "lenses": "Prove → Operate → Desk → Room",
         "follow": brand_social(),
     }
 

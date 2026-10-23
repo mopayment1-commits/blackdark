@@ -50,6 +50,16 @@ ALLOW_IDENTICAL = frozenset(
         "oracle.audience.whale",
         "oracle.audience.fund",
         "oracle.audience.retail",
+        "lenses.prove.title",
+        "lenses.operate.title",
+        "lenses.desk.title",
+        "lenses.room.title",
+        "oracle.mode.decision_pro",
+        "oracle.share.facebook",
+        "oracle.share.instagram",
+        "oracle.share.whatsapp",
+        "oracle.share.telegram",
+        "oracle.share.reddit",
     }
 )
 
@@ -174,6 +184,13 @@ async def test_pages_and_api_switch_language():
         data = quick.json()
         assert data.get("lang") == "fr"
         assert data.get("decision_sentence")
+
+
+def test_all_25_locales_public_surface_complete():
+    from i18n_service import LOCALES, locale_ui_complete
+
+    failed = [code for code in REQUIRED_LOCALES if not locale_ui_complete(code)]
+    assert not failed, f"locale_ui_complete false: {failed}"
 
 
 def test_decision_sentence_localized():

@@ -20,13 +20,14 @@ def test_pricing_cards_layout():
     page = TestClient(app).get("/pricing")
     assert page.status_code == 200
     text = page.text
-    for name in ("Free", "Plus", "Pro", "Enterprise"):
+    for name in ("Free", "Beginner", "Pro", "Desk", "Institution"):
         assert name in text
     assert "$0" in text
-    assert "$29" in text and "/month" in text
-    assert "$49" in text
+    assert "$9.99" in text and "/month" in text
+    assert "$29" in text
+    assert "$79" in text
     assert "Compare plans" in text
-    assert 'id="enterprise"' in text
+    assert 'id="institution"' in text
     assert "Talk to us" in text
     assert 'href="/login?next=/profile"' in text
     assert "Billing" in text
@@ -36,3 +37,14 @@ def test_pricing_cards_layout():
     for banned in ("lemon", "stripe", "kyc", "checkout url"):
         assert banned not in lowered
     assert "billingReadyLine" not in text
+
+
+def test_pricing_ssot_matches_plan_registry():
+    from billing.plan_registry import PLAN_DEFINITIONS
+    from site_pricing_tiers import PUBLIC_TIER_SPECS
+
+    for spec in PUBLIC_TIER_SPECS:
+        pid = spec["plan_id"]
+        if spec["price_usd_month"] is None:
+            continue
+        assert PLAN_DEFINITIONS[pid]["price_usd_month"] == spec["price_usd_month"]

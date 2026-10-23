@@ -19,9 +19,27 @@ FORBIDDEN = (
     "Open the lenses",
     "Compare plans",
     "For companies and funds",
+    "Get Decision",
+    "Share Your Signal",
+    "Get early access to Trust OS",
+    "Join Waitlist",
+    "Telegram Free Alerts",
+    "Enter your email",
+    "Claim Miss Bounty",
+    "Miss Bounty Log",
+    "Sealed Prediction Markets",
+    "View Arb Opportunities",
 )
 
-PAGES = ("/", "/pricing", "/login", "/oracle-accuracy")
+PAGES = (
+    "/",
+    "/pricing",
+    "/login",
+    "/oracle-accuracy",
+    "/join-waitlist",
+    "/miss-bounty-log",
+    "/sealed-markets",
+)
 
 
 def main() -> int:

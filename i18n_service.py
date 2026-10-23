@@ -159,6 +159,22 @@ ALLOW_IDENTICAL: frozenset[str] = frozenset(
         "oracle.audience.whale",
         "oracle.audience.fund",
         "oracle.audience.retail",
+        "lenses.prove.title",
+        "lenses.operate.title",
+        "lenses.desk.title",
+        "lenses.room.title",
+        "oracle.mode.decision_pro",
+        "oracle.share.facebook",
+        "oracle.share.instagram",
+        "oracle.share.whatsapp",
+        "oracle.share.telegram",
+        "oracle.share.reddit",
+        "social.link.x",
+        "social.link.reddit",
+        "social.link.facebook",
+        "social.link.telegram",
+        "social.link.linkedin",
+        "discipline.title",
     }
 )
 
@@ -195,6 +211,35 @@ _EXTRA_PUBLIC_SURFACE_KEYS: tuple[str, ...] = (
     "footer.link.pricing",
     "footer.link.profile",
     "footer.link.chat",
+    "footer.link.about",
+    "footer.link.contact",
+    "meta.title.about",
+    "about.title",
+    "about.lead",
+    "about.p1",
+    "about.p2",
+    "about.capabilities.title",
+    "about.capability.1",
+    "about.capability.2",
+    "about.capability.3",
+    "about.capability.4",
+    "about.capability.5",
+    "about.capability.6",
+    "about.capability.7",
+    "about.capability.8",
+    "about.capability.9",
+    "about.capability.10",
+    "about.capability.11",
+    "about.disclaimer",
+    "about.follow",
+    "about.explore",
+    "nav.about",
+    "social.link.x",
+    "social.link.reddit",
+    "social.link.facebook",
+    "social.link.telegram",
+    "social.link.linkedin",
+    "social.join_telegram_alerts",
     "ledger.hero.badge",
     "ledger.hero.title",
     "ledger.hero.engine_rules",
@@ -222,11 +267,21 @@ def public_surface_keys() -> tuple[str, ...]:
     for rel in (
         "templates/landing.html",
         "templates/login.html",
+        "templates/swap.html",
         "templates/pricing.html",
         "templates/partials/site_top_nav.html",
+        "templates/partials/oracle_workspace.html",
         "templates/partials/lang_switcher.html",
         "templates/partials/site_footer.html",
         "templates/oracle_accuracy.html",
+        "templates/join_waitlist.html",
+        "templates/docs_public.html",
+        "templates/discipline.html",
+        "templates/utility.html",
+        "templates/miss_bounty_log.html",
+        "templates/sealed_markets.html",
+        "templates/oracle_decision_market.html",
+        "templates/dashboard.html",
     ):
         path = root / rel
         if path.is_file():
@@ -310,15 +365,52 @@ EN: dict[str, str] = {
     "meta.title.dashboard": "BLACKDARK — Intelligence Dashboard",
     "meta.title.login": "BLACKDARK — Login",
     "meta.title.accuracy": "BLACKDARK — Public Accuracy Ledger",
+    "meta.title.about": "BLACKDARK — About",
+    # About page
+    "about.title": "About BlackDark",
+    "about.lead": (
+        "Institutional-grade market intelligence built for clarity, not noise — "
+        "one clear Act or Wait decision backed by transparent evidence."
+    ),
+    "about.p1": (
+        "BlackDark is an institutional-grade market intelligence platform built for clarity, not noise. "
+        "It delivers one clear Act or Wait decision on major crypto assets, backed by transparent evidence "
+        "and a public accuracy ledger that publishes both hits and misses."
+    ),
+    "about.p2": (
+        "Unlike traditional dashboards that overwhelm users with endless charts, BlackDark focuses on a single, "
+        "actionable signal supported by three key factors, a sealed decision certificate, and verifiable outcomes "
+        "after 24 hours. Every decision is logged, resolved, and made public so users can verify performance themselves."
+    ),
+    "about.capabilities.title": "Core Capabilities",
+    "about.capability.1": "Single-sentence Oracle decisions with live freshness and factor breakdown",
+    "about.capability.2": "Public Accuracy Ledger with hash-chained proof of hits and misses",
+    "about.capability.3": "Trust Pulse for real-time Act/Wait signals under five seconds",
+    "about.capability.4": "Sealed Prediction Markets with timed certificates and public resolution",
+    "about.capability.5": "Verified Miss Bounty for reported model errors with subscription credit",
+    "about.capability.6": "Arb Opportunities for cross-venue price discrepancies (paid users)",
+    "about.capability.7": "Discipline Mirror for private follow-vs-override tracking",
+    "about.capability.8": "Decision Certificates with shareable proof",
+    "about.capability.9": "Glass Box Challenge for public verification",
+    "about.capability.10": "Multi-language support across 25 languages",
+    "about.capability.11": "Institutional-grade data provenance and audit trail",
+    "about.disclaimer": (
+        "BlackDark is an analytical research tool. It is not financial advice. All outcomes, including misses, "
+        "are published on the Public Accuracy Ledger for independent verification."
+    ),
+    "about.follow": "Follow us",
+    "about.explore": "Explore",
     # Nav
     "nav.home": "Home",
     "nav.oracle": "Oracle",
     "nav.features": "Features",
     "nav.pricing": "Pricing",
+    "nav.about": "About",
     "nav.accuracy": "Accuracy",
     "nav.login": "Login",
     "nav.signup": "Sign up",
     "nav.profile": "Profile",
+    "nav.account_menu": "Account menu",
     "nav.logout": "Sign out",
     "nav.logout_failed": "Could not sign out. Try again.",
     "nav.dashboard": "Dashboard",
@@ -351,6 +443,22 @@ EN: dict[str, str] = {
     "stats.subscribers": "Subscribers",
     "stats.telegram": "Telegram",
     "stats.waitlist": "Waitlist",
+    "waitlist.title": "Get early access to Trust OS",
+    "waitlist.sub": "Join the waitlist for launch updates. No fake seat counters — just a clear path to Prove.",
+    "waitlist.email_aria": "Enter your email",
+    "waitlist.email_placeholder": "Enter your email",
+    "waitlist.submit": "Join Waitlist",
+    "waitlist.stats_aria": "Platform activity",
+    "waitlist.page.title": "Join waitlist",
+    "waitlist.page.h1": "Join the waitlist",
+    "waitlist.page.body": "Launch updates for Trust OS — no fake seat counters. Counts on the homepage load from live /api/analytics/stats.",
+    "waitlist.page.back": "← Back to homepage",
+    "waitlist.page.submit": "Join",
+    "waitlist.msg.submitting": "Submitting…",
+    "waitlist.msg.error": "Could not join — try again.",
+    "waitlist.msg.network": "Network error — try again.",
+    "waitlist.msg.generic": "Something went wrong.",
+    "waitlist.msg.welcome": "Welcome! You are #{position} on the waitlist.",
     # Telegram block
     "tg.title": "Telegram Free Alerts",
     "tg.badge": "3/day free",
@@ -358,8 +466,14 @@ EN: dict[str, str] = {
     "tg.open": "Open Telegram Bot",
     "tg.accuracy": "See AI Accuracy",
     "tg.commands": "Commands: /start · /status · /accuracy · /stop",
+    "tg.start_free_suffix": "Start Free",
     # Oracle demo
     "oracle.title": "BLACKDARK Oracle",
+    "oracle.field.audience": "Audience",
+    "oracle.field.experience": "Experience",
+    "oracle.field.symbol": "Symbol",
+    "oracle.mode.decision_pro": "Decision Pro",
+    "oracle.freshness.title": "Data freshness",
     "oracle.live": "Live",
     "oracle.audience.retail": "Retail",
     "oracle.audience.pro": "Pro",
@@ -376,6 +490,32 @@ EN: dict[str, str] = {
     "oracle.share.title": "Share Your Signal",
     "oracle.share.sub": "Spread the oracle verdict — viral growth fuels the dark side",
     "oracle.share.copy": "Copy Link",
+    "oracle.share.facebook": "Facebook",
+    "oracle.share.instagram": "Instagram",
+    "oracle.share.whatsapp": "WhatsApp",
+    "oracle.share.telegram": "Telegram",
+    "oracle.share.reddit": "Reddit",
+    "oracle.share.copied": "Copied!",
+    "oracle.factor.spot_reference_price": "Spot reference price",
+    "oracle.factor.change_24h": "24h price change",
+    "oracle.factor.quote_volume_24h": "24h quote volume",
+    "oracle.source.binance_ws": "Binance WebSocket top-of-book",
+    "oracle.source.binance_rest": "Binance spot REST",
+    "oracle.source.binance_spot": "Binance spot",
+    "oracle.source.coinbase": "Coinbase Exchange (public)",
+    "oracle.source.kraken": "Kraken spot (public)",
+    "oracle.source.live_market": "live market",
+    "oracle.source.model": "model",
+    "oracle.source.oracle": "oracle",
+    "oracle.source.context": "context",
+    "trust.factor.opportunity_score": "Opportunity score {score}",
+    "trust.factor.score_pending": "Score pending",
+    "trust.factor.detail.composite": "Composite Trust OS score from live market context",
+    "trust.factor.move_24h": "24h move {change}",
+    "trust.factor.detail.move": "Short-horizon price change on the watched pair",
+    "trust.factor.regime": "Regime {regime}",
+    "trust.factor.detail.regime": "Regime label from unified context",
+    "trust.grasp.top_reasons": "Top reasons — under five seconds",
     "action.ACT": "ACT",
     "action.WAIT": "WAIT",
     # Features
@@ -420,7 +560,7 @@ EN: dict[str, str] = {
     "dash.arb": "Arbitrage",
     "dash.whales": "Whale Radar",
     "dash.guest": "Guest · Free",
-    "dash.upgrade": "DECIDE / PRO $19.99/mo",
+    "dash.upgrade": "Beginner · $9.99/mo",
     "dash.symbol": "Symbol",
     "dash.stealth.sub": "Whale audience · advisory slice sizing — not a stealth-routing guarantee",
     "dash.portfolio.sub": "Risk in plain language — private holdings stay in-browser",
@@ -528,6 +668,56 @@ EN: dict[str, str] = {
     "dts.a11y.chart_alt": "Chart data summary: {summary}",
     "upgrade.pro_hint": "Switch to Pro to unlock Net-Edge Truth Score and Opportunity Half-Life.",
     "compliance.lead": "Engineering posture and overclaim denylist — not a license or SOC2 certificate.",
+    "docs.title": "Public Developer Docs",
+    "docs.lead": "Evidence and read APIs only. Analytical tool — not financial advice. Secrets and live execution writes are not exposed here.",
+    "docs.btn.ledger": "Public Accuracy Ledger",
+    "docs.btn.misses": "Public misses",
+    "docs.btn.capabilities": "Capabilities",
+    "docs.btn.status": "System status",
+    "docs.integrators": "Machine-readable OpenAPI/JSON exports are available to signed-in integrators — request access via contact.",
+    "docs.h2.primary": "Primary prove-it surfaces",
+    "docs.h2.prefixes": "Allowed public prefixes",
+    "docs.prefixes.lead": "Prefix allowlist for anonymous visitors (read/evidence). POST-only hero APIs are listed separately below.",
+    "docs.h2.post_only": "POST-only (not in read list)",
+    "docs.post_only.line": "— not a GET endpoint",
+    "docs.h2.policy": "Policy",
+    "docs.architecture": "Architecture index: ARCHITECTURE.md · Canon: four value layers · six heroes · no FalconAI 16-platform valuation.",
+    "docs.anti_hype": "Anti-Hype · Not financial advice · Verify claims on the Public Accuracy Ledger.",
+    "discipline.title": "Discipline Mirror",
+    "discipline.sub": "Private habit surface — not the public ledger.",
+    "discipline.nav.oracle": "Oracle",
+    "discipline.h2.current_decision": "Current Oracle decision",
+    "discipline.loading_decision": "Loading today’s decision…",
+    "discipline.follow_question": "Did you follow this model state?",
+    "discipline.btn.yes_followed": "Yes — I followed",
+    "discipline.btn.no_overrode": "No — I overrode",
+    "discipline.oracle_unavailable": "Oracle decision unavailable — try again from Dashboard.",
+    "discipline.oracle_unavailable_short": "Oracle decision unavailable.",
+    "discipline.system_state": "{symbol} · system state: {action}",
+    "discipline.model_state_fallback": "Model state: {action} on {symbol}.",
+    "discipline.answer_recorded": "Answer recorded for this Oracle decision.",
+    "discipline.loading_mirror": "Loading private mirror…",
+    "discipline.mirror_signin": "Mirror unavailable — sign in required.",
+    "discipline.mirror_unavailable": "Mirror unavailable",
+    "discipline.metric.answers": "Answers",
+    "discipline.metric.followed": "followed",
+    "discipline.metric.overridden": "overridden",
+    "discipline.metric.follow_rate": "Follow rate",
+    "discipline.msg.summary": "Answers: {total} · followed {followed} · overridden {overridden}",
+    "discipline.no_answers": "No answers yet.",
+    "discipline.row.system": "system",
+    "discipline.row.followed": "followed",
+    "discipline.row.overrode": "overrode",
+    "discipline.saving": "Saving…",
+    "discipline.save_failed": "Could not save answer.",
+    "discipline.saved_private": "Saved privately — only you can see your Discipline Mirror.",
+    "discipline.compliance": "Anti-Hype · Private coaching metrics · Not financial advice · Not shown on the public ledger.",
+    "discipline.open_dashboard": "Open Dashboard",
+    "utility.skip_content": "Skip to content",
+    "utility.nav.dashboard": "Dashboard",
+    "utility.nav.faq": "FAQ",
+    "utility.nav.accuracy": "Accuracy",
+    "utility.nav.contact": "Contact",
     # Sealed Trust OS landing (binding 2026-08-08)
     "nav.prove": "Prove",
     "nav.operate": "Operate",
@@ -561,9 +751,9 @@ EN: dict[str, str] = {
     "lenses.prove.title": "Prove",
     "lenses.prove.body": "DISCOVER / FREE ($0): public Prove surface + daily decision limit.",
     "lenses.operate.title": "Operate",
-    "lenses.operate.body": "DECIDE / PRO ($19.99/mo or $199/yr): daily habit — unlimited Oracle, Portfolio AI, alerts, AI Chat.",
+    "lenses.operate.body": "Beginner ($9.99/mo): Watchlist, alerts, decision log, compare, offline.",
     "lenses.desk.title": "Desk",
-    "lenses.desk.body": "SEE THE EDGE / ELITE ($49.99/mo or $499/yr): edge + packaging — Stealth, Evidence, API.",
+    "lenses.desk.body": "Pro ($29/mo) and Desk ($79/mo): charts, share, API & export.",
     "lenses.room.title": "Room",
     "lenses.room.body": "SCALE THE EDGE / INSTITUTIONAL (from $999/mo): Data Room, SSO/MFA, SLA — Talk to us.",
     "lenses.cta": "Open the lenses",
@@ -581,13 +771,13 @@ EN: dict[str, str] = {
     "pricing.title_os": "One Trust OS. Five depths.",
     "pricing.sub_os": "DISCOVER → DECIDE → SEE THE EDGE → EXECUTE THE EDGE → SCALE THE EDGE. Reviewable decisions + shareable proof — not charts or mystery scores.",
     "pricing.discover_free": "DISCOVER / FREE",
-    "pricing.decide_pro": "DECIDE / PRO",
-    "pricing.see_edge_elite": "SEE THE EDGE / ELITE",
+    "pricing.decide_pro": "Beginner",
+    "pricing.see_edge_elite": "Pro",
     "pricing.execute_quant": "EXECUTE THE EDGE / QUANT",
     "pricing.scale_institutional": "SCALE THE EDGE / INSTITUTIONAL",
     "pricing.proof_pass": "DISCOVER / FREE",
-    "pricing.decision_pro": "DECIDE / PRO",
-    "pricing.decision_desk": "SEE THE EDGE / ELITE",
+    "pricing.decision_pro": "Beginner",
+    "pricing.decision_desk": "Desk",
     "pricing.institutional": "SCALE THE EDGE / INSTITUTIONAL",
     "pricing.mo": "/month",
     "pricing.mo_usd": "/month USD",
@@ -611,11 +801,13 @@ EN: dict[str, str] = {
     "pricing.cta.b2b": "B2B Data Feed",
     "pricing.pay_note": "",
     "pricing.manage": "Manage plan anytime from Profile & Billing.",
-    "login.lead": "Login or create an account. Email + passcode. 7-day DECIDE / PRO trial on signup.",
+    "login.lead": "Login or create an account. Email + passcode. 7-day paid trial on signup.",
     "login.tab.signup": "Sign up",
     "auth.forgot_pass": "Forgot passcode?",
     "auth.forgot_username": "Forgot username?",
     "auth.google": "Continue with Google",
+    "auth.google_slow": "Google sign-in is taking longer than usual. Use email below or try again.",
+    "auth.google_redirecting": "Opening Google…",
     "auth.github": "Continue with GitHub",
     "auth.or_email": "or email",
     "auth.create": "Create account",
@@ -768,6 +960,17 @@ EN: dict[str, str] = {
     "ui.could_not_analyze": "Could not analyze {symbol}",
     "ui.scenarios": "Scenarios (sketch)",
     "ui.why_top3": "Why (Top 3) — under five seconds",
+    "ui.why_unavailable": "Factor breakdown unavailable on this response — score still shown.",
+    "ui.pending": "pending",
+    "ui.copied": "Copied!",
+    "ui.copy_certificate": "Copy certificate",
+    "ui.copy_certificate_text": "Copy certificate text",
+    "ui.download_txt": "Download TXT",
+    "ui.download_json": "Download JSON",
+    "ui.certificate_label": "Certificate",
+    "ui.prediction_id": "prediction_id",
+    "ui.scenarios_title": "Scenarios",
+    "ui.copy_cert_id_title": "Copy certificate ID",
     "ui.veto": "Contradiction Veto",
     "ui.do_not_touch": "WAIT / Do Not Touch",
     "ui.abstain": "Abstain",
@@ -816,6 +1019,8 @@ EN: dict[str, str] = {
     "ui.discipline_fail": "Could not save answer.",
     "ui.quota_exceeded": "Daily quota exceeded — upgrade",
     "ui.asset": "Asset",
+    "ui.verdict": "Verdict",
+    "ui.id": "ID",
     "ui.oi": "OI",
     "ui.funding": "Funding",
     "a11y.skip_trust_pulse": "Skip to Trust Pulse",
@@ -833,6 +1038,18 @@ EN: dict[str, str] = {
     ),
     "pulse.model_state": "MODEL STATE: {action} — {symbol}.",
     "pulse.model_state_conditions": "MODEL STATE: CONDITIONS MET — {symbol}. {review}",
+    "pulse.drawer.title": "Decision Certificate · Trust Pulse",
+    "pulse.drawer.open_ledger": "Open proof on ledger",
+    "pulse.drawer.close": "Close",
+    "pulse.msg.cert_text_copied": "Certificate text copied.",
+    "pulse.msg.cert_id_copied": "Certificate ID copied.",
+    "pulse.msg.cert_hash_copied": "Certificate hash copied.",
+    "pulse.msg.copy_cert_id_failed": "Could not copy certificate ID.",
+    "pulse.msg.copy_unsupported": "Copy not supported in this browser.",
+    "pulse.msg.no_cert_hash": "No certificate hash yet — use Get Decision below.",
+    "pulse.msg.no_cert_pulse": "No Decision Certificate for this pulse yet. Use Get Decision below to generate signed proof.",
+    "pulse.chip.copy_hash_title": "Copy certificate hash",
+    "pulse.chip.free_pending": "Free Proof — certificate pending",
     "seal.stamp_prefix": "Seal ·",
     "footer.col.product": "Product",
     "footer.col.trust": "Trust",
@@ -854,6 +1071,14 @@ EN: dict[str, str] = {
     "footer.link.pricing": "Pricing",
     "footer.link.profile": "Profile & Billing",
     "footer.link.chat": "AI Chat",
+    "footer.link.about": "About",
+    "footer.link.contact": "Contact",
+    "social.link.x": "X",
+    "social.link.reddit": "Reddit",
+    "social.link.facebook": "Facebook",
+    "social.link.telegram": "Telegram",
+    "social.link.linkedin": "LinkedIn",
+    "social.join_telegram_alerts": "Join Telegram Alerts",
     "ledger.hero.badge": "LIVE · PUBLIC AUDIT",
     "ledger.hero.title": "BLACKDARK — Public Oracle Accuracy",
     "ledger.hero.engine_rules": "rules engine",
@@ -874,6 +1099,172 @@ EN: dict[str, str] = {
     "ledger.cta.dashboard": "Open Dashboard",
     "ledger.cta.json_api": "JSON API",
     "ledger.cta.evidence": "Evidence Pack",
+    "ledger.cta.bounty_log": "Miss Bounty Log",
+    "ledger.cta.sealed_markets": "Sealed Markets",
+    "ledger.cta.audit_challenge": "Audit Challenge",
+    "ledger.cta.mev_report": "MEV Report",
+    "ledger.cta.locked_predictions": "Locked Predictions",
+    "ledger.panel.sealed_title": "Sealed Prediction Markets",
+    "ledger.panel.sealed_lead": (
+        "Oracle Act/Wait decisions sealed before the 24h outcome — stake on correctness "
+        "(max 50 USDT, 5% fee on losing pool)."
+    ),
+    "ledger.panel.sealed_all": "All sealed markets",
+    "ledger.panel.arb_title": "Arb Opportunities",
+    "ledger.panel.arb_lead": "Cross-exchange spreads from the latest scan — display only, not execution.",
+    "ledger.panel.arb_empty": "No arb opportunities right now.",
+    "ledger.panel.arb_loading": "Loading arb opportunities…",
+    "ledger.panel.arb_unavailable": "Arb scan unavailable — try again shortly.",
+    "ledger.panel.arb_status": "{count} opportunities shown (display only)",
+    "ledger.panel.defi_title": "DeFi market context (DefiLlama)",
+    "ledger.panel.defi_lead": (
+        "Public TVL, 24h protocol fees, and yield pools — no API key. "
+        "Macro context only; not a trade signal."
+    ),
+    "ledger.panel.defi_loading": "Loading DeFi context…",
+    "ledger.panel.defi_unavailable": "DeFi context unavailable — try again shortly.",
+    "ledger.panel.defi_empty": "No DeFi highlights for this asset right now.",
+    "ledger.panel.defi_status": "{symbol} · total DeFi TVL {total}",
+    "ledger.panel.defi_chain_tvl": "{chain} chain TVL {tvl}",
+    "ledger.panel.defi_chain_row": "Chain {name}: {tvl} TVL",
+    "ledger.panel.defi_fee_row": "Fees 24h · {name}: {fees}",
+    "ledger.panel.defi_yield_row": "Yield · {project} ({symbol}): {apy}% APY",
+    "ledger.panel.btc_fees_title": "Bitcoin network fees (mempool.space)",
+    "ledger.panel.btc_fees_lead": "Public recommended sat/vB fees and block tip — no API key. Context for on-chain cost, not a fee quote.",
+    "ledger.panel.btc_fees_loading": "Loading Bitcoin fee data…",
+    "ledger.panel.btc_fees_unavailable": "Bitcoin fee data unavailable — try again shortly.",
+    "ledger.panel.btc_fees_status": "Block height {height} · fastest {fast} sat/vB",
+    "ledger.panel.btc_fees_row": "{label}: {value} sat/vB",
+    "ledger.panel.fred_title": "U.S. macro context (FRED)",
+    "ledger.panel.fred_lead": "Inflation, policy rate, GDP, and 10Y yield from the Federal Reserve — requires server FRED_API_KEY.",
+    "ledger.panel.fred_loading": "Loading macro indicators…",
+    "ledger.panel.fred_unavailable": "Macro data unavailable — FRED key not configured or quota exceeded.",
+    "ledger.panel.fred_row": "{title}: {value} ({date})",
+    "ledger.panel.fred_cpi_row": "CPI YoY: {yoy}% (index {value}, {date})",
+    "nav.swap": "Swap",
+    "nav.wallet_balance": "Balance",
+    "swap.page_title": "Non-custodial swap",
+    "swap.lead": (
+        "Swap via ChangeNOW partner API (revenue share — no subscription). "
+        "You deposit directly to ChangeNOW; BLACKDARK never holds your funds."
+    ),
+    "swap.non_custodial": "Non-custodial",
+    "swap.fee_note": "Partner commission on completed swaps. Not financial advice.",
+    "swap.from": "From",
+    "swap.to": "To",
+    "swap.amount": "Amount to send",
+    "swap.payout_address": "Your payout wallet address",
+    "swap.estimate": "Get estimate",
+    "swap.create": "Create swap (get deposit address)",
+    "ledger.panel.locked_title": "Locked Predictions · Glass Box",
+    "ledger.panel.mev_title": "Shareable MEV / Sandwich Report",
+    "ledger.panel.misses_title": "Public Misses · Errors",
+    "ledger.panel.misses_banner": "We publish misses publicly — verify on the ledger. Hits and incorrect model states are logged after resolution.",
+    "ledger.panel.misses_summary_aria": "Verified miss statistics",
+    "ledger.panel.misses_verified_label": "Verified errors (live count)",
+    "ledger.panel.misses_partial_label": "Partial outcomes",
+    "ledger.panel.misses_rate_label": "Miss + partial rate (resolved)",
+    "ledger.panel.misses_recent_title": "Latest public misses",
+    "ledger.panel.misses_col_asset": "Asset",
+    "ledger.panel.misses_col_verdict": "Verdict",
+    "ledger.panel.misses_col_outcome": "Outcome",
+    "ledger.panel.misses_col_time": "Time (UTC)",
+    "ledger.panel.misses_col_action": "Bounty",
+    "ledger.panel.misses_lead": "Same Public Accuracy Ledger as the table below. Alias route:",
+    "ledger.panel.verified_errors": "Verified errors we own",
+    "ledger.panel.partial_outcomes": "Partial outcomes",
+    "ledger.panel.audit_title": "Audit Challenge — Prove us wrong",
+    "ledger.panel.audit_lead": "Find a real break in the hash chain. We publish the full ledger — including misses.",
+    "ledger.panel.transparency_link": "Read transparency challenge",
+    "ledger.panel.anti_hype_misses": (
+        "Anti-Hype · Not financial advice. Past misses do not predict future results."
+    ),
+    "ledger.panel.anti_hype_audit": (
+        "Anti-Hype · Not financial advice. Verify the chain yourself — trust is optional."
+    ),
+    "bounty.rules_banner": (
+        "Verified Miss Bounty: paid subscribers may claim 20% off one month when a verified miss "
+        "meets the rules (manual review, max 3 approvals/day site-wide)."
+    ),
+    "bounty.claim_btn": "Claim Miss Bounty",
+    "bounty.claim_tooltip": "Claim 20% off one month",
+    "bounty.modal.title": "Claim Miss Bounty",
+    "bounty.modal.sub": "20% off one subscription month · not cash/USDT · manual review within 48h",
+    "bounty.modal.decision_link": "Decision link",
+    "bounty.modal.source_a_url": "Source A URL (close price)",
+    "bounty.modal.source_a_close": "Source A closing price",
+    "bounty.modal.source_b_url": "Source B URL (different domain)",
+    "bounty.modal.source_b_close": "Source B closing price",
+    "bounty.modal.cancel": "Cancel",
+    "bounty.modal.submit": "Submit claim",
+    "bounty.modal.submitting": "Submitting…",
+    "bounty.modal.failed": "Claim failed",
+    "bounty.modal.network_error": "Network error",
+    "bounty.log.title": "Verified Miss Bounty Log",
+    "bounty.log.lead": (
+        "Public record of accepted and rejected bounty claims. Reward:"
+    ),
+    "bounty.log.reward": "20% off one subscription month",
+    "bounty.log.reward_note": "(not cash or USDT). No personal data is published.",
+    "bounty.log.back": "← Public Accuracy Ledger",
+    "bounty.log.loading": "Loading…",
+    "bounty.log.status_count": "{count} published outcomes",
+    "bounty.log.no_claims": "No published claims yet.",
+    "bounty.log.table_empty": "No claims yet.",
+    "bounty.log.load_error": "Could not load log.",
+    "bounty.log.table_error": "Error loading log.",
+    "bounty.log.col.ref": "Ref",
+    "bounty.log.col.asset": "Asset",
+    "bounty.log.col.decision_id": "Decision ID",
+    "bounty.log.col.status": "Status",
+    "bounty.log.col.decided": "Decided",
+    "bounty.log.col.note": "Note",
+    "meta.title.bounty_log": "BLACKDARK — Miss Bounty Log",
+    "sealed.title": "Sealed Prediction Markets",
+    "sealed.lead": (
+        "Every Oracle Act/Wait decision is sealed with a certificate hash before the 24h outcome. "
+        "Stake up to 50 USDT (internal ledger credits). Winners share the losing pool after a 5% platform fee."
+    ),
+    "sealed.back_ledger": "Public Accuracy Ledger",
+    "sealed.active_heading": "Active (betting open)",
+    "sealed.settled_heading": "Settled / closed",
+    "sealed.loading": "Loading…",
+    "sealed.none_active": "No active markets.",
+    "sealed.none_settled": "No settled markets yet.",
+    "sealed.load_fail": "Failed to load markets.",
+    "sealed.card.pool": "Pool {pool} USDT · {bettors} bettors",
+    "sealed.card.open": "Open decision market →",
+    "sealed.decision.title": "Sealed Oracle Market",
+    "meta.title.sealed_markets": "BLACKDARK — Sealed Markets",
+    "sealed.panel.status": "{active} active · {settled} recent settled",
+    "sealed.panel.empty": "No sealed markets yet — created with each new Oracle decision.",
+    "sealed.panel.unavailable": "Sealed markets unavailable",
+    "sealed.panel.view": "view",
+    "arb.btn": "View Arb Opportunities",
+    "arb.panel.lead": "Cross-exchange spreads (display only · max 5)",
+    "arb.loading": "Loading…",
+    "arb.none": "No arb opportunities for this symbol right now.",
+    "arb.auth_required": "Sign in with a paid plan to view spreads.",
+    "arb.spread_line": "{buy} → {sell}: {spread}%",
+    "ledger.js.missing": "missing",
+    "ledger.js.no_scored": "No verified scored rows in the live ledger yet.",
+    "ledger.js.no_misses": "No verified errors or partial outcomes in the live ledger yet.",
+    "ledger.js.partial_tag": "partial outcome",
+    "ledger.js.verified_error": "verified error",
+    "ledger.js.no_verified_sample": "No verified errors in the latest live miss sample.",
+    "ledger.js.no_partial_sample": "No partial outcomes in the latest live miss sample.",
+    "ledger.js.losing_status": (
+        "Live ledger · {source} · {verified} verified errors · {partial} partial outcomes · "
+        "showing {errors} verified + {partials} partial from latest miss sample"
+    ),
+    "ledger.js.locked_status": (
+        "Sealed forecasts · locked={locked} · revealed={unlocked} · Glass Box cadence"
+    ),
+    "ledger.js.locked_empty": "No locked predictions yet — seal before the next major macro event.",
+    "ledger.js.copy_share": "Copy share text",
+    "arb.none_symbol": "No spreads for {symbol} right now.",
+    "arb.panel.lead_dashboard": "Cross-exchange spreads — display only (max 5). Not execution.",
+    "arb.load_fail": "Could not load arb opportunities.",
 }
 
 
@@ -1117,6 +1508,70 @@ def catalog_for(lang: str | None) -> dict[str, str]:
     return {key: _resolve_string(key, code) for key in EN}
 
 
+_CLIENT_CATALOG_EXTRA: frozenset[str] = frozenset(
+    {
+        "pulse.share_default",
+        "pulse.conditions_met_review",
+        "pulse.model_state",
+        "pulse.model_state_conditions",
+        "waitlist.msg.welcome",
+        "waitlist.msg.generic",
+        "waitlist.msg.submitting",
+        "waitlist.msg.error",
+        "waitlist.msg.network",
+    }
+)
+
+
+_CLIENT_CATALOG_PREFIXES: tuple[str, ...] = (
+    "ui.",
+    "oracle.factor.",
+    "oracle.source.",
+    "oracle.share.",
+    "trust.",
+    "pulse.drawer.",
+    "pulse.msg.",
+    "pulse.chip.",
+    "bounty.",
+    "sealed.",
+    "arb.",
+    "ledger.js.",
+    "ledger.panel.",
+    "ledger.cta.",
+    "ledger.proof_chain.",
+    "ledger.glass.",
+    "ledger.regime.",
+    "ledger.mev.",
+    "ledger.locked.",
+    "ledger.losing.",
+    "ledger.audit.",
+    "ledger.registry.",
+    "workspace.",
+    "auth.",
+    "discipline.",
+    "swap.",
+)
+
+
+def catalog_for_client(lang: str | None) -> dict[str, str]:
+    """JSON boot catalog — omit English-fallback keys on non-en pages (prevents HTML bleed)."""
+    code = normalize_lang(lang)
+    keys = set(public_surface_keys()) | _CLIENT_CATALOG_EXTRA
+    keys |= {k for k in EN if any(k.startswith(p) for p in _CLIENT_CATALOG_PREFIXES)}
+    if code == "en":
+        return {k: _resolve_string(k, code) for k in keys if k in EN}
+    out: dict[str, str] = {}
+    for key in keys:
+        if key not in EN:
+            continue
+        eff = _effective_translation(code, key)
+        if eff is not None:
+            out[key] = eff
+        elif key in ALLOW_IDENTICAL:
+            out[key] = EN[key]
+    return out
+
+
 def _resolve_request_lang_raw(request: Any) -> str:
     try:
         q = request.query_params.get("lang")
@@ -1154,6 +1609,8 @@ def resolve_nav_active(request: Any) -> str | None:
     """Active product tab for global header (Prove / Operate / Desk / Room / Verify)."""
     try:
         path = getattr(getattr(request, "url", None), "path", "") or ""
+        if path.startswith("/about"):
+            return "about"
         if path.startswith("/oracle-accuracy"):
             return "verify"
         if path.startswith("/data-room"):
@@ -1168,7 +1625,18 @@ def resolve_nav_active(request: Any) -> str | None:
     return None
 
 
+_SOCIAL_LABEL_BY_ID: dict[str, str] = {
+    "x": "social.link.x",
+    "reddit": "social.link.reddit",
+    "facebook": "social.link.facebook",
+    "telegram": "social.link.telegram",
+    "linkedin": "social.link.linkedin",
+}
+
+
 _FOOTER_LINK_BY_HREF: dict[str, str] = {
+    "/about": "footer.link.about",
+    "/contact": "footer.link.contact",
     "/#trust-pulse": "footer.link.trust_pulse",
     "/login?next=/dashboard%3Flens%3Dprove": "footer.link.decide",
     "/oracle-accuracy": "footer.link.verify",
@@ -1202,6 +1670,20 @@ def localize_footer_manifest(lang: str | None, raw: dict[str, Any]) -> dict[str,
                     row["label"] = label
             items.append(row)
         out[section] = items
+    follow_items = []
+    for item in out.get("follow") or []:
+        row = dict(item)
+        sid = str(row.get("id") or "")
+        key = _SOCIAL_LABEL_BY_ID.get(sid)
+        if key:
+            label = tr(key)
+            if label:
+                row["label"] = label
+        follow_items.append(row)
+    out["follow"] = follow_items
+    alerts = str(out.get("telegram_alerts_url") or "").strip()
+    if alerts:
+        out["telegram_alerts_url"] = alerts
     return out
 
 
@@ -1222,8 +1704,8 @@ def template_context(request: Any, extra: dict[str, Any] | None = None) -> dict[
         "locales": list_locales(),
         "t": translator(lang),
         "key_lang": lambda k, _lang=lang: element_lang_for_key(k, _lang),
-        "i18n": catalog_for(lang),
-        "i18n_json": json.dumps(catalog_for(lang), ensure_ascii=False),
+        "i18n": catalog_for_client(lang),
+        "i18n_json": json.dumps(catalog_for_client(lang), ensure_ascii=False),
         "locales_json": json.dumps(list_locales(), ensure_ascii=False),
         "header_user": header_user,
         "header_authenticated": bool(header_user),

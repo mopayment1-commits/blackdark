@@ -148,6 +148,8 @@ PUBLIC_HTML_EXACT: frozenset[str] = frozenset(
         "/anti-hype",
         "/corpus-passport",
         "/miss-feed",
+        "/miss-bounty-log",
+        "/sealed-markets",
         "/coverage-honesty",
         "/priority-chain",
         "/zero-tolerance",
@@ -159,6 +161,8 @@ PUBLIC_HTML_EXACT: frozenset[str] = frozenset(
         "/alert-passport",
         "/visibility-cost",
         "/il-simulator",
+        "/swap",
+        "/wallet-balance",
         "/market-intelligence",
         "/intelligence-ledger",
         "/address-intelligence",
@@ -174,6 +178,7 @@ PUBLIC_HTML_EXACT: frozenset[str] = frozenset(
 
 PUBLIC_HTML_PREFIXES: tuple[str, ...] = (
     "/oracle/",
+    "/oracle-decision/",
 )
 
 # Launch-57 anonymous public API — explicit paths only (SPEC_02 §22; no broad prefix).
@@ -217,7 +222,11 @@ PUBLIC_API_PREFIXES: tuple[str, ...] = (
     "/api/platform/production-readiness",
     "/api/scale/",
     "/api/viral/",
-    "/api/oracle/accuracy",
+        "/api/oracle/accuracy",
+        "/api/oracle/arb-opportunities/public",
+        "/api/oracle/miss-bounty/public-log",
+    "/api/oracle/miss-bounty/eligibility",
+    "/api/sealed-markets/",
     "/api/oracle/audit-chain",
     "/api/oracle/half-life",
     "/api/public/",
@@ -254,6 +263,9 @@ PUBLIC_API_EXACT: frozenset[str] = frozenset(
         "/api/public/site-search",
         "/api/public/site-assistant",
         "/api/public/oracle-symbols",
+        "/api/entitlements/me",
+        "/api/entitlements/catalog",
+        "/api/entitlements/refresh-policy",
         "/api/status",
         "/api/site-services",
         "/api/changelog",
@@ -273,6 +285,8 @@ PUBLIC_API_EXACT: frozenset[str] = frozenset(
         "/anti-hype",
         "/corpus-passport",
         "/miss-feed",
+        "/miss-bounty-log",
+        "/sealed-markets",
         "/coverage-honesty",
         "/priority-chain",
         "/zero-tolerance",
@@ -287,6 +301,11 @@ PUBLIC_API_EXACT: frozenset[str] = frozenset(
         "/docs",
         "/docs/public",
         "/api/oracle/audit-chain/bootstrap-from-db",
+        "/api/internal/owner-admin/provision",
+        "/api/analytics/stats",
+        "/api/platform/stats",
+        "/api/trust-pulse",
+        "/api/telegram/free/status",
     }
 )
 
@@ -309,6 +328,7 @@ ADMIN_PATH_PREFIXES: tuple[str, ...] = (
 
 ADMIN_PATH_EXACT: frozenset[str] = frozenset(
     {
+        "/admin",
         "/admin/launch",
         "/admin/plan",
         "/admin/roadmap",

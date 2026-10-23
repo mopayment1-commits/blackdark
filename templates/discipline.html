@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BLACKDARK — Discipline Mirror — private habit surface</title>
+    <title>BLACKDARK — {{ t('discipline.title') }}</title>
     {% include "partials/seo_canonical.html" %}
     <link rel="stylesheet" href="/static/css/trust-os.css">
     <style>
@@ -32,47 +32,47 @@
     </style>
 </head>
 <body>
-    <nav>
-        <a class="logo" href="/">BLACKDARK</a>
-        <div>
-            <a href="/">Oracle</a>
-            <a href="/dashboard">Dashboard</a>
-            <a href="/oracle-accuracy">Accuracy</a>
-        </div>
-    </nav>
+    {% include 'partials/global_header.html' %}
     <main>
-        <h1>Discipline Mirror</h1>
-        <p class="sub">Private only — the system said Act/Wait; did you follow, or override from fear? This page never goes public.</p>
+        <h1>{{ t('discipline.title') }}</h1>
+        <p class="sub">{{ t('discipline.sub') }}</p>
 
         <div class="card" id="decisionCard">
-            <h2 style="font-size:1.05rem;margin-bottom:.35rem">Current Oracle decision</h2>
-            <p class="decision-meta" id="decisionMeta">Loading today’s decision…</p>
+            <h2 style="font-size:1.05rem;margin-bottom:.35rem">{{ t('discipline.h2.current_decision') }}</h2>
+            <p class="decision-meta" id="decisionMeta">{{ t('discipline.loading_decision') }}</p>
             <p class="decision-line" id="decisionSentence"></p>
             <div id="answerActions" style="display:none">
-                <p style="font-size:.88rem;color:var(--muted);margin-bottom:.5rem">Did you follow this model state?</p>
-                <button type="button" class="btn btn-secondary" id="followedYes">Yes — I followed</button>
-                <button type="button" class="btn btn-secondary" id="followedNo">No — I overrode</button>
+                <p style="font-size:.88rem;color:var(--muted);margin-bottom:.5rem">{{ t('discipline.follow_question') }}</p>
+                <button type="button" class="btn btn-secondary" id="followedYes">{{ t('discipline.btn.yes_followed') }}</button>
+                <button type="button" class="btn btn-secondary" id="followedNo">{{ t('discipline.btn.no_overrode') }}</button>
             </div>
             <p id="answerStatus" style="margin-top:.65rem;font-size:.85rem;color:var(--muted)"></p>
         </div>
 
         <div class="card" id="mirrorBox">
-            <p class="sub" id="msg">Loading private mirror…</p>
+            <p class="sub" id="msg">{{ t('discipline.loading_mirror') }}</p>
             <div class="metrics" id="metrics">
-                <div class="metric"><strong id="mAnswers">0</strong><span>Answers</span></div>
-                <div class="metric"><strong id="mFollowed">0</strong><span>followed</span></div>
-                <div class="metric"><strong id="mOverridden">0</strong><span>overridden</span></div>
-                <div class="metric"><strong id="mFollowRate">0%</strong><span>Follow rate</span></div>
+                <div class="metric"><strong id="mAnswers">0</strong><span>{{ t('discipline.metric.answers') }}</span></div>
+                <div class="metric"><strong id="mFollowed">0</strong><span>{{ t('discipline.metric.followed') }}</span></div>
+                <div class="metric"><strong id="mOverridden">0</strong><span>{{ t('discipline.metric.overridden') }}</span></div>
+                <div class="metric"><strong id="mFollowRate">0%</strong><span>{{ t('discipline.metric.follow_rate') }}</span></div>
             </div>
             <p id="delta" style="color:var(--accent);margin:.75rem 0;font-size:.88rem"></p>
             <div id="recent"></div>
         </div>
-        <p class="foot" id="compliance">Anti-Hype · Private coaching metrics · Not financial advice · Not shown on the public ledger.</p>
-        <a class="btn" href="/dashboard">Open Dashboard</a>
+        <p class="foot" id="compliance">{{ t('discipline.compliance') }}</p>
+        <a class="btn" href="/dashboard">{{ t('discipline.open_dashboard') }}</a>
     </main>
     <script src="/static/js/dom_escape.js"></script>
     <script defer src="/static/js/public_decision_map.js"></script>
     <script type="module">
+        function i18t(key, vars = {}) {
+            if (window.BD_I18N && typeof window.BD_I18N.t === 'function') {
+                return window.BD_I18N.t(key, vars);
+            }
+            return key;
+        }
+
         const MIRROR_SYMBOL = (new URLSearchParams(location.search).get('symbol') || 'BTC').toUpperCase();
         let currentDecision = null;
 
@@ -101,7 +101,7 @@
                 );
                 const data = await res.json();
                 if (!res.ok || !data) {
-                    meta.textContent = 'Oracle decision unavailable — try again from Dashboard.';
+                    meta.textContent = i18t('discipline.oracle_unavailable');
                     actions.style.display = 'none';
                     return null;
                 }
@@ -114,12 +114,12 @@
                     opportunity_score: data.opportunity_score,
                     sentence: data.decision_sentence || data.oracle || data.narrative || '',
                 };
-                meta.textContent = `${sym} · system state: ${action}`;
-                sentence.textContent = currentDecision.sentence || `Model state: ${action} on ${sym}.`;
+                meta.textContent = i18t('discipline.system_state', { symbol: sym, action });
+                sentence.textContent = currentDecision.sentence || i18t('discipline.model_state_fallback', { action, symbol: sym });
                 return currentDecision;
             } catch (error) {
                 console.debug(error);
-                meta.textContent = 'Oracle decision unavailable.';
+                meta.textContent = i18t('discipline.oracle_unavailable_short');
                 actions.style.display = 'none';
                 return null;
             }
@@ -134,7 +134,7 @@
             }
             if (alreadyAnswered(mirror, currentDecision)) {
                 actions.style.display = 'none';
-                status.textContent = 'Answer recorded for this Oracle decision.';
+                status.textContent = i18t('discipline.answer_recorded');
                 return;
             }
             actions.style.display = 'block';
@@ -142,11 +142,11 @@
         }
 
         async function loadMirror() {
-            document.getElementById('msg').textContent = 'Loading private mirror…';
+            document.getElementById('msg').textContent = i18t('discipline.loading_mirror');
             try {
                 const res = await fetch('/api/discipline-mirror/me', { credentials: 'include' });
                 if (!res.ok) {
-                    document.getElementById('msg').textContent = 'Mirror unavailable — sign in required.';
+                    document.getElementById('msg').textContent = i18t('discipline.mirror_signin');
                     return null;
                 }
                 const d = await res.json();
@@ -158,15 +158,18 @@
                 document.getElementById('mOverridden').textContent = String(overridden);
                 document.getElementById('mFollowRate').textContent = (d.follow_rate_percent ?? 0) + '%';
                 document.getElementById('delta').textContent = d.delta_plain_english || d.message || '';
-                document.getElementById('msg').textContent =
-                    `Answers: ${total} · followed ${followed} · overridden ${overridden}`;
+                document.getElementById('msg').textContent = i18t('discipline.msg.summary', {
+                    total,
+                    followed,
+                    overridden,
+                });
                 const rows = d.recent || [];
                 const recent = document.getElementById('recent');
                 recent.replaceChildren();
                 if (!rows.length) {
                     const empty = document.createElement('div');
                     empty.className = 'row';
-                    empty.textContent = 'No answers yet.';
+                    empty.textContent = i18t('discipline.no_answers');
                     recent.appendChild(empty);
                 } else {
                     for (const r of rows) {
@@ -175,8 +178,9 @@
                         const strong = document.createElement('strong');
                         strong.textContent = String(r.asset ?? '');
                         row.appendChild(strong);
+                        const followLabel = r.followed ? i18t('discipline.row.followed') : i18t('discipline.row.overrode');
                         row.appendChild(document.createTextNode(
-                            ` · system ${String(r.system_action ?? '')} · ${r.followed ? 'followed' : 'overrode'} · ${String(r.outcome_label || 'pending')}`,
+                            ` · ${i18t('discipline.row.system')} ${String(r.system_action ?? '')} · ${followLabel} · ${String(r.outcome_label || 'pending')}`,
                         ));
                         recent.appendChild(row);
                     }
@@ -185,7 +189,7 @@
                 return d;
             } catch (error) {
                 console.debug(error);
-                document.getElementById('msg').textContent = 'Mirror unavailable';
+                document.getElementById('msg').textContent = i18t('discipline.mirror_unavailable');
                 return null;
             }
         }
@@ -193,7 +197,7 @@
         async function submitAnswer(followed) {
             if (!currentDecision) return;
             const status = document.getElementById('answerStatus');
-            status.textContent = 'Saving…';
+            status.textContent = i18t('discipline.saving');
             try {
                 const res = await fetch('/api/discipline-mirror/answer', {
                     method: 'POST',
@@ -209,15 +213,15 @@
                     }),
                 });
                 if (!res.ok) {
-                    status.textContent = 'Could not save answer.';
+                    status.textContent = i18t('discipline.save_failed');
                     return;
                 }
-                status.textContent = 'Saved privately — only you can see your Discipline Mirror.';
+                status.textContent = i18t('discipline.saved_private');
                 document.getElementById('answerActions').style.display = 'none';
                 await loadMirror();
             } catch (error) {
                 console.debug(error);
-                status.textContent = 'Could not save answer.';
+                status.textContent = i18t('discipline.save_failed');
             }
         }
 

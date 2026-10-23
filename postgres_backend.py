@@ -21,6 +21,7 @@ import config
 logger = logging.getLogger("BLACKDARK.Postgres")
 
 _pool: Any = None
+_PREFER_PUBLIC_DSN = False
 
 
 def _ipv4_asyncpg_connect_kwargs(dsn: str) -> dict[str, Any] | None:
@@ -265,9 +266,35 @@ def last_pool_meta() -> dict[str, Any]:
     return dict(_LAST_POOL_META)
 
 
-async def init_pool() -> None:
-    global _pool, _LAST_POOL_ERROR, _LAST_POOL_META
-    if _pool is not None or not use_postgres():
+def _is_pg_connect_error(exc: BaseException) -> bool:
+    if isinstance(exc, (OSError, ConnectionError, TimeoutError)):
+        return True
+    cause = exc
+    for _ in range(4):
+        if cause is None:
+            break
+        if isinstance(cause, (OSError, ConnectionError, TimeoutError)):
+            return True
+        cause = getattr(cause, "__cause__", None) or getattr(cause, "__context__", None)
+    text = str(exc).lower()
+    return "gaierror" in text or "name or service not known" in text
+
+
+async def reset_pool(*, prefer_public: bool = False) -> None:
+    """Drop the asyncpg pool so the next connection attempt can rebuild with fallbacks."""
+    global _PREFER_PUBLIC_DSN
+    if prefer_public:
+        _PREFER_PUBLIC_DSN = True
+    await close_pool()
+
+
+async def init_pool(*, force: bool = False) -> None:
+    global _pool, _LAST_POOL_ERROR, _LAST_POOL_META, _PREFER_PUBLIC_DSN
+    if _pool is not None and not force:
+        return
+    if force:
+        await close_pool()
+    if not use_postgres():
         return
     import os
 
@@ -280,7 +307,7 @@ async def init_pool() -> None:
         resolve_database_url,
     )
 
-    url, meta = resolve_database_url()
+    url, meta = resolve_database_url(prefer_public=_PREFER_PUBLIC_DSN)
     pool_extra: dict[str, Any] = {}
     pool_candidates = iter_asyncpg_pool_candidates()
     if not url:
@@ -298,13 +325,20 @@ async def init_pool() -> None:
         else:
             cfg_url = (getattr(config, "DATABASE_URL", None) or "").strip()
             if cfg_url.startswith(("postgresql://", "postgres://")):
-                url = _canonicalize_railway_internal_host(_normalize(cfg_url))
-                meta = {
-                    **meta,
-                    "selected_env": "config.DATABASE_URL",
-                    "selected_host": database_host(url),
-                    "selection": "config_fallback",
-                }
+                cfg_url = _canonicalize_railway_internal_host(_normalize(cfg_url))
+                cfg_host = database_host(cfg_url)
+                from database_url_resolver import _is_railway_internal_host, host_resolves
+
+                if not (
+                    _is_railway_internal_host(cfg_host) and not host_resolves(cfg_host)
+                ):
+                    url = cfg_url
+                    meta = {
+                        **meta,
+                        "selected_env": "config.DATABASE_URL",
+                        "selected_host": cfg_host,
+                        "selection": "config_fallback",
+                    }
     if url:
         url, pool_extra = prepare_asyncpg_dsn(url)
         if not pool_candidates:
@@ -330,6 +364,19 @@ async def init_pool() -> None:
             plugin_extra["ssl"] = True
         pool_candidates.insert(0, ("PG*", "", {**plugin_extra, "_connect_kwargs": plugin_kw}))
 
+    if _PREFER_PUBLIC_DSN:
+        pub_raw = os.getenv("DATABASE_PUBLIC_URL", "").strip()
+        if pub_raw:
+            from database_url_resolver import (
+                _canonicalize_railway_internal_host,
+                _normalize,
+                expand_asyncpg_pool_targets,
+            )
+
+            pub_norm = _canonicalize_railway_internal_host(_normalize(pub_raw))
+            pool_candidates = expand_asyncpg_pool_targets("DATABASE_PUBLIC_URL", pub_norm)
+            url, pool_extra = prepare_asyncpg_dsn(pub_norm)
+
     viral = os.getenv("VIRAL_MODE", "true").lower() in {"1", "true", "yes"}
     default_max = 40 if viral else 20
     max_size = int(os.getenv("PG_POOL_MAX", str(getattr(config, "PG_POOL_MAX", default_max))))
@@ -344,6 +391,7 @@ async def init_pool() -> None:
     pool_common = {
         "min_size": min_size,
         "max_size": max_size,
+        "timeout": float(os.getenv("PG_CONNECT_TIMEOUT_SEC", "6")),
         "command_timeout": float(os.getenv("PG_COMMAND_TIMEOUT_SEC", "20")),
         "max_inactive_connection_lifetime": float(os.getenv("PG_MAX_INACTIVE_CONN_LIFETIME", "300")),
     }
@@ -380,6 +428,10 @@ async def init_pool() -> None:
                     _LAST_POOL_ERROR = None
                     meta.update({"selected_env": plan_key, "pool_dsn": "redacted"})
                     _LAST_POOL_META = meta
+                    try:
+                        config.DATABASE_URL = url or cand_url or ""
+                    except Exception:
+                        pass
                     logger.info(
                         "PostgreSQL pool ready (min=%s max=%s viral=%s plan=%s attempt=%s).",
                         min_size,
@@ -459,19 +511,36 @@ async def init_postgres() -> None:
 
 @asynccontextmanager
 async def pg_connection() -> AsyncIterator[PgConnectionAdapter]:
-    if _pool is None:
-        await init_pool()
-    assert _pool is not None  # nosec B101
-    async with _pool.acquire() as conn:
-        tx = conn.transaction()
-        await tx.start()
-        adapter = PgConnectionAdapter(conn, tx)
+    last_connect_exc: BaseException | None = None
+    for attempt in range(2):
         try:
-            yield adapter
-            await adapter.finalize_success()
-        except Exception:
-            await adapter.finalize_failure()
+            if _pool is None:
+                await init_pool()
+            assert _pool is not None  # nosec B101
+            async with _pool.acquire() as conn:
+                tx = conn.transaction()
+                await tx.start()
+                adapter = PgConnectionAdapter(conn, tx)
+                try:
+                    yield adapter
+                    await adapter.finalize_success()
+                except Exception:
+                    await adapter.finalize_failure()
+                    raise
+            return
+        except Exception as exc:
+            if attempt == 0 and _is_pg_connect_error(exc):
+                last_connect_exc = exc
+                logger.warning(
+                    "PostgreSQL acquire failed (%s); resetting pool for failover retry.",
+                    type(exc).__name__,
+                )
+                await reset_pool(prefer_public=True)
+                await init_pool(force=True)
+                continue
             raise
+    if last_connect_exc is not None:
+        raise last_connect_exc
 
 
 def pool_stats() -> dict[str, Any]:

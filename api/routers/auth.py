@@ -150,9 +150,17 @@ async def auth_login(
     ip = (request.headers.get("x-forwarded-for") or "").split(",")[0].strip()
     if not ip and request.client:
         ip = request.client.host or "unknown"
+    from security_threat_response import assert_ip_not_blocked
+
+    assert_ip_not_blocked(request)
     check_login_rate_limit(f"ip:{ip}")
     try:
-        result = await login_user(body.email, body.password, mfa_code=body.mfa_code)
+        result = await login_user(
+            body.email,
+            body.password,
+            mfa_code=body.mfa_code,
+            request=request,
+        )
         if result.get("mfa_required"):
             return result
         background_tasks.add_task(record_behavior, "auth_login", user=result.get("user"))
@@ -343,6 +351,16 @@ async def auth_change_password(
         validate_password(body.new_password, email=str(row["email"]))
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
+    from security_store import append_password_history, password_reused_recently
+
+    if await password_reused_recently(int(user["id"]), body.new_password):
+        raise HTTPException(
+            status_code=400,
+            detail="Password was used recently. Choose a different password.",
+        )
+    old_hash = str(row.get("password_hash") or "")
+    if old_hash:
+        await append_password_history(int(user["id"]), old_hash)
     await update_user_profile_fields(
         int(user["id"]),
         {"password_hash": hash_password(body.new_password), "password_is_set": 1},
@@ -494,7 +512,9 @@ async def auth_oauth_start(provider: str, request: Request):
     except HTTPException:
         raise
 
-    await persist_oauth_state_best_effort(key, payload["state"])
+    import asyncio
+
+    asyncio.create_task(persist_oauth_state_best_effort(key, payload["state"]))
 
     return RedirectResponse(url=payload["authorize_url"], status_code=302)
 
@@ -538,6 +558,13 @@ async def auth_oauth_callback(
             ),
         ) from exc
     except Exception as exc:
+        from postgres_backend import _is_pg_connect_error
+
+        if oauth_fail_step == "db" and _is_pg_connect_error(exc):
+            raise HTTPException(
+                status_code=503,
+                detail="Sign-in database is temporarily unreachable. Please try again in a moment.",
+            ) from exc
         raise HTTPException(
             status_code=502,
             detail=(
@@ -549,7 +576,7 @@ async def auth_oauth_callback(
     token = result.get("token")
     base = (os.getenv("APP_BASE_URL") or "").rstrip("/")
     if base and token:
-        resp = RedirectResponse(url=f"{base}/dashboard?oauth=1", status_code=302)
+        resp = RedirectResponse(url=f"{base}/profile?oauth=1", status_code=302)
         _attach_session_cookie(resp, str(token))
         return resp
     resp = JSONResponse(result)
@@ -625,6 +652,9 @@ async def auth_me(user: dict | None = Depends(optional_user)):
     except Exception:
         pass
     mfa = await mfa_status_for_user(int(user["id"]))
+    from entitlements_service import async_resolve_entitlements
+
+    entitlements_bundle = await async_resolve_entitlements(int(user["id"]))
     profile_out = dict(profile)
     profile_out["initials"] = avatar_initials(
         str(profile.get("name") or ""), str(profile.get("email") or user["email"])
@@ -636,6 +666,7 @@ async def auth_me(user: dict | None = Depends(optional_user)):
         "user": user,
         "profile": profile_out,
         "tier": tier_payload(user, sub),
+        "entitlements": entitlements_bundle,
         "subscription": sub,
         "stripe_configured": bool(os.getenv("STRIPE_SECRET_KEY")),
         "retention_hint": retention_hint,

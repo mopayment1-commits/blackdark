@@ -94,13 +94,10 @@ async def run_rvm(*, concurrency: int = 40) -> dict[str, Any]:
         "requirements": rows,
     }
 
-    from path_safety import ensure_under
+    from path_safety import write_json_artifact
 
-    rvm_path = ensure_under(_RVM_OUT, _ROOT)
-    summary_path = ensure_under(_SUMMARY_OUT, _ROOT)
-    rvm_path.parent.mkdir(parents=True, exist_ok=True)
-    rvm_path.write_text(json.dumps(output, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    summary_path.write_text(json.dumps(summary.to_dict(), indent=2) + "\n", encoding="utf-8")
+    write_json_artifact(_RVM_OUT, output, base=_ROOT)
+    write_json_artifact(_SUMMARY_OUT, summary.to_dict(), base=_ROOT)
     return output
 
 

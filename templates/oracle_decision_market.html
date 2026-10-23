@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="{{ lang|default('en') }}" dir="{{ dir|default('ltr') }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLACKDARK — Oracle Decision Market</title>
+    <link rel="stylesheet" href="/static/css/trust-os.css">
+    <style>
+        body { font-family: var(--bd-font-body); background: #0a0a0f; color: #e4e4e7; }
+        .wrap { max-width: 720px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+        .card { background: #111118; border: 1px solid #2a2a35; border-radius: 12px; padding: 1.25rem; margin-top: 1rem; }
+        .muted { color: #71717a; font-size: 0.88rem; }
+        .hash { font-family: monospace; font-size: 0.78rem; word-break: break-all; color: #22d3ee; }
+        .stat { display: flex; gap: 1.5rem; flex-wrap: wrap; margin: 1rem 0; }
+        .stat div { min-width: 120px; }
+        .stat .n { font-size: 1.4rem; font-weight: 800; color: #22d3ee; }
+        label { display: block; font-size: 0.8rem; color: #71717a; margin-top: 0.75rem; }
+        input, select { width: 100%; padding: 0.5rem; border-radius: 8px; border: 1px solid #2a2a35; background: #0a0a0f; color: #e4e4e7; }
+        .btn { margin-top: 1rem; padding: 0.65rem 1.2rem; border-radius: 10px; border: none; font-weight: 700; cursor: pointer;
+            background: linear-gradient(135deg, #22d3ee, #06b6d4); color: #041016; }
+    </style>
+</head>
+<body>
+    {% set nav_active = 'verify' %}
+    {% include 'partials/site_top_nav.html' %}
+    <div class="wrap">
+        <h1>{{ t('sealed.decision.title') }}</h1>
+        <p class="muted"><a href="/sealed-markets">← All sealed markets</a> · <a href="/oracle-accuracy">Ledger</a></p>
+        <div id="panel" class="card"><p class="muted">Loading market…</p></div>
+        <div id="bet-panel" class="card" style="display:none">
+            <h2 style="font-size:1rem;color:#22d3ee">Place stake (max 50 USDT)</h2>
+            <p id="bal" class="muted"></p>
+            <label>Side</label>
+            <select id="side"><option value="yes">YES — decision judged correct</option><option value="no">NO — decision misses</option></select>
+            <label>Stake (USDT equivalent)</label>
+            <input id="stake" type="number" min="0.01" max="50" step="0.01" value="10">
+            <label>Funding</label>
+            <select id="funding"><option value="internal">Internal balance</option><option value="usdt">USDT ledger credits</option></select>
+            <button class="btn" type="button" id="place-bet">Place bet</button>
+            <p id="bet-msg" class="muted" style="margin-top:0.75rem"></p>
+        </div>
+    </div>
+    {% include "partials/site_footer.html" %}
+    <script>
+        const PID = {{ prediction_id|int }};
+        function esc(s) { return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+        async function load() {
+            const res = await fetch('/api/sealed-markets/prediction/' + PID);
+            const panel = document.getElementById('panel');
+            if (!res.ok) { panel.innerHTML = '<p>Market not found.</p>'; return; }
+            const m = await res.json();
+            const seal = m.betting_open ? 'OPEN' : (m.status === 'settled' ? 'SETTLED' : 'SEALED');
+            panel.innerHTML = `
+                <div class="muted">Prediction #${esc(m.prediction_id)} · ${esc(m.asset)} · ${esc(m.decision_action)}</div>
+                <div class="stat">
+                    <div><div class="n">${esc(seal)}</div><div class="muted">Seal status</div></div>
+                    <div><div class="n">${esc(m.total_pool_usdt)}</div><div class="muted">Total pool USDT</div></div>
+                    <div><div class="n">${esc(m.participant_count)}</div><div class="muted">Participants</div></div>
+                </div>
+                <p class="muted">YES pool: ${esc(m.yes_pool_usdt)} · NO pool: ${esc(m.no_pool_usdt)}</p>
+                <p class="muted">Betting closes: ${esc((m.betting_closes_at || '').slice(0,19))}</p>
+                <p class="hash">${esc(m.certificate_hash)}</p>
+                ${m.outcome_label ? `<p style="margin-top:1rem"><strong>Ledger outcome:</strong> ${esc(m.outcome_label)}</p>` : ''}
+                ${m.prediction && m.prediction.resolved ? `<p class="muted">Resolved on Public Accuracy Ledger.</p>` : ''}
+            `;
+            document.getElementById('bet-panel').style.display = m.betting_open ? 'block' : 'none';
+        }
+        async function loadBal() {
+            try {
+                const r = await fetch('/api/sealed-markets/balance', { credentials: 'include' });
+                if (r.ok) {
+                    const d = await r.json();
+                    document.getElementById('bal').textContent = 'Internal balance: ' + (d.balance_usdt || 0) + ' USDT eq.';
+                } else {
+                    document.getElementById('bal').textContent = 'Sign in to view balance and bet.';
+                }
+            } catch (e) { /* ignore */ }
+        }
+        document.getElementById('place-bet')?.addEventListener('click', async () => {
+            const msg = document.getElementById('bet-msg');
+            msg.textContent = 'Submitting…';
+            const res = await fetch('/api/sealed-markets/prediction/' + PID + '/bets', {
+                method: 'POST', credentials: 'include',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    side: document.getElementById('side').value,
+                    stake_usdt: Number(document.getElementById('stake').value),
+                    funding: document.getElementById('funding').value,
+                }),
+            });
+            const d = await res.json().catch(() => ({}));
+            msg.textContent = res.ok ? ('Bet placed. Balance: ' + d.balance_usdt) : (d.detail || 'Bet failed');
+            if (res.ok) { load(); loadBal(); }
+        });
+        load(); loadBal();
+    </script>
+</body>
+</html>

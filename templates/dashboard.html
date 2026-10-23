@@ -7,6 +7,7 @@
     <title>{{ t('meta.title.dashboard_room') }}</title>
     <link rel="stylesheet" href="/static/css/trust-os.css">
     <script defer src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js" integrity="sha384-OK7vELvjHdhUFi31JYioPIcRHTROLdcDa6ZsNWgvgLaKj+9JqhU0Ad8g4wz3CXjA" crossorigin="anonymous"></script>
+    <script defer src="/static/js/bd_lightweight_chart.js"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         .sr-only { position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0; }
@@ -254,9 +255,36 @@
             0% { background-position: 100% 0; }
             100% { background-position: -100% 0; }
         }
+        .bd-decision-toast {
+            position: fixed; top: 4.5rem; left: 50%; transform: translateX(-50%) translateY(-8px);
+            z-index: 2000; max-width: min(92vw, 28rem); padding: .65rem 1rem; border-radius: 10px;
+            background: #1e3a5f; border: 1px solid #22d3ee; color: #e4e4e7; font-size: .88rem;
+            box-shadow: 0 12px 40px rgba(0,0,0,.45); opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s;
+        }
+        .bd-decision-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+        .bd-workspace-section { margin-bottom: 1rem; }
+        .bd-watchlist-rows, .bd-decisions-list { list-style: none; padding: 0; margin: 0; font-size: .88rem; }
+        .bd-watchlist-rows .wl-row { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; padding: .45rem 0; border-bottom: 1px solid #2a2a35; }
+        .bd-watchlist-rows .wl-status { color: #a1a1aa; flex: 1; }
+        .bd-watchlist-rows .wl-remove { border: none; background: transparent; color: #71717a; cursor: pointer; font-size: 1.1rem; }
+        .bd-modal-backdrop { position: fixed; inset: 0; z-index: 1500; background: rgba(4,6,10,.75); display: flex; align-items: center; justify-content: center; padding: 1rem; }
+        .bd-modal-backdrop[hidden] { display: none !important; }
+        .bd-modal-card { background: #111118; border: 1px solid #2a2a35; border-radius: 14px; padding: 1.1rem; max-width: 36rem; width: 100%; max-height: 90vh; overflow: auto; }
+        .bd-compare-picks { display: flex; flex-wrap: wrap; gap: .65rem; margin: .65rem 0; font-size: .85rem; }
+        .bd-compare-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: .65rem; margin: .75rem 0; }
+        .bd-compare-card { background: #1a1a24; border: 1px solid #2a2a35; border-radius: 10px; padding: .75rem; }
+        .verdict-lite { font-size: 1.35rem; font-weight: 800; color: #22d3ee; }
+        .wl-offline-tag { font-size: .72rem; color: #f59e0b; margin-bottom: .35rem; }
+        body.bd-theme-light { background: #f4f4f5; color: #18181b; }
+        body.bd-theme-light nav { background: rgba(255,255,255,.92) !important; border-color: #e4e4e7 !important; }
+        body.bd-theme-light section, body.bd-theme-light .bd-modal-card { background: #fff; border-color: #e4e4e7; color: #18181b; }
+        body.bd-theme-light .sub, body.bd-theme-light .wl-status { color: #52525b; }
+        body.bd-theme-light a { color: #0891b2; }
     </style>
 </head>
 <body>
+    <script type="application/json" id="bd-i18n-boot">{"lang": {{ lang|tojson }}, "catalog": {{ i18n|tojson }}}</script>
+    <script src="/static/js/bd_i18n.js" defer></script>
     {% include 'partials/global_header.html' %}
 
     <main id="top">
@@ -291,15 +319,28 @@
                 <h3 id="tpWhyTitle">Why (under 5 seconds)</h3>
                 <div id="tpFactors"><div class="empty" style="padding:.25rem 0">Loading factors…</div></div>
             </div>
+            <div id="tpPriceChartWrap" style="margin-top:.85rem" aria-label="Trust Pulse price chart">
+                <div id="tpPriceChart" style="height:220px;width:100%;border-radius:10px;border:1px solid #2a2a35;background:#111118"></div>
+                <p class="sub" id="tpChartNote" style="margin-top:.35rem;font-size:.72rem;color:#71717a">TradingView Lightweight Charts · loading…</p>
+            </div>
             <div class="tp-proof" id="tpProof"></div>
             <div class="tp-cont" id="tpContinuity"></div>
             <div class="tp-cta">
                 <button class="btn" type="button" data-bd-call="openFullProof">Open full proof</button>
+                <a class="btn secondary" href="/swap" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center">{{ t('nav.swap') if t is defined else 'Swap' }}</a>
                 <button class="btn secondary" type="button" id="tpShareBtn" data-bd-call="shareTrustPulse" data-bd-sync="1" hidden>Share Proof</button>
+                <button class="btn secondary" type="button" data-bd-share-decision>Share Decision</button>
+                <button class="btn secondary" type="button" id="tpArbBtn" style="display:none">{{ t('arb.btn') }}</button>
+            </div>
+            <div id="tpArbPanel" hidden style="margin:.75rem 0;font-size:.85rem;border-top:1px solid #2a2a35;padding-top:.65rem">
+                <p style="color:#71717a;margin-bottom:.35rem">{{ t('arb.panel.lead_dashboard') }}</p>
+                <ul id="tpArbList" style="list-style:none;padding:0;margin:0"></ul>
             </div>
             <div class="tp-foot" id="tpFoot"><strong>Anti-Hype</strong> · Not financial advice · AI cannot guarantee returns</div>
             <div class="entry-rail hide-in-room tp-entry-rail" id="entryRail" aria-label="Primary entries"></div>
         </section>
+
+        {% include 'partials/oracle_workspace.html' %}
 
         <div class="lens-bar hide-in-room" id="lensBar" aria-label="Trust OS lenses">
             <button type="button" class="lens-btn active" data-lens="prove">Prove</button>
@@ -483,10 +524,41 @@
             <div id="mevResult" class="empty">Generate a shareable MEV report</div>
         </section>
 
+        <section id="financial-news" class="section-desk-only hide-in-room">
+            <h2>Market headlines</h2>
+            <p class="sub">U.S. Fed, SEC &amp; CFTC press RSS — titles link to the publisher (not investment advice).</p>
+            <ul id="financialNewsList" style="list-style:none;padding:0;margin:0;font-size:.88rem;line-height:1.45">
+                <li class="loading">Loading headlines…</li>
+            </ul>
+            <p id="financialNewsFoot" class="sub" style="margin-top:.5rem;font-size:.72rem"></p>
+        </section>
+
         <section id="alerts" class="section-operate-plus hide-in-room">
             <h2 id="alertsTitle">Alerts</h2>
             <p class="sub" id="tgStatus">In-app inbox: no TradingView-style 15-alerts / 3-min hard cap · only Truth + Half-Life survivors fire</p>
             <div id="alertsGenerosity" class="sub" style="margin-bottom:.75rem"></div>
+            <div class="arb-card" id="priceAlertsPanel" style="margin-bottom:1rem;padding:.85rem;border:1px solid #2a2a35;border-radius:10px;background:#14141c">
+                <h3 style="font-size:1rem;margin:0 0 .35rem">Simple price alerts</h3>
+                <p class="sub" style="margin:0 0 .65rem;font-size:.8rem">Above/below spot (Binance public feed). Stored on this device ID — non-custodial, no auto-trading.</p>
+                <div class="toolbar" style="flex-wrap:wrap;gap:.5rem;margin-bottom:.5rem">
+                    <label for="paSymbol" class="sr-only">Alert symbol</label>
+                    <select id="paSymbol" aria-label="Alert symbol" style="min-width:5rem">
+                        {% for sym in oracle_symbols|default(['BTC', 'ETH', 'SOL']) %}
+                        <option value="{{ sym }}">{{ sym }}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="paDirection" class="sr-only">Direction</label>
+                    <select id="paDirection" aria-label="Direction">
+                        <option value="above">Price above</option>
+                        <option value="below">Price below</option>
+                    </select>
+                    <label for="paTarget" class="sr-only">Target price</label>
+                    <input id="paTarget" type="number" step="any" min="0" placeholder="Target USD" style="width:8rem;padding:.45rem .55rem;border-radius:8px;border:1px solid #2a2a35;background:#1a1a24;color:#e4e4e7">
+                    <button type="button" class="btn secondary" id="paAddBtn">Add alert</button>
+                    <button type="button" class="btn secondary" id="paRefreshBtn">Check prices</button>
+                </div>
+                <ul id="priceAlertsList" style="list-style:none;padding:0;margin:0;font-size:.88rem"><li class="empty">No price alerts yet.</li></ul>
+            </div>
             <div class="toolbar">
                 <button class="btn secondary" type="button" id="inboxRefreshBtn">Refresh Inbox</button>
                 <button class="btn secondary" data-bd-call="testTelegram">Test Telegram</button>
@@ -537,6 +609,7 @@
     </div>
 
     <script src="/static/js/dom_escape.js"></script>
+    <script src="/static/js/bd_live_refresh.js"></script>
     <script>
         const fmt = (n, d=2) => n == null ? '—' : Number(n).toLocaleString(undefined, { maximumFractionDigits: d });
         const vc = v => (v || 'WAIT').toUpperCase();
@@ -761,13 +834,24 @@
             const qs = new URLSearchParams({ ux_mode: mode, lang });
             if (force) qs.set('_', String(Date.now()));
             const url = `/oracle/${encodeURIComponent(symbol)}/quick?${qs.toString()}`;
-            const res = await fetch(url, { headers: { ...authHeaders(), Accept: 'application/json' } });
-            const data = await res.json().catch(() => ({}));
-            if (!res.ok) {
-                const msg = (data && data.detail && data.detail.message) || data.message || data.detail || 'Oracle quick unavailable';
-                throw new Error(typeof msg === 'string' ? msg : 'Oracle quick unavailable');
+            try {
+                const fetchOracle = (window.BDOracleFetchGate && window.BDOracleFetchGate.fetch)
+                    ? window.BDOracleFetchGate.fetch.bind(window.BDOracleFetchGate)
+                    : fetch;
+                const res = await fetchOracle(url, { headers: { ...authHeaders(), Accept: 'application/json' } });
+                const data = await res.json().catch(() => ({}));
+                if (!res.ok) {
+                    const msg = (data && data.detail && data.detail.message) || data.message || data.detail || 'Oracle quick unavailable';
+                    throw new Error(typeof msg === 'string' ? msg : 'Oracle quick unavailable');
+                }
+                if (window.BDOracleWorkspace) window.BDOracleWorkspace.onOracleSuccess(symbol, data);
+                return data;
+            } catch (error) {
+                const ws = window.BDOracleWorkspace;
+                const offline = ws && ws.getOfflinePayload(symbol);
+                if (offline) return offline;
+                throw error;
             }
-            return data;
         }
 
         async function refreshProveOracleFromQuick(force) {
@@ -883,6 +967,11 @@
             const authLink = document.getElementById('authLink');
             syncChatGate();
             syncDailyReportMarkdownBtn();
+            if (window.BDSessionHint && !window.BDSessionHint.likelyAuthenticated()) {
+                nextUpgrade = { has_upgrade: true, checkout_tier: 'pro', href: '/login?tab=register&plan=pro', cta: 'Start 7-Day Trial' };
+                applyUpgradeButton();
+                return;
+            }
             try {
                 const res = await fetch('/api/auth/me', { headers: authHeaders(), credentials: 'same-origin' });
                 const d = await res.json();
@@ -914,9 +1003,57 @@
                     applyUpgradeButton();
                     syncChatGate();
                     syncDailyReportMarkdownBtn();
+                    syncTrustPulseArbButton();
                 }
             } catch (error) { console.debug(error); }
         }
+
+        function isPaidSubscriberTier(tier) {
+            const t = String(tier || 'free').toLowerCase();
+            return ['pro', 'elite', 'quant', 'institutional', 'whale'].includes(t);
+        }
+
+        function syncTrustPulseArbButton() {
+            const btn = document.getElementById('tpArbBtn');
+            if (!btn) return;
+            btn.style.display = isPaidSubscriberTier(userTierId) ? '' : 'none';
+        }
+
+        async function toggleTrustPulseArbPanel() {
+            const panel = document.getElementById('tpArbPanel');
+            const list = document.getElementById('tpArbList');
+            const sym = trustPulseSymbolValue() || 'BTC';
+            if (!panel || !list) return;
+            panel.hidden = !panel.hidden;
+            if (panel.hidden) return;
+            list.innerHTML = '<li>' + esc(i18nT('arb.loading')) + '</li>';
+            try {
+                const res = await fetch('/api/oracle/arb-opportunities/' + encodeURIComponent(sym), {
+                    credentials: 'same-origin',
+                    headers: authHeaders(),
+                });
+                const d = await res.json();
+                if (!res.ok) {
+                    const msg = (d.detail && d.detail.message) || d.detail || 'Unavailable';
+                    list.innerHTML = '<li>' + esc(String(msg)) + '</li>';
+                    return;
+                }
+                const rows = d.opportunities || [];
+                list.innerHTML = rows.length
+                    ? rows.map((o) => (
+                        '<li style="margin:.4rem 0"><strong>' + esc(o.exchange_1) + '</strong> vs <strong>' + esc(o.exchange_2) + '</strong> · ' +
+                        esc(o.price_diff_percent) + '% · ' +
+                        '<a href="' + esc(o.link_exchange_1) + '" target="_blank" rel="noopener">' + esc(o.exchange_1) + '</a> · ' +
+                        '<a href="' + esc(o.link_exchange_2) + '" target="_blank" rel="noopener">' + esc(o.exchange_2) + '</a></li>'
+                    )).join('')
+                    : '<li>' + esc(i18nT('arb.none_symbol', { symbol: sym })) + '</li>';
+            } catch (error) {
+                console.debug(error);
+                list.innerHTML = '<li>' + esc(i18nT('arb.load_fail')) + '</li>';
+            }
+        }
+
+        document.getElementById('tpArbBtn')?.addEventListener('click', () => { toggleTrustPulseArbPanel(); });
 
         async function upgradeTier(tier) {
             if (currentLens === 'prove') {
@@ -1016,7 +1153,8 @@
                 html += buildCertBlock(d.decision_certificate || {}, d.prediction_id, safeShareUrl);
             }
             const fresh = String(d.freshness_state || (d.freshness && d.freshness.state) || '').toUpperCase() || '—';
-            html += `<div style="margin-top:.55rem;font-size:.72rem;color:#71717a">Live · /oracle/${esc(sym)}/quick · ${esc(fresh)} · ${esc(d.ux_mode || mode)} · ${esc(d.lang || lang)}</div>`;
+            const liveLabel = d._offline ? 'Offline · last known' : 'Live';
+            html += `<div style="margin-top:.55rem;font-size:.72rem;color:#71717a">${esc(liveLabel)} · /oracle/${esc(sym)}/quick · ${esc(fresh)} · ${esc(d.ux_mode || mode)} · ${esc(d.lang || lang)}</div>`;
             el.innerHTML = html;
         }
 
@@ -1497,7 +1635,7 @@
             if (trustPulseQuickInflight && trustPulseQuickInflightKey === inflightKey) {
                 return trustPulseQuickInflight;
             }
-            setTrustPulseLoading(true);
+            if (!lastPulse) setTrustPulseLoading(true);
             trustPulseQuickInflightKey = inflightKey;
             trustPulseQuickInflight = (async () => {
                 try {
@@ -1520,6 +1658,17 @@
                     return data;
                 } catch (error) {
                     console.debug(error);
+                    const ws = window.BDOracleWorkspace;
+                    const offline = ws && ws.getOfflinePayload(sym);
+                    if (offline) {
+                        const pulse = oracleQuickToPulse(offline, sym);
+                        renderTrustPulse(pulse);
+                        renderOracleBoxFromQuick(offline);
+                        const freshEl = document.getElementById('tpFresh');
+                        if (freshEl) freshEl.textContent = 'Offline · last known';
+                        setShareProofButton(false);
+                        return offline;
+                    }
                     const freshEl = document.getElementById('tpFresh');
                     const sentenceEl = document.getElementById('tpSentence');
                     if (freshEl) freshEl.textContent = 'Unavailable';
@@ -1535,12 +1684,23 @@
             return trustPulseQuickInflight;
         }
 
+        async function loadTrustPulseChart(forceSym) {
+            const el = document.getElementById('tpPriceChart');
+            const note = document.getElementById('tpChartNote');
+            if (!el || typeof bdMountPriceChart !== 'function') return;
+            const sym = (forceSym || trustPulseSymbolValue()).trim().toUpperCase() || 'BTC';
+            await bdMountPriceChart(el, { symbol: sym, interval: '1h', limit: 120, noteEl: note });
+        }
+
         function onTrustPulseSymbolChange(sym) {
             const v = (sym || document.getElementById('tpSymbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
             const sel = document.getElementById('tpSymbol');
             if (sel) sel.value = v;
-            if (currentLens === 'prove') loadTrustPulseQuick(true);
-            else if (currentLens === 'operate') {
+            void loadTrustPulseChart(v);
+            if (currentLens === 'prove') {
+                loadTrustPulseQuick(true);
+                bindTrustPulseLiveStream();
+            } else if (currentLens === 'operate') {
                 const mainSym = document.getElementById('symbol');
                 if (mainSym) mainSym.value = v;
                 loadCommandHome(true);
@@ -1556,7 +1716,7 @@
             const proveLens = currentLens === 'prove';
             if (proveLens) {
                 void loadTrustPulseQuick(force);
-            } else {
+            } else if (!lastPulse) {
                 setTrustPulseLoading(true);
             }
             commandHomeInflightKey = inflightKey;
@@ -1675,6 +1835,33 @@
         function readLastPulseVisit() {
             try { return JSON.parse(localStorage.getItem(TP_STORE) || 'null'); } catch (error) { console.debug(error); return null; }
         }
+        function hydrateTrustPulseFromStore() {
+            const v = readLastPulseVisit();
+            if (!v || !v.symbol) return false;
+            const sym = String(v.symbol).trim().toUpperCase();
+            const sel = document.getElementById('tpSymbol');
+            if (sel && sym) sel.value = sym;
+            renderTrustPulse({
+                symbol: sym,
+                action: (v.action || 'WAIT').toUpperCase(),
+                sentence: 'Updating live decision…',
+                why: {
+                    grasp_line: 'Why (under 5 seconds)',
+                    factors: (v.factors || []).slice(0, 5),
+                },
+                freshness: {
+                    state: 'NEAR_LIVE',
+                    stale: false,
+                    presented_as_live: true,
+                    label: 'Updating…',
+                },
+                proof: { certificate_hash: v.certificate_hash || null },
+                ledger: { label: 'Verify Ledger', href: '/oracle-accuracy' },
+                launch57_oracle_bound: true,
+            });
+            return true;
+        }
+        let trustPulseStreamKey = 'dashboard-trust-pulse';
         function savePulseVisit(p) {
             if (!p) return;
             try {
@@ -1831,11 +2018,39 @@
             return loadCommandHome(force);
         }
 
+        function bindTrustPulseLiveStream() {
+            if (!window.BDLiveRefresh) return;
+            window.BDLiveRefresh.stopStream(trustPulseStreamKey);
+            const policy = window.BDLiveRefresh.getPolicy();
+            if (!policy || !policy.live_stream_enabled) return;
+            const sym = trustPulseSymbolValue();
+            window.BDLiveRefresh.startTrustPulseStream(sym, (d) => {
+                const pulse = d && (d.pulse || d);
+                if (!pulse) return;
+                if (String(pulse.symbol || '').toUpperCase() !== sym) return;
+                renderTrustPulse(pulse, { fromStream: true });
+            }, { key: trustPulseStreamKey });
+        }
+
         function startTrustPulseStream() {
-            if (launch57PollTimer) clearInterval(launch57PollTimer);
-            launch57PollTimer = setInterval(() => loadCommandHome(false), 60000);
-            const fresh = document.getElementById('tpFresh');
-            if (fresh) fresh.textContent = 'Launch-57 command home';
+            if (launch57PollTimer) {
+                clearInterval(launch57PollTimer);
+                launch57PollTimer = null;
+            }
+            const bootPoll = (policy) => {
+                const ms = (policy && policy.poll_interval_ms) || 45000;
+                const tick = () => {
+                    if (currentLens === 'prove') void loadTrustPulseQuick(false);
+                    else void loadCommandHome(false);
+                };
+                launch57PollTimer = setInterval(tick, ms);
+                bindTrustPulseLiveStream();
+            };
+            if (window.BDLiveRefresh) {
+                void window.BDLiveRefresh.ensurePolicy().then(bootPoll);
+            } else {
+                bootPoll(null);
+            }
         }
 
         function flashShareProofButton(label, resetMs) {
@@ -2117,10 +2332,20 @@
                 }
             } catch (error) {
                 console.debug(error);
-                const empty = document.createElement('div');
-                empty.className = 'empty';
-                empty.textContent = i18nT('ui.could_not_analyze', { symbol: sym });
-                el.replaceChildren(empty);
+                const ws = window.BDOracleWorkspace;
+                const offline = ws && ws.getOfflinePayload(sym);
+                if (offline && currentLens === 'prove') {
+                    const pulse = oracleQuickToPulse(offline, sym);
+                    renderTrustPulse(pulse);
+                    renderOracleBoxFromQuick(offline);
+                } else if (offline) {
+                    renderOracleQuickDecision(el, offline, { sym, mode, lang });
+                } else {
+                    const empty = document.createElement('div');
+                    empty.className = 'empty';
+                    empty.textContent = i18nT('ui.could_not_analyze', { symbol: sym });
+                    el.replaceChildren(empty);
+                }
             } finally {
                 if (askBtn) {
                     askBtn.disabled = false;
@@ -2242,24 +2467,52 @@
                 if (forceRefresh) qs.set('_', String(Date.now()));
                 const res = await fetch(LAUNCH57_OHLCV + '?' + qs.toString());
                 const payload = await res.json();
-                if (!res.ok || !payload.success) {
-                    series.setData([]);
-                    if (note) note.textContent = 'Launch-57 OHLCV unavailable — chart hidden (no legacy fallback).';
+                if (res.ok && payload.success && (payload.bars || []).length) {
+                    const bars = payload.bars || [];
+                    series.setData(bars.map(b => ({
+                        time: Math.floor((b.open_time_ms || 0) / 1000),
+                        open: +b.open,
+                        high: +b.high,
+                        low: +b.low,
+                        close: +b.close,
+                    })));
+                    chart.timeScale().fitContent();
+                    if (note) note.textContent = `Launch-57 OHLCV (#23) · ${bars.length} bars · ${esc(payload.interval || iv)}`;
                     return;
                 }
-                const bars = payload.bars || [];
-                series.setData(bars.map(b => ({
-                    time: Math.floor((b.open_time_ms || 0) / 1000),
-                    open: +b.open,
-                    high: +b.high,
-                    low: +b.low,
-                    close: +b.close,
-                })));
-                chart.timeScale().fitContent();
-                if (note) note.textContent = `Launch-57 OHLCV (#23) · ${bars.length} bars · ${esc(payload.interval || iv)}`;
+                const pubQs = new URLSearchParams({ symbol: sym, interval: iv, limit: '120' });
+                if (forceRefresh) pubQs.set('_', String(Date.now()));
+                const pubRes = await fetch('/api/public/market/chart-bars?' + pubQs.toString());
+                const pubBody = await pubRes.json();
+                if (pubRes.ok && pubBody.ok && (pubBody.bars || []).length) {
+                    series.setData((pubBody.bars || []).map(b => ({
+                        time: Math.floor((b.open_time_ms || 0) / 1000),
+                        open: +b.open,
+                        high: +b.high,
+                        low: +b.low,
+                        close: +b.close,
+                    })));
+                    chart.timeScale().fitContent();
+                    if (note) note.textContent = `TradingView Lightweight Charts · ${esc(pubBody.source || 'binance')} · ${pubBody.bars.length} bars`;
+                    return;
+                }
+                const kRes = await fetch('/api/market/klines?' + new URLSearchParams({ symbol: sym + 'USDT', interval: iv, limit: '120' }));
+                const kPayload = await kRes.json();
+                const rows = kPayload.klines || [];
+                if (kRes.ok && rows.length) {
+                    series.setData(rows.map(k => ({
+                        time: Math.floor(k[0] / 1000),
+                        open: +k[1], high: +k[2], low: +k[3], close: +k[4],
+                    })));
+                    chart.timeScale().fitContent();
+                    if (note) note.textContent = `TradingView Lightweight Charts · ${esc(kPayload.source || 'binance')} · ${rows.length} bars`;
+                    return;
+                }
+                series.setData([]);
+                if (note) note.textContent = 'Chart unavailable — no OHLCV from Binance or fallback.';
             } catch (error) {
                 console.debug(error);
-                if (note) note.textContent = 'Launch-57 OHLCV unavailable — chart hidden (no legacy fallback).';
+                if (note) note.textContent = 'Chart unavailable — no OHLCV from Binance or fallback.';
             }
         }
 
@@ -2498,6 +2751,131 @@
                 });
                 loadInbox();
             } catch (error) { console.debug(error); }
+        }
+
+        const PA_CLIENT_KEY = 'bd_price_alert_client';
+
+        function priceAlertClientId() {
+            let id = localStorage.getItem(PA_CLIENT_KEY);
+            if (!id) {
+                id = (typeof crypto !== 'undefined' && crypto.randomUUID)
+                    ? crypto.randomUUID()
+                    : ('pa-' + Date.now() + '-' + Math.random().toString(16).slice(2));
+                localStorage.setItem(PA_CLIENT_KEY, id);
+            }
+            return id;
+        }
+
+        function renderPriceAlertsList(data) {
+            const list = document.getElementById('priceAlertsList');
+            if (!list) return;
+            const rows = data.alerts || [];
+            if (!rows.length) {
+                list.innerHTML = '<li class="empty">No price alerts yet.</li>';
+                return;
+            }
+            list.innerHTML = rows.map((a) => {
+                const cur = a.current_price != null ? (' · now $' + fmt(a.current_price, a.current_price < 1 ? 4 : 2)) : '';
+                const dir = a.direction === 'below' ? 'below' : 'above';
+                const fired = a.triggered ? ' · <strong style="color:#22c55e">triggered</strong>' : (a.condition_met ? ' · <strong style="color:#fbbf24">condition met</strong>' : '');
+                return `<li style="padding:.45rem 0;border-bottom:1px solid #2a2a35;display:flex;justify-content:space-between;gap:.5rem;align-items:flex-start">
+                    <span>${esc(a.symbol)} ${esc(dir)} $${esc(fmt(a.target_price, a.target_price < 1 ? 4 : 2))}${cur}${fired}</span>
+                    <button type="button" class="btn secondary" style="padding:.25rem .5rem;font-size:.72rem" data-pa-del="${esc(a.id)}">Remove</button>
+                </li>`;
+            }).join('');
+            list.querySelectorAll('[data-pa-del]').forEach((btn) => {
+                btn.addEventListener('click', () => deletePriceAlert(btn.getAttribute('data-pa-del')));
+            });
+        }
+
+        async function loadFinancialNews() {
+            const list = document.getElementById('financialNewsList');
+            const foot = document.getElementById('financialNewsFoot');
+            if (!list) return;
+            try {
+                const res = await fetch('/api/public/news/headlines?limit=8');
+                const data = await res.json();
+                const rows = data.headlines || [];
+                if (!rows.length) {
+                    list.innerHTML = '<li class="empty">No headlines available right now.</li>';
+                    if (foot) foot.textContent = data.license_note || '';
+                    return;
+                }
+                list.innerHTML = rows.map((row) => {
+                    const title = esc(row.title || '');
+                    const src = esc(row.source || '');
+                    const url = row.url ? esc(row.url) : '';
+                    const inner = url
+                        ? `<a href="${url}" target="_blank" rel="noopener noreferrer">${title}</a>`
+                        : title;
+                    return `<li style="margin-bottom:.45rem"><span style="color:#71717a;font-size:.75rem">${src}</span> · ${inner}</li>`;
+                }).join('');
+                if (foot) foot.textContent = data.attribution ? (data.attribution + ' — ' + (data.license_note || '')) : (data.license_note || '');
+            } catch (e) {
+                list.innerHTML = '<li class="empty">Headlines unavailable.</li>';
+            }
+        }
+
+        async function loadPriceAlerts() {
+            const cid = priceAlertClientId();
+            try {
+                const res = await fetch('/api/public/price-alerts?client_id=' + encodeURIComponent(cid));
+                const data = await res.json();
+                if (!res.ok) throw new Error('load_failed');
+                renderPriceAlertsList(data);
+            } catch (e) {
+                console.debug(e);
+                const list = document.getElementById('priceAlertsList');
+                if (list) list.innerHTML = '<li class="empty">Price alerts unavailable.</li>';
+            }
+        }
+
+        async function addPriceAlert() {
+            const sym = document.getElementById('paSymbol')?.value || 'BTC';
+            const direction = document.getElementById('paDirection')?.value || 'above';
+            const target = parseFloat(document.getElementById('paTarget')?.value || '0', 10);
+            if (!target || target <= 0) return;
+            const cid = priceAlertClientId();
+            try {
+                const res = await fetch('/api/public/price-alerts', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        client_id: cid,
+                        symbol: sym,
+                        direction,
+                        target_price: target,
+                    }),
+                });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.detail || 'create_failed');
+                document.getElementById('paTarget').value = '';
+                await loadPriceAlerts();
+            } catch (e) { console.debug(e); }
+        }
+
+        async function deletePriceAlert(id) {
+            if (!id) return;
+            const cid = priceAlertClientId();
+            try {
+                await fetch('/api/public/price-alerts/' + encodeURIComponent(id) + '?client_id=' + encodeURIComponent(cid), {
+                    method: 'DELETE',
+                });
+                await loadPriceAlerts();
+            } catch (e) { console.debug(e); }
+        }
+
+        function bindPriceAlertsUi() {
+            const add = document.getElementById('paAddBtn');
+            const ref = document.getElementById('paRefreshBtn');
+            if (add && add.dataset.bound !== '1') {
+                add.dataset.bound = '1';
+                add.addEventListener('click', () => { void addPriceAlert(); });
+            }
+            if (ref && ref.dataset.bound !== '1') {
+                ref.dataset.bound = '1';
+                ref.addEventListener('click', () => { void loadPriceAlerts(); });
+            }
         }
 
         async function loadWhales(refresh) {
@@ -3010,6 +3388,7 @@
             initChart();
             loadLaunch57DataSpine();
             loadChart();
+            void loadTrustPulseChart();
             loadMarket();
             loadOI();
             if (currentLens === 'desk') {
@@ -3025,8 +3404,12 @@
             loadTgStatus();
             loadAlertsGenerosity();
             loadInbox();
+            bindPriceAlertsUi();
+            void loadPriceAlerts();
+            void loadFinancialNews();
             setInterval(loadMarket, 60000);
             setInterval(loadInbox, 90000);
+            setInterval(() => { void loadPriceAlerts(); }, 60000);
         }
 
         function scheduleCommandHome() {
@@ -3050,7 +3433,13 @@
         window.setSymbol = setSymbol;
         window.loadInbox = loadInbox;
 
+        window.openCompare = function () {
+            window.BDOracleWorkspace?.openCompareModal();
+        };
+
         function boot() {
+            initOracleWorkspace();
+            hydrateTrustPulseFromStore();
             loadAuth();
             applyLang();
             bindLensBar();
@@ -3064,10 +3453,20 @@
             const defer = () => runDeferredBoot();
             if (typeof requestIdleCallback === 'function') requestIdleCallback(defer, { timeout: 1500 });
             else setTimeout(defer, 0);
-            if (location.hash === '#trust-pulse') {
-                setTimeout(() => scrollToId('trust-pulse'), 80);
+            if (location.hash && location.hash.length > 1) {
+                const id = location.hash.slice(1);
+                setTimeout(() => scrollToId(id), 80);
             }
         }
+        function initOracleWorkspace() {
+            if (!window.BDOracleWorkspace) return;
+            window.BDOracleWorkspace.init({
+                fetchQuick: (sym) => fetchOracleQuick(sym, { force: false }),
+                getLang: currentLang,
+                getUxMode: () => document.getElementById('uxMode')?.value || 'beginner',
+            });
+        }
+
         if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
         else boot();
         bindLiveChartRefresh();

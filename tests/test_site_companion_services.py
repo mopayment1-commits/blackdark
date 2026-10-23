@@ -28,7 +28,11 @@ def test_site_services_manifest():
     foot = footer_manifest()
     assert any(x["href"] == "/legal" for x in foot["legal"])
     assert any(x["href"] == "/faq" for x in foot["trust"])
-    assert brand_social()
+    social = brand_social()
+    assert len(social) >= 5
+    assert any(s["id"] == "x" and "BLACKDARKio" in s["href"] for s in social)
+    foot_alerts = foot.get("telegram_alerts_url") or ""
+    assert "BLACKDARKAI_oncall_bot" in foot_alerts
     hub = legal_hub_manifest()
     assert any(p["href"] == "/cookies" for p in hub["pages"])
     status = public_status_report()

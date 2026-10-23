@@ -21,9 +21,9 @@
   --bd-border-strong: rgba(34, 211, 238, 0.28);
   --bd-text: #f4f4f5;
   --bd-text-secondary: #e4e4e7;
-  --bd-muted: #a1a1aa;
-  /* Keep dim at AA-safe floor on dark surfaces (was #71717a ~3.9:1). */
-  --bd-muted-dim: #a1a1aa;
+  --bd-muted: #c8c8d0;
+  /* WCAG AA on #0a0a0f / #111118 (was #a1a1aa ~4.4:1 on elevated surfaces). */
+  --bd-muted-dim: #c8c8d0;
   --bd-accent: #22d3ee;
   --bd-accent-deep: #06b6d4;
   --bd-accent-glow: rgba(34, 211, 238, 0.14);

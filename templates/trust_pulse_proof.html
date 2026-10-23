@@ -7,6 +7,8 @@
     <title>BLACKDARK — Trust Pulse proof{% if proof_symbol %} — {{ proof_symbol }}{% endif %}</title>
     {% include "partials/seo_canonical.html" %}
     <link rel="stylesheet" href="/static/css/trust-os.css">
+    <script defer src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js" integrity="sha384-OK7vELvjHdhUFi31JYioPIcRHTROLdcDa6ZsNWgvgLaKj+9JqhU0Ad8g4wz3CXjA" crossorigin="anonymous"></script>
+    <script defer src="/static/js/bd_lightweight_chart.js"></script>
     <style>
         body { font-family: var(--bd-font-body); background: radial-gradient(1200px 600px at 80% -10%, #12202a 0%, #0a0a0f 55%); color: #e4e4e7; min-height: 100vh; line-height: 1.5; }
         main { max-width: 720px; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; }
@@ -42,6 +44,8 @@
         .btn.secondary { background: #1a1a24; color: #e4e4e7; border: 1px solid #2a2a35; }
         .foot { margin-top: 1.25rem; font-size: .72rem; color: #71717a; border-top: 1px solid #2a2a35; padding-top: .75rem; }
         .err { color: #fca5a5; margin-top: 1rem; }
+        #proofPriceChart { height: 240px; width: 100%; margin-top: 1rem; border-radius: 10px; border: 1px solid #2a2a35; background: #111118; }
+        #proofChartNote { font-size: .72rem; color: #71717a; margin-top: .35rem; }
     </style>
 </head>
 <body>
@@ -69,6 +73,9 @@
             </p>
             <p class="proof-sentence">{{ proof_sentence }}</p>
 
+            <div id="proofPriceChart" aria-label="Price chart"></div>
+            <p id="proofChartNote">TradingView Lightweight Charts · loading…</p>
+
             {% if certificate and certificate.certificate_hash %}
             <div class="cert-block">
                 <strong style="color:#e4e4e7;display:block;margin-bottom:.35rem">Decision certificate</strong>
@@ -90,5 +97,14 @@
         {% endif %}
     </main>
     {% include 'partials/site_footer.html' %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const sym = {{ proof_symbol|default('BTC')|tojson }};
+            const el = document.getElementById('proofPriceChart');
+            const note = document.getElementById('proofChartNote');
+            if (!el || typeof bdMountPriceChart !== 'function') return;
+            void bdMountPriceChart(el, { symbol: sym, interval: '1h', limit: 120, noteEl: note });
+        });
+    </script>
 </body>
 </html>

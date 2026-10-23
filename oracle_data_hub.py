@@ -707,6 +707,33 @@ def _merge_adjustment(
     return delta + next_delta, [*reasons, *next_reasons], [*risks, *next_risks]
 
 
+def _central_mesh_score_adjustment(hub_context: dict[str, Any]) -> tuple[float, list[str], list[str]]:
+    mesh = hub_context.get("central_data_mesh") or {}
+    if not mesh.get("enabled"):
+        return 0.0, [], []
+    sources = mesh.get("sources") or {}
+    delta = 0.0
+    reasons: list[str] = []
+    risks: list[str] = []
+    fx = sources.get("frankfurter") or {}
+    if fx.get("ok") and fx.get("usd_strength_proxy") == "strong":
+        delta -= 0.5
+        risks.append("USD strength (Frankfurter FX) — risk-off for crypto liquidity.")
+    ma = sources.get("marketaux") or {}
+    if ma.get("ok") and ma.get("avg_sentiment") is not None:
+        try:
+            s = float(ma["avg_sentiment"])
+            if s >= 0.15:
+                delta += 0.5
+                reasons.append("Marketaux headline sentiment supportive.")
+            elif s <= -0.15:
+                delta -= 0.5
+                risks.append("Marketaux headline sentiment negative.")
+        except (TypeError, ValueError):
+            pass
+    return delta, reasons, risks
+
+
 def hub_score_adjustment(asset: str, hub_context: dict[str, Any]) -> tuple[float, list[str], list[str]]:
     """Return score delta, reasons, risks from hub context."""
     total: tuple[float, list[str], list[str]] = (0.0, [], [])
@@ -717,6 +744,7 @@ def hub_score_adjustment(asset: str, hub_context: dict[str, Any]) -> tuple[float
         _derivatives_score_adjustment(hub_context),
         _market_cap_score_adjustment(hub_context),
         _trending_asset_adjustment(asset, hub_context),
+        _central_mesh_score_adjustment(hub_context),
     ):
         total = _merge_adjustment(total, adjustment)
     delta, reasons, risks = total
@@ -749,7 +777,9 @@ async def build_oracle_data_hub_context(asset: str | None = None) -> dict[str, A
             if name.strip()
         ]
         lake_ctx["pillars"] = [*loaded, "free_llm_chain"]
-        return lake_ctx
+        from central_data_mesh import enrich_hub_with_central_mesh
+
+        return await enrich_hub_with_central_mesh(lake_ctx, symbol)
 
     timeout = aiohttp.ClientTimeout(total=config.ORACLE_HUB_FETCH_TIMEOUT_SECONDS)
     async with aiohttp.ClientSession(timeout=timeout) as session:
@@ -765,7 +795,7 @@ async def build_oracle_data_hub_context(asset: str | None = None) -> dict[str, A
     def _safe(value: Any, fallback: dict[str, Any]) -> dict[str, Any]:
         return value if isinstance(value, dict) else fallback
 
-    return {
+    live_ctx = {
         "enabled": True,
         "data_source": "live_fallback",
         "asset": symbol,
@@ -792,6 +822,9 @@ async def build_oracle_data_hub_context(asset: str | None = None) -> dict[str, A
             "market_aggregators",
         ],
     }
+    from central_data_mesh import enrich_hub_with_central_mesh
+
+    return await enrich_hub_with_central_mesh(live_ctx, symbol)
 
 
 def merge_hub_context(base: dict[str, Any] | None, hub: dict[str, Any]) -> dict[str, Any]:
