@@ -490,7 +490,12 @@ async def get_user_from_token(token: str | None) -> dict[str, Any] | None:
     if not token:
         return None
     from database import fetch_user_by_session
-    from security_auth import hash_session_token, is_production_env, is_session_revoked
+    from security_auth import (
+        hash_session_token,
+        is_production_env,
+        is_session_revoked,
+        mark_session_revoked,
+    )
 
     plain = token.strip()
     if is_session_revoked(plain):

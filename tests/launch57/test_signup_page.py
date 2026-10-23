@@ -394,3 +394,13 @@ def test_register_api_rejects_short_password(client, tmp_path, monkeypatch):
         },
     )
     assert res.status_code == 422 or res.status_code == 400
+
+
+def test_dashboard_lens_with_stale_session_cookie_not_500(client):
+    """Idle/missing session rows must not crash HTML auth resolution (Prove/Operate nav)."""
+    client.cookies.set("bd_token", "stale-session-token-for-idle-path-test-01")
+    for path in ("/dashboard?lens=prove", "/dashboard?lens=operate"):
+        res = client.get(path, headers={"Accept": "text/html"})
+        assert res.status_code != 500, path
+        assert res.status_code == 401, path
+        assert "Account required" in res.text or "auth.gate" in res.text or "/login" in res.text
