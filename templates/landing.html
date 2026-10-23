@@ -804,6 +804,38 @@
         </div>
     </section>
 
+    <section class="features" id="features">
+        <div class="section-header">
+            <h2>{{ t('features.title') }}</h2>
+            <p>{{ t('features.sub') }}</p>
+        </div>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>{{ t('feat.pulse.title') }}</h3>
+                <p>{{ t('feat.pulse.body') }}</p>
+            </div>
+            
+            <div class="feature-card">
+                <h3>{{ t('feat.cert.title') }}</h3>
+                <p>{{ t('feat.cert.body') }}</p>
+            </div>
+            
+            <div class="feature-card">
+                <h3>{{ t('feat.ledger.title') }}</h3>
+                <p>{{ t('feat.ledger.body') }}</p>
+            </div>
+            
+            <div class="feature-card">
+                <h3>{{ t('feat.operate.title') }}</h3>
+                <p>{{ t('feat.operate.body') }}</p>
+            </div>
+        </div>
+        <p style="text-align:center;color:var(--text-muted);margin-top:2rem;font-size:0.9rem">
+            <a href="/data-room" class="landing-inline-link">{{ t('lenses.room.title') }} →</a>
+        </p>
+    </section>
+
     <section class="landing-workspace-anchor" id="landing-workspace" aria-label="Workspace">
             {% include 'partials/oracle_workspace.html' %}
     </section>
@@ -921,40 +953,6 @@
                     {{ t('tg.commands') }}
                 </p>
             </div>
-    </section>
-
-
-    
-    <section class="features" id="features">
-        <div class="section-header">
-            <h2>{{ t('features.title') }}</h2>
-            <p>{{ t('features.sub') }}</p>
-        </div>
-        
-        <div class="features-grid">
-            <div class="feature-card">
-                <h3>{{ t('feat.pulse.title') }}</h3>
-                <p>{{ t('feat.pulse.body') }}</p>
-            </div>
-            
-            <div class="feature-card">
-                <h3>{{ t('feat.cert.title') }}</h3>
-                <p>{{ t('feat.cert.body') }}</p>
-            </div>
-            
-            <div class="feature-card">
-                <h3>{{ t('feat.ledger.title') }}</h3>
-                <p>{{ t('feat.ledger.body') }}</p>
-            </div>
-            
-            <div class="feature-card">
-                <h3>{{ t('feat.operate.title') }}</h3>
-                <p>{{ t('feat.operate.body') }}</p>
-            </div>
-        </div>
-        <p style="text-align:center;color:var(--text-muted);margin-top:2rem;font-size:0.9rem">
-            <a href="/data-room" class="landing-inline-link">{{ t('lenses.room.title') }} →</a>
-        </p>
     </section>
 
     <section class="waitlist" id="waitlist">
