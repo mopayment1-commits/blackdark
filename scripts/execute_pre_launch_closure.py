@@ -131,10 +131,16 @@ def main() -> int:
     if constitution_path.is_file():
         report["constitution_live"] = json.loads(constitution_path.read_text(encoding="utf-8"))
 
+    required_step_keys = {
+        "finalize_launch",
+        "verify_constitution_live",
+        "audit_visitor_nav",
+        "launch_verify",
+    }
+    if args.skip_live:
+        required_step_keys.discard("launch_verify")
     automated_ok = all(
-        step.get("exit_code") == 0
-        for key, step in report["steps"].items()
-        if key != "pre_launch_gate_assessor"  # institutional bar; informational
+        report["steps"].get(key, {}).get("exit_code") == 0 for key in required_step_keys
     )
     lc = report.get("launch_checklist") or {}
     report["verdict"] = {

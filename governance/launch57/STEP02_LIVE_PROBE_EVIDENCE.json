@@ -1,0 +1,21 @@
+{
+  "generated_at": "2026-10-23T12:50:00Z",
+  "base_url": "https://blackdark-production.up.railway.app",
+  "PASS_LIVE_CLAIMED": true,
+  "verdict": "GO_LIMITED_FREE_INVITE",
+  "probes": {
+    "GET /health/live": 200,
+    "GET /api/launch57/guest-trust": 200,
+    "GET /api/launch57/command-home (anonymous)": 401,
+    "GET /api/launch/readiness": 200,
+    "GET /api/production/guard": 200,
+    "GET /oracle/BTC/quick": 200,
+    "GET /": 200,
+    "scripts/launch_verify.py": "PASS"
+  },
+  "notes": [
+    "production_guard.required_pass is false until LEMON_SQUEEZY_* or SOFT_LAUNCH=true (billing_checkout).",
+    "/api/billing/status returns 404 on current Railway build; billing fields available via /api/launch/readiness.",
+    "Paid global checkout remains BLOCKED_EXTERNAL per owner Egypt merchant constraint until PSP live."
+  ]
+}
