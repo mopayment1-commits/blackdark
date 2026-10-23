@@ -13,24 +13,71 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 import translators as ts
+from deep_translator import GoogleTranslator
 
-from i18n_service import EN, LOCALES, _load_json_catalog
-from scripts.build_locale_json import ALLOW_IDENTICAL, TRANSLATE_TARGETS
+from i18n_service import ALLOW_IDENTICAL, EN, LOCALES, _load_json_catalog
+from scripts.build_locale_json import TRANSLATE_TARGETS, translate_value
 
 LOCALES_DIR = ROOT / "locales"
 
 
-def _translate(text: str, target: str, cache: dict[tuple[str, str], str]) -> str:
+def _translate_fast(text: str, target: str, cache: dict[tuple[str, str], str]) -> str:
+    """Public-surface batch path — Bing first (Google often noop in CI/agents)."""
+    if not text or not text.strip():
+        return text
     ck = (target, text)
     if ck in cache:
         return cache[ck]
     out = text
-    for attempt in range(6):
+    for attempt in range(3):
         try:
-            out = ts.translate_text(text, to_language=target, translator="bing")
-            break
+            alt = ts.translate_text(text, to_language=target, translator="bing")
+            if alt and alt.strip():
+                out = alt.strip()
+                break
         except Exception:
-            time.sleep(1.2 * (attempt + 1))
+            time.sleep(0.4 * (attempt + 1))
+    if out == text:
+        out = translate_value(text, target, cache)
+    cache[ck] = out or text
+    return cache[ck]
+
+
+def _translate(text: str, target: str, cache: dict[tuple[str, str], str]) -> str:
+    if not text or not text.strip():
+        return text
+    ck = (target, text)
+    if ck in cache:
+        return cache[ck]
+    out = translate_value(text, target, cache)
+    if out == text and len(text.strip()) > 2:
+        for attempt in range(5):
+            try:
+                alt = ts.translate_text(text, to_language=target, translator="bing")
+                if alt and alt != text:
+                    out = alt
+                    break
+            except Exception:
+                time.sleep(0.8 * (attempt + 1))
+        if out == text:
+            try:
+                alt = GoogleTranslator(source="en", target=target).translate(text)
+                if alt and alt.strip():
+                    out = alt
+            except Exception:
+                pass
+    if out == text and len(text.strip()) > 1 and target not in ("en", "en-US"):
+        try:
+            forced = GoogleTranslator(source="auto", target=target).translate(f"UI label: {text}")
+            if forced and forced.strip():
+                cleaned = forced.strip()
+                for prefix in ("UI label:", "UI Label:", "Etiqueta UI:", "UI-Label:"):
+                    if cleaned.startswith(prefix):
+                        cleaned = cleaned[len(prefix) :].strip()
+                if cleaned and cleaned != text:
+                    out = cleaned
+        except Exception:
+            pass
     cache[ck] = out or text
     return cache[ck]
 
@@ -40,10 +87,8 @@ def fill_locale(code: str, cache: dict[tuple[str, str], str]) -> int:
     if not target or code == "en":
         return 0
     path = LOCALES_DIR / f"{code}.json"
-    data = dict(_load_json_catalog(code) or {})
-    for k in EN:
-        if k not in data:
-            data[k] = EN[k]
+    data = dict(EN)
+    data.update(_load_json_catalog(code) or {})
     pending = [
         k
         for k, en_val in EN.items()
@@ -54,7 +99,9 @@ def fill_locale(code: str, cache: dict[tuple[str, str], str]) -> int:
     print(f"{code}: translating {len(pending)} keys…", flush=True)
     for i, key in enumerate(pending):
         data[key] = _translate(EN[key], target, cache)
-        time.sleep(0.12)
+        time.sleep(0.06)
+        if (i + 1) % 100 == 0:
+            path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         if (i + 1) % 50 == 0:
             print(f"  {code}: {i + 1}/{len(pending)}", flush=True)
     path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

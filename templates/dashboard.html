@@ -3332,10 +3332,10 @@
             } catch (error) {
                 console.debug(error);
                 renderEntries([
-                    {id:'decide',label:'Decide',available:true,hint:'Act/Wait + Proof'},
-                    {id:'verify',label:'Verify',available:true,path:'/oracle-accuracy'},
-                    {id:'my_book',label:'My book',available:currentLens!=='prove'},
-                    {id:'alerts',label:'Alerts',available:currentLens!=='prove'},
+                    {id:'decide',label:i18nT('dash.intent.decide'),available:true,hint:i18nT('dash.js.entry_decide_hint')},
+                    {id:'verify',label:i18nT('dash.intent.verify'),available:true,path:'/oracle-accuracy'},
+                    {id:'my_book',label:i18nT('dash.intent.my_book'),available:currentLens!=='prove'},
+                    {id:'alerts',label:i18nT('dash.intent.alerts'),available:currentLens!=='prove'},
                 ]);
             }
         }

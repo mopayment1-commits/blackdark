@@ -10,6 +10,8 @@ from pathlib import Path
 
 from deep_translator import GoogleTranslator
 
+import translators as ts
+
 ROOT = Path(__file__).resolve().parent.parent
 LOCALES_DIR = ROOT / "locales"
 
@@ -25,8 +27,8 @@ TRANSLATE_TARGETS: dict[str, str | None] = {
     "pt": "pt",
     "fr": "fr",
     "de": "de",
-    "zh-CN": "zh-CN",
-    "zh-TW": "zh-TW",
+    "zh-CN": "zh-Hans",
+    "zh-TW": "zh-Hant",
     "ja": "ja",
     "ko": "ko",
     "hi": "hi",
@@ -35,7 +37,7 @@ TRANSLATE_TARGETS: dict[str, str | None] = {
     "id": "id",
     "vi": "vi",
     "th": "th",
-    "fil": "tl",
+    "fil": "fil",
     "it": "it",
     "bn": "bn",
     "ur": "ur",
@@ -43,27 +45,10 @@ TRANSLATE_TARGETS: dict[str, str | None] = {
     "ms": "ms",
     "pl": "pl",
     "nl": "nl",
-    "he": "iw",
+    "he": "he",
 }
 
-# Keys that may legitimately match English (brand, tier SKUs, placeholders-only).
-ALLOW_IDENTICAL = frozenset(
-    {
-        "brand",
-        "action.ACT",
-        "action.WAIT",
-        "pricing.pro",
-        "pricing.whale",
-        "pricing.decision_pro",
-        "pricing.decision_desk",
-        "stats.telegram",
-        "oracle.mode.pro",
-        "oracle.audience.pro",
-        "oracle.audience.whale",
-        "oracle.audience.fund",
-        "oracle.audience.retail",
-    }
-)
+from i18n_service import ALLOW_IDENTICAL  # noqa: E402
 
 PLACEHOLDER_RE = re.compile(r"(\{[^}]+\})")
 
@@ -76,7 +61,13 @@ def translate_value(text: str, target: str, cache: dict[tuple[str, str], str]) -
         return cache[ck]
     parts = PLACEHOLDER_RE.split(text)
     out: list[str] = []
-    translator = GoogleTranslator(source="en", target=target)
+    google_target = {
+        "zh-Hans": "zh-CN",
+        "zh-Hant": "zh-TW",
+        "fil": "tl",
+        "he": "iw",
+    }.get(target, target)
+    translator = GoogleTranslator(source="en", target=google_target)
     for part in parts:
         if PLACEHOLDER_RE.match(part):
             out.append(part)
@@ -84,14 +75,20 @@ def translate_value(text: str, target: str, cache: dict[tuple[str, str], str]) -
         if not part.strip():
             out.append(part)
             continue
+        translated = part
         try:
-            translated = translator.translate(part)
+            translated = ts.translate_text(part, to_language=target, translator="bing")
         except Exception:
-            time.sleep(0.35)
+            translated = part
+        if translated == part:
             try:
                 translated = translator.translate(part)
             except Exception:
-                translated = part
+                time.sleep(0.35)
+                try:
+                    translated = translator.translate(part)
+                except Exception:
+                    translated = part
         out.append(translated or part)
     result = "".join(out)
     cache[ck] = result

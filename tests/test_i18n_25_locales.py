@@ -207,6 +207,15 @@ def test_public_surface_translated_for_core_locales():
         assert not missing, f"{code} missing {len(missing)} public keys e.g. {missing[:8]}"
 
 
+def test_public_surface_complete_all_locales():
+    from i18n_service import locale_ui_complete
+
+    for code in REQUIRED_LOCALES:
+        if code == "en":
+            continue
+        assert locale_ui_complete(code), f"{code} public UI incomplete"
+
+
 def test_decision_sentence_localized():
     from i18n_service import decision_sentence
 
