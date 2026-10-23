@@ -631,31 +631,62 @@
         .tp-mini-why { font-size:.85rem; color:var(--text-muted); margin-bottom:.75rem; }
         .tp-mini-why div { padding:.25rem 0; border-bottom:1px solid var(--border); color:var(--text); }
         .tp-mini-why div:last-child { border-bottom:none; }
-        .tp-mini-proof { display:flex; flex-wrap:wrap; gap:.4rem; margin-bottom:.85rem; font-size:.75rem; align-items:center; }
-        .tp-mini-proof span, .tp-mini-proof a { /* use .bd-chip via JS when possible */ }
+        .tp-mini-proof {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.85rem;
+            align-items: center;
+            width: 100%;
+        }
+        .hero .tp-mini-proof .bd-chip,
+        .hero .tp-mini-proof button.bd-chip {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.35rem;
+            margin: 0;
+            padding: 0.55rem 1.1rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: var(--bg-elevated);
+            color: var(--text);
+            font-family: inherit;
+            font-size: 0.88rem;
+            font-weight: 600;
+            line-height: 1.3;
+            text-decoration: none;
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            transition: border-color 0.2s, background 0.2s, color 0.2s;
+        }
+        .hero .tp-mini-proof a.bd-chip:link,
+        .hero .tp-mini-proof a.bd-chip:visited {
+            color: var(--text);
+        }
+        .hero .tp-mini-proof .bd-chip.ok {
+            border-color: rgba(34, 211, 238, 0.4);
+        }
+        .hero .tp-mini-proof .bd-chip:hover,
+        .hero .tp-mini-proof .bd-chip:focus-visible {
+            border-color: var(--accent);
+            background: rgba(26, 26, 36, 0.98);
+            color: var(--text);
+            outline: none;
+        }
+        .hero .tp-mini-proof .bd-chip-muted {
+            cursor: default;
+            opacity: 0.95;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
         .tp-mini-cert-id {
             font-size: .72rem;
             color: var(--text-muted, var(--muted));
             font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
             letter-spacing: .02em;
             user-select: all;
-        }
-        .bd-chip-btn {
-            cursor: pointer;
-            font: inherit;
-            font-size: 0.75rem;
-            color: var(--accent);
-            border-color: rgba(34, 211, 238, 0.35);
-        }
-        .bd-chip-btn:hover, .bd-chip-btn:focus-visible {
-            border-color: var(--accent);
-            color: #e0f2fe;
-            outline: none;
-        }
-        .bd-chip-muted {
-            cursor: default;
-            opacity: 0.92;
-            color: var(--text-muted);
         }
         .tp-mini-proof-drawer {
             margin: 0 0 0.75rem;
