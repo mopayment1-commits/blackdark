@@ -579,14 +579,23 @@
   }
 
   function bindNavShortcuts() {
+    const onDashboard = location.pathname.startsWith('/dashboard');
     document.querySelectorAll('[data-bd-scroll]').forEach((el) => {
+      const id = el.getAttribute('data-bd-scroll');
+      if (id) {
+        el.setAttribute('href', (onDashboard ? '/dashboard' : '/') + '#' + id);
+      }
       if (el.dataset.bound === '1') return;
       el.dataset.bound = '1';
       el.addEventListener('click', (e) => {
-        const id = el.getAttribute('data-bd-scroll');
-        if (id) {
+        const targetId = el.getAttribute('data-bd-scroll');
+        if (targetId) {
           e.preventDefault();
-          scrollToSection(id);
+          if (!onDashboard && !document.getElementById(targetId)) {
+            location.assign('/dashboard#' + targetId);
+            return;
+          }
+          scrollToSection(targetId);
         }
       });
     });

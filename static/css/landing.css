@@ -631,11 +631,13 @@
             padding: 1.15rem 1.2rem 1.05rem;
             animation: bdPulseIn 0.75s var(--bd-ease-out) 0.12s both;
         }
-        .hero .tp-mini-cta .btn-primary,
-        .hero .tp-mini-cta .btn-secondary {
+        .hero .tp-mini-cta .tp-mini-cta-btn {
             padding: 0.55rem 1rem;
             font-size: 0.88rem;
         }
+        .hero .tp-mini-proof .bd-chip { margin: 0; }
+        .hero .tp-mini-proof { width: 100%; }
+        .hero .tp-mini-cta { width: 100%; clear: both; }
         .hero .tp-mini-foot {
             font-size: 0.72rem;
             line-height: 1.45;
@@ -689,8 +691,20 @@
             font-size: 0.72rem;
             color: var(--success);
         }
-        .tp-mini-cta { display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:.5rem; }
+        .tp-mini-cta { display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:.5rem; align-items:center; }
+        .tp-mini-cta .tp-mini-cta-btn { cursor: pointer; }
         .tp-mini-foot { margin:0; }
+
+        .landing-workspace-anchor {
+            max-width: 720px;
+            margin: 0 auto 2rem;
+            padding: 0 1.25rem;
+            position: relative;
+            z-index: 2;
+        }
+        body.landing-page .landing-workspace-anchor .section-desk-only {
+            display: block;
+        }
         
         @media (max-width: 768px) {
             /* Hide lens marketing links only — NEVER hide Language / Login / Sign up / Pricing */

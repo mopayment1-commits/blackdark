@@ -723,17 +723,21 @@ async def _resolve_html_auth_user(request: Request) -> dict | None:
     """Valid session only — stale/invalid bd_token must not unlock private HTML surfaces."""
     from auth_service import get_user_from_token
 
-    auth = (request.headers.get("authorization") or "").strip()
-    token: str | None = None
-    if auth.lower().startswith("bearer "):
-        token = auth[7:].strip()
-    elif request.cookies.get("bd_token"):
-        from security_middleware import cookie_to_session_bearer
+    try:
+        auth = (request.headers.get("authorization") or "").strip()
+        token: str | None = None
+        if auth.lower().startswith("bearer "):
+            token = auth[7:].strip()
+        elif request.cookies.get("bd_token"):
+            from security_middleware import cookie_to_session_bearer
 
-        token = cookie_to_session_bearer(request.cookies.get("bd_token"))
-    if not token:
+            token = cookie_to_session_bearer(request.cookies.get("bd_token"))
+        if not token:
+            return None
+        return await get_user_from_token(token)
+    except Exception:
+        logger.exception("html auth user resolution failed")
         return None
-    return await get_user_from_token(token)
 
 
 def _header_user_payload(user: dict[str, Any]) -> dict[str, Any]:

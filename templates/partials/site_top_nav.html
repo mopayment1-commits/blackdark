@@ -314,8 +314,8 @@
       <a href="/oracle-accuracy"{% if nav_active is defined and nav_active == 'verify' %} class="active" aria-current="page"{% endif %}>{{ t('nav.verify') if t is defined else 'Verify' }}</a>
       <a href="/swap"{% if nav_active is defined and nav_active == 'swap' %} class="active" aria-current="page"{% endif %}>{{ t('nav.swap') if t is defined else 'Swap' }}</a>
       <a href="/wallet-balance"{% if nav_active is defined and nav_active == 'wallet' %} class="active" aria-current="page"{% endif %}>{{ t('nav.wallet_balance') if t is defined else 'Balance' }}</a>
-      <a href="/dashboard#watchlist" data-bd-scroll="watchlist">Watchlist</a>
-      <a href="/dashboard#my-decisions" data-bd-scroll="my-decisions">My Decisions</a>
+      <a href="#watchlist" data-bd-scroll="watchlist">Watchlist</a>
+      <a href="#my-decisions" data-bd-scroll="my-decisions">My Decisions</a>
       <a href="/about"{% if nav_active is defined and nav_active == 'about' %} class="active" aria-current="page"{% endif %}>{{ t('nav.about') if t is defined else 'About' }}</a>
     </div>
     <div class="nav-right">

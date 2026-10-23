@@ -1103,8 +1103,10 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             wireLandingPulseProofClicks();
             const hash = _lpCertHash(p);
             const hasCert = Boolean(hash);
+            const proof = (p && p.proof) || {};
+            const ledgerHref = esc(_lpProofLedgerHref(proof));
             const bits = [
-                '<a class="bd-chip ok" href="/oracle-accuracy">' + esc(i18nT('pulse.verify_ledger')) + '</a>',
+                '<a class="bd-chip ok" href="' + ledgerHref + '">' + esc(i18nT('pulse.verify_ledger')) + '</a>',
             ];
             if (hasCert) {
                 bits.push(
