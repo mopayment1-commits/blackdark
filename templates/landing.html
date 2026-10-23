@@ -676,19 +676,22 @@
         .hero .tp-mini-proof {
             width: 100%;
             display: flex;
-            flex-direction: column;
-            align-items: stretch;
-            gap: 0.45rem;
-            margin: 0;
+            flex-flow: row wrap;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 0.5rem 0.65rem;
+            margin: 0 0 0.35rem;
         }
         .hero .tp-mini-proof .bd-chip,
         .hero .tp-mini-proof a.bd-chip,
         .hero .tp-mini-proof button.bd-chip {
             margin: 0;
-            width: 100%;
+            width: auto;
+            max-width: 100%;
+            flex: 0 1 auto;
             justify-content: center;
             box-sizing: border-box;
-            min-height: 2.35rem;
+            min-height: 2rem;
         }
         .hero .tp-mini-cta {
             width: 100%;
@@ -914,6 +917,23 @@
         body.landing-page .bd-ask-ai-note,
         body.landing-page .bd-eu-consent-note { color: #c8c8d0; }
         body.landing-page .bd-nav-search-wrap svg { color: #a1a1aa; }
+        /* Proof chips: row wrap + gap (beats late-loaded landing.css margin:0) */
+        body.landing-page .hero .tp-mini-proof {
+            display: flex !important;
+            flex-flow: row wrap !important;
+            align-items: center !important;
+            justify-content: flex-start !important;
+            gap: 0.5rem 0.65rem !important;
+            row-gap: 0.5rem !important;
+            column-gap: 0.65rem !important;
+        }
+        body.landing-page .hero .tp-mini-proof .bd-chip,
+        body.landing-page .hero .tp-mini-proof a.bd-chip,
+        body.landing-page .hero .tp-mini-proof button.bd-chip {
+            width: auto !important;
+            max-width: 100%;
+            margin: 0 !important;
+        }
         .bd-visually-hidden {
             position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
             overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
