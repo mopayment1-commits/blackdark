@@ -336,14 +336,6 @@
             background: var(--bg-elevated); border-color: var(--accent);
             color: #f4f4f5;
         }
-        .tp-mini-cta .btn-primary.tp-mini-cta-btn,
-        .tp-mini-cta .btn-secondary.tp-mini-cta-btn {
-            padding: 0.55rem 1.1rem;
-            font-size: 0.9rem;
-            width: auto;
-            margin: 0;
-        }
-        
         .oracle-demo {
             margin-top: 4rem;
             background: var(--bg-card);
@@ -629,13 +621,39 @@
             padding: 1.15rem 1.2rem 1.05rem;
             animation: bdPulseIn 0.75s var(--bd-ease-out) 0.12s both;
         }
-        .hero .tp-mini-cta .tp-mini-cta-btn {
-            padding: 0.55rem 1rem;
-            font-size: 0.88rem;
+        .hero .tp-mini-inner.bd-trust-pulse {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            text-align: left;
         }
+        .hero .tp-mini-action { text-align: center; }
         .hero .tp-mini-proof .bd-chip { margin: 0; }
-        .hero .tp-mini-proof { width: 100%; }
-        .hero .tp-mini-cta { width: 100%; clear: both; }
+        .hero .tp-mini-proof {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        .hero .tp-mini-cta {
+            width: 100%;
+            clear: both;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 0.5rem;
+            margin-top: 0.15rem;
+        }
+        .hero .tp-mini-cta .btn-primary,
+        .hero .tp-mini-cta .btn-secondary {
+            width: 100%;
+            padding: 0.55rem 1.1rem;
+            font-size: 0.9rem;
+            margin: 0;
+            box-sizing: border-box;
+        }
         .hero .tp-mini-foot {
             font-size: 0.72rem;
             line-height: 1.45;
@@ -697,6 +715,11 @@
             color: var(--success);
         }
         .tp-mini-cta { display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:.5rem; }
+        .hero .tp-mini-cta {
+            flex-wrap: nowrap;
+            flex-direction: column;
+            align-items: stretch;
+        }
         .tp-mini-foot { margin:0; }
         
         @media (max-width: 768px) {
@@ -772,13 +795,67 @@
         }
         body.landing-page .nav-util-link { color: #d8d8de; }
         body.landing-page .landing-workspace-anchor {
-            max-width: 720px;
-            margin: 0 auto 2rem;
-            padding: 0 1.25rem;
+            max-width: min(640px, 100%);
+            margin: 1.5rem auto 0;
+            padding: 0;
+            text-align: left;
+            width: 100%;
         }
-        body.landing-page .landing-workspace-anchor .btn {
+        body.landing-page .landing-workspace-anchor .section-desk-only {
+            display: block;
+        }
+        body.landing-page .landing-workspace-anchor .bd-workspace-section {
+            margin-top: 1.25rem;
+            padding: 1.15rem 1.2rem;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            background: rgba(10, 10, 15, 0.55);
+        }
+        body.landing-page .landing-workspace-anchor .bd-workspace-section:first-of-type {
+            margin-top: 0;
+        }
+        body.landing-page .landing-workspace-anchor .bd-workspace-heading {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin: 0 0 0.35rem;
+            color: #e4e4e7;
+        }
+        body.landing-page .landing-workspace-anchor .sub {
+            color: #c8c8d0;
+            font-size: 0.9rem;
+            margin: 0 0 0.75rem;
+            line-height: 1.5;
+        }
+        body.landing-page .landing-workspace-anchor .btn.secondary {
+            background: #1a1a24;
+            color: #e4e4e7;
+            border: 1px solid #2a2a35;
+            padding: 0.55rem 1rem;
+            border-radius: 10px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
             width: auto;
-            margin-bottom: 0;
+            margin: 0;
+        }
+        body.landing-page .landing-workspace-anchor .btn.secondary:hover {
+            border-color: var(--accent);
+            color: #f4f4f5;
+        }
+        body.landing-page .landing-workspace-anchor .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        body.landing-page .landing-workspace-anchor .landing-room-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.6rem 1.15rem;
+            font-size: 0.9rem;
+            width: auto;
+            text-decoration: none;
         }
         body.landing-page .bd-site-footer-root .bd-site-footer { color: #c8c8d0; }
         body.landing-page .bd-site-footer-root .bd-site-footer a { color: #e4e4e7; }
@@ -844,16 +921,13 @@
                     <div class="tp-mini-sym" id="lpSym">{{ _lp.symbol_line if _lp else t('pulse.loading') }}</div>
                     <p class="tp-mini-sentence" id="lpSentence">{{ _lp.sentence if _lp else t('pulse.sentence') }}</p>
                     <div class="tp-mini-why" id="lpWhy"></div>
-                    <div class="tp-mini-proof" id="lpProof" aria-label="{{ t('a11y.trust_pulse') }} proof chips">
-                        <a class="bd-chip ok" href="/oracle-accuracy">{{ t('pulse.verify_ledger') }}</a>
-                        <span class="bd-chip bd-chip-muted" id="lpProofPendingChip">{{ t('pulse.chip.free_pending') }}</span>
-                    </div>
+                    <div class="tp-mini-proof" id="lpProof" aria-label="{{ t('a11y.trust_pulse') }} proof chips"></div>
                     <p class="tp-mini-proof-toast" id="lpProofCopyMsg" role="status" aria-live="polite" hidden></p>
                     <div class="tp-mini-proof-drawer" id="lpProofDrawer" hidden></div>
                     <div class="tp-mini-cta" aria-label="Trust Pulse actions">
-                        <a href="/dashboard?lens=prove#trust-pulse" class="btn-primary tp-mini-cta-btn">{{ t('pulse.open_full') }}</a>
-                        <button type="button" class="btn-secondary tp-mini-cta-btn" id="lpShareBtn">{{ t('pulse.share') }}</button>
-                        <button type="button" class="btn-secondary" style="padding:.55rem 1.1rem;font-size:.9rem;cursor:pointer;display:none" id="lpArbBtn">{{ t('arb.btn') }}</button>
+                        <a href="/dashboard?lens=prove#trust-pulse" class="btn-primary">{{ t('pulse.open_full') }}</a>
+                        <button type="button" class="btn-secondary" style="cursor:pointer" id="lpShareBtn">{{ t('pulse.share') }}</button>
+                        <button type="button" class="btn-secondary" style="cursor:pointer;display:none" id="lpArbBtn">{{ t('arb.btn') }}</button>
                     </div>
                     <div id="lpArbPanel" hidden style="margin-top:.75rem;text-align:left;font-size:.82rem;border-top:1px solid var(--border);padding-top:.65rem">
                         <p style="color:var(--muted);margin-bottom:.35rem">{{ t('arb.panel.lead') }}</p>
@@ -886,9 +960,15 @@
                         <p>{{ t('feat.operate.body') }}</p>
                     </div>
                 </div>
-                <p style="text-align:center;color:var(--text-muted);margin-top:1.25rem;font-size:0.9rem">
-                    <a href="/data-room" class="landing-inline-link">{{ t('lenses.room.title') }} →</a>
-                </p>
+            </section>
+
+            <section class="landing-workspace-anchor" id="landing-workspace" aria-label="Workspace">
+                <section id="room" class="bd-workspace-section landing-room-section" aria-label="{{ t('nav.room') }}">
+                    <h3 class="bd-workspace-heading">{{ t('nav.room') }}</h3>
+                    <p class="sub">{{ t('lenses.room.body') }}</p>
+                    <a href="/data-room?lens=room" class="btn-primary landing-room-cta">{{ t('nav.room') }} →</a>
+                </section>
+                {% include 'partials/oracle_workspace.html' %}
             </section>
         </div>
     </section>
@@ -1006,10 +1086,6 @@
                     {{ t('tg.commands') }}
                 </p>
             </div>
-    </section>
-
-    <section class="landing-workspace-anchor" id="landing-workspace" aria-label="Workspace">
-            {% include 'partials/oracle_workspace.html' %}
     </section>
 
     <section class="waitlist" id="waitlist">
