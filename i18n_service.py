@@ -274,6 +274,8 @@ def public_surface_keys() -> tuple[str, ...]:
         "templates/sealed_markets.html",
         "templates/oracle_decision_market.html",
         "templates/dashboard.html",
+        "templates/partials/oracle_workspace.html",
+        "templates/profile.html",
     ):
         path = root / rel
         if path.is_file():
@@ -748,6 +750,26 @@ EN: dict[str, str] = {
     "lenses.desk.body": "Pro ($29/mo) and Desk ($79/mo): charts, share, API & export.",
     "lenses.room.title": "Room",
     "lenses.room.body": "SCALE THE EDGE / INSTITUTIONAL (from $999/mo): Data Room, SSO/MFA, SLA — Talk to us.",
+    "workspace.watchlist.title": "Watchlist",
+    "workspace.watchlist.sub": "Track symbols locally — latest Oracle quick decision per row (stored on this device).",
+    "workspace.watchlist.add_symbol_aria": "Add symbol to watchlist",
+    "workspace.watchlist.placeholder": "e.g. BTC",
+    "workspace.watchlist.add": "Add",
+    "workspace.watchlist.compare": "Compare",
+    "workspace.watchlist.remove": "Remove {symbol}",
+    "workspace.decisions.title": "My Decisions",
+    "workspace.decisions.sub": "Last 50 Oracle decisions on this device (symbol, action, score, time, cert hash).",
+    "workspace.compare.title": "Compare assets",
+    "workspace.compare.sub": "Pick 2–3 symbols — same Oracle quick data.",
+    "workspace.compare.close": "Close",
+    "workspace.share.title": "Share decision",
+    "workspace.share.copy": "Copy",
+    "workspace.share.close": "Close",
+    "workspace.share.text_aria": "Decision text to copy",
+    "workspace.toast.offline": "Offline",
+    "workspace.toast.unavailable": "Unavailable",
+    "workspace.toast.last_known": "Offline · last known · {action}",
+    "workspace.toast.score": "score",
     "lenses.cta": "Open the lenses",
     "prove.title": "Prove · Decide",
     "prove.sub": "One clear Act/Wait + Why + shareable Proof Card. Four lenses: Prove → Operate → Desk → Room.",
@@ -1530,26 +1552,23 @@ _CLIENT_CATALOG_PREFIXES: tuple[str, ...] = (
     "ledger.js.",
     "ledger.panel.",
     "ledger.cta.",
+    "workspace.",
 )
 
 
 def catalog_for_client(lang: str | None) -> dict[str, str]:
-    """JSON boot catalog — omit English-fallback keys on non-en pages (prevents HTML bleed)."""
+    """JSON boot catalog for client JS — same resolved strings as server t() (with EN fallback)."""
     code = normalize_lang(lang)
     keys = set(public_surface_keys()) | _CLIENT_CATALOG_EXTRA
     keys |= {k for k in EN if any(k.startswith(p) for p in _CLIENT_CATALOG_PREFIXES)}
-    if code == "en":
-        return {k: _resolve_string(k, code) for k in keys if k in EN}
-    out: dict[str, str] = {}
-    for key in keys:
-        if key not in EN:
-            continue
-        eff = _effective_translation(code, key)
-        if eff is not None:
-            out[key] = eff
-        elif key in ALLOW_IDENTICAL:
-            out[key] = EN[key]
-    return out
+    return {k: _resolve_string(k, code) for k in keys if k in EN}
+
+
+def resolved_api_lang(request: Any, lang: str | None = None) -> str:
+    """Query lang param, else cookie / profile / Accept-Language (same as HTML pages)."""
+    if lang is not None and str(lang).strip():
+        return normalize_lang(str(lang).strip())
+    return resolve_request_lang(request)
 
 
 def _resolve_request_lang_raw(request: Any) -> str:
@@ -1563,6 +1582,14 @@ def _resolve_request_lang_raw(request: Any) -> str:
         cookie = request.cookies.get("bd_lang")
         if cookie:
             return normalize_lang(cookie)
+    except Exception:
+        pass
+    try:
+        st = getattr(request, "state", None)
+        if st is not None:
+            ui_lang = getattr(st, "ui_lang", None)
+            if ui_lang:
+                return normalize_lang(str(ui_lang))
     except Exception:
         pass
     try:

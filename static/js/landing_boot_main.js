@@ -1157,7 +1157,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             const sent = document.getElementById('lpSentence');
             if (sent) sent.textContent = p.sentence || i18nT('pulse.fallback_sentence');
             _lpRenderWhy((p.why && p.why.factors) || []);
-            const fresh = p.freshness || {};
+            const fresh = p.freshness || p.data_freshness || {};
             const dot = document.getElementById('lpDot');
             if (dot) dot.className = 'tp-mini-dot' + (fresh.stale ? ' stale' : '');
             const fl = document.getElementById('lpFresh');

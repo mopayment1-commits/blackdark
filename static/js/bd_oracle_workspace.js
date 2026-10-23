@@ -93,7 +93,10 @@
 
   const hooks = {
     fetchQuick: null,
-    getLang: () => document.documentElement.lang || 'en',
+    getLang: () =>
+      (window.BD_I18N && window.BD_I18N.lang) ||
+      document.documentElement.lang ||
+      'en',
     getUxMode: () => 'beginner',
     applyLang: null,
   };

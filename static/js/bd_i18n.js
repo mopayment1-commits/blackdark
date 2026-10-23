@@ -29,7 +29,7 @@
     t: function (key, vars) {
       var s = this.catalog && this.catalog[key];
       if (s === undefined || s === null || s === "") {
-        return "";
+        return typeof key === "string" ? key : "";
       }
       if (vars) {
         Object.keys(vars).forEach(function (k) {

@@ -791,6 +791,7 @@ async def header_session_middleware(request: Request, call_next):
     import asyncio
 
     request.state.header_user = None
+    request.state.ui_lang = None
     try:
         if _html_shell_fast_path(request):
             try:
@@ -801,8 +802,13 @@ async def header_session_middleware(request: Request, call_next):
             user = await _resolve_html_auth_user(request)
         if user:
             request.state.header_user = _header_user_payload(user)
+            raw_ui = str(user.get("ui_lang") or "").strip()
+            request.state.ui_lang = raw_ui if raw_ui else None
+        else:
+            request.state.ui_lang = None
     except Exception:
         request.state.header_user = None
+        request.state.ui_lang = None
     return await call_next(request)
 
 
@@ -2897,18 +2903,21 @@ def _parse_trust_pulse_previous_factors(previous_factors: str | None) -> list[di
 
 @app.get("/api/trust-pulse", responses=COMMON_ERROR_RESPONSES)
 async def api_trust_pulse(
+    request: Request,
     symbol: str = "BTC",
     previous_action: str | None = None,
     previous_seen_at: str | None = None,
     previous_factors: str | None = None,
     force: bool = False,
     ux_mode: str = "beginner",
-    lang: str = "en",
+    lang: str | None = None,
     user: dict | None = Depends(optional_user),
 ):
     """First-open Trust Pulse — one live decision + Why + proof + freshness."""
+    from i18n_service import resolved_api_lang
     from trust_pulse import build_trust_pulse
 
+    lang = resolved_api_lang(request, lang)
     tier = (user or {}).get("tier") or "free"
     try:
         return await build_trust_pulse(
@@ -3917,15 +3926,18 @@ def _attach_quick_freshness(payload: dict, asset: str) -> dict:
 @app.get("/oracle/{symbol}/quick", responses=COMMON_ERROR_RESPONSES)
 async def oracle_quick(
     symbol: str,
+    request: Request,
     background_tasks: BackgroundTasks,
-    lang: str = "en",
+    lang: str | None = None,
     ux_mode: str = "beginner",
 ) -> JSONResponse:
     """Instant verdict + ACTION line — viral-hardened (cache + semaphore)."""
     import time
 
+    from i18n_service import resolved_api_lang
     from viral_capacity import quick_cache_get, quick_cache_set, run_oracle_bounded
 
+    lang = resolved_api_lang(request, lang)
     t0 = time.perf_counter()
     asset, pair = _normalize_oracle_symbol(symbol)
     cached = quick_cache_get(asset, lang, ux_mode)
@@ -4315,8 +4327,11 @@ async def oracle(
     background_tasks: BackgroundTasks,
     user: dict | None = Depends(optional_user),
     ux_mode: str = "beginner",
-    lang: str = "en",
+    lang: str | None = None,
 ):
+    from i18n_service import resolved_api_lang
+
+    lang = resolved_api_lang(request, lang)
     reserved = _reserved_oracle_response(symbol, request)
     if reserved is not None:
         return reserved
