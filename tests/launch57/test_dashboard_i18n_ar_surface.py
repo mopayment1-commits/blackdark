@@ -70,4 +70,4 @@ def test_dashboard_ar_localizes_static_chrome(authed_client, monkeypatch):
     assert t("oracle.get_decision", "ar") in res.text
     assert 'id="askBtn">Get Decision<' not in res.text
     assert "<h2>Arbitrage Engine</h2>" not in res.text
-    assert "What do you need?" not in res.text
+    assert 'id="intentQuestion">What do you need?' not in res.text

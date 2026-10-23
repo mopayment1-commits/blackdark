@@ -54,7 +54,7 @@ def fill_locale(code: str, cache: dict[tuple[str, str], str]) -> int:
     print(f"{code}: translating {len(pending)} keys…", flush=True)
     for i, key in enumerate(pending):
         data[key] = _translate(EN[key], target, cache)
-        time.sleep(0.2)
+        time.sleep(0.12)
         if (i + 1) % 50 == 0:
             print(f"  {code}: {i + 1}/{len(pending)}", flush=True)
     path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

@@ -930,7 +930,7 @@
                     syncChatGate();
                     const detail = d.detail || {};
                     appendChat('assistant', detail.message || 'Upgrade to Decision Pro for AI Chat.');
-                    if (foot) foot.textContent = 'Operate+ required';
+                    if (foot) foot.textContent = i18nT('ui.operate_required');
                     return;
                 }
                 if (!res.ok) throw new Error('chat_failed');
@@ -939,7 +939,7 @@
                 chatHistory.push({ role: 'assistant', content: reply });
                 const cf = d.compliance_footer || {};
                 if (foot) {
-                    foot.innerHTML = `<strong>Anti-Hype</strong> · ${esc(cf.disclaimer || 'Not financial advice. Verify on the Public Accuracy Ledger.')}`
+                    foot.innerHTML = `<strong>${esc(i18nT('common.anti_hype'))}</strong> · ${esc(cf.disclaimer || i18nT('common.not_advice'))}`
                         + (d.symbol ? ` · context ${esc(d.symbol)}` : '')
                         + (d.source ? ` · ${esc(d.source)}` : '');
                 }
@@ -956,7 +956,7 @@
                 return;
             }
             btn.style.display = '';
-            btn.textContent = 'Upgrade';
+            btn.textContent = i18nT('ui.upgrade');
             btn.onclick = () => {
                 if (nextUpgrade.checkout_tier) upgradeTier(nextUpgrade.checkout_tier);
                 else goNavUrl(nextUpgrade.href || '/data-room');
@@ -985,7 +985,7 @@
                     userTierId = String((d.user && d.user.tier) || (d.tier && (d.tier.tier || d.tier.id)) || 'free').toLowerCase();
                     if (tierEl) tierEl.textContent = String(d.tier?.label || d.user?.tier || 'FREE').toUpperCase();
                     if (authLink) {
-                        authLink.textContent = 'Logout';
+                        authLink.textContent = i18nT('ui.logout');
                         authLink.href = '#';
                         authLink.onclick = async e => {
                             e.preventDefault();
@@ -1835,7 +1835,7 @@
                     if (action === 'alerts') { openAlertsEntry(); return; }
                 });
             });
-            if (hint && !hint.textContent) hint.textContent = 'Launch-57 only — Decide · Verify · My book · Alerts.';
+            if (hint && !hint.textContent) hint.textContent = i18nT('dash.js.intent_fallback');
         }
 
         function readLastPulseVisit() {
@@ -2178,7 +2178,13 @@
             const askBtn = document.getElementById('askBtn');
             if (heroSub) heroSub.textContent = i18nT('ui.trust_pulse_live');
             if (askBtn) askBtn.textContent = i18nT('oracle.get_decision');
+            applyAntiHypeClass();
+            const intentQ = document.getElementById('intentQuestion');
+            const intentH = document.getElementById('intentHint');
+            if (intentQ) intentQ.textContent = i18nT('dash.intent.question');
+            if (intentH) intentH.textContent = i18nT('dash.intent.hint');
         }
+        document.addEventListener('bd-i18n-ready', applyLang);
 
 
         function buildScenarioBlock(d) {
@@ -2200,7 +2206,7 @@
                         + (i+1) + '. ' + esc(f.factor||f) + '</strong>' + detail
                         + '<div style="color:#71717a;font-size:.75rem">' + esc(f.source||'') + '</div></div>';
                 }).join('');
-            const title = esc(whyBlock.grasp_line || 'Why (Top 3) — under five seconds');
+            const title = esc(whyBlock.grasp_line || i18nT('ui.why_top3'));
             const titleRow = factors.length
                 ? '<div style="font-size:.8rem;color:#22d3ee;margin-bottom:.4rem">' + title + '</div>'
                 : '';
@@ -2223,19 +2229,19 @@
             window._lastCertTxt = cert.export_text || '';
             const xUrl = safeUrl(cert.share_urls && cert.share_urls.x);
             const tgUrl = safeUrl(cert.share_urls && cert.share_urls.telegram);
-            const hashLabel = cert.certificate_hash ? String(cert.certificate_hash).slice(0,16)+'…' : 'pending';
-            const copyBtn = cert.share_text ? ` <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" data-bd-call="copyLastCertShare">Copy</button>` : '';
-            const txtBtn = cert.export_text ? ` <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" data-bd-call="downloadLastCertTxt">TXT</button>` : '';
-            const xBtn = xUrl ? ` <a class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem;text-decoration:none" href="${esc(xUrl)}" target="_blank" rel="noopener">Share X</a>` : '';
-            const tgBtn = tgUrl ? ` <a class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem;text-decoration:none" href="${esc(tgUrl)}" target="_blank" rel="noopener">Share TG</a>` : '';
-            return `<div style="margin-top:.65rem;font-size:.8rem;color:#a1a1aa">Decision Certificate · <code style="color:var(--accent,#22d3ee)">${esc(hashLabel)}</code>${copyBtn}<button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" data-bd-call="downloadLastCertJson">JSON</button>${txtBtn}${xBtn}${tgBtn}</div>`;
+            const hashLabel = cert.certificate_hash ? String(cert.certificate_hash).slice(0,16)+'…' : i18nT('dash.js.cert_pending');
+            const copyBtn = cert.share_text ? ` <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" data-bd-call="copyLastCertShare">${esc(i18nT('ui.copy'))}</button>` : '';
+            const txtBtn = cert.export_text ? ` <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" data-bd-call="downloadLastCertTxt">${esc(i18nT('ui.download_txt'))}</button>` : '';
+            const xBtn = xUrl ? ` <a class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem;text-decoration:none" href="${esc(xUrl)}" target="_blank" rel="noopener">${esc(i18nT('ui.share_x'))}</a>` : '';
+            const tgBtn = tgUrl ? ` <a class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem;text-decoration:none" href="${esc(tgUrl)}" target="_blank" rel="noopener">${esc(i18nT('ui.share_tg'))}</a>` : '';
+            return `<div style="margin-top:.65rem;font-size:.8rem;color:#a1a1aa">${esc(i18nT('ui.decision_certificate'))} · <code style="color:var(--accent,#22d3ee)">${esc(hashLabel)}</code>${copyBtn}<button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" data-bd-call="downloadLastCertJson">JSON</button>${txtBtn}${xBtn}${tgBtn}</div>`;
         }
         function buildUpgradeBlock(d) {
             if (!d.upgrade_hint) return '';
             const teaser = d.upgrade_hint.teaser || {};
             let teaserHtml = '';
             if (teaser.truth_score != null || teaser.remaining_seconds != null) {
-                teaserHtml = `<div style="margin-top:.35rem">Teaser · Truth ${esc(teaser.truth_score ?? '—')} · Half-life ${esc(teaser.remaining_seconds ?? '—')}s</div>`;
+                teaserHtml = `<div style="margin-top:.35rem">${esc(i18nT('ui.teaser'))} · ${esc(i18nT('ui.truth'))} ${esc(teaser.truth_score ?? '—')} · ${esc(i18nT('ui.half_life'))} ${esc(teaser.remaining_seconds ?? '—')}s</div>`;
             }
             return `<div style="margin-top:1rem;padding:.85rem 1rem;border:1px solid var(--border,#2a2a35);border-radius:10px;color:#a1a1aa;font-size:.85rem">${esc(d.upgrade_hint.message || '')}${teaserHtml}<button class="btn" style="margin-top:.65rem" type="button" data-bd-call="switchUxModePro">${esc(i18nT('ui.switch_pro'))}</button></div>`;
         }
@@ -2259,10 +2265,10 @@
             const sig = d.signal_registry || {};
             return `
                 <div class="metrics">
-                    <div class="metric"><strong>${esc(truth.truth_score ?? '—')}</strong><span>Truth</span></div>
-                    <div class="metric"><strong>${esc(half.remaining_seconds ?? '—')}s</strong><span>Half-Life</span></div>
-                    <div class="metric"><strong>${esc(d.market_regime || '—')}</strong><span>Regime</span></div>
-                    <div class="metric"><strong>${esc((sig.signal_id || '—').toString().slice(0,10))}</strong><span>Signal</span></div>
+                    <div class="metric"><strong>${esc(truth.truth_score ?? '—')}</strong><span>${esc(i18nT('ui.truth'))}</span></div>
+                    <div class="metric"><strong>${esc(half.remaining_seconds ?? '—')}s</strong><span>${esc(i18nT('ui.half_life'))}</span></div>
+                    <div class="metric"><strong>${esc(d.market_regime || '—')}</strong><span>${esc(i18nT('ui.regime'))}</span></div>
+                    <div class="metric"><strong>${esc((sig.signal_id || '—').toString().slice(0,10))}</strong><span>${esc(i18nT('ui.signal'))}</span></div>
                 </div>${factorBlock}`;
         }
         function buildProofBlock(d) {
@@ -2275,7 +2281,7 @@
         function buildComplianceBlock(d) {
             const cf = d.compliance_footer || {};
             if (!cf.disclaimer) return '';
-            return `<div style="margin-top:.85rem;font-size:.72rem;color:#71717a;border-top:1px solid #2a2a35;padding-top:.65rem"><strong>Anti-Hype</strong> · ${esc(cf.data_source||'')} · ${esc(cf.trust_basis||'')}<br>${esc(cf.disclaimer)}</div>`;
+            return `<div style="margin-top:.85rem;font-size:.72rem;color:#71717a;border-top:1px solid #2a2a35;padding-top:.65rem"><strong>${esc(i18nT('common.anti_hype'))}</strong> · ${esc(cf.data_source||'')} · ${esc(cf.trust_basis||'')}<br>${esc(cf.disclaimer)}</div>`;
         }
         function renderOracleDecision(el, d, { sym, mode, lang }) {
             const sentence = d.decision_sentence || d.narrative || d.oracle || '';
@@ -2457,7 +2463,7 @@
 
         async function loadChart(forceRefresh) {
             const note = document.getElementById('l57ChartNote');
-            if (forceRefresh && note) note.textContent = 'Refreshing chart…';
+            if (forceRefresh && note) note.textContent = i18nT('dash.js.refreshing_chart');
             if (!series) initChart();
             if (!series && forceRefresh) {
                 for (let i = 0; i < 40 && !series; i++) {
@@ -2466,7 +2472,7 @@
                 }
             }
             if (!series) {
-                if (forceRefresh && note) note.textContent = 'Chart library still loading — try Refresh again.';
+                if (forceRefresh && note) note.textContent = i18nT('dash.js.chart_lib_loading');
                 return;
             }
             const sym = (document.getElementById('symbol').value || 'BTC').toUpperCase();
@@ -2521,7 +2527,7 @@
                 if (note) note.textContent = i18nT('dash.js.chart_unavailable');
             } catch (error) {
                 console.debug(error);
-                if (note) note.textContent = 'Chart unavailable — no OHLCV from Binance or fallback.';
+                if (note) note.textContent = i18nT('dash.js.chart_unavailable');
             }
         }
 
@@ -2693,7 +2699,7 @@
                 renderSnapshotOI(rows);
             } catch (error) {
                 console.debug(error);
-                if (!el.querySelector('table')) el.innerHTML = '<div class="empty">Unavailable</div>';
+                if (!el.querySelector('table')) el.innerHTML = '<div class="empty">' + esc(i18nT('ui.unavailable')) + '</div>';
             }
         }
 
@@ -2921,12 +2927,12 @@
 
         function coversPlanBit(v) {
             if (v.covers_subscription == null) return '';
-            return ' · covers plan: ' + (v.covers_subscription ? 'yes' : 'not yet');
+            return i18nT('dash.js.covers_plan', { yes: v.covers_subscription ? i18nT('dash.js.covers_yes') : i18nT('dash.js.covers_not_yet') });
         }
         function whaleFundingBit(a) {
             if (a.funding_rate == null && a.open_interest == null) return '';
-            const fr = a.funding_rate != null ? 'Funding ' + esc(a.funding_rate) : '';
-            const oi = a.open_interest != null ? ' · OI ' + esc(fmt(a.open_interest,0)) : '';
+            const fr = a.funding_rate != null ? esc(i18nT('dash.js.whale_funding', { rate: a.funding_rate })) : '';
+            const oi = a.open_interest != null ? esc(i18nT('dash.js.whale_oi', { oi: fmt(a.open_interest,0) })) : '';
             return `<div style="font-size:.72rem;color:#71717a;margin-top:.2rem">${fr}${oi}</div>`;
         }
         function whalePriceBit(a) {
@@ -3014,7 +3020,7 @@
                 sweep_degrees: angle,
                 desk_line: isDedicatedHalfLifePage()
                     ? ''
-                    : `Launch-57 command home · ${freshness} · ${action} — desk timing grounded (no legacy oracle fetch).`,
+                    : i18nT('dash.js.half_life_desk', { freshness, action }),
             };
         }
 
@@ -3086,11 +3092,11 @@
                 const c = d.compliance || {};
                 el.innerHTML = `
                     <div class="arb-card">
-                        <strong>${esc(d.title||'MEV Report')}</strong> · ${esc(d.asset)} · $${fmt(d.notional_usd,0)}
+                        <strong>${esc(d.title||i18nT('dash.js.mev_report_title'))}</strong> · ${esc(d.asset)} · $${fmt(d.notional_usd,0)}
                         <div style="margin-top:.4rem">Est. sandwich drag ~${esc(d.estimated_sandwich_bps)} bps (~$${fmt(d.estimated_cost_usd,2)})</div>
                         <div style="font-size:.8rem;color:#a1a1aa;margin-top:.35rem">${esc(d.note||'')}</div>
                         <ul style="margin:.5rem 0 0 1.1rem;font-size:.85rem;color:#a1a1aa">${mit}</ul>
-                        <div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · ${esc(c.disclaimer||'')}</div>
+                        <div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>${esc(i18nT('common.anti_hype'))}</strong> · ${esc(c.disclaimer||'')}</div>
                     </div>`;
             } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">' + esc(i18nT('dash.js.report_unavailable')) + '</div>'; }
         }
@@ -3123,23 +3129,25 @@
                         </tr>`).join('');
                 const sliceTable = slices.length
                     ? ('<table style="width:100%;margin-top:.65rem;font-size:.8rem;border-collapse:collapse">'
-                        + '<thead><tr style="color:#71717a;text-align:left"><th style="padding:.25rem">#</th><th>USD</th><th>Delay</th><th>Offset</th><th>Algo</th></tr></thead>'
+                        + '<thead><tr style="color:#71717a;text-align:left"><th style="padding:.25rem">' + esc(i18nT('dash.js.stealth_th_index')) + '</th><th>' + esc(i18nT('dash.js.stealth_th_usd')) + '</th><th>' + esc(i18nT('dash.js.stealth_th_delay')) + '</th><th>' + esc(i18nT('dash.js.stealth_th_offset')) + '</th><th>' + esc(i18nT('dash.js.stealth_th_algo')) + '</th></tr></thead>'
                         + '<tbody>' + sliceRows + '</tbody></table>')
                     : '';
                 let planBit = '';
                 if (d.slice_plan) {
-                    planBit = '<div style="margin-top:.5rem;font-size:.8rem;color:#a1a1aa">Plan · ' + esc(d.slice_plan.algo)
-                        + ' · window ' + esc(d.slice_plan.window_sec) + 's · interval ' + esc(d.slice_plan.interval_sec)
-                        + 's · offset ' + esc(d.slice_plan.limit_offset_bps) + ' bps</div>';
+                    planBit = '<div style="margin-top:.5rem;font-size:.8rem;color:#a1a1aa">' + esc(i18nT('dash.js.stealth_plan', {
+                        algo: d.slice_plan.algo,
+                        window: d.slice_plan.window_sec,
+                        interval: d.slice_plan.interval_sec,
+                        offset: d.slice_plan.limit_offset_bps,
+                    })) + '</div>';
                 }
                 el.innerHTML =
                     '<div class="arb-card"><strong>' + esc(d.style||'advisory') + '</strong> · ' + esc(d.asset) + ' ' + esc(d.side)
                     + ' · $' + fmt(d.notional_usd,0)
-                    + '<div style="margin-top:.4rem">' + esc(d.recommended_slices) + ' slices × $' + fmt(d.slice_usd,2)
-                    + ' · urgency ' + esc(d.urgency) + '</div>'
+                    + '<div style="margin-top:.4rem">' + esc(i18nT('dash.js.stealth_slices', { n: d.recommended_slices, slice: fmt(d.slice_usd,2), urgency: d.urgency })) + '</div>'
                     + '<div style="font-size:.85rem;color:#a1a1aa;margin-top:.35rem">' + esc(d.advice||'') + '</div>'
                     + planBit + sliceTable
-                    + '<div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · '
+                    + '<div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>' + esc(i18nT('common.anti_hype')) + '</strong> · '
                     + esc(d.disclaimer||'') + '</div></div>';
             } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">' + esc(i18nT('dash.js.advisor_unavailable')) + '</div>'; }
         }
@@ -3169,7 +3177,7 @@
                 showOperateGate();
                 return;
             }
-            if (!portfolioAssets.length) { el.innerHTML = '<div class="empty">Add at least one holding</div>'; return; }
+            if (!portfolioAssets.length) { el.innerHTML = '<div class="empty">' + esc(i18nT('dash.js.portfolio_add_holding')) + '</div>'; return; }
             el.innerHTML = '<div class="loading">' + esc(i18nT('oracle.analyzing')) + '</div>';
             try {
                 const res = await fetch('/portfolio/analyze', {
@@ -3185,7 +3193,7 @@
                         showOperateGate();
                         return;
                     }
-                    el.innerHTML = '<div class="empty">Portfolio analysis unavailable</div>';
+                    el.innerHTML = '<div class="empty">' + esc(i18nT('dash.js.portfolio_analysis_unavailable')) + '</div>';
                     return;
                 }
                 const foot = d.compliance_footer || {};
@@ -3196,22 +3204,22 @@
                     ? '<ul style="margin:.5rem 0 0 1.1rem;font-size:.85rem;color:#a1a1aa">' + recs.map(r => `<li>${esc(r)}</li>`).join('') + '</ul>'
                     : '';
                 const riskBit = risk
-                    ? (' · <span style="color:' + riskColor + ';font-weight:700">' + esc(risk) + '</span> risk (' + esc(d.risk_score ?? '—') + '/10)')
+                    ? (' · <span style="color:' + riskColor + ';font-weight:700">' + esc(i18nT('dash.js.portfolio_risk', { level: risk, score: d.risk_score ?? '—' })) + '</span>')
                     : '';
                 const scenarioBit = d.scenario_note
                     ? ('<div style="margin-top:.4rem;font-size:.85rem;color:#a1a1aa">' + esc(d.scenario_note) + '</div>')
                     : '';
                 const valueBit = d.total_value_formatted
-                    ? ('<div style="margin-top:.35rem;font-size:.8rem;color:#71717a">Marked value ' + esc(d.total_value_formatted) + ' · BTC corr ' + esc(d.btc_correlation || '—') + '</div>')
+                    ? ('<div style="margin-top:.35rem;font-size:.8rem;color:#71717a">' + esc(i18nT('dash.js.marked_value', { value: d.total_value_formatted, corr: d.btc_correlation || '—' })) + '</div>')
                     : '';
                 const footBit = foot.disclaimer
-                    ? ('<div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · ' + esc(foot.disclaimer) + '</div>')
+                    ? ('<div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>' + esc(i18nT('common.anti_hype')) + '</strong> · ' + esc(foot.disclaimer) + '</div>')
                     : '';
                 el.innerHTML =
-                    '<div class="arb-card"><strong>Portfolio AI</strong>' + riskBit +
+                    '<div class="arb-card"><strong>' + esc(i18nT('dash.portfolio')) + '</strong>' + riskBit +
                     '<div style="margin-top:.55rem;font-size:.95rem;color:#e4e4e7">' + esc(d.one_sentence || d.plain_language || d.summary || '') + '</div>' +
                     scenarioBit + valueBit + recHtml + footBit + '</div>';
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Portfolio AI unavailable</div>'; }
+            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">' + esc(i18nT('dash.js.portfolio_ai_unavailable')) + '</div>'; }
         }
 
         async function loadTgStatus() {
@@ -3219,16 +3227,16 @@
             try {
                 const res = await fetch('/api/alerts/telegram/status');
                 const d = await res.json();
-                el.textContent = d.bot_token_set ? 'Telegram bot configured — connect via /login' : 'Set TELEGRAM_BOT_TOKEN to enable alerts';
-            } catch (error) { console.debug(error); el.textContent = 'Alert status unavailable'; }
+                el.textContent = d.bot_token_set ? i18nT('dash.js.telegram_configured') : i18nT('dash.js.telegram_token_missing');
+            } catch (error) { console.debug(error); el.textContent = i18nT('dash.js.alert_status_unavailable'); }
         }
 
         async function testTelegram() {
             try {
                 const res = await fetch('/api/alerts/telegram/test', { method: 'POST', headers: authHeaders() });
                 const d = await res.json();
-                showTelegramTestDialog(d.message || (d.success ? 'Sent!' : 'Failed'));
-            } catch (error) { console.debug(error); showTelegramTestDialog('Test failed — configure bot first'); }
+                showTelegramTestDialog(d.message || (d.success ? i18nT('dash.js.telegram_sent') : i18nT('dash.js.telegram_failed')));
+            } catch (error) { console.debug(error); showTelegramTestDialog(i18nT('dash.js.telegram_test_failed')); }
         }
 
         async function loadAlertsGenerosity() {
@@ -3238,7 +3246,7 @@
                 const res = await fetch('/api/alerts/generosity');
                 const d = await res.json();
                 const bd = d.blackdark || {};
-                el.innerHTML = `<strong>${esc(d.title || 'Alert generosity')}</strong><br>${esc(d.competitor_friction || '')}<br>` +
+                el.innerHTML = `<strong>${esc(d.title || i18nT('dash.js.alert_generosity_title'))}</strong><br>${esc(d.competitor_friction || '')}<br>` +
                     `${esc(bd.in_app_inbox || '')} · ${esc(bd.proof_gate || '')}`;
             } catch (error) { console.debug(error); }
         }
@@ -3338,7 +3346,7 @@
             rail.innerHTML = entries.map(e => {
                 const locked = e.available === false;
                 return `<button type="button" class="entry-btn${locked?' locked':''}" data-entry="${esc(e.id)}" data-path="${esc(e.path||'')}" data-action="${esc(e.action||'')}" title="${esc(e.hint||'')}">
-                    ${esc(e.label)}<small>${esc(locked ? (e.upgrade_hint || 'Operate to unlock') : (e.hint || ''))}</small></button>`;
+                    ${esc(e.label)}<small>${esc(locked ? (e.upgrade_hint || i18nT('dash.js.operate_unlock')) : (e.hint || ''))}</small></button>`;
             }).join('');
             rail.querySelectorAll('.entry-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
