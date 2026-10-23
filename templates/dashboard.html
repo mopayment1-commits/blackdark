@@ -291,63 +291,63 @@
     <main id="top">
         <div class="hero">
             <h1 id="heroBrand">BLACKDARK</h1>
-            <p id="heroSub">Trust Pulse · one live decision you can verify</p>
-            <p class="lens-promise" id="lensPromise">Prove → Operate → Desk → Room — Decide… and prove it.</p>
+            <p id="heroSub">{{ t('ui.trust_pulse_live') }}</p>
+            <p class="lens-promise" id="lensPromise">{{ t('dash.lens.promise') }}</p>
             <p id="audienceBanner" class="sub" style="display:none;margin-top:.35rem"></p>
         </div>
 
-        <section id="trust-pulse" class="tp-loading" aria-live="polite" aria-label="Trust Pulse">
+        <section id="trust-pulse" class="tp-loading" aria-live="polite" aria-label="{{ t('dash.tp.trust_pulse_aria') }}">
             <div class="tp-top">
-                <strong style="color:#22d3ee;font-size:.85rem;letter-spacing:.04em">TRUST PULSE</strong>
+                <strong style="color:#22d3ee;font-size:.85rem;letter-spacing:.04em">{{ t('pulse.label') }}</strong>
                 <div class="tp-symbol-wrap" id="tpSymbolWrap">
-                    <label for="tpSymbol" class="sr-only">Trust Pulse symbol</label>
-                    <select id="tpSymbol" class="tp-symbol-select" aria-label="Trust Pulse symbol" data-bd-change-call="onTrustPulseSymbolChange" data-bd-pass-value="1">
+                    <label for="tpSymbol" class="sr-only">{{ t('dash.tp.symbol_aria') }}</label>
+                    <select id="tpSymbol" class="tp-symbol-select" aria-label="{{ t('dash.tp.symbol_aria') }}" data-bd-change-call="onTrustPulseSymbolChange" data-bd-pass-value="1">
                         {% for sym in oracle_symbols|default(['BTC', 'ETH', 'SOL', 'BNB']) %}
                         <option value="{{ sym }}"{% if sym == 'BTC' %} selected{% endif %}>{{ sym }}</option>
                         {% endfor %}
                     </select>
                 </div>
-                <span class="tp-live"><span class="tp-dot" id="tpDot"></span><span id="tpFresh">Connecting…</span></span>
+                <span class="tp-live"><span class="tp-dot" id="tpDot"></span><span id="tpFresh">{{ t('dash.tp.connecting') }}</span></span>
             </div>
             <output id="tpFlip" class="tp-flip"></output>
             <div id="antiHypeBanner" class="anti-hype-banner" role="status" aria-live="polite" hidden>
-                <strong>Anti-Hype ON</strong> — Market price and 24h change hidden. Sentence, factors, and ledger proof stay visible.
+                <strong>{{ t('dash.tp.anti_hype_on') }}</strong> — {{ t('dash.tp.anti_hype_banner') }}
             </div>
             <div class="tp-action WAIT" id="tpAction">—</div>
-            <div class="tp-sym" id="tpSym">Loading decision…</div>
-            <div class="tp-sentence" id="tpSentence">One clear Act / Wait with a reviewable why.</div>
+            <div class="tp-sym" id="tpSym">{{ t('dash.tp.loading_decision') }}</div>
+            <div class="tp-sentence" id="tpSentence">{{ t('dash.tp.sentence_placeholder') }}</div>
             <div class="tp-why">
-                <h3 id="tpWhyTitle">Why (under 5 seconds)</h3>
-                <div id="tpFactors"><div class="empty" style="padding:.25rem 0">Loading factors…</div></div>
+                <h3 id="tpWhyTitle">{{ t('dash.tp.why_title') }}</h3>
+                <div id="tpFactors"><div class="empty" style="padding:.25rem 0">{{ t('dash.tp.factors_loading') }}</div></div>
             </div>
-            <div id="tpPriceChartWrap" style="margin-top:.85rem" aria-label="Trust Pulse price chart">
+            <div id="tpPriceChartWrap" style="margin-top:.85rem" aria-label="{{ t('dash.tp.price_chart_aria') }}">
                 <div id="tpPriceChart" style="height:220px;width:100%;border-radius:10px;border:1px solid #2a2a35;background:#111118"></div>
-                <p class="sub" id="tpChartNote" style="margin-top:.35rem;font-size:.72rem;color:#71717a">TradingView Lightweight Charts · loading…</p>
+                <p class="sub" id="tpChartNote" style="margin-top:.35rem;font-size:.72rem;color:#71717a">{{ t('dash.tp.chart_note') }}</p>
             </div>
             <div class="tp-proof" id="tpProof"></div>
             <div class="tp-cont" id="tpContinuity"></div>
             <div class="tp-cta">
-                <button class="btn" type="button" data-bd-call="openFullProof">Open full proof</button>
+                <button class="btn" type="button" data-bd-call="openFullProof">{{ t('dash.tp.open_full_proof') }}</button>
                 <a class="btn secondary" href="/swap" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center">{{ t('nav.swap') if t is defined else 'Swap' }}</a>
-                <button class="btn secondary" type="button" id="tpShareBtn" data-bd-call="shareTrustPulse" data-bd-sync="1" hidden>Share Proof</button>
-                <button class="btn secondary" type="button" data-bd-share-decision>Share Decision</button>
+                <button class="btn secondary" type="button" id="tpShareBtn" data-bd-call="shareTrustPulse" data-bd-sync="1" hidden>{{ t('dash.tp.share_proof') }}</button>
+                <button class="btn secondary" type="button" data-bd-share-decision>{{ t('dash.tp.share_decision') }}</button>
                 <button class="btn secondary" type="button" id="tpArbBtn" style="display:none">{{ t('arb.btn') }}</button>
             </div>
             <div id="tpArbPanel" hidden style="margin:.75rem 0;font-size:.85rem;border-top:1px solid #2a2a35;padding-top:.65rem">
                 <p style="color:#71717a;margin-bottom:.35rem">{{ t('arb.panel.lead_dashboard') }}</p>
                 <ul id="tpArbList" style="list-style:none;padding:0;margin:0"></ul>
             </div>
-            <div class="tp-foot" id="tpFoot"><strong>Anti-Hype</strong> · Not financial advice · AI cannot guarantee returns</div>
+            <div class="tp-foot" id="tpFoot">{{ t('dash.tp.foot') }}</div>
             <div class="entry-rail hide-in-room tp-entry-rail" id="entryRail" aria-label="Primary entries"></div>
         </section>
 
         {% include 'partials/oracle_workspace.html' %}
 
-        <div class="lens-bar hide-in-room" id="lensBar" aria-label="Trust OS lenses">
-            <button type="button" class="lens-btn active" data-lens="prove">Prove</button>
-            <button type="button" class="lens-btn" data-lens="operate">Operate</button>
-            <button type="button" class="lens-btn" data-lens="desk">Desk</button>
-            <button type="button" class="lens-btn room" data-lens="room">Room</button>
+        <div class="lens-bar hide-in-room" id="lensBar" aria-label="{{ t('lenses.title') }}">
+            <button type="button" class="lens-btn active" data-lens="prove">{{ t('lenses.prove.title') }}</button>
+            <button type="button" class="lens-btn" data-lens="operate">{{ t('lenses.operate.title') }}</button>
+            <button type="button" class="lens-btn" data-lens="desk">{{ t('lenses.desk.title') }}</button>
+            <button type="button" class="lens-btn room" data-lens="room">{{ t('lenses.room.title') }}</button>
         </div>
         <div class="intent-wrap hide-in-room" id="intentWrap">
             <div class="intent-q" id="intentQuestion">{{ t('dash.intent.question') }}</div>
@@ -355,27 +355,27 @@
             <div class="intent-hint" id="intentHint">{{ t('dash.intent.hint') }}</div>
         </div>
         <div class="toolbar hide-in-room" style="justify-content:center;margin-bottom:.75rem">
-            <label for="uxMode" class="sr-only">UX mode</label>
+            <label for="uxMode" class="sr-only">{{ t('dash.ux.beginner') }}</label>
             <select id="uxMode" data-bd-change-call="onUxModeChange">
-                <option value="beginner" selected>Beginner</option>
-                <option value="pro">Pro</option>
+                <option value="beginner" selected>{{ t('dash.ux.beginner') }}</option>
+                <option value="pro">{{ t('dash.ux.pro') }}</option>
             </select>
-            <a class="btn secondary" href="/since-you-left" style="text-decoration:none;display:inline-flex;align-items:center">Since You Left</a>
-            <a class="btn secondary" href="/miss-feed" style="text-decoration:none;display:inline-flex;align-items:center">Miss Feed</a>
-            <a class="btn secondary" href="/coverage-honesty" style="text-decoration:none;display:inline-flex;align-items:center">Coverage Honesty</a>
-            <button class="btn secondary" type="button" id="antiHypeBtn" data-bd-call="toggleAntiHype" data-bd-sync="1" aria-pressed="false">Anti-Hype</button>
-            <button class="btn secondary section-operate-plus" type="button" data-bd-call="openMyBookEntry">My book</button>
+            <a class="btn secondary" href="/since-you-left" style="text-decoration:none;display:inline-flex;align-items:center">{{ t('dash.nav.since_you_left') }}</a>
+            <a class="btn secondary" href="/miss-feed" style="text-decoration:none;display:inline-flex;align-items:center">{{ t('dash.nav.miss_feed') }}</a>
+            <a class="btn secondary" href="/coverage-honesty" style="text-decoration:none;display:inline-flex;align-items:center">{{ t('dash.nav.coverage_honesty') }}</a>
+            <button class="btn secondary" type="button" id="antiHypeBtn" data-bd-call="toggleAntiHype" data-bd-sync="1" aria-pressed="false">{{ t('common.anti_hype') }}</button>
+            <button class="btn secondary section-operate-plus" type="button" data-bd-call="openMyBookEntry">{{ t('dash.nav.my_book') }}</button>
             <details class="desk-tools-details desk-tools-nav" id="deskToolsMenu">
-                <summary class="btn secondary" aria-haspopup="menu">Desk tools</summary>
-                <div class="desk-tools-dropmenu" role="menu" aria-label="Desk tools">
-                    <a role="menuitem" href="/dashboard?lens=desk#stealth">Stealth Execution Advisor<small>Size-aware execution slices</small></a>
-                    <a role="menuitem" href="/dashboard?lens=desk#whales">Signal vs Noise<small>Whale flow labels</small></a>
-                    <a role="menuitem" href="/dashboard?lens=desk#half-life-clock">Half-Life Clock<small>Desk timing grounded</small></a>
-                    <a role="menuitem" href="/dashboard?lens=desk#mev">MEV Protection<small>Execution risk report</small></a>
-                    <a role="menuitem" href="/dashboard?lens=desk#stealth">Open Desk lens</a>
+                <summary class="btn secondary" aria-haspopup="menu">{{ t('dash.nav.desk_tools') }}</summary>
+                <div class="desk-tools-dropmenu" role="menu" aria-label="{{ t('dash.nav.desk_tools_aria') }}">
+                    <a role="menuitem" href="/dashboard?lens=desk#stealth">{{ t('dash.desk.stealth_title') }}<small>{{ t('dash.desk.stealth_sub') }}</small></a>
+                    <a role="menuitem" href="/dashboard?lens=desk#whales">{{ t('dash.desk.whales_title') }}<small>{{ t('dash.desk.whales_sub') }}</small></a>
+                    <a role="menuitem" href="/dashboard?lens=desk#half-life-clock">{{ t('dash.desk.half_life_title') }}<small>{{ t('dash.desk.half_life_sub') }}</small></a>
+                    <a role="menuitem" href="/dashboard?lens=desk#mev">{{ t('dash.desk.mev_title') }}<small>{{ t('dash.desk.mev_sub') }}</small></a>
+                    <a role="menuitem" href="/dashboard?lens=desk#stealth">{{ t('dash.desk.open_lens') }}</a>
                 </div>
             </details>
-            <a class="btn secondary section-desk-only" href="/corpus-passport" style="text-decoration:none;display:inline-flex;align-items:center">Corpus Passport</a>
+            <a class="btn secondary section-desk-only" href="/corpus-passport" style="text-decoration:none;display:inline-flex;align-items:center">{{ t('dash.nav.corpus_passport') }}</a>
         </div>
         <div class="picks hide-in-room">
             <button type="button" class="pick" data-bd-call="setSymbol" data-bd-args="[&quot;BTC&quot;]">BTC</button>
@@ -385,114 +385,114 @@
             <button type="button" class="pick" data-bd-call="setSymbol" data-bd-args="[&quot;XRP&quot;]">XRP</button>
         </div>
         <div class="search-row hide-in-room" id="decide">
-            <label for="symbol" class="sr-only">Symbol</label>
-            <select id="symbol" data-bd-change-call="setSymbol" data-bd-pass-value="1" aria-label="Symbol">
+            <label for="symbol" class="sr-only">{{ t('dash.symbol') }}</label>
+            <select id="symbol" data-bd-change-call="setSymbol" data-bd-pass-value="1" aria-label="{{ t('dash.symbol') }}">
                 {% for sym in oracle_symbols|default(['BTC']) %}
                 <option value="{{ sym }}"{% if sym == 'BTC' %} selected{% endif %}>{{ sym }}</option>
                 {% endfor %}
             </select>
-            <button class="btn" data-bd-call="askOracle" id="askBtn">Get Decision</button>
+            <button class="btn" data-bd-call="askOracle" id="askBtn">{{ t('oracle.get_decision') }}</button>
         </div>
         <div id="oracle" class="hide-in-room" style="height:0;overflow:hidden" aria-hidden="true"></div>
         <section class="oracle-box hide-in-room" id="oracleBox"><div id="oracleContent" class="loading">{{ t('oracle.analyzing') }}</div></section>
 
         <section id="since-you-left" class="hide-in-room" data-evidence>
-            <h2>Since You Left — Top 3</h2>
-            <p class="sub">What changed since your last visit</p>
-            <div id="sinceYouLeftBox" class="empty">Loading continuity…</div>
-            <a class="btn secondary" href="/since-you-left" style="margin-top:.65rem;display:inline-flex;text-decoration:none">Open full page</a>
+            <h2>{{ t('dash.since.title') }}</h2>
+            <p class="sub">{{ t('dash.since.sub') }}</p>
+            <div id="sinceYouLeftBox" class="empty">{{ t('dash.since.loading') }}</div>
+            <a class="btn secondary" href="/since-you-left" style="margin-top:.65rem;display:inline-flex;text-decoration:none">{{ t('dash.since.open_full') }}</a>
         </section>
 
-        <section id="launch57-data-spine" aria-label="Launch-57 data spine">
-            <h2>Data Spine</h2>
-            <p class="sub" id="l57DataNote">Launch-57 prices, freshness, provenance, and connector — claims hidden when unavailable.</p>
-            <div class="tp-proof" id="l57DataChips"><span class="tp-chip">Loading data spine…</span></div>
+        <section id="launch57-data-spine" aria-label="{{ t('dash.data_spine.title') }}">
+            <h2>{{ t('dash.data_spine.title') }}</h2>
+            <p class="sub" id="l57DataNote">{{ t('dash.data_spine.sub') }}</p>
+            <div class="tp-proof" id="l57DataChips"><span class="tp-chip">{{ t('dash.data_spine.loading') }}</span></div>
         </section>
 
         <section>
-            <h2>Live Chart</h2>
+            <h2>{{ t('dash.chart') }}</h2>
             <div class="toolbar">
-                <label for="chartIv" class="sr-only">Chart interval</label>
-                <select id="chartIv" data-bd-change-call="loadChart" aria-label="Chart interval"><option value="15m">15m</option><option value="1h" selected>1h</option><option value="4h">4h</option></select>
-                <button class="btn secondary" type="button" id="chartRefreshBtn" data-bd-call="loadChart" data-bd-args="[true]">Refresh</button>
+                <label for="chartIv" class="sr-only">{{ t('dash.chart.interval_aria') }}</label>
+                <select id="chartIv" data-bd-change-call="loadChart" aria-label="{{ t('dash.chart.interval_aria') }}"><option value="15m">15m</option><option value="1h" selected>1h</option><option value="4h">4h</option></select>
+                <button class="btn secondary" type="button" id="chartRefreshBtn" data-bd-call="loadChart" data-bd-args="[true]">{{ t('dash.refresh') }}</button>
             </div>
             <div id="chart"></div>
-            <p class="sub" id="l57ChartNote" style="margin-top:.5rem">Launch-57 OHLCV (#23) — chart hidden if bars unavailable.</p>
+            <p class="sub" id="l57ChartNote" style="margin-top:.5rem">{{ t('dash.chart.note') }}</p>
         </section>
 
         <div class="grid-2 section-operate-plus hide-in-room" id="radar">
             <section>
-                <h2>Market Radar</h2>
-                <div class="grid" id="market"><div class="loading">Loading…</div></div>
+                <h2>{{ t('dash.radar') }}</h2>
+                <div class="grid" id="market"><div class="loading">{{ t('common.loading') }}</div></div>
             </section>
             <section>
-                <h2>Open Interest</h2>
-                <div id="oi"><div class="loading">Loading…</div></div>
+                <h2>{{ t('dash.oi.title') }}</h2>
+                <div id="oi"><div class="loading">{{ t('common.loading') }}</div></div>
             </section>
         </div>
 
         <section id="arbitrage" class="hide-on-prove hide-in-room">
-            <h2>Arbitrage Engine</h2>
-            <p class="sub" id="arbStats">Scanning…</p>
-            <button class="btn secondary" type="button" data-bd-call="loadArbitrage" data-bd-args="[true]">Live Scan</button>
-            <div id="arbList" style="margin-top:.75rem"><div class="loading">Loading…</div></div>
+            <h2>{{ t('dash.arb.title') }}</h2>
+            <p class="sub" id="arbStats">{{ t('dash.arb.scanning') }}</p>
+            <button class="btn secondary" type="button" data-bd-call="loadArbitrage" data-bd-args="[true]">{{ t('dash.arb.live_scan') }}</button>
+            <div id="arbList" style="margin-top:.75rem"><div class="loading">{{ t('common.loading') }}</div></div>
         </section>
 
         <section id="whales" class="section-desk-only hide-in-room">
-            <h2>Whale Intelligence · Signal vs Noise</h2>
-            <p class="sub">Transfers ≠ Trades — classifier labels SIGNAL / NOISE / HEDGED in one sentence</p>
-            <button class="btn secondary" data-bd-call="loadWhales" data-bd-args="[true]">Refresh</button>
+            <h2>{{ t('dash.whales.title') }}</h2>
+            <p class="sub">{{ t('dash.whales.sub') }}</p>
+            <button class="btn secondary" data-bd-call="loadWhales" data-bd-args="[true]">{{ t('dash.refresh') }}</button>
             <div id="whaleList" style="margin-top:.75rem"><div class="loading">Loading…</div></div>
             <div id="whaleCompliance" style="margin-top:.65rem;font-size:.72rem;color:#71717a"></div>
         </section>
 
         <section id="operate-digest" class="section-operate-plus hide-in-room">
-            <h2>Operate digest</h2>
-            <p class="sub">Daily research brief + subscriber value — DECIDE / PRO and above</p>
+            <h2>{{ t('dash.operate.title') }}</h2>
+            <p class="sub">{{ t('dash.operate.sub') }}</p>
             <div class="toolbar" style="margin-bottom:.65rem">
-                <button class="btn secondary" type="button" data-bd-call="loadDailyReport">Refresh daily report</button>
-                <button class="btn secondary" type="button" data-bd-call="loadSubscriberValue">Refresh value</button>
-                <button id="dailyReportMarkdownBtn" class="btn secondary" type="button" data-bd-call="openDailyReportMarkdown">Markdown</button>
+                <button class="btn secondary" type="button" data-bd-call="loadDailyReport">{{ t('dash.operate.refresh_report') }}</button>
+                <button class="btn secondary" type="button" data-bd-call="loadSubscriberValue">{{ t('dash.operate.refresh_value') }}</button>
+                <button id="dailyReportMarkdownBtn" class="btn secondary" type="button" data-bd-call="openDailyReportMarkdown">{{ t('dash.operate.markdown') }}</button>
             </div>
-            <div id="dailyReportBox" class="arb-card"><div class="empty" style="padding:.25rem 0">Pro/Whale — load daily report</div></div>
-            <div id="subscriberValueBox" class="arb-card" style="margin-top:.65rem"><div class="empty" style="padding:.25rem 0">Pro/Whale — subscriber value</div></div>
+            <div id="dailyReportBox" class="arb-card"><div class="empty" style="padding:.25rem 0">{{ t('dash.operate.load_report') }}</div></div>
+            <div id="subscriberValueBox" class="arb-card" style="margin-top:.65rem"><div class="empty" style="padding:.25rem 0">{{ t('dash.operate.load_value') }}</div></div>
         </section>
 
         <section id="portfolio" class="section-operate-plus hide-in-room">
-            <h2>Portfolio AI</h2>
-            <p class="sub">Risk in plain language — Hero #4 · private holdings stay in-browser</p>
+            <h2>{{ t('dash.portfolio') }}</h2>
+            <p class="sub">{{ t('dash.portfolio.hero_sub') }}</p>
             <div class="toolbar">
-                <label for="pfSym" class="sr-only">Symbol</label>
-                <select id="pfSym" aria-label="Symbol" style="width:100px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7">
+                <label for="pfSym" class="sr-only">{{ t('dash.symbol') }}</label>
+                <select id="pfSym" aria-label="{{ t('dash.symbol') }}" style="width:100px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7">
                     {% for sym in oracle_symbols|default(['BTC', 'ETH', 'SOL', 'BNB', 'XRP']) %}
                     <option value="{{ sym }}"{% if sym == 'BTC' %} selected{% endif %}>{{ sym }}</option>
                     {% endfor %}
                 </select>
-                <input id="pfAmt" type="number" placeholder="Amount" style="width:120px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7" aria-label="Amount">
-                <button class="btn secondary" type="button" data-bd-call="addPortfolioAsset">Add</button>
-                <button class="btn" type="button" data-bd-call="analyzePortfolio">Analyze</button>
+                <input id="pfAmt" type="number" placeholder="{{ t('dash.portfolio.amount') }}" style="width:120px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7" aria-label="{{ t('dash.portfolio.amount') }}">
+                <button class="btn secondary" type="button" data-bd-call="addPortfolioAsset">{{ t('dash.portfolio.add') }}</button>
+                <button class="btn" type="button" data-bd-call="analyzePortfolio">{{ t('dash.portfolio.analyze') }}</button>
             </div>
             <div id="portfolioList" class="sub" style="margin:.5rem 0"></div>
-            <div id="portfolioResult" class="empty">Add holdings, then analyze</div>
+            <div id="portfolioResult" class="empty">{{ t('dash.portfolio.empty') }}</div>
         </section>
 
         <section id="half-life-clock" class="section-desk-only hide-in-room">
-            <h2>Half-Life Heat Clock</h2>
-            <p class="sub">SEE THE EDGE / ELITE · seconds = money · urgency bands from Opportunity Half-Life</p>
+            <h2>{{ t('dash.half_life.title') }}</h2>
+            <p class="sub">{{ t('dash.half_life.sub') }}</p>
             <div class="toolbar">
-                <button class="btn secondary" type="button" data-bd-call="loadHalfLifeClock">Refresh clock</button>
-                <a class="btn secondary" href="/kill-rate">Kill-Rate Board</a>
-                <a class="btn secondary" href="/b2b/committee-one-pager">Committee One-Pager</a>
+                <button class="btn secondary" type="button" data-bd-call="loadHalfLifeClock">{{ t('dash.half_life.refresh') }}</button>
+                <a class="btn secondary" href="/kill-rate">{{ t('dash.half_life.kill_rate') }}</a>
+                <a class="btn secondary" href="/b2b/committee-one-pager">{{ t('dash.half_life.committee') }}</a>
             </div>
             <div id="halfLifeClockBox" class="empty" style="display:flex;gap:1.25rem;align-items:center;flex-wrap:wrap">
                 <div id="halfLifeSvg"></div>
-                <div id="halfLifeLine">Open Desk lens and refresh.</div>
+                <div id="halfLifeLine">{{ t('dash.half_life.open_desk') }}</div>
             </div>
         </section>
 
         <section id="stealth" class="section-desk-only hide-in-room">
-            <h2>Stealth Execution Advisor</h2>
-            <p class="sub">Whale audience · advisory slice labels (SLICE_* / LIMIT_CLIP_ADVISORY) — not live TWAP/VWAP/SOR</p>
+            <h2>{{ t('dash.stealth.title') }}</h2>
+            <p class="sub">{{ t('dash.stealth.desk_sub') }}</p>
             <div class="toolbar">
                 <label for="stealthAsset" class="sr-only">Asset</label>
                 <select id="stealthAsset" aria-label="stealthAsset" style="width:100px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7">
@@ -501,16 +501,16 @@
                     {% endfor %}
                 </select>
                 <input id="stealthNotional" type="number" value="250000" style="width:140px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7" aria-label="stealthNotional">
-                <label for="stealthSide" class="sub" style="margin:0">Side</label>
-                <select id="stealthSide" aria-label="stealthSide"><option value="buy">Buy</option><option value="sell">Sell</option></select>
-                <button class="btn secondary" data-bd-call="runStealthAdvisor">Advise</button>
+                <label for="stealthSide" class="sub" style="margin:0">{{ t('dash.stealth.side') }}</label>
+                <select id="stealthSide" aria-label="stealthSide"><option value="buy">{{ t('dash.stealth.buy') }}</option><option value="sell">{{ t('dash.stealth.sell') }}</option></select>
+                <button class="btn secondary" data-bd-call="runStealthAdvisor">{{ t('dash.stealth.advise') }}</button>
             </div>
-            <div id="stealthResult" class="empty">Enter size and run advisor</div>
+            <div id="stealthResult" class="empty">{{ t('dash.stealth.empty') }}</div>
         </section>
 
         <section id="mev" class="section-desk-only hide-in-room">
-            <h2>MEV / Sandwich Report</h2>
-            <p class="sub">Shareable risk posture — prove the drag, don’t hype private mempool alpha</p>
+            <h2>{{ t('dash.mev.title') }}</h2>
+            <p class="sub">{{ t('dash.mev.sub') }}</p>
             <div class="toolbar">
                 <label for="mevAsset" class="sr-only">Asset</label>
                 <select id="mevAsset" aria-label="mevAsset" style="width:100px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7">
@@ -519,70 +519,70 @@
                     {% endfor %}
                 </select>
                 <input id="mevNotional" type="number" value="10000" style="width:140px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7" aria-label="mevNotional">
-                <button class="btn secondary" data-bd-call="loadMevReport">Build report</button>
-                <button class="btn secondary" data-bd-call="copyMevShare">Copy share text</button>
+                <button class="btn secondary" data-bd-call="loadMevReport">{{ t('dash.mev.build') }}</button>
+                <button class="btn secondary" data-bd-call="copyMevShare">{{ t('dash.mev.copy') }}</button>
             </div>
-            <div id="mevResult" class="empty">Generate a shareable MEV report</div>
+            <div id="mevResult" class="empty">{{ t('dash.mev.empty') }}</div>
         </section>
 
         <section id="financial-news" class="section-desk-only hide-in-room">
-            <h2>Market headlines</h2>
-            <p class="sub">U.S. Fed, SEC &amp; CFTC press RSS — titles link to the publisher (not investment advice).</p>
+            <h2>{{ t('dash.news.title') }}</h2>
+            <p class="sub">{{ t('dash.news.sub') }}</p>
             <ul id="financialNewsList" style="list-style:none;padding:0;margin:0;font-size:.88rem;line-height:1.45">
-                <li class="loading">Loading headlines…</li>
+                <li class="loading">{{ t('dash.news.loading') }}</li>
             </ul>
             <p id="financialNewsFoot" class="sub" style="margin-top:.5rem;font-size:.72rem"></p>
         </section>
 
         <section id="alerts" class="section-operate-plus hide-in-room">
-            <h2 id="alertsTitle">Alerts</h2>
-            <p class="sub" id="tgStatus">In-app inbox: no TradingView-style 15-alerts / 3-min hard cap · only Truth + Half-Life survivors fire</p>
+            <h2 id="alertsTitle">{{ t('dash.alerts.title') }}</h2>
+            <p class="sub" id="tgStatus">{{ t('dash.alerts.sub') }}</p>
             <div id="alertsGenerosity" class="sub" style="margin-bottom:.75rem"></div>
             <div class="arb-card" id="priceAlertsPanel" style="margin-bottom:1rem;padding:.85rem;border:1px solid #2a2a35;border-radius:10px;background:#14141c">
-                <h3 style="font-size:1rem;margin:0 0 .35rem">Simple price alerts</h3>
-                <p class="sub" style="margin:0 0 .65rem;font-size:.8rem">Above/below spot (Binance public feed). Stored on this device ID — non-custodial, no auto-trading.</p>
+                <h3 style="font-size:1rem;margin:0 0 .35rem">{{ t('dash.alerts.price_title') }}</h3>
+                <p class="sub" style="margin:0 0 .65rem;font-size:.8rem">{{ t('dash.alerts.price_sub') }}</p>
                 <div class="toolbar" style="flex-wrap:wrap;gap:.5rem;margin-bottom:.5rem">
-                    <label for="paSymbol" class="sr-only">Alert symbol</label>
+                    <label for="paSymbol" class="sr-only">{{ t('dash.symbol') }}</label>
                     <select id="paSymbol" aria-label="Alert symbol" style="min-width:5rem">
                         {% for sym in oracle_symbols|default(['BTC', 'ETH', 'SOL']) %}
                         <option value="{{ sym }}">{{ sym }}</option>
                         {% endfor %}
                     </select>
-                    <label for="paDirection" class="sr-only">Direction</label>
-                    <select id="paDirection" aria-label="Direction">
-                        <option value="above">Price above</option>
-                        <option value="below">Price below</option>
+                    <label for="paDirection" class="sr-only">{{ t('dash.alerts.direction') }}</label>
+                    <select id="paDirection" aria-label="{{ t('dash.alerts.direction') }}">
+                        <option value="above">{{ t('dash.alerts.above') }}</option>
+                        <option value="below">{{ t('dash.alerts.below') }}</option>
                     </select>
-                    <label for="paTarget" class="sr-only">Target price</label>
-                    <input id="paTarget" type="number" step="any" min="0" placeholder="Target USD" style="width:8rem;padding:.45rem .55rem;border-radius:8px;border:1px solid #2a2a35;background:#1a1a24;color:#e4e4e7">
-                    <button type="button" class="btn secondary" id="paAddBtn">Add alert</button>
-                    <button type="button" class="btn secondary" id="paRefreshBtn">Check prices</button>
+                    <label for="paTarget" class="sr-only">{{ t('dash.alerts.target') }}</label>
+                    <input id="paTarget" type="number" step="any" min="0" placeholder="{{ t('dash.alerts.target') }}" style="width:8rem;padding:.45rem .55rem;border-radius:8px;border:1px solid #2a2a35;background:#1a1a24;color:#e4e4e7">
+                    <button type="button" class="btn secondary" id="paAddBtn">{{ t('dash.alerts.add') }}</button>
+                    <button type="button" class="btn secondary" id="paRefreshBtn">{{ t('dash.alerts.check') }}</button>
                 </div>
-                <ul id="priceAlertsList" style="list-style:none;padding:0;margin:0;font-size:.88rem"><li class="empty">No price alerts yet.</li></ul>
+                <ul id="priceAlertsList" style="list-style:none;padding:0;margin:0;font-size:.88rem"><li class="empty">{{ t('dash.alerts.none') }}</li></ul>
             </div>
             <div class="toolbar">
-                <button class="btn secondary" type="button" id="inboxRefreshBtn">Refresh Inbox</button>
-                <button class="btn secondary" data-bd-call="testTelegram">Test Telegram</button>
+                <button class="btn secondary" type="button" id="inboxRefreshBtn">{{ t('dash.alerts.refresh_inbox') }}</button>
+                <button class="btn secondary" data-bd-call="testTelegram">{{ t('dash.alerts.test_tg') }}</button>
             </div>
             <div id="inbox" style="margin-top:.75rem"><div class="loading">…</div></div>
         </section>
 
         <section id="ai-chat" class="section-operate-plus hide-in-room">
-            <h2>AI Chat</h2>
-            <p class="sub">Operate+ · explains the current decision context — does not replace the Oracle or guarantee outcomes</p>
+            <h2>{{ t('dash.chat.title') }}</h2>
+            <p class="sub">{{ t('dash.chat.sub') }}</p>
             <div id="chatGate" class="empty" style="display:none">
-                AI Chat is on DECIDE / PRO and paid tiers above.
-                <button class="btn btn-primary btn-upgrade-cta" style="margin-top:.65rem" type="button" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">Start DECIDE / PRO</button>
-                <div style="margin-top:.5rem;font-size:.75rem"><a href="/faq">FAQ</a> · <a href="/how-it-works">How it works</a></div>
+                {{ t('dash.chat.gate') }}
+                <button class="btn btn-primary btn-upgrade-cta" style="margin-top:.65rem" type="button" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">{{ t('dash.chat.start_pro') }}</button>
+                <div style="margin-top:.5rem;font-size:.75rem"><a href="/faq">{{ t('utility.nav.faq') }}</a> · <a href="/how-it-works">{{ t('nav.how_it_works') }}</a></div>
             </div>
             <div id="chatPanel" style="display:none">
                 <div id="chatLog" style="max-height:280px;overflow:auto;background:#1a1a24;border:1px solid #2a2a35;border-radius:10px;padding:.75rem;margin-bottom:.65rem;font-size:.88rem">
-                    <div class="empty" style="padding:.35rem">Ask about BTC, ETH, or the latest Oracle context…</div>
+                    <div class="empty" style="padding:.35rem">{{ t('dash.chat.placeholder') }}</div>
                 </div>
                 <div class="toolbar">
-                    <label for="chatInput" class="sr-only">Chat message</label>
-                    <input id="chatInput" type="text" placeholder="What should I do with BTC?" style="flex:1;min-width:180px;padding:.65rem .85rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:10px;color:#e4e4e7" data-bd-keydown-call="sendChat" data-bd-keys="enter">
-                    <button class="btn" type="button" data-bd-call="sendChat">Send</button>
+                    <label for="chatInput" class="sr-only">{{ t('dash.chat.send') }}</label>
+                    <input id="chatInput" type="text" placeholder="{{ t('dash.chat.input_placeholder') }}" style="flex:1;min-width:180px;padding:.65rem .85rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:10px;color:#e4e4e7" data-bd-keydown-call="sendChat" data-bd-keys="enter">
+                    <button class="btn" type="button" data-bd-call="sendChat">{{ t('dash.chat.send') }}</button>
                 </div>
                 <div id="chatFoot" style="margin-top:.55rem;font-size:.72rem;color:#71717a"></div>
             </div>
@@ -592,10 +592,10 @@
 
     <div id="operateGateModal" class="operate-gate-modal" hidden role="dialog" aria-modal="true" aria-labelledby="operateGateTitle">
         <div class="operate-gate-card">
-            <p id="operateGateTitle">Requires Operate subscription</p>
+            <p id="operateGateTitle">{{ t('dash.gate.operate_title') }}</p>
             <div class="operate-gate-actions">
-                <a class="btn" href="/pricing" style="text-decoration:none;display:inline-flex;align-items:center">View pricing</a>
-                <button class="btn secondary" type="button" data-bd-call="closeOperateGate">Close</button>
+                <a class="btn" href="/pricing" style="text-decoration:none;display:inline-flex;align-items:center">{{ t('dash.gate.view_pricing') }}</a>
+                <button class="btn secondary" type="button" data-bd-call="closeOperateGate">{{ t('dash.gate.close') }}</button>
             </div>
         </div>
     </div>
@@ -758,8 +758,8 @@
             if (operatePlusBlockedOnProveLens()) {
                 const el = document.getElementById('dailyReportBox');
                 if (el) {
-                    el.innerHTML = `<div class="empty">${esc('Decision Pro required for daily report Markdown')}
-                        <div style="margin-top:.65rem"><button class="btn btn-primary btn-upgrade-cta" type="button" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">Upgrade to Pro</button></div></div>`;
+                    el.innerHTML = `<div class="empty">${esc(i18nT('dash.js.daily_pro_required'))}
+                        <div style="margin-top:.65rem"><button class="btn btn-primary btn-upgrade-cta" type="button" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">${esc(i18nT('ui.upgrade_pro'))}</button></div></div>`;
                 }
                 scrollToId('operate-digest');
                 return;
@@ -1105,12 +1105,14 @@
         const LAUNCH57_UNIFIED_EXCHANGE = '/api/launch57/unified-exchange';
         let lastVisibleTrust = { certificate: null, ledger: null, netEdge: null };
         let lastLaunch57DataSpine = null;
-        const LAUNCH57_PRIMARY_INTENTS = [
-            { id: 'decide', label: 'Decide', action: 'launch57_decide', hint: 'Launch-57 command home — Act/Wait + Why + Proof.' },
-            { id: 'verify', label: 'Verify', action: 'navigate', path: '/oracle-accuracy', hint: 'Public Accuracy Ledger — hits and misses.' },
-            { id: 'my_book', label: 'My book', action: 'portfolio', hint: 'Portfolio risk — Operate+ lens.' },
-            { id: 'alerts', label: 'Alerts', action: 'alerts', hint: 'Inbox after Launch-57 gates.' },
-        ];
+        function launch57PrimaryIntents() {
+            return [
+                { id: 'decide', label: i18nT('dash.intent.decide'), action: 'launch57_decide', hint: i18nT('dash.intent.decide_hint') },
+                { id: 'verify', label: i18nT('dash.intent.verify'), action: 'navigate', path: '/oracle-accuracy', hint: i18nT('dash.intent.verify_hint') },
+                { id: 'my_book', label: i18nT('dash.intent.my_book'), action: 'portfolio', hint: i18nT('dash.intent.my_book_hint') },
+                { id: 'alerts', label: i18nT('dash.intent.alerts'), action: 'alerts', hint: i18nT('dash.intent.alerts_hint') },
+            ];
+        }
 
         function commandHomeUrl(sym) {
             const symbol = (sym || document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
@@ -1807,7 +1809,7 @@
             if (!grid) return;
             const home = (data && data.six_heroes_command_home) || {};
             if (q) q.textContent = home.question || i18nT('dash.intent.question');
-            const intents = LAUNCH57_PRIMARY_INTENTS.filter(it => {
+            const intents = launch57PrimaryIntents().filter(it => {
                 if (currentLens === 'prove' && it.id === 'verify') return false;
                 return true;
             });
@@ -2188,7 +2190,7 @@
                 return `<div class="metric"><strong>${esc(pct)}</strong><span>${esc(s.label||k)}</span></div>`;
             }).join('');
             const disc = esc((d.scenarios && d.scenarios.disclaimer) || '');
-            return `<div style="margin-top:.85rem"><div style="font-size:.8rem;color:#71717a;margin-bottom:.4rem">Scenarios (sketch)</div><div class="metrics">${metrics}</div><div style="font-size:.72rem;color:#71717a;margin-top:.35rem">${disc}</div></div>`;
+            return `<div style="margin-top:.85rem"><div style="font-size:.8rem;color:#71717a;margin-bottom:.4rem">${esc(i18nT('ui.scenarios'))}</div><div class="metrics">${metrics}</div><div style="font-size:.72rem;color:#71717a;margin-top:.35rem">${disc}</div></div>`;
         }
         function buildWhyFactorsHtml(factors, whyBlock) {
             if (!factors.length) return '';
@@ -2208,11 +2210,11 @@
         function buildVetoBlock(mode, conflict) {
             const hot = conflict.veto || conflict.abstain || (conflict.severity && conflict.severity !== 'none');
             if (!(mode === 'pro' && hot)) return '';
-            const title = conflict.veto ? 'WAIT / Do Not Touch' : 'Abstain';
+            const title = conflict.veto ? i18nT('ui.do_not_touch') : i18nT('ui.abstain');
             const sev = conflict.severity ? ` · ${esc(conflict.severity)}` : '';
             const reason = conflict.reason || conflict.message;
             const reasonHtml = reason ? `<div style="margin-top:.3rem;color:#a1a1aa">${esc(reason)}</div>` : '';
-            return `<div style="margin-top:.75rem;padding:.7rem .9rem;border:1px solid rgba(239,68,68,.35);border-radius:10px;color:#fca5a5;font-size:.85rem">Contradiction Veto — ${title}${sev}${reasonHtml}</div>`;
+            return `<div style="margin-top:.75rem;padding:.7rem .9rem;border:1px solid rgba(239,68,68,.35);border-radius:10px;color:#fca5a5;font-size:.85rem">${esc(i18nT('ui.veto'))} — ${esc(title)}${sev}${reasonHtml}</div>`;
         }
         function buildCertBlock(cert, predictionId, safeUrl) {
             if (!(cert.certificate_hash || predictionId)) return '';
@@ -2235,7 +2237,7 @@
             if (teaser.truth_score != null || teaser.remaining_seconds != null) {
                 teaserHtml = `<div style="margin-top:.35rem">Teaser · Truth ${esc(teaser.truth_score ?? '—')} · Half-life ${esc(teaser.remaining_seconds ?? '—')}s</div>`;
             }
-            return `<div style="margin-top:1rem;padding:.85rem 1rem;border:1px solid var(--border,#2a2a35);border-radius:10px;color:#a1a1aa;font-size:.85rem">${esc(d.upgrade_hint.message || '')}${teaserHtml}<button class="btn" style="margin-top:.65rem" type="button" data-bd-call="switchUxModePro">Switch to Pro</button></div>`;
+            return `<div style="margin-top:1rem;padding:.85rem 1rem;border:1px solid var(--border,#2a2a35);border-radius:10px;color:#a1a1aa;font-size:.85rem">${esc(d.upgrade_hint.message || '')}${teaserHtml}<button class="btn" style="margin-top:.65rem" type="button" data-bd-call="switchUxModePro">${esc(i18nT('ui.switch_pro'))}</button></div>`;
         }
         function safeShareUrl(u) {
             const safe = (window.BDDomSafe && window.BDDomSafe.allowedNavigationUrl(u)) || '';
@@ -2247,7 +2249,7 @@
             const whyVisible = buildWhyFactorsHtml(factors, whyBlock);
             return whyVisible + `
                 <details style="margin-top:.65rem;border:1px solid #2a2a35;border-radius:10px;padding:.65rem .85rem;background:#1a1a24">
-                    <summary style="cursor:pointer;color:#22d3ee;font-size:.85rem;font-weight:600">Evidence drawer · Certificate + scenarios</summary>
+                    <summary style="cursor:pointer;color:#22d3ee;font-size:.85rem;font-weight:600">${esc(i18nT('ui.evidence_drawer'))}</summary>
                     <div style="margin-top:.65rem">${buildScenarioBlock(d)}</div>
                 </details>`;
         }
@@ -2268,7 +2270,7 @@
             const hashBit = d.chain_hash
                 ? ` · hash <code style="color:var(--accent,#22d3ee)">${esc(String(d.chain_hash).slice(0,16))}…</code>`
                 : '';
-            return `<div style="margin-top:.65rem;font-size:.8rem;color:#71717a">Proof · prediction_id <code style="color:var(--accent,#22d3ee)">${esc(d.prediction_id)}</code>${hashBit} · <a href="/oracle-accuracy" style="color:var(--accent,#22d3ee)">Public accuracy</a></div>`;
+            return `<div style="margin-top:.65rem;font-size:.8rem;color:#71717a">${esc(i18nT('ui.proof'))} · ${esc(i18nT('ui.prediction_id'))} <code style="color:var(--accent,#22d3ee)">${esc(d.prediction_id)}</code>${hashBit} · <a href="/oracle-accuracy" style="color:var(--accent,#22d3ee)">${esc(i18nT('ui.public_accuracy'))}</a></div>`;
         }
         function buildComplianceBlock(d) {
             const cf = d.compliance_footer || {};
@@ -2298,7 +2300,7 @@
                 ${buildUpgradeBlock(d)}
                 ${buildComplianceBlock(d)}
                 ${mode === 'pro' ? buildCertBlock(d.decision_certificate || {}, d.prediction_id, safeShareUrl) : ''}
-                <div style="margin-top:.65rem;font-size:.8rem"><a href="/discipline-mirror" style="color:var(--accent,#22d3ee)">Open private Discipline Mirror</a></div>`;
+                <div style="margin-top:.65rem;font-size:.8rem"><a href="/discipline-mirror" style="color:var(--accent,#22d3ee)">${esc(i18nT('ui.discipline_mirror'))}</a></div>`;
         }
 
         async function askOracle() {
@@ -2412,11 +2414,11 @@
             if (conn && conn.success && conn.selected_provider) {
                 chips.push(`<span class="tp-chip ok">${esc('Route')}: ${esc(conn.selected_provider)}</span>`);
             } else if (conn && conn.success === false) {
-                chips.push(`<span class="tp-chip">Route unavailable</span>`);
+                chips.push(`<span class="tp-chip">${esc(i18nT('dash.js.route_unavailable'))}</span>`);
             }
             chipsEl.innerHTML = chips.length
                 ? chips.join('')
-                : '<span class="tp-chip">Data spine unavailable — no live claims shown.</span>';
+                : '<span class="tp-chip">' + esc(i18nT('dash.js.spine_unavailable')) + '</span>';
             if (noteEl) {
                 noteEl.textContent = chips.length
                     ? 'Launch-57 governed data (#22–#24, #39–#42). STALE/UNKNOWN never labeled LIVE.'
@@ -2532,7 +2534,7 @@
                     <strong>${esc(a.symbol)}</strong> <span class="${vc(a.verdict)==='BUY'?'up':''}">${esc(a.verdict||'')}</span>
                     <div>$${fmt(a.price,a.price<1?4:2)}</div>
                     <div class="${changeClass(a.change_24h)}">${changePrefix(a.change_24h)}${fmt(a.change_24h,2)}%</div>
-                </div>`).join('') : '<div class="empty">No market rows</div>';
+                </div>`).join('') : '<div class="empty">' + esc(i18nT('dash.js.no_market_rows')) + '</div>';
         }
 
         async function loadMarket() {
@@ -2541,13 +2543,13 @@
                 const res = await fetch('/api/market/overview');
                 const data = await res.json();
                 renderMarketAssets(data.assets || []);
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Unavailable</div>'; }
+            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">' + esc(i18nT('ui.unavailable')) + '</div>'; }
         }
 
         async function loadDailyReport() {
             const el = document.getElementById('dailyReportBox');
             if (!el) return;
-            el.innerHTML = '<div class="loading">Loading daily report…</div>';
+            el.innerHTML = '<div class="loading">' + esc(i18nT('ui.loading_daily')) + '</div>';
             try {
                 const res = await fetch('/api/reports/daily?persist=false', { headers: authHeaders() });
                 const d = await res.json();
@@ -2576,13 +2578,13 @@
                     + esc(summary || 'Brief ready — open Markdown for full detail.') + '</div>'
                     + bulletHtml
                     + '<div style="margin-top:.55rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · Research brief, not advice · Verify Ledger</div>';
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Daily report unavailable</div>'; }
+            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">' + esc(i18nT('ui.daily_unavailable')) + '</div>'; }
         }
 
         async function loadSubscriberValue() {
             const el = document.getElementById('subscriberValueBox');
             if (!el) return;
-            el.innerHTML = '<div class="loading">Loading value…</div>';
+            el.innerHTML = '<div class="loading">' + esc(i18nT('ui.loading_value')) + '</div>';
             try {
                 const res = await fetch('/api/subscriber/value', { headers: authHeaders() });
                 const d = await res.json();
@@ -2600,7 +2602,7 @@
                     <div style="margin-top:.25rem;color:#22d3ee">Est. research value $${esc(Number(v.estimated_value_usd_month || v.estimated_value_usd || v.value_usd || 0).toFixed(0))}
                     ${esc(coversPlanBit(v))}</div>
                     <div style="margin-top:.55rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · Illustrative usage math · Not guaranteed ROI</div>`;
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Value digest unavailable</div>'; }
+            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">' + esc(i18nT('ui.value_unavailable')) + '</div>'; }
         }
 
         let dashEs = null;
@@ -2700,7 +2702,7 @@
             const stats = document.getElementById('arbStats');
             if (!el) return;
             if (refresh) {
-                el.innerHTML = '<div class="loading">Scanning…</div>';
+                el.innerHTML = '<div class="loading">' + esc(i18nT('dash.arb.scanning')) + '</div>';
                 if (stats) stats.textContent = 'Live scan in progress…';
             }
             try {
@@ -2914,7 +2916,7 @@
                 if (foot) {
                     foot.innerHTML = '<strong>Anti-Hype</strong> · Whale labels are classified, not guaranteed alpha · Not financial advice · Verify on Public Accuracy Ledger';
                 }
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Unavailable</div>'; }
+            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">' + esc(i18nT('ui.unavailable')) + '</div>'; }
         }
 
         function coversPlanBit(v) {
