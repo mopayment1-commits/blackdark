@@ -983,5 +983,195 @@
     {% if landing_pulse_ssr is defined and landing_pulse_ssr %}
     <script type="application/json" id="landing-pulse-ssr">{{ landing_pulse_ssr|tojson }}</script>
     {% endif %}
+    <script>
+    (function () {
+        'use strict';
+        function esc(v) {
+            return String(v == null ? '' : v)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
+        }
+        function _lpFreshnessBadge(freshnessState, presentedAsLive) {
+            var state = String(freshnessState || 'UNKNOWN').toUpperCase();
+            var liveOk = presentedAsLive === true;
+            if (state === 'STALE') return { label: 'Stale — not live', stale: true };
+            if (state === 'UNKNOWN') return { label: 'Freshness unknown', stale: true };
+            if (!liveOk) return { label: 'DELAYED', stale: false };
+            if (state === 'DELAYED') return { label: 'DELAYED', stale: false };
+            if (state === 'LIVE' || state === 'NEAR_LIVE') {
+                return { label: state === 'NEAR_LIVE' ? 'NEAR LIVE' : 'LIVE', stale: false };
+            }
+            return { label: 'DELAYED', stale: false };
+        }
+        async function fetchLaunch57GuestTrust(symbol) {
+            var sym = encodeURIComponent(String(symbol || 'BTC').toUpperCase());
+            var response = await fetch('/api/launch57/guest-trust?symbol=' + sym, {
+                headers: { Accept: 'application/json' },
+            });
+            var data = null;
+            try { data = await response.json(); } catch (e) { console.debug(e); }
+            return { response: response, data: data };
+        }
+        function mapPulseAction(raw) {
+            if (window.BDPublicDecision && typeof window.BDPublicDecision.mapPublicDecisionAction === 'function') {
+                return window.BDPublicDecision.mapPublicDecisionAction(raw);
+            }
+            var u = String(raw || 'WAIT').toUpperCase();
+            if (u.indexOf('CONDITION') >= 0) return 'CONDITIONS MET';
+            if (u === 'ACT' || u.indexOf('BUY') >= 0 || u.indexOf('BULL') >= 0) return 'ACT';
+            if (u.indexOf('ABSTAIN') >= 0 || u.indexOf('SELL') >= 0) return 'ABSTAIN';
+            return 'WAIT';
+        }
+        function pulseFactors(data) {
+            var whyBlock = data.oqs_why || {};
+            return whyBlock.top_3_factors
+                || (data.explanation && data.explanation.top_3_factors)
+                || data.top_3_factors
+                || [];
+        }
+        function pulseSentence(data, sym, action) {
+            var sentence = data.decision_sentence || data.conditions_met_review || data.narrative || data.oracle || data.action_line || '';
+            if (sentence && !/meditat|consulting the oracle/i.test(sentence)) return sentence;
+            if (typeof data.action === 'string' && data.action.length > 12 && !/\bBuy\b/i.test(data.action)) return data.action;
+            return action + ' on ' + (data.symbol || sym);
+        }
+        function priceBit(p) {
+            var price = p.price != null
+                ? ('$' + Number(p.price).toLocaleString(undefined, { maximumFractionDigits: 2 }))
+                : '';
+            var ch = p.change_24h != null ? p.change_24h : p.change_24h_pct;
+            if (ch == null) return price;
+            var sign = ch >= 0 ? '+' : '';
+            return price + ' · ' + sign + Number(ch).toFixed(2) + '%';
+        }
+        function renderLandingPulseInline(p) {
+            if (!p) return;
+            window.__landingPulseHydrated = true;
+            window.landingPulse = p;
+            var act = mapPulseAction(p.action || p.verdict || p.decision_action);
+            var actionEl = document.getElementById('lpAction');
+            if (actionEl) {
+                actionEl.textContent = act;
+                var cssToken = act === 'CONDITIONS MET' ? 'WAIT' : String(act).replace(/\s+/g, '_');
+                actionEl.className = 'tp-mini-action bd-tp-action ' + cssToken;
+            }
+            var symEl = document.getElementById('lpSym');
+            if (symEl) symEl.textContent = String(p.symbol || 'BTC').toUpperCase() + ' ' + priceBit(p);
+            var sent = document.getElementById('lpSentence');
+            if (sent) sent.textContent = p.sentence || '';
+            var factors = (p.why && p.why.factors) || [];
+            var why = document.getElementById('lpWhy');
+            if (why) {
+                why.innerHTML = factors.slice(0, 3).map(function (f, i) {
+                    var detail = f.detail ? (' — ' + esc(f.detail)) : '';
+                    var rawSrc = (f && typeof f === 'object' && f.source) ? String(f.source).trim() : '';
+                    var srcBit = rawSrc ? (' <span style="opacity:.75;font-size:.78rem">· ' + esc(rawSrc) + '</span>') : '';
+                    return '<div><strong>' + (i + 1) + '. ' + esc(f.factor || f) + '</strong>' + detail + srcBit + '</div>';
+                }).join('');
+            }
+            var fresh = p.freshness || p.data_freshness || {};
+            var freshMeta = _lpFreshnessBadge(p.freshness_state || fresh.state || fresh.status, p.presented_as_live);
+            var dot = document.getElementById('lpDot');
+            if (dot) dot.className = 'tp-mini-dot' + ((fresh.stale || freshMeta.stale) ? ' stale' : '');
+            var fl = document.getElementById('lpFresh');
+            if (fl) {
+                var state = String(fresh.state || fresh.status || '').toLowerCase();
+                if (state === 'unknown' && !fresh.label && !freshMeta.label) {
+                    fl.textContent = '';
+                } else {
+                    var stale = fresh.stale === true || freshMeta.stale || state === 'stale';
+                    fl.textContent = fresh.label || freshMeta.label || (stale ? 'Stale — not live' : '');
+                }
+            }
+        }
+        function applyLandingPulseSSRInline() {
+            var el = document.getElementById('landing-pulse-ssr');
+            if (!el) return false;
+            try {
+                var p = JSON.parse(el.textContent || '{}');
+                if (!p || (!p.symbol && !p.action && !p.verdict)) return false;
+                renderLandingPulseInline({
+                    symbol: p.symbol,
+                    action: p.action || p.verdict,
+                    price: p.price,
+                    change_24h: p.change_24h,
+                    sentence: p.sentence || p.decision_sentence,
+                    why: p.why || { factors: pulseFactors(p) },
+                    freshness: p.freshness || p.data_freshness,
+                    freshness_state: (p.freshness && p.freshness.state) || (p.data_freshness && p.data_freshness.state),
+                    presented_as_live: p.presented_as_live,
+                });
+                return true;
+            } catch (e) { console.debug(e); return false; }
+        }
+        function oracleHasDecision(data) {
+            return !!(data && (data.decision_sentence || data.oracle || data.decision_action || data.verdict));
+        }
+        async function loadLandingTrustPulse() {
+            if (window.__landingPulseHydrated) return;
+            var sym = (document.getElementById('symbol') && document.getElementById('symbol').value) || 'BTC';
+            var mode = (document.getElementById('landingUxMode') && document.getElementById('landingUxMode').value) || 'beginner';
+            var lang = (document.getElementById('landingLang') && document.getElementById('landingLang').value)
+                || (document.documentElement && document.documentElement.lang)
+                || 'en';
+            sym = String(sym).trim().toUpperCase() || 'BTC';
+            var oracleRoot = '/oracle/';
+            var quickUrl = oracleRoot + encodeURIComponent(sym) + '/quick?ux_mode=' + encodeURIComponent(mode) + '&lang=' + encodeURIComponent(lang);
+            try {
+                var res = await fetch(quickUrl, { headers: { Accept: 'application/json' } });
+                var raw = await res.text();
+                var data = null;
+                try {
+                    if (raw && raw.trim().charAt(0) === '{') data = JSON.parse(raw);
+                } catch (e) { console.debug(e); }
+                if (res.ok && oracleHasDecision(data)) {
+                    var action = mapPulseAction(data.decision_action || data.model_state || data.verdict || data.action);
+                    renderLandingPulseInline({
+                        symbol: data.symbol || sym,
+                        action: action,
+                        verdict: action,
+                        price: data.price,
+                        change_24h: data.change_24h != null ? data.change_24h : data.change_24h_pct,
+                        sentence: pulseSentence(data, sym, action),
+                        why: { factors: pulseFactors(data) },
+                        freshness: data.data_freshness || {},
+                        freshness_state: data.data_freshness && data.data_freshness.state,
+                        presented_as_live: data.data_freshness && data.data_freshness.presented_as_live,
+                    });
+                    return;
+                }
+            } catch (e) { console.debug(e); }
+            try {
+                var pack = await fetchLaunch57GuestTrust(sym);
+                if (!pack.response.ok || !pack.data) return;
+                var proofs = (pack.data.guest_trust && pack.data.guest_trust.public_intelligence_proofs) || [];
+                var proof = proofs[0] || {};
+                var disclosure = pack.data.adaptive_disclosure || {};
+                var l1 = disclosure.level_1 || {};
+                renderLandingPulseInline({
+                    symbol: pack.data.symbol || sym,
+                    action: 'WAIT',
+                    sentence: l1.summary || proof.proof_id || '',
+                    why: { factors: [] },
+                    freshness: { state: 'unknown' },
+                });
+            } catch (e) { console.debug(e); }
+        }
+        function bootTrustPulse() {
+            if (!applyLandingPulseSSRInline()) {
+                void loadLandingTrustPulse();
+            }
+        }
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', bootTrustPulse, { once: true });
+        } else {
+            bootTrustPulse();
+        }
+        window.loadLandingTrustPulse = loadLandingTrustPulse;
+        window.fetchLaunch57GuestTrust = fetchLaunch57GuestTrust;
+    })();
+    </script>
     <script defer src="/static/js/landing_boot.js"></script>
 </body>

@@ -1415,7 +1415,11 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                     navigator.serviceWorker.register('/sw.js').catch((error) => { console.debug(error); });
                 }
             });
-            scheduleDeferredOracleBoot(hadPulseSSR);
+            if (!window.__landingPulseHydrated) {
+                scheduleDeferredOracleBoot(hadPulseSSR);
+            } else {
+                scheduleDeferredOracleBoot(true);
+            }
         }
 
         if (document.readyState === 'complete') {
