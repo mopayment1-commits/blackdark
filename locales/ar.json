@@ -1200,5 +1200,9 @@
   "login.msg.loading": "جارٍ التحميل…",
   "login.msg.password_updated": "تم تحديث كلمة المرور — يمكنك تسجيل الدخول.",
   "login.msg.google_failed": "فشل تسجيل الدخول عبر جوجل: {reason}. جرب البريد الإلكتروني أو حاول مرة أخرى.",
-  "ledger.js.proof_verifying": "جارٍ التحقق من سلسلة التدقيق…"
+  "ledger.js.proof_verifying": "جارٍ التحقق من سلسلة التدقيق…",
+  "footer.link.disclaimer": "إخلاء المسؤولية",
+  "footer.link.terms": "الشروط",
+  "footer.link.privacy": "الخصوصية",
+  "login.msg.google_not_configured": "تسجيل الدخول عبر جوجل غير مُكوَّن"
 }

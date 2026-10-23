@@ -414,7 +414,7 @@
   "dash.tp.trust_pulse_aria": "Pulso de Confianza",
   "dash.tp.symbol_aria": "Símbolo de Trust Pulse",
   "dash.tp.price_chart_aria": "Gráfico de precios de Trust Pulse",
-  "dash.intent.decide": "Decide",
+  "dash.intent.decide": "Decidir",
   "dash.intent.decide_hint": "Comando Launch-57 a casa — Actuar/Esperar + Por qué + Prueba.",
   "dash.intent.verify": "Verificar",
   "dash.intent.verify_hint": "Libro mayor de precisión pública: aciertos y errores.",
@@ -1200,5 +1200,9 @@
   "auth.forgot.reset_title": "Restablecer contraseña",
   "auth.forgot.account_email": "Correo electrónico de la cuenta",
   "ledger.panel.latest_title": "Últimas predicciones puntuadas",
-  "ledger.panel.learning_title": "Registro de experiencia de aprendizaje"
+  "ledger.panel.learning_title": "Registro de experiencia de aprendizaje",
+  "footer.link.disclaimer": "Aviso legal",
+  "footer.link.terms": "Términos",
+  "footer.link.privacy": "Privacidad",
+  "login.msg.google_not_configured": "Inicio de sesión de Google no configurado"
 }

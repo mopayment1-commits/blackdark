@@ -1200,5 +1200,9 @@
   "login.msg.loading": "Chargement…",
   "login.msg.password_updated": "Mot de passe mis à jour — vous pouvez vous connecter.",
   "login.msg.google_failed": "Échec de la connexion Google : {reason}. Essayez avec l'e-mail ou réessayez.",
-  "ledger.js.proof_verifying": "Vérification de la chaîne d'audit…"
+  "ledger.js.proof_verifying": "Vérification de la chaîne d'audit…",
+  "footer.link.disclaimer": "Avertissement",
+  "footer.link.terms": "Conditions",
+  "footer.link.privacy": "Confidentialité",
+  "login.msg.google_not_configured": "Connexion Google non configurée"
 }
