@@ -1148,7 +1148,10 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             const act = window.BDPublicDecision?.mapPublicDecisionAction(p.action || p.verdict) || p.action || 'WAIT';
             const actionEl = document.getElementById('lpAction');
             if (actionEl) {
-                actionEl.textContent = act;
+                const label = window.BDPublicDecision?.mapAndLocalizePublicDecisionAction
+                    ? window.BDPublicDecision.mapAndLocalizePublicDecisionAction(p.action || p.verdict || act)
+                    : act;
+                actionEl.textContent = label;
                 const cssToken = act === 'CONDITIONS MET' ? 'WAIT' : String(act).replace(/\s+/g, '_');
                 actionEl.className = 'tp-mini-action bd-tp-action ' + cssToken;
             }

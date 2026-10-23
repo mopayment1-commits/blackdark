@@ -29,7 +29,7 @@
     t: function (key, vars) {
       var s = this.catalog && this.catalog[key];
       if (s === undefined || s === null || s === "") {
-        return typeof key === "string" ? key : "";
+        return "";
       }
       if (vars) {
         Object.keys(vars).forEach(function (k) {
@@ -72,6 +72,26 @@
     },
   };
 
+  function hydrateCatalogFromApi() {
+    var lang = (global.BD_I18N && global.BD_I18N.lang) || boot.lang || "en";
+    return global
+      .fetch("/api/i18n/catalog?lang=" + encodeURIComponent(lang), {
+        credentials: "same-origin",
+      })
+      .then(function (res) {
+        return res.ok ? res.json() : null;
+      })
+      .then(function (body) {
+        if (body && body.catalog && global.BD_I18N) {
+          Object.assign(global.BD_I18N.catalog, body.catalog);
+          if (body.lang) global.BD_I18N.lang = body.lang;
+        }
+      })
+      .catch(function (err) {
+        console.debug(err);
+      });
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     try {
       var stored = localStorage.getItem("bd_lang");
@@ -84,6 +104,21 @@
     } catch (error) {
       console.debug(error);
     }
-    if (global.BD_I18N) global.BD_I18N.syncSelect();
+    var keys = global.BD_I18N && global.BD_I18N.catalog
+      ? Object.keys(global.BD_I18N.catalog).length
+      : 0;
+    var finish = function () {
+      if (global.BD_I18N) global.BD_I18N.syncSelect();
+      try {
+        global.dispatchEvent(new CustomEvent("bd-i18n-ready", { detail: { lang: global.BD_I18N.lang } }));
+      } catch (e) {
+        console.debug(e);
+      }
+    };
+    if (keys < 200) {
+      hydrateCatalogFromApi().finally(finish);
+    } else {
+      finish();
+    }
   });
 })(typeof window !== "undefined" ? window : globalThis);

@@ -285,6 +285,7 @@
 <body>
     <script type="application/json" id="bd-i18n-boot">{"lang": {{ lang|tojson }}, "catalog": {{ i18n|tojson }}}</script>
     <script src="/static/js/bd_i18n.js" defer></script>
+    <script src="/static/js/public_decision_map.js" defer></script>
     {% include 'partials/global_header.html' %}
 
     <main id="top">
@@ -1113,7 +1114,7 @@
 
         function commandHomeUrl(sym) {
             const symbol = (sym || document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
-            const qs = new URLSearchParams({ symbol, command_view: 'true' });
+            const qs = new URLSearchParams({ symbol, command_view: 'true', lang: currentLang() });
             return LAUNCH57_COMMAND_HOME + '?' + qs.toString();
         }
 
@@ -1143,8 +1144,11 @@
         function renderOracleQuickDecision(el, d, { sym, mode, lang }) {
             const sentence = d.decision_sentence || d.conditions_met_review || d.narrative || d.oracle || '';
             const action = d.decision_action || d.verdict || d.action || 'WAIT';
+            const actionLabel = window.BDPublicDecision?.mapAndLocalizePublicDecisionAction
+                ? window.BDPublicDecision.mapAndLocalizePublicDecisionAction(action)
+                : action;
             let html = `
-                <div class="verdict ${esc(vc(action))}">${esc(action)}</div>
+                <div class="verdict ${esc(vc(action))}">${esc(actionLabel)}</div>
                 <div class="narrative">${esc(sentence)}</div>`;
             if (mode === 'pro') {
                 const whyBlock = d.oqs_why || {};
@@ -1153,7 +1157,7 @@
                 html += buildCertBlock(d.decision_certificate || {}, d.prediction_id, safeShareUrl);
             }
             const fresh = String(d.freshness_state || (d.freshness && d.freshness.state) || '').toUpperCase() || '—';
-            const liveLabel = d._offline ? 'Offline · last known' : 'Live';
+            const liveLabel = d._offline ? i18nT('dash.offline_last_known') : i18nT('dash.live');
             html += `<div style="margin-top:.55rem;font-size:.72rem;color:#71717a">${esc(liveLabel)} · /oracle/${esc(sym)}/quick · ${esc(fresh)} · ${esc(d.ux_mode || mode)} · ${esc(d.lang || lang)}</div>`;
             el.innerHTML = html;
         }
@@ -1665,14 +1669,14 @@
                         renderTrustPulse(pulse);
                         renderOracleBoxFromQuick(offline);
                         const freshEl = document.getElementById('tpFresh');
-                        if (freshEl) freshEl.textContent = 'Offline · last known';
+                        if (freshEl) freshEl.textContent = i18nT('dash.tp.offline_last_known');
                         setShareProofButton(false);
                         return offline;
                     }
                     const freshEl = document.getElementById('tpFresh');
                     const sentenceEl = document.getElementById('tpSentence');
-                    if (freshEl) freshEl.textContent = 'Unavailable';
-                    if (sentenceEl) sentenceEl.textContent = 'Oracle quick unavailable for this symbol.';
+                    if (freshEl) freshEl.textContent = i18nT('dash.tp.unavailable');
+                    if (sentenceEl) sentenceEl.textContent = i18nT('dash.tp.oracle_unavailable');
                     setShareProofButton(false);
                     setTrustPulseLoading(false);
                     return null;
@@ -1751,8 +1755,8 @@
                     if (!proveLens) {
                         const freshEl = document.getElementById('tpFresh');
                         const sentenceEl = document.getElementById('tpSentence');
-                        if (freshEl) freshEl.textContent = 'Unavailable';
-                        if (sentenceEl) sentenceEl.textContent = 'Launch-57 command home unavailable.';
+                        if (freshEl) freshEl.textContent = i18nT('dash.tp.unavailable');
+                        if (sentenceEl) sentenceEl.textContent = i18nT('dash.tp.command_home_unavailable');
                         setShareProofButton(false);
                         clearVisibleTrust();
                         setTrustPulseLoading(false);
@@ -1974,7 +1978,10 @@
                 actionEl.textContent = '—';
                 actionEl.className = 'tp-action WAIT';
             } else {
-                actionEl.textContent = act;
+                const label = window.BDPublicDecision?.mapAndLocalizePublicDecisionAction
+                    ? window.BDPublicDecision.mapAndLocalizePublicDecisionAction(p.action || act)
+                    : act;
+                actionEl.textContent = label;
                 actionEl.className = 'tp-action ' + act;
             }
             const price = fmtPrice(p.price);
@@ -1984,10 +1991,10 @@
                 ? ` <span class="tp-hype-metric">${price}${chS}</span>`
                 : '';
             document.getElementById('tpSym').innerHTML = `${escapeHtml(p.symbol || 'BTC')}${metricHtml}`;
-            document.getElementById('tpSentence').textContent = p.sentence || 'One clear decision — research only.';
-            document.getElementById('tpWhyTitle').textContent = (p.why && p.why.grasp_line) || 'Why (under 5 seconds)';
+            document.getElementById('tpSentence').textContent = p.sentence || i18nT('dash.tp.sentence_fallback');
+            document.getElementById('tpWhyTitle').textContent = (p.why && p.why.grasp_line) || i18nT('dash.tp.why_title');
             const factors = (p.why && p.why.factors) || [];
-            let factorHtml = '<div class="empty" style="padding:.25rem 0">Why factors loading…</div>';
+            let factorHtml = '<div class="empty" style="padding:.25rem 0">' + esc(i18nT('dash.tp.factors_loading')) + '</div>';
             if (factors.length) factorHtml = factors.map((f,i) => formatFactorLine(f, i)).join('');
             document.getElementById('tpFactors').innerHTML = factorHtml;
             const fresh = p.freshness || {};

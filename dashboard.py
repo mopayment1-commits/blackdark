@@ -809,6 +809,12 @@ async def header_session_middleware(request: Request, call_next):
     except Exception:
         request.state.header_user = None
         request.state.ui_lang = None
+    try:
+        from i18n_service import resolve_request_lang
+
+        request.state.resolved_lang = resolve_request_lang(request)
+    except Exception:
+        request.state.resolved_lang = "en"
     return await call_next(request)
 
 
@@ -2465,10 +2471,10 @@ async def api_i18n_locales():
 
 
 @app.get("/api/i18n/catalog", responses=COMMON_ERROR_RESPONSES)
-async def api_i18n_catalog(lang: str = "en"):
-    from i18n_service import catalog_for, locale_meta, normalize_lang
+async def api_i18n_catalog(request: Request, lang: str | None = None):
+    from i18n_service import catalog_for, locale_meta, resolved_api_lang
 
-    code = normalize_lang(lang)
+    code = resolved_api_lang(request, lang)
     return {"lang": code, "locale": locale_meta(code), "catalog": catalog_for(code)}
 
 

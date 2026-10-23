@@ -25,11 +25,10 @@ async def admin_owner_dashboard_page(
     request: Request,
     admin: dict = Depends(require_admin_dev),
 ):
-    return templates.TemplateResponse(
-        request,
-        "admin_dashboard.html",
-        {"admin_email": admin.get("email") or ""},
-    )
+    from i18n_service import template_context
+
+    ctx = template_context(request, {"admin_email": admin.get("email") or ""})
+    return templates.TemplateResponse(request, "admin_dashboard.html", ctx)
 
 
 @router.get("/api/admin/owner-metrics")
