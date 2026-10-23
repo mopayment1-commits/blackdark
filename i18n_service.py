@@ -170,6 +170,13 @@ ALLOW_IDENTICAL: frozenset[str] = frozenset(
         "oracle.share.whatsapp",
         "oracle.share.telegram",
         "oracle.share.reddit",
+        "social.link.linkedin",
+        "social.link.facebook",
+        "social.link.reddit",
+        "social.link.telegram",
+        "social.link.x",
+        "dash.operate.markdown",
+        "dash.ux.pro",
     }
 )
 
