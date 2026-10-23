@@ -178,7 +178,7 @@
     align-items: center;
     gap: 0.45rem;
     padding: 0.25rem 0.55rem 0.25rem 0.3rem;
-    border-radius: 999px 0 0 999px;
+    border-radius: 999px;
     border: none;
     background: transparent;
     color: var(--text, #e4e4e7);
@@ -192,21 +192,14 @@
     min-width: 0;
   }
   .bd-account-trigger:hover { color: var(--accent, #22d3ee); }
-  .bd-account-menu-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 1.85rem;
-    border: none;
-    border-left: 1px solid var(--border, #2a2a35);
-    border-radius: 0 999px 999px 0;
-    background: transparent;
+  .bd-account-chevron {
     color: var(--text-muted, #c8c8d0);
-    cursor: pointer;
     font-size: 0.72rem;
-    padding: 0;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-inline-start: 0.15rem;
   }
-  .bd-account-menu-btn:hover { color: var(--accent, #22d3ee); }
+  .bd-account-trigger:hover .bd-account-chevron { color: var(--accent, #22d3ee); }
   #bdAccountAvatar {
     width: 1.65rem;
     height: 1.65rem;
@@ -314,8 +307,8 @@
       <a href="/oracle-accuracy"{% if nav_active is defined and nav_active == 'verify' %} class="active" aria-current="page"{% endif %}>{{ t('nav.verify') if t is defined else 'Verify' }}</a>
       <a href="/swap"{% if nav_active is defined and nav_active == 'swap' %} class="active" aria-current="page"{% endif %}>{{ t('nav.swap') if t is defined else 'Swap' }}</a>
       <a href="/wallet-balance"{% if nav_active is defined and nav_active == 'wallet' %} class="active" aria-current="page"{% endif %}>{{ t('nav.wallet_balance') if t is defined else 'Balance' }}</a>
-      <a href="#watchlist" data-bd-scroll="watchlist">Watchlist</a>
-      <a href="#my-decisions" data-bd-scroll="my-decisions">My Decisions</a>
+      <a href="#watchlist" data-bd-scroll="watchlist">{{ t('workspace.watchlist.title') if t is defined else 'Watchlist' }}</a>
+      <a href="#my-decisions" data-bd-scroll="my-decisions">{{ t('workspace.decisions.title') if t is defined else 'My Decisions' }}</a>
       <a href="/about"{% if nav_active is defined and nav_active == 'about' %} class="active" aria-current="page"{% endif %}>{{ t('nav.about') if t is defined else 'About' }}</a>
     </div>
     <div class="nav-right">
@@ -341,29 +334,25 @@
         {% if header_authenticated and header_user %}
         <div class="bd-account-menu">
           <div class="bd-account-chip">
-            <a
-              href="/profile"
-              class="bd-account-trigger"
-              id="bdAccountProfileLink"
-              title="{{ t('nav.profile') if t is defined else 'Profile' }}"
-            >
-              <span id="bdAccountAvatar" aria-hidden="true">{% if header_user.avatar_url %}<img src="{{ header_user.avatar_url }}" alt="">{% else %}{{ header_user.initial }}{% endif %}</span>
-              <span class="bd-account-name">{{ header_user.display }}</span>
-              <span class="bd-tier-badge">{{ header_user.tier_label }}</span>
-            </a>
             <button
               type="button"
-              class="bd-account-menu-btn"
+              class="bd-account-trigger"
               id="bdAccountTrigger"
               aria-expanded="false"
               aria-haspopup="menu"
               aria-controls="bdAccountMenu"
               aria-label="{{ t('nav.account_menu') if t is defined else 'Account menu' }}"
-            >▾</button>
+              title="{{ header_user.display }}"
+            >
+              <span id="bdAccountAvatar" aria-hidden="true">{% if header_user.avatar_url %}<img src="{{ header_user.avatar_url }}" alt="">{% else %}{{ header_user.initial }}{% endif %}</span>
+              <span class="bd-account-name">{{ header_user.display }}</span>
+              <span class="bd-tier-badge">{{ header_user.tier_label }}</span>
+              <span class="bd-account-chevron" aria-hidden="true">▾</span>
+            </button>
           </div>
           <div class="bd-account-panel" id="bdAccountMenu" role="menu" hidden aria-label="Account">
             <a href="/" role="menuitem">{{ t('nav.home') if t is defined else 'Home' }}</a>
-            <a href="/profile" role="menuitem">{{ t('nav.profile') if t is defined else 'Profile' }}</a>
+            <a href="/profile" id="bdAccountProfileLink" role="menuitem">{{ t('nav.profile') if t is defined else 'Profile' }}</a>
             <button type="button" id="bdHeaderLogout" role="menuitem" data-logout-fail="{{ t('nav.logout_failed') if t is defined else 'Could not sign out. Try again.' }}">{{ t('nav.logout') if t is defined else 'Log out' }}</button>
             <span id="bdLogoutStatus" class="bd-logout-status" role="status" aria-live="polite" hidden></span>
           </div>

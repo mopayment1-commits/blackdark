@@ -15,6 +15,7 @@
       return {
         lang: typeof parsed.lang === "string" ? parsed.lang : "en",
         catalog: parsed.catalog && typeof parsed.catalog === "object" ? parsed.catalog : {},
+        enCatalog: parsed.enCatalog && typeof parsed.enCatalog === "object" ? parsed.enCatalog : {},
       };
     } catch (_err) {
       return { lang: "en", catalog: {} };
@@ -22,14 +23,20 @@
   }
 
   const boot = readBoot();
+  const enCatalog =
+    boot.enCatalog && typeof boot.enCatalog === "object" ? boot.enCatalog : {};
 
   global.BD_I18N = global.BD_I18N || {
     lang: boot.lang,
     catalog: boot.catalog,
+    enCatalog: enCatalog,
     t: function (key, vars) {
       var s = this.catalog && this.catalog[key];
       if (s === undefined || s === null || s === "") {
-        return "";
+        s = this.enCatalog && this.enCatalog[key];
+      }
+      if (s === undefined || s === null || s === "") {
+        return key;
       }
       if (vars) {
         Object.keys(vars).forEach(function (k) {

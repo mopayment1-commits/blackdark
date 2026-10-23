@@ -1835,6 +1835,7 @@ def template_context(request: Any, extra: dict[str, Any] | None = None) -> dict[
             header_user = getattr(st, "header_user", None)
     except Exception:
         header_user = None
+    code = normalize_lang(lang)
     ctx: dict[str, Any] = {
         "lang": lang,
         "dir": meta["dir"],
@@ -1843,6 +1844,7 @@ def template_context(request: Any, extra: dict[str, Any] | None = None) -> dict[
         "t": translator(lang),
         "key_lang": lambda k, _lang=lang: element_lang_for_key(k, _lang),
         "i18n": catalog_for(lang),
+        "en_i18n": catalog_for("en") if code != "en" else {},
         "i18n_json": json.dumps(catalog_for(lang), ensure_ascii=False),
         "locales_json": json.dumps(list_locales(), ensure_ascii=False),
         "header_user": header_user,

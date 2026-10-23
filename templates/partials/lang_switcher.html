@@ -55,6 +55,6 @@
     {% endfor %}
   </select>
 </div>
-<script type="application/json" id="bd-i18n-boot">{"lang": {{ _lang|tojson }}, "catalog": {% if i18n is defined %}{{ i18n|tojson }}{% else %}{}{% endif %}}</script>
+<script type="application/json" id="bd-i18n-boot">{"lang": {{ _lang|tojson }}, "catalog": {% if i18n is defined %}{{ i18n|tojson }}{% else %}{}{% endif %}, "enCatalog": {% if en_i18n is defined and _lang != 'en' %}{{ en_i18n|tojson }}{% else %}{}{% endif %}}</script>
 <script src="/static/js/bd_i18n.js" defer></script>
 </div>
