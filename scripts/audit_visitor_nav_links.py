@@ -142,6 +142,9 @@ def main() -> int:
             or src_page.endswith("json-api")
         ):
             continue
+        # OAuth start is a 302 redirect to the provider — not an HTML page to crawl.
+        if test_path.startswith("/api/auth/oauth/"):
+            continue
         status, ct, body = follow_to_html(client, test_path)
         ok, reason = is_allowed(status, ct, body)
         row = {

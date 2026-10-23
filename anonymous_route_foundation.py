@@ -304,8 +304,17 @@ PUBLIC_API_EXACT: frozenset[str] = frozenset(
         "/api/internal/owner-admin/provision",
         "/api/analytics/stats",
         "/api/platform/stats",
+        "/api/services/status",
         "/api/trust-pulse",
         "/api/telegram/free/status",
+        # Go-live probes (docs/GO_LIVE_AR.md — no secrets in payloads)
+        "/api/launch/readiness",
+        "/api/gtm/status",
+        "/api/production/guard",
+        "/api/billing/status",
+        "/api/oracle/net-edge-truth",
+        "/api/oracle/persona-clarity/demo",
+        "/api/whale/signal-vs-noise",
     }
 )
 

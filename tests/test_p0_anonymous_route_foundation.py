@@ -94,6 +94,8 @@ def test_no_cookie_public_allowlist_ok(client):
         "/health/live",
         "/api/status",
         "/api/security/status",
+        "/api/launch/readiness",
+        "/api/production/guard",
         "/login",
         "/register",
         "/oracle-accuracy",

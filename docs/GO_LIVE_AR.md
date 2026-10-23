@@ -5,8 +5,11 @@
 
 ## 1) قبل الضغط على Deploy
 ```bash
+python scripts/execute_pre_launch_closure.py --url https://YOUR-DOMAIN
+# أو خطوة بخطوة:
 python scripts/finalize_launch.py
 python scripts/verify_constitution_live.py
+python scripts/launch_verify.py https://YOUR-DOMAIN
 ```
 - الصق `.env.launch.local` في Railway Variables  
 - أضف `DATABASE_URL` (Postgres)  
