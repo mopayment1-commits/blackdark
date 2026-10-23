@@ -34,6 +34,14 @@
   let entitlements = { ...DEFAULT_ENTITLEMENTS };
   let entitlementsLoaded = false;
 
+  function i18nT(key, vars) {
+    const i18n = global.BD_I18N;
+    if (i18n && typeof i18n.t === 'function') {
+      return i18n.t(key, vars);
+    }
+    return '';
+  }
+
   function readJson(key, fallback) {
     try {
       const raw = localStorage.getItem(key);
@@ -153,11 +161,11 @@
     else {
       const cap = watchlistCap();
       if (cap === 0) {
-        showDecisionToast('Watchlist requires Beginner or above');
+        showDecisionToast(i18nT('workspace.toast.watchlist_tier') || 'Watchlist requires Beginner or above');
         return list;
       }
       if (list.length >= cap) {
-        showDecisionToast(`Watchlist limit (${cap}) reached`);
+        showDecisionToast(i18nT('workspace.toast.watchlist_limit', { cap }) || `Watchlist limit (${cap}) reached`);
         return list;
       }
       list.push(v);
@@ -268,7 +276,7 @@
     if (note) return;
     const p = document.createElement('p');
     p.className = 'bd-offline-note wl-offline-tag';
-    p.textContent = 'Offline · last known';
+    p.textContent = i18nT('workspace.toast.offline') || 'Offline · last known';
     el.prepend(p);
   }
 
@@ -300,7 +308,7 @@
 
   function toggleTheme() {
     if (!boolEnt('theme')) {
-      showDecisionToast('Theme toggle requires Pro or above');
+      showDecisionToast(i18nT('workspace.toast.theme_tier') || 'Theme toggle requires Pro or above');
       return;
     }
     const cur = document.documentElement.dataset.bdTheme === 'light' ? 'light' : 'dark';
@@ -362,7 +370,7 @@
       if (off) {
         const action = mapAction(off);
         if (status) status.textContent = `Offline · last known · ${action}`;
-      } else if (status) status.textContent = 'Unavailable';
+      } else if (status) status.textContent = i18nT('workspace.status.unavailable') || 'Unavailable';
     }
   }
 
@@ -432,7 +440,7 @@
   function openCompareModal() {
     const cmp = limitVal('compare_limit');
     if (cmp === 0) {
-      showDecisionToast('Compare requires Beginner or above');
+      showDecisionToast(i18nT('workspace.toast.compare_tier') || 'Compare requires Beginner or above');
       return;
     }
     const modal = document.getElementById('bdCompareModal');
@@ -520,7 +528,7 @@
 
   async function shareDecision(sym, data) {
     if (!boolEnt('share_decision')) {
-      showDecisionToast('Share decision requires Pro or above');
+      showDecisionToast(i18nT('workspace.toast.share_tier') || 'Share decision requires Pro or above');
       return;
     }
     const payload = data || getLastDecision(sym)?.data;
@@ -542,7 +550,7 @@
       modal.hidden = false;
     } else if (navigator.clipboard) {
       navigator.clipboard.writeText(text);
-      showDecisionToast('Decision copied to clipboard');
+      showDecisionToast(i18nT('workspace.toast.decision_copied') || 'Decision copied to clipboard');
     }
   }
 
@@ -567,7 +575,7 @@
         const ta = document.getElementById('bdShareDecisionText');
         if (ta && navigator.clipboard) {
           await navigator.clipboard.writeText(ta.value);
-          showDecisionToast('Copied');
+          showDecisionToast(i18nT('workspace.toast.copied') || 'Copied');
         }
       });
     }

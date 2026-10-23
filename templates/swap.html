@@ -64,6 +64,11 @@ input,select{width:100%;padding:.65rem .75rem;border-radius:10px;border:1px soli
 {% include "partials/site_footer.html" %}
 <script>
 (function () {
+  function i18nT(key, vars) {
+    const i18n = window.BD_I18N;
+    if (i18n && typeof i18n.t === 'function') return i18n.t(key, vars);
+    return '';
+  }
   const qs = new URLSearchParams(location.search);
   const fromSel = document.getElementById('fromCur');
   const toSel = document.getElementById('toCur');
@@ -139,7 +144,7 @@ input,select{width:100%;padding:.65rem .75rem;border-radius:10px;border:1px soli
     const data = await res.json();
     if (!res.ok) {
       estimateBox.style.display = 'block';
-      estimateBox.textContent = data.detail || 'Estimate failed';
+      estimateBox.textContent = data.detail || i18nT('swap.estimate_failed');
       return;
     }
     estimateBox.style.display = 'block';
@@ -166,15 +171,15 @@ input,select{width:100%;padding:.65rem .75rem;border-radius:10px;border:1px soli
     const data = await res.json();
     if (!res.ok) {
       payinBox.style.display = 'block';
-      payinBox.innerHTML = '<strong>Could not create swap</strong><p>' + (data.detail?.message || JSON.stringify(data.detail || data)) + '</p>';
+      payinBox.innerHTML = '<strong>' + i18nT('swap.create_failed_title') + '</strong><p>' + (data.detail?.message || JSON.stringify(data.detail || data)) + '</p>';
       return;
     }
     payinBox.style.display = 'block';
     payinBox.innerHTML =
-      '<strong>Send deposit (non-custodial)</strong><p>Send <code>' + data.from_amount + ' ' + from.ticker.toUpperCase() + '</code> to:</p>' +
+      '<strong>' + i18nT('swap.deposit_heading') + '</strong><p>' + i18nT('swap.deposit_send', { amount: data.from_amount, currency: from.ticker.toUpperCase() }) + '</p>' +
       '<p><code>' + data.payin_address + '</code></p>' +
-      (data.payin_extra_id ? '<p>Extra ID: <code>' + data.payin_extra_id + '</code></p>' : '') +
-      '<p>Exchange ID: <code>' + data.id + '</code></p>' +
+      (data.payin_extra_id ? '<p>' + i18nT('swap.deposit_extra_id') + ' <code>' + data.payin_extra_id + '</code></p>' : '') +
+      '<p>' + i18nT('swap.exchange_id') + ' <code>' + data.id + '</code></p>' +
       '<p style="font-size:.8rem;color:var(--muted)">' + (data.message || '') + '</p>';
   });
 

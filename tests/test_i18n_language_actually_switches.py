@@ -40,3 +40,17 @@ def test_login_arabic_tabs():
     ar = client.get("/login?lang=ar").text
     assert "إنشاء حساب" in ar
     assert "دخول" in ar
+
+
+def test_oracle_accuracy_french_glass_box():
+    fr = client.get("/oracle-accuracy?lang=fr").text
+    assert 'lang="fr"' in fr
+    assert "The Glass Box Challenge" not in fr
+    assert "Défi" in fr or "boîte" in fr.lower() or "transparence" in fr.lower()
+
+
+def test_core_locales_public_surface_complete():
+    from i18n_service import locale_ui_complete
+
+    for code in ("ar", "es", "ja", "fr"):
+        assert locale_ui_complete(code), f"{code} missing public-surface translations"

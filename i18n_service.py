@@ -169,6 +169,12 @@ ALLOW_IDENTICAL: frozenset[str] = frozenset(
         "oracle.share.whatsapp",
         "oracle.share.telegram",
         "oracle.share.reddit",
+        "social.link.x",
+        "social.link.reddit",
+        "social.link.facebook",
+        "social.link.telegram",
+        "social.link.linkedin",
+        "discipline.title",
     }
 )
 
@@ -261,8 +267,10 @@ def public_surface_keys() -> tuple[str, ...]:
     for rel in (
         "templates/landing.html",
         "templates/login.html",
+        "templates/swap.html",
         "templates/pricing.html",
         "templates/partials/site_top_nav.html",
+        "templates/partials/oracle_workspace.html",
         "templates/partials/lang_switcher.html",
         "templates/partials/site_footer.html",
         "templates/oracle_accuracy.html",
@@ -1530,6 +1538,18 @@ _CLIENT_CATALOG_PREFIXES: tuple[str, ...] = (
     "ledger.js.",
     "ledger.panel.",
     "ledger.cta.",
+    "ledger.proof_chain.",
+    "ledger.glass.",
+    "ledger.regime.",
+    "ledger.mev.",
+    "ledger.locked.",
+    "ledger.losing.",
+    "ledger.audit.",
+    "ledger.registry.",
+    "workspace.",
+    "auth.",
+    "discipline.",
+    "swap.",
 )
 
 

@@ -411,7 +411,9 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             }
             if (!wrap) return;
             wrap.style.display = '';
-            wrap.title = fresh.state ? `Freshness: ${fresh.state}` : 'Data freshness';
+            wrap.title = fresh.state
+                ? (i18nT('oracle.freshness.title') + ': ' + fresh.state)
+                : i18nT('oracle.freshness.title');
             wrap.style.opacity = stale ? '0.65' : '1';
         }
         function paintLandingProMeta(proMeta, data, mode) {
@@ -449,7 +451,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             upgradeEl.innerHTML =
                 `<div style="color:var(--text-muted);font-size:.85rem;margin-bottom:.5rem">${esc(data.upgrade_hint.message || '')}` +
                 (teaserLine ? `<br>${teaserLine}` : '') +
-                `</div><button type="button" class="btn-secondary" id="switchProBtn">Switch to Pro</button>`;
+                `</div><button type="button" class="btn-secondary" id="switchProBtn">${esc(i18nT('ui.upgrade_pro'))}</button>`;
             document.getElementById('switchProBtn')?.addEventListener('click', () => {
                 const sel = document.getElementById('landingUxMode');
                 if (sel) sel.value = 'pro';
@@ -465,9 +467,9 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             }
             disc.style.display = 'block';
             disc.innerHTML =
-                `<div style="font-size:.85rem;color:var(--text-muted);margin-bottom:.4rem"><strong style="color:var(--text)">Discipline Mirror</strong> (private) — cure for Dashboard Tourism. Did you follow this model state? <a href="/discipline-mirror" class="landing-inline-link">Open my mirror</a> · <a href="/errors" class="landing-inline-link">See public misses</a></div>` +
-                `<button type="button" class="btn-secondary" id="followedYes">Yes, I followed</button> ` +
-                `<button type="button" class="btn-secondary" id="followedNo">No, I overrode</button>` +
+                `<div style="font-size:.85rem;color:var(--text-muted);margin-bottom:.4rem"><strong style="color:var(--text)">${esc(i18nT('discipline.title'))}</strong> ${esc(i18nT('discipline.landing.tag'))} ${esc(i18nT('discipline.follow_question'))} <a href="/discipline-mirror" class="landing-inline-link">${esc(i18nT('discipline.landing.open_mirror'))}</a> · <a href="/errors" class="landing-inline-link">${esc(i18nT('discipline.landing.public_misses'))}</a></div>` +
+                `<button type="button" class="btn-secondary" id="followedYes">${esc(i18nT('discipline.btn.yes_short'))}</button> ` +
+                `<button type="button" class="btn-secondary" id="followedNo">${esc(i18nT('discipline.btn.no_short'))}</button> ` +
                 `<div id="disciplineMsg" style="margin-top:.4rem;font-size:.78rem;color:var(--text-muted)"></div>`;
             const sendFollow = async (followed) => {
                 const key = localStorage.getItem('bd_user_key') || ('anon_' + _secureRandomId(8));
@@ -485,8 +487,8 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                             opportunity_score: data.opportunity_score,
                         }),
                     });
-                    document.getElementById('disciplineMsg').textContent = 'Saved privately — only you can see your Discipline Mirror.';
-                } catch (error) { console.debug(error); document.getElementById('disciplineMsg').textContent = 'Could not save answer.'; }
+                    document.getElementById('disciplineMsg').textContent = i18nT('discipline.saved_private');
+                } catch (error) { console.debug(error); document.getElementById('disciplineMsg').textContent = i18nT('discipline.save_failed'); }
             };
             document.getElementById('followedYes')?.addEventListener('click', () => sendFollow(true));
             document.getElementById('followedNo')?.addEventListener('click', () => sendFollow(false));
@@ -603,7 +605,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                         oracleEl.textContent = msg;
                         if (detail.upgrade_url || detail.error === 'quota_exceeded') {
                             upgradeEl.style.display = 'block';
-                            upgradeEl.innerHTML = `<a class="btn-primary" href="${esc(safeUrl(detail.upgrade_url) || '/create-checkout-session?tier=pro')}">Upgrade to Pro</a>`;
+                            upgradeEl.innerHTML = `<a class="btn-primary" href="${esc(safeUrl(detail.upgrade_url) || '/create-checkout-session?tier=pro')}">${esc(i18nT('ui.upgrade_pro'))}</a>`;
                         }
                     } else {
                         const offline = window.BDOracleWorkspace && window.BDOracleWorkspace.getOfflinePayload(symbol);

@@ -250,20 +250,20 @@
 
     <section class="panel" id="panel-regime" style="display:none">
         <div class="card">
-            <h2>D5 · Regime-Conditional Models</h2>
-            <p id="regime-status" style="color:var(--muted);font-size:0.9rem">Loading regime registry…</p>
+            <h2>{{ t('ledger.regime.title') }}</h2>
+            <p id="regime-status" style="color:var(--muted);font-size:0.9rem">{{ t('ledger.regime.loading') }}</p>
             <div style="overflow-x:auto;margin-top:1rem">
                 <table>
                     <thead>
                         <tr>
-                            <th>Regime</th>
-                            <th>Confidence ×</th>
-                            <th>Artifact</th>
-                            <th>Status</th>
+                            <th>{{ t('ledger.regime.col_regime') }}</th>
+                            <th>{{ t('ledger.regime.col_confidence') }}</th>
+                            <th>{{ t('ledger.regime.col_artifact') }}</th>
+                            <th>{{ t('ledger.regime.col_status') }}</th>
                         </tr>
                     </thead>
                     <tbody id="regime-body">
-                        <tr><td colspan="4">Loading...</td></tr>
+                        <tr><td colspan="4">{{ t('ledger.js.table_loading_row') }}</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -272,44 +272,44 @@
 
     <section class="panel" id="glass-box-challenge">
         <div class="card">
-            <h2>The Glass Box Challenge</h2>
+            <h2>{{ t('ledger.glass.title') }}</h2>
             <p id="glass-sealed-status" style="margin-top:0.75rem;color:var(--muted);font-size:0.9rem;font-weight:600"></p>
-            <noscript><p>We challenge every competitor to publish their full accuracy ledger — including misses. Labels are not proof.</p></noscript>
-            <p id="glass-challenge" style="margin-top:0.75rem;font-size:0.95rem">BLACKDARK Glass Box Challenge: publish the full ledger — including misses and incorrect model states — with verifiable audit hashes. Verify here.</p>
+            <noscript><p>{{ t('ledger.glass.noscript') }}</p></noscript>
+            <p id="glass-challenge" style="margin-top:0.75rem;font-size:0.95rem">{{ t('ledger.glass.challenge_default') }}</p>
             <p id="glass-context" style="margin-top:0.65rem;color:var(--muted);font-size:0.88rem"></p>
             <ul class="events" id="glass-recent-locked" style="display:none;margin-top:0.65rem"></ul>
             <ol id="glass-event-steps" style="margin:1rem 0 0 1.2rem;color:var(--muted);font-size:0.88rem;line-height:1.7">
-                <li>Pick one macro/crypto event window (date + timezone).</li>
-                <li>Seal ≥3 timed Decision Certificates on /oracle-accuracy#locked before the event.</li>
-                <li>Publish challenge text + ledger link on X/Telegram (human channel choice).</li>
-                <li>After resolution, unlock hits and misses / incorrect model states live on the Public Accuracy Ledger.</li>
-                <li>Invite competitors to publish their full ledgers (including misses).</li>
+                <li>{{ t('ledger.glass.step1') }}</li>
+                <li>{{ t('ledger.glass.step2') }}</li>
+                <li>{{ t('ledger.glass.step3') }}</li>
+                <li>{{ t('ledger.glass.step4') }}</li>
+                <li>{{ t('ledger.glass.step5') }}</li>
             </ol>
             <div class="cta-row" style="margin-top:1rem;justify-content:flex-start">
-                <button class="btn btn-secondary" type="button" id="copyGlassBtn">Copy challenge text</button>
-                <a class="btn btn-secondary" id="glassShareX" href="#" target="_blank" rel="noopener">Share X</a>
-                <a class="btn btn-secondary" id="glassShareTg" href="#" target="_blank" rel="noopener">Share TG</a>
-                <a class="btn btn-secondary" href="/b2b#fund-terminal">Emerging Fund Terminal</a>
-                <a class="btn btn-secondary" href="/capabilities">Trust OS layers</a>
+                <button class="btn btn-secondary" type="button" id="copyGlassBtn">{{ t('ledger.glass.copy_challenge') }}</button>
+                <a class="btn btn-secondary" id="glassShareX" href="#" target="_blank" rel="noopener">{{ t('ledger.glass.share_x') }}</a>
+                <a class="btn btn-secondary" id="glassShareTg" href="#" target="_blank" rel="noopener">{{ t('ledger.glass.share_tg') }}</a>
+                <a class="btn btn-secondary" href="/b2b#fund-terminal">{{ t('ledger.glass.fund_terminal') }}</a>
+                <a class="btn btn-secondary" href="/capabilities">{{ t('ledger.glass.trust_layers') }}</a>
             </div>
             <details style="margin-top:1rem">
-                <summary style="cursor:pointer;color:var(--accent);font-weight:600">Operator runbook (launch packaging)</summary>
-                <p id="glass-operator-status" style="margin-top:.65rem;color:var(--muted);font-size:0.85rem">Loading operator notes…</p>
+                <summary style="cursor:pointer;color:var(--accent);font-weight:600">{{ t('ledger.glass.operator_summary') }}</summary>
+                <p id="glass-operator-status" style="margin-top:.65rem;color:var(--muted);font-size:0.85rem">{{ t('ledger.glass.operator_loading') }}</p>
             </details>
             <p style="margin-top:0.75rem;font-size:0.75rem;color:var(--muted)">
-                Exact launch timing and channel are human. Product machinery + event template are live via <code>/api/glass-box/challenge</code> · operator pack <code>/api/glass-box/operator</code>.
+                {{ t('ledger.glass.footnote') }}
             </p>
-            <p class="anti-hype" style="margin-top:0.65rem;font-size:0.72rem;color:var(--muted)"><strong>Anti-Hype</strong> · Not financial advice. Verify claims on this Public Accuracy Ledger.</p>
+            <p class="anti-hype" style="margin-top:0.65rem;font-size:0.72rem;color:var(--muted)">{{ t('ledger.glass.anti_hype') }}</p>
         </div>
     </section>
 
     <section class="panel" id="mev-report">
         <div class="card">
             <h2>{{ t('ledger.panel.mev_title') }}</h2>
-            <p id="mev-status" style="color:var(--muted);font-size:0.9rem">Loading risk posture…</p>
-            <ul class="events" id="mev-mitigations"><li>Loading...</li></ul>
+            <p id="mev-status" style="color:var(--muted);font-size:0.9rem">{{ t('ledger.mev.loading_status') }}</p>
+            <ul class="events" id="mev-mitigations"><li>{{ t('ledger.js.table_loading_row') }}</li></ul>
             <div class="cta-row" style="margin-top:1rem;justify-content:flex-start">
-                <button class="btn btn-secondary" type="button" id="copyMevBtn">Copy share text</button>
+                <button class="btn btn-secondary" type="button" id="copyMevBtn">{{ t('ledger.mev.copy_share') }}</button>
             </div>
             <p id="mev-compliance" style="margin-top:0.65rem;font-size:0.72rem;color:var(--muted)"></p>
         </div>
@@ -367,10 +367,10 @@
     <section class="panel" id="locked">
         <div class="card">
             <h2>{{ t('ledger.panel.locked_title') }}</h2>
-            <p id="locked-status" style="color:var(--muted);font-size:0.9rem">Loading sealed forecasts…</p>
-            <ul class="events" id="locked-list"><li>Loading...</li></ul>
+            <p id="locked-status" style="color:var(--muted);font-size:0.9rem">{{ t('ledger.locked.loading_status') }}</p>
+            <ul class="events" id="locked-list"><li>{{ t('ledger.js.table_loading_row') }}</li></ul>
             <div class="cta-row" style="margin-top:1rem;justify-content:flex-start">
-                <button class="btn btn-secondary" type="button" id="shareLedgerBtn">Copy share text</button>
+                <button class="btn btn-secondary" type="button" id="shareLedgerBtn">{{ t('ledger.js.copy_share') }}</button>
                 <a class="btn btn-secondary" id="ledgerShareX" href="#" target="_blank" rel="noopener">Share X</a>
                 <a class="btn btn-secondary" id="ledgerShareTg" href="#" target="_blank" rel="noopener">Share TG</a>
             </div>
@@ -401,7 +401,7 @@
                     <span class="misses-stat-lbl">{{ t('ledger.panel.misses_rate_label') }}</span>
                 </div>
             </div>
-            <p id="losing-status" style="color:var(--muted);font-size:0.9rem">Loading honest misses…</p>
+            <p id="losing-status" style="color:var(--muted);font-size:0.9rem">{{ t('ledger.losing.loading_status') }}</p>
             <p id="losing-archive-note" style="display:none;color:var(--warning);font-size:0.85rem;margin:.5rem 0"></p>
             <div class="misses-recent-wrap">
                 <h3>{{ t('ledger.panel.misses_recent_title') }}</h3>
@@ -424,12 +424,12 @@
             </div>
             <div class="misses-detail-lists" aria-hidden="true">
                 <h3>{{ t('ledger.panel.verified_errors') }}</h3>
-                <ul class="events" id="losing-errors-list"><li>Loading...</li></ul>
+                <ul class="events" id="losing-errors-list"><li>{{ t('ledger.js.table_loading_row') }}</li></ul>
                 <h3>{{ t('ledger.panel.partial_outcomes') }}</h3>
-                <ul class="events" id="losing-partial-list"><li>Loading...</li></ul>
+                <ul class="events" id="losing-partial-list"><li>{{ t('ledger.js.table_loading_row') }}</li></ul>
             </div>
             <div class="cta-row" style="margin-top:1rem;justify-content:flex-start">
-                <button class="btn btn-secondary" type="button" id="copyLosingBtn">Copy share text</button>
+                <button class="btn btn-secondary" type="button" id="copyLosingBtn">{{ t('ledger.js.copy_share') }}</button>
                 <a class="btn btn-secondary" href="/miss-bounty-log">{{ t('ledger.cta.bounty_log') }}</a>
                 <a class="btn btn-secondary" href="#glass-box-challenge">{{ t('ledger.panel.transparency_link') }}</a>
             </div>
@@ -441,7 +441,7 @@
     <section class="panel" id="audit-challenge">
         <div class="card">
             <h2>{{ t('ledger.panel.audit_title') }}</h2>
-            <p id="audit-status" style="color:var(--muted);font-size:0.9rem">Loading live verify…</p>
+            <p id="audit-status" style="color:var(--muted);font-size:0.9rem">{{ t('ledger.audit.loading_status') }}</p>
             <p style="color:var(--muted);font-size:0.88rem;margin-top:.5rem">{{ t('ledger.panel.audit_lead') }}</p>
             <p style="margin-top:0.65rem;font-size:0.72rem;color:var(--muted)">{{ t('ledger.panel.anti_hype_audit') }}</p>
         </div>
@@ -450,7 +450,7 @@
     <section class="panel" id="panel-registry" style="display:none">
         <div class="card">
             <h2>D8 · Feature lexicon (public registry)</h2>
-            <p id="registry-status" style="color:var(--muted);font-size:0.9rem">Loading feature lexicon…</p>
+            <p id="registry-status" style="color:var(--muted);font-size:0.9rem">{{ t('ledger.registry.loading_status') }}</p>
             <div style="overflow-x:auto;margin-top:1rem">
                 <table>
                     <thead>
@@ -460,7 +460,7 @@
                         </tr>
                     </thead>
                     <tbody id="registry-body">
-                        <tr><td colspan="2">Loading...</td></tr>
+                        <tr><td colspan="2">{{ t('ledger.js.table_loading_row') }}</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -497,7 +497,7 @@
                         </tr>
                     </thead>
                     <tbody id="predictions-body">
-                        <tr><td colspan="8">Loading...</td></tr>
+                        <tr><td colspan="8">{{ t('ledger.js.table_loading_row') }}</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -508,7 +508,7 @@
         <div class="card">
             <h2>Learning experience log</h2>
             <ul class="events" id="events-list">
-                <li>Loading...</li>
+                <li>{{ t('ledger.js.table_loading_row') }}</li>
             </ul>
         </div>
     </section>
@@ -604,13 +604,13 @@
             panel.innerHTML =
                 `<span style="color:var(--danger)">` +
                 `${esc(text)} · ` +
-                `Use <strong>Verify Audit Chain</strong> to retry, or refresh the page.` +
+                `${i18nT('ledger.js.proof_retry_html')}` +
                 `</span>`;
         }
 
         function setProofPanelLoading(label) {
             const panel = document.getElementById('proof-panel');
-            if (panel) panel.textContent = label || 'Loading chain…';
+            if (panel) panel.textContent = label || i18nT('ledger.proof_chain.loading');
         }
 
         function renderLedgerFailure(reason, opts) {
@@ -1056,7 +1056,7 @@
         }
 
         async function refreshProofChainPanel(showLoading) {
-            if (showLoading) setProofPanelLoading('Verifying audit chain…');
+            if (showLoading) setProofPanelLoading(i18nT('ledger.js.proof_verify_chain'));
             try {
                 const verify = await fetchJsonWithTimeout(
                     '/api/oracle/audit-chain/verify',
@@ -1239,7 +1239,7 @@
         }
 
         async function loadAccuracy() {
-            setProofPanelLoading('Loading chain…');
+            setProofPanelLoading(i18nT('ledger.proof_chain.loading'));
             try {
                 const data = await fetchJsonWithTimeout(
                     '/api/oracle/accuracy/public',
@@ -1267,10 +1267,7 @@
                     return;
                 }
                 const fetchErr = formatLedgerFetchError(error);
-                renderProofPanelFailure(
-                    'Could not load /api/oracle/accuracy/public (' + fetchErr + '). ' +
-                    'Ledger counters may be stale until the request succeeds.'
-                );
+                renderProofPanelFailure(i18nT('ledger.js.public_fetch_error', { detail: fetchErr }));
                 renderLedgerFailure(fetchErr, { skipLosing: true });
             }
         }
@@ -1280,11 +1277,11 @@
                 const data = await fetchJsonWithTimeout('/api/locked-predictions?limit=12');
                 const st = data.status || {};
                 document.getElementById('locked-status').textContent =
-                    `Sealed forecasts · locked=${st.locked ?? 0} · revealed=${st.unlocked ?? 0} · Glass Box cadence`;
+                    i18nT('ledger.js.locked_status', { locked: st.locked ?? 0, unlocked: st.unlocked ?? 0 });
                 const rows = data.predictions || [];
                 const list = document.getElementById('locked-list');
                 if (!rows.length) {
-                    list.innerHTML = '<li>No locked predictions yet — seal before the next major macro event.</li>';
+                    list.innerHTML = '<li>' + esc(i18nT('ledger.js.locked_empty')) + '</li>';
                 } else {
                     list.innerHTML = rows.map(r =>
                         `<li><strong>${esc(r.event_name || 'event')}</strong> · ${esc(r.asset || '')} · ` +
@@ -1547,7 +1544,7 @@
                         }) || `10Y: ${t10.value}%`,
                     );
                 }
-                if (st) st.textContent = lines.length ? 'FRED · live macro snapshot' : i18nT('ledger.panel.fred_unavailable');
+                if (st) st.textContent = lines.length ? i18nT('ledger.js.fred_live_snapshot') : i18nT('ledger.panel.fred_unavailable');
                 if (!list) return;
                 if (!lines.length) {
                     list.innerHTML = '<li>' + esc(i18nT('ledger.panel.fred_unavailable')) + '</li>';

@@ -136,7 +136,7 @@
     <!-- bd-global-header .bd-header-util session chrome via partials/global_header.html -->
     <main class="login-main" id="loginMain">
         <div class="login-stack">
-            <nav class="auth-tabs" id="authTabs" aria-label="Authentication mode">
+            <nav class="auth-tabs" id="authTabs" aria-label="{{ t('auth.tabs_aria') }}">
                 <a href="/login" class="auth-tab{% if auth_tab != 'register' %} active{% endif %}" id="tabLogin" data-mode="login">{{ t('login.tab.login') }}</a>
                 <a href="/login?tab=register" class="auth-tab{% if auth_tab == 'register' %} active{% endif %}" id="tabRegister" data-mode="register">{{ t('login.tab.signup') }}</a>
             </nav>
@@ -232,11 +232,11 @@
         </div>
 
         <form id="mfaForm" class="hidden" data-bd-submit-call="doMfa">
-            <h1>Verify sign-in</h1>
-            <label for="mfaCode">Authenticator code</label>
-            <input type="text" id="mfaCode" inputmode="numeric" autocomplete="one-time-code" placeholder="6-digit code or recovery" required>
-            <button type="submit" class="btn-primary" id="mfaSubmitBtn">Verify MFA</button>
-            <button type="button" class="btn-secondary" data-bd-call="showLogin">Back</button>
+            <h1>{{ t('auth.verify_signin_title') }}</h1>
+            <label for="mfaCode">{{ t('auth.mfa_code_label') }}</label>
+            <input type="text" id="mfaCode" inputmode="numeric" autocomplete="one-time-code" placeholder="{{ t('auth.mfa_code_placeholder') }}" required>
+            <button type="submit" class="btn-primary" id="mfaSubmitBtn">{{ t('auth.mfa_verify_btn') }}</button>
+            <button type="button" class="btn-secondary" data-bd-call="showLogin">{{ t('auth.back') }}</button>
         </form>
 
         <form id="forgotForm" class="hidden" data-bd-submit-call="doForgot">
@@ -337,8 +337,8 @@
             if (!input || !btn) return;
             const show = input.type === 'password';
             input.type = show ? 'text' : 'password';
-            btn.textContent = show ? 'Hide password' : 'Show password';
-            btn.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+            btn.textContent = show ? i18nT('auth.hide_password') : i18nT('auth.show_password');
+            btn.setAttribute('aria-label', show ? i18nT('auth.hide_password') : i18nT('auth.show_password'));
             btn.setAttribute('aria-pressed', show ? 'true' : 'false');
         }
         async function readApiError(res) {
@@ -477,7 +477,7 @@
                 }
                 btn.disabled = true;
                 btn.setAttribute('aria-busy', 'true');
-                btn.innerHTML = '<span class="btn-spinner" aria-hidden="true"></span> ' + (busyLabel || 'Loading…');
+                btn.innerHTML = '<span class="btn-spinner" aria-hidden="true"></span> ' + (busyLabel || i18nT('auth.loading'));
                 return;
             }
             btn.disabled = false;
@@ -485,7 +485,7 @@
             btn.textContent = btn.dataset.defaultLabel || btn.textContent;
         }
         function setLoginSubmitLoading(loading) {
-            setSubmitLoading('loginSubmitBtn', loading, 'Signing in…');
+            setSubmitLoading('loginSubmitBtn', loading, i18nT('auth.signing_in'));
         }
         async function doLogin(e) {
             e.preventDefault();
@@ -514,14 +514,14 @@
                     hideAll();
                     document.getElementById('mfaForm').classList.remove('hidden');
                     setAuthChromeVisible(false);
-                    setMsg('Enter your authenticator code to finish login.', true);
+                    setMsg(i18nT('auth.mfa_enter_code'), true);
                     setLoginSubmitLoading(false);
                     return;
                 }
                 saveAuth(d);
             } catch (error) {
                 console.debug(error);
-                setMsg('Sign in failed. Please try again.', false);
+                setMsg(i18nT('auth.sign_in_failed'), false);
                 setLoginSubmitLoading(false);
             }
         }
@@ -529,7 +529,7 @@
             e.preventDefault();
             const mfaBtn = document.getElementById('mfaSubmitBtn');
             if (mfaBtn?.disabled) return;
-            setSubmitLoading('mfaSubmitBtn', true, 'Verifying…');
+            setSubmitLoading('mfaSubmitBtn', true, i18nT('auth.verifying'));
             try {
                 const res = await fetch('/api/auth/mfa/complete', {
                     method: 'POST',
@@ -558,7 +558,7 @@
             if (!validateRegisterForm()) return;
             const regBtn = document.getElementById('regSubmit');
             if (regBtn?.disabled) return;
-            setSubmitLoading('regSubmit', true, 'Creating account…');
+            setSubmitLoading('regSubmit', true, i18nT('auth.creating_account'));
             try {
                 const res = await fetch('/api/auth/register', {
                     method: 'POST',
@@ -597,7 +597,7 @@
             e.preventDefault();
             const forgotBtn = document.getElementById('forgotSubmitBtn');
             if (forgotBtn?.disabled) return;
-            setSubmitLoading('forgotSubmitBtn', true, 'Sending…');
+            setSubmitLoading('forgotSubmitBtn', true, i18nT('auth.sending'));
             try {
                 const res = await fetch('/api/auth/forgot-password', {
                     method: 'POST',
@@ -625,7 +625,7 @@
             e.preventDefault();
             const forgotUserBtn = document.getElementById('forgotUserSubmitBtn');
             if (forgotUserBtn?.disabled) return;
-            setSubmitLoading('forgotUserSubmitBtn', true, 'Sending…');
+            setSubmitLoading('forgotUserSubmitBtn', true, i18nT('auth.sending'));
             try {
                 const res = await fetch('/api/auth/forgot-username', {
                     method: 'POST',

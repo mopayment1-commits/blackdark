@@ -16,46 +16,46 @@
 </style>
 <div id="bdDecisionToast" class="bd-decision-toast" role="status" hidden></div>
 
-<section id="watchlist" class="bd-workspace-section section-desk-only hide-in-room" aria-label="Watchlist">
-  <h3 class="bd-workspace-heading">Watchlist</h3>
-  <p class="sub">Track symbols locally — latest Oracle quick decision per row (stored on this device).</p>
+<section id="watchlist" class="bd-workspace-section section-desk-only hide-in-room" aria-label="{{ t('workspace.watchlist.aria') }}">
+  <h3 class="bd-workspace-heading">{{ t('workspace.watchlist.title') }}</h3>
+  <p class="sub">{{ t('workspace.watchlist.lead') }}</p>
   <div class="toolbar" style="flex-wrap:wrap;gap:.5rem;margin-bottom:.65rem">
-    <label for="bdWatchlistInput" class="bd-visually-hidden">Add symbol to watchlist</label>
-    <input id="bdWatchlistInput" type="text" maxlength="12" placeholder="e.g. BTC"
+    <label for="bdWatchlistInput" class="bd-visually-hidden">{{ t('workspace.watchlist.add_label') }}</label>
+    <input id="bdWatchlistInput" type="text" maxlength="12" placeholder="{{ t('workspace.watchlist.placeholder') }}"
       style="width:6rem;padding:.45rem .55rem;border-radius:8px;border:1px solid #2a2a35;background:#1a1a24;color:#e4e4e7">
-    <button type="button" class="btn secondary" id="bdWatchlistAddBtn">Add</button>
-    <button type="button" class="btn secondary" data-bd-call="openCompare">Compare</button>
+    <button type="button" class="btn secondary" id="bdWatchlistAddBtn">{{ t('workspace.watchlist.add_btn') }}</button>
+    <button type="button" class="btn secondary" data-bd-call="openCompare">{{ t('workspace.compare.btn') }}</button>
   </div>
   <ul id="bdWatchlistRows" class="bd-watchlist-rows"></ul>
 </section>
 
-<section id="my-decisions" class="bd-workspace-section section-desk-only hide-in-room" aria-label="My Decisions">
-  <h3 class="bd-workspace-heading">My Decisions</h3>
-  <p class="sub">Last 50 Oracle decisions on this device (symbol, action, score, time, cert hash).</p>
+<section id="my-decisions" class="bd-workspace-section section-desk-only hide-in-room" aria-label="{{ t('workspace.my_decisions.aria') }}">
+  <h3 class="bd-workspace-heading">{{ t('workspace.my_decisions.title') }}</h3>
+  <p class="sub">{{ t('workspace.my_decisions.lead') }}</p>
   <ul id="bdMyDecisionsList" class="bd-decisions-list"></ul>
 </section>
 
 <div id="bdCompareModal" class="bd-modal-backdrop" hidden role="dialog" aria-modal="true" aria-labelledby="bdCompareTitle">
   <div class="bd-modal-card">
-    <h3 id="bdCompareTitle">Compare assets</h3>
-    <p class="sub">Pick 2–3 symbols — same Oracle quick data.</p>
+    <h3 id="bdCompareTitle">{{ t('workspace.compare.title') }}</h3>
+    <p class="sub">{{ t('workspace.compare.lead') }}</p>
     <div class="bd-compare-picks">
       {% for sym in oracle_symbols|default(['BTC', 'ETH', 'SOL', 'BNB', 'XRP']) %}
       <label><input type="checkbox" class="bd-compare-pick" value="{{ sym }}"> {{ sym }}</label>
       {% endfor %}
     </div>
     <div id="bdCompareBody"></div>
-    <button type="button" class="btn secondary" id="bdCompareClose">Close</button>
+    <button type="button" class="btn secondary" id="bdCompareClose">{{ t('workspace.compare.close') }}</button>
   </div>
 </div>
 
 <div id="bdShareDecisionModal" class="bd-modal-backdrop" hidden role="dialog" aria-modal="true" aria-labelledby="bdShareDecisionTitle">
   <div class="bd-modal-card">
-    <h3 id="bdShareDecisionTitle">Share decision</h3>
-    <label for="bdShareDecisionText" class="bd-visually-hidden">Decision text to copy</label>
+    <h3 id="bdShareDecisionTitle">{{ t('workspace.share.title') }}</h3>
+    <label for="bdShareDecisionText" class="bd-visually-hidden">{{ t('workspace.share.title') }}</label>
     <textarea id="bdShareDecisionText" rows="5" readonly style="width:100%;margin:.65rem 0;font-size:.85rem"></textarea>
-    <button type="button" class="btn secondary" id="bdShareDecisionCopy">Copy</button>
-    <button type="button" class="btn secondary" id="bdShareDecisionClose">Close</button>
+    <button type="button" class="btn secondary" id="bdShareDecisionCopy">{{ t('workspace.share.copy') }}</button>
+    <button type="button" class="btn secondary" id="bdShareDecisionClose">{{ t('workspace.share.close') }}</button>
   </div>
 </div>
 </div>
