@@ -186,6 +186,13 @@ async def test_pages_and_api_switch_language():
         assert data.get("decision_sentence")
 
 
+def test_all_25_locales_public_surface_complete():
+    from i18n_service import LOCALES, locale_ui_complete
+
+    failed = [code for code in REQUIRED_LOCALES if not locale_ui_complete(code)]
+    assert not failed, f"locale_ui_complete false: {failed}"
+
+
 def test_decision_sentence_localized():
     from i18n_service import decision_sentence
 
