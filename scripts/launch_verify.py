@@ -154,7 +154,7 @@ def main() -> int:
         (f"{base}/health/ready", "readiness", None),
         (f"{base}/api/services/status", "services", frozenset({200, 503})),
         # Some Railway builds omit the billing router; launch/readiness exposes billing_configured.
-        (f"{base}/api/billing/status", "billing", frozenset({200, 404})),
+        (f"{base}/api/billing/status", "billing", frozenset({200})),
         (f"{base}/api/arbitrage/opportunities", "arbitrage", frozenset({200, 401, 503})),
     ]
     total = len(pages) + len(apis)

@@ -307,6 +307,9 @@ PUBLIC_API_EXACT: frozenset[str] = frozenset(
         "/api/services/status",
         "/api/trust-pulse",
         "/api/telegram/free/status",
+        "/api/pricing",
+        "/api/pricing/upgrade-path",
+        "/api/pricing/signup-plans",
         # Go-live probes (docs/GO_LIVE_AR.md — no secrets in payloads)
         "/api/launch/readiness",
         "/api/gtm/status",

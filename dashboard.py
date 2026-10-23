@@ -980,7 +980,9 @@ try:
 
     app.include_router(billing_router)
 except ImportError:
-    pass
+    logger.exception("Billing router import failed — /api/billing/status served via GTM fallback")
+except Exception:
+    logger.exception("Billing router mount failed — /api/billing/status served via GTM fallback")
 
 try:
     from api.routers.entitlements import router as entitlements_router
