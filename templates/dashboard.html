@@ -338,7 +338,7 @@
                 <ul id="tpArbList" style="list-style:none;padding:0;margin:0"></ul>
             </div>
             <div class="tp-foot" id="tpFoot">{{ t('dash.tp.foot') }}</div>
-            <div class="entry-rail hide-in-room tp-entry-rail" id="entryRail" aria-label="Primary entries"></div>
+            <div class="entry-rail hide-in-room tp-entry-rail" id="entryRail" aria-label="{{ t('dash.js.entry_rail_aria') }}"></div>
         </section>
 
         {% include 'partials/oracle_workspace.html' %}
@@ -1921,23 +1921,23 @@
             const ev = proof.evidence_class;
             if (ev) {
                 const evCls = ev === 'SIM' ? 'warn' : (ev === 'DELAYED' ? '' : 'ok');
-                chips.push(`<span class="tp-chip ${evCls}">Evidence: ${esc(ev)}</span>`);
+                chips.push(`<span class="tp-chip ${evCls}">${esc(i18nT("dash.js.evidence", { ev }))}</span>`);
             }
             const netEdge = (lastVisibleTrust.netEdge && lastVisibleTrust.netEdge.net_edge_truth_score) || null;
             if (netEdge && netEdge.truth_score != null) {
-                chips.push(`<span class="tp-chip ok">Net-Edge: ${esc(netEdge.truth_score)}</span>`);
+                chips.push(`<span class="tp-chip ok">${esc(i18nT("dash.js.net_edge", { score: netEdge.truth_score }))}</span>`);
             }
             const ledgerLabel = ledger.label
                 || (lastVisibleTrust.ledger && lastVisibleTrust.ledger.ledger_sample_label)
-                || 'Verify Ledger';
+                || i18nT('dash.js.verify_ledger');
             const ledgerHref = safeShareUrl(ledger.href) || '/oracle-accuracy#launch57-ledger-sample';
             chips.push(`<a class="tp-chip ok" href="${ledgerHref}">${esc(ledgerLabel)}</a>`);
             if (proof.certificate_hash) {
-                chips.push(`<button type="button" class="tp-chip ok" data-bd-call="openDecisionCertificate" style="border:none;cursor:pointer;font:inherit">cert ${esc(String(proof.certificate_hash).slice(0,12))}…</button>`);
+                chips.push(`<button type="button" class="tp-chip ok" data-bd-call="openDecisionCertificate" style="border:none;cursor:pointer;font:inherit">${esc(i18nT("dash.js.cert_prefix"))} ${esc(String(proof.certificate_hash).slice(0,12))}…</button>`);
             }
-            if (proof.prediction_id) chips.push(`<span class="tp-chip">id ${esc(proof.prediction_id)}</span>`);
+            if (proof.prediction_id) chips.push(`<span class="tp-chip">${esc(i18nT("dash.js.id_prefix"))} ${esc(proof.prediction_id)}</span>`);
             if (proof.watermark) chips.push(`<span class="tp-wm">${esc(proof.watermark)}</span>`);
-            if (p.veto) chips.push(`<span class="tp-chip warn">Veto</span>`);
+            if (p.veto) chips.push(`<span class="tp-chip warn">${esc(i18nT("dash.js.veto_chip"))}</span>`);
             return chips.join('');
         }
         function renderPulseFlip(p, fromStream) {
@@ -1957,14 +1957,14 @@
             const contEl = document.getElementById('tpContinuity');
             if (cont.locked) {
                 if (cont.flipped && cont.summary) {
-                    contEl.innerHTML = esc(cont.summary) + ' · <a href="#" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]" data-bd-prevent="1">' + esc(cont.upgrade_hint||'Decision Pro') + '</a>';
+                    contEl.innerHTML = esc(cont.summary) + ' · <a href="#" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]" data-bd-prevent="1">' + esc(cont.upgrade_hint||i18nT('dash.js.decision_pro')) + '</a>';
                 } else {
                     contEl.textContent = cont.upgrade_hint || '';
                 }
                 return;
             }
             if (cont.summary) {
-                const extra = (cont.new_factors||[]).length ? ' · New factors: ' + cont.new_factors.join(', ') : '';
+                const extra = (cont.new_factors||[]).length ? i18nT('dash.js.new_factors', { factors: cont.new_factors.join(', ') }) : '';
                 contEl.textContent = cont.summary + extra;
                 return;
             }
@@ -2017,7 +2017,7 @@
             if (ledger.honesty_line) {
                 const foot = p.compliance && p.compliance.disclaimer ? p.compliance.disclaimer : '';
                 const footBit = foot ? '<br>' + escapeHtml(foot) : '';
-                document.getElementById('tpFoot').innerHTML = '<strong>Anti-Hype</strong> · ' + escapeHtml(ledger.honesty_line) + footBit;
+                document.getElementById('tpFoot').innerHTML = '<strong>' + esc(i18nT('common.anti_hype')) + '</strong> · ' + escapeHtml(ledger.honesty_line) + footBit;
             }
             savePulseVisit(p);
         }
@@ -2065,7 +2065,7 @@
         function flashShareProofButton(label, resetMs) {
             const btn = document.getElementById('tpShareBtn');
             if (!btn) return;
-            const prev = btn.dataset.shareLabel || btn.textContent || 'Share Proof';
+            const prev = btn.dataset.shareLabel || btn.textContent || i18nT('dash.tp.share_proof');
             if (!btn.dataset.shareLabel) btn.dataset.shareLabel = prev;
             btn.textContent = label;
             btn.classList.remove('bd-motion-share');
@@ -2073,7 +2073,7 @@
             btn.classList.add('bd-motion-share');
             window.clearTimeout(flashShareProofButton._t);
             flashShareProofButton._t = window.setTimeout(() => {
-                btn.textContent = btn.dataset.shareLabel || 'Share Proof';
+                btn.textContent = btn.dataset.shareLabel || i18nT('dash.tp.share_proof');
             }, resetMs || 2200);
         }
 
@@ -2152,12 +2152,12 @@
                     if (safe.startsWith('/')) goNavUrl(safe);
                     else if (window.BDDomSafe && window.BDDomSafe.openWindow) openNavUrl(safe);
                     else window.open(safe, '_blank', 'noopener');
-                    flashShareProofButton('Opened share');
+                    flashShareProofButton(i18nT('dash.js.opened_share'));
                     return;
                 }
             }
 
-            flashShareProofButton('Copy blocked', 2400);
+            flashShareProofButton(i18nT('dash.js.copy_blocked'), 2400);
         }
         window.shareTrustPulse = shareTrustPulse;
 
@@ -2518,7 +2518,7 @@
                     return;
                 }
                 series.setData([]);
-                if (note) note.textContent = 'Chart unavailable — no OHLCV from Binance or fallback.';
+                if (note) note.textContent = i18nT('dash.js.chart_unavailable');
             } catch (error) {
                 console.debug(error);
                 if (note) note.textContent = 'Chart unavailable — no OHLCV from Binance or fallback.';
@@ -2555,18 +2555,18 @@
                 const d = await res.json();
                 if (res.status === 401 || res.status === 403) {
                     const detail = d.detail || {};
-                    el.innerHTML = `<div class="empty">${esc(detail.message || 'Decision Pro required for daily report')}
-                        <div style="margin-top:.65rem"><button class="btn btn-primary btn-upgrade-cta" type="button" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">Upgrade Pro</button></div></div>`;
+                    el.innerHTML = `<div class="empty">${esc(detail.message || i18nT('dash.js.daily_pro_report'))}
+                        <div style="margin-top:.65rem"><button class="btn btn-primary btn-upgrade-cta" type="button" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">${esc(i18nT("dash.js.upgrade_pro_short"))}</button></div></div>`;
                     return;
                 }
                 if (!res.ok) throw new Error('fail');
-                const title = d.title || d.headline || 'Daily research brief';
+                const title = d.title || d.headline || i18nT('dash.js.daily_brief_title');
                 const summary = d.narrative || d.summary || d.executive_summary || d.one_liner || '';
                 const bullets = [
-                    d.oracle_accuracy_percent != null ? ('Oracle accuracy ' + d.oracle_accuracy_percent + '%') : null,
-                    d.moat_score != null ? ('Moat ' + d.moat_score + '/100') : null,
-                    d.whale_alerts_24h != null ? ('Whale alerts ' + d.whale_alerts_24h) : null,
-                    d.arb_alerts_24h != null ? ('Arb alerts ' + d.arb_alerts_24h) : null,
+                    d.oracle_accuracy_percent != null ? i18nT('dash.js.oracle_accuracy', { pct: d.oracle_accuracy_percent }) : null,
+                    d.moat_score != null ? i18nT('dash.js.moat', { score: d.moat_score }) : null,
+                    d.whale_alerts_24h != null ? i18nT('dash.js.whale_alerts_24h', { n: d.whale_alerts_24h }) : null,
+                    d.arb_alerts_24h != null ? i18nT('dash.js.arb_alerts_24h', { n: d.arb_alerts_24h }) : null,
                 ].filter(Boolean).slice(0, 4);
                 const bulletHtml = bullets.length
                     ? ('<ul style="margin:.5rem 0 0 1.1rem;font-size:.85rem;color:#a1a1aa">'
@@ -2575,9 +2575,9 @@
                     : '';
                 el.innerHTML = '<strong>' + esc(title) + '</strong>'
                     + '<div style="margin-top:.35rem;font-size:.9rem;color:#a1a1aa">'
-                    + esc(summary || 'Brief ready — open Markdown for full detail.') + '</div>'
+                    + esc(summary || i18nT('dash.js.brief_ready')) + '</div>'
                     + bulletHtml
-                    + '<div style="margin-top:.55rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · Research brief, not advice · Verify Ledger</div>';
+                    + '<div style="margin-top:.55rem;font-size:.72rem;color:#71717a"><strong>' + esc(i18nT('common.anti_hype')) + '</strong> · ' + esc(i18nT('dash.js.daily_foot')) + '</div>';
             } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">' + esc(i18nT('ui.daily_unavailable')) + '</div>'; }
         }
 
@@ -2590,18 +2590,18 @@
                 const d = await res.json();
                 if (res.status === 401 || res.status === 403) {
                     const detail = d.detail || {};
-                    el.innerHTML = `<div class="empty">${esc(detail.message || 'Pro/Whale required for subscriber value')}
+                    el.innerHTML = `<div class="empty">${esc(detail.message || i18nT('dash.js.pro_whale_value'))}
                         <div style="margin-top:.65rem"><button class="btn btn-primary btn-upgrade-cta" type="button" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">Upgrade Pro</button></div></div>`;
                     return;
                 }
                 if (!res.ok) throw new Error('fail');
                 const v = d.value || {};
                 const u = d.usage || {};
-                el.innerHTML = `<strong>Subscriber value · ${esc(d.tier || '')}</strong>
-                    <div style="margin-top:.35rem;font-size:.9rem">Calls 30d: ${esc(u.oracle_calls_30d ?? 0)} · Risk warnings: ${esc(u.risk_warnings_30d ?? 0)}</div>
+                el.innerHTML = `<strong>${esc(i18nT('dash.js.subscriber_value', { tier: d.tier || '' }))}</strong>
+                    <div style="margin-top:.35rem;font-size:.9rem">${esc(i18nT('dash.js.calls_30d', { calls: u.oracle_calls_30d ?? 0, warnings: u.risk_warnings_30d ?? 0 }))}</div>
                     <div style="margin-top:.25rem;color:#22d3ee">Est. research value $${esc(Number(v.estimated_value_usd_month || v.estimated_value_usd || v.value_usd || 0).toFixed(0))}
                     ${esc(coversPlanBit(v))}</div>
-                    <div style="margin-top:.55rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · Illustrative usage math · Not guaranteed ROI</div>`;
+                    <div style="margin-top:.55rem;font-size:.72rem;color:#71717a"><strong>${esc(i18nT('common.anti_hype'))}</strong> · ${esc(i18nT('dash.js.subscriber_foot'))}</div>`;
             } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">' + esc(i18nT('ui.value_unavailable')) + '</div>'; }
         }
 
@@ -2627,7 +2627,7 @@
             const el = document.getElementById('oi');
             if (!el || !assets.length) return;
             const rows = assets.map(mapOiDisplayRow);
-            el.innerHTML = '<table><thead><tr><th>Asset</th><th>OI</th><th>Funding</th></tr></thead><tbody>' +
+            el.innerHTML = '<table><thead><tr><th>' + esc(i18nT('dash.js.oi_asset')) + '</th><th>' + esc(i18nT('dash.js.oi_col')) + '</th><th>' + esc(i18nT('dash.js.oi_funding')) + '</th></tr></thead><tbody>' +
                 rows.slice(0,6).map(r => `<tr data-bd-call="setSymbol" data-bd-args="[&quot;${esc(r.asset)}&quot;]" style="cursor:pointer">
                     <td>${esc(r.asset)}</td><td>$${fmt(r.open_interest_usd,0)}</td><td>${fmt(r.funding_rate_pct,4)}%</td></tr>`).join('') + '</tbody></table>';
         }
@@ -2635,17 +2635,17 @@
             const el = document.getElementById('arbList');
             const stats = document.getElementById('arbStats');
             const c = arbitrage.counts || {};
-            if (stats) stats.textContent = `Live · Cross ${c.cross_exchange||0} · Executable ${arbitrage.executable_count||0} · Profitable ${arbitrage.profitable_count||0}`;
+            if (stats) stats.textContent = i18nT('dash.js.arb_live_stats', { cross: c.cross_exchange||0, exec: arbitrage.executable_count||0, prof: arbitrage.profitable_count||0 });
             const opps = arbitrage.opportunities || [];
             if (!el || !opps.length) return;
             el.innerHTML = opps.slice(0,6).map(o => {
                 const half = o.opportunity_half_life || {};
                 const truth = o.net_edge_truth || {};
                 const rejected = o.truth_rejected || truth.reject;
-                const rej = rejected ? ' · REJECTED' : '';
+                const rej = rejected ? ' · ' + i18nT('dash.js.rejected') : '';
                 return `<div class="arb-card"><strong>${esc(o.kind_label||o.kind)}</strong> ${esc(o.asset||'')}
                 <div class="${changeClass(o.net_profit_usdt)}">${changePrefix(o.net_profit_usdt)}$${fmt(Math.abs(o.net_profit_usdt||0),4)}</div>
-                <div style="font-size:.75rem;color:#71717a">Truth ${esc(truth.truth_score??'—')} · HL ${esc(half.remaining_seconds??o.expected_half_life_seconds??'—')}s${rej}</div></div>`;
+                <div style="font-size:.75rem;color:#71717a">${esc(i18nT('dash.js.truth_hl', { truth: truth.truth_score??'—', hl: (half.remaining_seconds??o.expected_half_life_seconds??'—') + 's' }))}${rej}</div></div>`;
             }).join('');
         }
         function applyDashboardSnapshot(d) {
@@ -2687,7 +2687,7 @@
                 }
                 if (!rows.length) {
                     if (el.querySelector('table')) return;
-                    el.innerHTML = '<div class="empty">No OI data</div>';
+                    el.innerHTML = '<div class="empty">' + esc(i18nT('dash.js.no_oi')) + '</div>';
                     return;
                 }
                 renderSnapshotOI(rows);
@@ -2703,7 +2703,7 @@
             if (!el) return;
             if (refresh) {
                 el.innerHTML = '<div class="loading">' + esc(i18nT('dash.arb.scanning')) + '</div>';
-                if (stats) stats.textContent = 'Live scan in progress…';
+                if (stats) stats.textContent = i18nT('dash.js.live_scan_progress');
             }
             try {
                 const url = refresh ? '/api/arbitrage/scan' : '/api/arbitrage/opportunities?live=true';
@@ -2711,13 +2711,13 @@
                 const data = await res.json();
                 if (res.status === 403) {
                     const detail = data.detail || {};
-                    stats.textContent = detail.message || 'Pro required';
-                    el.innerHTML = `<div class="empty">${esc(detail.message || 'Upgrade required for arbitrage')}
+                    stats.textContent = detail.message || i18nT('dash.js.pro_required_arb');
+                    el.innerHTML = `<div class="empty">${esc(detail.message || i18nT('dash.js.upgrade_arb'))}
                         <div style="margin-top:.75rem"><button class="btn btn-primary btn-upgrade-cta" type="button" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">Upgrade Pro</button></div></div>`;
                     return;
                 }
                 const c = data.counts || {};
-                stats.textContent = `Cross ${c.cross_exchange||0} · Executable ${data.executable_count||0} · Profitable ${data.profitable_count||0}`;
+                stats.textContent = i18nT('dash.js.arb_cross_stats', { cross: c.cross_exchange||0, exec: data.executable_count||0, prof: data.profitable_count||0 });
                 const opps = data.opportunities || [];
                 el.innerHTML = opps.length ? opps.slice(0,6).map(o => {
                     const half = o.opportunity_half_life || {};
@@ -2725,30 +2725,30 @@
                     const rejected = o.truth_rejected || truth.reject;
                     return `<div class="arb-card"><strong>${esc(o.kind_label||o.kind)}</strong> ${esc(o.asset||'')}
                     <div class="${changeClass(o.net_profit_usdt)}">${changePrefix(o.net_profit_usdt)}$${fmt(Math.abs(o.net_profit_usdt||0),4)}</div>
-                    <div style="font-size:.75rem;color:#71717a">Truth ${esc(truth.truth_score??'—')} · HL ${esc(half.remaining_seconds??o.expected_half_life_seconds??'—')}s${rejected ? ' · REJECTED' : ''}</div></div>`;
-                }).join('') : '<div class="empty">No opportunities now</div>';
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Scan failed</div>'; }
+                    <div style="font-size:.75rem;color:#71717a">Truth ${esc(truth.truth_score??'—')} · HL ${esc(half.remaining_seconds??o.expected_half_life_seconds??'—')}s${rejected ? ' · ' + i18nT('dash.js.rejected') : ''}</div></div>`;
+                }).join('') : '<div class="empty">' + esc(i18nT('dash.js.no_opportunities')) + '</div>';
+            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">' + esc(i18nT('dash.js.scan_failed')) + '</div>'; }
         }
 
         async function loadInbox(forceRefresh) {
             const el = document.getElementById('inbox');
             const status = document.getElementById('tgStatus');
             if (!el) return;
-            if (forceRefresh) el.innerHTML = '<div class="loading">Refreshing inbox…</div>';
+            if (forceRefresh) el.innerHTML = '<div class="loading">' + esc(i18nT('dash.js.refreshing_inbox')) + '</div>';
             try {
                 const res = await fetch('/api/alerts/inbox?limit=12', { headers: authHeaders() });
                 const data = await res.json();
                 const stats = data.stats || {};
-                status.textContent = `Inbox ${stats.unread||0} unread · ${stats.generosity_note || 'no TV-style 15/3min hard cap'} · works without Telegram`;
+                status.textContent = i18nT('dash.js.inbox_status', { unread: stats.unread||0, note: stats.generosity_note || i18nT('dash.js.inbox_note_default') });
                 const rows = data.alerts || [];
                 el.innerHTML = rows.length ? rows.map(a => `
                     <div class="arb-card" style="cursor:pointer" data-bd-call="markInboxRead" data-bd-args="[&quot;${esc(a.id)}&quot;]">
-                        <strong>${esc(a.title||'Alert')}</strong>
+                        <strong>${esc(a.title||i18nT('dash.js.alert_default'))}</strong>
                         <div style="font-size:.85rem;color:#a1a1aa;margin-top:.25rem">${esc(a.body||'')}</div>
-                        <div style="font-size:.72rem;color:#71717a;margin-top:.35rem">${esc((a.created_at||'').slice(0,19))} · ${a.read ? 'read' : 'new · tap to mark read'}</div>
-                        <div style="margin-top:.4rem;font-size:.7rem;color:#71717a"><strong>Anti-Hype</strong> · Truth + Half-Life gated · Not financial advice</div>
-                    </div>`).join('') : '<div class="empty">No alerts yet — inbox has no TradingView-style 15/3min hard cap</div>';
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Inbox unavailable</div>'; }
+                        <div style="font-size:.72rem;color:#71717a;margin-top:.35rem">${esc((a.created_at||'').slice(0,19))} · ${a.read ? i18nT('dash.js.read') : i18nT('dash.js.tap_mark_read')}</div>
+                        <div style="margin-top:.4rem;font-size:.7rem;color:#71717a"><strong>${esc(i18nT('common.anti_hype'))}</strong> · ${esc(i18nT('dash.js.inbox_card_foot'))}</div>
+                    </div>`).join('') : '<div class="empty">' + esc(i18nT('dash.js.inbox_empty')) + '</div>';
+            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">' + esc(i18nT('dash.js.inbox_unavailable')) + '</div>'; }
         }
 
         async function markInboxRead(id) {
@@ -2780,16 +2780,16 @@
             if (!list) return;
             const rows = data.alerts || [];
             if (!rows.length) {
-                list.innerHTML = '<li class="empty">No price alerts yet.</li>';
+                list.innerHTML = '<li class="empty">' + esc(i18nT('dash.alerts.none')) + '</li>';
                 return;
             }
             list.innerHTML = rows.map((a) => {
                 const cur = a.current_price != null ? (' · now $' + fmt(a.current_price, a.current_price < 1 ? 4 : 2)) : '';
                 const dir = a.direction === 'below' ? 'below' : 'above';
-                const fired = a.triggered ? ' · <strong style="color:#22c55e">triggered</strong>' : (a.condition_met ? ' · <strong style="color:#fbbf24">condition met</strong>' : '');
+                const fired = a.triggered ? ' · <strong style="color:#22c55e">' + esc(i18nT('dash.js.triggered')) + '</strong>' : (a.condition_met ? ' · <strong style="color:#fbbf24">' + esc(i18nT('dash.js.condition_met')) + '</strong>' : '');
                 return `<li style="padding:.45rem 0;border-bottom:1px solid #2a2a35;display:flex;justify-content:space-between;gap:.5rem;align-items:flex-start">
                     <span>${esc(a.symbol)} ${esc(dir)} $${esc(fmt(a.target_price, a.target_price < 1 ? 4 : 2))}${cur}${fired}</span>
-                    <button type="button" class="btn secondary" style="padding:.25rem .5rem;font-size:.72rem" data-pa-del="${esc(a.id)}">Remove</button>
+                    <button type="button" class="btn secondary" style="padding:.25rem .5rem;font-size:.72rem" data-pa-del="${esc(a.id)}">${esc(i18nT("dash.js.remove"))}</button>
                 </li>`;
             }).join('');
             list.querySelectorAll('[data-pa-del]').forEach((btn) => {
@@ -2806,7 +2806,7 @@
                 const data = await res.json();
                 const rows = data.headlines || [];
                 if (!rows.length) {
-                    list.innerHTML = '<li class="empty">No headlines available right now.</li>';
+                    list.innerHTML = '<li class="empty">' + esc(i18nT('dash.js.no_headlines')) + '</li>';
                     if (foot) foot.textContent = data.license_note || '';
                     return;
                 }
@@ -2821,7 +2821,7 @@
                 }).join('');
                 if (foot) foot.textContent = data.attribution ? (data.attribution + ' — ' + (data.license_note || '')) : (data.license_note || '');
             } catch (e) {
-                list.innerHTML = '<li class="empty">Headlines unavailable.</li>';
+                list.innerHTML = '<li class="empty">' + esc(i18nT('dash.js.headlines_unavailable')) + '</li>';
             }
         }
 
@@ -2835,7 +2835,7 @@
             } catch (e) {
                 console.debug(e);
                 const list = document.getElementById('priceAlertsList');
-                if (list) list.innerHTML = '<li class="empty">Price alerts unavailable.</li>';
+                if (list) list.innerHTML = '<li class="empty">' + esc(i18nT('dash.js.price_alerts_unavailable')) + '</li>';
             }
         }
 
@@ -2890,7 +2890,7 @@
         async function loadWhales(refresh) {
             const el = document.getElementById('whaleList');
             const foot = document.getElementById('whaleCompliance');
-            if (refresh) el.innerHTML = '<div class="loading">Scanning…</div>';
+            if (refresh) el.innerHTML = '<div class="loading">' + esc(i18nT('dash.arb.scanning')) + '</div>';
             try {
                 const res = await fetch('/api/whale/signal-vs-noise?limit=8');
                 const data = await res.json();
@@ -2898,7 +2898,7 @@
                 const stories = data.stories || [];
                 const headline = data.one_sentence || data.headline || (stories[0] || '');
                 const headHtml = headline
-                    ? `<div class="whale-card" style="border-color:rgba(34,211,238,.35)"><strong>One sentence · Signal vs Noise</strong><div style="margin-top:.35rem;font-size:.95rem;line-height:1.45">${esc(headline)}</div></div>`
+                    ? `<div class="whale-card" style="border-color:rgba(34,211,238,.35)"><strong>${esc(i18nT('dash.js.whale_one_sentence'))}</strong><div style="margin-top:.35rem;font-size:.95rem;line-height:1.45">${esc(headline)}</div></div>`
                     : '';
                 if (classified.length) {
                     el.innerHTML = headHtml + classified.map(a => `
@@ -2911,10 +2911,10 @@
                 } else if (stories.length) {
                     el.innerHTML = headHtml + stories.slice(0,8).map(s => `<div class="whale-card">${esc(s)}</div>`).join('');
                 } else {
-                    el.innerHTML = '<div class="empty">No whale narratives</div>';
+                    el.innerHTML = '<div class="empty">' + esc(i18nT('dash.js.no_whale')) + '</div>';
                 }
                 if (foot) {
-                    foot.innerHTML = '<strong>Anti-Hype</strong> · Whale labels are classified, not guaranteed alpha · Not financial advice · Verify on Public Accuracy Ledger';
+                    foot.innerHTML = '<strong>' + esc(i18nT('common.anti_hype')) + '</strong> · ' + esc(i18nT('dash.js.whale_foot'));
                 }
             } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">' + esc(i18nT('ui.unavailable')) + '</div>'; }
         }
@@ -2945,7 +2945,7 @@
             document.body.classList.toggle('anti-hype-on', on);
             const btn = document.getElementById('antiHypeBtn');
             if (btn) {
-                btn.textContent = on ? 'Anti-Hype ON' : 'Anti-Hype';
+                btn.textContent = on ? i18nT('dash.js.anti_hype_on_btn') : i18nT('common.anti_hype');
                 btn.setAttribute('aria-pressed', on ? 'true' : 'false');
             }
             const banner = document.getElementById('antiHypeBanner');
@@ -2979,9 +2979,9 @@
                 const d = await res.json();
                 el.innerHTML = (d.top3 || []).map((x, i) =>
                     `<div class="arb-card"><strong>${i + 1}. ${esc(x.title)}</strong><div style="margin-top:.3rem;color:#a1a1aa">${esc(x.detail)}</div>
-                     <a href="${safeShareUrl(x.href) || '/'}" style="font-size:.8rem;color:#22d3ee">Open</a></div>`
-                ).join('') || '<div class="empty">No deltas yet</div>';
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Continuity unavailable</div>'; }
+                     <a href="${safeShareUrl(x.href) || '/'}" style="font-size:.8rem;color:#22d3ee">${esc(i18nT('dash.js.open_link'))}</a></div>`
+                ).join('') || '<div class="empty">' + esc(i18nT('dash.js.no_deltas')) + '</div>';
+            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">' + esc(i18nT('dash.js.continuity_unavailable')) + '</div>'; }
         }
 
         function isDedicatedHalfLifePage() {
@@ -3022,7 +3022,7 @@
             const svg = document.getElementById('halfLifeSvg');
             const line = document.getElementById('halfLifeLine');
             if (!svg || !line) return;
-            line.textContent = 'Refreshing clock…';
+            line.textContent = i18nT('dash.js.refreshing_clock');
             try {
                 commandHomeInflight = null;
                 commandHomeInflightKey = '';
@@ -3069,7 +3069,7 @@
                     desk.textContent = String(d.desk_line);
                     line.append(desk);
                 }
-            } catch (error) { console.debug(error); line.textContent = 'Half-Life clock unavailable'; }
+            } catch (error) { console.debug(error); line.textContent = i18nT('dash.js.half_life_unavailable'); }
         }
 
         let lastMevShare = '';
@@ -3077,7 +3077,7 @@
             const el = document.getElementById('mevResult');
             const asset = (document.getElementById('mevAsset').value || 'ETH').trim();
             const notional = document.getElementById('mevNotional').value || 10000;
-            el.innerHTML = '<div class="loading">Building…</div>';
+            el.innerHTML = '<div class="loading">' + esc(i18nT('dash.js.building')) + '</div>';
             try {
                 const res = await fetch('/api/mev/sandwich-report?asset=' + encodeURIComponent(asset) + '&notional_usd=' + encodeURIComponent(notional));
                 const d = await res.json();
@@ -3092,7 +3092,7 @@
                         <ul style="margin:.5rem 0 0 1.1rem;font-size:.85rem;color:#a1a1aa">${mit}</ul>
                         <div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · ${esc(c.disclaimer||'')}</div>
                     </div>`;
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Report unavailable</div>'; }
+            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">' + esc(i18nT('dash.js.report_unavailable')) + '</div>'; }
         }
         function copyMevShare() {
             if (!lastMevShare) { loadMevReport().then(() => navigator.clipboard.writeText(lastMevShare)); return; }
@@ -3101,7 +3101,7 @@
 
         async function runStealthAdvisor() {
             const el = document.getElementById('stealthResult');
-            el.innerHTML = '<div class="loading">Advising…</div>';
+            el.innerHTML = '<div class="loading">' + esc(i18nT('dash.js.advising')) + '</div>';
             try {
                 const res = await fetch('/api/whale/stealth-advisor', {
                     method: 'POST',
@@ -3141,7 +3141,7 @@
                     + planBit + sliceTable
                     + '<div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · '
                     + esc(d.disclaimer||'') + '</div></div>';
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Advisor unavailable</div>'; }
+            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">' + esc(i18nT('dash.js.advisor_unavailable')) + '</div>'; }
         }
 
         let portfolioAssets = [];
