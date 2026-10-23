@@ -42,6 +42,8 @@ def test_option_b_upgrade_ladder_and_signup_next():
     assert normalize_signup_plan("whale") == "elite"
     assert normalize_signup_plan("decision_pro") == "pro"
     assert signup_next_after_register("free")["start_paid_trial"] is False
+    assert signup_next_after_register("free")["href"].startswith("/")
+    assert "/profile" not in signup_next_after_register("free")["href"]
     assert signup_next_after_register("pro")["start_paid_trial"] is True
     assert signup_next_after_register("elite")["start_paid_trial"] is True
     assert signup_next_after_register("quant")["action"] == "paid_trial"

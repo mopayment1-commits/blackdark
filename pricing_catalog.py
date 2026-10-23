@@ -185,7 +185,7 @@ def signup_next_after_register(plan: str) -> dict[str, Any]:
     if plan == "free":
         return {
             "action": "app",
-            "href": "/profile?welcome=1&plan=free",
+            "href": "/?welcome=1&plan=free",
             "start_pro_trial": False,
             "start_paid_trial": False,
             "message": "FREE ready — open your first Proof Card before any upgrade.",
@@ -194,7 +194,7 @@ def signup_next_after_register(plan: str) -> dict[str, Any]:
         p = plan_def(plan)
         return {
             "action": "paid_trial",
-            "href": f"/profile?welcome=1&plan={plan}&trial=1",
+            "href": f"/?welcome=1&plan={plan}&trial=1",
             "start_pro_trial": plan == "pro",
             "start_paid_trial": True,
             "trial_days": PAID_TRIAL_DAYS,

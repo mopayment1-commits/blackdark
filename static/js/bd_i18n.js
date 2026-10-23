@@ -46,6 +46,22 @@
       }
       document.cookie =
         "bd_lang=" + encodeURIComponent(code) + ";path=/;max-age=31536000;SameSite=Lax";
+      try {
+        var meta = document.querySelector('meta[name="bd-csrf-token"]');
+        var csrf = meta && meta.getAttribute("content");
+        var headers = { "Content-Type": "application/json" };
+        if (csrf) headers["X-CSRF-Token"] = csrf;
+        global.fetch("/api/auth/profile", {
+          method: "PATCH",
+          credentials: "same-origin",
+          headers: headers,
+          body: JSON.stringify({ ui_lang: code }),
+        }).catch(function (err) {
+          console.debug(err);
+        });
+      } catch (error) {
+        console.debug(error);
+      }
       var url = new URL(window.location.href);
       url.searchParams.set("lang", code);
       window.location.href = url.toString();

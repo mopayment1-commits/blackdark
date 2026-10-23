@@ -2,7 +2,7 @@
 <html lang="{{ lang|default('en') }}" dir="{{ dir|default('ltr') }}">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>{{ t('meta.title.login') if t is defined else 'BLACKDARK — Login' }}</title>
     <link rel="stylesheet" href="/static/css/trust-os.css">
     {% if google_signin.state == 'CONFIGURED' %}
@@ -23,7 +23,7 @@
             display: flex;
             flex-direction: column;
             margin: 0;
-            padding: 0;
+            padding: env(safe-area-inset-top, 0) env(safe-area-inset-right, 0) env(safe-area-inset-bottom, 0) env(safe-area-inset-left, 0);
         }
         .site-top-nav { flex-shrink: 0; }
         .login-main {
@@ -450,9 +450,40 @@
             if (safeNext) return safeNext;
             return '/';
         }
+        function persistAuthIdentity(user, emailFallback) {
+            try {
+                const email = (user && user.email) || emailFallback || '';
+                if (email) localStorage.setItem('bd_login_email', email);
+                if (user) localStorage.setItem('bd_user', JSON.stringify(user));
+            } catch (_) {}
+        }
+        function prefillAuthFields() {
+            try {
+                let email = localStorage.getItem('bd_login_email') || '';
+                let name = '';
+                const raw = localStorage.getItem('bd_user');
+                if (raw) {
+                    const u = JSON.parse(raw);
+                    if (u.email) email = u.email;
+                    if (u.name) name = u.name;
+                }
+                if (email) {
+                    ['loginEmail', 'regEmail', 'forgotEmail', 'forgotUserEmail'].forEach((id) => {
+                        const el = document.getElementById(id);
+                        if (el && !el.value) el.value = email;
+                    });
+                }
+                const regName = document.getElementById('regName');
+                if (regName && name && !regName.value) regName.value = name;
+            } catch (_) {}
+        }
         function saveAuth(data) {
             try { localStorage.removeItem('bd_token'); localStorage.removeItem('token'); } catch (_) {}
-            if (data.user) localStorage.setItem('bd_user', JSON.stringify(data.user));
+            const email =
+                document.getElementById('loginEmail')?.value?.trim() ||
+                document.getElementById('regEmail')?.value?.trim() ||
+                '';
+            persistAuthIdentity(data.user, email);
             const postAuthTarget = resolvePostAuthUrl(data);
             window.location.replace(postAuthTarget);
         }
@@ -703,6 +734,7 @@
         try { localStorage.removeItem('bd_token'); localStorage.removeItem('token'); } catch (_) {}
         syncPlanFromUrl();
         syncGoogleOAuthUi();
+        prefillAuthFields();
         const params = new URLSearchParams(location.search);
         if (authTabFromQuery(location.search) === 'register') showRegister();
         else showLogin();

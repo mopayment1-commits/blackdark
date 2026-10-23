@@ -707,8 +707,27 @@
         }
         
         @media (max-width: 768px) {
-            /* Hide lens marketing links only — NEVER hide Language / Login / Sign up / Pricing */
-            .nav-links { display: none; }
+            body.landing-page {
+                padding-left: env(safe-area-inset-left, 0);
+                padding-right: env(safe-area-inset-right, 0);
+                padding-bottom: env(safe-area-inset-bottom, 0);
+            }
+            nav.landing-nav.site-top-nav .nav-links {
+                display: flex;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                gap: 0.45rem;
+                max-width: 100%;
+                scrollbar-width: none;
+            }
+            nav.landing-nav.site-top-nav .nav-links::-webkit-scrollbar { display: none; }
+            nav.landing-nav.site-top-nav .nav-links a {
+                flex-shrink: 0;
+                min-height: 44px;
+                display: inline-flex;
+                align-items: center;
+            }
             .nav-right { width: 100%; justify-content: flex-end; }
             .nav-cta { display: none; }
             .hero { padding: 5.5rem 1rem 1.5rem; min-height: auto; }

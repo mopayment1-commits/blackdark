@@ -196,7 +196,7 @@ def test_google_gis_redirect_post_login_route(client, monkeypatch):
         follow_redirects=False,
     )
     assert res.status_code == 303
-    assert res.headers.get("location") == "/dashboard"
+    assert res.headers.get("location") == "/"
 
 
 def test_register_not_500_when_session_pepper_missing_but_master_key_set(
@@ -265,7 +265,7 @@ def test_google_login_post_valid_credential_shape_not_500(client, monkeypatch, t
     )
     assert res.status_code != 500
     assert res.status_code == 303
-    assert res.headers.get("location") == "/dashboard"
+    assert res.headers.get("location") == "/"
 
 
 def test_register_not_500_when_kms_provider_local_dev_but_master_key_set(
