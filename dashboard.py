@@ -2393,11 +2393,35 @@ async def _warm_landing_pulse_cache(lang: str) -> None:
 
 
 async def _landing_pulse_ssr_payload(lang: str) -> tuple[dict[str, Any] | None, dict[str, str] | None]:
-    from trust_pulse import latest_trust_pulse_snapshot
+    import asyncio
+
+    from trust_pulse import _shape_pulse, _store_pulse_cache, latest_trust_pulse_snapshot
+    from viral_capacity import quick_cache_get
 
     pulse = latest_trust_pulse_snapshot("BTC")
     if pulse:
         return pulse, _landing_pulse_view_from_payload(pulse)
+
+    raw: dict[str, Any] | None = quick_cache_get("BTC", lang, "beginner")
+    if raw is None:
+        timeout = float(os.getenv("LANDING_PULSE_SSR_TIMEOUT_SEC", "1.25"))
+        try:
+            asset, pair = _normalize_oracle_symbol("BTC")
+            raw = await asyncio.wait_for(
+                _compute_oracle_quick_payload(asset, pair, lang, "beginner"),
+                timeout=timeout,
+            )
+        except Exception:
+            logger.debug("landing pulse SSR quick oracle skipped", exc_info=True)
+            raw = None
+
+    if isinstance(raw, dict) and (
+        raw.get("decision_sentence") or raw.get("decision_action") or raw.get("verdict")
+    ):
+        shaped = _shape_pulse(dict(raw), from_cache=True)
+        _store_pulse_cache("BTC", dict(raw))
+        return shaped, _landing_pulse_view_from_payload(shaped)
+
     try:
         asyncio.get_running_loop().create_task(_warm_landing_pulse_cache(lang))
     except RuntimeError:

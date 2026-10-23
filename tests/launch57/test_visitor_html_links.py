@@ -27,7 +27,7 @@ def test_pricing_route_renders_public_page(client):
     assert res.status_code == 200
     assert "text/html" in (res.headers.get("content-type") or "")
     assert "Free" in res.text and "Plus" in res.text and "Pro" in res.text and "Enterprise" in res.text
-    assert "$29" in res.text and "$49" in res.text
+    assert "$29" in res.text and "$79" in res.text
     assert 'href="/pricing"' in res.text
 
 

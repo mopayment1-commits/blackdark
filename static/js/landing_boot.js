@@ -78,7 +78,8 @@
 
   function scheduleWarm() {
     if (!window.BDLazyScript) return;
-    window.BDLazyScript.whenIdle(warmMain, 5500);
+    warmMain();
+    window.BDLazyScript.whenIdle(warmMain, 400);
     ["pointerdown", "keydown", "touchstart", "scroll"].forEach(function (ev) {
       window.addEventListener(ev, warmMain, { once: true, passive: true });
     });

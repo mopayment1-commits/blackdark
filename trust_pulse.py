@@ -806,6 +806,30 @@ async def build_trust_pulse(
     if pulse is not None:
         return pulse
 
+    if not force_refresh:
+        try:
+            from viral_capacity import quick_cache_get
+
+            quick_raw = quick_cache_get(sym, lang, ux_mode)
+            if isinstance(quick_raw, dict) and (
+                quick_raw.get("decision_action") or quick_raw.get("verdict")
+            ):
+                quick_payload = dict(quick_raw)
+                quick_payload.setdefault("symbol", sym)
+                quick_payload.setdefault("tier", tier)
+                quick_payload.setdefault("lang", lang)
+                _store_pulse_cache(sym, quick_payload)
+                return _shape_pulse(
+                    quick_payload,
+                    previous_action=previous_action or cached.get("action"),
+                    previous_seen_at=previous_seen_at,
+                    previous_factors=previous_factors,
+                    event="pulse",
+                    from_cache=True,
+                )
+        except Exception:
+            logger.debug("trust_pulse quick_cache bridge skipped", exc_info=True)
+
     do_persist = _should_persist_pulse(persist, cached)
     payload = await _compute_oracle_payload(
         sym, tier=tier, ux_mode=ux_mode, lang=lang, persist=do_persist

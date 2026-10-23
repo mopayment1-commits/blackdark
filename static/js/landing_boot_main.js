@@ -1415,6 +1415,9 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                     navigator.serviceWorker.register('/sw.js').catch((error) => { console.debug(error); });
                 }
             });
+            if (!window.__landingPulseHydrated && !hadPulseSSR) {
+                void loadLandingTrustPulse();
+            }
             if (!window.__landingPulseHydrated) {
                 scheduleDeferredOracleBoot(hadPulseSSR);
             } else {
