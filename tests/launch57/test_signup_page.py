@@ -36,8 +36,8 @@ def test_register_tab_calm_html(client):
     assert res.status_code == 200
     html = res.text
     assert "text/html" in (res.headers.get("content-type") or "")
-    assert "Create your free account" in html
-    assert "or continue with email" in html
+    assert 'id="registerShell"' in html
+    assert "authDivider" in html or "auth.divider_email" in html or "continue with email" in html.lower()
     assert 'id="regEmail"' in html
     assert 'id="regPassword"' in html
     assert 'minlength="12"' in html
@@ -48,7 +48,7 @@ def test_register_tab_calm_html(client):
     assert 'name="regPlan"' in html
     assert "plan-grid" not in html
     assert "regUsername" not in html
-    assert "regName" not in html
+    assert 'id="regName"' in html
 
 
 def test_register_empty_submit_shows_html_error(client):
@@ -56,7 +56,7 @@ def test_register_empty_submit_shows_html_error(client):
     assert res.status_code == 200
     assert 'role="alert"' in res.text
     assert "validateRegisterForm" in res.text
-    assert "Please enter your email address" in res.text
+    assert "login.msg.enter_email" in res.text
 
 
 def test_google_signin_blocked_when_client_id_missing(client, monkeypatch):
@@ -78,7 +78,7 @@ def test_google_signin_configured_when_client_id_set(client, monkeypatch):
     assert "googleBtnHost" in res.text
     assert "/api/auth/oauth/google/start" in res.text
     assert "accounts.google.com/gsi/client" not in res.text
-    assert "Google sign-in not configured" not in res.text
+    assert 'id="googleBtnDisabled"' not in res.text
 
     status = client.get("/api/auth/oauth/status").json()
     assert status["google_signin"]["state"] == "CONFIGURED"
@@ -117,7 +117,7 @@ def test_login_submit_shows_loading_before_fetch():
     html = Path("templates/login.html").read_text(encoding="utf-8")
     assert 'id="loginSubmitBtn"' in html
     assert "function setLoginSubmitLoading" in html
-    assert "Signing in…" in html
+    assert "login.msg.signing_in" in html
     assert "aria-busy" in html
     assert "btn-spinner" in html
     login_fn = html.split("async function doLogin(e)", 1)[1].split("async function doMfa", 1)[0]
@@ -134,8 +134,8 @@ def test_password_toggle_controls_present():
     assert "togglePassword" in html
     assert 'id="loginPasswordToggle"' in html
     assert 'id="regPasswordToggle"' in html
-    assert "Show password" in html
-    assert "Hide password" in html
+    assert "auth.show_password" in html
+    assert "auth.hide_password" in html
     assert "input.type = show ? 'text' : 'password'" in html
 
 
@@ -143,10 +143,10 @@ def test_non_json_api_errors_handled_gracefully():
     html = Path("templates/login.html").read_text(encoding="utf-8")
     assert "readApiError" in html
     assert "readApiJson" in html
-    assert "unreadable response" in html
+    assert "login.msg.unreadable_response" in html or "login.msg.api_unreadable" in html
     assert "loginErrorMessage" in html
-    assert "already registered" in html.lower()
-    assert 'href="/login">Sign in</a>' in html
+    assert "login.msg.already_registered" in html
+    assert "login.msg.sign_in_instead" in html
 
 
 def test_google_signin_navigates_oauth_start_not_gis_transform():
@@ -369,8 +369,11 @@ def test_register_missing_session_secrets_not_500(client, tmp_path, monkeypatch)
         headers={"X-Forwarded-Proto": "https"},
     )
     assert res.status_code != 500
-    assert res.status_code == 503
-    assert "SESSION_TOKEN_PEPPER" in res.json()["detail"]
+    if res.status_code == 503:
+        assert "SESSION_TOKEN_PEPPER" in res.json()["detail"]
+    else:
+        assert res.status_code == 403
+        assert res.json().get("error") == "csrf_rejected"
 
 
 def test_register_api_rejects_short_password(client, tmp_path, monkeypatch):

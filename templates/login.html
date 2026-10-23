@@ -136,7 +136,7 @@
     <!-- bd-global-header .bd-header-util session chrome via partials/global_header.html -->
     <main class="login-main" id="loginMain">
         <div class="login-stack">
-            <nav class="auth-tabs" id="authTabs" aria-label="Authentication mode">
+            <nav class="auth-tabs" id="authTabs" aria-label="{{ t('login.tab.login') }} / {{ t('login.tab.signup') }}">
                 <a href="/login" class="auth-tab{% if auth_tab != 'register' %} active{% endif %}" id="tabLogin" data-mode="login">{{ t('login.tab.login') }}</a>
                 <a href="/login?tab=register" class="auth-tab{% if auth_tab == 'register' %} active{% endif %}" id="tabRegister" data-mode="register">{{ t('login.tab.signup') }}</a>
             </nav>
@@ -174,7 +174,7 @@
                     })();
                     </script>
                     {% else %}
-                    <button type="button" class="btn btn-oauth" id="googleBtnDisabled" disabled>Google sign-in not configured</button>
+                    <button type="button" class="btn btn-oauth" id="googleBtnDisabled" disabled>{{ t('login.msg.google_not_configured') }}</button>
                     {% endif %}
                 </div>
                 <div class="divider" id="authDivider">{{ t('auth.divider_email') }}</div>
@@ -188,20 +188,20 @@
                 <label for="regName">{{ t('login.name') }}</label>
                 <input type="text" id="regName" autocomplete="name" maxlength="80" placeholder="{{ t('login.name') }}">
                 <label for="regEmail">{{ t('login.email') }}</label>
-                <input type="email" id="regEmail" autocomplete="email" placeholder="you@email.com" required>
+                <input type="email" id="regEmail" autocomplete="email" placeholder="{{ t('login.email') }}" required>
                 <label for="regPassword">{{ t('login.pass_label') }}</label>
                 <div class="password-field">
-                    <input type="password" id="regPassword" minlength="12" autocomplete="new-password" placeholder="At least 12 characters" required>
-                    <button type="button" class="password-toggle" id="regPasswordToggle" aria-label="Show password" aria-pressed="false">Show password</button>
+                    <input type="password" id="regPassword" minlength="12" autocomplete="new-password" placeholder="{{ t('login.pass_hint') }}" required>
+                    <button type="button" class="password-toggle" id="regPasswordToggle" aria-label="{{ t('auth.show_password') }}" aria-pressed="false">{{ t('auth.show_password') }}</button>
                 </div>
                 <label for="regPasswordConfirm">{{ t('login.confirm_password') }}</label>
                 <div class="password-field">
                     <input type="password" id="regPasswordConfirm" minlength="12" autocomplete="new-password" required>
-                    <button type="button" class="password-toggle" id="regPasswordConfirmToggle" aria-label="Show password" aria-pressed="false">Show password</button>
+                    <button type="button" class="password-toggle" id="regPasswordConfirmToggle" aria-label="{{ t('auth.show_password') }}" aria-pressed="false">{{ t('auth.show_password') }}</button>
                 </div>
                 <label class="check">
                     <input type="checkbox" id="regTerms">
-                    <span>I agree to the <a href="/terms" target="_blank">Terms</a>, <a href="/privacy" target="_blank">Privacy</a>, and <a href="/disclaimer" target="_blank">Disclaimer</a></span>
+                    <span>{{ t('auth.accept_terms') }}</span>
                 </label>
                 <button type="submit" class="btn-primary" id="regSubmit">{{ t('auth.signup_submit') }}</button>
             </form>
@@ -217,7 +217,7 @@
                 <label for="loginPassword">{{ t('login.pass_label') }}</label>
                 <div class="password-field">
                     <input type="password" id="loginPassword" required autocomplete="current-password">
-                    <button type="button" class="password-toggle" id="loginPasswordToggle" aria-label="Show password" aria-pressed="false">Show password</button>
+                    <button type="button" class="password-toggle" id="loginPasswordToggle" aria-label="{{ t('auth.show_password') }}" aria-pressed="false">{{ t('auth.show_password') }}</button>
                 </div>
                 <label class="check">
                     <input type="checkbox" id="loginRemember" checked>
@@ -528,7 +528,7 @@
             try {
                 const res = await fetch('/api/auth/login', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: csrfAuthHeaders(),
                     credentials: 'same-origin',
                     body: JSON.stringify({
                         email: document.getElementById('loginEmail').value,
@@ -547,14 +547,14 @@
                     hideAll();
                     document.getElementById('mfaForm').classList.remove('hidden');
                     setAuthChromeVisible(false);
-                    setMsg('Enter your authenticator code to finish login.', true);
+                    setMsg(i18nT('login.mfa.code_label'), true);
                     setLoginSubmitLoading(false);
                     return;
                 }
                 saveAuth(d);
             } catch (error) {
                 console.debug(error);
-                setMsg('Sign in failed. Please try again.', false);
+                setMsg(i18nT('login.msg.invalid_credentials'), false);
                 setLoginSubmitLoading(false);
             }
         }
@@ -562,11 +562,11 @@
             e.preventDefault();
             const mfaBtn = document.getElementById('mfaSubmitBtn');
             if (mfaBtn?.disabled) return;
-            setSubmitLoading('mfaSubmitBtn', true, 'Verifying…');
+            setSubmitLoading('mfaSubmitBtn', true, i18nT('common.loading'));
             try {
                 const res = await fetch('/api/auth/mfa/complete', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: csrfAuthHeaders(),
                     credentials: 'same-origin',
                     body: JSON.stringify({
                         challenge: mfaChallenge,
@@ -582,7 +582,7 @@
                 saveAuth(d);
             } catch (error) {
                 console.debug(error);
-                setMsg('Verification failed. Please try again.', false);
+                setMsg(i18nT('login.msg.invalid_credentials'), false);
                 setSubmitLoading('mfaSubmitBtn', false);
             }
         }
@@ -591,11 +591,11 @@
             if (!validateRegisterForm()) return;
             const regBtn = document.getElementById('regSubmit');
             if (regBtn?.disabled) return;
-            setSubmitLoading('regSubmit', true, 'Creating account…');
+            setSubmitLoading('regSubmit', true, i18nT('common.loading'));
             try {
                 const res = await fetch('/api/auth/register', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: csrfAuthHeaders(),
                     credentials: 'same-origin',
                     body: JSON.stringify({
                         email: document.getElementById('regEmail').value.trim(),
@@ -622,7 +622,7 @@
                 saveAuth(d);
             } catch (error) {
                 console.debug(error);
-                setMsg('Registration failed. Please try again.', false);
+                setMsg(i18nT('login.msg.api_unreadable'), false);
                 setSubmitLoading('regSubmit', false);
             }
         }
@@ -630,11 +630,12 @@
             e.preventDefault();
             const forgotBtn = document.getElementById('forgotSubmitBtn');
             if (forgotBtn?.disabled) return;
-            setSubmitLoading('forgotSubmitBtn', true, 'Sending…');
+            setSubmitLoading('forgotSubmitBtn', true, i18nT('common.loading'));
             try {
                 const res = await fetch('/api/auth/forgot-password', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: csrfAuthHeaders(),
+                    credentials: 'same-origin',
                     body: JSON.stringify({ email: document.getElementById('forgotEmail').value })
                 });
                 if (!res.ok) {
@@ -643,14 +644,14 @@
                     return;
                 }
                 const d = await readApiJson(res);
-                let text = d.message || 'Check your email.';
+                let text = d.message || i18nT('auth.forgot.lead');
                 if (d.debug_link) text += ' (dev link logged to console)';
                 if (d.debug_link) console.info('Reset link:', d.debug_link);
                 setMsg(text, true);
                 setSubmitLoading('forgotSubmitBtn', false);
             } catch (error) {
                 console.debug(error);
-                setMsg('Could not send reset email. Please try again.', false);
+                setMsg(i18nT('common.retry'), false);
                 setSubmitLoading('forgotSubmitBtn', false);
             }
         }
@@ -658,11 +659,12 @@
             e.preventDefault();
             const forgotUserBtn = document.getElementById('forgotUserSubmitBtn');
             if (forgotUserBtn?.disabled) return;
-            setSubmitLoading('forgotUserSubmitBtn', true, 'Sending…');
+            setSubmitLoading('forgotUserSubmitBtn', true, i18nT('common.loading'));
             try {
                 const res = await fetch('/api/auth/forgot-username', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: csrfAuthHeaders(),
+                    credentials: 'same-origin',
                     body: JSON.stringify({ email: document.getElementById('forgotUserEmail').value })
                 });
                 if (!res.ok) {
@@ -671,11 +673,11 @@
                     return;
                 }
                 const d = await readApiJson(res);
-                setMsg(d.message || 'If an account exists, a reminder was sent.', true);
+                setMsg(d.message || i18nT('auth.forgot_user.lead'), true);
                 setSubmitLoading('forgotUserSubmitBtn', false);
             } catch (error) {
                 console.debug(error);
-                setMsg('Could not send reminder. Please try again.', false);
+                setMsg(i18nT('common.retry'), false);
                 setSubmitLoading('forgotUserSubmitBtn', false);
             }
         }
@@ -698,6 +700,13 @@
                 return s && s !== key ? s : key;
             }
             return key;
+        }
+        function csrfAuthHeaders(extra) {
+            const headers = Object.assign({ 'Content-Type': 'application/json' }, extra || {});
+            const meta = document.querySelector('meta[name="bd-csrf-token"]');
+            const token = meta && meta.getAttribute('content');
+            if (token) headers['X-CSRF-Token'] = token;
+            return headers;
         }
         function syncGoogleOAuthUi() {
             if (!googleConfigured) return;

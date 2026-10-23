@@ -152,6 +152,32 @@ async def test_logout_clears_without_user_token_field():
     assert 'user.get("token")' not in src
 
 
+def test_auth_login_post_requires_csrf_without_session(monkeypatch):
+    from fastapi.testclient import TestClient
+
+    from dashboard import app
+    import tests.conftest as conftest_mod
+
+    orig = getattr(conftest_mod, "_testclient_request_original", TestClient.request)
+    monkeypatch.setattr(TestClient, "request", orig)
+
+    def _noop_rate_limit(_key: str) -> None:
+        return None
+
+    monkeypatch.setattr("security_auth.check_login_rate_limit", _noop_rate_limit)
+    monkeypatch.setattr("security_auth.check_api_rate_limit", _noop_rate_limit)
+
+    client = TestClient(app)
+    res = client.post(
+        "/api/auth/login",
+        json={"email": "csrf-probe@example.com", "password": "x" * 12},
+        headers={"Origin": "https://testserver"},
+    )
+    assert res.status_code == 403
+    body = res.json()
+    assert body.get("error") == "csrf_rejected"
+
+
 def test_csrf_cookie_is_httponly():
     from starlette.requests import Request
     from starlette.responses import Response

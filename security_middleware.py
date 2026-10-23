@@ -515,7 +515,7 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
                 machine_auth = (auth.startswith("Bearer ") and not cookie) or verify_admin_key(
                     admin_key
                 )
-                if not validate_csrf_token(token) and cookie:
+                if not validate_csrf_token(token):
                     if not machine_auth:
                         return apply_security_headers_to_response(
                             request,

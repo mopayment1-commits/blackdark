@@ -122,6 +122,7 @@ LOGIN_UI_KEYS: tuple[str, ...] = (
     "login.submit",
     "login.name",
     "auth.google",
+    "login.msg.google_not_configured",
     "auth.signup_submit",
     "auth.divider_email",
     "nav.login",
@@ -1686,7 +1687,8 @@ def _resolve_string(key: str, code: str) -> str:
         return EN.get(key) or key
     filed = _locale_file_value(code, key)
     if filed is not None:
-        return filed
+        if _translation_valid(code, key, filed):
+            return filed
     val = _effective_translation(code, key)
     if val is not None:
         return val
@@ -1858,12 +1860,19 @@ _FOOTER_LINK_BY_HREF: dict[str, str] = {
     "/about": "footer.link.about",
     "/contact": "footer.link.contact",
     "/#trust-pulse": "footer.link.trust_pulse",
+    "/#oracle": "nav.oracle",
     "/login?next=/dashboard%3Flens%3Dprove": "footer.link.decide",
-    "/oracle-accuracy": "footer.link.verify",
+    "/oracle-accuracy": "accuracy.title",
+    "/discipline-mirror": "discipline.title",
     "/login?next=/dashboard": "footer.link.dashboard",
+    "/dashboard": "footer.link.dashboard",
     "/#pricing": "footer.link.pricing",
+    "/pricing": "footer.link.pricing",
     "/login?next=/profile": "footer.link.profile",
     "/login?next=/dashboard%3Flens%3Doperate": "footer.link.chat",
+    "/disclaimer": "footer.link.disclaimer",
+    "/terms": "footer.link.terms",
+    "/privacy": "footer.link.privacy",
 }
 
 

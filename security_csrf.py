@@ -89,4 +89,6 @@ def csrf_required_for_request(request: Request) -> bool:
         return False
     if request.cookies.get("bd_token"):
         return True
+    if path in {"/api/auth/login", "/api/auth/register"}:
+        return True
     return path in {"/login", "/register", "/join-waitlist", "/admin"}
