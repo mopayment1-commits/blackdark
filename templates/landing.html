@@ -643,21 +643,31 @@
         #lpProof a.bd-chip,
         #lpProof button.bd-chip {
             display: inline-block !important;
-            background: #a8d5e5 !important;
-            color: #111 !important;
+            background: var(--bg-elevated) !important;
+            color: var(--text) !important;
             font-weight: 600 !important;
             font-size: 0.9rem !important;
             padding: 0.5rem 1rem !important;
-            border-radius: 8px !important;
-            border: none !important;
+            border-radius: 12px !important;
+            border: 1px solid var(--border) !important;
             text-decoration: none !important;
             cursor: pointer;
             appearance: none;
             -webkit-appearance: none;
+            transition: background 0.2s, border-color 0.2s, color 0.2s;
         }
         #lpProof a.bd-chip:link,
         #lpProof a.bd-chip:visited {
-            color: #111 !important;
+            color: var(--text) !important;
+        }
+        #lpProof a.bd-chip:hover,
+        #lpProof a.bd-chip:focus-visible,
+        #lpProof button.bd-chip:hover,
+        #lpProof button.bd-chip:focus-visible {
+            background: var(--bg-elevated) !important;
+            border-color: var(--accent) !important;
+            color: var(--text) !important;
+            outline: none;
         }
         #lpProof button[data-lp-copy-cert-id] {
             background: transparent !important;
