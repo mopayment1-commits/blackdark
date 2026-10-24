@@ -3923,11 +3923,11 @@ def _attach_quick_certificate(payload: dict) -> None:
         if 45 <= score_i <= 55 and not payload.get("idk_token"):
             payload["idk_token"] = "I_DONT_KNOW"
             payload["idk_reason"] = "opportunity_score_dead_zone"
-            if str(payload.get("decision_action") or "").upper() in {"WAIT", "HOLD", ""}:
-                payload["decision_action"] = "I_DONT_KNOW"
+            if str(payload.get("decision_action") or "").upper() in {"WAIT", "HOLD", "", "I_DONT_KNOW"}:
+                sym = str(payload.get("symbol") or "asset").strip().upper()
+                payload["decision_action"] = "WAIT"
                 payload["decision_sentence"] = (
-                    f"I DON'T KNOW on {payload.get('symbol') or 'asset'} — "
-                    f"score {score_i} is inside the dead-zone; no certified edge."
+                    f"WAIT on {sym} — score {score_i}. No clear edge."
                 )
                 payload["oracle"] = payload["decision_sentence"]
         cert = build_decision_certificate(payload)

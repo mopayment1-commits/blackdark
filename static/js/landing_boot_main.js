@@ -398,7 +398,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 URL.revokeObjectURL(a.href);
             });
         }
-        function renderLandingWhy(oracleEl, data, cert, latencyMs) {
+        function renderLandingWhy(oracleEl, data, cert) {
             let whyEl = document.getElementById('landingWhy');
             if (!whyEl) {
                 whyEl = document.createElement('div');
@@ -443,7 +443,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 certLine = `<div style="margin-top:.5rem;font-size:.8rem">${esc(i18nT('ui.certificate_label'))} <code>${esc(hashShort)}</code> · ${esc(i18nT('ui.prediction_id'))} <code>${esc(data.prediction_id || '—')}</code></div>`;
             }
             const whyTitle = factors.length
-                ? `<div style="font-size:.78rem;color:var(--accent);margin-bottom:.35rem">${esc(whyBlock.grasp_line || i18nT('ui.why_top3'))} · ${esc(latencyMs)}ms</div>`
+                ? `<div style="font-size:.78rem;color:var(--accent);margin-bottom:.35rem">${esc(whyBlock.grasp_line || i18nT('ui.why_top3'))}</div>`
                 : '';
             whyEl.innerHTML =
                 whyTitle +
@@ -663,13 +663,11 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             setLandingOraclePresentationLayout('down');
             proMeta.style.display = 'none';
             upgradeEl.style.display = 'none';
-            const t0 = performance.now();
             let oracleDecisionShown = false;
 
             consultOracleInflight = (async () => {
             try {
                 const { response, data, networkFailure } = await fetchOraclePayload(symbol, mode, lang);
-                const latencyMs = Math.round(performance.now() - t0);
                 if (!landingOracleHasDecision(data)) {
                     clearLandingOracleChrome();
                     const failReason = networkFailure
@@ -716,7 +714,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                     paintLandingProMeta(proMeta, data, mode);
                     paintLandingUpgrade(upgradeEl, data);
                     renderLandingCertificate(certEl, cert, data);
-                    renderLandingWhy(oracleEl, data, cert, latencyMs);
+                    renderLandingWhy(oracleEl, data, cert);
                     const followAction = data.decision_action || data.verdict || action || 'WAIT';
                     wireDisciplineMirror(disc, data, symbol, followAction);
                     paintLandingCompliance(data);
@@ -727,7 +725,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                     proMeta.style.display = 'none';
                     upgradeEl.style.display = 'none';
                     renderLandingCertificate(certEl, {}, data);
-                    renderLandingWhy(oracleEl, data, {}, latencyMs);
+                    renderLandingWhy(oracleEl, data, {});
                     if (disc) { disc.style.display = 'none'; disc.innerHTML = ''; }
                     if (comp) comp.style.display = 'none';
                     try { updateShareLinks(data); } catch (shareError) { console.debug(shareError); }
@@ -740,7 +738,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                     proMeta.style.display = 'none';
                     upgradeEl.style.display = 'none';
                     renderLandingCertificate(certEl, {}, data);
-                    renderLandingWhy(oracleEl, data, {}, latencyMs);
+                    renderLandingWhy(oracleEl, data, {});
                     if (disc) { disc.style.display = 'none'; disc.innerHTML = ''; }
                     if (comp) comp.style.display = 'none';
                     try { updateShareLinks(data); } catch (shareError) { console.debug(shareError); }

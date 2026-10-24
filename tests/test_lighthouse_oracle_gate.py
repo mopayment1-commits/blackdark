@@ -26,6 +26,33 @@ def test_landing_consult_oracle_boot_guard():
     assert "BDSessionHint" in boot
     assert "landing-inline-link" in landing
     assert 'defer src="/static/js/landing_boot.js"' in landing
+    assert "latencyMs)}ms" not in boot
+
+
+def test_quick_oracle_dead_zone_sentence():
+    from dashboard import (
+        _attach_oqs_why_safe,
+        _attach_quick_certificate,
+        _attach_quick_freshness,
+        _attach_quick_real_factors,
+    )
+
+    payload = {
+        "symbol": "AVAX",
+        "opportunity_score": 45,
+        "decision_action": "WAIT",
+        "verdict": "WAIT",
+        "price": 30.0,
+        "change_24h": 1.0,
+        "data_freshness": {"state": "fresh", "age_sec": 0.0, "freshness_ms": 0.0},
+    }
+    _attach_quick_freshness(payload, "AVAX")
+    _attach_quick_real_factors(payload)
+    _attach_oqs_why_safe(payload)
+    _attach_quick_certificate(payload)
+    assert payload.get("decision_sentence") == "WAIT on AVAX — score 45. No clear edge."
+    assert payload.get("decision_action") == "WAIT"
+    assert payload.get("idk_token") == "I_DONT_KNOW"
 
 
 def test_lang_select_accessible_name():
