@@ -6,7 +6,7 @@
     <meta name="description" content="BLACKDARK Public Accuracy Ledger — sealed Glass Box forecasts, monthly misses and incorrect model states, and a verifiable audit hash chain. Verify on-page.">
     <meta property="og:title" content="BLACKDARK — Public Oracle Accuracy Ledger">
     <meta property="og:description" content="Full public ledger including misses. Glass Box Challenge ready. Labels are not proof.">
-    <title>BLACKDARK — Oracle Accuracy Live</title>
+    <title>{% if errors_only %}BLACKDARK — Public Misses · Errors{% else %}BLACKDARK — Oracle Accuracy Live{% endif %}</title>
     <script type="application/ld+json">
     {"@context":"https://schema.org","@type":"WebPage","name":"BLACKDARK Public Accuracy Ledger","description":"Public verifiable Oracle accuracy including misses, Glass Box locked forecasts, and audit challenge","url":"/oracle-accuracy"}
     </script>
@@ -110,8 +110,25 @@
 </head>
 <body>
     {% set nav_active = 'verify' %}
+    {% set errors_only = errors_only|default(false) %}
     {% include 'partials/site_top_nav.html' %}
 
+    {% if errors_only %}
+    <section class="hero" id="losing">
+        <div class="badge">PUBLIC MISSES · ERRORS</div>
+        <h1>Public Misses · Errors</h1>
+        <p style="color:var(--muted);max-width:760px;margin:0 auto 1rem">
+            Verified errors and partial outcomes from the Public Accuracy Ledger — hits and misses we publish on purpose.
+        </p>
+        <div class="cta-row" style="margin-top:0.5rem">
+            <a class="btn btn-secondary" href="/oracle-accuracy">Full accuracy ledger</a>
+            <a class="btn btn-secondary" href="/dashboard">Open Dashboard</a>
+        </div>
+        <p style="margin-top:.75rem;color:var(--muted);font-size:.85rem;max-width:760px;margin-left:auto;margin-right:auto">
+            Alias: <a href="/errors" style="color:var(--accent)">/errors</a> · Full page: <a href="/oracle-accuracy" style="color:var(--accent)">/oracle-accuracy</a>
+        </p>
+    </section>
+    {% else %}
     <section class="hero">
         <div class="badge">LIVE · PUBLIC AUDIT</div>
         <h1>BLACKDARK — Public Oracle Accuracy</h1>
@@ -130,10 +147,12 @@
             <a class="btn btn-secondary" href="/docs">Developer docs</a>
         </div>
         <p style="margin-top:.75rem;color:var(--muted);font-size:.85rem;max-width:760px;margin-left:auto;margin-right:auto">
-            We publish hits <strong style="color:var(--text)">and misses</strong>. Alias: <a href="/errors" style="color:var(--accent)">/errors</a> → this ledger’s losing section.
+            We publish hits <strong style="color:var(--text)">and misses</strong>. Alias: <a href="/errors" style="color:var(--accent)">/errors</a> → public misses only (not the full ledger page).
         </p>
     </section>
+    {% endif %}
 
+    {% if not errors_only %}
     <section class="panel">
         <div class="card">
             <h2>Proof Chain</h2>
@@ -219,7 +238,9 @@
         </div>
     </section>
 
-    <section class="panel" id="panel-public-misses">
+    {% endif %}
+
+    <section class="panel" id="losing">
         <div class="card">
             <h2>Public Misses · live ledger</h2>
             <p style="color:var(--muted);font-size:0.88rem;margin-bottom:.65rem">
@@ -233,12 +254,17 @@
             <ul class="events" id="losing-partial-list"><li>Loading...</li></ul>
             <div class="cta-row" style="margin-top:1rem;justify-content:flex-start">
                 <button class="btn btn-secondary" type="button" id="copyLosingBtn">Copy share text</button>
+                {% if not errors_only %}
                 <a class="btn btn-secondary" href="#glass-box-challenge">Read transparency challenge</a>
+                {% else %}
+                <a class="btn btn-secondary" href="/oracle-accuracy#glass-box-challenge">Read transparency challenge</a>
+                {% endif %}
             </div>
             <p style="margin-top:0.65rem;font-size:0.72rem;color:var(--muted)"><strong>Anti-Hype</strong> · Not financial advice. Past misses do not predict future results.</p>
         </div>
     </section>
 
+    {% if not errors_only %}
     <section class="panel" id="audit-challenge">
         <div class="card">
             <h2>Audit Challenge — Prove us wrong</h2>
@@ -321,6 +347,7 @@
         <a class="btn btn-secondary" href="/api/oracle/accuracy/public" target="_blank">JSON API</a>
         <a class="btn btn-secondary" href="/b2b#evidence">Evidence Pack</a>
     </div>
+    {% endif %}
 
     <footer>
         BLACKDARK — market-data and analytical technology · public outcome ledger (not exhaustive coverage)
@@ -329,6 +356,7 @@
     <script defer src="/static/js/dom_escape.js"></script>
     <script defer src="/static/js/public_decision_map.js"></script>
     <script>
+        const ERRORS_ONLY_PAGE = {{ 'true' if errors_only else 'false' }};
         const ORACLE_LEDGER_FETCH_MS = 28000;
         const ORACLE_LEDGER_SECONDARY_MS = 15000;
         const LEDGER_PUBLIC_URL = 'https://blackdark-production.up.railway.app/oracle-accuracy';
@@ -395,13 +423,15 @@
                 badge.textContent = 'Engine · unavailable';
                 badge.className = 'badge badge-warn';
             }
-            togglePanel('panel-ledger-stats', true);
-            togglePanel('panel-latest-table', true);
-            togglePanel('panel-public-misses', true);
-            const tbody = document.getElementById('predictions-body');
-            if (tbody) tbody.innerHTML = `<tr><td colspan="8">${esc(msg)}</td></tr>`;
-            const expl = document.getElementById('metrics-explainer');
-            if (expl) expl.textContent = msg;
+            if (!ERRORS_ONLY_PAGE) {
+                togglePanel('panel-ledger-stats', true);
+                togglePanel('panel-latest-table', true);
+                const tbody = document.getElementById('predictions-body');
+                if (tbody) tbody.innerHTML = `<tr><td colspan="8">${esc(msg)}</td></tr>`;
+                const expl = document.getElementById('metrics-explainer');
+                if (expl) expl.textContent = msg;
+            }
+            togglePanel('losing', true);
             const statusEl = document.getElementById('losing-status');
             if (statusEl) statusEl.textContent = msg;
             const errList = document.getElementById('losing-errors-list');
@@ -440,49 +470,46 @@
                     transparency.production_engine === 'ml_model' ? 'ML model (OOD-gated)' : 'rules engine';
             }
             renderEngineHealth(data);
-            renderProofChain(data.proof_chain || {});
-
-            togglePanel('panel-ledger-stats', true);
-            togglePanel('panel-latest-table', true);
-            togglePanel('panel-public-misses', true);
-
-            renderAccuracyStats({
-                oracle,
-                model,
-                moat,
-                exp,
-                counterSources: lastCounterSources,
-                archive: lastTrainingArchive,
-            });
-            renderPredictionsTable(oracle, oracle.recent_table_footnote || '');
+            if (!ERRORS_ONLY_PAGE) {
+                renderProofChain(data.proof_chain || {});
+                togglePanel('panel-ledger-stats', true);
+                togglePanel('panel-latest-table', true);
+                renderAccuracyStats({
+                    oracle,
+                    model,
+                    moat,
+                    exp,
+                    counterSources: lastCounterSources,
+                    archive: lastTrainingArchive,
+                });
+                renderPredictionsTable(oracle, oracle.recent_table_footnote || '');
+                const regime = data.regime_models || {};
+                const regimeKeys = Object.keys(regime.regimes || {});
+                if (regimeKeys.length) {
+                    togglePanel('panel-regime', true);
+                    renderRegimeTable(regime);
+                } else {
+                    togglePanel('panel-regime', false);
+                }
+                const reg = data.signal_registry || {};
+                const typeKeys = Object.keys(reg.by_type || {});
+                if (typeKeys.length) {
+                    togglePanel('panel-registry', true);
+                    renderRegistryTable(reg);
+                } else {
+                    togglePanel('panel-registry', false);
+                }
+                const events = (data.learning_experience || {}).recent_events || [];
+                if (events.length) {
+                    togglePanel('panel-learning', true);
+                    renderLearningEvents(events);
+                } else {
+                    togglePanel('panel-learning', false);
+                }
+            }
+            togglePanel('losing', true);
             renderPublicMisses(oracle, lastTrainingArchive);
             syncShareFromOracle(oracle);
-
-            const regime = data.regime_models || {};
-            const regimeKeys = Object.keys(regime.regimes || {});
-            if (regimeKeys.length) {
-                togglePanel('panel-regime', true);
-                renderRegimeTable(regime);
-            } else {
-                togglePanel('panel-regime', false);
-            }
-
-            const reg = data.signal_registry || {};
-            const typeKeys = Object.keys(reg.by_type || {});
-            if (typeKeys.length) {
-                togglePanel('panel-registry', true);
-                renderRegistryTable(reg);
-            } else {
-                togglePanel('panel-registry', false);
-            }
-
-            const events = (data.learning_experience || {}).recent_events || [];
-            if (events.length) {
-                togglePanel('panel-learning', true);
-                renderLearningEvents(events);
-            } else {
-                togglePanel('panel-learning', false);
-            }
             return true;
         }
 
@@ -893,7 +920,7 @@
                     {},
                     ORACLE_LEDGER_FETCH_MS
                 );
-                if (data.proof_chain) {
+                if (!ERRORS_ONLY_PAGE && data.proof_chain) {
                     renderProofChain(data.proof_chain);
                 }
                 if (applyLedgerPayload(data)) {
@@ -927,7 +954,7 @@
                 if (lastChainVerify) applyChainVerify(lastChainVerify, { total_records: lastChainVerify.records });
             }
         }
-        document.getElementById('verifyChainBtn').addEventListener('click', verifyChain);
+        document.getElementById('verifyChainBtn')?.addEventListener('click', verifyChain);
 
         async function loadLocked() {
             try {
@@ -1059,12 +1086,16 @@
         }
 
         function startLedgerBoot() {
-            loadAccuracy().then(() => scheduleSecondaryLoad(loadLedgerShareKit));
-            scheduleSecondaryLoad(loadGlassBox);
-            scheduleSecondaryLoad(loadMevReport);
-            scheduleSecondaryLoad(loadLocked);
+            loadAccuracy().then(() => {
+                if (!ERRORS_ONLY_PAGE) scheduleSecondaryLoad(loadLedgerShareKit);
+            });
+            if (!ERRORS_ONLY_PAGE) {
+                scheduleSecondaryLoad(loadGlassBox);
+                scheduleSecondaryLoad(loadMevReport);
+                scheduleSecondaryLoad(loadLocked);
+                setInterval(() => { loadLocked().catch(() => {}); }, 120000);
+            }
             setInterval(() => { loadAccuracy().catch(() => {}); }, 60000);
-            setInterval(() => { loadLocked().catch(() => {}); }, 120000);
         }
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', startLedgerBoot);

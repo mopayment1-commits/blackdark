@@ -2302,12 +2302,14 @@ async def discipline_mirror_alias():
     return RedirectResponse(url="/discipline-mirror", status_code=307)
 
 
-@app.get("/errors")
-async def public_errors_alias():
-    """Public admission of misses — alias into the Accuracy Ledger losing section."""
-    from fastapi.responses import RedirectResponse
-
-    return RedirectResponse(url="/oracle-accuracy#losing", status_code=307)
+@app.get("/errors", response_class=HTMLResponse)
+async def public_errors_page(request: Request):
+    """Public misses/errors only — same data as the ledger losing section, not the full page."""
+    return render_page(
+        request,
+        "oracle_accuracy.html",
+        {**_footer_ctx(), "errors_only": True},
+    )
 
 
 @app.get("/public/accuracy-ledger")

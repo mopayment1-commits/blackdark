@@ -80,7 +80,7 @@ def test_production_guard_encryption_check_present(monkeypatch):
 def test_ui_aliases_and_docs_wired():
     root = Path(__file__).resolve().parents[1]
     dash = (root / "dashboard.py").read_text(encoding="utf-8")
-    assert '@app.get("/errors")' in dash
+    assert '@app.get("/errors", response_class=HTMLResponse)' in dash
     assert '@app.get("/public/accuracy-ledger")' in dash
     assert '@app.get("/my/discipline-mirror")' in dash
     assert "docs_url=None" in dash
