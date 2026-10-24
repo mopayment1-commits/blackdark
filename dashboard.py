@@ -197,7 +197,7 @@ def render_profile_auth_required(request: Request) -> HTMLResponse:
     )
 
 
-_HTML_AUTH_GATE_EXACT: frozenset[str] = frozenset({"/profile", "/dashboard", "/discipline-mirror"})
+_HTML_AUTH_GATE_EXACT: frozenset[str] = frozenset({"/profile", "/dashboard"})
 
 
 def anonymous_denial_should_be_html(request: Request) -> bool:
@@ -701,6 +701,15 @@ try:
     app.add_middleware(SecureTransportMiddleware)
 except Exception:
     pass
+
+
+async def _dashboard_entry_href(request: Request) -> str:
+    """Discipline Mirror CTA: dashboard when session is valid, else login with next."""
+    from urllib.parse import quote
+
+    if await _resolve_html_auth_user(request) is not None:
+        return "/dashboard"
+    return f"/login?next={quote('/dashboard', safe='')}"
 
 
 async def _resolve_html_auth_user(request: Request) -> dict | None:
@@ -1998,7 +2007,11 @@ async def dashboard_page(request: Request):
 @app.get("/discipline-mirror", response_class=HTMLResponse)
 async def discipline_mirror_page(request: Request):
     """Private Discipline Mirror UI — never public ledger."""
-    return render_page(request, "discipline.html", _footer_ctx())
+    return render_page(
+        request,
+        "discipline.html",
+        {**_footer_ctx(), "dashboard_href": await _dashboard_entry_href(request)},
+    )
 
 
 @app.get("/kill-rate", response_class=HTMLResponse)
