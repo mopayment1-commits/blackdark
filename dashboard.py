@@ -2643,7 +2643,7 @@ async def faq_page(request: Request):
         {
             "page": "faq",
             "title": "FAQ",
-            "lead": "Straight answers on DISCOVER / FREE, DECIDE / PRO, ELITE, QUANT, INSTITUTIONAL, sharing, and AI Chat.",
+            "lead": "Straight answers on Free, Beginner, Pro, Desk, Institution, sharing, and AI Chat.",
             "faq": FAQ_ITEMS,
             **_footer_ctx(),
         },

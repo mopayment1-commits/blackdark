@@ -24,6 +24,12 @@ def test_site_services_manifest():
     assert m["ai_chat"]["free_tier"] is False
     assert "pro" in m["ai_chat"]["tiers"]
     assert FAQ_ITEMS
+    faq_blob = " ".join(f"{i['q']} {i['a']}" for i in FAQ_ITEMS)
+    assert "Beginner ($9.99/mo)" in faq_blob
+    assert "Pro ($29/mo)" in faq_blob
+    assert "Desk ($79/mo)" in faq_blob
+    assert "19.99" not in faq_blob
+    assert "ELITE" not in faq_blob
     assert HOW_IT_WORKS_STEPS
     foot = footer_manifest()
     assert any(x["href"] == "/legal" for x in foot["legal"])
@@ -85,6 +91,8 @@ def test_templates_wire_companion_surfaces():
     assert "/terms" in foot
     assert "/how-it-works" in foot
     assert "page == 'faq'" in util
+    assert "page-faq" in util
+    assert "body.page-faq .faq-item strong" in util
     assert "page == 'legal_hub'" in util
     assert "page == 'status'" in util
     assert "page == 'cancel'" in util

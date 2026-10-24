@@ -92,24 +92,39 @@ FAQ_ITEMS: list[dict[str, str]] = [
         "a": "No. We sell reviewable decisions and proof — not guaranteed returns. Hits and misses are published on the Ledger.",
     },
     {
-        "q": "What is DISCOVER / FREE ($0)?",
-        "a": "Public Prove surface: Trust Pulse + Why + shareable Decision Certificate, with a daily certified decision limit and Free Proof watermark.",
+        "q": "What is Free ($0)?",
+        "a": (
+            "Trust Pulse, Public Accuracy Ledger, one Oracle decision (BTC/ETH), "
+            "one decision certificate, and saved language — on-device where applicable."
+        ),
     },
     {
-        "q": "What do I get with DECIDE / PRO ($19.99/mo or $199/yr)?",
-        "a": "Operate lens: daily habit depth — unlimited Oracle (no Free daily ceiling), Portfolio AI, alerts, no Free watermark, plus AI Chat. 7-day trial available.",
+        "q": "What do I get with Beginner ($9.99/mo)?",
+        "a": (
+            "Everything in Free plus Watchlist (5 symbols), one decision alert, "
+            "decision log (20), compare two assets, and offline last-known decisions."
+        ),
     },
     {
-        "q": "What is SEE THE EDGE / ELITE ($49.99/mo or $499/yr)?",
-        "a": "Desk lens: packaging to convince someone else — Signal-to-Noise, Stealth views, Evidence pack, API priority.",
+        "q": "What is Pro ($29/mo)?",
+        "a": (
+            "Everything in Beginner plus 20-symbol Watchlist, unlimited alerts, full decision log, "
+            "compare five assets, charts, share decision, and dark/light theme."
+        ),
     },
     {
-        "q": "What is EXECUTE THE EDGE / QUANT ($129.99/mo or $1,299/yr)?",
-        "a": "Quant depth: backtesting suite, higher API scale, and systematic workflow tools for serious desks.",
+        "q": "What is Desk ($79/mo)?",
+        "a": (
+            "Everything in Pro plus all symbols on Watchlist, advanced alerts, read API, "
+            "certificate export, and priority support."
+        ),
     },
     {
-        "q": "How do funds engage (SCALE THE EDGE / INSTITUTIONAL)?",
-        "a": "Room lens from $999/mo — Data Room and Integration Addendum. Talk to us; not self-serve checkout.",
+        "q": "How do funds engage (Institution)?",
+        "a": (
+            "Full API, custom reports, SLA, and extended historical data. "
+            "Talk to us — not self-serve checkout."
+        ),
     },
     {
         "q": "What can I share on social / WhatsApp?",
