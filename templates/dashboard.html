@@ -173,6 +173,34 @@
             opacity: 0.65;
             cursor: wait;
         }
+        #alertsInboxToolbar .btn {
+            padding: .55rem 1rem;
+            font-size: .85rem;
+            font-weight: 700;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+        }
+        #alertsInboxToolbar .btn:not(.secondary) {
+            background: linear-gradient(135deg, #22d3ee, #06b6d4);
+            color: #041016;
+        }
+        #alertsInboxToolbar .btn:not(.secondary):hover {
+            filter: brightness(1.06);
+        }
+        #alertsInboxToolbar .btn.secondary {
+            background: #1a1a24;
+            color: #e4e4e7;
+            border: 1px solid #2a2a35;
+        }
+        #alertsInboxToolbar .btn.secondary:hover {
+            border-color: #22d3ee;
+            color: #22d3ee;
+        }
+        #alertsInboxToolbar .btn:disabled {
+            opacity: 0.65;
+            cursor: wait;
+        }
         body.lens-prove .section-operate-plus .btn-upgrade-cta {
             background: linear-gradient(135deg, #22d3ee, #06b6d4);
             color: #041016;
@@ -582,10 +610,11 @@
                 <p id="priceAlertsStatus" class="sub" style="margin:.35rem 0 0;font-size:.8rem;min-height:1.15em;color:#71717a" role="status" aria-live="polite"></p>
                 <ul id="priceAlertsList" style="list-style:none;padding:0;margin:0;font-size:.88rem"><li class="empty">{{ t('dash.alerts.none') }}</li></ul>
             </div>
-            <div class="toolbar">
-                <button class="btn secondary" type="button" id="inboxRefreshBtn">{{ t('dash.alerts.refresh_inbox') }}</button>
-                <button class="btn secondary" data-bd-call="testTelegram">{{ t('dash.alerts.test_tg') }}</button>
+            <div class="toolbar alerts-inbox-toolbar" id="alertsInboxToolbar">
+                <button class="btn" type="button" id="inboxRefreshBtn" data-bd-call="refreshInbox">{{ t('dash.alerts.refresh_inbox') }}</button>
+                <button class="btn secondary" type="button" id="inboxTestTgBtn" data-bd-call="testTelegram">{{ t('dash.alerts.test_tg') }}</button>
             </div>
+            <p id="inboxToolbarStatus" class="sub" style="margin:.35rem 0 0;font-size:.8rem;min-height:1.15em;color:#71717a" role="status" aria-live="polite"></p>
             <div id="inbox" style="margin-top:.75rem"><div class="loading">…</div></div>
         </section>
 
@@ -730,9 +759,24 @@
 
         function bindInboxRefresh() {
             const btn = document.getElementById('inboxRefreshBtn');
-            if (!btn || btn.dataset.bound === '1') return;
-            btn.dataset.bound = '1';
-            btn.addEventListener('click', () => { void loadInbox(true); });
+            const tgBtn = document.getElementById('inboxTestTgBtn');
+            if (btn && btn.dataset.bound !== '1') {
+                btn.dataset.bound = '1';
+                btn.addEventListener('click', () => { void refreshInbox(); });
+            }
+            if (tgBtn && tgBtn.dataset.bound !== '1') {
+                tgBtn.dataset.bound = '1';
+                tgBtn.addEventListener('click', () => { void testTelegram(); });
+            }
+        }
+
+        function setInboxToolbarStatus(message, tone) {
+            const el = document.getElementById('inboxToolbarStatus');
+            if (!el) return;
+            el.textContent = message || '';
+            if (tone === 'error') el.style.color = '#f87171';
+            else if (tone === 'ok') el.style.color = '#4ade80';
+            else el.style.color = '#71717a';
         }
 
         function bindDeskToolsUi() {
@@ -2778,13 +2822,24 @@
         async function loadInbox(forceRefresh) {
             const el = document.getElementById('inbox');
             const status = document.getElementById('tgStatus');
-            if (!el) return;
+            if (!el) return { ok: false };
             if (forceRefresh) el.innerHTML = '<div class="loading">' + esc(i18nT('dash.js.refreshing_inbox')) + '</div>';
             try {
-                const res = await fetch('/api/alerts/inbox?limit=12', { headers: authHeaders() });
-                const data = await res.json();
+                const res = await fetch('/api/alerts/inbox?limit=12', { headers: authHeaders(), credentials: 'same-origin' });
+                const data = await res.json().catch(() => ({}));
+                if (!res.ok) {
+                    const detail = typeof data.detail === 'string' ? data.detail : i18nT('dash.js.inbox_unavailable');
+                    throw new Error(detail);
+                }
                 const stats = data.stats || {};
-                status.textContent = i18nT('dash.js.inbox_status', { unread: stats.unread||0, note: stats.generosity_note || i18nT('dash.js.inbox_note_default') });
+                const unread = Number(stats.unread || 0);
+                const total = (data.alerts || []).length;
+                if (status) {
+                    status.textContent = i18nT('dash.js.inbox_status', {
+                        unread,
+                        note: stats.generosity_note || i18nT('dash.js.inbox_note_default'),
+                    });
+                }
                 const rows = data.alerts || [];
                 el.innerHTML = rows.length ? rows.map(a => `
                     <div class="arb-card" style="cursor:pointer" data-bd-call="markInboxRead" data-bd-args="[&quot;${esc(a.id)}&quot;]">
@@ -2793,7 +2848,28 @@
                         <div style="font-size:.72rem;color:#71717a;margin-top:.35rem">${esc((a.created_at||'').slice(0,19))} · ${a.read ? i18nT('dash.js.read') : i18nT('dash.js.tap_mark_read')}</div>
                         <div style="margin-top:.4rem;font-size:.7rem;color:#71717a"><strong>${esc(i18nT('common.anti_hype'))}</strong> · ${esc(i18nT('dash.js.inbox_card_foot'))}</div>
                     </div>`).join('') : '<div class="empty">' + esc(i18nT('dash.js.inbox_empty')) + '</div>';
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">' + esc(i18nT('dash.js.inbox_unavailable')) + '</div>'; }
+                return { ok: true, total, unread };
+            } catch (error) {
+                console.debug(error);
+                el.innerHTML = '<div class="empty">' + esc(i18nT('dash.js.inbox_unavailable')) + '</div>';
+                return { ok: false, error: error && error.message ? String(error.message) : '' };
+            }
+        }
+
+        async function refreshInbox() {
+            const btn = document.getElementById('inboxRefreshBtn');
+            if (btn) btn.disabled = true;
+            setInboxToolbarStatus(i18nT('dash.js.refreshing_inbox'));
+            const result = await loadInbox(true);
+            if (result.ok) {
+                setInboxToolbarStatus(
+                    i18nT('dash.js.inbox_refreshed_summary', { total: result.total || 0, unread: result.unread || 0 }),
+                    'ok'
+                );
+            } else {
+                setInboxToolbarStatus(result.error || i18nT('dash.js.inbox_unavailable'), 'error');
+            }
+            if (btn) btn.disabled = false;
         }
 
         async function markInboxRead(id) {
@@ -3357,11 +3433,31 @@
         }
 
         async function testTelegram() {
+            const btn = document.getElementById('inboxTestTgBtn');
+            if (btn) btn.disabled = true;
+            setInboxToolbarStatus(i18nT('dash.js.telegram_testing'));
             try {
-                const res = await fetch('/api/alerts/telegram/test', { method: 'POST', headers: authHeaders() });
-                const d = await res.json();
-                showTelegramTestDialog(d.message || (d.success ? i18nT('dash.js.telegram_sent') : i18nT('dash.js.telegram_failed')));
-            } catch (error) { console.debug(error); showTelegramTestDialog(i18nT('dash.js.telegram_test_failed')); }
+                const res = await fetch('/api/alerts/telegram/test', {
+                    method: 'POST',
+                    headers: authHeaders(),
+                    credentials: 'same-origin',
+                });
+                const d = await res.json().catch(() => ({}));
+                const msg = d.message || (d.success ? i18nT('dash.js.telegram_sent') : i18nT('dash.js.telegram_failed'));
+                if (!res.ok && !d.message) {
+                    throw new Error(typeof d.detail === 'string' ? d.detail : i18nT('dash.js.telegram_test_failed'));
+                }
+                setInboxToolbarStatus(msg, d.success ? 'ok' : 'error');
+                showTelegramTestDialog(msg);
+                void loadTgStatus();
+            } catch (error) {
+                console.debug(error);
+                const fail = error && error.message ? String(error.message) : i18nT('dash.js.telegram_test_failed');
+                setInboxToolbarStatus(fail, 'error');
+                showTelegramTestDialog(fail);
+            } finally {
+                if (btn) btn.disabled = false;
+            }
         }
 
         async function loadAlertsGenerosity() {
@@ -3574,6 +3670,9 @@
         window.loadChart = loadChart;
         window.setSymbol = setSymbol;
         window.loadInbox = loadInbox;
+        window.refreshInbox = refreshInbox;
+        window.testTelegram = testTelegram;
+        window.markInboxRead = markInboxRead;
         window.addPortfolioAsset = addPortfolioAsset;
         window.removePortfolioAsset = removePortfolioAsset;
         window.analyzePortfolio = analyzePortfolio;

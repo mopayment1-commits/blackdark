@@ -945,6 +945,8 @@ EN: dict[str, str] = {
     "dash.js.no_opportunities": "No opportunities now",
     "dash.js.scan_failed": "Scan failed",
     "dash.js.refreshing_inbox": "Refreshing inbox…",
+    "dash.js.inbox_refreshed_summary": "Inbox refreshed · {total} shown · {unread} unread",
+    "dash.js.telegram_testing": "Sending Telegram test…",
     "dash.js.inbox_status": "Inbox {unread} unread · {note} · works without Telegram",
     "dash.js.inbox_empty": "No alerts yet — inbox has no TradingView-style 15/3min hard cap",
     "dash.js.inbox_unavailable": "Inbox unavailable",

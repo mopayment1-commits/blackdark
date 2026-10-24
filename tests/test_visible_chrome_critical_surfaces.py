@@ -266,6 +266,17 @@ def test_dashboard_portfolio_ai_symbol_is_dropdown():
     assert 'type="text"' not in portfolio.split("pfSym", 1)[1].split("pfAmt", 1)[0]
 
 
+def test_dashboard_inbox_toolbar_wired_and_styled():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    alerts = dash.split('id="alerts"', 1)[1].split("</section>", 1)[0]
+    assert 'id="alertsInboxToolbar"' in alerts
+    assert 'data-bd-call="refreshInbox"' in alerts
+    assert 'data-bd-call="testTelegram"' in alerts
+    assert "window.refreshInbox = refreshInbox" in dash
+    assert "window.testTelegram = testTelegram" in dash
+    assert "#alertsInboxToolbar .btn:not(.secondary)" in dash
+
+
 def test_dashboard_price_alerts_wired_and_styled():
     dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
     panel = dash.split('id="priceAlertsPanel"', 1)[1].split("</section>", 1)[0]
