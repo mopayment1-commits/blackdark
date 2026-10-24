@@ -436,6 +436,21 @@
             color: var(--text-muted); font-size: 0.95rem;
             margin-top: 0.5rem; line-height: 1.8;
         }
+
+        .landing-oracle-metrics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem 1.25rem;
+            margin: 0.75rem 0 0.35rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .landing-oracle-metric strong {
+            display: block;
+            font-size: 1rem;
+            color: var(--text);
+            font-weight: 700;
+        }
         
         .features {
             padding: 6rem 2rem;
@@ -1083,6 +1098,7 @@
                     <div style="margin-bottom: 1rem;">
                         <span class="result-verdict verdict-wait" id="resultVerdict">{{ t('action.WAIT') }}</span>
                     </div>
+                    <div id="landingOracleMetrics" class="landing-oracle-metrics" hidden></div>
                     <div class="result-oracle" id="resultOracle">
                         {{ t('oracle.placeholder') }}
                     </div>

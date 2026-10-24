@@ -99,10 +99,16 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             const header = document.querySelector('#oracleResult .result-header');
             const verdictWrap = document.getElementById('resultVerdict')?.parentElement;
             const share = document.getElementById('oracleShare');
+            const metrics = document.getElementById('landingOracleMetrics');
             const full = mode === 'full';
-            if (header) header.style.display = full ? '' : 'none';
-            if (verdictWrap) verdictWrap.style.display = full ? '' : 'none';
+            const summary = full || mode === 'summary' || mode === 'partial';
+            if (header) header.style.display = summary ? '' : 'none';
+            if (verdictWrap) verdictWrap.style.display = summary ? '' : 'none';
             if (share) share.style.display = full ? '' : 'none';
+            if (metrics && mode === 'down') {
+                metrics.hidden = true;
+                metrics.innerHTML = '';
+            }
         }
 
         function updateShareLinks(result) {
@@ -182,7 +188,8 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
         }
 
         async function fetchOraclePayload(symbol, mode, lang) {
-            const preferQuick = mode !== 'pro';
+            // Landing always uses /quick first — full /oracle/{sym} requires terms ack and returns no decision fields.
+            const preferQuick = true;
             const primary = preferQuick
                 ? `/oracle/${encodeURIComponent(symbol)}/quick?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`
                 : `/oracle/${encodeURIComponent(symbol)}?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`;
@@ -262,6 +269,73 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 || (data.explanation && data.explanation.top_3_factors)
                 || data.top_3_factors
                 || [];
+        }
+
+        function landingChange24h(data) {
+            if (!data) return null;
+            if (data.change_24h != null) return data.change_24h;
+            if (data.change_24h_pct != null) return data.change_24h_pct;
+            return null;
+        }
+
+        function landingPriceBit(data) {
+            const price = data && data.price != null
+                ? ('$' + Number(data.price).toLocaleString(undefined, { maximumFractionDigits: 2 }))
+                : '—';
+            const ch = landingChange24h(data);
+            if (ch == null) return price;
+            const sign = Number(ch) >= 0 ? '+' : '';
+            return `${price} · ${sign}${Number(ch).toFixed(2)}%`;
+        }
+
+        function landingMetricValue(raw) {
+            if (raw === null || raw === undefined || raw === '') return '—';
+            return String(raw);
+        }
+
+        function paintLandingOracleMetrics(data) {
+            const row = document.getElementById('landingOracleMetrics');
+            if (!row) return;
+            if (!data || !landingOracleHasDecision(data)) {
+                row.hidden = true;
+                row.innerHTML = '';
+                return;
+            }
+            const truth = (data.net_edge_truth && data.net_edge_truth.truth_score != null)
+                ? data.net_edge_truth.truth_score
+                : null;
+            const half = data.opportunity_half_life || {};
+            const halfSec = half.remaining_seconds != null ? half.remaining_seconds : null;
+            const regime = data.market_regime != null && String(data.market_regime).trim()
+                ? data.market_regime
+                : null;
+            const sig = data.signal_id != null && String(data.signal_id).trim()
+                ? String(data.signal_id).slice(0, 10)
+                : null;
+            const conf = data.confidence != null ? `${landingMetricValue(data.confidence)}%` : '—';
+            const cells = [
+                [landingMetricValue(data.opportunity_score), i18nT('ui.score')],
+                [conf, i18nT('ui.confidence')],
+                [landingMetricValue(truth), i18nT('ui.truth')],
+                [halfSec != null ? `${halfSec}s` : '—', i18nT('ui.half_life')],
+                [landingMetricValue(regime), i18nT('ui.regime')],
+                [landingMetricValue(sig), i18nT('ui.signal')],
+            ];
+            row.innerHTML = cells.map(([val, label]) =>
+                `<div class="landing-oracle-metric"><strong>${esc(val)}</strong><span>${esc(label)}</span></div>`
+            ).join('');
+            row.hidden = false;
+        }
+
+        function paintLandingOracleHeader(symbolEl, scoreEl, verdictEl, data, symbol, action) {
+            const sym = String((data && data.symbol) || symbol || 'BTC').trim().toUpperCase() || 'BTC';
+            if (symbolEl) symbolEl.textContent = `${sym} · ${landingPriceBit(data || {})}`;
+            if (scoreEl) {
+                scoreEl.textContent = data && data.opportunity_score != null
+                    ? String(data.opportunity_score)
+                    : '—';
+            }
+            if (verdictEl && data) paintLandingVerdict(verdictEl, data, action);
         }
         function landingOracleFreshnessKnown(data) {
             if (!data) return false;
@@ -533,6 +607,11 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 certEl.style.display = 'none';
                 certEl.innerHTML = '';
             }
+            const metricsRow = document.getElementById('landingOracleMetrics');
+            if (metricsRow) {
+                metricsRow.hidden = true;
+                metricsRow.innerHTML = '';
+            }
             const disc = document.getElementById('landingDiscipline');
             if (disc) {
                 disc.style.display = 'none';
@@ -629,11 +708,10 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 const cert = full ? (data.decision_certificate || {}) : {};
                 const disc = document.getElementById('landingDiscipline');
                 const comp = document.getElementById('landingCompliance');
+                paintLandingOracleHeader(symbolEl, scoreEl, verdictEl, data, symbol, action);
+                paintLandingOracleMetrics(data);
                 if (full) {
                     setLandingOraclePresentationLayout('full');
-                    symbolEl.textContent = data.symbol || symbol;
-                    scoreEl.textContent = data.opportunity_score ?? '--';
-                    paintLandingVerdict(verdictEl, data, action);
                     paintLandingFreshness(data);
                     paintLandingProMeta(proMeta, data, mode);
                     paintLandingUpgrade(upgradeEl, data);
@@ -644,10 +722,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                     paintLandingCompliance(data);
                     try { updateShareLinks(data); } catch (shareError) { console.debug(shareError); }
                 } else if (ageOnly) {
-                    setLandingOraclePresentationLayout('partial');
-                    scoreEl.textContent = '';
-                    verdictEl.textContent = '';
-                    verdictEl.className = 'result-verdict';
+                    setLandingOraclePresentationLayout('summary');
                     paintLandingFreshness(data);
                     proMeta.style.display = 'none';
                     upgradeEl.style.display = 'none';
@@ -657,10 +732,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                     if (comp) comp.style.display = 'none';
                     try { updateShareLinks(data); } catch (shareError) { console.debug(shareError); }
                 } else {
-                    setLandingOraclePresentationLayout('partial');
-                    scoreEl.textContent = '';
-                    verdictEl.textContent = '';
-                    verdictEl.className = 'result-verdict';
+                    setLandingOraclePresentationLayout('summary');
                     const freshChip = document.getElementById('oracleFreshnessLabel');
                     const freshWrap = document.getElementById('oracleFreshnessChip');
                     if (freshChip) freshChip.textContent = '';

@@ -1780,21 +1780,30 @@
             const mapped = {
                 symbol: data.symbol || sym,
                 decision_action: abstain ? 'ABSTAIN' : (oracle.decision_action || sso.action || 'WAIT'),
-                decision_sentence: home.abstain_explanation || sso.sentence || 'Launch-57 command home',
+                decision_sentence: home.abstain_explanation
+                    || oracle.decision_sentence
+                    || sso.sentence
+                    || data.decision_sentence
+                    || '',
                 verdict: abstain ? 'ABSTAIN' : (oracle.decision_action || 'WAIT'),
                 price: data.price,
                 change_24h: data.change_24h,
                 ux_mode: mode,
                 lang,
                 opportunity_score: (() => {
-                    const ne = lastVisibleTrust.netEdge && lastVisibleTrust.netEdge.net_edge_truth_score;
-                    if (ne && ne.truth_score != null) return ne.truth_score;
-                    const raw = oracle.net_edge_truth_score;
-                    if (raw && typeof raw === 'object' && raw.truth_score != null) return raw.truth_score;
-                    return '—';
+                    if (oracle.opportunity_score != null) return oracle.opportunity_score;
+                    if (data.opportunity_score != null) return data.opportunity_score;
+                    return null;
                 })(),
                 decision_certificate: lastVisibleTrust.certificate || oracle.decision_certificate || null,
                 confidence: oracle.confidence,
+                oqs_why: oracle.oqs_why,
+                top_3_factors: oracle.top_3_factors,
+                net_edge_truth: oracle.net_edge_truth || oracle.net_edge_truth_score,
+                opportunity_half_life: oracle.opportunity_half_life,
+                market_regime: oracle.market_regime || data.market_regime,
+                signal_registry: oracle.signal_registry,
+                signal_id: oracle.signal_id,
                 launch57_command_home: true,
                 router_selection: home.router_selection_contract,
             };
@@ -2283,22 +2292,30 @@
             if (!cf.disclaimer) return '';
             return `<div style="margin-top:.85rem;font-size:.72rem;color:#71717a;border-top:1px solid #2a2a35;padding-top:.65rem"><strong>${esc(i18nT('common.anti_hype'))}</strong> · ${esc(cf.data_source||'')} · ${esc(cf.trust_basis||'')}<br>${esc(cf.disclaimer)}</div>`;
         }
+        function oracleDecisionPriceLine(d, sym) {
+            const priceBit = d.price != null
+                ? ('$' + fmt(d.price, d.price < 1 ? 4 : 2))
+                : '—';
+            const changeBit = d.change_24h != null
+                ? ` · <span class="${changeClass(d.change_24h)}">${changePrefix(d.change_24h)}${fmt(d.change_24h, 2)}%</span>`
+                : '';
+            return `${esc(d.symbol || sym)} · ${priceBit}${changeBit}`;
+        }
+
         function renderOracleDecision(el, d, { sym, mode, lang }) {
             const sentence = d.decision_sentence || d.narrative || d.oracle || '';
             const action = d.decision_action || '';
             const factorBlock = buildFactorDrawer(d);
             const proBlock = mode === 'pro' ? buildProMetrics(d, factorBlock) : '';
             const conf = d.confidence != null ? d.confidence + '%' : '—';
+            const score = d.opportunity_score != null ? d.opportunity_score : '—';
             el.innerHTML = `
                 <div class="verdict ${esc(vc(d.verdict))}">${esc(action || d.verdict)}</div>
-                <div style="color:#71717a;font-size:.9rem">${esc(d.symbol || sym)} · $${fmt(d.price,2)} ·
-                    <span class="${changeClass(d.change_24h)}">${changePrefix(d.change_24h)}${fmt(d.change_24h||0,2)}%</span></div>
+                <div style="color:#71717a;font-size:.9rem">${oracleDecisionPriceLine(d, sym)}</div>
                 <div class="narrative">${esc(sentence)}</div>
                 <div class="metrics">
-                    <div class="metric"><strong>${esc(d.opportunity_score)}</strong><span>${esc(i18nT('ui.score'))}</span></div>
+                    <div class="metric"><strong>${esc(score)}</strong><span>${esc(i18nT('ui.score'))}</span></div>
                     <div class="metric"><strong>${esc(conf)}</strong><span>${esc(i18nT('ui.confidence'))}</span></div>
-                    <div class="metric"><strong>${esc(d.ux_mode || mode)}</strong><span>${esc(i18nT('ui.mode'))}</span></div>
-                    <div class="metric"><strong>${esc(d.lang || lang)}</strong><span>${esc(i18nT('ui.lang_label'))}</span></div>
                 </div>
                 ${proBlock}
                 ${buildVetoBlock(mode, d.dimension_conflict || {})}
