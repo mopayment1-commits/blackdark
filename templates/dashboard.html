@@ -214,6 +214,7 @@
             <button class="btn secondary" type="button" id="antiHypeBtn" data-bd-call="toggleAntiHype">Anti-Hype</button>
             <a class="btn secondary section-operate-plus" href="#portfolio" style="text-decoration:none;display:inline-flex;align-items:center">My book</a>
             <a class="btn secondary section-desk-only" href="#stealth" style="text-decoration:none;display:inline-flex;align-items:center">Desk tools</a>
+            <a class="btn secondary section-desk-only" href="/dashboard?lens=desk#financial-news" style="text-decoration:none;display:inline-flex;align-items:center">{{ t('dash.news.title') }}</a>
             <a class="btn secondary section-desk-only" href="/corpus-passport" style="text-decoration:none;display:inline-flex;align-items:center">Corpus Passport</a>
         </div>
         <div class="picks hide-in-room">
@@ -344,6 +345,8 @@
             </div>
             <div id="mevResult" class="empty">Generate a shareable MEV report</div>
         </section>
+
+        {% include 'partials/desk_market_headlines.html' %}
 
         <section id="alerts" class="section-operate-plus hide-in-room">
             <h2 id="alertsTitle">Alerts</h2>
@@ -2147,6 +2150,34 @@
             if (lensId === 'desk') setTimeout(scrollToStealth, 250);
             else setTimeout(() => scrollToId('decide'), 200);
         }
+        async function loadFinancialNews() {
+            const list = document.getElementById('financialNewsList');
+            const foot = document.getElementById('financialNewsFoot');
+            if (!list) return;
+            try {
+                const res = await fetch('/api/public/news/headlines?limit=8');
+                const data = await res.json();
+                const rows = data.headlines || [];
+                if (!rows.length) {
+                    list.innerHTML = '<li class="empty">' + esc(i18nT('dash.js.no_headlines')) + '</li>';
+                    if (foot) foot.textContent = data.license_note || '';
+                    return;
+                }
+                list.innerHTML = rows.map((row) => {
+                    const title = esc(row.title || '');
+                    const src = esc(row.source || '');
+                    const url = row.url ? esc(row.url) : '';
+                    const inner = url
+                        ? `<a href="${url}" target="_blank" rel="noopener noreferrer">${title}</a>`
+                        : title;
+                    return `<li style="margin-bottom:.45rem"><span style="color:#71717a;font-size:.75rem">${src}</span> · ${inner}</li>`;
+                }).join('');
+                if (foot) foot.textContent = data.attribution ? (data.attribution + ' — ' + (data.license_note || '')) : (data.license_note || '');
+            } catch (e) {
+                list.innerHTML = '<li class="empty">' + esc(i18nT('dash.js.headlines_unavailable')) + '</li>';
+            }
+        }
+
         function paintLensChrome(d) {
             const lens = d.lens || {};
             const promise = document.getElementById('lensPromise');
@@ -2188,6 +2219,7 @@
                     return;
                 }
                 if (scroll) scrollForLens(currentLens);
+                if (currentLens === 'desk') void loadFinancialNews();
             } catch (error) {
                 console.debug(error);
                 renderEntries([

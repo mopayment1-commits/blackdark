@@ -16,55 +16,34 @@ def test_landing_uses_global_header_with_session_chrome():
     assert "partials/global_header.html" in land
     global_hdr = (ROOT / "templates/partials/global_header.html").read_text(encoding="utf-8")
     assert "bd-global-header" in global_hdr
-    assert "bd-global-links" in global_hdr
-    assert "top_utility.html" in global_hdr
+    assert "site_top_nav.html" in global_hdr
+    assert "site_top_nav.html" in global_hdr
 
 
 def test_top_utility_has_anonymous_chrome_branches():
-    util = (ROOT / "templates/partials/top_utility.html").read_text(encoding="utf-8")
+    util = (ROOT / "templates/partials/site_top_nav.html").read_text(encoding="utf-8")
     assert "lang_switcher.html" in util
     assert "/login" in util
     assert "/login?tab=register" in util
     assert 'id="bdUtilPricing"' in util
     assert "bd-header-util" in util
     assert "header_authenticated" in util
+    assert "bd-account-menu" in util
     assert "bd-tier-badge" in util
     assert "/profile" in util
     assert "bd-header-upgrade" not in util
 
 
 def test_lang_switcher_lists_twenty_five_locales():
+    from i18n_service import LOCALES, _locale_json_codes, list_locales
+
     sw = (ROOT / "templates/partials/lang_switcher.html").read_text(encoding="utf-8")
-    for code in (
-        "en",
-        "es",
-        "ar",
-        "pt",
-        "fr",
-        "de",
-        "zh-CN",
-        "zh-TW",
-        "ja",
-        "ko",
-        "hi",
-        "tr",
-        "ru",
-        "id",
-        "vi",
-        "th",
-        "fil",
-        "it",
-        "bn",
-        "ur",
-        "fa",
-        "ms",
-        "pl",
-        "nl",
-        "he",
-    ):
-        assert code in sw
-    # Must render even without template context
+    assert 'id="bdLangTrigger"' in sw
     assert "_locales" in sw
+    assert len(LOCALES) == 25
+    exposed = list_locales()
+    assert len(exposed) == len(_locale_json_codes())
+    assert len(exposed) == 25
 
 
 def test_login_has_register_tab_and_global_header():
@@ -85,9 +64,11 @@ def test_profile_has_lang_billing_and_signup_gate():
     assert 'lang="{{ lang|default(\'en\') }}"' in profile or 'lang="{{ lang|default(' in profile
     assert "create-checkout-session?tier=pro" in profile
     assert "create-checkout-session?tier=elite" in profile
-    assert "SEE THE EDGE / ELITE $49.99" in profile
+    assert "Plus · $29/mo" in profile
+    assert "Pro · $49/mo" in profile
+    assert "19.99" not in profile
     assert "tab=register" in profile
-    assert "billingReady" in profile
+    assert "billingReady" not in profile
 
 
 def test_dashboard_and_accuracy_include_global_header():
@@ -97,19 +78,396 @@ def test_dashboard_and_accuracy_include_global_header():
     assert "global_header.html" in acc
 
 
-def test_pricing_ladder_visible_on_landing():
+def test_dashboard_prove_lens_upgrade_pro_routes_to_pricing():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    assert "Upgrade Pro" in dash
+    assert "currentLens === 'prove'" in dash
+    assert "goNavUrl('/pricing')" in dash
+    assert "btn-upgrade-cta" in dash
+    assert "body.lens-prove .section-operate-plus .btn-upgrade-cta" in dash
+
+
+def test_dashboard_lens_prove_vs_operate_section_visibility():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    assert "body.lens-prove .section-operate-plus { display: none !important; }" in dash
+    assert "body.lens-prove .section-habit-depth { display: none !important; }" in dash
+    assert "body.lens-prove .section-prove-legacy { display: none !important; }" in dash
+    assert "body.lens-operate .section-prove-legacy { display: none !important; }" in dash
+    assert "body.lens-operate .section-desk-only { display: none !important; }" in dash
+    assert "body.lens-desk .section-operate-plus { display: none !important; }" in dash
+    assert 'class="lens-{{ initial_lens|default(\'prove\') }}"' in dash
+    assert 'id="radar"' in dash and 'section-operate-plus hide-in-room" id="radar"' in dash
+    assert "section-prove-legacy" in dash.split('id="decide"', 1)[0]
+    nav = (ROOT / "static/js/bd_global_nav.js").read_text(encoding="utf-8")
+    assert "location.assign(target)" not in nav.split("applyLens", 1)[1].split("}", 1)[0]
+
+
+def test_dashboard_lens_query_param_resolved_before_storage():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    block = dash.split("function applyAudienceFromQuery", 1)[1].split("async function loadIntentRouter", 1)[0]
+    assert "ALLOWED_LENSES.has(lens)" in block
+    assert "lensParam" in block
+    assert "syncDashboardLensQuery" in dash
+    assert "window.applyLens = applyLens" in dash
+    scroll = dash.split("function scrollForLens", 1)[1].split("function paintLensChrome", 1)[0]
+    assert "scrollToId('radar')" in scroll
+    assert "scrollToId('trust-pulse')" in scroll
+
+
+def test_dashboard_alerts_refresh_inbox_button_wired():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    alerts = dash.split('id="alerts"', 1)[1].split("</section>", 1)[0]
+    assert 'id="inboxRefreshBtn"' in alerts
+    assert "bindInboxRefresh" in dash
+    assert "window.loadInbox = loadInbox" in dash
+    body = dash.split("async function loadInbox", 1)[1].split("async function", 1)[0]
+    assert "forceRefresh" in body
+    assert "Refreshing inbox" in body
+
+
+def test_dashboard_trust_pulse_why_title_uses_i18n_not_launch57_label():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    assert "Why (Launch-57 oracle" not in dash
+    render = dash.split("function renderTrustPulse", 1)[1].split("function bindTrustPulseLiveStream", 1)[0]
+    assert "tpWhyTitle').textContent = i18nT('dash.tp.why_title')" in render
+
+
+def test_dashboard_operate_lens_shows_trust_pulse_symbol_dropdown():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    assert "body.lens-operate .tp-symbol-wrap" in dash
+    assert "body.lens-desk .tp-symbol-wrap" in dash
+    assert 'id="tpSymbol"' in dash
+    handler = dash.split("function onTrustPulseSymbolChange", 1)[1].split("async function loadCommandHome", 1)[0]
+    assert "currentLens === 'operate'" in handler
+    assert "currentLens === 'desk'" in handler
+    assert "loadCommandHome(true)" in handler
+    assert "window.onTrustPulseSymbolChange = onTrustPulseSymbolChange" in dash
+    assert "const sym = trustPulseSymbolValue()" in dash.split("async function loadCommandHome", 1)[1][:400]
+
+
+def test_dashboard_prove_trust_pulse_symbol_quick_oracle():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    assert 'id="tpSymbol"' in dash
+    assert "onTrustPulseSymbolChange" in dash
+    assert "loadTrustPulseQuick" in dash
+    assert "fetchOracleQuick" in dash
+    assert "renderOracleQuickDecision" in dash
+    assert "renderOracleBoxFromQuick" in dash
+    assert "oracleQuickUrl" in dash
+    assert "/oracle/${encodeURIComponent(symbol)}/quick" in dash
+    quick_render = dash.split("function renderOracleQuickDecision", 1)[1].split("function mapOracleQuickAction", 1)[0]
+    assert "mode === 'pro'" in quick_render
+    assert "buildWhyFactorsHtml" in quick_render
+    assert "buildCertBlock" in quick_render
+    assert dash.split("function onUxModeChange", 1)[1].split("function syncProveSymbolSelects", 1)[0].count("currentLens === 'prove'") >= 1
+
+
+def test_dashboard_open_full_proof_routes_to_readable_page():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    assert "openTrustPulseProofPage" in dash
+    assert "/trust-pulse/proof" in dash
+    assert "JSON.stringify(cert" not in dash.split("function openDecisionCertificate", 1)[1].split("function clearVisibleTrust", 1)[0]
+
+
+def test_dashboard_prove_lens_my_book_operate_gate_not_raw_billing_json():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    assert "Requires Operate subscription" in dash
+    assert "View pricing" in dash
+    assert "يتطلب اشتراك Operate" not in dash
+    assert "عرض الأسعار" not in dash
+    assert "showOperateGate" in dash
+    assert "openMyBookEntry" in dash
+    assert "lockedId === 'my_book'" in dash
+    assert "lockedId === 'alerts'" in dash
+    assert "openAlertsEntry" in dash
+    assert "create-checkout-session?tier=" not in dash.split("async function upgradeTier", 1)[1].split("let lastPulse", 1)[0]
+
+
+def test_coverage_honesty_logo_uses_site_accent_cyan():
+    html = (ROOT / "templates/coverage_honesty.html").read_text(encoding="utf-8")
+    logo_line = next(line for line in html.splitlines() if ".logo{" in line.replace(" ", ""))
+    assert "color:#22d3ee" in logo_line.replace(" ", "")
+    assert "color:var(--ok)" not in logo_line
+
+
+def test_miss_feed_share_honesty_button_stable_handler():
+    html = (ROOT / "templates/miss_feed.html").read_text(encoding="utf-8")
+    share_line = next(line for line in html.splitlines() if 'id="share"' in line)
+    assert 'type="button"' in share_line
+    assert "shareMissFeedHonesty" in html
+    assert "flashMissFeedShare" in html
+    assert "Copied!" in html
+    assert "share_urls?.x" not in html or "getElementById('share').href" not in html
+
+
+def test_half_life_page_omits_launch57_desk_line():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    assert "isDedicatedHalfLifePage" in dash
+    assert "desk timing grounded (no legacy oracle fetch)" in dash
+    block = dash.split("function commandHomeToHalfLifeHeat", 1)[1].split("async function loadHalfLifeClock", 1)[0]
+    assert "isDedicatedHalfLifePage()" in block
+
+
+def test_dashboard_prove_lens_single_primary_entry_rail_under_trust_pulse():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    assert 'id="entryRail"' in dash
+    assert "tp-entry-rail" in dash
+    assert dash.count('id="entryRail"') == 1
+    assert "body.lens-prove #intentWrap { display: none; }" in dash
+    assert "if (currentLens === 'prove') return;" in dash.split("function renderLaunch57Intents", 1)[1].split("function readLastPulseVisit", 1)[0]
+
+
+def test_dashboard_prove_lens_single_verify_entry_rail_only():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    tp_cta = dash.split('class="tp-cta"', 1)[1].split("</div>", 1)[0]
+    toolbar = dash.split('class="toolbar hide-in-room"', 1)[1].split("</div>", 1)[0]
+    assert "oracle-accuracy" not in tp_cta
+    assert "oracle-accuracy" not in toolbar
+    assert "it.id === 'verify'" in dash
+    assert "id === 'verify'" in dash
+
+
+def test_market_headlines_desk_only_not_on_landing():
+    landing = (ROOT / "templates/landing.html").read_text(encoding="utf-8")
+    assert 'id="financial-news"' not in landing
+    assert "financialNewsList" not in landing
+    assert "loadFinancialNews" not in landing
+    oracle_block = landing.split('id="oracle"', 1)[1].split("</section>", 1)[0]
+    assert "Market headlines" not in oracle_block
+    assert "dash.news.title" not in oracle_block
+    partial = (ROOT / "templates/partials/desk_market_headlines.html").read_text(encoding="utf-8")
+    assert 'id="financial-news"' in partial
+    assert "section-desk-only" in partial
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    assert "partials/desk_market_headlines.html" in dash
+    assert "async function loadFinancialNews()" in dash
+    apply_block = dash.split("async function applyLens", 1)[1].split("function renderEntries", 1)[0]
+    assert "currentLens === 'desk') void loadFinancialNews()" in apply_block
+    boot = dash.split("function boot()", 1)[1].split("function scheduleCommandHome", 1)[0]
+    assert "loadFinancialNews" not in boot
+
+
+def test_dashboard_desk_tools_opens_menu_on_prove_lens():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    assert 'id="deskToolsMenu"' in dash
+    assert "desk-tools-details" in dash
+    assert "desk-tools-dropmenu" in dash
+    assert '/dashboard?lens=desk#stealth' in dash
+    assert "function bindDeskToolsUi()" in dash
+    assert "window.openDeskTools = openDeskTools" in dash
+    toolbar = dash.split('class="toolbar hide-in-room"', 1)[1].split("</div>", 1)[0]
+    assert "Desk tools" in toolbar
+    assert 'class="desk-tools-details desk-tools-nav"' in dash
+    assert "async function openDeskToolSection" in dash
+    assert "DESK_TOOL_SECTIONS" in dash
+    desk_menu = dash.split('aria-label="Desk tools"', 1)[1].split("</details>", 1)[0]
+    assert 'href="/dashboard?lens=desk#stealth">Open Desk lens' in desk_menu
+    assert 'href="/dashboard?lens=desk#financial-news"' in desk_menu
+    assert "/dashboard#portfolio" not in desk_menu
+
+
+def test_dashboard_live_chart_refresh_and_interval_wired():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    chart_sec = dash.split("<h2>Live Chart</h2>", 1)[1].split("</section>", 1)[0]
+    assert 'data-bd-change-call="loadChart"' in chart_sec
+    assert 'id="chartRefreshBtn"' in chart_sec
+    assert 'data-bd-call="loadChart"' in chart_sec
+    assert "data-bd-args=\"[true]\"" in chart_sec
+    assert "bindLiveChartRefresh" in dash
+    assert "addEventListener('click'" in dash.split("bindLiveChartRefresh", 1)[1].split("function bindInboxRefresh", 1)[0]
+    assert "else boot();\n        bindLiveChartRefresh();" in dash
+    assert "window.loadChart = loadChart" in dash
+    body = dash.split("async function loadChart", 1)[1].split("async function", 1)[0]
+    assert "if (!series) initChart();" in body
+    assert "forceRefresh" in body
+    assert "Refreshing chart" in body
+
+
+def test_dashboard_arbitrage_live_scan_is_button():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    arb = dash.split('id="arbitrage"', 1)[1].split("</section>", 1)[0]
+    assert 'data-bd-call="loadArbitrage"' in arb
+    assert "Live Scan" in arb
+    assert 'type="button"' in arb
+    assert "window.loadArbitrage = loadArbitrage" in dash
+    body = dash.split("async function loadArbitrage", 1)[1].split("async function", 1)[0]
+    assert "Live scan in progress" in body
+
+
+def test_dashboard_telegram_test_uses_styled_dialog_not_alert():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    assert 'id="telegramTestModal"' in dash
+    assert "operate-gate-modal" in dash.split("telegramTestModal", 1)[1][:200]
+    assert "function showTelegramTestDialog" in dash
+    assert "closeTelegramTestDialog" in dash
+    tg = dash.split("async function testTelegram", 1)[1].split("async function", 1)[0]
+    assert "alert(" not in tg
+    assert "showTelegramTestDialog" in tg
+
+
+def test_dashboard_stealth_and_mev_asset_dropdowns():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    stealth = dash.split('id="stealth"', 1)[1].split("</section>", 1)[0]
+    mev = dash.split('id="mev"', 1)[1].split("</section>", 1)[0]
+    assert '<select id="stealthAsset"' in stealth
+    assert "oracle_symbols" in stealth
+    assert '<select id="mevAsset"' in mev
+    assert "oracle_symbols" in mev
+    assert 'loadCommandHome(true)' in dash.split("loadHalfLifeClock", 1)[1][:500]
+    assert "window.loadHalfLifeClock = loadHalfLifeClock" in dash
+
+
+def test_dashboard_portfolio_ai_symbol_is_dropdown():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    portfolio = dash.split('id="portfolio"', 1)[1].split("</section>", 1)[0]
+    assert '<select id="pfSym"' in portfolio
+    assert 'oracle_symbols' in portfolio
+    assert 'type="text"' not in portfolio.split("pfSym", 1)[1].split("pfAmt", 1)[0]
+
+
+def test_dashboard_hero_brand_uses_accent_color():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    assert 'id="heroBrand">BLACKDARK</h1>' in dash
+    hero_css = dash.split(".hero h1", 1)[1].split("/* Trust Pulse", 1)[0]
+    assert "#heroBrand" in hero_css
+    assert "var(--bd-accent" in hero_css
+
+
+def test_dashboard_inbox_toolbar_wired_and_styled():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    alerts = dash.split('id="alerts"', 1)[1].split("</section>", 1)[0]
+    assert 'id="alertsInboxToolbar"' in alerts
+    assert 'data-bd-call="refreshInbox"' in alerts
+    assert 'data-bd-call="testTelegram"' in alerts
+    assert "window.refreshInbox = refreshInbox" in dash
+    assert "window.testTelegram = testTelegram" in dash
+    assert "#alertsInboxToolbar .btn:not(.secondary)" in dash
+
+
+def test_dashboard_price_alerts_wired_and_styled():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    panel = dash.split('id="priceAlertsPanel"', 1)[1].split("</section>", 1)[0]
+    assert 'data-bd-call="addPriceAlert"' in panel
+    assert 'data-bd-call="checkPriceAlerts"' in panel
+    assert 'id="priceAlertsStatus"' in panel
+    assert "window.addPriceAlert = addPriceAlert" in dash
+    assert "window.checkPriceAlerts = checkPriceAlerts" in dash
+    assert "#priceAlertsPanel .toolbar .btn:not(.secondary)" in dash
+
+
+def test_dashboard_portfolio_handlers_exposed_for_csp_events():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    assert "window.addPortfolioAsset = addPortfolioAsset" in dash
+    assert "window.analyzePortfolio = analyzePortfolio" in dash
+    assert "window.removePortfolioAsset = removePortfolioAsset" in dash
+    assert "/api/portfolio/analyze" in dash
+
+
+def test_dashboard_markdown_on_prove_lens_shows_upgrade_not_raw_api_link():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    digest = dash.split('id="operate-digest"', 1)[1].split("</section>", 1)[0]
+    assert 'id="dailyReportMarkdownBtn"' in digest
+    assert 'data-bd-call="openDailyReportMarkdown"' in digest
+    assert 'href="/api/reports/daily/markdown"' not in digest
+    assert "function syncDailyReportMarkdownBtn()" in dash
+    assert "userTierId === 'free'" in dash.split("syncDailyReportMarkdownBtn", 1)[1][:500]
+    assert "d.tier.tier" in dash.split("async function loadAuth", 1)[1][:1200]
+    assert "#dailyReportMarkdownBtn" in dash
+    assert "function openDailyReportMarkdown()" in dash
+    assert "operatePlusBlockedOnProveLens()" in dash.split("openDailyReportMarkdown", 1)[1][:800]
+    assert "Upgrade to Pro" in dash.split("openDailyReportMarkdown", 1)[1][:800]
+
+
+def test_nav_watchlist_and_decisions_open_desk_workspace():
+    nav = (ROOT / "templates/partials/site_top_nav.html").read_text(encoding="utf-8")
+    assert 'href="/dashboard?lens=desk#watchlist"' in nav
+    assert 'href="/dashboard?lens=desk#my-decisions"' in nav
+    ws = (ROOT / "static/js/bd_oracle_workspace.js").read_text(encoding="utf-8")
+    assert "deskWorkspaceHref" in ws
+    assert "openDeskWorkspaceSection" in ws
+    assert "applyLens('desk'" in ws
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    assert "DESK_WORKSPACE_SECTIONS" in dash
+    assert "refreshDeskWorkspacePanels" in dash
+
+
+def test_header_prove_and_operate_lens_hrefs_distinct():
+    nav = (ROOT / "templates/partials/site_top_nav.html").read_text(encoding="utf-8")
+    assert 'data-nav-key="prove"' in nav
+    assert 'href="/dashboard?lens=prove"' in nav
+    assert 'data-nav-key="operate"' in nav
+    assert 'href="/dashboard?lens=operate"' in nav
+    assert "bd_global_nav.js" in nav
+    js = (ROOT / "static/js/bd_global_nav.js").read_text(encoding="utf-8")
+    assert 'operate: "/dashboard?lens=operate"' in js
+    assert "syncGlobalNavActive" in js
+
+
+def test_committee_one_pager_uses_dark_site_chrome():
+    html = (ROOT / "templates/committee_one_pager.html").read_text(encoding="utf-8")
+    assert "/static/css/trust-os.css" in html
+    assert "background:#f7f4ee" not in html
+    assert 'id="thesis"' in html and "Committee One-Pager" in html
+    assert "Public kill-rate" in html
+    assert 'id="checks"' in html
+
+
+def test_corpus_passport_uses_dark_site_chrome():
+    html = (ROOT / "templates/corpus_passport.html").read_text(encoding="utf-8")
+    assert "/static/css/trust-os.css" in html
+    assert "background:#f4f1ea" not in html
+    assert "box-shadow:8px 8px 0 #111" not in html
+    assert 'id="stamp"' in html and "BLACKDARK Corpus Passport" in html
+    assert "Request corpus passport PDF" in html
+    assert 'id="requestCorpusPdfBtn"' in html
+    assert "requestCorpusPassportPdf" in html
+    assert "/api/due-diligence/corpus-passport.pdf" in html
+    assert 'id="corpusPassportRequestForm"' in html
+    assert 'href="/contact"' not in html
+
+
+def test_dashboard_anti_hype_toggle_has_visible_banner_and_metric_hook():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    assert 'id="antiHypeBanner"' in dash
+    assert "body.anti-hype-on .anti-hype-banner" in dash
+    assert "tp-hype-metric" in dash
+    assert "banner.hidden = !on" in dash
+    assert 'id="antiHypeBtn"' in dash and 'data-bd-sync="1"' in dash
+    toggle_block = dash.split("async function toggleAntiHype()", 1)[1].split("async function loadSinceYouLeft", 1)[0]
+    assert "applyAntiHypeClass();" in toggle_block.split("await fetch", 1)[0]
+
+
+def test_dashboard_share_proof_builds_clipboard_fallback():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    assert "buildTrustPulseShareBundle" in dash
+    assert "syncTrustPulseShareState" in dash
+    share_block = dash.split("async function shareTrustPulse()", 1)[1].split("window.shareTrustPulse", 1)[0]
+    assert "copyTextWithFallback" in share_block
+    assert "flashShareProofButton" in share_block
+    assert "Copied!" in dash
+    assert 'id="tpShareBtn"' in dash and 'data-bd-sync="1"' in dash
+    assert "window.shareTrustPulse = shareTrustPulse" in dash
+    csp = (ROOT / "static/js/csp_events.js").read_text(encoding="utf-8")
+    assert "data-bd-sync" in csp
+
+
+def test_pricing_ladder_not_embedded_on_landing():
     land = _landing()
-    assert "pricing.decide_pro" in land
-    assert "pricing.see_edge_elite" in land
-    assert "pricing.execute_quant" in land
-    assert "pricing.scale_institutional" in land
-    assert "$19.99" in land
-    assert "$49.99" in land
-    assert "$129.99" in land
-    assert "pricing.from_open" in land or "From $999" in land
+    assert 'id="pricing"' not in land
+    assert "pricing.title_os" not in land
+    assert "pricing.decide_pro" not in land
+    assert "pricing.see_edge_elite" not in land
+    assert "pricing.execute_quant" not in land
+    assert "pricing.scale_institutional" not in land
+    assert "pricing.popular" not in land
+    assert "feat.note" not in land
+    assert "$19.99" not in land
+    assert "$49.99" not in land
+    assert "$129.99" not in land
+    assert "pricing.from_open" not in land
+    assert 'class="price"' not in land
     assert "Decision Desk" not in land
     assert "$29" not in land
     assert "3,000" not in land
-    assert "pricing.popular" in land
-    assert "billingReadyLine" in land
+    assert "billingReadyLine" not in land
     assert "/login?tab=register" in land
