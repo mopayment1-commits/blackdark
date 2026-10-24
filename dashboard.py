@@ -136,6 +136,13 @@ def _auth_required_next_path(request: Request) -> str:
     return path + (f"?{query}" if query else "")
 
 
+def _apply_session_private_cache(response: HTMLResponse) -> HTMLResponse:
+    """Session-aware HTML must not be stored in shared CDN/browser caches."""
+    response.headers["Cache-Control"] = "private, no-store, must-revalidate"
+    response.headers["Vary"] = "Cookie"
+    return response
+
+
 def render_surface_auth_required(
     request: Request,
     *,
@@ -158,7 +165,7 @@ def render_surface_auth_required(
     )
     response.status_code = 401
     response.headers["X-Blackdark-Auth-Boundary"] = boundary
-    return response
+    return _apply_session_private_cache(response)
 
 
 def render_dashboard_auth_required(request: Request) -> HTMLResponse:
@@ -714,6 +721,10 @@ async def _dashboard_entry_href(request: Request) -> str:
 
 async def _resolve_html_auth_user(request: Request) -> dict | None:
     """Valid session only — stale/invalid bd_token must not unlock private HTML surfaces."""
+    st = getattr(request, "state", None)
+    if st is not None and getattr(st, "_html_auth_resolved", False):
+        return getattr(st, "_html_auth_user", None)
+
     from auth_service import get_user_from_token
 
     auth = (request.headers.get("authorization") or "").strip()
@@ -724,9 +735,13 @@ async def _resolve_html_auth_user(request: Request) -> dict | None:
         from security_middleware import cookie_to_session_bearer
 
         token = cookie_to_session_bearer(request.cookies.get("bd_token"))
-    if not token:
-        return None
-    return await get_user_from_token(token)
+    user: dict | None = None
+    if token:
+        user = await get_user_from_token(token)
+    if st is not None:
+        st._html_auth_resolved = True
+        st._html_auth_user = user
+    return user
 
 
 def _header_user_payload(user: dict[str, Any]) -> dict[str, Any]:
@@ -753,19 +768,6 @@ def _header_user_payload(user: dict[str, Any]) -> dict[str, Any]:
         "tier_label": tier_label,
         "show_upgrade": show_upgrade,
     }
-
-
-@app.middleware("http")
-async def header_session_middleware(request: Request, call_next):
-    """Expose validated session user for global header chrome (SSR)."""
-    request.state.header_user = None
-    try:
-        user = await _resolve_html_auth_user(request)
-        if user:
-            request.state.header_user = _header_user_payload(user)
-    except Exception:
-        request.state.header_user = None
-    return await call_next(request)
 
 
 @app.middleware("http")
@@ -806,6 +808,23 @@ async def anonymous_route_enforcement_middleware(request: Request, call_next):
                     boundary="discipline-auth-required-html",
                 )
         return denial
+    return await call_next(request)
+
+
+@app.middleware("http")
+async def header_session_middleware(request: Request, call_next):
+    """Resolve bd_token once per request; expose session for SSR header chrome."""
+    request.state.header_user = None
+    request.state._html_auth_resolved = False
+    request.state._html_auth_user = None
+    try:
+        user = await _resolve_html_auth_user(request)
+        if user:
+            request.state.header_user = _header_user_payload(user)
+    except Exception:
+        request.state.header_user = None
+        request.state._html_auth_user = None
+        request.state._html_auth_resolved = True
     return await call_next(request)
 
 
@@ -2001,16 +2020,18 @@ async def sitemap_xml(request: Request):
 # ========== DASHBOARD ==========
 @app.get("/dashboard", response_class=HTMLResponse)
 async def dashboard_page(request: Request):
-    return render_page(request, "dashboard.html", _footer_ctx())
+    return _apply_session_private_cache(render_page(request, "dashboard.html", _footer_ctx()))
 
 
 @app.get("/discipline-mirror", response_class=HTMLResponse)
 async def discipline_mirror_page(request: Request):
     """Private Discipline Mirror UI — never public ledger."""
-    return render_page(
-        request,
-        "discipline.html",
-        {**_footer_ctx(), "dashboard_href": await _dashboard_entry_href(request)},
+    return _apply_session_private_cache(
+        render_page(
+            request,
+            "discipline.html",
+            {**_footer_ctx(), "dashboard_href": await _dashboard_entry_href(request)},
+        )
     )
 
 

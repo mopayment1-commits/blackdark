@@ -141,6 +141,16 @@
             status.textContent = '';
         }
 
+        function syncDashboardEntryLinks() {
+            const href = '/dashboard';
+            const btn = document.getElementById('openDashboardBtn');
+            if (btn) btn.href = href;
+            document.querySelectorAll('a[href*="login?next"]').forEach((a) => {
+                const text = (a.textContent || '').trim().toLowerCase();
+                if (text === 'dashboard') a.href = href;
+            });
+        }
+
         async function loadMirror() {
             document.getElementById('msg').textContent = 'Loading private mirror…';
             try {
@@ -149,6 +159,7 @@
                     document.getElementById('msg').textContent = 'Mirror unavailable — sign in required.';
                     return null;
                 }
+                syncDashboardEntryLinks();
                 const d = await res.json();
                 const total = d.total_answers || 0;
                 const followed = d.followed_count || 0;

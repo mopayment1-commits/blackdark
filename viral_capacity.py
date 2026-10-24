@@ -452,9 +452,10 @@ async def viral_protection_middleware(request: Request, call_next):
         client = _client_key(request)
         check_rate_limit(f"{kind}:{client}", limit=limit, window_sec=window, prefix=kind)
         response = await call_next(request)
-        if path in {"/", "/dashboard", "/oracle-accuracy", "/compliance", "/capabilities"}:
+        if path in {"/", "/oracle-accuracy", "/compliance", "/capabilities"}:
             # Landing shell is mostly static per locale; 15s forced re-render
             # and re-download on every navigation. Prefer short CDN-friendly TTL.
+            # Never public-cache /dashboard — auth gate + session HTML vary by bd_token.
             response.headers.setdefault(
                 "Cache-Control",
                 "public, max-age=120, stale-while-revalidate=600",
