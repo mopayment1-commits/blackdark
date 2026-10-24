@@ -290,7 +290,9 @@ def test_dashboard_portfolio_ai_symbol_is_dropdown():
 def test_dashboard_hero_brand_uses_accent_color():
     dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
     assert 'id="heroBrand">BLACKDARK</h1>' in dash
-    assert ".hero h1" in dash and "var(--bd-accent" in dash.split(".hero h1", 1)[1].split("}", 1)[0]
+    hero_css = dash.split(".hero h1", 1)[1].split("/* Trust Pulse", 1)[0]
+    assert "#heroBrand" in hero_css
+    assert "var(--bd-accent" in hero_css
 
 
 def test_dashboard_inbox_toolbar_wired_and_styled():
