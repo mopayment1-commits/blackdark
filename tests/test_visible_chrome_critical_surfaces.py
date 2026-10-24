@@ -119,6 +119,13 @@ def test_dashboard_alerts_refresh_inbox_button_wired():
     assert "Refreshing inbox" in body
 
 
+def test_dashboard_trust_pulse_why_title_uses_i18n_not_launch57_label():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    assert "Why (Launch-57 oracle" not in dash
+    render = dash.split("function renderTrustPulse", 1)[1].split("function bindTrustPulseLiveStream", 1)[0]
+    assert "tpWhyTitle').textContent = i18nT('dash.tp.why_title')" in render
+
+
 def test_dashboard_operate_lens_shows_trust_pulse_symbol_dropdown():
     dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
     assert "body.lens-operate .tp-symbol-wrap" in dash

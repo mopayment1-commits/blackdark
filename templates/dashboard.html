@@ -1397,7 +1397,7 @@
                 factors.push({ factor: 'Oracle', detail: level2.concise_explanation });
             }
             return {
-                grasp_line: level2.concise_explanation ? 'Why (Launch-57 oracle)' : 'Why (Launch-57 oracle #2)',
+                grasp_line: i18nT('dash.tp.why_title'),
                 factors: factors.slice(0, 5),
             };
         }
@@ -1426,7 +1426,7 @@
                         presented_as_live: false,
                         label: 'Unavailable',
                     },
-                    why: { grasp_line: 'Why (Launch-57 oracle #2)', factors: [] },
+                    why: { grasp_line: i18nT('dash.tp.why_title'), factors: [] },
                     proof: { evidence_class: userEvidence },
                     ledger: { label: 'Launch-57 grounded', href: '/oracle-accuracy' },
                     presented_as_live: false,
@@ -2072,7 +2072,7 @@
                 : '';
             document.getElementById('tpSym').innerHTML = `${escapeHtml(p.symbol || 'BTC')}${metricHtml}`;
             document.getElementById('tpSentence').textContent = p.sentence || i18nT('dash.tp.sentence_fallback');
-            document.getElementById('tpWhyTitle').textContent = (p.why && p.why.grasp_line) || i18nT('dash.tp.why_title');
+            document.getElementById('tpWhyTitle').textContent = i18nT('dash.tp.why_title');
             const factors = (p.why && p.why.factors) || [];
             let factorHtml = '<div class="empty" style="padding:.25rem 0">' + esc(i18nT('dash.tp.factors_loading')) + '</div>';
             if (factors.length) factorHtml = factors.map((f,i) => formatFactorLine(f, i)).join('');
