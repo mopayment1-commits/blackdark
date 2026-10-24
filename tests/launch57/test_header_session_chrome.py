@@ -128,9 +128,9 @@ def test_anonymous_login_shows_lang_login_signup(client):
 
 
 def test_dashboard_auth_gate_has_login_link(client):
-    res = client.get("/dashboard", headers={"Accept": "text/html"})
-    assert res.status_code in (200, 401)
-    assert 'id="gateLoginBtn"' in res.text or 'href="/login' in res.text
+    res = client.get("/dashboard", headers={"Accept": "text/html"}, follow_redirects=False)
+    assert res.status_code == 302
+    assert (res.headers.get("location") or "").startswith("/login?next=")
 
 
 def test_nav_active_on_dashboard_lens(client):

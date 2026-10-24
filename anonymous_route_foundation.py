@@ -163,6 +163,7 @@ PUBLIC_HTML_EXACT: frozenset[str] = frozenset(
         "/il-simulator",
         "/swap",
         "/wallet-balance",
+        "/mev",
         "/market-intelligence",
         "/intelligence-ledger",
         "/address-intelligence",

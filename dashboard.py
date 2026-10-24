@@ -143,6 +143,14 @@ def _auth_required_next_path(request: Request) -> str:
     return path + (f"?{query}" if query else "")
 
 
+def redirect_anonymous_to_login(request: Request) -> RedirectResponse:
+    """302 to /login preserving path+query in next= (hash must be set client-side)."""
+    from urllib.parse import urlencode
+
+    next_path = _auth_required_next_path(request)
+    return RedirectResponse(url="/login?" + urlencode({"next": next_path}), status_code=302)
+
+
 def render_surface_auth_required(
     request: Request,
     *,
@@ -827,7 +835,7 @@ async def anonymous_route_enforcement_middleware(request: Request, call_next):
     if path in _HTML_AUTH_GATE_EXACT and anonymous_denial_should_be_html(request):
         if await _resolve_html_auth_user(request) is None:
             if path == "/dashboard":
-                return render_dashboard_auth_required(request)
+                return redirect_anonymous_to_login(request)
             if path == "/profile":
                 return render_profile_auth_required(request)
             if path == "/discipline-mirror":
@@ -844,7 +852,7 @@ async def anonymous_route_enforcement_middleware(request: Request, call_next):
         path = request.url.path or ""
         if anonymous_denial_should_be_html(request):
             if path == "/dashboard":
-                return render_dashboard_auth_required(request)
+                return redirect_anonymous_to_login(request)
             if path == "/profile":
                 return render_profile_auth_required(request)
             if path == "/discipline-mirror":
@@ -2595,6 +2603,12 @@ async def sitemap_xml(request: Request):
         "</urlset>\n"
     )
     return Response(content=xml, media_type="application/xml")
+
+
+@app.get("/mev")
+async def mev_public_redirect():
+    """MEV surface for visitors — public report lives on the accuracy ledger."""
+    return RedirectResponse(url="/oracle-accuracy#mev-report", status_code=302)
 
 
 # ========== DASHBOARD ==========

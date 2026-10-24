@@ -586,11 +586,23 @@
     return '/dashboard?lens=desk#' + id;
   }
 
+  function likelyAuthed() {
+    return (
+      global.BDSessionHint &&
+      typeof global.BDSessionHint.likelyAuthenticated === 'function' &&
+      global.BDSessionHint.likelyAuthenticated()
+    );
+  }
+
   function openDeskWorkspaceSection(sectionId) {
     const targetId = String(sectionId || '').replace(/^#/, '');
     if (!targetId) return;
     const dest = deskWorkspaceHref(targetId);
     if (!location.pathname.startsWith('/dashboard')) {
+      if (!likelyAuthed()) {
+        location.assign('/login?next=' + encodeURIComponent(dest));
+        return;
+      }
       location.assign(dest);
       return;
     }
@@ -623,9 +635,29 @@
       el.dataset.bound = '1';
       el.addEventListener('click', (e) => {
         const targetId = el.getAttribute('data-bd-scroll');
+<<<<<<< HEAD
         if (!targetId) return;
         e.preventDefault();
         openDeskWorkspaceSection(targetId);
+=======
+        if (targetId) {
+          e.preventDefault();
+          if (!onDashboard && !document.getElementById(targetId)) {
+            const dest = '/dashboard#' + targetId;
+            const authed =
+              global.BDSessionHint && typeof global.BDSessionHint.likelyAuthenticated === 'function'
+                ? global.BDSessionHint.likelyAuthenticated()
+                : false;
+            if (!authed) {
+              location.assign('/login?next=' + encodeURIComponent(dest));
+              return;
+            }
+            location.assign(dest);
+            return;
+          }
+          scrollToSection(targetId);
+        }
+>>>>>>> 2f63109c (Redirect anonymous dashboard and /mev visitors to login or ledger MEV)
       });
     });
   }
