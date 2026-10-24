@@ -7,7 +7,7 @@ LEGAL_PAGES: dict[str, dict[str, str]] = {
     "terms": {
         "title": "Terms of Service",
         "title_ar": "شروط الاستخدام",
-        "updated": STR_JULY_24_2026,
+        "updated": "October 24, 2026",
         "html": """
 <h2>0. Four-layer legal shield (binding)</h2>
 <p>BLACKDARK publishes a four-layer protective shield on every decision surface:</p>
@@ -22,7 +22,7 @@ LEGAL_PAGES: dict[str, dict[str, str]] = {
 <h2>2. Service Description</h2>
 <p>BLACKDARK provides AI-assisted crypto market intelligence, analytics, and alerts. We do not execute trades on your behalf unless you explicitly enable live execution with your own exchange API keys.</p>
 <h2>3. Accounts & Subscriptions</h2>
-<p>DISCOVER / FREE, DECIDE / PRO, SEE THE EDGE / ELITE, EXECUTE THE EDGE / QUANT, and SCALE THE EDGE / INSTITUTIONAL are described on our pricing page. Self-serve prices are in <strong>USD</strong> ($19.99/mo or $199/yr for PRO; $49.99/mo or $499/yr for ELITE; $129.99/mo or $1,299/yr for QUANT; INSTITUTIONAL from $999/mo via Talk to us). Paid trials convert to USD subscriptions unless cancelled before trial end. Refunds follow our <a href="/refund">Refund Policy</a> and applicable law. Card data is processed by Lemon Squeezy or Stripe — never stored on BLACKDARK servers.</p>
+<p>Free, Beginner, Pro, Desk, and Institution tiers are described on our <a href="/pricing">pricing page</a>. Self-serve prices are in <strong>USD</strong> (Free $0; Beginner $9.99/month; Pro $29/month; Desk $79/month; Institution custom pricing via sales — not self-serve checkout). Paid trials convert to USD subscriptions unless cancelled before trial end. Refunds follow our <a href="/refund">Refund Policy</a> and applicable law. Card data is never stored on BLACKDARK servers; when self-serve checkout is enabled, payment is completed only on the active hosted payment processor shown at checkout.</p>
 <h2>4. Acceptable Use</h2>
 <p>You may not scrape, resell, or redistribute our proprietary feeds without a B2B agreement. Automated abuse, credential sharing, or reverse engineering is prohibited.</p>
 <h2>5. Intellectual Property</h2>
@@ -30,7 +30,7 @@ LEGAL_PAGES: dict[str, dict[str, str]] = {
 <h2>6. Limitation of Liability</h2>
 <p>The Platform is provided "as is." We are not liable for trading losses, missed alerts, or data delays. Maximum liability is limited to fees paid in the prior 12 months.</p>
 <h2>7. Governing Law</h2>
-<p>These Terms are governed by applicable international commercial law. Disputes should first be resolved via support@blackdark.io.</p>
+<p>These Terms are governed by applicable international commercial law. Disputes should first be resolved via <a href="mailto:info@blackdark.io">info@blackdark.io</a>.</p>
 """,
     },
     "privacy": {

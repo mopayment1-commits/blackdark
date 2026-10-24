@@ -49,10 +49,17 @@ def test_legal_shield_prefix_in_certificate_module():
 
 
 def test_terms_contain_four_layer_shield():
-    from legal_content import TERMS_OF_SERVICE
+    from legal_content import LEGAL_PAGES, TERMS_OF_SERVICE
 
     assert "Four-layer legal shield" in TERMS_OF_SERVICE
     assert "Terms acknowledgement gate" in TERMS_OF_SERVICE
+    assert LEGAL_PAGES["terms"]["updated"] == "October 24, 2026"
+    assert "info@blackdark.io" in TERMS_OF_SERVICE
+    assert "support@blackdark.io" not in TERMS_OF_SERVICE
+    assert "Beginner $9.99/month" in TERMS_OF_SERVICE
+    assert "Pro $29/month" in TERMS_OF_SERVICE
+    assert "Desk $79/month" in TERMS_OF_SERVICE
+    assert "Lemon Squeezy or Stripe" not in TERMS_OF_SERVICE
 
 
 def test_safe_errors_no_leak():
