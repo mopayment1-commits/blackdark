@@ -842,8 +842,8 @@
                 const res = await fetchOracle(url, { headers: { ...authHeaders(), Accept: 'application/json' } });
                 const data = await res.json().catch(() => ({}));
                 if (!res.ok) {
-                    const msg = (data && data.detail && data.detail.message) || data.message || data.detail || 'Oracle quick unavailable';
-                    throw new Error(typeof msg === 'string' ? msg : 'Oracle quick unavailable');
+                    const msg = (data && data.detail && data.detail.message) || data.message || data.detail || i18nT('ui.oracle_quick_unavailable');
+                    throw new Error(typeof msg === 'string' ? msg : i18nT('ui.oracle_quick_unavailable'));
                 }
                 if (window.BDOracleWorkspace) window.BDOracleWorkspace.onOracleSuccess(symbol, data);
                 return data;
@@ -903,7 +903,7 @@
             wrap.style.color = role === 'user' ? '#a1a1aa' : '#e4e4e7';
             const strong = document.createElement('strong');
             if (role !== 'user') strong.style.color = '#22d3ee';
-            strong.textContent = role === 'user' ? 'You' : 'AI';
+            strong.textContent = role === 'user' ? i18nT('ui.you') : i18nT('ui.ai');
             wrap.appendChild(strong);
             wrap.appendChild(document.createTextNode(' · ' + String(text ?? '')));
             row.appendChild(wrap);
@@ -929,12 +929,12 @@
                 if (res.status === 403) {
                     syncChatGate();
                     const detail = d.detail || {};
-                    appendChat('assistant', detail.message || 'Upgrade to Decision Pro for AI Chat.');
+                    appendChat('assistant', detail.message || i18nT('ui.chat_upgrade_pro'));
                     if (foot) foot.textContent = i18nT('ui.operate_required');
                     return;
                 }
                 if (!res.ok) throw new Error('chat_failed');
-                const reply = d.reply || 'No reply';
+                const reply = d.reply || i18nT('ui.no_reply');
                 appendChat('assistant', reply);
                 chatHistory.push({ role: 'assistant', content: reply });
                 const cf = d.compliance_footer || {};
@@ -943,7 +943,7 @@
                         + (d.symbol ? ` · context ${esc(d.symbol)}` : '')
                         + (d.source ? ` · ${esc(d.source)}` : '');
                 }
-            } catch (error) { console.debug(error); appendChat('assistant', 'Chat unavailable right now — try again or use Get Decision.'); }
+            } catch (error) { console.debug(error); appendChat('assistant', i18nT('ui.chat_unavailable')); }
         }
 
         let nextUpgrade = { checkout_tier: 'pro', href: '/create-checkout-session?tier=pro', cta: 'Upgrade' };
@@ -1212,13 +1212,13 @@
                 || data.action_line
                 || '';
             if (!factors.length && sentence) {
-                factors.push({ factor: 'Oracle', detail: sentence });
+                factors.push({ factor: i18nT('dash.js.factor_oracle'), detail: sentence });
             }
             const userEvidence = mapCanonicalEvidenceLabel(data.evidence_class || data.evidence_class_visible);
             return {
                 symbol: data.symbol || data.asset || sym,
                 action,
-                sentence: sentence || 'One clear decision — research only.',
+                sentence: sentence || i18nT('dash.tp.sentence_fallback'),
                 price: data.price ?? data.last_price,
                 change_24h: data.change_24h ?? data.change24h,
                 freshness: {
@@ -1229,7 +1229,7 @@
                         || freshnessUiLabel(freshnessState, presentedAsLive && !stale, data.delayed_label),
                 },
                 why: {
-                    grasp_line: whyBlock.grasp_line || 'Why (under 5 seconds)',
+                    grasp_line: whyBlock.grasp_line || i18nT('dash.tp.why_title'),
                     factors: factors.slice(0, 5),
                 },
                 proof: {
@@ -1238,7 +1238,7 @@
                     certificate_hash: cert.certificate_hash || data.certificate_hash,
                     prediction_id: data.prediction_id,
                 },
-                ledger: { label: 'Verify Ledger', href: '/oracle-accuracy', honesty_line: 'Public accuracy ledger — verify hits and misses.' },
+                ledger: { label: i18nT('dash.js.verify_ledger'), href: '/oracle-accuracy', honesty_line: i18nT('dash.js.ledger_public_honesty') },
                 compliance: data.compliance_footer || {},
                 presented_as_live: presentedAsLive && !stale,
                 decision_live_blocked: stale,
@@ -1262,11 +1262,11 @@
 
         function freshnessUiLabel(state, presentedAsLive, delayedLabel) {
             const s = String(state || 'UNKNOWN').toUpperCase();
-            if (s === 'STALE') return 'Stale — not live';
-            if (s === 'UNKNOWN') return 'Freshness unknown — not live';
-            if (!presentedAsLive) return 'Not presented as live';
-            if (s === 'LIVE') return 'LIVE';
-            if (s === 'NEAR_LIVE') return 'NEAR LIVE';
+            if (s === 'STALE') return i18nT('ui.stale');
+            if (s === 'UNKNOWN') return i18nT('ui.freshness_unknown_not_live');
+            if (!presentedAsLive) return i18nT('ui.not_presented_as_live');
+            if (s === 'LIVE') return i18nT('ui.live').toUpperCase();
+            if (s === 'NEAR_LIVE') return i18nT('ui.near_live');
             if (s === 'DELAYED') return delayedLabel || 'DELAYED';
             return s.replaceAll('_', ' ');
         }
@@ -1290,7 +1290,7 @@
             const level2 = oracleDisc.level_2 || stack.level_2 || {};
             const level3 = oracleDisc.level_3 || stack.level_3 || {};
             if (level1.abstention_reason) {
-                factors.push({ factor: 'Abstain', detail: level1.abstention_reason });
+                factors.push({ factor: i18nT('dash.js.factor_abstain'), detail: level1.abstention_reason });
             }
             if (level1.critical_limitation) {
                 const lim = level1.critical_limitation;
@@ -1376,21 +1376,21 @@
             const why = buildOracleWhyFactors(data, oracle);
             if (staleBlocked || data.success === false || abstain) {
                 if (!why.factors.length && home.abstain_explanation) {
-                    why.factors.push({ factor: 'Abstain', detail: home.abstain_explanation });
+                    why.factors.push({ factor: i18nT('dash.js.factor_abstain'), detail: home.abstain_explanation });
                 }
                 if (!why.factors.length && home.abstain_reason) {
                     why.factors.push({ factor: 'Router', detail: home.abstain_reason });
                 }
                 if (!why.factors.length) {
                     why.factors.push({
-                        factor: 'Freshness gate',
+                        factor: i18nT('dash.js.factor_freshness_gate'),
                         detail: freshnessUiLabel(freshnessState, false, data.delayed_label),
                     });
                 }
                 return {
                     symbol: data.symbol || oracle.symbol || 'BTC',
                     action: abstain ? 'ABSTAIN' : 'WAIT',
-                    sentence: home.abstain_explanation || sso.sentence || data.error || 'Launch-57 blocked — not live-eligible.',
+                    sentence: home.abstain_explanation || sso.sentence || data.error || i18nT('ui.launch57_blocked'),
                     price: data.price,
                     change_24h: data.change_24h,
                     freshness: {
@@ -1404,7 +1404,7 @@
                         evidence_class: userEvidence,
                         canonical_evidence_class: data.evidence_class_visible || oracle.evidence_class,
                     },
-                    ledger: { label: 'Launch-57 grounded', href: '/oracle-accuracy', honesty_line: 'Stale or unknown data is never presented as live.' },
+                    ledger: { label: i18nT('dash.js.ledger_grounded_label'), href: '/oracle-accuracy', honesty_line: i18nT('dash.js.stale_never_live_honesty') },
                     presented_as_live: false,
                     decision_live_blocked: true,
                     launch57_oracle_bound: true,
@@ -1413,7 +1413,7 @@
             }
 
             if (!why.factors.length) {
-                why.factors.push({ factor: 'Oracle', detail: sso.sentence });
+                why.factors.push({ factor: i18nT('dash.js.factor_oracle'), detail: sso.sentence });
             }
 
             return {
@@ -1850,19 +1850,19 @@
             renderTrustPulse({
                 symbol: sym,
                 action: (v.action || 'WAIT').toUpperCase(),
-                sentence: 'Updating live decision…',
+                sentence: i18nT('ui.updating_live_decision'),
                 why: {
-                    grasp_line: 'Why (under 5 seconds)',
+                    grasp_line: i18nT('dash.tp.why_title'),
                     factors: (v.factors || []).slice(0, 5),
                 },
                 freshness: {
                     state: 'NEAR_LIVE',
                     stale: false,
                     presented_as_live: true,
-                    label: 'Updating…',
+                    label: i18nT('ui.updating_label'),
                 },
                 proof: { certificate_hash: v.certificate_hash || null },
-                ledger: { label: 'Verify Ledger', href: '/oracle-accuracy' },
+                ledger: { label: i18nT('dash.js.verify_ledger'), href: '/oracle-accuracy' },
                 launch57_oracle_bound: true,
             });
             return true;
@@ -2113,7 +2113,7 @@
             const shareUrls = proof.share_urls || bundle.share_urls || {};
             const url = proof.permalink || shareUrls.x || shareUrls.twitter || bundle.permalink || null;
             if (!text && !url && !shareUrls.telegram) {
-                flashShareProofButton('Nothing to share', 1800);
+                flashShareProofButton(i18nT('ui.nothing_to_share'), 1800);
                 return;
             }
 
@@ -2122,7 +2122,7 @@
             }
 
             if (text && copyTextWithFallback(text)) {
-                flashShareProofButton('Copied!');
+                flashShareProofButton(i18nT('ui.copied'));
                 return;
             }
 
@@ -2133,7 +2133,7 @@
                         text: text || undefined,
                         url: url || 'https://blackdark.io/oracle-accuracy',
                     });
-                    flashShareProofButton('Shared!');
+                    flashShareProofButton(i18nT('ui.shared'));
                     return;
                 } catch (error) {
                     if (error && error.name === 'AbortError') return;
