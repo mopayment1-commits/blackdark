@@ -304,37 +304,41 @@
         </div>
         {% elif page == 'status' %}
         <div class="card">
-            {% set gt = guest_trust or {} %}
             <h2>Guest trust (public)</h2>
             <p class="deny">Anonymous visitors see only approved public intelligence — private app surfaces stay behind sign-in.</p>
             <ul class="channel-list">
-                <li><strong style="color:var(--fg)">Private by default</strong> · {{ 'yes' if gt.private_by_default else '—' }}</li>
-                <li><strong style="color:var(--fg)">Public readiness</strong> · {{ gt.public_readiness or '—' }}</li>
-                <li><strong style="color:var(--fg)">Anonymous state</strong> · {{ gt.anonymous_state or '—' }}</li>
+                {% for row in guest_trust_lines or [] %}
+                <li><strong style="color:var(--fg)">{{ row.label }}</strong> · {{ row.value }}</li>
+                {% endfor %}
             </ul>
-            <p><a href="/#trust-pulse">Homepage Trust Pulse</a> · <a href="/identity-standards">Identity standards</a></p>
+            <p><a href="/#trust-pulse">Homepage Trust Pulse</a> · <a href="/identity-standards">Identity standards</a> · <a href="/api/product/public-readiness">Public readiness API</a></p>
             {% set st = status or {} %}
             {% set overall = (st.overall or 'unknown') %}
             <h2>System components</h2>
             <p>
                 Overall:
                 <span class="status-pill {% if overall == 'operational' %}status-ok{% elif overall == 'degraded' %}status-deg{% else %}status-bad{% endif %}">
-                    {{ overall }}
+                    {{ st.overall_label or overall }}
                 </span>
-                <span class="deny"> · updated {{ st.updated_at or '—' }}</span>
+                <span class="deny"> · updated {{ st.updated_at }}</span>
             </p>
             <h2>Components</h2>
             <ul class="channel-list">
                 {% for c in st.components or [] %}
                 <li>
                     <strong style="color:var(--fg)">{{ c.label }}</strong>
-                    · <span class="status-pill">{{ c.status }}</span>
+                    · <span class="status-pill">{{ c.status_label or c.status }}</span>
                 </li>
                 {% endfor %}
             </ul>
             {% if st.billing %}
             <h2>Billing</h2>
-            <p class="deny">Currency {{ st.billing.currency or 'USD' }} · PCI {{ st.billing.pci_posture or 'SAQ_A' }} · {{ st.billing.status }}</p>
+            <p class="deny">Currency {{ st.billing.currency or 'USD' }} · PCI {{ st.billing.pci_posture or 'SAQ_A' }} · {{ st.billing.status_label or st.billing.status }}</p>
+            {% if st.billing.active_provider %}
+            <p class="deny">Payment provider · {{ st.billing.provider_display }}</p>
+            {% else %}
+            <p class="deny">Payment provider · Not exposed publicly (self-serve checkout inactive)</p>
+            {% endif %}
             {% endif %}
             {% if st.honesty %}
             <p class="deny">{{ st.honesty.note }}</p>

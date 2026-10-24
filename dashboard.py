@@ -2687,20 +2687,8 @@ async def about_page(request: Request):
 
 @app.get("/status", response_class=HTMLResponse)
 async def status_page(request: Request):
-    from site_services import public_status_report
+    from site_services import guest_trust_lines_for_status, public_status_report
 
-    status = public_status_report()
-    guest_trust: dict[str, Any] = {}
-    try:
-        from launch57.trust_batch2 import guest_trust_surface
-
-        payload = guest_trust_surface(
-            symbol="BTC",
-            params={"symbol": "BTC", "user_key": "anonymous"},
-        )
-        guest_trust = dict(payload.get("guest_trust") or {})
-    except Exception:
-        guest_trust = {}
     return templates.TemplateResponse(
         request,
         STR_UTILITY_HTML,
@@ -2708,8 +2696,8 @@ async def status_page(request: Request):
             "page": "status",
             "title": "System status",
             "lead": "Public guest trust and engineering posture — no secrets, no contractual SLA unless contracted.",
-            "status": status,
-            "guest_trust": guest_trust,
+            "status": public_status_report(),
+            "guest_trust_lines": guest_trust_lines_for_status(),
             **_footer_ctx(),
         },
     )

@@ -91,6 +91,23 @@ def test_templates_wire_companion_surfaces():
     assert Path("docs/SITE_COMPANION_SERVICES.md").is_file()
 
 
+def test_status_page_has_no_placeholder_dashes():
+    from fastapi.testclient import TestClient
+
+    from dashboard import app
+
+    client = TestClient(app, base_url="https://testserver")
+    html = client.get("/status").text
+    assert "page == 'status'" not in html  # rendered page, not template source
+    assert " · —" not in html
+    assert "Loading…" not in html
+    assert "Private by default" in html
+    assert "Public readiness" in html
+    assert "Anonymous state" in html
+    assert "Overall:" in html
+    assert "Billing" in html
+
+
 def test_dashboard_routes_registered():
     src = Path("dashboard.py").read_text(encoding="utf-8")
     for path in (

@@ -343,6 +343,132 @@ def submit_feedback(
     }
 
 
+def _format_status_label(status: str) -> str:
+    key = str(status or "").lower().strip()
+    labels = {
+        "operational": "operational",
+        "degraded": "degraded",
+        "outage": "outage",
+        "reported": "monitoring active",
+        "not_live": "not live",
+        "not_configured": "not configured",
+        "unavailable": "unavailable",
+        "unknown": "unknown",
+    }
+    return labels.get(key, key or "unknown")
+
+
+def _public_readiness_snapshot_sync() -> dict[str, Any]:
+    """Sync slice of /api/product/public-readiness for /status (no asyncio)."""
+    try:
+        from production_guard import evaluate_production_guard
+
+        guard = evaluate_production_guard()
+    except Exception:
+        guard = {
+            "required_pass": False,
+            "required_failures": ["unavailable"],
+            "billing_provider": "none",
+        }
+    try:
+        from viral_capacity import viral_health_payload
+
+        viral = viral_health_payload()
+    except Exception:
+        viral = {"ok": False, "redis_live": False}
+    required_failures = list(guard.get("required_failures") or [])
+    billing_ok = "billing_checkout" not in required_failures
+    redis_ok = bool(viral.get("redis_live"))
+    multi_ok = "viral_multi_instance" not in required_failures
+    live_production_ready = bool(guard.get("required_pass")) and redis_ok and multi_ok
+    return {
+        "public_demo_ready": True,
+        "live_production_ready": live_production_ready,
+        "live_money_ready": live_production_ready and billing_ok,
+        "billing_provider": str(guard.get("billing_provider") or "none"),
+        "required_failures": required_failures,
+        "redis_live": redis_ok,
+    }
+
+
+def _load_guest_trust_raw() -> dict[str, Any]:
+    try:
+        from launch57.trust_batch2 import guest_trust_surface
+
+        payload = guest_trust_surface(
+            symbol="BTC",
+            params={"symbol": "BTC", "user_key": "anonymous"},
+        )
+        nested = dict(payload.get("guest_trust") or {})
+        if nested:
+            return nested
+    except Exception:
+        pass
+    try:
+        from launch57.anonymous_visitor_common import reference_anonymous_visitor_governance
+
+        return reference_anonymous_visitor_governance()
+    except Exception:
+        return {}
+
+
+def guest_trust_lines_for_status() -> list[dict[str, str]]:
+    """Human-readable guest-trust rows for /status — never em-dash placeholders."""
+    raw = _load_guest_trust_raw()
+    readiness = _public_readiness_snapshot_sync()
+    lines: list[dict[str, str]] = []
+
+    private_default = raw.get("private_by_default")
+    if private_default is None:
+        guard = raw.get("private_by_default_guard")
+        if isinstance(guard, dict):
+            private_default = guard.get("private_by_default") or guard.get("ok")
+    if private_default is True:
+        lines.append(
+            {
+                "label": "Private by default",
+                "value": "Enforced — private app routes require sign-in",
+            }
+        )
+    elif private_default is False:
+        lines.append(
+            {
+                "label": "Private by default",
+                "value": "Not enforced on this deployment",
+            }
+        )
+    else:
+        lines.append(
+            {
+                "label": "Private by default",
+                "value": "Not exposed publicly",
+            }
+        )
+
+    if readiness.get("live_money_ready"):
+        pr_text = "Live money track ready"
+    elif readiness.get("live_production_ready"):
+        pr_text = "Production track ready (checkout may still be gated)"
+    elif readiness.get("public_demo_ready"):
+        pr_text = "Public demo ready"
+    else:
+        pr_text = "Limited public demo surfaces"
+    lines.append({"label": "Public readiness", "value": pr_text})
+
+    anon = raw.get("anonymous_state")
+    if anon:
+        lines.append(
+            {
+                "label": "Anonymous state",
+                "value": str(anon).replace("_", " ").title(),
+            }
+        )
+    else:
+        lines.append({"label": "Anonymous state", "value": "Visitor (no account)"})
+
+    return lines
+
+
 def _database_engine() -> str:
     try:
         from postgres_backend import use_postgres
@@ -367,6 +493,14 @@ def _viral_status() -> dict[str, Any]:
 
 
 def _billing_status() -> dict[str, Any]:
+    snapshot = _public_readiness_snapshot_sync()
+    provider = str(snapshot.get("billing_provider") or "none").lower()
+    provider_labels = {
+        "stripe": "Stripe",
+        "lemon_squeezy": "Lemon Squeezy",
+        "none": "Not exposed publicly",
+    }
+    provider_display = provider_labels.get(provider, provider)
     try:
         from payments_usd import payments_architecture
 
@@ -374,20 +508,42 @@ def _billing_status() -> dict[str, Any]:
         ops = arch.get("ops_readiness") or {}
         sec = arch.get("security") or {}
         launch_ready = bool(ops.get("launch_ready"))
-        return {
-            "currency": arch.get("currency_code") or arch.get("currency") or "USD",
-            "status": "operational" if launch_ready else "degraded",
-            "active_provider": arch.get("active_provider"),
-            "billing_configured": bool(arch.get("billing_configured")),
-            "pci_posture": sec.get("pci_target") or sec.get("pci_saq") or "SAQ_A",
-        }
+        arch_provider = str(arch.get("active_provider") or "").lower()
+        if arch_provider and arch_provider != "none":
+            provider = arch_provider
+            provider_display = provider_labels.get(provider, arch_provider)
     except Exception:
-        return {
-            "currency": "USD",
-            "status": "reported",
-            "pci_posture": "SAQ_A_hosted_checkout",
-            "note": "Card data never stored on BLACKDARK servers",
-        }
+        arch = {}
+        ops = {}
+        sec = {}
+        launch_ready = False
+
+    if provider in {"", "none"}:
+        status = "not_live"
+        status_label = "Self-serve checkout not active"
+    elif launch_ready:
+        status = "operational"
+        status_label = f"Hosted checkout via {provider_display}"
+    else:
+        status = "degraded"
+        status_label = f"Configured ({provider_display}) — launch gates open"
+
+    checkout_gate_ok = "billing_checkout" not in (snapshot.get("required_failures") or [])
+    if provider not in {"", "none"} and not checkout_gate_ok:
+        status = "degraded"
+        status_label = f"{provider_display} configured — checkout gate not passing"
+
+    return {
+        "currency": (arch.get("currency_code") or arch.get("currency") or "USD").upper(),
+        "status": status,
+        "status_label": status_label,
+        "active_provider": provider if provider not in {"", "none"} else None,
+        "provider_display": provider_display,
+        "billing_configured": provider not in {"", "none"},
+        "pci_posture": sec.get("pci_target") or sec.get("pci_saq") or "SAQ_A",
+        "checkout_gate_ok": checkout_gate_ok,
+        "note": "Card data never stored on BLACKDARK servers",
+    }
 
 
 def _overall_status(components: list[dict[str, Any]]) -> str:
@@ -397,7 +553,15 @@ def _overall_status(components: list[dict[str, Any]]) -> str:
         status = str(component.get("status") or "").lower()
         if status in bad:
             return "outage"
-        if status in {"degraded", "warn", "warning", "partial", "unavailable"}:
+        if status in {
+            "degraded",
+            "warn",
+            "warning",
+            "partial",
+            "unavailable",
+            "not_live",
+            "not_configured",
+        }:
             overall = "degraded"
     return overall
 
@@ -407,28 +571,50 @@ def public_status_report() -> dict[str, Any]:
     viral = _viral_status()
     billing = _billing_status()
     db_engine = _database_engine()
+    readiness = _public_readiness_snapshot_sync()
+
+    viral_key = str(viral.get("status") or "unknown").lower()
+    if viral_key == "unknown" and readiness.get("redis_live"):
+        viral_key = "operational"
 
     components = [
-        {"id": "api", "label": "API process", "status": "operational"},
-        {"id": "database", "label": f"Database ({db_engine})", "status": "operational"},
+        {
+            "id": "api",
+            "label": "API process",
+            "status": "operational",
+            "status_label": _format_status_label("operational"),
+        },
+        {
+            "id": "database",
+            "label": f"Database ({db_engine})",
+            "status": "operational",
+            "status_label": _format_status_label("operational"),
+        },
         {
             "id": "viral",
             "label": "Viral launch capacity",
-            "status": viral.get("status") or "unknown",
+            "status": viral_key,
+            "status_label": _format_status_label(viral_key),
         },
         {
             "id": "billing",
             "label": "USD billing posture",
-            "status": billing.get("status") or "reported",
+            "status": billing.get("status") or "not_live",
+            "status_label": _format_status_label(billing.get("status") or "not_live"),
         },
     ]
+    overall = _overall_status(components)
+    if not readiness.get("live_production_ready") and overall == "operational":
+        overall = "degraded"
     return {
         "product": "BLACKDARK Trust OS",
-        "overall": _overall_status(components),
+        "overall": overall,
+        "overall_label": _format_status_label(overall),
         "updated_at": _utcnow(),
         "components": components,
         "viral": viral,
         "billing": billing,
+        "readiness": readiness,
         "honesty": {
             "secrets_exposed": False,
             "guaranteed_uptime_sla": False,
