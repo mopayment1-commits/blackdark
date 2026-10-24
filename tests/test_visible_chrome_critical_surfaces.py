@@ -266,6 +266,12 @@ def test_dashboard_portfolio_ai_symbol_is_dropdown():
     assert 'type="text"' not in portfolio.split("pfSym", 1)[1].split("pfAmt", 1)[0]
 
 
+def test_dashboard_hero_brand_uses_accent_color():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    assert 'id="heroBrand">BLACKDARK</h1>' in dash
+    assert ".hero h1" in dash and "var(--bd-accent" in dash.split(".hero h1", 1)[1].split("}", 1)[0]
+
+
 def test_dashboard_inbox_toolbar_wired_and_styled():
     dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
     alerts = dash.split('id="alerts"', 1)[1].split("</section>", 1)[0]
