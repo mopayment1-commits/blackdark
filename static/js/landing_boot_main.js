@@ -1275,6 +1275,44 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             await fetchLandingTrustPulse(symbol, mode, lang);
         }
 
+        let lpRefreshInFlight = false;
+        function setLpRefreshUi(state) {
+            const btn = document.getElementById('lpRefreshBtn');
+            if (!btn) return;
+            const def = btn.getAttribute('data-default-label') || i18nT('dash.refresh') || 'Refresh';
+            if (state === 'loading') {
+                btn.disabled = true;
+                btn.setAttribute('aria-busy', 'true');
+                btn.classList.add('bd-lp-refreshing');
+                btn.textContent = i18nT('pulse.refreshing') || 'Refreshing…';
+            } else if (state === 'updated') {
+                btn.disabled = true;
+                btn.removeAttribute('aria-busy');
+                btn.classList.remove('bd-lp-refreshing');
+                btn.textContent = i18nT('pulse.updated') || 'Updated';
+            } else {
+                btn.disabled = false;
+                btn.removeAttribute('aria-busy');
+                btn.classList.remove('bd-lp-refreshing');
+                btn.textContent = def;
+            }
+        }
+        async function refreshLandingTrustPulseInteractive() {
+            if (lpRefreshInFlight) return;
+            lpRefreshInFlight = true;
+            setLpRefreshUi('loading');
+            try {
+                await loadLandingTrustPulse();
+            } catch (error) {
+                console.debug(error);
+            } finally {
+                lpRefreshInFlight = false;
+                setLpRefreshUi('updated');
+                window.setTimeout(() => setLpRefreshUi('idle'), 1000);
+            }
+        }
+        window.__landing_refreshTrustPulse = refreshLandingTrustPulseInteractive;
+
         function scheduleLandingPulseStream(symbol) {
             const start = () => startLandingPulseStream(symbol);
             if (typeof requestIdleCallback === 'function') {

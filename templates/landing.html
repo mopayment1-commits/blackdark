@@ -626,6 +626,23 @@
             padding: 0.55rem 1rem;
             font-size: 0.88rem;
         }
+        .hero .tp-mini-cta .btn-secondary.bd-lp-refreshing {
+            cursor: wait;
+            opacity: 0.9;
+        }
+        .hero .tp-mini-cta .btn-secondary.bd-lp-refreshing::before {
+            content: '';
+            display: inline-block;
+            width: 0.85em;
+            height: 0.85em;
+            margin-inline-end: 0.35em;
+            border: 2px solid currentColor;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: bdLpRefreshSpin 0.7s linear infinite;
+            vertical-align: -0.12em;
+        }
+        @keyframes bdLpRefreshSpin { to { transform: rotate(360deg); } }
         .hero .tp-mini-foot {
             font-size: 0.72rem;
             line-height: 1.45;
@@ -834,6 +851,7 @@
                     <div class="tp-mini-proof-drawer" id="lpProofDrawer" hidden></div>
                     <div class="tp-mini-cta">
                         <a href="/dashboard?lens=prove#trust-pulse" class="btn-primary" style="padding:.55rem 1.1rem;font-size:.9rem">{{ t('pulse.open_full') }}</a>
+                        <button type="button" class="btn-secondary" style="padding:.55rem 1.1rem;font-size:.9rem;cursor:pointer" id="lpRefreshBtn" data-default-label="{{ t('dash.refresh') }}" aria-label="{{ t('dash.refresh') }}">{{ t('dash.refresh') }}</button>
                         <button type="button" class="btn-secondary" style="padding:.55rem 1.1rem;font-size:.9rem;cursor:pointer" id="lpShareBtn">{{ t('pulse.share') }}</button>
                         <button type="button" class="btn-secondary" style="padding:.55rem 1.1rem;font-size:.9rem;cursor:pointer;display:none" id="lpArbBtn">{{ t('arb.btn') }}</button>
                     </div>
@@ -1018,6 +1036,43 @@
                 window.loadLandingTrustPulse = loadLandingTrustPulse;
                 window.fetchLaunch57GuestTrust = fetchLaunch57GuestTrust;
                 window.__bdBootTrustPulse = bootTrustPulse;
+                (function bindLpRefreshEarly() {
+                    var btn = document.getElementById('lpRefreshBtn');
+                    if (!btn) return;
+                    var defaultLabel = btn.getAttribute('data-default-label') || btn.textContent || 'Refresh';
+                    function setLpRefreshState(state) {
+                        if (state === 'loading') {
+                            btn.disabled = true;
+                            btn.setAttribute('aria-busy', 'true');
+                            btn.classList.add('bd-lp-refreshing');
+                            btn.textContent = 'Refreshing\u2026';
+                        } else if (state === 'updated') {
+                            btn.disabled = true;
+                            btn.removeAttribute('aria-busy');
+                            btn.classList.remove('bd-lp-refreshing');
+                            btn.textContent = 'Updated';
+                        } else {
+                            btn.disabled = false;
+                            btn.removeAttribute('aria-busy');
+                            btn.classList.remove('bd-lp-refreshing');
+                            btn.textContent = defaultLabel;
+                        }
+                    }
+                    btn.addEventListener('click', function () {
+                        if (btn.disabled) return;
+                        if (typeof window.__landing_refreshTrustPulse === 'function') {
+                            void window.__landing_refreshTrustPulse();
+                            return;
+                        }
+                        setLpRefreshState('loading');
+                        Promise.resolve(window.loadLandingTrustPulse && window.loadLandingTrustPulse(true))
+                            .then(function () {
+                                setLpRefreshState('updated');
+                                window.setTimeout(function () { setLpRefreshState('idle'); }, 1000);
+                            })
+                            .catch(function () { setLpRefreshState('idle'); });
+                    });
+                })();
                 bootTrustPulse();
                 document.addEventListener('DOMContentLoaded', bootTrustPulse, { once: true });
                 window.addEventListener('load', function () {

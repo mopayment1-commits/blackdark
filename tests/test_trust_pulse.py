@@ -103,6 +103,8 @@ def test_routes_and_templates_wire():
     assert "/api/launch57/command-home" in dash
     assert "loadCommandHome" in dash
     assert 'id="trust-pulse"' in land
+    assert 'id="lpRefreshBtn"' in land
+    assert "__landing_refreshTrustPulse" in Path("static/js/landing_boot_main.js").read_text(encoding="utf-8")
     assert "loadLandingTrustPulse" in land
     assert Path("docs/TRUST_PULSE.md").is_file()
 

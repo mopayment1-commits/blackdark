@@ -740,6 +740,8 @@ EN: dict[str, str] = {
     "pulse.sentence": "One clear Act / Wait — reviewable, not a mystery score.",
     "pulse.open_full": "Open full proof",
     "pulse.share": "Share Proof",
+    "pulse.refreshing": "Refreshing…",
+    "pulse.updated": "Updated",
     "pulse.foot": "Decide. Prove it. Share it. · Four-layer legal shield · Not financial advice · Hits and misses published",
     "seal.title": "The Seal",
     "seal.body": "Before the move, the forecast is sealed. After the event, hits and misses go public on the Ledger. No mystery score. No fake scarcity.",
