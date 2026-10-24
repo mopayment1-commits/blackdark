@@ -2602,9 +2602,13 @@ async def sitemap_xml(request: Request):
 async def dashboard_page(request: Request):
     import config as _cfg
 
+    lens = (request.query_params.get("lens") or "prove").strip().lower()
+    if lens not in {"prove", "operate", "desk", "room"}:
+        lens = "prove"
     ctx = {
         **_footer_ctx(),
         "oracle_symbols": _cfg.tracked_asset_list(),
+        "initial_lens": lens,
     }
     return render_page(request, "dashboard.html", ctx)
 

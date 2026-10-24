@@ -91,9 +91,15 @@ def test_dashboard_lens_prove_vs_operate_section_visibility():
     dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
     assert "body.lens-prove .section-operate-plus { display: none !important; }" in dash
     assert "body.lens-prove .section-habit-depth { display: none !important; }" in dash
+    assert "body.lens-prove .section-prove-legacy { display: none !important; }" in dash
     assert "body.lens-operate .section-prove-legacy { display: none !important; }" in dash
+    assert "body.lens-operate .section-desk-only { display: none !important; }" in dash
+    assert "body.lens-desk .section-operate-plus { display: none !important; }" in dash
+    assert 'class="lens-{{ initial_lens|default(\'prove\') }}"' in dash
     assert 'id="radar"' in dash and 'section-operate-plus hide-in-room" id="radar"' in dash
     assert "section-prove-legacy" in dash.split('id="decide"', 1)[0]
+    nav = (ROOT / "static/js/bd_global_nav.js").read_text(encoding="utf-8")
+    assert "location.assign(target)" not in nav.split("applyLens", 1)[1].split("}", 1)[0]
 
 
 def test_dashboard_lens_query_param_resolved_before_storage():

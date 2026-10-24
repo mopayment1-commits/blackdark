@@ -154,6 +154,12 @@
         body.lens-prove .section-habit-depth { display: none !important; }
         /* Operate: habit tools — hide legacy duplicate Decide row under Trust Pulse */
         body.lens-operate .section-prove-legacy { display: none !important; }
+        body.lens-operate .section-desk-only { display: none !important; }
+        /* Prove: Trust Pulse + entry rail — hide legacy Decide/oracle duplicate row */
+        body.lens-prove .section-prove-legacy { display: none !important; }
+        /* Desk: decision desk tools — not Operate habit stack */
+        body.lens-desk .section-operate-plus { display: none !important; }
+        body.lens-desk .section-prove-legacy { display: none !important; }
         #priceAlertsPanel .toolbar .btn {
             padding: .55rem 1rem;
             font-size: .85rem;
@@ -212,7 +218,6 @@
             transform: translateY(-1px);
             box-shadow: 0 14px 36px rgba(34, 211, 238, 0.45);
         }
-        body.lens-operate .section-desk-only { display:none; }
         body.lens-room .hide-in-room { display:none; }
         .proof-pulse { animation: proofIn .55s ease; }
         @keyframes proofIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
@@ -334,7 +339,7 @@
         body.bd-theme-light a { color: #0891b2; }
     </style>
 </head>
-<body>
+<body class="lens-{{ initial_lens|default('prove') }}">
     <script type="application/json" id="bd-i18n-boot">{"lang": {{ lang|tojson }}, "catalog": {{ i18n|tojson }}}</script>
     <script src="/static/js/bd_i18n.js" defer></script>
     <script src="/static/js/public_decision_map.js" defer></script>
@@ -3522,6 +3527,13 @@
             }
             renderEntries(d.entries || []);
         }
+        function loadDeskLensSurfaces() {
+            if (currentLens !== 'desk') return;
+            loadArbitrage(false);
+            loadWhales(false);
+            void loadHalfLifeClock();
+        }
+
         function syncDashboardLensQuery(lensId) {
             if (!location.pathname.startsWith('/dashboard')) return;
             const params = new URLSearchParams(location.search);
@@ -3565,10 +3577,18 @@
                     return;
                 }
                 if (scroll) scrollForLens(currentLens);
-                if (currentLens === 'prove') loadTrustPulseQuick(true);
-                else if (currentLens === 'operate' || currentLens === 'desk') {
+                if (currentLens === 'prove') {
+                    loadTrustPulseQuick(true);
+                    bindTrustPulseLiveStream();
+                } else if (currentLens === 'operate') {
                     void loadCommandHome(true);
                     bindTrustPulseLiveStream();
+                    void loadMarket();
+                    void loadOI();
+                } else if (currentLens === 'desk') {
+                    void loadCommandHome(true);
+                    bindTrustPulseLiveStream();
+                    loadDeskLensSurfaces();
                 }
             } catch (error) {
                 console.debug(error);
@@ -3638,8 +3658,15 @@
                 lens = (localStorage.getItem('bd_lens') || audienceToLens(aud) || 'prove').toLowerCase();
             }
             if (!ALLOWED_LENSES.has(lens)) lens = 'prove';
-            applyLens(lens, { persist: true, scroll: true });
+            const scroll = !window.__bdLensPopstate;
+            window.__bdLensPopstate = false;
+            applyLens(lens, { persist: true, scroll: scroll });
         }
+
+        window.addEventListener('popstate', function () {
+            window.__bdLensPopstate = true;
+            applyAudienceFromQuery();
+        });
 
         async function loadIntentRouter() {
             if (lastCommandHome) {
