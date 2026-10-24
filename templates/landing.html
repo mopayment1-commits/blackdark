@@ -2,7 +2,7 @@
 <html lang="{{ lang|default('en') }}" dir="{{ dir|default('ltr') }}">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#22d3ee">
     <meta name="description" content="{{ t('brand') }} — {{ t('hero.headline') }} {{ t('hero.support') }}">
     <meta property="og:title" content="BLACKDARK — {{ t('hero.headline') }}">
@@ -18,9 +18,36 @@
     <script type="application/ld+json">
     {"@context":"https://schema.org","@type":"WebApplication","name":"BLACKDARK","description":"Trust OS decision intelligence with public accuracy ledger and Decision Certificates","url":"/","applicationCategory":"FinanceApplication"}
     </script>
+    <link rel="prefetch" href="/oracle/BTC/quick?ux_mode=beginner&lang={{ lang|default('en') }}" as="fetch" crossorigin="anonymous">
     <link rel="preload" as="image" href="/static/img/blackdark-sealed-hero-1280.webp" type="image/webp" fetchpriority="high">
-    <link rel="stylesheet" href="/static/css/trust-os.css">
+    <link rel="preload" href="/static/css/trust-os.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/static/css/trust-os.css"></noscript>
+    <link rel="preload" href="/static/css/landing.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/static/css/landing.css"></noscript>
     <style>
+        :root {
+          --bd-bg: #0a0a0f;
+          --bd-bg-deep: #07070b;
+          --bd-surface: #111118;
+          --bd-elevated: #1a1a24;
+          --bd-border: #2a2a35;
+          --bd-text: #f4f4f5;
+          --bd-text-secondary: #e4e4e7;
+          --bd-muted: #a1a1aa;
+          --bd-muted-dim: #a1a1aa;
+          --bd-accent: #22d3ee;
+          --bd-accent-glow: rgba(34, 211, 238, 0.14);
+          --bg: var(--bd-bg);
+          --bg-elevated: var(--bd-elevated);
+          --border: var(--bd-border);
+          --text: var(--bd-text-secondary);
+          --text-muted: var(--bd-muted-dim);
+          --accent: var(--bd-accent);
+          --accent-glow: var(--bd-accent-glow);
+          --bd-font-display: system-ui, -apple-system, "Segoe UI", sans-serif;
+          --bd-font-body: system-ui, -apple-system, "Segoe UI", sans-serif;
+          --bd-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
@@ -61,7 +88,17 @@
             50% { transform: translate(-30px, 30px); }
         }
         
-        nav.landing-nav.site-top-nav { position: fixed; top: 0; }
+        nav.landing-nav.site-top-nav { position: fixed; top: 0; left: 0; right: 0; }
+        /* Keep util row (lang · pricing · login) on-screen when primary links wrap */
+        nav.landing-nav.site-top-nav .nav-right {
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            max-width: 100%;
+        }
+        nav.landing-nav.site-top-nav .bd-header-util {
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
 
         .landing-stats {
             position: relative;
@@ -82,7 +119,13 @@
         .landing-stats strong {
             color: var(--accent);
             font-weight: 700;
+            display: inline-block;
+            min-width: 2.5ch;
+            font-variant-numeric: tabular-nums;
         }
+        .tp-mini-why { min-height: 3.25rem; }
+        .tp-mini-proof { min-height: 1.1rem; }
+        .tp-mini-sentence { min-height: 2.8rem; }
         
         .hero {
             position: relative;
@@ -236,14 +279,15 @@
             padding: 0.95rem 1rem;
             border-top: 1px solid var(--border);
         }
-        .seal-step strong {
+        .seal-step-title {
             display: block;
             color: var(--accent);
             font-family: var(--bd-font-display);
             font-size: 0.82rem;
+            font-weight: 700;
             letter-spacing: 0.06em;
             text-transform: uppercase;
-            margin-bottom: 0.3rem;
+            margin: 0 0 0.3rem;
         }
         .seal-step span { color: var(--text-muted); font-size: 0.95rem; line-height: 1.55; }
         .seal-cert-stamp {
@@ -391,6 +435,21 @@
         .result-oracle {
             color: var(--text-muted); font-size: 0.95rem;
             margin-top: 0.5rem; line-height: 1.8;
+        }
+
+        .landing-oracle-metrics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem 1.25rem;
+            margin: 0.75rem 0 0.35rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .landing-oracle-metric strong {
+            display: block;
+            font-size: 1rem;
+            color: var(--text);
+            font-weight: 700;
         }
         
         .features {
@@ -567,6 +626,23 @@
             padding: 0.55rem 1rem;
             font-size: 0.88rem;
         }
+        .hero .tp-mini-cta .btn-secondary.bd-lp-refreshing {
+            cursor: wait;
+            opacity: 0.9;
+        }
+        .hero .tp-mini-cta .btn-secondary.bd-lp-refreshing::before {
+            content: '';
+            display: inline-block;
+            width: 0.85em;
+            height: 0.85em;
+            margin-inline-end: 0.35em;
+            border: 2px solid currentColor;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: bdLpRefreshSpin 0.7s linear infinite;
+            vertical-align: -0.12em;
+        }
+        @keyframes bdLpRefreshSpin { to { transform: rotate(360deg); } }
         .hero .tp-mini-foot {
             font-size: 0.72rem;
             line-height: 1.45;
@@ -588,31 +664,63 @@
         .tp-mini-why { font-size:.85rem; color:var(--text-muted); margin-bottom:.75rem; }
         .tp-mini-why div { padding:.25rem 0; border-bottom:1px solid var(--border); color:var(--text); }
         .tp-mini-why div:last-child { border-bottom:none; }
-        .tp-mini-proof { display:flex; flex-wrap:wrap; gap:.4rem; margin-bottom:.85rem; font-size:.75rem; align-items:center; }
-        .tp-mini-proof span, .tp-mini-proof a { /* use .bd-chip via JS when possible */ }
+        .tp-mini-proof {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.85rem;
+            align-items: center;
+            width: 100%;
+        }
+        #lpProof a.bd-chip,
+        #lpProof button.bd-chip {
+            display: inline-block !important;
+            background: var(--bg-elevated) !important;
+            color: var(--text) !important;
+            font-weight: 600 !important;
+            font-size: 0.9rem !important;
+            padding: 0.5rem 1rem !important;
+            border-radius: 12px !important;
+            border: 1px solid var(--border) !important;
+            text-decoration: none !important;
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            transition: background 0.2s, border-color 0.2s, color 0.2s;
+        }
+        #lpProof a.bd-chip:link,
+        #lpProof a.bd-chip:visited {
+            color: var(--text) !important;
+        }
+        #lpProof a.bd-chip:hover,
+        #lpProof a.bd-chip:focus-visible,
+        #lpProof button.bd-chip:hover,
+        #lpProof button.bd-chip:focus-visible {
+            background: var(--bg-elevated) !important;
+            border-color: var(--accent) !important;
+            color: var(--text) !important;
+            outline: none;
+        }
+        #lpProof button[data-lp-copy-cert-id] {
+            background: transparent !important;
+            color: #2ecc71 !important;
+            font-weight: 400 !important;
+            font-size: 0.85rem !important;
+            padding: 0.3rem 0.6rem !important;
+            border: none !important;
+        }
+        .hero .tp-mini-proof .bd-chip-muted {
+            cursor: default;
+            opacity: 0.95;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
         .tp-mini-cert-id {
             font-size: .72rem;
             color: var(--text-muted, var(--muted));
             font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
             letter-spacing: .02em;
             user-select: all;
-        }
-        .bd-chip-btn {
-            cursor: pointer;
-            font: inherit;
-            font-size: 0.75rem;
-            color: var(--accent);
-            border-color: rgba(34, 211, 238, 0.35);
-        }
-        .bd-chip-btn:hover, .bd-chip-btn:focus-visible {
-            border-color: var(--accent);
-            color: #e0f2fe;
-            outline: none;
-        }
-        .bd-chip-muted {
-            cursor: default;
-            opacity: 0.92;
-            color: var(--text-muted);
         }
         .tp-mini-proof-drawer {
             margin: 0 0 0.75rem;
@@ -642,13 +750,56 @@
         @media (prefers-reduced-motion: reduce) {
             .hero-bleed-img { animation: none; }
         }
+        .landing-inline-link {
+            color: var(--accent);
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            text-decoration-thickness: 1px;
+        }
+        .landing-inline-link:hover { color: var(--accent); }
+
+        /* WebAIM / WCAG AA contrast on landing dark surfaces */
+        body.landing-page {
+            --text-muted: #c8c8d0;
+            --bd-muted-dim: #c8c8d0;
+        }
+        body.landing-page .field-label { color: #d8d8de !important; }
+        body.landing-page .oracle-demo h3 { color: #d0d0d8; font-weight: 600; }
+        body.landing-page .hero-support { color: #c8c8d0; }
+        body.landing-page .seal-step span,
+        body.landing-page .seal-cert-stamp,
+        body.landing-page .tp-mini-live,
+        body.landing-page .tp-mini-sym,
+        body.landing-page .tp-mini-why,
+        body.landing-page .hero .tp-mini-foot,
+        body.landing-page .oracle-share p,
+        body.landing-page .landing-stats,
+        body.landing-page #audienceCta,
+        body.landing-page .section-header p,
+        body.landing-page .feature-card p,
+        body.landing-page .waitlist > p { color: #c8c8d0; }
+        body.landing-page .nav-links a { color: #c8c8d0; }
+        body.landing-page .nav-links a:hover,
+        body.landing-page .nav-links a.active { color: #f4f4f5; }
+        body.landing-page .nav-util-link { color: #d8d8de; }
+        body.landing-page .bd-site-footer-root .bd-site-footer { color: #c8c8d0; }
+        body.landing-page .bd-site-footer-root .bd-site-footer a { color: #e4e4e7; }
+        body.landing-page .bd-site-footer-root .bd-foot-tag { color: #c8c8d0; }
+        body.landing-page .bd-ask-ai-note,
+        body.landing-page .bd-eu-consent-note { color: #c8c8d0; }
+        body.landing-page .bd-nav-search-wrap svg { color: #a1a1aa; }
+        .bd-visually-hidden {
+            position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+            overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+        }
     </style>
 </head>
-<body>
+<body class="landing-page">
     <a href="#trust-pulse" class="skip-link" style="position:absolute;left:-9999px" onfocus="this.style.left='1rem';this.style.top='1rem';this.style.zIndex='100';this.style.background='var(--accent)';this.style.color='#0a0a0f';this.style.padding='.5rem .75rem'">{{ t('a11y.skip_trust_pulse') }}</a>
     <div class="bg-grid"></div>
     <div class="bg-glow"></div>
 
+    {% set landing_lazy_scripts = true %}
     {% include 'partials/site_top_nav.html' %}
 
     <main id="main">
@@ -690,20 +841,246 @@
                         <span class="tp-mini-label">{{ t('pulse.label') }}</span>
                         <span class="tp-mini-live"><span class="tp-mini-dot" id="lpDot"></span><span id="lpFresh">{{ t('pulse.live') }}</span></span>
                     </div>
-                    <div class="tp-mini-action bd-tp-action WAIT" id="lpAction">—</div>
-                    <div class="tp-mini-sym" id="lpSym">{{ t('pulse.loading') }}</div>
-                    <p class="tp-mini-sentence" id="lpSentence">{{ t('pulse.sentence') }}</p>
+                    {% set _lp = landing_pulse_view if landing_pulse_view is defined and landing_pulse_view else none %}
+                    <div class="tp-mini-action bd-tp-action {{ _lp.action_class if _lp else 'WAIT' }}" id="lpAction">{{ _lp.action if _lp else '—' }}</div>
+                    <div class="tp-mini-sym" id="lpSym" data-pulse-loading="1">{{ _lp.symbol_line if _lp else t('pulse.loading') }}</div>
+                    <p class="tp-mini-sentence" id="lpSentence">{{ _lp.sentence if _lp else t('pulse.sentence') }}</p>
                     <div class="tp-mini-why" id="lpWhy"></div>
                     <div class="tp-mini-proof" id="lpProof"></div>
                     <p class="tp-mini-proof-toast" id="lpProofCopyMsg" role="status" aria-live="polite" hidden></p>
                     <div class="tp-mini-proof-drawer" id="lpProofDrawer" hidden></div>
                     <div class="tp-mini-cta">
                         <a href="/dashboard?lens=prove#trust-pulse" class="btn-primary" style="padding:.55rem 1.1rem;font-size:.9rem">{{ t('pulse.open_full') }}</a>
+                        <button type="button" class="btn-secondary" style="padding:.55rem 1.1rem;font-size:.9rem;cursor:pointer" id="lpRefreshBtn" data-default-label="{{ t('dash.refresh') }}" aria-label="{{ t('dash.refresh') }}">{{ t('dash.refresh') }}</button>
                         <button type="button" class="btn-secondary" style="padding:.55rem 1.1rem;font-size:.9rem;cursor:pointer" id="lpShareBtn">{{ t('pulse.share') }}</button>
+                        <button type="button" class="btn-secondary" style="padding:.55rem 1.1rem;font-size:.9rem;cursor:pointer;display:none" id="lpArbBtn">{{ t('arb.btn') }}</button>
+                    </div>
+                    <div id="lpArbPanel" hidden style="margin-top:.75rem;text-align:left;font-size:.82rem;border-top:1px solid var(--border);padding-top:.65rem">
+                        <p style="color:var(--muted);margin-bottom:.35rem">{{ t('arb.panel.lead') }}</p>
+                        <ul id="lpArbList" style="list-style:none;padding:0;margin:0"></ul>
                     </div>
                     <p class="tp-mini-foot bd-anti-hype">{{ t('pulse.foot') }}</p>
                 </div>
+                {% if landing_pulse_ssr is defined and landing_pulse_ssr %}
+                <script type="application/json" id="landing-pulse-ssr">{{ landing_pulse_ssr|tojson }}</script>
+                {% endif %}
             </section>
+            <script>
+            (function () {
+                'use strict';
+                var PULSE_LOADING_MARK = {{ t('pulse.loading')|tojson }};
+                function esc(v) {
+                    return String(v == null ? '' : v)
+                        .replace(/&/g, '&amp;')
+                        .replace(/</g, '&lt;')
+                        .replace(/>/g, '&gt;')
+                        .replace(/"/g, '&quot;');
+                }
+                function mapPulseAction(raw) {
+                    if (window.BDPublicDecision && typeof window.BDPublicDecision.mapPublicDecisionAction === 'function') {
+                        return window.BDPublicDecision.mapPublicDecisionAction(raw);
+                    }
+                    var u = String(raw || 'WAIT').toUpperCase();
+                    if (u.indexOf('CONDITION') >= 0) return 'CONDITIONS MET';
+                    if (u === 'ACT' || u.indexOf('BUY') >= 0 || u.indexOf('BULL') >= 0) return 'ACT';
+                    if (u.indexOf('ABSTAIN') >= 0 || u.indexOf('SELL') >= 0) return 'ABSTAIN';
+                    return 'WAIT';
+                }
+                function pulseFactors(data) {
+                    var whyBlock = data.oqs_why || {};
+                    return whyBlock.top_3_factors
+                        || (data.explanation && data.explanation.top_3_factors)
+                        || data.top_3_factors
+                        || [];
+                }
+                function pulseSentence(data, sym, action) {
+                    var sentence = data.decision_sentence || data.conditions_met_review || data.narrative || data.oracle || data.action_line || '';
+                    if (sentence && !/meditat|consulting the oracle/i.test(sentence)) return sentence;
+                    if (typeof data.action === 'string' && data.action.length > 12 && !/\bBuy\b/i.test(data.action)) return data.action;
+                    return action + ' on ' + (data.symbol || sym);
+                }
+                function priceBit(p) {
+                    var price = p.price != null
+                        ? ('$' + Number(p.price).toLocaleString(undefined, { maximumFractionDigits: 2 }))
+                        : '';
+                    var ch = p.change_24h != null ? p.change_24h : p.change_24h_pct;
+                    if (ch == null) return price;
+                    var sign = ch >= 0 ? '+' : '';
+                    return price + ' · ' + sign + Number(ch).toFixed(2) + '%';
+                }
+                function lpSymStillLoading() {
+                    var symEl = document.getElementById('lpSym');
+                    if (!symEl) return true;
+                    if (symEl.getAttribute('data-pulse-loading') === '1') return true;
+                    var t = String(symEl.textContent || '').trim();
+                    return !t || t === PULSE_LOADING_MARK || t === '—';
+                }
+                function renderLandingPulseInline(p) {
+                    if (!p) return;
+                    window.__landingPulseHydrated = true;
+                    window.landingPulse = p;
+                    var act = mapPulseAction(p.action || p.verdict || p.decision_action);
+                    var actionEl = document.getElementById('lpAction');
+                    if (actionEl) {
+                        actionEl.textContent = act;
+                        var cssToken = act === 'CONDITIONS MET' ? 'WAIT' : String(act).replace(/\s+/g, '_');
+                        actionEl.className = 'tp-mini-action bd-tp-action ' + cssToken;
+                    }
+                    var symEl = document.getElementById('lpSym');
+                    if (symEl) {
+                        symEl.textContent = String(p.symbol || 'BTC').toUpperCase() + ' ' + priceBit(p);
+                        symEl.removeAttribute('data-pulse-loading');
+                    }
+                    var sent = document.getElementById('lpSentence');
+                    if (sent) sent.textContent = p.sentence || '';
+                    var factors = (p.why && p.why.factors) || [];
+                    var why = document.getElementById('lpWhy');
+                    if (why) {
+                        why.innerHTML = factors.slice(0, 3).map(function (f, i) {
+                            var detail = f.detail ? (' — ' + esc(f.detail)) : '';
+                            var rawSrc = (f && typeof f === 'object' && f.source) ? String(f.source).trim() : '';
+                            var srcBit = rawSrc ? (' <span style="opacity:.75;font-size:.78rem">· ' + esc(rawSrc) + '</span>') : '';
+                            return '<div><strong>' + (i + 1) + '. ' + esc(f.factor || f) + '</strong>' + detail + srcBit + '</div>';
+                        }).join('');
+                    }
+                    var fresh = p.freshness || p.data_freshness || {};
+                    var dot = document.getElementById('lpDot');
+                    if (dot) dot.className = 'tp-mini-dot' + (fresh.stale ? ' stale' : '');
+                    var fl = document.getElementById('lpFresh');
+                    if (fl && fresh.label) fl.textContent = fresh.label;
+                }
+                function oracleHasDecision(data) {
+                    if (!data || typeof data !== 'object') return false;
+                    return Boolean(
+                        data.decision_sentence
+                        || data.oracle
+                        || data.decision_action
+                        || data.verdict
+                        || data.model_state
+                        || (data.price != null && data.opportunity_score != null)
+                    );
+                }
+                function parseOracleQuickResponse(res, raw) {
+                    var data = null;
+                    try {
+                        if (raw && raw.trim().charAt(0) === '{') data = JSON.parse(raw);
+                    } catch (e) { console.debug(e); }
+                    return { ok: res && res.ok, data: data };
+                }
+                async function fetchOracleQuickPulse(sym, mode, lang) {
+                    var oracleRoot = '/oracle/';
+                    var quickUrl = oracleRoot + encodeURIComponent(sym) + '/quick?ux_mode=' + encodeURIComponent(mode) + '&lang=' + encodeURIComponent(lang);
+                    var res = await fetch(quickUrl, { headers: { Accept: 'application/json' }, credentials: 'same-origin', cache: 'no-store' });
+                    var raw = await res.text();
+                    return parseOracleQuickResponse(res, raw);
+                }
+                async function loadLandingTrustPulse(force) {
+                    if (window.__landingPulseHydrated && !force && !lpSymStillLoading()) return;
+                    var symEl = document.getElementById('symbol');
+                    var sym = (symEl && symEl.value) || 'BTC';
+                    var modeEl = document.getElementById('landingUxMode');
+                    var mode = (modeEl && modeEl.value) || 'beginner';
+                    var langEl = document.getElementById('landingLang');
+                    var lang = (langEl && langEl.value) || (document.documentElement && document.documentElement.lang) || 'en';
+                    sym = String(sym).trim().toUpperCase() || 'BTC';
+                    try {
+                        var pack = await fetchOracleQuickPulse(sym, mode, lang);
+                        if (!pack.ok || !oracleHasDecision(pack.data)) {
+                            pack = await fetchOracleQuickPulse(sym, mode, lang);
+                        }
+                        if (pack.ok && oracleHasDecision(pack.data)) {
+                            var data = pack.data;
+                            var action = mapPulseAction(data.decision_action || data.model_state || data.verdict || data.action);
+                            renderLandingPulseInline({
+                                symbol: data.symbol || sym,
+                                action: action,
+                                verdict: action,
+                                price: data.price,
+                                change_24h: data.change_24h != null ? data.change_24h : data.change_24h_pct,
+                                sentence: pulseSentence(data, sym, action),
+                                why: { factors: pulseFactors(data) },
+                                freshness: data.data_freshness || {},
+                            });
+                        }
+                    } catch (e) { console.debug(e); }
+                }
+                function applyLandingPulseSSRInline() {
+                    var el = document.getElementById('landing-pulse-ssr');
+                    if (!el) return false;
+                    try {
+                        var p = JSON.parse(el.textContent || '{}');
+                        if (!p || (!p.symbol && !p.action && !p.verdict && !p.decision_sentence)) return false;
+                        renderLandingPulseInline({
+                            symbol: p.symbol,
+                            action: p.action || p.verdict || p.decision_action,
+                            price: p.price,
+                            change_24h: p.change_24h,
+                            sentence: p.sentence || p.decision_sentence,
+                            why: p.why || { factors: pulseFactors(p) },
+                            freshness: p.freshness || p.data_freshness,
+                        });
+                        return true;
+                    } catch (e) { console.debug(e); return false; }
+                }
+                function bootTrustPulse() {
+                    applyLandingPulseSSRInline();
+                    if (lpSymStillLoading()) void loadLandingTrustPulse(true);
+                }
+                async function fetchLaunch57GuestTrust(symbol) {
+                    var sym = encodeURIComponent(String(symbol || 'BTC').toUpperCase());
+                    var response = await fetch('/api/launch57/guest-trust?symbol=' + sym, { headers: { Accept: 'application/json' } });
+                    var data = null;
+                    try { data = await response.json(); } catch (e) { console.debug(e); }
+                    return { response: response, data: data };
+                }
+                window.loadLandingTrustPulse = loadLandingTrustPulse;
+                window.fetchLaunch57GuestTrust = fetchLaunch57GuestTrust;
+                window.__bdBootTrustPulse = bootTrustPulse;
+                (function bindLpRefreshEarly() {
+                    var btn = document.getElementById('lpRefreshBtn');
+                    if (!btn) return;
+                    var defaultLabel = btn.getAttribute('data-default-label') || btn.textContent || 'Refresh';
+                    function setLpRefreshState(state) {
+                        if (state === 'loading') {
+                            btn.disabled = true;
+                            btn.setAttribute('aria-busy', 'true');
+                            btn.classList.add('bd-lp-refreshing');
+                            btn.textContent = 'Refreshing\u2026';
+                        } else if (state === 'updated') {
+                            btn.disabled = true;
+                            btn.removeAttribute('aria-busy');
+                            btn.classList.remove('bd-lp-refreshing');
+                            btn.textContent = 'Updated';
+                        } else {
+                            btn.disabled = false;
+                            btn.removeAttribute('aria-busy');
+                            btn.classList.remove('bd-lp-refreshing');
+                            btn.textContent = defaultLabel;
+                        }
+                    }
+                    btn.addEventListener('click', function () {
+                        if (btn.disabled) return;
+                        if (typeof window.__landing_refreshTrustPulse === 'function') {
+                            void window.__landing_refreshTrustPulse();
+                            return;
+                        }
+                        setLpRefreshState('loading');
+                        Promise.resolve(window.loadLandingTrustPulse && window.loadLandingTrustPulse(true))
+                            .then(function () {
+                                setLpRefreshState('updated');
+                                window.setTimeout(function () { setLpRefreshState('idle'); }, 1000);
+                            })
+                            .catch(function () { setLpRefreshState('idle'); });
+                    });
+                })();
+                bootTrustPulse();
+                document.addEventListener('DOMContentLoaded', bootTrustPulse, { once: true });
+                window.addEventListener('load', function () {
+                    if (lpSymStillLoading()) void loadLandingTrustPulse(true);
+                }, { once: true });
+            })();
+            </script>
+            {% include 'partials/oracle_workspace.html' %}
         </div>
     </section>
 
@@ -712,15 +1089,15 @@
         <p>{{ t('seal.body') }}</p>
         <div class="seal-steps">
             <div class="seal-step">
-                <strong>{{ t('seal.s1.title') }}</strong>
+                <h3 class="seal-step-title">{{ t('seal.s1.title') }}</h3>
                 <span>{{ t('seal.s1.body') }}</span>
             </div>
             <div class="seal-step">
-                <strong>{{ t('seal.s2.title') }}</strong>
+                <h3 class="seal-step-title">{{ t('seal.s2.title') }}</h3>
                 <span>{{ t('seal.s2.body') }}</span>
             </div>
             <div class="seal-step">
-                <strong>{{ t('seal.s3.title') }}</strong>
+                <h3 class="seal-step-title">{{ t('seal.s3.title') }}</h3>
                 <span>{{ t('seal.s3.body') }}</span>
             </div>
         </div>
@@ -736,48 +1113,49 @@
         </div>
             <div class="oracle-demo" id="oracle">
                 <div class="oracle-demo-header">
-                    <h3>BLACKDARK Oracle</h3>
-                    <div class="live-indicator" id="oracleFreshnessChip" title="Data freshness">
-                        <span class="live-dot"></span>
-                        <span id="oracleFreshnessLabel"></span>
+                    <h3>{{ t('oracle.title') }}</h3>
+                    <div class="live-indicator" id="oracleFreshnessChip" title="{{ t('oracle.freshness.title') }}" aria-label="{{ t('oracle.freshness.title') }}">
+                        <span class="live-dot" aria-hidden="true"></span>
+                        <span id="oracleFreshnessLabel">{{ t('pulse.live') }}</span>
                     </div>
                 </div>
                 <div class="oracle-input" style="flex-wrap:wrap;gap:.5rem">
-                    <label class="field-label" for="landingAudience" style="display:inline-flex;flex-direction:column;gap:.25rem;font-size:.75rem;color:var(--text-muted);text-align:left">Audience
+                    <label class="field-label" for="landingAudience" style="display:inline-flex;flex-direction:column;gap:.25rem;font-size:.75rem;color:var(--text-muted);text-align:left">{{ t('oracle.field.audience') }}
                     <select id="landingAudience" name="landingAudience" data-bd-change-call="applyAudience" style="background:var(--bg-elevated);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.55rem">
-                        <option value="retail" selected>Prove</option>
-                        <option value="pro">Operate</option>
-                        <option value="whale">Desk</option>
-                        <option value="fund">Room</option>
+                        <option value="retail" selected>{{ t('lenses.prove.title') }}</option>
+                        <option value="pro">{{ t('lenses.operate.title') }}</option>
+                        <option value="whale">{{ t('lenses.desk.title') }}</option>
+                        <option value="fund">{{ t('lenses.room.title') }}</option>
                     </select>
                     </label>
-                    <label class="field-label" for="landingUxMode" style="display:inline-flex;flex-direction:column;gap:.25rem;font-size:.75rem;color:var(--text-muted);text-align:left">Experience
+                    <label class="field-label" for="landingUxMode" style="display:inline-flex;flex-direction:column;gap:.25rem;font-size:.75rem;color:var(--text-muted);text-align:left">{{ t('oracle.field.experience') }}
                     <select id="landingUxMode" name="landingUxMode" style="background:var(--bg-elevated);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.55rem">
-                        <option value="beginner" selected>Beginner</option>
-                        <option value="pro">Decision Pro</option>
+                        <option value="beginner" selected>{{ t('oracle.mode.beginner') }}</option>
+                        <option value="pro">{{ t('oracle.mode.decision_pro') }}</option>
                     </select>
                     </label>
-                    <input type="hidden" id="landingLang" value="en" aria-label="landingLang">
-                    <label class="field-label" for="symbol" style="display:inline-flex;flex-direction:column;gap:.25rem;font-size:.75rem;color:var(--text-muted);text-align:left">Symbol
-                    <select id="symbol" name="symbol" class="oracle-symbol-select" aria-label="Symbol">
+                    <input type="hidden" id="landingLang" name="landingLang" value="{{ lang|default('en') }}">
+                    <label class="field-label" for="symbol" style="display:inline-flex;flex-direction:column;gap:.25rem;font-size:.75rem;color:var(--text-muted);text-align:left">{{ t('oracle.field.symbol') }}
+                    <select id="symbol" name="symbol" class="oracle-symbol-select" aria-label="{{ t('oracle.field.symbol') }}">
                         {% for sym in oracle_symbols|default(['BTC']) %}
                         <option value="{{ sym }}"{% if sym == 'BTC' %} selected{% endif %}>{{ sym }}</option>
                         {% endfor %}
                     </select>
                     </label>
-                    <button data-bd-call="consultOracle">Get Decision</button>
+                    <button data-bd-call="consultOracle">{{ t('oracle.get_decision') }}</button>
                 </div>
-                <p id="audienceCta" style="color:var(--text-muted);font-size:.85rem;margin:.5rem 0 0">Get one clear CONDITIONS MET / Wait decision — no dashboard tourism.</p>
+                <p id="audienceCta" style="color:var(--text-muted);font-size:.85rem;margin:.5rem 0 0">{{ t('oracle.cta.retail') }}</p>
                 <div class="oracle-result" id="oracleResult">
                     <div class="result-header">
                         <div class="result-symbol" id="resultSymbol">BTC</div>
                         <div class="result-score" id="resultScore">—</div>
                     </div>
                     <div style="margin-bottom: 1rem;">
-                        <span class="result-verdict verdict-wait" id="resultVerdict">WAIT</span>
+                        <span class="result-verdict verdict-wait" id="resultVerdict">{{ t('action.WAIT') }}</span>
                     </div>
+                    <div id="landingOracleMetrics" class="landing-oracle-metrics" hidden></div>
                     <div class="result-oracle" id="resultOracle">
-                        One clear decision — act or wait
+                        {{ t('oracle.placeholder') }}
                     </div>
                     <div id="landingOracleFailReason" style="display:none;margin-top:.35rem;font-size:.8rem;color:var(--text-muted)"></div>
                     <div id="landingProMeta" style="display:none;margin-top:.75rem;color:var(--text-muted);font-size:.85rem"></div>
@@ -788,36 +1166,36 @@
                 </div>
 
                 <div class="oracle-share" id="oracleShare">
-                    <h4>Share Your Signal</h4>
-                    <p>Spread the oracle verdict — viral growth fuels the dark side</p>
+                    <h4>{{ t('oracle.share.title') }}</h4>
+                    <p>{{ t('oracle.share.sub') }}</p>
                     <div class="share-buttons">
                         <a href="#" class="share-btn share-x" id="shareXBtn" target="_blank" rel="noopener noreferrer">𝕏 X</a>
-                        <a href="#" class="share-btn share-facebook" id="shareFacebookBtn" target="_blank" rel="noopener noreferrer">Facebook</a>
-                        <a href="#" class="share-btn share-instagram" id="shareInstagramBtn">Instagram</a>
-                        <a href="#" class="share-btn share-whatsapp" id="shareWhatsappBtn" target="_blank" rel="noopener noreferrer">WhatsApp</a>
-                        <a href="#" class="share-btn share-telegram" id="shareTelegramBtn" target="_blank" rel="noopener noreferrer">Telegram</a>
-                        <a href="#" class="share-btn share-reddit" id="shareRedditBtn" target="_blank" rel="noopener noreferrer">Reddit</a>
-                        <a href="#" class="share-btn share-copy" id="shareCopyBtn" href="#">Copy Link</a>
+                        <a href="#" class="share-btn share-facebook" id="shareFacebookBtn" target="_blank" rel="noopener noreferrer">{{ t('oracle.share.facebook') }}</a>
+                        <a href="#" class="share-btn share-instagram" id="shareInstagramBtn">{{ t('oracle.share.instagram') }}</a>
+                        <a href="#" class="share-btn share-whatsapp" id="shareWhatsappBtn" target="_blank" rel="noopener noreferrer">{{ t('oracle.share.whatsapp') }}</a>
+                        <a href="#" class="share-btn share-telegram" id="shareTelegramBtn" target="_blank" rel="noopener noreferrer">{{ t('oracle.share.telegram') }}</a>
+                        <a href="#" class="share-btn share-reddit" id="shareRedditBtn" target="_blank" rel="noopener noreferrer">{{ t('oracle.share.reddit') }}</a>
+                        <a href="#" class="share-btn share-copy" id="shareCopyBtn">{{ t('oracle.share.copy') }}</a>
                     </div>
                 </div>
             </div>
 
             <div class="oracle-demo" id="telegram-free" style="margin-top:2rem">
                 <div class="oracle-demo-header">
-                    <h3>Telegram Free Alerts</h3>
-                    <div class="live-indicator"><span class="live-dot"></span>3/day free</div>
+                    <h3>{{ t('tg.title') }}</h3>
+                    <div class="live-indicator"><span class="live-dot"></span>{{ t('tg.badge') }}</div>
                 </div>
                 <p style="color:var(--text-muted);margin-bottom:1rem;font-size:0.95rem">
-                    Subscribe in Telegram — get top arbitrage + Oracle signals. No credit card.
+                    {{ t('tg.body') }}
                 </p>
                 <div class="hero-cta" style="margin-bottom:0">
                     <a id="telegramBotLink" href="{{ telegram_bot_url or 'https://t.me/BLACKDARKAI_oncall_bot' }}" class="btn-primary" target="_blank" rel="noopener">
-                        {% if telegram_bot_username %}@{{ telegram_bot_username }} — Start Free{% else %}Open Telegram Bot{% endif %}
+                        {{ t('social.join_telegram_alerts') }}
                     </a>
-                    <a href="/oracle-accuracy" class="btn-secondary">See AI Accuracy</a>
+                    <a href="/oracle-accuracy" class="btn-secondary">{{ t('tg.accuracy') }}</a>
                 </div>
                 <p style="color:var(--text-muted);margin-top:1rem;font-size:0.82rem">
-                    Commands: /start · /status · /accuracy · /stop
+                    {{ t('tg.commands') }}
                 </p>
             </div>
     </section>
@@ -852,1234 +1230,40 @@
             </div>
         </div>
         <p style="text-align:center;color:var(--text-muted);margin-top:2rem;font-size:0.9rem">
-            <a href="/data-room" style="color:var(--accent)">{{ t('lenses.room.title') }} →</a>
+            <a href="/data-room" class="landing-inline-link">{{ t('lenses.room.title') }} →</a>
         </p>
     </section>
 
     <section class="waitlist" id="waitlist">
         <h2 style="font-family:var(--bd-font-display);font-size: clamp(1.8rem,4vw,2.5rem); font-weight: 800; margin-bottom: 1rem;">
-            Get early access to Trust OS
+            {{ t('waitlist.title') }}
         </h2>
         <p style="color: var(--text-muted); font-size: 1.05rem; max-width: 520px; margin: 0 auto;">
-            Join the waitlist for launch updates. No fake seat counters — just a clear path to Prove.
+            {{ t('waitlist.sub') }}
         </p>
-        <div class="landing-stats" id="landingStats" aria-label="Platform activity" style="margin:1.25rem auto 0;border:none">
-            <span>Visitors: <strong id="landingViews">—</strong></span>
-            <span>Users: <strong id="landingUsers">—</strong></span>
-            <span>Subscribers: <strong id="landingSubs">—</strong></span>
-            <span>Telegram: <strong id="landingTelegram">—</strong></span>
-            <span>Waitlist: <strong id="landingWaitlist">—</strong></span>
+        <div class="landing-stats" id="landingStats" role="group" aria-label="{{ t('waitlist.stats_aria') }}" style="margin:1.25rem auto 0;border:none">
+            <span>{{ t('stats.visitors') }}: <strong id="landingViews">—</strong></span>
+            <span>{{ t('stats.users') }}: <strong id="landingUsers">—</strong></span>
+            <span>{{ t('stats.subscribers') }}: <strong id="landingSubs">—</strong></span>
+            <span>{{ t('stats.telegram') }}: <strong id="landingTelegram">—</strong></span>
+            <span>{{ t('stats.waitlist') }}: <strong id="landingWaitlist">—</strong></span>
         </div>
         <form class="waitlist-form" data-bd-submit-call="joinWaitlist">
-            <input type="email" id="waitlistEmail" placeholder="Enter your email" required aria-label="Enter your email">
-            <button type="submit">Join Waitlist</button>
+            <label for="waitlistEmail" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">{{ t('waitlist.email_aria') }}</label>
+            <input type="email" id="waitlistEmail" placeholder="{{ t('waitlist.email_placeholder') }}" required aria-label="{{ t('waitlist.email_aria') }}">
+            <button type="submit">{{ t('waitlist.submit') }}</button>
         </form>
         <p id="waitlistMessage" style="margin-top: 1rem; color: var(--success); display: none;"></p>
+    </section>
+
+    <section class="follow-us" id="follow-us" aria-labelledby="follow-us-heading" style="padding: 2.5rem 1rem 1rem; border-top: 1px solid var(--border, #2a2a35);">
+        {% set social_variant = 'landing' %}
+        {% set social_heading_id = 'follow-us-heading' %}
+        {% include 'partials/site_follow_social.html' %}
     </section>
     </main>
     
     {% include "partials/site_footer.html" %}
     
-    <script src="/static/js/dom_escape.js?v=20261007-setAnchorHref"></script>
-    <script src="/static/js/public_decision_map.js"></script>
-    <script>
-        const BDDom = window.BDDomSafe || {};
-        const escapeHtml = BDDom.escapeHtml || function (v) { return String(v ?? ''); };
-        const esc = BDDom.esc || escapeHtml;
-        const safeUrl = BDDom.safeUrl || function () { return ''; };
-        const assignLocationHref = typeof BDDom.assignLocationHref === 'function'
-            ? BDDom.assignLocationHref
-            : function (value) {
-                const raw = String(value ?? '').trim();
-                if (raw && /^https?:\/\//i.test(raw)) window.location.href = raw;
-            };
-        const openWindow = typeof BDDom.openWindow === 'function'
-            ? BDDom.openWindow
-            : function (value) {
-                const raw = String(value ?? '').trim();
-                if (raw && /^https?:\/\//i.test(raw)) window.open(raw, '_blank', 'noopener');
-            };
-        function setAnchorHref(el, value) {
-            if (!el) return;
-            if (typeof BDDom.setAnchorHref === 'function') {
-                BDDom.setAnchorHref(el, value);
-                return;
-            }
-            if (typeof window.setAnchorHref === 'function') {
-                window.setAnchorHref(el, value);
-                return;
-            }
-            const raw = String(value ?? '').trim();
-            if (raw && (/^https?:\/\//i.test(raw) || (raw.startsWith('/') && !raw.startsWith('//')))) {
-                el.href = raw;
-            }
-        }
-
-        function currentLang() {
-            return (window.BD_I18N && window.BD_I18N.lang) || document.documentElement.lang || 'en';
-        }
-        function i18nT(key, vars) {
-            const i18n = window.BD_I18N;
-            if (i18n && typeof i18n.t === 'function') return i18n.t(key, vars || {});
-            return key;
-        }
-
-function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.getRandomValues(a);return Array.from(a,b=>b.toString(16).padStart(2,'0')).join('').slice(0,len||8);}
-
-        window.lastOracleResult = null;
-
-        function buildSharePayload(result) {
-            const url = window.location.origin + '/';
-            if (!result) {
-                return {
-                    url,
-                    text: i18nT('pulse.share_default') || 'BLACKDARK Trust Pulse — one Act/Wait decision you can verify',
-                };
-            }
-            const price = result.price != null ? `$${Number(result.price).toLocaleString(undefined, { maximumFractionDigits: 2 })}` : '';
-            const publicVerdict = window.BDPublicDecision?.mapPublicDecisionAction(
-                result.decision_action || result.model_state || result.verdict || result.action
-            ) || result.verdict;
-            const text = [
-                `BLACKDARK Oracle: ${publicVerdict} ${result.symbol}${price ? ' @ ' + price : ''}`,
-                `Score: ${result.opportunity_score}/100 · Confidence: ${result.confidence || '—'}%`,
-                (result.narrative || result.oracle || '').slice(0, 160),
-            ].filter(Boolean).join('\n');
-            return { url, text };
-        }
-
-        function setLandingOraclePresentationLayout(mode) {
-            const header = document.querySelector('#oracleResult .result-header');
-            const verdictWrap = document.getElementById('resultVerdict')?.parentElement;
-            const share = document.getElementById('oracleShare');
-            const full = mode === 'full';
-            if (header) header.style.display = full ? '' : 'none';
-            if (verdictWrap) verdictWrap.style.display = full ? '' : 'none';
-            if (share) share.style.display = full ? '' : 'none';
-        }
-
-        function updateShareLinks(result) {
-            window.lastOracleResult = result;
-            const oracleFull = !!(result && landingOracleIsFull(result));
-            if (result && landingOracleIsAgeOnly(result)) {
-                setLandingOraclePresentationLayout('partial');
-            } else {
-                setLandingOraclePresentationLayout(oracleFull ? 'full' : 'down');
-            }
-            if (!oracleFull) return;
-            const { url, text } = buildSharePayload(result);
-            const full = `${text}\n${url}`;
-
-            const xBtn = document.getElementById('shareXBtn');
-            const fbBtn = document.getElementById('shareFacebookBtn');
-            const waBtn = document.getElementById('shareWhatsappBtn');
-            const tgBtn = document.getElementById('shareTelegramBtn');
-            const rdBtn = document.getElementById('shareRedditBtn');
-
-            try {
-                if (xBtn) setAnchorHref(xBtn, `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`);
-                if (fbBtn) setAnchorHref(fbBtn, `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(text)}`);
-                if (waBtn) setAnchorHref(waBtn, `https://wa.me/?text=${encodeURIComponent(full)}`);
-                if (tgBtn) setAnchorHref(tgBtn, `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`);
-                if (rdBtn) setAnchorHref(rdBtn, `https://www.reddit.com/submit?url=${encodeURIComponent(url)}&title=${encodeURIComponent(text)}`);
-            } catch (shareError) { console.debug(shareError); }
-
-            const igBtn = document.getElementById('shareInstagramBtn');
-            if (igBtn) {
-                igBtn.onclick = function(e) {
-                    e.preventDefault();
-                    navigator.clipboard.writeText(full).then(() => {
-                        igBtn.textContent = 'Copied!';
-                        setTimeout(() => { igBtn.textContent = 'Instagram'; }, 2000);
-                    });
-                };
-            }
-
-            const copyBtn = document.getElementById('shareCopyBtn');
-            if (copyBtn) {
-                copyBtn.onclick = function(e) {
-                    e.preventDefault();
-                    navigator.clipboard.writeText(full).then(() => {
-                        copyBtn.textContent = 'Copied!';
-                        copyBtn.classList.add('copied');
-                        setTimeout(() => {
-                            copyBtn.textContent = 'Copy Link';
-                            copyBtn.classList.remove('copied');
-                        }, 2000);
-                    });
-                };
-            }
-        }
-
-
-        function landingOracleHasDecision(data) {
-            if (!data || typeof data !== 'object') return false;
-            return Boolean(
-                data.decision_sentence
-                || data.oracle
-                || data.decision_action
-                || data.verdict
-            );
-        }
-
-        function setLandingOracleFailReason(reason) {
-            const el = document.getElementById('landingOracleFailReason');
-            if (!el) return;
-            if (!reason) {
-                el.textContent = '';
-                el.style.display = 'none';
-                return;
-            }
-            el.textContent = reason;
-            el.style.display = 'block';
-        }
-
-        async function fetchOraclePayload(symbol, mode, lang) {
-            const preferQuick = mode !== 'pro';
-            const primary = preferQuick
-                ? `/oracle/${encodeURIComponent(symbol)}/quick?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`
-                : `/oracle/${encodeURIComponent(symbol)}?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`;
-            const fallback = preferQuick
-                ? `/oracle/${encodeURIComponent(symbol)}?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`
-                : `/oracle/${encodeURIComponent(symbol)}/quick?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`;
-
-            let networkFailure = false;
-
-            async function loadOracle(url) {
-                try {
-                    const response = await fetch(url, { headers: { Accept: 'application/json' } });
-                    const rawText = await response.text();
-                    let data = null;
-                    try {
-                        if (rawText && !rawText.trim().startsWith('<') && !rawText.includes('Internal Server Error')) {
-                            data = JSON.parse(rawText);
-                        }
-                    } catch (error) { console.debug(error); }
-                    return { response, data, networkFailure: false };
-                } catch (error) {
-                    console.debug(error);
-                    networkFailure = true;
-                    return { response: null, data: null, networkFailure: true };
-                }
-            }
-
-            const first = await loadOracle(primary);
-            if (landingOracleHasDecision(first.data)) {
-                return { ...first, networkFailure: false };
-            }
-            const second = await loadOracle(fallback);
-            if (landingOracleHasDecision(second.data)) {
-                return { ...second, networkFailure: false };
-            }
-            const picked = first.response && first.response.ok ? first : second;
-            return {
-                ...picked,
-                networkFailure: networkFailure && !landingOracleHasDecision(picked.data),
-            };
-        }
-        function decideLandingAction(data) {
-            const raw = data.decision_action || data.model_state || data.verdict || data.action || 'WAIT';
-            const mapFn = window.BDPublicDecision?.mapPublicDecisionAction;
-            if (typeof mapFn === 'function') return mapFn(raw);
-            const rawAction = String(raw).toUpperCase();
-            if (rawAction.includes('CONDITION') || rawAction === 'ACT' || rawAction.includes('BUY') || rawAction.includes('BULL')) {
-                return 'CONDITIONS MET';
-            }
-            if (rawAction.includes('ABSTAIN') || rawAction.includes('SELL')) return 'ABSTAIN';
-            return 'WAIT';
-        }
-        function fallbackDecisionSentence(data, symbol, action) {
-            let sentence = data.decision_sentence || data.conditions_met_review || data.narrative || data.oracle || data.action_line || '';
-            if (sentence && !/meditat|consulting the oracle/i.test(sentence)) return sentence;
-            if (typeof data.action === 'string' && data.action.length > 12 && !/\bBuy\b/i.test(data.action)) return data.action;
-            const review = i18nT('pulse.conditions_met_review');
-            const sym = data.symbol || symbol;
-            if (action === 'CONDITIONS MET') {
-                return i18nT('pulse.model_state_conditions', { symbol: sym, review: review });
-            }
-            return i18nT('pulse.model_state', { action: action, symbol: sym });
-        }
-        function landingOracleFactors(data) {
-            if (!data) return [];
-            const whyBlock = data.oqs_why || {};
-            return whyBlock.top_3_factors
-                || (data.explanation && data.explanation.top_3_factors)
-                || data.top_3_factors
-                || [];
-        }
-        function landingOracleFreshnessKnown(data) {
-            if (!data) return false;
-            const fresh = data.data_freshness || {};
-            const state = String(fresh.state || fresh.status || '').toLowerCase();
-            if (state === 'unknown') return false;
-            return fresh.freshness_ms != null || fresh.age_sec != null || fresh.age_seconds != null
-                || state === 'fresh' || state === 'ok' || state === 'live' || state === 'stale';
-        }
-        function landingOracleIsFull(data) {
-            if (!landingOracleHasDecision(data)) return false;
-            if (!landingOracleFreshnessKnown(data)) return false;
-            return landingOracleFactors(data).length > 0;
-        }
-        function landingOracleIsAgeOnly(data) {
-            if (!landingOracleHasDecision(data)) return false;
-            if (!landingOracleFreshnessKnown(data)) return false;
-            return landingOracleFactors(data).length === 0;
-        }
-        function landingOracleIsLive(data) {
-            return landingOracleIsFull(data);
-        }
-        function renderLandingCertificate(certEl, cert, data) {
-            if (!landingOracleIsLive(data) || !(cert.certificate_hash || data.prediction_id)) {
-                certEl.style.display = 'none';
-                certEl.innerHTML = '';
-                return;
-            }
-            certEl.style.display = 'block';
-            const hashLabel = cert.certificate_hash ? String(cert.certificate_hash).slice(0,16)+'…' : 'pending';
-            const copyBtn = cert.share_text ? `<button type="button" class="btn-secondary" id="copyCertBtn">Copy certificate</button>` : '';
-            const txtBtn = cert.export_text ? `<button type="button" class="btn-secondary" id="dlCertTxtBtn">Download TXT</button>` : '';
-            const xHref = safeUrl(cert.share_urls && cert.share_urls.x);
-            const tgHref = safeUrl(cert.share_urls && cert.share_urls.telegram);
-            const xBtn = xHref ? `<a class="btn-secondary" id="certShareX" href="${xHref}" target="_blank" rel="noopener">Share X</a>` : '';
-            const tgBtn = tgHref ? `<a class="btn-secondary" id="certShareTg" href="${tgHref}" target="_blank" rel="noopener">Share TG</a>` : '';
-            certEl.innerHTML =
-                `Decision Certificate · <code>${esc(hashLabel)}</code>` +
-                `<div style="margin-top:.35rem;display:flex;flex-wrap:wrap;gap:.35rem">` +
-                copyBtn +
-                `<button type="button" class="btn-secondary" id="dlCertBtn">Download JSON</button>` +
-                txtBtn + xBtn + tgBtn + `</div>`;
-            document.getElementById('copyCertBtn')?.addEventListener('click', () => {
-                navigator.clipboard.writeText(cert.share_text || '');
-            });
-            document.getElementById('dlCertBtn')?.addEventListener('click', () => {
-                const blob = new Blob([JSON.stringify(cert, null, 2)], {type:'application/json'});
-                const a = document.createElement('a');
-                a.href = URL.createObjectURL(blob);
-                a.download = `blackdark-certificate-${(data.symbol||'asset').toLowerCase()}.json`;
-                a.click();
-                URL.revokeObjectURL(a.href);
-            });
-            document.getElementById('dlCertTxtBtn')?.addEventListener('click', () => {
-                const blob = new Blob([cert.export_text || ''], {type:'text/plain'});
-                const a = document.createElement('a');
-                a.href = URL.createObjectURL(blob);
-                a.download = `blackdark-certificate-${(data.symbol||'asset').toLowerCase()}.txt`;
-                a.click();
-                URL.revokeObjectURL(a.href);
-            });
-        }
-        function renderLandingWhy(oracleEl, data, cert, latencyMs) {
-            let whyEl = document.getElementById('landingWhy');
-            if (!whyEl) {
-                whyEl = document.createElement('div');
-                whyEl.id = 'landingWhy';
-                whyEl.style.cssText = 'margin-top:.75rem;font-size:.85rem;color:var(--text-muted);text-align:left';
-                oracleEl.parentNode.insertBefore(whyEl, oracleEl.nextSibling);
-            }
-            if (!landingOracleIsFull(data)) {
-                whyEl.innerHTML = '';
-                whyEl.style.display = 'none';
-                return;
-            }
-            whyEl.style.display = '';
-            const whyBlock = data.oqs_why || {};
-            const factors = whyBlock.top_3_factors
-                || (data.explanation && data.explanation.top_3_factors)
-                || data.top_3_factors
-                || [];
-            const scen = (data.scenarios && data.scenarios.scenarios) || {};
-            let scenHtml = '';
-            if (scen.bull || scen.base || scen.bear) {
-                const bits = ['bull','base','bear'].map(k => {
-                    const s = scen[k] || {};
-                    const pct = s.probability_pct != null ? s.probability_pct+'%' : '—';
-                    return `${esc(s.label||k)} ${esc(pct)}`;
-                }).join(' · ');
-                const disc = (data.scenarios && data.scenarios.disclaimer) || '';
-                scenHtml = `<div style="margin-top:.65rem"><strong style="color:var(--text)">Scenarios</strong> · ${bits}<div style="font-size:.75rem;margin-top:.25rem;opacity:.8">${esc(disc)}</div></div>`;
-            }
-            let whyList = '';
-            if (factors.length) {
-                whyList = '<ol style="margin:.35rem 0 0 1.1rem;color:var(--text)">' + factors.slice(0,3).map(f => {
-                    const label = f.factor || f.label || f.name || f;
-                    const detail = f.detail ? ` — ${esc(f.detail)}` : '';
-                    const src = f.source ? ` <span style="opacity:.7">· ${esc(f.source)}</span>` : '';
-                    return `<li>${esc(label)}${detail}${src}</li>`;
-                }).join('') + '</ol>';
-            }
-            let certLine = '';
-            if (cert && cert.certificate_hash) {
-                const hashShort = String(cert.certificate_hash).slice(0, 16) + '…';
-                certLine = `<div style="margin-top:.5rem;font-size:.8rem">Certificate <code>${esc(hashShort)}</code> · prediction_id <code>${esc(data.prediction_id || '—')}</code></div>`;
-            }
-            const whyTitle = factors.length
-                ? `<div style="font-size:.78rem;color:var(--accent);margin-bottom:.35rem">${esc(whyBlock.grasp_line || 'Why (Top 3) — under five seconds')} · ${esc(latencyMs)}ms</div>`
-                : '';
-            whyEl.innerHTML =
-                whyTitle +
-                whyList +
-                '<details style="margin-top:.65rem;border:1px solid var(--border,#2a2a35);border-radius:10px;padding:.65rem .85rem;background:rgba(0,0,0,.2)">' +
-                '<summary style="cursor:pointer;color:var(--accent);font-weight:600">Evidence drawer · Certificate + scenarios</summary>' +
-                scenHtml + certLine + '</details>';
-        }
-
-
-        function paintLandingVerdict(verdictEl, data, action) {
-            const verdict = data.verdict || action;
-            verdictEl.textContent = action;
-            verdictEl.className = 'result-verdict';
-            const v = String(verdict).toUpperCase();
-            if (action === 'CONDITIONS MET' || v.includes('CONDITION')) verdictEl.classList.add('verdict-wait');
-            else if (v.includes('SELL') || action === 'ABSTAIN') verdictEl.classList.add('verdict-sell');
-            else verdictEl.classList.add('verdict-wait');
-        }
-        function paintLandingFreshness(data) {
-            const freshChip = document.getElementById('oracleFreshnessLabel');
-            const fresh = data.data_freshness || {};
-            if (!freshChip) return;
-            const wrap = document.getElementById('oracleFreshnessChip');
-            const state = String(fresh.state || fresh.status || '').toLowerCase();
-            if (state === 'unknown') {
-                freshChip.textContent = '';
-                if (wrap) wrap.style.display = 'none';
-                return;
-            }
-            const stale = fresh.stale === true || state === 'stale';
-            const knownFresh = state === 'fresh' || state === 'ok' || state === 'live';
-            freshChip.textContent = stale
-                ? (fresh.label || 'Stale — not live')
-                : (fresh.label || (knownFresh ? 'Live' : ''));
-            if (!freshChip.textContent) {
-                if (wrap) wrap.style.display = 'none';
-                return;
-            }
-            if (!wrap) return;
-            wrap.style.display = '';
-            wrap.title = fresh.state ? `Freshness: ${fresh.state}` : 'Data freshness';
-            wrap.style.opacity = stale ? '0.65' : '1';
-        }
-        function paintLandingProMeta(proMeta, data, mode) {
-            if (mode === 'pro') {
-                const truth = data.net_edge_truth || {};
-                const half = data.opportunity_half_life || {};
-                const conflict = data.dimension_conflict || {};
-                let line = `Truth ${esc(truth.truth_score ?? '—')} · Half-life ${esc(half.remaining_seconds ?? '—')}s · Regime ${esc(data.market_regime || '—')}`;
-                if (conflict.veto || conflict.abstain || (conflict.severity && conflict.severity !== 'none')) {
-                    const vetoWord = conflict.veto ? 'WAIT' : 'Abstain';
-                    const sevBit = conflict.severity ? ' (' + esc(conflict.severity) + ')' : '';
-                    line += ` · Contradiction Veto: ${vetoWord}${sevBit}`;
-                }
-                if (data.prediction_id) line += ` · Proof #${esc(data.prediction_id)}`;
-                proMeta.style.display = 'block';
-                proMeta.innerHTML = line + (data.prediction_id
-                    ? ` · <a href="/oracle-accuracy" style="color:var(--accent)">accuracy</a>`
-                    : '');
-                return;
-            }
-            if (data.prediction_id) {
-                proMeta.style.display = 'block';
-                proMeta.innerHTML = `Proof · prediction_id <code>${esc(data.prediction_id)}</code> · <a href="/oracle-accuracy" style="color:var(--accent)">Public accuracy</a>`;
-            }
-        }
-        function paintLandingUpgrade(upgradeEl, data) {
-            if (!data.upgrade_hint) return;
-            const teaser = data.upgrade_hint.teaser || {};
-            const teaserLine = [
-                teaser.truth_score != null ? `Truth teaser ${esc(teaser.truth_score)}` : null,
-                teaser.remaining_seconds != null ? `Half-life ~${esc(teaser.remaining_seconds)}s` : null,
-                teaser.regime ? `Regime ${esc(teaser.regime)}` : null,
-            ].filter(Boolean).join(' · ');
-            upgradeEl.style.display = 'block';
-            upgradeEl.innerHTML =
-                `<div style="color:var(--text-muted);font-size:.85rem;margin-bottom:.5rem">${esc(data.upgrade_hint.message || '')}` +
-                (teaserLine ? `<br>${teaserLine}` : '') +
-                `</div><button type="button" class="btn-secondary" id="switchProBtn">Switch to Pro</button>`;
-            document.getElementById('switchProBtn')?.addEventListener('click', () => {
-                const sel = document.getElementById('landingUxMode');
-                if (sel) sel.value = 'pro';
-                consultOracle();
-            });
-        }
-        function wireDisciplineMirror(disc, data, symbol, followAction) {
-            if (!disc) return;
-            if (!landingOracleIsLive(data)) {
-                disc.style.display = 'none';
-                disc.innerHTML = '';
-                return;
-            }
-            disc.style.display = 'block';
-            disc.innerHTML =
-                `<div style="font-size:.85rem;color:var(--text-muted);margin-bottom:.4rem"><strong style="color:var(--text)">Discipline Mirror</strong> (private) — cure for Dashboard Tourism. Did you follow this model state? <a href="/discipline-mirror" style="color:var(--accent)">Open my mirror</a> · <a href="/errors" style="color:var(--accent)">See public misses</a></div>` +
-                `<button type="button" class="btn-secondary" id="followedYes">Yes, I followed</button> ` +
-                `<button type="button" class="btn-secondary" id="followedNo">No, I overrode</button>` +
-                `<div id="disciplineMsg" style="margin-top:.4rem;font-size:.78rem;color:var(--text-muted)"></div>`;
-            const sendFollow = async (followed) => {
-                const key = localStorage.getItem('bd_user_key') || ('anon_' + _secureRandomId(8));
-                localStorage.setItem('bd_user_key', key);
-                try {
-                    await fetch('/api/discipline-mirror/answer', {
-                        method: 'POST',
-                        headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify({
-                            user_key: key,
-                            asset: data.symbol || symbol,
-                            system_action: followAction,
-                            followed,
-                            prediction_id: data.prediction_id,
-                            opportunity_score: data.opportunity_score,
-                        }),
-                    });
-                    document.getElementById('disciplineMsg').textContent = 'Saved privately — only you can see your Discipline Mirror.';
-                } catch (error) { console.debug(error); document.getElementById('disciplineMsg').textContent = 'Could not save answer.'; }
-            };
-            document.getElementById('followedYes')?.addEventListener('click', () => sendFollow(true));
-            document.getElementById('followedNo')?.addEventListener('click', () => sendFollow(false));
-        }
-        function paintLandingCompliance(data) {
-            const foot = data.compliance_footer || {};
-            const comp = document.getElementById('landingCompliance');
-            if (!foot.disclaimer || !comp) return;
-            comp.style.display = 'block';
-            comp.innerHTML = `<strong>Anti-Hype</strong> · Source: ${esc(foot.data_source || '—')} · Trust: ${esc(foot.trust_basis || '—')}<br>${esc(foot.disclaimer)}`;
-        }
-
-        function tryOracleFree() {
-            const oracleBlock = document.getElementById('oracle');
-            if (oracleBlock) {
-                oracleBlock.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                if (window.history && window.history.replaceState) {
-                    window.history.replaceState(null, '', '#oracle');
-                } else {
-                    window.location.hash = 'oracle';
-                }
-            }
-            consultOracle();
-        }
-        window.tryOracleFree = tryOracleFree;
-
-        function clearLandingOracleChrome() {
-            setLandingOraclePresentationLayout('down');
-            const scoreEl = document.getElementById('resultScore');
-            const verdictEl = document.getElementById('resultVerdict');
-            const symbolEl = document.getElementById('resultSymbol');
-            if (scoreEl) scoreEl.textContent = '';
-            if (verdictEl) {
-                verdictEl.textContent = '';
-                verdictEl.className = 'result-verdict';
-            }
-            if (symbolEl) symbolEl.textContent = '';
-            const freshChip = document.getElementById('oracleFreshnessLabel');
-            const freshWrap = document.getElementById('oracleFreshnessChip');
-            if (freshChip) freshChip.textContent = '';
-            if (freshWrap) freshWrap.style.display = 'none';
-            const certEl = document.getElementById('landingCert');
-            if (certEl) {
-                certEl.style.display = 'none';
-                certEl.innerHTML = '';
-            }
-            const disc = document.getElementById('landingDiscipline');
-            if (disc) {
-                disc.style.display = 'none';
-                disc.innerHTML = '';
-            }
-            const whyEl = document.getElementById('landingWhy');
-            if (whyEl) {
-                whyEl.innerHTML = '';
-                whyEl.style.display = 'none';
-            }
-        }
-
-        function landingSymbolValue() {
-            return (document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
-        }
-
-        function setSymbol(symbol) {
-            const value = String(symbol || '').trim().toUpperCase();
-            if (!value) return;
-            const sel = document.getElementById('symbol');
-            if (sel) sel.value = value;
-        }
-
-        async function consultOracle() {
-            const symbol = landingSymbolValue();
-            const mode = document.getElementById('landingUxMode').value || 'beginner';
-            const lang = (window.BD_I18N && window.BD_I18N.lang) || document.documentElement.lang || 'en';
-            const resultDiv = document.getElementById('oracleResult');
-            if (!resultDiv) return;
-            resultDiv.classList.add('active');
-            await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
-            const symbolEl = document.getElementById('resultSymbol');
-            const scoreEl = document.getElementById('resultScore');
-            const verdictEl = document.getElementById('resultVerdict');
-            const oracleEl = document.getElementById('resultOracle');
-            const proMeta = document.getElementById('landingProMeta');
-            const upgradeEl = document.getElementById('landingUpgrade');
-            
-            localStorage.setItem('bd_ux_mode', mode);
-            localStorage.setItem('bd_lang', lang);
-            oracleEl.textContent = i18nT('oracle.loading');
-            setLandingOracleFailReason('');
-            setLandingOraclePresentationLayout('down');
-            proMeta.style.display = 'none';
-            upgradeEl.style.display = 'none';
-            const t0 = performance.now();
-            let oracleDecisionShown = false;
-            
-            try {
-                const { response, data, networkFailure } = await fetchOraclePayload(symbol, mode, lang);
-                const latencyMs = Math.round(performance.now() - t0);
-                if (!landingOracleHasDecision(data)) {
-                    clearLandingOracleChrome();
-                    const failReason = networkFailure
-                        ? 'Network failure.'
-                        : 'Response had no decision.';
-                    setLandingOracleFailReason(failReason);
-                    if (data && response && !response.ok) {
-                        const detail = data.detail || {};
-                        const msg = detail.message || i18nT('oracle.error');
-                        oracleEl.textContent = msg;
-                        if (detail.upgrade_url || detail.error === 'quota_exceeded') {
-                            upgradeEl.style.display = 'block';
-                            upgradeEl.innerHTML = `<a class="btn-primary" href="${esc(safeUrl(detail.upgrade_url) || '/create-checkout-session?tier=pro')}">Upgrade to Pro</a>`;
-                        }
-                    } else {
-                        oracleEl.textContent = i18nT('oracle.error');
-                    }
-                    return;
-                }
-
-                setLandingOracleFailReason('');
-                const full = landingOracleIsFull(data);
-                const ageOnly = landingOracleIsAgeOnly(data);
-                const action = decideLandingAction(data);
-                oracleEl.textContent = fallbackDecisionSentence(data, symbol, action);
-                oracleDecisionShown = true;
-                const certEl = document.getElementById('landingCert');
-                const cert = full ? (data.decision_certificate || {}) : {};
-                const disc = document.getElementById('landingDiscipline');
-                const comp = document.getElementById('landingCompliance');
-                if (full) {
-                    setLandingOraclePresentationLayout('full');
-                    symbolEl.textContent = data.symbol || symbol;
-                    scoreEl.textContent = data.opportunity_score ?? '--';
-                    paintLandingVerdict(verdictEl, data, action);
-                    paintLandingFreshness(data);
-                    paintLandingProMeta(proMeta, data, mode);
-                    paintLandingUpgrade(upgradeEl, data);
-                    renderLandingCertificate(certEl, cert, data);
-                    renderLandingWhy(oracleEl, data, cert, latencyMs);
-                    const followAction = data.decision_action || data.verdict || action || 'WAIT';
-                    wireDisciplineMirror(disc, data, symbol, followAction);
-                    paintLandingCompliance(data);
-                    try { updateShareLinks(data); } catch (shareError) { console.debug(shareError); }
-                } else if (ageOnly) {
-                    setLandingOraclePresentationLayout('partial');
-                    scoreEl.textContent = '';
-                    verdictEl.textContent = '';
-                    verdictEl.className = 'result-verdict';
-                    paintLandingFreshness(data);
-                    proMeta.style.display = 'none';
-                    upgradeEl.style.display = 'none';
-                    renderLandingCertificate(certEl, {}, data);
-                    renderLandingWhy(oracleEl, data, {}, latencyMs);
-                    if (disc) { disc.style.display = 'none'; disc.innerHTML = ''; }
-                    if (comp) comp.style.display = 'none';
-                    try { updateShareLinks(data); } catch (shareError) { console.debug(shareError); }
-                } else {
-                    setLandingOraclePresentationLayout('partial');
-                    scoreEl.textContent = '';
-                    verdictEl.textContent = '';
-                    verdictEl.className = 'result-verdict';
-                    const freshChip = document.getElementById('oracleFreshnessLabel');
-                    const freshWrap = document.getElementById('oracleFreshnessChip');
-                    if (freshChip) freshChip.textContent = '';
-                    if (freshWrap) freshWrap.style.display = 'none';
-                    proMeta.style.display = 'none';
-                    upgradeEl.style.display = 'none';
-                    renderLandingCertificate(certEl, {}, data);
-                    renderLandingWhy(oracleEl, data, {}, latencyMs);
-                    if (disc) { disc.style.display = 'none'; disc.innerHTML = ''; }
-                    if (comp) comp.style.display = 'none';
-                    try { updateShareLinks(data); } catch (shareError) { console.debug(shareError); }
-                }
-                try {
-                    paintSealCertificateStamp(data);
-                    syncLandingTrustPulseFromOracle(data, symbol);
-                } catch (pulseError) { console.debug(pulseError); }
-            } catch (error) {
-                console.debug(error);
-                if (!oracleDecisionShown) {
-                    clearLandingOracleChrome();
-                    oracleEl.textContent = i18nT('oracle.error');
-                    const detail = error && error.message ? String(error.message) : String(error || 'unknown');
-                    setLandingOracleFailReason('Exception: ' + detail);
-                }
-            }
-        }
-
-        function syncSymbolFromCatalog(symbol) {
-            setSymbol(symbol);
-        }
-
-        async function applyAudience() {
-            const aud = document.getElementById('landingAudience')?.value || 'retail';
-            const lensMap = { retail:'prove', pro:'operate', whale:'desk', fund:'room' };
-            localStorage.setItem('bd_audience', aud);
-            localStorage.setItem('bd_lens', lensMap[aud] || 'prove');
-            try {
-                const res = await fetch('/api/audience/entry?audience=' + encodeURIComponent(aud));
-                const d = await res.json();
-                const cta = document.getElementById('audienceCta');
-                if (cta) {
-                    const promise = d.lens_promise || d.cta || '';
-                    cta.textContent = (d.lens_label ? (d.lens_label + ' — ') : '') + promise;
-                }
-                const mode = document.getElementById('landingUxMode');
-                if (mode && d.ux_mode_default) mode.value = d.ux_mode_default;
-                if ((aud === 'fund' || aud === 'whale' || aud === 'pro') && d.entry_path) {
-                    assignLocationHref(d.entry_path);
-                }
-            } catch (error) { console.debug(error); }
-        }
-        
-        async function joinWaitlist(e) {
-            e.preventDefault();
-            const email = document.getElementById('waitlistEmail').value;
-            const msg = document.getElementById('waitlistMessage');
-            
-            try {
-                const response = await fetch('/join-waitlist', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email })
-                });
-                const data = await response.json();
-                if (!response.ok) {
-                    msg.textContent = data.detail || data.message || 'Something went wrong.';
-                    msg.style.color = response.status === 409 ? 'var(--warning)' : 'var(--danger)';
-                } else {
-                    msg.textContent = data.message || `Welcome! You are #${data.position} on the waitlist.`;
-                    msg.style.color = 'var(--success)';
-                    document.getElementById('waitlistEmail').value = '';
-                }
-                msg.style.display = 'block';
-            } catch (error) { console.debug(error); msg.textContent = 'Something went wrong. Try again.';
-                msg.style.color = 'var(--danger)';
-                msg.style.display = 'block'; }
-        }
-        
-        async function loadLandingAnalytics() {
-            try {
-                if (typeof window.bdOptionalAnalyticsAllowed === 'function' && !window.bdOptionalAnalyticsAllowed()) {
-                    return;
-                }
-                await fetch('/api/analytics/view', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ page: 'landing' })
-                });
-                const [analyticsRes, usersRes, telegramRes] = await Promise.all([
-                    fetch('/api/analytics/stats'),
-                    fetch('/api/platform/stats'),
-                    fetch('/api/telegram/free/status'),
-                ]);
-                const analytics = await analyticsRes.json();
-                const users = await usersRes.json();
-                const telegram = await telegramRes.json();
-                // Stats intentionally below first-viewport budget — only fill if strip exists
-                const set = (id, val) => {
-                    const el = document.getElementById(id);
-                    if (el) el.textContent = val;
-                };
-                set('landingViews', (analytics.landing_views || 0).toLocaleString());
-                set('landingUsers', (users.registered_users || 0).toLocaleString());
-                set('landingSubs', (users.paid_subscribers || analytics.subscriber_count || 0).toLocaleString());
-                set('landingTelegram', (telegram.active_subscribers || users.telegram_free_subscribers || 0).toLocaleString());
-                set('landingWaitlist', (analytics.waitlist_count || 0).toLocaleString());
-            } catch (error) { console.debug(error); }
-        }
-
-        async function loadTelegramBotLink() {
-            try {
-                const res = await fetch('/api/telegram/free/status');
-                const data = await res.json();
-                const link = document.getElementById('telegramBotLink');
-                if (!link) return;
-                const username = (data.bot_username || '').replace('@', '');
-                if (username) {
-                    setAnchorHref(link, `https://t.me/${username}`);
-                    link.textContent = `@${username} — Start Free`;
-                }
-            } catch (error) { console.debug(error); }
-        }
-
-        let landingPulse = null;
-        let landingPulseEs = null;
-        let landingPulseSymbol = 'BTC';
-        /** Oracle / seal certificate kept when trust-pulse stream omits hash. */
-        let landingDecisionCert = null;
-
-        function rememberLandingDecisionCert(data, symbol) {
-            const cert = (data && data.decision_certificate) || {};
-            const hash = cert.certificate_hash;
-            if (!hash) return;
-            const sym = String(cert.asset || data.symbol || symbol || landingPulseSymbol || 'BTC')
-                .trim().toUpperCase() || 'BTC';
-            landingDecisionCert = {
-                ...cert,
-                certificate_hash: hash,
-                asset: sym,
-                symbol: sym,
-                prediction_id: data.prediction_id ?? cert.prediction_id ?? null,
-            };
-        }
-
-        function _lpEnrichPulseWithLandingCert(p) {
-            if (!p) return p;
-            const sym = String(p.symbol || landingPulseSymbol || '').trim().toUpperCase();
-            const proof = p.proof || {};
-            const dc = p.decision_certificate || {};
-            let hash = proof.certificate_hash || dc.certificate_hash || '';
-            let mergedCert = dc;
-            let mergedProof = { ...proof };
-            if (!hash && landingDecisionCert && landingDecisionCert.certificate_hash) {
-                const csym = String(landingDecisionCert.symbol || landingDecisionCert.asset || '').toUpperCase();
-                if (sym && csym && sym === csym) {
-                    hash = landingDecisionCert.certificate_hash;
-                    mergedCert = { ...landingDecisionCert, ...dc, certificate_hash: hash };
-                    mergedProof = {
-                        ...mergedProof,
-                        certificate_hash: hash,
-                        prediction_id: mergedProof.prediction_id ?? landingDecisionCert.prediction_id,
-                        share_text: mergedProof.share_text || landingDecisionCert.share_text,
-                    };
-                }
-            }
-            if (!hash) return p;
-            return {
-                ...p,
-                decision_certificate: mergedCert,
-                proof: mergedProof,
-            };
-        }
-
-        function _landingPulseFactors(data) {
-            const whyBlock = data.oqs_why || {};
-            return whyBlock.top_3_factors
-                || (data.explanation && data.explanation.top_3_factors)
-                || data.top_3_factors
-                || [];
-        }
-
-        function paintSealCertificateStamp(data) {
-            const wrap = document.getElementById('sealCertificateStamp');
-            const hashEl = document.getElementById('sealCertificateHash');
-            if (!wrap || !hashEl) return;
-            const cert = (data && data.decision_certificate) || {};
-            const hash = cert.certificate_hash;
-            if (!hash) {
-                wrap.style.display = 'none';
-                hashEl.textContent = '';
-                return;
-            }
-            rememberLandingDecisionCert(data, data.symbol);
-            hashEl.textContent = String(hash);
-            wrap.style.display = 'block';
-        }
-
-        function syncLandingTrustPulseFromOracle(data, symbol) {
-            if (!data) return;
-            paintSealCertificateStamp(data);
-            rememberLandingDecisionCert(data, symbol);
-            const sym = String(data.symbol || symbol || 'BTC').trim().toUpperCase() || 'BTC';
-            landingPulseSymbol = sym;
-            const action = decideLandingAction(data);
-            const cert = data.decision_certificate || {};
-            const priorProof = (landingPulse && landingPulse.proof) || {};
-            const fresh = data.data_freshness || {};
-            const pulseView = {
-                symbol: sym,
-                action: action,
-                verdict: action,
-                price: data.price,
-                change_24h: data.change_24h != null ? data.change_24h : data.change_24h_pct,
-                sentence: fallbackDecisionSentence(data, sym, action),
-                why: { factors: _landingPulseFactors(data) },
-                freshness: fresh,
-                decision_certificate: cert.certificate_hash ? cert : (landingPulse && landingPulse.decision_certificate),
-                proof: {
-                    ...priorProof,
-                    certificate_hash: cert.certificate_hash || priorProof.certificate_hash,
-                    prediction_id: data.prediction_id ?? priorProof.prediction_id,
-                    share_text: cert.share_text || priorProof.share_text,
-                },
-                ledger: landingPulse && landingPulse.ledger ? landingPulse.ledger : {},
-            };
-            renderLandingPulse(pulseView);
-            startLandingPulseStream(sym);
-        }
-
-        function _lpPriceBit(p) {
-            const price = p.price != null
-                ? ('$' + Number(p.price).toLocaleString(undefined, { maximumFractionDigits: 2 }))
-                : '';
-            const ch = p.change_24h;
-            if (ch == null) return price;
-            const sign = ch >= 0 ? '+' : '';
-            return `${price} · ${sign}${Number(ch).toFixed(2)}%`;
-        }
-
-        function _lpRenderWhy(factors) {
-            const why = document.getElementById('lpWhy');
-            if (!why) return;
-            why.innerHTML = (factors || []).slice(0, 3).map((f, i) => {
-                const detail = f.detail ? (' — ' + esc(f.detail)) : '';
-                const rawSrc = (f && typeof f === 'object' && f.source) ? String(f.source).trim() : '';
-                const srcBit = rawSrc
-                    ? (' <span style="opacity:.75;font-size:.78rem">· ' + esc(rawSrc) + '</span>')
-                    : '';
-                return '<div><strong>' + (i + 1) + '. ' + esc(f.factor || f) + '</strong>' + detail + srcBit + '</div>';
-            }).join('') || '';
-        }
-
-        function _lpProofLedgerHref(proof) {
-            const raw = proof.permalink || proof.verify_url || '';
-            if (typeof raw === 'string' && raw.startsWith('http')) {
-                try {
-                    const u = new URL(raw);
-                    return u.pathname + u.search + u.hash;
-                } catch (error) {
-                    console.debug(error);
-                }
-            }
-            const rel = safeUrl(raw) || '/oracle-accuracy';
-            if (proof.certificate_hash && rel.indexOf('cert=') < 0) {
-                const sep = rel.indexOf('?') >= 0 ? '&' : '?';
-                return rel + sep + 'cert=' + encodeURIComponent(String(proof.certificate_hash).slice(0, 16));
-            }
-            return rel;
-        }
-
-        function _lpCertHash(p) {
-            const enriched = _lpEnrichPulseWithLandingCert(p || {});
-            const proof = (enriched && enriched.proof) || {};
-            const cert = (enriched && enriched.decision_certificate) || {};
-            return proof.certificate_hash || cert.certificate_hash || '';
-        }
-
-        function _lpPulseHasCertificate(p) {
-            return Boolean(_lpCertHash(p));
-        }
-
-        function _lpCertFromPulse(p) {
-            const proof = (p && p.proof) || {};
-            const dc = (p && p.decision_certificate) || {};
-            const hash = _lpCertHash(p);
-            if (!hash) return null;
-            const mapFn = window.BDPublicDecision?.mapPublicDecisionAction;
-            const rawVerdict = dc.decision_action || p.action || p.verdict || '';
-            const verdict = typeof mapFn === 'function' ? mapFn(rawVerdict) : rawVerdict;
-            return {
-                ...dc,
-                certificate_hash: hash,
-                asset: String(dc.asset || p.symbol || 'BTC').trim().toUpperCase() || 'BTC',
-                prediction_id: proof.prediction_id ?? dc.prediction_id ?? null,
-                decision_action: verdict || rawVerdict || 'WAIT',
-                share_text: dc.share_text || proof.share_text || '',
-            };
-        }
-
-        function _lpNoCertificateLine() {
-            return i18nT('pulse.no_cert');
-        }
-
-        function _lpCertIdPrefix(p) {
-            const cert = _lpCertFromPulse(p);
-            if (!cert) return '';
-            let pid = cert.prediction_id != null && cert.prediction_id !== ''
-                ? String(cert.prediction_id)
-                : '';
-            if (!pid && cert.certificate_hash) {
-                pid = String(cert.certificate_hash).slice(0, 10);
-            }
-            return pid;
-        }
-
-        function openLandingPulseProof() {
-            const p = landingPulse || {};
-            const drawer = document.getElementById('lpProofDrawer');
-            const toast = document.getElementById('lpProofCopyMsg');
-            if (toast) toast.hidden = true;
-            if (!drawer) return;
-            const cert = _lpCertFromPulse(p);
-            if (!cert) {
-                drawer.hidden = true;
-                drawer.innerHTML = '';
-                if (toast) {
-                    toast.textContent = _lpNoCertificateLine();
-                    toast.hidden = false;
-                }
-                return;
-            }
-            drawer.hidden = false;
-            renderLandingPulseProofDrawer(drawer, cert, p);
-        }
-
-        function renderLandingPulseProofDrawer(drawerEl, cert, pulse) {
-            const proof = (pulse && pulse.proof) || {};
-            const ledgerHref = esc(_lpProofLedgerHref(proof));
-            const hashLabel = cert.certificate_hash ? String(cert.certificate_hash).slice(0, 16) + '…' : 'pending';
-            const asset = cert.asset || pulse.symbol || 'BTC';
-            const verdict = cert.decision_action || pulse.action || pulse.verdict || 'WAIT';
-            let pid = cert.prediction_id != null && cert.prediction_id !== ''
-                ? String(cert.prediction_id)
-                : '';
-            if (!pid && cert.certificate_hash) {
-                pid = String(cert.certificate_hash).slice(0, 10);
-            }
-            if (!pid) pid = '—';
-            const ar = currentLang().startsWith('ar');
-            const lblAsset = ar ? 'الأصل' : 'Asset';
-            const lblVerdict = ar ? 'الحكم' : 'Verdict';
-            const lblId = ar ? 'الرقم' : 'ID';
-            const copyBtn = cert.share_text
-                ? '<button type="button" class="btn-secondary" id="lpDrawerCopyCert">Copy certificate text</button>'
-                : '';
-            drawerEl.innerHTML =
-                '<p style="margin:0 0 .5rem"><strong>Decision Certificate</strong> · Trust Pulse</p>' +
-                '<p style="margin:0 0 .35rem"><strong>' + esc(lblAsset) + ':</strong> ' + esc(asset) + '</p>' +
-                '<p style="margin:0 0 .35rem"><strong>' + esc(lblVerdict) + ':</strong> ' + esc(verdict) + '</p>' +
-                '<p style="margin:0 0 .5rem"><strong>' + esc(lblId) + ':</strong> ' + esc(pid) + '</p>' +
-                '<p style="margin:0 0 .5rem;color:var(--text-muted)"><code>' + esc(hashLabel) + '</code></p>' +
-                '<div style="display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:.5rem">' +
-                copyBtn +
-                '<a class="btn-secondary" href="' + ledgerHref + '">Open proof on ledger</a>' +
-                '<button type="button" class="btn-secondary" id="lpDrawerClose">Close</button>' +
-                '</div>';
-            document.getElementById('lpDrawerCopyCert')?.addEventListener('click', () => {
-                navigator.clipboard.writeText(cert.share_text || '').then(() => {
-                    const msg = document.getElementById('lpProofCopyMsg');
-                    if (msg) {
-                        msg.textContent = 'Certificate text copied.';
-                        msg.hidden = false;
-                    }
-                }).catch(() => {});
-            });
-            document.getElementById('lpDrawerClose')?.addEventListener('click', () => {
-                drawerEl.hidden = true;
-            });
-        }
-
-        function copyLandingPulseCertId() {
-            const idPrefix = _lpCertIdPrefix(landingPulse);
-            const msg = document.getElementById('lpProofCopyMsg');
-            if (!idPrefix) {
-                if (msg) {
-                    msg.textContent = _lpNoCertificateLine();
-                    msg.hidden = false;
-                }
-                return;
-            }
-            const done = () => {
-                if (msg) {
-                    msg.textContent = 'Certificate ID copied.';
-                    msg.hidden = false;
-                }
-            };
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(String(idPrefix)).then(done).catch(() => {
-                    if (msg) {
-                        msg.textContent = 'Could not copy certificate ID.';
-                        msg.hidden = false;
-                    }
-                });
-            } else if (msg) {
-                msg.textContent = 'Copy not supported in this browser.';
-                msg.hidden = false;
-            }
-        }
-
-        let lpProofClickWired = false;
-        function wireLandingPulseProofClicks() {
-            if (lpProofClickWired) return;
-            const box = document.getElementById('lpProof');
-            if (!box) return;
-            lpProofClickWired = true;
-            box.addEventListener('click', (e) => {
-                if (!e.target.closest('#lpProof')) return;
-                if (e.target.closest('[data-lp-copy-cert-id]')) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    copyLandingPulseCertId();
-                    return;
-                }
-                if (e.target.closest('[data-lp-proof-open]')) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    requestAnimationFrame(() => openLandingPulseProof());
-                    return;
-                }
-            });
-        }
-
-        /** Sole writer for #lpProof — ledger + Free Proof drawer + cert hash only (no share/X chips). */
-        function _lpRenderProof(p) {
-            const box = document.getElementById('lpProof');
-            if (!box) return;
-            wireLandingPulseProofClicks();
-            const hash = _lpCertHash(p);
-            const hasCert = Boolean(hash);
-            const bits = [
-                '<a class="bd-chip ok" href="/oracle-accuracy">' + esc(i18nT('pulse.verify_ledger')) + '</a>',
-            ];
-            if (hasCert) {
-                bits.push(
-                    '<button type="button" class="bd-chip bd-chip-btn ok" data-lp-proof-open="1">' + esc(i18nT('pulse.free_proof')) + '</button>'
-                );
-                const idPrefix = _lpCertIdPrefix(p);
-                if (idPrefix) {
-                    bits.push(
-                        `<button type="button" class="bd-chip bd-chip-btn" data-lp-copy-cert-id="1" title="Copy certificate ID">${esc(i18nT('pulse.cert_prefix'))} ${esc(idPrefix)}</button>`
-                    );
-                }
-            } else {
-                bits.push(
-                    `<span class="bd-chip bd-chip-muted">${esc(_lpNoCertificateLine())}</span>`
-                );
-            }
-            box.innerHTML = bits.join('');
-            box.querySelectorAll('a[href*="twitter.com"], a[href*="x.com"]').forEach((node) => node.remove());
-            const drawer = document.getElementById('lpProofDrawer');
-            if (drawer && !hasCert) drawer.hidden = true;
-        }
-
-        function renderLandingPulse(p) {
-            if (!p) return;
-            p = _lpEnrichPulseWithLandingCert(p);
-            if (_lpCertHash(p)) {
-                const dc = p.decision_certificate || {};
-                const sym = String(p.symbol || landingPulseSymbol || '').toUpperCase();
-                landingDecisionCert = {
-                    ...landingDecisionCert,
-                    ...dc,
-                    certificate_hash: _lpCertHash(p),
-                    symbol: sym,
-                    asset: dc.asset || sym,
-                    prediction_id: (p.proof || {}).prediction_id ?? dc.prediction_id,
-                };
-            }
-            landingPulse = p;
-            const act = window.BDPublicDecision?.mapPublicDecisionAction(p.action || p.verdict) || p.action || 'WAIT';
-            const actionEl = document.getElementById('lpAction');
-            if (actionEl) {
-                actionEl.textContent = act;
-                const cssToken = act === 'CONDITIONS MET' ? 'WAIT' : String(act).replace(/\s+/g, '_');
-                actionEl.className = 'tp-mini-action bd-tp-action ' + cssToken;
-            }
-            const sym = document.getElementById('lpSym');
-            if (sym) sym.textContent = `${p.symbol || 'BTC'} ${_lpPriceBit(p)}`;
-            const sent = document.getElementById('lpSentence');
-            if (sent) sent.textContent = p.sentence || i18nT('pulse.fallback_sentence');
-            _lpRenderWhy((p.why && p.why.factors) || []);
-            const fresh = p.freshness || {};
-            const dot = document.getElementById('lpDot');
-            if (dot) dot.className = 'tp-mini-dot' + (fresh.stale ? ' stale' : '');
-            const fl = document.getElementById('lpFresh');
-            if (fl) {
-                const state = String(fresh.state || fresh.status || '').toLowerCase();
-                if (state === 'unknown') {
-                    fl.textContent = '';
-                } else {
-                    const stale = fresh.stale === true || state === 'stale';
-                    const knownFresh = state === 'fresh' || state === 'ok' || state === 'live';
-                    fl.textContent = stale
-                        ? (fresh.label || i18nT('pulse.stale'))
-                        : (fresh.label || (knownFresh ? i18nT('pulse.live') : ''));
-                    if (!fl.textContent) fl.textContent = '';
-                }
-            }
-            _lpRenderProof(p);
-        }
-
-        async function fetchLandingTrustPulse(symbol, mode, lang) {
-            const sym = String(symbol || 'BTC').trim().toUpperCase() || 'BTC';
-            landingPulseSymbol = sym;
-            try {
-                const q = new URLSearchParams({
-                    symbol: sym,
-                    ux_mode: mode || 'beginner',
-                    lang: lang || 'en',
-                });
-                const res = await fetch('/api/trust-pulse?' + q.toString());
-                if (!res.ok) return;
-                renderLandingPulse(await res.json());
-                scheduleLandingPulseStream(sym);
-            } catch (error) { console.debug(error); }
-        }
-
-        async function loadLandingTrustPulse() {
-            const symbol = landingSymbolValue();
-            const mode = document.getElementById('landingUxMode')?.value || 'beginner';
-            const lang = currentLang();
-            await fetchLandingTrustPulse(symbol, mode, lang);
-        }
-
-        function scheduleLandingPulseStream(symbol) {
-            const start = () => startLandingPulseStream(symbol);
-            if (typeof requestIdleCallback === 'function') {
-                requestIdleCallback(start, { timeout: 2500 });
-            } else {
-                setTimeout(start, 0);
-            }
-        }
-
-        function startLandingPulseStream(symbol) {
-            const sym = String(symbol || landingPulseSymbol || 'BTC').trim().toUpperCase() || 'BTC';
-            landingPulseSymbol = sym;
-            try {
-                if (landingPulseEs) landingPulseEs.close();
-                landingPulseEs = new EventSource('/api/trust-pulse/stream?symbol=' + encodeURIComponent(sym));
-                landingPulseEs.onmessage = (ev) => {
-                    try {
-                        const d = JSON.parse(ev.data);
-                        if (d.pulse && String(d.pulse.symbol || '').toUpperCase() === landingPulseSymbol) {
-                            renderLandingPulse(d.pulse);
-                        }
-                    } catch (error) { console.debug(error); }
-                };
-            } catch (error) { console.debug(error); }
-        }
-
-        function shareLandingPulseProof() {
-            const btn = document.getElementById('lpShareBtn');
-            if (!btn) return;
-            const proof = (landingPulse && landingPulse.proof) || {};
-            const text = proof.share_text || 'BLACKDARK Trust Pulse — verify /oracle-accuracy';
-            if (navigator.clipboard) navigator.clipboard.writeText(text).catch(() => {});
-            if (proof.share_urls && proof.share_urls.x) {
-                openWindow(proof.share_urls.x);
-            }
-        }
-        document.getElementById('lpShareBtn')?.addEventListener('click', (ev) => {
-            const btn = ev.currentTarget;
-            if (!(btn instanceof HTMLElement)) return;
-            btn.classList.remove('bd-motion-share');
-            void btn.offsetWidth;
-            btn.classList.add('bd-motion-share');
-            window.setTimeout(() => shareLandingPulseProof(), 0);
-        });
-
-
-        window.addEventListener('load', () => {
-            updateShareLinks(null);
-            loadLandingAnalytics();
-            loadTelegramBotLink();
-            void loadLandingTrustPulse();
-            setTimeout(consultOracle, 500);
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('/sw.js').catch((error) => { console.debug(error); });
-            }
-        });
-    </script>
+    <script defer src="/static/js/landing_boot.js"></script>
 </body>
-</html>

@@ -1,0 +1,25 @@
+{
+  "generated_at": "2026-10-23T13:05:00Z",
+  "base_url": "https://blackdark.io",
+  "deploy_commit": "885b68136767",
+  "PASS_LIVE_CLAIMED": true,
+  "verdict": "GO_LIMITED_FREE_INVITE",
+  "golive": "data/golive_announced.json",
+  "probes": {
+    "GET /": 200,
+    "GET /health/live": 200,
+    "GET /api/launch57/guest-trust": 200,
+    "GET /api/launch57/command-home (anonymous)": 401,
+    "GET /api/launch/readiness": 200,
+    "GET /api/production/guard": 200,
+    "GET /api/billing/status": 200,
+    "GET /oracle/BTC/quick": 200,
+    "scripts/launch_verify.py": "PASS",
+    "scripts/execute_pre_launch_closure.py": "automated_steps_green=true"
+  },
+  "notes": [
+    "billing_configured=false until Lemon/Stripe on Railway (OK for free invite).",
+    "production_guard.required_pass may be false until SOFT_LAUNCH or PSP webhook.",
+    "www.blackdark.io DNS still needs alignment if used publicly."
+  ]
+}

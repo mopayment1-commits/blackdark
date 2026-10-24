@@ -631,11 +631,12 @@
             padding: 1.15rem 1.2rem 1.05rem;
             animation: bdPulseIn 0.75s var(--bd-ease-out) 0.12s both;
         }
-        .hero .tp-mini-cta .btn-primary,
-        .hero .tp-mini-cta .btn-secondary {
+        .hero .tp-mini-cta .tp-mini-cta-btn {
             padding: 0.55rem 1rem;
             font-size: 0.88rem;
         }
+        .hero .tp-mini-proof { width: 100%; }
+        .hero .tp-mini-cta { width: 100%; clear: both; }
         .hero .tp-mini-foot {
             font-size: 0.72rem;
             line-height: 1.45;
@@ -657,24 +658,55 @@
         .tp-mini-why { font-size:.85rem; color:var(--text-muted); margin-bottom:.75rem; }
         .tp-mini-why div { padding:.25rem 0; border-bottom:1px solid var(--border); color:var(--text); }
         .tp-mini-why div:last-child { border-bottom:none; }
-        .tp-mini-proof { display:flex; flex-wrap:wrap; gap:.4rem; margin-bottom:.85rem; font-size:.75rem; align-items:center; }
-        .tp-mini-proof span, .tp-mini-proof a { /* use .bd-chip via JS when possible */ }
-        .bd-chip-btn {
-            cursor: pointer;
-            font: inherit;
-            font-size: 0.75rem;
-            color: var(--accent);
-            border-color: rgba(34, 211, 238, 0.35);
+        .tp-mini-proof {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.85rem;
+            align-items: center;
+            width: 100%;
         }
-        .bd-chip-btn:hover, .bd-chip-btn:focus-visible {
+        .hero .tp-mini-proof .bd-chip,
+        .hero .tp-mini-proof button.bd-chip {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.35rem;
+            margin: 0;
+            padding: 0.55rem 1.1rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: var(--bg-elevated);
+            color: var(--text);
+            font-family: inherit;
+            font-size: 0.88rem;
+            font-weight: 600;
+            line-height: 1.3;
+            text-decoration: none;
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            transition: border-color 0.2s, background 0.2s, color 0.2s;
+        }
+        .hero .tp-mini-proof a.bd-chip:link,
+        .hero .tp-mini-proof a.bd-chip:visited {
+            color: var(--text);
+        }
+        .hero .tp-mini-proof .bd-chip.ok {
+            border-color: rgba(34, 211, 238, 0.4);
+        }
+        .hero .tp-mini-proof .bd-chip:hover,
+        .hero .tp-mini-proof .bd-chip:focus-visible {
             border-color: var(--accent);
-            color: #e0f2fe;
+            background: rgba(26, 26, 36, 0.98);
+            color: var(--text);
             outline: none;
         }
-        .bd-chip-muted {
+        .hero .tp-mini-proof .bd-chip-muted {
             cursor: default;
-            opacity: 0.92;
+            opacity: 0.95;
             color: var(--text-muted);
+            font-weight: 500;
         }
         .tp-mini-proof-drawer {
             margin: 0 0 0.75rem;
@@ -689,12 +721,43 @@
             font-size: 0.72rem;
             color: var(--success);
         }
-        .tp-mini-cta { display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:.5rem; }
+        .tp-mini-cta { display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:.5rem; align-items:center; }
+        .tp-mini-cta .tp-mini-cta-btn { cursor: pointer; }
         .tp-mini-foot { margin:0; }
+
+        .landing-workspace-anchor {
+            max-width: 720px;
+            margin: 0 auto 2rem;
+            padding: 0 1.25rem;
+            position: relative;
+            z-index: 2;
+        }
+        body.landing-page .landing-workspace-anchor .section-desk-only {
+            display: block;
+        }
         
         @media (max-width: 768px) {
-            /* Hide lens marketing links only — NEVER hide Language / Login / Sign up / Pricing */
-            .nav-links { display: none; }
+            body.landing-page {
+                padding-left: env(safe-area-inset-left, 0);
+                padding-right: env(safe-area-inset-right, 0);
+                padding-bottom: env(safe-area-inset-bottom, 0);
+            }
+            nav.landing-nav.site-top-nav .nav-links {
+                display: flex;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                gap: 0.45rem;
+                max-width: 100%;
+                scrollbar-width: none;
+            }
+            nav.landing-nav.site-top-nav .nav-links::-webkit-scrollbar { display: none; }
+            nav.landing-nav.site-top-nav .nav-links a {
+                flex-shrink: 0;
+                min-height: 44px;
+                display: inline-flex;
+                align-items: center;
+            }
             .nav-right { width: 100%; justify-content: flex-end; }
             .nav-cta { display: none; }
             .hero { padding: 5.5rem 1rem 1.5rem; min-height: auto; }

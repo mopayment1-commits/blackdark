@@ -239,6 +239,11 @@ async def _fetch_coinbase_ticker(
     *,
     session: aiohttp.ClientSession | None = None,
 ) -> dict[str, Any] | None:
+    from coinbase_public_api import fetch_spot_for_asset
+
+    row = await fetch_spot_for_asset(asset)
+    if row is not None:
+        return row
     url = f"https://api.coinbase.com/v2/prices/{asset.upper()}-USD/spot"
     payload = await _rest_get(url, session=session)
     if not isinstance(payload, dict):
@@ -252,7 +257,7 @@ async def _fetch_coinbase_ticker(
             "change_24h": 0.0,
             "volume": 0.0,
             "quote_volume": 0.0,
-            "source": "coinbase",
+            "source": "coinbase_v2_spot",
         }
     except (KeyError, TypeError, ValueError):
         return None
@@ -263,6 +268,11 @@ async def _fetch_kraken_ticker(
     *,
     session: aiohttp.ClientSession | None = None,
 ) -> dict[str, Any] | None:
+    from kraken_public_api import fetch_spot_for_asset
+
+    row = await fetch_spot_for_asset(asset)
+    if row is not None:
+        return row
     pair = _KRAKEN_PAIRS.get(asset.upper(), f"{asset.upper()}USD")
     payload = await _rest_get(
         "https://api.kraken.com/0/public/Ticker",
@@ -286,7 +296,7 @@ async def _fetch_kraken_ticker(
             "price": price,
             "change_24h": change,
             "volume": volume,
-            "quote_volume": 0.0,
+            "quote_volume": volume * price,
             "source": "kraken",
         }
     except (KeyError, TypeError, ValueError, StopIteration):
@@ -443,10 +453,15 @@ async def _primary_rest_ticker(
     pair: str,
     session: aiohttp.ClientSession,
 ) -> dict[str, Any] | None:
-    for host in ("api.binance.com", "data-api.binance.vision", "api.binance.us"):
-        row = await _fetch_binance_host_ticker(pair, host, session=session)
-        if row is not None:
-            return row
+    from binance_public_api import fetch_ticker_24hr
+
+    row = await fetch_ticker_24hr(pair, session=session)
+    if row is not None:
+        return row
+    for host in _BINANCE_REST_HOSTS:
+        legacy = await _fetch_binance_host_ticker(pair, host, session=session)
+        if legacy is not None:
+            return legacy
     return None
 
 
@@ -473,21 +488,64 @@ async def _fallback_rest_ticker(
 
 
 async def fetch_binance_ticker(pair: str) -> dict | None:
-    """Live spot ticker — WS when fresh, else multi-source REST (Railway/cloud safe)."""
+    """Live spot — Binance public REST first, optional WS mid blend, then multi-source fallback."""
     asset = pair.replace("USDT", "").upper()
     fetched_at = datetime.now(UTC)
+
+    from binance_public_api import fetch_public_spot_market
+
+    row = await fetch_public_spot_market(pair)
+    if row is None:
+        from coinpaprika_public_api import fetch_public_spot_market as fetch_coinpaprika_spot_market
+
+        paprika = await fetch_coinpaprika_spot_market(pair)
+        if paprika is not None:
+            _log_price_fallback(asset, "coinpaprika")
+            row = paprika
+    if row is not None:
+        ws_row = await _ws_ticker_if_enabled(asset)
+        if ws_row is not None:
+            mid = ws_row.get("mid") or ws_row.get("price")
+            try:
+                mid_f = float(mid)
+                if mid_f > 0:
+                    row = dict(row)
+                    row["price"] = mid_f
+                    row["price_blend"] = "binance_ws_mid"
+            except (TypeError, ValueError):
+                pass
+        return enrich_ticker_freshness(row, fetched_at=fetched_at)
+
+    if not config.PRICE_FEED_WS_ONLY:
+        async with aiohttp.ClientSession(timeout=_HTTP_TIMEOUT, headers=_HTTP_HEADERS) as session:
+            row = await _primary_rest_ticker(pair, session)
+            if row is not None:
+                return enrich_ticker_freshness(row, fetched_at=fetched_at)
+            from coinmarketcap_api import fetch_spot_ticker
+
+            cmc = await fetch_spot_ticker(asset, session=session)
+            if cmc is not None:
+                _log_price_fallback(asset, "coinmarketcap")
+                return enrich_ticker_freshness(cmc, fetched_at=fetched_at)
+            from coinbase_public_api import fetch_public_spot_market as fetch_coinbase_spot_market
+
+            cb = await fetch_coinbase_spot_market(pair)
+            if cb is not None:
+                _log_price_fallback(asset, "coinbase_exchange")
+                return enrich_ticker_freshness(cb, fetched_at=fetched_at)
+            from kraken_public_api import fetch_public_spot_market as fetch_kraken_spot_market
+
+            kr = await fetch_kraken_spot_market(pair)
+            if kr is not None:
+                _log_price_fallback(asset, "kraken_public")
+                return enrich_ticker_freshness(kr, fetched_at=fetched_at)
+            row = await _fallback_rest_ticker(asset, session)
+            if row is not None:
+                return enrich_ticker_freshness(row, fetched_at=fetched_at)
 
     ws_row = await _ws_ticker_if_enabled(asset)
     if ws_row is not None:
         return enrich_ticker_freshness(ws_row, fetched_at=fetched_at)
-
-    async with aiohttp.ClientSession(timeout=_HTTP_TIMEOUT, headers=_HTTP_HEADERS) as session:
-        row = await _primary_rest_ticker(pair, session)
-        if row is not None:
-            return enrich_ticker_freshness(row, fetched_at=fetched_at)
-        row = await _fallback_rest_ticker(asset, session)
-        if row is not None:
-            return enrich_ticker_freshness(row, fetched_at=fetched_at)
 
     logger.warning("All price sources failed | asset=%s", _safe_asset_label(asset).replace("\r", " ").replace("\n", " "))
     return None
@@ -982,6 +1040,9 @@ def build_full_oracle_response(
     *,
     whale_alert: str | None = None,
     unified: dict[str, Any] | None = None,
+    market_cap_usd: float | None = None,
+    cmc_rank: int | None = None,
+    price_source: str | None = None,
 ) -> dict:
     score = _oracle_response_score(asset, quote_volume, change, unified)
     verdict, oracle_text = _oracle_response_verdict(asset, price, score, unified)
@@ -1044,6 +1105,12 @@ def build_full_oracle_response(
         "timestamp": now.isoformat(),
         "disclaimer": "Not financial advice. Do your own research (DYOR).",
     }
+    if market_cap_usd is not None and market_cap_usd > 0:
+        payload["market_cap_usd"] = market_cap_usd
+    if cmc_rank is not None:
+        payload["cmc_rank"] = cmc_rank
+    if price_source:
+        payload["price_source"] = price_source
     _attach_unified_oracle_fields(payload, unified)
     return payload
 

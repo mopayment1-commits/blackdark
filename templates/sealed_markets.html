@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="{{ lang|default('en') }}" dir="{{ dir|default('ltr') }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ t('meta.title.sealed_markets') }}</title>
+    <link rel="stylesheet" href="/static/css/trust-os.css">
+    <style>
+        body { font-family: var(--bd-font-body); background: #0a0a0f; color: #e4e4e7; }
+        .wrap { max-width: 1000px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+        h1 { font-size: 1.75rem; }
+        .muted { color: #71717a; font-size: 0.9rem; }
+        .grid { display: grid; gap: 1rem; margin-top: 1.5rem; }
+        .card { background: #111118; border: 1px solid #2a2a35; border-radius: 12px; padding: 1rem; }
+        .hash { font-family: monospace; font-size: 0.75rem; word-break: break-all; color: #22d3ee; }
+        a { color: #22d3ee; }
+        h2 { font-size: 1.1rem; margin: 1.5rem 0 0.5rem; color: #22d3ee; }
+    </style>
+</head>
+<body>
+    {% set nav_active = 'verify' %}
+    {% include 'partials/site_top_nav.html' %}
+    <div class="wrap">
+        <h1>{{ t('sealed.title') }}</h1>
+        <p class="muted">{{ t('sealed.lead') }}</p>
+        <p class="muted"><a href="/oracle-accuracy">{{ t('sealed.back_ledger') }}</a></p>
+        <h2>{{ t('sealed.active_heading') }}</h2>
+        <div id="active" class="grid"><p class="muted">{{ t('sealed.loading') }}</p></div>
+        <h2>{{ t('sealed.settled_heading') }}</h2>
+        <div id="settled" class="grid"><p class="muted">{{ t('sealed.loading') }}</p></div>
+    </div>
+    {% include "partials/site_footer.html" %}
+    <script>
+        function esc(s) { return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+        function i18nT(key, vars) {
+            const i18n = window.BD_I18N;
+            if (!i18n || typeof i18n.t !== 'function') return '';
+            return i18n.t(key, vars);
+        }
+        function card(m) {
+            const pid = m.prediction_id;
+            const poolLine = i18nT('sealed.card.pool', {
+                pool: m.total_pool_usdt,
+                bettors: m.participant_count,
+            });
+            return `<div class="card">
+                <strong>${esc(m.asset)}</strong> · ${esc(m.decision_action)} · pred #${esc(pid)}
+                <div class="muted">${esc(poolLine)}</div>
+                <div class="hash">${esc((m.certificate_hash || '').slice(0, 32))}…</div>
+                <p style="margin-top:.5rem"><a href="/oracle-decision/${pid}">${esc(i18nT('sealed.card.open'))}</a></p>
+            </div>`;
+        }
+        fetch('/api/sealed-markets/public').then(r => r.json()).then(d => {
+            const a = document.getElementById('active');
+            const s = document.getElementById('settled');
+            a.innerHTML = (d.active || []).length ? (d.active || []).map(card).join('') : '<p class="muted">' + esc(i18nT('sealed.none_active')) + '</p>';
+            s.innerHTML = (d.settled || []).length ? (d.settled || []).map(card).join('') : '<p class="muted">' + esc(i18nT('sealed.none_settled')) + '</p>';
+        }).catch(() => {
+            document.getElementById('active').textContent = i18nT('sealed.load_fail');
+        });
+    </script>
+</body>
+</html>

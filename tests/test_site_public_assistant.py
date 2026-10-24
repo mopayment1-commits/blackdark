@@ -10,6 +10,7 @@ def test_explains_visible_pulse():
     )
     assert "WAIT" in out["reply"]
     assert "BTC" in out["reply"]
+    assert "Wait for clarity" in out["reply"]
     assert out["refusal"] is False
     assert REFUSAL in out["reply"]
 
@@ -79,10 +80,26 @@ def test_need_and_help_me_ask_page_help_not_asset_price():
     ctx = {"trust_pulse": {"action": "WAIT", "symbol": "BTC", "sentence": "WAIT on BTC score 60/100."}}
     for msg in ("NEED", "HELP ME", "I NEED", "help"):
         out = reply_site_assistant(msg, ctx)
-        assert "What do you need help with on this page?" in out["reply"]
+        assert "Trust Pulse on this page shows WAIT on BTC" in out["reply"]
+        assert "WAIT on BTC score 60/100" in out["reply"]
         assert "أي أصل تريد سعره" not in out["reply"]
         assert "Which asset" not in out["reply"]
         assert REFUSAL in out["reply"]
+
+
+def test_wait_on_btc_explains_visible_pulse():
+    ctx = {
+        "trust_pulse": {
+            "action": "WAIT",
+            "symbol": "BTC",
+            "sentence": "Hold — no edge after fees.",
+        }
+    }
+    out = reply_site_assistant("What does the WAIT on BTC mean?", ctx)
+    assert "WAIT on BTC" in out["reply"]
+    assert "Hold — no edge after fees" in out["reply"]
+    assert "model score" not in out["reply"]
+    assert REFUSAL in out["reply"]
 
 
 def test_price_only_without_symbol_asks_asset_in_message_language():

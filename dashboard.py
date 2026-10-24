@@ -143,6 +143,14 @@ def _auth_required_next_path(request: Request) -> str:
     return path + (f"?{query}" if query else "")
 
 
+def redirect_anonymous_to_login(request: Request) -> RedirectResponse:
+    """302 to /login preserving path+query in next= (hash must be set client-side)."""
+    from urllib.parse import urlencode
+
+    next_path = _auth_required_next_path(request)
+    return RedirectResponse(url="/login?" + urlencode({"next": next_path}), status_code=302)
+
+
 def render_surface_auth_required(
     request: Request,
     *,
@@ -723,17 +731,21 @@ async def _resolve_html_auth_user(request: Request) -> dict | None:
     """Valid session only — stale/invalid bd_token must not unlock private HTML surfaces."""
     from auth_service import get_user_from_token
 
-    auth = (request.headers.get("authorization") or "").strip()
-    token: str | None = None
-    if auth.lower().startswith("bearer "):
-        token = auth[7:].strip()
-    elif request.cookies.get("bd_token"):
-        from security_middleware import cookie_to_session_bearer
+    try:
+        auth = (request.headers.get("authorization") or "").strip()
+        token: str | None = None
+        if auth.lower().startswith("bearer "):
+            token = auth[7:].strip()
+        elif request.cookies.get("bd_token"):
+            from security_middleware import cookie_to_session_bearer
 
-        token = cookie_to_session_bearer(request.cookies.get("bd_token"))
-    if not token:
+            token = cookie_to_session_bearer(request.cookies.get("bd_token"))
+        if not token:
+            return None
+        return await get_user_from_token(token)
+    except Exception:
+        logger.exception("html auth user resolution failed")
         return None
-    return await get_user_from_token(token)
 
 
 def _header_user_payload(user: dict[str, Any]) -> dict[str, Any]:
@@ -752,10 +764,12 @@ def _header_user_payload(user: dict[str, Any]) -> dict[str, Any]:
     tier_meta = TIER_FEATURES.get(tier) or TIER_FEATURES["free"]
     tier_label = str(tier_meta.get("label") or tier).upper()
     show_upgrade = tier not in {"elite", "whale", "quant", "institutional"}
+    avatar_url = str(user.get("avatar_url") or "").strip()
     return {
         "display": display,
         "initial": initial,
         "email": email,
+        "avatar_url": avatar_url or None,
         "tier": tier,
         "tier_label": tier_label,
         "show_upgrade": show_upgrade,
@@ -785,15 +799,30 @@ async def header_session_middleware(request: Request, call_next):
     import asyncio
 
     request.state.header_user = None
+    request.state.ui_lang = None
     try:
         if _html_shell_fast_path(request):
-            user = await asyncio.wait_for(_resolve_html_auth_user(request), timeout=2.0)
+            try:
+                user = await asyncio.wait_for(_resolve_html_auth_user(request), timeout=5.0)
+            except asyncio.TimeoutError:
+                user = await _resolve_html_auth_user(request)
         else:
             user = await _resolve_html_auth_user(request)
         if user:
             request.state.header_user = _header_user_payload(user)
-    except (asyncio.TimeoutError, Exception):
+            raw_ui = str(user.get("ui_lang") or "").strip()
+            request.state.ui_lang = raw_ui if raw_ui else None
+        else:
+            request.state.ui_lang = None
+    except Exception:
         request.state.header_user = None
+        request.state.ui_lang = None
+    try:
+        from i18n_service import resolve_request_lang
+
+        request.state.resolved_lang = resolve_request_lang(request)
+    except Exception:
+        request.state.resolved_lang = "en"
     return await call_next(request)
 
 
@@ -806,7 +835,7 @@ async def anonymous_route_enforcement_middleware(request: Request, call_next):
     if path in _HTML_AUTH_GATE_EXACT and anonymous_denial_should_be_html(request):
         if await _resolve_html_auth_user(request) is None:
             if path == "/dashboard":
-                return render_dashboard_auth_required(request)
+                return redirect_anonymous_to_login(request)
             if path == "/profile":
                 return render_profile_auth_required(request)
             if path == "/discipline-mirror":
@@ -823,7 +852,7 @@ async def anonymous_route_enforcement_middleware(request: Request, call_next):
         path = request.url.path or ""
         if anonymous_denial_should_be_html(request):
             if path == "/dashboard":
-                return render_dashboard_auth_required(request)
+                return redirect_anonymous_to_login(request)
             if path == "/profile":
                 return render_profile_auth_required(request)
             if path == "/discipline-mirror":
@@ -959,6 +988,15 @@ try:
 
     app.include_router(billing_router)
 except ImportError:
+    logger.exception("Billing router import failed — /api/billing/status served via GTM fallback")
+except Exception:
+    logger.exception("Billing router mount failed — /api/billing/status served via GTM fallback")
+
+try:
+    from api.routers.entitlements import router as entitlements_router
+
+    app.include_router(entitlements_router)
+except ImportError:
     pass
 
 try:
@@ -967,6 +1005,10 @@ try:
     app.include_router(admin_billing_router)
 except ImportError:
     pass
+
+from api.routers.owner_admin import router as owner_admin_router
+
+app.include_router(owner_admin_router)
 
 try:
     from api.routers.arbitrage import router as arbitrage_router
@@ -979,6 +1021,20 @@ try:
     from api.routers.oracle import router as oracle_router
 
     app.include_router(oracle_router)
+except ImportError:
+    pass
+
+try:
+    from api.routers.miss_bounty import router as miss_bounty_router
+
+    app.include_router(miss_bounty_router)
+except ImportError:
+    pass
+
+try:
+    from api.routers.sealed_markets import router as sealed_markets_router
+
+    app.include_router(sealed_markets_router)
 except ImportError:
     pass
 
@@ -1579,6 +1635,22 @@ def _login_auth_tab(request: Request) -> str:
     return "register" if tab == "register" else "login"
 
 
+def _google_oauth_start_href(request: Request) -> str:
+    """Login page Google button target — preserves tab/plan/next query params."""
+    from urllib.parse import urlencode
+
+    keep: dict[str, str] = {}
+    if _login_auth_tab(request) == "register":
+        keep["tab"] = "register"
+    for key in ("plan", "next"):
+        val = (request.query_params.get(key) or "").strip()
+        if val:
+            keep[key] = val
+    qs = urlencode(keep)
+    base = "/api/auth/oauth/google/start"
+    return f"{base}?{qs}" if qs else base
+
+
 def _google_post_auth_redirect(plan: str | None, next_path: str | None) -> str:
     from pricing_catalog import normalize_signup_plan
 
@@ -1605,6 +1677,7 @@ async def login_page(request: Request):
             "auth_tab": _login_auth_tab(request),
             "google_signin": google_signin_status(),
             "google_login_uri_base": _google_login_uri_base(request),
+            "google_oauth_start_href": _google_oauth_start_href(request),
         },
     )
 
@@ -1656,6 +1729,369 @@ async def public_oracle_symbols():
     from site_oracle_catalog import oracle_catalog_payload
 
     return oracle_catalog_payload()
+
+
+@app.get("/api/public/btc/mempool-fees")
+async def public_btc_mempool_fees():
+    from mempool_public_api import fetch_btc_mempool_context
+
+    return await fetch_btc_mempool_context()
+
+
+@app.get("/api/public/macro/fred/usage")
+async def public_fred_usage():
+    from fred_public_api import usage_stats
+
+    return usage_stats()
+
+
+@app.get("/api/public/macro/fred/context")
+async def public_fred_context():
+    from fred_public_api import fetch_macro_context
+
+    row = await fetch_macro_context()
+    if not row.get("ok") and row.get("error") == "not_configured":
+        raise HTTPException(status_code=503, detail=row)
+    if not row.get("ok"):
+        raise HTTPException(status_code=503, detail=row)
+    return row
+
+
+@app.get("/api/public/wallet/balance")
+async def public_wallet_balance(address: str, chain: str = "ethereum"):
+    from wallet_balance_public import fetch_readonly_wallet_balance
+
+    row = await fetch_readonly_wallet_balance(address, chain=chain)
+    if not row.get("ok"):
+        raise HTTPException(status_code=404, detail=row)
+    return row
+
+
+@app.get("/wallet-balance", response_class=HTMLResponse)
+async def wallet_balance_page(request: Request):
+    ctx = {**_footer_ctx()}
+    return render_page(request, "wallet_balance.html", ctx)
+
+
+@app.get("/api/public/price-alerts")
+async def public_price_alerts_list(client_id: str = Query(..., min_length=16, max_length=64)):
+    from price_alerts_public import evaluate_alerts
+
+    return await evaluate_alerts(client_id)
+
+
+@app.post("/api/public/price-alerts")
+async def public_price_alerts_create(body: dict = Body(default=None)):
+    from price_alerts_public import create_alert
+
+    payload = body if isinstance(body, dict) else {}
+    row = await create_alert(
+        client_id=str(payload.get("client_id") or ""),
+        symbol=str(payload.get("symbol") or "BTC"),
+        direction=str(payload.get("direction") or "above"),
+        target_price=float(payload.get("target_price") or 0),
+    )
+    if not row.get("ok"):
+        raise HTTPException(status_code=400, detail=row)
+    return row
+
+
+@app.delete("/api/public/price-alerts/{alert_id}")
+async def public_price_alerts_delete(alert_id: str, client_id: str = Query(..., min_length=16, max_length=64)):
+    from price_alerts_public import delete_alert
+
+    row = delete_alert(client_id, alert_id)
+    if not row.get("ok"):
+        raise HTTPException(status_code=404, detail=row)
+    return row
+
+
+@app.get("/api/public/news/headlines")
+async def public_financial_news_headlines(limit: int = 8):
+    from financial_news_public import fetch_financial_headlines
+
+    return await fetch_financial_headlines(limit=max(1, min(int(limit or 8), 20)))
+
+
+@app.get("/api/public/market/chart-bars")
+async def public_market_chart_bars(
+    symbol: str = "BTC",
+    interval: str = "1h",
+    limit: int = 120,
+):
+    """OHLCV bars for TradingView Lightweight Charts (Binance public REST, optional fallback)."""
+    from datetime import datetime
+
+    from market_context import _ALLOWED_KLINE_INTERVALS, fetch_binance_klines_bars, normalize_oracle_symbol
+
+    asset, pair = normalize_oracle_symbol(symbol)
+    iv = interval if interval in _ALLOWED_KLINE_INTERVALS else "1h"
+    lim = max(10, min(int(limit or 120), 500))
+    bars, host = await fetch_binance_klines_bars(pair, interval=iv, limit=lim)
+    if bars:
+        return {
+            "ok": True,
+            "symbol": asset,
+            "pair": pair,
+            "interval": iv,
+            "bars": bars,
+            "source": f"binance_rest:{host}",
+            "library": "TradingView Lightweight Charts",
+        }
+    try:
+        from coinpaprika_public_api import fetch_ohlcv_latest
+
+        ohlcv = await fetch_ohlcv_latest(asset)
+        fb: list[dict[str, Any]] = []
+        for candle in ohlcv or []:
+            if not isinstance(candle, dict):
+                continue
+            raw_t = candle.get("time_close") or candle.get("time_open")
+            ts_ms = 0
+            if raw_t:
+                try:
+                    ts_ms = int(
+                        datetime.fromisoformat(str(raw_t).replace("Z", "+00:00")).timestamp() * 1000
+                    )
+                except (TypeError, ValueError):
+                    ts_ms = 0
+            if not ts_ms:
+                continue
+            try:
+                fb.append(
+                    {
+                        "open_time_ms": ts_ms,
+                        "open": float(candle.get("open") or 0),
+                        "high": float(candle.get("high") or 0),
+                        "low": float(candle.get("low") or 0),
+                        "close": float(candle.get("close") or 0),
+                        "volume": float(candle.get("volume") or 0),
+                    }
+                )
+            except (TypeError, ValueError):
+                continue
+        if fb:
+            return {
+                "ok": True,
+                "symbol": asset,
+                "pair": pair,
+                "interval": "1d",
+                "bars": fb,
+                "source": "coinpaprika_ohlcv",
+                "library": "TradingView Lightweight Charts",
+            }
+    except Exception:
+        pass
+    raise HTTPException(status_code=503, detail={"ok": False, "error": "chart_bars_unavailable"})
+
+
+@app.get("/api/public/market/coinpaprika/usage")
+async def public_coinpaprika_usage():
+    from coinpaprika_public_api import usage_stats
+
+    return usage_stats()
+
+
+@app.get("/api/public/market/coinpaprika/ticker")
+async def public_coinpaprika_ticker(symbol: str = "BTC"):
+    from coinpaprika_public_api import fetch_public_spot_market
+
+    asset = symbol.upper().strip()
+    row = await fetch_public_spot_market(f"{asset}USDT")
+    if row is None:
+        raise HTTPException(status_code=404, detail="Ticker not found")
+    return row
+
+
+@app.get("/api/public/defi-context")
+async def public_defi_context(symbol: str = "ETH"):
+    from defillama_public_api import fetch_defi_context_for_asset
+
+    asset = str(symbol or "ETH").upper().strip()[:24]
+    if not asset:
+        asset = "ETH"
+    return await fetch_defi_context_for_asset(asset)
+
+
+@app.get("/api/public/swap/meta")
+async def public_swap_meta():
+    from changenow_api import swap_meta
+
+    return swap_meta()
+
+
+@app.get("/api/public/swap/currencies")
+async def public_swap_currencies(limit: int = 300):
+    from changenow_api import fetch_currencies, swap_meta
+
+    lim = max(10, min(int(limit or 300), 500))
+    return {"currencies": await fetch_currencies(lim), **swap_meta()}
+
+
+@app.get("/api/public/swap/min-amount")
+async def public_swap_min_amount(
+    from_currency: str,
+    to_currency: str,
+    from_network: str = "",
+    to_network: str = "",
+):
+    from changenow_api import fetch_min_amount
+
+    row = await fetch_min_amount(
+        from_currency,
+        to_currency,
+        from_network=from_network or None,
+        to_network=to_network or None,
+    )
+    if row is None:
+        raise HTTPException(status_code=404, detail="Pair not available")
+    return row
+
+
+@app.get("/api/public/swap/estimate")
+async def public_swap_estimate(
+    from_currency: str,
+    to_currency: str,
+    from_amount: float,
+    from_network: str = "",
+    to_network: str = "",
+):
+    from changenow_api import fetch_estimate
+
+    row = await fetch_estimate(
+        from_currency,
+        to_currency,
+        from_amount,
+        from_network=from_network or None,
+        to_network=to_network or None,
+    )
+    if row is None:
+        raise HTTPException(status_code=404, detail="Estimate unavailable")
+    return row
+
+
+@app.post("/api/public/swap/exchange")
+async def public_swap_exchange(body: dict = Body(default=None)):
+    from changenow_api import create_exchange
+
+    payload = body or {}
+    try:
+        amount = float(payload.get("from_amount") or payload.get("amount") or 0)
+    except (TypeError, ValueError):
+        raise HTTPException(status_code=400, detail="invalid_amount")
+    status, data = await create_exchange(
+        from_currency=str(payload.get("from_currency") or payload.get("from") or ""),
+        to_currency=str(payload.get("to_currency") or payload.get("to") or ""),
+        from_amount=amount,
+        payout_address=str(payload.get("payout_address") or payload.get("address") or ""),
+        from_network=str(payload.get("from_network") or "") or None,
+        to_network=str(payload.get("to_network") or "") or None,
+        refund_address=str(payload.get("refund_address") or "") or None,
+        payout_extra_id=str(payload.get("payout_extra_id") or payload.get("extra_id") or "") or None,
+        refund_extra_id=str(payload.get("refund_extra_id") or "") or None,
+    )
+    if status != 200:
+        raise HTTPException(status_code=status, detail=data or {"error": "swap_failed"})
+    return data
+
+
+@app.get("/api/public/swap/status/{exchange_id}")
+async def public_swap_status(exchange_id: str):
+    from changenow_api import fetch_transaction_status
+
+    row = await fetch_transaction_status(exchange_id)
+    if row is None:
+        raise HTTPException(status_code=404, detail="Transaction not found")
+    return row
+
+
+@app.get("/api/public/onchain/blockscout/usage")
+async def public_blockscout_usage():
+    from blockscout_public_api import usage_stats
+
+    return usage_stats()
+
+
+@app.get("/api/public/onchain/blockscout/address")
+async def public_blockscout_address(
+    address: str,
+    chain: str = "ethereum",
+    include_txs: bool = True,
+    tx_limit: int = 5,
+):
+    from blockscout_public_api import fetch_explorer_fallback
+
+    row = await fetch_explorer_fallback(
+        address,
+        chain=chain,
+        include_transactions=include_txs,
+        tx_limit=max(1, min(int(tx_limit or 5), 10)),
+    )
+    if not row.get("ok"):
+        raise HTTPException(status_code=503, detail=row)
+    return row
+
+
+@app.get("/api/public/onchain/blockscout/transaction/{tx_hash}")
+async def public_blockscout_transaction(tx_hash: str, chain: str = "ethereum"):
+    from blockscout_public_api import fetch_transaction_by_hash
+
+    row = await fetch_transaction_by_hash(tx_hash, chain=chain)
+    if row is None:
+        raise HTTPException(status_code=404, detail="Transaction not found or quota exceeded")
+    return row
+
+
+@app.get("/api/public/onchain/thegraph/usage")
+async def public_thegraph_usage():
+    from thegraph_public_api import usage_stats
+
+    return usage_stats()
+
+
+@app.get("/api/public/onchain/thegraph/address")
+async def public_thegraph_address(address: str, chain: str = "ethereum", swap_limit: int = 5):
+    from thegraph_public_api import fetch_address_onchain_enrichment
+
+    row = await fetch_address_onchain_enrichment(
+        address,
+        chain=chain,
+        swap_limit=max(1, min(int(swap_limit or 5), 10)),
+    )
+    if not row.get("ok"):
+        raise HTTPException(status_code=503, detail=row)
+    return row
+
+
+@app.get("/api/public/onchain/etherscan/usage")
+async def public_etherscan_usage():
+    from etherscan_public_api import usage_stats
+
+    return usage_stats()
+
+
+@app.get("/api/public/onchain/etherscan/address")
+async def public_etherscan_address(address: str, include_txs: bool = True, tx_limit: int = 5):
+    from etherscan_public_api import fetch_address_onchain_fallback
+
+    row = await fetch_address_onchain_fallback(
+        address,
+        include_transactions=include_txs,
+        tx_limit=max(1, min(int(tx_limit or 5), 10)),
+    )
+    if not row.get("ok"):
+        raise HTTPException(status_code=503, detail=row)
+    return row
+
+
+@app.get("/api/public/onchain/etherscan/transaction/{tx_hash}")
+async def public_etherscan_transaction(tx_hash: str):
+    from etherscan_public_api import fetch_transaction_by_hash
+
+    row = await fetch_transaction_by_hash(tx_hash)
+    if row is None:
+        raise HTTPException(status_code=404, detail="Transaction not found or quota exceeded")
+    return row
 
 
 @app.post("/api/public/site-assistant")
@@ -1923,6 +2359,86 @@ _landing_html_cache: dict[str, tuple[float, str]] = {}
 _LANDING_HTML_CACHE_TTL = float(os.getenv("LANDING_HTML_CACHE_TTL_SEC", "45"))
 
 
+def _landing_pulse_view_from_payload(pulse: dict[str, Any]) -> dict[str, str]:
+    from supplemental_public_compliance import map_public_decision_action
+
+    sym = str(pulse.get("symbol") or "BTC").strip().upper() or "BTC"
+    act = map_public_decision_action(
+        str(pulse.get("action") or pulse.get("verdict") or pulse.get("decision_action") or "WAIT")
+    )
+    css = "WAIT" if act == "CONDITIONS MET" else act.replace(" ", "_")
+    price = pulse.get("price")
+    price_bit = ""
+    if price is not None:
+        try:
+            price_bit = f" · ${float(price):,.2f}"
+        except (TypeError, ValueError):
+            price_bit = ""
+    sentence = (
+        pulse.get("sentence")
+        or pulse.get("decision_sentence")
+        or pulse.get("narrative")
+        or ""
+    )
+    return {
+        "action": act,
+        "action_class": css,
+        "symbol_line": f"{sym}{price_bit}",
+        "sentence": str(sentence).strip(),
+    }
+
+
+async def _warm_landing_pulse_cache(lang: str) -> None:
+    import asyncio
+
+    from trust_pulse import build_trust_pulse
+
+    try:
+        await asyncio.wait_for(
+            build_trust_pulse("BTC", tier="free", ux_mode="beginner", lang=lang),
+            timeout=12.0,
+        )
+    except Exception:
+        logger.debug("landing pulse warm skipped", exc_info=True)
+
+
+async def _landing_pulse_ssr_payload(lang: str) -> tuple[dict[str, Any] | None, dict[str, str] | None]:
+    import asyncio
+
+    from trust_pulse import _shape_pulse, _store_pulse_cache, latest_trust_pulse_snapshot
+    from viral_capacity import quick_cache_get
+
+    pulse = latest_trust_pulse_snapshot("BTC")
+    if pulse:
+        return pulse, _landing_pulse_view_from_payload(pulse)
+
+    raw: dict[str, Any] | None = quick_cache_get("BTC", lang, "beginner")
+    if raw is None:
+        timeout = float(os.getenv("LANDING_PULSE_SSR_TIMEOUT_SEC", "1.25"))
+        try:
+            asset, pair = _normalize_oracle_symbol("BTC")
+            raw = await asyncio.wait_for(
+                _compute_oracle_quick_payload(asset, pair, lang, "beginner"),
+                timeout=timeout,
+            )
+        except Exception:
+            logger.debug("landing pulse SSR quick oracle skipped", exc_info=True)
+            raw = None
+
+    if isinstance(raw, dict) and (
+        raw.get("decision_sentence") or raw.get("decision_action") or raw.get("verdict")
+    ):
+        shaped = _shape_pulse(dict(raw), from_cache=True)
+        _store_pulse_cache("BTC", dict(raw))
+        return shaped, _landing_pulse_view_from_payload(shaped)
+
+    try:
+        asyncio.get_running_loop().create_task(_warm_landing_pulse_cache(lang))
+    except RuntimeError:
+        pass
+    return None, None
+
+
 @app.get("/", response_class=HTMLResponse)
 async def landing_page(request: Request):
     import time
@@ -1931,7 +2447,7 @@ async def landing_page(request: Request):
 
     lang = resolve_request_lang(request)
     auth_segment = "auth" if getattr(request.state, "header_user", None) else "anon"
-    cache_key = f"v6:{lang}:{auth_segment}"
+    cache_key = f"v7:{lang}:{auth_segment}"
     now = time.time()
     hit = _landing_html_cache.get(cache_key)
     if hit and (now - hit[0]) < _LANDING_HTML_CACHE_TTL:
@@ -1950,6 +2466,10 @@ async def landing_page(request: Request):
         return response
 
     ctx = template_context(request, _footer_ctx())
+    pulse_raw, pulse_view = await _landing_pulse_ssr_payload(lang)
+    if pulse_raw:
+        ctx["landing_pulse_ssr"] = pulse_raw
+        ctx["landing_pulse_view"] = pulse_view
     import config as _cfg
 
     ctx["oracle_symbols"] = _cfg.tracked_asset_list()
@@ -1985,10 +2505,10 @@ async def api_i18n_locales():
 
 
 @app.get("/api/i18n/catalog", responses=COMMON_ERROR_RESPONSES)
-async def api_i18n_catalog(lang: str = "en"):
-    from i18n_service import catalog_for, locale_meta, normalize_lang
+async def api_i18n_catalog(request: Request, lang: str | None = None):
+    from i18n_service import catalog_for, locale_meta, resolved_api_lang
 
-    code = normalize_lang(lang)
+    code = resolved_api_lang(request, lang)
     return {"lang": code, "locale": locale_meta(code), "catalog": catalog_for(code)}
 
 
@@ -2085,14 +2605,24 @@ async def sitemap_xml(request: Request):
     return Response(content=xml, media_type="application/xml")
 
 
+@app.get("/mev")
+async def mev_public_redirect():
+    """MEV surface for visitors — public report lives on the accuracy ledger."""
+    return RedirectResponse(url="/oracle-accuracy#mev-report", status_code=302)
+
+
 # ========== DASHBOARD ==========
 @app.get("/dashboard", response_class=HTMLResponse)
 async def dashboard_page(request: Request):
     import config as _cfg
 
+    lens = (request.query_params.get("lens") or "prove").strip().lower()
+    if lens not in {"prove", "operate", "desk", "room"}:
+        lens = "prove"
     ctx = {
         **_footer_ctx(),
         "oracle_symbols": _cfg.tracked_asset_list(),
+        "initial_lens": lens,
     }
     return render_page(request, "dashboard.html", ctx)
 
@@ -2266,6 +2796,14 @@ async def il_simulator_page(request: Request):
     return render_page(request, "il_simulator.html", _footer_ctx())
 
 
+@app.get("/swap", response_class=HTMLResponse)
+async def swap_page(request: Request):
+    from changenow_api import swap_meta
+
+    ctx = {**_footer_ctx(), "swap_meta": swap_meta()}
+    return render_page(request, "swap.html", ctx)
+
+
 @app.get("/market-intelligence", response_class=HTMLResponse)
 async def market_intelligence_page(request: Request):
     return render_page(request, "market_intelligence.html", _footer_ctx())
@@ -2415,18 +2953,21 @@ def _parse_trust_pulse_previous_factors(previous_factors: str | None) -> list[di
 
 @app.get("/api/trust-pulse", responses=COMMON_ERROR_RESPONSES)
 async def api_trust_pulse(
+    request: Request,
     symbol: str = "BTC",
     previous_action: str | None = None,
     previous_seen_at: str | None = None,
     previous_factors: str | None = None,
     force: bool = False,
     ux_mode: str = "beginner",
-    lang: str = "en",
+    lang: str | None = None,
     user: dict | None = Depends(optional_user),
 ):
     """First-open Trust Pulse — one live decision + Why + proof + freshness."""
+    from i18n_service import resolved_api_lang
     from trust_pulse import build_trust_pulse
 
+    lang = resolved_api_lang(request, lang)
     tier = (user or {}).get("tier") or "free"
     try:
         return await build_trust_pulse(
@@ -2677,14 +3218,17 @@ async def how_it_works_page(request: Request):
 
 @app.get("/about", response_class=HTMLResponse)
 async def about_page(request: Request):
+    from i18n_service import resolve_request_lang, translator
     from site_services import about_blurb
 
+    lang = resolve_request_lang(request)
+    tr = translator(lang)
     about = about_blurb()
     return render_utility(request, {
             "page": "about",
-            "title": about["title"],
-            "lead": "Trust OS for crypto decision intelligence — one product, four lenses.",
-            "about": about
+            "title": tr("about.title"),
+            "lead": tr("about.lead"),
+            "about": about,
         },
     )
 
@@ -2920,16 +3464,33 @@ async def _compute_oracle_quick_payload(
     lang: str,
     ux_mode: str,
 ) -> dict:
-    from live_book_hub import get_best_price
+    from binance_public_api import fetch_public_spot_market
 
-    from live_book_hub import get_best_price, is_quote_fresh
+    market = await fetch_public_spot_market(pair)
+    if market is None:
+        from coinpaprika_public_api import fetch_public_spot_market as fetch_coinpaprika_spot_market
 
-    row = get_best_price("binance", f"{asset}/USDT")
-    market = _quick_ws_market(row) if row and is_quote_fresh("binance", f"{asset}/USDT") else None
+        market = await fetch_coinpaprika_spot_market(pair)
+    if market is None:
+        from coinmarketcap_api import fetch_spot_ticker
+
+        market = await fetch_spot_ticker(asset)
+    if market is None:
+        from coinbase_public_api import fetch_public_spot_market as fetch_coinbase_spot_market
+
+        market = await fetch_coinbase_spot_market(pair)
+    if market is None:
+        from kraken_public_api import fetch_public_spot_market as fetch_kraken_spot_market
+
+        market = await fetch_kraken_spot_market(pair)
     if market is None:
         market = await _fetch_binance_ticker(pair)
     if market is None:
         raise HTTPException(status_code=404, detail=f"Symbol {asset} not found.")
+
+    from coinmarketcap_api import enrich_market_with_cmc_metadata
+
+    market = await enrich_market_with_cmc_metadata(market, asset)
 
     price = market["price"]
     quote_volume = market["quote_volume"] or (market["volume"] * price)
@@ -2961,7 +3522,7 @@ async def _compute_oracle_quick_payload(
         except (TypeError, ValueError):
             quote_age = None
     price_source = _quick_price_source_label(market)
-    return _quick_payload(
+    out = _quick_payload(
         asset,
         price,
         change,
@@ -2979,6 +3540,124 @@ async def _compute_oracle_quick_payload(
         quote_volume=quote_volume,
         price_source=price_source,
     )
+    ob = market.get("order_book")
+    if isinstance(ob, dict):
+        out["order_book"] = {
+            "best_bid": ob.get("best_bid"),
+            "best_ask": ob.get("best_ask"),
+            "spread_bps": ob.get("spread_bps"),
+            "source": ob.get("source"),
+        }
+    if market.get("price_blend"):
+        out["price_blend"] = market.get("price_blend")
+    if market.get("market_cap_usd"):
+        try:
+            out["market_cap_usd"] = float(market["market_cap_usd"])
+        except (TypeError, ValueError):
+            pass
+    if market.get("cmc_rank") is not None:
+        out["cmc_rank"] = market.get("cmc_rank")
+    if market.get("source") == "coinmarketcap":
+        out["price_source"] = "coinmarketcap"
+    if str(market.get("source") or "").startswith("coinbase"):
+        out["price_source"] = "coinbase"
+        out["quote_exchange"] = "coinbase"
+    if str(market.get("source") or "").startswith("kraken"):
+        out["price_source"] = "kraken"
+        out["quote_exchange"] = "kraken"
+    if str(market.get("source") or "") == "coinpaprika":
+        out["price_source"] = "coinpaprika"
+        out["quote_exchange"] = "coinpaprika"
+    if market.get("price_history_daily"):
+        out["price_history_daily"] = market.get("price_history_daily")
+        out["price_history_source"] = market.get("price_history_source") or "coinpaprika"
+    try:
+        from defillama_public_api import fetch_defi_context_for_asset
+
+        defi = await fetch_defi_context_for_asset(asset)
+        if defi.get("fetched_ok"):
+            out["defi_context"] = {
+                "source": defi.get("source"),
+                "attribution": defi.get("attribution"),
+                "total_defi_tvl_usd": defi.get("total_defi_tvl_usd"),
+                "chain": defi.get("chain"),
+                "chain_tvl_usd": defi.get("chain_tvl_usd"),
+                "top_chains": (defi.get("top_chains") or [])[:3],
+                "fees_leaders_24h": (defi.get("fees_leaders_24h") or [])[:3],
+                "top_yields": (defi.get("top_yields") or [])[:3],
+            }
+    except Exception:
+        pass
+    try:
+        from fred_public_api import fetch_macro_context
+
+        macro = await fetch_macro_context()
+        if macro.get("fetched_ok"):
+            out["fred_macro_context"] = {
+                "source": macro.get("source"),
+                "attribution": macro.get("attribution"),
+                "indicators": macro.get("indicators"),
+            }
+    except Exception:
+        pass
+    if asset.upper() == "BTC":
+        try:
+            from mempool_public_api import fetch_btc_mempool_context
+
+            btc_fees = await fetch_btc_mempool_context()
+            if btc_fees.get("fetched_ok"):
+                out["btc_mempool_fees"] = {
+                    "source": btc_fees.get("source"),
+                    "attribution": btc_fees.get("attribution"),
+                    "no_api_key": btc_fees.get("no_api_key", True),
+                    "recommended_fees": btc_fees.get("recommended_fees"),
+                    "block_tip_height": btc_fees.get("block_tip_height"),
+                }
+        except Exception:
+            pass
+    try:
+        from blockscout_public_api import usage_stats as blockscout_usage_stats
+
+        bs = blockscout_usage_stats()
+        out["blockscout_onchain"] = {
+            "api_key_configured": bs.get("api_key_configured"),
+            "gateway": bs.get("gateway"),
+            "daily_limit": bs.get("daily_limit"),
+            "calls_today": bs.get("calls_today"),
+            "remaining_today": bs.get("remaining_today"),
+            "portal_credits_remaining": bs.get("portal_credits_remaining"),
+            "chains": bs.get("chains"),
+            "attribution": "Multi-chain explorer fallback after Etherscan",
+            "public_usage_route": "/api/public/onchain/blockscout/usage",
+            "public_address_route": "/api/public/onchain/blockscout/address",
+        }
+    except Exception:
+        pass
+    try:
+        from thegraph_public_api import usage_stats as thegraph_usage_stats
+
+        tg = thegraph_usage_stats()
+        out["the_graph_onchain"] = {
+            "configured": tg.get("configured"),
+            "plan": tg.get("plan"),
+            "monthly_limit": tg.get("monthly_limit"),
+            "queries_this_month": tg.get("queries_this_month"),
+            "remaining_this_month": tg.get("remaining_this_month"),
+            "rps_limit": tg.get("rps_limit"),
+            "chains": tg.get("chains"),
+            "attribution": "Indexed on-chain (Uniswap V3) via The Graph when enriching addresses",
+            "public_usage_route": "/api/public/onchain/thegraph/usage",
+            "public_address_route": "/api/public/onchain/thegraph/address",
+        }
+    except Exception:
+        pass
+    try:
+        from central_data_mesh import attach_mesh_to_oracle_payload
+
+        await attach_mesh_to_oracle_payload(out, asset)
+    except Exception:
+        pass
+    return out
 
 
 def _quick_ws_market(row: dict | None) -> dict | None:
@@ -2995,16 +3674,50 @@ def _quick_ws_market(row: dict | None) -> dict | None:
 
 def _quick_price_source_label(market: dict[str, Any]) -> str:
     src = str(market.get("source") or "").strip()
+    if market.get("price_blend") == "binance_ws_mid":
+        return "binance_ws"
     if src == "websocket_live":
-        return "Binance WebSocket top-of-book"
+        return "binance_ws"
+    if src.startswith("binance_rest:") or src.startswith("binance:"):
+        return "binance_rest"
+    if src == "coinmarketcap":
+        return "coinmarketcap"
+    if src.startswith("coinbase"):
+        return "coinbase"
+    if src.startswith("kraken"):
+        return "kraken"
+    if src == "coinpaprika":
+        return "coinpaprika"
     if src:
         return src
-    return "Binance spot REST"
+    return "binance_rest"
+
+
+def _localized_price_source(source: str, lang: str) -> str:
+    from i18n_service import t
+
+    raw = (source or "").strip()
+    low = raw.lower()
+    if raw in {"binance_ws", "websocket_live"} or "websocket" in low:
+        return t("oracle.source.binance_ws", lang)
+    if raw in {"binance_rest"} or ("rest" in low and "binance" in low):
+        return t("oracle.source.binance_rest", lang)
+    if raw in {"Binance spot", "binance spot"}:
+        return t("oracle.source.binance_spot", lang)
+    if raw == "coinbase" or "coinbase" in low:
+        return t("oracle.source.coinbase", lang)
+    if raw == "kraken" or "kraken" in low:
+        return t("oracle.source.kraken", lang)
+    return t("oracle.source.binance_spot", lang)
 
 
 def _attach_quick_real_factors(payload: dict[str, Any]) -> None:
     """Top-3 factors from quick compute fields only (price / 24h change / volume)."""
-    source = str(payload.get("price_source") or "Binance spot").strip() or "Binance spot"
+    from i18n_service import t
+
+    lang = str(payload.get("lang") or "en")
+    source_key = str(payload.get("price_source") or "binance_rest").strip() or "binance_rest"
+    source = _localized_price_source(source_key, lang)
     factors: list[dict[str, str]] = []
 
     price = payload.get("price")
@@ -3014,7 +3727,8 @@ def _attach_quick_real_factors(payload: dict[str, Any]) -> None:
             if p > 0:
                 factors.append(
                     {
-                        "factor": "Spot reference price",
+                        "factor_key": "oracle.factor.spot_reference_price",
+                        "factor": t("oracle.factor.spot_reference_price", lang),
                         "detail": f"${p:,.2f}",
                         "source": source,
                     }
@@ -3028,7 +3742,8 @@ def _attach_quick_real_factors(payload: dict[str, Any]) -> None:
             c = float(change)
             factors.append(
                 {
-                    "factor": "24h price change",
+                    "factor_key": "oracle.factor.change_24h",
+                    "factor": t("oracle.factor.change_24h", lang),
                     "detail": f"{c:+.2f}%",
                     "source": source,
                 }
@@ -3043,7 +3758,8 @@ def _attach_quick_real_factors(payload: dict[str, Any]) -> None:
             if qv > 0:
                 factors.append(
                     {
-                        "factor": "24h quote volume",
+                        "factor_key": "oracle.factor.quote_volume_24h",
+                        "factor": t("oracle.factor.quote_volume_24h", lang),
                         "detail": f"${qv:,.0f}",
                         "source": source,
                     }
@@ -3221,11 +3937,11 @@ def _attach_quick_certificate(payload: dict) -> None:
         if 45 <= score_i <= 55 and not payload.get("idk_token"):
             payload["idk_token"] = "I_DONT_KNOW"
             payload["idk_reason"] = "opportunity_score_dead_zone"
-            if str(payload.get("decision_action") or "").upper() in {"WAIT", "HOLD", ""}:
-                payload["decision_action"] = "I_DONT_KNOW"
+            if str(payload.get("decision_action") or "").upper() in {"WAIT", "HOLD", "", "I_DONT_KNOW"}:
+                sym = str(payload.get("symbol") or "asset").strip().upper()
+                payload["decision_action"] = "WAIT"
                 payload["decision_sentence"] = (
-                    f"I DON'T KNOW on {payload.get('symbol') or 'asset'} — "
-                    f"score {score_i} is inside the dead-zone; no certified edge."
+                    f"WAIT on {sym} — score {score_i}. No clear edge."
                 )
                 payload["oracle"] = payload["decision_sentence"]
         cert = build_decision_certificate(payload)
@@ -3260,15 +3976,18 @@ def _attach_quick_freshness(payload: dict, asset: str) -> dict:
 @app.get("/oracle/{symbol}/quick", responses=COMMON_ERROR_RESPONSES)
 async def oracle_quick(
     symbol: str,
+    request: Request,
     background_tasks: BackgroundTasks,
-    lang: str = "en",
+    lang: str | None = None,
     ux_mode: str = "beginner",
 ) -> JSONResponse:
     """Instant verdict + ACTION line — viral-hardened (cache + semaphore)."""
     import time
 
+    from i18n_service import resolved_api_lang
     from viral_capacity import quick_cache_get, quick_cache_set, run_oracle_bounded
 
+    lang = resolved_api_lang(request, lang)
     t0 = time.perf_counter()
     asset, pair = _normalize_oracle_symbol(symbol)
     cached = quick_cache_get(asset, lang, ux_mode)
@@ -3532,11 +4251,25 @@ def _attach_oracle_scenarios_safe(payload: dict[str, Any]) -> None:
         logger.debug("Oracle scenarios attach failed", exc_info=True)
 
 
+def _localize_oqs_why_grasp(payload: dict[str, Any]) -> None:
+    from i18n_service import t
+
+    lang = str(payload.get("lang") or "en")
+    why = payload.get("oqs_why")
+    if not isinstance(why, dict):
+        return
+    factors = why.get("top_3_factors") or []
+    why["grasp_line"] = (
+        t("ui.why_top3", lang) if factors else t("ui.why_unavailable", lang)
+    )
+
+
 def _attach_oqs_why_safe(payload: dict[str, Any]) -> None:
     try:
         from heroes_quality import build_oqs_why_block
 
         payload["oqs_why"] = build_oqs_why_block(payload)
+        _localize_oqs_why_grasp(payload)
         _copy_oqs_factors_to_explanation(payload)
     except Exception:
         logger.debug("OQS why block attach failed", exc_info=True)
@@ -3644,8 +4377,11 @@ async def oracle(
     background_tasks: BackgroundTasks,
     user: dict | None = Depends(optional_user),
     ux_mode: str = "beginner",
-    lang: str = "en",
+    lang: str | None = None,
 ):
+    from i18n_service import resolved_api_lang
+
+    lang = resolved_api_lang(request, lang)
     reserved = _reserved_oracle_response(symbol, request)
     if reserved is not None:
         return reserved
@@ -4102,6 +4838,25 @@ async def ingestion_run_once(_admin: dict = Depends(require_admin)):
 async def oracle_accuracy_page(request: Request):
     # Public ledger must stay visible without an ack wall (hits + misses).
     return render_page(request, "oracle_accuracy.html", _footer_ctx())
+
+
+@app.get("/miss-bounty-log", response_class=HTMLResponse)
+async def miss_bounty_log_page(request: Request):
+    return render_page(request, "miss_bounty_log.html", _footer_ctx())
+
+
+@app.get("/sealed-markets", response_class=HTMLResponse)
+async def sealed_markets_page(request: Request):
+    return render_page(request, "sealed_markets.html", _footer_ctx())
+
+
+@app.get("/oracle-decision/{prediction_id}", response_class=HTMLResponse)
+async def oracle_decision_market_page(request: Request, prediction_id: int):
+    return render_page(
+        request,
+        "oracle_decision_market.html",
+        {**_footer_ctx(), "prediction_id": prediction_id},
+    )
 
 
 @app.get("/lenses", response_class=HTMLResponse)
@@ -5267,6 +6022,17 @@ async def health():
     }
 
 
+def _build_release_label() -> str:
+    build_file = BASE_DIR / "BUILD.txt"
+    try:
+        for line in build_file.read_text(encoding="utf-8").splitlines():
+            if line.strip().startswith("RELEASE="):
+                return line.split("=", 1)[1].strip()
+    except OSError:
+        pass
+    return "unknown"
+
+
 @app.get("/api/build-info", responses=COMMON_ERROR_RESPONSES)
 async def build_info():
     """Verify which commit Railway is actually running."""
@@ -5282,9 +6048,11 @@ async def build_info():
         logger.warning("cap646 router import failed detail=%s", sanitize_log_value(exc))
         cap646_import_error = "cap646_import_unavailable"
         cap646_routes = 0
+    schema_paths = set(app.openapi().get("paths") or {})
+    owner_admin_registered = "/admin" in schema_paths and "/api/admin/owner-metrics" in schema_paths
     return {
         "ui_language": "en",
-        "release": "2026-07-27-launch-phase-v8",
+        "release": _build_release_label(),
         "git_commit": os.getenv("RAILWAY_GIT_COMMIT_SHA") or os.getenv("GIT_COMMIT"),
         "git_branch": os.getenv("RAILWAY_GIT_BRANCH"),
         "git_message": os.getenv("RAILWAY_GIT_COMMIT_MESSAGE"),
@@ -5295,9 +6063,12 @@ async def build_info():
         "cap646_router_import_ok": cap646_import_ok,
         "cap646_router_routes": cap646_routes,
         "cap646_import_error": cap646_import_error,
+        "owner_admin_registered": owner_admin_registered,
+        "owner_admin_paths": [p for p in ("/admin", "/api/admin/owner-metrics") if p in schema_paths],
     }
 
 @app.post("/portfolio/analyze", responses=COMMON_ERROR_RESPONSES)
+@app.post("/api/portfolio/analyze", responses=COMMON_ERROR_RESPONSES)
 async def portfolio_analyze(
     request: Request,
     payload: list | dict = Body(...),
@@ -5323,8 +6094,8 @@ async def portfolio_analyze(
 
 @app.get("/join-waitlist", response_class=HTMLResponse)
 async def join_waitlist_page(request: Request):
-    """Visitor waitlist lives on the homepage — never a bare POST endpoint."""
-    return RedirectResponse(url="/#waitlist", status_code=302)
+    """Dedicated waitlist surface (stable CLS) — POST still hits /join-waitlist JSON API."""
+    return render_page(request, "join_waitlist.html")
 
 
 @app.get("/trust", response_class=HTMLResponse)
@@ -5344,7 +6115,10 @@ async def join_waitlist(data: dict, background_tasks: BackgroundTasks):
 
     result = await insert_waitlist_signup(email, name)
     if result.get("duplicate"):
-        raise HTTPException(status_code=409, detail="Email already registered")
+        raise HTTPException(
+            status_code=409,
+            detail="This email is already on the waitlist.",
+        )
 
     position = result.get("position", 0)
     background_tasks.add_task(

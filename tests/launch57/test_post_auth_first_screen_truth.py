@@ -18,10 +18,10 @@ def _read(path: Path) -> str:
     return path.read_text(encoding="utf-8")
 
 
-def test_post_auth_default_destination_is_dashboard():
+def test_post_auth_default_destination_is_home():
     login = _read(LOGIN)
     assert "function resolvePostAuthUrl" in login
-    assert "return '/dashboard';" in login
+    assert "return '/';" in login
 
 
 def test_dashboard_boot_calls_launch57_command_home():

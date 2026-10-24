@@ -135,6 +135,16 @@ def main() -> int:
 
     for path, meta in sorted(discovered.items()):
         test_path = path.split("#")[0]
+        src_page = meta.get("source") or ""
+        if test_path.startswith("/api/") and (
+            src_page == "/docs"
+            or src_page.endswith("/json-api")
+            or src_page.endswith("json-api")
+        ):
+            continue
+        # OAuth start is a 302 redirect to the provider — not an HTML page to crawl.
+        if test_path.startswith("/api/auth/oauth/"):
+            continue
         status, ct, body = follow_to_html(client, test_path)
         ok, reason = is_allowed(status, ct, body)
         row = {

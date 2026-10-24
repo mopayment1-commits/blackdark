@@ -40,6 +40,32 @@ def raw_bearer_or_cookie(
     return None
 
 
+def require_paid_plan():
+    """Paid individual+ plans (Pro and above)."""
+
+    def _dependency(user: Annotated[dict | None, Depends(optional_user)]) -> dict:
+        from billing.plan_registry import PLAN_RANK, normalize_plan
+
+        if not user:
+            raise HTTPException(
+                status_code=401,
+                detail="Sign in required to view arbitrage opportunities.",
+            )
+        tier = normalize_plan(str(user.get("tier") or "free"))
+        if PLAN_RANK.get(tier, 0) < PLAN_RANK["pro"]:
+            raise HTTPException(
+                status_code=403,
+                detail={
+                    "error": "upgrade_required",
+                    "message": "Paid plan required for arb opportunity display.",
+                    "upgrade_url": "/create-checkout-session?tier=pro",
+                },
+            )
+        return user
+
+    return _dependency
+
+
 def require_feature(feature: str):
     def _dependency(user: Annotated[dict | None, Depends(optional_user)]) -> dict | None:
         from auth_service import feature_allowed

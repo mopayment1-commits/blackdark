@@ -374,8 +374,11 @@ async def validate_oauth_state_async(provider: str, state: str | None) -> None:
 
     if not state:
         raise ValueError("Missing OAuth state")
-    if _verify_signed_oauth_state(provider, state):
-        return
+    token = state.strip()
+    if token.startswith(_OAUTH_STATE_PREFIX):
+        if _verify_signed_oauth_state(provider, token):
+            return
+        raise ValueError("Invalid or expired OAuth state")
     ok = await consume_oauth_state(provider=provider, state=state)
     if not ok:
         raise ValueError("Invalid or expired OAuth state")

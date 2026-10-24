@@ -66,6 +66,38 @@ def _bootstrap_signed_capacity(_bootstrap_test_secrets):
     yield
 
 
+@pytest.fixture(autouse=True)
+def _csrf_token_on_auth_posts(monkeypatch):
+    """Attach bd_csrf synchronizer token to browser-style /api/auth POSTs in tests."""
+    from starlette.testclient import TestClient
+
+    original_request = TestClient.request
+    globals()["_testclient_request_original"] = original_request
+
+    def request(self, method, url, **kwargs):
+        method_u = str(method).upper()
+        raw = str(url)
+        if "://" in raw:
+            from urllib.parse import urlparse
+
+            path = urlparse(raw).path or "/"
+        else:
+            path = raw.split("?")[0]
+        if method_u == "POST" and (path.startswith("/api/auth") or path == "/login"):
+            headers = dict(kwargs.get("headers") or {})
+            if not headers.get("X-CSRF-Token") and not headers.get("x-csrf-token"):
+                if not self.cookies.get("bd_csrf"):
+                    self.get("/login", headers={"Accept": "text/html"})
+                token = self.cookies.get("bd_csrf")
+                if token:
+                    headers["X-CSRF-Token"] = token
+                    kwargs["headers"] = headers
+        return original_request(self, method, url, **kwargs)
+
+    monkeypatch.setattr(TestClient, "request", request)
+    yield
+
+
 @pytest.fixture(scope="session", autouse=True)
 def _bootstrap_database_schema():
     """Ensure SQLite schema exists before HTTP/API tests in CI (fresh runners)."""

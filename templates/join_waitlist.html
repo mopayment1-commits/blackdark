@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="{{ lang|default('en') }}" dir="{{ dir|default('ltr') }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ t('waitlist.page.title') }} · BLACKDARK</title>
+    {% include "partials/seo_canonical.html" %}
+    <link rel="stylesheet" href="/static/css/trust-os.css">
+    <style>
+        :root { --bg:#0a0a0f; --fg:#e4e4e7; --muted:#71717a; --line:#2a2a35; --accent:#22d3ee; --ok:#22c55e; --bad:#ef4444; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: var(--bd-font-body); background: var(--bg); color: var(--fg); min-height: 100vh; }
+        main { max-width: 520px; margin: 0 auto; padding: 3rem 1.25rem; text-align: center; }
+        h1 { font-family: var(--bd-font-display); font-size: clamp(1.6rem, 4vw, 2rem); margin-bottom: .75rem; }
+        p { color: var(--muted); line-height: 1.6; margin-bottom: 1.25rem; }
+        form { display: flex; flex-direction: column; gap: .75rem; margin-top: 1rem; }
+        input { padding: .75rem 1rem; border-radius: 10px; border: 1px solid var(--line); background: #111118; color: var(--fg); font: inherit; }
+        button { padding: .75rem 1rem; border-radius: 10px; border: none; background: var(--accent); color: #0a0a0f; font-weight: 700; cursor: pointer; }
+        #waitlistMessage { min-height: 1.5rem; margin-top: .5rem; font-size: .9rem; }
+        a { color: var(--accent); }
+        .join-top { max-width: 520px; margin: 0 auto; padding: 1rem 1.25rem 0; display: flex; justify-content: flex-end; }
+    </style>
+</head>
+<body>
+    <div class="join-top">{% include 'partials/lang_switcher.html' %}</div>
+    <main>
+        <h1>{{ t('waitlist.page.h1') }}</h1>
+        <p>{{ t('waitlist.page.body') }}</p>
+        <form id="waitlistForm">
+            <input type="email" id="waitlistEmail" placeholder="{{ t('waitlist.email_placeholder') }}" required autocomplete="email" aria-label="{{ t('waitlist.email_aria') }}">
+            <button type="submit">{{ t('waitlist.page.submit') }}</button>
+        </form>
+        <p id="waitlistMessage" aria-live="polite"></p>
+        <p style="margin-top:2rem;font-size:.85rem"><a href="/">{{ t('waitlist.page.back') }}</a></p>
+    </main>
+    <script src="/static/js/bd_i18n.js" defer></script>
+    <script>
+        function i18nT(key, vars) {
+            const i18n = window.BD_I18N;
+            if (!i18n || typeof i18n.t !== 'function') return '';
+            return i18n.t(key, vars);
+        }
+        document.getElementById('waitlistForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const msg = document.getElementById('waitlistMessage');
+            const email = document.getElementById('waitlistEmail').value.trim();
+            msg.textContent = i18nT('waitlist.msg.submitting');
+            msg.style.color = 'var(--muted)';
+            try {
+                const res = await fetch('/join-waitlist', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email }),
+                });
+                const data = await res.json().catch(() => ({}));
+                if (!res.ok) {
+                    msg.textContent = data.detail || data.message || i18nT('waitlist.msg.error');
+                    msg.style.color = 'var(--bad)';
+                    return;
+                }
+                msg.textContent = data.message || i18nT('waitlist.msg.welcome', { position: data.position });
+                msg.style.color = 'var(--ok)';
+                document.getElementById('waitlistEmail').value = '';
+            } catch (err) {
+                msg.textContent = i18nT('waitlist.msg.network');
+                msg.style.color = 'var(--bad)';
+            }
+        });
+    </script>
+</body>
+</html>

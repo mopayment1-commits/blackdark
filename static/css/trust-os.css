@@ -396,3 +396,44 @@ html[dir="rtl"] .tier {
   margin-right: 0;
   margin-left: 0.5rem;
 }
+
+/* iOS / Android safe areas (notch, home indicator) */
+@supports (padding: env(safe-area-inset-top)) {
+  body {
+    padding-left: env(safe-area-inset-left, 0);
+    padding-right: env(safe-area-inset-right, 0);
+    padding-top: env(safe-area-inset-top, 0);
+  }
+}
+
+/* ——— Global responsive baseline (desktop + Android + iOS) ——— */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+body {
+  min-height: 100dvh;
+  overflow-x: clip;
+}
+img,
+video,
+svg {
+  max-width: 100%;
+  height: auto;
+}
+@media (max-width: 768px) {
+  .btn,
+  .btn-primary,
+  .btn-secondary,
+  .btn-seal,
+  button,
+  a.btn {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  input,
+  select,
+  textarea {
+    font-size: 16px; /* prevents iOS zoom-on-focus */
+  }
+}

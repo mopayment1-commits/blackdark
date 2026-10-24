@@ -2,7 +2,7 @@
 <html lang="{{ lang|default('en') }}" dir="{{ dir|default('ltr') }}">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>{{ t('pricing.public.title') if t is defined else page_title }}</title>
     <style>
         :root { --bg:#0a0a0f; --fg:#e4e4e7; --muted:#71717a; --line:#2a2a35; --accent:#22d3ee; --success:#22c55e; }
@@ -42,6 +42,7 @@
     {% include 'partials/site_top_nav.html' %}
     <main id="main">
         <h1>{{ t('pricing.public.headline') if t is defined else headline }}</h1>
+        {# tiers + compare built from site_pricing_tiers.py via public_pricing_page_context #}
         <p class="sub">{{ t('pricing.public.subhead') if t is defined else subhead }}</p>
 
         <div class="grid" aria-label="Pricing plans">
@@ -68,17 +69,16 @@
             <thead>
                 <tr>
                     <th scope="col">{{ t('pricing.public.capability') if t is defined else 'Capability' }}</th>
-                    <th scope="col">{{ t('pricing.public.col.free') if t is defined else 'Free' }}</th>
-                    <th scope="col">{{ t('pricing.public.col.plus') if t is defined else 'Plus' }}</th>
-                    <th scope="col">{{ t('pricing.public.col.pro') if t is defined else 'Pro' }}</th>
-                    <th scope="col">{{ t('pricing.public.col.enterprise') if t is defined else 'Enterprise' }}</th>
+                    {% for col in compare_columns|default(['free','beginner','pro','desk','institution']) %}
+                    <th scope="col">{{ column_labels[col] if column_labels is defined else col }}</th>
+                    {% endfor %}
                 </tr>
             </thead>
             <tbody>
                 {% for row in compare_rows %}
                 <tr>
                     <th scope="row">{{ row.feature }}</th>
-                    {% for key in ['free','plus','pro','enterprise'] %}
+                    {% for key in compare_columns|default(['free','beginner','pro','desk','institution']) %}
                     <td class="{{ 'yes' if row[key] else 'no' }}">{{ '✓' if row[key] else '—' }}</td>
                     {% endfor %}
                 </tr>
@@ -86,9 +86,9 @@
             </tbody>
         </table>
 
-        <section id="enterprise" aria-label="{{ t('pricing.public.enterprise_title') if t is defined else 'Companies and funds' }}">
-            <h2>{{ t('pricing.public.enterprise_title') if t is defined else 'For companies and funds' }}</h2>
-            <p class="sub" style="margin-bottom:0">{{ t('pricing.public.enterprise_lead') if t is defined else subhead }}</p>
+        <section id="institution" aria-label="{{ t('pricing.public.institution_title') if t is defined else 'Institution' }}">
+            <h2>{{ t('pricing.public.institution_title') if t is defined else 'Institution' }}</h2>
+            <p class="sub" style="margin-bottom:0">{{ t('pricing.public.institution_lead') if t is defined else (t('pricing.public.enterprise_lead') if t is defined else subhead) }}</p>
             <form id="institutionalInquiryForm">
                 <label for="instEmail">{{ t('pricing.public.work_email') if t is defined else 'Work email' }}</label>
                 <input id="instEmail" required type="email" name="email" placeholder="work@fund.com">

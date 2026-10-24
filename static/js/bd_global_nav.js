@@ -44,10 +44,10 @@
         }
         if (location.pathname === "/dashboard" && (key === "prove" || key === "operate" || key === "desk")) {
           event.preventDefault();
-          if (location.pathname + location.search !== target) {
-            location.assign(target);
-          } else if (typeof window.applyLens === "function") {
+          if (typeof window.applyLens === "function") {
             window.applyLens(key, { persist: true, scroll: true });
+          } else {
+            location.assign(target);
           }
         }
       });

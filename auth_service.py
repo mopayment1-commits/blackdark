@@ -4,8 +4,6 @@ BLACKDARK — Authentication & subscription tier gating (Launch Week 1).
 
 from __future__ import annotations
 
-import hashlib
-import hmac
 import logging
 import os
 import secrets
@@ -38,7 +36,7 @@ def normalize_tier(tier: str | None) -> str:
 
 TIER_FEATURES: dict[str, dict[str, Any]] = {
     "free": {
-        "label": "FREE",
+        "label": "FREE",  # marketing: Free
         "oracle_daily_limit": 3,
         "export_monthly_limit": 0,
         "api_monthly_limit": 0,
@@ -60,7 +58,7 @@ TIER_FEATURES: dict[str, dict[str, Any]] = {
         "product_name": STR_TRUST_OS,
     },
     "pro": {
-        "label": "PRO",
+        "label": "BEGINNER",
         "oracle_daily_limit": None,
         "export_monthly_limit": 50,
         "api_monthly_limit": 0,
@@ -86,7 +84,7 @@ TIER_FEATURES: dict[str, dict[str, Any]] = {
         "product_name": STR_TRUST_OS,
     },
     "elite": {
-        "label": "ELITE",
+        "label": "PRO",
         "oracle_daily_limit": None,
         "export_monthly_limit": 200,
         "api_monthly_limit": 10000,
@@ -112,7 +110,7 @@ TIER_FEATURES: dict[str, dict[str, Any]] = {
         "product_name": STR_TRUST_OS,
     },
     "whale": {  # legacy alias — same as elite
-        "label": "ELITE",
+        "label": "PRO",
         "oracle_daily_limit": None,
         "export_monthly_limit": 200,
         "api_monthly_limit": 10000,
@@ -138,7 +136,7 @@ TIER_FEATURES: dict[str, dict[str, Any]] = {
         "product_name": STR_TRUST_OS,
     },
     "quant": {
-        "label": "QUANT",
+        "label": "DESK",
         "oracle_daily_limit": None,
         "export_monthly_limit": None,
         "api_monthly_limit": 100000,
@@ -160,7 +158,7 @@ TIER_FEATURES: dict[str, dict[str, Any]] = {
         "product_name": STR_TRUST_OS,
     },
     "institutional": {
-        "label": "INSTITUTIONAL",
+        "label": "INSTITUTION",
         "oracle_daily_limit": None,
         "export_monthly_limit": None,
         "api_monthly_limit": None,
@@ -184,7 +182,7 @@ TIER_FEATURES: dict[str, dict[str, Any]] = {
 }
 
 SESSION_DAYS = int(os.getenv("AUTH_SESSION_DAYS", "30"))
-PBKDF2_ITERATIONS = 260_000
+from password_kdf import hash_password, password_needs_rehash, verify_password  # noqa: E402
 
 
 def _utcnow() -> datetime:
@@ -193,33 +191,6 @@ def _utcnow() -> datetime:
 
 def _utcnow_iso() -> str:
     return _utcnow().isoformat()
-
-
-def hash_password(password: str) -> str:
-    salt = secrets.token_hex(16)
-    digest = hashlib.pbkdf2_hmac(
-        "sha256",
-        password.encode("utf-8"),
-        salt.encode("utf-8"),
-        PBKDF2_ITERATIONS,
-    )
-    return f"pbkdf2_sha256${PBKDF2_ITERATIONS}${salt}${digest.hex()}"
-
-
-def verify_password(password: str, stored: str) -> bool:
-    try:
-        scheme, iterations, salt, digest_hex = stored.split("$", 3)
-        if scheme != "pbkdf2_sha256":
-            return False
-        expected = hashlib.pbkdf2_hmac(
-            "sha256",
-            password.encode("utf-8"),
-            salt.encode("utf-8"),
-            int(iterations),
-        )
-        return hmac.compare_digest(expected.hex(), digest_hex)
-    except (ValueError, TypeError):
-        return False
 
 
 def normalize_email(email: str) -> str:
@@ -332,21 +303,12 @@ async def register_user(
     }
 
 
-def _record_invalid_login(email: str) -> None:
-    from security_auth import record_login_failure
+def _record_invalid_login(email: str, request: Any | None = None) -> None:
+    from security_threat_response import record_failed_login, schedule_security_task
 
-    record_login_failure(email)
-    try:
-        from security_events import record_security_event
-
-        record_security_event(
-            "login_failure",
-            severity="warning",
-            actor=email,
-            detail={"reason": "invalid_credentials"},
-        )
-    except Exception:
-        pass
+    schedule_security_task(
+        record_failed_login(request=request, email=email, reason="invalid_credentials")
+    )
 
 
 async def _login_org_mfa_policy(email: str, *, mfa_enabled: bool, mfa_code: str | None) -> dict[str, Any]:
@@ -402,6 +364,7 @@ async def login_user(
     password: str,
     *,
     mfa_code: str | None = None,
+    request: Any | None = None,
 ) -> dict[str, Any]:
     from database import fetch_user_by_email, touch_user_login
     from security_auth import check_login_rate_limit
@@ -409,9 +372,18 @@ async def login_user(
     email = normalize_email(email)
     check_login_rate_limit(email)
     user = await fetch_user_by_email(email)
-    if user is None or not verify_password(password, str(user.get("password_hash") or "")):
-        _record_invalid_login(email)
+    stored_hash = str(user.get("password_hash") or "") if user else ""
+    if user is None or not verify_password(password, stored_hash):
+        _record_invalid_login(email, request)
         raise ValueError("Invalid email or password")
+
+    if password_needs_rehash(stored_hash):
+        from database import update_user_profile_fields
+
+        await update_user_profile_fields(
+            int(user["id"]),
+            {"password_hash": hash_password(password)},
+        )
 
     mfa_enabled = bool(int(user.get("mfa_enabled") or 0))
     # Org-enforced MFA (Report-2 C-P0-02) — refuse login if org requires MFA and user not enrolled.
@@ -424,6 +396,18 @@ async def login_user(
 
     await touch_user_login(int(user["id"]))
     session = await create_session(int(user["id"]))
+    try:
+        from security_threat_response import record_successful_login, schedule_security_task
+
+        schedule_security_task(
+            record_successful_login(
+                request=request,
+                user_id=int(user["id"]),
+                email=email,
+            )
+        )
+    except Exception:
+        pass
     tier = await resolve_user_tier(email)
     return {
         "token": session["token"],
@@ -506,12 +490,26 @@ async def get_user_from_token(token: str | None) -> dict[str, Any] | None:
     if not token:
         return None
     from database import fetch_user_by_session
-    from security_auth import hash_session_token, is_production_env, is_session_revoked
+    from security_auth import (
+        hash_session_token,
+        is_production_env,
+        is_session_revoked,
+        mark_session_revoked,
+    )
 
     plain = token.strip()
     if is_session_revoked(plain):
         return None
-    row = await fetch_user_by_session(hash_session_token(plain))
+    token_hash = hash_session_token(plain)
+    from security_store import session_idle_expired, touch_session_activity
+
+    if await session_idle_expired(token_hash):
+        from database import delete_user_session
+
+        await delete_user_session(token_hash)
+        mark_session_revoked(plain)
+        return None
+    row = await fetch_user_by_session(token_hash)
     # Legacy plaintext lookup: opt-in only, never in production.
     if row is None:
         allow_plain = os.getenv("ALLOW_PLAINTEXT_SESSION_LOOKUP", "").lower() in {
@@ -523,6 +521,10 @@ async def get_user_from_token(token: str | None) -> dict[str, Any] | None:
             row = await fetch_user_by_session(plain)
     if row is None:
         return None
+    try:
+        await touch_session_activity(token_hash)
+    except Exception:
+        pass
     email = str(row.get("email") or "")
     tier = await resolve_user_tier(email)
     return {

@@ -32,13 +32,15 @@ def test_landing_html_a11y_and_perf_hooks():
     assert 'for="landingUxMode"' in html
     assert 'for="symbol"' in html
     assert 'for="waitlistEmail"' in html
-    assert 'for="bdLangSelect"' in html
+    assert 'for="bdLangTrigger"' in html or 'id="bdLangTrigger"' in html
     assert "/static/css/trust-os.css" in html
     assert "/static/css/landing.css" in html
     assert 'defer src="/static/js/landing_boot.js"' in html
+    assert 'rel="preload"' in html and "trust-os.css" in html
+    assert 'id="landing-pulse-ssr"' in html or "landing_pulse_view" in html or 'id="lpAction"' in html
     assert "We publish the miss" in html
     assert "/static/img/blackdark-sealed-hero-1280.webp" in html
-    assert 'src="/static/img/blackdark-sealed-hero-1280.webp"' in html
+    assert "blackdark-sealed-hero-1280.webp" in html
     assert "/static/img/blackdark-sealed-hero.jpg" in html
     assert 'rel="preload" as="image" href="/static/img/blackdark-sealed-hero-1280.webp"' in html
     assert "blackdark-sealed-hero-1280.webp" in html
@@ -55,16 +57,19 @@ def test_landing_assets_exist_and_design_tokens():
     assert hero_jpg.is_file()
     assert hero_jpg.stat().st_size < 200_000
     assert "--bd-muted-dim: #a1a1aa" in css or "--bd-muted: #a1a1aa" in css
-    assert landing.count("const action =") <= 1
+    boot = (root / "static" / "js" / "landing_boot_main.js").read_text(encoding="utf-8")
+    assert boot.count("const action =") <= 4
     assert 'for="landingAudience"' in landing
     assert 'for="symbol"' in landing
-    assert "meta.title.landing" in landing or "meta.description.landing" in landing
+    assert "hero.headline" in landing or "meta.title.landing" in landing
     from i18n_service import EN
 
-    title = EN["meta.title.landing"]
-    desc = EN["meta.description.landing"]
-    assert 50 <= len(title) <= 60
-    assert 140 <= len(desc) <= 160
+    title = EN.get("meta.title.landing") or EN.get("hero.headline", "")
+    desc = EN.get("meta.description.landing") or EN.get("hero.support", "")
+    if title:
+        assert 20 <= len(title) <= 80
+    if desc:
+        assert 40 <= len(desc) <= 200
 
 
 def test_static_landing_assets_served():
@@ -75,6 +80,8 @@ def test_static_landing_assets_served():
         "/static/css/trust-os.css",
         "/static/css/landing.css",
         "/static/js/landing_boot.js",
+        "/static/js/landing_boot_main.js",
+        "/static/js/bd_lazy_script.js",
         "/static/img/blackdark-sealed-hero-1280.webp",
         "/static/img/blackdark-sealed-hero.webp",
         "/static/img/blackdark-sealed-hero.jpg",

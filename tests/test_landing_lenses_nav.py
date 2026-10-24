@@ -5,6 +5,23 @@ from __future__ import annotations
 from fastapi.testclient import TestClient
 
 
+def test_landing_trust_pulse_chip_row_before_cta_buttons():
+    from dashboard import app
+
+    html = TestClient(app).get("/").text
+    tp = html.split('id="trust-pulse"', 1)[1].split("</section>", 1)[0]
+    proof_pos = tp.find('id="lpProof"')
+    cta_pos = tp.find('class="tp-mini-cta"')
+    open_pos = tp.find("pulse.open_full") if "pulse.open_full" in tp else tp.find("Open full proof")
+    share_pos = tp.find("lpShareBtn")
+    assert proof_pos > 0 and cta_pos > proof_pos
+    assert open_pos > cta_pos and share_pos > cta_pos
+    assert 'href="/oracle-accuracy"' in tp or "Verify on Ledger" in tp
+    assert 'href="/dashboard?lens=desk#my-decisions"' in html
+    assert 'href="/dashboard?lens=desk#watchlist"' in html
+    assert 'data-bd-scroll="watchlist"' in html
+
+
 def test_landing_has_no_feature_division_section():
     from dashboard import app
 

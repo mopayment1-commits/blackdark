@@ -33,11 +33,20 @@ def normalize_top_factors(payload: dict[str, Any] | None) -> list[dict[str, str]
             continue
         if not isinstance(item, dict):
             continue
+        from i18n_service import t
+
+        lang = str((payload or {}).get("lang") or "en")
+        src_raw = str(item.get("source") or "live market")
+        src = (
+            t("oracle.source.live_market", lang)
+            if src_raw in {"live market", "live_market"}
+            else src_raw
+        )
         out.append(
             {
                 "factor": str(item.get("factor") or item.get("label") or item.get("name") or "Factor"),
                 "detail": str(item.get("detail") or item.get("why") or ""),
-                "source": str(item.get("source") or "live market"),
+                "source": src,
                 "weight_hint": str(item.get("weight_hint") or ""),
             }
         )
@@ -55,11 +64,10 @@ def build_oqs_why_block(payload: dict[str, Any]) -> dict[str, Any]:
         if f.get("source"):
             bit += f" ({f['source']})"
         lines.append(bit)
-    grasp = (
-        "Top 3 reasons below — read in under five seconds."
-        if factors
-        else "Factor breakdown unavailable on this response — score still shown."
-    )
+    from i18n_service import t
+
+    lang = str(payload.get("lang") or "en")
+    grasp = t("ui.why_top3", lang) if factors else t("ui.why_unavailable", lang)
     return {
         "hero": "opportunity_score_explainability",
         "acceptance": "why_in_under_5_seconds",

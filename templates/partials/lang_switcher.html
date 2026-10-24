@@ -3,7 +3,9 @@
    Executable JS lives in /static/js/bd_i18n.js (Sonar-analyzable). Boot via JSON. #}
 {% set _locales = locales if locales is defined and locales else [{"code":"en","native":"English"}] %}
 {% set _lang = lang if lang is defined and lang else 'en' %}
+<div class="bd-lang-switcher-root">
 <style>
+@scope (.bd-lang-switcher-root) {
   .bd-lang-wrap {
     position: relative;
     display: inline-flex;
@@ -15,13 +17,16 @@
     background: rgba(10, 10, 15, .72);
     box-shadow: 0 0 0 1px rgba(34, 211, 238, .08);
   }
-  .bd-lang-wrap label {
-    font-size: .68rem;
-    font-weight: 700;
-    letter-spacing: .04em;
-    text-transform: uppercase;
-    color: #22d3ee;
+  .bd-lang-wrap label.bd-lang-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
     white-space: nowrap;
+    border: 0;
   }
   .bd-lang-select {
     background: transparent;
@@ -37,18 +42,19 @@
   }
   .bd-lang-select:focus { outline: 2px solid #22d3ee; outline-offset: 1px; }
   @media (max-width: 768px) {
-    .bd-lang-wrap label { display: none; }
     .bd-lang-select { max-width: 7.5rem; font-size: .75rem; }
     .bd-lang-wrap { padding: .15rem .25rem; }
   }
+}
 </style>
 <div class="bd-lang-wrap" data-i18n-skip title="Choose language / اختر اللغة">
-  <label for="bdLangTrigger">{{ t('lang.label') if t is defined else 'Language' }}</label>
-  <select id="bdLangTrigger" class="bd-lang-select" data-bd-change-call="BD_I18N.setLang" data-bd-pass-value="1">
+  <label for="bdLangTrigger" class="bd-lang-sr-only">{{ t('lang.choose') if t is defined else (t('lang.label') if t is defined else 'Choose language') }}</label>
+  <select id="bdLangTrigger" class="bd-lang-select" name="lang" aria-label="{{ t('lang.choose') if t is defined else 'Choose language' }}" data-bd-change-call="BD_I18N.setLang" data-bd-pass-value="1">
     {% for loc in _locales %}
     <option value="{{ loc.code }}" {% if loc.code == _lang %}selected{% endif %}>{{ loc.native }}</option>
     {% endfor %}
   </select>
 </div>
-<script type="application/json" id="bd-i18n-boot">{"lang": {{ _lang|tojson }}, "catalog": {% if i18n is defined %}{{ i18n|tojson }}{% else %}{}{% endif %}}</script>
+<script type="application/json" id="bd-i18n-boot">{"lang": {{ _lang|tojson }}, "catalog": {% if i18n is defined %}{{ i18n|tojson }}{% else %}{}{% endif %}, "enCatalog": {% if en_i18n is defined and _lang != 'en' %}{{ en_i18n|tojson }}{% else %}{}{% endif %}}</script>
 <script src="/static/js/bd_i18n.js" defer></script>
+</div>

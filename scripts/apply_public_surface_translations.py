@@ -12,8 +12,6 @@ ROOT = Path(__file__).resolve().parent.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-import translators as ts
-
 from i18n_service import (
     EN,
     LOCALES,
@@ -22,23 +20,9 @@ from i18n_service import (
     public_surface_keys,
 )
 from scripts.build_locale_json import TRANSLATE_TARGETS
+from scripts.fill_locale_catalog_gaps import _translate_fast as _translate
 
 LOCALES_DIR = ROOT / "locales"
-
-
-def _translate_ui(text: str, target: str, cache: dict[tuple[str, str], str]) -> str:
-    ck = (target, text)
-    if ck in cache:
-        return cache[ck]
-    out = text
-    for attempt in range(5):
-        try:
-            out = ts.translate_text(text, to_language=target, translator="bing")
-            break
-        except Exception:
-            time.sleep(1.5 * (attempt + 1))
-    cache[ck] = out or text
-    return cache[ck]
 
 
 def main() -> None:
@@ -56,20 +40,28 @@ def main() -> None:
         if not target:
             continue
         path = LOCALES_DIR / f"{code}.json"
-        data = _load_json_catalog(code) or {}
+        data = dict(EN)
+        data.update(_load_json_catalog(code) or {})
         pending = [k for k in keys if _effective_translation(code, k) is None]
         if not pending:
-            print(f"{code}: complete")
+            print(f"{code}: complete", flush=True)
             continue
-        print(f"{code}: {len(pending)} keys", flush=True)
+        print(f"{code}: {len(pending)} public keys", flush=True)
         for i, key in enumerate(pending):
             en_val = EN[key]
-            data[key] = _translate_ui(en_val, target, cache)
-            time.sleep(0.35)
-            if (i + 1) % 25 == 0:
-                print(f"  {i + 1}/{len(pending)}", flush=True)
+            if not en_val.strip():
+                continue
+            data[key] = _translate(en_val, target, cache)
+            time.sleep(0.015)
+            if (i + 1) % 40 == 0:
+                path.write_text(
+                    json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+                )
+                print(f"  {code}: {i + 1}/{len(pending)}", flush=True)
         path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print("done")
+        still = [k for k in keys if _effective_translation(code, k) is None]
+        print(f"{code}: wrote ({len(still)} still missing)", flush=True)
+    print("done", flush=True)
 
 
 if __name__ == "__main__":

@@ -87,6 +87,33 @@ def test_dashboard_prove_lens_upgrade_pro_routes_to_pricing():
     assert "body.lens-prove .section-operate-plus .btn-upgrade-cta" in dash
 
 
+def test_dashboard_lens_prove_vs_operate_section_visibility():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    assert "body.lens-prove .section-operate-plus { display: none !important; }" in dash
+    assert "body.lens-prove .section-habit-depth { display: none !important; }" in dash
+    assert "body.lens-prove .section-prove-legacy { display: none !important; }" in dash
+    assert "body.lens-operate .section-prove-legacy { display: none !important; }" in dash
+    assert "body.lens-operate .section-desk-only { display: none !important; }" in dash
+    assert "body.lens-desk .section-operate-plus { display: none !important; }" in dash
+    assert 'class="lens-{{ initial_lens|default(\'prove\') }}"' in dash
+    assert 'id="radar"' in dash and 'section-operate-plus hide-in-room" id="radar"' in dash
+    assert "section-prove-legacy" in dash.split('id="decide"', 1)[0]
+    nav = (ROOT / "static/js/bd_global_nav.js").read_text(encoding="utf-8")
+    assert "location.assign(target)" not in nav.split("applyLens", 1)[1].split("}", 1)[0]
+
+
+def test_dashboard_lens_query_param_resolved_before_storage():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    block = dash.split("function applyAudienceFromQuery", 1)[1].split("async function loadIntentRouter", 1)[0]
+    assert "ALLOWED_LENSES.has(lens)" in block
+    assert "lensParam" in block
+    assert "syncDashboardLensQuery" in dash
+    assert "window.applyLens = applyLens" in dash
+    scroll = dash.split("function scrollForLens", 1)[1].split("function paintLensChrome", 1)[0]
+    assert "scrollToId('radar')" in scroll
+    assert "scrollToId('trust-pulse')" in scroll
+
+
 def test_dashboard_alerts_refresh_inbox_button_wired():
     dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
     alerts = dash.split('id="alerts"', 1)[1].split("</section>", 1)[0]
@@ -98,13 +125,24 @@ def test_dashboard_alerts_refresh_inbox_button_wired():
     assert "Refreshing inbox" in body
 
 
+def test_dashboard_trust_pulse_why_title_uses_i18n_not_launch57_label():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    assert "Why (Launch-57 oracle" not in dash
+    render = dash.split("function renderTrustPulse", 1)[1].split("function bindTrustPulseLiveStream", 1)[0]
+    assert "tpWhyTitle').textContent = i18nT('dash.tp.why_title')" in render
+
+
 def test_dashboard_operate_lens_shows_trust_pulse_symbol_dropdown():
     dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
     assert "body.lens-operate .tp-symbol-wrap" in dash
+    assert "body.lens-desk .tp-symbol-wrap" in dash
     assert 'id="tpSymbol"' in dash
     handler = dash.split("function onTrustPulseSymbolChange", 1)[1].split("async function loadCommandHome", 1)[0]
     assert "currentLens === 'operate'" in handler
+    assert "currentLens === 'desk'" in handler
     assert "loadCommandHome(true)" in handler
+    assert "window.onTrustPulseSymbolChange = onTrustPulseSymbolChange" in dash
+    assert "const sym = trustPulseSymbolValue()" in dash.split("async function loadCommandHome", 1)[1][:400]
 
 
 def test_dashboard_prove_trust_pulse_symbol_quick_oracle():
@@ -266,6 +304,44 @@ def test_dashboard_portfolio_ai_symbol_is_dropdown():
     assert 'type="text"' not in portfolio.split("pfSym", 1)[1].split("pfAmt", 1)[0]
 
 
+def test_dashboard_hero_brand_uses_accent_color():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    assert 'id="heroBrand">BLACKDARK</h1>' in dash
+    hero_css = dash.split(".hero h1", 1)[1].split("/* Trust Pulse", 1)[0]
+    assert "#heroBrand" in hero_css
+    assert "var(--bd-accent" in hero_css
+
+
+def test_dashboard_inbox_toolbar_wired_and_styled():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    alerts = dash.split('id="alerts"', 1)[1].split("</section>", 1)[0]
+    assert 'id="alertsInboxToolbar"' in alerts
+    assert 'data-bd-call="refreshInbox"' in alerts
+    assert 'data-bd-call="testTelegram"' in alerts
+    assert "window.refreshInbox = refreshInbox" in dash
+    assert "window.testTelegram = testTelegram" in dash
+    assert "#alertsInboxToolbar .btn:not(.secondary)" in dash
+
+
+def test_dashboard_price_alerts_wired_and_styled():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    panel = dash.split('id="priceAlertsPanel"', 1)[1].split("</section>", 1)[0]
+    assert 'data-bd-call="addPriceAlert"' in panel
+    assert 'data-bd-call="checkPriceAlerts"' in panel
+    assert 'id="priceAlertsStatus"' in panel
+    assert "window.addPriceAlert = addPriceAlert" in dash
+    assert "window.checkPriceAlerts = checkPriceAlerts" in dash
+    assert "#priceAlertsPanel .toolbar .btn:not(.secondary)" in dash
+
+
+def test_dashboard_portfolio_handlers_exposed_for_csp_events():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    assert "window.addPortfolioAsset = addPortfolioAsset" in dash
+    assert "window.analyzePortfolio = analyzePortfolio" in dash
+    assert "window.removePortfolioAsset = removePortfolioAsset" in dash
+    assert "/api/portfolio/analyze" in dash
+
+
 def test_dashboard_markdown_on_prove_lens_shows_upgrade_not_raw_api_link():
     dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
     digest = dash.split('id="operate-digest"', 1)[1].split("</section>", 1)[0]
@@ -279,6 +355,19 @@ def test_dashboard_markdown_on_prove_lens_shows_upgrade_not_raw_api_link():
     assert "function openDailyReportMarkdown()" in dash
     assert "operatePlusBlockedOnProveLens()" in dash.split("openDailyReportMarkdown", 1)[1][:800]
     assert "Upgrade to Pro" in dash.split("openDailyReportMarkdown", 1)[1][:800]
+
+
+def test_nav_watchlist_and_decisions_open_desk_workspace():
+    nav = (ROOT / "templates/partials/site_top_nav.html").read_text(encoding="utf-8")
+    assert 'href="/dashboard?lens=desk#watchlist"' in nav
+    assert 'href="/dashboard?lens=desk#my-decisions"' in nav
+    ws = (ROOT / "static/js/bd_oracle_workspace.js").read_text(encoding="utf-8")
+    assert "deskWorkspaceHref" in ws
+    assert "openDeskWorkspaceSection" in ws
+    assert "applyLens('desk'" in ws
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    assert "DESK_WORKSPACE_SECTIONS" in dash
+    assert "refreshDeskWorkspacePanels" in dash
 
 
 def test_header_prove_and_operate_lens_hrefs_distinct():

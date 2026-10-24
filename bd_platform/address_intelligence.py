@@ -129,6 +129,65 @@ async def search_address(address: str, *, chain: str = "ethereum") -> dict[str, 
         arkham = {"ok": False, "data_state": "MISSING"}
 
     total_usd = _extract_total_usd(balance if isinstance(balance, dict) else {})
+    explorer_fallback: dict[str, Any] | None = None
+    chain_l = chain.lower()
+    need_explorer = (
+        chain_l in {"ethereum", "polygon", "arbitrum", "optimism", "base", "bsc"}
+        and addr.startswith("0x")
+        and (
+            not (isinstance(balance, dict) and balance.get("available"))
+            or total_usd <= 0
+        )
+    )
+    if need_explorer:
+        try:
+            if chain_l == "ethereum":
+                from etherscan_public_api import fetch_address_onchain_fallback
+
+                explorer_fallback = await fetch_address_onchain_fallback(
+                    addr,
+                    include_transactions=True,
+                    tx_limit=5,
+                )
+            else:
+                from blockscout_public_api import fetch_explorer_fallback
+
+                explorer_fallback = await fetch_explorer_fallback(
+                    addr,
+                    chain=chain_l,
+                    include_transactions=True,
+                    tx_limit=5,
+                )
+        except Exception:
+            explorer_fallback = None
+        if (
+            chain_l != "ethereum"
+            and (not explorer_fallback or not explorer_fallback.get("ok"))
+        ):
+            try:
+                from blockscout_public_api import fetch_explorer_fallback
+
+                explorer_fallback = await fetch_explorer_fallback(
+                    addr,
+                    chain=chain_l,
+                    include_transactions=True,
+                    tx_limit=5,
+                )
+            except Exception:
+                pass
+        if (
+            (not explorer_fallback or not explorer_fallback.get("ok"))
+            and chain_l in {"ethereum", "polygon", "arbitrum"}
+        ):
+            try:
+                from thegraph_public_api import fetch_address_onchain_enrichment
+
+                tg = await fetch_address_onchain_enrichment(addr, chain=chain_l)
+                if tg.get("ok"):
+                    explorer_fallback = tg
+            except Exception:
+                pass
+
     if total_usd > 0:
         _append_snapshot(addr, chain, total_usd=total_usd, source=balance.get("source", "search"))
 
@@ -153,8 +212,43 @@ async def search_address(address: str, *, chain: str = "ethereum") -> dict[str, 
         "labels": labels,
         "clusters": clusters,
         "arkham_entity": arkham if arkham.get("ok") else None,
-        "sources": ["tracely", "debank", "zerion", "eth-labels", "arkham"],
-        "data_state": "LIVE" if balance.get("available") else "PARTIAL",
+        "explorer_fallback": explorer_fallback if explorer_fallback and explorer_fallback.get("ok") else None,
+        "etherscan_fallback": explorer_fallback
+        if explorer_fallback
+        and explorer_fallback.get("ok")
+        and str(explorer_fallback.get("source", "")).startswith("etherscan")
+        else None,
+        "blockscout_fallback": explorer_fallback
+        if explorer_fallback
+        and explorer_fallback.get("ok")
+        and explorer_fallback.get("source") == "blockscout"
+        else None,
+        "thegraph_fallback": (
+            explorer_fallback.get("thegraph_enrichment")
+            if explorer_fallback
+            and explorer_fallback.get("thegraph_enrichment", {}).get("ok")
+            else (
+                explorer_fallback
+                if explorer_fallback
+                and explorer_fallback.get("ok")
+                and explorer_fallback.get("source") == "the_graph"
+                else None
+            )
+        ),
+        "sources": [
+            "tracely",
+            "debank",
+            "zerion",
+            "eth-labels",
+            "arkham",
+            "etherscan",
+            "blockscout",
+            "the_graph",
+        ],
+        "data_state": "LIVE"
+        if (isinstance(balance, dict) and balance.get("available"))
+        or (explorer_fallback and explorer_fallback.get("ok"))
+        else "PARTIAL",
         "latency_ms": round((time.perf_counter() - t0) * 1000, 1),
         "sla_met": (time.perf_counter() - t0) <= 2.0,
         "timestamp": _utcnow(),

@@ -7,6 +7,7 @@ Honest scope: application-layer hardening. Not a WAF, SOC2 cert, or pentest repo
 from __future__ import annotations
 
 import gzip
+import html as html_module
 import os
 from urllib.parse import urlparse
 
@@ -151,7 +152,7 @@ def _ensure_request_csp_nonce(request: Request) -> str | None:
     return nonce
 
 
-def _inject_html_csp_nonce(html: str, nonce: str) -> str:
+def _inject_html_csp_nonce(html: str, nonce: str, csrf_token: str | None = None) -> str:
     """Attach nonce to <script> and <style> tags; ensure csp_events binder is present."""
     import re
 
@@ -169,6 +170,36 @@ def _inject_html_csp_nonce(html: str, nonce: str) -> str:
 
     out = re.sub(r"<script\b[^>]*>", _add_nonce, html, flags=re.I)
     out = re.sub(r"<style\b[^>]*>", _add_style_nonce, out, flags=re.I)
+    tt_bootstrap = (
+        f'<script nonce="{nonce}">'
+        "(function(){try{if(window.trustedTypes&&trustedTypes.createPolicy"
+        "&&!trustedTypes.defaultPolicy){trustedTypes.createPolicy('default',"
+        "{createHTML:function(s){return s},createScript:function(s){return s},"
+        "createScriptURL:function(s){return s}});}}catch(e){}})();"
+        "</script>"
+    )
+    if csrf_token and 'name="bd-csrf-token"' not in out:
+        esc = html_module.escape(csrf_token, quote=True)
+        csrf_meta = f'<meta name="bd-csrf-token" content="{esc}">'
+        lower_head = out.lower()
+        head_idx = lower_head.find("<head")
+        if head_idx >= 0:
+            head_end = lower_head.find(">", head_idx)
+            if head_end >= 0:
+                insert_at = head_end + 1
+                out = out[:insert_at] + csrf_meta + out[insert_at:]
+            else:
+                out = csrf_meta + out
+        else:
+            out = csrf_meta + out
+    if "trustedTypes.createPolicy" not in out:
+        lower_head = out.lower()
+        head_end = lower_head.find(">", lower_head.find("<head"))
+        if head_end >= 0:
+            insert_at = head_end + 1
+            out = out[:insert_at] + tt_bootstrap + out[insert_at:]
+        else:
+            out = tt_bootstrap + out
     binder = f'<script defer nonce="{nonce}" src="/static/js/csp_events.js"></script>'
     if "csp_events.js" not in out:
         lower = out.lower()
@@ -244,7 +275,11 @@ def _rebuild_html_response(response: Response, content: bytes, *, gzip_out: bool
     )
 
 
-async def _maybe_rewrite_html_with_nonce(response: Response, nonce: str) -> Response:
+async def _maybe_rewrite_html_with_nonce(
+    response: Response,
+    nonce: str,
+    csrf_token: str | None = None,
+) -> Response:
     ct = (response.headers.get("content-type") or "").lower()
     if "text/html" not in ct:
         return response
@@ -257,7 +292,7 @@ async def _maybe_rewrite_html_with_nonce(response: Response, nonce: str) -> Resp
         text = plain.decode("utf-8")
     except Exception:
         return _rebuild_html_response(response, raw, gzip_out=raw.startswith(b"\x1f\x8b"))
-    rewritten = _inject_html_csp_nonce(text, nonce)
+    rewritten = _inject_html_csp_nonce(text, nonce, csrf_token)
     return _rebuild_html_response(response, rewritten.encode("utf-8"), gzip_out=was_gzip)
 
 
@@ -275,8 +310,8 @@ def security_headers_for(request: Request) -> dict[str, str]:
         csp = os.getenv("CONTENT_SECURITY_POLICY", "")
     elif nonce_mode and nonce:
         csp = (
-            "default-src 'self'; "
-            f"script-src 'nonce-{nonce}' 'strict-dynamic' https://accounts.google.com "
+            "default-src 'none'; "
+            f"script-src 'self' 'nonce-{nonce}' 'strict-dynamic' https://accounts.google.com "
             "https://accounts.google.com/gsi/client; "
             f"style-src 'self' 'nonce-{nonce}' https://accounts.google.com/gsi/style; "
             "style-src-attr 'unsafe-inline'; "
@@ -284,13 +319,19 @@ def security_headers_for(request: Request) -> dict[str, str]:
             "font-src 'self' data:; "
             "connect-src 'self' https://accounts.google.com https://accounts.google.com/gsi/; "
             "frame-src 'self' https://accounts.google.com/gsi/; "
+            "worker-src 'self'; "
+            "manifest-src 'self'; "
+            "object-src 'none'; "
             "frame-ancestors 'none'; "
             "base-uri 'self'; "
-            "form-action 'self'"
+            "form-action 'self'; "
+            "require-trusted-types-for 'script'; "
+            "trusted-types default; "
+            "upgrade-insecure-requests"
         )
     else:
         csp = (
-            "default-src 'self'; "
+            "default-src 'none'; "
             "script-src 'self' 'unsafe-inline' https://accounts.google.com "
             "https://accounts.google.com/gsi/client; "
             "style-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/style; "
@@ -299,6 +340,9 @@ def security_headers_for(request: Request) -> dict[str, str]:
             "font-src 'self' data:; "
             "connect-src 'self' https://accounts.google.com https://accounts.google.com/gsi/; "
             "frame-src 'self' https://accounts.google.com/gsi/; "
+            "worker-src 'self'; "
+            "manifest-src 'self'; "
+            "object-src 'none'; "
             "frame-ancestors 'none'; "
             "base-uri 'self'; "
             "form-action 'self'"
@@ -310,11 +354,14 @@ def security_headers_for(request: Request) -> dict[str, str]:
         "Permissions-Policy": "geolocation=(), microphone=(), camera=(), payment=()",
         "Cross-Origin-Opener-Policy": _coop_for_path(_request_url_path(request)),
         "Cross-Origin-Resource-Policy": "same-site",
+        "Cross-Origin-Embedder-Policy": "credentialless",
         "X-XSS-Protection": "0",
         "Content-Security-Policy": csp,
     }
     if _is_production() or (_effective_scheme(request) == "https"):
-        headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
+        headers["Strict-Transport-Security"] = (
+            "max-age=31536000; includeSubDomains; preload"
+        )
     return headers
 
 
@@ -392,9 +439,45 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next) -> Response:
         # Mint CSP nonce early so template render / HTML rewrite can use it.
         nonce = _ensure_request_csp_nonce(request)
+        try:
+            from security_csrf import csrf_token_for_request
+
+            csrf_token_for_request(request)
+        except Exception:
+            pass
 
         # TrustedHost in production — never apply to liveness/readiness probes.
         path = _request_url_path(request)
+
+        try:
+            from security_threat_response import assert_ip_not_blocked, client_ip
+
+            assert_ip_not_blocked(request)
+            ip = client_ip(request)
+            if path.startswith("/api/"):
+                from security_auth import check_api_rate_limit
+
+                check_api_rate_limit(ip)
+            if request.method == "POST" and path in {
+                "/api/auth/login",
+                "/api/auth/register",
+                "/join-waitlist",
+            }:
+                from security_auth import check_login_rate_limit
+
+                check_login_rate_limit(f"ip:{ip}")
+        except Exception as exc:
+            from fastapi import HTTPException
+
+            if isinstance(exc, HTTPException):
+                return apply_security_headers_to_response(
+                    request,
+                    JSONResponse(
+                        exc.detail if isinstance(exc.detail, dict) else {"detail": exc.detail},
+                        status_code=exc.status_code,
+                    ),
+                )
+            raise
         if (
             path not in HEALTH_PROBE_PATHS
             and _is_production()
@@ -418,8 +501,32 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
                     ),
                 )
 
-        # CSRF: cookie present + mutating → require Origin/Referer match
+        # CSRF: synchronizer token + origin check for browser sessions
         if request.method not in SAFE_METHODS:
+            from security_csrf import csrf_required_for_request, csrf_token_from_request, validate_csrf_token
+
+            if csrf_required_for_request(request):
+                token = csrf_token_from_request(request) or request.cookies.get("bd_csrf")
+                cookie = request.cookies.get("bd_token")
+                auth = request.headers.get("authorization") or ""
+                admin_key = request.headers.get("x-admin-key") or ""
+                from security_auth import verify_admin_key
+
+                machine_auth = (auth.startswith("Bearer ") and not cookie) or verify_admin_key(
+                    admin_key
+                )
+                if not validate_csrf_token(token):
+                    if not machine_auth:
+                        return apply_security_headers_to_response(
+                            request,
+                            JSONResponse(
+                                {
+                                    "error": "csrf_rejected",
+                                    "message": "Missing or invalid CSRF token.",
+                                },
+                                status_code=403,
+                            ),
+                        )
             cookie = request.cookies.get("bd_token")
             auth = request.headers.get("authorization") or ""
             if cookie and not auth.startswith("Bearer ") and not _request_origin_ok(request):
@@ -435,8 +542,19 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
                 )
 
         response = await call_next(request)
+        csrf_token = getattr(request.state, "bd_csrf_token", None)
         if nonce:
-            response = await _maybe_rewrite_html_with_nonce(response, nonce)
+            response = await _maybe_rewrite_html_with_nonce(
+                response,
+                nonce,
+                str(csrf_token) if csrf_token else None,
+            )
+        try:
+            from security_csrf import attach_csrf_cookie
+
+            attach_csrf_cookie(response, request)
+        except Exception:
+            pass
         return apply_security_headers_to_response(request, response)
 
 

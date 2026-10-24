@@ -59,6 +59,7 @@ def build_env_block(
         "SERVICE_MODE": prev.get("SERVICE_MODE") or "web",
         "APP_BASE_URL": (prev.get("APP_BASE_URL") or app_base_url).rstrip("/"),
         "SECRETS_MASTER_KEY": prev.get("SECRETS_MASTER_KEY") or _hex(32),
+        "AUDIT_SIGNING_KEY": prev.get("AUDIT_SIGNING_KEY") or _hex(24),
         "SESSION_TOKEN_PEPPER": prev.get("SESSION_TOKEN_PEPPER") or _hex(16),
         "ADMIN_API_KEY": prev.get("ADMIN_API_KEY") or _hex(24),
         "ADMIN_EMAILS": prev.get("ADMIN_EMAILS") or admin_email,

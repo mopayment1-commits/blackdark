@@ -189,6 +189,85 @@ def wants_trust_pulse_context(message: str, symbol: str | None, intent: str) -> 
     return False
 
 
+def _pulse_fields(pulse: dict[str, Any]) -> tuple[str | None, str | None, str]:
+    action = str(pulse.get("action") or "").strip().upper() or None
+    symbol = str(pulse.get("symbol") or "").strip().upper() or None
+    sentence = " ".join(str(pulse.get("sentence") or "").split())
+    return action, symbol, sentence
+
+
+def _visible_trust_pulse_line(pulse: dict[str, Any], *, lang: str) -> str | None:
+    action, symbol, sentence = _pulse_fields(pulse)
+    if not action or not symbol:
+        return None
+    if lang == "ar":
+        line = f"شريط Trust Pulse على هذه الصفحة يعرض {action} على {symbol}."
+        if sentence:
+            line += f" النص الظاهر: «{sentence}»."
+        return line
+    line = f"Trust Pulse on this page shows {action} on {symbol}."
+    if sentence:
+        line += f' The visible line reads: "{sentence}".'
+    return line
+
+
+def _explain_action_on_page(
+    action: str,
+    symbol: str,
+    sentence: str,
+    *,
+    lang: str,
+) -> str:
+    act = action.upper()
+    if lang == "ar":
+        if act == "WAIT":
+            base = (
+                f"انتظار (WAIT) على {symbol} يعني أن الشريط العام لا يطلب تنفيذًا فوريًا (Act) "
+                f"بل يصف الحالة المعروضة أمامك الآن."
+            )
+        elif act == "ACT":
+            base = f"Act على {symbol} يعني أن الشريط يعرض إشارة تنفيذ/مشاركة وفق النص الظاهر، وليس توصية شخصية."
+        else:
+            base = f"الحالة {act} على {symbol} هي ما يعرضه الشريط حاليًا على الصفحة."
+        if sentence:
+            base += f" النص: «{sentence}»."
+        return base
+    if act == "WAIT":
+        base = (
+            f"WAIT on {symbol} means the public strip is not signaling an immediate Act — "
+            f"it describes the score and wording you see on this page, not a personal trade instruction."
+        )
+    elif act == "ACT":
+        base = (
+            f"Act on {symbol} means the strip is showing an action-oriented public read "
+            f"from the on-page model line, not personalized trading advice."
+        )
+    else:
+        base = f"{act} on {symbol} is the state shown in Trust Pulse on this page."
+    if sentence:
+        base += f' It is paired with: "{sentence}".'
+    return base
+
+
+def _ledger_line(ledger: dict[str, Any], lang: str) -> str | None:
+    bits = []
+    for key in ("logged", "resolved", "pending", "accuracy_percent"):
+        if key in ledger and ledger[key] is not None:
+            bits.append(f"{key}={ledger[key]}")
+    if not bits:
+        return None
+    if lang == "ar":
+        return "عدادات السجل العام الظاهرة هنا: " + ", ".join(bits) + "."
+    return "Public ledger counters visible on this page: " + ", ".join(bits) + "."
+
+
+def _seal_line(seal: str, lang: str) -> str:
+    clipped = _clip(str(seal), 48)
+    if lang == "ar":
+        return f"ختم الشهادة الظاهر على الصفحة: {clipped}."
+    return f"Decision certificate seal hash visible on this page: {clipped}."
+
+
 def _format_oracle_line(symbol: str, oracle: dict[str, Any], intent: str) -> str:
     price = oracle.get("price")
     score = oracle.get("opportunity_score") if oracle.get("opportunity_score") is not None else oracle.get("score")
@@ -243,9 +322,14 @@ def reply_site_assistant(
     symbol = resolve_query_symbol(msg, history)
     intent = classify_intent(msg, history, follow)
 
+    pulse_early = ctx.get("trust_pulse") or {}
+    lang = _message_lang(msg)
+
     if is_help_seek(msg):
+        visible = _visible_trust_pulse_line(pulse_early, lang=lang)
+        lead = visible if visible else _clarify_page_help_line(msg)
         return {
-            "reply": f"{_clarify_page_help_line(msg)} Analytical context only — {REFUSAL}",
+            "reply": f"{lead} Analytical context only — {REFUSAL}",
             "refusal": False,
             "turn": {"symbol": None, "intent": "explain", "topic": _clip(msg, 120)},
         }
@@ -257,48 +341,67 @@ def reply_site_assistant(
             "turn": {"symbol": symbol, "intent": intent, "topic": _clip(msg, 120)},
         }
 
-    pulse = ctx.get("trust_pulse") or {}
-    page_sym = (pulse.get("symbol") or ctx.get("pulse_symbol") or "").strip().upper() or None
-    page_action = pulse.get("action") or ctx.get("pulse_action")
-    page_sentence = pulse.get("sentence") or ctx.get("pulse_sentence")
+    pulse = pulse_early if isinstance(pulse_early, dict) else {}
+    page_action, page_sym, page_sentence = _pulse_fields(pulse)
+    if not page_sym:
+        page_sym = (ctx.get("pulse_symbol") or "").strip().upper() or None
+    if not page_action:
+        page_action = str(ctx.get("pulse_action") or "").strip().upper() or None
+    if not page_sentence:
+        page_sentence = " ".join(str(ctx.get("pulse_sentence") or "").split())
 
     parts: list[str] = []
+    show_pulse = wants_trust_pulse_context(msg, symbol, intent)
+    asks_decision = bool(
+        re.search(r"\bwait\b|\bact\b|قرار|انتظار|certificate|cert|seal|ختم|ledger|سجل", msg, re.I)
+    )
+
+    visible_pulse = _visible_trust_pulse_line(pulse, lang=lang) if pulse else None
+
+    if show_pulse and page_sym and symbol and page_sym != symbol:
+        if lang == "ar":
+            parts.append(
+                f"شريط Trust Pulse هنا يعرض {page_action or '—'} على {page_sym} وليس على {symbol}."
+            )
+        else:
+            parts.append(
+                f"Trust Pulse on this page still shows {page_action or '—'} on {page_sym}, not {symbol}."
+            )
+    elif visible_pulse and (show_pulse or asks_decision or intent == "explain"):
+        if intent == "why" and page_action and page_sym:
+            parts.append(_explain_action_on_page(page_action, page_sym, page_sentence, lang=lang))
+        else:
+            parts.append(visible_pulse)
 
     oracle_sym = (oracle_ctx or {}).get("symbol") or (oracle_ctx or {}).get("asset")
-    if oracle_ctx and symbol and str(oracle_sym or symbol).upper() == symbol:
+    oracle_matches = bool(
+        oracle_ctx and symbol and str(oracle_sym or symbol).upper() == symbol
+    )
+    use_oracle_line = oracle_matches and intent == "price"
+    if use_oracle_line:
         parts.append(_format_oracle_line(symbol, oracle_ctx, intent))
-    elif symbol and intent in {"price", "why"}:
+    elif symbol and intent == "price" and not use_oracle_line:
         parts.append(
             f"No live {symbol} oracle snapshot right now — check the oracle block on this page for {symbol}."
         )
-
-    show_pulse = wants_trust_pulse_context(msg, symbol, intent)
-    if show_pulse and page_sym and symbol and page_sym != symbol:
-        parts.append(
-            f"Trust Pulse on this page still shows {page_action or '—'} on {page_sym}, not {symbol}."
-        )
-    elif show_pulse and page_sym and (not symbol or page_sym == symbol):
-        if intent == "why" and page_sentence and not (oracle_ctx and symbol):
-            parts.append(_clip(str(page_sentence), 200))
-        elif page_action and page_sym and not parts:
-            parts.append(f"Trust Pulse shows {page_action} on {page_sym}.")
+    elif oracle_matches and intent == "why" and not parts:
+        parts.append(_format_oracle_line(symbol, oracle_ctx, intent))
 
     ledger = ctx.get("ledger") or {}
     if ledger and re.search(r"ledger|accuracy|سجل", msg, re.I):
-        bits = []
-        for key in ("logged", "resolved", "pending", "accuracy_percent"):
-            if key in ledger and ledger[key] is not None:
-                bits.append(f"{key}={ledger[key]}")
-        if bits:
-            parts.append("Public ledger counters here: " + ", ".join(bits) + ".")
+        line = _ledger_line(ledger, lang)
+        if line:
+            parts.append(line)
 
     seal = ctx.get("seal_hash")
-    if seal and re.search(r"seal|hash|ختم", msg, re.I):
-        parts.append(f"Seal hash visible: {_clip(str(seal), 32)}.")
+    if seal and re.search(r"seal|hash|cert|certificate|ختم|شهادة", msg, re.I):
+        parts.append(_seal_line(seal, lang))
 
     if not parts:
-        if page_action and page_sym:
-            parts.append(f"Trust Pulse shows {page_action} on {page_sym}.")
+        if visible_pulse:
+            parts.append(visible_pulse)
+        elif page_action and page_sym:
+            parts.append(_visible_trust_pulse_line(pulse, lang=lang) or f"Trust Pulse shows {page_action} on {page_sym}.")
         elif intent == "price" and not symbol:
             parts.append(_clarify_asset_line(msg))
         else:

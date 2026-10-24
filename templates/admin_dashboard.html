@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="{{ lang|default('en') }}" dir="{{ dir|default('ltr') }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLACKDARK — مراقبة الموقع</title>
+    {% include "partials/seo_canonical.html" %}
+    <style>
+        :root {
+            --bg: #07070c;
+            --card: #101018;
+            --border: #2a2a38;
+            --text: #f4f4f5;
+            --muted: #8b8b9a;
+            --accent: #22d3ee;
+            --ok: #4ade80;
+            --warn: #fbbf24;
+            --bad: #f87171;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: "IBM Plex Sans Arabic", "IBM Plex Sans", system-ui, sans-serif;
+            background: radial-gradient(1200px 600px at 10% -10%, rgba(34,211,238,.08), transparent), var(--bg);
+            color: var(--text);
+            line-height: 1.55;
+            min-height: 100vh;
+        }
+        nav {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            flex-wrap: wrap;
+            gap: .75rem;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0,0,0,.35);
+            backdrop-filter: blur(8px);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .logo { color: var(--accent); font-weight: 800; text-decoration: none; letter-spacing: .04em; }
+        .nav-meta { font-size: .82rem; color: var(--muted); }
+        .nav-actions { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; }
+        .btn {
+            padding: .45rem .85rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text);
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: .85rem;
+        }
+        .btn-primary { border-color: var(--accent); color: var(--accent); background: rgba(34,211,238,.1); }
+        .btn-danger { border-color: var(--bad); color: var(--bad); }
+        main { max-width: 1280px; margin: 0 auto; padding: 1.25rem 1.5rem 2.5rem; }
+        h1 { font-size: 1.65rem; margin-bottom: .25rem; }
+        .sub { color: var(--muted); margin-bottom: 1.25rem; font-size: .9rem; }
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: .85rem;
+            margin-bottom: 1.25rem;
+        }
+        .kpi {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1rem 1.1rem;
+            box-shadow: 0 8px 24px rgba(0,0,0,.25);
+        }
+        .kpi .label { font-size: .78rem; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+        .kpi strong { display: block; font-size: 2rem; font-weight: 800; margin-top: .15rem; line-height: 1.1; }
+        .kpi .hint { font-size: .72rem; color: var(--muted); margin-top: .25rem; }
+        .section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1rem 1.15rem;
+            margin-bottom: 1rem;
+        }
+        .section h2 { font-size: 1rem; color: var(--accent); margin-bottom: .75rem; }
+        .two-col { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1rem; }
+        table { width: 100%; border-collapse: collapse; font-size: .82rem; }
+        th, td { text-align: right; padding: .5rem .4rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+        th { color: var(--muted); font-weight: 600; }
+        .pill { display: inline-block; padding: .2rem .55rem; border-radius: 999px; font-size: .72rem; border: 1px solid var(--border); }
+        .pill.ok { border-color: var(--ok); color: var(--ok); }
+        .pill.warn { border-color: var(--warn); color: var(--warn); }
+        .pill.bad { border-color: var(--bad); color: var(--bad); }
+        .err { color: var(--bad); padding: 1rem; border: 1px solid var(--bad); border-radius: 10px; margin-bottom: 1rem; }
+        .refresh-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--ok); margin-inline-start: .35rem; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
+        .level-bars { display: flex; flex-direction: column; gap: .45rem; }
+        .level-row { display: grid; grid-template-columns: 6rem 1fr 2.5rem; gap: .5rem; align-items: center; font-size: .82rem; }
+        .bar-track { height: 8px; background: #1a1a24; border-radius: 999px; overflow: hidden; }
+        .bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), #818cf8); border-radius: 999px; }
+        a { color: var(--accent); }
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.65);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            padding: 1rem;
+        }
+        .modal-backdrop[hidden] { display: none !important; }
+        .modal {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            max-width: 520px;
+            width: 100%;
+            padding: 1.25rem 1.35rem;
+            box-shadow: 0 16px 48px rgba(0,0,0,.45);
+        }
+        .modal h2 { font-size: 1.1rem; margin-bottom: .35rem; color: var(--text); }
+        .modal .hint { font-size: .82rem; color: var(--muted); margin-bottom: 1rem; }
+        .modal label { display: block; font-size: .8rem; color: var(--muted); margin-bottom: .35rem; }
+        .modal input, .modal textarea {
+            width: 100%;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: #0c0c14;
+            color: var(--text);
+            padding: .55rem .65rem;
+            font-family: inherit;
+            font-size: .9rem;
+            margin-bottom: .85rem;
+        }
+        .modal textarea { min-height: 140px; resize: vertical; }
+        .modal-actions { display: flex; gap: .5rem; justify-content: flex-start; flex-wrap: wrap; margin-top: .25rem; }
+        .modal-result { margin-top: .75rem; font-size: .88rem; color: var(--ok); }
+        .modal-result.err { color: var(--bad); }
+    </style>
+    <script src="/static/js/dom_safe.js"></script>
+    <script src="/static/js/csrf_fetch.js"></script>
+</head>
+<body>
+    <nav>
+        <div>
+            <a class="logo" href="/">BLACKDARK</a>
+            <div class="nav-meta" id="adminIdentity">{% if admin_email %}{{ admin_email }}{% else %}Admin{% endif %}</div>
+        </div>
+        <div class="nav-actions">
+            <span class="nav-meta" id="generated">—</span>
+            <span class="refresh-dot" title="تحديث تلقائي كل 30 ثانية"></span>
+            <a class="btn" href="/oracle-accuracy" target="_blank" rel="noopener">Ledger</a>
+            <a class="btn" href="/miss-bounty-log" target="_blank" rel="noopener">Miss Bounty</a>
+            <button type="button" class="btn btn-primary" id="newsletterBtn">Send Newsletter</button>
+            <button type="button" class="btn btn-danger" id="logoutBtn">تسجيل الخروج</button>
+        </div>
+    </nav>
+    <main>
+        <h1>لوحة مراقبة الموقع</h1>
+        <p class="sub">مقاييس حية من قاعدة البيانات — للمالك فقط. التحديث التلقائي كل 30 ثانية.</p>
+        <div id="error" class="err" hidden></div>
+
+        <div class="kpi-grid" id="kpi-top"></div>
+
+        <section class="section">
+            <div style="display:flex;flex-wrap:wrap;gap:.75rem;justify-content:space-between;align-items:center;margin-bottom:.75rem">
+                <h2 style="margin:0">Join Waitlist — الإيميلات المسجّلة</h2>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+                    <a class="btn" href="/api/admin/waitlist/export.csv" id="waitlistExportBtn" download="waitlist.csv">تصدير CSV</a>
+                    <button type="button" class="btn" id="waitlistRefreshBtn">تحديث القائمة</button>
+                </div>
+            </div>
+            <p class="hint" id="waitlistTableHint" style="margin-bottom:.65rem">—</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Email</th>
+                        <th>Name</th>
+                        <th>Joined at</th>
+                    </tr>
+                </thead>
+                <tbody id="waitlistTableBody"></tbody>
+            </table>
+        </section>
+
+        <section class="section">
+            <h2>الزوار والمستخدمون</h2>
+            <div class="kpi-grid" id="kpi-visitors-users"></div>
+        </section>
+
+        <section class="section">
+            <h2>الاشتراكات (Free · DECIDE/Pro · مدفوع آخر)</h2>
+            <div class="kpi-grid" id="kpi-plans"></div>
+            <div class="level-bars" id="level-bars" style="margin-top:.75rem"></div>
+        </section>
+
+        <div class="two-col">
+            <section class="section">
+                <h2>Oracle · Sealed Markets · Miss Bounty</h2>
+                <div class="kpi-grid" id="kpi-ops"></div>
+            </section>
+            <section class="section">
+                <h2>Public Accuracy Ledger</h2>
+                <div class="kpi-grid" id="kpi-ledger"></div>
+            </section>
+        </div>
+
+        <div class="two-col">
+            <section class="section">
+                <h2>آخر 10 قرارات Oracle</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Asset</th>
+                            <th>Verdict</th>
+                            <th>Label</th>
+                            <th>الحالة</th>
+                            <th>الوقت</th>
+                        </tr>
+                    </thead>
+                    <tbody id="oracleRecentBody"></tbody>
+                </table>
+            </section>
+            <section class="section">
+                <h2>آخر 10 أخطاء (سجل التدقيق)</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>الوقت</th>
+                            <th>Action</th>
+                            <th>Outcome</th>
+                            <th>Path</th>
+                        </tr>
+                    </thead>
+                    <tbody id="errorsRecentBody"></tbody>
+                </table>
+            </section>
+        </div>
+    </main>
+
+    <div class="modal-backdrop" id="newsletterModal" hidden>
+        <div class="modal" role="dialog" aria-labelledby="newsletterTitle" aria-modal="true">
+            <h2 id="newsletterTitle">Send Newsletter</h2>
+            <p class="hint" id="newsletterHint">يُرسل إلى كل الإيميلات المسجّلة في Join Waitlist.</p>
+            <form id="newsletterForm">
+                <label for="newsletterSubject">العنوان</label>
+                <input type="text" id="newsletterSubject" name="subject" maxlength="200" required autocomplete="off">
+                <label for="newsletterMessage">الرسالة</label>
+                <textarea id="newsletterMessage" name="message" maxlength="20000" required></textarea>
+                <div class="modal-actions">
+                    <button type="submit" class="btn btn-primary" id="newsletterSendBtn">Send</button>
+                    <button type="button" class="btn" id="newsletterCancelBtn">إلغاء</button>
+                </div>
+                <p class="modal-result" id="newsletterResult" hidden></p>
+            </form>
+        </div>
+    </div>
+
+    <script type="module">
+        const esc = (globalThis.esc || globalThis.escapeHtml || ((v) => String(v ?? '')));
+
+        function kpi(label, value, hint = '') {
+            const el = document.createElement('div');
+            el.className = 'kpi';
+            const lab = document.createElement('div');
+            lab.className = 'label';
+            lab.textContent = label;
+            const strong = document.createElement('strong');
+            strong.textContent = value === null || value === undefined ? '—' : String(value);
+            el.append(lab, strong);
+            if (hint) {
+                const h = document.createElement('div');
+                h.className = 'hint';
+                h.textContent = hint;
+                el.appendChild(h);
+            }
+            return el;
+        }
+
+        function fillGrid(el, items) {
+            el.replaceChildren();
+            for (const [label, value, hint] of items) {
+                el.appendChild(kpi(label, value, hint));
+            }
+        }
+
+        function statusPill(resolved, label) {
+            const span = document.createElement('span');
+            if (!resolved) {
+                span.className = 'pill warn';
+                span.textContent = 'معلّق';
+            } else if (label === 'incorrect') {
+                span.className = 'pill bad';
+                span.textContent = 'خطأ';
+            } else {
+                span.className = 'pill ok';
+                span.textContent = 'محلول';
+            }
+            return span;
+        }
+
+        function renderLevels(levels) {
+            const wrap = document.getElementById('level-bars');
+            wrap.replaceChildren();
+            const entries = Object.entries(levels || {}).sort((a, b) => b[1] - a[1]);
+            const max = entries.length ? Math.max(...entries.map((e) => e[1])) : 1;
+            for (const [tier, count] of entries) {
+                const row = document.createElement('div');
+                row.className = 'level-row';
+                const name = document.createElement('span');
+                name.textContent = tier === 'pro' ? 'DECIDE/Pro' : tier;
+                const track = document.createElement('div');
+                track.className = 'bar-track';
+                const fill = document.createElement('div');
+                fill.className = 'bar-fill';
+                fill.style.width = `${Math.round((count / max) * 100)}%`;
+                track.appendChild(fill);
+                const num = document.createElement('span');
+                num.textContent = String(count);
+                row.append(name, track, num);
+                wrap.appendChild(row);
+            }
+        }
+
+        async function loadMetrics() {
+            const errEl = document.getElementById('error');
+            try {
+                const res = await fetch('/api/admin/owner-metrics', { credentials: 'same-origin' });
+                if (res.status === 401 || res.status === 403) {
+                    errEl.hidden = false;
+                    errEl.textContent = 'يلزم تسجيل الدخول بحساب الأدمن. افتح /login ثم /admin.';
+                    return;
+                }
+                if (!res.ok) {
+                    errEl.hidden = false;
+                    errEl.textContent = `تعذّر تحميل المقاييس (${res.status})`;
+                    return;
+                }
+                errEl.hidden = true;
+                const d = await res.json();
+                document.getElementById('generated').textContent = d.generated_at ? `آخر تحديث ${d.generated_at}` : '—';
+
+                const ops = d.operations || {};
+                const ledger = ops.ledger || {};
+                const tiers = d.subscriptions_by_tier || {};
+
+                fillGrid(document.getElementById('kpi-top'), [
+                    ['زوار اليوم', d.visitors?.today],
+                    ['مستخدمون مسجّلون', d.users?.total],
+                    ['نشطون (30 يوم)', d.users?.active_30d],
+                    ['قرارات Oracle اليوم', ops.oracle_decisions_today],
+                    ['Miss Bounty معلّقة', ops.miss_bounty_pending],
+                ]);
+
+                fillGrid(document.getElementById('kpi-visitors-users'), [
+                    ['زوار الأسبوع', d.visitors?.week],
+                    ['زوار الشهر', d.visitors?.month],
+                    ['مستخدمون جدد اليوم', d.users?.new_today],
+                    ['مستخدمون جدد الأسبوع', d.users?.new_week],
+                ]);
+
+                fillGrid(document.getElementById('kpi-plans'), [
+                    ['Free', tiers.free],
+                    ['DECIDE / Pro', tiers.pro_decide],
+                    ['مدفوع (Elite+)', tiers.other_paid],
+                    ['إجمالي مدفوع', d.subscribers?.paid],
+                ]);
+                renderLevels(d.user_levels || {});
+
+                fillGrid(document.getElementById('kpi-ops'), [
+                    ['أسواق Sealed مفتوحة', ops.sealed_markets_open],
+                    ['رهانات نشطة', ops.sealed_bets_active],
+                    ['Oracle اليوم', ops.oracle_decisions_today],
+                    ['Bounty معلّقة', ops.miss_bounty_pending],
+                ]);
+
+                fillGrid(document.getElementById('kpi-ledger'), [
+                    ['مسجّلة', ledger.logged],
+                    ['محلولة', ledger.resolved],
+                    ['معلّقة', ledger.pending],
+                    ['دقة %', ledger.accuracy_percent],
+                ]);
+
+                const ob = document.getElementById('oracleRecentBody');
+                ob.replaceChildren();
+                for (const row of ops.recent_oracle_decisions || []) {
+                    const tr = document.createElement('tr');
+                    for (const key of ['id', 'asset', 'verdict', 'label']) {
+                        const td = document.createElement('td');
+                        td.textContent = String(row[key] ?? '—');
+                        tr.appendChild(td);
+                    }
+                    const tdSt = document.createElement('td');
+                    tdSt.appendChild(statusPill(row.resolved, row.label));
+                    tr.appendChild(tdSt);
+                    const tdTs = document.createElement('td');
+                    tdTs.textContent = String(row.timestamp ?? '—');
+                    tr.appendChild(tdTs);
+                    ob.appendChild(tr);
+                }
+
+                const eb = document.getElementById('errorsRecentBody');
+                eb.replaceChildren();
+                for (const row of ops.recent_errors || []) {
+                    const tr = document.createElement('tr');
+                    const cells = [row.timestamp, row.action, row.outcome, row.path || row.detail];
+                    for (const c of cells) {
+                        const td = document.createElement('td');
+                        td.textContent = String(c ?? '—');
+                        tr.appendChild(td);
+                    }
+                    eb.appendChild(tr);
+                }
+            } catch (e) {
+                errEl.hidden = false;
+                errEl.textContent = String(e?.message || e);
+            }
+        }
+
+        document.getElementById('logoutBtn')?.addEventListener('click', async () => {
+            try {
+                await fetch('/api/auth/logout', { method: 'POST', credentials: 'same-origin' });
+            } catch (_) { /* ignore */ }
+            window.location.href = '/login';
+        });
+
+        const newsletterModal = document.getElementById('newsletterModal');
+        const newsletterHint = document.getElementById('newsletterHint');
+        const newsletterResult = document.getElementById('newsletterResult');
+        const newsletterSendBtn = document.getElementById('newsletterSendBtn');
+
+        async function refreshWaitlistHint() {
+            try {
+                const res = await fetch('/api/admin/waitlist/summary', { credentials: 'same-origin' });
+                if (!res.ok) return;
+                const data = await res.json();
+                const n = data.count ?? 0;
+                newsletterHint.textContent = `يُرسل إلى ${n.toLocaleString()} إيميل في Join Waitlist.`;
+            } catch (_) { /* ignore */ }
+        }
+
+        async function loadWaitlistTable() {
+            const hint = document.getElementById('waitlistTableHint');
+            const body = document.getElementById('waitlistTableBody');
+            if (!body) return;
+            try {
+                const res = await fetch('/api/admin/waitlist/entries?limit=500', { credentials: 'same-origin' });
+                if (!res.ok) {
+                    if (hint) hint.textContent = `تعذّر تحميل القائمة (${res.status})`;
+                    return;
+                }
+                const data = await res.json();
+                const total = data.count ?? 0;
+                const rows = data.entries || [];
+                if (hint) {
+                    hint.textContent = total
+                        ? `إجمالي ${total.toLocaleString()} — يُعرض ${rows.length.toLocaleString()} صفاً`
+                        : 'لا يوجد مسجّلون بعد.';
+                }
+                body.replaceChildren();
+                for (const row of rows) {
+                    const tr = document.createElement('tr');
+                    for (const key of ['id', 'email', 'name', 'joined_at']) {
+                        const td = document.createElement('td');
+                        td.textContent = String(row[key] ?? '—');
+                        tr.appendChild(td);
+                    }
+                    body.appendChild(tr);
+                }
+            } catch (e) {
+                if (hint) hint.textContent = String(e?.message || e);
+            }
+        }
+
+        document.getElementById('waitlistRefreshBtn')?.addEventListener('click', () => {
+            loadWaitlistTable();
+            refreshWaitlistHint();
+        });
+
+        function openNewsletterModal() {
+            newsletterResult.hidden = true;
+            newsletterResult.classList.remove('err');
+            newsletterModal.hidden = false;
+            refreshWaitlistHint();
+            document.getElementById('newsletterSubject')?.focus();
+        }
+
+        function closeNewsletterModal() {
+            newsletterModal.hidden = true;
+        }
+
+        document.getElementById('newsletterBtn')?.addEventListener('click', openNewsletterModal);
+        document.getElementById('newsletterCancelBtn')?.addEventListener('click', closeNewsletterModal);
+        newsletterModal?.addEventListener('click', (e) => {
+            if (e.target === newsletterModal) closeNewsletterModal();
+        });
+
+        document.getElementById('newsletterForm')?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            newsletterResult.hidden = true;
+            newsletterResult.classList.remove('err');
+            const subject = document.getElementById('newsletterSubject')?.value?.trim() || '';
+            const message = document.getElementById('newsletterMessage')?.value?.trim() || '';
+            if (!subject || !message) {
+                newsletterResult.hidden = false;
+                newsletterResult.classList.add('err');
+                newsletterResult.textContent = 'العنوان والرسالة مطلوبان.';
+                return;
+            }
+            newsletterSendBtn.disabled = true;
+            newsletterSendBtn.textContent = 'جارٍ الإرسال…';
+            try {
+                const res = await fetch('/api/admin/waitlist/newsletter', {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ subject, message }),
+                });
+                const data = await res.json().catch(() => ({}));
+                if (!res.ok) {
+                    newsletterResult.hidden = false;
+                    newsletterResult.classList.add('err');
+                    newsletterResult.textContent = data.detail || `فشل الإرسال (${res.status})`;
+                    return;
+                }
+                const sent = data.sent ?? 0;
+                const total = data.total ?? sent;
+                const failed = data.failed ?? 0;
+                newsletterResult.hidden = false;
+                newsletterResult.textContent = failed
+                    ? `تم الإرسال إلى ${sent} من ${total} (فشل ${failed}).`
+                    : `تم الإرسال بنجاح إلى ${sent} مستلم.`;
+            } catch (err) {
+                newsletterResult.hidden = false;
+                newsletterResult.classList.add('err');
+                newsletterResult.textContent = String(err?.message || err);
+            } finally {
+                newsletterSendBtn.disabled = false;
+                newsletterSendBtn.textContent = 'Send';
+            }
+        });
+
+        loadMetrics();
+        loadWaitlistTable();
+        setInterval(loadMetrics, 30000);
+    </script>
+</body>
+</html>

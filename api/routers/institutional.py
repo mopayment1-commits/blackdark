@@ -5,7 +5,7 @@ from __future__ import annotations
 import os
 from typing import Annotated, Any
 
-from fastapi import APIRouter, Depends, Header, HTTPException, Query
+from fastapi import APIRouter, Depends, Header, HTTPException, Query, Request
 from fastapi.responses import JSONResponse, RedirectResponse
 from pydantic import BaseModel, Field
 
@@ -21,13 +21,19 @@ from security_auth import (
 
 
 async def require_institutional_principal(
+    request: Request,
     user: Annotated[dict | None, Depends(optional_user_from_request)] = None,
     x_admin_key: Annotated[str | None, Header(alias="X-Admin-Key")] = None,
     x_admin_totp: Annotated[str | None, Header(alias="X-Admin-TOTP")] = None,
 ) -> dict:
     """Authenticated user OR fail-closed admin key (+ MFA when policy on)."""
     if verify_admin_key(x_admin_key):
-        return await require_admin(user=user, x_admin_key=x_admin_key, x_admin_totp=x_admin_totp)
+        return await require_admin(
+            request,
+            user=user,
+            x_admin_key=x_admin_key,
+            x_admin_totp=x_admin_totp,
+        )
     if user is None:
         raise HTTPException(status_code=401, detail="Authentication required")
     return user

@@ -2,7 +2,7 @@
 <html lang="{{ lang|default('en') }}" dir="{{ dir|default('ltr') }}">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="description" content="{{ t('brand') }} — {{ t('accuracy.sub') }}">
     <meta property="og:title" content="BLACKDARK — {{ t('accuracy.title') }}">
     <meta property="og:description" content="{{ t('accuracy.sub') }}">
@@ -37,6 +37,9 @@
         }
         .hero h1 { font-size: 2.2rem; margin-bottom: 0.75rem; }
         .hero p { color: var(--muted); max-width: 760px; margin: 0 auto 2rem; }
+        .hero { min-height: 17rem; }
+        .stat .subnote { min-height: 2.4rem; }
+        .hero .cta-row { min-height: 2.75rem; }
         .badge {
             display: inline-block; padding: 0.35rem 0.9rem; border-radius: 999px;
             background: rgba(34,211,238,0.12); color: var(--accent);
@@ -54,16 +57,29 @@
         .metrics-explainer {
             max-width: 1100px; margin: -0.5rem auto 1.25rem; padding: 0 1.5rem;
             color: var(--muted); font-size: 0.82rem; line-height: 1.5;
+            min-height: 2.5rem;
         }
+        #transparency-note { min-height: 3.5rem; }
+        #chain-status { min-height: 1.35rem; }
+        #engine-label { display: inline-block; min-width: 7rem; }
+        .badge { min-height: 1.5rem; line-height: 1.4; }
+        #proof-panel { min-height: 3.25rem; }
+        #engine-badge { display: inline-block; min-width: 6rem; }
         .grid {
             max-width: 1100px; margin: 0 auto; padding: 1rem 1.5rem 3rem;
             display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem;
         }
+        #panel-ledger-stats { min-height: 240px; content-visibility: auto; contain-intrinsic-size: 240px; }
+        #panel-latest-table { min-height: 320px; }
         .stat {
             background: var(--card); border: 1px solid var(--border);
             border-radius: 14px; padding: 1.25rem;
         }
-        .stat .num { font-size: 2rem; font-weight: 800; color: var(--accent); }
+        .stat .num {
+            font-size: 2rem; font-weight: 800; color: var(--accent);
+            min-height: 2.4rem; font-variant-numeric: tabular-nums;
+        }
+        #predictions-body { min-height: 4rem; }
         .stat .lbl { color: var(--muted); font-size: 0.9rem; margin-top: 0.25rem; }
         .panel {
             max-width: 1100px; margin: 0 auto 2rem; padding: 0 1.5rem;
@@ -77,6 +93,9 @@
         #panel-regime .card h2,
         #glass-box-challenge .card h2,
         #mev-report .card h2,
+        #btc-mempool-fees-panel .card h2,
+        #defi-context-panel .card h2,
+        #arb-opportunities-panel .card h2,
         #locked .card h2,
         #losing .card h2,
         #audit-challenge .card h2,
@@ -95,6 +114,57 @@
         .pill.correct { background: rgba(34,197,94,0.15); color: var(--success); }
         .pill.partial { background: rgba(245,158,11,0.15); color: var(--warning); }
         .pill.incorrect { background: rgba(239,68,68,0.15); color: var(--danger); }
+        .misses-honesty-banner {
+            border: 1px solid rgba(239, 68, 68, 0.35);
+            background: rgba(239, 68, 68, 0.06);
+            color: var(--text);
+            border-radius: 10px;
+            padding: 0.75rem 1rem;
+            font-size: 0.92rem;
+            font-weight: 600;
+            line-height: 1.45;
+            margin-bottom: 1.1rem;
+        }
+        .misses-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 0.75rem;
+            margin: 0 0 1.25rem;
+        }
+        .misses-stat {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 0.85rem 1rem;
+            background: rgba(17, 17, 24, 0.85);
+        }
+        .misses-stat--errors { border-color: rgba(239, 68, 68, 0.45); }
+        .misses-stat-num {
+            display: block;
+            font-size: 1.75rem;
+            font-weight: 800;
+            font-variant-numeric: tabular-nums;
+            color: var(--danger);
+            line-height: 1.15;
+        }
+        .misses-stat--partial .misses-stat-num { color: var(--warning); }
+        .misses-stat--rate .misses-stat-num { color: var(--accent); font-size: 1.45rem; }
+        .misses-stat-lbl {
+            display: block;
+            margin-top: 0.35rem;
+            font-size: 0.78rem;
+            color: var(--muted);
+            line-height: 1.35;
+        }
+        .misses-recent-wrap { margin-top: 0.5rem; }
+        .misses-recent-wrap h3 {
+            font-size: 1rem;
+            margin: 0 0 0.65rem;
+            color: var(--text);
+        }
+        #misses-recent-table { font-size: 0.86rem; }
+        #misses-recent-table th { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.03em; }
+        .misses-detail-lists { margin-top: 1rem; border-top: 1px solid var(--border); padding-top: 0.75rem; }
+        .misses-detail-lists h3 { font-size: 0.9rem; color: var(--muted); }
         .cta-row {
             display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
             margin: 2rem 0 3rem;
@@ -108,6 +178,26 @@
             border: none;
         }
         .btn-secondary { color: var(--text); background: var(--card); }
+        .btn-bounty {
+            display: inline-block; margin-left: 0.5rem; padding: 0.25rem 0.65rem;
+            border-radius: 8px; font-size: 0.72rem; font-weight: 700; cursor: pointer;
+            border: 1px solid var(--border); background: var(--card); color: var(--text);
+            vertical-align: middle;
+        }
+        .btn-bounty.disabled, .btn-bounty:disabled {
+            opacity: 0.45; cursor: not-allowed; color: var(--muted);
+        }
+        #miss-bounty-modal {
+            display: none; position: fixed; inset: 0; z-index: 1200;
+            background: rgba(0,0,0,0.72); align-items: center; justify-content: center; padding: 1rem;
+        }
+        #miss-bounty-modal.open { display: flex; }
+        #miss-bounty-modal .sheet {
+            max-width: 520px; width: 100%; background: var(--card); border: 1px solid var(--border);
+            border-radius: 14px; padding: 1.25rem;
+        }
+        #miss-bounty-modal label { display: block; font-size: 0.8rem; color: var(--muted); margin: 0.65rem 0 0.25rem; }
+        #miss-bounty-modal input { width: 100%; padding: 0.5rem; border-radius: 8px; border: 1px solid var(--border); background: #0a0a0f; color: var(--text); }
         .events { list-style: none; }
         .events li {
             padding: 0.75rem 0; border-bottom: 1px solid var(--border);
@@ -136,11 +226,13 @@
         <p id="chain-status" style="color:var(--muted);font-size:0.9rem;margin-top:0.5rem"></p>
         <div class="cta-row" style="margin-top:1rem">
             <a class="btn btn-secondary" href="#proof-chain" id="verifyChainBtn">{{ t('ledger.cta.verify_chain') }}</a>
-            <a class="btn btn-secondary" href="#audit-challenge">Audit Challenge</a>
+            <a class="btn btn-secondary" href="#audit-challenge">{{ t('ledger.cta.audit_challenge') }}</a>
             <a class="btn btn-secondary" href="#losing">{{ t('ledger.cta.misses') }}</a>
+            <a class="btn btn-secondary" href="/miss-bounty-log">{{ t('ledger.cta.bounty_log') }}</a>
+            <a class="btn btn-secondary" href="/sealed-markets">{{ t('ledger.cta.sealed_markets') }}</a>
             <a class="btn btn-secondary" href="#glass-box-challenge">{{ t('ledger.cta.glass') }}</a>
-            <a class="btn btn-secondary" href="#mev-report">MEV Report</a>
-            <a class="btn btn-secondary" href="#locked">Locked Predictions</a>
+            <a class="btn btn-secondary" href="#mev-report">{{ t('ledger.cta.mev_report') }}</a>
+            <a class="btn btn-secondary" href="#locked">{{ t('ledger.cta.locked_predictions') }}</a>
             <a class="btn btn-secondary" href="/discipline-mirror">{{ t('ledger.cta.mirror') }}</a>
             <a class="btn btn-secondary" href="/docs">{{ t('ledger.cta.docs') }}</a>
         </div>
@@ -158,20 +250,20 @@
 
     <section class="panel" id="panel-regime" style="display:none">
         <div class="card">
-            <h2>D5 · Regime-Conditional Models</h2>
-            <p id="regime-status" style="color:var(--muted);font-size:0.9rem">Loading regime registry…</p>
+            <h2>{{ t('ledger.regime.title') }}</h2>
+            <p id="regime-status" style="color:var(--muted);font-size:0.9rem">{{ t('ledger.regime.loading') }}</p>
             <div style="overflow-x:auto;margin-top:1rem">
                 <table>
                     <thead>
                         <tr>
-                            <th>Regime</th>
-                            <th>Confidence ×</th>
-                            <th>Artifact</th>
-                            <th>Status</th>
+                            <th>{{ t('ledger.regime.col.regime') }}</th>
+                            <th>{{ t('ledger.regime.col.confidence') }}</th>
+                            <th>{{ t('ledger.regime.col.artifact') }}</th>
+                            <th>{{ t('ledger.regime.col.status') }}</th>
                         </tr>
                     </thead>
                     <tbody id="regime-body">
-                        <tr><td colspan="4">Loading...</td></tr>
+                        <tr><td colspan="4">{{ t('ui.loading') }}</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -180,58 +272,107 @@
 
     <section class="panel" id="glass-box-challenge">
         <div class="card">
-            <h2>The Glass Box Challenge</h2>
+            <h2>{{ t('ledger.glass.title') }}</h2>
             <p id="glass-sealed-status" style="margin-top:0.75rem;color:var(--muted);font-size:0.9rem;font-weight:600"></p>
-            <noscript><p>We challenge every competitor to publish their full accuracy ledger — including misses. Labels are not proof.</p></noscript>
-            <p id="glass-challenge" style="margin-top:0.75rem;font-size:0.95rem">BLACKDARK Glass Box Challenge: publish the full ledger — including misses and incorrect model states — with verifiable audit hashes. Verify here.</p>
+            <noscript><p>{{ t('ledger.glass.noscript') }}</p></noscript>
+            <p id="glass-challenge" style="margin-top:0.75rem;font-size:0.95rem">{{ t('ledger.glass.intro') }}</p>
             <p id="glass-context" style="margin-top:0.65rem;color:var(--muted);font-size:0.88rem"></p>
             <ul class="events" id="glass-recent-locked" style="display:none;margin-top:0.65rem"></ul>
             <ol id="glass-event-steps" style="margin:1rem 0 0 1.2rem;color:var(--muted);font-size:0.88rem;line-height:1.7">
-                <li>Pick one macro/crypto event window (date + timezone).</li>
-                <li>Seal ≥3 timed Decision Certificates on /oracle-accuracy#locked before the event.</li>
-                <li>Publish challenge text + ledger link on X/Telegram (human channel choice).</li>
-                <li>After resolution, unlock hits and misses / incorrect model states live on the Public Accuracy Ledger.</li>
-                <li>Invite competitors to publish their full ledgers (including misses).</li>
+                <li>{{ t('ledger.glass.step1') }}</li>
+                <li>{{ t('ledger.glass.step2') }}</li>
+                <li>{{ t('ledger.glass.step3') }}</li>
+                <li>{{ t('ledger.glass.step4') }}</li>
+                <li>{{ t('ledger.glass.step5') }}</li>
             </ol>
             <div class="cta-row" style="margin-top:1rem;justify-content:flex-start">
-                <button class="btn btn-secondary" type="button" id="copyGlassBtn">Copy challenge text</button>
-                <a class="btn btn-secondary" id="glassShareX" href="#" target="_blank" rel="noopener">Share X</a>
-                <a class="btn btn-secondary" id="glassShareTg" href="#" target="_blank" rel="noopener">Share TG</a>
-                <a class="btn btn-secondary" href="/b2b#fund-terminal">Emerging Fund Terminal</a>
-                <a class="btn btn-secondary" href="/capabilities">Trust OS layers</a>
+                <button class="btn btn-secondary" type="button" id="copyGlassBtn">{{ t('ledger.glass.copy_btn') }}</button>
+                <a class="btn btn-secondary" id="glassShareX" href="#" target="_blank" rel="noopener">{{ t('ui.share_x') }}</a>
+                <a class="btn btn-secondary" id="glassShareTg" href="#" target="_blank" rel="noopener">{{ t('ui.share_tg') }}</a>
+                <a class="btn btn-secondary" href="/b2b#fund-terminal">{{ t('ledger.glass.fund_terminal') }}</a>
+                <a class="btn btn-secondary" href="/capabilities">{{ t('ledger.glass.trust_layers') }}</a>
             </div>
             <details style="margin-top:1rem">
-                <summary style="cursor:pointer;color:var(--accent);font-weight:600">Operator runbook (launch packaging)</summary>
-                <p id="glass-operator-status" style="margin-top:.65rem;color:var(--muted);font-size:0.85rem">Loading operator notes…</p>
+                <summary style="cursor:pointer;color:var(--accent);font-weight:600">{{ t('ledger.glass.runbook') }}</summary>
+                <p id="glass-operator-status" style="margin-top:.65rem;color:var(--muted);font-size:0.85rem">{{ t('ledger.glass.operator_loading') }}</p>
             </details>
             <p style="margin-top:0.75rem;font-size:0.75rem;color:var(--muted)">
-                Exact launch timing and channel are human. Product machinery + event template are live via <code>/api/glass-box/challenge</code> · operator pack <code>/api/glass-box/operator</code>.
+                {{ t('ledger.glass.machinery_note') }}
             </p>
-            <p class="anti-hype" style="margin-top:0.65rem;font-size:0.72rem;color:var(--muted)"><strong>Anti-Hype</strong> · Not financial advice. Verify claims on this Public Accuracy Ledger.</p>
+            <p class="anti-hype" style="margin-top:0.65rem;font-size:0.72rem;color:var(--muted)">{{ t('ledger.glass.anti_hype') }}</p>
         </div>
     </section>
 
     <section class="panel" id="mev-report">
         <div class="card">
-            <h2>Shareable MEV / Sandwich Report</h2>
-            <p id="mev-status" style="color:var(--muted);font-size:0.9rem">Loading risk posture…</p>
-            <ul class="events" id="mev-mitigations"><li>Loading...</li></ul>
+            <h2>{{ t('ledger.panel.mev_title') }}</h2>
+            <p id="mev-status" style="color:var(--muted);font-size:0.9rem">{{ t('ledger.mev.loading_risk') }}</p>
+            <ul class="events" id="mev-mitigations"><li>{{ t('ui.loading') }}</li></ul>
             <div class="cta-row" style="margin-top:1rem;justify-content:flex-start">
-                <button class="btn btn-secondary" type="button" id="copyMevBtn">Copy share text</button>
+                <button class="btn btn-secondary" type="button" id="copyMevBtn">{{ t('ledger.js.copy_share') }}</button>
             </div>
             <p id="mev-compliance" style="margin-top:0.65rem;font-size:0.72rem;color:var(--muted)"></p>
         </div>
     </section>
 
+    <section class="panel" id="sealed-markets-panel">
+        <div class="card">
+            <h2>{{ t('ledger.panel.sealed_title') }}</h2>
+            <p class="muted" style="font-size:0.88rem">{{ t('ledger.panel.sealed_lead') }}</p>
+            <p id="sealed-markets-status" class="muted">{{ t('sealed.loading') }}</p>
+            <ul class="events" id="sealed-markets-list"><li>{{ t('sealed.loading') }}</li></ul>
+            <a class="btn btn-secondary" href="/sealed-markets" style="margin-top:0.75rem;display:inline-block">{{ t('ledger.panel.sealed_all') }}</a>
+        </div>
+    </section>
+
+    <section class="panel" id="btc-mempool-fees-panel">
+        <div class="card">
+            <h2>{{ t('ledger.panel.btc_fees_title') }}</h2>
+            <p class="muted" style="font-size:0.88rem">{{ t('ledger.panel.btc_fees_lead') }}</p>
+            <p id="btc-mempool-status" class="muted">{{ t('ledger.panel.btc_fees_loading') }}</p>
+            <ul class="events" id="btc-mempool-summary"><li>{{ t('ledger.panel.btc_fees_loading') }}</li></ul>
+            <p id="btc-mempool-attribution" style="margin-top:0.65rem;font-size:0.72rem;color:var(--muted)"></p>
+        </div>
+    </section>
+
+    <section class="panel" id="fred-macro-panel">
+        <div class="card">
+            <h2>{{ t('ledger.panel.fred_title') }}</h2>
+            <p class="muted" style="font-size:0.88rem">{{ t('ledger.panel.fred_lead') }}</p>
+            <p id="fred-macro-status" class="muted">{{ t('ledger.panel.fred_loading') }}</p>
+            <ul class="events" id="fred-macro-summary"><li>{{ t('ledger.panel.fred_loading') }}</li></ul>
+            <p id="fred-macro-attribution" style="margin-top:0.65rem;font-size:0.72rem;color:var(--muted)"></p>
+        </div>
+    </section>
+
+    <section class="panel" id="defi-context-panel">
+        <div class="card">
+            <h2>{{ t('ledger.panel.defi_title') }}</h2>
+            <p class="muted" style="font-size:0.88rem">{{ t('ledger.panel.defi_lead') }}</p>
+            <p id="defi-context-status" class="muted">{{ t('ledger.panel.defi_loading') }}</p>
+            <ul class="events" id="defi-context-summary"><li>{{ t('ledger.panel.defi_loading') }}</li></ul>
+            <p id="defi-context-attribution" style="margin-top:0.65rem;font-size:0.72rem;color:var(--muted)"></p>
+        </div>
+    </section>
+
+    <section class="panel" id="arb-opportunities-panel">
+        <div class="card">
+            <h2>{{ t('ledger.panel.arb_title') }}</h2>
+            <p class="muted" style="font-size:0.88rem">{{ t('ledger.panel.arb_lead') }}</p>
+            <p id="arb-opportunities-status" class="muted">{{ t('ledger.panel.arb_loading') }}</p>
+            <ul class="events" id="arb-opportunities-list"><li>{{ t('ledger.panel.arb_loading') }}</li></ul>
+        </div>
+    </section>
+
     <section class="panel" id="locked">
         <div class="card">
-            <h2>Locked Predictions · Glass Box</h2>
-            <p id="locked-status" style="color:var(--muted);font-size:0.9rem">Loading sealed forecasts…</p>
-            <ul class="events" id="locked-list"><li>Loading...</li></ul>
+            <h2>{{ t('ledger.panel.locked_title') }}</h2>
+            <p id="locked-status" style="color:var(--muted);font-size:0.9rem">{{ t('ledger.locked.loading') }}</p>
+            <ul class="events" id="locked-list"><li>{{ t('ui.loading') }}</li></ul>
             <div class="cta-row" style="margin-top:1rem;justify-content:flex-start">
-                <button class="btn btn-secondary" type="button" id="shareLedgerBtn">Copy share text</button>
-                <a class="btn btn-secondary" id="ledgerShareX" href="#" target="_blank" rel="noopener">Share X</a>
-                <a class="btn btn-secondary" id="ledgerShareTg" href="#" target="_blank" rel="noopener">Share TG</a>
+                <button class="btn btn-secondary" type="button" id="shareLedgerBtn">{{ t('ledger.js.copy_share') }}</button>
+                <a class="btn btn-secondary" id="ledgerShareX" href="#" target="_blank" rel="noopener">{{ t('ui.share_x') }}</a>
+                <a class="btn btn-secondary" id="ledgerShareTg" href="#" target="_blank" rel="noopener">{{ t('ui.share_tg') }}</a>
             </div>
             <p id="ledger-share-preview" style="margin-top:.65rem;font-size:.8rem;color:var(--muted)"></p>
         </div>
@@ -239,56 +380,94 @@
 
     <section class="panel" id="losing">
         <div class="card">
-            <h2>Public Misses · live ledger</h2>
-            <p style="color:var(--muted);font-size:0.88rem;margin-bottom:.65rem">
-                Same Public Accuracy Ledger as the table below. Alias route: <code>/errors</code>.
-            </p>
-            <p id="losing-status" style="color:var(--muted);font-size:0.9rem">Loading honest misses…</p>
-            <p id="losing-archive-note" style="display:none;color:var(--warning);font-size:0.85rem;margin:.5rem 0"></p>
-            <h3 style="font-size:1rem;margin:1rem 0 0.5rem">Verified errors we own</h3>
-            <ul class="events" id="losing-errors-list"><li>Loading...</li></ul>
-            <h3 style="font-size:1rem;margin:1rem 0 0.5rem">Partial outcomes</h3>
-            <ul class="events" id="losing-partial-list"><li>Loading...</li></ul>
-            <div class="cta-row" style="margin-top:1rem;justify-content:flex-start">
-                <button class="btn btn-secondary" type="button" id="copyLosingBtn">Copy share text</button>
-                <a class="btn btn-secondary" href="#glass-box-challenge">Read transparency challenge</a>
+            <div class="misses-honesty-banner" role="note" id="misses-honesty-banner">
+                {{ t('ledger.panel.misses_banner') }}
             </div>
-            <p style="margin-top:0.65rem;font-size:0.72rem;color:var(--muted)"><strong>Anti-Hype</strong> · Not financial advice. Past misses do not predict future results.</p>
+            <h2>{{ t('ledger.panel.misses_title') }}</h2>
+            <p style="color:var(--muted);font-size:0.88rem;margin-bottom:.65rem">
+                {{ t('ledger.panel.misses_lead') }} <code>/errors</code>.
+            </p>
+            <div class="misses-summary" aria-label="{{ t('ledger.panel.misses_summary_aria') }}">
+                <div class="misses-stat misses-stat--errors">
+                    <span class="misses-stat-num" id="misses-verified-count">—</span>
+                    <span class="misses-stat-lbl">{{ t('ledger.panel.misses_verified_label') }}</span>
+                </div>
+                <div class="misses-stat misses-stat--partial">
+                    <span class="misses-stat-num" id="misses-partial-count">—</span>
+                    <span class="misses-stat-lbl">{{ t('ledger.panel.misses_partial_label') }}</span>
+                </div>
+                <div class="misses-stat misses-stat--rate">
+                    <span class="misses-stat-num" id="misses-rate-pct">—</span>
+                    <span class="misses-stat-lbl">{{ t('ledger.panel.misses_rate_label') }}</span>
+                </div>
+            </div>
+            <p id="losing-status" style="color:var(--muted);font-size:0.9rem">{{ t('ledger.misses.loading') }}</p>
+            <p id="losing-archive-note" style="display:none;color:var(--warning);font-size:0.85rem;margin:.5rem 0"></p>
+            <div class="misses-recent-wrap">
+                <h3>{{ t('ledger.panel.misses_recent_title') }}</h3>
+                <div style="overflow-x:auto">
+                    <table id="misses-recent-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">{{ t('ledger.panel.misses_col_asset') }}</th>
+                                <th scope="col">{{ t('ledger.panel.misses_col_verdict') }}</th>
+                                <th scope="col">{{ t('ledger.panel.misses_col_outcome') }}</th>
+                                <th scope="col">{{ t('ledger.panel.misses_col_time') }}</th>
+                                <th scope="col">{{ t('ledger.panel.misses_col_action') }}</th>
+                            </tr>
+                        </thead>
+                        <tbody id="misses-recent-body">
+                            <tr><td colspan="5">{{ t('ui.loading') }}</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="misses-detail-lists" aria-hidden="true">
+                <h3>{{ t('ledger.panel.verified_errors') }}</h3>
+                <ul class="events" id="losing-errors-list"><li>{{ t('ui.loading') }}</li></ul>
+                <h3>{{ t('ledger.panel.partial_outcomes') }}</h3>
+                <ul class="events" id="losing-partial-list"><li>{{ t('ui.loading') }}</li></ul>
+            </div>
+            <div class="cta-row" style="margin-top:1rem;justify-content:flex-start">
+                <button class="btn btn-secondary" type="button" id="copyLosingBtn">{{ t('ledger.js.copy_share') }}</button>
+                <a class="btn btn-secondary" href="/miss-bounty-log">{{ t('ledger.cta.bounty_log') }}</a>
+                <a class="btn btn-secondary" href="#glass-box-challenge">{{ t('ledger.panel.transparency_link') }}</a>
+            </div>
+            <p style="margin-top:0.75rem;font-size:0.82rem;color:var(--muted)">{{ t('bounty.rules_banner') }}</p>
+            <p style="margin-top:0.65rem;font-size:0.72rem;color:var(--muted)">{{ t('ledger.panel.anti_hype_misses') }}</p>
         </div>
     </section>
 
     <section class="panel" id="audit-challenge">
         <div class="card">
-            <h2>Audit Challenge — Prove us wrong</h2>
-            <p id="audit-status" style="color:var(--muted);font-size:0.9rem">Loading live verify…</p>
-            <p style="color:var(--muted);font-size:0.88rem;margin-top:.5rem">
-                Find a real break in the hash chain. We publish the full ledger — including misses.
-            </p>
-            <p style="margin-top:0.65rem;font-size:0.72rem;color:var(--muted)"><strong>Anti-Hype</strong> · Not financial advice. Verify the chain yourself — trust is optional.</p>
+            <h2>{{ t('ledger.panel.audit_title') }}</h2>
+            <p id="audit-status" style="color:var(--muted);font-size:0.9rem">{{ t('ledger.audit.loading') }}</p>
+            <p style="color:var(--muted);font-size:0.88rem;margin-top:.5rem">{{ t('ledger.panel.audit_lead') }}</p>
+            <p style="margin-top:0.65rem;font-size:0.72rem;color:var(--muted)">{{ t('ledger.panel.anti_hype_audit') }}</p>
         </div>
     </section>
 
     <section class="panel" id="panel-registry" style="display:none">
         <div class="card">
-            <h2>D8 · Feature lexicon (public registry)</h2>
-            <p id="registry-status" style="color:var(--muted);font-size:0.9rem">Loading feature lexicon…</p>
+            <h2>{{ t('ledger.registry.title') }}</h2>
+            <p id="registry-status" style="color:var(--muted);font-size:0.9rem">{{ t('ledger.registry.loading') }}</p>
             <div style="overflow-x:auto;margin-top:1rem">
                 <table>
                     <thead>
                         <tr>
-                            <th>Entry type</th>
-                            <th>Count</th>
+                            <th>{{ t('ledger.registry.col.type') }}</th>
+                            <th>{{ t('ledger.registry.col.count') }}</th>
                         </tr>
                     </thead>
                     <tbody id="registry-body">
-                        <tr><td colspan="2">Loading...</td></tr>
+                        <tr><td colspan="2">{{ t('ui.loading') }}</td></tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </section>
 
-    <section class="grid" id="panel-ledger-stats" style="display:none">
+    <section class="grid" id="panel-ledger-stats" aria-busy="true">
         <div class="stat"><div class="num" id="stat-accuracy">—</div><div class="lbl">Average accuracy %</div><div class="subnote" id="stat-accuracy-note"></div></div>
         <div class="stat"><div class="num" id="stat-total">—</div><div class="lbl">Total predictions (logged)</div><div class="subnote" id="stat-resolved-note"></div></div>
         <div class="stat"><div class="num" id="stat-labeled">—</div><div class="lbl">Training samples (labeled)</div><div class="subnote" id="stat-labeled-note"></div></div>
@@ -299,9 +478,9 @@
 
     <p id="metrics-explainer" class="metrics-explainer" aria-live="polite"></p>
 
-    <section class="panel" id="panel-latest-table" style="display:none">
+    <section class="panel" id="panel-latest-table" aria-busy="true">
         <div class="card">
-            <h2>Latest scored predictions</h2>
+            <h2>{{ t('ledger.panel.latest_title') }}</h2>
             <p id="recent-table-note" style="color:var(--muted);font-size:0.82rem;margin-bottom:0.75rem"></p>
             <div style="overflow-x:auto">
                 <table>
@@ -318,7 +497,7 @@
                         </tr>
                     </thead>
                     <tbody id="predictions-body">
-                        <tr><td colspan="8">Loading...</td></tr>
+                        <tr><td colspan="8">{{ t('ui.loading') }}</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -327,9 +506,9 @@
 
     <section class="panel" id="panel-learning" style="display:none">
         <div class="card">
-            <h2>Learning experience log</h2>
+            <h2>{{ t('ledger.panel.learning_title') }}</h2>
             <ul class="events" id="events-list">
-                <li>Loading...</li>
+                <li>{{ t('ui.loading') }}</li>
             </ul>
         </div>
     </section>
@@ -344,6 +523,7 @@
 
     <script defer src="/static/js/dom_escape.js"></script>
     <script defer src="/static/js/public_decision_map.js"></script>
+    <script src="/static/js/bd_live_refresh.js"></script>
     <script>
         const ORACLE_LEDGER_FETCH_MS = 45000;
         const ORACLE_LEDGER_SECONDARY_MS = 15000;
@@ -430,7 +610,7 @@
 
         function setProofPanelLoading(label) {
             const panel = document.getElementById('proof-panel');
-            if (panel) panel.textContent = label || 'Loading chain…';
+            if (panel) panel.textContent = label || i18nT('ledger.proof_chain.loading');
         }
 
         function renderLedgerFailure(reason, opts) {
@@ -526,23 +706,15 @@
             return true;
         }
 
+        function i18nT(key, vars) {
+            const i18n = window.BD_I18N;
+            if (!i18n || typeof i18n.t !== 'function') return '';
+            return i18n.t(key, vars);
+        }
+
         function ledgerCopy(key) {
-            const ar = PAGE_LANG.startsWith('ar');
-            const en = {
-                no_scored: 'No verified scored rows in the live ledger yet.',
-                no_misses: 'No verified errors or partial outcomes in the live ledger yet.',
-                partial_tag: 'partial outcome',
-                verified_error: 'verified error',
-                missing: 'missing',
-            };
-            const arMap = {
-                no_scored: 'لا توجد نتائج متحققة بعد في السجل الحي.',
-                no_misses: 'لا توجد أخطاء متحققة أو نتائج جزئية في السجل الحي بعد.',
-                partial_tag: 'نتيجة جزئية',
-                verified_error: 'خطأ متحقق',
-                missing: 'ناقص',
-            };
-            return (ar ? arMap : en)[key] || key;
+            const fromCat = i18nT('ledger.js.' + key);
+            return fromCat || key;
         }
         const domSafe = window.BDDomSafe || {};
         const esc = domSafe.esc || domSafe.escapeHtml || ((v) => String(v ?? ''));
@@ -868,7 +1040,7 @@
         }
 
         async function refreshProofChainPanel(showLoading) {
-            if (showLoading) setProofPanelLoading('Verifying audit chain…');
+            if (showLoading) setProofPanelLoading(i18nT('ledger.js.proof_verifying'));
             try {
                 const verify = await fetchJsonWithTimeout(
                     '/api/oracle/audit-chain/verify',
@@ -953,36 +1125,90 @@
             const partials = dedupeByAssetMinute(
                 raw.filter((r) => String(r.label || '').toLowerCase() === 'partial')
             );
+            const resolved = Number(o.resolved_predictions ?? ll.resolved_predictions ?? 0);
+            const missTotal = verified + partialTotal;
+            let missRate = null;
+            if (resolved > 0) {
+                missRate = (missTotal / resolved) * 100;
+            }
+            const verifiedEl = document.getElementById('misses-verified-count');
+            const partialEl = document.getElementById('misses-partial-count');
+            const rateEl = document.getElementById('misses-rate-pct');
+            if (verifiedEl) verifiedEl.textContent = verified.toLocaleString();
+            if (partialEl) partialEl.textContent = partialTotal.toLocaleString();
+            if (rateEl) {
+                rateEl.textContent = missRate !== null
+                    ? `${missRate.toFixed(1)}%`
+                    : '—';
+            }
+            const recentRows = sortMissesNewestFirst(errors.concat(partials)).slice(0, 20);
+            const recentBody = document.getElementById('misses-recent-body');
+            if (recentBody) {
+                recentBody.innerHTML = recentRows.length
+                    ? recentRows.map(renderMissesRecentTableRow).join('')
+                    : `<tr><td colspan="5">${esc(i18nT('ledger.js.no_verified_sample'))}</td></tr>`;
+            }
             const statusEl = document.getElementById('losing-status');
             if (statusEl) {
+                const rateNote = missRate !== null ? ` · ${missRate.toFixed(1)}% of ${resolved.toLocaleString()} resolved` : '';
                 statusEl.textContent =
                     `Live ledger · ${source} · ${verified.toLocaleString()} verified errors · ` +
-                    `${partialTotal.toLocaleString()} partial outcomes · ` +
-                    `showing ${errors.length} verified + ${partials.length} partial from latest miss sample`;
+                    `${partialTotal.toLocaleString()} partial outcomes${rateNote} · ` +
+                    `showing ${recentRows.length} newest in table`;
             }
             const errList = document.getElementById('losing-errors-list');
             const partList = document.getElementById('losing-partial-list');
             if (errList) {
                 errList.innerHTML = errors.length
                     ? errors.map(renderMonthlyLosingRow).join('')
-                    : '<li>No verified errors in the latest live miss sample.</li>';
+                    : '<li>' + esc(i18nT('ledger.js.no_verified_sample')) + '</li>';
             }
             if (partList) {
                 partList.innerHTML = partials.length
                     ? partials.map(renderMonthlyLosingRow).join('')
-                    : '<li>No partial outcomes in the latest live miss sample.</li>';
+                    : '<li>' + esc(i18nT('ledger.js.no_partial_sample')) + '</li>';
             }
+            attachMissBountyButtons().catch((err) => console.debug(err));
             lastLosingShare = buildLedgerShareText(o);
         }
 
         function renderMonthlyLosingRow(r) {
             const label = String(r.label || '').toLowerCase();
             const decision = r.public_decision || r.verdict || publicMissDecisionLabel(r);
+            const pid = ledgerField(r.prediction_id);
+            const bountyBtn = label === 'incorrect'
+                ? `<button type="button" class="btn-bounty disabled" data-bounty-pred="${esc(pid)}" data-bounty-asset="${esc(ledgerField(r.asset))}">${esc(i18nT('bounty.claim_btn') || 'Claim Miss Bounty')}</button>`
+                : '';
             return (
                 `<li><strong>${esc(ledgerField(r.asset))}</strong> · ${esc(decision)} · ` +
                 `<span class="pill ${pillClass(label)}">${esc(r.label || ledgerCopy('missing'))}</span> · ` +
-                `id ${esc(ledgerField(r.prediction_id))}</li>`
+                `id ${esc(pid)}${bountyBtn}</li>`
             );
+        }
+
+        function formatMissOutcomeLabel(label) {
+            const key = String(label || '').toLowerCase();
+            if (key === 'incorrect') return 'miss';
+            if (key === 'partial') return 'partial';
+            if (key === 'correct') return 'correct';
+            return label || ledgerCopy('missing');
+        }
+
+        function renderMissesRecentTableRow(r) {
+            const label = String(r.label || '').toLowerCase();
+            const decision = r.public_decision || r.verdict || publicMissDecisionLabel(r);
+            const pid = ledgerField(r.prediction_id);
+            const ts = r.timestamp ? String(r.timestamp).slice(0, 19).replace('T', ' ') : ledgerCopy('missing');
+            const bountyBtn = label === 'incorrect'
+                ? `<button type="button" class="btn-bounty disabled" data-bounty-pred="${esc(pid)}" data-bounty-asset="${esc(ledgerField(r.asset))}">${esc(i18nT('bounty.claim_btn') || 'Claim Miss Bounty')}</button>`
+                : '<span style="color:var(--muted);font-size:0.78rem">—</span>';
+            return `<tr>
+                <td><strong>${esc(ledgerField(r.asset))}</strong></td>
+                <td>${esc(decision)}</td>
+                <td><span class="pill ${pillClass(label)}">${esc(formatMissOutcomeLabel(r.label))}</span></td>
+                <td style="font-variant-numeric:tabular-nums;color:var(--muted)">${esc(ts)}</td>
+                <td>${bountyBtn}</td>
+            </tr>`;
         }
 
         function ledgerPayloadRejectReason(data) {
@@ -997,7 +1223,7 @@
         }
 
         async function loadAccuracy() {
-            setProofPanelLoading('Loading chain…');
+            setProofPanelLoading(i18nT('ledger.proof_chain.loading'));
             try {
                 const data = await fetchJsonWithTimeout(
                     '/api/oracle/accuracy/public',
@@ -1203,20 +1429,381 @@
             }
         }
 
+        async function loadBtcMempoolFees() {
+            const st = document.getElementById('btc-mempool-status');
+            const list = document.getElementById('btc-mempool-summary');
+            const foot = document.getElementById('btc-mempool-attribution');
+            try {
+                const d = await fetchJsonWithTimeout(
+                    '/api/public/btc/mempool-fees',
+                    {},
+                    ORACLE_LEDGER_SECONDARY_MS,
+                );
+                const fees = d.recommended_fees || {};
+                const height = d.block_tip_height != null ? d.block_tip_height : '—';
+                const fast = fees.fastest_sat_vb != null ? fees.fastest_sat_vb : '—';
+                if (st) {
+                    st.textContent = i18nT('ledger.panel.btc_fees_status', { height, fast })
+                        || ('Block height ' + height + ' · fastest ' + fast + ' sat/vB');
+                }
+                if (foot) foot.textContent = d.attribution || '';
+                if (!list) return;
+                const rows = [
+                    ['Fastest', fees.fastest_sat_vb],
+                    ['~30 min', fees.half_hour_sat_vb],
+                    ['~1 hour', fees.hour_sat_vb],
+                    ['Economy', fees.economy_sat_vb],
+                    ['Minimum', fees.minimum_sat_vb],
+                ].filter((r) => r[1] != null);
+                if (!rows.length) {
+                    list.innerHTML = '<li>' + esc(i18nT('ledger.panel.btc_fees_unavailable')) + '</li>';
+                    return;
+                }
+                list.innerHTML = rows.map(([label, value]) => {
+                    const line = i18nT('ledger.panel.btc_fees_row', { label, value }) || (label + ': ' + value + ' sat/vB');
+                    return '<li>' + esc(line) + '</li>';
+                }).join('');
+            } catch (e) {
+                if (st) st.textContent = i18nT('ledger.panel.btc_fees_unavailable');
+                if (list) list.innerHTML = '<li>—</li>';
+            }
+        }
+
+        function fmtDefiUsd(value) {
+            const x = Number(value);
+            if (!Number.isFinite(x)) return '—';
+            if (x >= 1e12) return '$' + (x / 1e12).toFixed(2) + 'T';
+            if (x >= 1e9) return '$' + (x / 1e9).toFixed(2) + 'B';
+            if (x >= 1e6) return '$' + (x / 1e6).toFixed(2) + 'M';
+            return '$' + x.toLocaleString(undefined, { maximumFractionDigits: 0 });
+        }
+
+        async function loadFredMacro() {
+            const st = document.getElementById('fred-macro-status');
+            const list = document.getElementById('fred-macro-summary');
+            const foot = document.getElementById('fred-macro-attribution');
+            try {
+                const d = await fetchJsonWithTimeout(
+                    '/api/public/macro/fred/context',
+                    {},
+                    ORACLE_LEDGER_SECONDARY_MS,
+                );
+                const ind = d.indicators || {};
+                if (foot) foot.textContent = d.attribution || '';
+                const lines = [];
+                const ff = ind.fed_funds_rate;
+                if (ff && ff.value != null) {
+                    lines.push(
+                        i18nT('ledger.panel.fred_row', {
+                            title: ff.title || 'Fed funds',
+                            value: ff.value + '%',
+                            date: ff.date || '—',
+                        }) || `Fed funds: ${ff.value}% (${ff.date})`,
+                    );
+                }
+                const cpi = ind.cpi;
+                if (cpi && cpi.yoy_change_pct != null) {
+                    lines.push(
+                        i18nT('ledger.panel.fred_cpi_row', {
+                            yoy: cpi.yoy_change_pct,
+                            value: cpi.value,
+                            date: cpi.date || '—',
+                        }) || `CPI YoY: ${cpi.yoy_change_pct}%`,
+                    );
+                }
+                const gdp = ind.gdp;
+                if (gdp && gdp.value != null) {
+                    lines.push(
+                        i18nT('ledger.panel.fred_row', {
+                            title: gdp.title || 'GDP',
+                            value: fmtDefiUsd(gdp.value * 1e9),
+                            date: gdp.date || '—',
+                        }) || `GDP: ${gdp.value}`,
+                    );
+                }
+                const t10 = ind.treasury_10y;
+                if (t10 && t10.value != null) {
+                    lines.push(
+                        i18nT('ledger.panel.fred_row', {
+                            title: t10.title || '10Y Treasury',
+                            value: t10.value + '%',
+                            date: t10.date || '—',
+                        }) || `10Y: ${t10.value}%`,
+                    );
+                }
+                if (st) st.textContent = lines.length ? 'FRED · live macro snapshot' : i18nT('ledger.panel.fred_unavailable');
+                if (!list) return;
+                if (!lines.length) {
+                    list.innerHTML = '<li>' + esc(i18nT('ledger.panel.fred_unavailable')) + '</li>';
+                    return;
+                }
+                list.innerHTML = lines.map((line) => '<li>' + esc(line) + '</li>').join('');
+            } catch (e) {
+                if (st) st.textContent = i18nT('ledger.panel.fred_unavailable');
+                if (list) list.innerHTML = '<li>—</li>';
+            }
+        }
+
+        async function loadDefiContext() {
+            const st = document.getElementById('defi-context-status');
+            const list = document.getElementById('defi-context-summary');
+            const foot = document.getElementById('defi-context-attribution');
+            const params = new URLSearchParams(window.location.search || '');
+            const sym = (params.get('asset') || params.get('symbol') || 'ETH').toUpperCase();
+            try {
+                const d = await fetchJsonWithTimeout(
+                    '/api/public/defi-context?symbol=' + encodeURIComponent(sym),
+                    {},
+                    ORACLE_LEDGER_SECONDARY_MS,
+                );
+                if (st) {
+                    st.textContent = i18nT('ledger.panel.defi_status', {
+                        symbol: sym,
+                        total: fmtDefiUsd(d.total_defi_tvl_usd),
+                    }) || (sym + ' · total DeFi TVL ' + fmtDefiUsd(d.total_defi_tvl_usd));
+                }
+                if (foot) foot.textContent = d.attribution || '';
+                if (!list) return;
+                const lines = [];
+                if (d.chain && d.chain_tvl_usd != null) {
+                    lines.push(
+                        i18nT('ledger.panel.defi_chain_tvl', {
+                            chain: d.chain,
+                            tvl: fmtDefiUsd(d.chain_tvl_usd),
+                        }) || (d.chain + ' chain TVL ' + fmtDefiUsd(d.chain_tvl_usd)),
+                    );
+                }
+                (d.top_chains || []).slice(0, 3).forEach((c) => {
+                    lines.push(
+                        i18nT('ledger.panel.defi_chain_row', {
+                            name: c.name || '—',
+                            tvl: fmtDefiUsd(c.tvl_usd),
+                        }) || ('Chain ' + (c.name || '—') + ': ' + fmtDefiUsd(c.tvl_usd) + ' TVL'),
+                    );
+                });
+                (d.fees_leaders_24h || []).slice(0, 3).forEach((f) => {
+                    lines.push(
+                        i18nT('ledger.panel.defi_fee_row', {
+                            name: f.name || '—',
+                            fees: fmtDefiUsd(f.fees_24h_usd),
+                        }) || ('Fees 24h · ' + (f.name || '—') + ': ' + fmtDefiUsd(f.fees_24h_usd)),
+                    );
+                });
+                (d.top_yields || []).slice(0, 3).forEach((y) => {
+                    lines.push(
+                        i18nT('ledger.panel.defi_yield_row', {
+                            project: y.project || '—',
+                            symbol: y.symbol || '',
+                            apy: Number(y.apy || 0).toFixed(2),
+                        }) || ('Yield · ' + (y.project || '—') + ' (' + (y.symbol || '') + '): ' + Number(y.apy || 0).toFixed(2) + '% APY'),
+                    );
+                });
+                if (!lines.length) {
+                    list.innerHTML = '<li>' + esc(i18nT('ledger.panel.defi_empty') || 'No DeFi highlights') + '</li>';
+                    return;
+                }
+                list.innerHTML = lines.map((t) => '<li>' + t + '</li>').join('');
+            } catch (e) {
+                if (st) st.textContent = i18nT('ledger.panel.defi_unavailable') || 'DeFi context unavailable';
+                if (list) list.innerHTML = '<li>' + esc(i18nT('ledger.panel.defi_empty') || '—') + '</li>';
+            }
+        }
+
+        async function loadArbOpportunities() {
+            const st = document.getElementById('arb-opportunities-status');
+            const list = document.getElementById('arb-opportunities-list');
+            const emptyMsg = i18nT('ledger.panel.arb_empty') || 'No arb opportunities right now.';
+            try {
+                const d = await fetchJsonWithTimeout(
+                    '/api/oracle/arb-opportunities/public',
+                    {},
+                    ORACLE_LEDGER_SECONDARY_MS,
+                );
+                const rows = d.opportunities || [];
+                if (st) {
+                    st.textContent = rows.length
+                        ? (i18nT('ledger.panel.arb_status', { count: rows.length })
+                            || `${rows.length} opportunities shown (display only)`)
+                        : '';
+                }
+                if (!list) return;
+                if (!rows.length) {
+                    list.innerHTML = '<li>' + esc(emptyMsg) + '</li>';
+                    return;
+                }
+                list.innerHTML = rows.map((r) => {
+                    const pct = Number(r.price_diff_percent || 0).toFixed(3);
+                    const ex1 = esc(r.exchange_1 || '—');
+                    const ex2 = esc(r.exchange_2 || '—');
+                    const asset = esc(r.asset || '');
+                    const link1 = safeUrl(r.link_exchange_1) || '#';
+                    const link2 = safeUrl(r.link_exchange_2) || '#';
+                    return (
+                        `<li><strong>${asset}</strong> · <a href="${esc(link1)}" target="_blank" rel="noopener">${ex1}</a> → ` +
+                        `<a href="${esc(link2)}" target="_blank" rel="noopener">${ex2}</a> · ` +
+                        `<span style="color:var(--success)">${pct}%</span> · display only</li>`
+                    );
+                }).join('');
+            } catch (e) {
+                if (st) st.textContent = i18nT('ledger.panel.arb_unavailable') || 'Arb scan unavailable';
+                if (list) list.innerHTML = '<li>' + esc(emptyMsg) + '</li>';
+            }
+        }
+
+        async function loadSealedMarkets() {
+            const st = document.getElementById('sealed-markets-status');
+            const list = document.getElementById('sealed-markets-list');
+            try {
+                const d = await fetchJsonWithTimeout('/api/sealed-markets/public', {}, ORACLE_LEDGER_SECONDARY_MS);
+                const active = d.active || [];
+                const settled = (d.settled || []).slice(0, 6);
+                if (st) {
+                    st.textContent = i18nT('sealed.panel.status', {
+                        active: active.length,
+                        settled: settled.length,
+                    }) || `${active.length} active · ${settled.length} recent settled`;
+                }
+                const rows = [...active, ...settled];
+                if (!list) return;
+                if (!rows.length) {
+                    list.innerHTML = '<li>' + esc(i18nT('sealed.panel.empty')) + '</li>';
+                    return;
+                }
+                list.innerHTML = rows.map(m =>
+                    `<li><strong>${esc(m.asset)}</strong> · ${esc(m.decision_action)} · pool ${esc(m.total_pool_usdt)} USDT · ` +
+                    `${esc(m.participant_count)} bettors · <code>${esc(String(m.certificate_hash || '').slice(0,12))}…</code> · ` +
+                    `<a href="/oracle-decision/${esc(m.prediction_id)}">view</a></li>`
+                ).join('');
+            } catch (e) {
+                if (st) st.textContent = i18nT('sealed.panel.unavailable');
+                if (list) list.innerHTML = '<li>—</li>';
+            }
+        }
+
         function startLedgerBoot() {
             loadAccuracy().then(() => scheduleSecondaryLoad(loadLedgerShareKit));
+            scheduleSecondaryLoad(loadSealedMarkets);
+            scheduleSecondaryLoad(loadBtcMempoolFees);
+            scheduleSecondaryLoad(loadFredMacro);
+            scheduleSecondaryLoad(loadDefiContext);
+            scheduleSecondaryLoad(loadArbOpportunities);
             scheduleSecondaryLoad(loadGlassBox);
             scheduleSecondaryLoad(loadMevReport);
             scheduleSecondaryLoad(loadLocked);
-            setInterval(() => { loadAccuracy().catch(() => {}); }, 60000);
-            setInterval(() => { loadLocked().catch(() => {}); }, 120000);
+            const scheduleLedgerPoll = (policy) => {
+                const ms = (policy && policy.poll_interval_ms) || ORACLE_LEDGER_FETCH_MS;
+                if (window.BDLiveRefresh) {
+                    window.BDLiveRefresh.startInterval('ledger-accuracy', () => {
+                        loadAccuracy().catch(() => {});
+                    }, ms);
+                    window.BDLiveRefresh.startInterval('ledger-locked', () => {
+                        loadLocked().catch(() => {});
+                    }, Math.max(ms * 2, 60000));
+                } else {
+                    setInterval(() => { loadAccuracy().catch(() => {}); }, ms);
+                    setInterval(() => { loadLocked().catch(() => {}); }, Math.max(ms * 2, 60000));
+                }
+            };
+            if (window.BDLiveRefresh) {
+                void window.BDLiveRefresh.ensurePolicy().then(scheduleLedgerPoll);
+            } else {
+                scheduleLedgerPoll(null);
+            }
         }
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', startLedgerBoot);
         } else {
             startLedgerBoot();
         }
+
+        let mbActivePred = null;
+        const mbModal = document.getElementById('miss-bounty-modal');
+        function openMissBountyModal(predictionId, asset) {
+            mbActivePred = predictionId;
+            document.getElementById('mb-pred').textContent = `Prediction #${predictionId} · ${asset || ''}`;
+            document.getElementById('mb-decision-link').value =
+                `${window.location.origin}/oracle-accuracy#pred-${predictionId}`;
+            document.getElementById('mb-msg').textContent = '';
+            mbModal?.classList.add('open');
+        }
+        document.getElementById('mb-cancel')?.addEventListener('click', () => mbModal?.classList.remove('open'));
+        document.getElementById('mb-submit')?.addEventListener('click', async () => {
+            const msg = document.getElementById('mb-msg');
+            msg.textContent = i18nT('bounty.modal.submitting');
+            try {
+                const res = await fetch('/api/oracle/miss-bounty/claims', {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        decision_link: document.getElementById('mb-decision-link').value,
+                        source_a_url: document.getElementById('mb-src-a').value,
+                        source_b_url: document.getElementById('mb-src-b').value,
+                        source_a_close: Number(document.getElementById('mb-close-a').value),
+                        source_b_close: Number(document.getElementById('mb-close-b').value),
+                    }),
+                });
+                const data = await res.json().catch(() => ({}));
+                if (!res.ok) {
+                    msg.textContent = data.detail || i18nT('bounty.modal.failed');
+                    return;
+                }
+                msg.style.color = 'var(--success)';
+                msg.textContent = data.message || `Status: ${data.status}`;
+            } catch (e) {
+                msg.textContent = i18nT('bounty.modal.network_error');
+            }
+        });
+
+        async function attachMissBountyButtons() {
+            document.querySelectorAll('[data-bounty-pred]').forEach(async (btn) => {
+                const pid = btn.getAttribute('data-bounty-pred');
+                if (!pid) return;
+                try {
+                    const res = await fetch(`/api/oracle/miss-bounty/eligibility?prediction_id=${encodeURIComponent(pid)}`, { credentials: 'include' });
+                    const data = await res.json();
+                    const eligible = !!data.eligible;
+                    btn.disabled = !eligible;
+                    btn.classList.toggle('disabled', !eligible);
+                    btn.title = (data.reasons || []).join(' · ') || (eligible ? i18nT('bounty.claim_tooltip') : '');
+                } catch (e) {
+                    btn.disabled = true;
+                    btn.classList.add('disabled');
+                }
+            });
+        }
+
+        document.addEventListener('click', (ev) => {
+            const t = ev.target;
+            if (t && t.classList && t.classList.contains('btn-bounty') && !t.disabled) {
+                const pid = t.getAttribute('data-bounty-pred');
+                const asset = t.getAttribute('data-bounty-asset') || '';
+                if (pid) openMissBountyModal(pid, asset);
+            }
+        });
     </script>
+    <div id="miss-bounty-modal" role="dialog" aria-modal="true" aria-labelledby="mb-title">
+        <div class="sheet">
+            <h2 id="mb-title" style="font-size:1.1rem;margin-bottom:0.35rem">{{ t('bounty.modal.title') }}</h2>
+            <p style="font-size:0.82rem;color:var(--muted)">{{ t('bounty.modal.sub') }}</p>
+            <p id="mb-pred" style="font-size:0.85rem;margin-top:0.5rem"></p>
+            <label for="mb-decision-link">{{ t('bounty.modal.decision_link') }}</label>
+            <input id="mb-decision-link" type="url" readonly>
+            <label for="mb-src-a">{{ t('bounty.modal.source_a_url') }}</label>
+            <input id="mb-src-a" type="url" placeholder="https://…">
+            <label for="mb-close-a">{{ t('bounty.modal.source_a_close') }}</label>
+            <input id="mb-close-a" type="number" step="any" min="0">
+            <label for="mb-src-b">{{ t('bounty.modal.source_b_url') }}</label>
+            <input id="mb-src-b" type="url" placeholder="https://…">
+            <label for="mb-close-b">{{ t('bounty.modal.source_b_close') }}</label>
+            <input id="mb-close-b" type="number" step="any" min="0">
+            <p id="mb-msg" style="font-size:0.82rem;margin-top:0.75rem;color:var(--warning)"></p>
+            <div class="cta-row" style="justify-content:flex-end;margin:1rem 0 0">
+                <button type="button" class="btn btn-secondary" id="mb-cancel">{{ t('bounty.modal.cancel') }}</button>
+                <button type="button" class="btn btn-primary" id="mb-submit">{{ t('bounty.modal.submit') }}</button>
+            </div>
+        </div>
+    </div>
     {% include "partials/site_footer.html" %}
 </body>
 </html>

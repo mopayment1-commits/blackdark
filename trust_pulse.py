@@ -175,6 +175,10 @@ async def _compute_oracle_payload(
     if market is None:
         raise ValueError(f"Symbol {asset} not found")
 
+    from coinmarketcap_api import enrich_market_with_cmc_metadata
+
+    market = await enrich_market_with_cmc_metadata(market, asset)
+
     price = float(market["price"])
     volume = float(market["volume"])
     quote_volume = float(market.get("quote_volume") or volume * price)
@@ -182,6 +186,9 @@ async def _compute_oracle_payload(
     price_ts = market.get("timestamp") or market.get("close_time")
     fetched_at = time.time()
 
+    price_src = str(market.get("source") or "")
+    if price_src == "coinpaprika":
+        price_src = "coinpaprika"
     payload = build_full_oracle_response(
         asset,
         price,
@@ -190,8 +197,55 @@ async def _compute_oracle_payload(
         change,
         whale_alert=await _fetch_trust_pulse_whale(asset, pair, price),
         unified=await _fetch_trust_pulse_unified(asset, price, quote_volume, change),
+        market_cap_usd=float(market.get("market_cap_usd") or 0) or None,
+        cmc_rank=int(market["cmc_rank"]) if market.get("cmc_rank") is not None else None,
+        price_source=price_src,
     )
+    if market.get("price_history_daily"):
+        payload["price_history_daily"] = market.get("price_history_daily")
+        payload["price_history_source"] = market.get("price_history_source") or "coinpaprika"
+    try:
+        from fred_public_api import fetch_macro_context
+
+        macro = await fetch_macro_context()
+        if macro.get("fetched_ok"):
+            payload["fred_macro_context"] = {
+                "source": macro.get("source"),
+                "attribution": macro.get("attribution"),
+                "indicators": macro.get("indicators"),
+            }
+    except Exception:
+        pass
+    if asset.upper() == "BTC":
+        try:
+            from mempool_public_api import fetch_btc_mempool_context
+
+            btc_ctx = await fetch_btc_mempool_context()
+            if btc_ctx.get("fetched_ok"):
+                payload["btc_mempool_fees"] = {
+                    "recommended_fees": btc_ctx.get("recommended_fees"),
+                    "block_tip_height": btc_ctx.get("block_tip_height"),
+                    "source": btc_ctx.get("source"),
+                    "attribution": btc_ctx.get("attribution"),
+                    "no_api_key": btc_ctx.get("no_api_key", True),
+                }
+        except Exception:
+            pass
+    fred_snapshot = payload.get("fred_macro_context")
     payload = _enrich_trust_pulse_payload(payload, ux_mode=ux_mode, lang=lang)
+    if asset.upper() == "BTC" and payload.get("btc_mempool_fees"):
+        fees = dict(payload["btc_mempool_fees"])
+        fees.setdefault("no_api_key", True)
+        payload["btc_mempool_fees"] = fees
+    if fred_snapshot:
+        payload["fred_macro_context"] = fred_snapshot
+    if market.get("source") == "coinpaprika":
+        payload["price_source"] = "coinpaprika"
+        payload["quote_exchange"] = "coinpaprika"
+        payload["data_source"] = "CoinPaprika Public API | Unified Multi-Modal AI Engine"
+        if market.get("price_history_daily"):
+            payload["price_history_daily"] = market.get("price_history_daily")
+            payload["price_history_source"] = market.get("price_history_source") or "coinpaprika"
     _attach_trust_pulse_why(payload)
     await _persist_trust_pulse_payload(payload, persist=persist)
     _attach_trust_pulse_certificate(payload, tier=tier)
@@ -240,25 +294,32 @@ def _enrich_trust_pulse_payload(payload: dict[str, Any], *, ux_mode: str, lang: 
 
 
 def _trust_pulse_synth_factors(payload: dict[str, Any]) -> list[dict[str, str]]:
+    from i18n_service import t
+
+    lang = str(payload.get("lang") or "en")
     change = float(payload.get("change_24h") or 0)
     score = payload.get("opportunity_score")
     regime = payload.get("market_regime") or "unknown"
     whale = payload.get("whale_alert")
     return [
         {
-            "factor": f"Opportunity score {score}" if score is not None else "Score pending",
-            "detail": "Composite Trust OS score from live market context",
-            "source": "oracle",
+            "factor": (
+                t("trust.factor.opportunity_score", lang, score=score)
+                if score is not None
+                else t("trust.factor.score_pending", lang)
+            ),
+            "detail": t("trust.factor.detail.composite", lang),
+            "source": t("oracle.source.oracle", lang),
         },
         {
-            "factor": f"24h move {change:+.2f}%",
-            "detail": "Short-horizon price change on the watched pair",
-            "source": "live market",
+            "factor": t("trust.factor.move_24h", lang, change=f"{change:+.2f}"),
+            "detail": t("trust.factor.detail.move", lang),
+            "source": t("oracle.source.live_market", lang),
         },
         {
-            "factor": f"Regime {regime}",
-            "detail": str(whale)[:120] if whale else "Regime label from unified context",
-            "source": "context",
+            "factor": t("trust.factor.regime", lang, regime=regime),
+            "detail": str(whale)[:120] if whale else t("trust.factor.detail.regime", lang),
+            "source": t("oracle.source.context", lang),
         },
     ]
 
@@ -275,8 +336,11 @@ def _attach_trust_pulse_why(payload: dict[str, Any]) -> None:
     factors = (payload.get("oqs_why") or {}).get("top_3_factors") or []
     if not factors:
         synth = _trust_pulse_synth_factors(payload)
+        from i18n_service import t
+
+        lang = str(payload.get("lang") or "en")
         payload["oqs_why"] = {
-            "grasp_line": "Top reasons — under five seconds",
+            "grasp_line": t("trust.grasp.top_reasons", lang),
             "top_3_factors": synth,
             "ready": True,
             "synthetic_fallback": True,
@@ -396,7 +460,10 @@ def _pulse_base_result(
         ),
         "sentence": _pulse_sentence(payload),
         "why": {
-            "grasp_line": why.get("grasp_line") or "Top reasons — under five seconds",
+            "grasp_line": why.get("grasp_line")
+            or __import__("i18n_service").t(
+                "trust.grasp.top_reasons", str(payload.get("lang") or "en")
+            ),
             "factors": factors,
         },
         "score": payload.get("opportunity_score"),
@@ -681,6 +748,24 @@ async def _payload_after_flip_persistence(
     return payload, "decision_changed"
 
 
+def latest_trust_pulse_snapshot(
+    symbol: str = DEFAULT_SYMBOL,
+    *,
+    max_age_sec: float = 300.0,
+) -> dict[str, Any] | None:
+    """Return cached pulse for SSR / first paint without recomputing oracle."""
+    sym = (symbol or DEFAULT_SYMBOL).strip().upper() or DEFAULT_SYMBOL
+    with _LOCK:
+        entry = dict(_PULSE_CACHE.get(sym) or {})
+    payload = entry.get("payload")
+    if not isinstance(payload, dict):
+        return None
+    fetched = float(entry.get("fetched_at") or 0)
+    if fetched and (time.time() - fetched) > max_age_sec:
+        return None
+    return dict(payload)
+
+
 def _store_pulse_cache(sym: str, payload: dict[str, Any]) -> None:
     action = _norm_action(payload.get("decision_action") or payload.get("verdict") or payload.get("action"))
     with _LOCK:
@@ -720,6 +805,30 @@ async def build_trust_pulse(
     )
     if pulse is not None:
         return pulse
+
+    if not force_refresh:
+        try:
+            from viral_capacity import quick_cache_get
+
+            quick_raw = quick_cache_get(sym, lang, ux_mode)
+            if isinstance(quick_raw, dict) and (
+                quick_raw.get("decision_action") or quick_raw.get("verdict")
+            ):
+                quick_payload = dict(quick_raw)
+                quick_payload.setdefault("symbol", sym)
+                quick_payload.setdefault("tier", tier)
+                quick_payload.setdefault("lang", lang)
+                _store_pulse_cache(sym, quick_payload)
+                return _shape_pulse(
+                    quick_payload,
+                    previous_action=previous_action or cached.get("action"),
+                    previous_seen_at=previous_seen_at,
+                    previous_factors=previous_factors,
+                    event="pulse",
+                    from_cache=True,
+                )
+        except Exception:
+            logger.debug("trust_pulse quick_cache bridge skipped", exc_info=True)
 
     do_persist = _should_persist_pulse(persist, cached)
     payload = await _compute_oracle_payload(

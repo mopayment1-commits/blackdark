@@ -2,11 +2,12 @@
 <html lang="{{ lang|default('en') }}" dir="{{ dir|default('ltr') }}" id="htmlRoot">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#22d3ee">
     <title>{{ t('meta.title.dashboard_room') }}</title>
     <link rel="stylesheet" href="/static/css/trust-os.css">
     <script defer src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js" integrity="sha384-OK7vELvjHdhUFi31JYioPIcRHTROLdcDa6ZsNWgvgLaKj+9JqhU0Ad8g4wz3CXjA" crossorigin="anonymous"></script>
+    <script defer src="/static/js/bd_lightweight_chart.js"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         .sr-only { position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0; }
@@ -22,7 +23,15 @@
         .btn-upgrade { padding: .4rem .85rem; border-radius: 8px; background: linear-gradient(135deg,#22d3ee,#06b6d4); color: #041016; font-weight: 700; font-size: .78rem; border: none; cursor: pointer; }
         main { max-width: 1100px; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; }
         .hero { text-align: center; margin-bottom: .65rem; }
-        .hero h1 { font-family: var(--bd-font-display); font-size: clamp(1.35rem, 3.2vw, 1.75rem); letter-spacing: .04em; margin-bottom: .35rem; color: #fff; }
+        .hero h1,
+        #heroBrand {
+            font-family: var(--bd-font-display);
+            font-size: clamp(1.35rem, 3.2vw, 1.75rem);
+            letter-spacing: .04em;
+            margin-bottom: .35rem;
+            color: var(--bd-accent, var(--accent, #22d3ee));
+            -webkit-text-fill-color: var(--bd-accent, var(--accent, #22d3ee));
+        }
         .hero p { color: #a1a1aa; font-size: .85rem; }
         .intent-wrap { max-width: 720px; margin: 0 auto 1.25rem; text-align: center; }
         .intent-q { font-size: 1.05rem; color: #e4e4e7; font-weight: 600; margin-bottom: .65rem; }
@@ -140,16 +149,65 @@
         .desk-tools-dropmenu a small { display: block; font-size: .72rem; font-weight: 400; color: #71717a; margin-top: .12rem; white-space: normal; }
         .desk-tools-dropmenu a:hover { background: #1a1a24; color: #22d3ee; }
         .desk-tools-details[open] > summary { border-color: #22d3ee; color: #22d3ee; }
-        body.lens-prove .section-operate-plus {
-            border-color: #1c1c26;
-            background: rgba(17, 17, 24, 0.72);
+        /* Prove: Trust Pulse + certificate rail — not Operate depth blocks */
+        body.lens-prove .section-operate-plus { display: none !important; }
+        body.lens-prove .section-habit-depth { display: none !important; }
+        /* Operate: habit tools — hide legacy duplicate Decide row under Trust Pulse */
+        body.lens-operate .section-prove-legacy { display: none !important; }
+        body.lens-operate .section-desk-only { display: none !important; }
+        /* Prove: Trust Pulse + entry rail — hide legacy Decide/oracle duplicate row */
+        body.lens-prove .section-prove-legacy { display: none !important; }
+        /* Desk: decision desk tools — not Operate habit stack */
+        body.lens-desk .section-operate-plus { display: none !important; }
+        body.lens-desk .section-prove-legacy { display: none !important; }
+        #priceAlertsPanel .toolbar .btn {
+            padding: .55rem 1rem;
+            font-size: .85rem;
+            font-weight: 700;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
         }
-        body.lens-prove .section-operate-plus > h2 { color: rgba(34, 211, 238, 0.58); }
-        body.lens-prove .section-operate-plus > .sub,
-        body.lens-prove .section-operate-plus .arb-card,
-        body.lens-prove .section-operate-plus .empty:not(:has(.btn-upgrade-cta)),
-        body.lens-prove .section-operate-plus .toolbar .btn.secondary:not(#dailyReportMarkdownBtn) {
-            opacity: 0.62;
+        #priceAlertsPanel .toolbar .btn:not(.secondary) {
+            background: linear-gradient(135deg, #22d3ee, #06b6d4);
+            color: #041016;
+        }
+        #priceAlertsPanel .toolbar .btn.secondary {
+            background: #1a1a24;
+            color: #e4e4e7;
+            border: 1px solid #2a2a35;
+        }
+        #priceAlertsPanel .toolbar .btn:disabled {
+            opacity: 0.65;
+            cursor: wait;
+        }
+        #alertsInboxToolbar .btn {
+            padding: .55rem 1rem;
+            font-size: .85rem;
+            font-weight: 700;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+        }
+        #alertsInboxToolbar .btn:not(.secondary) {
+            background: linear-gradient(135deg, #22d3ee, #06b6d4);
+            color: #041016;
+        }
+        #alertsInboxToolbar .btn:not(.secondary):hover {
+            filter: brightness(1.06);
+        }
+        #alertsInboxToolbar .btn.secondary {
+            background: #1a1a24;
+            color: #e4e4e7;
+            border: 1px solid #2a2a35;
+        }
+        #alertsInboxToolbar .btn.secondary:hover {
+            border-color: #22d3ee;
+            color: #22d3ee;
+        }
+        #alertsInboxToolbar .btn:disabled {
+            opacity: 0.65;
+            cursor: wait;
         }
         body.lens-prove .section-operate-plus .btn-upgrade-cta {
             background: linear-gradient(135deg, #22d3ee, #06b6d4);
@@ -160,7 +218,6 @@
             transform: translateY(-1px);
             box-shadow: 0 14px 36px rgba(34, 211, 238, 0.45);
         }
-        body.lens-operate .section-desk-only { display:none; }
         body.lens-room .hide-in-room { display:none; }
         .proof-pulse { animation: proofIn .55s ease; }
         @keyframes proofIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
@@ -178,7 +235,8 @@
         .tp-top { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.5rem; margin-bottom:.75rem; }
         .tp-symbol-wrap { display: none; align-items: center; gap: 0.35rem; }
         body.lens-prove .tp-symbol-wrap,
-        body.lens-operate .tp-symbol-wrap { display: inline-flex; }
+        body.lens-operate .tp-symbol-wrap,
+        body.lens-desk .tp-symbol-wrap { display: inline-flex; }
         .tp-symbol-select {
             min-width: 5.5rem;
             padding: 0.35rem 1.75rem 0.35rem 0.65rem;
@@ -254,203 +312,244 @@
             0% { background-position: 100% 0; }
             100% { background-position: -100% 0; }
         }
+        .bd-decision-toast {
+            position: fixed; top: 4.5rem; left: 50%; transform: translateX(-50%) translateY(-8px);
+            z-index: 2000; max-width: min(92vw, 28rem); padding: .65rem 1rem; border-radius: 10px;
+            background: #1e3a5f; border: 1px solid #22d3ee; color: #e4e4e7; font-size: .88rem;
+            box-shadow: 0 12px 40px rgba(0,0,0,.45); opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s;
+        }
+        .bd-decision-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+        .bd-workspace-section { margin-bottom: 1rem; }
+        .bd-watchlist-rows, .bd-decisions-list { list-style: none; padding: 0; margin: 0; font-size: .88rem; }
+        .bd-watchlist-rows .wl-row { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; padding: .45rem 0; border-bottom: 1px solid #2a2a35; }
+        .bd-watchlist-rows .wl-status { color: #a1a1aa; flex: 1; }
+        .bd-watchlist-rows .wl-remove { border: none; background: transparent; color: #71717a; cursor: pointer; font-size: 1.1rem; }
+        .bd-modal-backdrop { position: fixed; inset: 0; z-index: 1500; background: rgba(4,6,10,.75); display: flex; align-items: center; justify-content: center; padding: 1rem; }
+        .bd-modal-backdrop[hidden] { display: none !important; }
+        .bd-modal-card { background: #111118; border: 1px solid #2a2a35; border-radius: 14px; padding: 1.1rem; max-width: 36rem; width: 100%; max-height: 90vh; overflow: auto; }
+        .bd-compare-picks { display: flex; flex-wrap: wrap; gap: .65rem; margin: .65rem 0; font-size: .85rem; }
+        .bd-compare-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: .65rem; margin: .75rem 0; }
+        .bd-compare-card { background: #1a1a24; border: 1px solid #2a2a35; border-radius: 10px; padding: .75rem; }
+        .verdict-lite { font-size: 1.35rem; font-weight: 800; color: #22d3ee; }
+        .wl-offline-tag { font-size: .72rem; color: #f59e0b; margin-bottom: .35rem; }
+        body.bd-theme-light { background: #f4f4f5; color: #18181b; }
+        body.bd-theme-light nav { background: rgba(255,255,255,.92) !important; border-color: #e4e4e7 !important; }
+        body.bd-theme-light section, body.bd-theme-light .bd-modal-card { background: #fff; border-color: #e4e4e7; color: #18181b; }
+        body.bd-theme-light .sub, body.bd-theme-light .wl-status { color: #52525b; }
+        body.bd-theme-light a { color: #0891b2; }
     </style>
 </head>
-<body>
+<body class="lens-{{ initial_lens|default('prove') }}">
+    <script type="application/json" id="bd-i18n-boot">{"lang": {{ lang|tojson }}, "catalog": {{ i18n|tojson }}}</script>
+    <script src="/static/js/bd_i18n.js" defer></script>
+    <script src="/static/js/public_decision_map.js" defer></script>
     {% include 'partials/global_header.html' %}
 
     <main id="top">
         <div class="hero">
             <h1 id="heroBrand">BLACKDARK</h1>
-            <p id="heroSub">Trust Pulse · one live decision you can verify</p>
-            <p class="lens-promise" id="lensPromise">Prove → Operate → Desk → Room — Decide… and prove it.</p>
+            <p id="heroSub">{{ t('ui.trust_pulse_live') }}</p>
+            <p class="lens-promise" id="lensPromise">{{ t('dash.lens.promise') }}</p>
             <p id="audienceBanner" class="sub" style="display:none;margin-top:.35rem"></p>
         </div>
 
-        <section id="trust-pulse" class="tp-loading" aria-live="polite" aria-label="Trust Pulse">
+        <section id="trust-pulse" class="tp-loading" aria-live="polite" aria-label="{{ t('dash.tp.trust_pulse_aria') }}">
             <div class="tp-top">
-                <strong style="color:#22d3ee;font-size:.85rem;letter-spacing:.04em">TRUST PULSE</strong>
+                <strong style="color:#22d3ee;font-size:.85rem;letter-spacing:.04em">{{ t('pulse.label') }}</strong>
                 <div class="tp-symbol-wrap" id="tpSymbolWrap">
-                    <label for="tpSymbol" class="sr-only">Trust Pulse symbol</label>
-                    <select id="tpSymbol" class="tp-symbol-select" aria-label="Trust Pulse symbol" data-bd-change-call="onTrustPulseSymbolChange" data-bd-pass-value="1">
+                    <label for="tpSymbol" class="sr-only">{{ t('dash.tp.symbol_aria') }}</label>
+                    <select id="tpSymbol" class="tp-symbol-select" aria-label="{{ t('dash.tp.symbol_aria') }}" data-bd-change-call="onTrustPulseSymbolChange" data-bd-pass-value="1">
                         {% for sym in oracle_symbols|default(['BTC', 'ETH', 'SOL', 'BNB']) %}
                         <option value="{{ sym }}"{% if sym == 'BTC' %} selected{% endif %}>{{ sym }}</option>
                         {% endfor %}
                     </select>
                 </div>
-                <span class="tp-live"><span class="tp-dot" id="tpDot"></span><span id="tpFresh">Connecting…</span></span>
+                <span class="tp-live"><span class="tp-dot" id="tpDot"></span><span id="tpFresh">{{ t('dash.tp.connecting') }}</span></span>
             </div>
             <output id="tpFlip" class="tp-flip"></output>
             <div id="antiHypeBanner" class="anti-hype-banner" role="status" aria-live="polite" hidden>
-                <strong>Anti-Hype ON</strong> — Market price and 24h change hidden. Sentence, factors, and ledger proof stay visible.
+                <strong>{{ t('dash.tp.anti_hype_on') }}</strong> — {{ t('dash.tp.anti_hype_banner') }}
             </div>
             <div class="tp-action WAIT" id="tpAction">—</div>
-            <div class="tp-sym" id="tpSym">Loading decision…</div>
-            <div class="tp-sentence" id="tpSentence">One clear Act / Wait with a reviewable why.</div>
+            <div class="tp-sym" id="tpSym">{{ t('dash.tp.loading_decision') }}</div>
+            <div class="tp-sentence" id="tpSentence">{{ t('dash.tp.sentence_placeholder') }}</div>
             <div class="tp-why">
-                <h3 id="tpWhyTitle">Why (under 5 seconds)</h3>
-                <div id="tpFactors"><div class="empty" style="padding:.25rem 0">Loading factors…</div></div>
+                <h3 id="tpWhyTitle">{{ t('dash.tp.why_title') }}</h3>
+                <div id="tpFactors"><div class="empty" style="padding:.25rem 0">{{ t('dash.tp.factors_loading') }}</div></div>
+            </div>
+            <div id="tpPriceChartWrap" style="margin-top:.85rem" aria-label="{{ t('dash.tp.price_chart_aria') }}">
+                <div id="tpPriceChart" style="height:220px;width:100%;border-radius:10px;border:1px solid #2a2a35;background:#111118"></div>
+                <p class="sub" id="tpChartNote" style="margin-top:.35rem;font-size:.72rem;color:#71717a">{{ t('dash.tp.chart_note') }}</p>
             </div>
             <div class="tp-proof" id="tpProof"></div>
             <div class="tp-cont" id="tpContinuity"></div>
             <div class="tp-cta">
-                <button class="btn" type="button" data-bd-call="openFullProof">Open full proof</button>
-                <button class="btn secondary" type="button" id="tpShareBtn" data-bd-call="shareTrustPulse" data-bd-sync="1" hidden>Share Proof</button>
+                <button class="btn" type="button" data-bd-call="openFullProof">{{ t('dash.tp.open_full_proof') }}</button>
+                <a class="btn secondary" href="/swap" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center">{{ t('nav.swap') if t is defined else 'Swap' }}</a>
+                <button class="btn secondary" type="button" id="tpShareBtn" data-bd-call="shareTrustPulse" data-bd-sync="1" hidden>{{ t('dash.tp.share_proof') }}</button>
+                <button class="btn secondary" type="button" data-bd-share-decision>{{ t('dash.tp.share_decision') }}</button>
+                <button class="btn secondary" type="button" id="tpArbBtn" style="display:none">{{ t('arb.btn') }}</button>
             </div>
-            <div class="tp-foot" id="tpFoot"><strong>Anti-Hype</strong> · Not financial advice · AI cannot guarantee returns</div>
-            <div class="entry-rail hide-in-room tp-entry-rail" id="entryRail" aria-label="Primary entries"></div>
+            <div id="tpArbPanel" hidden style="margin:.75rem 0;font-size:.85rem;border-top:1px solid #2a2a35;padding-top:.65rem">
+                <p style="color:#71717a;margin-bottom:.35rem">{{ t('arb.panel.lead_dashboard') }}</p>
+                <ul id="tpArbList" style="list-style:none;padding:0;margin:0"></ul>
+            </div>
+            <div class="tp-foot" id="tpFoot">{{ t('dash.tp.foot') }}</div>
+            <div class="entry-rail hide-in-room tp-entry-rail" id="entryRail" aria-label="{{ t('dash.js.entry_rail_aria') }}"></div>
         </section>
 
-        <div class="lens-bar hide-in-room" id="lensBar" aria-label="Trust OS lenses">
-            <button type="button" class="lens-btn active" data-lens="prove">Prove</button>
-            <button type="button" class="lens-btn" data-lens="operate">Operate</button>
-            <button type="button" class="lens-btn" data-lens="desk">Desk</button>
-            <button type="button" class="lens-btn room" data-lens="room">Room</button>
+        {% include 'partials/oracle_workspace.html' %}
+
+        <div class="lens-bar hide-in-room" id="lensBar" aria-label="{{ t('lenses.title') }}">
+            <button type="button" class="lens-btn active" data-lens="prove">{{ t('lenses.prove.title') }}</button>
+            <button type="button" class="lens-btn" data-lens="operate">{{ t('lenses.operate.title') }}</button>
+            <button type="button" class="lens-btn" data-lens="desk">{{ t('lenses.desk.title') }}</button>
+            <button type="button" class="lens-btn room" data-lens="room">{{ t('lenses.room.title') }}</button>
         </div>
         <div class="intent-wrap hide-in-room" id="intentWrap">
             <div class="intent-q" id="intentQuestion">{{ t('dash.intent.question') }}</div>
             <div class="intent-grid" id="intentGrid"></div>
             <div class="intent-hint" id="intentHint">{{ t('dash.intent.hint') }}</div>
         </div>
-        <div class="toolbar hide-in-room" style="justify-content:center;margin-bottom:.75rem">
-            <label for="uxMode" class="sr-only">UX mode</label>
+        <div class="toolbar hide-in-room section-prove-legacy" style="justify-content:center;margin-bottom:.75rem">
+            <label for="uxMode" class="sr-only">{{ t('dash.ux.beginner') }}</label>
             <select id="uxMode" data-bd-change-call="onUxModeChange">
-                <option value="beginner" selected>Beginner</option>
-                <option value="pro">Pro</option>
+                <option value="beginner" selected>{{ t('dash.ux.beginner') }}</option>
+                <option value="pro">{{ t('dash.ux.pro') }}</option>
             </select>
-            <a class="btn secondary" href="/since-you-left" style="text-decoration:none;display:inline-flex;align-items:center">Since You Left</a>
-            <a class="btn secondary" href="/miss-feed" style="text-decoration:none;display:inline-flex;align-items:center">Miss Feed</a>
-            <a class="btn secondary" href="/coverage-honesty" style="text-decoration:none;display:inline-flex;align-items:center">Coverage Honesty</a>
-            <button class="btn secondary" type="button" id="antiHypeBtn" data-bd-call="toggleAntiHype" data-bd-sync="1" aria-pressed="false">Anti-Hype</button>
-            <button class="btn secondary section-operate-plus" type="button" data-bd-call="openMyBookEntry">My book</button>
+            <a class="btn secondary" href="/since-you-left" style="text-decoration:none;display:inline-flex;align-items:center">{{ t('dash.nav.since_you_left') }}</a>
+            <a class="btn secondary" href="/miss-feed" style="text-decoration:none;display:inline-flex;align-items:center">{{ t('dash.nav.miss_feed') }}</a>
+            <a class="btn secondary" href="/coverage-honesty" style="text-decoration:none;display:inline-flex;align-items:center">{{ t('dash.nav.coverage_honesty') }}</a>
+            <button class="btn secondary" type="button" id="antiHypeBtn" data-bd-call="toggleAntiHype" data-bd-sync="1" aria-pressed="false">{{ t('common.anti_hype') }}</button>
+            <button class="btn secondary section-operate-plus" type="button" data-bd-call="openMyBookEntry">{{ t('dash.nav.my_book') }}</button>
             <details class="desk-tools-details desk-tools-nav" id="deskToolsMenu">
-                <summary class="btn secondary" aria-haspopup="menu">Desk tools</summary>
-                <div class="desk-tools-dropmenu" role="menu" aria-label="Desk tools">
-                    <a role="menuitem" href="/dashboard?lens=desk#stealth">Stealth Execution Advisor<small>Size-aware execution slices</small></a>
-                    <a role="menuitem" href="/dashboard?lens=desk#whales">Signal vs Noise<small>Whale flow labels</small></a>
-                    <a role="menuitem" href="/dashboard?lens=desk#half-life-clock">Half-Life Clock<small>Desk timing grounded</small></a>
-                    <a role="menuitem" href="/dashboard?lens=desk#mev">MEV Protection<small>Execution risk report</small></a>
-                    <a role="menuitem" href="/dashboard?lens=desk#stealth">Open Desk lens</a>
+                <summary class="btn secondary" aria-haspopup="menu">{{ t('dash.nav.desk_tools') }}</summary>
+                <div class="desk-tools-dropmenu" role="menu" aria-label="{{ t('dash.nav.desk_tools_aria') }}">
+                    <a role="menuitem" href="/dashboard?lens=desk#stealth">{{ t('dash.desk.stealth_title') }}<small>{{ t('dash.desk.stealth_sub') }}</small></a>
+                    <a role="menuitem" href="/dashboard?lens=desk#whales">{{ t('dash.desk.whales_title') }}<small>{{ t('dash.desk.whales_sub') }}</small></a>
+                    <a role="menuitem" href="/dashboard?lens=desk#half-life-clock">{{ t('dash.desk.half_life_title') }}<small>{{ t('dash.desk.half_life_sub') }}</small></a>
+                    <a role="menuitem" href="/dashboard?lens=desk#mev">{{ t('dash.desk.mev_title') }}<small>{{ t('dash.desk.mev_sub') }}</small></a>
+                    <a role="menuitem" href="/dashboard?lens=desk#stealth">{{ t('dash.desk.open_lens') }}</a>
                 </div>
             </details>
-            <a class="btn secondary section-desk-only" href="/corpus-passport" style="text-decoration:none;display:inline-flex;align-items:center">Corpus Passport</a>
+            <a class="btn secondary section-desk-only" href="/corpus-passport" style="text-decoration:none;display:inline-flex;align-items:center">{{ t('dash.nav.corpus_passport') }}</a>
         </div>
-        <div class="picks hide-in-room">
+        <div class="picks hide-in-room section-prove-legacy">
             <button type="button" class="pick" data-bd-call="setSymbol" data-bd-args="[&quot;BTC&quot;]">BTC</button>
             <button type="button" class="pick" data-bd-call="setSymbol" data-bd-args="[&quot;ETH&quot;]">ETH</button>
             <button type="button" class="pick" data-bd-call="setSymbol" data-bd-args="[&quot;SOL&quot;]">SOL</button>
             <button type="button" class="pick" data-bd-call="setSymbol" data-bd-args="[&quot;BNB&quot;]">BNB</button>
             <button type="button" class="pick" data-bd-call="setSymbol" data-bd-args="[&quot;XRP&quot;]">XRP</button>
         </div>
-        <div class="search-row hide-in-room" id="decide">
-            <label for="symbol" class="sr-only">Symbol</label>
-            <select id="symbol" data-bd-change-call="setSymbol" data-bd-pass-value="1" aria-label="Symbol">
+        <div class="search-row hide-in-room section-prove-legacy" id="decide">
+            <label for="symbol" class="sr-only">{{ t('dash.symbol') }}</label>
+            <select id="symbol" data-bd-change-call="setSymbol" data-bd-pass-value="1" aria-label="{{ t('dash.symbol') }}">
                 {% for sym in oracle_symbols|default(['BTC']) %}
                 <option value="{{ sym }}"{% if sym == 'BTC' %} selected{% endif %}>{{ sym }}</option>
                 {% endfor %}
             </select>
-            <button class="btn" data-bd-call="askOracle" id="askBtn">Get Decision</button>
+            <button class="btn" data-bd-call="askOracle" id="askBtn">{{ t('oracle.get_decision') }}</button>
         </div>
         <div id="oracle" class="hide-in-room" style="height:0;overflow:hidden" aria-hidden="true"></div>
-        <section class="oracle-box hide-in-room" id="oracleBox"><div id="oracleContent" class="loading">{{ t('oracle.analyzing') }}</div></section>
+        <section class="oracle-box hide-in-room section-prove-legacy" id="oracleBox"><div id="oracleContent" class="loading">{{ t('oracle.analyzing') }}</div></section>
 
-        <section id="since-you-left" class="hide-in-room" data-evidence>
-            <h2>Since You Left — Top 3</h2>
-            <p class="sub">What changed since your last visit</p>
-            <div id="sinceYouLeftBox" class="empty">Loading continuity…</div>
-            <a class="btn secondary" href="/since-you-left" style="margin-top:.65rem;display:inline-flex;text-decoration:none">Open full page</a>
+        <section id="since-you-left" class="hide-in-room section-habit-depth" data-evidence>
+            <h2>{{ t('dash.since.title') }}</h2>
+            <p class="sub">{{ t('dash.since.sub') }}</p>
+            <div id="sinceYouLeftBox" class="empty">{{ t('dash.since.loading') }}</div>
+            <a class="btn secondary" href="/since-you-left" style="margin-top:.65rem;display:inline-flex;text-decoration:none">{{ t('dash.since.open_full') }}</a>
         </section>
 
-        <section id="launch57-data-spine" aria-label="Launch-57 data spine">
-            <h2>Data Spine</h2>
-            <p class="sub" id="l57DataNote">Launch-57 prices, freshness, provenance, and connector — claims hidden when unavailable.</p>
-            <div class="tp-proof" id="l57DataChips"><span class="tp-chip">Loading data spine…</span></div>
+        <section id="launch57-data-spine" class="section-habit-depth" aria-label="{{ t('dash.data_spine.title') }}">
+            <h2>{{ t('dash.data_spine.title') }}</h2>
+            <p class="sub" id="l57DataNote">{{ t('dash.data_spine.sub') }}</p>
+            <div class="tp-proof" id="l57DataChips"><span class="tp-chip">{{ t('dash.data_spine.loading') }}</span></div>
         </section>
 
-        <section>
-            <h2>Live Chart</h2>
+        <section class="section-habit-depth">
+            <h2>{{ t('dash.chart') }}</h2>
             <div class="toolbar">
-                <label for="chartIv" class="sr-only">Chart interval</label>
-                <select id="chartIv" data-bd-change-call="loadChart" aria-label="Chart interval"><option value="15m">15m</option><option value="1h" selected>1h</option><option value="4h">4h</option></select>
-                <button class="btn secondary" type="button" id="chartRefreshBtn" data-bd-call="loadChart" data-bd-args="[true]">Refresh</button>
+                <label for="chartIv" class="sr-only">{{ t('dash.chart.interval_aria') }}</label>
+                <select id="chartIv" data-bd-change-call="loadChart" aria-label="{{ t('dash.chart.interval_aria') }}"><option value="15m">15m</option><option value="1h" selected>1h</option><option value="4h">4h</option></select>
+                <button class="btn secondary" type="button" id="chartRefreshBtn" data-bd-call="loadChart" data-bd-args="[true]">{{ t('dash.refresh') }}</button>
             </div>
             <div id="chart"></div>
-            <p class="sub" id="l57ChartNote" style="margin-top:.5rem">Launch-57 OHLCV (#23) — chart hidden if bars unavailable.</p>
+            <p class="sub" id="l57ChartNote" style="margin-top:.5rem">{{ t('dash.chart.note') }}</p>
         </section>
 
         <div class="grid-2 section-operate-plus hide-in-room" id="radar">
             <section>
-                <h2>Market Radar</h2>
-                <div class="grid" id="market"><div class="loading">Loading…</div></div>
+                <h2>{{ t('dash.radar') }}</h2>
+                <div class="grid" id="market"><div class="loading">{{ t('common.loading') }}</div></div>
             </section>
             <section>
-                <h2>Open Interest</h2>
-                <div id="oi"><div class="loading">Loading…</div></div>
+                <h2>{{ t('dash.oi.title') }}</h2>
+                <div id="oi"><div class="loading">{{ t('common.loading') }}</div></div>
             </section>
         </div>
 
         <section id="arbitrage" class="hide-on-prove hide-in-room">
-            <h2>Arbitrage Engine</h2>
-            <p class="sub" id="arbStats">Scanning…</p>
-            <button class="btn secondary" type="button" data-bd-call="loadArbitrage" data-bd-args="[true]">Live Scan</button>
-            <div id="arbList" style="margin-top:.75rem"><div class="loading">Loading…</div></div>
+            <h2>{{ t('dash.arb.title') }}</h2>
+            <p class="sub" id="arbStats">{{ t('dash.arb.scanning') }}</p>
+            <button class="btn secondary" type="button" data-bd-call="loadArbitrage" data-bd-args="[true]">{{ t('dash.arb.live_scan') }}</button>
+            <div id="arbList" style="margin-top:.75rem"><div class="loading">{{ t('common.loading') }}</div></div>
         </section>
 
         <section id="whales" class="section-desk-only hide-in-room">
-            <h2>Whale Intelligence · Signal vs Noise</h2>
-            <p class="sub">Transfers ≠ Trades — classifier labels SIGNAL / NOISE / HEDGED in one sentence</p>
-            <button class="btn secondary" data-bd-call="loadWhales" data-bd-args="[true]">Refresh</button>
+            <h2>{{ t('dash.whales.title') }}</h2>
+            <p class="sub">{{ t('dash.whales.sub') }}</p>
+            <button class="btn secondary" data-bd-call="loadWhales" data-bd-args="[true]">{{ t('dash.refresh') }}</button>
             <div id="whaleList" style="margin-top:.75rem"><div class="loading">Loading…</div></div>
             <div id="whaleCompliance" style="margin-top:.65rem;font-size:.72rem;color:#71717a"></div>
         </section>
 
         <section id="operate-digest" class="section-operate-plus hide-in-room">
-            <h2>Operate digest</h2>
-            <p class="sub">Daily research brief + subscriber value — DECIDE / PRO and above</p>
+            <h2>{{ t('dash.operate.title') }}</h2>
+            <p class="sub">{{ t('dash.operate.sub') }}</p>
             <div class="toolbar" style="margin-bottom:.65rem">
-                <button class="btn secondary" type="button" data-bd-call="loadDailyReport">Refresh daily report</button>
-                <button class="btn secondary" type="button" data-bd-call="loadSubscriberValue">Refresh value</button>
-                <button id="dailyReportMarkdownBtn" class="btn secondary" type="button" data-bd-call="openDailyReportMarkdown">Markdown</button>
+                <button class="btn secondary" type="button" data-bd-call="loadDailyReport">{{ t('dash.operate.refresh_report') }}</button>
+                <button class="btn secondary" type="button" data-bd-call="loadSubscriberValue">{{ t('dash.operate.refresh_value') }}</button>
+                <button id="dailyReportMarkdownBtn" class="btn secondary" type="button" data-bd-call="openDailyReportMarkdown">{{ t('dash.operate.markdown') }}</button>
             </div>
-            <div id="dailyReportBox" class="arb-card"><div class="empty" style="padding:.25rem 0">Pro/Whale — load daily report</div></div>
-            <div id="subscriberValueBox" class="arb-card" style="margin-top:.65rem"><div class="empty" style="padding:.25rem 0">Pro/Whale — subscriber value</div></div>
+            <div id="dailyReportBox" class="arb-card"><div class="empty" style="padding:.25rem 0">{{ t('dash.operate.load_report') }}</div></div>
+            <div id="subscriberValueBox" class="arb-card" style="margin-top:.65rem"><div class="empty" style="padding:.25rem 0">{{ t('dash.operate.load_value') }}</div></div>
         </section>
 
         <section id="portfolio" class="section-operate-plus hide-in-room">
-            <h2>Portfolio AI</h2>
-            <p class="sub">Risk in plain language — Hero #4 · private holdings stay in-browser</p>
+            <h2>{{ t('dash.portfolio') }}</h2>
+            <p class="sub">{{ t('dash.portfolio.hero_sub') }}</p>
             <div class="toolbar">
-                <label for="pfSym" class="sr-only">Symbol</label>
-                <select id="pfSym" aria-label="Symbol" style="width:100px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7">
+                <label for="pfSym" class="sr-only">{{ t('dash.symbol') }}</label>
+                <select id="pfSym" aria-label="{{ t('dash.symbol') }}" style="width:100px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7">
                     {% for sym in oracle_symbols|default(['BTC', 'ETH', 'SOL', 'BNB', 'XRP']) %}
                     <option value="{{ sym }}"{% if sym == 'BTC' %} selected{% endif %}>{{ sym }}</option>
                     {% endfor %}
                 </select>
-                <input id="pfAmt" type="number" placeholder="Amount" style="width:120px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7" aria-label="Amount">
-                <button class="btn secondary" type="button" data-bd-call="addPortfolioAsset">Add</button>
-                <button class="btn" type="button" data-bd-call="analyzePortfolio">Analyze</button>
+                <input id="pfAmt" type="number" placeholder="{{ t('dash.portfolio.amount') }}" style="width:120px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7" aria-label="{{ t('dash.portfolio.amount') }}">
+                <button class="btn secondary" type="button" data-bd-call="addPortfolioAsset">{{ t('dash.portfolio.add') }}</button>
+                <button class="btn" type="button" data-bd-call="analyzePortfolio">{{ t('dash.portfolio.analyze') }}</button>
             </div>
             <div id="portfolioList" class="sub" style="margin:.5rem 0"></div>
-            <div id="portfolioResult" class="empty">Add holdings, then analyze</div>
+            <div id="portfolioResult" class="empty">{{ t('dash.portfolio.empty') }}</div>
         </section>
 
         <section id="half-life-clock" class="section-desk-only hide-in-room">
-            <h2>Half-Life Heat Clock</h2>
-            <p class="sub">SEE THE EDGE / ELITE · seconds = money · urgency bands from Opportunity Half-Life</p>
+            <h2>{{ t('dash.half_life.title') }}</h2>
+            <p class="sub">{{ t('dash.half_life.sub') }}</p>
             <div class="toolbar">
-                <button class="btn secondary" type="button" data-bd-call="loadHalfLifeClock">Refresh clock</button>
-                <a class="btn secondary" href="/kill-rate">Kill-Rate Board</a>
-                <a class="btn secondary" href="/b2b/committee-one-pager">Committee One-Pager</a>
+                <button class="btn secondary" type="button" data-bd-call="loadHalfLifeClock">{{ t('dash.half_life.refresh') }}</button>
+                <a class="btn secondary" href="/kill-rate">{{ t('dash.half_life.kill_rate') }}</a>
+                <a class="btn secondary" href="/b2b/committee-one-pager">{{ t('dash.half_life.committee') }}</a>
             </div>
             <div id="halfLifeClockBox" class="empty" style="display:flex;gap:1.25rem;align-items:center;flex-wrap:wrap">
                 <div id="halfLifeSvg"></div>
-                <div id="halfLifeLine">Open Desk lens and refresh.</div>
+                <div id="halfLifeLine">{{ t('dash.half_life.open_desk') }}</div>
             </div>
         </section>
 
         <section id="stealth" class="section-desk-only hide-in-room">
-            <h2>Stealth Execution Advisor</h2>
-            <p class="sub">Whale audience · advisory slice labels (SLICE_* / LIMIT_CLIP_ADVISORY) — not live TWAP/VWAP/SOR</p>
+            <h2>{{ t('dash.stealth.title') }}</h2>
+            <p class="sub">{{ t('dash.stealth.desk_sub') }}</p>
             <div class="toolbar">
                 <label for="stealthAsset" class="sr-only">Asset</label>
                 <select id="stealthAsset" aria-label="stealthAsset" style="width:100px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7">
@@ -459,16 +558,16 @@
                     {% endfor %}
                 </select>
                 <input id="stealthNotional" type="number" value="250000" style="width:140px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7" aria-label="stealthNotional">
-                <label for="stealthSide" class="sub" style="margin:0">Side</label>
-                <select id="stealthSide" aria-label="stealthSide"><option value="buy">Buy</option><option value="sell">Sell</option></select>
-                <button class="btn secondary" data-bd-call="runStealthAdvisor">Advise</button>
+                <label for="stealthSide" class="sub" style="margin:0">{{ t('dash.stealth.side') }}</label>
+                <select id="stealthSide" aria-label="stealthSide"><option value="buy">{{ t('dash.stealth.buy') }}</option><option value="sell">{{ t('dash.stealth.sell') }}</option></select>
+                <button class="btn secondary" data-bd-call="runStealthAdvisor">{{ t('dash.stealth.advise') }}</button>
             </div>
-            <div id="stealthResult" class="empty">Enter size and run advisor</div>
+            <div id="stealthResult" class="empty">{{ t('dash.stealth.empty') }}</div>
         </section>
 
         <section id="mev" class="section-desk-only hide-in-room">
-            <h2>MEV / Sandwich Report</h2>
-            <p class="sub">Shareable risk posture — prove the drag, don’t hype private mempool alpha</p>
+            <h2>{{ t('dash.mev.title') }}</h2>
+            <p class="sub">{{ t('dash.mev.sub') }}</p>
             <div class="toolbar">
                 <label for="mevAsset" class="sr-only">Asset</label>
                 <select id="mevAsset" aria-label="mevAsset" style="width:100px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7">
@@ -477,39 +576,72 @@
                     {% endfor %}
                 </select>
                 <input id="mevNotional" type="number" value="10000" style="width:140px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7" aria-label="mevNotional">
-                <button class="btn secondary" data-bd-call="loadMevReport">Build report</button>
-                <button class="btn secondary" data-bd-call="copyMevShare">Copy share text</button>
+                <button class="btn secondary" data-bd-call="loadMevReport">{{ t('dash.mev.build') }}</button>
+                <button class="btn secondary" data-bd-call="copyMevShare">{{ t('dash.mev.copy') }}</button>
             </div>
-            <div id="mevResult" class="empty">Generate a shareable MEV report</div>
+            <div id="mevResult" class="empty">{{ t('dash.mev.empty') }}</div>
+        </section>
+
+        <section id="financial-news" class="section-desk-only hide-in-room">
+            <h2>{{ t('dash.news.title') }}</h2>
+            <p class="sub">{{ t('dash.news.sub') }}</p>
+            <ul id="financialNewsList" style="list-style:none;padding:0;margin:0;font-size:.88rem;line-height:1.45">
+                <li class="loading">{{ t('dash.news.loading') }}</li>
+            </ul>
+            <p id="financialNewsFoot" class="sub" style="margin-top:.5rem;font-size:.72rem"></p>
         </section>
 
         <section id="alerts" class="section-operate-plus hide-in-room">
-            <h2 id="alertsTitle">Alerts</h2>
-            <p class="sub" id="tgStatus">In-app inbox: no TradingView-style 15-alerts / 3-min hard cap · only Truth + Half-Life survivors fire</p>
+            <h2 id="alertsTitle">{{ t('dash.alerts.title') }}</h2>
+            <p class="sub" id="tgStatus">{{ t('dash.alerts.sub') }}</p>
             <div id="alertsGenerosity" class="sub" style="margin-bottom:.75rem"></div>
-            <div class="toolbar">
-                <button class="btn secondary" type="button" id="inboxRefreshBtn">Refresh Inbox</button>
-                <button class="btn secondary" data-bd-call="testTelegram">Test Telegram</button>
+            <div class="arb-card" id="priceAlertsPanel" style="margin-bottom:1rem;padding:.85rem;border:1px solid #2a2a35;border-radius:10px;background:#14141c">
+                <h3 style="font-size:1rem;margin:0 0 .35rem">{{ t('dash.alerts.price_title') }}</h3>
+                <p class="sub" style="margin:0 0 .65rem;font-size:.8rem">{{ t('dash.alerts.price_sub') }}</p>
+                <div class="toolbar" style="flex-wrap:wrap;gap:.5rem;margin-bottom:.5rem">
+                    <label for="paSymbol" class="sr-only">{{ t('dash.symbol') }}</label>
+                    <select id="paSymbol" aria-label="Alert symbol" style="min-width:5rem">
+                        {% for sym in oracle_symbols|default(['BTC', 'ETH', 'SOL']) %}
+                        <option value="{{ sym }}">{{ sym }}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="paDirection" class="sr-only">{{ t('dash.alerts.direction') }}</label>
+                    <select id="paDirection" aria-label="{{ t('dash.alerts.direction') }}">
+                        <option value="above">{{ t('dash.alerts.above') }}</option>
+                        <option value="below">{{ t('dash.alerts.below') }}</option>
+                    </select>
+                    <label for="paTarget" class="sr-only">{{ t('dash.alerts.target') }}</label>
+                    <input id="paTarget" type="number" step="any" min="0" placeholder="{{ t('dash.alerts.target') }}" style="width:8rem;padding:.45rem .55rem;border-radius:8px;border:1px solid #2a2a35;background:#1a1a24;color:#e4e4e7">
+                    <button type="button" class="btn" id="paAddBtn" data-bd-call="addPriceAlert">{{ t('dash.alerts.add') }}</button>
+                    <button type="button" class="btn secondary" id="paRefreshBtn" data-bd-call="checkPriceAlerts">{{ t('dash.alerts.check') }}</button>
+                </div>
+                <p id="priceAlertsStatus" class="sub" style="margin:.35rem 0 0;font-size:.8rem;min-height:1.15em;color:#71717a" role="status" aria-live="polite"></p>
+                <ul id="priceAlertsList" style="list-style:none;padding:0;margin:0;font-size:.88rem"><li class="empty">{{ t('dash.alerts.none') }}</li></ul>
             </div>
+            <div class="toolbar alerts-inbox-toolbar" id="alertsInboxToolbar">
+                <button class="btn" type="button" id="inboxRefreshBtn" data-bd-call="refreshInbox">{{ t('dash.alerts.refresh_inbox') }}</button>
+                <button class="btn secondary" type="button" id="inboxTestTgBtn" data-bd-call="testTelegram">{{ t('dash.alerts.test_tg') }}</button>
+            </div>
+            <p id="inboxToolbarStatus" class="sub" style="margin:.35rem 0 0;font-size:.8rem;min-height:1.15em;color:#71717a" role="status" aria-live="polite"></p>
             <div id="inbox" style="margin-top:.75rem"><div class="loading">…</div></div>
         </section>
 
         <section id="ai-chat" class="section-operate-plus hide-in-room">
-            <h2>AI Chat</h2>
-            <p class="sub">Operate+ · explains the current decision context — does not replace the Oracle or guarantee outcomes</p>
+            <h2>{{ t('dash.chat.title') }}</h2>
+            <p class="sub">{{ t('dash.chat.sub') }}</p>
             <div id="chatGate" class="empty" style="display:none">
-                AI Chat is on DECIDE / PRO and paid tiers above.
-                <button class="btn btn-primary btn-upgrade-cta" style="margin-top:.65rem" type="button" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">Start DECIDE / PRO</button>
-                <div style="margin-top:.5rem;font-size:.75rem"><a href="/faq">FAQ</a> · <a href="/how-it-works">How it works</a></div>
+                {{ t('dash.chat.gate') }}
+                <button class="btn btn-primary btn-upgrade-cta" style="margin-top:.65rem" type="button" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">{{ t('dash.chat.start_pro') }}</button>
+                <div style="margin-top:.5rem;font-size:.75rem"><a href="/faq">{{ t('utility.nav.faq') }}</a> · <a href="/how-it-works">{{ t('nav.how_it_works') }}</a></div>
             </div>
             <div id="chatPanel" style="display:none">
                 <div id="chatLog" style="max-height:280px;overflow:auto;background:#1a1a24;border:1px solid #2a2a35;border-radius:10px;padding:.75rem;margin-bottom:.65rem;font-size:.88rem">
-                    <div class="empty" style="padding:.35rem">Ask about BTC, ETH, or the latest Oracle context…</div>
+                    <div class="empty" style="padding:.35rem">{{ t('dash.chat.placeholder') }}</div>
                 </div>
                 <div class="toolbar">
-                    <label for="chatInput" class="sr-only">Chat message</label>
-                    <input id="chatInput" type="text" placeholder="What should I do with BTC?" style="flex:1;min-width:180px;padding:.65rem .85rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:10px;color:#e4e4e7" data-bd-keydown-call="sendChat" data-bd-keys="enter">
-                    <button class="btn" type="button" data-bd-call="sendChat">Send</button>
+                    <label for="chatInput" class="sr-only">{{ t('dash.chat.send') }}</label>
+                    <input id="chatInput" type="text" placeholder="{{ t('dash.chat.input_placeholder') }}" style="flex:1;min-width:180px;padding:.65rem .85rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:10px;color:#e4e4e7" data-bd-keydown-call="sendChat" data-bd-keys="enter">
+                    <button class="btn" type="button" data-bd-call="sendChat">{{ t('dash.chat.send') }}</button>
                 </div>
                 <div id="chatFoot" style="margin-top:.55rem;font-size:.72rem;color:#71717a"></div>
             </div>
@@ -519,10 +651,10 @@
 
     <div id="operateGateModal" class="operate-gate-modal" hidden role="dialog" aria-modal="true" aria-labelledby="operateGateTitle">
         <div class="operate-gate-card">
-            <p id="operateGateTitle">Requires Operate subscription</p>
+            <p id="operateGateTitle">{{ t('dash.gate.operate_title') }}</p>
             <div class="operate-gate-actions">
-                <a class="btn" href="/pricing" style="text-decoration:none;display:inline-flex;align-items:center">View pricing</a>
-                <button class="btn secondary" type="button" data-bd-call="closeOperateGate">Close</button>
+                <a class="btn" href="/pricing" style="text-decoration:none;display:inline-flex;align-items:center">{{ t('dash.gate.view_pricing') }}</a>
+                <button class="btn secondary" type="button" data-bd-call="closeOperateGate">{{ t('dash.gate.close') }}</button>
             </div>
         </div>
     </div>
@@ -537,6 +669,7 @@
     </div>
 
     <script src="/static/js/dom_escape.js"></script>
+    <script src="/static/js/bd_live_refresh.js"></script>
     <script>
         const fmt = (n, d=2) => n == null ? '—' : Number(n).toLocaleString(undefined, { maximumFractionDigits: d });
         const vc = v => (v || 'WAIT').toUpperCase();
@@ -634,9 +767,24 @@
 
         function bindInboxRefresh() {
             const btn = document.getElementById('inboxRefreshBtn');
-            if (!btn || btn.dataset.bound === '1') return;
-            btn.dataset.bound = '1';
-            btn.addEventListener('click', () => { void loadInbox(true); });
+            const tgBtn = document.getElementById('inboxTestTgBtn');
+            if (btn && btn.dataset.bound !== '1') {
+                btn.dataset.bound = '1';
+                btn.addEventListener('click', () => { void refreshInbox(); });
+            }
+            if (tgBtn && tgBtn.dataset.bound !== '1') {
+                tgBtn.dataset.bound = '1';
+                tgBtn.addEventListener('click', () => { void testTelegram(); });
+            }
+        }
+
+        function setInboxToolbarStatus(message, tone) {
+            const el = document.getElementById('inboxToolbarStatus');
+            if (!el) return;
+            el.textContent = message || '';
+            if (tone === 'error') el.style.color = '#f87171';
+            else if (tone === 'ok') el.style.color = '#4ade80';
+            else el.style.color = '#71717a';
         }
 
         function bindDeskToolsUi() {
@@ -684,8 +832,8 @@
             if (operatePlusBlockedOnProveLens()) {
                 const el = document.getElementById('dailyReportBox');
                 if (el) {
-                    el.innerHTML = `<div class="empty">${esc('Decision Pro required for daily report Markdown')}
-                        <div style="margin-top:.65rem"><button class="btn btn-primary btn-upgrade-cta" type="button" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">Upgrade to Pro</button></div></div>`;
+                    el.innerHTML = `<div class="empty">${esc(i18nT('dash.js.daily_pro_required'))}
+                        <div style="margin-top:.65rem"><button class="btn btn-primary btn-upgrade-cta" type="button" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">${esc(i18nT('ui.upgrade_pro'))}</button></div></div>`;
                 }
                 scrollToId('operate-digest');
                 return;
@@ -761,13 +909,24 @@
             const qs = new URLSearchParams({ ux_mode: mode, lang });
             if (force) qs.set('_', String(Date.now()));
             const url = `/oracle/${encodeURIComponent(symbol)}/quick?${qs.toString()}`;
-            const res = await fetch(url, { headers: { ...authHeaders(), Accept: 'application/json' } });
-            const data = await res.json().catch(() => ({}));
-            if (!res.ok) {
-                const msg = (data && data.detail && data.detail.message) || data.message || data.detail || 'Oracle quick unavailable';
-                throw new Error(typeof msg === 'string' ? msg : 'Oracle quick unavailable');
+            try {
+                const fetchOracle = (window.BDOracleFetchGate && window.BDOracleFetchGate.fetch)
+                    ? window.BDOracleFetchGate.fetch.bind(window.BDOracleFetchGate)
+                    : fetch;
+                const res = await fetchOracle(url, { headers: { ...authHeaders(), Accept: 'application/json' } });
+                const data = await res.json().catch(() => ({}));
+                if (!res.ok) {
+                    const msg = (data && data.detail && data.detail.message) || data.message || data.detail || i18nT('ui.oracle_quick_unavailable');
+                    throw new Error(typeof msg === 'string' ? msg : i18nT('ui.oracle_quick_unavailable'));
+                }
+                if (window.BDOracleWorkspace) window.BDOracleWorkspace.onOracleSuccess(symbol, data);
+                return data;
+            } catch (error) {
+                const ws = window.BDOracleWorkspace;
+                const offline = ws && ws.getOfflinePayload(symbol);
+                if (offline) return offline;
+                throw error;
             }
-            return data;
         }
 
         async function refreshProveOracleFromQuick(force) {
@@ -818,7 +977,7 @@
             wrap.style.color = role === 'user' ? '#a1a1aa' : '#e4e4e7';
             const strong = document.createElement('strong');
             if (role !== 'user') strong.style.color = '#22d3ee';
-            strong.textContent = role === 'user' ? 'You' : 'AI';
+            strong.textContent = role === 'user' ? i18nT('ui.you') : i18nT('ui.ai');
             wrap.appendChild(strong);
             wrap.appendChild(document.createTextNode(' · ' + String(text ?? '')));
             row.appendChild(wrap);
@@ -844,21 +1003,21 @@
                 if (res.status === 403) {
                     syncChatGate();
                     const detail = d.detail || {};
-                    appendChat('assistant', detail.message || 'Upgrade to Decision Pro for AI Chat.');
-                    if (foot) foot.textContent = 'Operate+ required';
+                    appendChat('assistant', detail.message || i18nT('ui.chat_upgrade_pro'));
+                    if (foot) foot.textContent = i18nT('ui.operate_required');
                     return;
                 }
                 if (!res.ok) throw new Error('chat_failed');
-                const reply = d.reply || 'No reply';
+                const reply = d.reply || i18nT('ui.no_reply');
                 appendChat('assistant', reply);
                 chatHistory.push({ role: 'assistant', content: reply });
                 const cf = d.compliance_footer || {};
                 if (foot) {
-                    foot.innerHTML = `<strong>Anti-Hype</strong> · ${esc(cf.disclaimer || 'Not financial advice. Verify on the Public Accuracy Ledger.')}`
+                    foot.innerHTML = `<strong>${esc(i18nT('common.anti_hype'))}</strong> · ${esc(cf.disclaimer || i18nT('common.not_advice'))}`
                         + (d.symbol ? ` · context ${esc(d.symbol)}` : '')
                         + (d.source ? ` · ${esc(d.source)}` : '');
                 }
-            } catch (error) { console.debug(error); appendChat('assistant', 'Chat unavailable right now — try again or use Get Decision.'); }
+            } catch (error) { console.debug(error); appendChat('assistant', i18nT('ui.chat_unavailable')); }
         }
 
         let nextUpgrade = { checkout_tier: 'pro', href: '/create-checkout-session?tier=pro', cta: 'Upgrade' };
@@ -871,7 +1030,7 @@
                 return;
             }
             btn.style.display = '';
-            btn.textContent = 'Upgrade';
+            btn.textContent = i18nT('ui.upgrade');
             btn.onclick = () => {
                 if (nextUpgrade.checkout_tier) upgradeTier(nextUpgrade.checkout_tier);
                 else goNavUrl(nextUpgrade.href || '/data-room');
@@ -883,6 +1042,11 @@
             const authLink = document.getElementById('authLink');
             syncChatGate();
             syncDailyReportMarkdownBtn();
+            if (window.BDSessionHint && !window.BDSessionHint.likelyAuthenticated()) {
+                nextUpgrade = { has_upgrade: true, checkout_tier: 'pro', href: '/login?tab=register&plan=pro', cta: 'Start 7-Day Trial' };
+                applyUpgradeButton();
+                return;
+            }
             try {
                 const res = await fetch('/api/auth/me', { headers: authHeaders(), credentials: 'same-origin' });
                 const d = await res.json();
@@ -895,7 +1059,7 @@
                     userTierId = String((d.user && d.user.tier) || (d.tier && (d.tier.tier || d.tier.id)) || 'free').toLowerCase();
                     if (tierEl) tierEl.textContent = String(d.tier?.label || d.user?.tier || 'FREE').toUpperCase();
                     if (authLink) {
-                        authLink.textContent = 'Logout';
+                        authLink.textContent = i18nT('ui.logout');
                         authLink.href = '#';
                         authLink.onclick = async e => {
                             e.preventDefault();
@@ -914,9 +1078,57 @@
                     applyUpgradeButton();
                     syncChatGate();
                     syncDailyReportMarkdownBtn();
+                    syncTrustPulseArbButton();
                 }
             } catch (error) { console.debug(error); }
         }
+
+        function isPaidSubscriberTier(tier) {
+            const t = String(tier || 'free').toLowerCase();
+            return ['pro', 'elite', 'quant', 'institutional', 'whale'].includes(t);
+        }
+
+        function syncTrustPulseArbButton() {
+            const btn = document.getElementById('tpArbBtn');
+            if (!btn) return;
+            btn.style.display = isPaidSubscriberTier(userTierId) ? '' : 'none';
+        }
+
+        async function toggleTrustPulseArbPanel() {
+            const panel = document.getElementById('tpArbPanel');
+            const list = document.getElementById('tpArbList');
+            const sym = trustPulseSymbolValue() || 'BTC';
+            if (!panel || !list) return;
+            panel.hidden = !panel.hidden;
+            if (panel.hidden) return;
+            list.innerHTML = '<li>' + esc(i18nT('arb.loading')) + '</li>';
+            try {
+                const res = await fetch('/api/oracle/arb-opportunities/' + encodeURIComponent(sym), {
+                    credentials: 'same-origin',
+                    headers: authHeaders(),
+                });
+                const d = await res.json();
+                if (!res.ok) {
+                    const msg = (d.detail && d.detail.message) || d.detail || 'Unavailable';
+                    list.innerHTML = '<li>' + esc(String(msg)) + '</li>';
+                    return;
+                }
+                const rows = d.opportunities || [];
+                list.innerHTML = rows.length
+                    ? rows.map((o) => (
+                        '<li style="margin:.4rem 0"><strong>' + esc(o.exchange_1) + '</strong> vs <strong>' + esc(o.exchange_2) + '</strong> · ' +
+                        esc(o.price_diff_percent) + '% · ' +
+                        '<a href="' + esc(o.link_exchange_1) + '" target="_blank" rel="noopener">' + esc(o.exchange_1) + '</a> · ' +
+                        '<a href="' + esc(o.link_exchange_2) + '" target="_blank" rel="noopener">' + esc(o.exchange_2) + '</a></li>'
+                    )).join('')
+                    : '<li>' + esc(i18nT('arb.none_symbol', { symbol: sym })) + '</li>';
+            } catch (error) {
+                console.debug(error);
+                list.innerHTML = '<li>' + esc(i18nT('arb.load_fail')) + '</li>';
+            }
+        }
+
+        document.getElementById('tpArbBtn')?.addEventListener('click', () => { toggleTrustPulseArbPanel(); });
 
         async function upgradeTier(tier) {
             if (currentLens === 'prove') {
@@ -967,16 +1179,18 @@
         const LAUNCH57_UNIFIED_EXCHANGE = '/api/launch57/unified-exchange';
         let lastVisibleTrust = { certificate: null, ledger: null, netEdge: null };
         let lastLaunch57DataSpine = null;
-        const LAUNCH57_PRIMARY_INTENTS = [
-            { id: 'decide', label: 'Decide', action: 'launch57_decide', hint: 'Launch-57 command home — Act/Wait + Why + Proof.' },
-            { id: 'verify', label: 'Verify', action: 'navigate', path: '/oracle-accuracy', hint: 'Public Accuracy Ledger — hits and misses.' },
-            { id: 'my_book', label: 'My book', action: 'portfolio', hint: 'Portfolio risk — Operate+ lens.' },
-            { id: 'alerts', label: 'Alerts', action: 'alerts', hint: 'Inbox after Launch-57 gates.' },
-        ];
+        function launch57PrimaryIntents() {
+            return [
+                { id: 'decide', label: i18nT('dash.intent.decide'), action: 'launch57_decide', hint: i18nT('dash.intent.decide_hint') },
+                { id: 'verify', label: i18nT('dash.intent.verify'), action: 'navigate', path: '/oracle-accuracy', hint: i18nT('dash.intent.verify_hint') },
+                { id: 'my_book', label: i18nT('dash.intent.my_book'), action: 'portfolio', hint: i18nT('dash.intent.my_book_hint') },
+                { id: 'alerts', label: i18nT('dash.intent.alerts'), action: 'alerts', hint: i18nT('dash.intent.alerts_hint') },
+            ];
+        }
 
         function commandHomeUrl(sym) {
-            const symbol = (sym || document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
-            const qs = new URLSearchParams({ symbol, command_view: 'true' });
+            const symbol = (sym || trustPulseSymbolValue() || document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
+            const qs = new URLSearchParams({ symbol, command_view: 'true', lang: currentLang() });
             return LAUNCH57_COMMAND_HOME + '?' + qs.toString();
         }
 
@@ -1006,8 +1220,11 @@
         function renderOracleQuickDecision(el, d, { sym, mode, lang }) {
             const sentence = d.decision_sentence || d.conditions_met_review || d.narrative || d.oracle || '';
             const action = d.decision_action || d.verdict || d.action || 'WAIT';
+            const actionLabel = window.BDPublicDecision?.mapAndLocalizePublicDecisionAction
+                ? window.BDPublicDecision.mapAndLocalizePublicDecisionAction(action)
+                : action;
             let html = `
-                <div class="verdict ${esc(vc(action))}">${esc(action)}</div>
+                <div class="verdict ${esc(vc(action))}">${esc(actionLabel)}</div>
                 <div class="narrative">${esc(sentence)}</div>`;
             if (mode === 'pro') {
                 const whyBlock = d.oqs_why || {};
@@ -1016,7 +1233,8 @@
                 html += buildCertBlock(d.decision_certificate || {}, d.prediction_id, safeShareUrl);
             }
             const fresh = String(d.freshness_state || (d.freshness && d.freshness.state) || '').toUpperCase() || '—';
-            html += `<div style="margin-top:.55rem;font-size:.72rem;color:#71717a">Live · /oracle/${esc(sym)}/quick · ${esc(fresh)} · ${esc(d.ux_mode || mode)} · ${esc(d.lang || lang)}</div>`;
+            const liveLabel = d._offline ? i18nT('dash.offline_last_known') : i18nT('dash.live');
+            html += `<div style="margin-top:.55rem;font-size:.72rem;color:#71717a">${esc(liveLabel)} · /oracle/${esc(sym)}/quick · ${esc(fresh)} · ${esc(d.ux_mode || mode)} · ${esc(d.lang || lang)}</div>`;
             el.innerHTML = html;
         }
 
@@ -1068,13 +1286,13 @@
                 || data.action_line
                 || '';
             if (!factors.length && sentence) {
-                factors.push({ factor: 'Oracle', detail: sentence });
+                factors.push({ factor: i18nT('dash.js.factor_oracle'), detail: sentence });
             }
             const userEvidence = mapCanonicalEvidenceLabel(data.evidence_class || data.evidence_class_visible);
             return {
                 symbol: data.symbol || data.asset || sym,
                 action,
-                sentence: sentence || 'One clear decision — research only.',
+                sentence: sentence || i18nT('dash.tp.sentence_fallback'),
                 price: data.price ?? data.last_price,
                 change_24h: data.change_24h ?? data.change24h,
                 freshness: {
@@ -1085,7 +1303,7 @@
                         || freshnessUiLabel(freshnessState, presentedAsLive && !stale, data.delayed_label),
                 },
                 why: {
-                    grasp_line: whyBlock.grasp_line || 'Why (under 5 seconds)',
+                    grasp_line: whyBlock.grasp_line || i18nT('dash.tp.why_title'),
                     factors: factors.slice(0, 5),
                 },
                 proof: {
@@ -1094,7 +1312,7 @@
                     certificate_hash: cert.certificate_hash || data.certificate_hash,
                     prediction_id: data.prediction_id,
                 },
-                ledger: { label: 'Verify Ledger', href: '/oracle-accuracy', honesty_line: 'Public accuracy ledger — verify hits and misses.' },
+                ledger: { label: i18nT('dash.js.verify_ledger'), href: '/oracle-accuracy', honesty_line: i18nT('dash.js.ledger_public_honesty') },
                 compliance: data.compliance_footer || {},
                 presented_as_live: presentedAsLive && !stale,
                 decision_live_blocked: stale,
@@ -1118,11 +1336,11 @@
 
         function freshnessUiLabel(state, presentedAsLive, delayedLabel) {
             const s = String(state || 'UNKNOWN').toUpperCase();
-            if (s === 'STALE') return 'Stale — not live';
-            if (s === 'UNKNOWN') return 'Freshness unknown — not live';
-            if (!presentedAsLive) return 'Not presented as live';
-            if (s === 'LIVE') return 'LIVE';
-            if (s === 'NEAR_LIVE') return 'NEAR LIVE';
+            if (s === 'STALE') return i18nT('ui.stale');
+            if (s === 'UNKNOWN') return i18nT('ui.freshness_unknown_not_live');
+            if (!presentedAsLive) return i18nT('ui.not_presented_as_live');
+            if (s === 'LIVE') return i18nT('ui.live').toUpperCase();
+            if (s === 'NEAR_LIVE') return i18nT('ui.near_live');
             if (s === 'DELAYED') return delayedLabel || 'DELAYED';
             return s.replaceAll('_', ' ');
         }
@@ -1146,7 +1364,7 @@
             const level2 = oracleDisc.level_2 || stack.level_2 || {};
             const level3 = oracleDisc.level_3 || stack.level_3 || {};
             if (level1.abstention_reason) {
-                factors.push({ factor: 'Abstain', detail: level1.abstention_reason });
+                factors.push({ factor: i18nT('dash.js.factor_abstain'), detail: level1.abstention_reason });
             }
             if (level1.critical_limitation) {
                 const lim = level1.critical_limitation;
@@ -1184,7 +1402,7 @@
                 factors.push({ factor: 'Oracle', detail: level2.concise_explanation });
             }
             return {
-                grasp_line: level2.concise_explanation ? 'Why (Launch-57 oracle)' : 'Why (Launch-57 oracle #2)',
+                grasp_line: i18nT('dash.tp.why_title'),
                 factors: factors.slice(0, 5),
             };
         }
@@ -1213,7 +1431,7 @@
                         presented_as_live: false,
                         label: 'Unavailable',
                     },
-                    why: { grasp_line: 'Why (Launch-57 oracle #2)', factors: [] },
+                    why: { grasp_line: i18nT('dash.tp.why_title'), factors: [] },
                     proof: { evidence_class: userEvidence },
                     ledger: { label: 'Launch-57 grounded', href: '/oracle-accuracy' },
                     presented_as_live: false,
@@ -1232,21 +1450,21 @@
             const why = buildOracleWhyFactors(data, oracle);
             if (staleBlocked || data.success === false || abstain) {
                 if (!why.factors.length && home.abstain_explanation) {
-                    why.factors.push({ factor: 'Abstain', detail: home.abstain_explanation });
+                    why.factors.push({ factor: i18nT('dash.js.factor_abstain'), detail: home.abstain_explanation });
                 }
                 if (!why.factors.length && home.abstain_reason) {
                     why.factors.push({ factor: 'Router', detail: home.abstain_reason });
                 }
                 if (!why.factors.length) {
                     why.factors.push({
-                        factor: 'Freshness gate',
+                        factor: i18nT('dash.js.factor_freshness_gate'),
                         detail: freshnessUiLabel(freshnessState, false, data.delayed_label),
                     });
                 }
                 return {
                     symbol: data.symbol || oracle.symbol || 'BTC',
                     action: abstain ? 'ABSTAIN' : 'WAIT',
-                    sentence: home.abstain_explanation || sso.sentence || data.error || 'Launch-57 blocked — not live-eligible.',
+                    sentence: home.abstain_explanation || sso.sentence || data.error || i18nT('ui.launch57_blocked'),
                     price: data.price,
                     change_24h: data.change_24h,
                     freshness: {
@@ -1260,7 +1478,7 @@
                         evidence_class: userEvidence,
                         canonical_evidence_class: data.evidence_class_visible || oracle.evidence_class,
                     },
-                    ledger: { label: 'Launch-57 grounded', href: '/oracle-accuracy', honesty_line: 'Stale or unknown data is never presented as live.' },
+                    ledger: { label: i18nT('dash.js.ledger_grounded_label'), href: '/oracle-accuracy', honesty_line: i18nT('dash.js.stale_never_live_honesty') },
                     presented_as_live: false,
                     decision_live_blocked: true,
                     launch57_oracle_bound: true,
@@ -1269,7 +1487,7 @@
             }
 
             if (!why.factors.length) {
-                why.factors.push({ factor: 'Oracle', detail: sso.sentence });
+                why.factors.push({ factor: i18nT('dash.js.factor_oracle'), detail: sso.sentence });
             }
 
             return {
@@ -1497,7 +1715,7 @@
             if (trustPulseQuickInflight && trustPulseQuickInflightKey === inflightKey) {
                 return trustPulseQuickInflight;
             }
-            setTrustPulseLoading(true);
+            if (!lastPulse) setTrustPulseLoading(true);
             trustPulseQuickInflightKey = inflightKey;
             trustPulseQuickInflight = (async () => {
                 try {
@@ -1520,10 +1738,21 @@
                     return data;
                 } catch (error) {
                     console.debug(error);
+                    const ws = window.BDOracleWorkspace;
+                    const offline = ws && ws.getOfflinePayload(sym);
+                    if (offline) {
+                        const pulse = oracleQuickToPulse(offline, sym);
+                        renderTrustPulse(pulse);
+                        renderOracleBoxFromQuick(offline);
+                        const freshEl = document.getElementById('tpFresh');
+                        if (freshEl) freshEl.textContent = i18nT('dash.tp.offline_last_known');
+                        setShareProofButton(false);
+                        return offline;
+                    }
                     const freshEl = document.getElementById('tpFresh');
                     const sentenceEl = document.getElementById('tpSentence');
-                    if (freshEl) freshEl.textContent = 'Unavailable';
-                    if (sentenceEl) sentenceEl.textContent = 'Oracle quick unavailable for this symbol.';
+                    if (freshEl) freshEl.textContent = i18nT('dash.tp.unavailable');
+                    if (sentenceEl) sentenceEl.textContent = i18nT('dash.tp.oracle_unavailable');
                     setShareProofButton(false);
                     setTrustPulseLoading(false);
                     return null;
@@ -1535,20 +1764,31 @@
             return trustPulseQuickInflight;
         }
 
+        async function loadTrustPulseChart(forceSym) {
+            const el = document.getElementById('tpPriceChart');
+            const note = document.getElementById('tpChartNote');
+            if (!el || typeof bdMountPriceChart !== 'function') return;
+            const sym = (forceSym || trustPulseSymbolValue()).trim().toUpperCase() || 'BTC';
+            await bdMountPriceChart(el, { symbol: sym, interval: '1h', limit: 120, noteEl: note });
+        }
+
         function onTrustPulseSymbolChange(sym) {
             const v = (sym || document.getElementById('tpSymbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
             const sel = document.getElementById('tpSymbol');
             if (sel) sel.value = v;
-            if (currentLens === 'prove') loadTrustPulseQuick(true);
-            else if (currentLens === 'operate') {
-                const mainSym = document.getElementById('symbol');
-                if (mainSym) mainSym.value = v;
-                loadCommandHome(true);
+            void loadTrustPulseChart(v);
+            if (currentLens === 'prove') {
+                loadTrustPulseQuick(true);
+                bindTrustPulseLiveStream();
+            } else if (currentLens === 'operate' || currentLens === 'desk') {
+                syncProveSymbolSelects(v);
+                void loadCommandHome(true);
+                bindTrustPulseLiveStream();
             }
         }
 
         async function loadCommandHome(force) {
-            const sym = (document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
+            const sym = trustPulseSymbolValue();
             const inflightKey = sym;
             if (commandHomeInflight && commandHomeInflightKey === inflightKey) {
                 return commandHomeInflight;
@@ -1556,7 +1796,7 @@
             const proveLens = currentLens === 'prove';
             if (proveLens) {
                 void loadTrustPulseQuick(force);
-            } else {
+            } else if (!lastPulse) {
                 setTrustPulseLoading(true);
             }
             commandHomeInflightKey = inflightKey;
@@ -1591,8 +1831,8 @@
                     if (!proveLens) {
                         const freshEl = document.getElementById('tpFresh');
                         const sentenceEl = document.getElementById('tpSentence');
-                        if (freshEl) freshEl.textContent = 'Unavailable';
-                        if (sentenceEl) sentenceEl.textContent = 'Launch-57 command home unavailable.';
+                        if (freshEl) freshEl.textContent = i18nT('dash.tp.unavailable');
+                        if (sentenceEl) sentenceEl.textContent = i18nT('dash.tp.command_home_unavailable');
                         setShareProofButton(false);
                         clearVisibleTrust();
                         setTrustPulseLoading(false);
@@ -1614,21 +1854,30 @@
             const mapped = {
                 symbol: data.symbol || sym,
                 decision_action: abstain ? 'ABSTAIN' : (oracle.decision_action || sso.action || 'WAIT'),
-                decision_sentence: home.abstain_explanation || sso.sentence || 'Launch-57 command home',
+                decision_sentence: home.abstain_explanation
+                    || oracle.decision_sentence
+                    || sso.sentence
+                    || data.decision_sentence
+                    || '',
                 verdict: abstain ? 'ABSTAIN' : (oracle.decision_action || 'WAIT'),
                 price: data.price,
                 change_24h: data.change_24h,
                 ux_mode: mode,
                 lang,
                 opportunity_score: (() => {
-                    const ne = lastVisibleTrust.netEdge && lastVisibleTrust.netEdge.net_edge_truth_score;
-                    if (ne && ne.truth_score != null) return ne.truth_score;
-                    const raw = oracle.net_edge_truth_score;
-                    if (raw && typeof raw === 'object' && raw.truth_score != null) return raw.truth_score;
-                    return '—';
+                    if (oracle.opportunity_score != null) return oracle.opportunity_score;
+                    if (data.opportunity_score != null) return data.opportunity_score;
+                    return null;
                 })(),
                 decision_certificate: lastVisibleTrust.certificate || oracle.decision_certificate || null,
                 confidence: oracle.confidence,
+                oqs_why: oracle.oqs_why,
+                top_3_factors: oracle.top_3_factors,
+                net_edge_truth: oracle.net_edge_truth || oracle.net_edge_truth_score,
+                opportunity_half_life: oracle.opportunity_half_life,
+                market_regime: oracle.market_regime || data.market_regime,
+                signal_registry: oracle.signal_registry,
+                signal_id: oracle.signal_id,
                 launch57_command_home: true,
                 router_selection: home.router_selection_contract,
             };
@@ -1643,7 +1892,7 @@
             if (!grid) return;
             const home = (data && data.six_heroes_command_home) || {};
             if (q) q.textContent = home.question || i18nT('dash.intent.question');
-            const intents = LAUNCH57_PRIMARY_INTENTS.filter(it => {
+            const intents = launch57PrimaryIntents().filter(it => {
                 if (currentLens === 'prove' && it.id === 'verify') return false;
                 return true;
             });
@@ -1669,12 +1918,39 @@
                     if (action === 'alerts') { openAlertsEntry(); return; }
                 });
             });
-            if (hint && !hint.textContent) hint.textContent = 'Launch-57 only — Decide · Verify · My book · Alerts.';
+            if (hint && !hint.textContent) hint.textContent = i18nT('dash.js.intent_fallback');
         }
 
         function readLastPulseVisit() {
             try { return JSON.parse(localStorage.getItem(TP_STORE) || 'null'); } catch (error) { console.debug(error); return null; }
         }
+        function hydrateTrustPulseFromStore() {
+            const v = readLastPulseVisit();
+            if (!v || !v.symbol) return false;
+            const sym = String(v.symbol).trim().toUpperCase();
+            const sel = document.getElementById('tpSymbol');
+            if (sel && sym) sel.value = sym;
+            renderTrustPulse({
+                symbol: sym,
+                action: (v.action || 'WAIT').toUpperCase(),
+                sentence: i18nT('ui.updating_live_decision'),
+                why: {
+                    grasp_line: i18nT('dash.tp.why_title'),
+                    factors: (v.factors || []).slice(0, 5),
+                },
+                freshness: {
+                    state: 'NEAR_LIVE',
+                    stale: false,
+                    presented_as_live: true,
+                    label: i18nT('ui.updating_label'),
+                },
+                proof: { certificate_hash: v.certificate_hash || null },
+                ledger: { label: i18nT('dash.js.verify_ledger'), href: '/oracle-accuracy' },
+                launch57_oracle_bound: true,
+            });
+            return true;
+        }
+        let trustPulseStreamKey = 'dashboard-trust-pulse';
         function savePulseVisit(p) {
             if (!p) return;
             try {
@@ -1728,23 +2004,23 @@
             const ev = proof.evidence_class;
             if (ev) {
                 const evCls = ev === 'SIM' ? 'warn' : (ev === 'DELAYED' ? '' : 'ok');
-                chips.push(`<span class="tp-chip ${evCls}">Evidence: ${esc(ev)}</span>`);
+                chips.push(`<span class="tp-chip ${evCls}">${esc(i18nT("dash.js.evidence", { ev }))}</span>`);
             }
             const netEdge = (lastVisibleTrust.netEdge && lastVisibleTrust.netEdge.net_edge_truth_score) || null;
             if (netEdge && netEdge.truth_score != null) {
-                chips.push(`<span class="tp-chip ok">Net-Edge: ${esc(netEdge.truth_score)}</span>`);
+                chips.push(`<span class="tp-chip ok">${esc(i18nT("dash.js.net_edge", { score: netEdge.truth_score }))}</span>`);
             }
             const ledgerLabel = ledger.label
                 || (lastVisibleTrust.ledger && lastVisibleTrust.ledger.ledger_sample_label)
-                || 'Verify Ledger';
+                || i18nT('dash.js.verify_ledger');
             const ledgerHref = safeShareUrl(ledger.href) || '/oracle-accuracy#launch57-ledger-sample';
             chips.push(`<a class="tp-chip ok" href="${ledgerHref}">${esc(ledgerLabel)}</a>`);
             if (proof.certificate_hash) {
-                chips.push(`<button type="button" class="tp-chip ok" data-bd-call="openDecisionCertificate" style="border:none;cursor:pointer;font:inherit">cert ${esc(String(proof.certificate_hash).slice(0,12))}…</button>`);
+                chips.push(`<button type="button" class="tp-chip ok" data-bd-call="openDecisionCertificate" style="border:none;cursor:pointer;font:inherit">${esc(i18nT("dash.js.cert_prefix"))} ${esc(String(proof.certificate_hash).slice(0,12))}…</button>`);
             }
-            if (proof.prediction_id) chips.push(`<span class="tp-chip">id ${esc(proof.prediction_id)}</span>`);
+            if (proof.prediction_id) chips.push(`<span class="tp-chip">${esc(i18nT("dash.js.id_prefix"))} ${esc(proof.prediction_id)}</span>`);
             if (proof.watermark) chips.push(`<span class="tp-wm">${esc(proof.watermark)}</span>`);
-            if (p.veto) chips.push(`<span class="tp-chip warn">Veto</span>`);
+            if (p.veto) chips.push(`<span class="tp-chip warn">${esc(i18nT("dash.js.veto_chip"))}</span>`);
             return chips.join('');
         }
         function renderPulseFlip(p, fromStream) {
@@ -1764,14 +2040,14 @@
             const contEl = document.getElementById('tpContinuity');
             if (cont.locked) {
                 if (cont.flipped && cont.summary) {
-                    contEl.innerHTML = esc(cont.summary) + ' · <a href="#" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]" data-bd-prevent="1">' + esc(cont.upgrade_hint||'Decision Pro') + '</a>';
+                    contEl.innerHTML = esc(cont.summary) + ' · <a href="#" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]" data-bd-prevent="1">' + esc(cont.upgrade_hint||i18nT('dash.js.decision_pro')) + '</a>';
                 } else {
                     contEl.textContent = cont.upgrade_hint || '';
                 }
                 return;
             }
             if (cont.summary) {
-                const extra = (cont.new_factors||[]).length ? ' · New factors: ' + cont.new_factors.join(', ') : '';
+                const extra = (cont.new_factors||[]).length ? i18nT('dash.js.new_factors', { factors: cont.new_factors.join(', ') }) : '';
                 contEl.textContent = cont.summary + extra;
                 return;
             }
@@ -1787,7 +2063,10 @@
                 actionEl.textContent = '—';
                 actionEl.className = 'tp-action WAIT';
             } else {
-                actionEl.textContent = act;
+                const label = window.BDPublicDecision?.mapAndLocalizePublicDecisionAction
+                    ? window.BDPublicDecision.mapAndLocalizePublicDecisionAction(p.action || act)
+                    : act;
+                actionEl.textContent = label;
                 actionEl.className = 'tp-action ' + act;
             }
             const price = fmtPrice(p.price);
@@ -1797,10 +2076,10 @@
                 ? ` <span class="tp-hype-metric">${price}${chS}</span>`
                 : '';
             document.getElementById('tpSym').innerHTML = `${escapeHtml(p.symbol || 'BTC')}${metricHtml}`;
-            document.getElementById('tpSentence').textContent = p.sentence || 'One clear decision — research only.';
-            document.getElementById('tpWhyTitle').textContent = (p.why && p.why.grasp_line) || 'Why (under 5 seconds)';
+            document.getElementById('tpSentence').textContent = p.sentence || i18nT('dash.tp.sentence_fallback');
+            document.getElementById('tpWhyTitle').textContent = i18nT('dash.tp.why_title');
             const factors = (p.why && p.why.factors) || [];
-            let factorHtml = '<div class="empty" style="padding:.25rem 0">Why factors loading…</div>';
+            let factorHtml = '<div class="empty" style="padding:.25rem 0">' + esc(i18nT('dash.tp.factors_loading')) + '</div>';
             if (factors.length) factorHtml = factors.map((f,i) => formatFactorLine(f, i)).join('');
             document.getElementById('tpFactors').innerHTML = factorHtml;
             const fresh = p.freshness || {};
@@ -1821,7 +2100,7 @@
             if (ledger.honesty_line) {
                 const foot = p.compliance && p.compliance.disclaimer ? p.compliance.disclaimer : '';
                 const footBit = foot ? '<br>' + escapeHtml(foot) : '';
-                document.getElementById('tpFoot').innerHTML = '<strong>Anti-Hype</strong> · ' + escapeHtml(ledger.honesty_line) + footBit;
+                document.getElementById('tpFoot').innerHTML = '<strong>' + esc(i18nT('common.anti_hype')) + '</strong> · ' + escapeHtml(ledger.honesty_line) + footBit;
             }
             savePulseVisit(p);
         }
@@ -1831,17 +2110,45 @@
             return loadCommandHome(force);
         }
 
+        function bindTrustPulseLiveStream() {
+            if (!window.BDLiveRefresh) return;
+            window.BDLiveRefresh.stopStream(trustPulseStreamKey);
+            const policy = window.BDLiveRefresh.getPolicy();
+            if (!policy || !policy.live_stream_enabled) return;
+            const sym = trustPulseSymbolValue();
+            window.BDLiveRefresh.startTrustPulseStream(sym, (d) => {
+                const pulse = d && (d.pulse || d);
+                if (!pulse) return;
+                if (String(pulse.symbol || '').toUpperCase() !== sym) return;
+                renderTrustPulse(pulse, { fromStream: true });
+            }, { key: trustPulseStreamKey });
+        }
+
         function startTrustPulseStream() {
-            if (launch57PollTimer) clearInterval(launch57PollTimer);
-            launch57PollTimer = setInterval(() => loadCommandHome(false), 60000);
-            const fresh = document.getElementById('tpFresh');
-            if (fresh) fresh.textContent = 'Launch-57 command home';
+            if (launch57PollTimer) {
+                clearInterval(launch57PollTimer);
+                launch57PollTimer = null;
+            }
+            const bootPoll = (policy) => {
+                const ms = (policy && policy.poll_interval_ms) || 45000;
+                const tick = () => {
+                    if (currentLens === 'prove') void loadTrustPulseQuick(false);
+                    else void loadCommandHome(false);
+                };
+                launch57PollTimer = setInterval(tick, ms);
+                bindTrustPulseLiveStream();
+            };
+            if (window.BDLiveRefresh) {
+                void window.BDLiveRefresh.ensurePolicy().then(bootPoll);
+            } else {
+                bootPoll(null);
+            }
         }
 
         function flashShareProofButton(label, resetMs) {
             const btn = document.getElementById('tpShareBtn');
             if (!btn) return;
-            const prev = btn.dataset.shareLabel || btn.textContent || 'Share Proof';
+            const prev = btn.dataset.shareLabel || btn.textContent || i18nT('dash.tp.share_proof');
             if (!btn.dataset.shareLabel) btn.dataset.shareLabel = prev;
             btn.textContent = label;
             btn.classList.remove('bd-motion-share');
@@ -1849,7 +2156,7 @@
             btn.classList.add('bd-motion-share');
             window.clearTimeout(flashShareProofButton._t);
             flashShareProofButton._t = window.setTimeout(() => {
-                btn.textContent = btn.dataset.shareLabel || 'Share Proof';
+                btn.textContent = btn.dataset.shareLabel || i18nT('dash.tp.share_proof');
             }, resetMs || 2200);
         }
 
@@ -1889,7 +2196,7 @@
             const shareUrls = proof.share_urls || bundle.share_urls || {};
             const url = proof.permalink || shareUrls.x || shareUrls.twitter || bundle.permalink || null;
             if (!text && !url && !shareUrls.telegram) {
-                flashShareProofButton('Nothing to share', 1800);
+                flashShareProofButton(i18nT('ui.nothing_to_share'), 1800);
                 return;
             }
 
@@ -1898,7 +2205,7 @@
             }
 
             if (text && copyTextWithFallback(text)) {
-                flashShareProofButton('Copied!');
+                flashShareProofButton(i18nT('ui.copied'));
                 return;
             }
 
@@ -1909,7 +2216,7 @@
                         text: text || undefined,
                         url: url || 'https://blackdark.io/oracle-accuracy',
                     });
-                    flashShareProofButton('Shared!');
+                    flashShareProofButton(i18nT('ui.shared'));
                     return;
                 } catch (error) {
                     if (error && error.name === 'AbortError') return;
@@ -1928,12 +2235,12 @@
                     if (safe.startsWith('/')) goNavUrl(safe);
                     else if (window.BDDomSafe && window.BDDomSafe.openWindow) openNavUrl(safe);
                     else window.open(safe, '_blank', 'noopener');
-                    flashShareProofButton('Opened share');
+                    flashShareProofButton(i18nT('dash.js.opened_share'));
                     return;
                 }
             }
 
-            flashShareProofButton('Copy blocked', 2400);
+            flashShareProofButton(i18nT('dash.js.copy_blocked'), 2400);
         }
         window.shareTrustPulse = shareTrustPulse;
 
@@ -1954,7 +2261,13 @@
             const askBtn = document.getElementById('askBtn');
             if (heroSub) heroSub.textContent = i18nT('ui.trust_pulse_live');
             if (askBtn) askBtn.textContent = i18nT('oracle.get_decision');
+            applyAntiHypeClass();
+            const intentQ = document.getElementById('intentQuestion');
+            const intentH = document.getElementById('intentHint');
+            if (intentQ) intentQ.textContent = i18nT('dash.intent.question');
+            if (intentH) intentH.textContent = i18nT('dash.intent.hint');
         }
+        document.addEventListener('bd-i18n-ready', applyLang);
 
 
         function buildScenarioBlock(d) {
@@ -1966,7 +2279,7 @@
                 return `<div class="metric"><strong>${esc(pct)}</strong><span>${esc(s.label||k)}</span></div>`;
             }).join('');
             const disc = esc((d.scenarios && d.scenarios.disclaimer) || '');
-            return `<div style="margin-top:.85rem"><div style="font-size:.8rem;color:#71717a;margin-bottom:.4rem">Scenarios (sketch)</div><div class="metrics">${metrics}</div><div style="font-size:.72rem;color:#71717a;margin-top:.35rem">${disc}</div></div>`;
+            return `<div style="margin-top:.85rem"><div style="font-size:.8rem;color:#71717a;margin-bottom:.4rem">${esc(i18nT('ui.scenarios'))}</div><div class="metrics">${metrics}</div><div style="font-size:.72rem;color:#71717a;margin-top:.35rem">${disc}</div></div>`;
         }
         function buildWhyFactorsHtml(factors, whyBlock) {
             if (!factors.length) return '';
@@ -1976,7 +2289,7 @@
                         + (i+1) + '. ' + esc(f.factor||f) + '</strong>' + detail
                         + '<div style="color:#71717a;font-size:.75rem">' + esc(f.source||'') + '</div></div>';
                 }).join('');
-            const title = esc(whyBlock.grasp_line || 'Why (Top 3) — under five seconds');
+            const title = esc(whyBlock.grasp_line || i18nT('ui.why_top3'));
             const titleRow = factors.length
                 ? '<div style="font-size:.8rem;color:#22d3ee;margin-bottom:.4rem">' + title + '</div>'
                 : '';
@@ -1986,11 +2299,11 @@
         function buildVetoBlock(mode, conflict) {
             const hot = conflict.veto || conflict.abstain || (conflict.severity && conflict.severity !== 'none');
             if (!(mode === 'pro' && hot)) return '';
-            const title = conflict.veto ? 'WAIT / Do Not Touch' : 'Abstain';
+            const title = conflict.veto ? i18nT('ui.do_not_touch') : i18nT('ui.abstain');
             const sev = conflict.severity ? ` · ${esc(conflict.severity)}` : '';
             const reason = conflict.reason || conflict.message;
             const reasonHtml = reason ? `<div style="margin-top:.3rem;color:#a1a1aa">${esc(reason)}</div>` : '';
-            return `<div style="margin-top:.75rem;padding:.7rem .9rem;border:1px solid rgba(239,68,68,.35);border-radius:10px;color:#fca5a5;font-size:.85rem">Contradiction Veto — ${title}${sev}${reasonHtml}</div>`;
+            return `<div style="margin-top:.75rem;padding:.7rem .9rem;border:1px solid rgba(239,68,68,.35);border-radius:10px;color:#fca5a5;font-size:.85rem">${esc(i18nT('ui.veto'))} — ${esc(title)}${sev}${reasonHtml}</div>`;
         }
         function buildCertBlock(cert, predictionId, safeUrl) {
             if (!(cert.certificate_hash || predictionId)) return '';
@@ -1999,21 +2312,21 @@
             window._lastCertTxt = cert.export_text || '';
             const xUrl = safeUrl(cert.share_urls && cert.share_urls.x);
             const tgUrl = safeUrl(cert.share_urls && cert.share_urls.telegram);
-            const hashLabel = cert.certificate_hash ? String(cert.certificate_hash).slice(0,16)+'…' : 'pending';
-            const copyBtn = cert.share_text ? ` <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" data-bd-call="copyLastCertShare">Copy</button>` : '';
-            const txtBtn = cert.export_text ? ` <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" data-bd-call="downloadLastCertTxt">TXT</button>` : '';
-            const xBtn = xUrl ? ` <a class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem;text-decoration:none" href="${esc(xUrl)}" target="_blank" rel="noopener">Share X</a>` : '';
-            const tgBtn = tgUrl ? ` <a class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem;text-decoration:none" href="${esc(tgUrl)}" target="_blank" rel="noopener">Share TG</a>` : '';
-            return `<div style="margin-top:.65rem;font-size:.8rem;color:#a1a1aa">Decision Certificate · <code style="color:var(--accent,#22d3ee)">${esc(hashLabel)}</code>${copyBtn}<button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" data-bd-call="downloadLastCertJson">JSON</button>${txtBtn}${xBtn}${tgBtn}</div>`;
+            const hashLabel = cert.certificate_hash ? String(cert.certificate_hash).slice(0,16)+'…' : i18nT('dash.js.cert_pending');
+            const copyBtn = cert.share_text ? ` <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" data-bd-call="copyLastCertShare">${esc(i18nT('ui.copy'))}</button>` : '';
+            const txtBtn = cert.export_text ? ` <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" data-bd-call="downloadLastCertTxt">${esc(i18nT('ui.download_txt'))}</button>` : '';
+            const xBtn = xUrl ? ` <a class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem;text-decoration:none" href="${esc(xUrl)}" target="_blank" rel="noopener">${esc(i18nT('ui.share_x'))}</a>` : '';
+            const tgBtn = tgUrl ? ` <a class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem;text-decoration:none" href="${esc(tgUrl)}" target="_blank" rel="noopener">${esc(i18nT('ui.share_tg'))}</a>` : '';
+            return `<div style="margin-top:.65rem;font-size:.8rem;color:#a1a1aa">${esc(i18nT('ui.decision_certificate'))} · <code style="color:var(--accent,#22d3ee)">${esc(hashLabel)}</code>${copyBtn}<button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" data-bd-call="downloadLastCertJson">JSON</button>${txtBtn}${xBtn}${tgBtn}</div>`;
         }
         function buildUpgradeBlock(d) {
             if (!d.upgrade_hint) return '';
             const teaser = d.upgrade_hint.teaser || {};
             let teaserHtml = '';
             if (teaser.truth_score != null || teaser.remaining_seconds != null) {
-                teaserHtml = `<div style="margin-top:.35rem">Teaser · Truth ${esc(teaser.truth_score ?? '—')} · Half-life ${esc(teaser.remaining_seconds ?? '—')}s</div>`;
+                teaserHtml = `<div style="margin-top:.35rem">${esc(i18nT('ui.teaser'))} · ${esc(i18nT('ui.truth'))} ${esc(teaser.truth_score ?? '—')} · ${esc(i18nT('ui.half_life'))} ${esc(teaser.remaining_seconds ?? '—')}s</div>`;
             }
-            return `<div style="margin-top:1rem;padding:.85rem 1rem;border:1px solid var(--border,#2a2a35);border-radius:10px;color:#a1a1aa;font-size:.85rem">${esc(d.upgrade_hint.message || '')}${teaserHtml}<button class="btn" style="margin-top:.65rem" type="button" data-bd-call="switchUxModePro">Switch to Pro</button></div>`;
+            return `<div style="margin-top:1rem;padding:.85rem 1rem;border:1px solid var(--border,#2a2a35);border-radius:10px;color:#a1a1aa;font-size:.85rem">${esc(d.upgrade_hint.message || '')}${teaserHtml}<button class="btn" style="margin-top:.65rem" type="button" data-bd-call="switchUxModePro">${esc(i18nT('ui.switch_pro'))}</button></div>`;
         }
         function safeShareUrl(u) {
             const safe = (window.BDDomSafe && window.BDDomSafe.allowedNavigationUrl(u)) || '';
@@ -2025,7 +2338,7 @@
             const whyVisible = buildWhyFactorsHtml(factors, whyBlock);
             return whyVisible + `
                 <details style="margin-top:.65rem;border:1px solid #2a2a35;border-radius:10px;padding:.65rem .85rem;background:#1a1a24">
-                    <summary style="cursor:pointer;color:#22d3ee;font-size:.85rem;font-weight:600">Evidence drawer · Certificate + scenarios</summary>
+                    <summary style="cursor:pointer;color:#22d3ee;font-size:.85rem;font-weight:600">${esc(i18nT('ui.evidence_drawer'))}</summary>
                     <div style="margin-top:.65rem">${buildScenarioBlock(d)}</div>
                 </details>`;
         }
@@ -2035,10 +2348,10 @@
             const sig = d.signal_registry || {};
             return `
                 <div class="metrics">
-                    <div class="metric"><strong>${esc(truth.truth_score ?? '—')}</strong><span>Truth</span></div>
-                    <div class="metric"><strong>${esc(half.remaining_seconds ?? '—')}s</strong><span>Half-Life</span></div>
-                    <div class="metric"><strong>${esc(d.market_regime || '—')}</strong><span>Regime</span></div>
-                    <div class="metric"><strong>${esc((sig.signal_id || '—').toString().slice(0,10))}</strong><span>Signal</span></div>
+                    <div class="metric"><strong>${esc(truth.truth_score ?? '—')}</strong><span>${esc(i18nT('ui.truth'))}</span></div>
+                    <div class="metric"><strong>${esc(half.remaining_seconds ?? '—')}s</strong><span>${esc(i18nT('ui.half_life'))}</span></div>
+                    <div class="metric"><strong>${esc(d.market_regime || '—')}</strong><span>${esc(i18nT('ui.regime'))}</span></div>
+                    <div class="metric"><strong>${esc((sig.signal_id || '—').toString().slice(0,10))}</strong><span>${esc(i18nT('ui.signal'))}</span></div>
                 </div>${factorBlock}`;
         }
         function buildProofBlock(d) {
@@ -2046,29 +2359,37 @@
             const hashBit = d.chain_hash
                 ? ` · hash <code style="color:var(--accent,#22d3ee)">${esc(String(d.chain_hash).slice(0,16))}…</code>`
                 : '';
-            return `<div style="margin-top:.65rem;font-size:.8rem;color:#71717a">Proof · prediction_id <code style="color:var(--accent,#22d3ee)">${esc(d.prediction_id)}</code>${hashBit} · <a href="/oracle-accuracy" style="color:var(--accent,#22d3ee)">Public accuracy</a></div>`;
+            return `<div style="margin-top:.65rem;font-size:.8rem;color:#71717a">${esc(i18nT('ui.proof'))} · ${esc(i18nT('ui.prediction_id'))} <code style="color:var(--accent,#22d3ee)">${esc(d.prediction_id)}</code>${hashBit} · <a href="/oracle-accuracy" style="color:var(--accent,#22d3ee)">${esc(i18nT('ui.public_accuracy'))}</a></div>`;
         }
         function buildComplianceBlock(d) {
             const cf = d.compliance_footer || {};
             if (!cf.disclaimer) return '';
-            return `<div style="margin-top:.85rem;font-size:.72rem;color:#71717a;border-top:1px solid #2a2a35;padding-top:.65rem"><strong>Anti-Hype</strong> · ${esc(cf.data_source||'')} · ${esc(cf.trust_basis||'')}<br>${esc(cf.disclaimer)}</div>`;
+            return `<div style="margin-top:.85rem;font-size:.72rem;color:#71717a;border-top:1px solid #2a2a35;padding-top:.65rem"><strong>${esc(i18nT('common.anti_hype'))}</strong> · ${esc(cf.data_source||'')} · ${esc(cf.trust_basis||'')}<br>${esc(cf.disclaimer)}</div>`;
         }
+        function oracleDecisionPriceLine(d, sym) {
+            const priceBit = d.price != null
+                ? ('$' + fmt(d.price, d.price < 1 ? 4 : 2))
+                : '—';
+            const changeBit = d.change_24h != null
+                ? ` · <span class="${changeClass(d.change_24h)}">${changePrefix(d.change_24h)}${fmt(d.change_24h, 2)}%</span>`
+                : '';
+            return `${esc(d.symbol || sym)} · ${priceBit}${changeBit}`;
+        }
+
         function renderOracleDecision(el, d, { sym, mode, lang }) {
             const sentence = d.decision_sentence || d.narrative || d.oracle || '';
             const action = d.decision_action || '';
             const factorBlock = buildFactorDrawer(d);
             const proBlock = mode === 'pro' ? buildProMetrics(d, factorBlock) : '';
             const conf = d.confidence != null ? d.confidence + '%' : '—';
+            const score = d.opportunity_score != null ? d.opportunity_score : '—';
             el.innerHTML = `
                 <div class="verdict ${esc(vc(d.verdict))}">${esc(action || d.verdict)}</div>
-                <div style="color:#71717a;font-size:.9rem">${esc(d.symbol || sym)} · $${fmt(d.price,2)} ·
-                    <span class="${changeClass(d.change_24h)}">${changePrefix(d.change_24h)}${fmt(d.change_24h||0,2)}%</span></div>
+                <div style="color:#71717a;font-size:.9rem">${oracleDecisionPriceLine(d, sym)}</div>
                 <div class="narrative">${esc(sentence)}</div>
                 <div class="metrics">
-                    <div class="metric"><strong>${esc(d.opportunity_score)}</strong><span>${esc(i18nT('ui.score'))}</span></div>
+                    <div class="metric"><strong>${esc(score)}</strong><span>${esc(i18nT('ui.score'))}</span></div>
                     <div class="metric"><strong>${esc(conf)}</strong><span>${esc(i18nT('ui.confidence'))}</span></div>
-                    <div class="metric"><strong>${esc(d.ux_mode || mode)}</strong><span>${esc(i18nT('ui.mode'))}</span></div>
-                    <div class="metric"><strong>${esc(d.lang || lang)}</strong><span>${esc(i18nT('ui.lang_label'))}</span></div>
                 </div>
                 ${proBlock}
                 ${buildVetoBlock(mode, d.dimension_conflict || {})}
@@ -2076,7 +2397,7 @@
                 ${buildUpgradeBlock(d)}
                 ${buildComplianceBlock(d)}
                 ${mode === 'pro' ? buildCertBlock(d.decision_certificate || {}, d.prediction_id, safeShareUrl) : ''}
-                <div style="margin-top:.65rem;font-size:.8rem"><a href="/discipline-mirror" style="color:var(--accent,#22d3ee)">Open private Discipline Mirror</a></div>`;
+                <div style="margin-top:.65rem;font-size:.8rem"><a href="/discipline-mirror" style="color:var(--accent,#22d3ee)">${esc(i18nT('ui.discipline_mirror'))}</a></div>`;
         }
 
         async function askOracle() {
@@ -2117,10 +2438,20 @@
                 }
             } catch (error) {
                 console.debug(error);
-                const empty = document.createElement('div');
-                empty.className = 'empty';
-                empty.textContent = i18nT('ui.could_not_analyze', { symbol: sym });
-                el.replaceChildren(empty);
+                const ws = window.BDOracleWorkspace;
+                const offline = ws && ws.getOfflinePayload(sym);
+                if (offline && currentLens === 'prove') {
+                    const pulse = oracleQuickToPulse(offline, sym);
+                    renderTrustPulse(pulse);
+                    renderOracleBoxFromQuick(offline);
+                } else if (offline) {
+                    renderOracleQuickDecision(el, offline, { sym, mode, lang });
+                } else {
+                    const empty = document.createElement('div');
+                    empty.className = 'empty';
+                    empty.textContent = i18nT('ui.could_not_analyze', { symbol: sym });
+                    el.replaceChildren(empty);
+                }
             } finally {
                 if (askBtn) {
                     askBtn.disabled = false;
@@ -2180,11 +2511,11 @@
             if (conn && conn.success && conn.selected_provider) {
                 chips.push(`<span class="tp-chip ok">${esc('Route')}: ${esc(conn.selected_provider)}</span>`);
             } else if (conn && conn.success === false) {
-                chips.push(`<span class="tp-chip">Route unavailable</span>`);
+                chips.push(`<span class="tp-chip">${esc(i18nT('dash.js.route_unavailable'))}</span>`);
             }
             chipsEl.innerHTML = chips.length
                 ? chips.join('')
-                : '<span class="tp-chip">Data spine unavailable — no live claims shown.</span>';
+                : '<span class="tp-chip">' + esc(i18nT('dash.js.spine_unavailable')) + '</span>';
             if (noteEl) {
                 noteEl.textContent = chips.length
                     ? 'Launch-57 governed data (#22–#24, #39–#42). STALE/UNKNOWN never labeled LIVE.'
@@ -2223,7 +2554,7 @@
 
         async function loadChart(forceRefresh) {
             const note = document.getElementById('l57ChartNote');
-            if (forceRefresh && note) note.textContent = 'Refreshing chart…';
+            if (forceRefresh && note) note.textContent = i18nT('dash.js.refreshing_chart');
             if (!series) initChart();
             if (!series && forceRefresh) {
                 for (let i = 0; i < 40 && !series; i++) {
@@ -2232,7 +2563,7 @@
                 }
             }
             if (!series) {
-                if (forceRefresh && note) note.textContent = 'Chart library still loading — try Refresh again.';
+                if (forceRefresh && note) note.textContent = i18nT('dash.js.chart_lib_loading');
                 return;
             }
             const sym = (document.getElementById('symbol').value || 'BTC').toUpperCase();
@@ -2242,24 +2573,52 @@
                 if (forceRefresh) qs.set('_', String(Date.now()));
                 const res = await fetch(LAUNCH57_OHLCV + '?' + qs.toString());
                 const payload = await res.json();
-                if (!res.ok || !payload.success) {
-                    series.setData([]);
-                    if (note) note.textContent = 'Launch-57 OHLCV unavailable — chart hidden (no legacy fallback).';
+                if (res.ok && payload.success && (payload.bars || []).length) {
+                    const bars = payload.bars || [];
+                    series.setData(bars.map(b => ({
+                        time: Math.floor((b.open_time_ms || 0) / 1000),
+                        open: +b.open,
+                        high: +b.high,
+                        low: +b.low,
+                        close: +b.close,
+                    })));
+                    chart.timeScale().fitContent();
+                    if (note) note.textContent = `Launch-57 OHLCV (#23) · ${bars.length} bars · ${esc(payload.interval || iv)}`;
                     return;
                 }
-                const bars = payload.bars || [];
-                series.setData(bars.map(b => ({
-                    time: Math.floor((b.open_time_ms || 0) / 1000),
-                    open: +b.open,
-                    high: +b.high,
-                    low: +b.low,
-                    close: +b.close,
-                })));
-                chart.timeScale().fitContent();
-                if (note) note.textContent = `Launch-57 OHLCV (#23) · ${bars.length} bars · ${esc(payload.interval || iv)}`;
+                const pubQs = new URLSearchParams({ symbol: sym, interval: iv, limit: '120' });
+                if (forceRefresh) pubQs.set('_', String(Date.now()));
+                const pubRes = await fetch('/api/public/market/chart-bars?' + pubQs.toString());
+                const pubBody = await pubRes.json();
+                if (pubRes.ok && pubBody.ok && (pubBody.bars || []).length) {
+                    series.setData((pubBody.bars || []).map(b => ({
+                        time: Math.floor((b.open_time_ms || 0) / 1000),
+                        open: +b.open,
+                        high: +b.high,
+                        low: +b.low,
+                        close: +b.close,
+                    })));
+                    chart.timeScale().fitContent();
+                    if (note) note.textContent = `TradingView Lightweight Charts · ${esc(pubBody.source || 'binance')} · ${pubBody.bars.length} bars`;
+                    return;
+                }
+                const kRes = await fetch('/api/market/klines?' + new URLSearchParams({ symbol: sym + 'USDT', interval: iv, limit: '120' }));
+                const kPayload = await kRes.json();
+                const rows = kPayload.klines || [];
+                if (kRes.ok && rows.length) {
+                    series.setData(rows.map(k => ({
+                        time: Math.floor(k[0] / 1000),
+                        open: +k[1], high: +k[2], low: +k[3], close: +k[4],
+                    })));
+                    chart.timeScale().fitContent();
+                    if (note) note.textContent = `TradingView Lightweight Charts · ${esc(kPayload.source || 'binance')} · ${rows.length} bars`;
+                    return;
+                }
+                series.setData([]);
+                if (note) note.textContent = i18nT('dash.js.chart_unavailable');
             } catch (error) {
                 console.debug(error);
-                if (note) note.textContent = 'Launch-57 OHLCV unavailable — chart hidden (no legacy fallback).';
+                if (note) note.textContent = i18nT('dash.js.chart_unavailable');
             }
         }
 
@@ -2272,7 +2631,7 @@
                     <strong>${esc(a.symbol)}</strong> <span class="${vc(a.verdict)==='BUY'?'up':''}">${esc(a.verdict||'')}</span>
                     <div>$${fmt(a.price,a.price<1?4:2)}</div>
                     <div class="${changeClass(a.change_24h)}">${changePrefix(a.change_24h)}${fmt(a.change_24h,2)}%</div>
-                </div>`).join('') : '<div class="empty">No market rows</div>';
+                </div>`).join('') : '<div class="empty">' + esc(i18nT('dash.js.no_market_rows')) + '</div>';
         }
 
         async function loadMarket() {
@@ -2281,30 +2640,30 @@
                 const res = await fetch('/api/market/overview');
                 const data = await res.json();
                 renderMarketAssets(data.assets || []);
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Unavailable</div>'; }
+            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">' + esc(i18nT('ui.unavailable')) + '</div>'; }
         }
 
         async function loadDailyReport() {
             const el = document.getElementById('dailyReportBox');
             if (!el) return;
-            el.innerHTML = '<div class="loading">Loading daily report…</div>';
+            el.innerHTML = '<div class="loading">' + esc(i18nT('ui.loading_daily')) + '</div>';
             try {
                 const res = await fetch('/api/reports/daily?persist=false', { headers: authHeaders() });
                 const d = await res.json();
                 if (res.status === 401 || res.status === 403) {
                     const detail = d.detail || {};
-                    el.innerHTML = `<div class="empty">${esc(detail.message || 'Decision Pro required for daily report')}
-                        <div style="margin-top:.65rem"><button class="btn btn-primary btn-upgrade-cta" type="button" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">Upgrade Pro</button></div></div>`;
+                    el.innerHTML = `<div class="empty">${esc(detail.message || i18nT('dash.js.daily_pro_report'))}
+                        <div style="margin-top:.65rem"><button class="btn btn-primary btn-upgrade-cta" type="button" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">${esc(i18nT("dash.js.upgrade_pro_short"))}</button></div></div>`;
                     return;
                 }
                 if (!res.ok) throw new Error('fail');
-                const title = d.title || d.headline || 'Daily research brief';
+                const title = d.title || d.headline || i18nT('dash.js.daily_brief_title');
                 const summary = d.narrative || d.summary || d.executive_summary || d.one_liner || '';
                 const bullets = [
-                    d.oracle_accuracy_percent != null ? ('Oracle accuracy ' + d.oracle_accuracy_percent + '%') : null,
-                    d.moat_score != null ? ('Moat ' + d.moat_score + '/100') : null,
-                    d.whale_alerts_24h != null ? ('Whale alerts ' + d.whale_alerts_24h) : null,
-                    d.arb_alerts_24h != null ? ('Arb alerts ' + d.arb_alerts_24h) : null,
+                    d.oracle_accuracy_percent != null ? i18nT('dash.js.oracle_accuracy', { pct: d.oracle_accuracy_percent }) : null,
+                    d.moat_score != null ? i18nT('dash.js.moat', { score: d.moat_score }) : null,
+                    d.whale_alerts_24h != null ? i18nT('dash.js.whale_alerts_24h', { n: d.whale_alerts_24h }) : null,
+                    d.arb_alerts_24h != null ? i18nT('dash.js.arb_alerts_24h', { n: d.arb_alerts_24h }) : null,
                 ].filter(Boolean).slice(0, 4);
                 const bulletHtml = bullets.length
                     ? ('<ul style="margin:.5rem 0 0 1.1rem;font-size:.85rem;color:#a1a1aa">'
@@ -2313,34 +2672,34 @@
                     : '';
                 el.innerHTML = '<strong>' + esc(title) + '</strong>'
                     + '<div style="margin-top:.35rem;font-size:.9rem;color:#a1a1aa">'
-                    + esc(summary || 'Brief ready — open Markdown for full detail.') + '</div>'
+                    + esc(summary || i18nT('dash.js.brief_ready')) + '</div>'
                     + bulletHtml
-                    + '<div style="margin-top:.55rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · Research brief, not advice · Verify Ledger</div>';
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Daily report unavailable</div>'; }
+                    + '<div style="margin-top:.55rem;font-size:.72rem;color:#71717a"><strong>' + esc(i18nT('common.anti_hype')) + '</strong> · ' + esc(i18nT('dash.js.daily_foot')) + '</div>';
+            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">' + esc(i18nT('ui.daily_unavailable')) + '</div>'; }
         }
 
         async function loadSubscriberValue() {
             const el = document.getElementById('subscriberValueBox');
             if (!el) return;
-            el.innerHTML = '<div class="loading">Loading value…</div>';
+            el.innerHTML = '<div class="loading">' + esc(i18nT('ui.loading_value')) + '</div>';
             try {
                 const res = await fetch('/api/subscriber/value', { headers: authHeaders() });
                 const d = await res.json();
                 if (res.status === 401 || res.status === 403) {
                     const detail = d.detail || {};
-                    el.innerHTML = `<div class="empty">${esc(detail.message || 'Pro/Whale required for subscriber value')}
+                    el.innerHTML = `<div class="empty">${esc(detail.message || i18nT('dash.js.pro_whale_value'))}
                         <div style="margin-top:.65rem"><button class="btn btn-primary btn-upgrade-cta" type="button" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">Upgrade Pro</button></div></div>`;
                     return;
                 }
                 if (!res.ok) throw new Error('fail');
                 const v = d.value || {};
                 const u = d.usage || {};
-                el.innerHTML = `<strong>Subscriber value · ${esc(d.tier || '')}</strong>
-                    <div style="margin-top:.35rem;font-size:.9rem">Calls 30d: ${esc(u.oracle_calls_30d ?? 0)} · Risk warnings: ${esc(u.risk_warnings_30d ?? 0)}</div>
+                el.innerHTML = `<strong>${esc(i18nT('dash.js.subscriber_value', { tier: d.tier || '' }))}</strong>
+                    <div style="margin-top:.35rem;font-size:.9rem">${esc(i18nT('dash.js.calls_30d', { calls: u.oracle_calls_30d ?? 0, warnings: u.risk_warnings_30d ?? 0 }))}</div>
                     <div style="margin-top:.25rem;color:#22d3ee">Est. research value $${esc(Number(v.estimated_value_usd_month || v.estimated_value_usd || v.value_usd || 0).toFixed(0))}
                     ${esc(coversPlanBit(v))}</div>
-                    <div style="margin-top:.55rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · Illustrative usage math · Not guaranteed ROI</div>`;
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Value digest unavailable</div>'; }
+                    <div style="margin-top:.55rem;font-size:.72rem;color:#71717a"><strong>${esc(i18nT('common.anti_hype'))}</strong> · ${esc(i18nT('dash.js.subscriber_foot'))}</div>`;
+            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">' + esc(i18nT('ui.value_unavailable')) + '</div>'; }
         }
 
         let dashEs = null;
@@ -2365,7 +2724,7 @@
             const el = document.getElementById('oi');
             if (!el || !assets.length) return;
             const rows = assets.map(mapOiDisplayRow);
-            el.innerHTML = '<table><thead><tr><th>Asset</th><th>OI</th><th>Funding</th></tr></thead><tbody>' +
+            el.innerHTML = '<table><thead><tr><th>' + esc(i18nT('dash.js.oi_asset')) + '</th><th>' + esc(i18nT('dash.js.oi_col')) + '</th><th>' + esc(i18nT('dash.js.oi_funding')) + '</th></tr></thead><tbody>' +
                 rows.slice(0,6).map(r => `<tr data-bd-call="setSymbol" data-bd-args="[&quot;${esc(r.asset)}&quot;]" style="cursor:pointer">
                     <td>${esc(r.asset)}</td><td>$${fmt(r.open_interest_usd,0)}</td><td>${fmt(r.funding_rate_pct,4)}%</td></tr>`).join('') + '</tbody></table>';
         }
@@ -2373,17 +2732,17 @@
             const el = document.getElementById('arbList');
             const stats = document.getElementById('arbStats');
             const c = arbitrage.counts || {};
-            if (stats) stats.textContent = `Live · Cross ${c.cross_exchange||0} · Executable ${arbitrage.executable_count||0} · Profitable ${arbitrage.profitable_count||0}`;
+            if (stats) stats.textContent = i18nT('dash.js.arb_live_stats', { cross: c.cross_exchange||0, exec: arbitrage.executable_count||0, prof: arbitrage.profitable_count||0 });
             const opps = arbitrage.opportunities || [];
             if (!el || !opps.length) return;
             el.innerHTML = opps.slice(0,6).map(o => {
                 const half = o.opportunity_half_life || {};
                 const truth = o.net_edge_truth || {};
                 const rejected = o.truth_rejected || truth.reject;
-                const rej = rejected ? ' · REJECTED' : '';
+                const rej = rejected ? ' · ' + i18nT('dash.js.rejected') : '';
                 return `<div class="arb-card"><strong>${esc(o.kind_label||o.kind)}</strong> ${esc(o.asset||'')}
                 <div class="${changeClass(o.net_profit_usdt)}">${changePrefix(o.net_profit_usdt)}$${fmt(Math.abs(o.net_profit_usdt||0),4)}</div>
-                <div style="font-size:.75rem;color:#71717a">Truth ${esc(truth.truth_score??'—')} · HL ${esc(half.remaining_seconds??o.expected_half_life_seconds??'—')}s${rej}</div></div>`;
+                <div style="font-size:.75rem;color:#71717a">${esc(i18nT('dash.js.truth_hl', { truth: truth.truth_score??'—', hl: (half.remaining_seconds??o.expected_half_life_seconds??'—') + 's' }))}${rej}</div></div>`;
             }).join('');
         }
         function applyDashboardSnapshot(d) {
@@ -2425,13 +2784,13 @@
                 }
                 if (!rows.length) {
                     if (el.querySelector('table')) return;
-                    el.innerHTML = '<div class="empty">No OI data</div>';
+                    el.innerHTML = '<div class="empty">' + esc(i18nT('dash.js.no_oi')) + '</div>';
                     return;
                 }
                 renderSnapshotOI(rows);
             } catch (error) {
                 console.debug(error);
-                if (!el.querySelector('table')) el.innerHTML = '<div class="empty">Unavailable</div>';
+                if (!el.querySelector('table')) el.innerHTML = '<div class="empty">' + esc(i18nT('ui.unavailable')) + '</div>';
             }
         }
 
@@ -2440,8 +2799,8 @@
             const stats = document.getElementById('arbStats');
             if (!el) return;
             if (refresh) {
-                el.innerHTML = '<div class="loading">Scanning…</div>';
-                if (stats) stats.textContent = 'Live scan in progress…';
+                el.innerHTML = '<div class="loading">' + esc(i18nT('dash.arb.scanning')) + '</div>';
+                if (stats) stats.textContent = i18nT('dash.js.live_scan_progress');
             }
             try {
                 const url = refresh ? '/api/arbitrage/scan' : '/api/arbitrage/opportunities?live=true';
@@ -2449,13 +2808,13 @@
                 const data = await res.json();
                 if (res.status === 403) {
                     const detail = data.detail || {};
-                    stats.textContent = detail.message || 'Pro required';
-                    el.innerHTML = `<div class="empty">${esc(detail.message || 'Upgrade required for arbitrage')}
+                    stats.textContent = detail.message || i18nT('dash.js.pro_required_arb');
+                    el.innerHTML = `<div class="empty">${esc(detail.message || i18nT('dash.js.upgrade_arb'))}
                         <div style="margin-top:.75rem"><button class="btn btn-primary btn-upgrade-cta" type="button" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">Upgrade Pro</button></div></div>`;
                     return;
                 }
                 const c = data.counts || {};
-                stats.textContent = `Cross ${c.cross_exchange||0} · Executable ${data.executable_count||0} · Profitable ${data.profitable_count||0}`;
+                stats.textContent = i18nT('dash.js.arb_cross_stats', { cross: c.cross_exchange||0, exec: data.executable_count||0, prof: data.profitable_count||0 });
                 const opps = data.opportunities || [];
                 el.innerHTML = opps.length ? opps.slice(0,6).map(o => {
                     const half = o.opportunity_half_life || {};
@@ -2463,30 +2822,62 @@
                     const rejected = o.truth_rejected || truth.reject;
                     return `<div class="arb-card"><strong>${esc(o.kind_label||o.kind)}</strong> ${esc(o.asset||'')}
                     <div class="${changeClass(o.net_profit_usdt)}">${changePrefix(o.net_profit_usdt)}$${fmt(Math.abs(o.net_profit_usdt||0),4)}</div>
-                    <div style="font-size:.75rem;color:#71717a">Truth ${esc(truth.truth_score??'—')} · HL ${esc(half.remaining_seconds??o.expected_half_life_seconds??'—')}s${rejected ? ' · REJECTED' : ''}</div></div>`;
-                }).join('') : '<div class="empty">No opportunities now</div>';
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Scan failed</div>'; }
+                    <div style="font-size:.75rem;color:#71717a">Truth ${esc(truth.truth_score??'—')} · HL ${esc(half.remaining_seconds??o.expected_half_life_seconds??'—')}s${rejected ? ' · ' + i18nT('dash.js.rejected') : ''}</div></div>`;
+                }).join('') : '<div class="empty">' + esc(i18nT('dash.js.no_opportunities')) + '</div>';
+            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">' + esc(i18nT('dash.js.scan_failed')) + '</div>'; }
         }
 
         async function loadInbox(forceRefresh) {
             const el = document.getElementById('inbox');
             const status = document.getElementById('tgStatus');
-            if (!el) return;
-            if (forceRefresh) el.innerHTML = '<div class="loading">Refreshing inbox…</div>';
+            if (!el) return { ok: false };
+            if (forceRefresh) el.innerHTML = '<div class="loading">' + esc(i18nT('dash.js.refreshing_inbox')) + '</div>';
             try {
-                const res = await fetch('/api/alerts/inbox?limit=12', { headers: authHeaders() });
-                const data = await res.json();
+                const res = await fetch('/api/alerts/inbox?limit=12', { headers: authHeaders(), credentials: 'same-origin' });
+                const data = await res.json().catch(() => ({}));
+                if (!res.ok) {
+                    const detail = typeof data.detail === 'string' ? data.detail : i18nT('dash.js.inbox_unavailable');
+                    throw new Error(detail);
+                }
                 const stats = data.stats || {};
-                status.textContent = `Inbox ${stats.unread||0} unread · ${stats.generosity_note || 'no TV-style 15/3min hard cap'} · works without Telegram`;
+                const unread = Number(stats.unread || 0);
+                const total = (data.alerts || []).length;
+                if (status) {
+                    status.textContent = i18nT('dash.js.inbox_status', {
+                        unread,
+                        note: stats.generosity_note || i18nT('dash.js.inbox_note_default'),
+                    });
+                }
                 const rows = data.alerts || [];
                 el.innerHTML = rows.length ? rows.map(a => `
                     <div class="arb-card" style="cursor:pointer" data-bd-call="markInboxRead" data-bd-args="[&quot;${esc(a.id)}&quot;]">
-                        <strong>${esc(a.title||'Alert')}</strong>
+                        <strong>${esc(a.title||i18nT('dash.js.alert_default'))}</strong>
                         <div style="font-size:.85rem;color:#a1a1aa;margin-top:.25rem">${esc(a.body||'')}</div>
-                        <div style="font-size:.72rem;color:#71717a;margin-top:.35rem">${esc((a.created_at||'').slice(0,19))} · ${a.read ? 'read' : 'new · tap to mark read'}</div>
-                        <div style="margin-top:.4rem;font-size:.7rem;color:#71717a"><strong>Anti-Hype</strong> · Truth + Half-Life gated · Not financial advice</div>
-                    </div>`).join('') : '<div class="empty">No alerts yet — inbox has no TradingView-style 15/3min hard cap</div>';
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Inbox unavailable</div>'; }
+                        <div style="font-size:.72rem;color:#71717a;margin-top:.35rem">${esc((a.created_at||'').slice(0,19))} · ${a.read ? i18nT('dash.js.read') : i18nT('dash.js.tap_mark_read')}</div>
+                        <div style="margin-top:.4rem;font-size:.7rem;color:#71717a"><strong>${esc(i18nT('common.anti_hype'))}</strong> · ${esc(i18nT('dash.js.inbox_card_foot'))}</div>
+                    </div>`).join('') : '<div class="empty">' + esc(i18nT('dash.js.inbox_empty')) + '</div>';
+                return { ok: true, total, unread };
+            } catch (error) {
+                console.debug(error);
+                el.innerHTML = '<div class="empty">' + esc(i18nT('dash.js.inbox_unavailable')) + '</div>';
+                return { ok: false, error: error && error.message ? String(error.message) : '' };
+            }
+        }
+
+        async function refreshInbox() {
+            const btn = document.getElementById('inboxRefreshBtn');
+            if (btn) btn.disabled = true;
+            setInboxToolbarStatus(i18nT('dash.js.refreshing_inbox'));
+            const result = await loadInbox(true);
+            if (result.ok) {
+                setInboxToolbarStatus(
+                    i18nT('dash.js.inbox_refreshed_summary', { total: result.total || 0, unread: result.unread || 0 }),
+                    'ok'
+                );
+            } else {
+                setInboxToolbarStatus(result.error || i18nT('dash.js.inbox_unavailable'), 'error');
+            }
+            if (btn) btn.disabled = false;
         }
 
         async function markInboxRead(id) {
@@ -2500,10 +2891,200 @@
             } catch (error) { console.debug(error); }
         }
 
+        const PA_CLIENT_KEY = 'bd_price_alert_client';
+
+        function priceAlertClientId() {
+            let id = localStorage.getItem(PA_CLIENT_KEY);
+            const valid = (raw) => typeof raw === 'string' && /^[a-f0-9-]{16,64}$/i.test(raw.trim());
+            if (!valid(id)) {
+                if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+                    id = crypto.randomUUID();
+                } else {
+                    const hex = () => Math.floor(Math.random() * 16).toString(16);
+                    id = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+                        const r = Math.floor(Math.random() * 16);
+                        const v = c === 'x' ? r : (r & 0x3) | 0x8;
+                        return v.toString(16);
+                    });
+                }
+                localStorage.setItem(PA_CLIENT_KEY, id);
+            }
+            return id;
+        }
+
+        function setPriceAlertsStatus(message, tone) {
+            const el = document.getElementById('priceAlertsStatus');
+            if (!el) return;
+            el.textContent = message || '';
+            if (tone === 'error') el.style.color = '#f87171';
+            else if (tone === 'ok') el.style.color = '#4ade80';
+            else el.style.color = '#71717a';
+        }
+
+        function renderPriceAlertsList(data) {
+            const list = document.getElementById('priceAlertsList');
+            if (!list) return;
+            const rows = data.alerts || [];
+            if (!rows.length) {
+                list.innerHTML = '<li class="empty">' + esc(i18nT('dash.alerts.none')) + '</li>';
+                return;
+            }
+            list.innerHTML = rows.map((a) => {
+                const cur = a.current_price != null ? (' · now $' + fmt(a.current_price, a.current_price < 1 ? 4 : 2)) : '';
+                const dir = a.direction === 'below' ? 'below' : 'above';
+                let fired = '';
+                if (a.triggered) {
+                    fired = ' · <strong style="color:#22c55e">' + esc(i18nT('dash.js.triggered')) + '</strong>';
+                } else if (a.condition_met) {
+                    fired = ' · <strong style="color:#fbbf24">' + esc(i18nT('dash.js.condition_met')) + '</strong>';
+                } else if (a.current_price != null) {
+                    fired = ' · <span style="color:#71717a">' + esc(i18nT('dash.js.alert_pending')) + '</span>';
+                }
+                return `<li style="padding:.45rem 0;border-bottom:1px solid #2a2a35;display:flex;justify-content:space-between;gap:.5rem;align-items:flex-start">
+                    <span>${esc(a.symbol)} ${esc(dir)} $${esc(fmt(a.target_price, a.target_price < 1 ? 4 : 2))}${cur}${fired}</span>
+                    <button type="button" class="btn secondary" style="padding:.25rem .5rem;font-size:.72rem" data-pa-del="${esc(a.id)}">${esc(i18nT("dash.js.remove"))}</button>
+                </li>`;
+            }).join('');
+            list.querySelectorAll('[data-pa-del]').forEach((btn) => {
+                btn.addEventListener('click', () => deletePriceAlert(btn.getAttribute('data-pa-del')));
+            });
+        }
+
+        async function loadFinancialNews() {
+            const list = document.getElementById('financialNewsList');
+            const foot = document.getElementById('financialNewsFoot');
+            if (!list) return;
+            try {
+                const res = await fetch('/api/public/news/headlines?limit=8');
+                const data = await res.json();
+                const rows = data.headlines || [];
+                if (!rows.length) {
+                    list.innerHTML = '<li class="empty">' + esc(i18nT('dash.js.no_headlines')) + '</li>';
+                    if (foot) foot.textContent = data.license_note || '';
+                    return;
+                }
+                list.innerHTML = rows.map((row) => {
+                    const title = esc(row.title || '');
+                    const src = esc(row.source || '');
+                    const url = row.url ? esc(row.url) : '';
+                    const inner = url
+                        ? `<a href="${url}" target="_blank" rel="noopener noreferrer">${title}</a>`
+                        : title;
+                    return `<li style="margin-bottom:.45rem"><span style="color:#71717a;font-size:.75rem">${src}</span> · ${inner}</li>`;
+                }).join('');
+                if (foot) foot.textContent = data.attribution ? (data.attribution + ' — ' + (data.license_note || '')) : (data.license_note || '');
+            } catch (e) {
+                list.innerHTML = '<li class="empty">' + esc(i18nT('dash.js.headlines_unavailable')) + '</li>';
+            }
+        }
+
+        async function loadPriceAlerts(opts) {
+            const userInitiated = !!(opts && opts.userInitiated);
+            const cid = priceAlertClientId();
+            const checkBtn = document.getElementById('paRefreshBtn');
+            if (userInitiated && checkBtn) checkBtn.disabled = true;
+            if (userInitiated) setPriceAlertsStatus(i18nT('dash.js.checking_prices'));
+            try {
+                const res = await fetch('/api/public/price-alerts?client_id=' + encodeURIComponent(cid));
+                const data = await res.json().catch(() => ({}));
+                if (!res.ok || data.ok === false) {
+                    const errMsg = (data && (data.error || data.message)) || i18nT('dash.js.price_alerts_unavailable');
+                    throw new Error(String(errMsg));
+                }
+                renderPriceAlertsList(data);
+                const rows = data.alerts || [];
+                if (userInitiated) {
+                    if (!rows.length) {
+                        setPriceAlertsStatus(i18nT('dash.alerts.none'), 'error');
+                    } else {
+                        const when = data.checked_at ? (' · ' + String(data.checked_at).replace('T', ' ').slice(0, 19)) : '';
+                        setPriceAlertsStatus(i18nT('dash.js.prices_checked') + when, 'ok');
+                    }
+                }
+            } catch (e) {
+                console.debug(e);
+                const list = document.getElementById('priceAlertsList');
+                if (list) list.innerHTML = '<li class="empty">' + esc(i18nT('dash.js.price_alerts_unavailable')) + '</li>';
+                setPriceAlertsStatus(String(e && e.message ? e.message : i18nT('dash.js.price_alerts_unavailable')), 'error');
+            } finally {
+                if (userInitiated && checkBtn) checkBtn.disabled = false;
+            }
+        }
+
+        async function checkPriceAlerts() {
+            await loadPriceAlerts({ userInitiated: true });
+        }
+
+        async function addPriceAlert() {
+            const sym = document.getElementById('paSymbol')?.value || 'BTC';
+            const direction = document.getElementById('paDirection')?.value || 'above';
+            const target = parseFloat(document.getElementById('paTarget')?.value || '0', 10);
+            const addBtn = document.getElementById('paAddBtn');
+            if (!target || target <= 0) {
+                setPriceAlertsStatus(i18nT('dash.js.price_alert_enter_target'), 'error');
+                return;
+            }
+            const cid = priceAlertClientId();
+            if (addBtn) addBtn.disabled = true;
+            setPriceAlertsStatus(i18nT('dash.js.saving_price_alert'));
+            try {
+                const res = await fetch('/api/public/price-alerts', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        client_id: cid,
+                        symbol: sym,
+                        direction,
+                        target_price: target,
+                    }),
+                });
+                const data = await res.json().catch(() => ({}));
+                if (!res.ok) {
+                    const detail = data.detail;
+                    const msg = typeof detail === 'object' && detail
+                        ? String(detail.error || detail.message || JSON.stringify(detail))
+                        : String(detail || i18nT('dash.js.price_alerts_unavailable'));
+                    throw new Error(msg);
+                }
+                document.getElementById('paTarget').value = '';
+                setPriceAlertsStatus(i18nT('dash.js.price_alert_added'), 'ok');
+                await loadPriceAlerts();
+            } catch (e) {
+                console.debug(e);
+                setPriceAlertsStatus(String(e && e.message ? e.message : i18nT('dash.js.price_alerts_unavailable')), 'error');
+            } finally {
+                if (addBtn) addBtn.disabled = false;
+            }
+        }
+
+        async function deletePriceAlert(id) {
+            if (!id) return;
+            const cid = priceAlertClientId();
+            try {
+                await fetch('/api/public/price-alerts/' + encodeURIComponent(id) + '?client_id=' + encodeURIComponent(cid), {
+                    method: 'DELETE',
+                });
+                await loadPriceAlerts();
+            } catch (e) { console.debug(e); }
+        }
+
+        function bindPriceAlertsUi() {
+            const add = document.getElementById('paAddBtn');
+            const ref = document.getElementById('paRefreshBtn');
+            if (add && add.dataset.bound !== '1') {
+                add.dataset.bound = '1';
+                add.addEventListener('click', () => { void addPriceAlert(); });
+            }
+            if (ref && ref.dataset.bound !== '1') {
+                ref.dataset.bound = '1';
+                ref.addEventListener('click', () => { void checkPriceAlerts(); });
+            }
+        }
+
         async function loadWhales(refresh) {
             const el = document.getElementById('whaleList');
             const foot = document.getElementById('whaleCompliance');
-            if (refresh) el.innerHTML = '<div class="loading">Scanning…</div>';
+            if (refresh) el.innerHTML = '<div class="loading">' + esc(i18nT('dash.arb.scanning')) + '</div>';
             try {
                 const res = await fetch('/api/whale/signal-vs-noise?limit=8');
                 const data = await res.json();
@@ -2511,7 +3092,7 @@
                 const stories = data.stories || [];
                 const headline = data.one_sentence || data.headline || (stories[0] || '');
                 const headHtml = headline
-                    ? `<div class="whale-card" style="border-color:rgba(34,211,238,.35)"><strong>One sentence · Signal vs Noise</strong><div style="margin-top:.35rem;font-size:.95rem;line-height:1.45">${esc(headline)}</div></div>`
+                    ? `<div class="whale-card" style="border-color:rgba(34,211,238,.35)"><strong>${esc(i18nT('dash.js.whale_one_sentence'))}</strong><div style="margin-top:.35rem;font-size:.95rem;line-height:1.45">${esc(headline)}</div></div>`
                     : '';
                 if (classified.length) {
                     el.innerHTML = headHtml + classified.map(a => `
@@ -2524,22 +3105,22 @@
                 } else if (stories.length) {
                     el.innerHTML = headHtml + stories.slice(0,8).map(s => `<div class="whale-card">${esc(s)}</div>`).join('');
                 } else {
-                    el.innerHTML = '<div class="empty">No whale narratives</div>';
+                    el.innerHTML = '<div class="empty">' + esc(i18nT('dash.js.no_whale')) + '</div>';
                 }
                 if (foot) {
-                    foot.innerHTML = '<strong>Anti-Hype</strong> · Whale labels are classified, not guaranteed alpha · Not financial advice · Verify on Public Accuracy Ledger';
+                    foot.innerHTML = '<strong>' + esc(i18nT('common.anti_hype')) + '</strong> · ' + esc(i18nT('dash.js.whale_foot'));
                 }
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Unavailable</div>'; }
+            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">' + esc(i18nT('ui.unavailable')) + '</div>'; }
         }
 
         function coversPlanBit(v) {
             if (v.covers_subscription == null) return '';
-            return ' · covers plan: ' + (v.covers_subscription ? 'yes' : 'not yet');
+            return i18nT('dash.js.covers_plan', { yes: v.covers_subscription ? i18nT('dash.js.covers_yes') : i18nT('dash.js.covers_not_yet') });
         }
         function whaleFundingBit(a) {
             if (a.funding_rate == null && a.open_interest == null) return '';
-            const fr = a.funding_rate != null ? 'Funding ' + esc(a.funding_rate) : '';
-            const oi = a.open_interest != null ? ' · OI ' + esc(fmt(a.open_interest,0)) : '';
+            const fr = a.funding_rate != null ? esc(i18nT('dash.js.whale_funding', { rate: a.funding_rate })) : '';
+            const oi = a.open_interest != null ? esc(i18nT('dash.js.whale_oi', { oi: fmt(a.open_interest,0) })) : '';
             return `<div style="font-size:.72rem;color:#71717a;margin-top:.2rem">${fr}${oi}</div>`;
         }
         function whalePriceBit(a) {
@@ -2558,7 +3139,7 @@
             document.body.classList.toggle('anti-hype-on', on);
             const btn = document.getElementById('antiHypeBtn');
             if (btn) {
-                btn.textContent = on ? 'Anti-Hype ON' : 'Anti-Hype';
+                btn.textContent = on ? i18nT('dash.js.anti_hype_on_btn') : i18nT('common.anti_hype');
                 btn.setAttribute('aria-pressed', on ? 'true' : 'false');
             }
             const banner = document.getElementById('antiHypeBanner');
@@ -2592,9 +3173,9 @@
                 const d = await res.json();
                 el.innerHTML = (d.top3 || []).map((x, i) =>
                     `<div class="arb-card"><strong>${i + 1}. ${esc(x.title)}</strong><div style="margin-top:.3rem;color:#a1a1aa">${esc(x.detail)}</div>
-                     <a href="${safeShareUrl(x.href) || '/'}" style="font-size:.8rem;color:#22d3ee">Open</a></div>`
-                ).join('') || '<div class="empty">No deltas yet</div>';
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Continuity unavailable</div>'; }
+                     <a href="${safeShareUrl(x.href) || '/'}" style="font-size:.8rem;color:#22d3ee">${esc(i18nT('dash.js.open_link'))}</a></div>`
+                ).join('') || '<div class="empty">' + esc(i18nT('dash.js.no_deltas')) + '</div>';
+            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">' + esc(i18nT('dash.js.continuity_unavailable')) + '</div>'; }
         }
 
         function isDedicatedHalfLifePage() {
@@ -2627,7 +3208,7 @@
                 sweep_degrees: angle,
                 desk_line: isDedicatedHalfLifePage()
                     ? ''
-                    : `Launch-57 command home · ${freshness} · ${action} — desk timing grounded (no legacy oracle fetch).`,
+                    : i18nT('dash.js.half_life_desk', { freshness, action }),
             };
         }
 
@@ -2635,7 +3216,7 @@
             const svg = document.getElementById('halfLifeSvg');
             const line = document.getElementById('halfLifeLine');
             if (!svg || !line) return;
-            line.textContent = 'Refreshing clock…';
+            line.textContent = i18nT('dash.js.refreshing_clock');
             try {
                 commandHomeInflight = null;
                 commandHomeInflightKey = '';
@@ -2682,7 +3263,7 @@
                     desk.textContent = String(d.desk_line);
                     line.append(desk);
                 }
-            } catch (error) { console.debug(error); line.textContent = 'Half-Life clock unavailable'; }
+            } catch (error) { console.debug(error); line.textContent = i18nT('dash.js.half_life_unavailable'); }
         }
 
         let lastMevShare = '';
@@ -2690,7 +3271,7 @@
             const el = document.getElementById('mevResult');
             const asset = (document.getElementById('mevAsset').value || 'ETH').trim();
             const notional = document.getElementById('mevNotional').value || 10000;
-            el.innerHTML = '<div class="loading">Building…</div>';
+            el.innerHTML = '<div class="loading">' + esc(i18nT('dash.js.building')) + '</div>';
             try {
                 const res = await fetch('/api/mev/sandwich-report?asset=' + encodeURIComponent(asset) + '&notional_usd=' + encodeURIComponent(notional));
                 const d = await res.json();
@@ -2699,13 +3280,13 @@
                 const c = d.compliance || {};
                 el.innerHTML = `
                     <div class="arb-card">
-                        <strong>${esc(d.title||'MEV Report')}</strong> · ${esc(d.asset)} · $${fmt(d.notional_usd,0)}
+                        <strong>${esc(d.title||i18nT('dash.js.mev_report_title'))}</strong> · ${esc(d.asset)} · $${fmt(d.notional_usd,0)}
                         <div style="margin-top:.4rem">Est. sandwich drag ~${esc(d.estimated_sandwich_bps)} bps (~$${fmt(d.estimated_cost_usd,2)})</div>
                         <div style="font-size:.8rem;color:#a1a1aa;margin-top:.35rem">${esc(d.note||'')}</div>
                         <ul style="margin:.5rem 0 0 1.1rem;font-size:.85rem;color:#a1a1aa">${mit}</ul>
-                        <div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · ${esc(c.disclaimer||'')}</div>
+                        <div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>${esc(i18nT('common.anti_hype'))}</strong> · ${esc(c.disclaimer||'')}</div>
                     </div>`;
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Report unavailable</div>'; }
+            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">' + esc(i18nT('dash.js.report_unavailable')) + '</div>'; }
         }
         function copyMevShare() {
             if (!lastMevShare) { loadMevReport().then(() => navigator.clipboard.writeText(lastMevShare)); return; }
@@ -2714,7 +3295,7 @@
 
         async function runStealthAdvisor() {
             const el = document.getElementById('stealthResult');
-            el.innerHTML = '<div class="loading">Advising…</div>';
+            el.innerHTML = '<div class="loading">' + esc(i18nT('dash.js.advising')) + '</div>';
             try {
                 const res = await fetch('/api/whale/stealth-advisor', {
                     method: 'POST',
@@ -2736,32 +3317,40 @@
                         </tr>`).join('');
                 const sliceTable = slices.length
                     ? ('<table style="width:100%;margin-top:.65rem;font-size:.8rem;border-collapse:collapse">'
-                        + '<thead><tr style="color:#71717a;text-align:left"><th style="padding:.25rem">#</th><th>USD</th><th>Delay</th><th>Offset</th><th>Algo</th></tr></thead>'
+                        + '<thead><tr style="color:#71717a;text-align:left"><th style="padding:.25rem">' + esc(i18nT('dash.js.stealth_th_index')) + '</th><th>' + esc(i18nT('dash.js.stealth_th_usd')) + '</th><th>' + esc(i18nT('dash.js.stealth_th_delay')) + '</th><th>' + esc(i18nT('dash.js.stealth_th_offset')) + '</th><th>' + esc(i18nT('dash.js.stealth_th_algo')) + '</th></tr></thead>'
                         + '<tbody>' + sliceRows + '</tbody></table>')
                     : '';
                 let planBit = '';
                 if (d.slice_plan) {
-                    planBit = '<div style="margin-top:.5rem;font-size:.8rem;color:#a1a1aa">Plan · ' + esc(d.slice_plan.algo)
-                        + ' · window ' + esc(d.slice_plan.window_sec) + 's · interval ' + esc(d.slice_plan.interval_sec)
-                        + 's · offset ' + esc(d.slice_plan.limit_offset_bps) + ' bps</div>';
+                    planBit = '<div style="margin-top:.5rem;font-size:.8rem;color:#a1a1aa">' + esc(i18nT('dash.js.stealth_plan', {
+                        algo: d.slice_plan.algo,
+                        window: d.slice_plan.window_sec,
+                        interval: d.slice_plan.interval_sec,
+                        offset: d.slice_plan.limit_offset_bps,
+                    })) + '</div>';
                 }
                 el.innerHTML =
                     '<div class="arb-card"><strong>' + esc(d.style||'advisory') + '</strong> · ' + esc(d.asset) + ' ' + esc(d.side)
                     + ' · $' + fmt(d.notional_usd,0)
-                    + '<div style="margin-top:.4rem">' + esc(d.recommended_slices) + ' slices × $' + fmt(d.slice_usd,2)
-                    + ' · urgency ' + esc(d.urgency) + '</div>'
+                    + '<div style="margin-top:.4rem">' + esc(i18nT('dash.js.stealth_slices', { n: d.recommended_slices, slice: fmt(d.slice_usd,2), urgency: d.urgency })) + '</div>'
                     + '<div style="font-size:.85rem;color:#a1a1aa;margin-top:.35rem">' + esc(d.advice||'') + '</div>'
                     + planBit + sliceTable
-                    + '<div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · '
+                    + '<div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>' + esc(i18nT('common.anti_hype')) + '</strong> · '
                     + esc(d.disclaimer||'') + '</div></div>';
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Advisor unavailable</div>'; }
+            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">' + esc(i18nT('dash.js.advisor_unavailable')) + '</div>'; }
         }
 
         let portfolioAssets = [];
         function addPortfolioAsset() {
             const symbol = (document.getElementById('pfSym').value || '').toUpperCase().trim();
             const amount = Number(document.getElementById('pfAmt').value || 0);
-            if (!symbol || amount <= 0) return;
+            const resultEl = document.getElementById('portfolioResult');
+            if (!symbol || amount <= 0) {
+                if (resultEl) {
+                    resultEl.innerHTML = '<div class="empty">' + esc(i18nT('dash.js.portfolio_enter_amount')) + '</div>';
+                }
+                return;
+            }
             portfolioAssets.push({ symbol, amount });
             const pfSym = document.getElementById('pfSym');
             if (pfSym) pfSym.selectedIndex = 0;
@@ -2782,23 +3371,38 @@
                 showOperateGate();
                 return;
             }
-            if (!portfolioAssets.length) { el.innerHTML = '<div class="empty">Add at least one holding</div>'; return; }
+            if (!portfolioAssets.length) { el.innerHTML = '<div class="empty">' + esc(i18nT('dash.js.portfolio_add_holding')) + '</div>'; return; }
             el.innerHTML = '<div class="loading">' + esc(i18nT('oracle.analyzing')) + '</div>';
             try {
-                const res = await fetch('/portfolio/analyze', {
+                const res = await fetch('/api/portfolio/analyze', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', ...authHeaders() },
-                    body: JSON.stringify(portfolioAssets),
+                    credentials: 'same-origin',
+                    body: JSON.stringify({ holdings: portfolioAssets }),
                 });
                 const d = await res.json().catch(() => ({}));
                 if (!res.ok) {
-                    const detail = String(d.detail || '');
-                    if (res.status === 403 || detail.includes('Billing not configured')) {
-                        el.innerHTML = operateGateInlineHtml();
-                        showOperateGate();
+                    const detailRaw = d.detail;
+                    const detailText = typeof detailRaw === 'object' && detailRaw
+                        ? String(detailRaw.message || detailRaw.error || JSON.stringify(detailRaw))
+                        : String(detailRaw || '');
+                    if (res.status === 401) {
+                        el.innerHTML = '<div class="empty">' + esc(i18nT('dash.js.portfolio_sign_in_required')) + '</div>';
                         return;
                     }
-                    el.innerHTML = '<div class="empty">Portfolio analysis unavailable</div>';
+                    if (res.status === 403 || detailText.includes('Billing not configured') || detailText.includes('upgrade_required')) {
+                        if (operatePlusBlockedOnProveLens()) {
+                            el.innerHTML = operateGateInlineHtml();
+                            showOperateGate();
+                            return;
+                        }
+                        const upgradeMsg = (typeof detailRaw === 'object' && detailRaw && detailRaw.message)
+                            ? detailRaw.message
+                            : i18nT('dash.js.portfolio_upgrade_required');
+                        el.innerHTML = '<div class="empty">' + esc(upgradeMsg) + '</div>';
+                        return;
+                    }
+                    el.innerHTML = '<div class="empty">' + esc(detailText || i18nT('dash.js.portfolio_analysis_unavailable')) + '</div>';
                     return;
                 }
                 const foot = d.compliance_footer || {};
@@ -2809,22 +3413,22 @@
                     ? '<ul style="margin:.5rem 0 0 1.1rem;font-size:.85rem;color:#a1a1aa">' + recs.map(r => `<li>${esc(r)}</li>`).join('') + '</ul>'
                     : '';
                 const riskBit = risk
-                    ? (' · <span style="color:' + riskColor + ';font-weight:700">' + esc(risk) + '</span> risk (' + esc(d.risk_score ?? '—') + '/10)')
+                    ? (' · <span style="color:' + riskColor + ';font-weight:700">' + esc(i18nT('dash.js.portfolio_risk', { level: risk, score: d.risk_score ?? '—' })) + '</span>')
                     : '';
                 const scenarioBit = d.scenario_note
                     ? ('<div style="margin-top:.4rem;font-size:.85rem;color:#a1a1aa">' + esc(d.scenario_note) + '</div>')
                     : '';
                 const valueBit = d.total_value_formatted
-                    ? ('<div style="margin-top:.35rem;font-size:.8rem;color:#71717a">Marked value ' + esc(d.total_value_formatted) + ' · BTC corr ' + esc(d.btc_correlation || '—') + '</div>')
+                    ? ('<div style="margin-top:.35rem;font-size:.8rem;color:#71717a">' + esc(i18nT('dash.js.marked_value', { value: d.total_value_formatted, corr: d.btc_correlation || '—' })) + '</div>')
                     : '';
                 const footBit = foot.disclaimer
-                    ? ('<div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · ' + esc(foot.disclaimer) + '</div>')
+                    ? ('<div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>' + esc(i18nT('common.anti_hype')) + '</strong> · ' + esc(foot.disclaimer) + '</div>')
                     : '';
                 el.innerHTML =
-                    '<div class="arb-card"><strong>Portfolio AI</strong>' + riskBit +
+                    '<div class="arb-card"><strong>' + esc(i18nT('dash.portfolio')) + '</strong>' + riskBit +
                     '<div style="margin-top:.55rem;font-size:.95rem;color:#e4e4e7">' + esc(d.one_sentence || d.plain_language || d.summary || '') + '</div>' +
                     scenarioBit + valueBit + recHtml + footBit + '</div>';
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Portfolio AI unavailable</div>'; }
+            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">' + esc(i18nT('dash.js.portfolio_ai_unavailable')) + '</div>'; }
         }
 
         async function loadTgStatus() {
@@ -2832,16 +3436,36 @@
             try {
                 const res = await fetch('/api/alerts/telegram/status');
                 const d = await res.json();
-                el.textContent = d.bot_token_set ? 'Telegram bot configured — connect via /login' : 'Set TELEGRAM_BOT_TOKEN to enable alerts';
-            } catch (error) { console.debug(error); el.textContent = 'Alert status unavailable'; }
+                el.textContent = d.bot_token_set ? i18nT('dash.js.telegram_configured') : i18nT('dash.js.telegram_token_missing');
+            } catch (error) { console.debug(error); el.textContent = i18nT('dash.js.alert_status_unavailable'); }
         }
 
         async function testTelegram() {
+            const btn = document.getElementById('inboxTestTgBtn');
+            if (btn) btn.disabled = true;
+            setInboxToolbarStatus(i18nT('dash.js.telegram_testing'));
             try {
-                const res = await fetch('/api/alerts/telegram/test', { method: 'POST', headers: authHeaders() });
-                const d = await res.json();
-                showTelegramTestDialog(d.message || (d.success ? 'Sent!' : 'Failed'));
-            } catch (error) { console.debug(error); showTelegramTestDialog('Test failed — configure bot first'); }
+                const res = await fetch('/api/alerts/telegram/test', {
+                    method: 'POST',
+                    headers: authHeaders(),
+                    credentials: 'same-origin',
+                });
+                const d = await res.json().catch(() => ({}));
+                const msg = d.message || (d.success ? i18nT('dash.js.telegram_sent') : i18nT('dash.js.telegram_failed'));
+                if (!res.ok && !d.message) {
+                    throw new Error(typeof d.detail === 'string' ? d.detail : i18nT('dash.js.telegram_test_failed'));
+                }
+                setInboxToolbarStatus(msg, d.success ? 'ok' : 'error');
+                showTelegramTestDialog(msg);
+                void loadTgStatus();
+            } catch (error) {
+                console.debug(error);
+                const fail = error && error.message ? String(error.message) : i18nT('dash.js.telegram_test_failed');
+                setInboxToolbarStatus(fail, 'error');
+                showTelegramTestDialog(fail);
+            } finally {
+                if (btn) btn.disabled = false;
+            }
         }
 
         async function loadAlertsGenerosity() {
@@ -2851,7 +3475,7 @@
                 const res = await fetch('/api/alerts/generosity');
                 const d = await res.json();
                 const bd = d.blackdark || {};
-                el.innerHTML = `<strong>${esc(d.title || 'Alert generosity')}</strong><br>${esc(d.competitor_friction || '')}<br>` +
+                el.innerHTML = `<strong>${esc(d.title || i18nT('dash.js.alert_generosity_title'))}</strong><br>${esc(d.competitor_friction || '')}<br>` +
                     `${esc(bd.in_app_inbox || '')} · ${esc(bd.proof_gate || '')}`;
             } catch (error) { console.debug(error); }
         }
@@ -2877,10 +3501,25 @@
 
 
         const DESK_TOOL_SECTIONS = new Set(['stealth', 'whales', 'half-life-clock', 'mev']);
+        const DESK_WORKSPACE_SECTIONS = new Set(['watchlist', 'my-decisions']);
+
+        function refreshDeskWorkspacePanels() {
+            if (currentLens !== 'desk' || !window.BDOracleWorkspace) return;
+            void window.BDOracleWorkspace.refreshEntitlements?.();
+            window.BDOracleWorkspace.renderWatchlist?.();
+            window.BDOracleWorkspace.renderMyDecisions?.();
+        }
 
         function scrollForLens(lensId) {
             const hash = (location.hash || '').replace('#','');
             if (hash) {
+                if (DESK_WORKSPACE_SECTIONS.has(hash)) {
+                    setTimeout(() => {
+                        scrollToId(hash);
+                        refreshDeskWorkspacePanels();
+                    }, 200);
+                    return;
+                }
                 if (DESK_TOOL_SECTIONS.has(hash) && lensId === 'prove') {
                     setTimeout(() => openDeskToolSection(hash), 200);
                     return;
@@ -2889,7 +3528,8 @@
                 return;
             }
             if (lensId === 'desk') setTimeout(scrollToStealth, 250);
-            else setTimeout(() => scrollToId('decide'), 200);
+            else if (lensId === 'operate') setTimeout(() => scrollToId('radar'), 200);
+            else setTimeout(() => scrollToId('trust-pulse'), 200);
         }
         function paintLensChrome(d) {
             const lens = d.lens || {};
@@ -2902,12 +3542,31 @@
             }
             renderEntries(d.entries || []);
         }
+        function loadDeskLensSurfaces() {
+            if (currentLens !== 'desk') return;
+            loadArbitrage(false);
+            loadWhales(false);
+            void loadHalfLifeClock();
+        }
+
+        function syncDashboardLensQuery(lensId) {
+            if (!location.pathname.startsWith('/dashboard')) return;
+            const params = new URLSearchParams(location.search);
+            const nextLens = (lensId || 'prove').toLowerCase();
+            if (params.get('lens') === nextLens) return;
+            params.set('lens', nextLens);
+            const qs = params.toString();
+            const url = '/dashboard' + (qs ? '?' + qs : '') + (location.hash || '');
+            history.replaceState(null, '', url);
+        }
+
         async function applyLens(lensId, { persist=true, scroll=true } = {}) {
             currentLens = (lensId || 'prove').toLowerCase();
             if (persist) {
                 localStorage.setItem('bd_lens', currentLens);
                 const aud = ({ prove:'retail', operate:'pro', desk:'whale', room:'fund' })[currentLens];
                 if (aud) localStorage.setItem('bd_audience', aud);
+                syncDashboardLensQuery(currentLens);
             }
             document.body.classList.remove('lens-prove','lens-operate','lens-desk','lens-room');
             document.body.classList.add('lens-' + currentLens);
@@ -2933,14 +3592,27 @@
                     return;
                 }
                 if (scroll) scrollForLens(currentLens);
-                if (currentLens === 'prove') loadTrustPulseQuick(true);
+                if (currentLens === 'prove') {
+                    loadTrustPulseQuick(true);
+                    bindTrustPulseLiveStream();
+                } else if (currentLens === 'operate') {
+                    void loadCommandHome(true);
+                    bindTrustPulseLiveStream();
+                    void loadMarket();
+                    void loadOI();
+                } else if (currentLens === 'desk') {
+                    void loadCommandHome(true);
+                    bindTrustPulseLiveStream();
+                    loadDeskLensSurfaces();
+                    refreshDeskWorkspacePanels();
+                }
             } catch (error) {
                 console.debug(error);
                 renderEntries([
-                    {id:'decide',label:'Decide',available:true,hint:'Act/Wait + Proof'},
-                    {id:'verify',label:'Verify',available:true,path:'/oracle-accuracy'},
-                    {id:'my_book',label:'My book',available:currentLens!=='prove'},
-                    {id:'alerts',label:'Alerts',available:currentLens!=='prove'},
+                    {id:'decide',label:i18nT('dash.intent.decide'),available:true,hint:i18nT('dash.js.entry_decide_hint')},
+                    {id:'verify',label:i18nT('dash.intent.verify'),available:true,path:'/oracle-accuracy'},
+                    {id:'my_book',label:i18nT('dash.intent.my_book'),available:currentLens!=='prove'},
+                    {id:'alerts',label:i18nT('dash.intent.alerts'),available:currentLens!=='prove'},
                 ]);
             }
         }
@@ -2951,7 +3623,7 @@
             rail.innerHTML = entries.map(e => {
                 const locked = e.available === false;
                 return `<button type="button" class="entry-btn${locked?' locked':''}" data-entry="${esc(e.id)}" data-path="${esc(e.path||'')}" data-action="${esc(e.action||'')}" title="${esc(e.hint||'')}">
-                    ${esc(e.label)}<small>${esc(locked ? (e.upgrade_hint || 'Operate to unlock') : (e.hint || ''))}</small></button>`;
+                    ${esc(e.label)}<small>${esc(locked ? (e.upgrade_hint || i18nT('dash.js.operate_unlock')) : (e.hint || ''))}</small></button>`;
             }).join('');
             rail.querySelectorAll('.entry-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
@@ -2990,13 +3662,31 @@
             });
         }
 
+        window.applyLens = applyLens;
+
         function applyAudienceFromQuery() {
             const params = new URLSearchParams(location.search);
+            const ALLOWED_LENSES = new Set(['prove', 'operate', 'desk', 'room']);
+            const hashId = (location.hash || '').replace('#', '').toLowerCase();
             const lensParam = (params.get('lens') || '').toLowerCase();
-            const aud = (params.get('audience') || localStorage.getItem('bd_audience') || '').toLowerCase();
-            const lens = lensParam || localStorage.getItem('bd_lens') || audienceToLens(aud) || 'prove';
-            applyLens(lens, { persist:true, scroll:true });
+            let lens = lensParam;
+            if (DESK_WORKSPACE_SECTIONS.has(hashId)) {
+                lens = 'desk';
+            }
+            if (!ALLOWED_LENSES.has(lens)) {
+                const aud = (params.get('audience') || localStorage.getItem('bd_audience') || '').toLowerCase();
+                lens = (localStorage.getItem('bd_lens') || audienceToLens(aud) || 'prove').toLowerCase();
+            }
+            if (!ALLOWED_LENSES.has(lens)) lens = 'prove';
+            const scroll = !window.__bdLensPopstate;
+            window.__bdLensPopstate = false;
+            applyLens(lens, { persist: true, scroll: scroll });
         }
+
+        window.addEventListener('popstate', function () {
+            window.__bdLensPopstate = true;
+            applyAudienceFromQuery();
+        });
 
         async function loadIntentRouter() {
             if (lastCommandHome) {
@@ -3010,6 +3700,7 @@
             initChart();
             loadLaunch57DataSpine();
             loadChart();
+            void loadTrustPulseChart();
             loadMarket();
             loadOI();
             if (currentLens === 'desk') {
@@ -3025,8 +3716,12 @@
             loadTgStatus();
             loadAlertsGenerosity();
             loadInbox();
+            bindPriceAlertsUi();
+            void loadPriceAlerts();
+            void loadFinancialNews();
             setInterval(loadMarket, 60000);
             setInterval(loadInbox, 90000);
+            setInterval(() => { void loadPriceAlerts(); }, 60000);
         }
 
         function scheduleCommandHome() {
@@ -3049,14 +3744,31 @@
         window.loadChart = loadChart;
         window.setSymbol = setSymbol;
         window.loadInbox = loadInbox;
+        window.refreshInbox = refreshInbox;
+        window.testTelegram = testTelegram;
+        window.markInboxRead = markInboxRead;
+        window.addPortfolioAsset = addPortfolioAsset;
+        window.removePortfolioAsset = removePortfolioAsset;
+        window.analyzePortfolio = analyzePortfolio;
+        window.addPriceAlert = addPriceAlert;
+        window.checkPriceAlerts = checkPriceAlerts;
+        window.loadPriceAlerts = loadPriceAlerts;
+        window.onTrustPulseSymbolChange = onTrustPulseSymbolChange;
+
+        window.openCompare = function () {
+            window.BDOracleWorkspace?.openCompareModal();
+        };
 
         function boot() {
+            initOracleWorkspace();
+            hydrateTrustPulseFromStore();
             loadAuth();
             applyLang();
             bindLensBar();
             bindDeskToolsUi();
             bindLiveChartRefresh();
             bindInboxRefresh();
+            bindPriceAlertsUi();
             applyAudienceFromQuery();
             scheduleCommandHome();
             startTrustPulseStream();
@@ -3064,10 +3776,20 @@
             const defer = () => runDeferredBoot();
             if (typeof requestIdleCallback === 'function') requestIdleCallback(defer, { timeout: 1500 });
             else setTimeout(defer, 0);
-            if (location.hash === '#trust-pulse') {
-                setTimeout(() => scrollToId('trust-pulse'), 80);
+            if (location.hash && location.hash.length > 1) {
+                const id = location.hash.slice(1);
+                setTimeout(() => scrollToId(id), 80);
             }
         }
+        function initOracleWorkspace() {
+            if (!window.BDOracleWorkspace) return;
+            window.BDOracleWorkspace.init({
+                fetchQuick: (sym) => fetchOracleQuick(sym, { force: false }),
+                getLang: currentLang,
+                getUxMode: () => document.getElementById('uxMode')?.value || 'beginner',
+            });
+        }
+
         if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
         else boot();
         bindLiveChartRefresh();

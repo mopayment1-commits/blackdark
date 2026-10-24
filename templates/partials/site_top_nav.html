@@ -1,5 +1,7 @@
 {# Public site top nav — same row as landing: logo · lenses · globe · lang · Login · Sign up · Pricing #}
+<div class="bd-site-top-nav-root">
 <style>
+@scope (.bd-site-top-nav-root) {
   nav.landing-nav.site-top-nav {
     position: sticky;
     top: 0;
@@ -16,8 +18,9 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    gap: 1rem;
-    flex-wrap: nowrap;
+    gap: 0.65rem 1rem;
+    flex-wrap: wrap;
+    row-gap: 0.35rem;
   }
   .site-top-nav .logo {
     font-family: var(--bd-font-display, system-ui, sans-serif);
@@ -31,12 +34,14 @@
   }
   .site-top-nav .nav-links {
     display: flex;
-    gap: 1.1rem;
-    flex-wrap: nowrap;
+    gap: 0.55rem 0.85rem;
+    flex-wrap: wrap;
     align-items: center;
+    flex: 1 1 12rem;
+    min-width: 0;
   }
   .site-top-nav .nav-links a {
-    color: var(--text-muted, #a1a1aa);
+    color: var(--text-muted, #c8c8d0);
     text-decoration: none;
     font-weight: 500;
     transition: color 0.3s;
@@ -48,9 +53,12 @@
   .site-top-nav .nav-right {
     display: inline-flex;
     align-items: center;
-    gap: 0.75rem;
-    flex-wrap: nowrap;
+    gap: 0.4rem 0.55rem;
+    flex-wrap: wrap;
+    flex: 0 1 auto;
+    min-width: 0;
     margin-inline-start: auto;
+    justify-content: flex-end;
     overflow: visible;
   }
   .bd-nav-search-wrap {
@@ -64,7 +72,7 @@
     left: 0.55rem;
     width: 15px;
     height: 15px;
-    color: #71717a;
+    color: #a1a1aa;
     pointer-events: none;
   }
   .bd-nav-search-wrap input {
@@ -98,7 +106,7 @@
     border-radius: 6px;
   }
   .bd-nav-search-results a:hover { background: rgba(34,211,238,.12); color: #22d3ee; }
-  .bd-nav-search-empty { margin: 0.35rem 0.5rem; font-size: 0.78rem; color: #71717a; }
+  .bd-nav-search-empty { margin: 0.35rem 0.5rem; font-size: 0.78rem; color: #c8c8d0; }
   .site-top-nav .nav-globe-icon {
     display: inline-flex;
     align-items: center;
@@ -114,7 +122,17 @@
     padding: 0;
     gap: 0;
   }
-  .site-top-nav .bd-lang-wrap label { display: none !important; }
+  .site-top-nav .bd-lang-wrap label.bd-lang-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
   .site-top-nav .bd-lang-select {
     background: rgba(20, 20, 28, 0.55);
     border: 1px solid var(--border, #2a2a35);
@@ -125,7 +143,7 @@
     color: var(--text, #e4e4e7);
   }
   .site-top-nav .nav-util-link {
-    color: var(--text-muted, #a1a1aa);
+    color: var(--text-muted, #c8c8d0);
     text-decoration: none;
     font-weight: 600;
     font-size: 0.88rem;
@@ -138,28 +156,50 @@
   .bd-header-util {
     display: inline-flex;
     align-items: center;
-    gap: 0.55rem;
+    gap: 0.4rem 0.5rem;
     flex-wrap: wrap;
     justify-content: flex-end;
+    flex: 0 1 auto;
+    min-width: 0;
   }
   .bd-lang-visible { display: inline-flex; }
   .bd-account-menu { position: relative; }
+  .bd-account-chip {
+    display: inline-flex;
+    align-items: stretch;
+    border-radius: 999px;
+    border: 1px solid var(--border, #2a2a35);
+    background: rgba(20, 20, 28, 0.75);
+    max-width: 15rem;
+  }
+  .bd-account-chip:hover { border-color: var(--accent, #22d3ee); }
   .bd-account-trigger {
     display: inline-flex;
     align-items: center;
     gap: 0.45rem;
     padding: 0.25rem 0.55rem 0.25rem 0.3rem;
     border-radius: 999px;
-    border: 1px solid var(--border, #2a2a35);
-    background: rgba(20, 20, 28, 0.75);
+    border: none;
+    background: transparent;
     color: var(--text, #e4e4e7);
     cursor: pointer;
     font: inherit;
     font-size: 0.82rem;
     font-weight: 600;
-    max-width: 14rem;
+    max-width: 12rem;
+    text-decoration: none;
+    flex: 1;
+    min-width: 0;
   }
-  .bd-account-trigger:hover { border-color: var(--accent, #22d3ee); }
+  .bd-account-trigger:hover { color: var(--accent, #22d3ee); }
+  .bd-account-chevron {
+    color: var(--text-muted, #c8c8d0);
+    font-size: 0.72rem;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-inline-start: 0.15rem;
+  }
+  .bd-account-trigger:hover .bd-account-chevron { color: var(--accent, #22d3ee); }
   #bdAccountAvatar {
     width: 1.65rem;
     height: 1.65rem;
@@ -220,14 +260,85 @@
     max-width: 14rem;
     line-height: 1.35;
   }
-  @media (max-width: 768px) {
-    .site-top-nav .nav-container { flex-wrap: wrap; gap: 0.5rem; }
-    .site-top-nav .nav-links { display: none; }
-    .site-top-nav .nav-right { margin-inline-start: auto; gap: 0.45rem; }
-    .site-top-nav .bd-lang-select { max-width: 6.5rem; font-size: 0.78rem; }
-    .site-top-nav .nav-util-link { font-size: 0.78rem; }
+  @media (min-width: 769px) and (max-width: 1320px) {
+    .site-top-nav .nav-links a { font-size: 0.84rem; }
+    .site-top-nav .bd-nav-search-wrap input { width: min(8.25rem, 18vw); }
+    .site-top-nav .bd-lang-select { max-width: 7.25rem; font-size: 0.8rem; }
+    .site-top-nav .nav-util-link { font-size: 0.82rem; }
   }
+  @media (max-width: 768px) {
+    nav.landing-nav.site-top-nav {
+      padding-top: max(0.65rem, env(safe-area-inset-top, 0));
+      padding-left: max(1rem, env(safe-area-inset-left, 0));
+      padding-right: max(1rem, env(safe-area-inset-right, 0));
+    }
+    .site-top-nav .nav-container {
+      flex-wrap: nowrap;
+      gap: 0.45rem;
+      align-items: center;
+    }
+    .site-top-nav .nav-links {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      gap: 0.45rem;
+      flex: 1 1 auto;
+      min-width: 0;
+      max-width: 100%;
+      order: 3;
+      width: 100%;
+      padding-bottom: 0.15rem;
+    }
+    .site-top-nav .nav-links::-webkit-scrollbar { display: none; }
+    .site-top-nav .nav-links a {
+      flex-shrink: 0;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      padding-inline: 0.15rem;
+    }
+    .site-top-nav .logo { order: 1; }
+    .site-top-nav .nav-right {
+      order: 2;
+      margin-inline-start: auto;
+      gap: 0.35rem;
+      flex-shrink: 0;
+    }
+    .site-top-nav .bd-nav-search-wrap input { width: min(7.5rem, 22vw); }
+    .site-top-nav .bd-lang-select { max-width: 6.5rem; font-size: 0.78rem; }
+    .site-top-nav .nav-util-link {
+      font-size: 0.78rem;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+    }
+    .bd-account-trigger { min-height: 44px; }
+  }
+  .bd-theme-toggle {
+    border: 1px solid var(--border, #2a2a35);
+    background: transparent;
+    color: var(--text-muted, #c8c8d0);
+    border-radius: 8px;
+    padding: 0.35rem 0.55rem;
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 1;
+  }
+  .bd-theme-toggle:hover { color: var(--accent, #22d3ee); border-color: var(--accent, #22d3ee); }
+  #bdThemeToggle[hidden],
+  .bd-theme-toggle[hidden] {
+    display: none !important;
+  }
+}
 </style>
+<script src="/static/js/bd_session_hint.js" defer></script>
+<script src="/static/js/bd_auth_nav_gate.js" defer></script>
+<script src="/static/js/bd_oracle_fetch_gate.js" defer></script>
+{% if not (landing_lazy_scripts is defined and landing_lazy_scripts) %}
+<script src="/static/js/bd_oracle_workspace.js" defer></script>
+{% endif %}
 <nav class="landing-nav site-top-nav" aria-label="Primary">
   <div class="nav-container">
     <a class="logo" href="/">BLACKDARK</a>
@@ -238,6 +349,11 @@
       <a href="/data-room?lens=room" data-nav-key="room"{% if nav_active is defined and nav_active == 'room' %} class="active" aria-current="page"{% endif %}>{{ t('nav.room') if t is defined else 'Room' }}</a>
       <a href="/lenses"{% if nav_active is defined and nav_active == 'lenses' %} class="active" aria-current="page"{% endif %}>{{ t('lenses.cta') if t is defined else 'Open the lenses' }}</a>
       <a href="/oracle-accuracy"{% if nav_active is defined and nav_active == 'verify' %} class="active" aria-current="page"{% endif %}>{{ t('nav.verify') if t is defined else 'Verify' }}</a>
+      <a href="/swap"{% if nav_active is defined and nav_active == 'swap' %} class="active" aria-current="page"{% endif %}>{{ t('nav.swap') if t is defined else 'Swap' }}</a>
+      <a href="/wallet-balance"{% if nav_active is defined and nav_active == 'wallet' %} class="active" aria-current="page"{% endif %}>{{ t('nav.wallet_balance') if t is defined else 'Balance' }}</a>
+      <a href="/dashboard?lens=desk#watchlist" data-bd-scroll="watchlist">{{ t('workspace.watchlist.title') if t is defined else 'Watchlist' }}</a>
+      <a href="/dashboard?lens=desk#my-decisions" data-bd-scroll="my-decisions">{{ t('workspace.decisions.title') if t is defined else 'My Decisions' }}</a>
+      <a href="/about"{% if nav_active is defined and nav_active == 'about' %} class="active" aria-current="page"{% endif %}>{{ t('nav.about') if t is defined else 'About' }}</a>
     </div>
     <div class="nav-right">
       <div class="bd-nav-search-wrap" role="search">
@@ -250,6 +366,7 @@
         <div id="bdNavSearchResults" class="bd-nav-search-results" hidden></div>
       </div>
       <nav class="bd-header-util" aria-label="Account and language">
+        <button type="button" id="bdThemeToggle" class="nav-util-link bd-theme-toggle" hidden aria-label="Toggle light/dark theme" title="Theme">☾</button>
         <span class="nav-globe-icon" aria-hidden="true">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
             <circle cx="12" cy="12" r="9"></circle>
@@ -260,20 +377,26 @@
         <a class="nav-util-link" href="/pricing" id="bdUtilPricing">{{ t('nav.pricing') if t is defined else 'Pricing' }}</a>
         {% if header_authenticated and header_user %}
         <div class="bd-account-menu">
-          <button
-            type="button"
-            class="bd-account-trigger"
-            id="bdAccountTrigger"
-            aria-expanded="false"
-            aria-haspopup="menu"
-            aria-controls="bdAccountMenu"
-          >
-            <span id="bdAccountAvatar" aria-hidden="true">{% if header_user.avatar_url %}<img src="{{ header_user.avatar_url }}" alt="">{% else %}{{ header_user.initial }}{% endif %}</span>
-            <span class="bd-account-name">{{ header_user.display }}</span>
-            <span class="bd-tier-badge">{{ header_user.tier_label }}</span>
-          </button>
+          <div class="bd-account-chip">
+            <button
+              type="button"
+              class="bd-account-trigger"
+              id="bdAccountTrigger"
+              aria-expanded="false"
+              aria-haspopup="menu"
+              aria-controls="bdAccountMenu"
+              aria-label="{{ t('nav.account_menu') if t is defined else 'Account menu' }}"
+              title="{{ header_user.display }}"
+            >
+              <span id="bdAccountAvatar" aria-hidden="true">{% if header_user.avatar_url %}<img src="{{ header_user.avatar_url }}" alt="">{% else %}{{ header_user.initial }}{% endif %}</span>
+              <span class="bd-account-name">{{ header_user.display }}</span>
+              <span class="bd-tier-badge">{{ header_user.tier_label }}</span>
+              <span class="bd-account-chevron" aria-hidden="true">▾</span>
+            </button>
+          </div>
           <div class="bd-account-panel" id="bdAccountMenu" role="menu" hidden aria-label="Account">
-            <a href="/profile" role="menuitem">{{ t('nav.profile') if t is defined else 'Profile' }}</a>
+            <a href="/" role="menuitem">{{ t('nav.home') if t is defined else 'Home' }}</a>
+            <a href="/profile" id="bdAccountProfileLink" role="menuitem">{{ t('nav.profile') if t is defined else 'Profile' }}</a>
             <button type="button" id="bdHeaderLogout" role="menuitem" data-logout-fail="{{ t('nav.logout_failed') if t is defined else 'Could not sign out. Try again.' }}">{{ t('nav.logout') if t is defined else 'Log out' }}</button>
             <span id="bdLogoutStatus" class="bd-logout-status" role="status" aria-live="polite" hidden></span>
           </div>
@@ -286,6 +409,12 @@
     </div>
   </div>
 </nav>
+{% if landing_lazy_scripts is defined and landing_lazy_scripts %}
+<script defer src="/static/js/bd_lazy_script.js"></script>
+<script defer src="/static/js/landing_nav_lazy.js"></script>
+{% else %}
 <script defer src="/static/js/bd_global_nav.js"></script>
 <script defer src="/static/js/bd_header_account.js"></script>
 <script defer src="/static/js/bd_site_search.js"></script>
+{% endif %}
+</div>

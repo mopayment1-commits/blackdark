@@ -50,6 +50,24 @@ ALLOW_IDENTICAL = frozenset(
         "oracle.audience.whale",
         "oracle.audience.fund",
         "oracle.audience.retail",
+        "lenses.prove.title",
+        "lenses.operate.title",
+        "lenses.desk.title",
+        "lenses.room.title",
+        "oracle.mode.decision_pro",
+        "oracle.share.facebook",
+        "oracle.share.instagram",
+        "oracle.share.whatsapp",
+        "oracle.share.telegram",
+        "oracle.share.reddit",
+        "social.link.linkedin",
+        "social.link.facebook",
+        "social.link.reddit",
+        "social.link.telegram",
+        "social.link.x",
+        "dash.operate.markdown",
+        "dash.ux.pro",
+        "oracle.mode.pro",
     }
 )
 
@@ -174,6 +192,28 @@ async def test_pages_and_api_switch_language():
         data = quick.json()
         assert data.get("lang") == "fr"
         assert data.get("decision_sentence")
+
+
+def test_public_surface_translated_for_core_locales():
+    from i18n_service import _effective_translation, public_surface_keys
+
+    keys = public_surface_keys()
+    for code in ("ar", "es", "fr"):
+        missing = [
+            k
+            for k in keys
+            if k not in ALLOW_IDENTICAL and _effective_translation(code, k) is None
+        ]
+        assert not missing, f"{code} missing {len(missing)} public keys e.g. {missing[:8]}"
+
+
+def test_public_surface_complete_all_locales():
+    from i18n_service import locale_ui_complete
+
+    for code in REQUIRED_LOCALES:
+        if code == "en":
+            continue
+        assert locale_ui_complete(code), f"{code} public UI incomplete"
 
 
 def test_decision_sentence_localized():

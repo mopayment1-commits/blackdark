@@ -10,6 +10,7 @@ from fastapi import APIRouter, Depends, Request
 from fastapi.responses import JSONResponse
 
 from market_context import fetch_binance_ticker, normalize_oracle_symbol
+from api.deps import require_paid_plan
 from security_auth import require_admin
 
 router = APIRouter(tags=["oracle"])
@@ -114,6 +115,25 @@ async def ml_predict(asset: str, price: float | None = None):
     from ml.inference import predict_direction
 
     return await predict_direction(asset, price=price)
+
+
+@router.get("/api/oracle/arb-opportunities/public")
+async def oracle_arb_opportunities_public():
+    """Public ledger slice — display-only cross-exchange spreads (no auth)."""
+    from oracle_arb_display import fetch_public_ledger_arb_opportunities
+
+    return await fetch_public_ledger_arb_opportunities()
+
+
+@router.get("/api/oracle/arb-opportunities/{symbol}")
+async def oracle_arb_opportunities(
+    symbol: str,
+    _user: dict = Depends(require_paid_plan()),
+):
+    """Paid-only read-only cross-exchange spreads for Trust Pulse / Oracle (max 5)."""
+    from oracle_arb_display import fetch_display_arb_opportunities
+
+    return await fetch_display_arb_opportunities(symbol)
 
 
 @router.get("/api/oracle/accuracy/public")

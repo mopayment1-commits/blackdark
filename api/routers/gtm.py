@@ -4,7 +4,9 @@ from __future__ import annotations
 
 import os
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+
+from api.deps import optional_user
 
 router = APIRouter(tags=["gtm"])
 
@@ -137,6 +139,14 @@ async def production_guard_api():
     from production_guard import evaluate_production_guard
 
     return evaluate_production_guard()
+
+
+@router.get("/api/billing/status")
+async def billing_status_public(user: dict | None = Depends(optional_user)):
+    """Fallback surface when the billing router is not mounted (Railway slim boot)."""
+    from billing_status_api import build_billing_status_payload
+
+    return await build_billing_status_payload(user)
 
 @router.get("/api/pricing")
 async def api_pricing():

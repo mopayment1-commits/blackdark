@@ -27,7 +27,7 @@ def test_pricing_route_renders_public_page(client):
     assert res.status_code == 200
     assert "text/html" in (res.headers.get("content-type") or "")
     assert "Free" in res.text and "Plus" in res.text and "Pro" in res.text and "Enterprise" in res.text
-    assert "$29" in res.text and "$49" in res.text
+    assert "$29" in res.text and "$79" in res.text
     assert 'href="/pricing"' in res.text
 
 
@@ -66,11 +66,21 @@ def test_profile_anonymous_html_login_gate_not_json(client):
 
 
 def test_dashboard_anonymous_html_login_gate_not_json(client):
-    res = client.get("/dashboard?lens=operate", headers={"Accept": "text/html"})
-    assert res.status_code == 401
-    assert "text/html" in (res.headers.get("content-type") or "")
-    assert "Anonymous access denied" not in res.text
-    assert "/login" in res.text
+    res = client.get(
+        "/dashboard?lens=operate",
+        headers={"Accept": "text/html"},
+        follow_redirects=False,
+    )
+    assert res.status_code == 302
+    loc = res.headers.get("location") or ""
+    assert loc.startswith("/login?next=")
+    assert "lens=operate" in loc or "lens%3Doperate" in loc
+
+
+def test_mev_anonymous_redirects_to_ledger_section(client):
+    res = client.get("/mev", headers={"Accept": "text/html"}, follow_redirects=False)
+    assert res.status_code == 302
+    assert res.headers.get("location") == "/oracle-accuracy#mev-report"
 
 
 def test_launch22_real_time_prices_public_json_for_page_fetch(client, monkeypatch):
