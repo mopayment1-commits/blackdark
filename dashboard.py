@@ -2153,6 +2153,23 @@ async def api_public_d5_honesty():
     return build_d5_honesty_board()
 
 
+@app.get("/api/public/wallet/balance")
+async def public_wallet_balance(address: str, chain: str = "ethereum"):
+    from wallet_balance_public import fetch_readonly_wallet_balance
+
+    row = await fetch_readonly_wallet_balance(address, chain=chain)
+    if not row.get("ok"):
+        err = row.get("error") or "balance_unavailable"
+        status = 400 if err == "invalid_address" else 503
+        raise HTTPException(status_code=status, detail=row)
+    return row
+
+
+@app.get("/wallet-balance", response_class=HTMLResponse)
+async def wallet_balance_page(request: Request):
+    return render_page(request, "wallet_balance.html", _footer_ctx())
+
+
 @app.get("/my/discipline-mirror")
 async def discipline_mirror_alias():
     """Critical-report alias — same private mirror, no seventh product."""

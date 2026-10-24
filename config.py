@@ -249,6 +249,16 @@ LIQUIDITY_MAX_DYNAMIC_ASSETS = int(os.getenv("LIQUIDITY_MAX_DYNAMIC_ASSETS", "10
 LIQUIDITY_DISCOVERY_TIMEOUT_SECONDS = int(os.getenv("LIQUIDITY_DISCOVERY_TIMEOUT_SECONDS", "30"))
 COINMARKETCAP_API_KEY = os.getenv("COINMARKETCAP_API_KEY", "")
 COINMARKETCAP_ENABLED = bool(COINMARKETCAP_API_KEY)
+# Etherscan free API — 5 req/s, 100k req/day (requires free API key).
+ETHERSCAN_API_KEY = os.getenv("ETHERSCAN_API_KEY", "").strip()
+ETHERSCAN_DAILY_LIMIT = int(os.getenv("ETHERSCAN_DAILY_LIMIT", "100000"))
+ETHERSCAN_RPS_LIMIT = int(os.getenv("ETHERSCAN_RPS_LIMIT", "5"))
+ETHERSCAN_CACHE_TTL_SEC = float(os.getenv("ETHERSCAN_CACHE_TTL_SEC", "90"))
+# Blockscout API v2 — dev.blockscout.com key optional; public instances as fallback.
+BLOCKSCOUT_API_KEY = os.getenv("BLOCKSCOUT_API_KEY", "").strip()
+BLOCKSCOUT_DAILY_LIMIT = int(os.getenv("BLOCKSCOUT_DAILY_LIMIT", "50000"))
+BLOCKSCOUT_RPS_LIMIT = int(os.getenv("BLOCKSCOUT_RPS_LIMIT", "5"))
+BLOCKSCOUT_CACHE_TTL_SEC = float(os.getenv("BLOCKSCOUT_CACHE_TTL_SEC", "90"))
 COINMARKETCAP_LISTINGS_URL = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest"
 COINMARKETCAP_EXCHANGES_URL = "https://pro-api.coinmarketcap.com/v1/exchange/listings/latest"
 OPERATIONAL_MANIFEST_PATH = DATA_DIR / "operational_manifest.json"

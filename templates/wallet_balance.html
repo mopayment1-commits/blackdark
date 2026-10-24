@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="{{ lang|default('en') }}" dir="{{ dir|default('ltr') }}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wallet balance (read-only) · BLACKDARK</title>
+{% include "partials/seo_canonical.html" %}
+<link rel="stylesheet" href="/static/css/trust-os.css">
+<style>
+:root{--bg:#06080d;--fg:#f0f4f8;--muted:#8b9cb3;--line:#1e2a3a;--accent:#22d3ee}
+body{margin:0;color:var(--fg);font-family:var(--bd-font-body,system-ui,sans-serif);background:radial-gradient(900px 500px at 15% -10%,#132033 0%,var(--bg) 55%);min-height:100vh}
+main{max-width:640px;margin:0 auto;padding:2rem 1.25rem 3rem}
+h1{font-size:clamp(1.5rem,4vw,2rem);color:var(--accent);margin:0 0 .5rem}
+.lead{color:var(--muted);line-height:1.55;margin-bottom:1rem;font-size:.92rem}
+.card{border:1px solid var(--line);border-radius:14px;padding:1.25rem;background:rgba(17,17,24,.75)}
+label{display:block;font-size:.78rem;color:var(--muted);margin:.5rem 0 .25rem}
+input,select{width:100%;padding:.65rem .75rem;border-radius:10px;border:1px solid var(--line);background:#0b1118;color:var(--fg);font:inherit}
+.btn{margin-top:1rem;width:100%;padding:.75rem;border:none;border-radius:10px;font-weight:700;cursor:pointer;background:linear-gradient(135deg,var(--accent),#06b6d4);color:#041016}
+.result{margin-top:1rem;padding:1rem;border-radius:10px;border:1px solid var(--line);background:#111118;display:none}
+.result.ok{border-color:rgba(34,211,238,.35)}
+.result.err{border-color:rgba(248,113,113,.35)}
+.row{display:flex;justify-content:space-between;gap:.5rem;padding:.35rem 0;border-bottom:1px solid #2a2a35;font-size:.9rem}
+.row:last-child{border-bottom:none}
+.foot{font-size:.72rem;color:var(--muted);margin-top:1rem;line-height:1.5}
+.badge{display:inline-block;font-size:.7rem;padding:.12rem .4rem;border-radius:6px;background:rgba(34,211,238,.12);color:var(--accent)}
+</style>
+</head>
+<body>
+{% include 'partials/global_header.html' %}
+<main>
+  <h1>Wallet balance</h1>
+  <p class="lead">Read-only lookup — enter a public address. We never ask for a private key and cannot send transactions.</p>
+  <p class="foot"><span class="badge">View only</span> Etherscan free API when configured, else Blockscout public explorer.</p>
+
+  <div class="card">
+    <label for="chain">Chain</label>
+    <select id="chain">
+      <option value="ethereum">Ethereum</option>
+      <option value="polygon">Polygon</option>
+      <option value="arbitrum">Arbitrum</option>
+      <option value="base">Base</option>
+      <option value="optimism">Optimism</option>
+      <option value="bsc">BSC</option>
+    </select>
+    <label for="address">Wallet address (0x…)</label>
+    <input id="address" type="text" autocomplete="off" placeholder="0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045" spellcheck="false">
+    <button type="button" class="btn" id="btnLookup">Show balance</button>
+    <div class="result" id="resultBox"></div>
+  </div>
+  <p class="foot"><strong>Anti-Hype</strong> · Not financial advice · On-chain balances can lag block explorers.</p>
+</main>
+{% include 'partials/site_footer.html' %}
+<script>
+(function () {
+  const btn = document.getElementById('btnLookup');
+  const box = document.getElementById('resultBox');
+  function esc(s) {
+    return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+  function row(k, v) {
+    return '<div class="row"><span style="color:#a1a1aa">' + esc(k) + '</span><span>' + esc(v) + '</span></div>';
+  }
+  btn.addEventListener('click', async () => {
+    const address = document.getElementById('address').value.trim();
+    const chain = document.getElementById('chain').value;
+    box.style.display = 'block';
+    box.className = 'result';
+    box.innerHTML = 'Loading…';
+    try {
+      const qs = new URLSearchParams({ address, chain });
+      const res = await fetch('/api/public/wallet/balance?' + qs.toString());
+      const data = await res.json();
+      if (!res.ok) {
+        box.classList.add('err');
+        const detail = data.detail || data;
+        const code = detail.error || '';
+        const title = code === 'invalid_address'
+          ? 'Invalid address'
+          : (res.status === 503 || code === 'balance_unavailable' ? 'Service unavailable' : 'Could not load balance');
+        const msg = detail.message || detail.error || 'Please try again later.';
+        box.innerHTML = '<strong>' + esc(title) + '</strong><p style="margin-top:.5rem;font-size:.85rem">' + esc(msg) + '</p>';
+        return;
+      }
+      box.classList.add('ok');
+      let html = row('Address', data.address);
+      html += row('Chain', data.chain);
+      html += row('Source', data.source);
+      if (data.balance_native != null) html += row('Balance', (data.balance_native) + ' ' + (data.native_symbol || 'ETH'));
+      if (data.native_usd_estimate != null) html += row('USD estimate', '$' + Number(data.native_usd_estimate).toLocaleString());
+      if (data.total_usd != null) html += row('Total USD', '$' + Number(data.total_usd).toLocaleString());
+      if (data.ens_domain) html += row('ENS', data.ens_domain);
+      html += row('Mode', 'Read-only · no private key');
+      box.innerHTML = html;
+    } catch (e) {
+      box.classList.add('err');
+      box.textContent = 'Request failed.';
+      console.debug(e);
+    }
+  });
+})();
+</script>
+</body>
+</html>
