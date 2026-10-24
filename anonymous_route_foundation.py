@@ -163,6 +163,7 @@ PUBLIC_HTML_EXACT: frozenset[str] = frozenset(
         "/unique-ten",
         "/d5-honesty",
         "/wallet-balance",
+        "/swap",
     }
 )
 

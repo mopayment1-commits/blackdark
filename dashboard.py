@@ -2170,6 +2170,130 @@ async def wallet_balance_page(request: Request):
     return render_page(request, "wallet_balance.html", _footer_ctx())
 
 
+@app.get("/api/public/swap/meta")
+async def public_swap_meta():
+    from changenow_api import swap_meta
+
+    return swap_meta()
+
+
+@app.get("/api/public/swap/currencies")
+async def public_swap_currencies(limit: int = 300):
+    from changenow_api import fetch_currencies, swap_meta
+
+    lim = max(1, min(int(limit or 300), 400))
+    return {"currencies": await fetch_currencies(lim), **swap_meta()}
+
+
+@app.get("/api/public/swap/min-amount")
+async def public_swap_min_amount(
+    from_currency: str,
+    to_currency: str,
+    from_network: str = "",
+    to_network: str = "",
+):
+    from changenow_api import fetch_min_amount
+
+    row = await fetch_min_amount(
+        from_currency,
+        to_currency,
+        from_network=from_network or None,
+        to_network=to_network or None,
+    )
+    if row is None:
+        raise HTTPException(status_code=404, detail="Pair not available")
+    return row
+
+
+@app.get("/api/public/swap/estimate")
+async def public_swap_estimate(
+    from_currency: str,
+    to_currency: str,
+    from_amount: str,
+    from_network: str = "",
+    to_network: str = "",
+):
+    from changenow_api import fetch_estimate, parse_swap_amount
+
+    amt = parse_swap_amount(from_amount)
+    if amt is None:
+        raise HTTPException(
+            status_code=400,
+            detail={
+                "error": "invalid_amount",
+                "message": (
+                    "Enter a positive number for the amount to send (for example 0.001). "
+                    "Use digits and a decimal point only."
+                ),
+            },
+        )
+    row = await fetch_estimate(
+        from_currency,
+        to_currency,
+        amt,
+        from_network=from_network or None,
+        to_network=to_network or None,
+    )
+    if row is None:
+        raise HTTPException(status_code=404, detail="Estimate unavailable")
+    return row
+
+
+@app.post("/api/public/swap/exchange")
+async def public_swap_exchange(body: dict = Body(default=None)):
+    from changenow_api import create_exchange, parse_swap_amount
+
+    payload = body or {}
+    raw_amount = payload.get("from_amount")
+    if raw_amount is None:
+        raw_amount = payload.get("amount")
+    amount = parse_swap_amount(raw_amount)
+    if amount is None:
+        raise HTTPException(
+            status_code=400,
+            detail={
+                "error": "invalid_amount",
+                "message": (
+                    "Enter a positive number for the amount to send (for example 0.001). "
+                    "Use digits and a decimal point only — no spaces, commas, or currency symbols."
+                ),
+                "non_custodial": True,
+            },
+        )
+    status, data = await create_exchange(
+        from_currency=str(payload.get("from_currency") or payload.get("from") or ""),
+        to_currency=str(payload.get("to_currency") or payload.get("to") or ""),
+        from_amount=amount,
+        payout_address=str(payload.get("payout_address") or payload.get("address") or ""),
+        from_network=str(payload.get("from_network") or "") or None,
+        to_network=str(payload.get("to_network") or "") or None,
+        refund_address=str(payload.get("refund_address") or "") or None,
+        payout_extra_id=str(payload.get("payout_extra_id") or payload.get("extra_id") or "") or None,
+        refund_extra_id=str(payload.get("refund_extra_id") or "") or None,
+    )
+    if status != 200:
+        raise HTTPException(status_code=status, detail=data or {"error": "swap_failed"})
+    return data
+
+
+@app.get("/api/public/swap/status/{exchange_id}")
+async def public_swap_status(exchange_id: str):
+    from changenow_api import fetch_transaction_status
+
+    row = await fetch_transaction_status(exchange_id)
+    if row is None:
+        raise HTTPException(status_code=404, detail="Exchange not found")
+    return row
+
+
+@app.get("/swap", response_class=HTMLResponse)
+async def swap_page(request: Request):
+    from changenow_api import swap_meta
+
+    ctx = {**_footer_ctx(), "swap_meta": swap_meta()}
+    return render_page(request, "swap.html", ctx)
+
+
 @app.get("/my/discipline-mirror")
 async def discipline_mirror_alias():
     """Critical-report alias — same private mirror, no seventh product."""
