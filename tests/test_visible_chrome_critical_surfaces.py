@@ -87,6 +87,27 @@ def test_dashboard_prove_lens_upgrade_pro_routes_to_pricing():
     assert "body.lens-prove .section-operate-plus .btn-upgrade-cta" in dash
 
 
+def test_dashboard_lens_prove_vs_operate_section_visibility():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    assert "body.lens-prove .section-operate-plus { display: none !important; }" in dash
+    assert "body.lens-prove .section-habit-depth { display: none !important; }" in dash
+    assert "body.lens-operate .section-prove-legacy { display: none !important; }" in dash
+    assert 'id="radar"' in dash and 'section-operate-plus hide-in-room" id="radar"' in dash
+    assert "section-prove-legacy" in dash.split('id="decide"', 1)[0]
+
+
+def test_dashboard_lens_query_param_resolved_before_storage():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    block = dash.split("function applyAudienceFromQuery", 1)[1].split("async function loadIntentRouter", 1)[0]
+    assert "ALLOWED_LENSES.has(lens)" in block
+    assert "lensParam" in block
+    assert "syncDashboardLensQuery" in dash
+    assert "window.applyLens = applyLens" in dash
+    scroll = dash.split("function scrollForLens", 1)[1].split("function paintLensChrome", 1)[0]
+    assert "scrollToId('radar')" in scroll
+    assert "scrollToId('trust-pulse')" in scroll
+
+
 def test_dashboard_alerts_refresh_inbox_button_wired():
     dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
     alerts = dash.split('id="alerts"', 1)[1].split("</section>", 1)[0]

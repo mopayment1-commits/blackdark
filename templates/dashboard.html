@@ -141,17 +141,11 @@
         .desk-tools-dropmenu a small { display: block; font-size: .72rem; font-weight: 400; color: #71717a; margin-top: .12rem; white-space: normal; }
         .desk-tools-dropmenu a:hover { background: #1a1a24; color: #22d3ee; }
         .desk-tools-details[open] > summary { border-color: #22d3ee; color: #22d3ee; }
-        body.lens-prove .section-operate-plus {
-            border-color: #1c1c26;
-            background: rgba(17, 17, 24, 0.72);
-        }
-        body.lens-prove .section-operate-plus > h2 { color: rgba(34, 211, 238, 0.58); }
-        body.lens-prove .section-operate-plus > .sub,
-        body.lens-prove .section-operate-plus .arb-card,
-        body.lens-prove .section-operate-plus .empty:not(:has(.btn-upgrade-cta)),
-        body.lens-prove .section-operate-plus .toolbar .btn.secondary:not(#dailyReportMarkdownBtn) {
-            opacity: 0.62;
-        }
+        /* Prove: Trust Pulse + certificate rail — not Operate depth blocks */
+        body.lens-prove .section-operate-plus { display: none !important; }
+        body.lens-prove .section-habit-depth { display: none !important; }
+        /* Operate: habit tools — hide legacy duplicate Decide row under Trust Pulse */
+        body.lens-operate .section-prove-legacy { display: none !important; }
         #priceAlertsPanel .toolbar .btn {
             padding: .55rem 1rem;
             font-size: .85rem;
@@ -403,7 +397,7 @@
             <div class="intent-grid" id="intentGrid"></div>
             <div class="intent-hint" id="intentHint">{{ t('dash.intent.hint') }}</div>
         </div>
-        <div class="toolbar hide-in-room" style="justify-content:center;margin-bottom:.75rem">
+        <div class="toolbar hide-in-room section-prove-legacy" style="justify-content:center;margin-bottom:.75rem">
             <label for="uxMode" class="sr-only">{{ t('dash.ux.beginner') }}</label>
             <select id="uxMode" data-bd-change-call="onUxModeChange">
                 <option value="beginner" selected>{{ t('dash.ux.beginner') }}</option>
@@ -426,14 +420,14 @@
             </details>
             <a class="btn secondary section-desk-only" href="/corpus-passport" style="text-decoration:none;display:inline-flex;align-items:center">{{ t('dash.nav.corpus_passport') }}</a>
         </div>
-        <div class="picks hide-in-room">
+        <div class="picks hide-in-room section-prove-legacy">
             <button type="button" class="pick" data-bd-call="setSymbol" data-bd-args="[&quot;BTC&quot;]">BTC</button>
             <button type="button" class="pick" data-bd-call="setSymbol" data-bd-args="[&quot;ETH&quot;]">ETH</button>
             <button type="button" class="pick" data-bd-call="setSymbol" data-bd-args="[&quot;SOL&quot;]">SOL</button>
             <button type="button" class="pick" data-bd-call="setSymbol" data-bd-args="[&quot;BNB&quot;]">BNB</button>
             <button type="button" class="pick" data-bd-call="setSymbol" data-bd-args="[&quot;XRP&quot;]">XRP</button>
         </div>
-        <div class="search-row hide-in-room" id="decide">
+        <div class="search-row hide-in-room section-prove-legacy" id="decide">
             <label for="symbol" class="sr-only">{{ t('dash.symbol') }}</label>
             <select id="symbol" data-bd-change-call="setSymbol" data-bd-pass-value="1" aria-label="{{ t('dash.symbol') }}">
                 {% for sym in oracle_symbols|default(['BTC']) %}
@@ -443,22 +437,22 @@
             <button class="btn" data-bd-call="askOracle" id="askBtn">{{ t('oracle.get_decision') }}</button>
         </div>
         <div id="oracle" class="hide-in-room" style="height:0;overflow:hidden" aria-hidden="true"></div>
-        <section class="oracle-box hide-in-room" id="oracleBox"><div id="oracleContent" class="loading">{{ t('oracle.analyzing') }}</div></section>
+        <section class="oracle-box hide-in-room section-prove-legacy" id="oracleBox"><div id="oracleContent" class="loading">{{ t('oracle.analyzing') }}</div></section>
 
-        <section id="since-you-left" class="hide-in-room" data-evidence>
+        <section id="since-you-left" class="hide-in-room section-habit-depth" data-evidence>
             <h2>{{ t('dash.since.title') }}</h2>
             <p class="sub">{{ t('dash.since.sub') }}</p>
             <div id="sinceYouLeftBox" class="empty">{{ t('dash.since.loading') }}</div>
             <a class="btn secondary" href="/since-you-left" style="margin-top:.65rem;display:inline-flex;text-decoration:none">{{ t('dash.since.open_full') }}</a>
         </section>
 
-        <section id="launch57-data-spine" aria-label="{{ t('dash.data_spine.title') }}">
+        <section id="launch57-data-spine" class="section-habit-depth" aria-label="{{ t('dash.data_spine.title') }}">
             <h2>{{ t('dash.data_spine.title') }}</h2>
             <p class="sub" id="l57DataNote">{{ t('dash.data_spine.sub') }}</p>
             <div class="tp-proof" id="l57DataChips"><span class="tp-chip">{{ t('dash.data_spine.loading') }}</span></div>
         </section>
 
-        <section>
+        <section class="section-habit-depth">
             <h2>{{ t('dash.chart') }}</h2>
             <div class="toolbar">
                 <label for="chartIv" class="sr-only">{{ t('dash.chart.interval_aria') }}</label>
@@ -3505,7 +3499,8 @@
                 return;
             }
             if (lensId === 'desk') setTimeout(scrollToStealth, 250);
-            else setTimeout(() => scrollToId('decide'), 200);
+            else if (lensId === 'operate') setTimeout(() => scrollToId('radar'), 200);
+            else setTimeout(() => scrollToId('trust-pulse'), 200);
         }
         function paintLensChrome(d) {
             const lens = d.lens || {};
@@ -3518,12 +3513,24 @@
             }
             renderEntries(d.entries || []);
         }
+        function syncDashboardLensQuery(lensId) {
+            if (!location.pathname.startsWith('/dashboard')) return;
+            const params = new URLSearchParams(location.search);
+            const nextLens = (lensId || 'prove').toLowerCase();
+            if (params.get('lens') === nextLens) return;
+            params.set('lens', nextLens);
+            const qs = params.toString();
+            const url = '/dashboard' + (qs ? '?' + qs : '') + (location.hash || '');
+            history.replaceState(null, '', url);
+        }
+
         async function applyLens(lensId, { persist=true, scroll=true } = {}) {
             currentLens = (lensId || 'prove').toLowerCase();
             if (persist) {
                 localStorage.setItem('bd_lens', currentLens);
                 const aud = ({ prove:'retail', operate:'pro', desk:'whale', room:'fund' })[currentLens];
                 if (aud) localStorage.setItem('bd_audience', aud);
+                syncDashboardLensQuery(currentLens);
             }
             document.body.classList.remove('lens-prove','lens-operate','lens-desk','lens-room');
             document.body.classList.add('lens-' + currentLens);
@@ -3606,12 +3613,19 @@
             });
         }
 
+        window.applyLens = applyLens;
+
         function applyAudienceFromQuery() {
             const params = new URLSearchParams(location.search);
+            const ALLOWED_LENSES = new Set(['prove', 'operate', 'desk', 'room']);
             const lensParam = (params.get('lens') || '').toLowerCase();
-            const aud = (params.get('audience') || localStorage.getItem('bd_audience') || '').toLowerCase();
-            const lens = lensParam || localStorage.getItem('bd_lens') || audienceToLens(aud) || 'prove';
-            applyLens(lens, { persist:true, scroll:true });
+            let lens = lensParam;
+            if (!ALLOWED_LENSES.has(lens)) {
+                const aud = (params.get('audience') || localStorage.getItem('bd_audience') || '').toLowerCase();
+                lens = (localStorage.getItem('bd_lens') || audienceToLens(aud) || 'prove').toLowerCase();
+            }
+            if (!ALLOWED_LENSES.has(lens)) lens = 'prove';
+            applyLens(lens, { persist: true, scroll: true });
         }
 
         async function loadIntentRouter() {
