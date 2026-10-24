@@ -6050,6 +6050,7 @@ async def build_info():
     }
 
 @app.post("/portfolio/analyze", responses=COMMON_ERROR_RESPONSES)
+@app.post("/api/portfolio/analyze", responses=COMMON_ERROR_RESPONSES)
 async def portfolio_analyze(
     request: Request,
     payload: list | dict = Body(...),

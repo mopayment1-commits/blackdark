@@ -3173,7 +3173,13 @@
         function addPortfolioAsset() {
             const symbol = (document.getElementById('pfSym').value || '').toUpperCase().trim();
             const amount = Number(document.getElementById('pfAmt').value || 0);
-            if (!symbol || amount <= 0) return;
+            const resultEl = document.getElementById('portfolioResult');
+            if (!symbol || amount <= 0) {
+                if (resultEl) {
+                    resultEl.innerHTML = '<div class="empty">' + esc(i18nT('dash.js.portfolio_enter_amount')) + '</div>';
+                }
+                return;
+            }
             portfolioAssets.push({ symbol, amount });
             const pfSym = document.getElementById('pfSym');
             if (pfSym) pfSym.selectedIndex = 0;
@@ -3197,20 +3203,35 @@
             if (!portfolioAssets.length) { el.innerHTML = '<div class="empty">' + esc(i18nT('dash.js.portfolio_add_holding')) + '</div>'; return; }
             el.innerHTML = '<div class="loading">' + esc(i18nT('oracle.analyzing')) + '</div>';
             try {
-                const res = await fetch('/portfolio/analyze', {
+                const res = await fetch('/api/portfolio/analyze', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', ...authHeaders() },
-                    body: JSON.stringify(portfolioAssets),
+                    credentials: 'same-origin',
+                    body: JSON.stringify({ holdings: portfolioAssets }),
                 });
                 const d = await res.json().catch(() => ({}));
                 if (!res.ok) {
-                    const detail = String(d.detail || '');
-                    if (res.status === 403 || detail.includes('Billing not configured')) {
-                        el.innerHTML = operateGateInlineHtml();
-                        showOperateGate();
+                    const detailRaw = d.detail;
+                    const detailText = typeof detailRaw === 'object' && detailRaw
+                        ? String(detailRaw.message || detailRaw.error || JSON.stringify(detailRaw))
+                        : String(detailRaw || '');
+                    if (res.status === 401) {
+                        el.innerHTML = '<div class="empty">' + esc(i18nT('dash.js.portfolio_sign_in_required')) + '</div>';
                         return;
                     }
-                    el.innerHTML = '<div class="empty">' + esc(i18nT('dash.js.portfolio_analysis_unavailable')) + '</div>';
+                    if (res.status === 403 || detailText.includes('Billing not configured') || detailText.includes('upgrade_required')) {
+                        if (operatePlusBlockedOnProveLens()) {
+                            el.innerHTML = operateGateInlineHtml();
+                            showOperateGate();
+                            return;
+                        }
+                        const upgradeMsg = (typeof detailRaw === 'object' && detailRaw && detailRaw.message)
+                            ? detailRaw.message
+                            : i18nT('dash.js.portfolio_upgrade_required');
+                        el.innerHTML = '<div class="empty">' + esc(upgradeMsg) + '</div>';
+                        return;
+                    }
+                    el.innerHTML = '<div class="empty">' + esc(detailText || i18nT('dash.js.portfolio_analysis_unavailable')) + '</div>';
                     return;
                 }
                 const foot = d.compliance_footer || {};
@@ -3466,6 +3487,9 @@
         window.loadChart = loadChart;
         window.setSymbol = setSymbol;
         window.loadInbox = loadInbox;
+        window.addPortfolioAsset = addPortfolioAsset;
+        window.removePortfolioAsset = removePortfolioAsset;
+        window.analyzePortfolio = analyzePortfolio;
 
         window.openCompare = function () {
             window.BDOracleWorkspace?.openCompareModal();
