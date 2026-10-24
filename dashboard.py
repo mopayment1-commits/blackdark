@@ -714,9 +714,14 @@ async def _dashboard_entry_href(request: Request) -> str:
     """Discipline Mirror CTA: dashboard when session is valid, else login with next."""
     from urllib.parse import quote
 
-    if await _resolve_html_auth_user(request) is not None:
-        return "/dashboard"
-    return f"/login?next={quote('/dashboard', safe='')}"
+    next_path = _auth_required_next_path(request)
+    if next_path.startswith("/dashboard"):
+        dash_next = next_path
+    else:
+        dash_next = "/dashboard"
+    if await _html_auth_user_for_gate(request) is not None:
+        return dash_next if dash_next.startswith("/dashboard") else "/dashboard"
+    return f"/login?next={quote(dash_next, safe='')}"
 
 
 async def _resolve_html_auth_user(request: Request) -> dict | None:
@@ -742,6 +747,14 @@ async def _resolve_html_auth_user(request: Request) -> dict | None:
         st._html_auth_resolved = True
         st._html_auth_user = user
     return user
+
+
+async def _html_auth_user_for_gate(request: Request) -> dict | None:
+    """Use session resolved in header_session_middleware when present."""
+    st = getattr(request, "state", None)
+    if st is not None and getattr(st, "_html_auth_resolved", False):
+        return getattr(st, "_html_auth_user", None)
+    return await _resolve_html_auth_user(request)
 
 
 def _header_user_payload(user: dict[str, Any]) -> dict[str, Any]:
@@ -777,7 +790,7 @@ async def anonymous_route_enforcement_middleware(request: Request, call_next):
 
     path = request.url.path or ""
     if path in _HTML_AUTH_GATE_EXACT and anonymous_denial_should_be_html(request):
-        if await _resolve_html_auth_user(request) is None:
+        if await _html_auth_user_for_gate(request) is None:
             if path == "/dashboard":
                 return render_dashboard_auth_required(request)
             if path == "/profile":

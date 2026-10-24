@@ -142,7 +142,10 @@
         }
 
         function syncDashboardEntryLinks() {
-            const href = '/dashboard';
+            const lens = (new URLSearchParams(location.search).get('lens') || '').trim().toLowerCase();
+            const href = lens && ['prove', 'operate', 'desk', 'room'].includes(lens)
+                ? `/dashboard?lens=${encodeURIComponent(lens)}`
+                : '/dashboard';
             const btn = document.getElementById('openDashboardBtn');
             if (btn) btn.href = href;
             document.querySelectorAll('a[href*="login?next"]').forEach((a) => {

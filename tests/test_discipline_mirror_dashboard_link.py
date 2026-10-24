@@ -55,10 +55,11 @@ def test_discipline_mirror_anonymous_gets_login_next_for_dashboard(tmp_path, mon
     assert "auth_required" not in dash.text.lower() or "account required" not in dash.text.lower()
     assert dash.headers.get("cache-control") == "private, no-store, must-revalidate"
 
-    desk = client.get("/dashboard?lens=desk")
-    assert desk.status_code == 200
-    assert "Account required" not in desk.text
-    assert desk.headers.get("cache-control") == "private, no-store, must-revalidate"
+    for lens in ("operate", "desk", "prove"):
+        res = client.get(f"/dashboard?lens={lens}")
+        assert res.status_code == 200
+        assert "Account required" not in res.text
+        assert res.headers.get("cache-control") == "private, no-store, must-revalidate"
 
 
 def test_dashboard_not_public_cached_by_viral_capacity(tmp_path, monkeypatch):
