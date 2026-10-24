@@ -357,6 +357,19 @@ def test_dashboard_markdown_on_prove_lens_shows_upgrade_not_raw_api_link():
     assert "Upgrade to Pro" in dash.split("openDailyReportMarkdown", 1)[1][:800]
 
 
+def test_nav_watchlist_and_decisions_open_desk_workspace():
+    nav = (ROOT / "templates/partials/site_top_nav.html").read_text(encoding="utf-8")
+    assert 'href="/dashboard?lens=desk#watchlist"' in nav
+    assert 'href="/dashboard?lens=desk#my-decisions"' in nav
+    ws = (ROOT / "static/js/bd_oracle_workspace.js").read_text(encoding="utf-8")
+    assert "deskWorkspaceHref" in ws
+    assert "openDeskWorkspaceSection" in ws
+    assert "applyLens('desk'" in ws
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    assert "DESK_WORKSPACE_SECTIONS" in dash
+    assert "refreshDeskWorkspacePanels" in dash
+
+
 def test_header_prove_and_operate_lens_hrefs_distinct():
     nav = (ROOT / "templates/partials/site_top_nav.html").read_text(encoding="utf-8")
     assert 'data-nav-key="prove"' in nav

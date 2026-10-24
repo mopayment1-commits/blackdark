@@ -17,9 +17,9 @@ def test_landing_trust_pulse_chip_row_before_cta_buttons():
     assert proof_pos > 0 and cta_pos > proof_pos
     assert open_pos > cta_pos and share_pos > cta_pos
     assert 'href="/oracle-accuracy"' in tp or "Verify on Ledger" in tp
-    assert "landing-workspace-anchor" in html
-    assert 'href="#my-decisions"' in html
-    assert 'href="#watchlist"' in html
+    assert 'href="/dashboard?lens=desk#my-decisions"' in html
+    assert 'href="/dashboard?lens=desk#watchlist"' in html
+    assert 'data-bd-scroll="watchlist"' in html
 
 
 def test_landing_has_no_feature_division_section():

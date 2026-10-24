@@ -3501,10 +3501,25 @@
 
 
         const DESK_TOOL_SECTIONS = new Set(['stealth', 'whales', 'half-life-clock', 'mev']);
+        const DESK_WORKSPACE_SECTIONS = new Set(['watchlist', 'my-decisions']);
+
+        function refreshDeskWorkspacePanels() {
+            if (currentLens !== 'desk' || !window.BDOracleWorkspace) return;
+            void window.BDOracleWorkspace.refreshEntitlements?.();
+            window.BDOracleWorkspace.renderWatchlist?.();
+            window.BDOracleWorkspace.renderMyDecisions?.();
+        }
 
         function scrollForLens(lensId) {
             const hash = (location.hash || '').replace('#','');
             if (hash) {
+                if (DESK_WORKSPACE_SECTIONS.has(hash)) {
+                    setTimeout(() => {
+                        scrollToId(hash);
+                        refreshDeskWorkspacePanels();
+                    }, 200);
+                    return;
+                }
                 if (DESK_TOOL_SECTIONS.has(hash) && lensId === 'prove') {
                     setTimeout(() => openDeskToolSection(hash), 200);
                     return;
@@ -3589,6 +3604,7 @@
                     void loadCommandHome(true);
                     bindTrustPulseLiveStream();
                     loadDeskLensSurfaces();
+                    refreshDeskWorkspacePanels();
                 }
             } catch (error) {
                 console.debug(error);
@@ -3651,8 +3667,12 @@
         function applyAudienceFromQuery() {
             const params = new URLSearchParams(location.search);
             const ALLOWED_LENSES = new Set(['prove', 'operate', 'desk', 'room']);
+            const hashId = (location.hash || '').replace('#', '').toLowerCase();
             const lensParam = (params.get('lens') || '').toLowerCase();
             let lens = lensParam;
+            if (DESK_WORKSPACE_SECTIONS.has(hashId)) {
+                lens = 'desk';
+            }
             if (!ALLOWED_LENSES.has(lens)) {
                 const aud = (params.get('audience') || localStorage.getItem('bd_audience') || '').toLowerCase();
                 lens = (localStorage.getItem('bd_lens') || audienceToLens(aud) || 'prove').toLowerCase();

@@ -581,25 +581,51 @@
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
+  function deskWorkspaceHref(sectionId) {
+    const id = String(sectionId || '').replace(/^#/, '');
+    return '/dashboard?lens=desk#' + id;
+  }
+
+  function openDeskWorkspaceSection(sectionId) {
+    const targetId = String(sectionId || '').replace(/^#/, '');
+    if (!targetId) return;
+    const dest = deskWorkspaceHref(targetId);
+    if (!location.pathname.startsWith('/dashboard')) {
+      location.assign(dest);
+      return;
+    }
+    const lens = (new URLSearchParams(location.search).get('lens') || 'prove').toLowerCase();
+    const goScroll = () => {
+      scrollToSection(targetId);
+      void refreshEntitlements().then(() => {
+        renderWatchlist();
+        renderMyDecisions();
+      });
+    };
+    if (lens === 'desk' && typeof window.applyLens === 'function') {
+      goScroll();
+      return;
+    }
+    if (typeof window.applyLens === 'function') {
+      void window.applyLens('desk', { persist: true, scroll: false }).then(goScroll);
+      return;
+    }
+    location.assign(dest);
+  }
+
   function bindNavShortcuts() {
-    const onDashboard = location.pathname.startsWith('/dashboard');
     document.querySelectorAll('[data-bd-scroll]').forEach((el) => {
       const id = el.getAttribute('data-bd-scroll');
       if (id) {
-        el.setAttribute('href', (onDashboard ? '/dashboard' : '/') + '#' + id);
+        el.setAttribute('href', deskWorkspaceHref(id));
       }
       if (el.dataset.bound === '1') return;
       el.dataset.bound = '1';
       el.addEventListener('click', (e) => {
         const targetId = el.getAttribute('data-bd-scroll');
-        if (targetId) {
-          e.preventDefault();
-          if (!onDashboard && !document.getElementById(targetId)) {
-            location.assign('/dashboard#' + targetId);
-            return;
-          }
-          scrollToSection(targetId);
-        }
+        if (!targetId) return;
+        e.preventDefault();
+        openDeskWorkspaceSection(targetId);
       });
     });
   }
