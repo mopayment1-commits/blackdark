@@ -122,10 +122,14 @@ def test_dashboard_alerts_refresh_inbox_button_wired():
 def test_dashboard_operate_lens_shows_trust_pulse_symbol_dropdown():
     dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
     assert "body.lens-operate .tp-symbol-wrap" in dash
+    assert "body.lens-desk .tp-symbol-wrap" in dash
     assert 'id="tpSymbol"' in dash
     handler = dash.split("function onTrustPulseSymbolChange", 1)[1].split("async function loadCommandHome", 1)[0]
     assert "currentLens === 'operate'" in handler
+    assert "currentLens === 'desk'" in handler
     assert "loadCommandHome(true)" in handler
+    assert "window.onTrustPulseSymbolChange = onTrustPulseSymbolChange" in dash
+    assert "const sym = trustPulseSymbolValue()" in dash.split("async function loadCommandHome", 1)[1][:400]
 
 
 def test_dashboard_prove_trust_pulse_symbol_quick_oracle():
