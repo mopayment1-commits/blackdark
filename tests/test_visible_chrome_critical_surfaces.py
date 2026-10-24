@@ -266,6 +266,17 @@ def test_dashboard_portfolio_ai_symbol_is_dropdown():
     assert 'type="text"' not in portfolio.split("pfSym", 1)[1].split("pfAmt", 1)[0]
 
 
+def test_dashboard_price_alerts_wired_and_styled():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    panel = dash.split('id="priceAlertsPanel"', 1)[1].split("</section>", 1)[0]
+    assert 'data-bd-call="addPriceAlert"' in panel
+    assert 'data-bd-call="checkPriceAlerts"' in panel
+    assert 'id="priceAlertsStatus"' in panel
+    assert "window.addPriceAlert = addPriceAlert" in dash
+    assert "window.checkPriceAlerts = checkPriceAlerts" in dash
+    assert "#priceAlertsPanel .toolbar .btn:not(.secondary)" in dash
+
+
 def test_dashboard_portfolio_handlers_exposed_for_csp_events():
     dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
     assert "window.addPortfolioAsset = addPortfolioAsset" in dash

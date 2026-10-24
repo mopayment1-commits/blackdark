@@ -152,6 +152,27 @@
         body.lens-prove .section-operate-plus .toolbar .btn.secondary:not(#dailyReportMarkdownBtn) {
             opacity: 0.62;
         }
+        #priceAlertsPanel .toolbar .btn {
+            padding: .55rem 1rem;
+            font-size: .85rem;
+            font-weight: 700;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+        }
+        #priceAlertsPanel .toolbar .btn:not(.secondary) {
+            background: linear-gradient(135deg, #22d3ee, #06b6d4);
+            color: #041016;
+        }
+        #priceAlertsPanel .toolbar .btn.secondary {
+            background: #1a1a24;
+            color: #e4e4e7;
+            border: 1px solid #2a2a35;
+        }
+        #priceAlertsPanel .toolbar .btn:disabled {
+            opacity: 0.65;
+            cursor: wait;
+        }
         body.lens-prove .section-operate-plus .btn-upgrade-cta {
             background: linear-gradient(135deg, #22d3ee, #06b6d4);
             color: #041016;
@@ -555,9 +576,10 @@
                     </select>
                     <label for="paTarget" class="sr-only">{{ t('dash.alerts.target') }}</label>
                     <input id="paTarget" type="number" step="any" min="0" placeholder="{{ t('dash.alerts.target') }}" style="width:8rem;padding:.45rem .55rem;border-radius:8px;border:1px solid #2a2a35;background:#1a1a24;color:#e4e4e7">
-                    <button type="button" class="btn secondary" id="paAddBtn">{{ t('dash.alerts.add') }}</button>
-                    <button type="button" class="btn secondary" id="paRefreshBtn">{{ t('dash.alerts.check') }}</button>
+                    <button type="button" class="btn" id="paAddBtn" data-bd-call="addPriceAlert">{{ t('dash.alerts.add') }}</button>
+                    <button type="button" class="btn secondary" id="paRefreshBtn" data-bd-call="checkPriceAlerts">{{ t('dash.alerts.check') }}</button>
                 </div>
+                <p id="priceAlertsStatus" class="sub" style="margin:.35rem 0 0;font-size:.8rem;min-height:1.15em;color:#71717a" role="status" aria-live="polite"></p>
                 <ul id="priceAlertsList" style="list-style:none;padding:0;margin:0;font-size:.88rem"><li class="empty">{{ t('dash.alerts.none') }}</li></ul>
             </div>
             <div class="toolbar">
@@ -2789,13 +2811,30 @@
 
         function priceAlertClientId() {
             let id = localStorage.getItem(PA_CLIENT_KEY);
-            if (!id) {
-                id = (typeof crypto !== 'undefined' && crypto.randomUUID)
-                    ? crypto.randomUUID()
-                    : ('pa-' + Date.now() + '-' + Math.random().toString(16).slice(2));
+            const valid = (raw) => typeof raw === 'string' && /^[a-f0-9-]{16,64}$/i.test(raw.trim());
+            if (!valid(id)) {
+                if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+                    id = crypto.randomUUID();
+                } else {
+                    const hex = () => Math.floor(Math.random() * 16).toString(16);
+                    id = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+                        const r = Math.floor(Math.random() * 16);
+                        const v = c === 'x' ? r : (r & 0x3) | 0x8;
+                        return v.toString(16);
+                    });
+                }
                 localStorage.setItem(PA_CLIENT_KEY, id);
             }
             return id;
+        }
+
+        function setPriceAlertsStatus(message, tone) {
+            const el = document.getElementById('priceAlertsStatus');
+            if (!el) return;
+            el.textContent = message || '';
+            if (tone === 'error') el.style.color = '#f87171';
+            else if (tone === 'ok') el.style.color = '#4ade80';
+            else el.style.color = '#71717a';
         }
 
         function renderPriceAlertsList(data) {
@@ -2809,7 +2848,14 @@
             list.innerHTML = rows.map((a) => {
                 const cur = a.current_price != null ? (' · now $' + fmt(a.current_price, a.current_price < 1 ? 4 : 2)) : '';
                 const dir = a.direction === 'below' ? 'below' : 'above';
-                const fired = a.triggered ? ' · <strong style="color:#22c55e">' + esc(i18nT('dash.js.triggered')) + '</strong>' : (a.condition_met ? ' · <strong style="color:#fbbf24">' + esc(i18nT('dash.js.condition_met')) + '</strong>' : '');
+                let fired = '';
+                if (a.triggered) {
+                    fired = ' · <strong style="color:#22c55e">' + esc(i18nT('dash.js.triggered')) + '</strong>';
+                } else if (a.condition_met) {
+                    fired = ' · <strong style="color:#fbbf24">' + esc(i18nT('dash.js.condition_met')) + '</strong>';
+                } else if (a.current_price != null) {
+                    fired = ' · <span style="color:#71717a">' + esc(i18nT('dash.js.alert_pending')) + '</span>';
+                }
                 return `<li style="padding:.45rem 0;border-bottom:1px solid #2a2a35;display:flex;justify-content:space-between;gap:.5rem;align-items:flex-start">
                     <span>${esc(a.symbol)} ${esc(dir)} $${esc(fmt(a.target_price, a.target_price < 1 ? 4 : 2))}${cur}${fired}</span>
                     <button type="button" class="btn secondary" style="padding:.25rem .5rem;font-size:.72rem" data-pa-del="${esc(a.id)}">${esc(i18nT("dash.js.remove"))}</button>
@@ -2848,26 +2894,55 @@
             }
         }
 
-        async function loadPriceAlerts() {
+        async function loadPriceAlerts(opts) {
+            const userInitiated = !!(opts && opts.userInitiated);
             const cid = priceAlertClientId();
+            const checkBtn = document.getElementById('paRefreshBtn');
+            if (userInitiated && checkBtn) checkBtn.disabled = true;
+            if (userInitiated) setPriceAlertsStatus(i18nT('dash.js.checking_prices'));
             try {
                 const res = await fetch('/api/public/price-alerts?client_id=' + encodeURIComponent(cid));
-                const data = await res.json();
-                if (!res.ok) throw new Error('load_failed');
+                const data = await res.json().catch(() => ({}));
+                if (!res.ok || data.ok === false) {
+                    const errMsg = (data && (data.error || data.message)) || i18nT('dash.js.price_alerts_unavailable');
+                    throw new Error(String(errMsg));
+                }
                 renderPriceAlertsList(data);
+                const rows = data.alerts || [];
+                if (userInitiated) {
+                    if (!rows.length) {
+                        setPriceAlertsStatus(i18nT('dash.alerts.none'), 'error');
+                    } else {
+                        const when = data.checked_at ? (' · ' + String(data.checked_at).replace('T', ' ').slice(0, 19)) : '';
+                        setPriceAlertsStatus(i18nT('dash.js.prices_checked') + when, 'ok');
+                    }
+                }
             } catch (e) {
                 console.debug(e);
                 const list = document.getElementById('priceAlertsList');
                 if (list) list.innerHTML = '<li class="empty">' + esc(i18nT('dash.js.price_alerts_unavailable')) + '</li>';
+                setPriceAlertsStatus(String(e && e.message ? e.message : i18nT('dash.js.price_alerts_unavailable')), 'error');
+            } finally {
+                if (userInitiated && checkBtn) checkBtn.disabled = false;
             }
+        }
+
+        async function checkPriceAlerts() {
+            await loadPriceAlerts({ userInitiated: true });
         }
 
         async function addPriceAlert() {
             const sym = document.getElementById('paSymbol')?.value || 'BTC';
             const direction = document.getElementById('paDirection')?.value || 'above';
             const target = parseFloat(document.getElementById('paTarget')?.value || '0', 10);
-            if (!target || target <= 0) return;
+            const addBtn = document.getElementById('paAddBtn');
+            if (!target || target <= 0) {
+                setPriceAlertsStatus(i18nT('dash.js.price_alert_enter_target'), 'error');
+                return;
+            }
             const cid = priceAlertClientId();
+            if (addBtn) addBtn.disabled = true;
+            setPriceAlertsStatus(i18nT('dash.js.saving_price_alert'));
             try {
                 const res = await fetch('/api/public/price-alerts', {
                     method: 'POST',
@@ -2879,11 +2954,23 @@
                         target_price: target,
                     }),
                 });
-                const data = await res.json();
-                if (!res.ok) throw new Error(data.detail || 'create_failed');
+                const data = await res.json().catch(() => ({}));
+                if (!res.ok) {
+                    const detail = data.detail;
+                    const msg = typeof detail === 'object' && detail
+                        ? String(detail.error || detail.message || JSON.stringify(detail))
+                        : String(detail || i18nT('dash.js.price_alerts_unavailable'));
+                    throw new Error(msg);
+                }
                 document.getElementById('paTarget').value = '';
+                setPriceAlertsStatus(i18nT('dash.js.price_alert_added'), 'ok');
                 await loadPriceAlerts();
-            } catch (e) { console.debug(e); }
+            } catch (e) {
+                console.debug(e);
+                setPriceAlertsStatus(String(e && e.message ? e.message : i18nT('dash.js.price_alerts_unavailable')), 'error');
+            } finally {
+                if (addBtn) addBtn.disabled = false;
+            }
         }
 
         async function deletePriceAlert(id) {
@@ -2906,7 +2993,7 @@
             }
             if (ref && ref.dataset.bound !== '1') {
                 ref.dataset.bound = '1';
-                ref.addEventListener('click', () => { void loadPriceAlerts(); });
+                ref.addEventListener('click', () => { void checkPriceAlerts(); });
             }
         }
 
@@ -3490,6 +3577,9 @@
         window.addPortfolioAsset = addPortfolioAsset;
         window.removePortfolioAsset = removePortfolioAsset;
         window.analyzePortfolio = analyzePortfolio;
+        window.addPriceAlert = addPriceAlert;
+        window.checkPriceAlerts = checkPriceAlerts;
+        window.loadPriceAlerts = loadPriceAlerts;
 
         window.openCompare = function () {
             window.BDOracleWorkspace?.openCompareModal();
@@ -3504,6 +3594,7 @@
             bindDeskToolsUi();
             bindLiveChartRefresh();
             bindInboxRefresh();
+            bindPriceAlertsUi();
             applyAudienceFromQuery();
             scheduleCommandHome();
             startTrustPulseStream();
