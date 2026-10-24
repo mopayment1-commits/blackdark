@@ -826,6 +826,7 @@ async def _ensure_user_profile_columns(db: Any) -> None:
             ("ux_mode_pref", "ALTER TABLE users ADD COLUMN ux_mode_pref TEXT NOT NULL DEFAULT 'beginner'"),
             ("timezone", "ALTER TABLE users ADD COLUMN timezone TEXT NOT NULL DEFAULT 'UTC'"),
             ("password_is_set", "ALTER TABLE users ADD COLUMN password_is_set INTEGER NOT NULL DEFAULT 1"),
+            ("recovery_wallet", "ALTER TABLE users ADD COLUMN recovery_wallet TEXT"),
         ),
     )
 
@@ -3870,6 +3871,7 @@ async def update_user_profile_fields(user_id: int, fields: dict[str, Any]) -> No
         "email_verified_at",
         "password_hash",
         "password_is_set",
+        "recovery_wallet",
     }
     updates = []
     params: list[Any] = []
@@ -3897,6 +3899,25 @@ async def fetch_user_by_username(username: str) -> dict[str, Any] | None:
             )
         ).fetchone()
     return dict(row) if row else None
+
+
+async def fetch_users_for_email_recovery(name: str) -> list[dict[str, Any]]:
+    """Case-insensitive exact match on display name for forgot-email recovery."""
+    needle = (name or "").strip().lower()
+    if len(needle) < 2:
+        return []
+    async with get_connection() as db:
+        rows = await (
+            await db.execute(
+                """
+                SELECT id, email, name, recovery_wallet
+                FROM users
+                WHERE lower(trim(COALESCE(name, ''))) = ?
+                """,
+                (needle,),
+            )
+        ).fetchall()
+    return [dict(r) for r in rows]
 
 
 async def fetch_user_by_id(user_id: int) -> dict[str, Any] | None:

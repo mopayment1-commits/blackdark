@@ -114,6 +114,57 @@ def validate_password(password: str, *, email: str = "") -> None:
         raise ValueError("Password must not be only numbers")
 
 
+def normalize_recovery_wallet(raw: str | None) -> str:
+    s = (raw or "").strip().lower()
+    if not s:
+        return ""
+    if s.startswith("0x"):
+        s = s[2:]
+    return "".join(ch for ch in s if ch in "0123456789abcdef")
+
+
+async def recover_account_email(*, name: str, wallet_address: str = "") -> dict[str, Any]:
+    """Lookup account email by display name and optional linked recovery wallet."""
+    from database import fetch_users_for_email_recovery
+
+    display = (name or "").strip()
+    if len(display) < 2:
+        raise ValueError("Enter the name on your account (at least 2 characters).")
+    rows = await fetch_users_for_email_recovery(display)
+    wallet_norm = normalize_recovery_wallet(wallet_address)
+    if wallet_norm:
+        rows = [
+            r
+            for r in rows
+            if normalize_recovery_wallet(str(r.get("recovery_wallet") or "")) == wallet_norm
+        ]
+    if not rows:
+        return {
+            "ok": False,
+            "found": False,
+            "message": (
+                "No account matches these details. Check spelling, add a linked wallet "
+                "address if you saved one in Profile, or use Forgot password when you know your email."
+            ),
+        }
+    if len(rows) > 1:
+        return {
+            "ok": False,
+            "found": False,
+            "message": (
+                "Multiple accounts match this name. Add your linked wallet address "
+                "to narrow the lookup, or contact support at info@blackdark.io."
+            ),
+        }
+    email = str(rows[0]["email"])
+    return {
+        "ok": True,
+        "found": True,
+        "email": email,
+        "message": "We found an account matching these details. Use this email to sign in.",
+    }
+
+
 def validate_username(username: str) -> str:
     u = (username or "").strip().lower()
     if not USERNAME_RE.match(u):

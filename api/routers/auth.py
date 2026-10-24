@@ -23,6 +23,7 @@ from api.deps import optional_user, raw_bearer_or_cookie, record_behavior
 from api.openapi_responses import COMMON_ERROR_RESPONSES
 from security_models import (
     AuthChangePasswordBody,
+    AuthForgotEmailBody,
     AuthForgotPasswordBody,
     AuthGoogleCredentialBody,
     AuthLoginBody,
@@ -43,13 +44,18 @@ logger = logging.getLogger("BLACKDARK.AuthAPI")
 router = APIRouter(prefix="/api/auth", tags=["auth"], responses=COMMON_ERROR_RESPONSES)
 
 
-def _attach_session_cookie(response: Response, token: str | None) -> None:
+def _attach_session_cookie(
+    response: Response,
+    token: str | None,
+    *,
+    remember_me: bool = True,
+) -> None:
     if not token:
         return
     from security_middleware import attach_session_cookie
 
     # Opaque session bearer (secrets.token_urlsafe) — never a password.
-    attach_session_cookie(response, str(token))
+    attach_session_cookie(response, str(token), session_only=not remember_me)
 
 
 def _clear_session_cookie(response: Response) -> None:
@@ -149,13 +155,23 @@ async def auth_login(
     try:
         result = await login_user(body.email, body.password, mfa_code=body.mfa_code)
         if result.get("mfa_required"):
+            from auth_service import store_mfa_remember_preference
+
+            store_mfa_remember_preference(
+                str(result.get("mfa_challenge") or ""),
+                bool(body.remember_me),
+            )
             return result
         background_tasks.add_task(record_behavior, "auth_login", user=result.get("user"))
         from observability import increment_metric
 
         increment_metric("auth_logins_total")
         resp = JSONResponse(_session_response_body(result))
-        _attach_session_cookie(resp, result.get("token"))
+        _attach_session_cookie(
+            resp,
+            result.get("token"),
+            remember_me=bool(body.remember_me),
+        )
         return resp
     except ValueError as exc:
         raise HTTPException(status_code=401, detail=str(exc)) from exc
@@ -163,16 +179,17 @@ async def auth_login(
 
 @router.post("/mfa/complete", responses=COMMON_ERROR_RESPONSES)
 async def auth_mfa_complete(body: AuthMfaChallengeBody, background_tasks: BackgroundTasks):
-    from auth_service import complete_mfa_login
+    from auth_service import complete_mfa_login, mfa_remember_preference
 
     try:
+        remember = mfa_remember_preference(body.challenge)
         result = await complete_mfa_login(body.challenge, body.code)
         background_tasks.add_task(record_behavior, "auth_login_mfa", user=result.get("user"))
         from observability import increment_metric
 
         increment_metric("auth_logins_total")
         resp = JSONResponse(_session_response_body(result))
-        _attach_session_cookie(resp, result.get("token"))
+        _attach_session_cookie(resp, result.get("token"), remember_me=remember)
         return resp
     except ValueError as exc:
         raise HTTPException(status_code=401, detail=str(exc)) from exc
@@ -385,6 +402,22 @@ async def auth_resend_verification(user: dict | None = Depends(optional_user)):
         payload["debug_token"] = result["debug_token"]
         payload["debug_link"] = result.get("debug_link")
     return payload
+
+
+@router.post("/forgot-email")
+async def auth_forgot_email(body: AuthForgotEmailBody, request: Request):
+    from identity_service import recover_account_email
+    from security_auth import check_login_rate_limit
+
+    ip = (request.headers.get("x-forwarded-for") or "").split(",")[0].strip() or "unknown"
+    check_login_rate_limit(f"forgot-email:{ip}")
+    try:
+        return await recover_account_email(
+            name=body.name,
+            wallet_address=body.wallet_address or "",
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
 @router.post("/forgot-username")
@@ -615,6 +648,11 @@ async def _profile_update_fields(
         fields["ux_mode_pref"] = body.ux_mode_pref
     if body.timezone is not None:
         fields["timezone"] = (body.timezone.strip() or "UTC")[:64]
+    if body.recovery_wallet is not None:
+        from identity_service import normalize_recovery_wallet
+
+        raw = body.recovery_wallet.strip()
+        fields["recovery_wallet"] = normalize_recovery_wallet(raw) or None
     return fields
 
 

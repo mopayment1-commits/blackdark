@@ -19,6 +19,12 @@ class AuthLoginBody(BaseModel):
     email: str = Field(min_length=5, max_length=254)
     password: str = Field(min_length=1, max_length=128)
     mfa_code: str | None = Field(default=None, max_length=64)
+    remember_me: bool = True
+
+
+class AuthForgotEmailBody(BaseModel):
+    name: str = Field(min_length=2, max_length=80)
+    wallet_address: str = Field(default="", max_length=128)
 
 
 class AuthMfaConfirmBody(BaseModel):
@@ -52,6 +58,7 @@ class AuthChangePasswordBody(BaseModel):
 class AuthProfileUpdateBody(BaseModel):
     name: str | None = Field(default=None, max_length=80)
     username: str | None = Field(default=None, max_length=24)
+    recovery_wallet: str | None = Field(default=None, max_length=128)
     telegram_chat_id: str | None = Field(default=None, max_length=64)
     ui_lang: str | None = Field(default=None, max_length=12)
     ux_mode_pref: str | None = Field(default=None, max_length=24)

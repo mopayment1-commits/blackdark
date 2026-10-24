@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import gzip
 import os
+from typing import Any
 from urllib.parse import urlparse
 
 from starlette.middleware.base import BaseHTTPMiddleware
@@ -452,7 +453,7 @@ def apply_cors(app) -> None:
     )
 
 
-def cookie_session_kwargs(*, max_age: int | None = None) -> dict:
+def cookie_session_kwargs(*, max_age: int | None = None, session_only: bool = False) -> dict:
     """HttpOnly Secure SameSite cookie flags for bd_token.
 
     Explicit COOKIE_SECURE=false wins so HTTP loopback / Cloud Agent
@@ -467,17 +468,29 @@ def cookie_session_kwargs(*, max_age: int | None = None) -> dict:
         secure = True
     else:
         secure = base.startswith("https") or _is_production()
-    return {
+    out: dict[str, Any] = {
         "key": "bd_token",
         "httponly": True,
         "samesite": "lax",
         "secure": secure,
-        "max_age": max_age if max_age is not None else 60 * 60 * 24 * int(os.getenv("AUTH_SESSION_DAYS", "30")),
         "path": "/",
     }
+    if not session_only:
+        out["max_age"] = (
+            max_age
+            if max_age is not None
+            else 60 * 60 * 24 * int(os.getenv("AUTH_SESSION_DAYS", "30"))
+        )
+    return out
 
 
-def attach_session_cookie(response: Response, token: str, *, max_age: int | None = None) -> None:
+def attach_session_cookie(
+    response: Response,
+    token: str,
+    *,
+    max_age: int | None = None,
+    session_only: bool = False,
+) -> None:
     """Set HttpOnly session cookie from an opaque bearer (never a password).
 
     Cookie value is Fernet-sealed at rest in the browser jar so clear-text
@@ -491,7 +504,7 @@ def attach_session_cookie(response: Response, token: str, *, max_age: int | None
     sealed = encrypt_secret(session_bearer)
     if not sealed:
         return
-    kwargs = cookie_session_kwargs(max_age=max_age)
+    kwargs = cookie_session_kwargs(max_age=max_age, session_only=session_only)
     response.set_cookie(value=sealed, **kwargs)
 
 

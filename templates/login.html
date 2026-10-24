@@ -183,9 +183,13 @@
                     <input type="password" id="loginPassword" required autocomplete="current-password">
                     <button type="button" class="password-toggle" id="loginPasswordToggle" aria-label="Show password" aria-pressed="false">Show password</button>
                 </div>
+                <label class="check" style="margin-top:-.25rem">
+                    <input type="checkbox" id="rememberMe" checked>
+                    <span>Remember me on this device</span>
+                </label>
                 <div class="row-links">
-                    <button type="button" class="linkish" data-bd-call="showForgot">{{ t('auth.forgot_pass') }}</button>
-                    <button type="button" class="linkish" data-bd-call="showForgotUsername">{{ t('auth.forgot_username') }}</button>
+                    <button type="button" class="linkish" id="btnForgotPassword">Forgot password?</button>
+                    <button type="button" class="linkish" id="btnForgotEmail">Forgot email?</button>
                 </div>
                 <button type="submit" class="btn-primary" id="loginSubmitBtn">{{ t('login.submit') }}</button>
             </form>
@@ -196,24 +200,27 @@
             <label for="mfaCode">Authenticator code</label>
             <input type="text" id="mfaCode" inputmode="numeric" autocomplete="one-time-code" placeholder="6-digit code or recovery" required>
             <button type="submit" class="btn-primary" id="mfaSubmitBtn">Verify MFA</button>
-            <button type="button" class="btn-secondary" data-bd-call="showLogin">Back</button>
+            <button type="button" class="btn-secondary btn-back-login">Back</button>
         </form>
 
-        <form id="forgotForm" class="hidden" data-bd-submit-call="doForgot">
-            <h1>Reset password</h1>
+        <form id="forgotForm" class="hidden">
+            <h1>Forgot password</h1>
+            <p class="lead" style="margin-bottom:.75rem">Enter your account email. We will send a one-time link to set a new password.</p>
             <label for="forgotEmail">Account email</label>
-            <input type="email" id="forgotEmail" required>
+            <input type="email" id="forgotEmail" required autocomplete="email" placeholder="you@email.com">
             <button type="submit" class="btn-primary" id="forgotSubmitBtn">Send reset link</button>
-            <button type="button" class="btn-secondary" data-bd-call="showLogin">Back to sign in</button>
+            <button type="button" class="btn-secondary btn-back-login">Back to sign in</button>
         </form>
 
-        <form id="forgotUserForm" class="hidden" data-bd-submit-call="doForgotUsername">
-            <h1>Username reminder</h1>
-            <p class="lead" style="margin-bottom:.75rem">Login uses your <strong>email</strong>. Enter it to receive a reminder.</p>
-            <label for="forgotUserEmail">Email</label>
-            <input type="email" id="forgotUserEmail" required>
-            <button type="submit" class="btn-primary" id="forgotUserSubmitBtn">Send reminder</button>
-            <button type="button" class="btn-secondary" data-bd-call="showLogin">Back</button>
+        <form id="forgotEmailForm" class="hidden">
+            <h1>Forgot email</h1>
+            <p class="lead" style="margin-bottom:.75rem">Enter the <strong>name on your account</strong>. If you linked a wallet in Profile, add it to confirm.</p>
+            <label for="recoverName">Account name</label>
+            <input type="text" id="recoverName" required autocomplete="name" placeholder="Your display name">
+            <label for="recoverWallet">Linked wallet (optional)</label>
+            <input type="text" id="recoverWallet" autocomplete="off" placeholder="0x… or bc1…">
+            <button type="submit" class="btn-primary" id="forgotEmailSubmitBtn">Look up email</button>
+            <button type="button" class="btn-secondary btn-back-login">Back to sign in</button>
         </form>
 
         <div class="msg" id="msg" role="alert" aria-live="polite"></div>
@@ -243,7 +250,7 @@
             document.getElementById('authDivider')?.classList.toggle('hidden', !visible);
         }
         function hideAll() {
-            ['registerShell','loginShell','mfaForm','forgotForm','forgotUserForm'].forEach(id => {
+            ['registerShell','loginShell','mfaForm','forgotForm','forgotEmailForm'].forEach(id => {
                 document.getElementById(id).classList.add('hidden');
             });
         }
@@ -269,9 +276,9 @@
             document.getElementById('msg').textContent = '';
             setAuthChromeVisible(false);
         }
-        function showForgotUsername() {
+        function showForgotEmail() {
             hideAll();
-            document.getElementById('forgotUserForm').classList.remove('hidden');
+            document.getElementById('forgotEmailForm').classList.remove('hidden');
             document.getElementById('msg').textContent = '';
             setAuthChromeVisible(false);
         }
@@ -455,7 +462,8 @@
                     credentials: 'same-origin',
                     body: JSON.stringify({
                         email: document.getElementById('loginEmail').value,
-                        password: document.getElementById('loginPassword').value
+                        password: document.getElementById('loginPassword').value,
+                        remember_me: document.getElementById('rememberMe')?.checked !== false
                     })
                 });
                 if (!res.ok) {
@@ -575,29 +583,36 @@
                 setSubmitLoading('forgotSubmitBtn', false);
             }
         }
-        async function doForgotUsername(e) {
+        async function doForgotEmail(e) {
             e.preventDefault();
-            const forgotUserBtn = document.getElementById('forgotUserSubmitBtn');
-            if (forgotUserBtn?.disabled) return;
-            setSubmitLoading('forgotUserSubmitBtn', true, 'Sending…');
+            const btn = document.getElementById('forgotEmailSubmitBtn');
+            if (btn?.disabled) return;
+            setSubmitLoading('forgotEmailSubmitBtn', true, 'Looking up…');
             try {
-                const res = await fetch('/api/auth/forgot-username', {
+                const res = await fetch('/api/auth/forgot-email', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email: document.getElementById('forgotUserEmail').value })
+                    body: JSON.stringify({
+                        name: document.getElementById('recoverName').value.trim(),
+                        wallet_address: document.getElementById('recoverWallet').value.trim()
+                    })
                 });
+                const d = await readApiJson(res);
                 if (!res.ok) {
                     setMsg(await readApiError(res), false);
-                    setSubmitLoading('forgotUserSubmitBtn', false);
+                    setSubmitLoading('forgotEmailSubmitBtn', false);
                     return;
                 }
-                const d = await readApiJson(res);
-                setMsg(d.message || 'If an account exists, a reminder was sent.', true);
-                setSubmitLoading('forgotUserSubmitBtn', false);
+                if (d.found && d.email) {
+                    setMsg((d.message || 'Account found.') + ' Email: ' + d.email, true);
+                } else {
+                    setMsg(d.message || 'No account matches these details.', false);
+                }
+                setSubmitLoading('forgotEmailSubmitBtn', false);
             } catch (error) {
                 console.debug(error);
-                setMsg('Could not send reminder. Please try again.', false);
-                setSubmitLoading('forgotUserSubmitBtn', false);
+                setMsg('Lookup failed. Please try again.', false);
+                setSubmitLoading('forgotEmailSubmitBtn', false);
             }
         }
         function googleLoginUri() {
@@ -639,23 +654,23 @@
             else window.addEventListener('load', boot, { once: true });
         }
         Object.assign(window, {
-            showRegister, showLogin, showForgot, showForgotUsername,
-            doLogin, doMfa, doRegister, doForgot, doForgotUsername, togglePassword
+            showRegister, showLogin, showForgot, showForgotEmail,
+            doLogin, doMfa, doRegister, doForgot, doForgotEmail, togglePassword
         });
         document.getElementById('loginForm')?.addEventListener('submit', doLogin);
         document.getElementById('registerForm')?.addEventListener('submit', doRegister);
         document.getElementById('mfaForm')?.addEventListener('submit', doMfa);
         document.getElementById('forgotForm')?.addEventListener('submit', doForgot);
-        document.getElementById('forgotUserForm')?.addEventListener('submit', doForgotUsername);
+        document.getElementById('forgotEmailForm')?.addEventListener('submit', doForgotEmail);
         document.getElementById('loginPasswordToggle')?.addEventListener('click', () => {
             togglePassword('loginPassword', 'loginPasswordToggle');
         });
         document.getElementById('regPasswordToggle')?.addEventListener('click', () => {
             togglePassword('regPassword', 'regPasswordToggle');
         });
-        document.querySelector('[data-bd-call="showForgot"]')?.addEventListener('click', showForgot);
-        document.querySelector('[data-bd-call="showForgotUsername"]')?.addEventListener('click', showForgotUsername);
-        document.querySelectorAll('[data-bd-call="showLogin"]').forEach((el) => {
+        document.getElementById('btnForgotPassword')?.addEventListener('click', showForgot);
+        document.getElementById('btnForgotEmail')?.addEventListener('click', showForgotEmail);
+        document.querySelectorAll('.btn-back-login').forEach((el) => {
             el.addEventListener('click', showLogin);
         });
         try { localStorage.removeItem('bd_token'); localStorage.removeItem('token'); } catch (_) {}

@@ -369,12 +369,24 @@ async def _login_org_mfa_policy(email: str, *, mfa_enabled: bool, mfa_code: str 
         return {"org_mfa_enforced": False}
 
 
+def store_mfa_remember_preference(challenge: str, remember_me: bool) -> None:
+    row = _mfa_challenges.get(challenge)
+    if row is not None:
+        row["remember_me"] = bool(remember_me)
+
+
+def mfa_remember_preference(challenge: str) -> bool:
+    row = _mfa_challenges.get(challenge) or {}
+    return bool(row.get("remember_me", True))
+
+
 def _mfa_challenge_response(user: dict[str, Any], email: str, org_mfa: dict[str, Any]) -> dict[str, Any]:
     challenge = secrets.token_urlsafe(24)
     _mfa_challenges[challenge] = {
         "user_id": int(user["id"]),
         "email": email,
         "expires": (_utcnow() + timedelta(minutes=5)).timestamp(),
+        "remember_me": True,
     }
     return {
         "mfa_required": True,

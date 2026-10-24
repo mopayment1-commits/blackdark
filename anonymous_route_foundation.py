@@ -89,6 +89,7 @@ AUTH_FLOW_EXACT: frozenset[str] = frozenset(
         "/api/auth/verify-email",
         "/api/auth/resend-verification",
         "/api/auth/forgot-username",
+        "/api/auth/forgot-email",
         "/api/auth/mfa/complete",
         "/api/auth/oauth/status",
         "/api/i18n/locales",
