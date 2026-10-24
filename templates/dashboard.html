@@ -340,9 +340,10 @@
             <div class="toolbar">
                 <input id="mevAsset" type="text" value="ETH" style="width:90px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7" aria-label="mevAsset">
                 <input id="mevNotional" type="number" value="10000" style="width:140px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7" aria-label="mevNotional">
-                <button class="btn secondary" data-bd-call="loadMevReport">Build report</button>
-                <button class="btn secondary" data-bd-call="copyMevShare">Copy share text</button>
+                <button class="btn secondary" type="button" id="mevBuildBtn">Build report</button>
+                <button class="btn secondary" type="button" id="mevCopyBtn">Copy share text</button>
             </div>
+            <p id="mevActionStatus" class="sub" role="status" aria-live="polite" style="margin:.35rem 0 0;font-size:.8rem;min-height:1.15em;color:#71717a"></p>
             <div id="mevResult" class="empty">Generate a shareable MEV report</div>
         </section>
 
@@ -1967,14 +1968,64 @@
         }
 
         let lastMevShare = '';
-        async function loadMevReport() {
+        const MEV_BUILD_LABEL = 'Build report';
+        const MEV_COPY_LABEL = 'Copy share text';
+
+        function setMevActionStatus(msg) {
+            const st = document.getElementById('mevActionStatus');
+            if (st) st.textContent = msg || '';
+        }
+
+        function flashMevButton(btn, tempLabel, ms) {
+            if (!btn) return;
+            const original = btn.dataset.defaultLabel || btn.textContent;
+            if (!btn.dataset.defaultLabel) btn.dataset.defaultLabel = original;
+            btn.textContent = tempLabel;
+            window.setTimeout(() => { btn.textContent = btn.dataset.defaultLabel || original; }, ms || 1600);
+        }
+
+        async function copyTextWithFallback(text) {
+            const value = String(text || '');
+            if (!value) return false;
+            try {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    await navigator.clipboard.writeText(value);
+                    return true;
+                }
+            } catch (_e) { /* fallback */ }
+            try {
+                const ta = document.createElement('textarea');
+                ta.value = value;
+                ta.setAttribute('readonly', '');
+                ta.style.position = 'fixed';
+                ta.style.left = '-9999px';
+                document.body.appendChild(ta);
+                ta.select();
+                const ok = document.execCommand('copy');
+                document.body.removeChild(ta);
+                return ok;
+            } catch (_e2) {
+                return false;
+            }
+        }
+
+        async function loadMevReport(opts) {
+            const userInitiated = !!(opts && opts.userInitiated);
+            const buildBtn = document.getElementById('mevBuildBtn');
             const el = document.getElementById('mevResult');
+            if (!el) return false;
             const asset = (document.getElementById('mevAsset').value || 'ETH').trim();
             const notional = document.getElementById('mevNotional').value || 10000;
+            if (userInitiated && buildBtn) {
+                buildBtn.disabled = true;
+                buildBtn.textContent = 'Building…';
+            }
+            if (userInitiated) setMevActionStatus('Building MEV report…');
             el.innerHTML = '<div class="loading">Building…</div>';
             try {
                 const res = await fetch('/api/mev/sandwich-report?asset=' + encodeURIComponent(asset) + '&notional_usd=' + encodeURIComponent(notional));
                 const d = await res.json();
+                if (!res.ok) throw new Error(d.detail || 'report_failed');
                 lastMevShare = d.share_text || '';
                 const mit = (d.mitigations || []).map(m => `<li style="margin:.25rem 0">${esc(m)}</li>`).join('');
                 const c = d.compliance || {};
@@ -1986,12 +2037,59 @@
                         <ul style="margin:.5rem 0 0 1.1rem;font-size:.85rem;color:#a1a1aa">${mit}</ul>
                         <div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · ${esc(c.disclaimer||'')}</div>
                     </div>`;
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Report unavailable</div>'; }
+                if (userInitiated) {
+                    setMevActionStatus('Report ready — use Copy share text to share.');
+                    flashMevButton(buildBtn, 'Report ready', 1800);
+                }
+                return true;
+            } catch (error) {
+                console.debug(error);
+                lastMevShare = '';
+                el.innerHTML = '<div class="empty">Report unavailable</div>';
+                if (userInitiated) setMevActionStatus('Could not build report — try again.');
+                return false;
+            } finally {
+                if (userInitiated && buildBtn) {
+                    buildBtn.disabled = false;
+                    if (buildBtn.textContent === 'Building…') buildBtn.textContent = MEV_BUILD_LABEL;
+                }
+            }
         }
-        function copyMevShare() {
-            if (!lastMevShare) { loadMevReport().then(() => navigator.clipboard.writeText(lastMevShare)); return; }
-            navigator.clipboard.writeText(lastMevShare);
+
+        async function copyMevShare() {
+            const copyBtn = document.getElementById('mevCopyBtn');
+            if (!lastMevShare) {
+                const ok = await loadMevReport({ userInitiated: false });
+                if (!ok || !lastMevShare) {
+                    setMevActionStatus('Build a report first.');
+                    return;
+                }
+            }
+            const copied = await copyTextWithFallback(lastMevShare);
+            if (copied) {
+                setMevActionStatus('Share text copied to clipboard.');
+                flashMevButton(copyBtn, 'Copied!', 1600);
+            } else {
+                setMevActionStatus('Copy failed — select text from the report manually.');
+            }
         }
+
+        function bindMevReportUi() {
+            const buildBtn = document.getElementById('mevBuildBtn');
+            const copyBtn = document.getElementById('mevCopyBtn');
+            if (buildBtn && !buildBtn.dataset.mevBound) {
+                buildBtn.dataset.mevBound = '1';
+                buildBtn.dataset.defaultLabel = MEV_BUILD_LABEL;
+                buildBtn.addEventListener('click', () => { void loadMevReport({ userInitiated: true }); });
+            }
+            if (copyBtn && !copyBtn.dataset.mevBound) {
+                copyBtn.dataset.mevBound = '1';
+                copyBtn.dataset.defaultLabel = MEV_COPY_LABEL;
+                copyBtn.addEventListener('click', () => { void copyMevShare(); });
+            }
+        }
+        window.loadMevReport = loadMevReport;
+        window.copyMevShare = copyMevShare;
 
         async function runStealthAdvisor() {
             const el = document.getElementById('stealthResult');
@@ -2320,6 +2418,7 @@
         function boot() {
             loadAuth();
             applyLang();
+            bindMevReportUi();
             bindLensBar();
             applyAudienceFromQuery();
             scheduleCommandHome();

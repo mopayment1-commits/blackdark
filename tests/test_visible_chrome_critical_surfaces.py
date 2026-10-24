@@ -227,6 +227,20 @@ def test_dashboard_prove_lens_single_verify_entry_rail_only():
     assert "id === 'verify'" in dash
 
 
+def test_dashboard_mev_report_buttons_bound():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    mev = dash.split('id="mev"', 1)[1].split("</section>", 1)[0]
+    assert 'id="mevBuildBtn"' in mev
+    assert 'id="mevCopyBtn"' in mev
+    assert 'id="mevActionStatus"' in mev
+    assert "function bindMevReportUi()" in dash
+    bind = dash.split("function bindMevReportUi()", 1)[1].split("async function runStealthAdvisor", 1)[0]
+    assert "mevBuildBtn" in bind and "addEventListener('click'" in bind
+    assert "mevCopyBtn" in bind
+    assert "bindMevReportUi();" in dash.split("function boot()", 1)[1].split("bindLensBar();", 1)[0]
+    assert "/api/mev/sandwich-report" in dash
+
+
 def test_market_headlines_desk_only_not_on_landing():
     landing = (ROOT / "templates/landing.html").read_text(encoding="utf-8")
     assert 'id="financial-news"' not in landing
